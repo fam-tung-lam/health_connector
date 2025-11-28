@@ -606,35 +606,42 @@ internal class HealthConnectorClient {
     /**
      * Reads multiple health records within a time range (paginated).
      *
-     * Supports filtering by data origins (source applications) using compound predicates.
-     * Records are ordered by start time in ascending order (oldest first) to provide a
-     * unified ordering interface across platforms.
+     * ## Pagination Strategy
      *
-     * ## Data Origin Filtering
+     * HealthKit doesn't provide native pagination tokens, so this method implements
+     * cursor-based pagination using timestamps. To correctly determine if more pages exist,
+     * this method uses an "over-fetch" strategy:
      *
-     * When [dataOriginPackageNames] is not empty, this method filters records to only
-     * include those from the specified sources. The filtering uses HealthKit's compound
-     * predicate system:
+     * 1. **Query pageSize + 1 records**: The method queries `pageSize + 1` records from HealthKit
+     *    instead of exactly `pageSize`. This extra record acts as a "lookahead" to determine
+     *    if more data exists beyond the current page.
      *
-     * 1. For each bundle identifier in the list, individual source predicates are created
-     *    using `HKQuery.predicateForObjects(from:)`
-     * 2. These source predicates are combined with OR logic using
-     *    `NSCompoundPredicate(orPredicateWithSubpredicates:)`
-     * 3. The source predicate is then combined with the time range predicate using AND
-     *    logic via `NSCompoundPredicate(andPredicateWithSubpredicates:)`
+     * 2. **Detect last page**: After receiving results:
+     *    - If `pageSize + 1` records are returned → more pages exist
+     *    - If fewer than `pageSize + 1` records are returned → this is the last page
      *
-     * When the list is empty, no source filtering is applied (all sources are included).
+     * 3. **Remove extra record**: If more pages exist, the last record is removed from the
+     *    response before returning to the caller. The caller always receives exactly `pageSize`
+     *    records (or fewer on the last page).
      *
-     * ## Ordering
+     * 4. **Generate nextPageToken**: When more pages exist, `nextPageToken` is generated from
+     *    the timestamp of the last record being returned (not the removed record). Subsequent
+     *    requests use this token to resume pagination from the correct position.
      *
-     * Records are ordered by start time in ascending order (oldest first). This provides
-     * a unified ordering interface across platforms. HealthKit supports more flexible
-     * ordering configurations, but we standardize on start time ordering for consistency
-     * with Health Connect, which only supports ordering by start time.
+     * **Why this approach?**
+     *
+     * Without querying `pageSize + 1`, when HealthKit returns exactly `pageSize` records,
+     * the method cannot distinguish between:
+     * - "This is exactly the last page" (no more records exist)
+     * - "More records exist but weren't returned yet" (another page is needed)
+     *
+     * The extra record eliminates this ambiguity and ensures the last page never incorrectly
+     * includes a `nextPageToken` that leads to empty results.
      *
      * - Parameter request: Contains data type, time range, page size, optional page token,
      *                     and optional data origin package names for filtering
-     * - Returns: ReadRecordsResponseDto with the appropriate typed list populated and optional next page token
+     * - Returns: ReadRecordsResponseDto with the appropriate typed list populated and optional next page token.
+     *            The list will contain at most `pageSize` records. `nextPageToken` is nil when no more pages exist.
      *
      * - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if time range or page size is invalid
      * - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
@@ -758,10 +765,19 @@ internal class HealthConnectorClient {
 
             // Use async continuation to bridge the callback-based API
             let responseDto = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<ReadRecordsResponseDto, Error>) in
+                // Query pageSize + 1 records to determine if more pages exist.
+                // 
+                // Rationale: HealthKit doesn't provide a way to check if more records exist beyond
+                // the current page. By querying one extra record, we can distinguish between:
+                // - Exactly pageSize records returned → last page (no more data)
+                // - pageSize + 1 records returned → more pages exist
+                //
+                // The extra record will be removed before returning results to the caller,
+                // ensuring they always receive at most pageSize records.
                 let query = HKSampleQuery(
                     sampleType: quantityType,
                     predicate: predicate,
-                    limit: Int(request.pageSize),
+                    limit: Int(request.pageSize) + 1,
                     sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)]
                 ) { _, samples, error in
                     if let error = error {
@@ -784,314 +800,146 @@ internal class HealthConnectorClient {
                     let responseDto: ReadRecordsResponseDto
                     switch request.dataType {
                     case .activeCaloriesBurned:
-                        let activeCaloriesBurnedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toActiveCaloriesBurnedRecordDto() }
-
-                        // Generate nextPageToken if we got exactly pageSize records (indicating more may exist)
-                        let nextPageToken: String?
-                        if activeCaloriesBurnedRecords.count == request.pageSize, let lastRecord = activeCaloriesBurnedRecords.last {
-                            // Encode last record's endTime as nextPageToken
-                            nextPageToken = String(lastRecord.endTime)
-                        } else {
-                            // Fewer than pageSize records means no more pages
-                            nextPageToken = nil
-                        }
-
-                        responseDto = ReadRecordsResponseDto(
+                        let records = samples.compactMap { ($0 as? HKQuantitySample)?.toActiveCaloriesBurnedRecordDto() }
+                        let (trimmedRecords, nextPageToken) = applyPagination(
+                            records: records,
+                            pageSize: request.pageSize,
+                            timestampExtractor: { $0.endTime }
+                        )
+                        responseDto = buildReadRecordsResponse(
                             dataType: .activeCaloriesBurned,
-                            activeCaloriesBurnedRecords: activeCaloriesBurnedRecords,
-                            distanceRecords: nil,
-                            floorsClimbedRecords: nil,
-                            heightRecords: nil,
-                            hydrationRecords: nil,
-                            nextPageToken: nextPageToken,
-                            stepsRecords: nil,
-                            weightRecords: nil,
-                            bodyFatPercentageRecords: nil,
-                            bodyTemperatureRecords: nil,
-                            wheelchairPushesRecords: nil
+                            activeCaloriesBurnedRecords: trimmedRecords,
+                            nextPageToken: nextPageToken
                         )
 
                     case .distance:
-                        let distanceRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toDistanceRecordDto() }
-
-                        // Generate nextPageToken if we got exactly pageSize records (indicating more may exist)
-                        let nextPageToken: String?
-                        if distanceRecords.count == request.pageSize, let lastRecord = distanceRecords.last {
-                            // Encode last record's endTime as nextPageToken
-                            nextPageToken = String(lastRecord.endTime)
-                        } else {
-                            // Fewer than pageSize records means no more pages
-                            nextPageToken = nil
-                        }
-
-                        responseDto = ReadRecordsResponseDto(
+                        let records = samples.compactMap { ($0 as? HKQuantitySample)?.toDistanceRecordDto() }
+                        let (trimmedRecords, nextPageToken) = applyPagination(
+                            records: records,
+                            pageSize: request.pageSize,
+                            timestampExtractor: { $0.endTime }
+                        )
+                        responseDto = buildReadRecordsResponse(
                             dataType: .distance,
-                            activeCaloriesBurnedRecords: nil,
-                            distanceRecords: distanceRecords,
-                            floorsClimbedRecords: nil,
-                            heightRecords: nil,
-                            hydrationRecords: nil,
-                            nextPageToken: nextPageToken,
-                            stepsRecords: nil,
-                            weightRecords: nil,
-                            bodyFatPercentageRecords: nil,
-                            bodyTemperatureRecords: nil,
-                            wheelchairPushesRecords: nil
+                            distanceRecords: trimmedRecords,
+                            nextPageToken: nextPageToken
                         )
 
                     case .floorsClimbed:
-                        let floorsClimbedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toFloorsClimbedRecordDto() }
-
-                        // Generate nextPageToken if we got exactly pageSize records (indicating more may exist)
-                        let nextPageToken: String?
-                        if floorsClimbedRecords.count == request.pageSize, let lastRecord = floorsClimbedRecords.last {
-                            // Encode last record's endTime as nextPageToken
-                            nextPageToken = String(lastRecord.endTime)
-                        } else {
-                            // Fewer than pageSize records means no more pages
-                            nextPageToken = nil
-                        }
-
-                        responseDto = ReadRecordsResponseDto(
+                        let records = samples.compactMap { ($0 as? HKQuantitySample)?.toFloorsClimbedRecordDto() }
+                        let (trimmedRecords, nextPageToken) = applyPagination(
+                            records: records,
+                            pageSize: request.pageSize,
+                            timestampExtractor: { $0.endTime }
+                        )
+                        responseDto = buildReadRecordsResponse(
                             dataType: .floorsClimbed,
-                            activeCaloriesBurnedRecords: nil,
-                            distanceRecords: nil,
-                            floorsClimbedRecords: floorsClimbedRecords,
-                            heightRecords: nil,
-                            hydrationRecords: nil,
-                            nextPageToken: nextPageToken,
-                            stepsRecords: nil,
-                            weightRecords: nil,
-                            bodyFatPercentageRecords: nil,
-                            bodyTemperatureRecords: nil,
-                            wheelchairPushesRecords: nil
+                            floorsClimbedRecords: trimmedRecords,
+                            nextPageToken: nextPageToken
                         )
 
                     case .steps:
-                        let stepRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toStepRecordDto() }
-
-                        // Generate nextPageToken if we got exactly pageSize records (indicating more may exist)
-                        let nextPageToken: String?
-                        if stepRecords.count == request.pageSize, let lastRecord = stepRecords.last {
-                            // Encode last record's endTime as nextPageToken
-                            nextPageToken = String(lastRecord.endTime)
-                        } else {
-                            // Fewer than pageSize records means no more pages
-                            nextPageToken = nil
-                        }
-
-                        responseDto = ReadRecordsResponseDto(
+                        let records = samples.compactMap { ($0 as? HKQuantitySample)?.toStepRecordDto() }
+                        let (trimmedRecords, nextPageToken) = applyPagination(
+                            records: records,
+                            pageSize: request.pageSize,
+                            timestampExtractor: { $0.endTime }
+                        )
+                        responseDto = buildReadRecordsResponse(
                             dataType: .steps,
-                            activeCaloriesBurnedRecords: nil,
-                            distanceRecords: nil,
-                            floorsClimbedRecords: nil,
-                            heightRecords: nil,
-                            hydrationRecords: nil,
-                            nextPageToken: nextPageToken,
-                            stepsRecords: stepRecords,
-                            weightRecords: nil,
-                            bodyFatPercentageRecords: nil,
-                            bodyTemperatureRecords: nil,
-                            wheelchairPushesRecords: nil
+                            stepsRecords: trimmedRecords,
+                            nextPageToken: nextPageToken
                         )
 
                     case .weight:
-                        let weightRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toWeightRecordDto() }
-
-                        // Generate nextPageToken if we got exactly pageSize records (indicating more may exist)
-                        let nextPageToken: String?
-                        if weightRecords.count == request.pageSize, let lastRecord = weightRecords.last {
-                            // Encode last record's time as nextPageToken
-                            nextPageToken = String(lastRecord.time)
-                        } else {
-                            // Fewer than pageSize records means no more pages
-                            nextPageToken = nil
-                        }
-
-                        responseDto = ReadRecordsResponseDto(
+                        let records = samples.compactMap { ($0 as? HKQuantitySample)?.toWeightRecordDto() }
+                        let (trimmedRecords, nextPageToken) = applyPagination(
+                            records: records,
+                            pageSize: request.pageSize,
+                            timestampExtractor: { $0.time }
+                        )
+                        responseDto = buildReadRecordsResponse(
                             dataType: .weight,
-                            activeCaloriesBurnedRecords: nil,
-                            distanceRecords: nil,
-                            floorsClimbedRecords: nil,
-                            heightRecords: nil,
-                            hydrationRecords: nil,
-                            nextPageToken: nextPageToken,
-                            stepsRecords: nil,
-                            weightRecords: weightRecords,
-                            bodyFatPercentageRecords: nil,
-                            bodyTemperatureRecords: nil,
-                            wheelchairPushesRecords: nil
+                            weightRecords: trimmedRecords,
+                            nextPageToken: nextPageToken
                         )
 
                     case .height:
-                        let heightRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toHeightRecordDto() }
-
-                        // Generate nextPageToken if we got exactly pageSize records (indicating more may exist)
-                        let nextPageToken: String?
-                        if heightRecords.count == request.pageSize, let lastRecord = heightRecords.last {
-                            // Encode last record's time as nextPageToken
-                            nextPageToken = String(lastRecord.time)
-                        } else {
-                            // Fewer than pageSize records means no more pages
-                            nextPageToken = nil
-                        }
-
-                        responseDto = ReadRecordsResponseDto(
+                        let records = samples.compactMap { ($0 as? HKQuantitySample)?.toHeightRecordDto() }
+                        let (trimmedRecords, nextPageToken) = applyPagination(
+                            records: records,
+                            pageSize: request.pageSize,
+                            timestampExtractor: { $0.time }
+                        )
+                        responseDto = buildReadRecordsResponse(
                             dataType: .height,
-                            activeCaloriesBurnedRecords: nil,
-                            distanceRecords: nil,
-                            floorsClimbedRecords: nil,
-                            heightRecords: heightRecords,
-                            hydrationRecords: nil,
-                            leanBodyMassRecords: nil,
-                            nextPageToken: nextPageToken,
-                            stepsRecords: nil,
-                            weightRecords: nil,
-                            bodyFatPercentageRecords: nil,
-                            bodyTemperatureRecords: nil,
-                            wheelchairPushesRecords: nil
+                            heightRecords: trimmedRecords,
+                            nextPageToken: nextPageToken
                         )
 
                     case .hydration:
-                        let hydrationRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toHydrationRecordDto() }
-
-                        // Generate nextPageToken if we got exactly pageSize records (indicating more may exist)
-                        let nextPageToken: String?
-                        if hydrationRecords.count == request.pageSize, let lastRecord = hydrationRecords.last {
-                            // Encode last record's time as nextPageToken
-                            nextPageToken = String(lastRecord.startTime)
-                        } else {
-                            // Fewer than pageSize records means no more pages
-                            nextPageToken = nil
-                        }
-
-                        responseDto = ReadRecordsResponseDto(
+                        let records = samples.compactMap { ($0 as? HKQuantitySample)?.toHydrationRecordDto() }
+                        let (trimmedRecords, nextPageToken) = applyPagination(
+                            records: records,
+                            pageSize: request.pageSize,
+                            timestampExtractor: { $0.startTime }
+                        )
+                        responseDto = buildReadRecordsResponse(
                             dataType: .hydration,
-                            activeCaloriesBurnedRecords: nil,
-                            distanceRecords: nil,
-                            floorsClimbedRecords: nil,
-                            heightRecords: nil,
-                            hydrationRecords: hydrationRecords,
-                            leanBodyMassRecords: nil,
-                            nextPageToken: nextPageToken,
-                            stepsRecords: nil,
-                            weightRecords: nil,
-                            bodyFatPercentageRecords: nil,
-                            bodyTemperatureRecords: nil,
-                            wheelchairPushesRecords: nil
+                            hydrationRecords: trimmedRecords,
+                            nextPageToken: nextPageToken
                         )
 
                     case .leanBodyMass:
-                        let leanBodyMassRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toLeanBodyMassRecordDto() }
-
-                        // Generate nextPageToken if we got exactly pageSize records (indicating more may exist)
-                        let nextPageToken: String?
-                        if leanBodyMassRecords.count == request.pageSize, let lastRecord = leanBodyMassRecords.last {
-                            // Encode last record's time as nextPageToken
-                            nextPageToken = String(lastRecord.time)
-                        } else {
-                            // Fewer than pageSize records means no more pages
-                            nextPageToken = nil
-                        }
-
-                        responseDto = ReadRecordsResponseDto(
+                        let records = samples.compactMap { ($0 as? HKQuantitySample)?.toLeanBodyMassRecordDto() }
+                        let (trimmedRecords, nextPageToken) = applyPagination(
+                            records: records,
+                            pageSize: request.pageSize,
+                            timestampExtractor: { $0.time }
+                        )
+                        responseDto = buildReadRecordsResponse(
                             dataType: .leanBodyMass,
-                            activeCaloriesBurnedRecords: nil,
-                            distanceRecords: nil,
-                            floorsClimbedRecords: nil,
-                            heightRecords: nil,
-                            hydrationRecords: nil,
-                            leanBodyMassRecords: leanBodyMassRecords,
-                            nextPageToken: nextPageToken,
-                            stepsRecords: nil,
-                            weightRecords: nil,
-                            bodyFatPercentageRecords: nil,
-                            bodyTemperatureRecords: nil,
-                            wheelchairPushesRecords: nil
+                            leanBodyMassRecords: trimmedRecords,
+                            nextPageToken: nextPageToken
                         )
 
                     case .bodyFatPercentage:
-                        let bodyFatPercentageRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toBodyFatPercentageRecordDto() }
-
-                        // Generate nextPageToken if we got exactly pageSize records (indicating more may exist)
-                        let nextPageToken: String?
-                        if bodyFatPercentageRecords.count == request.pageSize, let lastRecord = bodyFatPercentageRecords.last {
-                            // Encode last record's time as nextPageToken
-                            nextPageToken = String(lastRecord.time)
-                        } else {
-                            // Fewer than pageSize records means no more pages
-                            nextPageToken = nil
-                        }
-
-                        responseDto = ReadRecordsResponseDto(
+                        let records = samples.compactMap { ($0 as? HKQuantitySample)?.toBodyFatPercentageRecordDto() }
+                        let (trimmedRecords, nextPageToken) = applyPagination(
+                            records: records,
+                            pageSize: request.pageSize,
+                            timestampExtractor: { $0.time }
+                        )
+                        responseDto = buildReadRecordsResponse(
                             dataType: .bodyFatPercentage,
-                            activeCaloriesBurnedRecords: nil,
-                            distanceRecords: nil,
-                            floorsClimbedRecords: nil,
-                            heightRecords: nil,
-                            hydrationRecords: nil,
-                            nextPageToken: nextPageToken,
-                            stepsRecords: nil,
-                            weightRecords: nil,
-                            bodyFatPercentageRecords: bodyFatPercentageRecords,
-                            bodyTemperatureRecords: nil,
-                            wheelchairPushesRecords: nil
+                            bodyFatPercentageRecords: trimmedRecords,
+                            nextPageToken: nextPageToken
                         )
 
                     case .bodyTemperature:
-                        let bodyTemperatureRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toBodyTemperatureRecordDto() }
-
-                        // Generate nextPageToken if we got exactly pageSize records (indicating more may exist)
-                        let nextPageToken: String?
-                        if bodyTemperatureRecords.count == request.pageSize, let lastRecord = bodyTemperatureRecords.last {
-                            // Encode last record's time as nextPageToken
-                            nextPageToken = String(lastRecord.time)
-                        } else {
-                            // Fewer than pageSize records means no more pages
-                            nextPageToken = nil
-                        }
-
-                        responseDto = ReadRecordsResponseDto(
+                        let records = samples.compactMap { ($0 as? HKQuantitySample)?.toBodyTemperatureRecordDto() }
+                        let (trimmedRecords, nextPageToken) = applyPagination(
+                            records: records,
+                            pageSize: request.pageSize,
+                            timestampExtractor: { $0.time }
+                        )
+                        responseDto = buildReadRecordsResponse(
                             dataType: .bodyTemperature,
-                            activeCaloriesBurnedRecords: nil,
-                            distanceRecords: nil,
-                            floorsClimbedRecords: nil,
-                            heightRecords: nil,
-                            hydrationRecords: nil,
-                            nextPageToken: nextPageToken,
-                            stepsRecords: nil,
-                            weightRecords: nil,
-                            bodyFatPercentageRecords: nil,
-                            bodyTemperatureRecords: bodyTemperatureRecords,
-                            wheelchairPushesRecords: nil
+                            bodyTemperatureRecords: trimmedRecords,
+                            nextPageToken: nextPageToken
                         )
 
                     case .wheelchairPushes:
-                        let wheelchairPushesRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toWheelchairPushesRecordDto() }
-
-                        // Generate nextPageToken if we got exactly pageSize records (indicating more may exist)
-                        let nextPageToken: String?
-                        if wheelchairPushesRecords.count == request.pageSize, let lastRecord = wheelchairPushesRecords.last {
-                            // Encode last record's endTime as nextPageToken
-                            nextPageToken = String(lastRecord.endTime)
-                        } else {
-                            // Fewer than pageSize records means no more pages
-                            nextPageToken = nil
-                        }
-
-                        responseDto = ReadRecordsResponseDto(
+                        let records = samples.compactMap { ($0 as? HKQuantitySample)?.toWheelchairPushesRecordDto() }
+                        let (trimmedRecords, nextPageToken) = applyPagination(
+                            records: records,
+                            pageSize: request.pageSize,
+                            timestampExtractor: { $0.endTime }
+                        )
+                        responseDto = buildReadRecordsResponse(
                             dataType: .wheelchairPushes,
-                            activeCaloriesBurnedRecords: nil,
-                            distanceRecords: nil,
-                            floorsClimbedRecords: nil,
-                            heightRecords: nil,
-                            hydrationRecords: nil,
-                            nextPageToken: nextPageToken,
-                            stepsRecords: nil,
-                            weightRecords: nil,
-                            bodyFatPercentageRecords: nil,
-                            bodyTemperatureRecords: nil,
-                            wheelchairPushesRecords: wheelchairPushesRecords
+                            wheelchairPushesRecords: trimmedRecords,
+                            nextPageToken: nextPageToken
                         )
                     }
 
@@ -1145,6 +993,106 @@ internal class HealthConnectorClient {
                 details: error.localizedDescription
             )
         }
+    }
+
+    /**
+     * Applies pagination logic to records array.
+     *
+     * This helper implements the "over-fetch" pagination strategy:
+     *
+     * - **Input**: Records array that may contain `pageSize + 1` items (due to querying one extra)
+     * - **Output**: Exactly `pageSize` records (or fewer if last page) with optional `nextPageToken`
+     *
+     * **Why remove the last record?**
+     *
+     * When we query `pageSize + 1` records and receive that many, it means more data exists.
+     * However, we must return exactly `pageSize` records to the caller. The extra (last) record
+     * was only used as a "lookahead" indicator. We remove it and generate `nextPageToken` from
+     * the actual last record being returned, so the next page starts from the correct position.
+     *
+     * If we receive `pageSize` or fewer records, all records are returned and no `nextPageToken`
+     * is generated, indicating this is the last page.
+     *
+     * - Parameters:
+     *   - records: Array of records (may contain pageSize + 1 items as a result of over-fetching)
+     *   - pageSize: Requested page size (the maximum number of records to return)
+     *   - timestampExtractor: Closure to extract timestamp from record for pagination token
+     * - Returns: Tuple of (trimmed records array with at most pageSize items, optional nextPageToken)
+     */
+    private func applyPagination<T>(
+        records: [T],
+        pageSize: Int64,
+        timestampExtractor: (T) -> Int64
+    ) -> (records: [T], nextPageToken: String?) {
+        var mutableRecords = records
+        let nextPageToken: String?
+        
+        if mutableRecords.count > pageSize {
+            // More pages exist: we received pageSize + 1 records, confirming there's more data.
+            // Remove the extra record that was only used to detect if more pages exist.
+            // This ensures we return exactly pageSize records to the caller.
+            mutableRecords.removeLast()
+            // Generate nextPageToken from the last record we're actually returning (not the removed one).
+            // This ensures the next page starts from the correct position.
+            nextPageToken = String(timestampExtractor(mutableRecords.last!))
+        } else {
+            // This is the last page: we received pageSize or fewer records, meaning no more data exists.
+            // Return all records as-is and indicate no more pages with nil nextPageToken.
+            nextPageToken = nil
+        }
+        
+        return (mutableRecords, nextPageToken)
+    }
+
+    /**
+     * Builds ReadRecordsResponseDto with the appropriate typed field populated.
+     *
+     * - Parameters:
+     *   - dataType: The health data type
+     *   - activeCaloriesBurnedRecords: Records for ACTIVE_CALORIES_BURNED (nil otherwise)
+     *   - distanceRecords: Records for DISTANCE (nil otherwise)
+     *   - floorsClimbedRecords: Records for FLOORS_CLIMBED (nil otherwise)
+     *   - heightRecords: Records for HEIGHT (nil otherwise)
+     *   - hydrationRecords: Records for HYDRATION (nil otherwise)
+     *   - leanBodyMassRecords: Records for LEAN_BODY_MASS (nil otherwise)
+     *   - stepsRecords: Records for STEPS (nil otherwise)
+     *   - weightRecords: Records for WEIGHT (nil otherwise)
+     *   - bodyFatPercentageRecords: Records for BODY_FAT_PERCENTAGE (nil otherwise)
+     *   - bodyTemperatureRecords: Records for BODY_TEMPERATURE (nil otherwise)
+     *   - wheelchairPushesRecords: Records for WHEELCHAIR_PUSHES (nil otherwise)
+     *   - nextPageToken: Optional pagination token
+     * - Returns: ReadRecordsResponseDto with appropriate field populated
+     */
+    private func buildReadRecordsResponse(
+        dataType: HealthDataTypeDto,
+        activeCaloriesBurnedRecords: [ActiveCaloriesBurnedRecordDto]? = nil,
+        distanceRecords: [DistanceRecordDto]? = nil,
+        floorsClimbedRecords: [FloorsClimbedRecordDto]? = nil,
+        heightRecords: [HeightRecordDto]? = nil,
+        hydrationRecords: [HydrationRecordDto]? = nil,
+        leanBodyMassRecords: [LeanBodyMassRecordDto]? = nil,
+        stepsRecords: [StepRecordDto]? = nil,
+        weightRecords: [WeightRecordDto]? = nil,
+        bodyFatPercentageRecords: [BodyFatPercentageRecordDto]? = nil,
+        bodyTemperatureRecords: [BodyTemperatureRecordDto]? = nil,
+        wheelchairPushesRecords: [WheelchairPushesRecordDto]? = nil,
+        nextPageToken: String? = nil
+    ) -> ReadRecordsResponseDto {
+        return ReadRecordsResponseDto(
+            dataType: dataType,
+            activeCaloriesBurnedRecords: activeCaloriesBurnedRecords,
+            distanceRecords: distanceRecords,
+            floorsClimbedRecords: floorsClimbedRecords,
+            heightRecords: heightRecords,
+            hydrationRecords: hydrationRecords,
+            leanBodyMassRecords: leanBodyMassRecords,
+            nextPageToken: nextPageToken,
+            stepsRecords: stepsRecords,
+            weightRecords: weightRecords,
+            bodyFatPercentageRecords: bodyFatPercentageRecords,
+            bodyTemperatureRecords: bodyTemperatureRecords,
+            wheelchairPushesRecords: wheelchairPushesRecords
+        )
     }
 
     /**

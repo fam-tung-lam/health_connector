@@ -694,20 +694,6 @@ final class HealthConnector {
   /// - Records are ordered by start time in ascending order (oldest first)
   /// - Next page request if more records are available
   ///
-  /// ## HealthKit Pagination Edge Case
-  ///
-  /// HealthKit doesn't  provide native pagination tokens.
-  ///
-  /// When HealthKit returns exactly [ReadRecordsRequest.pageSize] records:
-  /// - The plugin cannot determine if more records exist or if this is
-  ///   the last page.
-  /// - As a result, the last page [ReadRecordsResponse] will always have a
-  ///   [ReadRecordsResponse.nextPageRequest]
-  /// - And fetching the next page request returns an empty list.
-  ///
-  /// Health Connect supports native pagination tokens, so the last page
-  /// [ReadRecordsResponse] will be null when no more records are available.
-  ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.securityError]
