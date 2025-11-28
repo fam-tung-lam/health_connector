@@ -539,7 +539,28 @@ internal class HealthConnectorClient {
                                 weightRecord: nil,
                                 bodyFatPercentageRecord: nil,
                                 bodyTemperatureRecord: nil,
-                                wheelchairPushesRecord: wheelchairPushesRecord
+                                wheelchairPushesRecord: wheelchairPushesRecord,
+                                heartRateMeasurementRecord: nil
+                            )
+                        } else {
+                            responseDto = nil
+                        }
+
+                    case .heartRateMeasurementRecord:
+                        if let heartRateMeasurementRecord = sample.toHeartRateMeasurementRecordDto() {
+                            responseDto = ReadRecordResponseDto(
+                                dataType: .heartRateMeasurementRecord,
+                                activeCaloriesBurnedRecord: nil,
+                                distanceRecord: nil,
+                                floorsClimbedRecord: nil,
+                                heightRecord: nil,
+                                hydrationRecord: nil,
+                                stepsRecord: nil,
+                                weightRecord: nil,
+                                bodyFatPercentageRecord: nil,
+                                bodyTemperatureRecord: nil,
+                                wheelchairPushesRecord: nil,
+                                heartRateMeasurementRecord: heartRateMeasurementRecord
                             )
                         } else {
                             responseDto = nil
@@ -801,12 +822,12 @@ internal class HealthConnectorClient {
                     switch request.dataType {
                     case .activeCaloriesBurned:
                         let records = samples.compactMap { ($0 as? HKQuantitySample)?.toActiveCaloriesBurnedRecordDto() }
-                        let (trimmedRecords, nextPageToken) = applyPagination(
+                        let (trimmedRecords, nextPageToken) = self.applyPagination(
                             records: records,
                             pageSize: request.pageSize,
                             timestampExtractor: { $0.endTime }
                         )
-                        responseDto = buildReadRecordsResponse(
+                        responseDto = self.buildReadRecordsResponse(
                             dataType: .activeCaloriesBurned,
                             activeCaloriesBurnedRecords: trimmedRecords,
                             nextPageToken: nextPageToken
@@ -814,12 +835,12 @@ internal class HealthConnectorClient {
 
                     case .distance:
                         let records = samples.compactMap { ($0 as? HKQuantitySample)?.toDistanceRecordDto() }
-                        let (trimmedRecords, nextPageToken) = applyPagination(
+                        let (trimmedRecords, nextPageToken) = self.applyPagination(
                             records: records,
                             pageSize: request.pageSize,
                             timestampExtractor: { $0.endTime }
                         )
-                        responseDto = buildReadRecordsResponse(
+                        responseDto = self.buildReadRecordsResponse(
                             dataType: .distance,
                             distanceRecords: trimmedRecords,
                             nextPageToken: nextPageToken
@@ -827,12 +848,12 @@ internal class HealthConnectorClient {
 
                     case .floorsClimbed:
                         let records = samples.compactMap { ($0 as? HKQuantitySample)?.toFloorsClimbedRecordDto() }
-                        let (trimmedRecords, nextPageToken) = applyPagination(
+                        let (trimmedRecords, nextPageToken) = self.applyPagination(
                             records: records,
                             pageSize: request.pageSize,
                             timestampExtractor: { $0.endTime }
                         )
-                        responseDto = buildReadRecordsResponse(
+                        responseDto = self.buildReadRecordsResponse(
                             dataType: .floorsClimbed,
                             floorsClimbedRecords: trimmedRecords,
                             nextPageToken: nextPageToken
@@ -840,12 +861,12 @@ internal class HealthConnectorClient {
 
                     case .steps:
                         let records = samples.compactMap { ($0 as? HKQuantitySample)?.toStepRecordDto() }
-                        let (trimmedRecords, nextPageToken) = applyPagination(
+                        let (trimmedRecords, nextPageToken) = self.applyPagination(
                             records: records,
                             pageSize: request.pageSize,
                             timestampExtractor: { $0.endTime }
                         )
-                        responseDto = buildReadRecordsResponse(
+                        responseDto = self.buildReadRecordsResponse(
                             dataType: .steps,
                             stepsRecords: trimmedRecords,
                             nextPageToken: nextPageToken
@@ -853,12 +874,12 @@ internal class HealthConnectorClient {
 
                     case .weight:
                         let records = samples.compactMap { ($0 as? HKQuantitySample)?.toWeightRecordDto() }
-                        let (trimmedRecords, nextPageToken) = applyPagination(
+                        let (trimmedRecords, nextPageToken) = self.applyPagination(
                             records: records,
                             pageSize: request.pageSize,
                             timestampExtractor: { $0.time }
                         )
-                        responseDto = buildReadRecordsResponse(
+                        responseDto = self.buildReadRecordsResponse(
                             dataType: .weight,
                             weightRecords: trimmedRecords,
                             nextPageToken: nextPageToken
@@ -866,12 +887,12 @@ internal class HealthConnectorClient {
 
                     case .height:
                         let records = samples.compactMap { ($0 as? HKQuantitySample)?.toHeightRecordDto() }
-                        let (trimmedRecords, nextPageToken) = applyPagination(
+                        let (trimmedRecords, nextPageToken) = self.applyPagination(
                             records: records,
                             pageSize: request.pageSize,
                             timestampExtractor: { $0.time }
                         )
-                        responseDto = buildReadRecordsResponse(
+                        responseDto = self.buildReadRecordsResponse(
                             dataType: .height,
                             heightRecords: trimmedRecords,
                             nextPageToken: nextPageToken
@@ -879,12 +900,12 @@ internal class HealthConnectorClient {
 
                     case .hydration:
                         let records = samples.compactMap { ($0 as? HKQuantitySample)?.toHydrationRecordDto() }
-                        let (trimmedRecords, nextPageToken) = applyPagination(
+                        let (trimmedRecords, nextPageToken) = self.applyPagination(
                             records: records,
                             pageSize: request.pageSize,
                             timestampExtractor: { $0.startTime }
                         )
-                        responseDto = buildReadRecordsResponse(
+                        responseDto = self.buildReadRecordsResponse(
                             dataType: .hydration,
                             hydrationRecords: trimmedRecords,
                             nextPageToken: nextPageToken
@@ -892,12 +913,12 @@ internal class HealthConnectorClient {
 
                     case .leanBodyMass:
                         let records = samples.compactMap { ($0 as? HKQuantitySample)?.toLeanBodyMassRecordDto() }
-                        let (trimmedRecords, nextPageToken) = applyPagination(
+                        let (trimmedRecords, nextPageToken) = self.applyPagination(
                             records: records,
                             pageSize: request.pageSize,
                             timestampExtractor: { $0.time }
                         )
-                        responseDto = buildReadRecordsResponse(
+                        responseDto = self.buildReadRecordsResponse(
                             dataType: .leanBodyMass,
                             leanBodyMassRecords: trimmedRecords,
                             nextPageToken: nextPageToken
@@ -905,12 +926,12 @@ internal class HealthConnectorClient {
 
                     case .bodyFatPercentage:
                         let records = samples.compactMap { ($0 as? HKQuantitySample)?.toBodyFatPercentageRecordDto() }
-                        let (trimmedRecords, nextPageToken) = applyPagination(
+                        let (trimmedRecords, nextPageToken) = self.applyPagination(
                             records: records,
                             pageSize: request.pageSize,
                             timestampExtractor: { $0.time }
                         )
-                        responseDto = buildReadRecordsResponse(
+                        responseDto = self.buildReadRecordsResponse(
                             dataType: .bodyFatPercentage,
                             bodyFatPercentageRecords: trimmedRecords,
                             nextPageToken: nextPageToken
@@ -918,12 +939,12 @@ internal class HealthConnectorClient {
 
                     case .bodyTemperature:
                         let records = samples.compactMap { ($0 as? HKQuantitySample)?.toBodyTemperatureRecordDto() }
-                        let (trimmedRecords, nextPageToken) = applyPagination(
+                        let (trimmedRecords, nextPageToken) = self.applyPagination(
                             records: records,
                             pageSize: request.pageSize,
                             timestampExtractor: { $0.time }
                         )
-                        responseDto = buildReadRecordsResponse(
+                        responseDto = self.buildReadRecordsResponse(
                             dataType: .bodyTemperature,
                             bodyTemperatureRecords: trimmedRecords,
                             nextPageToken: nextPageToken
@@ -931,14 +952,27 @@ internal class HealthConnectorClient {
 
                     case .wheelchairPushes:
                         let records = samples.compactMap { ($0 as? HKQuantitySample)?.toWheelchairPushesRecordDto() }
-                        let (trimmedRecords, nextPageToken) = applyPagination(
+                        let (trimmedRecords, nextPageToken) = self.applyPagination(
                             records: records,
                             pageSize: request.pageSize,
                             timestampExtractor: { $0.endTime }
                         )
-                        responseDto = buildReadRecordsResponse(
+                        responseDto = self.buildReadRecordsResponse(
                             dataType: .wheelchairPushes,
                             wheelchairPushesRecords: trimmedRecords,
+                            nextPageToken: nextPageToken
+                        )
+
+                    case .heartRateMeasurementRecord:
+                        let records = samples.compactMap { ($0 as? HKQuantitySample)?.toHeartRateMeasurementRecordDto() }
+                        let (trimmedRecords, nextPageToken) = self.applyPagination(
+                            records: records,
+                            pageSize: request.pageSize,
+                            timestampExtractor: { $0.time }
+                        )
+                        responseDto = self.buildReadRecordsResponse(
+                            dataType: .heartRateMeasurementRecord,
+                            heartRateMeasurementRecords: trimmedRecords,
                             nextPageToken: nextPageToken
                         )
                     }
@@ -1076,6 +1110,7 @@ internal class HealthConnectorClient {
         bodyFatPercentageRecords: [BodyFatPercentageRecordDto]? = nil,
         bodyTemperatureRecords: [BodyTemperatureRecordDto]? = nil,
         wheelchairPushesRecords: [WheelchairPushesRecordDto]? = nil,
+        heartRateMeasurementRecords: [HeartRateMeasurementRecordDto]? = nil,
         nextPageToken: String? = nil
     ) -> ReadRecordsResponseDto {
         return ReadRecordsResponseDto(
@@ -1091,7 +1126,8 @@ internal class HealthConnectorClient {
             weightRecords: weightRecords,
             bodyFatPercentageRecords: bodyFatPercentageRecords,
             bodyTemperatureRecords: bodyTemperatureRecords,
-            wheelchairPushesRecords: wheelchairPushesRecords
+            wheelchairPushesRecords: wheelchairPushesRecords,
+            heartRateMeasurementRecords: heartRateMeasurementRecords
         )
     }
 
@@ -1306,7 +1342,25 @@ internal class HealthConnectorClient {
                 weightRecords: nil,
                 bodyFatPercentageRecords: nil,
                 bodyTemperatureRecords: nil,
-                wheelchairPushesRecords: []
+                wheelchairPushesRecords: [],
+                heartRateMeasurementRecords: nil
+            )
+        case .heartRateMeasurementRecord:
+            return ReadRecordsResponseDto(
+                dataType: .heartRateMeasurementRecord,
+                activeCaloriesBurnedRecords: nil,
+                distanceRecords: nil,
+                floorsClimbedRecords: nil,
+                heightRecords: nil,
+                hydrationRecords: nil,
+                leanBodyMassRecords: nil,
+                nextPageToken: nil,
+                stepsRecords: nil,
+                weightRecords: nil,
+                bodyFatPercentageRecords: nil,
+                bodyTemperatureRecords: nil,
+                wheelchairPushesRecords: nil,
+                heartRateMeasurementRecords: []
             )
         case .leanBodyMass:
             return ReadRecordsResponseDto(
@@ -1322,7 +1376,8 @@ internal class HealthConnectorClient {
                 weightRecords: nil,
                 bodyFatPercentageRecords: nil,
                 bodyTemperatureRecords: nil,
-                wheelchairPushesRecords: nil
+                wheelchairPushesRecords: nil,
+                heartRateMeasurementRecords: nil
             )
         }
     }
@@ -1453,6 +1508,15 @@ internal class HealthConnectorClient {
                     )
                 }
                 sample = try wheelchairPushesRecord.toHealthKit()
+
+            case .heartRateMeasurementRecord:
+                guard let heartRateMeasurementRecord = request.heartRateMeasurementRecord else {
+                    throw HealthConnectorErrors.invalidArgument(
+                        message: "heartRateMeasurementRecord must not be nil for HEART_RATE_MEASUREMENT_RECORD type",
+                        details: nil
+                    )
+                }
+                sample = try heartRateMeasurementRecord.toHealthKit()
             }
 
             // Write to HealthKit using pseudo-atomic transaction
@@ -1750,6 +1814,23 @@ internal class HealthConnectorClient {
                         details: "Record ID: \(recordId)"
                     )
                 }
+
+            case .heartRateMeasurementRecord:
+                guard let heartRateMeasurementRecord = request.heartRateMeasurementRecord else {
+                    throw HealthConnectorErrors.invalidArgument(
+                        message: "heartRateMeasurementRecord must not be nil for HEART_RATE_MEASUREMENT_RECORD type",
+                        details: nil
+                    )
+                }
+                recordId = heartRateMeasurementRecord.id
+
+                // Validate record ID is not empty or "none"
+                if recordId.isEmpty || recordId == "none" {
+                    throw HealthConnectorErrors.invalidArgument(
+                        message: "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
+                        details: "Record ID: \(recordId)"
+                    )
+                }
             }
 
             // Convert record ID to UUID
@@ -1904,6 +1985,16 @@ internal class HealthConnectorClient {
                 }
                 // Convert to HealthKit sample, but with new UUID (will be assigned by HealthKit)
                 newSample = try wheelchairPushesRecord.toHealthKit()
+
+            case .heartRateMeasurementRecord:
+                guard let heartRateMeasurementRecord = request.heartRateMeasurementRecord else {
+                    throw HealthConnectorErrors.invalidArgument(
+                        message: "heartRateMeasurementRecord must not be nil for HEART_RATE_MEASUREMENT_RECORD type",
+                        details: nil
+                    )
+                }
+                // Convert to HealthKit sample, but with new UUID (will be assigned by HealthKit)
+                newSample = try heartRateMeasurementRecord.toHealthKit()
 
             case .leanBodyMass:
                 guard let leanBodyMassRecord = request.leanBodyMassRecord else {
@@ -2159,6 +2250,16 @@ internal class HealthConnectorClient {
                     }
                     let wheelchairPushesSamples = try wheelchairPushesRecords.map { try $0.toHealthKit() }
                     samples.append(contentsOf: wheelchairPushesSamples)
+
+                case .heartRateMeasurementRecord:
+                    guard let heartRateMeasurementRecords = request.heartRateMeasurementRecords else {
+                        throw HealthConnectorErrors.invalidArgument(
+                            message: "heartRateMeasurementRecords must not be nil for HEART_RATE_MEASUREMENT_RECORD type",
+                            details: nil
+                        )
+                    }
+                    let heartRateMeasurementSamples = try heartRateMeasurementRecords.map { try $0.toHealthKit() }
+                    samples.append(contentsOf: heartRateMeasurementSamples)
                 }
             }
 
@@ -2389,7 +2490,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
                     continuation.resume(returning: response)
                     return
@@ -2412,7 +2514,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
                         continuation.resume(returning: emptyResponse)
                         return
@@ -2428,7 +2531,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
 
                 case .steps:
@@ -2444,7 +2548,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
                         continuation.resume(returning: emptyResponse)
                         return
@@ -2461,7 +2566,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
 
                 case .weight:
@@ -2489,7 +2595,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
                         continuation.resume(returning: emptyResponse)
                         return
@@ -2506,7 +2613,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: massDto,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
 
                 case .height:
@@ -2534,7 +2642,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
                         continuation.resume(returning: emptyResponse)
                         return
@@ -2551,7 +2660,8 @@ internal class HealthConnectorClient {
                         lengthValue: lengthDto,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
 
                 case .hydration:
@@ -2584,7 +2694,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
 
                 case .leanBodyMass:
@@ -2612,7 +2723,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
                         continuation.resume(returning: emptyResponse)
                         return
@@ -2629,7 +2741,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: massDto,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
 
                 case .distance:
@@ -2645,7 +2758,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
                         continuation.resume(returning: emptyResponse)
                         return
@@ -2660,7 +2774,8 @@ internal class HealthConnectorClient {
                         lengthValue: lengthDto,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
 
                 case .floorsClimbed:
@@ -2690,7 +2805,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
 
                 case .wheelchairPushes:
@@ -2705,7 +2821,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                         )
                         continuation.resume(returning: emptyResponse)
                         return
@@ -2721,7 +2838,58 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: numericDto
+                        wheelchairPushesValue: numericDto,
+                        heartRateMeasurementRecordValue: nil
+                    )
+
+                case .heartRateMeasurementRecord:
+                    // For heart rate, we use discreteAverage, discreteMin, or discreteMax
+                    let heartRateQuantity: HKQuantity?
+                    switch metric {
+                    case .avg:
+                        heartRateQuantity = statistics.averageQuantity()
+                    case .min:
+                        heartRateQuantity = statistics.minimumQuantity()
+                    case .max:
+                        heartRateQuantity = statistics.maximumQuantity()
+                    default:
+                        heartRateQuantity = nil
+                    }
+
+                    guard let quantity = heartRateQuantity else {
+                        let emptyResponse = AggregateResponseDto(
+                            aggregationMetric: metric,
+                            dataType: dataType,
+                            activeCaloriesBurnedValue: nil,
+                            bodyTemperatureValue: nil,
+                            doubleValue: nil,
+                            hydrationValue: nil,
+                            lengthValue: nil,
+                            massValue: nil,
+                            leanBodyMassValue: nil,
+                            wheelchairPushesValue: nil,
+                            heartRateMeasurementRecordValue: nil
+                        )
+                        continuation.resume(returning: emptyResponse)
+                        return
+                    }
+
+                    // Heart rate is in beats per minute (count/minute)
+                    let unit = HKUnit.count().unitDivided(by: .minute())
+                    let bpmValue = quantity.doubleValue(for: unit)
+                    let numericDto = NumericDto(unit: .numeric, value: bpmValue)
+                    response = AggregateResponseDto(
+                        aggregationMetric: metric,
+                        dataType: dataType,
+                        activeCaloriesBurnedValue: nil,
+                        bodyTemperatureValue: nil,
+                        doubleValue: nil,
+                        hydrationValue: nil,
+                        lengthValue: nil,
+                        massValue: nil,
+                        leanBodyMassValue: nil,
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: numericDto
                     )
 
                 case .bodyTemperature:
@@ -2764,7 +2932,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
 
                 case .bodyFatPercentage:
@@ -2779,7 +2948,8 @@ internal class HealthConnectorClient {
                         lengthValue: nil,
                         massValue: nil,
                         leanBodyMassValue: nil,
-                        wheelchairPushesValue: nil
+                        wheelchairPushesValue: nil,
+                        heartRateMeasurementRecordValue: nil
                     )
                     continuation.resume(returning: emptyResponse)
                     return

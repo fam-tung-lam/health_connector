@@ -12,6 +12,7 @@ import androidx.health.connect.client.records.LeanBodyMassRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
+import androidx.health.connect.client.records.HeartRateRecord
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
@@ -101,6 +102,13 @@ internal fun HealthDataPermissionDto.toHealthConnectPermission(): String {
                 PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(WheelchairPushesRecord::class)
             }
         }
+
+        HealthDataTypeDto.HEART_RATE_SERIES_RECORD -> {
+            when (this.accessType) {
+                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(HeartRateRecord::class)
+                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(HeartRateRecord::class)
+            }
+        }
     }
 }
 
@@ -146,6 +154,7 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionDto? {
         "BODY_FAT_PERCENTAGE" -> HealthDataTypeDto.BODY_FAT_PERCENTAGE
         "BODY_TEMPERATURE" -> HealthDataTypeDto.BODY_TEMPERATURE
         "WHEELCHAIR_PUSHES" -> HealthDataTypeDto.WHEELCHAIR_PUSHES
+        "HEART_RATE" -> HealthDataTypeDto.HEART_RATE_SERIES_RECORD
         else -> return null // Unknown data type, skip it
     }
 

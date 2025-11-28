@@ -13,6 +13,7 @@ export 'src/models/health_platform.dart';
 export 'src/models/health_platform_features/health_platform_feature.dart';
 // Models - Health Records
 export 'src/models/health_records/health_record.dart';
+export 'src/models/health_records/heart_rate_measurement.dart';
 // Models - Measurement Units
 export 'src/models/measurement_units/measurement_unit.dart';
 // Models - Metadata

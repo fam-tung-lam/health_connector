@@ -8,6 +8,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         HealthDataType,
         DistanceHealthDataType,
         FloorsClimbedHealthDataType,
+        HeartRateMeasurementRecordHealthDataType,
+        HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
@@ -197,6 +199,26 @@ extension ReadRecordsResponseDtoToDomain on ReadRecordsResponseDto {
             .map((dto) => dto.toDomain())
             .cast<R>()
             .toList();
+
+      case HeartRateSeriesRecordHealthDataType _:
+        final heartRateSeriesRecords = responseDto.heartRateSeriesRecords;
+        if (heartRateSeriesRecords == null) {
+          throw HealthConnectorException(
+            HealthConnectorErrorCode.parsingError,
+            'Expected heartRateSeriesRecords but got null in '
+            'ReadRecordsResponseDto for dataType: $dataType',
+          );
+        }
+        return heartRateSeriesRecords
+            .map((dto) => dto.toDomain())
+            .cast<R>()
+            .toList();
+
+      case HeartRateMeasurementRecordHealthDataType _:
+        throw UnsupportedError(
+          'HeartRateMeasurementRecordHealthDataType is not supported on Android. '
+          'Use HeartRateSeriesRecordHealthDataType instead.',
+        );
     }
   }
 }
@@ -343,6 +365,23 @@ extension AggregateResponseDtoToDomain on AggregateResponseDto {
           );
         }
         return value.toDomain() as U;
+
+      case HeartRateSeriesRecordHealthDataType _:
+        final value = heartRateBeatsPerMinuteValue;
+        if (value == null) {
+          throw HealthConnectorException(
+            HealthConnectorErrorCode.parsingError,
+            'Expected heartRateBeatsPerMinuteValue but got null in '
+            'AggregateResponseDto for dataType: $dataType',
+          );
+        }
+        return value.toDomain() as U;
+
+      case HeartRateMeasurementRecordHealthDataType _:
+        throw UnsupportedError(
+          'HeartRateMeasurementRecordHealthDataType is not supported on Android. '
+          'Use HeartRateSeriesRecordHealthDataType instead.',
+        );
     }
   }
 }
@@ -474,6 +513,23 @@ extension ReadRecordResponseDtoToDomain on ReadRecordResponseDto {
           );
         }
         return record.toDomain() as R;
+
+      case HeartRateSeriesRecordHealthDataType _:
+        final record = heartRateSeriesRecord;
+        if (record == null) {
+          throw HealthConnectorException(
+            HealthConnectorErrorCode.parsingError,
+            'Expected heartRateSeriesRecord but got null in '
+            'ReadRecordResponseDto for dataType: $dataType',
+          );
+        }
+        return record.toDomain() as R;
+
+      case HeartRateMeasurementRecordHealthDataType _:
+        throw UnsupportedError(
+          'HeartRateMeasurementRecordHealthDataType is not supported on Android. '
+          'Use HeartRateSeriesRecordHealthDataType instead.',
+        );
     }
   }
 }

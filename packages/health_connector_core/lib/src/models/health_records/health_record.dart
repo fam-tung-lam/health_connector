@@ -1,9 +1,11 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show PlatformSpecificBehaviors, sinceV1_0_0;
+    show PlatformSpecificBehaviors, sinceV1_0_0, supportedOnAppleHealth, supportedOnHealthConnect;
 import 'package:health_connector_core/src/models/health_platform.dart'
     show HealthPlatform;
 import 'package:health_connector_core/src/models/health_platform_data.dart'
     show HealthPlatformData;
+import 'package:health_connector_core/src/models/health_records/heart_rate_measurement.dart'
+    show HeartRateMeasurement;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show Energy, Length, Mass, Numeric, Percentage, Temperature, Volume;
 import 'package:health_connector_core/src/models/metadata/metadata.dart'
@@ -18,6 +20,8 @@ part 'body_fat_percentage_record.dart';
 part 'body_temperature_record.dart';
 part 'distance_record.dart';
 part 'floors_climbed_record.dart';
+part 'heart_rate_measurement_record.dart';
+part 'heart_rate_series_record.dart';
 part 'height_record.dart';
 part 'hydration_record.dart';
 part 'instant_health_record.dart';

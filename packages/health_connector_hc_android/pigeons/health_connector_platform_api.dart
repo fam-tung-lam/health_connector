@@ -183,6 +183,9 @@ enum HealthDataTypeDto {
 
   /// Hydration (water intake) data.
   hydration,
+
+  /// Heart rate series record data (Android).
+  heartRateSeriesRecord,
 }
 
 /// Represents the status of the health platform on the device.
@@ -955,6 +958,65 @@ class HydrationRecordDto {
   final int? endZoneOffsetSeconds;
 }
 
+/// Represents a single heart rate measurement for platform transfer.
+///
+/// This is a platform-agnostic value class used within heart rate records.
+/// It contains a timestamp and BPM value without ID or metadata.
+class HeartRateMeasurementDto {
+  HeartRateMeasurementDto({
+    required this.time,
+    required this.beatsPerMinute,
+  });
+
+  /// Timestamp in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Heart rate value in beats per minute (BPM).
+  final NumericDto beatsPerMinute;
+}
+
+/// Represents a heart rate series record for platform transfer (Android).
+///
+/// Maps to:
+/// - Health Connect:
+///   `androidx.health.connect.client.records.HeartRateRecord`
+/// - Domain: `HeartRateSeriesRecord`
+class HeartRateSeriesRecordDto {
+  HeartRateSeriesRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.samples,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  ///
+  /// For new records being written, use an empty string or placeholder value.
+  /// The platform will assign a proper ID upon successful write.
+  final String id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// List of heart rate measurements within this time interval.
+  final List<HeartRateMeasurementDto> samples;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+}
+
 // ============================================================================
 // OPERATION REQUEST/RESPONSE DTOs
 // ============================================================================
@@ -999,6 +1061,7 @@ class AggregateResponseDto {
     this.leanBodyMassValue,
     this.massValue,
     this.wheelchairPushesValue,
+    this.heartRateBeatsPerMinuteValue,
   });
 
   /// The type of aggregation that was performed.
@@ -1038,6 +1101,10 @@ class AggregateResponseDto {
   /// Wheelchair pushes aggregated value
   /// (non-null when dataType == WHEELCHAIR_PUSHES).
   final NumericDto? wheelchairPushesValue;
+
+  /// Heart rate series record aggregated value
+  /// (non-null when dataType == HEART_RATE_SERIES_RECORD).
+  final NumericDto? heartRateBeatsPerMinuteValue;
 
   // Future value types will be added here as they are implemented
 }
@@ -1107,6 +1174,7 @@ class ReadRecordResponseDto {
     this.stepsRecord,
     this.weightRecord,
     this.wheelchairPushesRecord,
+    this.heartRateSeriesRecord,
   });
 
   /// The type of health data that was read.
@@ -1155,6 +1223,10 @@ class ReadRecordResponseDto {
   /// Wheelchair pushes record
   /// (non-null when dataType == WHEELCHAIR_PUSHES).
   final WheelchairPushesRecordDto? wheelchairPushesRecord;
+
+  /// Heart rate series record
+  /// (non-null when dataType == HEART_RATE_SERIES_RECORD).
+  final HeartRateSeriesRecordDto? heartRateSeriesRecord;
 
   // Future record types will be added here as they are implemented
 }
@@ -1209,6 +1281,7 @@ class ReadRecordsResponseDto {
     this.stepsRecords,
     this.weightRecords,
     this.wheelchairPushesRecords,
+    this.heartRateSeriesRecords,
     this.nextPageToken,
   });
 
@@ -1262,6 +1335,10 @@ class ReadRecordsResponseDto {
   /// (non-null when dataType == WHEELCHAIR_PUSHES).
   final List<WheelchairPushesRecordDto>? wheelchairPushesRecords;
 
+  /// List of heart rate series records
+  /// (non-null when dataType == HEART_RATE_SERIES_RECORD).
+  final List<HeartRateSeriesRecordDto>? heartRateSeriesRecords;
+
   // Future record types will be added here as they are implemented
 }
 
@@ -1285,6 +1362,7 @@ class WriteRecordRequestDto {
     this.stepsRecord,
     this.weightRecord,
     this.wheelchairPushesRecord,
+    this.heartRateSeriesRecord,
   });
 
   /// The type of health data being written.
@@ -1334,6 +1412,10 @@ class WriteRecordRequestDto {
   /// (only non-null when dataType == WHEELCHAIR_PUSHES).
   final WheelchairPushesRecordDto? wheelchairPushesRecord;
 
+  /// Heart rate series record
+  /// (only non-null when dataType == HEART_RATE_SERIES_RECORD).
+  final HeartRateSeriesRecordDto? heartRateSeriesRecord;
+
   // Future record types will be added here as they are implemented
 }
 
@@ -1364,6 +1446,7 @@ class WriteRecordsRequestDto {
     this.stepsRecords,
     this.weightRecords,
     this.wheelchairPushesRecords,
+    this.heartRateSeriesRecords,
   });
 
   /// The types of health data being written.
@@ -1416,6 +1499,10 @@ class WriteRecordsRequestDto {
   /// (non-null when dataTypes contains WHEELCHAIR_PUSHES).
   final List<WheelchairPushesRecordDto>? wheelchairPushesRecords;
 
+  /// List of heart rate series records
+  /// (non-null when dataTypes contains HEART_RATE_SERIES_RECORD).
+  final List<HeartRateSeriesRecordDto>? heartRateSeriesRecords;
+
   // Future record types will be added here as they are implemented
 }
 
@@ -1451,6 +1538,7 @@ class UpdateRecordRequestDto {
     this.stepsRecord,
     this.weightRecord,
     this.wheelchairPushesRecord,
+    this.heartRateSeriesRecord,
   });
 
   /// The type of health data being updated.
@@ -1510,6 +1598,11 @@ class UpdateRecordRequestDto {
   /// (only non-null when dataType == WHEELCHAIR_PUSHES).
   /// The record must have a valid existing ID.
   final WheelchairPushesRecordDto? wheelchairPushesRecord;
+
+  /// Heart rate series record
+  /// (only non-null when dataType == HEART_RATE_SERIES_RECORD).
+  /// The record must have a valid existing ID.
+  final HeartRateSeriesRecordDto? heartRateSeriesRecord;
 
   // Future record types will be added here as they are implemented
 }

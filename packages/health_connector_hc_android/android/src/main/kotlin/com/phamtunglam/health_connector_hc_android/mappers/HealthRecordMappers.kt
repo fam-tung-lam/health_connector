@@ -5,6 +5,7 @@ import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
 import androidx.health.connect.client.records.DistanceRecord
 import androidx.health.connect.client.records.FloorsClimbedRecord
+import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
@@ -19,6 +20,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.BodyFatPercentageRecor
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyTemperatureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DistanceRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.FloorsClimbedRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateMeasurementDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.LeanBodyMassRecordDto
@@ -324,6 +327,45 @@ internal fun HydrationRecord.toDto(): HydrationRecordDto {
         endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
         metadata = metadata.toDto(),
         volume = volume.toDto()
+    )
+}
+
+/**
+ * Converts a [HeartRateSeriesRecordDto] to a Health Connect [HeartRateRecord] object.
+ */
+internal fun HeartRateSeriesRecordDto.toHealthConnect(): HeartRateRecord {
+    return HeartRateRecord(
+        samples = samples.map { sample ->
+            HeartRateRecord.Sample(
+                time = Instant.ofEpochMilli(sample.time),
+                beatsPerMinute = sample.beatsPerMinute.value.toLong()
+            )
+        },
+        startTime = Instant.ofEpochMilli(startTime),
+        endTime = Instant.ofEpochMilli(endTime),
+        startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+        endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+        metadata = metadata.toHealthConnect(),
+    )
+}
+
+/**
+ * Converts a Health Connect [HeartRateRecord] object to a [HeartRateSeriesRecordDto].
+ */
+internal fun HeartRateRecord.toDto(): HeartRateSeriesRecordDto {
+    return HeartRateSeriesRecordDto(
+        id = metadata.id,
+        startTime = startTime.toEpochMilli(),
+        endTime = endTime.toEpochMilli(),
+        startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
+        endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
+        metadata = metadata.toDto(),
+        samples = samples.map { sample ->
+            HeartRateMeasurementDto(
+                time = sample.time.toEpochMilli(),
+                beatsPerMinute = sample.beatsPerMinute.toNumericDto()
+            )
+        }
     )
 }
 

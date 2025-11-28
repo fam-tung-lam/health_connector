@@ -129,6 +129,18 @@ extension AggregationMetricDto {
                 message: "Body temperature does not support aggregation",
                 details: "Body temperature does not support aggregation operations."
             )
+        case .heartRateMeasurementRecord:
+            switch self {
+            case .avg:
+                return .discreteAverage
+            case .min:
+                return .discreteMin
+            case .max:
+                return .discreteMax
+            case .sum, .count:
+                // SUM not meaningful for heart rate, COUNT requires reading records
+                return []
+            }
         }
     }
 
@@ -245,6 +257,18 @@ extension AggregationMetricDto {
                 message: "Body temperature does not support aggregation",
                 details: "Body temperature does not support aggregation operations."
             )
+        case .heartRateMeasurementRecord:
+            // Only AVG, MIN, MAX are supported for heart rate (matches Android Health Connect behavior)
+            switch self {
+            case .avg, .min, .max:
+                break // These are supported
+            case .sum, .count:
+                let metricName = String(describing: self)
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "\(metricName) not directly supported for heartRateMeasurementRecord in HealthKit",
+                    details: "\(metricName) not directly supported for heartRateMeasurementRecord in HealthKit."
+                )
+            }
         }
     }
 }

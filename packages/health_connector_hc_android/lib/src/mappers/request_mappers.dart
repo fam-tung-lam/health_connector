@@ -7,6 +7,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         DistanceRecord,
         FloorsClimbedRecord,
         HealthRecord,
+        HeartRateMeasurementRecord,
+        HeartRateSeriesRecord,
         HeightRecord,
         HydrationRecord,
         LeanBodyMassRecord,
@@ -140,6 +142,16 @@ extension HealthRecordToWriteRequestDto on HealthRecord {
           dataType: HealthDataTypeDto.wheelchairPushes,
           wheelchairPushesRecord: record.toDto(),
         );
+      case final HeartRateSeriesRecord record:
+        return WriteRecordRequestDto(
+          dataType: HealthDataTypeDto.heartRateSeriesRecord,
+          heartRateSeriesRecord: record.toDto(),
+        );
+      case final HeartRateMeasurementRecord _:
+        throw UnsupportedError(
+          'HeartRateMeasurementRecord is not supported on Android. '
+          'Use HeartRateSeriesRecord instead.',
+        );
     }
   }
 }
@@ -204,6 +216,16 @@ extension HealthRecordToUpdateRequestDto on HealthRecord {
           dataType: HealthDataTypeDto.wheelchairPushes,
           wheelchairPushesRecord: record.toDto(),
         );
+      case final HeartRateSeriesRecord record:
+        return UpdateRecordRequestDto(
+          dataType: HealthDataTypeDto.heartRateSeriesRecord,
+          heartRateSeriesRecord: record.toDto(),
+        );
+      case final HeartRateMeasurementRecord _:
+        throw UnsupportedError(
+          'HeartRateMeasurementRecord is not supported on Android. '
+          'Use HeartRateSeriesRecord instead.',
+        );
     }
   }
 }
@@ -228,6 +250,7 @@ extension HealthRecordListToWriteRequestDto on List<HealthRecord> {
     final stepRecords = <StepRecord>[];
     final weightRecords = <WeightRecord>[];
     final wheelchairPushesRecords = <WheelchairPushesRecord>[];
+    final heartRateSeriesRecords = <HeartRateSeriesRecord>[];
     final dataTypes = <HealthDataTypeDto>[];
 
     for (final record in this) {
@@ -287,6 +310,16 @@ extension HealthRecordListToWriteRequestDto on List<HealthRecord> {
           if (!dataTypes.contains(HealthDataTypeDto.wheelchairPushes)) {
             dataTypes.add(HealthDataTypeDto.wheelchairPushes);
           }
+        case final HeartRateSeriesRecord heartRateSeriesRecord:
+          heartRateSeriesRecords.add(heartRateSeriesRecord);
+          if (!dataTypes.contains(HealthDataTypeDto.heartRateSeriesRecord)) {
+            dataTypes.add(HealthDataTypeDto.heartRateSeriesRecord);
+          }
+        case final HeartRateMeasurementRecord _:
+          throw UnsupportedError(
+            'HeartRateMeasurementRecord is not supported on Android. '
+            'Use HeartRateSeriesRecord instead.',
+          );
       }
     }
 
@@ -325,6 +358,9 @@ extension HealthRecordListToWriteRequestDto on List<HealthRecord> {
       wheelchairPushesRecords: wheelchairPushesRecords.isEmpty
           ? null
           : wheelchairPushesRecords.map((r) => r.toDto()).toList(),
+      heartRateSeriesRecords: heartRateSeriesRecords.isEmpty
+          ? null
+          : heartRateSeriesRecords.map((r) => r.toDto()).toList(),
     );
   }
 }

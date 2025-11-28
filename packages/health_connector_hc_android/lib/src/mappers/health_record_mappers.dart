@@ -6,6 +6,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         DistanceRecord,
         FloorsClimbedRecord,
         HealthRecordId,
+        HeartRateMeasurement,
+        HeartRateSeriesRecord,
         HeightRecord,
         HydrationRecord,
         LeanBodyMassRecord,
@@ -22,6 +24,8 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_platform
         BodyTemperatureRecordDto,
         DistanceRecordDto,
         FloorsClimbedRecordDto,
+        HeartRateMeasurementDto,
+        HeartRateSeriesRecordDto,
         HeightRecordDto,
         HydrationRecordDto,
         LeanBodyMassRecordDto,
@@ -376,6 +380,60 @@ extension HydrationRecordDtoToDomain on HydrationRecordDto {
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
       volume: volume.toDomain(),
+    );
+  }
+}
+
+/// Converts [HeartRateMeasurement] to [HeartRateMeasurementDto].
+@internal
+extension HeartRateMeasurementDtoMapper on HeartRateMeasurement {
+  HeartRateMeasurementDto toDto() {
+    return HeartRateMeasurementDto(
+      time: time.millisecondsSinceEpoch,
+      beatsPerMinute: beatsPerMinute.toDto(),
+    );
+  }
+}
+
+/// Converts [HeartRateMeasurementDto] to [HeartRateMeasurement].
+@internal
+extension HeartRateMeasurementDtoToDomain on HeartRateMeasurementDto {
+  HeartRateMeasurement toDomain() {
+    return HeartRateMeasurement(
+      time: DateTime.fromMillisecondsSinceEpoch(time),
+      beatsPerMinute: beatsPerMinute.toDomain(),
+    );
+  }
+}
+
+/// Converts [HeartRateSeriesRecord] to [HeartRateSeriesRecordDto].
+@internal
+extension HeartRateSeriesRecordDtoMapper on HeartRateSeriesRecord {
+  HeartRateSeriesRecordDto toDto() {
+    return HeartRateSeriesRecordDto(
+      id: id.toDto(),
+      startTime: startTime.millisecondsSinceEpoch,
+      endTime: endTime.millisecondsSinceEpoch,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      metadata: metadata.toDto(),
+      samples: samples.map((s) => s.toDto()).toList(),
+    );
+  }
+}
+
+/// Converts [HeartRateSeriesRecordDto] to [HeartRateSeriesRecord].
+@internal
+extension HeartRateSeriesRecordDtoToDomain on HeartRateSeriesRecordDto {
+  HeartRateSeriesRecord toDomain() {
+    return HeartRateSeriesRecord(
+      id: id.toHealthRecordId(),
+      startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
+      endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      metadata: metadata.toDomain(),
+      samples: samples.map((s) => s.toDomain()).toList(),
     );
   }
 }

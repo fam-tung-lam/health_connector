@@ -46,6 +46,8 @@ extension HealthDataPermissionDto {
             return HKQuantityType.quantityType(forIdentifier: .bodyMass)!
         case .wheelchairPushes:
             return HKQuantityType.quantityType(forIdentifier: .pushCount)!
+        case .heartRateMeasurementRecord:
+            return HKQuantityType.quantityType(forIdentifier: .heartRate)!
         }
     }
 }

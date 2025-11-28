@@ -10,6 +10,7 @@ import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
+import androidx.health.connect.client.records.HeartRateRecord
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 
@@ -114,7 +115,8 @@ internal fun AggregationMetricDto.toHealthConnectMetric(dataType: HealthDataType
         }
 
         HealthDataTypeDto.BODY_TEMPERATURE,
-        HealthDataTypeDto.LEAN_BODY_MASS -> throw IllegalArgumentException("${dataType.name} does not support aggregation.")
+        HealthDataTypeDto.LEAN_BODY_MASS,
+        HealthDataTypeDto.HEART_RATE_SERIES_RECORD -> throw IllegalArgumentException("${dataType.name} does not support aggregation.")
     }
 }
 

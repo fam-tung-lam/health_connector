@@ -1,5 +1,5 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show sinceV1_0_0;
+    show sinceV1_0_0, supportedOnHealthConnect;
 import 'package:health_connector_core/health_connector_core.dart'
     show Permission;
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
@@ -18,6 +18,8 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         FloorsClimbedRecord,
         HealthRecord,
         HealthRecordId,
+        HeartRateMeasurementRecord,
+        HeartRateSeriesRecord,
         HeightRecord,
         HydrationRecord,
         LeanBodyMassRecord,
@@ -51,6 +53,8 @@ part 'body_fat_percentage_health_data_type.dart';
 part 'body_temperature_health_data_type.dart';
 part 'distance_health_data_type.dart';
 part 'floors_climbed_health_data_type.dart';
+part 'heart_rate_measurement_record_health_data_type.dart';
+part 'heart_rate_series_record_health_data_type.dart';
 part 'height_health_data_type.dart';
 part 'hydration_health_data_type.dart';
 part 'lean_body_mass_health_data_type.dart';
@@ -211,6 +215,24 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// hydration data and writing new measurements.
   static const hydration = HydrationHealthDataType();
 
+  /// Heart rate series record data type (Android).
+  ///
+  /// Represents a series of heart rate measurements over a time interval.
+  /// Heart rate series records on Android are container records with embedded
+  /// BPM samples. Each record has a single ID that encompasses all
+  /// measurements. Supports both reading existing heart rate data and writing
+  /// new measurements.
+  static const heartRateSeriesRecord = HeartRateSeriesRecordHealthDataType();
+
+  /// Heart rate measurement record data type (iOS).
+  ///
+  /// Represents a single heart rate measurement at a specific point in time.
+  /// Heart rate measurement records on iOS are individual measurements. Each
+  /// record has its own UUID. Supports both reading existing heart rate data
+  /// and writing new measurements.
+  static const heartRateMeasurementRecord =
+      HeartRateMeasurementRecordHealthDataType();
+
   /// Returns a list of all available health data types.
   ///
   /// This list contains all data types currently supported by the plugin.
@@ -221,6 +243,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     bodyTemperature,
     distance,
     floorsClimbed,
+    heartRateMeasurementRecord,
+    heartRateSeriesRecord,
     height,
     hydration,
     leanBodyMass,

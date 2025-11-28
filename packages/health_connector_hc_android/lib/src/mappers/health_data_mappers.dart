@@ -7,6 +7,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         FloorsClimbedHealthDataType,
         HealthDataType,
         HealthRecord,
+        HeartRateMeasurementRecordHealthDataType,
+        HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
@@ -45,6 +47,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.weight;
       case HealthDataTypeDto.wheelchairPushes:
         return HealthDataType.wheelchairPushes;
+      case HealthDataTypeDto.heartRateSeriesRecord:
+        return HealthDataType.heartRateSeriesRecord;
     }
   }
 }
@@ -76,6 +80,13 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.weight;
       case WheelchairPushesHealthDataType _:
         return HealthDataTypeDto.wheelchairPushes;
+      case HeartRateSeriesRecordHealthDataType _:
+        return HealthDataTypeDto.heartRateSeriesRecord;
+      case HeartRateMeasurementRecordHealthDataType _:
+        throw UnsupportedError(
+          'HeartRateMeasurementRecordHealthDataType is not supported on Android. '
+          'Use HeartRateSeriesRecordHealthDataType instead.',
+        );
     }
   }
 }

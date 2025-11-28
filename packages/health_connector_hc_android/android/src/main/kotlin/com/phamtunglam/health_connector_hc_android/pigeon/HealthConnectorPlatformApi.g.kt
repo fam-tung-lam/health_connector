@@ -286,7 +286,9 @@ enum class HealthDataTypeDto(val raw: Int) {
   /** Wheelchair pushes data. */
   WHEELCHAIR_PUSHES(9),
   /** Hydration (water intake) data. */
-  HYDRATION(10);
+  HYDRATION(10),
+  /** Heart rate series record data (Android). */
+  HEART_RATE_SERIES_RECORD(11);
 
   companion object {
     fun ofRaw(raw: Int): HealthDataTypeDto? {
@@ -1905,6 +1907,113 @@ data class HydrationRecordDto (
 }
 
 /**
+ * Represents a single heart rate measurement for platform transfer.
+ *
+ * This is a platform-agnostic value class used within heart rate records.
+ * It contains a timestamp and BPM value without ID or metadata.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class HeartRateMeasurementDto (
+  /** Timestamp in milliseconds since epoch (UTC). */
+  val time: Long,
+  /** Heart rate value in beats per minute (BPM). */
+  val beatsPerMinute: NumericDto
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): HeartRateMeasurementDto {
+      val time = pigeonVar_list[0] as Long
+      val beatsPerMinute = pigeonVar_list[1] as NumericDto
+      return HeartRateMeasurementDto(time, beatsPerMinute)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      time,
+      beatsPerMinute,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other !is HeartRateMeasurementDto) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    return HealthConnectorPlatformApiPigeonUtils.deepEquals(toList(), other.toList())  }
+
+  override fun hashCode(): Int = toList().hashCode()
+}
+
+/**
+ * Represents a heart rate series record for platform transfer (Android).
+ *
+ * Maps to:
+ * - Health Connect:
+ *   `androidx.health.connect.client.records.HeartRateRecord`
+ * - Domain: `HeartRateSeriesRecord`
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class HeartRateSeriesRecordDto (
+  /**
+   * Platform-assigned unique identifier.
+   *
+   * For new records being written, use an empty string or placeholder value.
+   * The platform will assign a proper ID upon successful write.
+   */
+  val id: String,
+  /** Start time in milliseconds since epoch (UTC). */
+  val startTime: Long,
+  /** End time in milliseconds since epoch (UTC). */
+  val endTime: Long,
+  /** Metadata about this record. */
+  val metadata: MetadataDto,
+  /** List of heart rate measurements within this time interval. */
+  val samples: List<HeartRateMeasurementDto>,
+  /** Timezone offset in seconds for start time (optional). */
+  val startZoneOffsetSeconds: Long? = null,
+  /** Timezone offset in seconds for end time (optional). */
+  val endZoneOffsetSeconds: Long? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): HeartRateSeriesRecordDto {
+      val id = pigeonVar_list[0] as String
+      val startTime = pigeonVar_list[1] as Long
+      val endTime = pigeonVar_list[2] as Long
+      val metadata = pigeonVar_list[3] as MetadataDto
+      val samples = pigeonVar_list[4] as List<HeartRateMeasurementDto>
+      val startZoneOffsetSeconds = pigeonVar_list[5] as Long?
+      val endZoneOffsetSeconds = pigeonVar_list[6] as Long?
+      return HeartRateSeriesRecordDto(id, startTime, endTime, metadata, samples, startZoneOffsetSeconds, endZoneOffsetSeconds)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      id,
+      startTime,
+      endTime,
+      metadata,
+      samples,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other !is HeartRateSeriesRecordDto) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    return HealthConnectorPlatformApiPigeonUtils.deepEquals(toList(), other.toList())  }
+
+  override fun hashCode(): Int = toList().hashCode()
+}
+
+/**
  * Request to perform aggregation on health records.
  *
  * Generated class from Pigeon that represents data sent in messages.
@@ -1999,7 +2108,12 @@ data class AggregateResponseDto (
    * Wheelchair pushes aggregated value
    * (non-null when dataType == WHEELCHAIR_PUSHES).
    */
-  val wheelchairPushesValue: NumericDto? = null
+  val wheelchairPushesValue: NumericDto? = null,
+  /**
+   * Heart rate series record aggregated value
+   * (non-null when dataType == HEART_RATE_SERIES_RECORD).
+   */
+  val heartRateBeatsPerMinuteValue: NumericDto? = null
 )
  {
   companion object {
@@ -2014,7 +2128,8 @@ data class AggregateResponseDto (
       val massValue = pigeonVar_list[7] as MassDto?
       val leanBodyMassValue = pigeonVar_list[8] as MassDto?
       val wheelchairPushesValue = pigeonVar_list[9] as NumericDto?
-      return AggregateResponseDto(aggregationMetric, dataType, activeCaloriesBurnedValue, bodyTemperatureValue, doubleValue, hydrationValue, lengthValue, massValue, leanBodyMassValue, wheelchairPushesValue)
+      val heartRateBeatsPerMinuteValue = pigeonVar_list[10] as NumericDto?
+      return AggregateResponseDto(aggregationMetric, dataType, activeCaloriesBurnedValue, bodyTemperatureValue, doubleValue, hydrationValue, lengthValue, massValue, leanBodyMassValue, wheelchairPushesValue, heartRateBeatsPerMinuteValue)
     }
   }
   fun toList(): List<Any?> {
@@ -2029,6 +2144,7 @@ data class AggregateResponseDto (
       massValue,
       leanBodyMassValue,
       wheelchairPushesValue,
+      heartRateBeatsPerMinuteValue,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -2223,7 +2339,12 @@ data class ReadRecordResponseDto (
    * Wheelchair pushes record
    * (non-null when dataType == WHEELCHAIR_PUSHES).
    */
-  val wheelchairPushesRecord: WheelchairPushesRecordDto? = null
+  val wheelchairPushesRecord: WheelchairPushesRecordDto? = null,
+  /**
+   * Heart rate series record
+   * (non-null when dataType == HEART_RATE_SERIES_RECORD).
+   */
+  val heartRateSeriesRecord: HeartRateSeriesRecordDto? = null
 )
  {
   companion object {
@@ -2240,7 +2361,8 @@ data class ReadRecordResponseDto (
       val bodyFatPercentageRecord = pigeonVar_list[9] as BodyFatPercentageRecordDto?
       val bodyTemperatureRecord = pigeonVar_list[10] as BodyTemperatureRecordDto?
       val wheelchairPushesRecord = pigeonVar_list[11] as WheelchairPushesRecordDto?
-      return ReadRecordResponseDto(dataType, activeCaloriesBurnedRecord, distanceRecord, floorsClimbedRecord, heightRecord, hydrationRecord, leanBodyMassRecord, stepsRecord, weightRecord, bodyFatPercentageRecord, bodyTemperatureRecord, wheelchairPushesRecord)
+      val heartRateSeriesRecord = pigeonVar_list[12] as HeartRateSeriesRecordDto?
+      return ReadRecordResponseDto(dataType, activeCaloriesBurnedRecord, distanceRecord, floorsClimbedRecord, heightRecord, hydrationRecord, leanBodyMassRecord, stepsRecord, weightRecord, bodyFatPercentageRecord, bodyTemperatureRecord, wheelchairPushesRecord, heartRateSeriesRecord)
     }
   }
   fun toList(): List<Any?> {
@@ -2257,6 +2379,7 @@ data class ReadRecordResponseDto (
       bodyFatPercentageRecord,
       bodyTemperatureRecord,
       wheelchairPushesRecord,
+      heartRateSeriesRecord,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -2395,7 +2518,12 @@ data class ReadRecordsResponseDto (
    * List of wheelchair pushes records
    * (non-null when dataType == WHEELCHAIR_PUSHES).
    */
-  val wheelchairPushesRecords: List<WheelchairPushesRecordDto>? = null
+  val wheelchairPushesRecords: List<WheelchairPushesRecordDto>? = null,
+  /**
+   * List of heart rate series records
+   * (non-null when dataType == HEART_RATE_SERIES_RECORD).
+   */
+  val heartRateSeriesRecords: List<HeartRateSeriesRecordDto>? = null
 )
  {
   companion object {
@@ -2413,7 +2541,8 @@ data class ReadRecordsResponseDto (
       val bodyFatPercentageRecords = pigeonVar_list[10] as List<BodyFatPercentageRecordDto>?
       val bodyTemperatureRecords = pigeonVar_list[11] as List<BodyTemperatureRecordDto>?
       val wheelchairPushesRecords = pigeonVar_list[12] as List<WheelchairPushesRecordDto>?
-      return ReadRecordsResponseDto(dataType, activeCaloriesBurnedRecords, distanceRecords, floorsClimbedRecords, heightRecords, hydrationRecords, leanBodyMassRecords, nextPageToken, stepsRecords, weightRecords, bodyFatPercentageRecords, bodyTemperatureRecords, wheelchairPushesRecords)
+      val heartRateSeriesRecords = pigeonVar_list[13] as List<HeartRateSeriesRecordDto>?
+      return ReadRecordsResponseDto(dataType, activeCaloriesBurnedRecords, distanceRecords, floorsClimbedRecords, heightRecords, hydrationRecords, leanBodyMassRecords, nextPageToken, stepsRecords, weightRecords, bodyFatPercentageRecords, bodyTemperatureRecords, wheelchairPushesRecords, heartRateSeriesRecords)
     }
   }
   fun toList(): List<Any?> {
@@ -2431,6 +2560,7 @@ data class ReadRecordsResponseDto (
       bodyFatPercentageRecords,
       bodyTemperatureRecords,
       wheelchairPushesRecords,
+      heartRateSeriesRecords,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -2510,7 +2640,12 @@ data class WriteRecordRequestDto (
    * Wheelchair pushes record
    * (only non-null when dataType == WHEELCHAIR_PUSHES).
    */
-  val wheelchairPushesRecord: WheelchairPushesRecordDto? = null
+  val wheelchairPushesRecord: WheelchairPushesRecordDto? = null,
+  /**
+   * Heart rate series record
+   * (only non-null when dataType == HEART_RATE_SERIES_RECORD).
+   */
+  val heartRateSeriesRecord: HeartRateSeriesRecordDto? = null
 )
  {
   companion object {
@@ -2527,7 +2662,8 @@ data class WriteRecordRequestDto (
       val bodyFatPercentageRecord = pigeonVar_list[9] as BodyFatPercentageRecordDto?
       val bodyTemperatureRecord = pigeonVar_list[10] as BodyTemperatureRecordDto?
       val wheelchairPushesRecord = pigeonVar_list[11] as WheelchairPushesRecordDto?
-      return WriteRecordRequestDto(dataType, activeCaloriesBurnedRecord, distanceRecord, floorsClimbedRecord, heightRecord, hydrationRecord, leanBodyMassRecord, stepsRecord, weightRecord, bodyFatPercentageRecord, bodyTemperatureRecord, wheelchairPushesRecord)
+      val heartRateSeriesRecord = pigeonVar_list[12] as HeartRateSeriesRecordDto?
+      return WriteRecordRequestDto(dataType, activeCaloriesBurnedRecord, distanceRecord, floorsClimbedRecord, heightRecord, hydrationRecord, leanBodyMassRecord, stepsRecord, weightRecord, bodyFatPercentageRecord, bodyTemperatureRecord, wheelchairPushesRecord, heartRateSeriesRecord)
     }
   }
   fun toList(): List<Any?> {
@@ -2544,6 +2680,7 @@ data class WriteRecordRequestDto (
       bodyFatPercentageRecord,
       bodyTemperatureRecord,
       wheelchairPushesRecord,
+      heartRateSeriesRecord,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -2662,7 +2799,12 @@ data class WriteRecordsRequestDto (
    * List of wheelchair pushes records
    * (non-null when dataTypes contains WHEELCHAIR_PUSHES).
    */
-  val wheelchairPushesRecords: List<WheelchairPushesRecordDto>? = null
+  val wheelchairPushesRecords: List<WheelchairPushesRecordDto>? = null,
+  /**
+   * List of heart rate series records
+   * (non-null when dataTypes contains HEART_RATE_SERIES_RECORD).
+   */
+  val heartRateSeriesRecords: List<HeartRateSeriesRecordDto>? = null
 )
  {
   companion object {
@@ -2679,7 +2821,8 @@ data class WriteRecordsRequestDto (
       val bodyFatPercentageRecords = pigeonVar_list[9] as List<BodyFatPercentageRecordDto>?
       val bodyTemperatureRecords = pigeonVar_list[10] as List<BodyTemperatureRecordDto>?
       val wheelchairPushesRecords = pigeonVar_list[11] as List<WheelchairPushesRecordDto>?
-      return WriteRecordsRequestDto(dataTypes, activeCaloriesBurnedRecords, distanceRecords, floorsClimbedRecords, heightRecords, hydrationRecords, leanBodyMassRecords, stepsRecords, weightRecords, bodyFatPercentageRecords, bodyTemperatureRecords, wheelchairPushesRecords)
+      val heartRateSeriesRecords = pigeonVar_list[12] as List<HeartRateSeriesRecordDto>?
+      return WriteRecordsRequestDto(dataTypes, activeCaloriesBurnedRecords, distanceRecords, floorsClimbedRecords, heightRecords, hydrationRecords, leanBodyMassRecords, stepsRecords, weightRecords, bodyFatPercentageRecords, bodyTemperatureRecords, wheelchairPushesRecords, heartRateSeriesRecords)
     }
   }
   fun toList(): List<Any?> {
@@ -2696,6 +2839,7 @@ data class WriteRecordsRequestDto (
       bodyFatPercentageRecords,
       bodyTemperatureRecords,
       wheelchairPushesRecords,
+      heartRateSeriesRecords,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -2825,7 +2969,13 @@ data class UpdateRecordRequestDto (
    * (only non-null when dataType == WHEELCHAIR_PUSHES).
    * The record must have a valid existing ID.
    */
-  val wheelchairPushesRecord: WheelchairPushesRecordDto? = null
+  val wheelchairPushesRecord: WheelchairPushesRecordDto? = null,
+  /**
+   * Heart rate series record
+   * (only non-null when dataType == HEART_RATE_SERIES_RECORD).
+   * The record must have a valid existing ID.
+   */
+  val heartRateSeriesRecord: HeartRateSeriesRecordDto? = null
 )
  {
   companion object {
@@ -2842,7 +2992,8 @@ data class UpdateRecordRequestDto (
       val bodyFatPercentageRecord = pigeonVar_list[9] as BodyFatPercentageRecordDto?
       val bodyTemperatureRecord = pigeonVar_list[10] as BodyTemperatureRecordDto?
       val wheelchairPushesRecord = pigeonVar_list[11] as WheelchairPushesRecordDto?
-      return UpdateRecordRequestDto(dataType, activeCaloriesBurnedRecord, distanceRecord, floorsClimbedRecord, heightRecord, hydrationRecord, leanBodyMassRecord, stepsRecord, weightRecord, bodyFatPercentageRecord, bodyTemperatureRecord, wheelchairPushesRecord)
+      val heartRateSeriesRecord = pigeonVar_list[12] as HeartRateSeriesRecordDto?
+      return UpdateRecordRequestDto(dataType, activeCaloriesBurnedRecord, distanceRecord, floorsClimbedRecord, heightRecord, hydrationRecord, leanBodyMassRecord, stepsRecord, weightRecord, bodyFatPercentageRecord, bodyTemperatureRecord, wheelchairPushesRecord, heartRateSeriesRecord)
     }
   }
   fun toList(): List<Any?> {
@@ -2859,6 +3010,7 @@ data class UpdateRecordRequestDto (
       bodyFatPercentageRecord,
       bodyTemperatureRecord,
       wheelchairPushesRecord,
+      heartRateSeriesRecord,
     )
   }
   override fun equals(other: Any?): Boolean {
@@ -3169,70 +3321,80 @@ private open class HealthConnectorPlatformApiPigeonCodec : StandardMessageCodec(
       }
       180.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          AggregateRequestDto.fromList(it)
+          HeartRateMeasurementDto.fromList(it)
         }
       }
       181.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          AggregateResponseDto.fromList(it)
+          HeartRateSeriesRecordDto.fromList(it)
         }
       }
       182.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByIdsRequestDto.fromList(it)
+          AggregateRequestDto.fromList(it)
         }
       }
       183.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByTimeRangeRequestDto.fromList(it)
+          AggregateResponseDto.fromList(it)
         }
       }
       184.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordRequestDto.fromList(it)
+          DeleteRecordsByIdsRequestDto.fromList(it)
         }
       }
       185.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordResponseDto.fromList(it)
+          DeleteRecordsByTimeRangeRequestDto.fromList(it)
         }
       }
       186.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsRequestDto.fromList(it)
+          ReadRecordRequestDto.fromList(it)
         }
       }
       187.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsResponseDto.fromList(it)
+          ReadRecordResponseDto.fromList(it)
         }
       }
       188.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          WriteRecordRequestDto.fromList(it)
+          ReadRecordsRequestDto.fromList(it)
         }
       }
       189.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          WriteRecordResponseDto.fromList(it)
+          ReadRecordsResponseDto.fromList(it)
         }
       }
       190.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          WriteRecordsRequestDto.fromList(it)
+          WriteRecordRequestDto.fromList(it)
         }
       }
       191.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          WriteRecordsResponseDto.fromList(it)
+          WriteRecordResponseDto.fromList(it)
         }
       }
       192.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          UpdateRecordRequestDto.fromList(it)
+          WriteRecordsRequestDto.fromList(it)
         }
       }
       193.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          WriteRecordsResponseDto.fromList(it)
+        }
+      }
+      194.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          UpdateRecordRequestDto.fromList(it)
+        }
+      }
+      195.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
           UpdateRecordResponseDto.fromList(it)
         }
@@ -3446,60 +3608,68 @@ private open class HealthConnectorPlatformApiPigeonCodec : StandardMessageCodec(
         stream.write(179)
         writeValue(stream, value.toList())
       }
-      is AggregateRequestDto -> {
+      is HeartRateMeasurementDto -> {
         stream.write(180)
         writeValue(stream, value.toList())
       }
-      is AggregateResponseDto -> {
+      is HeartRateSeriesRecordDto -> {
         stream.write(181)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByIdsRequestDto -> {
+      is AggregateRequestDto -> {
         stream.write(182)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByTimeRangeRequestDto -> {
+      is AggregateResponseDto -> {
         stream.write(183)
         writeValue(stream, value.toList())
       }
-      is ReadRecordRequestDto -> {
+      is DeleteRecordsByIdsRequestDto -> {
         stream.write(184)
         writeValue(stream, value.toList())
       }
-      is ReadRecordResponseDto -> {
+      is DeleteRecordsByTimeRangeRequestDto -> {
         stream.write(185)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsRequestDto -> {
+      is ReadRecordRequestDto -> {
         stream.write(186)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsResponseDto -> {
+      is ReadRecordResponseDto -> {
         stream.write(187)
         writeValue(stream, value.toList())
       }
-      is WriteRecordRequestDto -> {
+      is ReadRecordsRequestDto -> {
         stream.write(188)
         writeValue(stream, value.toList())
       }
-      is WriteRecordResponseDto -> {
+      is ReadRecordsResponseDto -> {
         stream.write(189)
         writeValue(stream, value.toList())
       }
-      is WriteRecordsRequestDto -> {
+      is WriteRecordRequestDto -> {
         stream.write(190)
         writeValue(stream, value.toList())
       }
-      is WriteRecordsResponseDto -> {
+      is WriteRecordResponseDto -> {
         stream.write(191)
         writeValue(stream, value.toList())
       }
-      is UpdateRecordRequestDto -> {
+      is WriteRecordsRequestDto -> {
         stream.write(192)
         writeValue(stream, value.toList())
       }
-      is UpdateRecordResponseDto -> {
+      is WriteRecordsResponseDto -> {
         stream.write(193)
+        writeValue(stream, value.toList())
+      }
+      is UpdateRecordRequestDto -> {
+        stream.write(194)
+        writeValue(stream, value.toList())
+      }
+      is UpdateRecordResponseDto -> {
+        stream.write(195)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)

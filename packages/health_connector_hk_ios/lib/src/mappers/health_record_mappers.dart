@@ -6,6 +6,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         DistanceRecord,
         FloorsClimbedRecord,
         HealthRecordId,
+        HeartRateMeasurement,
+        HeartRateMeasurementRecord,
         HeightRecord,
         HydrationRecord,
         LeanBodyMassRecord,
@@ -22,6 +24,8 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api
         BodyTemperatureRecordDto,
         DistanceRecordDto,
         FloorsClimbedRecordDto,
+        HeartRateMeasurementDto,
+        HeartRateMeasurementRecordDto,
         HeightRecordDto,
         HydrationRecordDto,
         LeanBodyMassRecordDto,
@@ -376,6 +380,54 @@ extension HydrationRecordDtoToDomain on HydrationRecordDto {
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
       volume: volume.toDomain(),
+    );
+  }
+}
+
+/// Converts [HeartRateMeasurement] to [HeartRateMeasurementDto].
+@internal
+extension HeartRateMeasurementDtoMapper on HeartRateMeasurement {
+  HeartRateMeasurementDto toDto() {
+    return HeartRateMeasurementDto(
+      time: time.millisecondsSinceEpoch,
+      beatsPerMinute: beatsPerMinute.toDto(),
+    );
+  }
+}
+
+/// Converts [HeartRateMeasurementDto] to [HeartRateMeasurement].
+@internal
+extension HeartRateMeasurementDtoToDomain on HeartRateMeasurementDto {
+  HeartRateMeasurement toDomain() {
+    return HeartRateMeasurement(
+      time: DateTime.fromMillisecondsSinceEpoch(time),
+      beatsPerMinute: beatsPerMinute.toDomain(),
+    );
+  }
+}
+
+/// Converts [HeartRateMeasurementRecord] to [HeartRateMeasurementRecordDto].
+@internal
+extension HeartRateMeasurementRecordDtoMapper on HeartRateMeasurementRecord {
+  HeartRateMeasurementRecordDto toDto() {
+    return HeartRateMeasurementRecordDto(
+      id: id.toDto(),
+      time: measurement.time.millisecondsSinceEpoch,
+      zoneOffsetSeconds: null, // HealthKit doesn't store zone offsets
+      metadata: metadata.toDto(),
+      measurement: measurement.toDto(),
+    );
+  }
+}
+
+/// Converts [HeartRateMeasurementRecordDto] to [HeartRateMeasurementRecord].
+@internal
+extension HeartRateMeasurementRecordDtoToDomain on HeartRateMeasurementRecordDto {
+  HeartRateMeasurementRecord toDomain() {
+    return HeartRateMeasurementRecord(
+      id: id.toHealthRecordId(),
+      metadata: metadata.toDomain(),
+      measurement: measurement.toDomain(),
     );
   }
 }
