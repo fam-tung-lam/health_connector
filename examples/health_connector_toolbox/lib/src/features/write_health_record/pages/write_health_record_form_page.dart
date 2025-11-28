@@ -22,17 +22,27 @@ import 'package:health_connector_core/health_connector_core.dart'
         RecordingMethod,
         StepsHealthDataType,
         WeightHealthDataType,
-        WheelchairPushesHealthDataType;
+        WheelchairPushesHealthDataType,
+        SleepSessionHealthDataType,
+        SleepStageHealthDataType,
+        SleepStage,
+        SleepStageType;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/show_snack_bar.dart';
 import 'package:health_connector_toolbox/src/common/widgets/date_time_picker_row.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/models/health_record_form_config.dart'
-    show HealthRecordFormConfig, HeartRateSeriesRecordFormConfig;
+    show
+        HealthRecordFormConfig,
+        HeartRateSeriesRecordFormConfig,
+        SleepSessionRecordFormConfig,
+        SleepStageRecordFormConfig;
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/duration_picker_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/health_value_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/heart_rate_samples_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/metadata_form_fields.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/sleep_stage_type_dropdown_field.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/sleep_stages_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/write_health_record_change_notifier.dart';
 import 'package:provider/provider.dart' show Provider;
 
@@ -75,6 +85,17 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
 
   // State for heart rate series samples (Android)
   List<HeartRateMeasurement>? _heartRateSamples;
+
+  // State for sleep stages (Android SleepSessionRecord)
+  List<SleepStage>? _sleepStages;
+
+  // State for single sleep stage (iOS SleepStageRecord)
+  SleepStage? _sleepStage;
+  SleepStageType? _sleepStageType;
+
+  // Optional title and notes for sleep records
+  String? _sleepTitle;
+  String? _sleepNotes;
 
   // Use different state mixins based on whether duration is needed
   DateTime? _startDate;
@@ -139,18 +160,50 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
     setState(() {
       _startDate = date;
     });
+    _updateSleepStage();
   }
 
   void setTime(TimeOfDay? time) {
     setState(() {
       _startTime = time;
     });
+    _updateSleepStage();
   }
 
   void setDuration(TimeOfDay? duration) {
     setState(() {
       _duration = duration;
+      // Update sleep stage if we're creating a SleepStageRecord
+      if (widget.dataType is SleepStageHealthDataType &&
+          _sleepStageType != null &&
+          startDateTime != null &&
+          endDateTime != null) {
+        _sleepStage = SleepStage(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          stageType: _sleepStageType!,
+        );
+      }
     });
+  }
+
+  void _updateSleepStage() {
+    if (widget.dataType is SleepStageHealthDataType &&
+        _sleepStageType != null &&
+        startDateTime != null &&
+        endDateTime != null) {
+      setState(() {
+        _sleepStage = SleepStage(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          stageType: _sleepStageType!,
+        );
+      });
+    } else {
+      setState(() {
+        _sleepStage = null;
+      });
+    }
   }
 
   String? _durationValidator(TimeOfDay? value) {
@@ -196,6 +249,14 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
       if (_heartRateSamples == null || _heartRateSamples!.isEmpty) {
         return;
       }
+    } else if (widget.dataType is SleepSessionHealthDataType) {
+      if (_sleepStages == null || _sleepStages!.isEmpty) {
+        return;
+      }
+    } else if (widget.dataType is SleepStageHealthDataType) {
+      if (_sleepStage == null) {
+        return;
+      }
     } else {
       if (_value == null) {
         return;
@@ -235,6 +296,24 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
             endDateTime: endDateTime!,
             samples: _heartRateSamples!,
             metadata: metadata,
+          ),
+        SleepSessionHealthDataType() =>
+          (_config as SleepSessionRecordFormConfig).buildRecordWithStages(
+            startDateTime: startDateTime!,
+            endDateTime: endDateTime!,
+            stages: _sleepStages!,
+            metadata: metadata,
+            title: _sleepTitle?.isEmpty ?? true ? null : _sleepTitle,
+            notes: _sleepNotes?.isEmpty ?? true ? null : _sleepNotes,
+          ),
+        SleepStageHealthDataType() =>
+          (_config as SleepStageRecordFormConfig).buildRecordWithStage(
+            startDateTime: startDateTime!,
+            endDateTime: endDateTime!,
+            stageType: _sleepStage!.stageType,
+            metadata: metadata,
+            title: _sleepTitle?.isEmpty ?? true ? null : _sleepTitle,
+            notes: _sleepNotes?.isEmpty ?? true ? null : _sleepNotes,
           ),
         _ => _config.buildRecord(
           startDateTime: startDateTime!,
@@ -308,6 +387,10 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
           AppTexts.writePermissionDeniedHeartRateRecord,
         HeartRateSeriesRecordHealthDataType() =>
           AppTexts.writePermissionDeniedHeartRateRecord,
+        SleepSessionHealthDataType() =>
+          AppTexts.writePermissionDeniedSleepSession,
+        SleepStageHealthDataType() =>
+          AppTexts.writePermissionDeniedSleepStageRecord,
       };
     }
     return e.message;
@@ -340,6 +423,8 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                 AppTexts.insertHeartRateRecord,
               HeartRateSeriesRecordHealthDataType() =>
                 AppTexts.insertHeartRateRecord,
+              SleepSessionHealthDataType() => AppTexts.insertSleepSession,
+              SleepStageHealthDataType() => AppTexts.insertSleepStageRecord,
             },
           ),
         ),
@@ -376,7 +461,33 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                       });
                     },
                   )
-                else
+                else if (widget.dataType is SleepSessionHealthDataType)
+                  SleepStagesFormField(
+                    startDateTime: startDateTime,
+                    endDateTime: endDateTime,
+                    onChanged: (stages) {
+                      setState(() {
+                        _sleepStages = stages;
+                      });
+                    },
+                  )
+                else if (widget.dataType is SleepStageHealthDataType) ...[
+                  SleepStageTypeDropdownField(
+                    value: _sleepStageType,
+                    onChanged: (type) {
+                      setState(() {
+                        _sleepStageType = type;
+                      });
+                      _updateSleepStage();
+                    },
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Please select a sleep stage type';
+                      }
+                      return null;
+                    },
+                  ),
+                ] else
                   HealthValueField(
                     dataType: widget.dataType,
                     onChanged: (value) {
@@ -385,6 +496,39 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                       });
                     },
                   ),
+                // Optional title and notes fields for sleep records
+                if (widget.dataType is SleepSessionHealthDataType ||
+                    widget.dataType is SleepStageHealthDataType) ...[
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    initialValue: _sleepTitle,
+                    decoration: const InputDecoration(
+                      labelText: 'Title (optional)',
+                      border: OutlineInputBorder(),
+                      helperText: 'Optional title for the sleep record',
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        _sleepTitle = value.isEmpty ? null : value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    initialValue: _sleepNotes,
+                    decoration: const InputDecoration(
+                      labelText: 'Notes (optional)',
+                      border: OutlineInputBorder(),
+                      helperText: 'Optional notes about the sleep record',
+                    ),
+                    maxLines: 3,
+                    onChanged: (value) {
+                      setState(() {
+                        _sleepNotes = value.isEmpty ? null : value;
+                      });
+                    },
+                  ),
+                ],
                 const SizedBox(height: 16),
                 MetadataFormFields(
                   healthPlatform: _notifier.healthPlatform,

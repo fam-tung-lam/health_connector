@@ -29,7 +29,9 @@ import 'package:provider/provider.dart'
 /// Allows users to select and request multiple permissions at once.
 @immutable
 final class PermissionsPage extends StatelessWidget {
-  const PermissionsPage({super.key});
+  const PermissionsPage({required this.healthPlatform, super.key});
+
+  final HealthPlatform healthPlatform;
 
   @override
   Widget build(BuildContext context) {
@@ -144,25 +146,33 @@ final class PermissionsPage extends StatelessWidget {
                   ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                ...HealthDataType.values.expand(
-                  (dataType) => dataType.permissions
-                      .whereType<HealthDataPermission>()
-                      .map(
-                        (permission) => PermissionTile(
-                          permission: permission,
-                          displayName: permission.displayName,
-                          isSelected: notifier.isPermissionSelected(permission),
-                          permissionStatus: notifier.getPermissionStatus(
-                            permission,
-                          ),
-                          onChanged: (value) =>
-                              notifier.togglePermissionSelection(
+                ...HealthDataType.values
+                    .expand(
+                      (dataType) => dataType.permissions
+                          .whereType<HealthDataPermission>()
+                          .map(
+                            (permission) => PermissionTile(
+                              permission: permission,
+                              displayName: permission.displayName,
+                              isSelected: notifier.isPermissionSelected(
                                 permission,
-                                isSelected: value,
                               ),
-                        ),
+                              permissionStatus: notifier.getPermissionStatus(
+                                permission,
+                              ),
+                              onChanged: (value) =>
+                                  notifier.togglePermissionSelection(
+                                    permission,
+                                    isSelected: value,
+                                  ),
+                            ),
+                          ),
+                    )
+                    .where(
+                      (p) => p.permission.supportedHealthPlatforms.contains(
+                        healthPlatform,
                       ),
-                ),
+                    ),
                 const SizedBox(height: 24),
                 Text(
                   AppTexts.featurePermissions,

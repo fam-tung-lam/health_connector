@@ -21,7 +21,10 @@ import 'package:health_connector_core/health_connector_core.dart'
         MeasurementUnit,
         StepsHealthDataType,
         WeightHealthDataType,
-        WheelchairPushesHealthDataType;
+        WheelchairPushesHealthDataType,
+        SleepSessionHealthDataType,
+        SleepStageHealthDataType,
+        HealthPlatform;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/pages/date_time_range_page_state.dart';
@@ -40,7 +43,9 @@ import 'package:provider/provider.dart' show Provider, Selector;
 /// min, max, count), and time range. Displays the aggregation result in a card.
 @immutable
 final class AggregateHealthDataPage extends StatefulWidget {
-  const AggregateHealthDataPage({super.key});
+  const AggregateHealthDataPage({required this.healthPlatform, super.key});
+
+  final HealthPlatform healthPlatform;
 
   @override
   State<AggregateHealthDataPage> createState() =>
@@ -242,6 +247,32 @@ class _AggregateHealthDataPageState
             case AggregationMetric.count:
               throw UnsupportedError('Unsupported metric: $_selectedMetric');
           }
+        case SleepSessionHealthDataType():
+          switch (_selectedMetric!) {
+            case AggregationMetric.sum:
+              request = HealthDataType.sleepSession.aggregateSum(
+                startTime: startDateTime!,
+                endTime: endDateTime!,
+              );
+            case AggregationMetric.count:
+            case AggregationMetric.avg:
+            case AggregationMetric.min:
+            case AggregationMetric.max:
+              throw UnsupportedError('Unsupported metric: $_selectedMetric');
+          }
+        case SleepStageHealthDataType():
+          switch (_selectedMetric!) {
+            case AggregationMetric.sum:
+              request = HealthDataType.sleepStageRecord.aggregateSum(
+                startTime: startDateTime!,
+                endTime: endDateTime!,
+              );
+            case AggregationMetric.count:
+            case AggregationMetric.avg:
+            case AggregationMetric.min:
+            case AggregationMetric.max:
+              throw UnsupportedError('Unsupported metric: $_selectedMetric');
+          }
       }
 
       await notifier.aggregateHealthData(request);
@@ -308,8 +339,12 @@ class _AggregateHealthDataPageState
                         return null;
                       },
                       // Filter to only display data types with non-empty
-                      // supported aggregation metrics
+                      // supported aggregation metrics and
+                      // supported on the current platform
                       itemsFilter: (type) =>
+                          type.supportedHealthPlatforms.contains(
+                            widget.healthPlatform,
+                          ) &&
                           type.supportedAggregationMetrics.isNotEmpty,
                     ),
                     const SizedBox(height: 16),

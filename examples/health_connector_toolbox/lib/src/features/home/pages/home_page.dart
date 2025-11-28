@@ -61,7 +61,9 @@ final class HomePage extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (_) => Provider<HealthConnector>.value(
                               value: healthConnector,
-                              child: const PermissionsPage(),
+                              child: PermissionsPage(
+                                healthPlatform: healthConnector.healthPlatform,
+                              ),
                             ),
                           ),
                         );
@@ -127,7 +129,9 @@ final class HomePage extends StatelessWidget {
                               create: (_) => AggregateHealthDataChangeNotifier(
                                 healthConnector,
                               ),
-                              child: const AggregateHealthDataPage(),
+                              child: AggregateHealthDataPage(
+                                healthPlatform: healthConnector.healthPlatform,
+                              ),
                             ),
                           ),
                         );

@@ -22,7 +22,9 @@ import 'package:health_connector_core/health_connector_core.dart'
         Temperature,
         Volume,
         WeightHealthDataType,
-        WheelchairPushesHealthDataType;
+        WheelchairPushesHealthDataType,
+        SleepSessionHealthDataType,
+        SleepStageHealthDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -95,6 +97,12 @@ class _HealthValueFieldState extends State<HealthValueField> {
           HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
             'HeartRateSeriesRecordHealthDataType '
             'should use HeartRateSamplesFormField',
+          ),
+          SleepSessionHealthDataType() => throw UnsupportedError(
+            'SleepSessionHealthDataType requires custom form handling',
+          ),
+          SleepStageHealthDataType() => throw UnsupportedError(
+            'SleepStageHealthDataType requires custom form handling',
           ),
         };
       }
@@ -184,6 +192,12 @@ class _HealthValueFieldState extends State<HealthValueField> {
           'HeartRateSeriesRecordHealthDataType '
           'should use HeartRateSamplesFormField',
         ),
+        SleepSessionHealthDataType() => throw UnsupportedError(
+          'SleepSessionHealthDataType requires custom form handling',
+        ),
+        SleepStageHealthDataType() => throw UnsupportedError(
+          'SleepStageHealthDataType requires custom form handling',
+        ),
       };
     }
 
@@ -203,6 +217,12 @@ class _HealthValueFieldState extends State<HealthValueField> {
       HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
         'HeartRateSeriesRecordHealthDataType should '
         'use HeartRateSamplesFormField',
+      ),
+      SleepSessionHealthDataType() => throw UnsupportedError(
+        'SleepSessionHealthDataType requires custom form handling',
+      ),
+      SleepStageHealthDataType() => throw UnsupportedError(
+        'SleepStageHealthDataType requires custom form handling',
       ),
     };
 
@@ -281,6 +301,12 @@ class _HealthValueFieldState extends State<HealthValueField> {
         HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
           'HeartRateSeriesRecordHealthDataType should use '
           'HeartRateSamplesFormField',
+        ),
+        SleepSessionHealthDataType() => throw UnsupportedError(
+          'SleepSessionHealthDataType requires custom form handling',
+        ),
+        SleepStageHealthDataType() => throw UnsupportedError(
+          'SleepStageHealthDataType requires custom form handling',
         ),
       };
     }
@@ -430,6 +456,12 @@ class _HealthValueFieldState extends State<HealthValueField> {
       HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
         'HeartRateSeriesRecordHealthDataType should '
         'use HeartRateSamplesFormField',
+      ),
+      SleepSessionHealthDataType() => throw UnsupportedError(
+        'SleepSessionHealthDataType requires custom form handling',
+      ),
+      SleepStageHealthDataType() => throw UnsupportedError(
+        'SleepStageHealthDataType requires custom form handling',
       ),
     };
   }

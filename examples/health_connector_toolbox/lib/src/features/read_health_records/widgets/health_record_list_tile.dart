@@ -18,7 +18,11 @@ import 'package:health_connector_core/health_connector_core.dart'
         SeriesHealthRecord,
         StepRecord,
         WeightRecord,
-        WheelchairPushesRecord;
+        WheelchairPushesRecord,
+        SleepSessionRecord,
+        SleepStageRecord,
+        SleepStage,
+        SleepStageType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/theme/app_colors.dart'
@@ -29,6 +33,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/instant_health_record_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/interval_health_record_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/series_health_record_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/sleep_stages_list.dart';
 
 /// A widget that displays a health record in a list tile format.
 ///
@@ -288,6 +293,7 @@ final class HealthRecordListTile extends StatelessWidget {
   ) {
     return switch (record) {
       HeartRateSeriesRecord() => _buildSeriesRecord(context, record),
+      SleepSessionRecord() => _buildSeriesRecord(context, record),
       StepRecord() => IntervalHealthRecordTile<StepRecord>(
         record: record,
         icon: AppIcons.directionsWalk,
@@ -536,6 +542,7 @@ final class HealthRecordListTile extends StatelessWidget {
         ],
         onDelete: onDelete,
       ),
+      SleepStageRecord() => _buildSleepStageRecord(context, record),
     };
   }
 
@@ -548,7 +555,131 @@ final class HealthRecordListTile extends StatelessWidget {
         context,
         record,
       ),
+      SleepSessionRecord() => _buildSleepSessionRecord(
+        context,
+        record,
+      ),
     };
+  }
+
+  /// Maps a [SleepStageType] to its display string.
+  static String _getStageTypeDisplayName(SleepStageType type) {
+    return switch (type) {
+      SleepStageType.unknown => AppTexts.sleepStageUnknown,
+      SleepStageType.awake => AppTexts.sleepStageAwake,
+      SleepStageType.sleeping => AppTexts.sleepStageSleeping,
+      SleepStageType.outOfBed => AppTexts.sleepStageOutOfBed,
+      SleepStageType.light => AppTexts.sleepStageLight,
+      SleepStageType.deep => AppTexts.sleepStageDeep,
+      SleepStageType.rem => AppTexts.sleepStageRem,
+      SleepStageType.inBed => AppTexts.sleepStageInBed,
+    };
+  }
+
+  Widget _buildSleepStageRecord(
+    BuildContext context,
+    SleepStageRecord record,
+  ) {
+    final duration = record.duration;
+    final stageTypeName = _getStageTypeDisplayName(record.stageType);
+    return IntervalHealthRecordTile<SleepStageRecord>(
+      record: record,
+      icon: AppIcons.bedtime,
+      title: '$stageTypeName (${duration.inMinutes}m)',
+      subtitleBuilder: (r, ctx) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 4),
+            Text(
+              '${AppTexts.startLabel} '
+              '${DateFormatUtils.formatDateTime(r.startTime)}',
+            ),
+            Text(
+              '${AppTexts.endLabel} '
+              '${DateFormatUtils.formatDateTime(r.endTime)}',
+            ),
+            Text(
+              '${AppTexts.duration} ${duration.inHours}h '
+              '${duration.inMinutes.remainder(60)}m',
+              style: const TextStyle(
+                fontSize: 12,
+                color: theme.AppColors.grey600,
+              ),
+            ),
+          ],
+        );
+      },
+      detailRowsBuilder: (r, ctx) => [
+        HealthRecordDetailRow(
+          label: AppTexts.stageType,
+          value: _getStageTypeDisplayName(r.stageType),
+        ),
+        HealthRecordDetailRow(
+          label: AppTexts.duration,
+          value: '${duration.inHours}h ${duration.inMinutes.remainder(60)}m',
+        ),
+      ],
+      onDelete: onDelete,
+    );
+  }
+
+  Widget _buildSleepSessionRecord(
+    BuildContext context,
+    SleepSessionRecord record,
+  ) {
+    final totalSleepDuration = record.totalSleepDuration;
+    final duration = record.duration;
+    return SeriesHealthRecordTile<SleepSessionRecord, SleepStage>(
+      record: record,
+      icon: AppIcons.bedtime,
+      title:
+          '${totalSleepDuration.inHours}h '
+          '${totalSleepDuration.inMinutes.remainder(60)}m '
+          '${AppTexts.sleepStage.toLowerCase()}',
+      subtitleBuilder: (r, ctx) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 4),
+            Text(
+              '${AppTexts.startLabel} '
+              '${DateFormatUtils.formatDateTime(r.startTime)}',
+            ),
+            Text(
+              '${AppTexts.endLabel} '
+              '${DateFormatUtils.formatDateTime(r.endTime)}',
+            ),
+            Text(
+              '${AppTexts.duration} ${duration.inHours}h '
+              '${duration.inMinutes.remainder(60)}m',
+              style: const TextStyle(
+                fontSize: 12,
+                color: theme.AppColors.grey600,
+              ),
+            ),
+          ],
+        );
+      },
+      samplesBuilder: (stages, ctx) => SleepStagesList(stages: stages),
+      detailRowsBuilder: (r, ctx) => [
+        HealthRecordDetailRow(
+          label: AppTexts.duration,
+          value: '${duration.inHours}h ${duration.inMinutes.remainder(60)}m',
+        ),
+        HealthRecordDetailRow(
+          label: 'Total Sleep Duration',
+          value:
+              '${totalSleepDuration.inHours}h '
+              '${totalSleepDuration.inMinutes.remainder(60)}m',
+        ),
+        HealthRecordDetailRow(
+          label: 'Number of Stages',
+          value: r.samples.length.toString(),
+        ),
+      ],
+      onDelete: onDelete,
+    );
   }
 
   Widget _buildHeartRateSeriesRecord(

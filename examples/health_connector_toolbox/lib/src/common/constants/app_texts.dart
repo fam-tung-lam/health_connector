@@ -148,6 +148,19 @@ abstract final class AppTexts {
   static const String averageBpm = 'Average BPM';
   static const String minBpm = 'Min BPM';
   static const String maxBpm = 'Max BPM';
+  static const String sleepSession = 'Sleep Session';
+  static const String sleepSessionDescription =
+      'Sleep session with multiple sleep stages over a time interval';
+  static const String sleepStageRecord = 'Sleep Stage';
+  static const String sleepStageRecordDescription =
+      'Single sleep stage measurement over a time interval';
+  static const String sleepStages = 'Sleep Stages';
+  static const String sleepStage = 'Sleep Stage';
+  static const String stageType = 'Stage Type';
+  static const String addSleepStage = 'Add Sleep Stage';
+  static const String removeSleepStage = 'Remove Sleep Stage';
+  static const String atLeastOneSleepStageRequired =
+      'At least one sleep stage is required';
 
   // ==========================================================================
   // Device Types
@@ -303,6 +316,12 @@ abstract final class AppTexts {
   static const String writePermissionDeniedHeartRateRecord =
       'Write permission denied or not supported. '
       'Please grant write permission for heart rate.';
+  static const String writePermissionDeniedSleepSession =
+      'Write permission denied or not supported. '
+      'Please grant write permission for sleep session.';
+  static const String writePermissionDeniedSleepStageRecord =
+      'Write permission denied or not supported. '
+      'Please grant write permission for sleep stage.';
 
   // ==========================================================================
   // Validation Messages
@@ -381,6 +400,8 @@ abstract final class AppTexts {
   static const String insertWheelchairPushes = 'Insert Wheelchair Pushes';
   static const String insertHydration = 'Insert Hydration';
   static const String insertHeartRateRecord = 'Insert Heart Rate';
+  static const String insertSleepSession = 'Insert Sleep Session';
+  static const String insertSleepStageRecord = 'Insert Sleep Stage';
   static const String readHealthRecords = 'Read Health Records';
   static const String readAggregateData = 'Read Aggregate Data';
 
@@ -431,8 +452,12 @@ abstract final class AppTexts {
   // ==========================================================================
   // Sleep Stage Types
   // ==========================================================================
+  static const String sleepStageUnknown = 'Unknown';
   static const String sleepStageAwake = 'Awake';
+  static const String sleepStageSleeping = 'Sleeping';
+  static const String sleepStageOutOfBed = 'Out of Bed';
   static const String sleepStageLight = 'Light';
   static const String sleepStageDeep = 'Deep';
   static const String sleepStageRem = 'REM';
+  static const String sleepStageInBed = 'In Bed';
 }

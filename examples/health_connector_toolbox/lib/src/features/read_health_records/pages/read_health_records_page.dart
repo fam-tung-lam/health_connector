@@ -19,7 +19,9 @@ import 'package:health_connector_core/health_connector_core.dart'
         ReadRecordsRequest,
         StepsHealthDataType,
         WeightHealthDataType,
-        WheelchairPushesHealthDataType;
+        WheelchairPushesHealthDataType,
+        SleepSessionHealthDataType,
+        SleepStageHealthDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/pages/date_time_range_page_state.dart';
@@ -159,6 +161,18 @@ class _ReadHealthRecordsPageState
           );
         case HeartRateSeriesRecordHealthDataType():
           request = HealthDataType.heartRateSeriesRecord.readRecords(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          );
+        case SleepSessionHealthDataType():
+          request = HealthDataType.sleepSession.readRecords(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          );
+        case SleepStageHealthDataType():
+          request = HealthDataType.sleepStageRecord.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,

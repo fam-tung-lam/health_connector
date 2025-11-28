@@ -32,6 +32,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         StepsHealthDataType,
         WeightHealthDataType,
         WheelchairPushesHealthDataType,
+        SleepSessionHealthDataType,
+        SleepStageHealthDataType,
         BloodGlucose,
         Power,
         Pressure,
@@ -122,6 +124,8 @@ extension HealthDataTypeUI on HealthDataType {
       HydrationHealthDataType _ => AppTexts.hydration,
       HeartRateMeasurementRecordHealthDataType _ => AppTexts.heartRate,
       HeartRateSeriesRecordHealthDataType _ => AppTexts.heartRate,
+      SleepSessionHealthDataType _ => AppTexts.sleepSession,
+      SleepStageHealthDataType _ => AppTexts.sleepStageRecord,
     };
   }
 
@@ -148,6 +152,8 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.heartRateRecordDescription,
       HeartRateSeriesRecordHealthDataType _ =>
         AppTexts.heartRateSeriesRecordDescription,
+      SleepSessionHealthDataType _ => AppTexts.sleepSessionDescription,
+      SleepStageHealthDataType _ => AppTexts.sleepStageRecordDescription,
     };
   }
 
@@ -170,6 +176,8 @@ extension HealthDataTypeUI on HealthDataType {
       HydrationHealthDataType _ => AppIcons.volume,
       HeartRateMeasurementRecordHealthDataType _ => AppIcons.favorite,
       HeartRateSeriesRecordHealthDataType _ => AppIcons.favorite,
+      SleepSessionHealthDataType _ => AppIcons.bedtime,
+      SleepStageHealthDataType _ => AppIcons.bedtime,
     };
   }
 }

@@ -38,7 +38,13 @@ import 'package:health_connector_core/health_connector_core.dart'
         WeightHealthDataType,
         WeightRecord,
         WheelchairPushesHealthDataType,
-        WheelchairPushesRecord;
+        WheelchairPushesRecord,
+        SleepSessionRecord,
+        SleepSessionHealthDataType,
+        SleepStage,
+        SleepStageRecord,
+        SleepStageHealthDataType,
+        SleepStageType;
 
 /// Configuration for a health record write form.
 ///
@@ -90,7 +96,136 @@ sealed class HealthRecordFormConfig {
         const HeartRateMeasurementRecordFormConfig(),
       HeartRateSeriesRecordHealthDataType() =>
         const HeartRateSeriesRecordFormConfig(),
+      SleepStageHealthDataType() => const SleepStageRecordFormConfig(),
+      SleepSessionHealthDataType() => const SleepSessionRecordFormConfig(),
     };
+  }
+}
+
+/// Configuration for sleep stage records (iOS).
+///
+/// Sleep stage is an interval-based record that requires:
+/// - Start time
+/// - End time
+/// - Single sleep stage with type
+/// - Optional title and notes
+final class SleepStageRecordFormConfig extends HealthRecordFormConfig {
+  const SleepStageRecordFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    // This method signature doesn't support sleep stage data.
+    // The actual implementation will be handled in the write form page.
+    throw UnsupportedError(
+      'SleepStageRecordFormConfig.buildRecord() should not be called directly. '
+      'Use buildRecordWithStage() instead.',
+    );
+  }
+
+  /// Builds a [SleepStageRecord] from the provided form values with stage data.
+  ///
+  /// ## Parameters
+  ///
+  /// - [startDateTime]: The start date/time for the record
+  /// - [endDateTime]: The end date/time (required)
+  /// - [stageType]: The sleep stage
+  /// - [metadata]: The metadata for the record
+  /// - [title]: Optional title for the sleep stage
+  /// - [notes]: Optional notes for the sleep stage
+  ///
+  /// ## Returns
+  ///
+  /// A [SleepStageRecord] instance ready to be written.
+  SleepStageRecord buildRecordWithStage({
+    required DateTime startDateTime,
+    required DateTime endDateTime,
+    required SleepStageType stageType,
+    required Metadata metadata,
+    String? title,
+    String? notes,
+  }) {
+    return SleepStageRecord(
+      id: HealthRecordId.none,
+      startTime: startDateTime,
+      endTime: endDateTime,
+      stageType: stageType,
+      metadata: metadata,
+      title: title,
+      notes: notes,
+    );
+  }
+}
+
+/// Configuration for sleep session records (Android).
+///
+/// Sleep session is an interval-based record that requires:
+/// - Start time
+/// - End time (derived from start time + duration)
+/// - List of sleep stages with start/end times and stage types
+/// - Optional title and notes
+///
+/// Note: This config requires special handling in the form page as it needs
+/// a list of stages rather than a single value.
+final class SleepSessionRecordFormConfig extends HealthRecordFormConfig {
+  const SleepSessionRecordFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    // This method signature doesn't support stages list.
+    // The actual implementation will be handled in the write form page.
+    throw UnsupportedError(
+      'SleepSessionRecordFormConfig.buildRecord() should not be called '
+      'directly. Use buildRecordWithStages() instead.',
+    );
+  }
+
+  /// Builds a [SleepSessionRecord] from the provided form values with stages.
+  ///
+  /// ## Parameters
+  ///
+  /// - [startDateTime]: The start date/time for the record
+  /// - [endDateTime]: The end date/time (required)
+  /// - [stages]: The list of sleep stages
+  /// - [metadata]: The metadata for the record
+  /// - [title]: Optional title for the sleep session
+  /// - [notes]: Optional notes for the sleep session
+  ///
+  /// ## Returns
+  ///
+  /// A [SleepSessionRecord] instance ready to be written.
+  SleepSessionRecord buildRecordWithStages({
+    required DateTime startDateTime,
+    required DateTime endDateTime,
+    required List<SleepStage> stages,
+    required Metadata metadata,
+    String? title,
+    String? notes,
+  }) {
+    return SleepSessionRecord(
+      id: HealthRecordId.none,
+      startTime: startDateTime,
+      endTime: endDateTime,
+      samples: stages,
+      metadata: metadata,
+      title: title,
+      notes: notes,
+    );
   }
 }
 
@@ -495,12 +630,13 @@ final class HeartRateSeriesRecordFormConfig extends HealthRecordFormConfig {
     // This method signature doesn't support samples list.
     // The actual implementation will be handled in the write form page.
     throw UnsupportedError(
-      'HeartRateSeriesRecordFormConfig.buildRecord() should not be called directly. '
-      'Use buildRecordWithSamples() instead.',
+      'HeartRateSeriesRecordFormConfig.buildRecord() should not be '
+      'called directly. Use buildRecordWithSamples() instead.',
     );
   }
 
-  /// Builds a [HeartRateSeriesRecord] from the provided form values with samples.
+  /// Builds a [HeartRateSeriesRecord] from the provided form values with
+  /// samples.
   ///
   /// ## Parameters
   ///
