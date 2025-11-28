@@ -8,6 +8,7 @@ import androidx.health.connect.client.records.FloorsClimbedRecord
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
+import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
 import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.StepsRecord
@@ -36,6 +37,7 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
         HealthDataTypeDto.WEIGHT -> WeightRecord::class
         HealthDataTypeDto.WHEELCHAIR_PUSHES -> WheelchairPushesRecord::class
         HealthDataTypeDto.HEART_RATE_SERIES_RECORD -> HeartRateRecord::class
+        HealthDataTypeDto.SLEEP_SESSION -> SleepSessionRecord::class
     }
 }
 

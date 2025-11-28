@@ -11,11 +11,13 @@ import 'package:health_connector_core/health_connector_core.dart'
         HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
         HydrationHealthDataType,
+        SleepSessionHealthDataType,
         LeanBodyMassHealthDataType,
         MeasurementUnit,
         StepsHealthDataType,
         WeightHealthDataType,
-        WheelchairPushesHealthDataType;
+        WheelchairPushesHealthDataType,
+        SleepStageHealthDataType;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_platform_api.g.dart'
     show HealthDataTypeDto;
 import 'package:meta/meta.dart' show internal;
@@ -49,6 +51,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.wheelchairPushes;
       case HealthDataTypeDto.heartRateSeriesRecord:
         return HealthDataType.heartRateSeriesRecord;
+      case HealthDataTypeDto.sleepSession:
+        return HealthDataType.sleepSession;
     }
   }
 }
@@ -82,10 +86,17 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.wheelchairPushes;
       case HeartRateSeriesRecordHealthDataType _:
         return HealthDataTypeDto.heartRateSeriesRecord;
+      case SleepSessionHealthDataType _:
+        return HealthDataTypeDto.sleepSession;
+      case SleepStageHealthDataType _:
+        throw UnsupportedError(
+          '$SleepStageHealthDataType is not supported on Android. '
+          'Use $SleepSessionHealthDataType instead.',
+        );
       case HeartRateMeasurementRecordHealthDataType _:
         throw UnsupportedError(
-          'HeartRateMeasurementRecordHealthDataType is not supported on Android. '
-          'Use HeartRateSeriesRecordHealthDataType instead.',
+          '$HeartRateMeasurementRecordHealthDataType is not supported on '
+          'Android. Use $HeartRateSeriesRecordHealthDataType instead.',
         );
     }
   }

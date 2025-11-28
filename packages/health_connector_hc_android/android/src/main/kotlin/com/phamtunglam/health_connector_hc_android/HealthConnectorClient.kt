@@ -11,6 +11,7 @@ import androidx.health.connect.client.records.FloorsClimbedRecord
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
+import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
 import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.StepsRecord
@@ -321,7 +322,9 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         leanBodyMassRecord = null,
                         stepsRecord = null,
                         weightRecord = null,
-                        wheelchairPushesRecord = null
+                        wheelchairPushesRecord = null,
+                        heartRateSeriesRecord = null,
+                        sleepSessionRecord = null
                     )
                 }
 
@@ -339,7 +342,9 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         leanBodyMassRecord = null,
                         stepsRecord = null,
                         weightRecord = null,
-                        wheelchairPushesRecord = null
+                        wheelchairPushesRecord = null,
+                        heartRateSeriesRecord = null,
+                        sleepSessionRecord = null
                     )
                 }
 
@@ -375,7 +380,9 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         leanBodyMassRecord = null,
                         stepsRecord = record.toDto(),
                         weightRecord = null,
-                        wheelchairPushesRecord = null
+                        wheelchairPushesRecord = null,
+                        heartRateSeriesRecord = null,
+                        sleepSessionRecord = null
                     )
                 }
 
@@ -393,7 +400,9 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         leanBodyMassRecord = null,
                         stepsRecord = null,
                         weightRecord = record.toDto(),
-                        wheelchairPushesRecord = null
+                        wheelchairPushesRecord = null,
+                        heartRateSeriesRecord = null,
+                        sleepSessionRecord = null
                     )
                 }
 
@@ -411,7 +420,9 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         leanBodyMassRecord = null,
                         stepsRecord = null,
                         weightRecord = null,
-                        wheelchairPushesRecord = null
+                        wheelchairPushesRecord = null,
+                        heartRateSeriesRecord = null,
+                        sleepSessionRecord = null
                     )
                 }
 
@@ -429,7 +440,9 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         leanBodyMassRecord = null,
                         stepsRecord = null,
                         weightRecord = null,
-                        wheelchairPushesRecord = null
+                        wheelchairPushesRecord = null,
+                        heartRateSeriesRecord = null,
+                        sleepSessionRecord = null
                     )
                 }
 
@@ -447,7 +460,9 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         leanBodyMassRecord = record.toDto(),
                         stepsRecord = null,
                         weightRecord = null,
-                        wheelchairPushesRecord = null
+                        wheelchairPushesRecord = null,
+                        heartRateSeriesRecord = null,
+                        sleepSessionRecord = null
                     )
                 }
 
@@ -465,7 +480,9 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         leanBodyMassRecord = null,
                         stepsRecord = null,
                         weightRecord = null,
-                        wheelchairPushesRecord = null
+                        wheelchairPushesRecord = null,
+                        heartRateSeriesRecord = null,
+                        sleepSessionRecord = null
                     )
                 }
 
@@ -483,7 +500,9 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         leanBodyMassRecord = null,
                         stepsRecord = null,
                         weightRecord = null,
-                        wheelchairPushesRecord = null
+                        wheelchairPushesRecord = null,
+                        heartRateSeriesRecord = null,
+                        sleepSessionRecord = null
                     )
                 }
 
@@ -502,7 +521,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         stepsRecord = null,
                         weightRecord = null,
                         wheelchairPushesRecord = record.toDto(),
-                        heartRateSeriesRecord = null
+                        heartRateSeriesRecord = null,
+                        sleepSessionRecord = null
                     )
                 }
 
@@ -521,7 +541,28 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         stepsRecord = null,
                         weightRecord = null,
                         wheelchairPushesRecord = null,
-                        heartRateSeriesRecord = record.toDto()
+                        heartRateSeriesRecord = record.toDto(),
+                        sleepSessionRecord = null
+                    )
+                }
+
+                HealthDataTypeDto.SLEEP_SESSION -> {
+                    val record = response.record as SleepSessionRecord
+                    ReadRecordResponseDto(
+                        dataType = HealthDataTypeDto.SLEEP_SESSION,
+                        activeCaloriesBurnedRecord = null,
+                        bodyFatPercentageRecord = null,
+                        bodyTemperatureRecord = null,
+                        distanceRecord = null,
+                        floorsClimbedRecord = null,
+                        heightRecord = null,
+                        hydrationRecord = null,
+                        leanBodyMassRecord = null,
+                        stepsRecord = null,
+                        weightRecord = null,
+                        wheelchairPushesRecord = null,
+                        heartRateSeriesRecord = null,
+                        sleepSessionRecord = record.toDto()
                     )
                 }
             }
@@ -625,6 +666,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         stepsRecords = null,
                         weightRecords = null,
                         wheelchairPushesRecords = null,
+                        heartRateSeriesRecords = null,
+                        sleepSessionRecords = null,
                         nextPageToken = nextPageToken
                     )
                 }
@@ -847,6 +890,29 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         weightRecords = null,
                         wheelchairPushesRecords = null,
                         heartRateSeriesRecords = heartRateSeriesRecords,
+                        sleepSessionRecords = null,
+                        nextPageToken = nextPageToken
+                    )
+                }
+
+                HealthDataTypeDto.SLEEP_SESSION -> {
+                    val sleepSessionRecords = response.records.map { (it as SleepSessionRecord).toDto() }
+
+                    ReadRecordsResponseDto(
+                        dataType = HealthDataTypeDto.SLEEP_SESSION,
+                        activeCaloriesBurnedRecords = null,
+                        bodyFatPercentageRecords = null,
+                        bodyTemperatureRecords = null,
+                        distanceRecords = null,
+                        floorsClimbedRecords = null,
+                        heightRecords = null,
+                        hydrationRecords = null,
+                        leanBodyMassRecords = null,
+                        stepsRecords = null,
+                        weightRecords = null,
+                        wheelchairPushesRecords = null,
+                        heartRateSeriesRecords = null,
+                        sleepSessionRecords = sleepSessionRecords,
                         nextPageToken = nextPageToken
                     )
                 }
@@ -969,6 +1035,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 HealthDataTypeDto.HEART_RATE_SERIES_RECORD -> {
                     requireNotNull(request.heartRateSeriesRecord) { "heartRateSeriesRecord must not be null for HEART_RATE_SERIES_RECORD type" }
                     request.heartRateSeriesRecord.toHealthConnect()
+                }
+
+                HealthDataTypeDto.SLEEP_SESSION -> {
+                    requireNotNull(request.sleepSessionRecord) { "sleepSessionRecord must not be null for SLEEP_SESSION type" }
+                    request.sleepSessionRecord.toHealthConnect()
                 }
             }
 
@@ -1094,6 +1165,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     HealthDataTypeDto.HEART_RATE_SERIES_RECORD -> {
                         requireNotNull(request.heartRateSeriesRecords) { "heartRateSeriesRecords must not be null for HEART_RATE_SERIES_RECORD type" }
                         request.heartRateSeriesRecords.map { it.toHealthConnect() }
+                    }
+
+                    HealthDataTypeDto.SLEEP_SESSION -> {
+                        requireNotNull(request.sleepSessionRecords) { "sleepSessionRecords must not be null for SLEEP_SESSION type" }
+                        request.sleepSessionRecords.map { it.toHealthConnect() }
                     }
                 }
             }.flatten()
@@ -1304,6 +1380,18 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         )
                     }
                     heartRateSeriesRecord.toHealthConnect()
+                }
+
+                HealthDataTypeDto.SLEEP_SESSION -> {
+                    requireNotNull(request.sleepSessionRecord) { "sleepSessionRecord must not be null for SLEEP_SESSION type" }
+                    val sleepSessionRecord = request.sleepSessionRecord
+                    // Validate record ID is not empty or "none"
+                    if (sleepSessionRecord.id.isEmpty() || sleepSessionRecord.id == "none") {
+                        throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
+                            details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
+                        )
+                    }
+                    sleepSessionRecord.toHealthConnect()
                 }
             }
 
@@ -1573,7 +1661,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         massValue = null,
                         lengthValue = null,
                         wheelchairPushesValue = numericDto,
-                        heartRateBeatsPerMinuteValue = null
+                        heartRateBeatsPerMinuteValue = null,
+                        sleepSessionValue = null
                     )
                 }
 
@@ -1591,7 +1680,29 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                         massValue = null,
                         lengthValue = null,
                         wheelchairPushesValue = null,
-                        heartRateBeatsPerMinuteValue = numericDto
+                        heartRateBeatsPerMinuteValue = numericDto,
+                        sleepSessionValue = null
+                    )
+                }
+
+                HealthDataTypeDto.SLEEP_SESSION -> {
+                    // Sleep duration is returned as Duration, convert to seconds
+                    val duration = aggregatedValue?.let { it as? java.time.Duration }
+                    val seconds = duration?.seconds?.toDouble() ?: 0.0
+                    val numericDto = seconds.toNumericDto()
+                    AggregateResponseDto(
+                        aggregationMetric = request.aggregationMetric,
+                        dataType = request.dataType,
+                        activeCaloriesBurnedValue = null,
+                        bodyTemperatureValue = null,
+                        doubleValue = null,
+                        hydrationValue = null,
+                        leanBodyMassValue = null,
+                        massValue = null,
+                        lengthValue = null,
+                        wheelchairPushesValue = null,
+                        heartRateBeatsPerMinuteValue = null,
+                        sleepSessionValue = numericDto
                     )
                 }
 

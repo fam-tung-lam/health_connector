@@ -11,6 +11,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         HeartRateSeriesRecord,
         HeightRecord,
         HydrationRecord,
+        SleepSessionRecord,
+        SleepStageRecord,
         LeanBodyMassRecord,
         MeasurementUnit,
         ReadRecordRequest,
@@ -147,10 +149,20 @@ extension HealthRecordToWriteRequestDto on HealthRecord {
           dataType: HealthDataTypeDto.heartRateSeriesRecord,
           heartRateSeriesRecord: record.toDto(),
         );
+      case final SleepSessionRecord record:
+        return WriteRecordRequestDto(
+          dataType: HealthDataTypeDto.sleepSession,
+          sleepSessionRecord: record.toDto(),
+        );
+      case final SleepStageRecord _:
+        throw UnsupportedError(
+          '$SleepStageRecord is not supported on Android. '
+          'Use $SleepSessionRecord instead.',
+        );
       case final HeartRateMeasurementRecord _:
         throw UnsupportedError(
-          'HeartRateMeasurementRecord is not supported on Android. '
-          'Use HeartRateSeriesRecord instead.',
+          '$HeartRateMeasurementRecord is not supported on Android. '
+          'Use $HeartRateSeriesRecord instead.',
         );
     }
   }
@@ -221,10 +233,20 @@ extension HealthRecordToUpdateRequestDto on HealthRecord {
           dataType: HealthDataTypeDto.heartRateSeriesRecord,
           heartRateSeriesRecord: record.toDto(),
         );
+      case final SleepSessionRecord record:
+        return UpdateRecordRequestDto(
+          dataType: HealthDataTypeDto.sleepSession,
+          sleepSessionRecord: record.toDto(),
+        );
+      case final SleepStageRecord _:
+        throw UnsupportedError(
+          '$SleepStageRecord is not supported on Android. '
+          'Use $SleepSessionRecord instead.',
+        );
       case final HeartRateMeasurementRecord _:
         throw UnsupportedError(
-          'HeartRateMeasurementRecord is not supported on Android. '
-          'Use HeartRateSeriesRecord instead.',
+          '$HeartRateMeasurementRecord is not supported on Android. '
+          'Use $HeartRateSeriesRecord instead.',
         );
     }
   }
@@ -251,6 +273,7 @@ extension HealthRecordListToWriteRequestDto on List<HealthRecord> {
     final weightRecords = <WeightRecord>[];
     final wheelchairPushesRecords = <WheelchairPushesRecord>[];
     final heartRateSeriesRecords = <HeartRateSeriesRecord>[];
+    final sleepSessionRecords = <SleepSessionRecord>[];
     final dataTypes = <HealthDataTypeDto>[];
 
     for (final record in this) {
@@ -315,10 +338,20 @@ extension HealthRecordListToWriteRequestDto on List<HealthRecord> {
           if (!dataTypes.contains(HealthDataTypeDto.heartRateSeriesRecord)) {
             dataTypes.add(HealthDataTypeDto.heartRateSeriesRecord);
           }
+        case final SleepSessionRecord sleepSessionRecord:
+          sleepSessionRecords.add(sleepSessionRecord);
+          if (!dataTypes.contains(HealthDataTypeDto.sleepSession)) {
+            dataTypes.add(HealthDataTypeDto.sleepSession);
+          }
+        case final SleepStageRecord _:
+          throw UnsupportedError(
+            '$SleepStageRecord is not supported on Android. '
+            'Use $SleepSessionRecord instead.',
+          );
         case final HeartRateMeasurementRecord _:
           throw UnsupportedError(
-            'HeartRateMeasurementRecord is not supported on Android. '
-            'Use HeartRateSeriesRecord instead.',
+            '$HeartRateMeasurementRecord is not supported on Android. '
+            'Use $HeartRateSeriesRecord instead.',
           );
       }
     }
@@ -361,6 +394,9 @@ extension HealthRecordListToWriteRequestDto on List<HealthRecord> {
       heartRateSeriesRecords: heartRateSeriesRecords.isEmpty
           ? null
           : heartRateSeriesRecords.map((r) => r.toDto()).toList(),
+      sleepSessionRecords: sleepSessionRecords.isEmpty
+          ? null
+          : sleepSessionRecords.map((r) => r.toDto()).toList(),
     );
   }
 }

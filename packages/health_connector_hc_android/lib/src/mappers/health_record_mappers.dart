@@ -9,11 +9,14 @@ import 'package:health_connector_core/health_connector_core.dart'
         HeartRateMeasurement,
         HeartRateSeriesRecord,
         HeightRecord,
+        SleepSessionRecord,
         HydrationRecord,
         LeanBodyMassRecord,
         StepRecord,
         WeightRecord,
-        WheelchairPushesRecord;
+        WheelchairPushesRecord,
+        SleepStageType,
+        SleepStage;
 import 'package:health_connector_hc_android/src/mappers/'
     'measurement_unit_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers.dart';
@@ -27,11 +30,14 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_platform
         HeartRateMeasurementDto,
         HeartRateSeriesRecordDto,
         HeightRecordDto,
+        SleepSessionRecordDto,
         HydrationRecordDto,
         LeanBodyMassRecordDto,
         StepRecordDto,
         WeightRecordDto,
-        WheelchairPushesRecordDto;
+        WheelchairPushesRecordDto,
+        SleepStageTypeDto,
+        SleepStageDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [HealthRecordId] to [String] for DTO transfer.
@@ -434,6 +440,92 @@ extension HeartRateSeriesRecordDtoToDomain on HeartRateSeriesRecordDto {
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
       samples: samples.map((s) => s.toDomain()).toList(),
+    );
+  }
+}
+
+extension SleepStageTypeDomainToDto on SleepStageType {
+  SleepStageTypeDto toDto() {
+    return switch (this) {
+      SleepStageType.unknown => SleepStageTypeDto.unknown,
+      SleepStageType.awake => SleepStageTypeDto.awake,
+      SleepStageType.sleeping => SleepStageTypeDto.sleeping,
+      SleepStageType.outOfBed => SleepStageTypeDto.outOfBed,
+      SleepStageType.light => SleepStageTypeDto.light,
+      SleepStageType.deep => SleepStageTypeDto.deep,
+      SleepStageType.rem => SleepStageTypeDto.rem,
+      SleepStageType.inBed => SleepStageTypeDto.inBed,
+    };
+  }
+}
+
+extension SleepStageTypeDtoToDomain on SleepStageTypeDto {
+  SleepStageType toDomain() {
+    return switch (this) {
+      SleepStageTypeDto.unknown => SleepStageType.unknown,
+      SleepStageTypeDto.awake => SleepStageType.awake,
+      SleepStageTypeDto.sleeping => SleepStageType.sleeping,
+      SleepStageTypeDto.outOfBed => SleepStageType.outOfBed,
+      SleepStageTypeDto.light => SleepStageType.light,
+      SleepStageTypeDto.deep => SleepStageType.deep,
+      SleepStageTypeDto.rem => SleepStageType.rem,
+      SleepStageTypeDto.inBed => SleepStageType.inBed,
+    };
+  }
+}
+
+extension SleepStageDomainToDto on SleepStage {
+  SleepStageDto toDto() {
+    return SleepStageDto(
+      startTime: startTime.millisecondsSinceEpoch,
+      endTime: endTime.millisecondsSinceEpoch,
+      stage: stageType.toDto(),
+    );
+  }
+}
+
+extension SleepStageDtoToDomain on SleepStageDto {
+  SleepStage toDomain() {
+    return SleepStage(
+      startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
+      endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
+      stageType: stage.toDomain(),
+    );
+  }
+}
+
+/// Converts [SleepSessionRecord] to [SleepSessionRecordDto].
+@internal
+extension SleepSessionRecordDomainToDto on SleepSessionRecord {
+  SleepSessionRecordDto toDto() {
+    return SleepSessionRecordDto(
+      id: id.toDto(),
+      startTime: startTime.millisecondsSinceEpoch,
+      endTime: endTime.millisecondsSinceEpoch,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      metadata: metadata.toDto(),
+      title: title,
+      notes: notes,
+      stages: samples.map((s) => s.toDto()).toList(),
+    );
+  }
+}
+
+/// Converts [SleepSessionRecordDto] to [SleepSessionRecord].
+@internal
+extension SleepSessionRecordDtoToDomain on SleepSessionRecordDto {
+  SleepSessionRecord toDomain() {
+    return SleepSessionRecord(
+      id: id.toHealthRecordId(),
+      startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
+      endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      metadata: metadata.toDomain(),
+      samples: stages.map((s) => s.toDomain()).toList(),
+      title: title,
+      notes: notes,
     );
   }
 }

@@ -11,6 +11,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         HeartRateMeasurementRecordHealthDataType,
         HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
+        SleepSessionHealthDataType,
+        SleepStageHealthDataType,
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
         StepsHealthDataType,
@@ -214,10 +216,29 @@ extension ReadRecordsResponseDtoToDomain on ReadRecordsResponseDto {
             .cast<R>()
             .toList();
 
+      case SleepSessionHealthDataType _:
+        final sleepSessionRecords = responseDto.sleepSessionRecords;
+        if (sleepSessionRecords == null) {
+          throw HealthConnectorException(
+            HealthConnectorErrorCode.parsingError,
+            'Expected `sleepSessionRecords` but got null in '
+            'ReadRecordsResponseDto for dataType: $dataType',
+          );
+        }
+        return sleepSessionRecords
+            .map((dto) => dto.toDomain())
+            .cast<R>()
+            .toList();
+
+      case SleepStageHealthDataType _:
+        throw UnsupportedError(
+          '$SleepStageHealthDataType is not supported on Android. '
+          'Use $SleepSessionHealthDataType instead.',
+        );
       case HeartRateMeasurementRecordHealthDataType _:
         throw UnsupportedError(
-          'HeartRateMeasurementRecordHealthDataType is not supported on Android. '
-          'Use HeartRateSeriesRecordHealthDataType instead.',
+          '$HeartRateMeasurementRecordHealthDataType is not supported on'
+          ' Android. Use $HeartRateSeriesRecordHealthDataType instead.',
         );
     }
   }
@@ -377,10 +398,26 @@ extension AggregateResponseDtoToDomain on AggregateResponseDto {
         }
         return value.toDomain() as U;
 
+      case SleepSessionHealthDataType _:
+        final value = sleepSessionValue;
+        if (value == null) {
+          throw HealthConnectorException(
+            HealthConnectorErrorCode.parsingError,
+            'Expected sleepSessionValue but got null in '
+            'AggregateResponseDto for dataType: $dataType',
+          );
+        }
+        return value.toDomain() as U;
+
+      case SleepStageHealthDataType _:
+        throw UnsupportedError(
+          '$SleepStageHealthDataType is not supported on Android. '
+          'Use $SleepSessionHealthDataType instead.',
+        );
       case HeartRateMeasurementRecordHealthDataType _:
         throw UnsupportedError(
-          'HeartRateMeasurementRecordHealthDataType is not supported on Android. '
-          'Use HeartRateSeriesRecordHealthDataType instead.',
+          '$HeartRateMeasurementRecordHealthDataType is not supported on'
+          ' Android. Use $HeartRateSeriesRecordHealthDataType instead.',
         );
     }
   }
@@ -525,10 +562,26 @@ extension ReadRecordResponseDtoToDomain on ReadRecordResponseDto {
         }
         return record.toDomain() as R;
 
+      case SleepSessionHealthDataType _:
+        final record = sleepSessionRecord;
+        if (record == null) {
+          throw HealthConnectorException(
+            HealthConnectorErrorCode.parsingError,
+            'Expected sleepSessionRecord but got null in '
+            'ReadRecordResponseDto for dataType: $dataType',
+          );
+        }
+        return record.toDomain() as R;
+
+      case SleepStageHealthDataType _:
+        throw UnsupportedError(
+          '$SleepStageHealthDataType is not supported on Android. '
+          'Use $SleepSessionHealthDataType instead.',
+        );
       case HeartRateMeasurementRecordHealthDataType _:
         throw UnsupportedError(
-          'HeartRateMeasurementRecordHealthDataType is not supported on Android. '
-          'Use HeartRateSeriesRecordHealthDataType instead.',
+          '$HeartRateMeasurementRecordHealthDataType is not supported on'
+          ' Android. Use $HeartRateSeriesRecordHealthDataType instead.',
         );
     }
   }

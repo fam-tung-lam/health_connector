@@ -184,8 +184,11 @@ enum HealthDataTypeDto {
   /// Hydration (water intake) data.
   hydration,
 
-  /// Heart rate series record data (Android).
+  /// Heart rate series record data.
   heartRateSeriesRecord,
+
+  /// Sleep session data.
+  sleepSession,
 }
 
 /// Represents the status of the health platform on the device.
@@ -975,7 +978,7 @@ class HeartRateMeasurementDto {
   final NumericDto beatsPerMinute;
 }
 
-/// Represents a heart rate series record for platform transfer (Android).
+/// Represents a heart rate series record for platform transfer.
 ///
 /// Maps to:
 /// - Health Connect:
@@ -1015,6 +1018,61 @@ class HeartRateSeriesRecordDto {
 
   /// Timezone offset in seconds for end time (optional).
   final int? endZoneOffsetSeconds;
+}
+
+/// Sleep stage type enum.
+enum SleepStageTypeDto {
+  unknown,
+  awake,
+  sleeping,
+  outOfBed,
+  light,
+  deep,
+  rem,
+  inBed,
+}
+
+/// DTO for a sleep stage value.
+class SleepStageDto {
+  SleepStageDto({
+    required this.startTime,
+    required this.endTime,
+    required this.stage,
+  });
+
+  /// Start time (milliseconds since epoch).
+  final int startTime;
+
+  /// End time (milliseconds since epoch).
+  final int endTime;
+
+  /// The sleep stage type.
+  final SleepStageTypeDto stage;
+}
+
+/// DTO for sleep session.
+class SleepSessionRecordDto {
+  SleepSessionRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.startTime,
+    required this.endTime,
+    required this.stages,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+    this.title,
+    this.notes,
+  });
+
+  final String id;
+  final MetadataDto metadata;
+  final int startTime;
+  final int endTime;
+  final int? startZoneOffsetSeconds;
+  final int? endZoneOffsetSeconds;
+  final String? title;
+  final String? notes;
+  final List<SleepStageDto> stages;
 }
 
 // ============================================================================
@@ -1062,6 +1120,7 @@ class AggregateResponseDto {
     this.massValue,
     this.wheelchairPushesValue,
     this.heartRateBeatsPerMinuteValue,
+    this.sleepSessionValue,
   });
 
   /// The type of aggregation that was performed.
@@ -1105,6 +1164,10 @@ class AggregateResponseDto {
   /// Heart rate series record aggregated value
   /// (non-null when dataType == HEART_RATE_SERIES_RECORD).
   final NumericDto? heartRateBeatsPerMinuteValue;
+
+  /// Sleep session aggregated value
+  /// (non-null when dataType == SLEEP_SESSION).
+  final NumericDto? sleepSessionValue;
 
   // Future value types will be added here as they are implemented
 }
@@ -1175,6 +1238,7 @@ class ReadRecordResponseDto {
     this.weightRecord,
     this.wheelchairPushesRecord,
     this.heartRateSeriesRecord,
+    this.sleepSessionRecord,
   });
 
   /// The type of health data that was read.
@@ -1227,6 +1291,10 @@ class ReadRecordResponseDto {
   /// Heart rate series record
   /// (non-null when dataType == HEART_RATE_SERIES_RECORD).
   final HeartRateSeriesRecordDto? heartRateSeriesRecord;
+
+  /// Sleep session record
+  /// (non-null when dataType == SLEEP_SESSION).
+  final SleepSessionRecordDto? sleepSessionRecord;
 
   // Future record types will be added here as they are implemented
 }
@@ -1282,6 +1350,7 @@ class ReadRecordsResponseDto {
     this.weightRecords,
     this.wheelchairPushesRecords,
     this.heartRateSeriesRecords,
+    this.sleepSessionRecords,
     this.nextPageToken,
   });
 
@@ -1339,6 +1408,10 @@ class ReadRecordsResponseDto {
   /// (non-null when dataType == HEART_RATE_SERIES_RECORD).
   final List<HeartRateSeriesRecordDto>? heartRateSeriesRecords;
 
+  /// List of sleep session records
+  /// (non-null when dataType == SLEEP_SESSION).
+  final List<SleepSessionRecordDto>? sleepSessionRecords;
+
   // Future record types will be added here as they are implemented
 }
 
@@ -1363,6 +1436,7 @@ class WriteRecordRequestDto {
     this.weightRecord,
     this.wheelchairPushesRecord,
     this.heartRateSeriesRecord,
+    this.sleepSessionRecord,
   });
 
   /// The type of health data being written.
@@ -1416,6 +1490,10 @@ class WriteRecordRequestDto {
   /// (only non-null when dataType == HEART_RATE_SERIES_RECORD).
   final HeartRateSeriesRecordDto? heartRateSeriesRecord;
 
+  /// Sleep session record
+  /// (only non-null when dataType == SLEEP_SESSION).
+  final SleepSessionRecordDto? sleepSessionRecord;
+
   // Future record types will be added here as they are implemented
 }
 
@@ -1447,6 +1525,7 @@ class WriteRecordsRequestDto {
     this.weightRecords,
     this.wheelchairPushesRecords,
     this.heartRateSeriesRecords,
+    this.sleepSessionRecords,
   });
 
   /// The types of health data being written.
@@ -1503,6 +1582,10 @@ class WriteRecordsRequestDto {
   /// (non-null when dataTypes contains HEART_RATE_SERIES_RECORD).
   final List<HeartRateSeriesRecordDto>? heartRateSeriesRecords;
 
+  /// List of sleep session records
+  /// (non-null when dataTypes contains SLEEP_SESSION).
+  final List<SleepSessionRecordDto>? sleepSessionRecords;
+
   // Future record types will be added here as they are implemented
 }
 
@@ -1539,6 +1622,7 @@ class UpdateRecordRequestDto {
     this.weightRecord,
     this.wheelchairPushesRecord,
     this.heartRateSeriesRecord,
+    this.sleepSessionRecord,
   });
 
   /// The type of health data being updated.
@@ -1603,6 +1687,11 @@ class UpdateRecordRequestDto {
   /// (only non-null when dataType == HEART_RATE_SERIES_RECORD).
   /// The record must have a valid existing ID.
   final HeartRateSeriesRecordDto? heartRateSeriesRecord;
+
+  /// Sleep session record
+  /// (only non-null when dataType == SLEEP_SESSION).
+  /// The record must have a valid existing ID.
+  final SleepSessionRecordDto? sleepSessionRecord;
 
   // Future record types will be added here as they are implemented
 }

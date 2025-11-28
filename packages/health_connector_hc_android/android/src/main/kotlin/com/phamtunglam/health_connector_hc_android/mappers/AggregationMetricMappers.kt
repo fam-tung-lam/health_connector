@@ -11,6 +11,7 @@ import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
 import androidx.health.connect.client.records.HeartRateRecord
+import androidx.health.connect.client.records.SleepSessionRecord
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 
@@ -107,6 +108,16 @@ internal fun AggregationMetricDto.toHealthConnectMetric(dataType: HealthDataType
         HealthDataTypeDto.WHEELCHAIR_PUSHES -> {
             when (this) {
                 AggregationMetricDto.SUM -> WheelchairPushesRecord.COUNT_TOTAL
+                AggregationMetricDto.AVG,
+                AggregationMetricDto.MIN,
+                AggregationMetricDto.MAX,
+                AggregationMetricDto.COUNT -> throw IllegalArgumentException("${this.name} not directly supported for ${dataType.name}.")
+            }
+        }
+
+        HealthDataTypeDto.SLEEP_SESSION -> {
+            when (this) {
+                AggregationMetricDto.SUM -> SleepSessionRecord.SLEEP_DURATION_TOTAL
                 AggregationMetricDto.AVG,
                 AggregationMetricDto.MIN,
                 AggregationMetricDto.MAX,
