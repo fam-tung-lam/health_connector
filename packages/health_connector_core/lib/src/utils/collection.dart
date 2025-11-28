@@ -1,9 +1,12 @@
+import 'package:health_connector_annotation/health_connector_annotation.dart'
+    show sinceV1_0_0;
 import 'package:meta/meta.dart' show internal;
 
 /// Utility extensions for collection types.
 ///
 /// This file provides extension methods for common collection operations,
 /// such as list comparison.
+@sinceV1_0_0
 @internal
 extension ListEquality<T> on List<T> {
   /// Checks if this list is equal to [other] by comparing elements in order.

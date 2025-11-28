@@ -1,3 +1,5 @@
+import 'package:health_connector_annotation/health_connector_annotation.dart'
+    show internalUse, sinceV1_0_0;
 import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart'
     show HealthConnectorException;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart'
@@ -35,6 +37,8 @@ import 'package:health_connector_core/src/models/responses/read_records_response
 /// - Aggregating health data
 /// - Deleting health records
 /// - Querying platform capabilities and features
+@sinceV1_0_0
+@internalUse
 abstract interface class HealthConnectorPlatformClient {
   /// Queries the native platform to determine health platform availability.
   ///

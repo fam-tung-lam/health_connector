@@ -50,7 +50,7 @@ part of 'health_data_type.dart';
 /// final aggResponse = await connector.aggregate(aggRequest);
 /// print('Total water intake: ${aggResponse.value?.inLiters} L');
 /// ```
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class HydrationHealthDataType
     extends HealthDataType<HydrationRecord, Volume>

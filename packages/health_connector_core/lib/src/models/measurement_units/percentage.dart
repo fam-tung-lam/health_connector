@@ -10,7 +10,7 @@ part of 'measurement_unit.dart';
 /// - 0.0 = 0%
 /// - 0.25 = 25%
 /// - 1.0 = 100%
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class Percentage extends MeasurementUnit
     implements Comparable<Percentage> {

@@ -1,5 +1,5 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show Since;
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
     show HealthConnectorConfigConstants;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart'
@@ -22,7 +22,7 @@ import 'package:health_connector_core/src/utils/validation.dart'
 import 'package:meta/meta.dart' show immutable, internal;
 
 /// Request to read multiple health records within a time range.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class ReadRecordsRequest<R extends HealthRecord> extends Request {
   /// Creates a request to read health records within a time range.

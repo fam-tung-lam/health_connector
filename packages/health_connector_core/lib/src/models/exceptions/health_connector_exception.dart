@@ -1,11 +1,11 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show Since;
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/models/exceptions/health_connector_error_code.dart'
     show HealthConnectorErrorCode;
 import 'package:meta/meta.dart' show immutable;
 
 /// Exception class for all health connector plugin errors.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class HealthConnectorException implements Exception {
   /// Creates a [HealthConnectorException] with the given [code], [message],

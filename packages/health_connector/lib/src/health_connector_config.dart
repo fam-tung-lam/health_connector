@@ -1,3 +1,5 @@
+import 'package:health_connector_annotation/health_connector_annotation.dart'
+    show sinceV1_0_0;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
 import 'package:health_connector_hk_ios/health_connector_hk_ios.dart';
@@ -8,6 +10,7 @@ import 'package:meta/meta.dart' show immutable, internal;
 ///
 /// This immutable data class holds configuration settings for the Health
 /// Connector, including logger settings and platform-specific clients.
+@sinceV1_0_0
 @immutable
 final class HealthConnectorConfig {
   /// Creates a new [HealthConnectorConfig] instance.

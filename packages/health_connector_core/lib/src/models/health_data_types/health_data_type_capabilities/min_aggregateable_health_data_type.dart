@@ -1,3 +1,5 @@
+import 'package:health_connector_annotation/health_connector_annotation.dart'
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show HealthRecord;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
@@ -6,17 +8,18 @@ import 'package:health_connector_core/src/models/requests/aggregate_request.dart
     show AggregateRequest;
 import 'package:meta/meta.dart' show internal;
 
-/// Interface that adds maximum aggregation capability to a health data type.
+/// Interface that adds minimum aggregation capability to a health data type.
+@sinceV1_0_0
 @internal
-abstract interface class MaxAggregatableHealthDataType<
+abstract interface class MinAggregatableHealthDataType<
   R extends HealthRecord,
   U extends MeasurementUnit
 > {
-  /// Creates a request to find the maximum value over a time range.
+  /// Creates a request to find the minimum value over a time range.
   ///
-  /// Returns the highest value for this data type within the specified
+  /// Returns the lowest value for this data type within the specified
   /// time range.
-  AggregateRequest<R, U> aggregateMax({
+  AggregateRequest<R, U> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   });

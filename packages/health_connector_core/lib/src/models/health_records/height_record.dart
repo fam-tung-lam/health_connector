@@ -24,7 +24,7 @@ part of 'health_record.dart';
 /// HealthKit does not enforce any height validation constraints.
 /// However, this validation is still performed to maintain consistency
 /// across platforms and prevent invalid data from being written.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class HeightRecord extends InstantHealthRecord {
   /// Creates a body height record.

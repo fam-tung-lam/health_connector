@@ -4,7 +4,7 @@ part of 'measurement_unit.dart';
 ///
 /// Length is used for distance traveled, height, and
 /// other length-related health data.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class Length extends MeasurementUnit implements Comparable<Length> {
   const Length._(this._meters);

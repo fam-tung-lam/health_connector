@@ -1,7 +1,7 @@
 part of 'health_platform_feature.dart';
 
 /// Feature representing background health data reading capabilities.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class HealthPlatformFeatureReadHealthDataInBackground
     extends HealthPlatformFeature {

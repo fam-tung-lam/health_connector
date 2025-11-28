@@ -1,5 +1,5 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show Since;
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/models/permissions/permission.dart'
     show Permission, PermissionStatus;
 import 'package:health_connector_core/src/models/responses/response.dart'
@@ -7,7 +7,7 @@ import 'package:health_connector_core/src/models/responses/response.dart'
 import 'package:meta/meta.dart' show immutable;
 
 /// Represents the result of a single permission request.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class PermissionRequestResult extends Response {
   /// Creates a permission request result.

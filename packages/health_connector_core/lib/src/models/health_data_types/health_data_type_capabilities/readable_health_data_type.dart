@@ -1,3 +1,5 @@
+import 'package:health_connector_annotation/health_connector_annotation.dart'
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
     show HealthConnectorConfigConstants;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
@@ -11,6 +13,7 @@ import 'package:health_connector_core/src/models/requests/read_records_request.d
 import 'package:meta/meta.dart' show internal;
 
 /// Interface that adds read permission capability to a health data type.
+@sinceV1_0_0
 @internal
 abstract interface class ReadableHealthDataType<R extends HealthRecord> {
   /// The read permission for this health data type.

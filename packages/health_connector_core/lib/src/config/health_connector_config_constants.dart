@@ -1,4 +1,9 @@
+import 'package:health_connector_annotation/health_connector_annotation.dart'
+    show internalUse, sinceV1_0_0;
+
 /// Constants used throughout the Health Connector plugin.
+@sinceV1_0_0
+@internalUse
 abstract final class HealthConnectorConfigConstants {
   const HealthConnectorConfigConstants._();
 

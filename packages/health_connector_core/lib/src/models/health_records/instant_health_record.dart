@@ -13,7 +13,7 @@ part of 'health_record.dart';
 /// - Maps to HKQuantitySample or HKCategorySample
 /// - Start and end dates are the same (point-in-time)
 /// - Timezone information less explicit (uses device timezone)
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 sealed class InstantHealthRecord extends HealthRecord {
   /// Creates an instant health record at the specified [time].

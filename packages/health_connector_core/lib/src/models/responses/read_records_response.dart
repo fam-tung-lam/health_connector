@@ -1,5 +1,5 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show Since;
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show HealthRecord;
 import 'package:health_connector_core/src/models/requests/read_records_request.dart'
@@ -10,7 +10,7 @@ import 'package:health_connector_core/src/utils/collection.dart';
 import 'package:meta/meta.dart' show immutable;
 
 /// Response from reading multiple health records.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class ReadRecordsResponse<R extends HealthRecord> extends Response {
   const ReadRecordsResponse({required this.records, this.nextPageRequest});

@@ -1,32 +1,9 @@
+import 'package:health_connector_annotation/src/meta_targets.dart'
+    show memberAndTypeTargets;
+import 'package:health_connector_annotation/src/since.dart' show sinceV1_0_0;
 import 'package:health_connector_core/health_connector_core.dart'
-    show HealthPlatform;
-import 'package:meta/meta.dart' show immutable;
-
-/// Annotation class marking the version where an API was added.
-///
-/// A `Since` annotation can be applied to a library declaration,
-/// any public declaration in a library, or in a class, or to
-/// an optional parameter.
-///
-/// **Note**: If multiple `Since` annotations apply to the same declaration or
-/// parameter, the latest version takes precedence.
-///
-/// ## Example
-///
-/// ```dart
-/// @Since('1.2.0')
-/// Future<void> newMethod() { ... }
-/// ```
-@immutable
-final class Since {
-  /// Creates a `Since` annotation marking when an API was added.
-  const Since(this.version);
-
-  /// The version where this API was added.
-  ///
-  /// Must be a semantic version (e.g., `1.4.2`, `2.0.0-dev`)
-  final String version;
-}
+    show HealthPlatform, HealthConnectorErrorCode, HealthConnectorException;
+import 'package:meta/meta.dart' show immutable, internal;
 
 /// Annotation used to mark APIs that are supported only on specific
 /// health platforms.
@@ -35,7 +12,8 @@ final class Since {
 /// that are only available on certain [HealthPlatform]s.
 ///
 /// When the annotated API is called on an unsupported platform, the annotated
-/// API should throw an error.
+/// API should throw a [HealthConnectorException] with
+/// [HealthConnectorErrorCode.unsupportedHealthPlatformApi].
 ///
 /// ## Example
 ///
@@ -47,13 +25,15 @@ final class Since {
 ///   }
 /// }
 /// ```
-@Since('0.1.0')
+@sinceV1_0_0
+@memberAndTypeTargets
+@internal
 @immutable
-final class SupportedHealthPlatforms {
+final class SupportedOn {
   /// Creates an annotation that restricts API usage to the specified platforms.
   ///
   /// The [platforms] list must contain at least one [HealthPlatform] value.
-  const SupportedHealthPlatforms(this.platforms);
+  const SupportedOn(this.platforms);
 
   /// The list of health platforms on which this API is supported.
   ///
@@ -61,3 +41,13 @@ final class SupportedHealthPlatforms {
   /// will be thrown.
   final List<HealthPlatform> platforms;
 }
+
+/// Convenience annotation for APIs supported only on Health Connect.
+const supportedOnHealthConnect = SupportedOn([
+  HealthPlatform.healthConnect,
+]);
+
+/// Convenience annotation for APIs supported only on Apple Health (HealthKit).
+const supportedOnAppleHealth = SupportedOn([
+  HealthPlatform.appleHealth,
+]);

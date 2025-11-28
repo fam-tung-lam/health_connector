@@ -9,7 +9,7 @@ part of 'health_record.dart';
 ///
 /// - **Android**: Maps to Health Connect's `WeightRecord`
 /// - **iOS**: Maps to HealthKit's `HKQuantityType(.bodyMass)`
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class WeightRecord extends InstantHealthRecord {
   /// Creates a body weight record.

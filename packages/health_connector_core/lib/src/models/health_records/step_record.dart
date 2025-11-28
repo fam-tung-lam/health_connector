@@ -10,7 +10,7 @@ part of 'health_record.dart';
 ///
 /// - **Android**: Maps to Health Connect's `StepsRecord`
 /// - **iOS**: Maps to HealthKit's `HKQuantityType(.stepCount)`
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class StepRecord extends IntervalHealthRecord {
   /// Creates a step count record.

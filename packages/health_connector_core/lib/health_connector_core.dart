@@ -9,7 +9,6 @@ export 'src/models/exceptions/health_connector_exception.dart';
 export 'src/models/health_data_types/health_data_type.dart';
 // Models - Health Platform
 export 'src/models/health_platform.dart';
-export 'src/models/health_platform_data.dart';
 // Models - Health Platform Features
 export 'src/models/health_platform_features/health_platform_feature.dart';
 // Models - Health Records

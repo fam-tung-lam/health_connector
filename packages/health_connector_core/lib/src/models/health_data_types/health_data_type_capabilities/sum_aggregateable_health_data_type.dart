@@ -1,3 +1,5 @@
+import 'package:health_connector_annotation/health_connector_annotation.dart'
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show HealthRecord;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
@@ -7,6 +9,7 @@ import 'package:health_connector_core/src/models/requests/aggregate_request.dart
 import 'package:meta/meta.dart' show internal;
 
 /// Interface that adds sum aggregation capability to a health data type.
+@sinceV1_0_0
 @internal
 abstract interface class SumAggregatableHealthDataType<
   R extends HealthRecord,

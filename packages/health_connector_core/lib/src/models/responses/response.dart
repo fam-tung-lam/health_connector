@@ -1,5 +1,5 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show Since;
+    show sinceV1_0_0;
 import 'package:meta/meta.dart' show immutable, internal, mustBeOverridden;
 
 /// Base abstract class for all response types.
@@ -14,7 +14,7 @@ import 'package:meta/meta.dart' show immutable, internal, mustBeOverridden;
 ///   // Implementation
 /// }
 /// ```
-@Since('0.1.0')
+@sinceV1_0_0
 @internal
 @immutable
 abstract class Response {

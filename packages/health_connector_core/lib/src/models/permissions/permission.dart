@@ -13,13 +13,13 @@ part 'health_data_permission.dart';
 part 'health_platform_feature_permission.dart';
 
 /// Base interface for all permission types in the health client.
-@Since('0.1.0')
+@sinceV1_0_0
 sealed class Permission implements HealthPlatformData {
   const Permission();
 }
 
 /// Represents the permission status.
-@Since('0.1.0')
+@sinceV1_0_0
 enum PermissionStatus {
   /// Permission has been explicitly granted by the user.
   granted,
@@ -39,7 +39,7 @@ enum PermissionStatus {
 }
 
 /// Extension methods for filtering [List<Permission>] by permission type.
-@Since('0.1.0')
+@sinceV1_0_0
 extension PermissionListExtension on List<Permission> {
   /// Returns a list containing only [HealthDataPermission] instances.
   ///

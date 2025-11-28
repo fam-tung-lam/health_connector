@@ -8,6 +8,8 @@ environment:
   sdk: ^3.9.2
 
 dependencies:
+  health_connector_annotation:
+    path: ../health_connector_annotation
   meta: ^1.16.0
 
 dev_dependencies:

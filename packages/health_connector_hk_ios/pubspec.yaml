@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  health_connector_annotation:
+    path: ../health_connector_annotation
   health_connector_core:
     path: ../health_connector_core
   health_connector_logger:

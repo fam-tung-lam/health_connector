@@ -1,4 +1,6 @@
 import 'package:flutter/services.dart' show PlatformException;
+import 'package:health_connector_annotation/health_connector_annotation.dart'
+    show sinceV1_0_0, internalUse;
 import 'package:health_connector_core/health_connector_core.dart'
     show
         AggregateRequest,
@@ -34,6 +36,8 @@ import 'package:meta/meta.dart' show immutable;
 ///
 /// This class acts as a bridge between Dart and platform-specific native code,
 /// using generated Pigeon code for type-safe method channel communication.
+@sinceV1_0_0
+@internalUse
 @immutable
 final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   const HealthConnectorHKClient();

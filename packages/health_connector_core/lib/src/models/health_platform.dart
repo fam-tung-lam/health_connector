@@ -1,9 +1,9 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show Since;
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/models/operating_system.dart';
 
 /// Represents the available health platform APIs.
-@Since('0.1.0')
+@sinceV1_0_0
 enum HealthPlatform {
   /// Apple Health (HealthKit) on iOS.
   appleHealth(OperatingSystem.iOS),
@@ -19,7 +19,7 @@ enum HealthPlatform {
 /// Represents the availability status of the health platform on the device.
 ///
 /// The health platform refers to [HealthPlatform].
-@Since('0.1.0')
+@sinceV1_0_0
 enum HealthPlatformStatus {
   /// Health platform is unavailable on this device.
   unavailable,

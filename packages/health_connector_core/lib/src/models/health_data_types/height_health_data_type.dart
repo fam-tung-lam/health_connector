@@ -1,7 +1,7 @@
 part of 'health_data_type.dart';
 
 /// Health data type for body height information.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
     implements

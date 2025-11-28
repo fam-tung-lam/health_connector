@@ -1,21 +1,10 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show Since;
+    show sinceV1_0_0;
 import 'package:health_connector_core/health_connector_core.dart'
     show Permission;
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
     show HealthConnectorConfigConstants;
-import 'package:health_connector_core/src/models/health_data_types/avg_aggregateable_health_data_type.dart'
-    show AvgAggregatableHealthDataType;
-import 'package:health_connector_core/src/models/health_data_types/max_aggregateable_health_data_type.dart'
-    show MaxAggregatableHealthDataType;
-import 'package:health_connector_core/src/models/health_data_types/min_aggregateable_health_data_type.dart'
-    show MinAggregatableHealthDataType;
-import 'package:health_connector_core/src/models/health_data_types/readable_health_data_type.dart'
-    show ReadableHealthDataType;
-import 'package:health_connector_core/src/models/health_data_types/sum_aggregateable_health_data_type.dart'
-    show SumAggregatableHealthDataType;
-import 'package:health_connector_core/src/models/health_data_types/writeable_health_data_type.dart'
-    show WriteableHealthDataType;
+import 'package:health_connector_core/src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';
 import 'package:health_connector_core/src/models/health_platform.dart'
     show HealthPlatform;
 import 'package:health_connector_core/src/models/health_platform_data.dart'
@@ -122,7 +111,7 @@ part 'wheelchair_pushes_health_data_type.dart';
 /// However, this is acceptable because:
 /// - The implementations are straightforward (mostly creating request objects)
 /// - It eliminates the switch-case exhaustiveness problem
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     implements HealthPlatformData {

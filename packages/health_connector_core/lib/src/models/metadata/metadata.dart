@@ -1,5 +1,5 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show Since;
+    show availableOnAppleHealth, availableOnHealthConnect, sinceV1_0_0;
 import 'package:meta/meta.dart' show immutable;
 
 part 'data_origin.dart';
@@ -10,7 +10,7 @@ part 'recording_method.dart';
 ///
 /// All health records contain metadata that provides context about how, when,
 /// and by what the data was recorded.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class Metadata {
   /// Internal factory constructor to create metadata with all fields.

@@ -5,7 +5,7 @@ part of 'metadata.dart';
 /// Recording method describes how the health data was captured, which helps
 /// assess data quality, reliability, and user intent. Different recording
 /// methods have different characteristics and use cases.
-@Since('0.1.0')
+@sinceV1_0_0
 enum RecordingMethod {
   /// Recording method is unknown or cannot be determined.
   ///

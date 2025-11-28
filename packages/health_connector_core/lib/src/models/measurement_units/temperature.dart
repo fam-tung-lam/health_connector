@@ -4,7 +4,7 @@ part of 'measurement_unit.dart';
 ///
 /// Temperature is used for body temperature and other
 /// temperature-related health data.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class Temperature extends MeasurementUnit
     implements Comparable<Temperature> {

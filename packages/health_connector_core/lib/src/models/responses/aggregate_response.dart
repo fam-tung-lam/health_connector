@@ -1,5 +1,5 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show Since;
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show HealthRecord;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
@@ -12,7 +12,7 @@ import 'package:meta/meta.dart' show immutable;
 ///
 /// This response contains the aggregated value computed over health records
 /// within a time range, along with metadata about the aggregation.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class AggregateResponse<R extends HealthRecord, U extends MeasurementUnit>
     extends Response {

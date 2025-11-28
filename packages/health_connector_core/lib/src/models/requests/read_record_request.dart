@@ -1,5 +1,5 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show Since;
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart'
     show HealthDataType;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
@@ -12,7 +12,7 @@ import 'package:health_connector_core/src/utils/validation.dart' show require;
 import 'package:meta/meta.dart' show immutable, internal;
 
 /// Request to read a single health record by its ID.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class ReadRecordRequest<R extends HealthRecord> extends Request {
   /// Creates a request to read a health record by its ID.

@@ -1,7 +1,7 @@
 part of 'metadata.dart';
 
 /// The origin application that wrote the health data.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class DataOrigin {
   /// Creates a data origin with the specified [packageName].

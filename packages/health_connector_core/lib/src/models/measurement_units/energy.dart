@@ -4,7 +4,7 @@ part of 'measurement_unit.dart';
 ///
 /// Energy is used for calories burned, basal metabolic rate, and
 /// other energy-related health data.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class Energy extends MeasurementUnit implements Comparable<Energy> {
   const Energy._(this._kilocalories);

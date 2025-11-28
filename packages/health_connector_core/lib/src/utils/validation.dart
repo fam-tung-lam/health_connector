@@ -1,3 +1,6 @@
+import 'package:health_connector_annotation/health_connector_annotation.dart'
+    show sinceV1_0_0, internalUse;
+
 /// Validates that a condition holds for a function argument.
 ///
 /// ## Parameters
@@ -8,8 +11,13 @@
 /// ## Throws
 ///
 /// - [ArgumentError] if [condition] is false, using [message]
-// ignore: avoid_positional_boolean_parameters
-void require(bool condition, String message) {
+@sinceV1_0_0
+@internalUse
+void require(
+  // ignore: avoid_positional_boolean_parameters
+  bool condition,
+  String message,
+) {
   if (!condition) {
     throw ArgumentError(message);
   }
@@ -25,6 +33,8 @@ void require(bool condition, String message) {
 /// ## Throws
 ///
 /// - [ArgumentError] if [endTime] is not strictly after [startTime].
+@sinceV1_0_0
+@internalUse
 void requireEndTimeAfterStartTime({
   required DateTime startTime,
   required DateTime endTime,

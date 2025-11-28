@@ -9,7 +9,7 @@ part of 'health_record.dart';
 ///
 /// - **Android**: Maps to Health Connect's `BodyTemperatureRecord`
 /// - **iOS**: Maps to HealthKit's `HKQuantityTypeIdentifier.bodyTemperature`
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class BodyTemperatureRecord extends InstantHealthRecord {
   /// Creates a body temperature record.

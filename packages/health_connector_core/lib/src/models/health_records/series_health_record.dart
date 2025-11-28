@@ -14,7 +14,7 @@ part of 'health_record.dart';
 /// - Series represented via `HKQuantitySeries` or multiple `HKQuantitySample`
 /// - Less direct support compared to Android
 /// - May require aggregation of individual samples
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 sealed class SeriesHealthRecord<T> extends IntervalHealthRecord {
   /// Constructor for subclasses.

@@ -1,5 +1,5 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show Since;
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/models/health_platform.dart'
     show HealthPlatform;
 import 'package:health_connector_core/src/models/health_platform_data.dart'
@@ -38,7 +38,7 @@ part 'volume.dart';
 ///   industry-standard for health data categorization
 /// - This is a **cross-platform abstraction layer** designed for
 ///   interoperability between Android and iOS health platforms
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 sealed class MeasurementUnit implements HealthPlatformData {
   const MeasurementUnit();

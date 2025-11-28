@@ -23,7 +23,7 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class ActiveCaloriesBurnedRecord extends IntervalHealthRecord {
   /// Creates an active calories burned record.

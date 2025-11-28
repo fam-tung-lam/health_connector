@@ -1,11 +1,11 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show Since;
+    show sinceV1_0_0;
 
 /// Defines the type of aggregation to perform on health data.
 ///
 /// Each aggregation type computes a different metric over a set of health
 /// records within a specified time range.
-@Since('0.1.0')
+@sinceV1_0_0
 enum AggregationMetric {
   /// Sum of all values in the time range.
   ///

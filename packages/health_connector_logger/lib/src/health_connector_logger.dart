@@ -1,5 +1,7 @@
 import 'dart:developer' show log;
 
+import 'package:health_connector_annotation/health_connector_annotation.dart'
+    show internalUse, sinceV1_0_0;
 import 'package:meta/meta.dart' show internal, visibleForTesting;
 
 /// A singleton logger that wraps the `log` function from `dart:developer`.
@@ -7,6 +9,8 @@ import 'package:meta/meta.dart' show internal, visibleForTesting;
 /// This logger provides a consistent structured logging interface with
 /// formatted messages across the plugin. It supports structured logging with
 /// operation, optional phase, optional message, and context.
+@sinceV1_0_0
+@internalUse
 abstract final class HealthConnectorLogger {
   /// Private constructor to prevent instantiation.
   const HealthConnectorLogger._();

@@ -1,5 +1,5 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show Since;
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/models/health_platform.dart'
     show HealthPlatform;
 import 'package:health_connector_core/src/models/health_platform_data.dart'
@@ -49,7 +49,7 @@ part 'wheelchair_pushes_record.dart';
 ///   industry-standard for health data categorization
 /// - This is a **cross-platform abstraction layer** designed for
 ///   interoperability between Android and iOS health platforms
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 sealed class HealthRecord implements HealthPlatformData {
   /// Creates a health record with the specified [id] and [metadata].
@@ -85,7 +85,7 @@ sealed class HealthRecord implements HealthPlatformData {
 ///
 /// This value object prevents string misuse and provides clear semantics for
 /// record identification.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class HealthRecordId {
   /// Creates a health record ID from a string value.

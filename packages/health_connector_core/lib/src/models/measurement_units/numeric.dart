@@ -4,7 +4,7 @@ part of 'measurement_unit.dart';
 ///
 /// Numeric is used for simple count values like step counts, where there is
 /// no meaningful unit conversion (steps are always just steps).
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class Numeric extends MeasurementUnit implements Comparable<Numeric> {
   /// Creates a numeric value.

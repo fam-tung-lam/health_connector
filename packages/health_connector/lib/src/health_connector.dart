@@ -2,7 +2,11 @@ import 'dart:io' show Platform;
 
 import 'package:health_connector/src/health_connector_config.dart';
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show SupportedHealthPlatforms;
+    show
+        PlatformSpecificBehaviors,
+        supportedOnHealthConnect,
+        sinceV1_0_0,
+        ExperimentalOn;
 import 'package:health_connector_core/health_connector_core.dart'
     show
         AggregateRequest,
@@ -41,6 +45,7 @@ import 'package:meta/meta.dart' show immutable;
 ///
 /// This class uses a factory pattern to create instances. Use
 /// [HealthConnector.create] to obtain an instance.
+@sinceV1_0_0
 @immutable
 final class HealthConnector {
   const HealthConnector._({
@@ -215,25 +220,6 @@ final class HealthConnector {
   /// This method triggers the platform's permission request flow and returns
   /// the results for each requested permission.
   ///
-  /// The [permissions] parameter must contain at least one permission. Each
-  /// permission should be compatible with the current [healthPlatform].
-  ///
-  /// ## Permission Status Behavior
-  ///
-  /// ### Apple Health (HealthKit)
-  ///
-  /// - Read permissions always return [PermissionStatus.unknown] for
-  ///   privacy reasons.
-  /// - Feature permissions (read data and history) always return
-  ///   [PermissionStatus.granted] as the features are available and
-  ///   granted by default.
-  /// - Write permissions return actual permission status.
-  ///
-  /// ### Health Connect
-  ///
-  /// - Returns actual permission status for feature, read, and
-  ///   write permissions.
-  ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
@@ -253,6 +239,7 @@ final class HealthConnector {
   ///   HealthDataType.steps.writePermission,
   ///   HealthPlatformFeature.readHealthDataHistory.permission,
   ///   HealthPlatformFeature.readHealthDataInBackground.permission,
+  ///   // ...
   /// ];
   ///
   /// final results = await connector.requestPermissions(permissions);
@@ -266,6 +253,14 @@ final class HealthConnector {
   ///
   /// - [HealthDataPermission] and [HealthPlatformFeaturePermission]
   /// - [HealthConnector.getFeatureStatus]
+  @PlatformSpecificBehaviors({
+    HealthPlatform.appleHealth:
+        'Read permissions always return `PermissionStatus.unknown` for '
+        'privacy. Feature permissions always return '
+        '`PermissionStatus.granted`. Write permissions return actual status.',
+    HealthPlatform.healthConnect:
+        'Returns actual permission status for all permission types.',
+  })
   Future<List<PermissionRequestResult>> requestPermissions(
     List<Permission> permissions,
   ) async {
@@ -313,10 +308,6 @@ final class HealthConnector {
   /// Only permissions with [PermissionStatus.granted] status are returned.
   /// This includes both health data permissions and feature permissions.
   ///
-  /// **Note:** This method is only available on Health Connect.
-  /// HealthKit restricts apps from querying granted permissions for
-  /// privacy reasons (Apple's privacy-first design philosophy).
-  ///
   /// ## Returns
   ///
   /// A list of [Permission] objects that have been granted.
@@ -355,9 +346,7 @@ final class HealthConnector {
   ///   }
   /// }
   /// ```
-  @SupportedHealthPlatforms([
-    HealthPlatform.healthConnect,
-  ])
+  @supportedOnHealthConnect
   Future<List<Permission>> getGrantedPermissions() async {
     HealthConnectorLogger.debug(
       _tag,
@@ -411,14 +400,6 @@ final class HealthConnector {
 
   /// Revokes all permissions that have been granted to the app.
   ///
-  /// **Note:** This method is only available on Health Connect.
-  /// HealthKit does not provide an API to programmatically revoke permissions.
-  /// Only users can revoke permissions manually through system settings.
-  ///
-  /// On iOS, guide users to manually revoke permissions via:
-  /// - Settings > Privacy & Security > Health > [Your App]
-  /// - Or Health app > Sharing tab > Apps and Services > [Your App]
-  ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
@@ -443,9 +424,7 @@ final class HealthConnector {
   ///   }
   /// }
   /// ```
-  @SupportedHealthPlatforms([
-    HealthPlatform.healthConnect,
-  ])
+  @supportedOnHealthConnect
   Future<void> revokeAllPermissions() async {
     HealthConnectorLogger.debug(
       _tag,
@@ -496,18 +475,6 @@ final class HealthConnector {
 
   /// Checks the availability status of a specific platform feature.
   ///
-  /// ## Platform Feature Availability
-  ///
-  /// ### Apple Health (HealthKit)
-  ///
-  /// All features are available by default, so returns
-  /// [HealthPlatformFeatureStatus.available] for all features.
-  ///
-  /// ### Health Connect
-  ///
-  /// Feature availability depends on Android and Health Connect SDK versions.
-  /// Some features require specific Android versions or system updates.
-  ///
   /// ## Parameters
   ///
   /// - [feature]: The platform feature to check availability for
@@ -543,6 +510,14 @@ final class HealthConnector {
   ///   // Feature not available, disable background reading functionality
   /// }
   /// ```
+  @PlatformSpecificBehaviors({
+    HealthPlatform.appleHealth:
+        'All features are available by default. Always returns '
+        '`HealthPlatformFeatureStatus.available`.',
+    HealthPlatform.healthConnect:
+        'Feature availability depends on Android and Health Connect SDK. '
+        'Some features require specific Android versions or system updates.',
+  })
   Future<HealthPlatformFeatureStatus> getFeatureStatus(
     HealthPlatformFeature feature,
   ) async {
@@ -1244,25 +1219,6 @@ final class HealthConnector {
   /// Modifies an existing health record with new values. The record must have
   /// a valid existing ID (not [HealthRecordId.none]).
   ///
-  /// ## Platform Update Behavior
-  ///
-  /// ### Apple Health (HealthKit)
-  ///
-  /// HealthKit uses an immutable data model where samples cannot be updated
-  /// once saved.
-  ///
-  /// The plugin implements update-like behavior by:
-  /// 1. Deleting the old sample
-  /// 2. Inserting a new sample with corrected values
-  ///
-  /// Since HealthKit assigns a new UUID to each sample, the returned
-  /// record ID will be different from the input ID.
-  ///
-  /// ### Health Connect
-  ///
-  /// Health Connect provides native update API that allows modifying existing
-  /// records in place. The record ID is preserved during the update operation.
-  ///
   /// ## Parameters
   ///
   /// - [record]: The health record to update (must have a valid existing ID)
@@ -1270,10 +1226,6 @@ final class HealthConnector {
   /// ## Returns
   ///
   /// The [HealthRecordId] of the updated record.
-  ///
-  /// - On Health Connect: Returns the same ID as the input record
-  /// - On HealthKit: Returns a new UUID assigned to the replacement record
-  ///   (since HealthKit uses delete-then-insert internally)
   ///
   /// ## Throws
   ///
@@ -1309,6 +1261,19 @@ final class HealthConnector {
   ///   print('Record updated. New ID: ${newRecordId.value}');
   /// }
   /// ```
+  @PlatformSpecificBehaviors({
+    HealthPlatform.appleHealth:
+        'Uses immutable data model. The plugin implemented as '
+        '`delete-then-insert`, so returns a new UUID different from input ID.',
+    HealthPlatform.healthConnect:
+        'Provides native update API. '
+        'Record ID is preserved during update operation.',
+  })
+  @ExperimentalOn({
+    HealthPlatform.appleHealth:
+        'The plugin implemented deletion operation as `delete-then-insert`, '
+        'so returns a new UUID different from input ID.',
+  })
   Future<HealthRecordId> updateRecord<R extends HealthRecord>(R record) async {
     HealthConnectorLogger.debug(
       _tag,

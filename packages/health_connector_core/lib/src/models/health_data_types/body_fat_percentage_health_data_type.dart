@@ -4,7 +4,7 @@ part of 'health_data_type.dart';
 ///
 /// Represents the percentage of body fat as a decimal value (0-1).
 /// For example, 0.25 represents 25% body fat.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class BodyFatPercentageHealthDataType
     extends HealthDataType<BodyFatPercentageRecord, Percentage>

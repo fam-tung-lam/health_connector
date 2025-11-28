@@ -4,7 +4,7 @@ part of 'measurement_unit.dart';
 ///
 /// Volume is used for hydration tracking, blood volume, and other
 /// volume-related health data.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class Volume extends MeasurementUnit implements Comparable<Volume> {
   const Volume._(this._liters);

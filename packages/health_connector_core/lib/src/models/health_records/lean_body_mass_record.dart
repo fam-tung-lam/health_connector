@@ -10,7 +10,7 @@ part of 'health_record.dart';
 ///
 /// - **Android**: Maps to Health Connect's `LeanBodyMassRecord`
 /// - **iOS**: Maps to HealthKit's `HKQuantityType(.leanBodyMass)`
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class LeanBodyMassRecord extends InstantHealthRecord {
   /// Creates a lean body mass record.

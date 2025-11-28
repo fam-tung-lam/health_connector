@@ -1,7 +1,7 @@
 part of 'health_data_type.dart';
 
 /// Health data type for active calories burned information.
-@Since('0.1.0')
+@sinceV1_0_0
 @immutable
 final class ActiveCaloriesBurnedHealthDataType
     extends HealthDataType<ActiveCaloriesBurnedRecord, Energy>
