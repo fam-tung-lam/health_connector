@@ -1,5 +1,9 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show sinceV1_0_0, supportedOnHealthConnect;
+    show
+        sinceV1_0_0,
+        supportedOnHealthConnect,
+        supportedOnAppleHealth,
+        availableOnAppleHealth;
 import 'package:health_connector_core/health_connector_core.dart'
     show Permission;
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
@@ -23,6 +27,8 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         HeightRecord,
         HydrationRecord,
         LeanBodyMassRecord,
+        SleepSessionRecord,
+        SleepStageRecord,
         StepRecord,
         WeightRecord,
         WheelchairPushesRecord;
@@ -58,6 +64,8 @@ part 'heart_rate_series_record_health_data_type.dart';
 part 'height_health_data_type.dart';
 part 'hydration_health_data_type.dart';
 part 'lean_body_mass_health_data_type.dart';
+part 'sleep_session_health_data_type.dart';
+part 'sleep_stage_record_health_data_type.dart';
 part 'steps_health_data_type.dart';
 part 'weight_health_data_type.dart';
 part 'wheelchair_pushes_health_data_type.dart';
@@ -215,23 +223,45 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// hydration data and writing new measurements.
   static const hydration = HydrationHealthDataType();
 
-  /// Heart rate series record data type (Android).
+  /// Heart rate series record data type (Android Health Connect only).
   ///
   /// Represents a series of heart rate measurements over a time interval.
-  /// Heart rate series records on Android are container records with embedded
-  /// BPM samples. Each record has a single ID that encompasses all
-  /// measurements. Supports both reading existing heart rate data and writing
+  /// Each record has a single ID that encompasses all heart rate measurements.
+  ///
+  /// Supports both reading existing heart rate data and writing
   /// new measurements.
+  @supportedOnHealthConnect
   static const heartRateSeriesRecord = HeartRateSeriesRecordHealthDataType();
 
-  /// Heart rate measurement record data type (iOS).
+  /// Heart rate measurement record data type (iOS HealthKit only).
   ///
   /// Represents a single heart rate measurement at a specific point in time.
-  /// Heart rate measurement records on iOS are individual measurements. Each
-  /// record has its own UUID. Supports both reading existing heart rate data
-  /// and writing new measurements.
+  /// Each record has its own UUID.
+  ///
+  /// Supports both reading existing heart rate data and writing
+  /// new measurements.
+  @supportedOnAppleHealth
   static const heartRateMeasurementRecord =
       HeartRateMeasurementRecordHealthDataType();
+
+  /// Sleep session health data type (Android Health Connect only).
+  ///
+  /// Represents a complete sleep session with multiple sleep stages.
+  /// Each sleep session has a single ID that encompasses all stages.
+  ///
+  /// Supports both reading existing sleep data and writing new sessions.
+  @supportedOnHealthConnect
+  static const sleepSession = SleepSessionHealthDataType();
+
+  /// Sleep stage record health data type (iOS HealthKit only).
+  ///
+  /// Sleep stage records is an individual measurements, one per sleep stage.
+  /// A complete night's sleep consists of multiple records.
+  /// Each record has its own UUID.
+  ///
+  /// Supports both reading existing sleep data and writing new measurements.
+  @supportedOnAppleHealth
+  static const sleepStageRecord = SleepStageHealthDataType();
 
   /// Returns a list of all available health data types.
   ///
@@ -248,6 +278,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     height,
     hydration,
     leanBodyMass,
+    sleepSession,
+    sleepStageRecord,
     steps,
     weight,
     wheelchairPushes,

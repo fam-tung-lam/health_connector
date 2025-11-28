@@ -1,15 +1,22 @@
 import 'package:health_connector_annotation/health_connector_annotation.dart'
-    show PlatformSpecificBehaviors, sinceV1_0_0, supportedOnAppleHealth, supportedOnHealthConnect;
+    show
+        PlatformSpecificBehaviors,
+        sinceV1_0_0,
+        supportedOnAppleHealth,
+        supportedOnHealthConnect;
 import 'package:health_connector_core/src/models/health_platform.dart'
     show HealthPlatform;
 import 'package:health_connector_core/src/models/health_platform_data.dart'
     show HealthPlatformData;
 import 'package:health_connector_core/src/models/health_records/heart_rate_measurement.dart'
     show HeartRateMeasurement;
+import 'package:health_connector_core/src/models/health_records/sleep_stage_type.dart'
+    show SleepStageType;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show Energy, Length, Mass, Numeric, Percentage, Temperature, Volume;
 import 'package:health_connector_core/src/models/metadata/metadata.dart'
     show Metadata;
+import 'package:health_connector_core/src/utils/collection.dart';
 import 'package:health_connector_core/src/utils/datetime.dart'
     show formatTimeRange;
 import 'package:health_connector_core/src/utils/validation.dart' show require;
@@ -28,6 +35,8 @@ part 'instant_health_record.dart';
 part 'interval_health_record.dart';
 part 'lean_body_mass_record.dart';
 part 'series_health_record.dart';
+part 'sleep_session_record.dart';
+part 'sleep_stage_record.dart';
 part 'step_record.dart';
 part 'weight_record.dart';
 part 'wheelchair_pushes_record.dart';
