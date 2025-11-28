@@ -10,6 +10,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         HealthConnectorException,
         HealthDataType,
         HealthRecord,
+        HeartRateMeasurementRecordHealthDataType,
+        HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
@@ -145,6 +147,18 @@ class _ReadHealthRecordsPageState
           );
         case HydrationHealthDataType():
           request = HealthDataType.hydration.readRecords(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          );
+        case HeartRateMeasurementRecordHealthDataType():
+          request = HealthDataType.heartRateMeasurementRecord.readRecords(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          );
+        case HeartRateSeriesRecordHealthDataType():
+          request = HealthDataType.heartRateSeriesRecord.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,

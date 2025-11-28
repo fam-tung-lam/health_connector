@@ -39,6 +39,7 @@ abstract final class AppTexts {
   static const String deviceLabel = 'Device';
   static const String recording = 'Recording';
   static const String recordingMethod = 'Recording Method';
+  static const String sleepStageType = 'Sleep Stage Type';
 
   // ==========================================================================
   // Common Status Values
@@ -127,6 +128,26 @@ abstract final class AppTexts {
   static const String hydrationLiters = 'Hydration (L)';
   static const String hydrationMilliliters = 'Hydration (mL)';
   static const String hydrationFluidOunces = 'Hydration (fl oz)';
+  static const String heartRate = 'Heart Rate';
+  static const String heartRateRecordDescription =
+      'Single heart rate measurement at a point in time';
+  static const String heartRateSeriesRecordDescription =
+      'Series of heart rate measurements over a time interval';
+  static const String heartRateValue = 'Heart Rate (BPM)';
+  static const String heartRateBpm = 'Heart Rate (BPM)';
+  static const String heartRateLabel = 'BPM';
+  static const String heartRateSamples = 'Heart Rate Samples';
+  static const String addSample = 'Add Sample';
+  static const String removeSample = 'Remove Sample';
+  static const String sampleTime = 'Sample Time';
+  static const String sampleBpm = 'Sample BPM';
+  static const String atLeastOneSampleRequired =
+      'At least one sample is required';
+  static const String sampleTimeMustBeWithinRange =
+      'Sample time must be within start and end time range';
+  static const String averageBpm = 'Average BPM';
+  static const String minBpm = 'Min BPM';
+  static const String maxBpm = 'Max BPM';
 
   // ==========================================================================
   // Device Types
@@ -215,6 +236,8 @@ abstract final class AppTexts {
   static const String bodyTemperatureWrite = 'Body Temperature - Write';
   static const String hydrationRead = 'Hydration - Read';
   static const String hydrationWrite = 'Hydration - Write';
+  static const String heartRateRecordRead = 'Heart Rate - Read';
+  static const String heartRateRecordWrite = 'Heart Rate - Write';
   static const String iosReadPermissionUnknownStatusNote =
       'Note: On iOS, read permissions may show as "unknown" status even after '
       'being granted due to privacy restrictions. '
@@ -277,6 +300,9 @@ abstract final class AppTexts {
   static const String writePermissionDeniedHydration =
       'Write permission denied or not supported. '
       'Please grant write permission for hydration.';
+  static const String writePermissionDeniedHeartRateRecord =
+      'Write permission denied or not supported. '
+      'Please grant write permission for heart rate.';
 
   // ==========================================================================
   // Validation Messages
@@ -306,6 +332,7 @@ abstract final class AppTexts {
   static const String pleaseEnterBodyTemperature =
       'Please enter body temperature';
   static const String pleaseEnterHydration = 'Please enter hydration';
+  static const String pleaseEnterHeartRate = 'Please enter heart rate (BPM)';
   static const String pleaseEnterValidNumber = 'Please enter a valid number';
   static const String endTimeMustBeAfterStartTime =
       'End time must be after start time';
@@ -330,6 +357,10 @@ abstract final class AppTexts {
       'Wheelchair pushes must be non-negative';
   static const String hydrationMustBeGreaterThanZero =
       'Hydration must be greater than 0';
+  static const String heartRateMustBePositive =
+      'Heart rate must be a positive number';
+  static const String heartRateMustBeValidBpm =
+      'Heart rate must be a valid BPM value (typically 30-220)';
   static const String pageSizeMustBeBetween1And10000 =
       'Page size must be between 1 and 10000';
 
@@ -349,6 +380,7 @@ abstract final class AppTexts {
   static const String insertFloorsClimbed = 'Insert Floors Climbed';
   static const String insertWheelchairPushes = 'Insert Wheelchair Pushes';
   static const String insertHydration = 'Insert Hydration';
+  static const String insertHeartRateRecord = 'Insert Heart Rate';
   static const String readHealthRecords = 'Read Health Records';
   static const String readAggregateData = 'Read Aggregate Data';
 
@@ -395,4 +427,12 @@ abstract final class AppTexts {
   static const String softwareVersion = 'Software Version';
   static const String localIdentifier = 'Local Identifier';
   static const String udiDeviceId = 'UDI Device ID';
+
+  // ==========================================================================
+  // Sleep Stage Types
+  // ==========================================================================
+  static const String sleepStageAwake = 'Awake';
+  static const String sleepStageLight = 'Light';
+  static const String sleepStageDeep = 'Deep';
+  static const String sleepStageRem = 'REM';
 }

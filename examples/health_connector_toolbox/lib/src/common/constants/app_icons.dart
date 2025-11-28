@@ -23,6 +23,7 @@ abstract final class AppIcons {
   static const IconData accessible = Icons.accessible;
   static const IconData readMore = Icons.read_more;
   static const IconData calculate = Icons.calculate;
+  static const IconData favorite = Icons.favorite;
 
   // Permissions & Security
   static const IconData lockOutline = Icons.lock_outline;

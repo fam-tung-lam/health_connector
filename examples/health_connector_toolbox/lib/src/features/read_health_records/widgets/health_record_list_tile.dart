@@ -7,6 +7,9 @@ import 'package:health_connector_core/health_connector_core.dart'
         DistanceRecord,
         FloorsClimbedRecord,
         HealthRecord,
+        HeartRateMeasurement,
+        HeartRateMeasurementRecord,
+        HeartRateSeriesRecord,
         HeightRecord,
         HydrationRecord,
         InstantHealthRecord,
@@ -22,8 +25,10 @@ import 'package:health_connector_toolbox/src/common/theme/app_colors.dart'
     as theme;
 import 'package:health_connector_toolbox/src/common/utils/date_format_utils.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_detail_row.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/heart_rate_samples_list.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/instant_health_record_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/interval_health_record_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/series_health_record_tile.dart';
 
 /// A widget that displays a health record in a list tile format.
 ///
@@ -243,6 +248,37 @@ final class HealthRecordListTile extends StatelessWidget {
         ],
         onDelete: onDelete,
       ),
+      HeartRateMeasurementRecord() =>
+        InstantHealthRecordTile<HeartRateMeasurementRecord>(
+          record: record,
+          icon: AppIcons.favorite,
+          title:
+              '${record.beatsPerMinute.value.toInt()} '
+              '${AppTexts.heartRateLabel}',
+          subtitleBuilder: (r, ctx) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 4),
+              Text(
+                '${AppTexts.time}: ${DateFormatUtils.formatDateTime(r.time)}',
+              ),
+              Text(
+                '${AppTexts.recording}: ${r.metadata.recordingMethod.name}',
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: theme.AppColors.grey600,
+                ),
+              ),
+            ],
+          ),
+          detailRowsBuilder: (r, ctx) => [
+            HealthRecordDetailRow(
+              label: AppTexts.heartRateBpm,
+              value: r.beatsPerMinute.value.toInt().toString(),
+            ),
+          ],
+          onDelete: onDelete,
+        ),
     };
   }
 
@@ -251,6 +287,7 @@ final class HealthRecordListTile extends StatelessWidget {
     IntervalHealthRecord record,
   ) {
     return switch (record) {
+      HeartRateSeriesRecord() => _buildSeriesRecord(context, record),
       StepRecord() => IntervalHealthRecordTile<StepRecord>(
         record: record,
         icon: AppIcons.directionsWalk,
@@ -506,10 +543,79 @@ final class HealthRecordListTile extends StatelessWidget {
     BuildContext context,
     SeriesHealthRecord record,
   ) {
-    // Placeholder for future series record implementations
-    return ListTile(
-      title: const Text(AppTexts.unknownRecordType),
-      subtitle: Text('${AppTexts.id}: ${record.id.value}'),
+    return switch (record) {
+      HeartRateSeriesRecord() => _buildHeartRateSeriesRecord(
+        context,
+        record,
+      ),
+    };
+  }
+
+  Widget _buildHeartRateSeriesRecord(
+    BuildContext context,
+    HeartRateSeriesRecord record,
+  ) {
+    return SeriesHealthRecordTile<HeartRateSeriesRecord, HeartRateMeasurement>(
+      record: record,
+      icon: AppIcons.favorite,
+      title:
+          '${record.averageBpm.value.toInt()} ${AppTexts.heartRateLabel} '
+          '(${record.samplesCount} ${AppTexts.heartRateSamples.toLowerCase()})',
+      subtitleBuilder: (r, ctx) {
+        final duration = r.duration;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 4),
+            Text(
+              '${AppTexts.startLabel} '
+              '${DateFormatUtils.formatDateTime(r.startTime)}',
+            ),
+            Text(
+              '${AppTexts.endLabel} '
+              '${DateFormatUtils.formatDateTime(r.endTime)}',
+            ),
+            Text(
+              '${AppTexts.duration} ${duration.inHours}h '
+              '${duration.inMinutes.remainder(60)}m',
+              style: const TextStyle(
+                fontSize: 12,
+                color: theme.AppColors.grey600,
+              ),
+            ),
+            if (r.samples.isNotEmpty) ...[
+              const SizedBox(height: 4),
+              Text(
+                '${AppTexts.averageBpm}: ${r.averageBpm.value.toInt()}, '
+                '${AppTexts.minBpm}: ${r.minBpm.value.toInt()}, '
+                '${AppTexts.maxBpm}: ${r.maxBpm.value.toInt()}',
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: theme.AppColors.grey600,
+                ),
+              ),
+            ],
+          ],
+        );
+      },
+      detailRowsBuilder: (r, ctx) => [
+        HealthRecordDetailRow(
+          label: AppTexts.averageBpm,
+          value: r.averageBpm.value.toInt().toString(),
+        ),
+        HealthRecordDetailRow(
+          label: AppTexts.minBpm,
+          value: r.minBpm.value.toInt().toString(),
+        ),
+        HealthRecordDetailRow(
+          label: AppTexts.maxBpm,
+          value: r.maxBpm.value.toInt().toString(),
+        ),
+      ],
+      samplesBuilder: (samples, ctx) => HeartRateSamplesList(
+        samples: samples,
+      ),
+      onDelete: onDelete,
     );
   }
 }

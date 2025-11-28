@@ -13,6 +13,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         HealthConnectorException,
         HealthDataType,
         HealthRecord,
+        HeartRateMeasurementRecordHealthDataType,
+        HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
@@ -195,6 +197,49 @@ class _AggregateHealthDataPageState
             case AggregationMetric.avg:
             case AggregationMetric.min:
             case AggregationMetric.max:
+              throw UnsupportedError('Unsupported metric: $_selectedMetric');
+          }
+        case HeartRateMeasurementRecordHealthDataType():
+          switch (_selectedMetric!) {
+            case AggregationMetric.avg:
+              request = HealthDataType.heartRateMeasurementRecord
+                  .aggregateAverage(
+                    startTime: startDateTime!,
+                    endTime: endDateTime!,
+                  );
+            case AggregationMetric.min:
+              request = HealthDataType.heartRateMeasurementRecord.aggregateMin(
+                startTime: startDateTime!,
+                endTime: endDateTime!,
+              );
+            case AggregationMetric.max:
+              request = HealthDataType.heartRateMeasurementRecord.aggregateMax(
+                startTime: startDateTime!,
+                endTime: endDateTime!,
+              );
+            case AggregationMetric.sum:
+            case AggregationMetric.count:
+              throw UnsupportedError('Unsupported metric: $_selectedMetric');
+          }
+        case HeartRateSeriesRecordHealthDataType():
+          switch (_selectedMetric!) {
+            case AggregationMetric.avg:
+              request = HealthDataType.heartRateSeriesRecord.aggregateAverage(
+                startTime: startDateTime!,
+                endTime: endDateTime!,
+              );
+            case AggregationMetric.min:
+              request = HealthDataType.heartRateSeriesRecord.aggregateMin(
+                startTime: startDateTime!,
+                endTime: endDateTime!,
+              );
+            case AggregationMetric.max:
+              request = HealthDataType.heartRateSeriesRecord.aggregateMax(
+                startTime: startDateTime!,
+                endTime: endDateTime!,
+              );
+            case AggregationMetric.sum:
+            case AggregationMetric.count:
               throw UnsupportedError('Unsupported metric: $_selectedMetric');
           }
       }

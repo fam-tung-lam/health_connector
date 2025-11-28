@@ -8,6 +8,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         Energy,
         FloorsClimbedHealthDataType,
         HealthDataType,
+        HeartRateMeasurementRecordHealthDataType,
+        HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
@@ -89,6 +91,11 @@ class _HealthValueFieldState extends State<HealthValueField> {
           FloorsClimbedHealthDataType() => _parseNumeric(value),
           WheelchairPushesHealthDataType() => _parseNumeric(value),
           HydrationHealthDataType() => _parseVolume(value),
+          HeartRateMeasurementRecordHealthDataType() => _parseNumeric(value),
+          HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
+            'HeartRateSeriesRecordHealthDataType '
+            'should use HeartRateSamplesFormField',
+          ),
         };
       }
     });
@@ -171,6 +178,12 @@ class _HealthValueFieldState extends State<HealthValueField> {
         WheelchairPushesHealthDataType() =>
           AppTexts.pleaseEnterWheelchairPushes,
         HydrationHealthDataType() => AppTexts.pleaseEnterHydration,
+        HeartRateMeasurementRecordHealthDataType() =>
+          AppTexts.pleaseEnterHeartRate,
+        HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
+          'HeartRateSeriesRecordHealthDataType '
+          'should use HeartRateSamplesFormField',
+        ),
       };
     }
 
@@ -186,6 +199,11 @@ class _HealthValueFieldState extends State<HealthValueField> {
       FloorsClimbedHealthDataType() => int.tryParse(value),
       WheelchairPushesHealthDataType() => int.tryParse(value),
       HydrationHealthDataType() => double.tryParse(value),
+      HeartRateMeasurementRecordHealthDataType() => int.tryParse(value),
+      HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
+        'HeartRateSeriesRecordHealthDataType should '
+        'use HeartRateSamplesFormField',
+      ),
     };
 
     if (parsed == null) {
@@ -194,7 +212,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
 
     if (widget.dataType is StepsHealthDataType ||
         widget.dataType is FloorsClimbedHealthDataType ||
-        widget.dataType is WheelchairPushesHealthDataType) {
+        widget.dataType is WheelchairPushesHealthDataType ||
+        widget.dataType is HeartRateMeasurementRecordHealthDataType) {
       if (parsed as int < 0) {
         return switch (widget.dataType) {
           StepsHealthDataType() => AppTexts.countMustBeNonNegative,
@@ -202,6 +221,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
             AppTexts.floorsClimbedMustBeNonNegative,
           WheelchairPushesHealthDataType() =>
             AppTexts.wheelchairPushesMustBeNonNegative,
+          HeartRateMeasurementRecordHealthDataType() =>
+            AppTexts.heartRateMustBePositive,
           _ => AppTexts.countMustBeNonNegative,
         };
       }
@@ -255,6 +276,12 @@ class _HealthValueFieldState extends State<HealthValueField> {
         WheelchairPushesHealthDataType() =>
           AppTexts.pleaseEnterWheelchairPushes,
         HydrationHealthDataType() => AppTexts.pleaseEnterHydration,
+        HeartRateMeasurementRecordHealthDataType() =>
+          AppTexts.pleaseEnterHeartRate,
+        HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
+          'HeartRateSeriesRecordHealthDataType should use '
+          'HeartRateSamplesFormField',
+        ),
       };
     }
 
@@ -388,6 +415,21 @@ class _HealthValueFieldState extends State<HealthValueField> {
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
         onChanged: _onChanged,
         validator: _validate,
+      ),
+      HeartRateMeasurementRecordHealthDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.heartRateValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.favorite),
+        ),
+        keyboardType: TextInputType.number,
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
+        'HeartRateSeriesRecordHealthDataType should '
+        'use HeartRateSamplesFormField',
       ),
     };
   }

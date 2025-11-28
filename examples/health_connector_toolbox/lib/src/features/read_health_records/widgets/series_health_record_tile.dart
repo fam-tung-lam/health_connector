@@ -82,11 +82,20 @@ final class SeriesHealthRecordTile<T extends SeriesHealthRecord<S>, S>
             ],
           );
 
+    // If samplesBuilder is provided, add samples to detail rows
+    final allDetailRows = [
+      ...detailRows,
+      if (samplesBuilder != null && record.samples.isNotEmpty) ...[
+        const SizedBox(height: 16),
+        samplesBuilder!(record.samples, context) ?? const SizedBox.shrink(),
+      ],
+    ];
+
     return BaseHealthRecordTile(
       icon: icon,
       title: title,
       subtitle: combinedSubtitle,
-      detailRows: detailRows,
+      detailRows: allDetailRows,
       metadata: record.metadata,
       onDelete: onDelete,
     );

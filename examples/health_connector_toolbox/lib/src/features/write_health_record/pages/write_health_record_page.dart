@@ -13,17 +13,26 @@ import 'package:provider/provider.dart';
 /// cards. Tapping a card navigates to a type-specific write page.
 @immutable
 final class WriteHealthRecordPage extends StatelessWidget {
-  const WriteHealthRecordPage({super.key});
+  const WriteHealthRecordPage({required this.healthPlatform, super.key});
+
+  final HealthPlatform healthPlatform;
 
   @override
   Widget build(BuildContext context) {
+    final supportedHealthDataTypes = HealthDataType.values
+        .where(
+          (type) => type.supportedHealthPlatforms.contains(healthPlatform),
+        )
+        .toList();
+
     return Scaffold(
       appBar: AppBar(title: const Text(AppTexts.insertHealthRecord)),
       body: ListView.separated(
         padding: const EdgeInsets.all(16.0),
-        itemCount: HealthDataType.values.length,
+        itemCount: supportedHealthDataTypes.length,
         itemBuilder: (_, int index) {
-          final type = HealthDataType.values[index];
+          final type = supportedHealthDataTypes[index];
+
           return DataTypeCard(
             title: type.displayName,
             description: type.description,
@@ -44,9 +53,7 @@ final class WriteHealthRecordPage extends StatelessWidget {
             },
           );
         },
-        separatorBuilder: (_, int index) {
-          return const SizedBox(height: 10);
-        },
+        separatorBuilder: (_, int index) => const SizedBox(height: 10),
       ),
     );
   }

@@ -13,6 +13,12 @@ import 'package:health_connector_core/health_connector_core.dart'
         FloorsClimbedRecord,
         HealthDataType,
         HealthRecord,
+        HealthRecordId,
+        HeartRateMeasurement,
+        HeartRateMeasurementRecord,
+        HeartRateMeasurementRecordHealthDataType,
+        HeartRateSeriesRecord,
+        HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
         HeightRecord,
         HydrationHealthDataType,
@@ -80,6 +86,10 @@ sealed class HealthRecordFormConfig {
       FloorsClimbedHealthDataType() => const FloorsClimbedFormConfig(),
       WheelchairPushesHealthDataType() => const WheelchairPushesFormConfig(),
       HydrationHealthDataType() => const HydrationFormConfig(),
+      HeartRateMeasurementRecordHealthDataType() =>
+        const HeartRateMeasurementRecordFormConfig(),
+      HeartRateSeriesRecordHealthDataType() =>
+        const HeartRateSeriesRecordFormConfig(),
     };
   }
 }
@@ -423,6 +433,96 @@ final class HydrationFormConfig extends HealthRecordFormConfig {
       startTime: startDateTime,
       endTime: endDateTime,
       volume: volumeValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for heart rate measurement records (iOS).
+///
+/// Heart rate measurement is an instant-based record that requires:
+/// - Time (single timestamp)
+/// - Heart rate value (BPM as Numeric)
+final class HeartRateMeasurementRecordFormConfig
+    extends HealthRecordFormConfig {
+  const HeartRateMeasurementRecordFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    final numericValue = value as Numeric;
+
+    return HeartRateMeasurementRecord(
+      id: HealthRecordId.none,
+      metadata: metadata,
+      measurement: HeartRateMeasurement(
+        time: startDateTime,
+        beatsPerMinute: numericValue,
+      ),
+    );
+  }
+}
+
+/// Configuration for heart rate series records (Android).
+///
+/// Heart rate series is an interval-based record that requires:
+/// - Start time
+/// - End time (derived from start time + duration)
+/// - List of heart rate measurements (samples with time and BPM)
+///
+/// Note: This config requires special handling in the form page as it needs
+/// a list of samples rather than a single value.
+final class HeartRateSeriesRecordFormConfig extends HealthRecordFormConfig {
+  const HeartRateSeriesRecordFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    // This method signature doesn't support samples list.
+    // The actual implementation will be handled in the write form page.
+    throw UnsupportedError(
+      'HeartRateSeriesRecordFormConfig.buildRecord() should not be called directly. '
+      'Use buildRecordWithSamples() instead.',
+    );
+  }
+
+  /// Builds a [HeartRateSeriesRecord] from the provided form values with samples.
+  ///
+  /// ## Parameters
+  ///
+  /// - [startDateTime]: The start date/time for the record
+  /// - [endDateTime]: The end date/time (required)
+  /// - [samples]: The list of heart rate measurements
+  /// - [metadata]: The metadata for the record
+  ///
+  /// ## Returns
+  ///
+  /// A [HeartRateSeriesRecord] instance ready to be written.
+  HeartRateSeriesRecord buildRecordWithSamples({
+    required DateTime startDateTime,
+    required DateTime endDateTime,
+    required List<HeartRateMeasurement> samples,
+    required Metadata metadata,
+  }) {
+    return HeartRateSeriesRecord(
+      id: HealthRecordId.none,
+      startTime: startDateTime,
+      endTime: endDateTime,
+      samples: samples,
       metadata: metadata,
     );
   }

@@ -103,7 +103,10 @@ final class HomePage extends StatelessWidget {
                                 create: (_) => WriteHealthRecordChangeNotifier(
                                   healthConnector,
                                 ),
-                                child: const WriteHealthRecordPage(),
+                                child: WriteHealthRecordPage(
+                                  healthPlatform:
+                                      healthConnector.healthPlatform,
+                                ),
                               ),
                             ),
                           ),

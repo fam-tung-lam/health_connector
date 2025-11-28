@@ -11,6 +11,9 @@ import 'package:health_connector_core/health_connector_core.dart'
         HealthConnectorErrorCode,
         HealthConnectorException,
         HealthDataType,
+        HeartRateMeasurement,
+        HeartRateMeasurementRecordHealthDataType,
+        HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
@@ -24,9 +27,11 @@ import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/show_snack_bar.dart';
 import 'package:health_connector_toolbox/src/common/widgets/date_time_picker_row.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
-import 'package:health_connector_toolbox/src/features/write_health_record/models/health_record_form_config.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/models/health_record_form_config.dart'
+    show HealthRecordFormConfig, HeartRateSeriesRecordFormConfig;
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/duration_picker_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/health_value_field.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/heart_rate_samples_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/metadata_form_fields.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/write_health_record_change_notifier.dart';
 import 'package:provider/provider.dart' show Provider;
@@ -67,6 +72,9 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
   Device? _device;
   MeasurementUnit? _value;
   bool _isWriting = false;
+
+  // State for heart rate series samples (Android)
+  List<HeartRateMeasurement>? _heartRateSamples;
 
   // Use different state mixins based on whether duration is needed
   DateTime? _startDate;
@@ -182,8 +190,16 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
     if (_config.needsDuration && endDateTime == null) {
       return;
     }
-    if (_value == null) {
-      return;
+
+    // Special validation for heart rate series record
+    if (widget.dataType is HeartRateSeriesRecordHealthDataType) {
+      if (_heartRateSamples == null || _heartRateSamples!.isEmpty) {
+        return;
+      }
+    } else {
+      if (_value == null) {
+        return;
+      }
     }
 
     setState(() {
@@ -212,12 +228,21 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
         ),
       };
 
-      final record = _config.buildRecord(
-        startDateTime: startDateTime!,
-        endDateTime: endDateTime,
-        value: _value!,
-        metadata: metadata,
-      );
+      final record = switch (widget.dataType) {
+        HeartRateSeriesRecordHealthDataType() =>
+          (_config as HeartRateSeriesRecordFormConfig).buildRecordWithSamples(
+            startDateTime: startDateTime!,
+            endDateTime: endDateTime!,
+            samples: _heartRateSamples!,
+            metadata: metadata,
+          ),
+        _ => _config.buildRecord(
+          startDateTime: startDateTime!,
+          endDateTime: endDateTime,
+          value: _value!,
+          metadata: metadata,
+        ),
+      };
 
       await _notifier.writeHealthRecord(record);
 
@@ -279,6 +304,10 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
         WheelchairPushesHealthDataType() =>
           AppTexts.writePermissionDeniedWheelchairPushes,
         HydrationHealthDataType() => AppTexts.writePermissionDeniedHydration,
+        HeartRateMeasurementRecordHealthDataType() =>
+          AppTexts.writePermissionDeniedHeartRateRecord,
+        HeartRateSeriesRecordHealthDataType() =>
+          AppTexts.writePermissionDeniedHeartRateRecord,
       };
     }
     return e.message;
@@ -307,6 +336,10 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
               WheelchairPushesHealthDataType() =>
                 AppTexts.insertWheelchairPushes,
               HydrationHealthDataType() => AppTexts.insertHydration,
+              HeartRateMeasurementRecordHealthDataType() =>
+                AppTexts.insertHeartRateRecord,
+              HeartRateSeriesRecordHealthDataType() =>
+                AppTexts.insertHeartRateRecord,
             },
           ),
         ),
@@ -333,14 +366,25 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                   ),
                 ],
                 const SizedBox(height: 16),
-                HealthValueField(
-                  dataType: widget.dataType,
-                  onChanged: (value) {
-                    setState(() {
-                      _value = value;
-                    });
-                  },
-                ),
+                if (widget.dataType is HeartRateSeriesRecordHealthDataType)
+                  HeartRateSamplesFormField(
+                    startDateTime: startDateTime,
+                    endDateTime: endDateTime,
+                    onChanged: (samples) {
+                      setState(() {
+                        _heartRateSamples = samples;
+                      });
+                    },
+                  )
+                else
+                  HealthValueField(
+                    dataType: widget.dataType,
+                    onChanged: (value) {
+                      setState(() {
+                        _value = value;
+                      });
+                    },
+                  ),
                 const SizedBox(height: 16),
                 MetadataFormFields(
                   healthPlatform: _notifier.healthPlatform,
