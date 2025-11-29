@@ -10,6 +10,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         HeartRateMeasurementRecord,
         HeartRateSeriesRecord,
         HeightRecord,
+        SleepStageRecord,
+        SleepSessionRecord,
         HydrationRecord,
         LeanBodyMassRecord,
         MeasurementUnit,
@@ -145,6 +147,13 @@ extension HealthRecordToWriteRequestDto on HealthRecord {
           dataType: HealthDataTypeDto.heartRateMeasurementRecord,
           heartRateMeasurementRecord: record.toDto(),
         );
+      case final SleepStageRecord _:
+        throw UnimplementedError();
+      case final SleepSessionRecord _:
+        throw UnsupportedError(
+          'SleepSessionRecord is not supported on iOS. '
+          'Use SleepStageRecord instead.',
+        );
       case final HeartRateSeriesRecord _:
         throw UnsupportedError(
           'HeartRateSeriesRecord is not supported on iOS. '
@@ -218,6 +227,13 @@ extension HealthRecordToUpdateRequestDto on HealthRecord {
         return UpdateRecordRequestDto(
           dataType: HealthDataTypeDto.heartRateMeasurementRecord,
           heartRateMeasurementRecord: record.toDto(),
+        );
+      case final SleepStageRecord _:
+        throw UnimplementedError();
+      case final SleepSessionRecord _:
+        throw UnsupportedError(
+          'SleepSessionRecord is not supported on iOS. '
+          'Use SleepStageRecord instead.',
         );
       case final HeartRateSeriesRecord _:
         throw UnsupportedError(
@@ -310,9 +326,18 @@ extension HealthRecordListToWriteRequestDto on List<HealthRecord> {
           }
         case final HeartRateMeasurementRecord heartRateMeasurementRecord:
           heartRateMeasurementRecords.add(heartRateMeasurementRecord);
-          if (!dataTypes.contains(HealthDataTypeDto.heartRateMeasurementRecord)) {
+          if (!dataTypes.contains(
+            HealthDataTypeDto.heartRateMeasurementRecord,
+          )) {
             dataTypes.add(HealthDataTypeDto.heartRateMeasurementRecord);
           }
+        case final SleepStageRecord _:
+          throw UnimplementedError();
+        case final SleepSessionRecord _:
+          throw UnsupportedError(
+            'SleepSessionRecord is not supported on iOS. '
+            'Use SleepStageRecord instead.',
+          );
         case final HeartRateSeriesRecord _:
           throw UnsupportedError(
             'HeartRateSeriesRecord is not supported on iOS. '

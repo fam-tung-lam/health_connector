@@ -53,7 +53,7 @@ extension StringToHealthRecordId on String {
 
 /// Converts [ActiveCaloriesBurnedRecord] to [ActiveCaloriesBurnedRecordDto].
 @internal
-extension ActiveCaloriesBurnedRecordDtoMapper on ActiveCaloriesBurnedRecord {
+extension ActiveCaloriesBurnedRecordDomainToDto on ActiveCaloriesBurnedRecord {
   ActiveCaloriesBurnedRecordDto toDto() {
     return ActiveCaloriesBurnedRecordDto(
       id: id.toDto(),
@@ -86,7 +86,7 @@ extension ActiveCaloriesBurnedRecordDtoToDomain
 
 /// Converts [DistanceRecord] to [DistanceRecordDto].
 @internal
-extension DistanceRecordDtoMapper on DistanceRecord {
+extension DistanceRecordDomainToDto on DistanceRecord {
   DistanceRecordDto toDto() {
     return DistanceRecordDto(
       id: id.toDto(),
@@ -118,7 +118,7 @@ extension DistanceRecordDtoToDomain on DistanceRecordDto {
 
 /// Converts [FloorsClimbedRecord] to [FloorsClimbedRecordDto].
 @internal
-extension FloorsClimbedRecordDtoMapper on FloorsClimbedRecord {
+extension FloorsClimbedRecordDomainToDto on FloorsClimbedRecord {
   FloorsClimbedRecordDto toDto() {
     return FloorsClimbedRecordDto(
       id: id.toDto(),
@@ -150,7 +150,7 @@ extension FloorsClimbedRecordDtoToDomain on FloorsClimbedRecordDto {
 
 /// Converts [StepRecord] to [StepRecordDto].
 @internal
-extension StepRecordDtoMapper on StepRecord {
+extension StepRecordDomainToDto on StepRecord {
   StepRecordDto toDto() {
     return StepRecordDto(
       id: id.toDto(),
@@ -182,7 +182,7 @@ extension StepRecordDtoToDomain on StepRecordDto {
 
 /// Converts [WeightRecord] to [WeightRecordDto].
 @internal
-extension WeightRecordDtoMapper on WeightRecord {
+extension WeightRecordDomainToDto on WeightRecord {
   WeightRecordDto toDto() {
     return WeightRecordDto(
       id: id.toDto(),
@@ -210,7 +210,7 @@ extension WeightRecordDtoToDomain on WeightRecordDto {
 
 /// Converts [LeanBodyMassRecord] to [LeanBodyMassRecordDto].
 @internal
-extension LeanBodyMassRecordDtoMapper on LeanBodyMassRecord {
+extension LeanBodyMassRecordDomainToDto on LeanBodyMassRecord {
   LeanBodyMassRecordDto toDto() {
     return LeanBodyMassRecordDto(
       id: id.toDto(),
@@ -238,7 +238,7 @@ extension LeanBodyMassRecordDtoToDomain on LeanBodyMassRecordDto {
 
 /// Converts [HeightRecord] to [HeightRecordDto].
 @internal
-extension HeightRecordDtoMapper on HeightRecord {
+extension HeightRecordDomainToDto on HeightRecord {
   HeightRecordDto toDto() {
     return HeightRecordDto(
       id: id.toDto(),
@@ -266,7 +266,7 @@ extension HeightRecordDtoToDomain on HeightRecordDto {
 
 /// Converts [BodyFatPercentageRecord] to [BodyFatPercentageRecordDto].
 @internal
-extension BodyFatPercentageRecordDtoMapper on BodyFatPercentageRecord {
+extension BodyFatPercentageRecordDomainToDto on BodyFatPercentageRecord {
   BodyFatPercentageRecordDto toDto() {
     return BodyFatPercentageRecordDto(
       id: id.toDto(),
@@ -294,7 +294,7 @@ extension BodyFatPercentageRecordDtoToDomain on BodyFatPercentageRecordDto {
 
 /// Converts [BodyTemperatureRecord] to [BodyTemperatureRecordDto].
 @internal
-extension BodyTemperatureRecordDtoMapper on BodyTemperatureRecord {
+extension BodyTemperatureRecordDomainToDto on BodyTemperatureRecord {
   BodyTemperatureRecordDto toDto() {
     return BodyTemperatureRecordDto(
       id: id.toDto(),
@@ -322,7 +322,7 @@ extension BodyTemperatureRecordDtoToDomain on BodyTemperatureRecordDto {
 
 /// Converts [WheelchairPushesRecord] to [WheelchairPushesRecordDto].
 @internal
-extension WheelchairPushesRecordDtoMapper on WheelchairPushesRecord {
+extension WheelchairPushesRecordDomainToDto on WheelchairPushesRecord {
   WheelchairPushesRecordDto toDto() {
     return WheelchairPushesRecordDto(
       id: id.toDto(),
@@ -354,7 +354,7 @@ extension WheelchairPushesRecordDtoToDomain on WheelchairPushesRecordDto {
 
 /// Converts [HydrationRecord] to [HydrationRecordDto].
 @internal
-extension HydrationRecordDtoMapper on HydrationRecord {
+extension HydrationRecordDomainToDto on HydrationRecord {
   HydrationRecordDto toDto() {
     return HydrationRecordDto(
       id: id.toDto(),
@@ -386,7 +386,7 @@ extension HydrationRecordDtoToDomain on HydrationRecordDto {
 
 /// Converts [HeartRateMeasurement] to [HeartRateMeasurementDto].
 @internal
-extension HeartRateMeasurementDtoMapper on HeartRateMeasurement {
+extension HeartRateMeasurementDomainToDto on HeartRateMeasurement {
   HeartRateMeasurementDto toDto() {
     return HeartRateMeasurementDto(
       time: time.millisecondsSinceEpoch,
@@ -408,12 +408,11 @@ extension HeartRateMeasurementDtoToDomain on HeartRateMeasurementDto {
 
 /// Converts [HeartRateMeasurementRecord] to [HeartRateMeasurementRecordDto].
 @internal
-extension HeartRateMeasurementRecordDtoMapper on HeartRateMeasurementRecord {
+extension HeartRateMeasurementRecordDomainToDto on HeartRateMeasurementRecord {
   HeartRateMeasurementRecordDto toDto() {
     return HeartRateMeasurementRecordDto(
       id: id.toDto(),
       time: measurement.time.millisecondsSinceEpoch,
-      zoneOffsetSeconds: null, // HealthKit doesn't store zone offsets
       metadata: metadata.toDto(),
       measurement: measurement.toDto(),
     );
@@ -422,7 +421,8 @@ extension HeartRateMeasurementRecordDtoMapper on HeartRateMeasurementRecord {
 
 /// Converts [HeartRateMeasurementRecordDto] to [HeartRateMeasurementRecord].
 @internal
-extension HeartRateMeasurementRecordDtoToDomain on HeartRateMeasurementRecordDto {
+extension HeartRateMeasurementRecordDtoToDomain
+    on HeartRateMeasurementRecordDto {
   HeartRateMeasurementRecord toDomain() {
     return HeartRateMeasurementRecord(
       id: id.toHealthRecordId(),

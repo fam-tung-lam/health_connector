@@ -11,6 +11,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         HeartRateMeasurementRecordHealthDataType,
         HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
+        SleepSessionHealthDataType,
+        SleepStageHealthDataType,
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
         StepsHealthDataType,
@@ -22,9 +24,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         ReadRecordsResponse,
         MeasurementUnit,
         Numeric;
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/'
-    'measurement_unit_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/mappers.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
     show AggregateResponseDto, ReadRecordResponseDto, ReadRecordsResponseDto;
 import 'package:meta/meta.dart' show internal;
@@ -200,7 +200,8 @@ extension ReadRecordsResponseDtoToDomain on ReadRecordsResponseDto {
             .toList();
 
       case HeartRateMeasurementRecordHealthDataType _:
-        final heartRateMeasurementRecords = responseDto.heartRateMeasurementRecords;
+        final heartRateMeasurementRecords =
+            responseDto.heartRateMeasurementRecords;
         if (heartRateMeasurementRecords == null) {
           throw HealthConnectorException(
             HealthConnectorErrorCode.parsingError,
@@ -213,10 +214,17 @@ extension ReadRecordsResponseDtoToDomain on ReadRecordsResponseDto {
             .cast<R>()
             .toList();
 
+      case SleepStageHealthDataType _:
+        throw UnimplementedError();
+      case SleepSessionHealthDataType _:
+        throw UnsupportedError(
+          '$SleepSessionHealthDataType is not supported on iOS. '
+          'Use $SleepStageHealthDataType instead.',
+        );
       case HeartRateSeriesRecordHealthDataType _:
         throw UnsupportedError(
-          'HeartRateSeriesRecordHealthDataType is not supported on iOS. '
-          'Use HeartRateMeasurementRecordHealthDataType instead.',
+          '$HeartRateSeriesRecordHealthDataType is not supported on iOS. '
+          'Use $HeartRateMeasurementRecordHealthDataType instead.',
         );
     }
   }
@@ -376,10 +384,17 @@ extension AggregateResponseDtoToDomain on AggregateResponseDto {
         }
         return value.toDomain() as U;
 
+      case SleepStageHealthDataType _:
+        throw UnimplementedError();
+      case SleepSessionHealthDataType _:
+        throw UnsupportedError(
+          '$SleepSessionHealthDataType is not supported on iOS. '
+          'Use $SleepStageHealthDataType instead.',
+        );
       case HeartRateSeriesRecordHealthDataType _:
         throw UnsupportedError(
-          'HeartRateSeriesRecordHealthDataType is not supported on iOS. '
-          'Use HeartRateMeasurementRecordHealthDataType instead.',
+          '$HeartRateSeriesRecordHealthDataType is not supported on iOS. '
+          'Use $HeartRateMeasurementRecordHealthDataType instead.',
         );
     }
   }
@@ -524,10 +539,17 @@ extension ReadRecordResponseDtoToDomain on ReadRecordResponseDto {
         }
         return record.toDomain() as R;
 
+      case SleepStageHealthDataType _:
+        throw UnimplementedError();
+      case SleepSessionHealthDataType _:
+        throw UnsupportedError(
+          '$SleepSessionHealthDataType is not supported on iOS. '
+          'Use $SleepStageHealthDataType instead.',
+        );
       case HeartRateSeriesRecordHealthDataType _:
         throw UnsupportedError(
-          'HeartRateSeriesRecordHealthDataType is not supported on iOS. '
-          'Use HeartRateMeasurementRecordHealthDataType instead.',
+          '$HeartRateSeriesRecordHealthDataType is not supported on iOS. '
+          'Use $HeartRateMeasurementRecordHealthDataType instead.',
         );
     }
   }

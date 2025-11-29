@@ -10,6 +10,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         HeartRateMeasurementRecordHealthDataType,
         HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
+        SleepSessionHealthDataType,
+        SleepStageHealthDataType,
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
         MeasurementUnit,
@@ -82,10 +84,17 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.wheelchairPushes;
       case HeartRateMeasurementRecordHealthDataType _:
         return HealthDataTypeDto.heartRateMeasurementRecord;
+      case SleepStageHealthDataType _:
+        throw UnimplementedError();
+      case SleepSessionHealthDataType _:
+        throw UnsupportedError(
+          '$SleepSessionHealthDataType is not supported on iOS. '
+          'Use $SleepStageHealthDataType instead.',
+        );
       case HeartRateSeriesRecordHealthDataType _:
         throw UnsupportedError(
-          'HeartRateSeriesRecordHealthDataType is not supported on iOS. '
-          'Use HeartRateMeasurementRecordHealthDataType instead.',
+          '$HeartRateSeriesRecordHealthDataType is not supported on iOS. '
+          'Use $HeartRateMeasurementRecordHealthDataType instead.',
         );
     }
   }
