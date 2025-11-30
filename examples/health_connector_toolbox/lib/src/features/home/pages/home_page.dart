@@ -83,7 +83,9 @@ final class HomePage extends StatelessWidget {
                               create: (_) => ReadHealthRecordsChangeNotifier(
                                 healthConnector,
                               ),
-                              child: const ReadHealthRecordsPage(),
+                              child: ReadHealthRecordsPage(
+                                healthPlatform: healthConnector.healthPlatform,
+                              ),
                             ),
                           ),
                         );

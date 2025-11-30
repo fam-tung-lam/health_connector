@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_connector/health_connector.dart' show HealthPlatform;
 import 'package:health_connector_core/health_connector_core.dart'
     show
         ActiveCaloriesBurnedHealthDataType,
@@ -41,7 +42,9 @@ import 'package:provider/provider.dart' show Provider, Selector;
 /// size, and read health records. Supports pagination and deletion of records.
 @immutable
 final class ReadHealthRecordsPage extends StatefulWidget {
-  const ReadHealthRecordsPage({super.key});
+  const ReadHealthRecordsPage({required this.healthPlatform, super.key});
+
+  final HealthPlatform healthPlatform;
 
   @override
   State<ReadHealthRecordsPage> createState() => _ReadHealthRecordsPageState();
@@ -315,7 +318,13 @@ class _ReadHealthRecordsPageState
                         }
                         return null;
                       },
-                      items: HealthDataType.values,
+                      items: HealthDataType.values
+                          .where(
+                            (type) => type.supportedHealthPlatforms.contains(
+                              widget.healthPlatform,
+                            ),
+                          )
+                          .toList(),
                     ),
                     const SizedBox(height: 16),
                     DateTimeRangePickerRows(
