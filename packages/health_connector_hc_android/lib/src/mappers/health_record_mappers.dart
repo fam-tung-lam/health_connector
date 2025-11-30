@@ -79,7 +79,7 @@ extension ActiveCaloriesBurnedRecordDtoToDomain
     on ActiveCaloriesBurnedRecordDto {
   ActiveCaloriesBurnedRecord toDomain() {
     return ActiveCaloriesBurnedRecord(
-      id: id.toHealthRecordId(),
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,
@@ -111,7 +111,7 @@ extension DistanceRecordDtoMapper on DistanceRecord {
 extension DistanceRecordDtoToDomain on DistanceRecordDto {
   DistanceRecord toDomain() {
     return DistanceRecord(
-      id: id.toHealthRecordId(),
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,
@@ -143,7 +143,7 @@ extension FloorsClimbedRecordDtoMapper on FloorsClimbedRecord {
 extension FloorsClimbedRecordDtoToDomain on FloorsClimbedRecordDto {
   FloorsClimbedRecord toDomain() {
     return FloorsClimbedRecord(
-      id: id.toHealthRecordId(),
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,
@@ -175,7 +175,7 @@ extension StepRecordDtoMapper on StepRecord {
 extension StepRecordDtoToDomain on StepRecordDto {
   StepRecord toDomain() {
     return StepRecord(
-      id: id.toHealthRecordId(),
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,
@@ -205,7 +205,7 @@ extension WeightRecordDtoMapper on WeightRecord {
 extension WeightRecordDtoToDomain on WeightRecordDto {
   WeightRecord toDomain() {
     return WeightRecord(
-      id: id.toHealthRecordId(),
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
@@ -233,7 +233,7 @@ extension LeanBodyMassRecordDtoMapper on LeanBodyMassRecord {
 extension LeanBodyMassRecordDtoToDomain on LeanBodyMassRecordDto {
   LeanBodyMassRecord toDomain() {
     return LeanBodyMassRecord(
-      id: id.toHealthRecordId(),
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
@@ -261,7 +261,7 @@ extension HeightRecordDtoMapper on HeightRecord {
 extension HeightRecordDtoToDomain on HeightRecordDto {
   HeightRecord toDomain() {
     return HeightRecord(
-      id: id.toHealthRecordId(),
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
@@ -289,7 +289,7 @@ extension BodyFatPercentageRecordDtoMapper on BodyFatPercentageRecord {
 extension BodyFatPercentageRecordDtoToDomain on BodyFatPercentageRecordDto {
   BodyFatPercentageRecord toDomain() {
     return BodyFatPercentageRecord(
-      id: id.toHealthRecordId(),
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
@@ -317,7 +317,7 @@ extension BodyTemperatureRecordDtoMapper on BodyTemperatureRecord {
 extension BodyTemperatureRecordDtoToDomain on BodyTemperatureRecordDto {
   BodyTemperatureRecord toDomain() {
     return BodyTemperatureRecord(
-      id: id.toHealthRecordId(),
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
@@ -347,7 +347,7 @@ extension WheelchairPushesRecordDtoMapper on WheelchairPushesRecord {
 extension WheelchairPushesRecordDtoToDomain on WheelchairPushesRecordDto {
   WheelchairPushesRecord toDomain() {
     return WheelchairPushesRecord(
-      id: id.toHealthRecordId(),
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,
@@ -379,7 +379,7 @@ extension HydrationRecordDtoMapper on HydrationRecord {
 extension HydrationRecordDtoToDomain on HydrationRecordDto {
   HydrationRecord toDomain() {
     return HydrationRecord(
-      id: id.toHealthRecordId(),
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,
@@ -433,7 +433,7 @@ extension HeartRateSeriesRecordDtoMapper on HeartRateSeriesRecord {
 extension HeartRateSeriesRecordDtoToDomain on HeartRateSeriesRecordDto {
   HeartRateSeriesRecord toDomain() {
     return HeartRateSeriesRecord(
-      id: id.toHealthRecordId(),
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,
@@ -517,7 +517,7 @@ extension SleepSessionRecordDomainToDto on SleepSessionRecord {
 extension SleepSessionRecordDtoToDomain on SleepSessionRecordDto {
   SleepSessionRecord toDomain() {
     return SleepSessionRecord(
-      id: id.toHealthRecordId(),
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,

@@ -11,9 +11,9 @@ import androidx.health.connect.client.records.FloorsClimbedRecord
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
-import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
 import androidx.health.connect.client.records.Record
+import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
@@ -651,7 +651,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             // Convert SDK records to DTOs using typed mappers
             val responseDto = when (request.dataType) {
                 HealthDataTypeDto.ACTIVE_CALORIES_BURNED -> {
-                    val activeCaloriesBurnedRecords = response.records.map { (it as ActiveCaloriesBurnedRecord).toDto() }
+                    val activeCaloriesBurnedRecords =
+                        response.records.map { (it as ActiveCaloriesBurnedRecord).toDto() }
 
                     ReadRecordsResponseDto(
                         dataType = HealthDataTypeDto.ACTIVE_CALORIES_BURNED,
@@ -1242,7 +1243,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     requireNotNull(request.activeCaloriesBurnedRecord) { "activeCaloriesBurnedRecord must not be null for ACTIVE_CALORIES_BURNED type" }
                     val activeCaloriesBurnedRecord = request.activeCaloriesBurnedRecord
                     // Validate record ID is not empty or "none"
-                    if (activeCaloriesBurnedRecord.id.isEmpty() || activeCaloriesBurnedRecord.id == "none") {
+                    if (activeCaloriesBurnedRecord.id.isNullOrEmpty()) {
                         throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                             details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
                         )
@@ -1253,8 +1254,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 HealthDataTypeDto.DISTANCE -> {
                     requireNotNull(request.distanceRecord) { "distanceRecord must not be null for DISTANCE type" }
                     val distanceRecord = request.distanceRecord
-                    // Validate record ID is not empty or "none"
-                    if (distanceRecord.id.isEmpty() || distanceRecord.id == "none") {
+                    if (distanceRecord.id.isNullOrEmpty()) {
                         throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                             details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
                         )
@@ -1266,7 +1266,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     requireNotNull(request.floorsClimbedRecord) { "floorsClimbedRecord must not be null for FLOORS_CLIMBED type" }
                     val floorsClimbedRecord = request.floorsClimbedRecord
                     // Validate record ID is not empty or "none"
-                    if (floorsClimbedRecord.id.isEmpty() || floorsClimbedRecord.id == "none") {
+                    if (floorsClimbedRecord.id.isNullOrEmpty()) {
                         throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                             details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
                         )
@@ -1278,7 +1278,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     requireNotNull(request.stepsRecord) { "stepsRecord must not be null for STEPS type" }
                     val stepsRecord = request.stepsRecord
                     // Validate record ID is not empty or "none"
-                    if (stepsRecord.id.isEmpty() || stepsRecord.id == "none") {
+                    if (stepsRecord.id.isNullOrEmpty()) {
                         throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                             details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
                         )
@@ -1290,7 +1290,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     requireNotNull(request.heightRecord) { "heightRecord must not be null for HEIGHT type" }
                     val heightRecord = request.heightRecord
                     // Validate record ID is not empty or "none"
-                    if (heightRecord.id.isEmpty() || heightRecord.id == "none") {
+                    if (heightRecord.id.isNullOrEmpty()) {
                         throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                             details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
                         )
@@ -1302,7 +1302,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     requireNotNull(request.hydrationRecord) { "hydrationRecord must not be null for HYDRATION type" }
                     val hydrationRecord = request.hydrationRecord
                     // Validate record ID is not empty or "none"
-                    if (hydrationRecord.id.isEmpty() || hydrationRecord.id == "none") {
+                    if (hydrationRecord.id.isNullOrEmpty()) {
                         throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                             details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
                         )
@@ -1314,7 +1314,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     requireNotNull(request.bodyFatPercentageRecord) { "bodyFatPercentageRecord must not be null for BODY_FAT_PERCENTAGE type" }
                     val bodyFatPercentageRecord = request.bodyFatPercentageRecord
                     // Validate record ID is not empty or "none"
-                    if (bodyFatPercentageRecord.id.isEmpty() || bodyFatPercentageRecord.id == "none") {
+                    if (bodyFatPercentageRecord.id.isNullOrEmpty()) {
                         throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                             details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
                         )
@@ -1326,7 +1326,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     requireNotNull(request.bodyTemperatureRecord) { "bodyTemperatureRecord must not be null for BODY_TEMPERATURE type" }
                     val bodyTemperatureRecord = request.bodyTemperatureRecord
                     // Validate record ID is not empty or "none"
-                    if (bodyTemperatureRecord.id.isEmpty() || bodyTemperatureRecord.id == "none") {
+                    if (bodyTemperatureRecord.id.isNullOrEmpty()) {
                         throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                             details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
                         )
@@ -1338,7 +1338,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     requireNotNull(request.weightRecord) { "weightRecord must not be null for WEIGHT type" }
                     val weightRecord = request.weightRecord
                     // Validate record ID is not empty or "none"
-                    if (weightRecord.id.isEmpty() || weightRecord.id == "none") {
+                    if (weightRecord.id.isNullOrEmpty()) {
                         throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                             details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
                         )
@@ -1350,7 +1350,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     requireNotNull(request.leanBodyMassRecord) { "leanBodyMassRecord must not be null for LEAN_BODY_MASS type" }
                     val leanBodyMassRecord = request.leanBodyMassRecord
                     // Validate record ID is not empty or "none"
-                    if (leanBodyMassRecord.id.isEmpty() || leanBodyMassRecord.id == "none") {
+                    if (leanBodyMassRecord.id.isNullOrEmpty()) {
                         throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                             details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
                         )
@@ -1362,7 +1362,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     requireNotNull(request.wheelchairPushesRecord) { "wheelchairPushesRecord must not be null for WHEELCHAIR_PUSHES type" }
                     val wheelchairPushesRecord = request.wheelchairPushesRecord
                     // Validate record ID is not empty or "none"
-                    if (wheelchairPushesRecord.id.isEmpty() || wheelchairPushesRecord.id == "none") {
+                    if (wheelchairPushesRecord.id.isNullOrEmpty()) {
                         throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                             details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
                         )
@@ -1374,7 +1374,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     requireNotNull(request.heartRateSeriesRecord) { "heartRateSeriesRecord must not be null for HEART_RATE_SERIES_RECORD type" }
                     val heartRateSeriesRecord = request.heartRateSeriesRecord
                     // Validate record ID is not empty or "none"
-                    if (heartRateSeriesRecord.id.isEmpty() || heartRateSeriesRecord.id == "none") {
+                    if (heartRateSeriesRecord.id.isNullOrEmpty()) {
                         throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                             details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
                         )
@@ -1386,7 +1386,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     requireNotNull(request.sleepSessionRecord) { "sleepSessionRecord must not be null for SLEEP_SESSION type" }
                     val sleepSessionRecord = request.sleepSessionRecord
                     // Validate record ID is not empty or "none"
-                    if (sleepSessionRecord.id.isEmpty() || sleepSessionRecord.id == "none") {
+                    if (sleepSessionRecord.id.isNullOrEmpty()) {
                         throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                             details = "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
                         )

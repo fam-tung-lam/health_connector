@@ -443,7 +443,6 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     phase = "failed",
                     message = "Failed to write Health Connect record",
                     context = mapOf(
-                        "dataType" to request.dataType.toString(),
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),
@@ -480,8 +479,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     phase = "failed",
                     message = "Failed to write Health Connect records",
                     context = mapOf(
-                        "dataTypes" to request.dataTypes.toString(),
-                        "recordsCount" to (request.stepsRecords?.size ?: request.weightRecords?.size ?: 0),
+                        "recordsCount" to request.records.size,
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),
@@ -518,7 +516,6 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     phase = "failed",
                     message = "Failed to update Health Connect record",
                     context = mapOf(
-                        "dataType" to request.dataType.toString(),
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),

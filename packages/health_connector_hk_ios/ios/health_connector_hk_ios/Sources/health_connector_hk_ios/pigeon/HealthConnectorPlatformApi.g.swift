@@ -1001,10 +1001,7 @@ public struct ActiveCaloriesBurnedRecordDto: Hashable {
   /// End time in milliseconds since epoch (UTC).
   var endTime: Int64
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  var id: String
+  var id: String? = nil
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
@@ -1019,7 +1016,7 @@ public struct ActiveCaloriesBurnedRecordDto: Hashable {
   static func fromList(_ pigeonVar_list: [Any?]) -> ActiveCaloriesBurnedRecordDto? {
     let energy = pigeonVar_list[0] as! EnergyDto
     let endTime = pigeonVar_list[1] as! Int64
-    let id = pigeonVar_list[2] as! String
+    let id: String? = nilOrValue(pigeonVar_list[2])
     let metadata = pigeonVar_list[3] as! MetadataDto
     let startTime = pigeonVar_list[4] as! Int64
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
@@ -1066,10 +1063,7 @@ public struct DistanceRecordDto: Hashable {
   /// End time in milliseconds since epoch (UTC).
   var endTime: Int64
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  var id: String
+  var id: String? = nil
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
@@ -1084,7 +1078,7 @@ public struct DistanceRecordDto: Hashable {
   static func fromList(_ pigeonVar_list: [Any?]) -> DistanceRecordDto? {
     let distance = pigeonVar_list[0] as! LengthDto
     let endTime = pigeonVar_list[1] as! Int64
-    let id = pigeonVar_list[2] as! String
+    let id: String? = nilOrValue(pigeonVar_list[2])
     let metadata = pigeonVar_list[3] as! MetadataDto
     let startTime = pigeonVar_list[4] as! Int64
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
@@ -1131,10 +1125,7 @@ public struct FloorsClimbedRecordDto: Hashable {
   /// End time in milliseconds since epoch (UTC).
   var endTime: Int64
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  var id: String
+  var id: String? = nil
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
@@ -1149,7 +1140,7 @@ public struct FloorsClimbedRecordDto: Hashable {
   static func fromList(_ pigeonVar_list: [Any?]) -> FloorsClimbedRecordDto? {
     let floors = pigeonVar_list[0] as! NumericDto
     let endTime = pigeonVar_list[1] as! Int64
-    let id = pigeonVar_list[2] as! String
+    let id: String? = nilOrValue(pigeonVar_list[2])
     let metadata = pigeonVar_list[3] as! MetadataDto
     let startTime = pigeonVar_list[4] as! Int64
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
@@ -1192,10 +1183,7 @@ public struct WheelchairPushesRecordDto: Hashable {
   /// End time in milliseconds since epoch (UTC).
   var endTime: Int64
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  var id: String
+  var id: String? = nil
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
@@ -1210,7 +1198,7 @@ public struct WheelchairPushesRecordDto: Hashable {
   static func fromList(_ pigeonVar_list: [Any?]) -> WheelchairPushesRecordDto? {
     let pushes = pigeonVar_list[0] as! NumericDto
     let endTime = pigeonVar_list[1] as! Int64
-    let id = pigeonVar_list[2] as! String
+    let id: String? = nilOrValue(pigeonVar_list[2])
     let metadata = pigeonVar_list[3] as! MetadataDto
     let startTime = pigeonVar_list[4] as! Int64
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
@@ -1253,10 +1241,7 @@ public struct StepRecordDto: Hashable {
   /// End time in milliseconds since epoch (UTC).
   var endTime: Int64
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  var id: String
+  var id: String? = nil
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
@@ -1271,7 +1256,7 @@ public struct StepRecordDto: Hashable {
   static func fromList(_ pigeonVar_list: [Any?]) -> StepRecordDto? {
     let count = pigeonVar_list[0] as! NumericDto
     let endTime = pigeonVar_list[1] as! Int64
-    let id = pigeonVar_list[2] as! String
+    let id: String? = nilOrValue(pigeonVar_list[2])
     let metadata = pigeonVar_list[3] as! MetadataDto
     let startTime = pigeonVar_list[4] as! Int64
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
@@ -1310,10 +1295,7 @@ public struct StepRecordDto: Hashable {
 /// Generated class from Pigeon that represents data sent in messages.
 public struct WeightRecordDto: Hashable {
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  var id: String
+  var id: String? = nil
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Measurement time in milliseconds since epoch (UTC).
@@ -1326,7 +1308,7 @@ public struct WeightRecordDto: Hashable {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> WeightRecordDto? {
-    let id = pigeonVar_list[0] as! String
+    let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let weight = pigeonVar_list[3] as! MassDto
@@ -1365,10 +1347,7 @@ public struct WeightRecordDto: Hashable {
 /// Generated class from Pigeon that represents data sent in messages.
 public struct LeanBodyMassRecordDto: Hashable {
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  var id: String
+  var id: String? = nil
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Measurement time in milliseconds since epoch (UTC).
@@ -1381,7 +1360,7 @@ public struct LeanBodyMassRecordDto: Hashable {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> LeanBodyMassRecordDto? {
-    let id = pigeonVar_list[0] as! String
+    let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let mass = pigeonVar_list[3] as! MassDto
@@ -1420,10 +1399,7 @@ public struct LeanBodyMassRecordDto: Hashable {
 /// Generated class from Pigeon that represents data sent in messages.
 public struct HeightRecordDto: Hashable {
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  var id: String
+  var id: String? = nil
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Measurement time in milliseconds since epoch (UTC).
@@ -1436,7 +1412,7 @@ public struct HeightRecordDto: Hashable {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> HeightRecordDto? {
-    let id = pigeonVar_list[0] as! String
+    let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let height = pigeonVar_list[3] as! LengthDto
@@ -1475,10 +1451,7 @@ public struct HeightRecordDto: Hashable {
 /// Generated class from Pigeon that represents data sent in messages.
 public struct BodyFatPercentageRecordDto: Hashable {
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  var id: String
+  var id: String? = nil
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Measurement time in milliseconds since epoch (UTC).
@@ -1491,7 +1464,7 @@ public struct BodyFatPercentageRecordDto: Hashable {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> BodyFatPercentageRecordDto? {
-    let id = pigeonVar_list[0] as! String
+    let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let percentage = pigeonVar_list[3] as! PercentageDto
@@ -1530,10 +1503,7 @@ public struct BodyFatPercentageRecordDto: Hashable {
 /// Generated class from Pigeon that represents data sent in messages.
 public struct BodyTemperatureRecordDto: Hashable {
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  var id: String
+  var id: String? = nil
   /// Metadata about this record.
   var metadata: MetadataDto
   /// Measurement time in milliseconds since epoch (UTC).
@@ -1546,7 +1516,7 @@ public struct BodyTemperatureRecordDto: Hashable {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> BodyTemperatureRecordDto? {
-    let id = pigeonVar_list[0] as! String
+    let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let temperature = pigeonVar_list[3] as! TemperatureDto
@@ -1586,10 +1556,7 @@ public struct BodyTemperatureRecordDto: Hashable {
 /// Generated class from Pigeon that represents data sent in messages.
 public struct HydrationRecordDto: Hashable {
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  var id: String
+  var id: String? = nil
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
   /// End time in milliseconds since epoch (UTC).
@@ -1606,7 +1573,7 @@ public struct HydrationRecordDto: Hashable {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> HydrationRecordDto? {
-    let id = pigeonVar_list[0] as! String
+    let id: String? = nilOrValue(pigeonVar_list[0])
     let startTime = pigeonVar_list[1] as! Int64
     let endTime = pigeonVar_list[2] as! Int64
     let metadata = pigeonVar_list[3] as! MetadataDto
@@ -1687,10 +1654,7 @@ public struct HeartRateMeasurementDto: Hashable {
 /// Generated class from Pigeon that represents data sent in messages.
 public struct HeartRateMeasurementRecordDto: Hashable {
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  var id: String
+  var id: String? = nil
   /// Measurement time in milliseconds since epoch (UTC).
   var time: Int64
   /// Metadata about this record.
@@ -1703,7 +1667,7 @@ public struct HeartRateMeasurementRecordDto: Hashable {
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> HeartRateMeasurementRecordDto? {
-    let id = pigeonVar_list[0] as! String
+    let id: String? = nilOrValue(pigeonVar_list[0])
     let time = pigeonVar_list[1] as! Int64
     let metadata = pigeonVar_list[2] as! MetadataDto
     let measurement = pigeonVar_list[3] as! HeartRateMeasurementDto

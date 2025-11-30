@@ -581,10 +581,7 @@ class ActiveCaloriesBurnedRecordDto {
   final int endTime;
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  final String id;
+  final String? id;
 
   /// Metadata about this record.
   final MetadataDto metadata;
@@ -622,10 +619,7 @@ class DistanceRecordDto {
   final int endTime;
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  final String id;
+  final String? id;
 
   /// Metadata about this record.
   final MetadataDto metadata;
@@ -664,10 +658,7 @@ class FloorsClimbedRecordDto {
   final int endTime;
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  final String id;
+  final String? id;
 
   /// Metadata about this record.
   final MetadataDto metadata;
@@ -701,10 +692,7 @@ class WheelchairPushesRecordDto {
   final int endTime;
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  final String id;
+  final String? id;
 
   /// Metadata about this record.
   final MetadataDto metadata;
@@ -738,10 +726,7 @@ class StepRecordDto {
   final int endTime;
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  final String id;
+  final String? id;
 
   /// Metadata about this record.
   final MetadataDto metadata;
@@ -767,10 +752,7 @@ class WeightRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  final String id;
+  final String? id;
 
   /// Metadata about this record.
   final MetadataDto metadata;
@@ -801,10 +783,7 @@ class LeanBodyMassRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  final String id;
+  final String? id;
 
   /// Metadata about this record.
   final MetadataDto metadata;
@@ -834,10 +813,7 @@ class HeightRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  final String id;
+  final String? id;
 
   /// Metadata about this record.
   final MetadataDto metadata;
@@ -867,10 +843,7 @@ class BodyFatPercentageRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  final String id;
+  final String? id;
 
   /// Metadata about this record.
   final MetadataDto metadata;
@@ -901,10 +874,7 @@ class BodyTemperatureRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  final String id;
+  final String? id;
 
   /// Metadata about this record.
   final MetadataDto metadata;
@@ -937,10 +907,7 @@ class HydrationRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  final String id;
+  final String? id;
 
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
@@ -996,10 +963,7 @@ class HeartRateSeriesRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  final String id;
+  final String? id;
 
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
@@ -1064,7 +1028,8 @@ class SleepSessionRecordDto {
     this.notes,
   });
 
-  final String id;
+  /// Platform-assigned unique identifier.
+  final String? id;
   final MetadataDto metadata;
   final int startTime;
   final int endTime;

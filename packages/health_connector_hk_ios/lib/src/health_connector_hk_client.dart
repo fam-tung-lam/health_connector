@@ -330,7 +330,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
 
       final responseDto = await _platformClient.writeRecord(requestDto);
 
-      final assignedRecordId = responseDto.recordId.toHealthRecordId();
+      final assignedRecordId = responseDto.recordId.toDomain();
 
       HealthConnectorLogger.info(
         _tag,
@@ -390,7 +390,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       final responseDto = await _platformClient.writeRecords(requestDto);
 
       final recordIds = responseDto.recordIds
-          .map((id) => id.toHealthRecordId())
+          .map((id) => id.toDomain())
           .toList();
 
       HealthConnectorLogger.info(
@@ -437,7 +437,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
 
       final responseDto = await _platformClient.updateRecord(requestDto);
 
-      final updatedRecordId = responseDto.recordId.toHealthRecordId();
+      final updatedRecordId = responseDto.recordId.toDomain();
 
       HealthConnectorLogger.info(
         _tag,

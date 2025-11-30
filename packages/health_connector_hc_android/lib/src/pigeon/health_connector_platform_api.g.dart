@@ -1290,7 +1290,7 @@ class ActiveCaloriesBurnedRecordDto {
   ActiveCaloriesBurnedRecordDto({
     required this.energy,
     required this.endTime,
-    required this.id,
+    this.id,
     required this.metadata,
     required this.startTime,
     this.endZoneOffsetSeconds,
@@ -1304,10 +1304,7 @@ class ActiveCaloriesBurnedRecordDto {
   int endTime;
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  String id;
+  String? id;
 
   /// Metadata about this record.
   MetadataDto metadata;
@@ -1341,7 +1338,7 @@ class ActiveCaloriesBurnedRecordDto {
     return ActiveCaloriesBurnedRecordDto(
       energy: result[0]! as EnergyDto,
       endTime: result[1]! as int,
-      id: result[2]! as String,
+      id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
       startTime: result[4]! as int,
       endZoneOffsetSeconds: result[5] as int?,
@@ -1376,7 +1373,7 @@ class DistanceRecordDto {
   DistanceRecordDto({
     required this.distance,
     required this.endTime,
-    required this.id,
+    this.id,
     required this.metadata,
     required this.startTime,
     this.endZoneOffsetSeconds,
@@ -1390,10 +1387,7 @@ class DistanceRecordDto {
   int endTime;
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  String id;
+  String? id;
 
   /// Metadata about this record.
   MetadataDto metadata;
@@ -1427,7 +1421,7 @@ class DistanceRecordDto {
     return DistanceRecordDto(
       distance: result[0]! as LengthDto,
       endTime: result[1]! as int,
-      id: result[2]! as String,
+      id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
       startTime: result[4]! as int,
       endZoneOffsetSeconds: result[5] as int?,
@@ -1463,7 +1457,7 @@ class FloorsClimbedRecordDto {
   FloorsClimbedRecordDto({
     required this.floors,
     required this.endTime,
-    required this.id,
+    this.id,
     required this.metadata,
     required this.startTime,
     this.endZoneOffsetSeconds,
@@ -1477,10 +1471,7 @@ class FloorsClimbedRecordDto {
   int endTime;
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  String id;
+  String? id;
 
   /// Metadata about this record.
   MetadataDto metadata;
@@ -1514,7 +1505,7 @@ class FloorsClimbedRecordDto {
     return FloorsClimbedRecordDto(
       floors: result[0]! as NumericDto,
       endTime: result[1]! as int,
-      id: result[2]! as String,
+      id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
       startTime: result[4]! as int,
       endZoneOffsetSeconds: result[5] as int?,
@@ -1545,7 +1536,7 @@ class WheelchairPushesRecordDto {
   WheelchairPushesRecordDto({
     required this.pushes,
     required this.endTime,
-    required this.id,
+    this.id,
     required this.metadata,
     required this.startTime,
     this.endZoneOffsetSeconds,
@@ -1559,10 +1550,7 @@ class WheelchairPushesRecordDto {
   int endTime;
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  String id;
+  String? id;
 
   /// Metadata about this record.
   MetadataDto metadata;
@@ -1596,7 +1584,7 @@ class WheelchairPushesRecordDto {
     return WheelchairPushesRecordDto(
       pushes: result[0]! as NumericDto,
       endTime: result[1]! as int,
-      id: result[2]! as String,
+      id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
       startTime: result[4]! as int,
       endZoneOffsetSeconds: result[5] as int?,
@@ -1627,7 +1615,7 @@ class StepRecordDto {
   StepRecordDto({
     required this.count,
     required this.endTime,
-    required this.id,
+    this.id,
     required this.metadata,
     required this.startTime,
     this.endZoneOffsetSeconds,
@@ -1641,10 +1629,7 @@ class StepRecordDto {
   int endTime;
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  String id;
+  String? id;
 
   /// Metadata about this record.
   MetadataDto metadata;
@@ -1678,7 +1663,7 @@ class StepRecordDto {
     return StepRecordDto(
       count: result[0]! as NumericDto,
       endTime: result[1]! as int,
-      id: result[2]! as String,
+      id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
       startTime: result[4]! as int,
       endZoneOffsetSeconds: result[5] as int?,
@@ -1707,7 +1692,7 @@ class StepRecordDto {
 /// Represents a weight record for platform transfer.
 class WeightRecordDto {
   WeightRecordDto({
-    required this.id,
+    this.id,
     required this.metadata,
     required this.time,
     required this.weight,
@@ -1715,10 +1700,7 @@ class WeightRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  String id;
+  String? id;
 
   /// Metadata about this record.
   MetadataDto metadata;
@@ -1748,7 +1730,7 @@ class WeightRecordDto {
   static WeightRecordDto decode(Object result) {
     result as List<Object?>;
     return WeightRecordDto(
-      id: result[0]! as String,
+      id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
       weight: result[3]! as MassDto,
@@ -1782,7 +1764,7 @@ class WeightRecordDto {
 /// - Domain: `LeanBodyMassRecord`
 class LeanBodyMassRecordDto {
   LeanBodyMassRecordDto({
-    required this.id,
+    this.id,
     required this.metadata,
     required this.time,
     required this.mass,
@@ -1790,10 +1772,7 @@ class LeanBodyMassRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  String id;
+  String? id;
 
   /// Metadata about this record.
   MetadataDto metadata;
@@ -1823,7 +1802,7 @@ class LeanBodyMassRecordDto {
   static LeanBodyMassRecordDto decode(Object result) {
     result as List<Object?>;
     return LeanBodyMassRecordDto(
-      id: result[0]! as String,
+      id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
       mass: result[3]! as MassDto,
@@ -1856,7 +1835,7 @@ class LeanBodyMassRecordDto {
 /// - Domain: `HeightRecord`
 class HeightRecordDto {
   HeightRecordDto({
-    required this.id,
+    this.id,
     required this.metadata,
     required this.time,
     required this.height,
@@ -1864,10 +1843,7 @@ class HeightRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  String id;
+  String? id;
 
   /// Metadata about this record.
   MetadataDto metadata;
@@ -1897,7 +1873,7 @@ class HeightRecordDto {
   static HeightRecordDto decode(Object result) {
     result as List<Object?>;
     return HeightRecordDto(
-      id: result[0]! as String,
+      id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
       height: result[3]! as LengthDto,
@@ -1930,7 +1906,7 @@ class HeightRecordDto {
 /// - Domain: `BodyFatPercentageRecord`
 class BodyFatPercentageRecordDto {
   BodyFatPercentageRecordDto({
-    required this.id,
+    this.id,
     required this.metadata,
     required this.time,
     required this.percentage,
@@ -1938,10 +1914,7 @@ class BodyFatPercentageRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  String id;
+  String? id;
 
   /// Metadata about this record.
   MetadataDto metadata;
@@ -1971,7 +1944,7 @@ class BodyFatPercentageRecordDto {
   static BodyFatPercentageRecordDto decode(Object result) {
     result as List<Object?>;
     return BodyFatPercentageRecordDto(
-      id: result[0]! as String,
+      id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
       percentage: result[3]! as PercentageDto,
@@ -2005,7 +1978,7 @@ class BodyFatPercentageRecordDto {
 /// - Domain: `BodyTemperatureRecord`
 class BodyTemperatureRecordDto {
   BodyTemperatureRecordDto({
-    required this.id,
+    this.id,
     required this.metadata,
     required this.time,
     required this.temperature,
@@ -2013,10 +1986,7 @@ class BodyTemperatureRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  String id;
+  String? id;
 
   /// Metadata about this record.
   MetadataDto metadata;
@@ -2046,7 +2016,7 @@ class BodyTemperatureRecordDto {
   static BodyTemperatureRecordDto decode(Object result) {
     result as List<Object?>;
     return BodyTemperatureRecordDto(
-      id: result[0]! as String,
+      id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
       temperature: result[3]! as TemperatureDto,
@@ -2080,7 +2050,7 @@ class BodyTemperatureRecordDto {
 /// - Domain: `HydrationRecord`
 class HydrationRecordDto {
   HydrationRecordDto({
-    required this.id,
+    this.id,
     required this.startTime,
     required this.endTime,
     required this.metadata,
@@ -2090,10 +2060,7 @@ class HydrationRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  String id;
+  String? id;
 
   /// Start time in milliseconds since epoch (UTC).
   int startTime;
@@ -2131,7 +2098,7 @@ class HydrationRecordDto {
   static HydrationRecordDto decode(Object result) {
     result as List<Object?>;
     return HydrationRecordDto(
-      id: result[0]! as String,
+      id: result[0] as String?,
       startTime: result[1]! as int,
       endTime: result[2]! as int,
       metadata: result[3]! as MetadataDto,
@@ -2219,7 +2186,7 @@ class HeartRateMeasurementDto {
 /// - Domain: `HeartRateSeriesRecord`
 class HeartRateSeriesRecordDto {
   HeartRateSeriesRecordDto({
-    required this.id,
+    this.id,
     required this.startTime,
     required this.endTime,
     required this.metadata,
@@ -2229,10 +2196,7 @@ class HeartRateSeriesRecordDto {
   });
 
   /// Platform-assigned unique identifier.
-  ///
-  /// For new records being written, use an empty string or placeholder value.
-  /// The platform will assign a proper ID upon successful write.
-  String id;
+  String? id;
 
   /// Start time in milliseconds since epoch (UTC).
   int startTime;
@@ -2270,7 +2234,7 @@ class HeartRateSeriesRecordDto {
   static HeartRateSeriesRecordDto decode(Object result) {
     result as List<Object?>;
     return HeartRateSeriesRecordDto(
-      id: result[0]! as String,
+      id: result[0] as String?,
       startTime: result[1]! as int,
       endTime: result[2]! as int,
       metadata: result[3]! as MetadataDto,
@@ -2356,7 +2320,7 @@ class SleepStageDto {
 /// DTO for sleep session.
 class SleepSessionRecordDto {
   SleepSessionRecordDto({
-    required this.id,
+    this.id,
     required this.metadata,
     required this.startTime,
     required this.endTime,
@@ -2367,7 +2331,8 @@ class SleepSessionRecordDto {
     required this.stages,
   });
 
-  String id;
+  /// Platform-assigned unique identifier.
+  String? id;
 
   MetadataDto metadata;
 
@@ -2405,7 +2370,7 @@ class SleepSessionRecordDto {
   static SleepSessionRecordDto decode(Object result) {
     result as List<Object?>;
     return SleepSessionRecordDto(
-      id: result[0]! as String,
+      id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       startTime: result[2]! as int,
       endTime: result[3]! as int,

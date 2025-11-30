@@ -1262,13 +1262,8 @@ data class ActiveCaloriesBurnedRecordDto (
   val energy: EnergyDto,
   /** End time in milliseconds since epoch (UTC). */
   val endTime: Long,
-  /**
-   * Platform-assigned unique identifier.
-   *
-   * For new records being written, use an empty string or placeholder value.
-   * The platform will assign a proper ID upon successful write.
-   */
-  val id: String,
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
   /** Metadata about this record. */
   val metadata: MetadataDto,
   /** Start time in milliseconds since epoch (UTC). */
@@ -1283,7 +1278,7 @@ data class ActiveCaloriesBurnedRecordDto (
     fun fromList(pigeonVar_list: List<Any?>): ActiveCaloriesBurnedRecordDto {
       val energy = pigeonVar_list[0] as EnergyDto
       val endTime = pigeonVar_list[1] as Long
-      val id = pigeonVar_list[2] as String
+      val id = pigeonVar_list[2] as String?
       val metadata = pigeonVar_list[3] as MetadataDto
       val startTime = pigeonVar_list[4] as Long
       val endZoneOffsetSeconds = pigeonVar_list[5] as Long?
@@ -1328,13 +1323,8 @@ data class DistanceRecordDto (
   val distance: LengthDto,
   /** End time in milliseconds since epoch (UTC). */
   val endTime: Long,
-  /**
-   * Platform-assigned unique identifier.
-   *
-   * For new records being written, use an empty string or placeholder value.
-   * The platform will assign a proper ID upon successful write.
-   */
-  val id: String,
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
   /** Metadata about this record. */
   val metadata: MetadataDto,
   /** Start time in milliseconds since epoch (UTC). */
@@ -1349,7 +1339,7 @@ data class DistanceRecordDto (
     fun fromList(pigeonVar_list: List<Any?>): DistanceRecordDto {
       val distance = pigeonVar_list[0] as LengthDto
       val endTime = pigeonVar_list[1] as Long
-      val id = pigeonVar_list[2] as String
+      val id = pigeonVar_list[2] as String?
       val metadata = pigeonVar_list[3] as MetadataDto
       val startTime = pigeonVar_list[4] as Long
       val endZoneOffsetSeconds = pigeonVar_list[5] as Long?
@@ -1395,13 +1385,8 @@ data class FloorsClimbedRecordDto (
   val floors: NumericDto,
   /** End time in milliseconds since epoch (UTC). */
   val endTime: Long,
-  /**
-   * Platform-assigned unique identifier.
-   *
-   * For new records being written, use an empty string or placeholder value.
-   * The platform will assign a proper ID upon successful write.
-   */
-  val id: String,
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
   /** Metadata about this record. */
   val metadata: MetadataDto,
   /** Start time in milliseconds since epoch (UTC). */
@@ -1416,7 +1401,7 @@ data class FloorsClimbedRecordDto (
     fun fromList(pigeonVar_list: List<Any?>): FloorsClimbedRecordDto {
       val floors = pigeonVar_list[0] as NumericDto
       val endTime = pigeonVar_list[1] as Long
-      val id = pigeonVar_list[2] as String
+      val id = pigeonVar_list[2] as String?
       val metadata = pigeonVar_list[3] as MetadataDto
       val startTime = pigeonVar_list[4] as Long
       val endZoneOffsetSeconds = pigeonVar_list[5] as Long?
@@ -1457,13 +1442,8 @@ data class WheelchairPushesRecordDto (
   val pushes: NumericDto,
   /** End time in milliseconds since epoch (UTC). */
   val endTime: Long,
-  /**
-   * Platform-assigned unique identifier.
-   *
-   * For new records being written, use an empty string or placeholder value.
-   * The platform will assign a proper ID upon successful write.
-   */
-  val id: String,
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
   /** Metadata about this record. */
   val metadata: MetadataDto,
   /** Start time in milliseconds since epoch (UTC). */
@@ -1478,7 +1458,7 @@ data class WheelchairPushesRecordDto (
     fun fromList(pigeonVar_list: List<Any?>): WheelchairPushesRecordDto {
       val pushes = pigeonVar_list[0] as NumericDto
       val endTime = pigeonVar_list[1] as Long
-      val id = pigeonVar_list[2] as String
+      val id = pigeonVar_list[2] as String?
       val metadata = pigeonVar_list[3] as MetadataDto
       val startTime = pigeonVar_list[4] as Long
       val endZoneOffsetSeconds = pigeonVar_list[5] as Long?
@@ -1519,13 +1499,8 @@ data class StepRecordDto (
   val count: NumericDto,
   /** End time in milliseconds since epoch (UTC). */
   val endTime: Long,
-  /**
-   * Platform-assigned unique identifier.
-   *
-   * For new records being written, use an empty string or placeholder value.
-   * The platform will assign a proper ID upon successful write.
-   */
-  val id: String,
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
   /** Metadata about this record. */
   val metadata: MetadataDto,
   /** Start time in milliseconds since epoch (UTC). */
@@ -1540,7 +1515,7 @@ data class StepRecordDto (
     fun fromList(pigeonVar_list: List<Any?>): StepRecordDto {
       val count = pigeonVar_list[0] as NumericDto
       val endTime = pigeonVar_list[1] as Long
-      val id = pigeonVar_list[2] as String
+      val id = pigeonVar_list[2] as String?
       val metadata = pigeonVar_list[3] as MetadataDto
       val startTime = pigeonVar_list[4] as Long
       val endZoneOffsetSeconds = pigeonVar_list[5] as Long?
@@ -1577,13 +1552,8 @@ data class StepRecordDto (
  * Generated class from Pigeon that represents data sent in messages.
  */
 data class WeightRecordDto (
-  /**
-   * Platform-assigned unique identifier.
-   *
-   * For new records being written, use an empty string or placeholder value.
-   * The platform will assign a proper ID upon successful write.
-   */
-  val id: String,
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
   /** Metadata about this record. */
   val metadata: MetadataDto,
   /** Measurement time in milliseconds since epoch (UTC). */
@@ -1596,7 +1566,7 @@ data class WeightRecordDto (
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): WeightRecordDto {
-      val id = pigeonVar_list[0] as String
+      val id = pigeonVar_list[0] as String?
       val metadata = pigeonVar_list[1] as MetadataDto
       val time = pigeonVar_list[2] as Long
       val weight = pigeonVar_list[3] as MassDto
@@ -1636,13 +1606,8 @@ data class WeightRecordDto (
  * Generated class from Pigeon that represents data sent in messages.
  */
 data class LeanBodyMassRecordDto (
-  /**
-   * Platform-assigned unique identifier.
-   *
-   * For new records being written, use an empty string or placeholder value.
-   * The platform will assign a proper ID upon successful write.
-   */
-  val id: String,
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
   /** Metadata about this record. */
   val metadata: MetadataDto,
   /** Measurement time in milliseconds since epoch (UTC). */
@@ -1655,7 +1620,7 @@ data class LeanBodyMassRecordDto (
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): LeanBodyMassRecordDto {
-      val id = pigeonVar_list[0] as String
+      val id = pigeonVar_list[0] as String?
       val metadata = pigeonVar_list[1] as MetadataDto
       val time = pigeonVar_list[2] as Long
       val mass = pigeonVar_list[3] as MassDto
@@ -1694,13 +1659,8 @@ data class LeanBodyMassRecordDto (
  * Generated class from Pigeon that represents data sent in messages.
  */
 data class HeightRecordDto (
-  /**
-   * Platform-assigned unique identifier.
-   *
-   * For new records being written, use an empty string or placeholder value.
-   * The platform will assign a proper ID upon successful write.
-   */
-  val id: String,
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
   /** Metadata about this record. */
   val metadata: MetadataDto,
   /** Measurement time in milliseconds since epoch (UTC). */
@@ -1713,7 +1673,7 @@ data class HeightRecordDto (
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): HeightRecordDto {
-      val id = pigeonVar_list[0] as String
+      val id = pigeonVar_list[0] as String?
       val metadata = pigeonVar_list[1] as MetadataDto
       val time = pigeonVar_list[2] as Long
       val height = pigeonVar_list[3] as LengthDto
@@ -1752,13 +1712,8 @@ data class HeightRecordDto (
  * Generated class from Pigeon that represents data sent in messages.
  */
 data class BodyFatPercentageRecordDto (
-  /**
-   * Platform-assigned unique identifier.
-   *
-   * For new records being written, use an empty string or placeholder value.
-   * The platform will assign a proper ID upon successful write.
-   */
-  val id: String,
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
   /** Metadata about this record. */
   val metadata: MetadataDto,
   /** Measurement time in milliseconds since epoch (UTC). */
@@ -1771,7 +1726,7 @@ data class BodyFatPercentageRecordDto (
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): BodyFatPercentageRecordDto {
-      val id = pigeonVar_list[0] as String
+      val id = pigeonVar_list[0] as String?
       val metadata = pigeonVar_list[1] as MetadataDto
       val time = pigeonVar_list[2] as Long
       val percentage = pigeonVar_list[3] as PercentageDto
@@ -1811,13 +1766,8 @@ data class BodyFatPercentageRecordDto (
  * Generated class from Pigeon that represents data sent in messages.
  */
 data class BodyTemperatureRecordDto (
-  /**
-   * Platform-assigned unique identifier.
-   *
-   * For new records being written, use an empty string or placeholder value.
-   * The platform will assign a proper ID upon successful write.
-   */
-  val id: String,
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
   /** Metadata about this record. */
   val metadata: MetadataDto,
   /** Measurement time in milliseconds since epoch (UTC). */
@@ -1830,7 +1780,7 @@ data class BodyTemperatureRecordDto (
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): BodyTemperatureRecordDto {
-      val id = pigeonVar_list[0] as String
+      val id = pigeonVar_list[0] as String?
       val metadata = pigeonVar_list[1] as MetadataDto
       val time = pigeonVar_list[2] as Long
       val temperature = pigeonVar_list[3] as TemperatureDto
@@ -1870,13 +1820,8 @@ data class BodyTemperatureRecordDto (
  * Generated class from Pigeon that represents data sent in messages.
  */
 data class HydrationRecordDto (
-  /**
-   * Platform-assigned unique identifier.
-   *
-   * For new records being written, use an empty string or placeholder value.
-   * The platform will assign a proper ID upon successful write.
-   */
-  val id: String,
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
   /** Start time in milliseconds since epoch (UTC). */
   val startTime: Long,
   /** End time in milliseconds since epoch (UTC). */
@@ -1893,7 +1838,7 @@ data class HydrationRecordDto (
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): HydrationRecordDto {
-      val id = pigeonVar_list[0] as String
+      val id = pigeonVar_list[0] as String?
       val startTime = pigeonVar_list[1] as Long
       val endTime = pigeonVar_list[2] as Long
       val metadata = pigeonVar_list[3] as MetadataDto
@@ -1977,13 +1922,8 @@ data class HeartRateMeasurementDto (
  * Generated class from Pigeon that represents data sent in messages.
  */
 data class HeartRateSeriesRecordDto (
-  /**
-   * Platform-assigned unique identifier.
-   *
-   * For new records being written, use an empty string or placeholder value.
-   * The platform will assign a proper ID upon successful write.
-   */
-  val id: String,
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
   /** Start time in milliseconds since epoch (UTC). */
   val startTime: Long,
   /** End time in milliseconds since epoch (UTC). */
@@ -2000,7 +1940,7 @@ data class HeartRateSeriesRecordDto (
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): HeartRateSeriesRecordDto {
-      val id = pigeonVar_list[0] as String
+      val id = pigeonVar_list[0] as String?
       val startTime = pigeonVar_list[1] as Long
       val endTime = pigeonVar_list[2] as Long
       val metadata = pigeonVar_list[3] as MetadataDto
@@ -2080,7 +2020,8 @@ data class SleepStageDto (
  * Generated class from Pigeon that represents data sent in messages.
  */
 data class SleepSessionRecordDto (
-  val id: String,
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
   val metadata: MetadataDto,
   val startTime: Long,
   val endTime: Long,
@@ -2093,7 +2034,7 @@ data class SleepSessionRecordDto (
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): SleepSessionRecordDto {
-      val id = pigeonVar_list[0] as String
+      val id = pigeonVar_list[0] as String?
       val metadata = pigeonVar_list[1] as MetadataDto
       val startTime = pigeonVar_list[2] as Long
       val endTime = pigeonVar_list[3] as Long

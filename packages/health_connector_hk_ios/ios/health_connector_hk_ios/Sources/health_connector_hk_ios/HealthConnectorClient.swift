@@ -1626,7 +1626,7 @@ internal class HealthConnectorClient {
             )
 
             // Validate record ID
-            let recordId: String
+            let recordId: String?
             switch request.dataType {
             case .activeCaloriesBurned:
                 guard let activeCaloriesBurnedRecord = request.activeCaloriesBurnedRecord else {
@@ -1637,11 +1637,11 @@ internal class HealthConnectorClient {
                 }
                 recordId = activeCaloriesBurnedRecord.id
 
-                // Validate record ID is not empty or "none"
-                if recordId.isEmpty || recordId == "none" {
+                // Validate record ID is not empty
+                if recordId?.isEmpty ?? true {
                     throw HealthConnectorErrors.invalidArgument(
                         message: "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
-                        details: "Record ID: \(recordId)"
+                        details: "Record ID: \(recordId ?? "nil")"
                     )
                 }
 
@@ -1654,11 +1654,11 @@ internal class HealthConnectorClient {
                 }
                 recordId = distanceRecord.id
 
-                // Validate record ID is not empty or "none"
-                if recordId.isEmpty || recordId == "none" {
+                // Validate record ID is not empty
+                if recordId?.isEmpty ?? true {
                     throw HealthConnectorErrors.invalidArgument(
                         message: "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
-                        details: "Record ID: \(recordId)"
+                        details: "Record ID: \(recordId ?? "nil")"
                     )
                 }
 
@@ -1671,11 +1671,11 @@ internal class HealthConnectorClient {
                 }
                 recordId = floorsClimbedRecord.id
 
-                // Validate record ID is not empty or "none"
-                if recordId.isEmpty || recordId == "none" {
+                // Validate record ID is not empty
+                if recordId?.isEmpty ?? true {
                     throw HealthConnectorErrors.invalidArgument(
                         message: "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
-                        details: "Record ID: \(recordId)"
+                        details: "Record ID: \(recordId ?? "nil")"
                     )
                 }
 
@@ -1688,11 +1688,11 @@ internal class HealthConnectorClient {
                 }
                 recordId = stepsRecord.id
 
-                // Validate record ID is not empty or "none"
-                if recordId.isEmpty || recordId == "none" {
+                // Validate record ID is not empty
+                if recordId?.isEmpty ?? true {
                     throw HealthConnectorErrors.invalidArgument(
                         message: "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
-                        details: "Record ID: \(recordId)"
+                        details: "Record ID: \(recordId ?? "nil")"
                     )
                 }
 
@@ -1705,11 +1705,11 @@ internal class HealthConnectorClient {
                 }
                 recordId = weightRecord.id
 
-                // Validate record ID is not empty or "none"
-                if recordId.isEmpty || recordId == "none" {
+                // Validate record ID is not empty
+                if recordId?.isEmpty ?? true {
                     throw HealthConnectorErrors.invalidArgument(
                         message: "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
-                        details: "Record ID: \(recordId)"
+                        details: "Record ID: \(recordId ?? "nil")"
                     )
                 }
 
@@ -1722,11 +1722,11 @@ internal class HealthConnectorClient {
                 }
                 recordId = heightRecord.id
 
-                // Validate record ID is not empty or "none"
-                if recordId.isEmpty || recordId == "none" {
+                // Validate record ID is not empty
+                if recordId?.isEmpty ?? true {
                     throw HealthConnectorErrors.invalidArgument(
                         message: "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
-                        details: "Record ID: \(recordId)"
+                        details: "Record ID: \(recordId ?? "nil")"
                     )
                 }
 
@@ -1739,11 +1739,11 @@ internal class HealthConnectorClient {
                 }
                 recordId = hydrationRecord.id
 
-                // Validate record ID is not empty or "none"
-                if recordId.isEmpty || recordId == "none" {
+                // Validate record ID is not empty
+                if recordId?.isEmpty ?? true {
                     throw HealthConnectorErrors.invalidArgument(
                         message: "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
-                        details: "Record ID: \(recordId)"
+                        details: "Record ID: \(recordId ?? "nil")"
                     )
                 }
 
@@ -1756,11 +1756,11 @@ internal class HealthConnectorClient {
                 }
                 recordId = leanBodyMassRecord.id
 
-                // Validate record ID is not empty or "none"
-                if recordId.isEmpty || recordId == "none" {
+                // Validate record ID is not empty
+                if recordId?.isEmpty ?? true {
                     throw HealthConnectorErrors.invalidArgument(
                         message: "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
-                        details: "Record ID: \(recordId)"
+                        details: "Record ID: \(recordId ?? "nil")"
                     )
                 }
 
@@ -1773,11 +1773,11 @@ internal class HealthConnectorClient {
                 }
                 recordId = bodyFatPercentageRecord.id
 
-                // Validate record ID is not empty or "none"
-                if recordId.isEmpty || recordId == "none" {
+                // Validate record ID is not empty
+                if recordId?.isEmpty ?? true {
                     throw HealthConnectorErrors.invalidArgument(
                         message: "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
-                        details: "Record ID: \(recordId)"
+                        details: "Record ID: \(recordId ?? "nil")"
                     )
                 }
 
@@ -1790,11 +1790,11 @@ internal class HealthConnectorClient {
                 }
                 recordId = bodyTemperatureRecord.id
 
-                // Validate record ID is not empty or "none"
-                if recordId.isEmpty || recordId == "none" {
+                // Validate record ID is not empty
+                if recordId?.isEmpty ?? true {
                     throw HealthConnectorErrors.invalidArgument(
                         message: "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
-                        details: "Record ID: \(recordId)"
+                        details: "Record ID: \(recordId ?? "nil")"
                     )
                 }
 
@@ -1807,11 +1807,11 @@ internal class HealthConnectorClient {
                 }
                 recordId = wheelchairPushesRecord.id
 
-                // Validate record ID is not empty or "none"
-                if recordId.isEmpty || recordId == "none" {
+                // Validate record ID is not empty
+                if recordId?.isEmpty ?? true {
                     throw HealthConnectorErrors.invalidArgument(
                         message: "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
-                        details: "Record ID: \(recordId)"
+                        details: "Record ID: \(recordId ?? "nil")"
                     )
                 }
 
@@ -1824,19 +1824,20 @@ internal class HealthConnectorClient {
                 }
                 recordId = heartRateMeasurementRecord.id
 
-                // Validate record ID is not empty or "none"
-                if recordId.isEmpty || recordId == "none" {
+                // Validate record ID is not empty
+                if recordId?.isEmpty ?? true {
                     throw HealthConnectorErrors.invalidArgument(
                         message: "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
-                        details: "Record ID: \(recordId)"
+                        details: "Record ID: \(recordId ?? "nil")"
                     )
                 }
             }
 
             // Convert record ID to UUID
-            guard let recordUUID = UUID(uuidString: recordId) else {
+            guard let recordIdString = recordId,
+                  let recordUUID = UUID(uuidString: recordIdString) else {
                 throw HealthConnectorErrors.invalidArgument(
-                    message: "Invalid record ID format: \(recordId)",
+                    message: "Invalid record ID format: \(recordId ?? "nil")",
                     details: "Record ID must be a valid UUID string"
                 )
             }
@@ -1870,8 +1871,8 @@ internal class HealthConnectorClient {
                     guard let sample = samples?.first else {
                         continuation.resume(
                             throwing: HealthConnectorErrors.invalidArgument(
-                                message: "Record not found: \(recordId)",
-                                details: "No record found with ID \(recordId) for dataType \(request.dataType)"
+                                message: "Record not found: \(recordIdString)",
+                                details: "No record found with ID \(recordIdString) for dataType \(request.dataType)"
                             )
                         )
                         return

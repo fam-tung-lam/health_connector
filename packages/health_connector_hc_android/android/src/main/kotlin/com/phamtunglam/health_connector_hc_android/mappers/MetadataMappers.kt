@@ -152,3 +152,4 @@ internal fun Metadata.toDto(): MetadataDto {
         device = device?.toDto()
     )
 }
+
