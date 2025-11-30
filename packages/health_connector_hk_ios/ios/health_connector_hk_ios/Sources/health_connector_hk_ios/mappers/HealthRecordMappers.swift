@@ -29,7 +29,7 @@ extension ActiveCaloriesBurnedRecordDto {
             start: startDate,
             end: endDate,
             device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            metadata: metadata.toHealthKitMetadata(timeZone: TimeZone.current)
         )
     }
 }
@@ -46,17 +46,21 @@ extension HKQuantitySample {
             return nil
         }
 
+        let metadataDict = metadata ?? [:]
+        let startZoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        let endZoneOffset = metadataDict.extractTimeZoneOffset(for: endDate)
+        
         return ActiveCaloriesBurnedRecordDto(
             energy: quantity.toEnergyDto(),
             endTime: Int64(endDate.timeIntervalSince1970 * 1000),
             id: uuid.uuidString,
-            metadata: (metadata ?? [:]).toMetadataDto(
+            metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device
             ),
             startTime: Int64(startDate.timeIntervalSince1970 * 1000),
-            endZoneOffsetSeconds: nil, // HealthKit doesn't store zone offsets
-            startZoneOffsetSeconds: nil
+            endZoneOffsetSeconds: endZoneOffset,
+            startZoneOffsetSeconds: startZoneOffset
         )
     }
 }
@@ -89,7 +93,7 @@ extension DistanceRecordDto {
             start: startDate,
             end: endDate,
             device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            metadata: metadata.toHealthKitMetadata(timeZone: TimeZone.current)
         )
     }
 }
@@ -106,17 +110,21 @@ extension HKQuantitySample {
             return nil
         }
 
+        let metadataDict = metadata ?? [:]
+        let startZoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        let endZoneOffset = metadataDict.extractTimeZoneOffset(for: endDate)
+        
         return DistanceRecordDto(
             distance: quantity.toLengthDto(),
             endTime: Int64(endDate.timeIntervalSince1970 * 1000),
             id: uuid.uuidString,
-            metadata: (metadata ?? [:]).toMetadataDto(
+            metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device
             ),
             startTime: Int64(startDate.timeIntervalSince1970 * 1000),
-            endZoneOffsetSeconds: nil, // HealthKit doesn't store zone offsets
-            startZoneOffsetSeconds: nil
+            endZoneOffsetSeconds: endZoneOffset,
+            startZoneOffsetSeconds: startZoneOffset
         )
     }
 }
@@ -149,7 +157,7 @@ extension FloorsClimbedRecordDto {
             start: startDate,
             end: endDate,
             device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            metadata: metadata.toHealthKitMetadata(timeZone: TimeZone.current)
         )
     }
 }
@@ -169,17 +177,21 @@ extension HKQuantitySample {
         let unit = HKUnit.count()
         let value = quantity.doubleValue(for: unit)
 
+        let metadataDict = metadata ?? [:]
+        let startZoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        let endZoneOffset = metadataDict.extractTimeZoneOffset(for: endDate)
+        
         return FloorsClimbedRecordDto(
             floors: NumericDto(unit: NumericUnitDto.numeric, value: value),
             endTime: Int64(endDate.timeIntervalSince1970 * 1000),
             id: uuid.uuidString,
-            metadata: (metadata ?? [:]).toMetadataDto(
+            metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device
             ),
             startTime: Int64(startDate.timeIntervalSince1970 * 1000),
-            endZoneOffsetSeconds: nil, // HealthKit doesn't store zone offsets
-            startZoneOffsetSeconds: nil
+            endZoneOffsetSeconds: endZoneOffset,
+            startZoneOffsetSeconds: startZoneOffset
         )
     }
 }
@@ -212,7 +224,7 @@ extension StepRecordDto {
             start: startDate,
             end: endDate,
             device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            metadata: metadata.toHealthKitMetadata(timeZone: TimeZone.current)
         )
     }
 }
@@ -231,17 +243,21 @@ extension HKQuantitySample {
 
         let count = Int64(quantity.doubleValue(for: .count()))
 
+        let metadataDict = metadata ?? [:]
+        let startZoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        let endZoneOffset = metadataDict.extractTimeZoneOffset(for: endDate)
+        
         return StepRecordDto(
             count: count.toNumericDto(),
             endTime: Int64(endDate.timeIntervalSince1970 * 1000),
             id: uuid.uuidString,
-            metadata: (metadata ?? [:]).toMetadataDto(
+            metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device
             ),
             startTime: Int64(startDate.timeIntervalSince1970 * 1000),
-            endZoneOffsetSeconds: nil, // HealthKit doesn't store zone offsets
-            startZoneOffsetSeconds: nil
+            endZoneOffsetSeconds: endZoneOffset,
+            startZoneOffsetSeconds: startZoneOffset
         )
     }
 }
@@ -290,15 +306,18 @@ extension HKQuantitySample {
             return nil
         }
 
+        let metadataDict = metadata ?? [:]
+        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        
         return WeightRecordDto(
             id: uuid.uuidString,
-            metadata: (metadata ?? [:]).toMetadataDto(
+            metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device
             ),
             time: Int64(startDate.timeIntervalSince1970 * 1000),
             weight: quantity.toMassDto(),
-            zoneOffsetSeconds: nil // HealthKit doesn't store zone offsets
+            zoneOffsetSeconds: zoneOffset
         )
     }
 }
@@ -347,15 +366,18 @@ extension HKQuantitySample {
             return nil
         }
 
+        let metadataDict = metadata ?? [:]
+        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        
         return LeanBodyMassRecordDto(
             id: uuid.uuidString,
-            metadata: (metadata ?? [:]).toMetadataDto(
+            metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device
             ),
             time: Int64(startDate.timeIntervalSince1970 * 1000),
             mass: quantity.toMassDto(),
-            zoneOffsetSeconds: nil // HealthKit doesn't store zone offsets
+            zoneOffsetSeconds: zoneOffset
         )
     }
 }
@@ -404,15 +426,18 @@ extension HKQuantitySample {
             return nil
         }
 
+        let metadataDict = metadata ?? [:]
+        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        
         return HeightRecordDto(
             id: uuid.uuidString,
-            metadata: (metadata ?? [:]).toMetadataDto(
+            metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device
             ),
             time: Int64(startDate.timeIntervalSince1970 * 1000),
             height: quantity.toLengthDto(),
-            zoneOffsetSeconds: nil // HealthKit doesn't store zone offsets
+            zoneOffsetSeconds: zoneOffset
         )
     }
 }
@@ -461,15 +486,18 @@ extension HKQuantitySample {
             return nil
         }
 
+        let metadataDict = metadata ?? [:]
+        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        
         return BodyFatPercentageRecordDto(
             id: uuid.uuidString,
-            metadata: (metadata ?? [:]).toMetadataDto(
+            metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device
             ),
             time: Int64(startDate.timeIntervalSince1970 * 1000),
             percentage: quantity.toPercentageDto(),
-            zoneOffsetSeconds: nil // HealthKit doesn't store zone offsets
+            zoneOffsetSeconds: zoneOffset
         )
     }
 }
@@ -521,15 +549,18 @@ extension HKQuantitySample {
         let unit = HKUnit.degreeCelsius()
         let value = quantity.doubleValue(for: unit)
 
+        let metadataDict = metadata ?? [:]
+        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        
         return BodyTemperatureRecordDto(
             id: uuid.uuidString,
-            metadata: (metadata ?? [:]).toMetadataDto(
+            metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device
             ),
             time: Int64(startDate.timeIntervalSince1970 * 1000),
             temperature: TemperatureDto(unit: TemperatureUnitDto.celsius, value: value),
-            zoneOffsetSeconds: nil // HealthKit doesn't store zone offsets
+            zoneOffsetSeconds: zoneOffset
         )
     }
 }
@@ -562,7 +593,7 @@ extension WheelchairPushesRecordDto {
             start: startDate,
             end: endDate,
             device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            metadata: metadata.toHealthKitMetadata(timeZone: TimeZone.current)
         )
     }
 }
@@ -582,17 +613,21 @@ extension HKQuantitySample {
         let unit = HKUnit.count()
         let value = quantity.doubleValue(for: unit)
 
+        let metadataDict = metadata ?? [:]
+        let startZoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        let endZoneOffset = metadataDict.extractTimeZoneOffset(for: endDate)
+        
         return WheelchairPushesRecordDto(
             pushes: NumericDto(unit: NumericUnitDto.numeric, value: value),
             endTime: Int64(endDate.timeIntervalSince1970 * 1000),
             id: uuid.uuidString,
-            metadata: (metadata ?? [:]).toMetadataDto(
+            metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device
             ),
             startTime: Int64(startDate.timeIntervalSince1970 * 1000),
-            endZoneOffsetSeconds: nil, // HealthKit doesn't store zone offsets
-            startZoneOffsetSeconds: nil
+            endZoneOffsetSeconds: endZoneOffset,
+            startZoneOffsetSeconds: startZoneOffset
         )
     }
 }
@@ -624,7 +659,7 @@ extension HydrationRecordDto {
             start: startDate,
             end: endDate,
             device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            metadata: metadata.toHealthKitMetadata(timeZone: TimeZone.current)
         )
     }
 }
@@ -640,17 +675,21 @@ extension HKQuantitySample {
             return nil
         }
 
+        let metadataDict = metadata ?? [:]
+        let startZoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        let endZoneOffset = metadataDict.extractTimeZoneOffset(for: endDate)
+        
         return HydrationRecordDto(
             id: uuid.uuidString,
             startTime: Int64(startDate.timeIntervalSince1970 * 1000),
             endTime: Int64(endDate.timeIntervalSince1970 * 1000),
-            metadata: (metadata ?? [:]).toMetadataDto(
+            metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device
             ),
             volume: quantity.toVolumeDto(),
-            startZoneOffsetSeconds: nil,
-            endZoneOffsetSeconds: nil // HealthKit doesn't store zone offsets
+            startZoneOffsetSeconds: startZoneOffset,
+            endZoneOffsetSeconds: endZoneOffset
         )
     }
 }
@@ -708,15 +747,18 @@ extension HKQuantitySample {
             beatsPerMinute: NumericDto(unit: NumericUnitDto.numeric, value: bpmValue)
         )
 
+        let metadataDict = metadata ?? [:]
+        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        
         return HeartRateMeasurementRecordDto(
             id: uuid.uuidString,
             time: Int64(startDate.timeIntervalSince1970 * 1000),
-            metadata: (metadata ?? [:]).toMetadataDto(
+            metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device
             ),
             measurement: measurement,
-            zoneOffsetSeconds: nil // HealthKit doesn't store zone offsets
+            zoneOffsetSeconds: zoneOffset
         )
     }
 }

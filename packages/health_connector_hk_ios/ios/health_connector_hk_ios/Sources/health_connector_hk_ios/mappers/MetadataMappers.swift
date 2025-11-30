@@ -85,9 +85,12 @@ extension MetadataDto {
      * - `HKMetadataKeySyncVersion` for clientRecordVersion
      * - `HKMetadataKeyWasUserEntered` for manual entry detection
      * - `HKMetadataKeyDeviceName` for device name (redundancy with HKDevice.name)
+     * - `HKMetadataKeyTimeZone` for timezone identifier (if provided)
      * - Custom recording method key for full enum value (since HealthKit only has boolean)
+     *
+     * - Parameter timeZone: Optional timezone to store in metadata. If nil, uses device's current timezone.
      */
-    func toHealthKitMetadata() -> [String: Any] {
+    func toHealthKitMetadata(timeZone: TimeZone? = nil) -> [String: Any] {
         var metadata: [String: Any] = [:]
 
         // Use standard HealthKit keys for sync identifiers
@@ -114,6 +117,11 @@ extension MetadataDto {
         if let deviceName = device?.name {
             metadata[HKMetadataKeyDeviceName] = deviceName
         }
+
+        // Store timezone identifier in metadata using standard HealthKit key
+        // Use provided timezone or fallback to device's current timezone
+        let timeZoneToStore = timeZone ?? TimeZone.current
+        metadata[HKMetadataKeyTimeZone] = timeZoneToStore.identifier
 
         return metadata
     }
@@ -177,6 +185,29 @@ extension Dictionary where Key == String, Value == Any {
             device: deviceDto,
             recordingMethod: recordingMethod
         )
+    }
+
+    /**
+     * Extracts timezone offset in seconds from GMT from the metadata dictionary.
+     *
+     * Reads the timezone identifier from `HKMetadataKeyTimeZone` and calculates the offset
+     * for the given date (important because timezone offsets vary due to daylight saving time).
+     *
+     * - Parameter date: The date to calculate the timezone offset for
+     * - Returns: The timezone offset in seconds from GMT, or `nil` if timezone information is not available
+     */
+    func extractTimeZoneOffset(for date: Date) -> Int64? {
+        // Read the timezone string from sample metadata
+        guard let timeZoneString = self[HKMetadataKeyTimeZone] as? String,
+              let timeZone = TimeZone(identifier: timeZoneString) else {
+            return nil
+        }
+
+        // Get seconds offset from GMT for the given date
+        // This is important because timezone offsets vary due to daylight saving time
+        let secondsFromGMT = timeZone.secondsFromGMT(for: date)
+
+        return Int64(secondsFromGMT)
     }
 }
 
