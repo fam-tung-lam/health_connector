@@ -2,6 +2,15 @@ part of 'health_record.dart';
 
 /// A health record that spans a duration of time.
 @sinceV1_0_0
+@PlatformSpecificBehaviors({
+  HealthPlatform.appleHealth:
+      'On iOS, `startZoneOffsetSeconds` and `endZoneOffsetSeconds` are always '
+      'the same value because HealthKit only provides one metadata key '
+      '`HKMetadataKeyTimeZone` to store timezone info for health records. '
+      'This means that even if an interval spans a timezone change (such as a '
+      'daylight saving time transition), both values will reflect the same '
+      'timezone offset.',
+})
 @immutable
 sealed class IntervalHealthRecord extends HealthRecord {
   /// Constructor for subclasses.
