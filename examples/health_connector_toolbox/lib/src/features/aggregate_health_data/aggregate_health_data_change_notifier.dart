@@ -1,10 +1,6 @@
 import 'package:flutter/foundation.dart' show ChangeNotifier;
-import 'package:health_connector/health_connector.dart';
-import 'package:health_connector_core/health_connector_core.dart'
-    show
-        AggregateRequest,
-        AggregateResponse,
-        MeasurementUnit;
+import 'package:health_connector/health_connector.dart'
+    show AggregateRequest, AggregateResponse, MeasurementUnit, HealthConnector;
 
 /// Manages state and operations for aggregating health data.
 ///

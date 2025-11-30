@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:health_connector/health_connector.dart';
-import 'package:health_connector_core/health_connector_core.dart'
-    show HealthConnectorException;
 
 /// Manages the initialization state of the Health Connector for the home page.
 final class HomeChangeNotifier extends ChangeNotifier {

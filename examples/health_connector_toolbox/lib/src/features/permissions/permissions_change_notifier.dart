@@ -1,14 +1,14 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart' show ChangeNotifier;
-import 'package:health_connector/health_connector.dart';
-import 'package:health_connector_core/health_connector_core.dart'
+import 'package:health_connector/health_connector.dart'
     show
         HealthConnectorException,
         HealthPlatformFeature,
         HealthPlatformFeatureStatus,
         Permission,
-        PermissionStatus;
+        PermissionStatus,
+        HealthConnector;
 
 /// Manages permission-related state and operations for the permissions page.
 ///

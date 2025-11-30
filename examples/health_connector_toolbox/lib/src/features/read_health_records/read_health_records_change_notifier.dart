@@ -1,13 +1,13 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart' show ChangeNotifier;
-import 'package:health_connector/health_connector.dart';
-import 'package:health_connector_core/health_connector_core.dart'
+import 'package:health_connector/health_connector.dart'
     show
         HealthDataType,
         HealthRecord,
         MeasurementUnit,
-        ReadRecordsRequest;
+        ReadRecordsRequest,
+        HealthConnector;
 
 /// Manages state and operations for reading health records.
 ///

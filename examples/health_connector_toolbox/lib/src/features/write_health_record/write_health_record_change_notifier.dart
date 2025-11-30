@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart' show ChangeNotifier;
-import 'package:health_connector/health_connector.dart';
-import 'package:health_connector_core/health_connector_core.dart'
-    show HealthRecord, HealthRecordId, HealthPlatform;
+import 'package:health_connector/health_connector.dart'
+    show HealthRecord, HealthRecordId, HealthPlatform, HealthConnector;
 
 /// Manages state and operations for writing health records.
 ///

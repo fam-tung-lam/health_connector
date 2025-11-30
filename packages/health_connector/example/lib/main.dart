@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector.dart';
-import 'package:health_connector_core/health_connector_core.dart';
 
 void main() {
   runApp(const MyApp());
