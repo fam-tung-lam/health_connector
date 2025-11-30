@@ -115,9 +115,9 @@ final class HealthRecordId {
   /// ```
   factory HealthRecordId(String value) {
     require(
-      value.isNotEmpty,
+      value != none.value,
       'HealthRecordId value cannot be empty. '
-      'Use HealthRecordId.none for new records.',
+      'Use predefined HealthRecordId.none for new records.',
     );
 
     return HealthRecordId._(value);
@@ -142,7 +142,7 @@ final class HealthRecordId {
   ///   // ... other fields
   /// );
   /// ```
-  static const HealthRecordId none = HealthRecordId._('none');
+  static const HealthRecordId none = HealthRecordId._('');
 
   /// The underlying ID value.
   ///
