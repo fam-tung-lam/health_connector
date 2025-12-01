@@ -28,6 +28,53 @@ internal class HealthConnectorClient {
      */
     private init(store: HKHealthStore) {
         self.store = store
+        // Trigger handler registration on first initialization
+        _ = HealthKitTypeRegistry.shared
+    }
+
+    // MARK: - Type Inference Helper
+
+    /**
+     * Infer HealthDataTypeDto from Pigeon DTO runtime type.
+     *
+     * Used when writing records where request contains DTO but not explicit type.
+     * This is the only remaining switch statement (unavoidable without Pigeon DTO protocol changes).
+     *
+     * - Parameter dto: The HealthRecordDto to infer type from
+     * - Returns: The corresponding HealthDataTypeDto
+     * - Throws: HealthConnectorError if DTO type is unknown
+     */
+    private func inferDataType(from dto: HealthRecordDto) throws -> HealthDataTypeDto {
+        switch dto {
+        case is StepRecordDto:
+            return .steps
+        case is WeightRecordDto:
+            return .weight
+        case is HeightRecordDto:
+            return .height
+        case is BodyFatPercentageRecordDto:
+            return .bodyFatPercentage
+        case is BodyTemperatureRecordDto:
+            return .bodyTemperature
+        case is ActiveCaloriesBurnedRecordDto:
+            return .activeCaloriesBurned
+        case is DistanceRecordDto:
+            return .distance
+        case is FloorsClimbedRecordDto:
+            return .floorsClimbed
+        case is WheelchairPushesRecordDto:
+            return .wheelchairPushes
+        case is HydrationRecordDto:
+            return .hydration
+        case is LeanBodyMassRecordDto:
+            return .leanBodyMass
+        case is HeartRateMeasurementRecordDto:
+            return .heartRateMeasurementRecord
+        default:
+            throw HealthConnectorErrors.invalidArgument(
+                message: "Unknown HealthRecordDto type: \(type(of: dto))"
+            )
+        }
     }
 
     /**
@@ -288,9 +335,13 @@ internal class HealthConnectorClient {
                 ]
             )
 
-            // Convert data type to HealthKit quantity type
-            let quantityType = request.dataType.toHealthKitQuantityType()
-            
+            // Get handler for this data type
+            guard let handler = HealthKitTypeRegistry.getSampleHandler(for: request.dataType) else {
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "Unsupported data type: \(request.dataType)"
+                )
+            }
+
             // Create UUID from record ID string
             guard let recordUUID = UUID(uuidString: request.recordId) else {
                 HealthConnectorLogger.error(
@@ -315,7 +366,7 @@ internal class HealthConnectorClient {
             // Use async continuation to bridge the callback-based API
             let responseDto = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<ReadRecordResponseDto?, Error>) in
                 let query = HKSampleQuery(
-                    sampleType: quantityType,
+                    sampleType: handler.getSampleType(),
                     predicate: predicate,
                     limit: 1,
                     sortDescriptors: nil
@@ -325,43 +376,19 @@ internal class HealthConnectorClient {
                         return
                     }
 
-                    guard let sample = samples?.first as? HKQuantitySample else {
+                    guard let sample = samples?.first else {
                         continuation.resume(returning: nil)
                         return
                     }
 
-                    // Convert SDK sample to DTO using typed mappers
-                    let recordDto: HealthRecordDto?
-                    switch request.dataType {
-                    case .activeCaloriesBurned:
-                        recordDto = sample.toActiveCaloriesBurnedRecordDto()
-                    case .distance:
-                        recordDto = sample.toDistanceRecordDto()
-                    case .floorsClimbed:
-                        recordDto = sample.toFloorsClimbedRecordDto()
-                    case .steps:
-                        recordDto = sample.toStepRecordDto()
-                    case .weight:
-                        recordDto = sample.toWeightRecordDto()
-                    case .height:
-                        recordDto = sample.toHeightRecordDto()
-                    case .hydration:
-                        recordDto = sample.toHydrationRecordDto()
-                    case .leanBodyMass:
-                        recordDto = sample.toLeanBodyMassRecordDto()
-                    case .bodyFatPercentage:
-                        recordDto = sample.toBodyFatPercentageRecordDto()
-                    case .bodyTemperature:
-                        recordDto = sample.toBodyTemperatureRecordDto()
-                    case .wheelchairPushes:
-                        recordDto = sample.toWheelchairPushesRecordDto()
-                    case .heartRateMeasurementRecord:
-                        recordDto = sample.toHeartRateMeasurementRecordDto()
+                    // Convert using handler - single dispatch point!
+                    do {
+                        let recordDto = try handler.toDTO(sample)
+                        let responseDto: ReadRecordResponseDto? = recordDto.map { ReadRecordResponseDto(record: $0) }
+                        continuation.resume(returning: responseDto)
+                    } catch {
+                        continuation.resume(throwing: error)
                     }
-                    
-                    let responseDto: ReadRecordResponseDto? = recordDto.map { ReadRecordResponseDto(record: $0) }
-
-                    continuation.resume(returning: responseDto)
                 }
 
                 self.store.execute(query)
@@ -504,7 +531,7 @@ internal class HealthConnectorClient {
                                 "endTime": request.endTime
                             ]
                         )
-                        return createEmptyResponse(for: request.dataType)
+                        return createEmptyResponse()
                     }
                     
                     HealthConnectorLogger.debug(
@@ -531,8 +558,12 @@ internal class HealthConnectorClient {
                 }
             }
 
-            // Convert data type to HealthKit quantity type
-            let quantityType = request.dataType.toHealthKitQuantityType()
+            // Get handler for this data type
+            guard let handler = HealthKitTypeRegistry.getSampleHandler(for: request.dataType) else {
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "Unsupported data type: \(request.dataType)"
+                )
+            }
 
             // Create time range predicate using effective startTime
             let startDate = Date(timeIntervalSince1970: TimeInterval(effectiveStartTime) / 1000.0)
@@ -547,7 +578,7 @@ internal class HealthConnectorClient {
             let predicate: NSPredicate
             if !request.dataOriginPackageNames.isEmpty {
                 // Query for sources to get HKSource objects from bundle identifiers
-                let sources = try await querySources(for: quantityType, bundleIdentifiers: request.dataOriginPackageNames)
+                let sources = try await querySources(for: handler.getSampleType(), bundleIdentifiers: request.dataOriginPackageNames)
                 
                 if sources.isEmpty {
                     // No sources found for the given bundle identifiers, return empty result
@@ -560,7 +591,7 @@ internal class HealthConnectorClient {
                             "bundleIdentifiers": request.dataOriginPackageNames
                         ]
                     )
-                    return createEmptyResponse(for: request.dataType)
+                    return createEmptyResponse()
                 }
                 
                 // Create individual predicates for each source
@@ -590,7 +621,7 @@ internal class HealthConnectorClient {
                 // The extra record will be removed before returning results to the caller,
                 // ensuring they always receive at most pageSize records.
                 let query = HKSampleQuery(
-                    sampleType: quantityType,
+                    sampleType: handler.getSampleType(),
                     predicate: predicate,
                     limit: Int(request.pageSize) + 1,
                     sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)]
@@ -611,119 +642,25 @@ internal class HealthConnectorClient {
 
                     let samples = samples ?? []
 
-                    // Convert SDK samples to DTOs using typed mappers
-                    let responseDto: ReadRecordsResponseDto
-                    switch request.dataType {
-                    case .activeCaloriesBurned:
-                        let typedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toActiveCaloriesBurnedRecordDto() }
-                        let (trimmedRecords, nextPageToken) = self.applyPagination(
-                            records: typedRecords,
-                            pageSize: request.pageSize,
-                            timestampExtractor: { $0.endTime }
-                        )
-                        responseDto = ReadRecordsResponseDto(nextPageToken: nextPageToken, records: trimmedRecords.map { $0 as HealthRecordDto })
+                    // Convert all samples using handler - single dispatch point!
+                    do {
+                        let recordDtos = try samples.compactMap { try handler.toDTO($0) }
 
-                    case .distance:
-                        let typedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toDistanceRecordDto() }
+                        // Apply pagination using handler's timestamp extractor
                         let (trimmedRecords, nextPageToken) = self.applyPagination(
-                            records: typedRecords,
+                            records: recordDtos,
                             pageSize: request.pageSize,
-                            timestampExtractor: { $0.endTime }
+                            timestampExtractor: { handler.extractTimestamp($0) }  // Type-aware!
                         )
-                        responseDto = ReadRecordsResponseDto(nextPageToken: nextPageToken, records: trimmedRecords.map { $0 as HealthRecordDto })
 
-                    case .floorsClimbed:
-                        let typedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toFloorsClimbedRecordDto() }
-                        let (trimmedRecords, nextPageToken) = self.applyPagination(
-                            records: typedRecords,
-                            pageSize: request.pageSize,
-                            timestampExtractor: { $0.endTime }
+                        let responseDto = ReadRecordsResponseDto(
+                            nextPageToken: nextPageToken,
+                            records: trimmedRecords
                         )
-                        responseDto = ReadRecordsResponseDto(nextPageToken: nextPageToken, records: trimmedRecords.map { $0 as HealthRecordDto })
-
-                    case .steps:
-                        let typedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toStepRecordDto() }
-                        let (trimmedRecords, nextPageToken) = self.applyPagination(
-                            records: typedRecords,
-                            pageSize: request.pageSize,
-                            timestampExtractor: { $0.endTime }
-                        )
-                        responseDto = ReadRecordsResponseDto(nextPageToken: nextPageToken, records: trimmedRecords.map { $0 as HealthRecordDto })
-
-                    case .weight:
-                        let typedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toWeightRecordDto() }
-                        let (trimmedRecords, nextPageToken) = self.applyPagination(
-                            records: typedRecords,
-                            pageSize: request.pageSize,
-                            timestampExtractor: { $0.time }
-                        )
-                        responseDto = ReadRecordsResponseDto(nextPageToken: nextPageToken, records: trimmedRecords.map { $0 as HealthRecordDto })
-
-                    case .height:
-                        let typedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toHeightRecordDto() }
-                        let (trimmedRecords, nextPageToken) = self.applyPagination(
-                            records: typedRecords,
-                            pageSize: request.pageSize,
-                            timestampExtractor: { $0.time }
-                        )
-                        responseDto = ReadRecordsResponseDto(nextPageToken: nextPageToken, records: trimmedRecords.map { $0 as HealthRecordDto })
-
-                    case .hydration:
-                        let typedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toHydrationRecordDto() }
-                        let (trimmedRecords, nextPageToken) = self.applyPagination(
-                            records: typedRecords,
-                            pageSize: request.pageSize,
-                            timestampExtractor: { $0.startTime }
-                        )
-                        responseDto = ReadRecordsResponseDto(nextPageToken: nextPageToken, records: trimmedRecords.map { $0 as HealthRecordDto })
-
-                    case .leanBodyMass:
-                        let typedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toLeanBodyMassRecordDto() }
-                        let (trimmedRecords, nextPageToken) = self.applyPagination(
-                            records: typedRecords,
-                            pageSize: request.pageSize,
-                            timestampExtractor: { $0.time }
-                        )
-                        responseDto = ReadRecordsResponseDto(nextPageToken: nextPageToken, records: trimmedRecords.map { $0 as HealthRecordDto })
-
-                    case .bodyFatPercentage:
-                        let typedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toBodyFatPercentageRecordDto() }
-                        let (trimmedRecords, nextPageToken) = self.applyPagination(
-                            records: typedRecords,
-                            pageSize: request.pageSize,
-                            timestampExtractor: { $0.time }
-                        )
-                        responseDto = ReadRecordsResponseDto(nextPageToken: nextPageToken, records: trimmedRecords.map { $0 as HealthRecordDto })
-
-                    case .bodyTemperature:
-                        let typedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toBodyTemperatureRecordDto() }
-                        let (trimmedRecords, nextPageToken) = self.applyPagination(
-                            records: typedRecords,
-                            pageSize: request.pageSize,
-                            timestampExtractor: { $0.time }
-                        )
-                        responseDto = ReadRecordsResponseDto(nextPageToken: nextPageToken, records: trimmedRecords.map { $0 as HealthRecordDto })
-
-                    case .wheelchairPushes:
-                        let typedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toWheelchairPushesRecordDto() }
-                        let (trimmedRecords, nextPageToken) = self.applyPagination(
-                            records: typedRecords,
-                            pageSize: request.pageSize,
-                            timestampExtractor: { $0.endTime }
-                        )
-                        responseDto = ReadRecordsResponseDto(nextPageToken: nextPageToken, records: trimmedRecords.map { $0 as HealthRecordDto })
-
-                    case .heartRateMeasurementRecord:
-                        let typedRecords = samples.compactMap { ($0 as? HKQuantitySample)?.toHeartRateMeasurementRecordDto() }
-                        let (trimmedRecords, nextPageToken) = self.applyPagination(
-                            records: typedRecords,
-                            pageSize: request.pageSize,
-                            timestampExtractor: { $0.time }
-                        )
-                        responseDto = ReadRecordsResponseDto(nextPageToken: nextPageToken, records: trimmedRecords.map { $0 as HealthRecordDto })
+                        continuation.resume(returning: responseDto)
+                    } catch {
+                        continuation.resume(throwing: error)
                     }
-
-                    continuation.resume(returning: responseDto)
                 }
 
                 self.store.execute(query)
@@ -876,7 +813,7 @@ internal class HealthConnectorClient {
      * - Parameter dataType: The data type for the empty response
      * - Returns: ReadRecordsResponseDto with empty records list
      */
-    private func createEmptyResponse(for dataType: HealthDataTypeDto) -> ReadRecordsResponseDto {
+    private func createEmptyResponse() -> ReadRecordsResponseDto {
         return ReadRecordsResponseDto(nextPageToken: nil, records: [])
     }
 
@@ -905,39 +842,18 @@ internal class HealthConnectorClient {
                 ]
             )
 
-            // Extract record from request and convert to HealthKit sample using pattern matching
-            let sample: HKSample
-            switch request.record {
-            case let record as ActiveCaloriesBurnedRecordDto:
-                sample = try record.toHealthKit()
-            case let record as DistanceRecordDto:
-                sample = try record.toHealthKit()
-            case let record as FloorsClimbedRecordDto:
-                sample = try record.toHealthKit()
-            case let record as StepRecordDto:
-                sample = try record.toHealthKit()
-            case let record as WeightRecordDto:
-                sample = try record.toHealthKit()
-            case let record as HeightRecordDto:
-                sample = try record.toHealthKit()
-            case let record as HydrationRecordDto:
-                sample = try record.toHealthKit()
-            case let record as LeanBodyMassRecordDto:
-                sample = try record.toHealthKit()
-            case let record as BodyFatPercentageRecordDto:
-                sample = try record.toHealthKit()
-            case let record as BodyTemperatureRecordDto:
-                sample = try record.toHealthKit()
-            case let record as WheelchairPushesRecordDto:
-                sample = try record.toHealthKit()
-            case let record as HeartRateMeasurementRecordDto:
-                sample = try record.toHealthKit()
-            default:
+            // Infer data type from DTO runtime type
+            let dataType = try inferDataType(from: request.record)
+
+            // Get handler for this data type
+            guard let handler = HealthKitTypeRegistry.getSampleHandler(for: dataType) else {
                 throw HealthConnectorErrors.invalidArgument(
-                    message: "Unsupported record type: \(type(of: request.record))",
-                    details: nil
+                    message: "Unsupported data type: \(dataType)"
                 )
             }
+
+            // Convert DTO to HealthKit sample using handler
+            let sample = try handler.toHealthKit(request.record)
 
             // Write to HealthKit using pseudo-atomic transaction
             return try await withCheckedThrowingContinuation { continuation in
@@ -1045,51 +961,9 @@ internal class HealthConnectorClient {
                 ]
             )
 
-            // Extract record ID and determine data type from record using pattern matching
-            let (recordId, dataType): (String?, HealthDataTypeDto)
-            switch request.record {
-            case let record as ActiveCaloriesBurnedRecordDto:
-                recordId = record.id
-                dataType = .activeCaloriesBurned
-            case let record as DistanceRecordDto:
-                recordId = record.id
-                dataType = .distance
-            case let record as FloorsClimbedRecordDto:
-                recordId = record.id
-                dataType = .floorsClimbed
-            case let record as StepRecordDto:
-                recordId = record.id
-                dataType = .steps
-            case let record as WeightRecordDto:
-                recordId = record.id
-                dataType = .weight
-            case let record as HeightRecordDto:
-                recordId = record.id
-                dataType = .height
-            case let record as HydrationRecordDto:
-                recordId = record.id
-                dataType = .hydration
-            case let record as LeanBodyMassRecordDto:
-                recordId = record.id
-                dataType = .leanBodyMass
-            case let record as BodyFatPercentageRecordDto:
-                recordId = record.id
-                dataType = .bodyFatPercentage
-            case let record as BodyTemperatureRecordDto:
-                recordId = record.id
-                dataType = .bodyTemperature
-            case let record as WheelchairPushesRecordDto:
-                recordId = record.id
-                dataType = .wheelchairPushes
-            case let record as HeartRateMeasurementRecordDto:
-                recordId = record.id
-                dataType = .heartRateMeasurementRecord
-            default:
-                throw HealthConnectorErrors.invalidArgument(
-                    message: "Unsupported record type: \(type(of: request.record))",
-                    details: nil
-                )
-            }
+            // Extract record ID and infer data type using registry pattern
+            let recordId = request.record.id
+            let dataType = try inferDataType(from: request.record)
 
             // Validate record ID is not empty
             if recordId?.isEmpty ?? true {
@@ -1108,14 +982,18 @@ internal class HealthConnectorClient {
                 )
             }
 
-            // Convert data type to HealthKit quantity type
-            let quantityType = dataType.toHealthKitQuantityType()
+            // Get handler for this data type (used for querying)
+            guard let handler = HealthKitTypeRegistry.getSampleHandler(for: dataType) else {
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "Unsupported data type: \(dataType)"
+                )
+            }
 
             // Step 1: Read existing record to verify it exists and get the sample object
             let existingSample: HKSample = try await withCheckedThrowingContinuation { continuation in
                 let predicate = HKQuery.predicateForObject(with: recordUUID)
                 let query = HKSampleQuery(
-                    sampleType: quantityType,
+                    sampleType: handler.getSampleType(),
                     predicate: predicate,
                     limit: 1,
                     sortDescriptors: nil
@@ -1150,40 +1028,9 @@ internal class HealthConnectorClient {
                 self.store.execute(query)
             }
 
-            // Step 2: Convert record to HealthKit sample using pattern matching
-            // Convert to HealthKit sample, but with new UUID (will be assigned by HealthKit)
-            let newSample: HKSample
-            switch request.record {
-            case let record as ActiveCaloriesBurnedRecordDto:
-                newSample = try record.toHealthKit()
-            case let record as DistanceRecordDto:
-                newSample = try record.toHealthKit()
-            case let record as FloorsClimbedRecordDto:
-                newSample = try record.toHealthKit()
-            case let record as StepRecordDto:
-                newSample = try record.toHealthKit()
-            case let record as WeightRecordDto:
-                newSample = try record.toHealthKit()
-            case let record as HeightRecordDto:
-                newSample = try record.toHealthKit()
-            case let record as HydrationRecordDto:
-                newSample = try record.toHealthKit()
-            case let record as LeanBodyMassRecordDto:
-                newSample = try record.toHealthKit()
-            case let record as BodyFatPercentageRecordDto:
-                newSample = try record.toHealthKit()
-            case let record as BodyTemperatureRecordDto:
-                newSample = try record.toHealthKit()
-            case let record as WheelchairPushesRecordDto:
-                newSample = try record.toHealthKit()
-            case let record as HeartRateMeasurementRecordDto:
-                newSample = try record.toHealthKit()
-            default:
-                throw HealthConnectorErrors.invalidArgument(
-                    message: "Unsupported record type: \(type(of: request.record))",
-                    details: nil
-                )
-            }
+            // Step 2: Convert record to HealthKit sample using handler dispatch
+            // (handler already retrieved above for querying)
+            let newSample = try handler.toHealthKit(request.record)
 
             // Step 3: Delete the old sample
             try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
@@ -1314,42 +1161,22 @@ internal class HealthConnectorClient {
                 ]
             )
 
-            // Extract records from request and convert to HealthKit samples using pattern matching
+            // Convert all records to HealthKit samples using handlers
             var samples: [HKSample] = []
 
-            for record in request.records {
-                let sample: HKSample
-                switch record {
-                case let record as ActiveCaloriesBurnedRecordDto:
-                    sample = try record.toHealthKit()
-                case let record as DistanceRecordDto:
-                    sample = try record.toHealthKit()
-                case let record as FloorsClimbedRecordDto:
-                    sample = try record.toHealthKit()
-                case let record as StepRecordDto:
-                    sample = try record.toHealthKit()
-                case let record as WeightRecordDto:
-                    sample = try record.toHealthKit()
-                case let record as HeightRecordDto:
-                    sample = try record.toHealthKit()
-                case let record as HydrationRecordDto:
-                    sample = try record.toHealthKit()
-                case let record as LeanBodyMassRecordDto:
-                    sample = try record.toHealthKit()
-                case let record as BodyFatPercentageRecordDto:
-                    sample = try record.toHealthKit()
-                case let record as BodyTemperatureRecordDto:
-                    sample = try record.toHealthKit()
-                case let record as WheelchairPushesRecordDto:
-                    sample = try record.toHealthKit()
-                case let record as HeartRateMeasurementRecordDto:
-                    sample = try record.toHealthKit()
-                default:
+            for recordDto in request.records {
+                // Infer data type from DTO
+                let dataType = try inferDataType(from: recordDto)
+
+                // Get handler for this data type
+                guard let handler = HealthKitTypeRegistry.getSampleHandler(for: dataType) else {
                     throw HealthConnectorErrors.invalidArgument(
-                        message: "Unsupported record type: \(type(of: record))",
-                        details: nil
+                        message: "Unsupported data type: \(dataType)"
                     )
                 }
+
+                // Convert using handler
+                let sample = try handler.toHealthKit(recordDto)
                 samples.append(sample)
             }
 
@@ -1461,11 +1288,28 @@ internal class HealthConnectorClient {
                 )
             }
 
-            // Validate metric for data type (throws INVALID_ARGUMENT for unsupported metrics)
-            try request.aggregationMetric.validateForDataType(request.dataType)
+            // Get handler for this data type
+            guard let handler = HealthKitTypeRegistry.getQuantityHandler(for: request.dataType) else {
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "Aggregation not supported for data type: \(request.dataType)"
+                )
+            }
 
-            // Convert data type to HealthKit quantity type
-            let quantityType = request.dataType.toHealthKitQuantityType()
+            // Validate metric is supported by this handler
+            let supportedMetrics = handler.supportedAggregations()
+            guard supportedMetrics.contains(request.aggregationMetric) else {
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "Aggregation metric \(request.aggregationMetric) not supported for \(request.dataType)",
+                    details: "Supported metrics: \(supportedMetrics)"
+                )
+            }
+
+            // Get HealthKit quantity type from handler
+            guard let quantityType = handler.getSampleType() as? HKQuantityType else {
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "Data type \(request.dataType) is not a quantity type"
+                )
+            }
 
             // Create time range predicate
             let startDate = Date(timeIntervalSince1970: TimeInterval(request.startTime) / 1000.0)
@@ -1476,12 +1320,13 @@ internal class HealthConnectorClient {
                 options: .strictStartDate
             )
 
-            // Use HKStatisticsQuery for supported metrics (validation ensures only supported metrics reach here)
+            // Use HKStatisticsQuery with handler's statistics options
             let responseDto = try await aggregateWithStatisticsQuery(
                 quantityType: quantityType,
                 predicate: predicate,
                 metric: request.aggregationMetric,
-                dataType: request.dataType
+                dataType: request.dataType,
+                handler: handler
             )
             
             HealthConnectorLogger.info(
@@ -1538,15 +1383,18 @@ internal class HealthConnectorClient {
      *   - predicate: The time range predicate
      *   - metric: The aggregation metric
      *   - dataType: The health data type
+     *   - handler: The quantity handler for this data type
      * - Returns: AggregateResponseDto with aggregated result
      */
     private func aggregateWithStatisticsQuery(
         quantityType: HKQuantityType,
         predicate: NSPredicate,
         metric: AggregationMetricDto,
-        dataType: HealthDataTypeDto
+        dataType: HealthDataTypeDto,
+        handler: HealthKitQuantityHandler.Type
     ) async throws -> AggregateResponseDto {
-        let options = try metric.toHealthKitStatisticsOptions(dataType: dataType)
+        // Get statistics options from handler
+        let options = handler.toStatisticsOptions(metric)
 
         return try await withCheckedThrowingContinuation { continuation in
             let query = HKStatisticsQuery(
@@ -1822,7 +1670,14 @@ internal class HealthConnectorClient {
                 )
             }
 
-            let sampleType = try request.dataType.toHealthKitSampleType()
+            // Get handler for this data type
+            guard let handler = HealthKitTypeRegistry.getSampleHandler(for: request.dataType) else {
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "Unsupported data type: \(request.dataType)"
+                )
+            }
+
+            let sampleType = handler.getSampleType()
             let startDate = Date(timeIntervalSince1970: TimeInterval(request.startTime) / 1000.0)
             let endDate = Date(timeIntervalSince1970: TimeInterval(request.endTime) / 1000.0)
 
@@ -1928,7 +1783,14 @@ internal class HealthConnectorClient {
         )
 
         do {
-            let sampleType = try request.dataType.toHealthKitSampleType()
+            // Get handler for this data type
+            guard let handler = HealthKitTypeRegistry.getSampleHandler(for: request.dataType) else {
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "Unsupported data type: \(request.dataType)"
+                )
+            }
+
+            let sampleType = handler.getSampleType()
 
             // Convert string IDs to UUIDs
             let uuids = request.recordIds.compactMap { UUID(uuidString: $0) }
