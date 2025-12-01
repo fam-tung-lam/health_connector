@@ -1290,7 +1290,12 @@ internal class HealthConnectorClient {
                 )
             }
 
-            // Get handler for this data type
+            // Special handling for sleep stage aggregation (category sample)
+            if request.dataType == .sleepStageRecord {
+                return try await aggregateSleepStages(request: request)
+            }
+
+            // Get handler for this data type (quantity types only beyond this point)
             guard let handler = HealthKitTypeRegistry.getQuantityHandler(for: request.dataType) else {
                 throw HealthConnectorErrors.invalidArgument(
                     message: "Aggregation not supported for data type: \(request.dataType)"
@@ -1630,12 +1635,11 @@ internal class HealthConnectorClient {
                     continuation.resume(returning: emptyResponse)
                     return
                 case .sleepStageRecord:
-                    // Sleep stages (category samples) do not support aggregation
-                    // This should not be reached as aggregation validation should prevent it
+                    // Sleep stages are handled separately by aggregateSleepStages()
+                    // This case should never be reached
                     continuation.resume(
-                        throwing: HealthConnectorErrors.invalidArgument(
-                            message: "Sleep stage records do not support aggregation",
-                            details: "Sleep stage records are category samples and do not support aggregation operations."
+                        throwing: HealthConnectorErrors.unknown(
+                            message: "Sleep stage aggregation should be handled by aggregateSleepStages()"
                         )
                     )
                     return
@@ -1646,6 +1650,126 @@ internal class HealthConnectorClient {
 
             self.store.execute(query)
         }
+    }
+
+    /**
+     * Performs aggregation for sleep stage records (category samples).
+     *
+     * Since category samples don't support HKStatisticsQuery, we query all sleep
+     * stage records in the time range and calculate the sum of sleep durations manually.
+     *
+     * **Supported Metrics:**
+     * - `.sum` - Total sleep time in seconds across all sleep stages
+     *
+     * **Sleep Stage Filtering:**
+     * Only counts actual sleep stages (excludes awake, inBed, outOfBed states).
+     * Includes: sleeping, light, deep, rem
+     *
+     * - Parameter request: The aggregation request
+     * - Returns: AggregateResponseDto with total sleep duration in seconds
+     * - Throws: HealthConnectorError if query fails or metric is unsupported
+     */
+    private func aggregateSleepStages(request: AggregateRequestDto) async throws -> AggregateResponseDto {
+        // Validate metric - only sum is supported for sleep stages
+        guard request.aggregationMetric == .sum else {
+            throw HealthConnectorErrors.invalidArgument(
+                message: "Only sum aggregation is supported for sleep stage records",
+                details: "Supported metrics: [sum]. Requested: \(request.aggregationMetric)"
+            )
+        }
+
+        // Get the sleep analysis category type
+        guard let categoryType = HKCategoryType.categoryType(forIdentifier: .sleepAnalysis) else {
+            throw HealthConnectorErrors.unknown(
+                message: "Failed to create sleep analysis category type"
+            )
+        }
+
+        // Create time range predicate
+        let startDate = Date(timeIntervalSince1970: TimeInterval(request.startTime) / 1000.0)
+        let endDate = Date(timeIntervalSince1970: TimeInterval(request.endTime) / 1000.0)
+        let predicate = HKQuery.predicateForSamples(
+            withStart: startDate,
+            end: endDate,
+            options: .strictStartDate
+        )
+
+        // Query all sleep stage samples in the time range
+        let samples = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKCategorySample], Error>) in
+            let query = HKSampleQuery(
+                sampleType: categoryType,
+                predicate: predicate,
+                limit: HKObjectQueryNoLimit,
+                sortDescriptors: nil
+            ) { _, samples, error in
+                if let error = error {
+                    if let nsError = error as NSError? {
+                        continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
+                    } else {
+                        continuation.resume(
+                            throwing: HealthConnectorErrors.unknown(
+                                message: "Failed to query sleep stages: \(error.localizedDescription)",
+                                details: error.localizedDescription
+                            )
+                        )
+                    }
+                    return
+                }
+
+                guard let samples = samples else {
+                    continuation.resume(returning: [])
+                    return
+                }
+
+                // Filter to only category samples
+                let categorySamples = samples.compactMap { $0 as? HKCategorySample }
+                continuation.resume(returning: categorySamples)
+            }
+
+            self.store.execute(query)
+        }
+
+        // Calculate total sleep duration
+        var totalSleepSeconds: TimeInterval = 0.0
+
+        for sample in samples {
+            // Only count actual sleep stages (exclude awake, inBed, outOfBed)
+            let sleepValue = HKCategoryValueSleepAnalysis(rawValue: sample.value)
+
+            // Define which stages count as "actual sleep"
+            let isActualSleep: Bool
+            switch sleepValue {
+            case .asleep:
+                // Generic sleep (iOS 15 and earlier)
+                isActualSleep = true
+            case .awake, .inBed:
+                // Not sleeping
+                isActualSleep = false
+            default:
+                // For iOS 16+ detailed stages (core/light, deep, REM)
+                // Check raw values: .core=5, .deep=3, .REM=4
+                if #available(iOS 16.0, *) {
+                    switch sample.value {
+                    case 3, 4, 5:  // deep, REM, core
+                        isActualSleep = true
+                    default:
+                        isActualSleep = false
+                    }
+                } else {
+                    isActualSleep = false
+                }
+            }
+
+            if isActualSleep {
+                // Calculate duration for this sleep stage
+                let duration = sample.endDate.timeIntervalSince(sample.startDate)
+                totalSleepSeconds += duration
+            }
+        }
+
+        // Return total sleep time as NumericDto (value in seconds)
+        let numericDto = NumericDto(unit: .numeric, value: totalSleepSeconds)
+        return AggregateResponseDto(value: numericDto)
     }
 
 
