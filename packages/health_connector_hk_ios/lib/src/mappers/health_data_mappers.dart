@@ -51,6 +51,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.wheelchairPushes;
       case HealthDataTypeDto.heartRateMeasurementRecord:
         return HealthDataType.heartRateMeasurementRecord;
+      case HealthDataTypeDto.sleepStageRecord:
+        return HealthDataType.sleepStageRecord;
     }
   }
 }
@@ -85,7 +87,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       case HeartRateMeasurementRecordHealthDataType _:
         return HealthDataTypeDto.heartRateMeasurementRecord;
       case SleepStageHealthDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.sleepStageRecord;
       case SleepSessionHealthDataType _:
         throw UnsupportedError(
           '$SleepSessionHealthDataType is not supported on iOS. '

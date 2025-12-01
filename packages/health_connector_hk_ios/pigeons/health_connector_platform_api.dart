@@ -316,6 +316,35 @@ class HealthDataPermissionDto {
 
 // region Health Records
 
+/// Represents the type of sleep stage.
+///
+/// Maps to iOS HKCategoryValueSleepAnalysis values.
+enum SleepStageTypeDto {
+  /// Unknown or unspecified sleep stage.
+  unknown,
+
+  /// Awake in bed.
+  awake,
+
+  /// Asleep (generic, when detailed stage unavailable).
+  sleeping,
+
+  /// Out of bed.
+  outOfBed,
+
+  /// Light sleep stage.
+  light,
+
+  /// Deep sleep stage.
+  deep,
+
+  /// REM (Rapid Eye Movement) sleep stage.
+  rem,
+
+  /// In bed (not yet asleep).
+  inBed,
+}
+
 /// Sealed class for all health record DTOs.
 sealed class HealthRecordDto {}
 
@@ -356,6 +385,9 @@ enum HealthDataTypeDto {
 
   /// Heart rate measurement record data (iOS).
   heartRateMeasurementRecord,
+
+  /// Sleep stage record data (iOS).
+  sleepStageRecord,
 }
 
 /// Represents an active calories burned record for platform transfer.
@@ -709,6 +741,43 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
+}
+
+/// Represents a sleep stage record for platform transfer (iOS).
+///
+/// Sleep data in HealthKit uses HKCategorySample with categoryType .sleepAnalysis.
+/// Each record represents a single continuous period in one stage.
+class SleepStageRecordDto extends HealthRecordDto {
+  SleepStageRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.stageType,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The sleep stage type for this record.
+  final SleepStageTypeDto stageType;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
 }
 
 // endregion

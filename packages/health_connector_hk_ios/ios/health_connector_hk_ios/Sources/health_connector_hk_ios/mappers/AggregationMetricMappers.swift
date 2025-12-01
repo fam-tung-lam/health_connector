@@ -141,6 +141,12 @@ extension AggregationMetricDto {
                 // SUM not meaningful for heart rate, COUNT requires reading records
                 return []
             }
+        case .sleepStageRecord:
+            // Sleep stages (category samples) do not support aggregation
+            throw HealthConnectorErrors.invalidArgument(
+                message: "Sleep stage records do not support aggregation",
+                details: "Sleep stage records are category samples and do not support aggregation operations."
+            )
         }
     }
 
@@ -269,6 +275,12 @@ extension AggregationMetricDto {
                     details: "\(metricName) not directly supported for heartRateMeasurementRecord in HealthKit."
                 )
             }
+        case .sleepStageRecord:
+            // Sleep stages (category samples) do not support aggregation
+            throw HealthConnectorErrors.invalidArgument(
+                message: "Sleep stage records do not support aggregation",
+                details: "Sleep stage records are category samples and do not support aggregation operations."
+            )
         }
     }
 }

@@ -70,6 +70,8 @@ internal class HealthConnectorClient {
             return .leanBodyMass
         case is HeartRateMeasurementRecordDto:
             return .heartRateMeasurementRecord
+        case is SleepStageRecordDto:
+            return .sleepStageRecord
         default:
             throw HealthConnectorErrors.invalidArgument(
                 message: "Unknown HealthRecordDto type: \(type(of: dto))"
@@ -1626,6 +1628,16 @@ internal class HealthConnectorClient {
                     let emptyPercentageDto = PercentageDto(unit: .decimal, value: 0.0)
                     let emptyResponse = AggregateResponseDto(value: emptyPercentageDto)
                     continuation.resume(returning: emptyResponse)
+                    return
+                case .sleepStageRecord:
+                    // Sleep stages (category samples) do not support aggregation
+                    // This should not be reached as aggregation validation should prevent it
+                    continuation.resume(
+                        throwing: HealthConnectorErrors.invalidArgument(
+                            message: "Sleep stage records do not support aggregation",
+                            details: "Sleep stage records are category samples and do not support aggregation operations."
+                        )
+                    )
                     return
                 }
 

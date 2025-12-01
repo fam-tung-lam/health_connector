@@ -24,7 +24,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         Temperature,
         Volume,
         WeightRecord,
-        WheelchairPushesRecord;
+        WheelchairPushesRecord,
+        SleepStageType;
 import 'package:health_connector_hk_ios/src/mappers/'
     'measurement_unit_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers.dart';
@@ -46,11 +47,13 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api
         MassDto,
         NumericDto,
         PercentageDto,
+        SleepStageRecordDto,
         StepRecordDto,
         TemperatureDto,
         VolumeDto,
         WeightRecordDto,
-        WheelchairPushesRecordDto;
+        WheelchairPushesRecordDto,
+        SleepStageTypeDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [HealthRecordId] to [String] for DTO transfer.
@@ -204,8 +207,16 @@ extension HealthRecordToDto on HealthRecord {
           metadata: record.metadata.toDto(),
           measurement: record.measurement.toDto(),
         );
-      case final SleepStageRecord _:
-        throw UnimplementedError();
+      case final SleepStageRecord record:
+        return SleepStageRecordDto(
+          id: record.id.toDto(),
+          startTime: record.startTime.millisecondsSinceEpoch,
+          endTime: record.endTime.millisecondsSinceEpoch,
+          metadata: metadata.toDto(),
+          stageType: record.stageType.toDto(),
+          startZoneOffsetSeconds: record.startZoneOffsetSeconds,
+          endZoneOffsetSeconds: record.endZoneOffsetSeconds,
+        );
       case final SleepSessionRecord _:
         throw UnsupportedError(
           'SleepSessionRecord is not supported on iOS. '
@@ -331,6 +342,44 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
           metadata: dto.metadata.toDomain(),
           measurement: dto.measurement.toDomain(),
         );
+      case final SleepStageRecordDto dto:
+        return SleepStageRecord(
+          id: dto.id?.toDomain() ?? HealthRecordId.none,
+          metadata: dto.metadata.toDomain(),
+          startTime: DateTime.fromMillisecondsSinceEpoch(dto.startTime),
+          endTime: DateTime.fromMillisecondsSinceEpoch(dto.endTime),
+          stageType: dto.stageType.toDomain(),
+        );
     }
+  }
+}
+
+extension SleepStageTypeDomainToDto on SleepStageType {
+  SleepStageTypeDto toDto() {
+    return switch (this) {
+      SleepStageType.unknown => SleepStageTypeDto.unknown,
+      SleepStageType.awake => SleepStageTypeDto.awake,
+      SleepStageType.sleeping => SleepStageTypeDto.sleeping,
+      SleepStageType.outOfBed => SleepStageTypeDto.outOfBed,
+      SleepStageType.light => SleepStageTypeDto.light,
+      SleepStageType.deep => SleepStageTypeDto.deep,
+      SleepStageType.rem => SleepStageTypeDto.rem,
+      SleepStageType.inBed => SleepStageTypeDto.inBed,
+    };
+  }
+}
+
+extension SleepStageTypeDtoToDomain on SleepStageTypeDto {
+  SleepStageType toDomain() {
+    return switch (this) {
+      SleepStageTypeDto.unknown => SleepStageType.unknown,
+      SleepStageTypeDto.awake => SleepStageType.awake,
+      SleepStageTypeDto.sleeping => SleepStageType.sleeping,
+      SleepStageTypeDto.outOfBed => SleepStageType.outOfBed,
+      SleepStageTypeDto.light => SleepStageType.light,
+      SleepStageTypeDto.deep => SleepStageType.deep,
+      SleepStageTypeDto.rem => SleepStageType.rem,
+      SleepStageTypeDto.inBed => SleepStageType.inBed,
+    };
   }
 }

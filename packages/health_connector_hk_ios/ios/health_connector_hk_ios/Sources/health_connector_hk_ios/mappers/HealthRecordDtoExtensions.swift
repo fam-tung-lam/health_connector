@@ -44,6 +44,8 @@ extension HealthRecordDto {
             return record.id
         case let record as HeartRateMeasurementRecordDto:
             return record.id
+        case let record as SleepStageRecordDto:
+            return record.id
         default:
             return nil
         }

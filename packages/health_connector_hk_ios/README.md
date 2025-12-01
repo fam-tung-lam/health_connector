@@ -472,7 +472,6 @@ print('Max weight: ${maxResponse.value.inKilograms} kg');
 
 | Data Type         | Supported | Documentation                                                                                                                          |
 |-------------------|-----------|----------------------------------------------------------------------------------------------------------------------------------------|
-| **Sleep Session** | ❌         | [`HKCategoryTypeIdentifier.sleepAnalysis`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sleepanalysis) |
 | **Sleep Stage**   | ✅         | [`HKCategoryTypeIdentifier.sleepAnalysis`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sleepanalysis)                                                                                                              |
 
 ### ❤️ Vitals

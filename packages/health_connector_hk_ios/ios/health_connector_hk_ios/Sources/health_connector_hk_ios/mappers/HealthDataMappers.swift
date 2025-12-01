@@ -36,6 +36,10 @@ extension HealthDataTypeDto {
             return HKQuantityType.quantityType(forIdentifier: .pushCount)!
         case .heartRateMeasurementRecord:
             return HKQuantityType.quantityType(forIdentifier: .heartRate)!
+        case .sleepStageRecord:
+            // Sleep stages use HKCategoryType, not HKQuantityType
+            // This function should not be called for sleep stages
+            fatalError("sleepStageRecord cannot be converted to HKQuantityType. Use toHealthKitSampleType() instead.")
         }
     }
 
@@ -49,8 +53,13 @@ extension HealthDataTypeDto {
      * - Throws: An error if the conversion fails (should not happen for supported types).
      */
     func toHealthKitSampleType() throws -> HKSampleType {
-        // Since all current types are quantity types, we can use the quantity type method
-        // and return it as HKSampleType (HKQuantityType is a subclass of HKSampleType)
-        return toHealthKitQuantityType()
+        switch self {
+        case .sleepStageRecord:
+            // Sleep stages use HKCategoryType, not HKQuantityType
+            return HKCategoryType.categoryType(forIdentifier: .sleepAnalysis)!
+        default:
+            // All other types are quantity types
+            return toHealthKitQuantityType()
+        }
     }
 }

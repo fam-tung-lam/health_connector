@@ -48,6 +48,9 @@ extension HealthDataPermissionDto {
             return HKQuantityType.quantityType(forIdentifier: .pushCount)!
         case .heartRateMeasurementRecord:
             return HKQuantityType.quantityType(forIdentifier: .heartRate)!
+        case .sleepStageRecord:
+            // Sleep stages use HKCategoryType, not HKQuantityType
+            return HKCategoryType.categoryType(forIdentifier: .sleepAnalysis)!
         }
     }
 }

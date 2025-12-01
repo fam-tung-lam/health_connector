@@ -155,10 +155,12 @@ class HealthKitTypeRegistry {
         register(BodyTemperatureHandler.self)  // No aggregation
         register(LeanBodyMassHandler.self)  // No aggregation
         register(HeartRateHandler.self)
-        // MARK: Category Types (Future Implementation)
 
-        // Uncomment when implemented:
-        // register(SleepAnalysisHandler.self)
+        // MARK: Category Types
+
+        register(SleepStageHandler.self)  // ✅ IMPLEMENTED
+
+        // Future category types:
         // register(MenstrualFlowHandler.self)
         // register(SexualActivityHandler.self)
 
@@ -198,7 +200,7 @@ class HealthKitTypeRegistry {
             .steps, .activeCaloriesBurned, .distance, .floorsClimbed,
             .wheelchairPushes, .hydration, .weight, .height,
             .bodyFatPercentage, .bodyTemperature, .leanBodyMass,
-            .heartRateMeasurementRecord
+            .heartRateMeasurementRecord, .sleepStageRecord
         ]
 
         HealthConnectorLogger.debug(
