@@ -81,7 +81,24 @@ final class SleepStageHealthDataType
     accessType: HealthDataPermissionAccessType.write,
   );
 
-  // SumAggregatableHealthDataType implementation
+  /// ## Note
+  ///
+  /// HealthKit category samples don't support `HKStatisticsQuery`,
+  /// so the custom aggregation approach is implemented:
+  /// - Query all sleep stages
+  /// - And calculate the total sleep duration
+  ///
+  /// ### Example Calculation
+  ///
+  /// - Given sleep stages:
+  ///   - 11:00 PM - 11:30 PM: Light sleep (30 min)
+  ///   - 11:30 PM - 2:00 AM: Deep sleep (2.5 hours)
+  ///   - 2:00 AM - 2:15 AM: Awake (15 min) ← excluded
+  ///   - 2:15 AM - 5:00 AM: Light sleep (2.75 hours)
+  ///   - 5:00 AM - 6:30 AM: REM sleep (1.5 hours)
+  ///   - 6:30 AM - 7:00 AM: Awake (30 min) ← excluded
+  /// - Total Sleep Time:
+  ///   - 30 min + 2.5 hrs + 2.75 hrs + 1.5 hrs = 7.25 hours (26,100 seconds)
   @override
   AggregateRequest<SleepStageRecord, Numeric> aggregateSum({
     required DateTime startTime,
