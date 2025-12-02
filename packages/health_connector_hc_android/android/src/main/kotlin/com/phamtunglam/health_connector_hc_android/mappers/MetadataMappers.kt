@@ -1,6 +1,5 @@
 package com.phamtunglam.health_connector_hc_android.mappers
 
-import androidx.health.connect.client.records.metadata.DataOrigin
 import androidx.health.connect.client.records.metadata.Device
 import androidx.health.connect.client.records.metadata.Metadata
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
