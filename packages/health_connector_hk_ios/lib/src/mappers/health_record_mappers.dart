@@ -25,7 +25,41 @@ import 'package:health_connector_core/health_connector_core.dart'
         Volume,
         WeightRecord,
         WheelchairPushesRecord,
-        SleepStageType;
+        SleepStageType,
+        CaffeineNutrientRecord,
+        NutritionRecord,
+        EnergyNutrientRecord,
+        ProteinNutrientRecord,
+        TotalCarbohydrateNutrientRecord,
+        TotalFatNutrientRecord,
+        SaturatedFatNutrientRecord,
+        MonounsaturatedFatNutrientRecord,
+        PolyunsaturatedFatNutrientRecord,
+        CholesterolNutrientRecord,
+        DietaryFiberNutrientRecord,
+        SugarNutrientRecord,
+        CalciumNutrientRecord,
+        IronNutrientRecord,
+        MagnesiumNutrientRecord,
+        ManganeseNutrientRecord,
+        PhosphorusNutrientRecord,
+        PotassiumNutrientRecord,
+        SeleniumNutrientRecord,
+        SodiumNutrientRecord,
+        ZincNutrientRecord,
+        VitaminANutrientRecord,
+        VitaminB6NutrientRecord,
+        VitaminB12NutrientRecord,
+        VitaminCNutrientRecord,
+        VitaminDNutrientRecord,
+        VitaminENutrientRecord,
+        VitaminKNutrientRecord,
+        ThiaminNutrientRecord,
+        RiboflavinNutrientRecord,
+        NiacinNutrientRecord,
+        FolateNutrientRecord,
+        BiotinNutrientRecord,
+        PantothenicAcidNutrientRecord;
 import 'package:health_connector_hk_ios/src/mappers/'
     'measurement_unit_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers.dart';
@@ -217,6 +251,74 @@ extension HealthRecordToDto on HealthRecord {
           startZoneOffsetSeconds: record.startZoneOffsetSeconds,
           endZoneOffsetSeconds: record.endZoneOffsetSeconds,
         );
+      case NutritionRecord _:
+        throw UnimplementedError();
+      case EnergyNutrientRecord _:
+        throw UnimplementedError();
+      case CaffeineNutrientRecord _:
+        throw UnimplementedError();
+      case ProteinNutrientRecord _:
+        throw UnimplementedError();
+      case TotalCarbohydrateNutrientRecord _:
+        throw UnimplementedError();
+      case TotalFatNutrientRecord _:
+        throw UnimplementedError();
+      case SaturatedFatNutrientRecord _:
+        throw UnimplementedError();
+      case MonounsaturatedFatNutrientRecord _:
+        throw UnimplementedError();
+      case PolyunsaturatedFatNutrientRecord _:
+        throw UnimplementedError();
+      case CholesterolNutrientRecord _:
+        throw UnimplementedError();
+      case DietaryFiberNutrientRecord _:
+        throw UnimplementedError();
+      case SugarNutrientRecord _:
+        throw UnimplementedError();
+      case CalciumNutrientRecord _:
+        throw UnimplementedError();
+      case IronNutrientRecord _:
+        throw UnimplementedError();
+      case MagnesiumNutrientRecord _:
+        throw UnimplementedError();
+      case ManganeseNutrientRecord _:
+        throw UnimplementedError();
+      case PhosphorusNutrientRecord _:
+        throw UnimplementedError();
+      case PotassiumNutrientRecord _:
+        throw UnimplementedError();
+      case SeleniumNutrientRecord _:
+        throw UnimplementedError();
+      case SodiumNutrientRecord _:
+        throw UnimplementedError();
+      case ZincNutrientRecord _:
+        throw UnimplementedError();
+      case VitaminANutrientRecord _:
+        throw UnimplementedError();
+      case VitaminB6NutrientRecord _:
+        throw UnimplementedError();
+      case VitaminB12NutrientRecord _:
+        throw UnimplementedError();
+      case VitaminCNutrientRecord _:
+        throw UnimplementedError();
+      case VitaminDNutrientRecord _:
+        throw UnimplementedError();
+      case VitaminENutrientRecord _:
+        throw UnimplementedError();
+      case VitaminKNutrientRecord _:
+        throw UnimplementedError();
+      case ThiaminNutrientRecord _:
+        throw UnimplementedError();
+      case RiboflavinNutrientRecord _:
+        throw UnimplementedError();
+      case NiacinNutrientRecord _:
+        throw UnimplementedError();
+      case FolateNutrientRecord _:
+        throw UnimplementedError();
+      case BiotinNutrientRecord _:
+        throw UnimplementedError();
+      case PantothenicAcidNutrientRecord _:
+        throw UnimplementedError();
       case final SleepSessionRecord _:
         throw UnsupportedError(
           'SleepSessionRecord is not supported on iOS. '
