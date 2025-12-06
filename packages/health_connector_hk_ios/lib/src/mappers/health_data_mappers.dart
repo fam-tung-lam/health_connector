@@ -87,6 +87,80 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.heartRateMeasurementRecord;
       case HealthDataTypeDto.sleepStageRecord:
         return HealthDataType.sleepStageRecord;
+
+      // MARK: Nutrients
+
+      case HealthDataTypeDto.energyNutrient:
+        return HealthDataType.energyNutrient;
+      case HealthDataTypeDto.caffeine:
+        return HealthDataType.caffeine;
+
+      case HealthDataTypeDto.protein:
+        return HealthDataType.protein;
+      case HealthDataTypeDto.totalCarbohydrate:
+        return HealthDataType.totalCarbohydrate;
+      case HealthDataTypeDto.totalFat:
+        return HealthDataType.totalFat;
+      case HealthDataTypeDto.saturatedFat:
+        return HealthDataType.saturatedFat;
+      case HealthDataTypeDto.monounsaturatedFat:
+        return HealthDataType.monounsaturatedFat;
+      case HealthDataTypeDto.polyunsaturatedFat:
+        return HealthDataType.polyunsaturatedFat;
+      case HealthDataTypeDto.cholesterol:
+        return HealthDataType.cholesterol;
+      case HealthDataTypeDto.dietaryFiber:
+        return HealthDataType.dietaryFiber;
+      case HealthDataTypeDto.sugar:
+        return HealthDataType.sugar;
+
+      case HealthDataTypeDto.vitaminA:
+        return HealthDataType.vitaminA;
+      case HealthDataTypeDto.vitaminB6:
+        return HealthDataType.vitaminB6;
+      case HealthDataTypeDto.vitaminB12:
+        return HealthDataType.vitaminB12;
+      case HealthDataTypeDto.vitaminC:
+        return HealthDataType.vitaminC;
+      case HealthDataTypeDto.vitaminD:
+        return HealthDataType.vitaminD;
+      case HealthDataTypeDto.vitaminE:
+        return HealthDataType.vitaminE;
+      case HealthDataTypeDto.vitaminK:
+        return HealthDataType.vitaminK;
+      case HealthDataTypeDto.thiamin:
+        return HealthDataType.thiamin;
+      case HealthDataTypeDto.riboflavin:
+        return HealthDataType.riboflavin;
+      case HealthDataTypeDto.niacin:
+        return HealthDataType.niacin;
+      case HealthDataTypeDto.folate:
+        return HealthDataType.folate;
+      case HealthDataTypeDto.biotin:
+        return HealthDataType.biotin;
+      case HealthDataTypeDto.pantothenicAcid:
+        return HealthDataType.pantothenicAcid;
+
+      case HealthDataTypeDto.calcium:
+        return HealthDataType.calcium;
+      case HealthDataTypeDto.iron:
+        return HealthDataType.iron;
+      case HealthDataTypeDto.magnesium:
+        return HealthDataType.magnesium;
+      case HealthDataTypeDto.manganese:
+        return HealthDataType.manganese;
+      case HealthDataTypeDto.phosphorus:
+        return HealthDataType.phosphorus;
+      case HealthDataTypeDto.potassium:
+        return HealthDataType.potassium;
+      case HealthDataTypeDto.selenium:
+        return HealthDataType.selenium;
+      case HealthDataTypeDto.sodium:
+        return HealthDataType.sodium;
+      case HealthDataTypeDto.zinc:
+        return HealthDataType.zinc;
+      case HealthDataTypeDto.nutrition:
+        return HealthDataType.nutrition;
     }
   }
 }
@@ -122,74 +196,82 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.heartRateMeasurementRecord;
       case SleepStageHealthDataType _:
         return HealthDataTypeDto.sleepStageRecord;
-      case NutritionHealthDataType _:
-        throw UnimplementedError();
+
+      // MARK: Nutrients
+
       case EnergyNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.energyNutrient;
       case CaffeineNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.caffeine;
+
+      // Macronutrients (9)
       case ProteinNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.protein;
       case TotalCarbohydrateNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.totalCarbohydrate;
       case TotalFatNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.totalFat;
       case SaturatedFatNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.saturatedFat;
       case MonounsaturatedFatNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.monounsaturatedFat;
       case PolyunsaturatedFatNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.polyunsaturatedFat;
       case CholesterolNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.cholesterol;
       case DietaryFiberNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.dietaryFiber;
       case SugarNutrientDataType _:
-        throw UnimplementedError();
-      case CalciumNutrientDataType _:
-        throw UnimplementedError();
-      case IronNutrientDataType _:
-        throw UnimplementedError();
-      case MagnesiumNutrientDataType _:
-        throw UnimplementedError();
-      case ManganeseNutrientDataType _:
-        throw UnimplementedError();
-      case PhosphorusNutrientDataType _:
-        throw UnimplementedError();
-      case PotassiumNutrientDataType _:
-        throw UnimplementedError();
-      case SeleniumNutrientDataType _:
-        throw UnimplementedError();
-      case SodiumNutrientDataType _:
-        throw UnimplementedError();
-      case ZincNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.sugar;
+
       case VitaminANutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.vitaminA;
       case VitaminB6NutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.vitaminB6;
       case VitaminB12NutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.vitaminB12;
       case VitaminCNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.vitaminC;
       case VitaminDNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.vitaminD;
       case VitaminENutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.vitaminE;
       case VitaminKNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.vitaminK;
       case ThiaminNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.thiamin;
       case RiboflavinNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.riboflavin;
       case NiacinNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.niacin;
       case FolateNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.folate;
       case BiotinNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.biotin;
       case PantothenicAcidNutrientDataType _:
-        throw UnimplementedError();
+        return HealthDataTypeDto.pantothenicAcid;
+
+      case CalciumNutrientDataType _:
+        return HealthDataTypeDto.calcium;
+      case IronNutrientDataType _:
+        return HealthDataTypeDto.iron;
+      case MagnesiumNutrientDataType _:
+        return HealthDataTypeDto.magnesium;
+      case ManganeseNutrientDataType _:
+        return HealthDataTypeDto.manganese;
+      case PhosphorusNutrientDataType _:
+        return HealthDataTypeDto.phosphorus;
+      case PotassiumNutrientDataType _:
+        return HealthDataTypeDto.potassium;
+      case SeleniumNutrientDataType _:
+        return HealthDataTypeDto.selenium;
+      case SodiumNutrientDataType _:
+        return HealthDataTypeDto.sodium;
+      case ZincNutrientDataType _:
+        return HealthDataTypeDto.zinc;
+
+      case NutritionHealthDataType _:
+        return HealthDataTypeDto.nutrition;
       case SleepSessionHealthDataType _:
         throw UnsupportedError(
           '$SleepSessionHealthDataType is not supported on iOS. '

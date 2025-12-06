@@ -147,6 +147,32 @@ extension AggregationMetricDto {
                 message: "Sleep stage records do not support aggregation",
                 details: "Sleep stage records are category samples and do not support aggregation operations."
             )
+
+        // MARK: Nutrients - All support SUM aggregation only
+        case .energyNutrient, .caffeine,
+             .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
+             .monounsaturatedFat, .polyunsaturatedFat, .cholesterol,
+             .dietaryFiber, .sugar,
+             .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD,
+             .vitaminE, .vitaminK, .thiamin, .riboflavin, .niacin,
+             .folate, .biotin, .pantothenicAcid,
+             .calcium, .iron, .magnesium, .manganese, .phosphorus,
+             .potassium, .selenium, .sodium, .zinc:
+            switch self {
+            case .sum:
+                return .cumulativeSum
+            case .avg, .min, .max, .count:
+                // Only SUM is supported for nutrients (matches Android Health Connect behavior)
+                return []
+            }
+
+        // MARK: Correlation Types
+        case .nutrition:
+            // Nutrition (food correlation) does not support aggregation
+            throw HealthConnectorErrors.invalidArgument(
+                message: "Nutrition records do not support aggregation",
+                details: "Nutrition records are correlation types and do not support aggregation operations."
+            )
         }
     }
 
@@ -280,6 +306,34 @@ extension AggregationMetricDto {
             throw HealthConnectorErrors.invalidArgument(
                 message: "Sleep stage records do not support aggregation",
                 details: "Sleep stage records are category samples and do not support aggregation operations."
+            )
+
+        // MARK: Nutrients - All support SUM aggregation only
+        case .energyNutrient, .caffeine,
+             .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
+             .monounsaturatedFat, .polyunsaturatedFat, .cholesterol,
+             .dietaryFiber, .sugar,
+             .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD,
+             .vitaminE, .vitaminK, .thiamin, .riboflavin, .niacin,
+             .folate, .biotin, .pantothenicAcid,
+             .calcium, .iron, .magnesium, .manganese, .phosphorus,
+             .potassium, .selenium, .sodium, .zinc:
+            // Only SUM is supported for nutrients (matches Android Health Connect behavior)
+            if self != .sum {
+                let metricName = String(describing: self)
+                let dataTypeName = String(describing: dataType)
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "\(metricName) not directly supported for \(dataTypeName) in HealthKit",
+                    details: "\(metricName) not directly supported for \(dataTypeName) in HealthKit."
+                )
+            }
+
+        // MARK: Correlation Types
+        case .nutrition:
+            // Nutrition (food correlation) does not support aggregation
+            throw HealthConnectorErrors.invalidArgument(
+                message: "Nutrition records do not support aggregation",
+                details: "Nutrition records are correlation types and do not support aggregation operations."
             )
         }
     }

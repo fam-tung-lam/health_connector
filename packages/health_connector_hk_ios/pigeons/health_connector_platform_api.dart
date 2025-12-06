@@ -234,6 +234,26 @@ class VolumeDto extends MeasurementUnitDto {
   final double value;
 }
 
+/// Meal type classification for nutrient records.
+///
+/// Represents the type of meal associated with a nutrition or nutrient record.
+enum MealTypeDto {
+  /// Unknown or unspecified meal type.
+  unknown,
+
+  /// Breakfast meal.
+  breakfast,
+
+  /// Lunch meal.
+  lunch,
+
+  /// Dinner meal.
+  dinner,
+
+  /// Snack or other meal type.
+  snack,
+}
+
 // endregion
 
 // region Metadata
@@ -389,6 +409,112 @@ enum HealthDataTypeDto {
 
   /// Sleep stage record data (iOS).
   sleepStageRecord,
+
+  // NUTRIENT TYPES - Energy & Other (2)
+  /// Energy nutrient data (calories consumed).
+  energyNutrient,
+
+  /// Caffeine nutrient data.
+  caffeine,
+
+  // NUTRIENT TYPES - Macronutrients (9)
+  /// Protein nutrient data.
+  protein,
+
+  /// Total carbohydrate nutrient data.
+  totalCarbohydrate,
+
+  /// Total fat nutrient data.
+  totalFat,
+
+  /// Saturated fat nutrient data.
+  saturatedFat,
+
+  /// Monounsaturated fat nutrient data.
+  monounsaturatedFat,
+
+  /// Polyunsaturated fat nutrient data.
+  polyunsaturatedFat,
+
+  /// Cholesterol nutrient data.
+  cholesterol,
+
+  /// Dietary fiber nutrient data.
+  dietaryFiber,
+
+  /// Sugar nutrient data.
+  sugar,
+
+  // NUTRIENT TYPES - Vitamins (13)
+  /// Vitamin A nutrient data.
+  vitaminA,
+
+  /// Vitamin B6 nutrient data.
+  vitaminB6,
+
+  /// Vitamin B12 nutrient data.
+  vitaminB12,
+
+  /// Vitamin C nutrient data.
+  vitaminC,
+
+  /// Vitamin D nutrient data.
+  vitaminD,
+
+  /// Vitamin E nutrient data.
+  vitaminE,
+
+  /// Vitamin K nutrient data.
+  vitaminK,
+
+  /// Thiamin (Vitamin B1) nutrient data.
+  thiamin,
+
+  /// Riboflavin (Vitamin B2) nutrient data.
+  riboflavin,
+
+  /// Niacin (Vitamin B3) nutrient data.
+  niacin,
+
+  /// Folate (Vitamin B9) nutrient data.
+  folate,
+
+  /// Biotin (Vitamin B7) nutrient data.
+  biotin,
+
+  /// Pantothenic acid (Vitamin B5) nutrient data.
+  pantothenicAcid,
+
+  // NUTRIENT TYPES - Minerals (9)
+  /// Calcium nutrient data.
+  calcium,
+
+  /// Iron nutrient data.
+  iron,
+
+  /// Magnesium nutrient data.
+  magnesium,
+
+  /// Manganese nutrient data.
+  manganese,
+
+  /// Phosphorus nutrient data.
+  phosphorus,
+
+  /// Potassium nutrient data.
+  potassium,
+
+  /// Selenium nutrient data.
+  selenium,
+
+  /// Sodium nutrient data.
+  sodium,
+
+  /// Zinc nutrient data.
+  zinc,
+
+  /// Combined nutrition record (HKCorrelation.food).
+  nutrition,
 }
 
 /// Represents an active calories burned record for platform transfer.
@@ -780,6 +906,904 @@ class SleepStageRecordDto extends HealthRecordDto {
 
   /// Timezone offset in seconds for end time (optional).
   final int? endZoneOffsetSeconds;
+}
+
+/// Represents energy nutrient data for platform transfer.
+///
+/// Maps to:
+/// - HealthKit: `HKQuantityTypeIdentifier.dietaryEnergyConsumed`
+/// - Domain: `EnergyNutrientRecord`
+class EnergyNutrientRecordDto extends HealthRecordDto {
+  EnergyNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Timezone offset in seconds (optional).
+  final int? zoneOffsetSeconds;
+
+  /// Energy value (in kilocalories).
+  final EnergyDto value;
+
+  /// Name of the food (optional).
+  final String? foodName;
+
+  /// Meal type classification.
+  final MealTypeDto? mealType;
+}
+
+/// Represents caffeine nutrient data for platform transfer.
+class CaffeineNutrientRecordDto extends HealthRecordDto {
+  CaffeineNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents protein nutrient data for platform transfer.
+class ProteinNutrientRecordDto extends HealthRecordDto {
+  ProteinNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents total carbohydrate nutrient data for platform transfer.
+class TotalCarbohydrateNutrientRecordDto extends HealthRecordDto {
+  TotalCarbohydrateNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents total fat nutrient data for platform transfer.
+class TotalFatNutrientRecordDto extends HealthRecordDto {
+  TotalFatNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents saturated fat nutrient data for platform transfer.
+class SaturatedFatNutrientRecordDto extends HealthRecordDto {
+  SaturatedFatNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents monounsaturated fat nutrient data for platform transfer.
+class MonounsaturatedFatNutrientRecordDto extends HealthRecordDto {
+  MonounsaturatedFatNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents polyunsaturated fat nutrient data for platform transfer.
+class PolyunsaturatedFatNutrientRecordDto extends HealthRecordDto {
+  PolyunsaturatedFatNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents cholesterol nutrient data for platform transfer.
+class CholesterolNutrientRecordDto extends HealthRecordDto {
+  CholesterolNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents dietary fiber nutrient data for platform transfer.
+class DietaryFiberNutrientRecordDto extends HealthRecordDto {
+  DietaryFiberNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents sugar nutrient data for platform transfer.
+class SugarNutrientRecordDto extends HealthRecordDto {
+  SugarNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents vitamin A nutrient data for platform transfer.
+class VitaminANutrientRecordDto extends HealthRecordDto {
+  VitaminANutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents vitamin B6 nutrient data for platform transfer.
+class VitaminB6NutrientRecordDto extends HealthRecordDto {
+  VitaminB6NutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents vitamin B12 nutrient data for platform transfer.
+class VitaminB12NutrientRecordDto extends HealthRecordDto {
+  VitaminB12NutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents vitamin C nutrient data for platform transfer.
+class VitaminCNutrientRecordDto extends HealthRecordDto {
+  VitaminCNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents vitamin D nutrient data for platform transfer.
+class VitaminDNutrientRecordDto extends HealthRecordDto {
+  VitaminDNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents vitamin E nutrient data for platform transfer.
+class VitaminENutrientRecordDto extends HealthRecordDto {
+  VitaminENutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents vitamin K nutrient data for platform transfer.
+class VitaminKNutrientRecordDto extends HealthRecordDto {
+  VitaminKNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents thiamin (vitamin B1) nutrient data for platform transfer.
+class ThiaminNutrientRecordDto extends HealthRecordDto {
+  ThiaminNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents riboflavin (vitamin B2) nutrient data for platform transfer.
+class RiboflavinNutrientRecordDto extends HealthRecordDto {
+  RiboflavinNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents niacin (vitamin B3) nutrient data for platform transfer.
+class NiacinNutrientRecordDto extends HealthRecordDto {
+  NiacinNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents folate (vitamin B9) nutrient data for platform transfer.
+class FolateNutrientRecordDto extends HealthRecordDto {
+  FolateNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents biotin (vitamin B7) nutrient data for platform transfer.
+class BiotinNutrientRecordDto extends HealthRecordDto {
+  BiotinNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents pantothenic acid (vitamin B5) nutrient data.
+class PantothenicAcidNutrientRecordDto extends HealthRecordDto {
+  PantothenicAcidNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents calcium nutrient data for platform transfer.
+class CalciumNutrientRecordDto extends HealthRecordDto {
+  CalciumNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents iron nutrient data for platform transfer.
+class IronNutrientRecordDto extends HealthRecordDto {
+  IronNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents magnesium nutrient data for platform transfer.
+class MagnesiumNutrientRecordDto extends HealthRecordDto {
+  MagnesiumNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents manganese nutrient data for platform transfer.
+class ManganeseNutrientRecordDto extends HealthRecordDto {
+  ManganeseNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents phosphorus nutrient data for platform transfer.
+class PhosphorusNutrientRecordDto extends HealthRecordDto {
+  PhosphorusNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents potassium nutrient data for platform transfer.
+class PotassiumNutrientRecordDto extends HealthRecordDto {
+  PotassiumNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents selenium nutrient data for platform transfer.
+class SeleniumNutrientRecordDto extends HealthRecordDto {
+  SeleniumNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents sodium nutrient data for platform transfer.
+class SodiumNutrientRecordDto extends HealthRecordDto {
+  SodiumNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents zinc nutrient data for platform transfer.
+class ZincNutrientRecordDto extends HealthRecordDto {
+  ZincNutrientRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.value,
+    this.zoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+  });
+
+  final String? id;
+  final MetadataDto metadata;
+  final int time;
+  final int? zoneOffsetSeconds;
+  final MassDto value;
+  final String? foodName;
+  final MealTypeDto? mealType;
+}
+
+/// Represents a combined nutrition record for platform transfer.
+///
+/// Maps to:
+/// - HealthKit: `HKCorrelationType.food` (HKCorrelation)
+/// - Domain: `NutritionRecord`
+///
+/// This DTO groups all nutrients from a single meal/food entry.
+/// On iOS, this is stored as an HKCorrelation containing multiple
+/// HKQuantitySample objects for each nutrient.
+class NutritionRecordDto extends HealthRecordDto {
+  NutritionRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+    this.foodName,
+    this.mealType,
+    // Energy
+    this.energy,
+    // Macronutrients
+    this.protein,
+    this.totalCarbohydrate,
+    this.totalFat,
+    this.saturatedFat,
+    this.monounsaturatedFat,
+    this.polyunsaturatedFat,
+    this.cholesterol,
+    this.dietaryFiber,
+    this.sugar,
+    // Vitamins
+    this.vitaminA,
+    this.vitaminB6,
+    this.vitaminB12,
+    this.vitaminC,
+    this.vitaminD,
+    this.vitaminE,
+    this.vitaminK,
+    this.thiamin,
+    this.riboflavin,
+    this.niacin,
+    this.folate,
+    this.biotin,
+    this.pantothenicAcid,
+    // Minerals
+    this.calcium,
+    this.iron,
+    this.magnesium,
+    this.manganese,
+    this.phosphorus,
+    this.potassium,
+    this.selenium,
+    this.sodium,
+    this.zinc,
+    // Other
+    this.caffeine,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+
+  /// Name of the food (stored in HKMetadataKeyFoodType).
+  final String? foodName;
+
+  /// Meal type classification.
+  final MealTypeDto? mealType;
+
+  // Energy
+  /// Energy value (in kilocalories).
+  final EnergyDto? energy;
+
+  // Macronutrients (all Mass)
+  /// Protein amount.
+  final MassDto? protein;
+
+  /// Total carbohydrate amount.
+  final MassDto? totalCarbohydrate;
+
+  /// Total fat amount.
+  final MassDto? totalFat;
+
+  /// Saturated fat amount.
+  final MassDto? saturatedFat;
+
+  /// Monounsaturated fat amount.
+  final MassDto? monounsaturatedFat;
+
+  /// Polyunsaturated fat amount.
+  final MassDto? polyunsaturatedFat;
+
+  /// Cholesterol amount.
+  final MassDto? cholesterol;
+
+  /// Dietary fiber amount.
+  final MassDto? dietaryFiber;
+
+  /// Sugar amount.
+  final MassDto? sugar;
+
+  // Vitamins (all Mass)
+  /// Vitamin A amount.
+  final MassDto? vitaminA;
+
+  /// Vitamin B6 amount.
+  final MassDto? vitaminB6;
+
+  /// Vitamin B12 amount.
+  final MassDto? vitaminB12;
+
+  /// Vitamin C amount.
+  final MassDto? vitaminC;
+
+  /// Vitamin D amount.
+  final MassDto? vitaminD;
+
+  /// Vitamin E amount.
+  final MassDto? vitaminE;
+
+  /// Vitamin K amount.
+  final MassDto? vitaminK;
+
+  /// Thiamin amount.
+  final MassDto? thiamin;
+
+  /// Riboflavin amount.
+  final MassDto? riboflavin;
+
+  /// Niacin amount.
+  final MassDto? niacin;
+
+  /// Folate amount.
+  final MassDto? folate;
+
+  /// Biotin amount.
+  final MassDto? biotin;
+
+  /// Pantothenic acid amount.
+  final MassDto? pantothenicAcid;
+
+  // Minerals (all Mass)
+  /// Calcium amount.
+  final MassDto? calcium;
+
+  /// Iron amount.
+  final MassDto? iron;
+
+  /// Magnesium amount.
+  final MassDto? magnesium;
+
+  /// Manganese amount.
+  final MassDto? manganese;
+
+  /// Phosphorus amount.
+  final MassDto? phosphorus;
+
+  /// Potassium amount.
+  final MassDto? potassium;
+
+  /// Selenium amount.
+  final MassDto? selenium;
+
+  /// Sodium amount.
+  final MassDto? sodium;
+
+  /// Zinc amount.
+  final MassDto? zinc;
+
+  // Other
+  /// Caffeine amount.
+  final MassDto? caffeine;
 }
 
 // endregion

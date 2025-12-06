@@ -19,6 +19,7 @@ import HealthKit
 ///     let sample = try handler.toHealthKit(dto)
 /// }
 /// ```
+
 class HealthKitTypeRegistry {
     // MARK: - Storage
 
@@ -40,6 +41,7 @@ class HealthKitTypeRegistry {
     /// ```
     ///
     /// **Note:** Handlers are structs, so we register the metatype (`.self`)
+
     static func register(_ handler: HealthKitTypeHandler.Type) {
         handlers[handler.supportedType] = handler
     }
@@ -52,6 +54,7 @@ class HealthKitTypeRegistry {
     /// - Returns: The handler metatype, or nil if not registered
     ///
     /// **Use Case:** Generic handler retrieval (check category after)
+
     static func getHandler(for type: HealthDataTypeDto) -> HealthKitTypeHandler.Type? {
         return handlers[type]
     }
@@ -64,6 +67,7 @@ class HealthKitTypeRegistry {
     /// **Use Case:** CRUD operations (read, write, update, delete)
     ///
     /// **Filters:** Returns nil for characteristic types (they don't support queries)
+
     static func getSampleHandler(for type: HealthDataTypeDto) -> HealthKitSampleHandler.Type? {
         return handlers[type] as? HealthKitSampleHandler.Type
     }
@@ -76,6 +80,7 @@ class HealthKitTypeRegistry {
     /// **Use Case:** Aggregation operations (sum, avg, min, max)
     ///
     /// **Filters:** Returns nil for category, correlation, workout, characteristic types
+
     static func getQuantityHandler(for type: HealthDataTypeDto) -> HealthKitQuantityHandler.Type? {
         return handlers[type] as? HealthKitQuantityHandler.Type
     }
@@ -88,6 +93,7 @@ class HealthKitTypeRegistry {
     /// **Use Case:** Delete operations for blood pressure, food entries
     ///
     /// **Note:** Correlations require special handling - must delete contained samples
+
     static func getCorrelationHandler(for type: HealthDataTypeDto) -> HealthKitCorrelationHandler.Type? {
         return handlers[type] as? HealthKitCorrelationHandler.Type
     }
@@ -100,6 +106,7 @@ class HealthKitTypeRegistry {
     /// **Use Case:** Reading biological sex, date of birth, blood type
     ///
     /// **Note:** Characteristics cannot be written or deleted
+
     static func getCharacteristicHandler(for type: HealthDataTypeDto) -> HealthKitCharacteristicHandler.Type? {
         return handlers[type] as? HealthKitCharacteristicHandler.Type
     }
@@ -122,7 +129,9 @@ class HealthKitTypeRegistry {
     }()
 
     /// Private initializer to enforce singleton pattern
-    private init() {}
+
+    private init() {
+    }
 
     // MARK: - Handler Registration
 
@@ -137,6 +146,7 @@ class HealthKitTypeRegistry {
     /// - Correlation types (future: blood pressure, food)
     /// - Workout types (future: workout sessions)
     /// - Characteristic types (future: biological sex, date of birth)
+
     private static func registerAllHandlers() {
         // MARK: Quantity Types
 
@@ -164,11 +174,48 @@ class HealthKitTypeRegistry {
         // register(MenstrualFlowHandler.self)
         // register(SexualActivityHandler.self)
 
-        // MARK: Correlation Types (Future Implementation)
+        // MARK: Nutrient Types
 
-        // Uncomment when implemented:
+        register(EnergyNutrientHandler.self)
+        register(CaffeineNutrientHandler.self)
+        register(ProteinNutrientHandler.self)
+        register(TotalCarbohydrateNutrientHandler.self)
+        register(TotalFatNutrientHandler.self)
+        register(SaturatedFatNutrientHandler.self)
+        register(MonounsaturatedFatNutrientHandler.self)
+        register(PolyunsaturatedFatNutrientHandler.self)
+        register(CholesterolNutrientHandler.self)
+        register(DietaryFiberNutrientHandler.self)
+        register(SugarNutrientHandler.self)
+        register(VitaminANutrientHandler.self)
+        register(VitaminB6NutrientHandler.self)
+        register(VitaminB12NutrientHandler.self)
+        register(VitaminCNutrientHandler.self)
+        register(VitaminDNutrientHandler.self)
+        register(VitaminENutrientHandler.self)
+        register(VitaminKNutrientHandler.self)
+        register(ThiaminNutrientHandler.self)
+        register(RiboflavinNutrientHandler.self)
+        register(NiacinNutrientHandler.self)
+        register(FolateNutrientHandler.self)
+        register(BiotinNutrientHandler.self)
+        register(PantothenicAcidNutrientHandler.self)
+        register(CalciumNutrientHandler.self)
+        register(IronNutrientHandler.self)
+        register(MagnesiumNutrientHandler.self)
+        register(ManganeseNutrientHandler.self)
+        register(PhosphorusNutrientHandler.self)
+        register(PotassiumNutrientHandler.self)
+        register(SeleniumNutrientHandler.self)
+        register(SodiumNutrientHandler.self)
+        register(ZincNutrientHandler.self)
+
+        // MARK: Correlation Types
+
+        register(NutritionCorrelationHandler.self)
+
+        // Future correlation types:
         // register(BloodPressureHandler.self)
-        // register(FoodHandler.self)
 
         // MARK: Workout Types (Future Implementation)
 
@@ -195,6 +242,7 @@ class HealthKitTypeRegistry {
     /// HealthKitTypeRegistry.validateRegistration()
     /// #endif
     /// ```
+
     static func validateRegistration() {
         let expectedTypes: [HealthDataTypeDto] = [
             .steps, .activeCaloriesBurned, .distance, .floorsClimbed,
@@ -232,6 +280,7 @@ class HealthKitTypeRegistry {
     /// Get count of registered handlers
     ///
     /// **Use Case:** Debugging and testing
+
     static func registeredHandlerCount() -> Int {
         return handlers.count
     }
@@ -239,6 +288,7 @@ class HealthKitTypeRegistry {
     /// Get all registered types
     ///
     /// **Use Case:** Debugging and testing
+
     static func registeredTypes() -> [HealthDataTypeDto] {
         return Array(handlers.keys)
     }

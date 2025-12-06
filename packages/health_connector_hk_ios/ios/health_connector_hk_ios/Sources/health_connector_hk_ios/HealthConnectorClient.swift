@@ -9,6 +9,7 @@ import HealthKit
  *
  * @property store The underlying HealthKit store instance
  */
+
 internal class HealthConnectorClient {
 
     /**
@@ -26,6 +27,7 @@ internal class HealthConnectorClient {
      *
      * - Parameter store: The HealthKit store instance.
      */
+
     private init(store: HKHealthStore) {
         self.store = store
         // Trigger handler registration on first initialization
@@ -44,6 +46,7 @@ internal class HealthConnectorClient {
      * - Returns: The corresponding HealthDataTypeDto
      * - Throws: HealthConnectorError if DTO type is unknown
      */
+
     private func inferDataType(from dto: HealthRecordDto) throws -> HealthDataTypeDto {
         switch dto {
         case is StepRecordDto:
@@ -72,6 +75,78 @@ internal class HealthConnectorClient {
             return .heartRateMeasurementRecord
         case is SleepStageRecordDto:
             return .sleepStageRecord
+        // Energy & Other Nutrients
+        case is EnergyNutrientRecordDto:
+            return .energyNutrient
+        case is CaffeineNutrientRecordDto:
+            return .caffeine
+        // Macronutrients
+        case is ProteinNutrientRecordDto:
+            return .protein
+        case is TotalCarbohydrateNutrientRecordDto:
+            return .totalCarbohydrate
+        case is TotalFatNutrientRecordDto:
+            return .totalFat
+        case is SaturatedFatNutrientRecordDto:
+            return .saturatedFat
+        case is MonounsaturatedFatNutrientRecordDto:
+            return .monounsaturatedFat
+        case is PolyunsaturatedFatNutrientRecordDto:
+            return .polyunsaturatedFat
+        case is CholesterolNutrientRecordDto:
+            return .cholesterol
+        case is DietaryFiberNutrientRecordDto:
+            return .dietaryFiber
+        case is SugarNutrientRecordDto:
+            return .sugar
+        // Vitamins
+        case is VitaminANutrientRecordDto:
+            return .vitaminA
+        case is VitaminB6NutrientRecordDto:
+            return .vitaminB6
+        case is VitaminB12NutrientRecordDto:
+            return .vitaminB12
+        case is VitaminCNutrientRecordDto:
+            return .vitaminC
+        case is VitaminDNutrientRecordDto:
+            return .vitaminD
+        case is VitaminENutrientRecordDto:
+            return .vitaminE
+        case is VitaminKNutrientRecordDto:
+            return .vitaminK
+        case is ThiaminNutrientRecordDto:
+            return .thiamin
+        case is RiboflavinNutrientRecordDto:
+            return .riboflavin
+        case is NiacinNutrientRecordDto:
+            return .niacin
+        case is FolateNutrientRecordDto:
+            return .folate
+        case is BiotinNutrientRecordDto:
+            return .biotin
+        case is PantothenicAcidNutrientRecordDto:
+            return .pantothenicAcid
+        // Minerals
+        case is CalciumNutrientRecordDto:
+            return .calcium
+        case is IronNutrientRecordDto:
+            return .iron
+        case is MagnesiumNutrientRecordDto:
+            return .magnesium
+        case is ManganeseNutrientRecordDto:
+            return .manganese
+        case is PhosphorusNutrientRecordDto:
+            return .phosphorus
+        case is PotassiumNutrientRecordDto:
+            return .potassium
+        case is SeleniumNutrientRecordDto:
+            return .selenium
+        case is SodiumNutrientRecordDto:
+            return .sodium
+        case is ZincNutrientRecordDto:
+            return .zinc
+        case is NutritionRecordDto:
+            return .nutrition
         default:
             throw HealthConnectorErrors.invalidArgument(
                 message: "Unknown HealthRecordDto type: \(type(of: dto))"
@@ -91,7 +166,8 @@ internal class HealthConnectorClient {
      * - Parameter error: The NSError to map
      * - Returns: A HealthConnectorError with the appropriate error code
      */
-    private static func mapHealthKitError(_ error: NSError) -> HealthConnectorError {
+
+    static func mapHealthKitError(_ error: NSError) -> HealthConnectorError {
         // Check if this is a HealthKit error by checking the domain
         if error.domain == HKError.errorDomain {
             let hkErrorCode = HKError.Code(rawValue: error.code)
@@ -137,6 +213,7 @@ internal class HealthConnectorClient {
      *          - HealthKit is not available on the device (e.g., iPad without health capabilities)
      *          - The device is in a restricted mode
      */
+
     static func getOrCreate() throws -> HealthConnectorClient {
         guard HKHealthStore.isHealthDataAvailable() else {
             HealthConnectorLogger.error(
@@ -160,6 +237,7 @@ internal class HealthConnectorClient {
      *
      * - Returns: The current platform status as a `HealthPlatformStatusDto`
      */
+
     static func getHealthPlatformStatus() -> HealthPlatformStatusDto {
         HealthConnectorLogger.debug(
             tag: tag,
@@ -169,7 +247,7 @@ internal class HealthConnectorClient {
         )
 
         let isAvailable = HKHealthStore.isHealthDataAvailable()
-        
+
         let statusDto = HealthPlatformStatusDto.fromHealthKitAvailability(isAvailable)
         HealthConnectorLogger.info(
             tag: tag,
@@ -201,6 +279,7 @@ internal class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit is unavailable
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
+
     func requestPermissions(healthDataPermissions: [HealthDataPermissionDto]) async throws -> [HealthDataPermissionRequestResultDto] {
         do {
             HealthConnectorLogger.debug(
@@ -234,7 +313,8 @@ internal class HealthConnectorClient {
             try await store.requestAuthorization(toShare: typesToWrite, read: typesToRead)
 
             // Create permission request results by checking authorization status
-            let results = healthDataPermissions.map { permissionDto -> HealthDataPermissionRequestResultDto in
+            let results = healthDataPermissions.map {
+                permissionDto -> HealthDataPermissionRequestResultDto in
                 let objectType = permissionDto.toHealthKitObjectType()
                 let status: PermissionStatusDto
 
@@ -325,6 +405,7 @@ internal class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
+
     func readRecord(request: ReadRecordRequestDto) async throws -> ReadRecordResponseDto? {
         do {
             HealthConnectorLogger.debug(
@@ -366,13 +447,15 @@ internal class HealthConnectorClient {
             let predicate = HKQuery.predicateForObject(with: recordUUID)
 
             // Use async continuation to bridge the callback-based API
-            let responseDto = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<ReadRecordResponseDto?, Error>) in
+            let responseDto = try await withCheckedThrowingContinuation {
+                (continuation: CheckedContinuation<ReadRecordResponseDto?, Error>) in
                 let query = HKSampleQuery(
                     sampleType: handler.getSampleType(),
                     predicate: predicate,
                     limit: 1,
                     sortDescriptors: nil
-                ) { _, samples, error in
+                ) {
+                    _, samples, error in
                     if let error = error {
                         continuation.resume(throwing: error)
                         return
@@ -386,7 +469,9 @@ internal class HealthConnectorClient {
                     // Convert using handler - single dispatch point!
                     do {
                         let recordDto = try handler.toDTO(sample)
-                        let responseDto: ReadRecordResponseDto? = recordDto.map { ReadRecordResponseDto(record: $0) }
+                        let responseDto: ReadRecordResponseDto? = recordDto.map {
+                            ReadRecordResponseDto(record: $0)
+                        }
                         continuation.resume(returning: responseDto)
                     } catch {
                         continuation.resume(throwing: error)
@@ -492,6 +577,7 @@ internal class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
+
     func readRecords(request: ReadRecordsRequestDto) async throws -> ReadRecordsResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -519,7 +605,7 @@ internal class HealthConnectorClient {
                 if let tokenTimestamp = Int64(pageToken) {
                     // Use tokenTimestamp + 1ms as new startTime (exclusive to avoid duplicates)
                     effectiveStartTime = tokenTimestamp + 1
-                    
+
                     // Validate that adjusted startTime is still before endTime
                     if effectiveStartTime >= request.endTime {
                         // Invalid pagination token, return empty result
@@ -535,7 +621,7 @@ internal class HealthConnectorClient {
                         )
                         return createEmptyResponse()
                     }
-                    
+
                     HealthConnectorLogger.debug(
                         tag: HealthConnectorClient.tag,
                         operation: "readRecords",
@@ -581,7 +667,7 @@ internal class HealthConnectorClient {
             if !request.dataOriginPackageNames.isEmpty {
                 // Query for sources to get HKSource objects from bundle identifiers
                 let sources = try await querySources(for: handler.getSampleType(), bundleIdentifiers: request.dataOriginPackageNames)
-                
+
                 if sources.isEmpty {
                     // No sources found for the given bundle identifiers, return empty result
                     HealthConnectorLogger.warning(
@@ -595,15 +681,16 @@ internal class HealthConnectorClient {
                     )
                     return createEmptyResponse()
                 }
-                
+
                 // Create individual predicates for each source
-                let sourcePredicates = sources.map { source in
+                let sourcePredicates = sources.map {
+                    source in
                     HKQuery.predicateForObjects(from: source)
                 }
-                
+
                 // Combine source predicates with OR logic
                 let sourcePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: sourcePredicates)
-                
+
                 // Combine source and time predicates with AND logic
                 predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [sourcePredicate, timePredicate])
             } else {
@@ -612,7 +699,8 @@ internal class HealthConnectorClient {
             }
 
             // Use async continuation to bridge the callback-based API
-            let responseDto = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<ReadRecordsResponseDto, Error>) in
+            let responseDto = try await withCheckedThrowingContinuation {
+                (continuation: CheckedContinuation<ReadRecordsResponseDto, Error>) in
                 // Query pageSize + 1 records to determine if more pages exist.
                 // 
                 // Rationale: HealthKit doesn't provide a way to check if more records exist beyond
@@ -627,7 +715,8 @@ internal class HealthConnectorClient {
                     predicate: predicate,
                     limit: Int(request.pageSize) + 1,
                     sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)]
-                ) { _, samples, error in
+                ) {
+                    _, samples, error in
                     if let error = error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
@@ -646,13 +735,17 @@ internal class HealthConnectorClient {
 
                     // Convert all samples using handler - single dispatch point!
                     do {
-                        let recordDtos = try samples.compactMap { try handler.toDTO($0) }
+                        let recordDtos = try samples.compactMap {
+                            try handler.toDTO($0)
+                        }
 
                         // Apply pagination using handler's timestamp extractor
                         let (trimmedRecords, nextPageToken) = self.applyPagination(
                             records: recordDtos,
                             pageSize: request.pageSize,
-                            timestampExtractor: { handler.extractTimestamp($0) }  // Type-aware!
+                            timestampExtractor: {
+                                handler.extractTimestamp($0)
+                            }  // Type-aware!
                         )
 
                         let responseDto = ReadRecordsResponseDto(
@@ -667,7 +760,7 @@ internal class HealthConnectorClient {
 
                 self.store.execute(query)
             }
-            
+
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
                 operation: "readRecords",
@@ -678,7 +771,7 @@ internal class HealthConnectorClient {
                     "response": responseDto
                 ]
             )
-            
+
             return responseDto
         } catch let error as HealthConnectorError {
             // Re-throw HealthConnectorError as-is
@@ -738,14 +831,13 @@ internal class HealthConnectorClient {
      *   - timestampExtractor: Closure to extract timestamp from record for pagination token
      * - Returns: Tuple of (trimmed records array with at most pageSize items, optional nextPageToken)
      */
-    private func applyPagination<T>(
-        records: [T],
-        pageSize: Int64,
-        timestampExtractor: (T) -> Int64
-    ) -> (records: [T], nextPageToken: String?) {
+
+    private func applyPagination<T>(records: [T],
+    pageSize: Int64,
+    timestampExtractor: (T) -> Int64) -> (records: [T], nextPageToken: String?) {
         var mutableRecords = records
         let nextPageToken: String?
-        
+
         if mutableRecords.count > pageSize {
             // More pages exist: we received pageSize + 1 records, confirming there's more data.
             // Remove the extra record that was only used to detect if more pages exist.
@@ -759,7 +851,7 @@ internal class HealthConnectorClient {
             // Return all records as-is and indicate no more pages with nil nextPageToken.
             nextPageToken = nil
         }
-        
+
         return (mutableRecords, nextPageToken)
     }
 
@@ -782,8 +874,10 @@ internal class HealthConnectorClient {
      * - Returns: Set of HKSource objects matching the bundle identifiers
      * - Throws: Errors from HealthKit queries
      */
+
     private func querySources(for sampleType: HKSampleType, bundleIdentifiers: [String]) async throws -> Set<HKSource> {
-        return try await withCheckedThrowingContinuation { continuation in
+        return try await withCheckedThrowingContinuation {
+            continuation in
             // Query a sample of records to collect sources
             // Use a reasonable limit to balance between completeness and performance
             let query = HKSampleQuery(
@@ -791,20 +885,23 @@ internal class HealthConnectorClient {
                 predicate: nil,
                 limit: 1000, // Query up to 1000 samples to find sources
                 sortDescriptors: nil
-            ) { _, samples, error in
+            ) {
+                _, samples, error in
                 if let error = error {
                     continuation.resume(throwing: error)
                     return
                 }
-                
+
                 // Extract unique sources that match the bundle identifiers
-                let matchingSources = Set((samples ?? [])
-                    .compactMap { $0.sourceRevision.source }
-                    .filter { bundleIdentifiers.contains($0.bundleIdentifier) })
-                
+                let matchingSources = Set((samples ?? []).compactMap {
+                    $0.sourceRevision.source
+                }.filter {
+                    bundleIdentifiers.contains($0.bundleIdentifier)
+                })
+
                 continuation.resume(returning: matchingSources)
             }
-            
+
             self.store.execute(query)
         }
     }
@@ -815,6 +912,7 @@ internal class HealthConnectorClient {
      * - Parameter dataType: The data type for the empty response
      * - Returns: ReadRecordsResponseDto with empty records list
      */
+
     private func createEmptyResponse() -> ReadRecordsResponseDto {
         return ReadRecordsResponseDto(nextPageToken: nil, records: [])
     }
@@ -832,6 +930,7 @@ internal class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
+
     func writeRecord(request: WriteRecordRequestDto) async throws -> WriteRecordResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -858,8 +957,10 @@ internal class HealthConnectorClient {
             let sample = try handler.toHealthKit(request.record)
 
             // Write to HealthKit using pseudo-atomic transaction
-            return try await withCheckedThrowingContinuation { continuation in
-                store.save(sample) { success, error in
+            return try await withCheckedThrowingContinuation {
+                continuation in
+                store.save(sample) {
+                    success, error in
                     if let error = error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
@@ -951,6 +1052,7 @@ internal class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
+
     func updateRecord(request: UpdateRecordRequestDto) async throws -> UpdateRecordResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -977,7 +1079,7 @@ internal class HealthConnectorClient {
 
             // Convert record ID to UUID
             guard let recordIdString = recordId,
-                  let recordUUID = UUID(uuidString: recordIdString) else {
+            let recordUUID = UUID(uuidString: recordIdString) else {
                 throw HealthConnectorErrors.invalidArgument(
                     message: "Invalid record ID format: \(recordId ?? "nil")",
                     details: "Record ID must be a valid UUID string"
@@ -992,14 +1094,16 @@ internal class HealthConnectorClient {
             }
 
             // Step 1: Read existing record to verify it exists and get the sample object
-            let existingSample: HKSample = try await withCheckedThrowingContinuation { continuation in
+            let existingSample: HKSample = try await withCheckedThrowingContinuation {
+                continuation in
                 let predicate = HKQuery.predicateForObject(with: recordUUID)
                 let query = HKSampleQuery(
                     sampleType: handler.getSampleType(),
                     predicate: predicate,
                     limit: 1,
                     sortDescriptors: nil
-                ) { _, samples, error in
+                ) {
+                    _, samples, error in
                     if let error = error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
@@ -1035,8 +1139,10 @@ internal class HealthConnectorClient {
             let newSample = try handler.toHealthKit(request.record)
 
             // Step 3: Delete the old sample
-            try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-                store.delete(existingSample) { success, error in
+            try await withCheckedThrowingContinuation {
+                (continuation: CheckedContinuation<Void, Error>) in
+                store.delete(existingSample) {
+                    success, error in
                     if let error = error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
@@ -1066,8 +1172,10 @@ internal class HealthConnectorClient {
             }
 
             // Step 4: Write the new sample
-            let newRecordId = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<String, Error>) in
-                store.save(newSample) { success, error in
+            let newRecordId = try await withCheckedThrowingContinuation {
+                (continuation: CheckedContinuation<String, Error>) in
+                store.save(newSample) {
+                    success, error in
                     if let error = error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
@@ -1151,6 +1259,7 @@ internal class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
+
     func writeRecords(request: WriteRecordsRequestDto) async throws -> WriteRecordsResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -1183,8 +1292,10 @@ internal class HealthConnectorClient {
             }
 
             // Atomic batch write using HealthKit's pseudo-atomic transaction
-            return try await withCheckedThrowingContinuation { continuation in
-                store.save(samples) { success, error in
+            return try await withCheckedThrowingContinuation {
+                continuation in
+                store.save(samples) {
+                    success, error in
                     if let error = error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
@@ -1200,7 +1311,9 @@ internal class HealthConnectorClient {
                     }
 
                     if success {
-                        let recordIds = samples.map { $0.uuid.uuidString }
+                        let recordIds = samples.map {
+                            $0.uuid.uuidString
+                        }
                         let responseDto = WriteRecordsResponseDto(recordIds: recordIds)
                         HealthConnectorLogger.info(
                             tag: HealthConnectorClient.tag,
@@ -1270,6 +1383,7 @@ internal class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
+
     func aggregate(request: AggregateRequestDto) async throws -> AggregateResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -1335,7 +1449,7 @@ internal class HealthConnectorClient {
                 dataType: request.dataType,
                 handler: handler
             )
-            
+
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
                 operation: "aggregate",
@@ -1346,7 +1460,7 @@ internal class HealthConnectorClient {
                     "response": responseDto
                 ]
             )
-            
+
             return responseDto
         } catch let error as HealthConnectorError {
             // Re-throw HealthConnectorError as-is
@@ -1393,22 +1507,23 @@ internal class HealthConnectorClient {
      *   - handler: The quantity handler for this data type
      * - Returns: AggregateResponseDto with aggregated result
      */
-    private func aggregateWithStatisticsQuery(
-        quantityType: HKQuantityType,
-        predicate: NSPredicate,
-        metric: AggregationMetricDto,
-        dataType: HealthDataTypeDto,
-        handler: HealthKitQuantityHandler.Type
-    ) async throws -> AggregateResponseDto {
+
+    private func aggregateWithStatisticsQuery(quantityType: HKQuantityType,
+    predicate: NSPredicate,
+    metric: AggregationMetricDto,
+    dataType: HealthDataTypeDto,
+    handler: HealthKitQuantityHandler.Type) async throws -> AggregateResponseDto {
         // Get statistics options from handler
         let options = handler.toStatisticsOptions(metric)
 
-        return try await withCheckedThrowingContinuation { continuation in
+        return try await withCheckedThrowingContinuation {
+            continuation in
             let query = HKStatisticsQuery(
                 quantityType: quantityType,
                 quantitySamplePredicate: predicate,
                 options: options
-            ) { _, statistics, error in
+            ) {
+                _, statistics, error in
                 if let error = error {
                     if let nsError = error as NSError? {
                         continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
@@ -1634,12 +1749,50 @@ internal class HealthConnectorClient {
                     let emptyResponse = AggregateResponseDto(value: emptyPercentageDto)
                     continuation.resume(returning: emptyResponse)
                     return
+
+                // Nutrient data types (all support sum aggregation)
+                case .energyNutrient:
+                    // For energy nutrient, we use cumulativeSum which returns sumQuantity
+                    guard let sumQuantity = statistics.sumQuantity() else {
+                        let emptyEnergyDto = EnergyDto(unit: .kilocalories, value: 0.0)
+                        let emptyResponse = AggregateResponseDto(value: emptyEnergyDto)
+                        continuation.resume(returning: emptyResponse)
+                        return
+                    }
+                    let energyDto = sumQuantity.toEnergyDto()
+                    response = AggregateResponseDto(value: energyDto)
+
+                case .caffeine, .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
+                .monounsaturatedFat, .polyunsaturatedFat, .cholesterol, .dietaryFiber, .sugar,
+                .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD, .vitaminE, .vitaminK,
+                .thiamin, .riboflavin, .niacin, .folate, .biotin, .pantothenicAcid,
+                .calcium, .iron, .magnesium, .manganese, .phosphorus, .potassium, .selenium, .sodium, .zinc:
+                    // For all other nutrients, we use cumulativeSum which returns sumQuantity
+                    guard let sumQuantity = statistics.sumQuantity() else {
+                        let emptyMassDto = MassDto(unit: .grams, value: 0.0)
+                        let emptyResponse = AggregateResponseDto(value: emptyMassDto)
+                        continuation.resume(returning: emptyResponse)
+                        return
+                    }
+                    let massDto = sumQuantity.toMassDto()
+                    response = AggregateResponseDto(value: massDto)
+
                 case .sleepStageRecord:
                     // Sleep stages are handled separately by aggregateSleepStages()
                     // This case should never be reached
                     continuation.resume(
                         throwing: HealthConnectorErrors.unknown(
                             message: "Sleep stage aggregation should be handled by aggregateSleepStages()"
+                        )
+                    )
+                    return
+
+                case .nutrition:
+                    // Nutrition (food correlation) doesn't support aggregation
+                    // This case should never be reached as it's validated upstream
+                    continuation.resume(
+                        throwing: HealthConnectorErrors.invalidArgument(
+                            message: "Nutrition records do not support aggregation"
                         )
                     )
                     return
@@ -1669,6 +1822,7 @@ internal class HealthConnectorClient {
      * - Returns: AggregateResponseDto with total sleep duration in seconds
      * - Throws: HealthConnectorError if query fails or metric is unsupported
      */
+
     private func aggregateSleepStages(request: AggregateRequestDto) async throws -> AggregateResponseDto {
         // Validate metric - only sum is supported for sleep stages
         guard request.aggregationMetric == .sum else {
@@ -1695,13 +1849,15 @@ internal class HealthConnectorClient {
         )
 
         // Query all sleep stage samples in the time range
-        let samples = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKCategorySample], Error>) in
+        let samples = try await withCheckedThrowingContinuation {
+            (continuation: CheckedContinuation<[HKCategorySample], Error>) in
             let query = HKSampleQuery(
                 sampleType: categoryType,
                 predicate: predicate,
                 limit: HKObjectQueryNoLimit,
                 sortDescriptors: nil
-            ) { _, samples, error in
+            ) {
+                _, samples, error in
                 if let error = error {
                     if let nsError = error as NSError? {
                         continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
@@ -1722,7 +1878,9 @@ internal class HealthConnectorClient {
                 }
 
                 // Filter to only category samples
-                let categorySamples = samples.compactMap { $0 as? HKCategorySample }
+                let categorySamples = samples.compactMap {
+                    $0 as? HKCategorySample
+                }
                 continuation.resume(returning: categorySamples)
             }
 
@@ -1786,6 +1944,7 @@ internal class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
      */
+
     func deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) async throws {
         HealthConnectorLogger.debug(
             tag: HealthConnectorClient.tag,
@@ -1825,8 +1984,10 @@ internal class HealthConnectorClient {
             )
 
             // Delete objects matching the predicate
-            try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-                store.deleteObjects(of: sampleType, predicate: predicate) { success, count, error in
+            try await withCheckedThrowingContinuation {
+                (continuation: CheckedContinuation<Void, Error>) in
+                store.deleteObjects(of: sampleType, predicate: predicate) {
+                    success, count, error in
                     if let error = error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
@@ -1907,6 +2068,7 @@ internal class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
      */
+
     func deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) async throws {
         HealthConnectorLogger.debug(
             tag: HealthConnectorClient.tag,
@@ -1929,7 +2091,9 @@ internal class HealthConnectorClient {
             let sampleType = handler.getSampleType()
 
             // Convert string IDs to UUIDs
-            let uuids = request.recordIds.compactMap { UUID(uuidString: $0) }
+            let uuids = request.recordIds.compactMap {
+                UUID(uuidString: $0)
+            }
             guard uuids.count == request.recordIds.count else {
                 throw HealthConnectorErrors.invalidArgument(
                     message: "Invalid record IDs provided",
@@ -1938,7 +2102,8 @@ internal class HealthConnectorClient {
             }
 
             // Step 1: Query for objects with specific UUIDs
-            let samples = try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
+            let samples = try await withCheckedThrowingContinuation {
+                (continuation: CheckedContinuation<[HKSample], Error>) in
                 let uuidPredicate = HKQuery.predicateForObjects(with: Set(uuids))
 
                 let query = HKSampleQuery(
@@ -1946,7 +2111,8 @@ internal class HealthConnectorClient {
                     predicate: uuidPredicate,
                     limit: HKObjectQueryNoLimit,
                     sortDescriptors: nil
-                ) { query, samples, error in
+                ) {
+                    query, samples, error in
                     if let error = error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
@@ -1974,8 +2140,10 @@ internal class HealthConnectorClient {
 
             // Step 2: Delete the retrieved samples
             if !samples.isEmpty {
-                try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-                    store.delete(samples) { success, error in
+                try await withCheckedThrowingContinuation {
+                    (continuation: CheckedContinuation<Void, Error>) in
+                    store.delete(samples) {
+                        success, error in
                         if let error = error {
                             if let nsError = error as NSError? {
                                 continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))

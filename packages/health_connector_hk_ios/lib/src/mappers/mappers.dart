@@ -4,6 +4,7 @@ export 'aggregation_metric_mappers.dart';
 export 'error_code_mappers.dart';
 export 'health_data_mappers.dart';
 export 'health_record_mappers.dart';
+export 'meal_type_mappers.dart';
 export 'measurement_unit_mappers.dart';
 export 'metadata_mappers.dart';
 export 'permission_mappers.dart';
