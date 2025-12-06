@@ -26,8 +26,11 @@ import kotlin.reflect.KClass
 object HydrationHandler : IntervalRecordHandler, AggregationSupportingHandler {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.HYDRATION
 
-    override fun toDto(record: Record): HealthRecordDto? {
-        return (record as? HydrationRecord)?.toDto()
+    override fun toDto(record: Record): HealthRecordDto {
+        require(record is HydrationRecord) {
+            "Expected HydrationRecord, got ${record::class.simpleName}"
+        }
+        return record.toDto()
     }
 
     override fun toHealthConnect(dto: HealthRecordDto): Record {

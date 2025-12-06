@@ -292,12 +292,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             val recordClass = handler.getRecordClass()
             val response = client.readRecord(recordClass, request.recordId)
 
-            // Convert SDK record to DTO using handler
             val recordDto = handler.toDto(response.record)
-                ?: throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
-                    details = "Failed to convert record to DTO for type: ${request.dataType}"
-                )
-
             val responseDto = ReadRecordResponseDto(record = recordDto)
 
             HealthConnectorLogger.info(
@@ -923,7 +918,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     healthDataPermissions.add(
                         HealthDataPermissionRequestResultDto(
                             permission = healthDataPermission,
-                            status = PermissionStatusDto.GRANTED
+                            status = PermissionStatusDto.GRANTED,
                         )
                     )
                     continue

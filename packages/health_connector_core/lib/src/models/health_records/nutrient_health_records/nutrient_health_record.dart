@@ -1,7 +1,7 @@
 part of '../health_record.dart';
 
 @sinceV1_1_0
-@internal
+@internalUse
 @immutable
 sealed class NutrientHealthRecord<U extends MeasurementUnit>
     extends InstantHealthRecord {

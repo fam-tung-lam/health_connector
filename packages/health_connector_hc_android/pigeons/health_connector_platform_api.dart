@@ -245,6 +245,24 @@ class VolumeDto extends MeasurementUnitDto {
   final double value;
 }
 
+/// Meal type classification for nutrition records.
+enum MealTypeDto {
+  /// Unknown or unspecified meal type.
+  unknown,
+
+  /// Breakfast meal.
+  breakfast,
+
+  /// Lunch meal.
+  lunch,
+
+  /// Dinner meal.
+  dinner,
+
+  /// Snack or other meal type.
+  snack,
+}
+
 // endregion
 
 // region Metadata
@@ -386,6 +404,112 @@ enum HealthDataTypeDto {
 
   /// Sleep session data.
   sleepSession,
+
+  // region Nutrition
+
+  /// Energy nutrient data (calories consumed).
+  energyNutrient,
+
+  /// Caffeine nutrient data.
+  caffeine,
+
+  /// Protein nutrient data.
+  protein,
+
+  /// Total carbohydrate nutrient data.
+  totalCarbohydrate,
+
+  /// Total fat nutrient data.
+  totalFat,
+
+  /// Saturated fat nutrient data.
+  saturatedFat,
+
+  /// Monounsaturated fat nutrient data.
+  monounsaturatedFat,
+
+  /// Polyunsaturated fat nutrient data.
+  polyunsaturatedFat,
+
+  /// Cholesterol nutrient data.
+  cholesterol,
+
+  /// Dietary fiber nutrient data.
+  dietaryFiber,
+
+  /// Sugar nutrient data.
+  sugar,
+
+  /// Vitamin A nutrient data.
+  vitaminA,
+
+  /// Vitamin B6 nutrient data.
+  vitaminB6,
+
+  /// Vitamin B12 nutrient data.
+  vitaminB12,
+
+  /// Vitamin C nutrient data.
+  vitaminC,
+
+  /// Vitamin D nutrient data.
+  vitaminD,
+
+  /// Vitamin E nutrient data.
+  vitaminE,
+
+  /// Vitamin K nutrient data.
+  vitaminK,
+
+  /// Thiamin (Vitamin B1) nutrient data.
+  thiamin,
+
+  /// Riboflavin (Vitamin B2) nutrient data.
+  riboflavin,
+
+  /// Niacin (Vitamin B3) nutrient data.
+  niacin,
+
+  /// Folate (Vitamin B9) nutrient data.
+  folate,
+
+  /// Biotin (Vitamin B7) nutrient data.
+  biotin,
+
+  /// Pantothenic acid (Vitamin B5) nutrient data.
+  pantothenicAcid,
+
+  /// Calcium nutrient data.
+  calcium,
+
+  /// Iron nutrient data.
+  iron,
+
+  /// Magnesium nutrient data.
+  magnesium,
+
+  /// Manganese nutrient data.
+  manganese,
+
+  /// Phosphorus nutrient data.
+  phosphorus,
+
+  /// Potassium nutrient data.
+  potassium,
+
+  /// Selenium nutrient data.
+  selenium,
+
+  /// Sodium nutrient data.
+  sodium,
+
+  /// Zinc nutrient data.
+  zinc,
+
+  /// Combined nutrition record with all nutrients.
+  nutrition,
+
+  // endregion
 }
 
 /// Represents an active calories burned record for platform transfer.
@@ -827,6 +951,190 @@ class SleepSessionRecordDto extends HealthRecordDto {
   final String? title;
   final String? notes;
   final List<SleepStageDto> stages;
+}
+
+/// Represents unified nutrition record.
+///
+/// Unified DTO that combines all:
+/// - Individual nutrient DTOs
+/// - And the combined nutrition record.
+///
+/// Uses `healthDataType` to indicate which nutrient field(s) are populated.
+class NutritionRecordDto extends HealthRecordDto {
+  NutritionRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.startTime,
+    required this.endTime,
+    required this.healthDataType,
+    required this.mealType,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+    this.foodName,
+    this.energy,
+    this.protein,
+    this.totalCarbohydrate,
+    this.totalFat,
+    this.saturatedFat,
+    this.monounsaturatedFat,
+    this.polyunsaturatedFat,
+    this.cholesterol,
+    this.dietaryFiber,
+    this.sugar,
+    this.vitaminA,
+    this.vitaminB6,
+    this.vitaminB12,
+    this.vitaminC,
+    this.vitaminD,
+    this.vitaminE,
+    this.vitaminK,
+    this.thiamin,
+    this.riboflavin,
+    this.niacin,
+    this.folate,
+    this.biotin,
+    this.pantothenicAcid,
+    this.calcium,
+    this.iron,
+    this.magnesium,
+    this.manganese,
+    this.phosphorus,
+    this.potassium,
+    this.selenium,
+    this.sodium,
+    this.zinc,
+    this.caffeine,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Health data type indicating which nutrient field(s) are populated.
+  /// - For individual nutrients: use specific nutrient type
+  /// - For combined nutrition: use `nutrition`
+  final HealthDataTypeDto healthDataType;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+
+  /// Name of the food (optional).
+  final String? foodName;
+
+  /// Meal type classification.
+  final MealTypeDto mealType;
+
+  // All nutrient fields (all optional)
+
+  /// Energy nutrient (kilocalories).
+  final EnergyDto? energy;
+
+  /// Protein nutrient (grams).
+  final MassDto? protein;
+
+  /// Total carbohydrate nutrient (grams).
+  final MassDto? totalCarbohydrate;
+
+  /// Total fat nutrient (grams).
+  final MassDto? totalFat;
+
+  /// Saturated fat nutrient (grams).
+  final MassDto? saturatedFat;
+
+  /// Monounsaturated fat nutrient (grams).
+  final MassDto? monounsaturatedFat;
+
+  /// Polyunsaturated fat nutrient (grams).
+  final MassDto? polyunsaturatedFat;
+
+  /// Cholesterol nutrient (grams).
+  final MassDto? cholesterol;
+
+  /// Dietary fiber nutrient (grams).
+  final MassDto? dietaryFiber;
+
+  /// Sugar nutrient (grams).
+  final MassDto? sugar;
+
+  /// Vitamin A nutrient (grams).
+  final MassDto? vitaminA;
+
+  /// Vitamin B6 nutrient (grams).
+  final MassDto? vitaminB6;
+
+  /// Vitamin B12 nutrient (grams).
+  final MassDto? vitaminB12;
+
+  /// Vitamin C nutrient (grams).
+  final MassDto? vitaminC;
+
+  /// Vitamin D nutrient (grams).
+  final MassDto? vitaminD;
+
+  /// Vitamin E nutrient (grams).
+  final MassDto? vitaminE;
+
+  /// Vitamin K nutrient (grams).
+  final MassDto? vitaminK;
+
+  /// Thiamin (vitamin B1) nutrient (grams).
+  final MassDto? thiamin;
+
+  /// Riboflavin (vitamin B2) nutrient (grams).
+  final MassDto? riboflavin;
+
+  /// Niacin (vitamin B3) nutrient (grams).
+  final MassDto? niacin;
+
+  /// Folate (vitamin B9) nutrient (grams).
+  final MassDto? folate;
+
+  /// Biotin (vitamin B7) nutrient (grams).
+  final MassDto? biotin;
+
+  /// Pantothenic acid (vitamin B5) nutrient (grams).
+  final MassDto? pantothenicAcid;
+
+  /// Calcium nutrient (grams).
+  final MassDto? calcium;
+
+  /// Iron nutrient (grams).
+  final MassDto? iron;
+
+  /// Magnesium nutrient (grams).
+  final MassDto? magnesium;
+
+  /// Manganese nutrient (grams).
+  final MassDto? manganese;
+
+  /// Phosphorus nutrient (grams).
+  final MassDto? phosphorus;
+
+  /// Potassium nutrient (grams).
+  final MassDto? potassium;
+
+  /// Selenium nutrient (grams).
+  final MassDto? selenium;
+
+  /// Sodium nutrient (grams).
+  final MassDto? sodium;
+
+  /// Zinc nutrient (grams).
+  final MassDto? zinc;
+
+  /// Caffeine nutrient (grams).
+  final MassDto? caffeine;
 }
 
 // endregion

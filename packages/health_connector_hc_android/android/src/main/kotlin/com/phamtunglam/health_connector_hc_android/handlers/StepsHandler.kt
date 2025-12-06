@@ -24,8 +24,11 @@ import kotlin.reflect.KClass
 object StepsHandler : IntervalRecordHandler, AggregationSupportingHandler {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.STEPS
 
-    override fun toDto(record: Record): HealthRecordDto? {
-        return (record as? StepsRecord)?.toDto()
+    override fun toDto(record: Record): HealthRecordDto {
+        require(record is StepsRecord) {
+            "Expected StepsRecord, got ${record::class.simpleName}"
+        }
+        return record.toDto()
     }
 
     override fun toHealthConnect(dto: HealthRecordDto): Record {

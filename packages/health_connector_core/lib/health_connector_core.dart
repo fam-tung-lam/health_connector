@@ -20,11 +20,7 @@ export 'src/models/health_platform.dart';
 export 'src/models/health_platform_features/health_platform_feature.dart';
 // Models - Health Records
 export 'src/models/health_records/health_record.dart'
-    hide
-        MacronutrientRecord,
-        MineralNutrientRecord,
-        VitaminNutrientRecord,
-        NutrientHealthRecord;
+    hide MacronutrientRecord, MineralNutrientRecord, VitaminNutrientRecord;
 export 'src/models/health_records/heart_rate_measurement.dart';
 export 'src/models/health_records/sleep_stage_type.dart';
 // Models - Measurement Units

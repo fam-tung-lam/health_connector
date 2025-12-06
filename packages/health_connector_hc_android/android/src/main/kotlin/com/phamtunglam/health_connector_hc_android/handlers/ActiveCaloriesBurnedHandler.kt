@@ -26,8 +26,11 @@ import kotlin.reflect.KClass
 object ActiveCaloriesBurnedHandler : IntervalRecordHandler, AggregationSupportingHandler {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.ACTIVE_CALORIES_BURNED
 
-    override fun toDto(record: Record): HealthRecordDto? {
-        return (record as? ActiveCaloriesBurnedRecord)?.toDto()
+    override fun toDto(record: Record): HealthRecordDto {
+        require(record is ActiveCaloriesBurnedRecord) {
+            "Expected ActiveCaloriesBurnedRecord, got ${record::class.simpleName}"
+        }
+        return record.toDto()
     }
 
     override fun toHealthConnect(dto: HealthRecordDto): Record {

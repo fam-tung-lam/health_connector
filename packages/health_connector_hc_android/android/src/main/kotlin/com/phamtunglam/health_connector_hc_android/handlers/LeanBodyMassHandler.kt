@@ -20,8 +20,11 @@ import kotlin.reflect.KClass
 object LeanBodyMassHandler : InstantRecordHandler {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.LEAN_BODY_MASS
 
-    override fun toDto(record: Record): HealthRecordDto? {
-        return (record as? LeanBodyMassRecord)?.toDto()
+    override fun toDto(record: Record): HealthRecordDto {
+        require(record is LeanBodyMassRecord) {
+            "Expected LeanBodyMassRecord, got ${record::class.simpleName}"
+        }
+        return record.toDto()
     }
 
     override fun toHealthConnect(dto: HealthRecordDto): Record {

@@ -20,8 +20,11 @@ import kotlin.reflect.KClass
 object HeartRateHandler : SeriesRecordHandler {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.HEART_RATE_SERIES_RECORD
 
-    override fun toDto(record: Record): HealthRecordDto? {
-        return (record as? HeartRateRecord)?.toDto()
+    override fun toDto(record: Record): HealthRecordDto {
+        require(record is HeartRateRecord) {
+            "Expected HeartRateRecord, got ${record::class.simpleName}"
+        }
+        return record.toDto()
     }
 
     override fun toHealthConnect(dto: HealthRecordDto): Record {

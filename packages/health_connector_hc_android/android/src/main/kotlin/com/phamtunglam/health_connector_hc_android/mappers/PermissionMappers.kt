@@ -10,6 +10,7 @@ import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
+import androidx.health.connect.client.records.NutritionRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
@@ -117,6 +118,46 @@ internal fun HealthDataPermissionDto.toHealthConnectPermission(): String {
                 PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(SleepSessionRecord::class)
             }
         }
+
+        HealthDataTypeDto.ENERGY_NUTRIENT,
+        HealthDataTypeDto.CAFFEINE,
+        HealthDataTypeDto.PROTEIN,
+        HealthDataTypeDto.TOTAL_CARBOHYDRATE,
+        HealthDataTypeDto.TOTAL_FAT,
+        HealthDataTypeDto.SATURATED_FAT,
+        HealthDataTypeDto.MONOUNSATURATED_FAT,
+        HealthDataTypeDto.POLYUNSATURATED_FAT,
+        HealthDataTypeDto.CHOLESTEROL,
+        HealthDataTypeDto.DIETARY_FIBER,
+        HealthDataTypeDto.SUGAR,
+        HealthDataTypeDto.VITAMIN_A,
+        HealthDataTypeDto.VITAMIN_B6,
+        HealthDataTypeDto.VITAMIN_B12,
+        HealthDataTypeDto.VITAMIN_C,
+        HealthDataTypeDto.VITAMIN_D,
+        HealthDataTypeDto.VITAMIN_E,
+        HealthDataTypeDto.VITAMIN_K,
+        HealthDataTypeDto.THIAMIN,
+        HealthDataTypeDto.RIBOFLAVIN,
+        HealthDataTypeDto.NIACIN,
+        HealthDataTypeDto.FOLATE,
+        HealthDataTypeDto.BIOTIN,
+        HealthDataTypeDto.PANTOTHENIC_ACID,
+        HealthDataTypeDto.CALCIUM,
+        HealthDataTypeDto.IRON,
+        HealthDataTypeDto.MAGNESIUM,
+        HealthDataTypeDto.MANGANESE,
+        HealthDataTypeDto.PHOSPHORUS,
+        HealthDataTypeDto.POTASSIUM,
+        HealthDataTypeDto.SELENIUM,
+        HealthDataTypeDto.SODIUM,
+        HealthDataTypeDto.ZINC,
+        HealthDataTypeDto.NUTRITION -> {
+            when (this.accessType) {
+                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(NutritionRecord::class)
+                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(NutritionRecord::class)
+            }
+        }
     }
 }
 
@@ -164,6 +205,7 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionDto? {
         "WHEELCHAIR_PUSHES" -> HealthDataTypeDto.WHEELCHAIR_PUSHES
         "HEART_RATE" -> HealthDataTypeDto.HEART_RATE_SERIES_RECORD
         "SLEEP_SESSION" -> HealthDataTypeDto.SLEEP_SESSION
+        "NUTRITION" -> HealthDataTypeDto.NUTRITION
         else -> return null // Unknown data type, skip it
     }
 

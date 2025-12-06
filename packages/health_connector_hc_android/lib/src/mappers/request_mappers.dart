@@ -7,8 +7,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         ReadRecordsRequest;
 import 'package:health_connector_hc_android/src/mappers/'
     'aggregation_metric_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/'
-    'health_data_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_data_type_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/'
     'health_record_mappers.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_platform_api.g.dart'

@@ -20,8 +20,11 @@ import kotlin.reflect.KClass
 object BodyFatPercentageHandler : InstantRecordHandler {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.BODY_FAT_PERCENTAGE
 
-    override fun toDto(record: Record): HealthRecordDto? {
-        return (record as? BodyFatRecord)?.toDto()
+    override fun toDto(record: Record): HealthRecordDto {
+        require(record is BodyFatRecord) {
+            "Expected BodyFatRecord, got ${record::class.simpleName}"
+        }
+        return record.toDto()
     }
 
     override fun toHealthConnect(dto: HealthRecordDto): Record {

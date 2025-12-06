@@ -25,8 +25,11 @@ import kotlin.reflect.KClass
 object SleepSessionHandler : SessionRecordHandler, AggregationSupportingHandler {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.SLEEP_SESSION
 
-    override fun toDto(record: Record): HealthRecordDto? {
-        return (record as? SleepSessionRecord)?.toDto()
+    override fun toDto(record: Record): HealthRecordDto {
+        require(record is SleepSessionRecord) {
+            "Expected SleepSessionRecord, got ${record::class.simpleName}"
+        }
+        return record.toDto()
     }
 
     override fun toHealthConnect(dto: HealthRecordDto): Record {

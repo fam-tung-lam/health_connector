@@ -26,8 +26,11 @@ import kotlin.reflect.KClass
 object WeightHandler : InstantRecordHandler, AggregationSupportingHandler {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.WEIGHT
 
-    override fun toDto(record: Record): HealthRecordDto? {
-        return (record as? WeightRecord)?.toDto()
+    override fun toDto(record: Record): HealthRecordDto {
+        require(record is WeightRecord) {
+            "Expected WeightRecord, got ${record::class.simpleName}"
+        }
+        return record.toDto()
     }
 
     override fun toHealthConnect(dto: HealthRecordDto): Record {

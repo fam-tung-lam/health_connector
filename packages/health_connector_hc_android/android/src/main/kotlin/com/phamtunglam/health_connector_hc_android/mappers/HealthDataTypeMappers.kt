@@ -9,6 +9,7 @@ import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
+import androidx.health.connect.client.records.NutritionRecord
 import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
@@ -38,6 +39,40 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
         HealthDataTypeDto.WHEELCHAIR_PUSHES -> WheelchairPushesRecord::class
         HealthDataTypeDto.HEART_RATE_SERIES_RECORD -> HeartRateRecord::class
         HealthDataTypeDto.SLEEP_SESSION -> SleepSessionRecord::class
+        HealthDataTypeDto.ENERGY_NUTRIENT,
+        HealthDataTypeDto.CAFFEINE,
+        HealthDataTypeDto.PROTEIN,
+        HealthDataTypeDto.TOTAL_CARBOHYDRATE,
+        HealthDataTypeDto.TOTAL_FAT,
+        HealthDataTypeDto.SATURATED_FAT,
+        HealthDataTypeDto.MONOUNSATURATED_FAT,
+        HealthDataTypeDto.POLYUNSATURATED_FAT,
+        HealthDataTypeDto.CHOLESTEROL,
+        HealthDataTypeDto.DIETARY_FIBER,
+        HealthDataTypeDto.SUGAR,
+        HealthDataTypeDto.VITAMIN_A,
+        HealthDataTypeDto.VITAMIN_B6,
+        HealthDataTypeDto.VITAMIN_B12,
+        HealthDataTypeDto.VITAMIN_C,
+        HealthDataTypeDto.VITAMIN_D,
+        HealthDataTypeDto.VITAMIN_E,
+        HealthDataTypeDto.VITAMIN_K,
+        HealthDataTypeDto.THIAMIN,
+        HealthDataTypeDto.RIBOFLAVIN,
+        HealthDataTypeDto.NIACIN,
+        HealthDataTypeDto.FOLATE,
+        HealthDataTypeDto.BIOTIN,
+        HealthDataTypeDto.PANTOTHENIC_ACID,
+        HealthDataTypeDto.CALCIUM,
+        HealthDataTypeDto.IRON,
+        HealthDataTypeDto.MAGNESIUM,
+        HealthDataTypeDto.MANGANESE,
+        HealthDataTypeDto.PHOSPHORUS,
+        HealthDataTypeDto.POTASSIUM,
+        HealthDataTypeDto.SELENIUM,
+        HealthDataTypeDto.SODIUM,
+        HealthDataTypeDto.ZINC,
+        HealthDataTypeDto.NUTRITION -> NutritionRecord::class
     }
 }
 

@@ -26,8 +26,11 @@ import kotlin.reflect.KClass
 object DistanceHandler : IntervalRecordHandler, AggregationSupportingHandler {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.DISTANCE
 
-    override fun toDto(record: Record): HealthRecordDto? {
-        return (record as? DistanceRecord)?.toDto()
+    override fun toDto(record: Record): HealthRecordDto {
+        require(record is DistanceRecord) {
+            "Expected DistanceRecord, got ${record::class.simpleName}"
+        }
+        return record.toDto()
     }
 
     override fun toHealthConnect(dto: HealthRecordDto): Record {

@@ -20,27 +20,60 @@ object HealthConnectTypeRegistry {
      */
     private val handlers: Map<HealthDataTypeDto, HealthConnectRecordHandler> by lazy {
         buildMap {
-            // Interval records with aggregation
+            // Interval records
             register(StepsHandler)
             register(ActiveCaloriesBurnedHandler)
             register(DistanceHandler)
             register(FloorsClimbedHandler)
             register(WheelchairPushesHandler)
             register(HydrationHandler)
+            register(NutritionHandler)
 
-            // Instant records with aggregation
+            // Instant records
             register(WeightHandler)
             register(HeightHandler)
-
-            // Instant records without aggregation
             register(BodyTemperatureHandler)
             register(LeanBodyMassHandler)
             register(BodyFatPercentageHandler)
 
+            register(NutrientHandler(HealthDataTypeDto.ENERGY_NUTRIENT))
+            register(NutrientHandler(HealthDataTypeDto.CAFFEINE))
+            register(NutrientHandler(HealthDataTypeDto.PROTEIN))
+            register(NutrientHandler(HealthDataTypeDto.TOTAL_CARBOHYDRATE))
+            register(NutrientHandler(HealthDataTypeDto.TOTAL_FAT))
+            register(NutrientHandler(HealthDataTypeDto.SATURATED_FAT))
+            register(NutrientHandler(HealthDataTypeDto.MONOUNSATURATED_FAT))
+            register(NutrientHandler(HealthDataTypeDto.POLYUNSATURATED_FAT))
+            register(NutrientHandler(HealthDataTypeDto.CHOLESTEROL))
+            register(NutrientHandler(HealthDataTypeDto.DIETARY_FIBER))
+            register(NutrientHandler(HealthDataTypeDto.SUGAR))
+            register(NutrientHandler(HealthDataTypeDto.VITAMIN_A))
+            register(NutrientHandler(HealthDataTypeDto.VITAMIN_B6))
+            register(NutrientHandler(HealthDataTypeDto.VITAMIN_B12))
+            register(NutrientHandler(HealthDataTypeDto.VITAMIN_C))
+            register(NutrientHandler(HealthDataTypeDto.VITAMIN_D))
+            register(NutrientHandler(HealthDataTypeDto.VITAMIN_E))
+            register(NutrientHandler(HealthDataTypeDto.VITAMIN_K))
+            register(NutrientHandler(HealthDataTypeDto.THIAMIN))
+            register(NutrientHandler(HealthDataTypeDto.RIBOFLAVIN))
+            register(NutrientHandler(HealthDataTypeDto.NIACIN))
+            register(NutrientHandler(HealthDataTypeDto.FOLATE))
+            register(NutrientHandler(HealthDataTypeDto.BIOTIN))
+            register(NutrientHandler(HealthDataTypeDto.PANTOTHENIC_ACID))
+            register(NutrientHandler(HealthDataTypeDto.CALCIUM))
+            register(NutrientHandler(HealthDataTypeDto.IRON))
+            register(NutrientHandler(HealthDataTypeDto.MAGNESIUM))
+            register(NutrientHandler(HealthDataTypeDto.MANGANESE))
+            register(NutrientHandler(HealthDataTypeDto.PHOSPHORUS))
+            register(NutrientHandler(HealthDataTypeDto.POTASSIUM))
+            register(NutrientHandler(HealthDataTypeDto.SELENIUM))
+            register(NutrientHandler(HealthDataTypeDto.SODIUM))
+            register(NutrientHandler(HealthDataTypeDto.ZINC))
+
             // Series records
             register(HeartRateHandler)
 
-            // Session records with aggregation
+            // Session records
             register(SleepSessionHandler)
         }
     }

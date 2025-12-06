@@ -6,6 +6,7 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
         sinceV1_0_0,
         supportedOnAppleHealth,
         supportedOnHealthConnect;
+import 'package:health_connector_core/src/annotations/internal_use.dart';
 import 'package:health_connector_core/src/models/health_platform.dart'
     show HealthPlatform;
 import 'package:health_connector_core/src/models/health_platform_data.dart'
