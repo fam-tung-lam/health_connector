@@ -5,6 +5,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         AggregateResponse,
         HealthConnectorException,
         HealthConnectorPlatformClient,
+        HealthDataPermission,
+        HealthDataPermissionAccessType,
         HealthDataType,
         HealthPlatformFeature,
         HealthPlatformFeatureStatus,
@@ -48,6 +50,48 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
   /// The Pigeon-generated platform API client for native communication.
   static final HealthConnectorPlatformApi _platformClient =
       HealthConnectorPlatformApi();
+
+  /// All nutrient health data types that share the same permission as
+  /// [HealthDataType.nutrition] in Health Connect.
+  ///
+  /// Health Connect uses a single permission for nutrition and all nutrient
+  /// health data types. This list excludes nutrition itself.
+  static const List<HealthDataType<HealthRecord, MeasurementUnit>>
+  _nutrientDataTypes = [
+    HealthDataType.energyNutrient,
+    HealthDataType.caffeine,
+    HealthDataType.protein,
+    HealthDataType.totalCarbohydrate,
+    HealthDataType.totalFat,
+    HealthDataType.saturatedFat,
+    HealthDataType.monounsaturatedFat,
+    HealthDataType.polyunsaturatedFat,
+    HealthDataType.cholesterol,
+    HealthDataType.dietaryFiber,
+    HealthDataType.sugar,
+    HealthDataType.calcium,
+    HealthDataType.iron,
+    HealthDataType.magnesium,
+    HealthDataType.manganese,
+    HealthDataType.phosphorus,
+    HealthDataType.potassium,
+    HealthDataType.selenium,
+    HealthDataType.sodium,
+    HealthDataType.zinc,
+    HealthDataType.vitaminA,
+    HealthDataType.vitaminB6,
+    HealthDataType.vitaminB12,
+    HealthDataType.vitaminC,
+    HealthDataType.vitaminD,
+    HealthDataType.vitaminE,
+    HealthDataType.vitaminK,
+    HealthDataType.thiamin,
+    HealthDataType.riboflavin,
+    HealthDataType.niacin,
+    HealthDataType.folate,
+    HealthDataType.biotin,
+    HealthDataType.pantothenicAcid,
+  ];
 
   @override
   Future<HealthPlatformStatus> getHealthPlatformStatus() async {
@@ -104,17 +148,14 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
   Future<List<PermissionRequestResult>> requestPermissions(
     List<Permission> permissions,
   ) async {
-    final healthDataPermissions = permissions.healthDataPermissions;
-    final featurePermissions = permissions.featurePermissions;
-
     HealthConnectorLogger.debug(
       _tag,
       operation: 'requestPermissions',
       phase: 'entry',
       message: 'Requesting Health Connect permissions',
       context: {
-        'requested_health_data_permissions': healthDataPermissions,
-        'requested_feature_permissions': featurePermissions,
+        'requested_health_data_permissions': permissions.healthDataPermissions,
+        'requested_feature_permissions': permissions.featurePermissions,
       },
     );
 
@@ -131,17 +172,17 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
 
     try {
       final requestDto = permissions.toDto();
-
       final responseDto = await _platformClient.requestPermissions(requestDto);
-
       final results = responseDto.toDomain();
-      final grantedPermissions = results
+
+      final finalResults = _handleNutritionNutrientPermissions(
+        requestedPermissions: permissions,
+        results: results,
+      );
+      final grantedPermissions = finalResults
           .where((result) => result.status == PermissionStatus.granted)
           .map((result) => result.permission)
           .toList();
-      final grantedHealthDataPermissions =
-          grantedPermissions.healthDataPermissions;
-      final grantedFeaturePermissions = grantedPermissions.featurePermissions;
 
       HealthConnectorLogger.info(
         _tag,
@@ -149,12 +190,13 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         phase: 'succeeded',
         message: 'Health Connect permissions requested successfully',
         context: {
-          'granted_health_data_permissions': grantedHealthDataPermissions,
-          'granted_feature_permissions': grantedFeaturePermissions,
+          'granted_health_data_permissions':
+              grantedPermissions.healthDataPermissions,
+          'granted_feature_permissions': grantedPermissions.featurePermissions,
         },
       );
 
-      return results;
+      return finalResults;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
         _tag,
@@ -163,8 +205,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         message: 'Failed to request Health Connect permissions',
         context: {
           'requested_permissions': {
-            'health_data_permissions': healthDataPermissions,
-            'feature_permissions': featurePermissions,
+            'health_data_permissions': permissions.healthDataPermissions,
+            'feature_permissions': permissions.featurePermissions,
           },
         },
         exception: e,
@@ -213,9 +255,10 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
           .where((result) => result.status == PermissionStatus.granted)
           .map((result) => result.permission)
           .toList();
-      final grantedHealthDataPermissions =
-          grantedPermissions.healthDataPermissions;
-      final grantedFeaturePermissions = grantedPermissions.featurePermissions;
+
+      // Add all nutrient health data type permissions if there is proper
+      // read or write permission of `HealthDataType.nutrition`.
+      _addNutrientPermissionsIfNutritionGranted(grantedPermissions);
 
       HealthConnectorLogger.info(
         _tag,
@@ -223,8 +266,9 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         phase: 'succeeded',
         message: 'Granted Health Connect permissions retrieved',
         context: {
-          'granted_health_data_permissions': grantedHealthDataPermissions,
-          'granted_feature_permissions': grantedFeaturePermissions,
+          'granted_health_data_permissions':
+              grantedPermissions.healthDataPermissions,
+          'granted_feature_permissions': grantedPermissions.featurePermissions,
         },
       );
 
@@ -788,5 +832,138 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
     }
+  }
+
+  /// Handles the special case where Health Connect uses a single permission
+  /// for nutrition and all nutrient data types.
+  List<PermissionRequestResult> _handleNutritionNutrientPermissions({
+    required List<Permission> requestedPermissions,
+    required List<PermissionRequestResult> results,
+  }) {
+    final requestedNutritionNutrientPermissions = requestedPermissions
+        .whereType<HealthDataPermission>()
+        .where(
+          (permission) =>
+              permission.dataType == HealthDataType.nutrition ||
+              _nutrientDataTypes.contains(permission.dataType),
+        )
+        .toList();
+
+    if (requestedNutritionNutrientPermissions.isEmpty) {
+      return results;
+    }
+
+    final nutritionResultsByAccessType = Map.fromEntries(
+      results
+          .where(
+            (result) =>
+                result.permission is HealthDataPermission &&
+                (result.permission as HealthDataPermission).dataType ==
+                    HealthDataType.nutrition,
+          )
+          .map((result) {
+            final permission = result.permission as HealthDataPermission;
+            return MapEntry(permission.accessType, result);
+          }),
+    );
+
+    return results.map((result) {
+      return _mapPermissionResult(
+        result: result,
+        requestedNutritionNutrientPermissions:
+            requestedNutritionNutrientPermissions,
+        nutritionResultsByAccessType: nutritionResultsByAccessType,
+      );
+    }).toList();
+  }
+
+  PermissionRequestResult _mapPermissionResult({
+    required PermissionRequestResult result,
+    required List<HealthDataPermission> requestedNutritionNutrientPermissions,
+    required Map<HealthDataPermissionAccessType, PermissionRequestResult>
+    nutritionResultsByAccessType,
+  }) {
+    final permission = result.permission;
+
+    if (permission is! HealthDataPermission ||
+        !requestedNutritionNutrientPermissions.contains(permission)) {
+      return result;
+    }
+
+    if (permission.dataType == HealthDataType.nutrition) {
+      return result;
+    }
+
+    if (!_nutrientDataTypes.contains(permission.dataType)) {
+      return result;
+    }
+
+    // Map nutrient permission to nutrition permission result
+    return _createNutrientPermissionResult(
+      permission: permission,
+      nutritionResultsByAccessType: nutritionResultsByAccessType,
+    );
+  }
+
+  PermissionRequestResult _createNutrientPermissionResult({
+    required HealthDataPermission permission,
+    required Map<HealthDataPermissionAccessType, PermissionRequestResult>
+    nutritionResultsByAccessType,
+  }) {
+    // Only map to nutrition's result if SAME access type exists
+    final nutritionResult = nutritionResultsByAccessType[permission.accessType];
+
+    return PermissionRequestResult(
+      permission: permission,
+      status: nutritionResult?.status ?? PermissionStatus.denied,
+    );
+  }
+
+  /// Adds all nutrient health data type permissions to [grantedPermissions]
+  /// if there is a read/write permission for [HealthDataType.nutrition].
+  ///
+  /// Health Connect uses a single permission for nutrition and all nutrient
+  /// health data types. This method ensures that when nutrition permission is
+  void _addNutrientPermissionsIfNutritionGranted(
+    List<Permission> grantedPermissions,
+  ) {
+    // Find all nutrition permissions
+    final nutritionPermissions = grantedPermissions
+        .whereType<HealthDataPermission>()
+        .where(
+          (permission) => permission.dataType == HealthDataType.nutrition,
+        );
+
+    if (nutritionPermissions.isEmpty) {
+      return;
+    }
+
+    // Determine which access types to add
+    final hasReadPermission = nutritionPermissions.any(
+      (permission) =>
+          permission.accessType == HealthDataPermissionAccessType.read,
+    );
+    final hasWritePermission = nutritionPermissions.any(
+      (permission) =>
+          permission.accessType == HealthDataPermissionAccessType.write,
+    );
+
+    // Add nutrient permissions for the same access types as nutrition
+    final nutrientPermissionsToAdd = _nutrientDataTypes.expand(
+      (dataType) => [
+        if (hasReadPermission)
+          HealthDataPermission(
+            dataType: dataType,
+            accessType: HealthDataPermissionAccessType.read,
+          ),
+        if (hasWritePermission)
+          HealthDataPermission(
+            dataType: dataType,
+            accessType: HealthDataPermissionAccessType.write,
+          ),
+      ],
+    );
+
+    grantedPermissions.addAll(nutrientPermissionsToAdd);
   }
 }
