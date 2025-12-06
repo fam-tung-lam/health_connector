@@ -8,13 +8,23 @@ export 'src/health_connector_health_platform_client.dart';
 export 'src/models/exceptions/health_connector_error_code.dart';
 export 'src/models/exceptions/health_connector_exception.dart';
 // Models - Health Data Types
-export 'src/models/health_data_types/health_data_type.dart';
+export 'src/models/health_data_types/health_data_type.dart'
+    hide
+        MineralNutrientDataType,
+        NutrientHealthDataType,
+        VitaminNutrientDataType,
+        MacronutrientDataType;
 // Models - Health Platform
 export 'src/models/health_platform.dart';
 // Models - Health Platform Features
 export 'src/models/health_platform_features/health_platform_feature.dart';
 // Models - Health Records
-export 'src/models/health_records/health_record.dart';
+export 'src/models/health_records/health_record.dart'
+    hide
+        MacronutrientRecord,
+        MineralNutrientRecord,
+        VitaminNutrientRecord,
+        NutrientHealthRecord;
 export 'src/models/health_records/heart_rate_measurement.dart';
 export 'src/models/health_records/sleep_stage_type.dart';
 // Models - Measurement Units

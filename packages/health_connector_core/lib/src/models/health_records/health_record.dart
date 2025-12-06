@@ -1,3 +1,5 @@
+import 'package:health_connector_core/health_connector_core.dart'
+    show sinceV1_1_0;
 import 'package:health_connector_core/src/annotations/annotations.dart'
     show
         PlatformSpecificBehaviors,
@@ -13,14 +15,22 @@ import 'package:health_connector_core/src/models/health_records/heart_rate_measu
 import 'package:health_connector_core/src/models/health_records/sleep_stage_type.dart'
     show SleepStageType;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
-    show Energy, Length, Mass, Numeric, Percentage, Temperature, Volume;
+    show
+        Energy,
+        Length,
+        Mass,
+        MeasurementUnit,
+        Numeric,
+        Percentage,
+        Temperature,
+        Volume;
 import 'package:health_connector_core/src/models/metadata/metadata.dart'
     show Metadata;
 import 'package:health_connector_core/src/utils/collection.dart';
 import 'package:health_connector_core/src/utils/datetime.dart'
     show formatTimeRange;
 import 'package:health_connector_core/src/utils/validation.dart' show require;
-import 'package:meta/meta.dart' show immutable;
+import 'package:meta/meta.dart' show immutable, internal;
 
 part 'active_calories_burned_record.dart';
 part 'body_fat_percentage_record.dart';
@@ -34,6 +44,12 @@ part 'hydration_record.dart';
 part 'instant_health_record.dart';
 part 'interval_health_record.dart';
 part 'lean_body_mass_record.dart';
+part 'nutrient_health_records/macronutrient_health_records.dart';
+part 'nutrient_health_records/meal_type.dart';
+part 'nutrient_health_records/mineral_nutrient_health_records.dart';
+part 'nutrient_health_records/nutrient_health_record.dart';
+part 'nutrient_health_records/nutrition_record.dart';
+part 'nutrient_health_records/vitamin_nutrient_health_records.dart';
 part 'series_health_record.dart';
 part 'sleep_session_record.dart';
 part 'sleep_stage_record.dart';

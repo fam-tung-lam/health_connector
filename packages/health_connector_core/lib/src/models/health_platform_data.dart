@@ -2,7 +2,7 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
     show sinceV1_0_0;
 import 'package:health_connector_core/src/models/health_platform.dart'
     show HealthPlatform;
-import 'package:meta/meta.dart' show immutable, mustBeOverridden, internal;
+import 'package:meta/meta.dart' show immutable, internal;
 
 /// Base class for all data that have platform-specific support.
 ///
@@ -17,16 +17,4 @@ abstract interface class HealthPlatformData {
 
   /// The name of this data type, used for logging purposes.
   String get name;
-
-  @override
-  @mustBeOverridden
-  bool operator ==(Object other);
-
-  @override
-  @mustBeOverridden
-  int get hashCode;
-
-  @override
-  @mustBeOverridden
-  String toString();
 }

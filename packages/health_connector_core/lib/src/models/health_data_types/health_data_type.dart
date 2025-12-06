@@ -5,7 +5,8 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
         sinceV1_0_0,
         supportedOnHealthConnect,
         supportedOnAppleHealth,
-        availableOnAppleHealth;
+        availableOnAppleHealth,
+        sinceV1_1_0;
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
     show HealthConnectorConfigConstants;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';
@@ -16,22 +17,56 @@ import 'package:health_connector_core/src/models/health_platform_data.dart'
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show
         ActiveCaloriesBurnedRecord,
+        BiotinNutrientRecord,
         BodyFatPercentageRecord,
         BodyTemperatureRecord,
+        CaffeineNutrientRecord,
+        CalciumNutrientRecord,
+        CholesterolNutrientRecord,
+        DietaryFiberNutrientRecord,
         DistanceRecord,
+        EnergyNutrientRecord,
         FloorsClimbedRecord,
+        FolateNutrientRecord,
         HealthRecord,
         HealthRecordId,
         HeartRateMeasurementRecord,
         HeartRateSeriesRecord,
         HeightRecord,
         HydrationRecord,
+        IronNutrientRecord,
         LeanBodyMassRecord,
+        MagnesiumNutrientRecord,
+        ManganeseNutrientRecord,
+        MonounsaturatedFatNutrientRecord,
+        NiacinNutrientRecord,
+        NutritionRecord,
+        PantothenicAcidNutrientRecord,
+        PhosphorusNutrientRecord,
+        PolyunsaturatedFatNutrientRecord,
+        PotassiumNutrientRecord,
+        ProteinNutrientRecord,
+        RiboflavinNutrientRecord,
+        SaturatedFatNutrientRecord,
+        SeleniumNutrientRecord,
         SleepSessionRecord,
         SleepStageRecord,
+        SodiumNutrientRecord,
         StepRecord,
+        SugarNutrientRecord,
+        ThiaminNutrientRecord,
+        TotalCarbohydrateNutrientRecord,
+        TotalFatNutrientRecord,
+        VitaminANutrientRecord,
+        VitaminB12NutrientRecord,
+        VitaminB6NutrientRecord,
+        VitaminCNutrientRecord,
+        VitaminDNutrientRecord,
+        VitaminENutrientRecord,
+        VitaminKNutrientRecord,
         WeightRecord,
-        WheelchairPushesRecord;
+        WheelchairPushesRecord,
+        ZincNutrientRecord;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show
         Energy,
@@ -64,6 +99,11 @@ part 'heart_rate_series_record_health_data_type.dart';
 part 'height_health_data_type.dart';
 part 'hydration_health_data_type.dart';
 part 'lean_body_mass_health_data_type.dart';
+part 'nutrient_health_data_types/macronutrient_health_data_types.dart';
+part 'nutrient_health_data_types/mineral_nutrient_health_data_types.dart';
+part 'nutrient_health_data_types/nutrient_health_data_type.dart';
+part 'nutrient_health_data_types/nutrition_health_data_type.dart';
+part 'nutrient_health_data_types/vitamin_nutrient_health_data_types.dart';
 part 'sleep_session_health_data_type.dart';
 part 'sleep_stage_record_health_data_type.dart';
 part 'steps_health_data_type.dart';
@@ -139,7 +179,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   String get identifier;
 
   /// The list of aggregation metrics that support this health record.
-  List<AggregationMetric> get supportedAggregationMetrics;
+  List<AggregationMetric> get supportedAggregationMetrics => [];
 
   /// The list of permissions for this health record.
   List<Permission> get permissions;
@@ -263,25 +303,296 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const sleepStageRecord = SleepStageHealthDataType();
 
+  /// Nutrition health data type.
+  ///
+  /// Represents a complete nutrition record that can contain multiple
+  /// nutrients.
+  @sinceV1_1_0
+  static const nutrition = NutritionHealthDataType();
+
+  /// Energy (calorie) nutrient data type.
+  ///
+  /// Represents energy intake in calories. Supports reading, writing,
+  /// and sum aggregation of energy nutrient records.
+  @sinceV1_1_0
+  static const energyNutrient = EnergyNutrientDataType();
+
+  /// Caffeine nutrient data type.
+  ///
+  /// Represents caffeine intake. Supports reading, writing,
+  /// and sum aggregation of caffeine nutrient records.
+  @sinceV1_1_0
+  static const caffeine = CaffeineNutrientDataType();
+
+  /// Protein nutrient data type.
+  ///
+  /// Represents protein intake. Supports reading, writing,
+  /// and sum aggregation of protein nutrient records.
+  @sinceV1_1_0
+  static const protein = ProteinNutrientDataType();
+
+  /// Total carbohydrate nutrient data type.
+  ///
+  /// Represents total carbohydrate intake. Supports reading, writing,
+  /// and sum aggregation of total carbohydrate nutrient records.
+  @sinceV1_1_0
+  static const totalCarbohydrate = TotalCarbohydrateNutrientDataType();
+
+  /// Total fat nutrient data type.
+  ///
+  /// Represents total fat intake. Supports reading, writing,
+  /// and sum aggregation of total fat nutrient records.
+  @sinceV1_1_0
+  static const totalFat = TotalFatNutrientDataType();
+
+  /// Saturated fat nutrient data type.
+  ///
+  /// Represents saturated fat intake. Supports reading, writing,
+  /// and sum aggregation of saturated fat nutrient records.
+  @sinceV1_1_0
+  static const saturatedFat = SaturatedFatNutrientDataType();
+
+  /// Monounsaturated fat nutrient data type.
+  ///
+  /// Represents monounsaturated fat intake. Supports reading, writing,
+  /// and sum aggregation of monounsaturated fat nutrient records.
+  @sinceV1_1_0
+  static const monounsaturatedFat = MonounsaturatedFatNutrientDataType();
+
+  /// Polyunsaturated fat nutrient data type.
+  ///
+  /// Represents polyunsaturated fat intake. Supports reading, writing,
+  /// and sum aggregation of polyunsaturated fat nutrient records.
+  @sinceV1_1_0
+  static const polyunsaturatedFat = PolyunsaturatedFatNutrientDataType();
+
+  /// Cholesterol nutrient data type.
+  ///
+  /// Represents cholesterol intake. Supports reading, writing,
+  /// and sum aggregation of cholesterol nutrient records.
+  @sinceV1_1_0
+  static const cholesterol = CholesterolNutrientDataType();
+
+  /// Dietary fiber nutrient data type.
+  ///
+  /// Represents dietary fiber intake. Supports reading, writing,
+  /// and sum aggregation of dietary fiber nutrient records.
+  @sinceV1_1_0
+  static const dietaryFiber = DietaryFiberNutrientDataType();
+
+  /// Sugar nutrient data type.
+  ///
+  /// Represents sugar intake. Supports reading, writing,
+  /// and sum aggregation of sugar nutrient records.
+  @sinceV1_1_0
+  static const sugar = SugarNutrientDataType();
+
+  /// Calcium nutrient data type.
+  ///
+  /// Represents calcium intake. Supports reading, writing,
+  /// and sum aggregation of calcium nutrient records.
+  @sinceV1_1_0
+  static const calcium = CalciumNutrientDataType();
+
+  /// Iron nutrient data type.
+  ///
+  /// Represents iron intake. Supports reading, writing,
+  /// and sum aggregation of iron nutrient records.
+  @sinceV1_1_0
+  static const iron = IronNutrientDataType();
+
+  /// Magnesium nutrient data type.
+  ///
+  /// Represents magnesium intake. Supports reading, writing,
+  /// and sum aggregation of magnesium nutrient records.
+  @sinceV1_1_0
+  static const magnesium = MagnesiumNutrientDataType();
+
+  /// Manganese nutrient data type.
+  ///
+  /// Represents manganese intake. Supports reading, writing,
+  /// and sum aggregation of manganese nutrient records.
+  @sinceV1_1_0
+  static const manganese = ManganeseNutrientDataType();
+
+  /// Phosphorus nutrient data type.
+  ///
+  /// Represents phosphorus intake. Supports reading, writing,
+  /// and sum aggregation of phosphorus nutrient records.
+  @sinceV1_1_0
+  static const phosphorus = PhosphorusNutrientDataType();
+
+  /// Potassium nutrient data type.
+  ///
+  /// Represents potassium intake. Supports reading, writing,
+  /// and sum aggregation of potassium nutrient records.
+  @sinceV1_1_0
+  static const potassium = PotassiumNutrientDataType();
+
+  /// Selenium nutrient data type.
+  ///
+  /// Represents selenium intake. Supports reading, writing,
+  /// and sum aggregation of selenium nutrient records.
+  @sinceV1_1_0
+  static const selenium = SeleniumNutrientDataType();
+
+  /// Sodium nutrient data type.
+  ///
+  /// Represents sodium intake. Supports reading, writing,
+  /// and sum aggregation of sodium nutrient records.
+  @sinceV1_1_0
+  static const sodium = SodiumNutrientDataType();
+
+  /// Zinc nutrient data type.
+  ///
+  /// Represents zinc intake. Supports reading, writing,
+  /// and sum aggregation of zinc nutrient records.
+  @sinceV1_1_0
+  static const zinc = ZincNutrientDataType();
+
+  /// Vitamin A nutrient data type.
+  ///
+  /// Represents vitamin A intake. Supports reading, writing,
+  /// and sum aggregation of vitamin A nutrient records.
+  @sinceV1_1_0
+  static const vitaminA = VitaminANutrientDataType();
+
+  /// Vitamin B6 nutrient data type.
+  ///
+  /// Represents vitamin B6 intake. Supports reading, writing,
+  /// and sum aggregation of vitamin B6 nutrient records.
+  @sinceV1_1_0
+  static const vitaminB6 = VitaminB6NutrientDataType();
+
+  /// Vitamin B12 nutrient data type.
+  ///
+  /// Represents vitamin B12 intake. Supports reading, writing,
+  /// and sum aggregation of vitamin B12 nutrient records.
+  @sinceV1_1_0
+  static const vitaminB12 = VitaminB12NutrientDataType();
+
+  /// Vitamin C nutrient data type.
+  ///
+  /// Represents vitamin C intake. Supports reading, writing,
+  /// and sum aggregation of vitamin C nutrient records.
+  @sinceV1_1_0
+  static const vitaminC = VitaminCNutrientDataType();
+
+  /// Vitamin D nutrient data type.
+  ///
+  /// Represents vitamin D intake. Supports reading, writing,
+  /// and sum aggregation of vitamin D nutrient records.
+  @sinceV1_1_0
+  static const vitaminD = VitaminDNutrientDataType();
+
+  /// Vitamin E nutrient data type.
+  ///
+  /// Represents vitamin E intake. Supports reading, writing,
+  /// and sum aggregation of vitamin E nutrient records.
+  @sinceV1_1_0
+  static const vitaminE = VitaminENutrientDataType();
+
+  /// Vitamin K nutrient data type.
+  ///
+  /// Represents vitamin K intake. Supports reading, writing,
+  /// and sum aggregation of vitamin K nutrient records.
+  @sinceV1_1_0
+  static const vitaminK = VitaminKNutrientDataType();
+
+  /// Thiamin nutrient data type.
+  ///
+  /// Represents thiamin (vitamin B1) intake. Supports reading, writing,
+  /// and sum aggregation of thiamin nutrient records.
+  @sinceV1_1_0
+  static const thiamin = ThiaminNutrientDataType();
+
+  /// Riboflavin nutrient data type.
+  ///
+  /// Represents riboflavin (vitamin B2) intake. Supports reading, writing,
+  /// and sum aggregation of riboflavin nutrient records.
+  @sinceV1_1_0
+  static const riboflavin = RiboflavinNutrientDataType();
+
+  /// Niacin nutrient data type.
+  ///
+  /// Represents niacin (vitamin B3) intake. Supports reading, writing,
+  /// and sum aggregation of niacin nutrient records.
+  @sinceV1_1_0
+  static const niacin = NiacinNutrientDataType();
+
+  /// Folate nutrient data type.
+  ///
+  /// Represents folate (vitamin B9) intake. Supports reading, writing,
+  /// and sum aggregation of folate nutrient records.
+  @sinceV1_1_0
+  static const folate = FolateNutrientDataType();
+
+  /// Biotin nutrient data type.
+  ///
+  /// Represents biotin (vitamin B7) intake. Supports reading, writing,
+  /// and sum aggregation of biotin nutrient records.
+  @sinceV1_1_0
+  static const biotin = BiotinNutrientDataType();
+
+  /// Pantothenic acid nutrient data type.
+  ///
+  /// Represents pantothenic acid (vitamin B5) intake.
+  @sinceV1_1_0
+  static const pantothenicAcid = PantothenicAcidNutrientDataType();
+
   /// Returns a list of all available health data types.
   ///
   /// This list contains all data types currently supported by the plugin.
   /// As new data types are added, they will automatically appear in this list.
   static const List<HealthDataType<HealthRecord, MeasurementUnit>> values = [
     activeCaloriesBurned,
+    biotin,
     bodyFatPercentage,
     bodyTemperature,
+    caffeine,
+    calcium,
+    cholesterol,
+    dietaryFiber,
     distance,
+    energyNutrient,
     floorsClimbed,
+    folate,
     heartRateMeasurementRecord,
     heartRateSeriesRecord,
     height,
     hydration,
+    iron,
     leanBodyMass,
+    magnesium,
+    manganese,
+    monounsaturatedFat,
+    niacin,
+    nutrition,
+    pantothenicAcid,
+    phosphorus,
+    polyunsaturatedFat,
+    potassium,
+    protein,
+    riboflavin,
+    saturatedFat,
+    selenium,
     sleepSession,
     sleepStageRecord,
+    sodium,
     steps,
+    sugar,
+    thiamin,
+    totalCarbohydrate,
+    totalFat,
+    vitaminA,
+    vitaminB12,
+    vitaminB6,
+    vitaminC,
+    vitaminD,
+    vitaminE,
+    vitaminK,
     weight,
     wheelchairPushes,
+    zinc,
   ];
 }

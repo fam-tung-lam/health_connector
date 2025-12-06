@@ -28,5 +28,5 @@ final class Since {
   final String version;
 }
 
-/// Annotation marking the version where an API was added.
 const sinceV1_0_0 = Since('1.0.0');
+const sinceV1_1_0 = Since('1.1.0');
