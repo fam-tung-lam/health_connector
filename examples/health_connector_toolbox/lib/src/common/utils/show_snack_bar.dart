@@ -44,14 +44,10 @@ void showAppSnackBar(
 
 /// Returns the background color for the given snack bar type.
 Color _getBackgroundColor(SnackBarType type) {
-  switch (type) {
-    case SnackBarType.info:
-      return AppColors.infoDark;
-    case SnackBarType.warning:
-      return AppColors.warning;
-    case SnackBarType.error:
-      return AppColors.errorDark;
-    case SnackBarType.success:
-      return AppColors.successDark;
-  }
+  return switch (type) {
+    SnackBarType.info => AppColors.infoDark,
+    SnackBarType.warning => AppColors.warning,
+    SnackBarType.error => AppColors.errorDark,
+    SnackBarType.success => AppColors.successDark,
+  };
 }

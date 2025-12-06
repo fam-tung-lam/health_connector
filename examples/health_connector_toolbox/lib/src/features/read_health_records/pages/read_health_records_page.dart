@@ -3,10 +3,17 @@ import 'package:health_connector/health_connector.dart' show HealthPlatform;
 import 'package:health_connector_core/health_connector_core.dart'
     show
         ActiveCaloriesBurnedHealthDataType,
+        BiotinNutrientDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
+        CaffeineNutrientDataType,
+        CalciumNutrientDataType,
+        CholesterolNutrientDataType,
+        DietaryFiberNutrientDataType,
         DistanceHealthDataType,
+        EnergyNutrientDataType,
         FloorsClimbedHealthDataType,
+        FolateNutrientDataType,
         HealthConnectorErrorCode,
         HealthConnectorException,
         HealthDataType,
@@ -15,12 +22,38 @@ import 'package:health_connector_core/health_connector_core.dart'
         HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
         HydrationHealthDataType,
+        IronNutrientDataType,
         LeanBodyMassHealthDataType,
+        MagnesiumNutrientDataType,
+        ManganeseNutrientDataType,
         MeasurementUnit,
-        ReadRecordsRequest,
+        MonounsaturatedFatNutrientDataType,
+        NiacinNutrientDataType,
+        PolyunsaturatedFatNutrientDataType,
+        NutritionHealthDataType,
+        PantothenicAcidNutrientDataType,
+        PhosphorusNutrientDataType,
+        PotassiumNutrientDataType,
+        ProteinNutrientDataType,
+        RiboflavinNutrientDataType,
+        SaturatedFatNutrientDataType,
+        SeleniumNutrientDataType,
+        SodiumNutrientDataType,
         StepsHealthDataType,
+        SugarNutrientDataType,
+        ThiaminNutrientDataType,
+        TotalCarbohydrateNutrientDataType,
+        TotalFatNutrientDataType,
+        VitaminANutrientDataType,
+        VitaminB12NutrientDataType,
+        VitaminB6NutrientDataType,
+        VitaminCNutrientDataType,
+        VitaminDNutrientDataType,
+        VitaminENutrientDataType,
+        VitaminKNutrientDataType,
         WeightHealthDataType,
         WheelchairPushesHealthDataType,
+        ZincNutrientDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
@@ -88,99 +121,267 @@ class _ReadHealthRecordsPageState
     );
 
     try {
-      late final ReadRecordsRequest request;
-      switch (_selectedDataType!) {
-        case StepsHealthDataType():
-          request = HealthDataType.steps.readRecords(
+      final request = switch (_selectedDataType!) {
+        StepsHealthDataType() => HealthDataType.steps.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        WeightHealthDataType() => HealthDataType.weight.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        HeightHealthDataType() => HealthDataType.height.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        BodyFatPercentageHealthDataType() =>
+          HealthDataType.bodyFatPercentage.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case WeightHealthDataType():
-          request = HealthDataType.weight.readRecords(
+          ),
+        BodyTemperatureHealthDataType() =>
+          HealthDataType.bodyTemperature.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case HeightHealthDataType():
-          request = HealthDataType.height.readRecords(
+          ),
+        LeanBodyMassHealthDataType() => HealthDataType.leanBodyMass.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        DistanceHealthDataType() => HealthDataType.distance.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        ActiveCaloriesBurnedHealthDataType() =>
+          HealthDataType.activeCaloriesBurned.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case BodyFatPercentageHealthDataType():
-          request = HealthDataType.bodyFatPercentage.readRecords(
+          ),
+        FloorsClimbedHealthDataType() =>
+          HealthDataType.floorsClimbed.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case BodyTemperatureHealthDataType():
-          request = HealthDataType.bodyTemperature.readRecords(
+          ),
+        WheelchairPushesHealthDataType() =>
+          HealthDataType.wheelchairPushes.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case LeanBodyMassHealthDataType():
-          request = HealthDataType.leanBodyMass.readRecords(
+          ),
+        HydrationHealthDataType() => HealthDataType.hydration.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        HeartRateMeasurementRecordHealthDataType() =>
+          HealthDataType.heartRateMeasurementRecord.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case DistanceHealthDataType():
-          request = HealthDataType.distance.readRecords(
+          ),
+        HeartRateSeriesRecordHealthDataType() =>
+          HealthDataType.heartRateSeriesRecord.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case ActiveCaloriesBurnedHealthDataType():
-          request = HealthDataType.activeCaloriesBurned.readRecords(
+          ),
+        SleepSessionHealthDataType() => HealthDataType.sleepSession.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        SleepStageHealthDataType() =>
+          HealthDataType.sleepStageRecord.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case FloorsClimbedHealthDataType():
-          request = HealthDataType.floorsClimbed.readRecords(
+          ),
+        EnergyNutrientDataType() => HealthDataType.energyNutrient.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        CaffeineNutrientDataType() => HealthDataType.caffeine.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        ProteinNutrientDataType() => HealthDataType.protein.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        TotalCarbohydrateNutrientDataType() =>
+          HealthDataType.totalCarbohydrate.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case WheelchairPushesHealthDataType():
-          request = HealthDataType.wheelchairPushes.readRecords(
+          ),
+        TotalFatNutrientDataType() => HealthDataType.totalFat.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        SaturatedFatNutrientDataType() =>
+          HealthDataType.saturatedFat.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case HydrationHealthDataType():
-          request = HealthDataType.hydration.readRecords(
+          ),
+        MonounsaturatedFatNutrientDataType() =>
+          HealthDataType.monounsaturatedFat.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case HeartRateMeasurementRecordHealthDataType():
-          request = HealthDataType.heartRateMeasurementRecord.readRecords(
+          ),
+        PolyunsaturatedFatNutrientDataType() =>
+          HealthDataType.polyunsaturatedFat.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case HeartRateSeriesRecordHealthDataType():
-          request = HealthDataType.heartRateSeriesRecord.readRecords(
+          ),
+        CholesterolNutrientDataType() => HealthDataType.cholesterol.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        DietaryFiberNutrientDataType() =>
+          HealthDataType.dietaryFiber.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case SleepSessionHealthDataType():
-          request = HealthDataType.sleepSession.readRecords(
+          ),
+        SugarNutrientDataType() => HealthDataType.sugar.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        CalciumNutrientDataType() => HealthDataType.calcium.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        IronNutrientDataType() => HealthDataType.iron.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        MagnesiumNutrientDataType() => HealthDataType.magnesium.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        ManganeseNutrientDataType() => HealthDataType.manganese.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        PhosphorusNutrientDataType() => HealthDataType.phosphorus.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        PotassiumNutrientDataType() => HealthDataType.potassium.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        SeleniumNutrientDataType() => HealthDataType.selenium.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        SodiumNutrientDataType() => HealthDataType.sodium.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        ZincNutrientDataType() => HealthDataType.zinc.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        VitaminANutrientDataType() => HealthDataType.vitaminA.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        VitaminB6NutrientDataType() => HealthDataType.vitaminB6.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        VitaminB12NutrientDataType() => HealthDataType.vitaminB12.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        VitaminCNutrientDataType() => HealthDataType.vitaminC.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        VitaminDNutrientDataType() => HealthDataType.vitaminD.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        VitaminENutrientDataType() => HealthDataType.vitaminE.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        VitaminKNutrientDataType() => HealthDataType.vitaminK.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        ThiaminNutrientDataType() => HealthDataType.thiamin.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        RiboflavinNutrientDataType() => HealthDataType.riboflavin.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        NiacinNutrientDataType() => HealthDataType.niacin.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        FolateNutrientDataType() => HealthDataType.folate.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        BiotinNutrientDataType() => HealthDataType.biotin.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        PantothenicAcidNutrientDataType() =>
+          HealthDataType.pantothenicAcid.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
-          );
-        case SleepStageHealthDataType():
-          request = HealthDataType.sleepStageRecord.readRecords(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          );
-      }
+          ),
+        NutritionHealthDataType() => HealthDataType.nutrition.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+      };
 
       await notifier.readHealthRecords(request);
     } on HealthConnectorException catch (e) {

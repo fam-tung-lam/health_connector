@@ -1,20 +1,9 @@
-import 'package:flutter/material.dart' hide Velocity;
+import 'package:flutter/material.dart';
 import 'package:health_connector_core/health_connector_core.dart'
-    show
-        BloodGlucose,
-        Energy,
-        Length,
-        Mass,
-        MeasurementUnit,
-        Numeric,
-        Percentage,
-        Power,
-        Pressure,
-        Temperature,
-        Velocity,
-        Volume;
+    show MeasurementUnit;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/theme/app_colors.dart';
+import 'package:health_connector_toolbox/src/common/widgets/measurement_unit_display.dart';
 
 /// A reusable card widget for displaying aggregation results with metric,
 /// value type, value, and time range information.
@@ -50,127 +39,7 @@ final class AggregateResultCard extends StatelessWidget {
 
   Widget _buildValueDisplay(BuildContext context, dynamic value) {
     if (value is MeasurementUnit) {
-      return switch (value) {
-        Mass() => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${value.inKilograms.toStringAsFixed(2)} kg',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${value.inPounds.toStringAsFixed(2)} lbs',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-          ],
-        ),
-        Length() => Text(
-          '${value.inMeters.toStringAsFixed(2)} m',
-          style:
-              Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-        ),
-        Energy() => Text(
-          '${value.inKilocalories.toStringAsFixed(2)} kcal',
-          style:
-              Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-        ),
-        Volume() => Text(
-          '${value.inLiters.toStringAsFixed(2)} L',
-          style:
-              Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-        ),
-        Temperature() => Text(
-          '${value.inCelsius.toStringAsFixed(2)} °C',
-          style:
-              Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-        ),
-        Pressure() => Text(
-          '${value.inMillimetersOfMercury.toStringAsFixed(1)} mmHg',
-          style:
-              Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-        ),
-        BloodGlucose() => Text(
-          '${value.inMillimolesPerLiter.toStringAsFixed(2)} mmol/L',
-          style:
-              Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-        ),
-        Power() => Text(
-          '${value.inWatts.toStringAsFixed(1)} W',
-          style:
-              Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-        ),
-        Velocity() => Text(
-          '${value.inMetersPerSecond.toStringAsFixed(2)} m/s',
-          style:
-              Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-        ),
-        Numeric() => Text(
-          value.value.toStringAsFixed(2),
-          style:
-              Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-        ),
-        Percentage() => Text(
-          '${value.asWhole.toStringAsFixed(2)}%',
-          style:
-              Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-        ),
-      };
+      return MeasurementUnitDisplay(unit: value);
     }
 
     // Fallback for any other type

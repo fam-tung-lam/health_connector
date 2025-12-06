@@ -2,15 +2,29 @@ import 'package:health_connector_core/health_connector_core.dart'
     show
         ActiveCaloriesBurnedHealthDataType,
         ActiveCaloriesBurnedRecord,
+        BiotinNutrientDataType,
+        BiotinNutrientRecord,
         BodyFatPercentageHealthDataType,
         BodyFatPercentageRecord,
         BodyTemperatureHealthDataType,
         BodyTemperatureRecord,
+        CaffeineNutrientDataType,
+        CaffeineNutrientRecord,
+        CalciumNutrientDataType,
+        CalciumNutrientRecord,
+        CholesterolNutrientDataType,
+        CholesterolNutrientRecord,
+        DietaryFiberNutrientDataType,
+        DietaryFiberNutrientRecord,
         DistanceHealthDataType,
         DistanceRecord,
         Energy,
+        EnergyNutrientDataType,
+        EnergyNutrientRecord,
         FloorsClimbedHealthDataType,
         FloorsClimbedRecord,
+        FolateNutrientDataType,
+        FolateNutrientRecord,
         HealthDataType,
         HealthRecord,
         HealthRecordId,
@@ -23,22 +37,77 @@ import 'package:health_connector_core/health_connector_core.dart'
         HeightRecord,
         HydrationHealthDataType,
         HydrationRecord,
+        IronNutrientDataType,
+        IronNutrientRecord,
         LeanBodyMassHealthDataType,
         LeanBodyMassRecord,
-        Percentage,
-        Length,
+        MagnesiumNutrientDataType,
+        MagnesiumNutrientRecord,
+        ManganeseNutrientDataType,
+        ManganeseNutrientRecord,
         Mass,
+        MealType,
         MeasurementUnit,
         Metadata,
+        MonounsaturatedFatNutrientDataType,
+        MonounsaturatedFatNutrientRecord,
+        PolyunsaturatedFatNutrientDataType,
+        PolyunsaturatedFatNutrientRecord,
+        NiacinNutrientDataType,
+        NiacinNutrientRecord,
         Numeric,
+        NutritionHealthDataType,
+        NutritionRecord,
+        PantothenicAcidNutrientDataType,
+        PantothenicAcidNutrientRecord,
+        Percentage,
+        Length,
+        PhosphorusNutrientDataType,
+        PhosphorusNutrientRecord,
+        PotassiumNutrientDataType,
+        PotassiumNutrientRecord,
+        ProteinNutrientDataType,
+        ProteinNutrientRecord,
+        RiboflavinNutrientDataType,
+        RiboflavinNutrientRecord,
+        SaturatedFatNutrientDataType,
+        SaturatedFatNutrientRecord,
+        SeleniumNutrientDataType,
+        SeleniumNutrientRecord,
+        SodiumNutrientDataType,
+        SodiumNutrientRecord,
         StepRecord,
         StepsHealthDataType,
+        SugarNutrientDataType,
+        SugarNutrientRecord,
         Temperature,
+        ThiaminNutrientDataType,
+        ThiaminNutrientRecord,
+        TotalCarbohydrateNutrientDataType,
+        TotalCarbohydrateNutrientRecord,
+        TotalFatNutrientDataType,
+        TotalFatNutrientRecord,
         Volume,
+        VitaminANutrientDataType,
+        VitaminANutrientRecord,
+        VitaminB12NutrientDataType,
+        VitaminB12NutrientRecord,
+        VitaminB6NutrientDataType,
+        VitaminB6NutrientRecord,
+        VitaminCNutrientDataType,
+        VitaminCNutrientRecord,
+        VitaminDNutrientDataType,
+        VitaminDNutrientRecord,
+        VitaminENutrientDataType,
+        VitaminENutrientRecord,
+        VitaminKNutrientDataType,
+        VitaminKNutrientRecord,
         WeightHealthDataType,
         WeightRecord,
         WheelchairPushesHealthDataType,
         WheelchairPushesRecord,
+        ZincNutrientDataType,
+        ZincNutrientRecord,
         SleepSessionRecord,
         SleepSessionHealthDataType,
         SleepStage,
@@ -98,6 +167,44 @@ sealed class HealthRecordFormConfig {
         const HeartRateSeriesRecordFormConfig(),
       SleepStageHealthDataType() => const SleepStageRecordFormConfig(),
       SleepSessionHealthDataType() => const SleepSessionRecordFormConfig(),
+      EnergyNutrientDataType() => const EnergyNutrientFormConfig(),
+      CaffeineNutrientDataType() => const CaffeineNutrientFormConfig(),
+      ProteinNutrientDataType() => const ProteinNutrientFormConfig(),
+      TotalCarbohydrateNutrientDataType() =>
+        const TotalCarbohydrateNutrientFormConfig(),
+      TotalFatNutrientDataType() => const TotalFatNutrientFormConfig(),
+      SaturatedFatNutrientDataType() => const SaturatedFatNutrientFormConfig(),
+      MonounsaturatedFatNutrientDataType() =>
+        const MonounsaturatedFatNutrientFormConfig(),
+      PolyunsaturatedFatNutrientDataType() =>
+        const PolyunsaturatedFatNutrientFormConfig(),
+      CholesterolNutrientDataType() => const CholesterolNutrientFormConfig(),
+      DietaryFiberNutrientDataType() => const DietaryFiberNutrientFormConfig(),
+      SugarNutrientDataType() => const SugarNutrientFormConfig(),
+      CalciumNutrientDataType() => const CalciumNutrientFormConfig(),
+      IronNutrientDataType() => const IronNutrientFormConfig(),
+      MagnesiumNutrientDataType() => const MagnesiumNutrientFormConfig(),
+      ManganeseNutrientDataType() => const ManganeseNutrientFormConfig(),
+      PhosphorusNutrientDataType() => const PhosphorusNutrientFormConfig(),
+      PotassiumNutrientDataType() => const PotassiumNutrientFormConfig(),
+      SeleniumNutrientDataType() => const SeleniumNutrientFormConfig(),
+      SodiumNutrientDataType() => const SodiumNutrientFormConfig(),
+      ZincNutrientDataType() => const ZincNutrientFormConfig(),
+      VitaminANutrientDataType() => const VitaminANutrientFormConfig(),
+      VitaminB6NutrientDataType() => const VitaminB6NutrientFormConfig(),
+      VitaminB12NutrientDataType() => const VitaminB12NutrientFormConfig(),
+      VitaminCNutrientDataType() => const VitaminCNutrientFormConfig(),
+      VitaminDNutrientDataType() => const VitaminDNutrientFormConfig(),
+      VitaminENutrientDataType() => const VitaminENutrientFormConfig(),
+      VitaminKNutrientDataType() => const VitaminKNutrientFormConfig(),
+      ThiaminNutrientDataType() => const ThiaminNutrientFormConfig(),
+      RiboflavinNutrientDataType() => const RiboflavinNutrientFormConfig(),
+      NiacinNutrientDataType() => const NiacinNutrientFormConfig(),
+      FolateNutrientDataType() => const FolateNutrientFormConfig(),
+      BiotinNutrientDataType() => const BiotinNutrientFormConfig(),
+      PantothenicAcidNutrientDataType() =>
+        const PantothenicAcidNutrientFormConfig(),
+      NutritionHealthDataType() => const NutritionFormConfig(),
     };
   }
 }
@@ -569,6 +676,943 @@ final class HydrationFormConfig extends HealthRecordFormConfig {
       endTime: endDateTime,
       volume: volumeValue,
       metadata: metadata,
+    );
+  }
+}
+
+/// Base configuration for nutrient records.
+///
+/// Nutrient records are instant-based records that require:
+/// - Time (single timestamp)
+/// - Value (Energy or Mass depending on nutrient type)
+/// - Optional food name
+/// - Optional meal type
+abstract class NutrientFormConfig extends HealthRecordFormConfig {
+  const NutrientFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    // This method signature doesn't support foodName and mealType.
+    // The actual implementation will be handled in the write form page.
+    throw UnsupportedError(
+      'NutrientFormConfig.buildRecord() should not be called directly. '
+      'Use buildRecordWithNutrientData() instead.',
+    );
+  }
+
+  /// Builds a nutrient record from the provided form values with nutrient data.
+  ///
+  /// ## Parameters
+  ///
+  /// - [time]: The date/time for the record
+  /// - [value]: The measurement value (Energy or Mass)
+  /// - [metadata]: The metadata for the record
+  /// - [foodName]: Optional food name
+  /// - [mealType]: Optional meal type
+  ///
+  /// ## Returns
+  ///
+  /// A nutrient record instance ready to be written.
+  HealthRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  });
+}
+
+/// Configuration for energy nutrient records.
+final class EnergyNutrientFormConfig extends NutrientFormConfig {
+  const EnergyNutrientFormConfig();
+
+  @override
+  EnergyNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final energyValue = value as Energy;
+    return EnergyNutrientRecord(
+      value: energyValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for caffeine nutrient records.
+final class CaffeineNutrientFormConfig extends NutrientFormConfig {
+  const CaffeineNutrientFormConfig();
+
+  @override
+  CaffeineNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return CaffeineNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for protein nutrient records.
+final class ProteinNutrientFormConfig extends NutrientFormConfig {
+  const ProteinNutrientFormConfig();
+
+  @override
+  ProteinNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return ProteinNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for total carbohydrate nutrient records.
+final class TotalCarbohydrateNutrientFormConfig extends NutrientFormConfig {
+  const TotalCarbohydrateNutrientFormConfig();
+
+  @override
+  TotalCarbohydrateNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return TotalCarbohydrateNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for total fat nutrient records.
+final class TotalFatNutrientFormConfig extends NutrientFormConfig {
+  const TotalFatNutrientFormConfig();
+
+  @override
+  TotalFatNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return TotalFatNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for saturated fat nutrient records.
+final class SaturatedFatNutrientFormConfig extends NutrientFormConfig {
+  const SaturatedFatNutrientFormConfig();
+
+  @override
+  SaturatedFatNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return SaturatedFatNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for monounsaturated fat nutrient records.
+final class MonounsaturatedFatNutrientFormConfig extends NutrientFormConfig {
+  const MonounsaturatedFatNutrientFormConfig();
+
+  @override
+  MonounsaturatedFatNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return MonounsaturatedFatNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for polyunsaturated fat nutrient records.
+final class PolyunsaturatedFatNutrientFormConfig extends NutrientFormConfig {
+  const PolyunsaturatedFatNutrientFormConfig();
+
+  @override
+  PolyunsaturatedFatNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return PolyunsaturatedFatNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for cholesterol nutrient records.
+final class CholesterolNutrientFormConfig extends NutrientFormConfig {
+  const CholesterolNutrientFormConfig();
+
+  @override
+  CholesterolNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return CholesterolNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for dietary fiber nutrient records.
+final class DietaryFiberNutrientFormConfig extends NutrientFormConfig {
+  const DietaryFiberNutrientFormConfig();
+
+  @override
+  DietaryFiberNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return DietaryFiberNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for sugar nutrient records.
+final class SugarNutrientFormConfig extends NutrientFormConfig {
+  const SugarNutrientFormConfig();
+
+  @override
+  SugarNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return SugarNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for calcium nutrient records.
+final class CalciumNutrientFormConfig extends NutrientFormConfig {
+  const CalciumNutrientFormConfig();
+
+  @override
+  CalciumNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return CalciumNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for iron nutrient records.
+final class IronNutrientFormConfig extends NutrientFormConfig {
+  const IronNutrientFormConfig();
+
+  @override
+  IronNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return IronNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for magnesium nutrient records.
+final class MagnesiumNutrientFormConfig extends NutrientFormConfig {
+  const MagnesiumNutrientFormConfig();
+
+  @override
+  MagnesiumNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return MagnesiumNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for manganese nutrient records.
+final class ManganeseNutrientFormConfig extends NutrientFormConfig {
+  const ManganeseNutrientFormConfig();
+
+  @override
+  ManganeseNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return ManganeseNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for phosphorus nutrient records.
+final class PhosphorusNutrientFormConfig extends NutrientFormConfig {
+  const PhosphorusNutrientFormConfig();
+
+  @override
+  PhosphorusNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return PhosphorusNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for potassium nutrient records.
+final class PotassiumNutrientFormConfig extends NutrientFormConfig {
+  const PotassiumNutrientFormConfig();
+
+  @override
+  PotassiumNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return PotassiumNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for selenium nutrient records.
+final class SeleniumNutrientFormConfig extends NutrientFormConfig {
+  const SeleniumNutrientFormConfig();
+
+  @override
+  SeleniumNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return SeleniumNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for sodium nutrient records.
+final class SodiumNutrientFormConfig extends NutrientFormConfig {
+  const SodiumNutrientFormConfig();
+
+  @override
+  SodiumNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return SodiumNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for zinc nutrient records.
+final class ZincNutrientFormConfig extends NutrientFormConfig {
+  const ZincNutrientFormConfig();
+
+  @override
+  ZincNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return ZincNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for vitamin A nutrient records.
+final class VitaminANutrientFormConfig extends NutrientFormConfig {
+  const VitaminANutrientFormConfig();
+
+  @override
+  VitaminANutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return VitaminANutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for vitamin B6 nutrient records.
+final class VitaminB6NutrientFormConfig extends NutrientFormConfig {
+  const VitaminB6NutrientFormConfig();
+
+  @override
+  VitaminB6NutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return VitaminB6NutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for vitamin B12 nutrient records.
+final class VitaminB12NutrientFormConfig extends NutrientFormConfig {
+  const VitaminB12NutrientFormConfig();
+
+  @override
+  VitaminB12NutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return VitaminB12NutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for vitamin C nutrient records.
+final class VitaminCNutrientFormConfig extends NutrientFormConfig {
+  const VitaminCNutrientFormConfig();
+
+  @override
+  VitaminCNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return VitaminCNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for vitamin D nutrient records.
+final class VitaminDNutrientFormConfig extends NutrientFormConfig {
+  const VitaminDNutrientFormConfig();
+
+  @override
+  VitaminDNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return VitaminDNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for vitamin E nutrient records.
+final class VitaminENutrientFormConfig extends NutrientFormConfig {
+  const VitaminENutrientFormConfig();
+
+  @override
+  VitaminENutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return VitaminENutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for vitamin K nutrient records.
+final class VitaminKNutrientFormConfig extends NutrientFormConfig {
+  const VitaminKNutrientFormConfig();
+
+  @override
+  VitaminKNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return VitaminKNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for thiamin nutrient records.
+final class ThiaminNutrientFormConfig extends NutrientFormConfig {
+  const ThiaminNutrientFormConfig();
+
+  @override
+  ThiaminNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return ThiaminNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for riboflavin nutrient records.
+final class RiboflavinNutrientFormConfig extends NutrientFormConfig {
+  const RiboflavinNutrientFormConfig();
+
+  @override
+  RiboflavinNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return RiboflavinNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for niacin nutrient records.
+final class NiacinNutrientFormConfig extends NutrientFormConfig {
+  const NiacinNutrientFormConfig();
+
+  @override
+  NiacinNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return NiacinNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for folate nutrient records.
+final class FolateNutrientFormConfig extends NutrientFormConfig {
+  const FolateNutrientFormConfig();
+
+  @override
+  FolateNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return FolateNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for biotin nutrient records.
+final class BiotinNutrientFormConfig extends NutrientFormConfig {
+  const BiotinNutrientFormConfig();
+
+  @override
+  BiotinNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return BiotinNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for pantothenic acid nutrient records.
+final class PantothenicAcidNutrientFormConfig extends NutrientFormConfig {
+  const PantothenicAcidNutrientFormConfig();
+
+  @override
+  PantothenicAcidNutrientRecord buildRecordWithNutrientData({
+    required DateTime time,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    final massValue = value as Mass;
+    return PantothenicAcidNutrientRecord(
+      value: massValue,
+      time: time,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+}
+
+/// Configuration for nutrition records.
+///
+/// Nutrition is an interval-based record that requires:
+/// - Start time
+/// - End time (derived from start time + duration)
+/// - Many optional nutrient fields
+///
+/// Note: This config requires special handling in the form page as it needs
+/// many optional nutrient values rather than a single value.
+final class NutritionFormConfig extends HealthRecordFormConfig {
+  const NutritionFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    // This method signature doesn't support nutrition data.
+    // The actual implementation will be handled in the write form page.
+    throw UnsupportedError(
+      'NutritionFormConfig.buildRecord() should not be called directly. '
+      'Use buildRecordWithNutritionData() instead.',
+    );
+  }
+
+  /// Builds a [NutritionRecord] from the provided form values with
+  /// nutrition data.
+  ///
+  /// ## Parameters
+  ///
+  /// - [startDateTime]: The start date/time for the record
+  /// - [endDateTime]: The end date/time (required)
+  /// - [metadata]: The metadata for the record
+  /// - [foodName]: Optional food name
+  /// - [mealType]: Optional meal type
+  /// - All other parameters are optional nutrient values
+  ///
+  /// ## Returns
+  ///
+  /// A [NutritionRecord] instance ready to be written.
+  NutritionRecord buildRecordWithNutritionData({
+    required DateTime startDateTime,
+    required DateTime endDateTime,
+    required Metadata metadata,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+    Energy? energy,
+    Mass? protein,
+    Mass? totalCarbohydrate,
+    Mass? totalFat,
+    Mass? saturatedFat,
+    Mass? monounsaturatedFat,
+    Mass? polyunsaturatedFat,
+    Mass? cholesterol,
+    Mass? dietaryFiber,
+    Mass? sugar,
+    Mass? vitaminA,
+    Mass? vitaminB6,
+    Mass? vitaminB12,
+    Mass? vitaminC,
+    Mass? vitaminD,
+    Mass? vitaminE,
+    Mass? vitaminK,
+    Mass? thiamin,
+    Mass? riboflavin,
+    Mass? niacin,
+    Mass? folate,
+    Mass? biotin,
+    Mass? pantothenicAcid,
+    Mass? calcium,
+    Mass? iron,
+    Mass? magnesium,
+    Mass? manganese,
+    Mass? phosphorus,
+    Mass? potassium,
+    Mass? selenium,
+    Mass? sodium,
+    Mass? zinc,
+    Mass? caffeine,
+  }) {
+    return NutritionRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      metadata: metadata,
+      foodName: foodName,
+      mealType: mealType,
+      energy: energy,
+      protein: protein,
+      totalCarbohydrate: totalCarbohydrate,
+      totalFat: totalFat,
+      saturatedFat: saturatedFat,
+      monounsaturatedFat: monounsaturatedFat,
+      polyunsaturatedFat: polyunsaturatedFat,
+      cholesterol: cholesterol,
+      dietaryFiber: dietaryFiber,
+      sugar: sugar,
+      vitaminA: vitaminA,
+      vitaminB6: vitaminB6,
+      vitaminB12: vitaminB12,
+      vitaminC: vitaminC,
+      vitaminD: vitaminD,
+      vitaminE: vitaminE,
+      vitaminK: vitaminK,
+      thiamin: thiamin,
+      riboflavin: riboflavin,
+      niacin: niacin,
+      folate: folate,
+      biotin: biotin,
+      pantothenicAcid: pantothenicAcid,
+      calcium: calcium,
+      iron: iron,
+      magnesium: magnesium,
+      manganese: manganese,
+      phosphorus: phosphorus,
+      potassium: potassium,
+      selenium: selenium,
+      sodium: sodium,
+      zinc: zinc,
+      caffeine: caffeine,
     );
   }
 }

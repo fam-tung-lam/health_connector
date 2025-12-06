@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector_core/health_connector_core.dart'
     show HealthPlatformFeature, HealthPlatformFeatureStatus, PermissionStatus;
-import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/theme/app_colors.dart';
 import 'package:health_connector_toolbox/src/common/utils/health_connector_model_ui_extensions.dart';
@@ -72,22 +71,6 @@ final class FeatureTile extends StatelessWidget {
                 ),
               )
             : const SizedBox.shrink(),
-        trailing: Icon(
-          isGranted
-              ? AppIcons.checkCircle
-              : isDenied
-              ? AppIcons.cancel
-              : isAvailable
-              ? AppIcons.helpOutline
-              : AppIcons.cancel,
-          color: isGranted
-              ? AppColors.success
-              : isDenied
-              ? AppColors.error
-              : isAvailable
-              ? AppColors.grey
-              : AppColors.grey,
-        ),
       ),
     );
   }

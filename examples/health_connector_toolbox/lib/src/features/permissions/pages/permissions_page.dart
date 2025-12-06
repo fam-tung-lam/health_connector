@@ -17,6 +17,7 @@ import 'package:health_connector_toolbox/src/common/utils/show_snack_bar.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_indicator.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
 import 'package:health_connector_toolbox/src/features/permissions/permissions_change_notifier.dart';
+import 'package:health_connector_toolbox/src/features/permissions/widgets/expandable_nutrition_permission_tile.dart';
 import 'package:health_connector_toolbox/src/features/permissions/widgets/feature_tile.dart';
 import 'package:health_connector_toolbox/src/features/permissions/widgets/permission_tile.dart';
 import 'package:provider/provider.dart'
@@ -32,6 +33,87 @@ final class PermissionsPage extends StatelessWidget {
   const PermissionsPage({required this.healthPlatform, super.key});
 
   final HealthPlatform healthPlatform;
+
+  /// Checks if a health data type is a nutrient type (excluding nutrition).
+  static bool _isNutrientDataType(HealthDataType dataType) {
+    return dataType == HealthDataType.energyNutrient ||
+        dataType == HealthDataType.caffeine ||
+        dataType == HealthDataType.protein ||
+        dataType == HealthDataType.totalCarbohydrate ||
+        dataType == HealthDataType.totalFat ||
+        dataType == HealthDataType.saturatedFat ||
+        dataType == HealthDataType.monounsaturatedFat ||
+        dataType == HealthDataType.polyunsaturatedFat ||
+        dataType == HealthDataType.cholesterol ||
+        dataType == HealthDataType.dietaryFiber ||
+        dataType == HealthDataType.sugar ||
+        dataType == HealthDataType.calcium ||
+        dataType == HealthDataType.iron ||
+        dataType == HealthDataType.magnesium ||
+        dataType == HealthDataType.manganese ||
+        dataType == HealthDataType.phosphorus ||
+        dataType == HealthDataType.potassium ||
+        dataType == HealthDataType.selenium ||
+        dataType == HealthDataType.sodium ||
+        dataType == HealthDataType.zinc ||
+        dataType == HealthDataType.vitaminA ||
+        dataType == HealthDataType.vitaminB6 ||
+        dataType == HealthDataType.vitaminB12 ||
+        dataType == HealthDataType.vitaminC ||
+        dataType == HealthDataType.vitaminD ||
+        dataType == HealthDataType.vitaminE ||
+        dataType == HealthDataType.vitaminK ||
+        dataType == HealthDataType.thiamin ||
+        dataType == HealthDataType.riboflavin ||
+        dataType == HealthDataType.niacin ||
+        dataType == HealthDataType.folate ||
+        dataType == HealthDataType.biotin ||
+        dataType == HealthDataType.pantothenicAcid;
+  }
+
+  /// Checks if a health data type is the nutrition type.
+  static bool _isNutritionDataType(HealthDataType dataType) {
+    return dataType == HealthDataType.nutrition;
+  }
+
+  /// Gets all nutrient data types (excluding nutrition).
+  static List<HealthDataType> _getNutrientDataTypes() {
+    return [
+      HealthDataType.energyNutrient,
+      HealthDataType.caffeine,
+      HealthDataType.protein,
+      HealthDataType.totalCarbohydrate,
+      HealthDataType.totalFat,
+      HealthDataType.saturatedFat,
+      HealthDataType.monounsaturatedFat,
+      HealthDataType.polyunsaturatedFat,
+      HealthDataType.cholesterol,
+      HealthDataType.dietaryFiber,
+      HealthDataType.sugar,
+      HealthDataType.calcium,
+      HealthDataType.iron,
+      HealthDataType.magnesium,
+      HealthDataType.manganese,
+      HealthDataType.phosphorus,
+      HealthDataType.potassium,
+      HealthDataType.selenium,
+      HealthDataType.sodium,
+      HealthDataType.zinc,
+      HealthDataType.vitaminA,
+      HealthDataType.vitaminB6,
+      HealthDataType.vitaminB12,
+      HealthDataType.vitaminC,
+      HealthDataType.vitaminD,
+      HealthDataType.vitaminE,
+      HealthDataType.vitaminK,
+      HealthDataType.thiamin,
+      HealthDataType.riboflavin,
+      HealthDataType.niacin,
+      HealthDataType.folate,
+      HealthDataType.biotin,
+      HealthDataType.pantothenicAcid,
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +177,104 @@ final class PermissionsPage extends StatelessWidget {
     );
   }
 
+  List<Widget> _buildDataTypePermissions(
+    BuildContext context,
+    PermissionsChangeNotifier notifier,
+  ) {
+    switch (healthPlatform) {
+      case HealthPlatform.healthConnect:
+        // For HealthConnect: show only nutrition with expandable nutrient list
+        final nutritionPermissions = HealthDataType.nutrition.permissions
+            .whereType<HealthDataPermission>()
+            .where(
+              (permission) => permission.supportedHealthPlatforms.contains(
+                healthPlatform,
+              ),
+            )
+            .toList();
+
+        if (nutritionPermissions.isEmpty) {
+          return [];
+        }
+
+        final nutrientDataTypes = _getNutrientDataTypes();
+
+        return [
+          // Create an expandable tile for each nutrition permission (read/write)
+          ...nutritionPermissions.map(
+            (nutritionPermission) => ExpandableNutritionPermissionTile(
+              nutritionPermissions: [nutritionPermission],
+              nutrientDataTypes: nutrientDataTypes,
+              isSelected: notifier.isPermissionSelected(nutritionPermission),
+              permissionStatus: notifier.getPermissionStatus(
+                nutritionPermission,
+              ),
+              onChanged: (value) => notifier.togglePermissionSelection(
+                nutritionPermission,
+                isSelected: value,
+              ),
+            ),
+          ),
+          // Show all other data types (excluding nutrients and nutrition)
+          ...HealthDataType.values
+              .where(
+                (dataType) =>
+                    !_isNutrientDataType(dataType) &&
+                    !_isNutritionDataType(dataType),
+              )
+              .expand(
+                (dataType) =>
+                    dataType.permissions.whereType<HealthDataPermission>().map(
+                      (permission) => PermissionTile(
+                        permission: permission,
+                        displayName: permission.displayName,
+                        isSelected: notifier.isPermissionSelected(permission),
+                        permissionStatus: notifier.getPermissionStatus(
+                          permission,
+                        ),
+                        onChanged: (value) =>
+                            notifier.togglePermissionSelection(
+                              permission,
+                              isSelected: value,
+                            ),
+                      ),
+                    ),
+              )
+              .where(
+                (p) => p.permission.supportedHealthPlatforms.contains(
+                  healthPlatform,
+                ),
+              ),
+        ];
+      case HealthPlatform.appleHealth:
+        // For Apple Health: show all
+        return HealthDataType.values
+            .expand(
+              (dataType) =>
+                  dataType.permissions.whereType<HealthDataPermission>().map(
+                    (permission) => PermissionTile(
+                      permission: permission,
+                      displayName: permission.displayName,
+                      isSelected: notifier.isPermissionSelected(permission),
+                      permissionStatus: notifier.getPermissionStatus(
+                        permission,
+                      ),
+                      onChanged: (value) => notifier.togglePermissionSelection(
+                        permission,
+                        isSelected: value,
+                      ),
+                    ),
+                  ),
+            )
+            .where(
+              (p) => p.permission.supportedHealthPlatforms.contains(
+                healthPlatform,
+              ),
+            )
+            .toList();
+    }
+  }
+
   Widget _buildPermissionsView(
     BuildContext context,
     PermissionsChangeNotifier notifier,
@@ -146,33 +326,7 @@ final class PermissionsPage extends StatelessWidget {
                   ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                ...HealthDataType.values
-                    .expand(
-                      (dataType) => dataType.permissions
-                          .whereType<HealthDataPermission>()
-                          .map(
-                            (permission) => PermissionTile(
-                              permission: permission,
-                              displayName: permission.displayName,
-                              isSelected: notifier.isPermissionSelected(
-                                permission,
-                              ),
-                              permissionStatus: notifier.getPermissionStatus(
-                                permission,
-                              ),
-                              onChanged: (value) =>
-                                  notifier.togglePermissionSelection(
-                                    permission,
-                                    isSelected: value,
-                                  ),
-                            ),
-                          ),
-                    )
-                    .where(
-                      (p) => p.permission.supportedHealthPlatforms.contains(
-                        healthPlatform,
-                      ),
-                    ),
+                ..._buildDataTypePermissions(context, notifier),
                 const SizedBox(height: 24),
                 Text(
                   AppTexts.featurePermissions,

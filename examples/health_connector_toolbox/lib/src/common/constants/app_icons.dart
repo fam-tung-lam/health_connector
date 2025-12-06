@@ -26,6 +26,8 @@ abstract final class AppIcons {
   static const IconData favorite = Icons.favorite;
   static const IconData bedtime = Icons.bedtime;
 
+  static const IconData fastfood = Icons.fastfood;
+
   // Permissions & Security
   static const IconData lockOutline = Icons.lock_outline;
   static const IconData checkCircle = Icons.check_circle;

@@ -2,12 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:health_connector_core/health_connector_core.dart'
     show
         ActiveCaloriesBurnedHealthDataType,
+        BiotinNutrientDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
+        CaffeineNutrientDataType,
+        CalciumNutrientDataType,
+        CholesterolNutrientDataType,
         DataOrigin,
         Device,
+        DietaryFiberNutrientDataType,
+        Energy,
+        Mass,
         DistanceHealthDataType,
+        EnergyNutrientDataType,
         FloorsClimbedHealthDataType,
+        FolateNutrientDataType,
         HealthConnectorErrorCode,
         HealthConnectorException,
         HealthDataType,
@@ -16,13 +25,41 @@ import 'package:health_connector_core/health_connector_core.dart'
         HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
         HydrationHealthDataType,
+        IronNutrientDataType,
         LeanBodyMassHealthDataType,
+        MagnesiumNutrientDataType,
+        ManganeseNutrientDataType,
+        MealType,
         MeasurementUnit,
         Metadata,
+        MonounsaturatedFatNutrientDataType,
+        NiacinNutrientDataType,
+        NutritionHealthDataType,
+        PantothenicAcidNutrientDataType,
+        PhosphorusNutrientDataType,
+        PolyunsaturatedFatNutrientDataType,
+        PotassiumNutrientDataType,
+        ProteinNutrientDataType,
         RecordingMethod,
+        RiboflavinNutrientDataType,
+        SaturatedFatNutrientDataType,
+        SeleniumNutrientDataType,
+        SodiumNutrientDataType,
         StepsHealthDataType,
+        SugarNutrientDataType,
+        ThiaminNutrientDataType,
+        TotalCarbohydrateNutrientDataType,
+        TotalFatNutrientDataType,
+        VitaminANutrientDataType,
+        VitaminB12NutrientDataType,
+        VitaminB6NutrientDataType,
+        VitaminCNutrientDataType,
+        VitaminDNutrientDataType,
+        VitaminENutrientDataType,
+        VitaminKNutrientDataType,
         WeightHealthDataType,
         WheelchairPushesHealthDataType,
+        ZincNutrientDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
         SleepStage,
@@ -35,12 +72,16 @@ import 'package:health_connector_toolbox/src/features/write_health_record/models
     show
         HealthRecordFormConfig,
         HeartRateSeriesRecordFormConfig,
+        NutritionFormConfig,
+        NutrientFormConfig,
         SleepSessionRecordFormConfig,
         SleepStageRecordFormConfig;
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/duration_picker_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/health_value_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/heart_rate_samples_form_field.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/meal_type_dropdown_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/metadata_form_fields.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/nutrition_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/sleep_stage_type_dropdown_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/sleep_stages_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/write_health_record_change_notifier.dart';
@@ -96,6 +137,47 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
   // Optional title and notes for sleep records
   String? _sleepTitle;
   String? _sleepNotes;
+
+  // State for nutrient records
+  String? _foodName;
+  MealType _mealType = MealType.unknown;
+
+  // State for nutrition record
+  String? _nutritionFoodName;
+  MealType _nutritionMealType = MealType.unknown;
+  Energy? _nutritionEnergy;
+  Mass? _nutritionProtein;
+  Mass? _nutritionTotalCarbohydrate;
+  Mass? _nutritionTotalFat;
+  Mass? _nutritionSaturatedFat;
+  Mass? _nutritionMonounsaturatedFat;
+  Mass? _nutritionPolyunsaturatedFat;
+  Mass? _nutritionCholesterol;
+  Mass? _nutritionDietaryFiber;
+  Mass? _nutritionSugar;
+  Mass? _nutritionVitaminA;
+  Mass? _nutritionVitaminB6;
+  Mass? _nutritionVitaminB12;
+  Mass? _nutritionVitaminC;
+  Mass? _nutritionVitaminD;
+  Mass? _nutritionVitaminE;
+  Mass? _nutritionVitaminK;
+  Mass? _nutritionThiamin;
+  Mass? _nutritionRiboflavin;
+  Mass? _nutritionNiacin;
+  Mass? _nutritionFolate;
+  Mass? _nutritionBiotin;
+  Mass? _nutritionPantothenicAcid;
+  Mass? _nutritionCalcium;
+  Mass? _nutritionIron;
+  Mass? _nutritionMagnesium;
+  Mass? _nutritionManganese;
+  Mass? _nutritionPhosphorus;
+  Mass? _nutritionPotassium;
+  Mass? _nutritionSelenium;
+  Mass? _nutritionSodium;
+  Mass? _nutritionZinc;
+  Mass? _nutritionCaffeine;
 
   // Use different state mixins based on whether duration is needed
   DateTime? _startDate;
@@ -257,6 +339,14 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
       if (_sleepStage == null) {
         return;
       }
+    } else if (widget.dataType is NutritionHealthDataType) {
+      // NutritionRecord doesn't require any fields - all are optional
+      // Validation will be handled in the form widget
+    } else if (_config is NutrientFormConfig) {
+      // Nutrient records need a value
+      if (_value == null) {
+        return;
+      }
     } else {
       if (_value == null) {
         return;
@@ -315,12 +405,64 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
             title: _sleepTitle?.isEmpty ?? true ? null : _sleepTitle,
             notes: _sleepNotes?.isEmpty ?? true ? null : _sleepNotes,
           ),
-        _ => _config.buildRecord(
-          startDateTime: startDateTime!,
-          endDateTime: endDateTime,
-          value: _value!,
-          metadata: metadata,
-        ),
+        NutritionHealthDataType() =>
+          (_config as NutritionFormConfig).buildRecordWithNutritionData(
+            startDateTime: startDateTime!,
+            endDateTime: endDateTime!,
+            metadata: metadata,
+            foodName: _nutritionFoodName?.isEmpty ?? true
+                ? null
+                : _nutritionFoodName,
+            mealType: _nutritionMealType,
+            energy: _nutritionEnergy,
+            protein: _nutritionProtein,
+            totalCarbohydrate: _nutritionTotalCarbohydrate,
+            totalFat: _nutritionTotalFat,
+            saturatedFat: _nutritionSaturatedFat,
+            monounsaturatedFat: _nutritionMonounsaturatedFat,
+            polyunsaturatedFat: _nutritionPolyunsaturatedFat,
+            cholesterol: _nutritionCholesterol,
+            dietaryFiber: _nutritionDietaryFiber,
+            sugar: _nutritionSugar,
+            vitaminA: _nutritionVitaminA,
+            vitaminB6: _nutritionVitaminB6,
+            vitaminB12: _nutritionVitaminB12,
+            vitaminC: _nutritionVitaminC,
+            vitaminD: _nutritionVitaminD,
+            vitaminE: _nutritionVitaminE,
+            vitaminK: _nutritionVitaminK,
+            thiamin: _nutritionThiamin,
+            riboflavin: _nutritionRiboflavin,
+            niacin: _nutritionNiacin,
+            folate: _nutritionFolate,
+            biotin: _nutritionBiotin,
+            pantothenicAcid: _nutritionPantothenicAcid,
+            calcium: _nutritionCalcium,
+            iron: _nutritionIron,
+            magnesium: _nutritionMagnesium,
+            manganese: _nutritionManganese,
+            phosphorus: _nutritionPhosphorus,
+            potassium: _nutritionPotassium,
+            selenium: _nutritionSelenium,
+            sodium: _nutritionSodium,
+            zinc: _nutritionZinc,
+            caffeine: _nutritionCaffeine,
+          ),
+        _ =>
+          _config is NutrientFormConfig
+              ? _config.buildRecordWithNutrientData(
+                  time: startDateTime!,
+                  value: _value!,
+                  metadata: metadata,
+                  foodName: _foodName?.isEmpty ?? true ? null : _foodName,
+                  mealType: _mealType,
+                )
+              : _config.buildRecord(
+                  startDateTime: startDateTime!,
+                  endDateTime: endDateTime,
+                  value: _value!,
+                  metadata: metadata,
+                ),
       };
 
       await _notifier.writeHealthRecord(record);
@@ -391,6 +533,51 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
           AppTexts.writePermissionDeniedSleepSession,
         SleepStageHealthDataType() =>
           AppTexts.writePermissionDeniedSleepStageRecord,
+        EnergyNutrientDataType() =>
+          AppTexts.writePermissionDeniedEnergyNutrient,
+        CaffeineNutrientDataType() => AppTexts.writePermissionDeniedCaffeine,
+        ProteinNutrientDataType() => AppTexts.writePermissionDeniedProtein,
+        TotalCarbohydrateNutrientDataType() =>
+          AppTexts.writePermissionDeniedTotalCarbohydrate,
+        TotalFatNutrientDataType() => AppTexts.writePermissionDeniedTotalFat,
+        SaturatedFatNutrientDataType() =>
+          AppTexts.writePermissionDeniedSaturatedFat,
+        MonounsaturatedFatNutrientDataType() =>
+          AppTexts.writePermissionDeniedMonounsaturatedFat,
+        PolyunsaturatedFatNutrientDataType() =>
+          AppTexts.writePermissionDeniedPolyunsaturatedFat,
+        CholesterolNutrientDataType() =>
+          AppTexts.writePermissionDeniedCholesterol,
+        DietaryFiberNutrientDataType() =>
+          AppTexts.writePermissionDeniedDietaryFiber,
+        SugarNutrientDataType() => AppTexts.writePermissionDeniedSugar,
+        CalciumNutrientDataType() => AppTexts.writePermissionDeniedCalcium,
+        IronNutrientDataType() => AppTexts.writePermissionDeniedIron,
+        MagnesiumNutrientDataType() => AppTexts.writePermissionDeniedMagnesium,
+        ManganeseNutrientDataType() => AppTexts.writePermissionDeniedManganese,
+        PhosphorusNutrientDataType() =>
+          AppTexts.writePermissionDeniedPhosphorus,
+        PotassiumNutrientDataType() => AppTexts.writePermissionDeniedPotassium,
+        SeleniumNutrientDataType() => AppTexts.writePermissionDeniedSelenium,
+        SodiumNutrientDataType() => AppTexts.writePermissionDeniedSodium,
+        ZincNutrientDataType() => AppTexts.writePermissionDeniedZinc,
+        VitaminANutrientDataType() => AppTexts.writePermissionDeniedVitaminA,
+        VitaminB6NutrientDataType() => AppTexts.writePermissionDeniedVitaminB6,
+        VitaminB12NutrientDataType() =>
+          AppTexts.writePermissionDeniedVitaminB12,
+        VitaminCNutrientDataType() => AppTexts.writePermissionDeniedVitaminC,
+        VitaminDNutrientDataType() => AppTexts.writePermissionDeniedVitaminD,
+        VitaminENutrientDataType() => AppTexts.writePermissionDeniedVitaminE,
+        VitaminKNutrientDataType() => AppTexts.writePermissionDeniedVitaminK,
+        ThiaminNutrientDataType() => AppTexts.writePermissionDeniedThiamin,
+        RiboflavinNutrientDataType() =>
+          AppTexts.writePermissionDeniedRiboflavin,
+        NiacinNutrientDataType() => AppTexts.writePermissionDeniedNiacin,
+        FolateNutrientDataType() => AppTexts.writePermissionDeniedFolate,
+        BiotinNutrientDataType() => AppTexts.writePermissionDeniedBiotin,
+        PantothenicAcidNutrientDataType() =>
+          AppTexts.writePermissionDeniedPantothenicAcid,
+        NutritionHealthDataType() => AppTexts.writePermissionDeniedNutrition,
       };
     }
     return e.message;
@@ -425,6 +612,44 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                 AppTexts.insertHeartRateRecord,
               SleepSessionHealthDataType() => AppTexts.insertSleepSession,
               SleepStageHealthDataType() => AppTexts.insertSleepStageRecord,
+              EnergyNutrientDataType() => AppTexts.insertEnergy,
+              CaffeineNutrientDataType() => AppTexts.insertCaffeine,
+              ProteinNutrientDataType() => AppTexts.insertProtein,
+              TotalCarbohydrateNutrientDataType() =>
+                AppTexts.insertTotalCarbohydrate,
+              TotalFatNutrientDataType() => AppTexts.insertTotalFat,
+              SaturatedFatNutrientDataType() => AppTexts.insertSaturatedFat,
+              MonounsaturatedFatNutrientDataType() =>
+                AppTexts.insertMonounsaturatedFat,
+              PolyunsaturatedFatNutrientDataType() =>
+                AppTexts.insertPolyunsaturatedFat,
+              CholesterolNutrientDataType() => AppTexts.insertCholesterol,
+              DietaryFiberNutrientDataType() => AppTexts.insertDietaryFiber,
+              SugarNutrientDataType() => AppTexts.insertSugar,
+              CalciumNutrientDataType() => AppTexts.insertCalcium,
+              IronNutrientDataType() => AppTexts.insertIron,
+              MagnesiumNutrientDataType() => AppTexts.insertMagnesium,
+              ManganeseNutrientDataType() => AppTexts.insertManganese,
+              PhosphorusNutrientDataType() => AppTexts.insertPhosphorus,
+              PotassiumNutrientDataType() => AppTexts.insertPotassium,
+              SeleniumNutrientDataType() => AppTexts.insertSelenium,
+              SodiumNutrientDataType() => AppTexts.insertSodium,
+              ZincNutrientDataType() => AppTexts.insertZinc,
+              VitaminANutrientDataType() => AppTexts.insertVitaminA,
+              VitaminB6NutrientDataType() => AppTexts.insertVitaminB6,
+              VitaminB12NutrientDataType() => AppTexts.insertVitaminB12,
+              VitaminCNutrientDataType() => AppTexts.insertVitaminC,
+              VitaminDNutrientDataType() => AppTexts.insertVitaminD,
+              VitaminENutrientDataType() => AppTexts.insertVitaminE,
+              VitaminKNutrientDataType() => AppTexts.insertVitaminK,
+              ThiaminNutrientDataType() => AppTexts.insertThiamin,
+              RiboflavinNutrientDataType() => AppTexts.insertRiboflavin,
+              NiacinNutrientDataType() => AppTexts.insertNiacin,
+              FolateNutrientDataType() => AppTexts.insertFolate,
+              BiotinNutrientDataType() => AppTexts.insertBiotin,
+              PantothenicAcidNutrientDataType() =>
+                AppTexts.insertPantothenicAcid,
+              NutritionHealthDataType() => AppTexts.insertNutrition,
             },
           ),
         ),
@@ -487,7 +712,86 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                       return null;
                     },
                   ),
-                ] else
+                ] else if (widget.dataType is NutritionHealthDataType)
+                  NutritionFormField(
+                    onChanged:
+                        ({
+                          foodName,
+                          mealType,
+                          energy,
+                          protein,
+                          totalCarbohydrate,
+                          totalFat,
+                          saturatedFat,
+                          monounsaturatedFat,
+                          polyunsaturatedFat,
+                          cholesterol,
+                          dietaryFiber,
+                          sugar,
+                          vitaminA,
+                          vitaminB6,
+                          vitaminB12,
+                          vitaminC,
+                          vitaminD,
+                          vitaminE,
+                          vitaminK,
+                          thiamin,
+                          riboflavin,
+                          niacin,
+                          folate,
+                          biotin,
+                          pantothenicAcid,
+                          calcium,
+                          iron,
+                          magnesium,
+                          manganese,
+                          phosphorus,
+                          potassium,
+                          selenium,
+                          sodium,
+                          zinc,
+                          caffeine,
+                        }) {
+                          setState(() {
+                            _nutritionFoodName = foodName;
+                            _nutritionMealType = mealType ?? MealType.unknown;
+                            _nutritionEnergy = energy;
+                            _nutritionProtein = protein;
+                            _nutritionTotalCarbohydrate = totalCarbohydrate;
+                            _nutritionTotalFat = totalFat;
+                            _nutritionSaturatedFat = saturatedFat;
+                            _nutritionMonounsaturatedFat = monounsaturatedFat;
+                            _nutritionPolyunsaturatedFat = polyunsaturatedFat;
+                            _nutritionCholesterol = cholesterol;
+                            _nutritionDietaryFiber = dietaryFiber;
+                            _nutritionSugar = sugar;
+                            _nutritionVitaminA = vitaminA;
+                            _nutritionVitaminB6 = vitaminB6;
+                            _nutritionVitaminB12 = vitaminB12;
+                            _nutritionVitaminC = vitaminC;
+                            _nutritionVitaminD = vitaminD;
+                            _nutritionVitaminE = vitaminE;
+                            _nutritionVitaminK = vitaminK;
+                            _nutritionThiamin = thiamin;
+                            _nutritionRiboflavin = riboflavin;
+                            _nutritionNiacin = niacin;
+                            _nutritionFolate = folate;
+                            _nutritionBiotin = biotin;
+                            _nutritionPantothenicAcid = pantothenicAcid;
+                            _nutritionCalcium = calcium;
+                            _nutritionIron = iron;
+                            _nutritionMagnesium = magnesium;
+                            _nutritionManganese = manganese;
+                            _nutritionPhosphorus = phosphorus;
+                            _nutritionPotassium = potassium;
+                            _nutritionSelenium = selenium;
+                            _nutritionSodium = sodium;
+                            _nutritionZinc = zinc;
+                            _nutritionCaffeine = caffeine;
+                          });
+                        },
+                  )
+                else ...[
                   HealthValueField(
                     dataType: widget.dataType,
                     onChanged: (value) {
@@ -496,6 +800,33 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                       });
                     },
                   ),
+                  // Food name and meal type fields for nutrient records
+                  if (_config is NutrientFormConfig) ...[
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      initialValue: _foodName,
+                      decoration: const InputDecoration(
+                        labelText: AppTexts.foodNameOptional,
+                        border: OutlineInputBorder(),
+                        helperText: AppTexts.foodNameOptionalHelper,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          _foodName = value.isEmpty ? null : value;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    MealTypeDropdownField(
+                      value: _mealType,
+                      onChanged: (type) {
+                        setState(() {
+                          _mealType = type ?? MealType.unknown;
+                        });
+                      },
+                    ),
+                  ],
+                ],
                 // Optional title and notes fields for sleep records
                 if (widget.dataType is SleepSessionHealthDataType ||
                     widget.dataType is SleepStageHealthDataType) ...[

@@ -2,27 +2,61 @@ import 'package:flutter/material.dart';
 import 'package:health_connector_core/health_connector_core.dart'
     show
         ActiveCaloriesBurnedHealthDataType,
+        BiotinNutrientDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
+        CaffeineNutrientDataType,
+        CalciumNutrientDataType,
+        CholesterolNutrientDataType,
+        DietaryFiberNutrientDataType,
         DistanceHealthDataType,
         Energy,
+        EnergyNutrientDataType,
         FloorsClimbedHealthDataType,
+        FolateNutrientDataType,
         HealthDataType,
         HeartRateMeasurementRecordHealthDataType,
         HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
         HydrationHealthDataType,
+        IronNutrientDataType,
         LeanBodyMassHealthDataType,
         Length,
+        MagnesiumNutrientDataType,
+        ManganeseNutrientDataType,
         Mass,
-        Percentage,
         MeasurementUnit,
+        MonounsaturatedFatNutrientDataType,
+        NiacinNutrientDataType,
         Numeric,
+        NutritionHealthDataType,
+        PantothenicAcidNutrientDataType,
+        Percentage,
+        PhosphorusNutrientDataType,
+        PolyunsaturatedFatNutrientDataType,
+        PotassiumNutrientDataType,
+        ProteinNutrientDataType,
+        RiboflavinNutrientDataType,
+        SaturatedFatNutrientDataType,
+        SeleniumNutrientDataType,
+        SodiumNutrientDataType,
         StepsHealthDataType,
+        SugarNutrientDataType,
         Temperature,
+        ThiaminNutrientDataType,
+        TotalCarbohydrateNutrientDataType,
+        TotalFatNutrientDataType,
         Volume,
+        VitaminANutrientDataType,
+        VitaminB12NutrientDataType,
+        VitaminB6NutrientDataType,
+        VitaminCNutrientDataType,
+        VitaminDNutrientDataType,
+        VitaminENutrientDataType,
+        VitaminKNutrientDataType,
         WeightHealthDataType,
         WheelchairPushesHealthDataType,
+        ZincNutrientDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
@@ -104,6 +138,42 @@ class _HealthValueFieldState extends State<HealthValueField> {
           SleepStageHealthDataType() => throw UnsupportedError(
             'SleepStageHealthDataType requires custom form handling',
           ),
+          EnergyNutrientDataType() => _parseEnergy(value),
+          CaffeineNutrientDataType() => _parseMass(value),
+          ProteinNutrientDataType() => _parseMass(value),
+          TotalCarbohydrateNutrientDataType() => _parseMass(value),
+          TotalFatNutrientDataType() => _parseMass(value),
+          SaturatedFatNutrientDataType() => _parseMass(value),
+          MonounsaturatedFatNutrientDataType() => _parseMass(value),
+          PolyunsaturatedFatNutrientDataType() => _parseMass(value),
+          CholesterolNutrientDataType() => _parseMass(value),
+          DietaryFiberNutrientDataType() => _parseMass(value),
+          SugarNutrientDataType() => _parseMass(value),
+          CalciumNutrientDataType() => _parseMass(value),
+          IronNutrientDataType() => _parseMass(value),
+          MagnesiumNutrientDataType() => _parseMass(value),
+          ManganeseNutrientDataType() => _parseMass(value),
+          PhosphorusNutrientDataType() => _parseMass(value),
+          PotassiumNutrientDataType() => _parseMass(value),
+          SeleniumNutrientDataType() => _parseMass(value),
+          SodiumNutrientDataType() => _parseMass(value),
+          ZincNutrientDataType() => _parseMass(value),
+          VitaminANutrientDataType() => _parseMass(value),
+          VitaminB6NutrientDataType() => _parseMass(value),
+          VitaminB12NutrientDataType() => _parseMass(value),
+          VitaminCNutrientDataType() => _parseMass(value),
+          VitaminDNutrientDataType() => _parseMass(value),
+          VitaminENutrientDataType() => _parseMass(value),
+          VitaminKNutrientDataType() => _parseMass(value),
+          ThiaminNutrientDataType() => _parseMass(value),
+          RiboflavinNutrientDataType() => _parseMass(value),
+          NiacinNutrientDataType() => _parseMass(value),
+          FolateNutrientDataType() => _parseMass(value),
+          BiotinNutrientDataType() => _parseMass(value),
+          PantothenicAcidNutrientDataType() => _parseMass(value),
+          NutritionHealthDataType() => throw UnsupportedError(
+            'NutritionHealthDataType requires NutritionFormField',
+          ),
         };
       }
     });
@@ -121,7 +191,15 @@ class _HealthValueFieldState extends State<HealthValueField> {
   Mass? _parseMass(String value) {
     final weightValue = double.tryParse(value);
     if (weightValue != null && weightValue > 0) {
-      return Mass.kilograms(weightValue);
+      // Use kilograms for Weight and LeanBodyMass,
+      // grams for all nutrient data types
+      if (widget.dataType is WeightHealthDataType ||
+          widget.dataType is LeanBodyMassHealthDataType) {
+        return Mass.kilograms(weightValue);
+      } else {
+        // All nutrient data types should use grams
+        return Mass.grams(weightValue);
+      }
     }
     return null;
   }
@@ -198,6 +276,46 @@ class _HealthValueFieldState extends State<HealthValueField> {
         SleepStageHealthDataType() => throw UnsupportedError(
           'SleepStageHealthDataType requires custom form handling',
         ),
+        EnergyNutrientDataType() => AppTexts.pleaseEnterEnergy,
+        CaffeineNutrientDataType() => AppTexts.pleaseEnterCaffeine,
+        ProteinNutrientDataType() => AppTexts.pleaseEnterProtein,
+        TotalCarbohydrateNutrientDataType() =>
+          AppTexts.pleaseEnterTotalCarbohydrate,
+        TotalFatNutrientDataType() => AppTexts.pleaseEnterTotalFat,
+        SaturatedFatNutrientDataType() => AppTexts.pleaseEnterSaturatedFat,
+        MonounsaturatedFatNutrientDataType() =>
+          AppTexts.pleaseEnterMonounsaturatedFat,
+        PolyunsaturatedFatNutrientDataType() =>
+          AppTexts.pleaseEnterPolyunsaturatedFat,
+        CholesterolNutrientDataType() => AppTexts.pleaseEnterCholesterol,
+        DietaryFiberNutrientDataType() => AppTexts.pleaseEnterDietaryFiber,
+        SugarNutrientDataType() => AppTexts.pleaseEnterSugar,
+        CalciumNutrientDataType() => AppTexts.pleaseEnterCalcium,
+        IronNutrientDataType() => AppTexts.pleaseEnterIron,
+        MagnesiumNutrientDataType() => AppTexts.pleaseEnterMagnesium,
+        ManganeseNutrientDataType() => AppTexts.pleaseEnterManganese,
+        PhosphorusNutrientDataType() => AppTexts.pleaseEnterPhosphorus,
+        PotassiumNutrientDataType() => AppTexts.pleaseEnterPotassium,
+        SeleniumNutrientDataType() => AppTexts.pleaseEnterSelenium,
+        SodiumNutrientDataType() => AppTexts.pleaseEnterSodium,
+        ZincNutrientDataType() => AppTexts.pleaseEnterZinc,
+        VitaminANutrientDataType() => AppTexts.pleaseEnterVitaminA,
+        VitaminB6NutrientDataType() => AppTexts.pleaseEnterVitaminB6,
+        VitaminB12NutrientDataType() => AppTexts.pleaseEnterVitaminB12,
+        VitaminCNutrientDataType() => AppTexts.pleaseEnterVitaminC,
+        VitaminDNutrientDataType() => AppTexts.pleaseEnterVitaminD,
+        VitaminENutrientDataType() => AppTexts.pleaseEnterVitaminE,
+        VitaminKNutrientDataType() => AppTexts.pleaseEnterVitaminK,
+        ThiaminNutrientDataType() => AppTexts.pleaseEnterThiamin,
+        RiboflavinNutrientDataType() => AppTexts.pleaseEnterRiboflavin,
+        NiacinNutrientDataType() => AppTexts.pleaseEnterNiacin,
+        FolateNutrientDataType() => AppTexts.pleaseEnterFolate,
+        BiotinNutrientDataType() => AppTexts.pleaseEnterBiotin,
+        PantothenicAcidNutrientDataType() =>
+          AppTexts.pleaseEnterPantothenicAcid,
+        NutritionHealthDataType() => throw UnsupportedError(
+          'NutritionHealthDataType requires NutritionFormField',
+        ),
       };
     }
 
@@ -224,60 +342,167 @@ class _HealthValueFieldState extends State<HealthValueField> {
       SleepStageHealthDataType() => throw UnsupportedError(
         'SleepStageHealthDataType requires custom form handling',
       ),
+      EnergyNutrientDataType() => double.tryParse(value),
+      CaffeineNutrientDataType() => double.tryParse(value),
+      ProteinNutrientDataType() => double.tryParse(value),
+      TotalCarbohydrateNutrientDataType() => double.tryParse(value),
+      TotalFatNutrientDataType() => double.tryParse(value),
+      SaturatedFatNutrientDataType() => double.tryParse(value),
+      MonounsaturatedFatNutrientDataType() => double.tryParse(value),
+      PolyunsaturatedFatNutrientDataType() => double.tryParse(value),
+      CholesterolNutrientDataType() => double.tryParse(value),
+      DietaryFiberNutrientDataType() => double.tryParse(value),
+      SugarNutrientDataType() => double.tryParse(value),
+      CalciumNutrientDataType() => double.tryParse(value),
+      IronNutrientDataType() => double.tryParse(value),
+      MagnesiumNutrientDataType() => double.tryParse(value),
+      ManganeseNutrientDataType() => double.tryParse(value),
+      PhosphorusNutrientDataType() => double.tryParse(value),
+      PotassiumNutrientDataType() => double.tryParse(value),
+      SeleniumNutrientDataType() => double.tryParse(value),
+      SodiumNutrientDataType() => double.tryParse(value),
+      ZincNutrientDataType() => double.tryParse(value),
+      VitaminANutrientDataType() => double.tryParse(value),
+      VitaminB6NutrientDataType() => double.tryParse(value),
+      VitaminB12NutrientDataType() => double.tryParse(value),
+      VitaminCNutrientDataType() => double.tryParse(value),
+      VitaminDNutrientDataType() => double.tryParse(value),
+      VitaminENutrientDataType() => double.tryParse(value),
+      VitaminKNutrientDataType() => double.tryParse(value),
+      ThiaminNutrientDataType() => double.tryParse(value),
+      RiboflavinNutrientDataType() => double.tryParse(value),
+      NiacinNutrientDataType() => double.tryParse(value),
+      FolateNutrientDataType() => double.tryParse(value),
+      BiotinNutrientDataType() => double.tryParse(value),
+      PantothenicAcidNutrientDataType() => double.tryParse(value),
+      NutritionHealthDataType() => throw UnsupportedError(
+        'NutritionHealthDataType requires NutritionFormField',
+      ),
     };
 
     if (parsed == null) {
       return AppTexts.pleaseEnterValidNumber;
     }
 
-    if (widget.dataType is StepsHealthDataType ||
-        widget.dataType is FloorsClimbedHealthDataType ||
-        widget.dataType is WheelchairPushesHealthDataType ||
-        widget.dataType is HeartRateMeasurementRecordHealthDataType) {
-      if (parsed as int < 0) {
-        return switch (widget.dataType) {
-          StepsHealthDataType() => AppTexts.countMustBeNonNegative,
-          FloorsClimbedHealthDataType() =>
-            AppTexts.floorsClimbedMustBeNonNegative,
-          WheelchairPushesHealthDataType() =>
-            AppTexts.wheelchairPushesMustBeNonNegative,
-          HeartRateMeasurementRecordHealthDataType() =>
-            AppTexts.heartRateMustBePositive,
-          _ => AppTexts.countMustBeNonNegative,
-        };
-      }
-    } else if (widget.dataType is WeightHealthDataType) {
-      if (parsed as double <= 0) {
-        return AppTexts.weightMustBeGreaterThanZero;
-      }
-    } else if (widget.dataType is HeightHealthDataType) {
-      if (parsed as double <= 0) {
-        return AppTexts.heightMustBeGreaterThanZero;
-      }
-    } else if (widget.dataType is LeanBodyMassHealthDataType) {
-      if (parsed as double <= 0) {
-        return AppTexts.leanBodyMassMustBeGreaterThanZero;
-      }
-    } else if (widget.dataType is BodyTemperatureHealthDataType) {
+    final validationError = switch (widget.dataType) {
+      StepsHealthDataType() =>
+        (parsed as int) < 0 ? AppTexts.countMustBeNonNegative : null,
+      FloorsClimbedHealthDataType() =>
+        (parsed as int) < 0 ? AppTexts.floorsClimbedMustBeNonNegative : null,
+      WheelchairPushesHealthDataType() =>
+        (parsed as int) < 0 ? AppTexts.wheelchairPushesMustBeNonNegative : null,
+      HeartRateMeasurementRecordHealthDataType() =>
+        (parsed as int) < 0 ? AppTexts.heartRateMustBePositive : null,
+      WeightHealthDataType() =>
+        (parsed as double) <= 0 ? AppTexts.weightMustBeGreaterThanZero : null,
+      HeightHealthDataType() =>
+        (parsed as double) <= 0 ? AppTexts.heightMustBeGreaterThanZero : null,
+      LeanBodyMassHealthDataType() =>
+        (parsed as double) <= 0
+            ? AppTexts.leanBodyMassMustBeGreaterThanZero
+            : null,
+      BodyTemperatureHealthDataType() => null,
       // Temperature can be any valid number (including negative for very cold)
       // No specific validation needed beyond being a valid number
-    } else if (widget.dataType is BodyFatPercentageHealthDataType) {
-      final percentage = parsed as double;
-      if (percentage < 0 || percentage > 100) {
-        return AppTexts.bodyFatPercentageMustBeBetween0And100;
-      }
-    } else if (widget.dataType is DistanceHealthDataType) {
-      if (parsed as double <= 0) {
-        return AppTexts.distanceMustBeGreaterThanZero;
-      }
-    } else if (widget.dataType is ActiveCaloriesBurnedHealthDataType) {
-      if (parsed as double <= 0) {
-        return AppTexts.activeCaloriesBurnedMustBeGreaterThanZero;
-      }
-    } else if (widget.dataType is HydrationHealthDataType) {
-      if (parsed as double <= 0) {
-        return AppTexts.hydrationMustBeGreaterThanZero;
-      }
+      BodyFatPercentageHealthDataType() => () {
+        final percentage = parsed as double;
+        return (percentage < 0 || percentage > 100)
+            ? AppTexts.bodyFatPercentageMustBeBetween0And100
+            : null;
+      }(),
+      DistanceHealthDataType() =>
+        (parsed as double) <= 0 ? AppTexts.distanceMustBeGreaterThanZero : null,
+      ActiveCaloriesBurnedHealthDataType() =>
+        (parsed as double) <= 0
+            ? AppTexts.activeCaloriesBurnedMustBeGreaterThanZero
+            : null,
+      HydrationHealthDataType() =>
+        (parsed as double) <= 0
+            ? AppTexts.hydrationMustBeGreaterThanZero
+            : null,
+      EnergyNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      CaffeineNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      ProteinNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      TotalCarbohydrateNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      TotalFatNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      SaturatedFatNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      MonounsaturatedFatNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      PolyunsaturatedFatNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      CholesterolNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      DietaryFiberNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      SugarNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      CalciumNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      IronNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      MagnesiumNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      ManganeseNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      PhosphorusNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      PotassiumNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      SeleniumNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      SodiumNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      ZincNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      VitaminANutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      VitaminB6NutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      VitaminB12NutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      VitaminCNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      VitaminDNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      VitaminENutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      VitaminKNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      ThiaminNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      RiboflavinNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      NiacinNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      FolateNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      BiotinNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      PantothenicAcidNutrientDataType() =>
+        (parsed as double) <= 0 ? AppTexts.pleaseEnterValidNumber : null,
+      HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
+        'HeartRateSeriesRecordHealthDataType should '
+        'use HeartRateSamplesFormField',
+      ),
+      SleepSessionHealthDataType() => throw UnsupportedError(
+        'SleepSessionHealthDataType requires custom form handling',
+      ),
+      SleepStageHealthDataType() => throw UnsupportedError(
+        'SleepStageHealthDataType requires custom form handling',
+      ),
+      NutritionHealthDataType() => throw UnsupportedError(
+        'NutritionHealthDataType requires NutritionFormField',
+      ),
+    };
+
+    if (validationError != null) {
+      return validationError;
     }
 
     if (_value == null) {
@@ -307,6 +532,46 @@ class _HealthValueFieldState extends State<HealthValueField> {
         ),
         SleepStageHealthDataType() => throw UnsupportedError(
           'SleepStageHealthDataType requires custom form handling',
+        ),
+        EnergyNutrientDataType() => AppTexts.pleaseEnterEnergy,
+        CaffeineNutrientDataType() => AppTexts.pleaseEnterCaffeine,
+        ProteinNutrientDataType() => AppTexts.pleaseEnterProtein,
+        TotalCarbohydrateNutrientDataType() =>
+          AppTexts.pleaseEnterTotalCarbohydrate,
+        TotalFatNutrientDataType() => AppTexts.pleaseEnterTotalFat,
+        SaturatedFatNutrientDataType() => AppTexts.pleaseEnterSaturatedFat,
+        MonounsaturatedFatNutrientDataType() =>
+          AppTexts.pleaseEnterMonounsaturatedFat,
+        PolyunsaturatedFatNutrientDataType() =>
+          AppTexts.pleaseEnterPolyunsaturatedFat,
+        CholesterolNutrientDataType() => AppTexts.pleaseEnterCholesterol,
+        DietaryFiberNutrientDataType() => AppTexts.pleaseEnterDietaryFiber,
+        SugarNutrientDataType() => AppTexts.pleaseEnterSugar,
+        CalciumNutrientDataType() => AppTexts.pleaseEnterCalcium,
+        IronNutrientDataType() => AppTexts.pleaseEnterIron,
+        MagnesiumNutrientDataType() => AppTexts.pleaseEnterMagnesium,
+        ManganeseNutrientDataType() => AppTexts.pleaseEnterManganese,
+        PhosphorusNutrientDataType() => AppTexts.pleaseEnterPhosphorus,
+        PotassiumNutrientDataType() => AppTexts.pleaseEnterPotassium,
+        SeleniumNutrientDataType() => AppTexts.pleaseEnterSelenium,
+        SodiumNutrientDataType() => AppTexts.pleaseEnterSodium,
+        ZincNutrientDataType() => AppTexts.pleaseEnterZinc,
+        VitaminANutrientDataType() => AppTexts.pleaseEnterVitaminA,
+        VitaminB6NutrientDataType() => AppTexts.pleaseEnterVitaminB6,
+        VitaminB12NutrientDataType() => AppTexts.pleaseEnterVitaminB12,
+        VitaminCNutrientDataType() => AppTexts.pleaseEnterVitaminC,
+        VitaminDNutrientDataType() => AppTexts.pleaseEnterVitaminD,
+        VitaminENutrientDataType() => AppTexts.pleaseEnterVitaminE,
+        VitaminKNutrientDataType() => AppTexts.pleaseEnterVitaminK,
+        ThiaminNutrientDataType() => AppTexts.pleaseEnterThiamin,
+        RiboflavinNutrientDataType() => AppTexts.pleaseEnterRiboflavin,
+        NiacinNutrientDataType() => AppTexts.pleaseEnterNiacin,
+        FolateNutrientDataType() => AppTexts.pleaseEnterFolate,
+        BiotinNutrientDataType() => AppTexts.pleaseEnterBiotin,
+        PantothenicAcidNutrientDataType() =>
+          AppTexts.pleaseEnterPantothenicAcid,
+        NutritionHealthDataType() => throw UnsupportedError(
+          'NutritionHealthDataType requires NutritionFormField',
         ),
       };
     }
@@ -462,6 +727,372 @@ class _HealthValueFieldState extends State<HealthValueField> {
       ),
       SleepStageHealthDataType() => throw UnsupportedError(
         'SleepStageHealthDataType requires custom form handling',
+      ),
+      EnergyNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.energyValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.localFireDepartment),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      CaffeineNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.caffeineG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      ProteinNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.proteinG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      TotalCarbohydrateNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.totalCarbohydrateG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      TotalFatNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.totalFatG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      SaturatedFatNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.saturatedFatG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      MonounsaturatedFatNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.monounsaturatedFatG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      PolyunsaturatedFatNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.polyunsaturatedFatG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      CholesterolNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.cholesterolG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      DietaryFiberNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.dietaryFiberG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      SugarNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.sugarG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      CalciumNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.calciumG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      IronNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.ironG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      MagnesiumNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.magnesiumG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      ManganeseNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.manganeseG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      PhosphorusNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.phosphorusG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      PotassiumNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.potassiumG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      SeleniumNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.seleniumG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      SodiumNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.sodiumG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      ZincNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.zincG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      VitaminANutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.vitaminAG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      VitaminB6NutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.vitaminB6G,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      VitaminB12NutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.vitaminB12G,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      VitaminCNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.vitaminCG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      VitaminDNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.vitaminDG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      VitaminENutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.vitaminEG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      VitaminKNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.vitaminKG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      ThiaminNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.thiaminG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      RiboflavinNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.riboflavinG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      NiacinNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.niacinG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      FolateNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.folateG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      BiotinNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.biotinG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      PantothenicAcidNutrientDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.pantothenicAcidG,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      NutritionHealthDataType() => throw UnsupportedError(
+        'NutritionHealthDataType requires NutritionFormField',
       ),
     };
   }

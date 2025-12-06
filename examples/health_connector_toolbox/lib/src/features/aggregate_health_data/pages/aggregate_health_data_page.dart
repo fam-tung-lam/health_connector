@@ -24,6 +24,40 @@ import 'package:health_connector_core/health_connector_core.dart'
         WheelchairPushesHealthDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
+        NutritionHealthDataType,
+        EnergyNutrientDataType,
+        CaffeineNutrientDataType,
+        ProteinNutrientDataType,
+        TotalCarbohydrateNutrientDataType,
+        TotalFatNutrientDataType,
+        SaturatedFatNutrientDataType,
+        MonounsaturatedFatNutrientDataType,
+        PolyunsaturatedFatNutrientDataType,
+        CholesterolNutrientDataType,
+        DietaryFiberNutrientDataType,
+        SugarNutrientDataType,
+        CalciumNutrientDataType,
+        IronNutrientDataType,
+        MagnesiumNutrientDataType,
+        ManganeseNutrientDataType,
+        PhosphorusNutrientDataType,
+        PotassiumNutrientDataType,
+        SeleniumNutrientDataType,
+        SodiumNutrientDataType,
+        ZincNutrientDataType,
+        VitaminANutrientDataType,
+        VitaminB6NutrientDataType,
+        VitaminB12NutrientDataType,
+        VitaminCNutrientDataType,
+        VitaminDNutrientDataType,
+        VitaminENutrientDataType,
+        VitaminKNutrientDataType,
+        ThiaminNutrientDataType,
+        RiboflavinNutrientDataType,
+        NiacinNutrientDataType,
+        FolateNutrientDataType,
+        BiotinNutrientDataType,
+        PantothenicAcidNutrientDataType,
         HealthPlatform;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
@@ -58,6 +92,165 @@ class _AggregateHealthDataPageState
   HealthDataType<HealthRecord, MeasurementUnit>? _selectedDataType;
   AggregationMetric? _selectedMetric;
 
+  /// Builds an aggregation request for nutrient data types.
+  ///
+  /// All nutrient data types only support sum aggregation.
+  AggregateRequest _buildNutrientAggregationRequest(
+    HealthDataType<HealthRecord, MeasurementUnit> nutrientType,
+    AggregationMetric metric,
+    DateTime startTime,
+    DateTime endTime,
+  ) {
+    if (metric != AggregationMetric.sum) {
+      throw UnsupportedError('Unsupported metric: $metric');
+    }
+
+    // Use pattern matching to call the appropriate aggregateSum method
+    return switch (nutrientType) {
+      EnergyNutrientDataType() => HealthDataType.energyNutrient.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      CaffeineNutrientDataType() => HealthDataType.caffeine.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      ProteinNutrientDataType() => HealthDataType.protein.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      TotalCarbohydrateNutrientDataType() =>
+        HealthDataType.totalCarbohydrate.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+      TotalFatNutrientDataType() => HealthDataType.totalFat.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      SaturatedFatNutrientDataType() =>
+        HealthDataType.saturatedFat.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+      MonounsaturatedFatNutrientDataType() =>
+        HealthDataType.monounsaturatedFat.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+      PolyunsaturatedFatNutrientDataType() =>
+        HealthDataType.polyunsaturatedFat.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+      CholesterolNutrientDataType() => HealthDataType.cholesterol.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      DietaryFiberNutrientDataType() =>
+        HealthDataType.dietaryFiber.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+      SugarNutrientDataType() => HealthDataType.sugar.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      CalciumNutrientDataType() => HealthDataType.calcium.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      IronNutrientDataType() => HealthDataType.iron.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      MagnesiumNutrientDataType() => HealthDataType.magnesium.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      ManganeseNutrientDataType() => HealthDataType.manganese.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      PhosphorusNutrientDataType() => HealthDataType.phosphorus.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      PotassiumNutrientDataType() => HealthDataType.potassium.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      SeleniumNutrientDataType() => HealthDataType.selenium.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      SodiumNutrientDataType() => HealthDataType.sodium.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      ZincNutrientDataType() => HealthDataType.zinc.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      VitaminANutrientDataType() => HealthDataType.vitaminA.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      VitaminB6NutrientDataType() => HealthDataType.vitaminB6.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      VitaminB12NutrientDataType() => HealthDataType.vitaminB12.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      VitaminCNutrientDataType() => HealthDataType.vitaminC.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      VitaminDNutrientDataType() => HealthDataType.vitaminD.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      VitaminENutrientDataType() => HealthDataType.vitaminE.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      VitaminKNutrientDataType() => HealthDataType.vitaminK.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      ThiaminNutrientDataType() => HealthDataType.thiamin.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      RiboflavinNutrientDataType() => HealthDataType.riboflavin.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      NiacinNutrientDataType() => HealthDataType.niacin.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      FolateNutrientDataType() => HealthDataType.folate.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      BiotinNutrientDataType() => HealthDataType.biotin.aggregateSum(
+        startTime: startTime,
+        endTime: endTime,
+      ),
+      PantothenicAcidNutrientDataType() =>
+        HealthDataType.pantothenicAcid.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+      _ => throw ArgumentError(
+        'Unsupported nutrient data type: ${nutrientType.runtimeType}',
+      ),
+    };
+  }
+
   Future<void> _aggregate() async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -69,211 +262,227 @@ class _AggregateHealthDataPageState
     );
 
     try {
-      late final AggregateRequest request;
-
-      switch (_selectedDataType!) {
-        case StepsHealthDataType():
+      final request = switch (_selectedDataType!) {
+        StepsHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum => HealthDataType.steps.aggregateSum(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.count ||
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        WeightHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg => HealthDataType.weight.aggregateAverage(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.min => HealthDataType.weight.aggregateMin(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.max => HealthDataType.weight.aggregateMax(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.sum || AggregationMetric.count =>
+            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+        },
+        HeightHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg => HealthDataType.height.aggregateAverage(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.min => HealthDataType.height.aggregateMin(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.max => HealthDataType.height.aggregateMax(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.sum || AggregationMetric.count =>
+            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+        },
+        BodyFatPercentageHealthDataType() => throw UnsupportedError(
+          'Body fat percentage does not support aggregation',
+        ),
+        BodyTemperatureHealthDataType() => throw UnsupportedError(
+          'Body temperature does not support aggregation',
+        ),
+        LeanBodyMassHealthDataType() => throw UnsupportedError(
+          'Lean body mass does not support aggregation',
+        ),
+        DistanceHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum => HealthDataType.distance.aggregateSum(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.count ||
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        ActiveCaloriesBurnedHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum =>
+            HealthDataType.activeCaloriesBurned.aggregateSum(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.count ||
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        FloorsClimbedHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum => HealthDataType.floorsClimbed.aggregateSum(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.count ||
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        WheelchairPushesHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum => HealthDataType.wheelchairPushes.aggregateSum(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.count ||
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        HydrationHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum => HealthDataType.hydration.aggregateSum(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.count ||
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        HeartRateMeasurementRecordHealthDataType() =>
           switch (_selectedMetric!) {
-            case AggregationMetric.sum:
-              request = HealthDataType.steps.aggregateSum(
+            AggregationMetric.avg =>
+              HealthDataType.heartRateMeasurementRecord.aggregateAverage(
                 startTime: startDateTime!,
                 endTime: endDateTime!,
-              );
-            case AggregationMetric.count:
-            case AggregationMetric.avg:
-            case AggregationMetric.min:
-            case AggregationMetric.max:
-              throw UnsupportedError('Unsupported metric: $_selectedMetric');
-          }
-        case WeightHealthDataType():
-          switch (_selectedMetric!) {
-            case AggregationMetric.avg:
-              request = HealthDataType.weight.aggregateAverage(
+              ),
+            AggregationMetric.min =>
+              HealthDataType.heartRateMeasurementRecord.aggregateMin(
                 startTime: startDateTime!,
                 endTime: endDateTime!,
-              );
-            case AggregationMetric.min:
-              request = HealthDataType.weight.aggregateMin(
+              ),
+            AggregationMetric.max =>
+              HealthDataType.heartRateMeasurementRecord.aggregateMax(
                 startTime: startDateTime!,
                 endTime: endDateTime!,
-              );
-            case AggregationMetric.max:
-              request = HealthDataType.weight.aggregateMax(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.sum:
-            case AggregationMetric.count:
-              throw UnsupportedError('Unsupported metric: $_selectedMetric');
-          }
-        case HeightHealthDataType():
-          switch (_selectedMetric!) {
-            case AggregationMetric.avg:
-              request = HealthDataType.height.aggregateAverage(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.min:
-              request = HealthDataType.height.aggregateMin(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.max:
-              request = HealthDataType.height.aggregateMax(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.sum:
-            case AggregationMetric.count:
-              throw UnsupportedError('Unsupported metric: $_selectedMetric');
-          }
-        case BodyFatPercentageHealthDataType():
-          throw UnsupportedError(
-            'Body fat percentage does not support aggregation',
-          );
-        case BodyTemperatureHealthDataType():
-          throw UnsupportedError(
-            'Body temperature does not support aggregation',
-          );
-        case LeanBodyMassHealthDataType():
-          throw UnsupportedError(
-            'Lean body mass does not support aggregation',
-          );
-        case DistanceHealthDataType():
-          switch (_selectedMetric!) {
-            case AggregationMetric.sum:
-              request = HealthDataType.distance.aggregateSum(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.count:
-            case AggregationMetric.avg:
-            case AggregationMetric.min:
-            case AggregationMetric.max:
-              throw UnsupportedError('Unsupported metric: $_selectedMetric');
-          }
-        case ActiveCaloriesBurnedHealthDataType():
-          switch (_selectedMetric!) {
-            case AggregationMetric.sum:
-              request = HealthDataType.activeCaloriesBurned.aggregateSum(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.count:
-            case AggregationMetric.avg:
-            case AggregationMetric.min:
-            case AggregationMetric.max:
-              throw UnsupportedError('Unsupported metric: $_selectedMetric');
-          }
-        case FloorsClimbedHealthDataType():
-          switch (_selectedMetric!) {
-            case AggregationMetric.sum:
-              request = HealthDataType.floorsClimbed.aggregateSum(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.count:
-            case AggregationMetric.avg:
-            case AggregationMetric.min:
-            case AggregationMetric.max:
-              throw UnsupportedError('Unsupported metric: $_selectedMetric');
-          }
-        case WheelchairPushesHealthDataType():
-          switch (_selectedMetric!) {
-            case AggregationMetric.sum:
-              request = HealthDataType.wheelchairPushes.aggregateSum(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.count:
-            case AggregationMetric.avg:
-            case AggregationMetric.min:
-            case AggregationMetric.max:
-              throw UnsupportedError('Unsupported metric: $_selectedMetric');
-          }
-        case HydrationHealthDataType():
-          switch (_selectedMetric!) {
-            case AggregationMetric.sum:
-              request = HealthDataType.hydration.aggregateSum(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.count:
-            case AggregationMetric.avg:
-            case AggregationMetric.min:
-            case AggregationMetric.max:
-              throw UnsupportedError('Unsupported metric: $_selectedMetric');
-          }
-        case HeartRateMeasurementRecordHealthDataType():
-          switch (_selectedMetric!) {
-            case AggregationMetric.avg:
-              request = HealthDataType.heartRateMeasurementRecord
-                  .aggregateAverage(
-                    startTime: startDateTime!,
-                    endTime: endDateTime!,
-                  );
-            case AggregationMetric.min:
-              request = HealthDataType.heartRateMeasurementRecord.aggregateMin(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.max:
-              request = HealthDataType.heartRateMeasurementRecord.aggregateMax(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.sum:
-            case AggregationMetric.count:
-              throw UnsupportedError('Unsupported metric: $_selectedMetric');
-          }
-        case HeartRateSeriesRecordHealthDataType():
-          switch (_selectedMetric!) {
-            case AggregationMetric.avg:
-              request = HealthDataType.heartRateSeriesRecord.aggregateAverage(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.min:
-              request = HealthDataType.heartRateSeriesRecord.aggregateMin(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.max:
-              request = HealthDataType.heartRateSeriesRecord.aggregateMax(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.sum:
-            case AggregationMetric.count:
-              throw UnsupportedError('Unsupported metric: $_selectedMetric');
-          }
-        case SleepSessionHealthDataType():
-          switch (_selectedMetric!) {
-            case AggregationMetric.sum:
-              request = HealthDataType.sleepSession.aggregateSum(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.count:
-            case AggregationMetric.avg:
-            case AggregationMetric.min:
-            case AggregationMetric.max:
-              throw UnsupportedError('Unsupported metric: $_selectedMetric');
-          }
-        case SleepStageHealthDataType():
-          switch (_selectedMetric!) {
-            case AggregationMetric.sum:
-              request = HealthDataType.sleepStageRecord.aggregateSum(
-                startTime: startDateTime!,
-                endTime: endDateTime!,
-              );
-            case AggregationMetric.count:
-            case AggregationMetric.avg:
-            case AggregationMetric.min:
-            case AggregationMetric.max:
-              throw UnsupportedError('Unsupported metric: $_selectedMetric');
-          }
-      }
+              ),
+            AggregationMetric.sum || AggregationMetric.count =>
+              throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+          },
+        HeartRateSeriesRecordHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg =>
+            HealthDataType.heartRateSeriesRecord.aggregateAverage(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.min =>
+            HealthDataType.heartRateSeriesRecord.aggregateMin(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.max =>
+            HealthDataType.heartRateSeriesRecord.aggregateMax(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.sum || AggregationMetric.count =>
+            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+        },
+        SleepSessionHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum => HealthDataType.sleepSession.aggregateSum(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.count ||
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        SleepStageHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum => HealthDataType.sleepStageRecord.aggregateSum(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.count ||
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        NutritionHealthDataType() => throw UnsupportedError(
+          'Nutrition does not support aggregation',
+        ),
+        // All nutrient data types follow the same pattern: only sum aggregation
+        EnergyNutrientDataType() ||
+        CaffeineNutrientDataType() ||
+        ProteinNutrientDataType() ||
+        TotalCarbohydrateNutrientDataType() ||
+        TotalFatNutrientDataType() ||
+        SaturatedFatNutrientDataType() ||
+        MonounsaturatedFatNutrientDataType() ||
+        PolyunsaturatedFatNutrientDataType() ||
+        CholesterolNutrientDataType() ||
+        DietaryFiberNutrientDataType() ||
+        SugarNutrientDataType() ||
+        CalciumNutrientDataType() ||
+        IronNutrientDataType() ||
+        MagnesiumNutrientDataType() ||
+        ManganeseNutrientDataType() ||
+        PhosphorusNutrientDataType() ||
+        PotassiumNutrientDataType() ||
+        SeleniumNutrientDataType() ||
+        SodiumNutrientDataType() ||
+        ZincNutrientDataType() ||
+        VitaminANutrientDataType() ||
+        VitaminB6NutrientDataType() ||
+        VitaminB12NutrientDataType() ||
+        VitaminCNutrientDataType() ||
+        VitaminDNutrientDataType() ||
+        VitaminENutrientDataType() ||
+        VitaminKNutrientDataType() ||
+        ThiaminNutrientDataType() ||
+        RiboflavinNutrientDataType() ||
+        NiacinNutrientDataType() ||
+        FolateNutrientDataType() ||
+        BiotinNutrientDataType() ||
+        PantothenicAcidNutrientDataType() => _buildNutrientAggregationRequest(
+          _selectedDataType!,
+          _selectedMetric!,
+          startDateTime!,
+          endDateTime!,
+        ),
+      };
 
       await notifier.aggregateHealthData(request);
     } on HealthConnectorException catch (e) {

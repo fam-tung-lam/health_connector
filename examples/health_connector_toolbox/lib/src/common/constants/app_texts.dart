@@ -189,7 +189,6 @@ abstract final class AppTexts {
   static const String numeric = 'Numeric';
   static const String percentage = 'Percentage';
   static const String length = 'Length';
-  static const String energy = 'Energy';
   static const String bloodGlucose = 'Blood Glucose';
   static const String power = 'Power';
   static const String pressure = 'Pressure';
@@ -460,4 +459,298 @@ abstract final class AppTexts {
   static const String sleepStageDeep = 'Deep';
   static const String sleepStageRem = 'REM';
   static const String sleepStageInBed = 'In Bed';
+
+  // ==========================================================================
+  // Meal Types
+  // ==========================================================================
+  static const String mealType = 'Meal Type';
+  static const String mealTypeUnknown = 'Unknown';
+  static const String mealTypeBreakfast = 'Breakfast';
+  static const String mealTypeLunch = 'Lunch';
+  static const String mealTypeDinner = 'Dinner';
+  static const String mealTypeSnack = 'Snack';
+  static const String foodName = 'Food Name';
+  static const String food = 'Food';
+  static const String meal = 'Meal';
+
+  // ==========================================================================
+  // Nutrient Data Types
+  // ==========================================================================
+  static const String nutrition = 'Nutrition';
+  static const String nutritionDescription =
+      'Complete nutrition record with multiple nutrients';
+  static const String nutritionRecord = 'Nutrition Record';
+  static const String nutrients = 'nutrients';
+  static const String energy = 'Energy';
+  static const String energyDescription = 'Energy (calorie) intake';
+  static const String energyKcal = 'Energy (kcal)';
+  static const String energyCal = 'Energy (cal)';
+  static const String energyValue = 'Energy (kcal)';
+  static const String caffeine = 'Caffeine';
+  static const String caffeineDescription = 'Caffeine intake';
+  static const String caffeineG = 'Caffeine (g)';
+  static const String caffeineMg = 'Caffeine (mg)';
+  static const String protein = 'Protein';
+  static const String proteinDescription = 'Protein intake';
+  static const String proteinG = 'Protein (g)';
+  static const String totalCarbohydrate = 'Total Carbohydrate';
+  static const String totalCarbohydrateDescription =
+      'Total carbohydrate intake';
+  static const String totalCarbohydrateG = 'Total Carbohydrate (g)';
+  static const String totalFat = 'Total Fat';
+  static const String totalFatDescription = 'Total fat intake';
+  static const String totalFatG = 'Total Fat (g)';
+  static const String saturatedFat = 'Saturated Fat';
+  static const String saturatedFatDescription = 'Saturated fat intake';
+  static const String saturatedFatG = 'Saturated Fat (g)';
+  static const String monounsaturatedFat = 'Monounsaturated Fat';
+  static const String monounsaturatedFatDescription =
+      'Monounsaturated fat intake';
+  static const String monounsaturatedFatG = 'Monounsaturated Fat (g)';
+  static const String polyunsaturatedFat = 'Polyunsaturated Fat';
+  static const String polyunsaturatedFatDescription =
+      'Polyunsaturated fat intake';
+  static const String polyunsaturatedFatG = 'Polyunsaturated Fat (g)';
+  static const String cholesterol = 'Cholesterol';
+  static const String cholesterolDescription = 'Cholesterol intake';
+  static const String cholesterolG = 'Cholesterol (g)';
+  static const String dietaryFiber = 'Dietary Fiber';
+  static const String dietaryFiberDescription = 'Dietary fiber intake';
+  static const String dietaryFiberG = 'Dietary Fiber (g)';
+  static const String sugar = 'Sugar';
+  static const String sugarDescription = 'Sugar intake';
+  static const String sugarG = 'Sugar (g)';
+  static const String calcium = 'Calcium';
+  static const String calciumDescription = 'Calcium intake';
+  static const String calciumG = 'Calcium (g)';
+  static const String iron = 'Iron';
+  static const String ironDescription = 'Iron intake';
+  static const String ironG = 'Iron (g)';
+  static const String magnesium = 'Magnesium';
+  static const String magnesiumDescription = 'Magnesium intake';
+  static const String magnesiumG = 'Magnesium (g)';
+  static const String manganese = 'Manganese';
+  static const String manganeseDescription = 'Manganese intake';
+  static const String manganeseG = 'Manganese (g)';
+  static const String phosphorus = 'Phosphorus';
+  static const String phosphorusDescription = 'Phosphorus intake';
+  static const String phosphorusG = 'Phosphorus (g)';
+  static const String potassium = 'Potassium';
+  static const String potassiumDescription = 'Potassium intake';
+  static const String potassiumG = 'Potassium (g)';
+  static const String selenium = 'Selenium';
+  static const String seleniumDescription = 'Selenium intake';
+  static const String seleniumG = 'Selenium (g)';
+  static const String sodium = 'Sodium';
+  static const String sodiumDescription = 'Sodium intake';
+  static const String sodiumG = 'Sodium (g)';
+  static const String zinc = 'Zinc';
+  static const String zincDescription = 'Zinc intake';
+  static const String zincG = 'Zinc (g)';
+  static const String vitaminA = 'Vitamin A';
+  static const String vitaminADescription = 'Vitamin A intake';
+  static const String vitaminAG = 'Vitamin A (g)';
+  static const String vitaminB6 = 'Vitamin B6';
+  static const String vitaminB6Description = 'Vitamin B6 intake';
+  static const String vitaminB6G = 'Vitamin B6 (g)';
+  static const String vitaminB12 = 'Vitamin B12';
+  static const String vitaminB12Description = 'Vitamin B12 intake';
+  static const String vitaminB12G = 'Vitamin B12 (g)';
+  static const String vitaminC = 'Vitamin C';
+  static const String vitaminCDescription = 'Vitamin C intake';
+  static const String vitaminCG = 'Vitamin C (g)';
+  static const String vitaminD = 'Vitamin D';
+  static const String vitaminDDescription = 'Vitamin D intake';
+  static const String vitaminDG = 'Vitamin D (g)';
+  static const String vitaminE = 'Vitamin E';
+  static const String vitaminEDescription = 'Vitamin E intake';
+  static const String vitaminEG = 'Vitamin E (g)';
+  static const String vitaminK = 'Vitamin K';
+  static const String vitaminKDescription = 'Vitamin K intake';
+  static const String vitaminKG = 'Vitamin K (g)';
+  static const String thiamin = 'Thiamin';
+  static const String thiaminDescription = 'Thiamin intake';
+  static const String thiaminG = 'Thiamin (g)';
+  static const String riboflavin = 'Riboflavin';
+  static const String riboflavinDescription = 'Riboflavin intake';
+  static const String riboflavinG = 'Riboflavin (g)';
+  static const String niacin = 'Niacin';
+  static const String niacinDescription = 'Niacin intake';
+  static const String niacinG = 'Niacin (g)';
+  static const String folate = 'Folate';
+  static const String folateDescription = 'Folate intake';
+  static const String folateG = 'Folate (g)';
+  static const String biotin = 'Biotin';
+  static const String biotinDescription = 'Biotin intake';
+  static const String biotinG = 'Biotin (g)';
+  static const String pantothenicAcid = 'Pantothenic Acid';
+  static const String pantothenicAcidDescription = 'Pantothenic acid intake';
+  static const String pantothenicAcidG = 'Pantothenic Acid (g)';
+
+  // ==========================================================================
+  // Nutrient Validation Messages
+  // ==========================================================================
+  static const String pleaseEnterEnergy = 'Please enter energy';
+  static const String pleaseEnterCaffeine = 'Please enter caffeine';
+  static const String pleaseEnterProtein = 'Please enter protein';
+  static const String pleaseEnterTotalCarbohydrate =
+      'Please enter total carbohydrate';
+  static const String pleaseEnterTotalFat = 'Please enter total fat';
+  static const String pleaseEnterSaturatedFat = 'Please enter saturated fat';
+  static const String pleaseEnterMonounsaturatedFat =
+      'Please enter monounsaturated fat';
+  static const String pleaseEnterPolyunsaturatedFat =
+      'Please enter polyunsaturated fat';
+  static const String pleaseEnterCholesterol = 'Please enter cholesterol';
+  static const String pleaseEnterDietaryFiber = 'Please enter dietary fiber';
+  static const String pleaseEnterSugar = 'Please enter sugar';
+  static const String pleaseEnterCalcium = 'Please enter calcium';
+  static const String pleaseEnterIron = 'Please enter iron';
+  static const String pleaseEnterMagnesium = 'Please enter magnesium';
+  static const String pleaseEnterManganese = 'Please enter manganese';
+  static const String pleaseEnterPhosphorus = 'Please enter phosphorus';
+  static const String pleaseEnterPotassium = 'Please enter potassium';
+  static const String pleaseEnterSelenium = 'Please enter selenium';
+  static const String pleaseEnterSodium = 'Please enter sodium';
+  static const String pleaseEnterZinc = 'Please enter zinc';
+  static const String pleaseEnterVitaminA = 'Please enter vitamin A';
+  static const String pleaseEnterVitaminB6 = 'Please enter vitamin B6';
+  static const String pleaseEnterVitaminB12 = 'Please enter vitamin B12';
+  static const String pleaseEnterVitaminC = 'Please enter vitamin C';
+  static const String pleaseEnterVitaminD = 'Please enter vitamin D';
+  static const String pleaseEnterVitaminE = 'Please enter vitamin E';
+  static const String pleaseEnterVitaminK = 'Please enter vitamin K';
+  static const String pleaseEnterThiamin = 'Please enter thiamin';
+  static const String pleaseEnterRiboflavin = 'Please enter riboflavin';
+  static const String pleaseEnterNiacin = 'Please enter niacin';
+  static const String pleaseEnterFolate = 'Please enter folate';
+  static const String pleaseEnterBiotin = 'Please enter biotin';
+  static const String pleaseEnterPantothenicAcid =
+      'Please enter pantothenic acid';
+
+  // ==========================================================================
+  // Nutrient Write Permission Error Messages
+  // ==========================================================================
+  static const String writePermissionDeniedEnergyNutrient =
+      'Write permission denied for energy nutrient';
+  static const String writePermissionDeniedCaffeine =
+      'Write permission denied for caffeine';
+  static const String writePermissionDeniedProtein =
+      'Write permission denied for protein';
+  static const String writePermissionDeniedTotalCarbohydrate =
+      'Write permission denied for total carbohydrate';
+  static const String writePermissionDeniedTotalFat =
+      'Write permission denied for total fat';
+  static const String writePermissionDeniedSaturatedFat =
+      'Write permission denied for saturated fat';
+  static const String writePermissionDeniedMonounsaturatedFat =
+      'Write permission denied for monounsaturated fat';
+  static const String writePermissionDeniedPolyunsaturatedFat =
+      'Write permission denied for polyunsaturated fat';
+  static const String writePermissionDeniedCholesterol =
+      'Write permission denied for cholesterol';
+  static const String writePermissionDeniedDietaryFiber =
+      'Write permission denied for dietary fiber';
+  static const String writePermissionDeniedSugar =
+      'Write permission denied for sugar';
+  static const String writePermissionDeniedCalcium =
+      'Write permission denied for calcium';
+  static const String writePermissionDeniedIron =
+      'Write permission denied for iron';
+  static const String writePermissionDeniedMagnesium =
+      'Write permission denied for magnesium';
+  static const String writePermissionDeniedManganese =
+      'Write permission denied for manganese';
+  static const String writePermissionDeniedPhosphorus =
+      'Write permission denied for phosphorus';
+  static const String writePermissionDeniedPotassium =
+      'Write permission denied for potassium';
+  static const String writePermissionDeniedSelenium =
+      'Write permission denied for selenium';
+  static const String writePermissionDeniedSodium =
+      'Write permission denied for sodium';
+  static const String writePermissionDeniedZinc =
+      'Write permission denied for zinc';
+  static const String writePermissionDeniedVitaminA =
+      'Write permission denied for vitamin A';
+  static const String writePermissionDeniedVitaminB6 =
+      'Write permission denied for vitamin B6';
+  static const String writePermissionDeniedVitaminB12 =
+      'Write permission denied for vitamin B12';
+  static const String writePermissionDeniedVitaminC =
+      'Write permission denied for vitamin C';
+  static const String writePermissionDeniedVitaminD =
+      'Write permission denied for vitamin D';
+  static const String writePermissionDeniedVitaminE =
+      'Write permission denied for vitamin E';
+  static const String writePermissionDeniedVitaminK =
+      'Write permission denied for vitamin K';
+  static const String writePermissionDeniedThiamin =
+      'Write permission denied for thiamin';
+  static const String writePermissionDeniedRiboflavin =
+      'Write permission denied for riboflavin';
+  static const String writePermissionDeniedNiacin =
+      'Write permission denied for niacin';
+  static const String writePermissionDeniedFolate =
+      'Write permission denied for folate';
+  static const String writePermissionDeniedBiotin =
+      'Write permission denied for biotin';
+  static const String writePermissionDeniedPantothenicAcid =
+      'Write permission denied for pantothenic acid';
+  static const String writePermissionDeniedNutrition =
+      'Write permission denied for nutrition';
+
+  // ==========================================================================
+  // Nutrient Page Titles
+  // ==========================================================================
+  static const String insertEnergy = 'Insert Energy';
+  static const String insertCaffeine = 'Insert Caffeine';
+  static const String insertProtein = 'Insert Protein';
+  static const String insertTotalCarbohydrate = 'Insert Total Carbohydrate';
+  static const String insertTotalFat = 'Insert Total Fat';
+  static const String insertSaturatedFat = 'Insert Saturated Fat';
+  static const String insertMonounsaturatedFat = 'Insert Monounsaturated Fat';
+  static const String insertPolyunsaturatedFat = 'Insert Polyunsaturated Fat';
+  static const String insertCholesterol = 'Insert Cholesterol';
+  static const String insertDietaryFiber = 'Insert Dietary Fiber';
+  static const String insertSugar = 'Insert Sugar';
+  static const String insertCalcium = 'Insert Calcium';
+  static const String insertIron = 'Insert Iron';
+  static const String insertMagnesium = 'Insert Magnesium';
+  static const String insertManganese = 'Insert Manganese';
+  static const String insertPhosphorus = 'Insert Phosphorus';
+  static const String insertPotassium = 'Insert Potassium';
+  static const String insertSelenium = 'Insert Selenium';
+  static const String insertSodium = 'Insert Sodium';
+  static const String insertZinc = 'Insert Zinc';
+  static const String insertVitaminA = 'Insert Vitamin A';
+  static const String insertVitaminB6 = 'Insert Vitamin B6';
+  static const String insertVitaminB12 = 'Insert Vitamin B12';
+  static const String insertVitaminC = 'Insert Vitamin C';
+  static const String insertVitaminD = 'Insert Vitamin D';
+  static const String insertVitaminE = 'Insert Vitamin E';
+  static const String insertVitaminK = 'Insert Vitamin K';
+  static const String insertThiamin = 'Insert Thiamin';
+  static const String insertRiboflavin = 'Insert Riboflavin';
+  static const String insertNiacin = 'Insert Niacin';
+  static const String insertFolate = 'Insert Folate';
+  static const String insertBiotin = 'Insert Biotin';
+  static const String insertPantothenicAcid = 'Insert Pantothenic Acid';
+  static const String insertNutrition = 'Insert Nutrition';
+
+  // ==========================================================================
+  // Nutrition Form Field Labels
+  // ==========================================================================
+  static const String foodNameOptional = 'Food Name (optional)';
+  static const String foodNameOptionalHelper =
+      'Optional name of the food item';
+  static const String nutrientsAllOptional = 'Nutrients (all optional)';
+  static const String energyAndMacronutrients = 'Energy & Macronutrients';
+  static const String vitamins = 'Vitamins';
+  static const String minerals = 'Minerals';
+  static const String other = 'Other';
+  static const String energyKcalOptional = 'Energy (kcal, optional)';
+  static const String energyKcalHelper = 'Enter energy in kilocalories';
+  static const String fieldOptionalHelper = 'Enter value in';
+  static const String fieldOptional = '(optional)';
 }
