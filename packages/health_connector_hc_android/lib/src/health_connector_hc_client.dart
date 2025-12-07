@@ -433,8 +433,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         return null; // Record not found
       }
 
-      // Extract record based on data type using typed fields
-      final record = responseDto.toDomain<R>(request.dataType);
+      final record = responseDto.record?.toDomain() as R?;
 
       HealthConnectorLogger.info(
         _tag,

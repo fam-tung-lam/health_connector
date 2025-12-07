@@ -8,7 +8,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         MeasurementUnit;
 import 'package:health_connector_hk_ios/src/mappers/mappers.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
-    show AggregateResponseDto, ReadRecordResponseDto, ReadRecordsResponseDto;
+    show AggregateResponseDto, ReadRecordsResponseDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [ReadRecordsResponseDto] to [ReadRecordsResponse].
@@ -43,15 +43,5 @@ extension AggregateResponseDtoToDomain on AggregateResponseDto {
     U extends MeasurementUnit
   >(HealthDataType<R, U> dataType) {
     return AggregateResponse(value.toDomain() as U);
-  }
-}
-
-/// Converts [ReadRecordResponseDto] to [HealthRecord].
-@internal
-extension ReadRecordResponseDtoToDomain on ReadRecordResponseDto {
-  R? toDomain<R extends HealthRecord>(
-    HealthDataType<R, MeasurementUnit> dataType,
-  ) {
-    return record?.toDomain() as R?;
   }
 }
