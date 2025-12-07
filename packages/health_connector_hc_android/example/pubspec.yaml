@@ -9,8 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  health_connector_core: ^1.0.0
-  health_connector_hc_android: ^1.0.0
+  health_connector_core: ^1.1.0
+  health_connector_hc_android: ^1.1.0
 
 dev_dependencies:
   flutter_test:
