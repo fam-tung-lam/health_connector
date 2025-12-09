@@ -245,8 +245,10 @@ enum class PermissionStatusDto(val raw: Int) {
   DENIED(0),
   /** Permission has been explicitly granted by the user. */
   GRANTED(1),
+  /** Some component permissions are granted, others are denied or undetermined. */
+  PARTIALLY_GRANTED(2),
   /** The permission status cannot be determined. */
-  UNKNOWN(2);
+  UNKNOWN(3);
 
   companion object {
     fun ofRaw(raw: Int): PermissionStatusDto? {

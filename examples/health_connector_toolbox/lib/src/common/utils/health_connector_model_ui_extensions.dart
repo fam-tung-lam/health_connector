@@ -111,6 +111,7 @@ extension PermissionStatusUI on PermissionStatus {
     return switch (this) {
       PermissionStatus.granted => AppTexts.granted,
       PermissionStatus.denied => AppTexts.denied,
+      PermissionStatus.partiallyGranted => AppTexts.partiallyGranted,
       PermissionStatus.unknown => AppTexts.unknown,
     };
   }
