@@ -1,3 +1,7 @@
+## 1.2.0
+
+ - **FEAT**(health_connector_hk_ios): Add support for blood pressure records and data types. ([7c3d9525](https://github.com/fam-tung-lam/health_connector/commit/7c3d9525f880e13e893b7831c35185997b1b46cf))
+
 ## 1.1.0
 
  - **REFACTOR**: Simplify record extraction in clients and remove unused `ReadRecordResponseDto` extension. ([7303bfb0](https://github.com/fam-tung-lam/health_connector/commit/7303bfb0df6f7e87612e23e23732f2d2b694f961))

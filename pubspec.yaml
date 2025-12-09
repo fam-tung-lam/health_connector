@@ -51,6 +51,8 @@ melos:
       includeCommitId: true
       linkToCommits: true
 
+      updateGitTagRefs: false
+
       # Hooks to run before version commit
       hooks:
         preCommit: |
