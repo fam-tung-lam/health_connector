@@ -128,6 +128,13 @@ extension HealthDataPermissionDto {
         case .nutrition:
             // Nutrition is a correlation type (HKCorrelation.food)
             return HKCorrelationType.correlationType(forIdentifier: .food)!
+        case .bloodPressure:
+            // Blood pressure is a correlation type (HKCorrelation.bloodPressure)
+            return HKCorrelationType.correlationType(forIdentifier: .bloodPressure)!
+        case .systolicBloodPressure:
+            return HKQuantityType.quantityType(forIdentifier: .bloodPressureSystolic)!
+        case .diastolicBloodPressure:
+            return HKQuantityType.quantityType(forIdentifier: .bloodPressureDiastolic)!
         }
     }
 }

@@ -119,6 +119,13 @@ extension HealthDataTypeDto {
         case .nutrition:
             // Nutrition is a correlation type (HKCorrelation.food), not a quantity type
             fatalError("nutrition cannot be converted to HKQuantityType. Use HealthKitTypeRegistry.getSampleHandler() instead.")
+        case .bloodPressure:
+            // Blood pressure is a correlation type (HKCorrelation.bloodPressure), not a quantity type
+            fatalError("bloodPressure cannot be converted to HKQuantityType. Use HealthKitTypeRegistry.getSampleHandler() instead.")
+        case .systolicBloodPressure:
+            return HKQuantityType.quantityType(forIdentifier: .bloodPressureSystolic)!
+        case .diastolicBloodPressure:
+            return HKQuantityType.quantityType(forIdentifier: .bloodPressureDiastolic)!
         }
     }
 

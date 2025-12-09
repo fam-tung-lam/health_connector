@@ -1796,6 +1796,64 @@ internal class HealthConnectorClient {
                         )
                     )
                     return
+
+                case .bloodPressure:
+                    // Blood pressure (correlation) doesn't support aggregation
+                    // This case should never be reached as it's validated upstream
+                    continuation.resume(
+                        throwing: HealthConnectorErrors.invalidArgument(
+                            message: "Blood pressure records do not support aggregation"
+                        )
+                    )
+                    return
+
+                case .systolicBloodPressure:
+                    // For systolic blood pressure, we use discreteAverage, discreteMin, or discreteMax
+                    let systolicQuantity: HKQuantity?
+                    switch metric {
+                    case .avg:
+                        systolicQuantity = statistics.averageQuantity()
+                    case .min:
+                        systolicQuantity = statistics.minimumQuantity()
+                    case .max:
+                        systolicQuantity = statistics.maximumQuantity()
+                    default:
+                        systolicQuantity = nil
+                    }
+
+                    guard let quantity = systolicQuantity else {
+                        let emptyPressureDto = PressureDto(unit: .millimetersOfMercury, value: 0.0)
+                        let emptyResponse = AggregateResponseDto(value: emptyPressureDto)
+                        continuation.resume(returning: emptyResponse)
+                        return
+                    }
+
+                    let pressureDto = quantity.toPressureDto()
+                    response = AggregateResponseDto(value: pressureDto)
+
+                case .diastolicBloodPressure:
+                    // For diastolic blood pressure, we use discreteAverage, discreteMin, or discreteMax
+                    let diastolicQuantity: HKQuantity?
+                    switch metric {
+                    case .avg:
+                        diastolicQuantity = statistics.averageQuantity()
+                    case .min:
+                        diastolicQuantity = statistics.minimumQuantity()
+                    case .max:
+                        diastolicQuantity = statistics.maximumQuantity()
+                    default:
+                        diastolicQuantity = nil
+                    }
+
+                    guard let quantity = diastolicQuantity else {
+                        let emptyPressureDto = PressureDto(unit: .millimetersOfMercury, value: 0.0)
+                        let emptyResponse = AggregateResponseDto(value: emptyPressureDto)
+                        continuation.resume(returning: emptyResponse)
+                        return
+                    }
+
+                    let pressureDto = quantity.toPressureDto()
+                    response = AggregateResponseDto(value: pressureDto)
                 }
 
                 continuation.resume(returning: response)

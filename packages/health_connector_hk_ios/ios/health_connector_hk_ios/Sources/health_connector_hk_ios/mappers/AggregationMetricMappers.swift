@@ -173,6 +173,36 @@ extension AggregationMetricDto {
                 message: "Nutrition records do not support aggregation",
                 details: "Nutrition records are correlation types and do not support aggregation operations."
             )
+        case .bloodPressure:
+            // Blood pressure (correlation) does not support aggregation
+            throw HealthConnectorErrors.invalidArgument(
+                message: "Blood pressure records do not support aggregation",
+                details: "Blood pressure records are correlation types and do not support aggregation operations."
+            )
+        case .systolicBloodPressure:
+            switch self {
+            case .avg:
+                return .discreteAverage
+            case .min:
+                return .discreteMin
+            case .max:
+                return .discreteMax
+            case .sum, .count:
+                // SUM not meaningful for systolic blood pressure, COUNT requires reading records
+                return []
+            }
+        case .diastolicBloodPressure:
+            switch self {
+            case .avg:
+                return .discreteAverage
+            case .min:
+                return .discreteMin
+            case .max:
+                return .discreteMax
+            case .sum, .count:
+                // SUM not meaningful for diastolic blood pressure, COUNT requires reading records
+                return []
+            }
         }
     }
 
@@ -335,6 +365,36 @@ extension AggregationMetricDto {
                 message: "Nutrition records do not support aggregation",
                 details: "Nutrition records are correlation types and do not support aggregation operations."
             )
+        case .bloodPressure:
+            // Blood pressure (correlation) does not support aggregation
+            throw HealthConnectorErrors.invalidArgument(
+                message: "Blood pressure records do not support aggregation",
+                details: "Blood pressure records are correlation types and do not support aggregation operations."
+            )
+        case .systolicBloodPressure:
+            // Only AVG, MIN, MAX are supported for systolic blood pressure (matches Android Health Connect behavior)
+            switch self {
+            case .avg, .min, .max:
+                break // These are supported
+            case .sum, .count:
+                let metricName = String(describing: self)
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "\(metricName) not directly supported for systolicBloodPressure in HealthKit",
+                    details: "\(metricName) not directly supported for systolicBloodPressure in HealthKit."
+                )
+            }
+        case .diastolicBloodPressure:
+            // Only AVG, MIN, MAX are supported for diastolic blood pressure (matches Android Health Connect behavior)
+            switch self {
+            case .avg, .min, .max:
+                break // These are supported
+            case .sum, .count:
+                let metricName = String(describing: self)
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "\(metricName) not directly supported for diastolicBloodPressure in HealthKit",
+                    details: "\(metricName) not directly supported for diastolicBloodPressure in HealthKit."
+                )
+            }
         }
     }
 }

@@ -214,8 +214,10 @@ class HealthKitTypeRegistry {
 
         register(NutritionCorrelationHandler.self)
 
-        // Future correlation types:
-        // register(BloodPressureHandler.self)
+        // Blood pressure correlation and quantity handlers
+        register(BloodPressureHandler.self)
+        register(SystolicBloodPressureHandler.self)
+        register(DiastolicBloodPressureHandler.self)
 
         // MARK: Workout Types (Future Implementation)
 

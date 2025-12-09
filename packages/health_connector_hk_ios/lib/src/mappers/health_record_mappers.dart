@@ -1,8 +1,10 @@
 import 'package:health_connector_core/health_connector_core.dart'
     show
         ActiveCaloriesBurnedRecord,
+        BloodPressureRecord,
         BodyFatPercentageRecord,
         BodyTemperatureRecord,
+        DiastolicBloodPressureRecord,
         DistanceRecord,
         Energy,
         FloorsClimbedRecord,
@@ -18,9 +20,11 @@ import 'package:health_connector_core/health_connector_core.dart'
         Mass,
         Numeric,
         Percentage,
+        Pressure,
         SleepSessionRecord,
         SleepStageRecord,
         StepRecord,
+        SystolicBloodPressureRecord,
         Temperature,
         Volume,
         WeightRecord,
@@ -61,6 +65,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         FolateNutrientRecord,
         BiotinNutrientRecord,
         PantothenicAcidNutrientRecord;
+import 'package:health_connector_hk_ios/src/mappers/blood_pressure_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/meal_type_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/'
     'measurement_unit_mappers.dart';
@@ -69,11 +74,13 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api
     show
         ActiveCaloriesBurnedRecordDto,
         BiotinNutrientRecordDto,
+        BloodPressureRecordDto,
         BodyFatPercentageRecordDto,
         BodyTemperatureRecordDto,
         CaffeineNutrientRecordDto,
         CalciumNutrientRecordDto,
         CholesterolNutrientRecordDto,
+        DiastolicBloodPressureRecordDto,
         DietaryFiberNutrientRecordDto,
         DistanceRecordDto,
         EnergyDto,
@@ -100,6 +107,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api
         PhosphorusNutrientRecordDto,
         PolyunsaturatedFatNutrientRecordDto,
         PotassiumNutrientRecordDto,
+        PressureDto,
         ProteinNutrientRecordDto,
         RiboflavinNutrientRecordDto,
         SaturatedFatNutrientRecordDto,
@@ -109,6 +117,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api
         SodiumNutrientRecordDto,
         StepRecordDto,
         SugarNutrientRecordDto,
+        SystolicBloodPressureRecordDto,
         TemperatureDto,
         ThiaminNutrientRecordDto,
         TotalCarbohydrateNutrientRecordDto,
@@ -711,6 +720,33 @@ extension HealthRecordToDto on HealthRecord {
           'HeartRateSeriesRecord is not supported on iOS. '
           'Use HeartRateMeasurementRecord instead.',
         );
+      case final BloodPressureRecord record:
+        return BloodPressureRecordDto(
+          id: record.id.toDto(),
+          time: record.time.millisecondsSinceEpoch,
+          zoneOffsetSeconds: record.zoneOffsetSeconds,
+          metadata: record.metadata.toDto(),
+          systolic: record.systolic.toDto() as PressureDto,
+          diastolic: record.diastolic.toDto() as PressureDto,
+          bodyPosition: record.bodyPosition.toDto(),
+          measurementLocation: record.measurementLocation.toDto(),
+        );
+      case final SystolicBloodPressureRecord record:
+        return SystolicBloodPressureRecordDto(
+          id: record.id.toDto(),
+          time: record.time.millisecondsSinceEpoch,
+          zoneOffsetSeconds: record.zoneOffsetSeconds,
+          metadata: record.metadata.toDto(),
+          pressure: record.pressure.toDto() as PressureDto,
+        );
+      case final DiastolicBloodPressureRecord record:
+        return DiastolicBloodPressureRecordDto(
+          id: record.id.toDto(),
+          time: record.time.millisecondsSinceEpoch,
+          zoneOffsetSeconds: record.zoneOffsetSeconds,
+          metadata: record.metadata.toDto(),
+          pressure: record.pressure.toDto() as PressureDto,
+        );
     }
   }
 }
@@ -1250,6 +1286,36 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
           value: dto.value.toDomain() as Mass,
           foodName: dto.foodName,
           mealType: dto.mealType?.toDomain() ?? MealType.unknown,
+        );
+
+      case final BloodPressureRecordDto dto:
+        return BloodPressureRecord(
+          id: dto.id?.toDomain() ?? HealthRecordId.none,
+          time: DateTime.fromMillisecondsSinceEpoch(dto.time),
+          zoneOffsetSeconds: dto.zoneOffsetSeconds,
+          metadata: dto.metadata.toDomain(),
+          systolic: dto.systolic.toDomain() as Pressure,
+          diastolic: dto.diastolic.toDomain() as Pressure,
+          bodyPosition: dto.bodyPosition.toDomain(),
+          measurementLocation: dto.measurementLocation.toDomain(),
+        );
+
+      case final SystolicBloodPressureRecordDto dto:
+        return SystolicBloodPressureRecord(
+          id: dto.id?.toDomain() ?? HealthRecordId.none,
+          time: DateTime.fromMillisecondsSinceEpoch(dto.time),
+          zoneOffsetSeconds: dto.zoneOffsetSeconds,
+          metadata: dto.metadata.toDomain(),
+          pressure: dto.pressure.toDomain() as Pressure,
+        );
+
+      case final DiastolicBloodPressureRecordDto dto:
+        return DiastolicBloodPressureRecord(
+          id: dto.id?.toDomain() ?? HealthRecordId.none,
+          time: DateTime.fromMillisecondsSinceEpoch(dto.time),
+          zoneOffsetSeconds: dto.zoneOffsetSeconds,
+          metadata: dto.metadata.toDomain(),
+          pressure: dto.pressure.toDomain() as Pressure,
         );
     }
   }

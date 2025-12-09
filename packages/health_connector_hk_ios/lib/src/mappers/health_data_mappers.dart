@@ -51,7 +51,10 @@ import 'package:health_connector_core/health_connector_core.dart'
         NiacinNutrientDataType,
         FolateNutrientDataType,
         BiotinNutrientDataType,
-        PantothenicAcidNutrientDataType;
+        PantothenicAcidNutrientDataType,
+        BloodPressureHealthDataType,
+        SystolicBloodPressureHealthDataType,
+        DiastolicBloodPressureHealthDataType;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
     show HealthDataTypeDto;
 import 'package:meta/meta.dart' show internal;
@@ -161,6 +164,14 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.zinc;
       case HealthDataTypeDto.nutrition:
         return HealthDataType.nutrition;
+
+      // Blood pressure types
+      case HealthDataTypeDto.bloodPressure:
+        return HealthDataType.bloodPressure;
+      case HealthDataTypeDto.systolicBloodPressure:
+        return HealthDataType.systolicBloodPressure;
+      case HealthDataTypeDto.diastolicBloodPressure:
+        return HealthDataType.diastolicBloodPressure;
     }
   }
 }
@@ -282,6 +293,14 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$HeartRateSeriesRecordHealthDataType is not supported on iOS. '
           'Use $HeartRateMeasurementRecordHealthDataType instead.',
         );
+
+      // Blood pressure types
+      case BloodPressureHealthDataType _:
+        return HealthDataTypeDto.bloodPressure;
+      case SystolicBloodPressureHealthDataType _:
+        return HealthDataTypeDto.systolicBloodPressure;
+      case DiastolicBloodPressureHealthDataType _:
+        return HealthDataTypeDto.diastolicBloodPressure;
     }
   }
 }
