@@ -1,0 +1,120 @@
+part of '../health_data_type.dart';
+
+/// Health data type for diastolic blood pressure measurements.
+///
+/// This data type represents the diastolic (lower) blood pressure value only.
+/// Supports AVG, MIN, MAX aggregation.
+@sinceV1_2_0
+@immutable
+final class DiastolicBloodPressureHealthDataType
+    extends HealthDataType<DiastolicBloodPressureRecord, Pressure>
+    implements
+        ReadableHealthDataType<DiastolicBloodPressureRecord>,
+        WriteableHealthDataType,
+        AvgAggregatableHealthDataType<DiastolicBloodPressureRecord, Pressure>,
+        MinAggregatableHealthDataType<DiastolicBloodPressureRecord, Pressure>,
+        MaxAggregatableHealthDataType<DiastolicBloodPressureRecord, Pressure> {
+  @internal
+  const DiastolicBloodPressureHealthDataType();
+
+  @override
+  String get identifier => 'diastolic_blood_pressure';
+
+  @override
+  String get name => identifier;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is DiastolicBloodPressureHealthDataType &&
+          runtimeType == other.runtimeType &&
+          identifier == other.identifier;
+
+  @override
+  int get hashCode => identifier.hashCode;
+
+  @override
+  String toString() => 'diastolic_blood_pressure_data_type';
+
+  @override
+  List<AggregationMetric> get supportedAggregationMetrics => [
+    AggregationMetric.avg,
+    AggregationMetric.min,
+    AggregationMetric.max,
+  ];
+
+  @override
+  HealthDataPermission get readPermission => HealthDataPermission(
+    dataType: this,
+    accessType: HealthDataPermissionAccessType.read,
+  );
+
+  @override
+  ReadRecordRequest<DiastolicBloodPressureRecord> readRecord(
+    HealthRecordId id,
+  ) {
+    return ReadRecordRequest(dataType: this, id: id);
+  }
+
+  @override
+  ReadRecordsRequest<DiastolicBloodPressureRecord> readRecords({
+    required DateTime startTime,
+    required DateTime endTime,
+    int pageSize = HealthConnectorConfigConstants.defaultPageSize,
+  }) {
+    return ReadRecordsRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+      pageSize: pageSize,
+    );
+  }
+
+  @override
+  HealthDataPermission get writePermission => HealthDataPermission(
+    dataType: this,
+    accessType: HealthDataPermissionAccessType.write,
+  );
+
+  @override
+  AggregateRequest<DiastolicBloodPressureRecord, Pressure> aggregateAverage({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return AggregateRequest(
+      dataType: this,
+      aggregationMetric: AggregationMetric.avg,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  AggregateRequest<DiastolicBloodPressureRecord, Pressure> aggregateMin({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return AggregateRequest(
+      dataType: this,
+      aggregationMetric: AggregationMetric.min,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  AggregateRequest<DiastolicBloodPressureRecord, Pressure> aggregateMax({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return AggregateRequest(
+      dataType: this,
+      aggregationMetric: AggregationMetric.max,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  List<Permission> get permissions => [readPermission, writePermission];
+}

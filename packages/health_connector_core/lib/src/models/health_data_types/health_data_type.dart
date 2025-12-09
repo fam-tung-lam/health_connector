@@ -6,7 +6,8 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
         supportedOnHealthConnect,
         supportedOnAppleHealth,
         availableOnAppleHealth,
-        sinceV1_1_0;
+        sinceV1_1_0,
+        sinceV1_2_0;
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
     show HealthConnectorConfigConstants;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';
@@ -18,11 +19,13 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
     show
         ActiveCaloriesBurnedRecord,
         BiotinNutrientRecord,
+        BloodPressureRecord,
         BodyFatPercentageRecord,
         BodyTemperatureRecord,
         CaffeineNutrientRecord,
         CalciumNutrientRecord,
         CholesterolNutrientRecord,
+        DiastolicBloodPressureRecord,
         DietaryFiberNutrientRecord,
         DistanceRecord,
         EnergyNutrientRecord,
@@ -54,6 +57,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         SodiumNutrientRecord,
         StepRecord,
         SugarNutrientRecord,
+        SystolicBloodPressureRecord,
         ThiaminNutrientRecord,
         TotalCarbohydrateNutrientRecord,
         TotalFatNutrientRecord,
@@ -75,6 +79,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
         MeasurementUnit,
         Numeric,
         Percentage,
+        Pressure,
         Temperature,
         Volume;
 import 'package:health_connector_core/src/models/permissions/permission.dart'
@@ -90,6 +95,9 @@ import 'package:health_connector_core/src/models/requests/read_records_request.d
 import 'package:meta/meta.dart' show immutable, internal;
 
 part 'active_calories_burned_health_data_type.dart';
+part 'blood_pressure_health_data_types/blood_pressure_health_data_type.dart';
+part 'blood_pressure_health_data_types/diastolic_blood_pressure_health_data_type.dart';
+part 'blood_pressure_health_data_types/systolic_blood_pressure_health_data_type.dart';
 part 'body_fat_percentage_health_data_type.dart';
 part 'body_temperature_health_data_type.dart';
 part 'distance_health_data_type.dart';
@@ -202,6 +210,24 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Represents the user's body weight measurements. Supports both reading
   /// existing weight data and writing new weight measurements.
   static const weight = WeightHealthDataType();
+
+  /// Blood pressure data type (composite).
+  ///
+  /// Represents a composite blood pressure measurement with both systolic
+  /// and diastolic values. Does not support aggregation.
+  static const bloodPressure = BloodPressureHealthDataType();
+
+  /// Systolic blood pressure data type.
+  ///
+  /// Represents the systolic (upper) blood pressure value.
+  /// Supports AVG, MIN, MAX aggregation.
+  static const systolicBloodPressure = SystolicBloodPressureHealthDataType();
+
+  /// Diastolic blood pressure data type.
+  ///
+  /// Represents the diastolic (lower) blood pressure value.
+  /// Supports AVG, MIN, MAX aggregation.
+  static const diastolicBloodPressure = DiastolicBloodPressureHealthDataType();
 
   /// Body fat percentage data type.
   ///
@@ -547,11 +573,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   static const List<HealthDataType<HealthRecord, MeasurementUnit>> values = [
     activeCaloriesBurned,
     biotin,
+    bloodPressure,
     bodyFatPercentage,
     bodyTemperature,
     caffeine,
     calcium,
     cholesterol,
+    diastolicBloodPressure,
     dietaryFiber,
     distance,
     energyNutrient,
@@ -581,6 +609,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     sodium,
     steps,
     sugar,
+    systolicBloodPressure,
     thiamin,
     totalCarbohydrate,
     totalFat,

@@ -18,6 +18,8 @@ export 'src/models/health_data_types/health_data_type.dart'
 export 'src/models/health_platform.dart';
 // Models - Health Platform Features
 export 'src/models/health_platform_features/health_platform_feature.dart';
+export 'src/models/health_records/blood_pressure_records/blood_pressure_body_position.dart';
+export 'src/models/health_records/blood_pressure_records/blood_pressure_measurement_location.dart';
 // Models - Health Records
 export 'src/models/health_records/health_record.dart'
     hide MacronutrientRecord, MineralNutrientRecord, VitaminNutrientRecord;

@@ -4,6 +4,7 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
     show
         PlatformSpecificBehaviors,
         sinceV1_0_0,
+        sinceV1_2_0,
         supportedOnAppleHealth,
         supportedOnHealthConnect;
 import 'package:health_connector_core/src/annotations/internal_use.dart';
@@ -11,6 +12,10 @@ import 'package:health_connector_core/src/models/health_platform.dart'
     show HealthPlatform;
 import 'package:health_connector_core/src/models/health_platform_data.dart'
     show HealthPlatformData;
+import 'package:health_connector_core/src/models/health_records/blood_pressure_records/blood_pressure_body_position.dart'
+    show BloodPressureBodyPosition;
+import 'package:health_connector_core/src/models/health_records/blood_pressure_records/blood_pressure_measurement_location.dart'
+    show BloodPressureMeasurementLocation;
 import 'package:health_connector_core/src/models/health_records/heart_rate_measurement.dart'
     show HeartRateMeasurement;
 import 'package:health_connector_core/src/models/health_records/sleep_stage_type.dart'
@@ -23,6 +28,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
         MeasurementUnit,
         Numeric,
         Percentage,
+        Pressure,
         Temperature,
         Volume;
 import 'package:health_connector_core/src/models/metadata/metadata.dart'
@@ -34,6 +40,9 @@ import 'package:health_connector_core/src/utils/validation.dart' show require;
 import 'package:meta/meta.dart' show immutable, internal;
 
 part 'active_calories_burned_record.dart';
+part 'blood_pressure_records/blood_pressure_record.dart';
+part 'blood_pressure_records/diastolic_blood_pressure_record.dart';
+part 'blood_pressure_records/systolic_blood_pressure_record.dart';
 part 'body_fat_percentage_record.dart';
 part 'body_temperature_record.dart';
 part 'distance_record.dart';
