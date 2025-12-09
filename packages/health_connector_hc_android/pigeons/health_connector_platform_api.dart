@@ -263,6 +263,42 @@ enum MealTypeDto {
   snack,
 }
 
+/// Body position during blood pressure measurement.
+enum BodyPositionDto {
+  /// Unknown body position.
+  unknown,
+
+  /// Standing up.
+  standingUp,
+
+  /// Sitting down.
+  sittingDown,
+
+  /// Lying down.
+  lyingDown,
+
+  /// Reclining.
+  reclining,
+}
+
+/// Measurement location for blood pressure reading.
+enum MeasurementLocationDto {
+  /// Unknown location.
+  unknown,
+
+  /// Left wrist.
+  leftWrist,
+
+  /// Right wrist.
+  rightWrist,
+
+  /// Left upper arm.
+  leftUpperArm,
+
+  /// Right upper arm.
+  rightUpperArm,
+}
+
 // endregion
 
 // region Metadata
@@ -510,6 +546,19 @@ enum HealthDataTypeDto {
   nutrition,
 
   // endregion
+
+  // region Blood Pressure
+
+  /// Composite blood pressure data (systolic + diastolic).
+  bloodPressure,
+
+  /// Systolic blood pressure data.
+  systolicBloodPressure,
+
+  /// Diastolic blood pressure data.
+  diastolicBloodPressure,
+
+  // endregion
 }
 
 /// Represents an active calories burned record for platform transfer.
@@ -703,6 +752,96 @@ class WeightRecordDto extends HealthRecordDto {
 
   /// Weight measurement.
   final MassDto weight;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// Represents a composite blood pressure record for platform transfer.
+class BloodPressureRecordDto extends HealthRecordDto {
+  BloodPressureRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.systolic,
+    required this.diastolic,
+    required this.bodyPosition,
+    required this.measurementLocation,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Systolic blood pressure measurement.
+  final PressureDto systolic;
+
+  /// Diastolic blood pressure measurement.
+  final PressureDto diastolic;
+
+  /// Body position during measurement.
+  final BodyPositionDto bodyPosition;
+
+  /// Location where measurement was taken.
+  final MeasurementLocationDto measurementLocation;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// Represents a systolic blood pressure record for platform transfer.
+class SystolicBloodPressureRecordDto extends HealthRecordDto {
+  SystolicBloodPressureRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.pressure,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Systolic blood pressure measurement.
+  final PressureDto pressure;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// Represents a diastolic blood pressure record for platform transfer.
+class DiastolicBloodPressureRecordDto extends HealthRecordDto {
+  DiastolicBloodPressureRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.pressure,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Diastolic blood pressure measurement.
+  final PressureDto pressure;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;

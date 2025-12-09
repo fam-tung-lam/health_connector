@@ -1,11 +1,13 @@
 package com.phamtunglam.health_connector_hc_android.mappers
 
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
+import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
 import androidx.health.connect.client.records.DistanceRecord
 import androidx.health.connect.client.records.FloorsClimbedRecord
 import androidx.health.connect.client.records.HeartRateRecord
+import androidx.health.connect.client.records.HeartRateRecord.Sample
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
@@ -15,10 +17,14 @@ import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
+import androidx.health.connect.client.units.Pressure
 import androidx.health.connect.client.units.Temperature
 import com.phamtunglam.health_connector_hc_android.pigeon.ActiveCaloriesBurnedRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyFatPercentageRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BodyPositionDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyTemperatureRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.DiastolicBloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DistanceRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.FloorsClimbedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
@@ -28,11 +34,13 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSeriesRecordD
 import com.phamtunglam.health_connector_hc_android.pigeon.HeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.LeanBodyMassRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementLocationDto
 import com.phamtunglam.health_connector_hc_android.pigeon.NutritionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepStageDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepStageTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.SystolicBloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecordDto
 import java.time.Instant
@@ -64,6 +72,11 @@ internal val HealthRecordDto.id: String?
         is WheelchairPushesRecordDto -> id
         is HeartRateSeriesRecordDto -> id
         is SleepSessionRecordDto -> id
+
+        // Blood pressure records
+        is BloodPressureRecordDto -> id
+        is SystolicBloodPressureRecordDto -> id
+        is DiastolicBloodPressureRecordDto -> id
 
         // Unified nutrition record
         is NutritionRecordDto -> id
@@ -400,7 +413,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record {
 
         is HeartRateSeriesRecordDto -> HeartRateRecord(
             samples = samples.map { sample ->
-                HeartRateRecord.Sample(
+                Sample(
                     time = Instant.ofEpochMilli(sample.time),
                     beatsPerMinute = sample.beatsPerMinute.value.toLong()
                 )
@@ -854,6 +867,10 @@ internal fun HealthRecordDto.toHealthConnect(): Record {
                 else -> throw IllegalArgumentException("Unsupported healthDataType for NutritionRecordDto: $healthDataType")
             }
         }
+
+        is BloodPressureRecordDto -> toHealthConnect()
+        is DiastolicBloodPressureRecordDto -> toHealthConnect()
+        is SystolicBloodPressureRecordDto -> toHealthConnect()
     }
 }
 
@@ -882,7 +899,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record {
 internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): HealthRecordDto? {
     return when (nutrientType) {
         HealthDataTypeDto.ENERGY_NUTRIENT -> {
-            val energyDto = energy?.toDto() ?: return null;
+            val energyDto = energy?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -899,7 +916,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.CAFFEINE -> {
-            val caffeineDto = caffeine?.toDto() ?: return null;
+            val caffeineDto = caffeine?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -916,7 +933,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.PROTEIN -> {
-            val proteinDto = protein?.toDto() ?: return null;
+            val proteinDto = protein?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -933,7 +950,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.TOTAL_CARBOHYDRATE -> {
-            val totalCarbohydrateDto = totalCarbohydrate?.toDto() ?: return null;
+            val totalCarbohydrateDto = totalCarbohydrate?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -950,7 +967,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.TOTAL_FAT -> {
-            val totalFatDto = totalFat?.toDto() ?: return null;
+            val totalFatDto = totalFat?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -967,7 +984,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.SATURATED_FAT -> {
-            val saturatedFatDto = saturatedFat?.toDto() ?: return null;
+            val saturatedFatDto = saturatedFat?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -984,7 +1001,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.MONOUNSATURATED_FAT -> {
-            val monounsaturatedFatDto = monounsaturatedFat?.toDto() ?: return null;
+            val monounsaturatedFatDto = monounsaturatedFat?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1001,7 +1018,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.POLYUNSATURATED_FAT -> {
-            val polyunsaturatedFatDto = polyunsaturatedFat?.toDto() ?: return null;
+            val polyunsaturatedFatDto = polyunsaturatedFat?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1018,7 +1035,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.CHOLESTEROL -> {
-            val cholesterolDto = cholesterol?.toDto() ?: return null;
+            val cholesterolDto = cholesterol?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1035,7 +1052,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.DIETARY_FIBER -> {
-            val dietaryFiberDto = dietaryFiber?.toDto() ?: return null;
+            val dietaryFiberDto = dietaryFiber?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1052,7 +1069,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.SUGAR -> {
-            val sugarDto = sugar?.toDto() ?: return null;
+            val sugarDto = sugar?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1069,7 +1086,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.VITAMIN_A -> {
-            val vitaminADto = vitaminA?.toDto() ?: return null;
+            val vitaminADto = vitaminA?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1086,7 +1103,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.VITAMIN_B6 -> {
-            val vitaminB6Dto = vitaminB6?.toDto() ?: return null;
+            val vitaminB6Dto = vitaminB6?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1103,7 +1120,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.VITAMIN_B12 -> {
-            val vitaminB12Dto = vitaminB12?.toDto() ?: return null;
+            val vitaminB12Dto = vitaminB12?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1120,7 +1137,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.VITAMIN_C -> {
-            val vitaminCDto = vitaminC?.toDto() ?: return null;
+            val vitaminCDto = vitaminC?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1137,7 +1154,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.VITAMIN_D -> {
-            val vitaminDDto = vitaminD?.toDto() ?: return null;
+            val vitaminDDto = vitaminD?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1154,7 +1171,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.VITAMIN_E -> {
-            val vitaminEDto = vitaminE?.toDto() ?: return null;
+            val vitaminEDto = vitaminE?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1171,7 +1188,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.VITAMIN_K -> {
-            val vitaminKDto = vitaminK?.toDto() ?: return null;
+            val vitaminKDto = vitaminK?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1188,7 +1205,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.THIAMIN -> {
-            val thiaminDto = thiamin?.toDto() ?: return null;
+            val thiaminDto = thiamin?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1205,7 +1222,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.RIBOFLAVIN -> {
-            val riboflavinDto = riboflavin?.toDto() ?: return null;
+            val riboflavinDto = riboflavin?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1222,7 +1239,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.NIACIN -> {
-            val niacinDto = niacin?.toDto() ?: return null;
+            val niacinDto = niacin?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1239,7 +1256,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.FOLATE -> {
-            val folateDto = folate?.toDto() ?: return null;
+            val folateDto = folate?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1256,7 +1273,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.BIOTIN -> {
-            val biotinDto = biotin?.toDto() ?: return null;
+            val biotinDto = biotin?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1273,7 +1290,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.PANTOTHENIC_ACID -> {
-            val pantothenicAcidDto = pantothenicAcid?.toDto() ?: return null;
+            val pantothenicAcidDto = pantothenicAcid?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1290,7 +1307,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.CALCIUM -> {
-            val calciumDto = calcium?.toDto() ?: return null;
+            val calciumDto = calcium?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1307,7 +1324,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.IRON -> {
-            val ironDto = iron?.toDto() ?: return null;
+            val ironDto = iron?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1324,7 +1341,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.MAGNESIUM -> {
-            val magnesiumDto = magnesium?.toDto() ?: return null;
+            val magnesiumDto = magnesium?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1341,7 +1358,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.MANGANESE -> {
-            val manganeseDto = manganese?.toDto() ?: return null;
+            val manganeseDto = manganese?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1358,7 +1375,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.PHOSPHORUS -> {
-            val phosphorusDto = phosphorus?.toDto() ?: return null;
+            val phosphorusDto = phosphorus?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1375,7 +1392,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.POTASSIUM -> {
-            val potassiumDto = potassium?.toDto() ?: return null;
+            val potassiumDto = potassium?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1392,7 +1409,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.SELENIUM -> {
-            val seleniumDto = selenium?.toDto() ?: return null;
+            val seleniumDto = selenium?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1409,7 +1426,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.SODIUM -> {
-            val sodiumDto = sodium?.toDto() ?: return null;
+            val sodiumDto = sodium?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1426,7 +1443,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
         }
 
         HealthDataTypeDto.ZINC -> {
-            val zincDto = zinc?.toDto() ?: return null;
+            val zincDto = zinc?.toDto() ?: return null
 
             NutritionRecordDto(
                 id = metadata.id,
@@ -1497,3 +1514,150 @@ internal fun NutritionRecord.toDto(): NutritionRecordDto {
         caffeine = caffeine?.toDto(),
     )
 }
+
+// region Blood Pressure Mappers
+
+/**
+ * Converts a BodyPositionDto to the Health Connect BloodPressureRecord.BodyPosition.
+ */
+internal fun BodyPositionDto.toHealthConnect(): Int {
+    return when (this) {
+        BodyPositionDto.UNKNOWN -> BloodPressureRecord.BODY_POSITION_UNKNOWN
+        BodyPositionDto.STANDING_UP -> BloodPressureRecord.BODY_POSITION_STANDING_UP
+        BodyPositionDto.SITTING_DOWN -> BloodPressureRecord.BODY_POSITION_SITTING_DOWN
+        BodyPositionDto.LYING_DOWN -> BloodPressureRecord.BODY_POSITION_LYING_DOWN
+        BodyPositionDto.RECLINING -> BloodPressureRecord.BODY_POSITION_RECLINING
+    }
+}
+
+/**
+ * Converts Health Connect body position int to BodyPositionDto.
+ */
+internal fun Int.toBodyPositionDto(): BodyPositionDto {
+    return when (this) {
+        BloodPressureRecord.BODY_POSITION_STANDING_UP -> BodyPositionDto.STANDING_UP
+        BloodPressureRecord.BODY_POSITION_SITTING_DOWN -> BodyPositionDto.SITTING_DOWN
+        BloodPressureRecord.BODY_POSITION_LYING_DOWN -> BodyPositionDto.LYING_DOWN
+        BloodPressureRecord.BODY_POSITION_RECLINING -> BodyPositionDto.RECLINING
+        else -> BodyPositionDto.UNKNOWN
+    }
+}
+
+/**
+ * Converts a MeasurementLocationDto to the Health Connect BloodPressureRecord.MeasurementLocation.
+ */
+internal fun MeasurementLocationDto.toHealthConnect(): Int {
+    return when (this) {
+        MeasurementLocationDto.UNKNOWN -> BloodPressureRecord.MEASUREMENT_LOCATION_UNKNOWN
+        MeasurementLocationDto.LEFT_WRIST -> BloodPressureRecord.MEASUREMENT_LOCATION_LEFT_WRIST
+        MeasurementLocationDto.RIGHT_WRIST -> BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_WRIST
+        MeasurementLocationDto.LEFT_UPPER_ARM -> BloodPressureRecord.MEASUREMENT_LOCATION_LEFT_UPPER_ARM
+        MeasurementLocationDto.RIGHT_UPPER_ARM -> BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_UPPER_ARM
+    }
+}
+
+/**
+ * Converts Health Connect measurement location int to MeasurementLocationDto.
+ */
+internal fun Int.toMeasurementLocationDto(): MeasurementLocationDto {
+    return when (this) {
+        BloodPressureRecord.MEASUREMENT_LOCATION_LEFT_WRIST -> MeasurementLocationDto.LEFT_WRIST
+        BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_WRIST -> MeasurementLocationDto.RIGHT_WRIST
+        BloodPressureRecord.MEASUREMENT_LOCATION_LEFT_UPPER_ARM -> MeasurementLocationDto.LEFT_UPPER_ARM
+        BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_UPPER_ARM -> MeasurementLocationDto.RIGHT_UPPER_ARM
+        else -> MeasurementLocationDto.UNKNOWN
+    }
+}
+
+/**
+ * Converts a Health Connect [BloodPressureRecord] to a [BloodPressureRecordDto].
+ */
+internal fun BloodPressureRecord.toDto(): BloodPressureRecordDto {
+    return BloodPressureRecordDto(
+        id = metadata.id,
+        time = time.toEpochMilli(),
+        zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
+        metadata = metadata.toDto(),
+        systolic = systolic.toDto(),
+        diastolic = diastolic.toDto(),
+        bodyPosition = bodyPosition.toBodyPositionDto(),
+        measurementLocation = measurementLocation.toMeasurementLocationDto()
+    )
+}
+
+/**
+ * Converts a Health Connect [BloodPressureRecord] to a [SystolicBloodPressureRecordDto].
+ * Used for reading systolic-only data.
+ */
+internal fun BloodPressureRecord.toSystolicDto(): SystolicBloodPressureRecordDto {
+    return SystolicBloodPressureRecordDto(
+        id = metadata.id,
+        time = time.toEpochMilli(),
+        zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
+        metadata = metadata.toDto(),
+        pressure = systolic.toDto()
+    )
+}
+
+/**
+ * Converts a Health Connect [BloodPressureRecord] to a [DiastolicBloodPressureRecordDto].
+ * Used for reading diastolic-only data.
+ */
+internal fun BloodPressureRecord.toDiastolicDto(): DiastolicBloodPressureRecordDto {
+    return DiastolicBloodPressureRecordDto(
+        id = metadata.id,
+        time = time.toEpochMilli(),
+        zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
+        metadata = metadata.toDto(),
+        pressure = diastolic.toDto()
+    )
+}
+
+/**
+ * Converts a [BloodPressureRecordDto] to a Health Connect [BloodPressureRecord].
+ */
+internal fun BloodPressureRecordDto.toHealthConnect(): BloodPressureRecord {
+    return BloodPressureRecord(
+        time = Instant.ofEpochMilli(time),
+        zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+        systolic = systolic.toHealthConnect(),
+        diastolic = diastolic.toHealthConnect(),
+        bodyPosition = bodyPosition.toHealthConnect(),
+        measurementLocation = measurementLocation.toHealthConnect(),
+        metadata = metadata.toHealthConnect()
+    )
+}
+
+/**
+ * Converts a [SystolicBloodPressureRecordDto] to a Health Connect [BloodPressureRecord].
+ * Creates a record with diastolic set to 0 mmHg.
+ */
+internal fun SystolicBloodPressureRecordDto.toHealthConnect(): BloodPressureRecord {
+    return BloodPressureRecord(
+        time = Instant.ofEpochMilli(time),
+        zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+        systolic = pressure.toHealthConnect(),
+        diastolic = Pressure.millimetersOfMercury(0.0),
+        bodyPosition = BloodPressureRecord.BODY_POSITION_UNKNOWN,
+        measurementLocation = BloodPressureRecord.MEASUREMENT_LOCATION_UNKNOWN,
+        metadata = metadata.toHealthConnect()
+    )
+}
+
+/**
+ * Converts a [DiastolicBloodPressureRecordDto] to a Health Connect [BloodPressureRecord].
+ * Creates a record with systolic set to 0 mmHg.
+ */
+internal fun DiastolicBloodPressureRecordDto.toHealthConnect(): BloodPressureRecord {
+    return BloodPressureRecord(
+        time = Instant.ofEpochMilli(time),
+        zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+        systolic = Pressure.millimetersOfMercury(0.0),
+        diastolic = pressure.toHealthConnect(),
+        bodyPosition = BloodPressureRecord.BODY_POSITION_UNKNOWN,
+        measurementLocation = BloodPressureRecord.MEASUREMENT_LOCATION_UNKNOWN,
+        metadata = metadata.toHealthConnect()
+    )
+}
+
+// endregion

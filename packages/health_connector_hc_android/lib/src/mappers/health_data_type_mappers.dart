@@ -51,7 +51,10 @@ import 'package:health_connector_core/health_connector_core.dart'
         VitaminKNutrientDataType,
         WeightHealthDataType,
         WheelchairPushesHealthDataType,
-        ZincNutrientDataType;
+        ZincNutrientDataType,
+        BloodPressureHealthDataType,
+        SystolicBloodPressureHealthDataType,
+        DiastolicBloodPressureHealthDataType;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_platform_api.g.dart'
     show HealthDataTypeDto;
 import 'package:meta/meta.dart' show internal;
@@ -159,6 +162,14 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
       // Combined nutrition record
       case HealthDataTypeDto.nutrition:
         return HealthDataType.nutrition;
+
+      // Blood pressure types
+      case HealthDataTypeDto.bloodPressure:
+        return HealthDataType.bloodPressure;
+      case HealthDataTypeDto.systolicBloodPressure:
+        return HealthDataType.systolicBloodPressure;
+      case HealthDataTypeDto.diastolicBloodPressure:
+        return HealthDataType.diastolicBloodPressure;
     }
   }
 }
@@ -277,6 +288,14 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$HeartRateMeasurementRecordHealthDataType is not supported on '
           'Android. Use $HeartRateSeriesRecordHealthDataType instead.',
         );
+
+      // Blood pressure types
+      case BloodPressureHealthDataType _:
+        return HealthDataTypeDto.bloodPressure;
+      case SystolicBloodPressureHealthDataType _:
+        return HealthDataTypeDto.systolicBloodPressure;
+      case DiastolicBloodPressureHealthDataType _:
+        return HealthDataTypeDto.diastolicBloodPressure;
     }
   }
 }

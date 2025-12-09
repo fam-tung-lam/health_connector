@@ -88,7 +88,7 @@ internal class NutrientHandler(
             HealthDataTypeDto.SELENIUM -> NutritionRecord.SELENIUM_TOTAL
             HealthDataTypeDto.SODIUM -> NutritionRecord.SODIUM_TOTAL
             HealthDataTypeDto.ZINC -> NutritionRecord.ZINC_TOTAL
-            HealthDataTypeDto.ACTIVE_CALORIES_BURNED, HealthDataTypeDto.DISTANCE, HealthDataTypeDto.FLOORS_CLIMBED, HealthDataTypeDto.STEPS, HealthDataTypeDto.WEIGHT, HealthDataTypeDto.HEIGHT, HealthDataTypeDto.BODY_FAT_PERCENTAGE, HealthDataTypeDto.BODY_TEMPERATURE, HealthDataTypeDto.LEAN_BODY_MASS, HealthDataTypeDto.WHEELCHAIR_PUSHES, HealthDataTypeDto.HYDRATION, HealthDataTypeDto.HEART_RATE_SERIES_RECORD, HealthDataTypeDto.SLEEP_SESSION, HealthDataTypeDto.NUTRITION -> throw IllegalArgumentException(
+            HealthDataTypeDto.ACTIVE_CALORIES_BURNED, HealthDataTypeDto.DISTANCE, HealthDataTypeDto.FLOORS_CLIMBED, HealthDataTypeDto.STEPS, HealthDataTypeDto.WEIGHT, HealthDataTypeDto.HEIGHT, HealthDataTypeDto.BODY_FAT_PERCENTAGE, HealthDataTypeDto.BODY_TEMPERATURE, HealthDataTypeDto.LEAN_BODY_MASS, HealthDataTypeDto.WHEELCHAIR_PUSHES, HealthDataTypeDto.HYDRATION, HealthDataTypeDto.HEART_RATE_SERIES_RECORD, HealthDataTypeDto.SLEEP_SESSION, HealthDataTypeDto.NUTRITION, HealthDataTypeDto.BLOOD_PRESSURE, HealthDataTypeDto.SYSTOLIC_BLOOD_PRESSURE, HealthDataTypeDto.DIASTOLIC_BLOOD_PRESSURE -> throw IllegalArgumentException(
                 "$nutrientType not nutrient data type."
             )
         }
