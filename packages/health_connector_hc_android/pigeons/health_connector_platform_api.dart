@@ -547,18 +547,8 @@ enum HealthDataTypeDto {
 
   // endregion
 
-  // region Blood Pressure
-
   /// Composite blood pressure data (systolic + diastolic).
   bloodPressure,
-
-  /// Systolic blood pressure data.
-  systolicBloodPressure,
-
-  /// Diastolic blood pressure data.
-  diastolicBloodPressure,
-
-  // endregion
 }
 
 /// Represents an active calories burned record for platform transfer.
@@ -790,58 +780,6 @@ class BloodPressureRecordDto extends HealthRecordDto {
 
   /// Location where measurement was taken.
   final MeasurementLocationDto measurementLocation;
-
-  /// Timezone offset in seconds for measurement time (optional).
-  final int? zoneOffsetSeconds;
-}
-
-/// Represents a systolic blood pressure record for platform transfer.
-class SystolicBloodPressureRecordDto extends HealthRecordDto {
-  SystolicBloodPressureRecordDto({
-    required this.id,
-    required this.time,
-    required this.metadata,
-    required this.pressure,
-    this.zoneOffsetSeconds,
-  });
-
-  /// Platform-assigned unique identifier.
-  final String? id;
-
-  /// Metadata about this record.
-  final MetadataDto metadata;
-
-  /// Measurement time in milliseconds since epoch (UTC).
-  final int time;
-
-  /// Systolic blood pressure measurement.
-  final PressureDto pressure;
-
-  /// Timezone offset in seconds for measurement time (optional).
-  final int? zoneOffsetSeconds;
-}
-
-/// Represents a diastolic blood pressure record for platform transfer.
-class DiastolicBloodPressureRecordDto extends HealthRecordDto {
-  DiastolicBloodPressureRecordDto({
-    required this.id,
-    required this.time,
-    required this.metadata,
-    required this.pressure,
-    this.zoneOffsetSeconds,
-  });
-
-  /// Platform-assigned unique identifier.
-  final String? id;
-
-  /// Metadata about this record.
-  final MetadataDto metadata;
-
-  /// Measurement time in milliseconds since epoch (UTC).
-  final int time;
-
-  /// Diastolic blood pressure measurement.
-  final PressureDto pressure;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;

@@ -92,6 +92,7 @@ import 'package:health_connector_core/src/models/requests/read_record_request.da
     show ReadRecordRequest;
 import 'package:health_connector_core/src/models/requests/read_records_request.dart'
     show ReadRecordsRequest;
+import 'package:health_connector_core/src/utils/validation.dart' show require;
 import 'package:meta/meta.dart' show immutable, internal;
 
 part 'active_calories_burned_health_data_type.dart';
@@ -214,19 +215,24 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Blood pressure data type (composite).
   ///
   /// Represents a composite blood pressure measurement with both systolic
-  /// and diastolic values. Does not support aggregation.
+  /// and diastolic values. Supports AVG, MIN, MAX aggregation.
+  @sinceV1_2_0
   static const bloodPressure = BloodPressureHealthDataType();
 
   /// Systolic blood pressure data type.
   ///
   /// Represents the systolic (upper) blood pressure value.
   /// Supports AVG, MIN, MAX aggregation.
+  @sinceV1_2_0
+  @supportedOnAppleHealth
   static const systolicBloodPressure = SystolicBloodPressureHealthDataType();
 
   /// Diastolic blood pressure data type.
   ///
   /// Represents the diastolic (lower) blood pressure value.
   /// Supports AVG, MIN, MAX aggregation.
+  @sinceV1_2_0
+  @supportedOnAppleHealth
   static const diastolicBloodPressure = DiastolicBloodPressureHealthDataType();
 
   /// Body fat percentage data type.

@@ -17,14 +17,12 @@ import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
-import androidx.health.connect.client.units.Pressure
 import androidx.health.connect.client.units.Temperature
 import com.phamtunglam.health_connector_hc_android.pigeon.ActiveCaloriesBurnedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyFatPercentageRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyPositionDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyTemperatureRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.DiastolicBloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DistanceRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.FloorsClimbedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
@@ -40,7 +38,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.SleepSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepStageDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepStageTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.SystolicBloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecordDto
 import java.time.Instant
@@ -75,8 +72,6 @@ internal val HealthRecordDto.id: String?
 
         // Blood pressure records
         is BloodPressureRecordDto -> id
-        is SystolicBloodPressureRecordDto -> id
-        is DiastolicBloodPressureRecordDto -> id
 
         // Unified nutrition record
         is NutritionRecordDto -> id
@@ -869,8 +864,6 @@ internal fun HealthRecordDto.toHealthConnect(): Record {
         }
 
         is BloodPressureRecordDto -> toHealthConnect()
-        is DiastolicBloodPressureRecordDto -> toHealthConnect()
-        is SystolicBloodPressureRecordDto -> toHealthConnect()
     }
 }
 
@@ -1586,34 +1579,6 @@ internal fun BloodPressureRecord.toDto(): BloodPressureRecordDto {
 }
 
 /**
- * Converts a Health Connect [BloodPressureRecord] to a [SystolicBloodPressureRecordDto].
- * Used for reading systolic-only data.
- */
-internal fun BloodPressureRecord.toSystolicDto(): SystolicBloodPressureRecordDto {
-    return SystolicBloodPressureRecordDto(
-        id = metadata.id,
-        time = time.toEpochMilli(),
-        zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
-        metadata = metadata.toDto(),
-        pressure = systolic.toDto()
-    )
-}
-
-/**
- * Converts a Health Connect [BloodPressureRecord] to a [DiastolicBloodPressureRecordDto].
- * Used for reading diastolic-only data.
- */
-internal fun BloodPressureRecord.toDiastolicDto(): DiastolicBloodPressureRecordDto {
-    return DiastolicBloodPressureRecordDto(
-        id = metadata.id,
-        time = time.toEpochMilli(),
-        zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
-        metadata = metadata.toDto(),
-        pressure = diastolic.toDto()
-    )
-}
-
-/**
  * Converts a [BloodPressureRecordDto] to a Health Connect [BloodPressureRecord].
  */
 internal fun BloodPressureRecordDto.toHealthConnect(): BloodPressureRecord {
@@ -1624,38 +1589,6 @@ internal fun BloodPressureRecordDto.toHealthConnect(): BloodPressureRecord {
         diastolic = diastolic.toHealthConnect(),
         bodyPosition = bodyPosition.toHealthConnect(),
         measurementLocation = measurementLocation.toHealthConnect(),
-        metadata = metadata.toHealthConnect()
-    )
-}
-
-/**
- * Converts a [SystolicBloodPressureRecordDto] to a Health Connect [BloodPressureRecord].
- * Creates a record with diastolic set to 0 mmHg.
- */
-internal fun SystolicBloodPressureRecordDto.toHealthConnect(): BloodPressureRecord {
-    return BloodPressureRecord(
-        time = Instant.ofEpochMilli(time),
-        zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-        systolic = pressure.toHealthConnect(),
-        diastolic = Pressure.millimetersOfMercury(0.0),
-        bodyPosition = BloodPressureRecord.BODY_POSITION_UNKNOWN,
-        measurementLocation = BloodPressureRecord.MEASUREMENT_LOCATION_UNKNOWN,
-        metadata = metadata.toHealthConnect()
-    )
-}
-
-/**
- * Converts a [DiastolicBloodPressureRecordDto] to a Health Connect [BloodPressureRecord].
- * Creates a record with systolic set to 0 mmHg.
- */
-internal fun DiastolicBloodPressureRecordDto.toHealthConnect(): BloodPressureRecord {
-    return BloodPressureRecord(
-        time = Instant.ofEpochMilli(time),
-        zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-        systolic = Pressure.millimetersOfMercury(0.0),
-        diastolic = pressure.toHealthConnect(),
-        bodyPosition = BloodPressureRecord.BODY_POSITION_UNKNOWN,
-        measurementLocation = BloodPressureRecord.MEASUREMENT_LOCATION_UNKNOWN,
         metadata = metadata.toHealthConnect()
     )
 }

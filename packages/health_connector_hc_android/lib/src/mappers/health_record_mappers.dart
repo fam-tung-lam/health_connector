@@ -100,8 +100,6 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_platform
         WeightRecordDto,
         WheelchairPushesRecordDto,
         BloodPressureRecordDto,
-        SystolicBloodPressureRecordDto,
-        DiastolicBloodPressureRecordDto,
         PressureDto;
 import 'package:meta/meta.dart' show internal;
 
@@ -249,10 +247,8 @@ extension HealthRecordToDto on HealthRecord {
           notes: record.notes,
           stages: record.samples.map((s) => s.toDto()).toList(),
         );
-
       case final NutrientHealthRecord record:
         return _mapNutrientRecordToNutritionRecordDto(record);
-
       case final NutritionRecord record:
         return NutritionRecordDto(
           id: record.id.toDto(),
@@ -298,19 +294,6 @@ extension HealthRecordToDto on HealthRecord {
           zinc: record.zinc?.toDto() as MassDto?,
           caffeine: record.caffeine?.toDto() as MassDto?,
         );
-
-      case final SleepStageRecord _:
-        throw UnsupportedError(
-          '$SleepStageRecord is not supported on Android. '
-          'Use $SleepSessionRecord instead.',
-        );
-      case final HeartRateMeasurementRecord _:
-        throw UnsupportedError(
-          '$HeartRateMeasurementRecord is not supported on Android. '
-          'Use $HeartRateSeriesRecord instead.',
-        );
-
-      // Blood pressure records
       case final BloodPressureRecord record:
         return BloodPressureRecordDto(
           id: record.id.toDto(),
@@ -322,21 +305,25 @@ extension HealthRecordToDto on HealthRecord {
           bodyPosition: record.bodyPosition.toDto(),
           measurementLocation: record.measurementLocation.toDto(),
         );
-      case final SystolicBloodPressureRecord record:
-        return SystolicBloodPressureRecordDto(
-          id: record.id.toDto(),
-          time: record.time.millisecondsSinceEpoch,
-          zoneOffsetSeconds: record.zoneOffsetSeconds,
-          metadata: record.metadata.toDto(),
-          pressure: record.pressure.toDto() as PressureDto,
+      case final SleepStageRecord _:
+        throw UnsupportedError(
+          '$SleepStageRecord is not supported on Android. '
+          'Use $SleepSessionRecord instead.',
         );
-      case final DiastolicBloodPressureRecord record:
-        return DiastolicBloodPressureRecordDto(
-          id: record.id.toDto(),
-          time: record.time.millisecondsSinceEpoch,
-          zoneOffsetSeconds: record.zoneOffsetSeconds,
-          metadata: record.metadata.toDto(),
-          pressure: record.pressure.toDto() as PressureDto,
+      case final HeartRateMeasurementRecord _:
+        throw UnsupportedError(
+          '$HeartRateMeasurementRecord is not supported on Android. '
+          'Use $HeartRateSeriesRecord instead.',
+        );
+      case final SystolicBloodPressureRecord _:
+        throw UnsupportedError(
+          '$SystolicBloodPressureRecord is not supported on '
+          'Android Health Connect. Use $BloodPressureRecord instead.',
+        );
+      case final DiastolicBloodPressureRecord _:
+        throw UnsupportedError(
+          '$DiastolicBloodPressureRecord is not supported on '
+          'Android Health Connect. Use $BloodPressureRecord instead.',
         );
     }
   }
@@ -469,8 +456,6 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
           title: dto.title,
           notes: dto.notes,
         );
-
-      // Unified nutrition record - handles both nutrients and nutrition
       case final NutritionRecordDto dto:
         final id = dto.id?.toHealthRecordId() ?? HealthRecordId.none;
         final time = DateTime.fromMillisecondsSinceEpoch(dto.startTime);
@@ -868,15 +853,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
           case HealthDataTypeDto.heartRateSeriesRecord:
           case HealthDataTypeDto.sleepSession:
           case HealthDataTypeDto.bloodPressure:
-          case HealthDataTypeDto.systolicBloodPressure:
-          case HealthDataTypeDto.diastolicBloodPressure:
-            throw ArgumentError(
-              'Unsupported health data type for '
-              '`NutritionRecordDto`: ${dto.healthDataType}',
-            );
+            throw ArgumentError('Invalid DTO for $NutritionRecordDto: $dto');
         }
-
-      // Blood pressure records
       case final BloodPressureRecordDto dto:
         return BloodPressureRecord(
           id: dto.id?.toHealthRecordId() ?? HealthRecordId.none,
@@ -887,22 +865,6 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
           diastolic: dto.diastolic.toDomain() as Pressure,
           bodyPosition: dto.bodyPosition.toDomain(),
           measurementLocation: dto.measurementLocation.toDomain(),
-        );
-      case final SystolicBloodPressureRecordDto dto:
-        return SystolicBloodPressureRecord(
-          id: dto.id?.toHealthRecordId() ?? HealthRecordId.none,
-          time: DateTime.fromMillisecondsSinceEpoch(dto.time),
-          zoneOffsetSeconds: dto.zoneOffsetSeconds,
-          metadata: dto.metadata.toDomain(),
-          pressure: dto.pressure.toDomain() as Pressure,
-        );
-      case final DiastolicBloodPressureRecordDto dto:
-        return DiastolicBloodPressureRecord(
-          id: dto.id?.toHealthRecordId() ?? HealthRecordId.none,
-          time: DateTime.fromMillisecondsSinceEpoch(dto.time),
-          zoneOffsetSeconds: dto.zoneOffsetSeconds,
-          metadata: dto.metadata.toDomain(),
-          pressure: dto.pressure.toDomain() as Pressure,
         );
     }
   }

@@ -5,6 +5,7 @@ part of '../health_data_type.dart';
 /// This data type represents the systolic (upper) blood pressure value only.
 /// Supports AVG, MIN, MAX aggregation.
 @sinceV1_2_0
+@supportedOnAppleHealth
 @immutable
 final class SystolicBloodPressureHealthDataType
     extends HealthDataType<SystolicBloodPressureRecord, Pressure>
@@ -26,9 +27,9 @@ final class SystolicBloodPressureHealthDataType
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SystolicBloodPressureHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+          other is SystolicBloodPressureHealthDataType &&
+              runtimeType == other.runtimeType &&
+              identifier == other.identifier;
 
   @override
   int get hashCode => identifier.hashCode;
@@ -37,17 +38,25 @@ final class SystolicBloodPressureHealthDataType
   String toString() => 'systolic_blood_pressure_data_type';
 
   @override
-  List<AggregationMetric> get supportedAggregationMetrics => [
-    AggregationMetric.avg,
-    AggregationMetric.min,
-    AggregationMetric.max,
-  ];
+  List<HealthPlatform> get supportedHealthPlatforms =>
+      [
+        HealthPlatform.appleHealth,
+      ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  List<AggregationMetric> get supportedAggregationMetrics =>
+      [
+        AggregationMetric.avg,
+        AggregationMetric.min,
+        AggregationMetric.max,
+      ];
+
+  @override
+  HealthDataPermission get readPermission =>
+      HealthDataPermission(
+        dataType: this,
+        accessType: HealthDataPermissionAccessType.read,
+      );
 
   @override
   ReadRecordRequest<SystolicBloodPressureRecord> readRecord(HealthRecordId id) {
@@ -69,10 +78,11 @@ final class SystolicBloodPressureHealthDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission =>
+      HealthDataPermission(
+        dataType: this,
+        accessType: HealthDataPermissionAccessType.write,
+      );
 
   @override
   AggregateRequest<SystolicBloodPressureRecord, Pressure> aggregateAverage({

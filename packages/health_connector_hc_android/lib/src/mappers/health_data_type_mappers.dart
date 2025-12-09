@@ -90,8 +90,6 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.heartRateSeriesRecord;
       case HealthDataTypeDto.sleepSession:
         return HealthDataType.sleepSession;
-
-      // Nutrient types
       case HealthDataTypeDto.energyNutrient:
         return HealthDataType.energyNutrient;
       case HealthDataTypeDto.caffeine:
@@ -158,18 +156,10 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.sodium;
       case HealthDataTypeDto.zinc:
         return HealthDataType.zinc;
-
-      // Combined nutrition record
       case HealthDataTypeDto.nutrition:
         return HealthDataType.nutrition;
-
-      // Blood pressure types
       case HealthDataTypeDto.bloodPressure:
         return HealthDataType.bloodPressure;
-      case HealthDataTypeDto.systolicBloodPressure:
-        return HealthDataType.systolicBloodPressure;
-      case HealthDataTypeDto.diastolicBloodPressure:
-        return HealthDataType.diastolicBloodPressure;
     }
   }
 }
@@ -205,8 +195,6 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.heartRateSeriesRecord;
       case SleepSessionHealthDataType _:
         return HealthDataTypeDto.sleepSession;
-
-      // Nutrient types
       case EnergyNutrientDataType _:
         return HealthDataTypeDto.energyNutrient;
       case CaffeineNutrientDataType _:
@@ -273,29 +261,31 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.sodium;
       case ZincNutrientDataType _:
         return HealthDataTypeDto.zinc;
-
-      // Combined nutrition record
+      case BloodPressureHealthDataType _:
+        return HealthDataTypeDto.bloodPressure;
       case NutritionHealthDataType _:
         return HealthDataTypeDto.nutrition;
-
       case SleepStageHealthDataType _:
         throw UnsupportedError(
-          '$SleepStageHealthDataType is not supported on Android. '
-          'Use $SleepSessionHealthDataType instead.',
+          '$SleepStageHealthDataType is not supported on '
+          'Android Health Connect. Use $SleepSessionHealthDataType instead.',
         );
       case HeartRateMeasurementRecordHealthDataType _:
         throw UnsupportedError(
-          '$HeartRateMeasurementRecordHealthDataType is not supported on '
-          'Android. Use $HeartRateSeriesRecordHealthDataType instead.',
+          '$HeartRateMeasurementRecordHealthDataType is not '
+          'supported on Android Health Connect. '
+          'Use $HeartRateSeriesRecordHealthDataType instead.',
         );
-
-      // Blood pressure types
-      case BloodPressureHealthDataType _:
-        return HealthDataTypeDto.bloodPressure;
       case SystolicBloodPressureHealthDataType _:
-        return HealthDataTypeDto.systolicBloodPressure;
+        throw UnsupportedError(
+          '$SystolicBloodPressureHealthDataType is not supported on '
+          'Android Health Connect. Use $BloodPressureHealthDataType instead.',
+        );
       case DiastolicBloodPressureHealthDataType _:
-        return HealthDataTypeDto.diastolicBloodPressure;
+        throw UnsupportedError(
+          '$DiastolicBloodPressureHealthDataType is not supported on '
+          'Health Connect. Use $BloodPressureHealthDataType instead.',
+        );
     }
   }
 }

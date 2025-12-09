@@ -71,8 +71,6 @@ object HealthConnectTypeRegistry {
             register(NutrientHandler(HealthDataTypeDto.ZINC))
 
             register(BloodPressureHandler)
-            register(SystolicBloodPressureHandler)
-            register(DiastolicBloodPressureHandler)
 
             // Series records
             register(HeartRateHandler)

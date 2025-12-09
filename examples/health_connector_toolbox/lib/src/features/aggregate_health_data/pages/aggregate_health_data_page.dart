@@ -21,6 +21,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
         MeasurementUnit,
+        Pressure,
         StepsHealthDataType,
         WeightHealthDataType,
         WheelchairPushesHealthDataType,
@@ -94,6 +95,7 @@ class _AggregateHealthDataPageState
   final _formKey = GlobalKey<FormState>();
   HealthDataType<HealthRecord, MeasurementUnit>? _selectedDataType;
   AggregationMetric? _selectedMetric;
+  HealthDataType<HealthRecord, Pressure>? _selectedBloodPressureSubtype;
 
   /// Builds an aggregation request for nutrient data types.
   ///
@@ -259,6 +261,21 @@ class _AggregateHealthDataPageState
       return;
     }
 
+    // Validate blood pressure subtype is selected when
+    // BloodPressureHealthDataType is selected
+    if (_selectedDataType is BloodPressureHealthDataType &&
+        _selectedBloodPressureSubtype == null) {
+      if (!mounted) {
+        return;
+      }
+      showAppSnackBar(
+        context,
+        SnackBarType.error,
+        'Please select a blood pressure type',
+      );
+      return;
+    }
+
     final notifier = Provider.of<AggregateHealthDataChangeNotifier>(
       context,
       listen: false,
@@ -313,9 +330,26 @@ class _AggregateHealthDataPageState
         BodyFatPercentageHealthDataType() => throw UnsupportedError(
           'Body fat percentage does not support aggregation',
         ),
-        BloodPressureHealthDataType() => throw UnsupportedError(
-          'Blood Pressure composite type does not support aggregation',
-        ),
+        BloodPressureHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg =>
+            HealthDataType.bloodPressure.aggregateAverage(
+              bloodPressureType: _selectedBloodPressureSubtype!,
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.min => HealthDataType.bloodPressure.aggregateMin(
+            bloodPressureType: _selectedBloodPressureSubtype!,
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.max => HealthDataType.bloodPressure.aggregateMax(
+            bloodPressureType: _selectedBloodPressureSubtype!,
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.sum || AggregationMetric.count =>
+            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+        },
         SystolicBloodPressureHealthDataType() => switch (_selectedMetric!) {
           AggregationMetric.avg =>
             HealthDataType.systolicBloodPressure.aggregateAverage(
@@ -575,8 +609,21 @@ class _AggregateHealthDataPageState
                       onChanged: (value) {
                         setState(() {
                           _selectedDataType = value;
-                          _selectedMetric =
-                              value?.supportedAggregationMetrics.first;
+                          // Reset blood pressure subtype when data type changes
+                          _selectedBloodPressureSubtype = null;
+
+                          // Use subtype's supported metrics if
+                          // BloodPressureHealthDataType is selected,
+                          // otherwise use the selected data type's metrics
+                          if (value is BloodPressureHealthDataType) {
+                            // For BloodPressureHealthDataType, we'll use
+                            // the subtype's metrics but we need to wait for
+                            // subtype selection, so set to null for now
+                            _selectedMetric = null;
+                          } else {
+                            _selectedMetric =
+                                value?.supportedAggregationMetrics.first;
+                          }
                           final notifier =
                               Provider.of<AggregateHealthDataChangeNotifier>(
                                 context,
@@ -600,6 +647,58 @@ class _AggregateHealthDataPageState
                           ) &&
                           type.supportedAggregationMetrics.isNotEmpty,
                     ),
+                    if (_selectedDataType is BloodPressureHealthDataType) ...[
+                      const SizedBox(height: 16),
+                      DropdownButtonFormField<
+                        HealthDataType<HealthRecord, Pressure>
+                      >(
+                        initialValue: _selectedBloodPressureSubtype,
+                        decoration: const InputDecoration(
+                          labelText: 'Blood Pressure Type',
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(AppIcons.bloodPressure),
+                        ),
+                        items: [
+                          DropdownMenuItem<
+                            HealthDataType<HealthRecord, Pressure>
+                          >(
+                            value: HealthDataType.systolicBloodPressure,
+                            child: Text(
+                              HealthDataType.systolicBloodPressure.displayName,
+                            ),
+                          ),
+                          DropdownMenuItem<
+                            HealthDataType<HealthRecord, Pressure>
+                          >(
+                            value: HealthDataType.diastolicBloodPressure,
+                            child: Text(
+                              HealthDataType.diastolicBloodPressure.displayName,
+                            ),
+                          ),
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedBloodPressureSubtype = value;
+                            _selectedMetric =
+                                value?.supportedAggregationMetrics.first;
+                            final notifier =
+                                Provider.of<AggregateHealthDataChangeNotifier>(
+                                  context,
+                                  listen: false,
+                                );
+                            notifier.clearResults();
+                          });
+                        },
+                        validator: (value) {
+                          if (_selectedDataType
+                                  is BloodPressureHealthDataType &&
+                              value == null) {
+                            return 'Please select a blood pressure type';
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
                     const SizedBox(height: 16),
                     DropdownButtonFormField<AggregationMetric>(
                       initialValue: _selectedMetric,
@@ -608,14 +707,21 @@ class _AggregateHealthDataPageState
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(AppIcons.calculate),
                       ),
-                      items: _selectedDataType?.supportedAggregationMetrics.map(
-                        (metric) {
-                          return DropdownMenuItem(
-                            value: metric,
-                            child: Text(metric.displayName),
-                          );
-                        },
-                      ).toList(),
+                      items:
+                          (_selectedDataType is BloodPressureHealthDataType
+                                  ? _selectedBloodPressureSubtype
+                                        ?.supportedAggregationMetrics
+                                  : _selectedDataType
+                                        ?.supportedAggregationMetrics)
+                              ?.map(
+                                (metric) {
+                                  return DropdownMenuItem(
+                                    value: metric,
+                                    child: Text(metric.displayName),
+                                  );
+                                },
+                              )
+                              .toList(),
                       onChanged: (value) {
                         setState(() {
                           _selectedMetric = value ?? AggregationMetric.sum;

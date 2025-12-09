@@ -40,9 +40,7 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
         HealthDataTypeDto.WHEELCHAIR_PUSHES -> WheelchairPushesRecord::class
         HealthDataTypeDto.HEART_RATE_SERIES_RECORD -> HeartRateRecord::class
         HealthDataTypeDto.SLEEP_SESSION -> SleepSessionRecord::class
-        HealthDataTypeDto.BLOOD_PRESSURE,
-        HealthDataTypeDto.SYSTOLIC_BLOOD_PRESSURE,
-        HealthDataTypeDto.DIASTOLIC_BLOOD_PRESSURE -> BloodPressureRecord::class
+        HealthDataTypeDto.BLOOD_PRESSURE -> BloodPressureRecord::class
         HealthDataTypeDto.ENERGY_NUTRIENT,
         HealthDataTypeDto.CAFFEINE,
         HealthDataTypeDto.PROTEIN,

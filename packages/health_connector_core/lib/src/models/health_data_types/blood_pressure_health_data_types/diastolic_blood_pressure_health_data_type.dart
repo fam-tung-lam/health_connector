@@ -5,6 +5,7 @@ part of '../health_data_type.dart';
 /// This data type represents the diastolic (lower) blood pressure value only.
 /// Supports AVG, MIN, MAX aggregation.
 @sinceV1_2_0
+@supportedOnAppleHealth
 @immutable
 final class DiastolicBloodPressureHealthDataType
     extends HealthDataType<DiastolicBloodPressureRecord, Pressure>
@@ -35,6 +36,11 @@ final class DiastolicBloodPressureHealthDataType
 
   @override
   String toString() => 'diastolic_blood_pressure_data_type';
+
+  @override
+  List<HealthPlatform> get supportedHealthPlatforms => [
+    HealthPlatform.appleHealth,
+  ];
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

@@ -8,13 +8,8 @@ part of '../health_record.dart';
 /// values independently.
 ///
 /// For combined blood pressure readings, see [BloodPressureRecord].
-///
-/// ## Platform Mapping
-///
-/// - **Android**: Maps to Health Connect's `BloodPressureRecord`
-///   (systolic set to 0)
-/// - **iOS**: Maps to HealthKit's `HKQuantityType(.bloodPressureDiastolic)`
 @sinceV1_2_0
+@supportedOnAppleHealth
 @immutable
 final class DiastolicBloodPressureRecord extends InstantHealthRecord {
   /// Creates a diastolic blood pressure record.
@@ -73,6 +68,5 @@ final class DiastolicBloodPressureRecord extends InstantHealthRecord {
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
-    HealthPlatform.healthConnect,
   ];
 }
