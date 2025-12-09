@@ -105,6 +105,9 @@ enum PermissionStatusDto {
   /// Permission has been explicitly granted by the user.
   granted,
 
+  /// Some component permissions are granted, others are denied or undetermined.
+  partiallyGranted,
+
   /// The permission status cannot be determined.
   unknown,
 }

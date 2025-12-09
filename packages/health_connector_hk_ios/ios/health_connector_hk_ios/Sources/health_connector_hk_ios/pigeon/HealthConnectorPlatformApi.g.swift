@@ -229,8 +229,10 @@ public enum PermissionStatusDto: Int {
   case denied = 0
   /// Permission has been explicitly granted by the user.
   case granted = 1
+  /// Some component permissions are granted, others are denied or undetermined.
+  case partiallyGranted = 2
   /// The permission status cannot be determined.
-  case unknown = 2
+  case unknown = 3
 }
 
 /// Pressure unit types supported by the plugin.

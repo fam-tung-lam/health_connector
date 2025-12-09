@@ -27,6 +27,12 @@ enum PermissionStatus {
   /// Permission has been explicitly denied by the user.
   denied,
 
+  /// Some component permissions are granted, others are denied or undetermined.
+  ///
+  /// This status is primarily used for correlation types (e.g., nutrition)
+  /// where the data type is composed of multiple underlying permissions.
+  partiallyGranted,
+
   /// The permission status cannot be determined.
   ///
   /// On iOS, HealthKit does not allow apps to determine whether read permission

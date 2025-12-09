@@ -47,6 +47,7 @@ abstract final class AppTexts {
   static const String unknown = 'Unknown';
   static const String granted = 'granted';
   static const String denied = 'denied';
+  static const String partiallyGranted = 'partially granted';
   static const String available = 'Available';
   static const String unavailable = 'Unavailable';
   static const String notRequested = 'Not requested';

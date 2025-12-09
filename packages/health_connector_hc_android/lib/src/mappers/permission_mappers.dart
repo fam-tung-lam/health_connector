@@ -98,6 +98,8 @@ extension PermissionStatusDtoToDomain on PermissionStatusDto {
         return PermissionStatus.granted;
       case PermissionStatusDto.denied:
         return PermissionStatus.denied;
+      case PermissionStatusDto.partiallyGranted:
+        return PermissionStatus.partiallyGranted;
       case PermissionStatusDto.unknown:
         return PermissionStatus.unknown;
     }
