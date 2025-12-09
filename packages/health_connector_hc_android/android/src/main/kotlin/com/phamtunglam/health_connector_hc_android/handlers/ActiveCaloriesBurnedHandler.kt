@@ -8,6 +8,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.ActiveCaloriesBurnedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
+import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.EnergyDto
 import com.phamtunglam.health_connector_hc_android.pigeon.EnergyUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
@@ -23,7 +24,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only
  * - Health Connect Type: ActiveCaloriesBurnedRecord
  */
-object ActiveCaloriesBurnedHandler : IntervalRecordHandler, AggregationSupportingHandler {
+object ActiveCaloriesBurnedHandler : IntervalRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.ACTIVE_CALORIES_BURNED
 
     override fun toDto(record: Record): HealthRecordDto {
@@ -46,10 +47,10 @@ object ActiveCaloriesBurnedHandler : IntervalRecordHandler, AggregationSupportin
         return listOf(AggregationMetricDto.SUM)
     }
 
-    override fun toAggregateMetric(metric: AggregationMetricDto): AggregateMetric<*> {
-        return when (metric) {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
+        return when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> ActiveCaloriesBurnedRecord.ACTIVE_CALORIES_TOTAL
-            else -> error("Unsupported aggregation metric $metric for ActiveCaloriesBurned. Supported: SUM")
+            else -> error("Unsupported aggregation metric ${request.aggregationMetric} for ActiveCaloriesBurned. Supported: SUM")
         }
     }
 

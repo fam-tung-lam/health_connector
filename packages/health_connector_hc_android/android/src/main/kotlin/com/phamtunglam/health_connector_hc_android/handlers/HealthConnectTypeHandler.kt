@@ -3,6 +3,7 @@ package com.phamtunglam.health_connector_hc_android.handlers
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.records.Record
 import com.phamtunglam.health_connector_hc_android.HealthConnectDataCategory
+import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
@@ -111,7 +112,7 @@ sealed interface SessionRecordHandler : HealthConnectRecordHandler {
  * Handlers implementing this interface can perform statistical aggregations
  * (sum, average, min, max) on their health data type.
  */
-interface AggregationSupportingHandler : HealthConnectRecordHandler {
+interface AggregationSupportingHandler<R : AggregateRequestDto> : HealthConnectRecordHandler {
     /**
      * Returns the list of aggregation metrics this handler supports.
      *
@@ -122,11 +123,11 @@ interface AggregationSupportingHandler : HealthConnectRecordHandler {
     /**
      * Converts a platform aggregation metric to a Health Connect AggregateMetric.
      *
-     * @param metric The platform aggregation metric
+     * @param request The aggregate request DTO
      * @return The corresponding Health Connect AggregateMetric
      * @throws IllegalArgumentException if the metric is not supported
      */
-    fun toAggregateMetric(metric: AggregationMetricDto): AggregateMetric<*>
+    fun toAggregateMetric(request: R): AggregateMetric<*>
 
     /**
      * Extracts and converts the aggregated value from a Health Connect aggregation result.

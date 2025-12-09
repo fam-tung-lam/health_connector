@@ -7,6 +7,7 @@ import androidx.health.connect.client.units.Length
 import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
+import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HeightRecordDto
@@ -23,7 +24,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports AVG, MIN, MAX
  * - Health Connect Type: HeightRecord
  */
-object HeightHandler : InstantRecordHandler, AggregationSupportingHandler {
+object HeightHandler : InstantRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.HEIGHT
 
     override fun toDto(record: Record): HealthRecordDto {
@@ -50,12 +51,12 @@ object HeightHandler : InstantRecordHandler, AggregationSupportingHandler {
         )
     }
 
-    override fun toAggregateMetric(metric: AggregationMetricDto): AggregateMetric<*> {
-        return when (metric) {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
+        return when (request.aggregationMetric) {
             AggregationMetricDto.AVG -> HeightRecord.HEIGHT_AVG
             AggregationMetricDto.MIN -> HeightRecord.HEIGHT_MIN
             AggregationMetricDto.MAX -> HeightRecord.HEIGHT_MAX
-            else -> error("Unsupported aggregation metric $metric for Height. Supported: AVG, MIN, MAX")
+            else -> error("Unsupported aggregation metric ${request.aggregationMetric} for Height. Supported: AVG, MIN, MAX")
         }
     }
 

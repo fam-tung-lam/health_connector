@@ -2,6 +2,10 @@ package com.phamtunglam.health_connector_hc_android
 
 import android.content.Context
 import androidx.activity.ComponentActivity
+import com.phamtunglam.health_connector_hc_android.mappers.aggregationMetric
+import com.phamtunglam.health_connector_hc_android.mappers.dataType
+import com.phamtunglam.health_connector_hc_android.mappers.endTime
+import com.phamtunglam.health_connector_hc_android.mappers.startTime
 import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateResponseDto

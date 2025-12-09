@@ -1325,9 +1325,12 @@ enum AggregationMetricDto {
   sum,
 }
 
-/// Request to perform aggregation on health records.
-class AggregateRequestDto {
-  AggregateRequestDto({
+/// Sealed class for all aggregation request DTOs.
+sealed class AggregateRequestDto {}
+
+/// Request to perform aggregation on common health records.
+class CommonAggregateRequestDto extends AggregateRequestDto {
+  CommonAggregateRequestDto({
     required this.dataType,
     required this.aggregationMetric,
     required this.startTime,
@@ -1339,6 +1342,33 @@ class AggregateRequestDto {
 
   /// The type of health data to aggregate.
   final HealthDataTypeDto dataType;
+
+  /// End of time range in milliseconds since epoch (UTC), exclusive.
+  final int endTime;
+
+  /// Start of time range in milliseconds since epoch (UTC), inclusive.
+  final int startTime;
+}
+
+enum BloodPressureHealthDataTypeDto {
+  diastolic,
+  systolic,
+}
+
+/// Request to perform aggregation on blood pressure health record.
+class BloodPressureAggregateRequestDto extends AggregateRequestDto {
+  BloodPressureAggregateRequestDto({
+    required this.bloodPressureDataType,
+    required this.aggregationMetric,
+    required this.startTime,
+    required this.endTime,
+  });
+
+  /// The type of aggregation to perform.
+  final AggregationMetricDto aggregationMetric;
+
+  /// The type of blood pressure to aggregate.
+  final BloodPressureHealthDataTypeDto bloodPressureDataType;
 
   /// End of time range in milliseconds since epoch (UTC), exclusive.
   final int endTime;

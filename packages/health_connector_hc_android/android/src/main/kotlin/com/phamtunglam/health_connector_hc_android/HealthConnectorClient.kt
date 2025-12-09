@@ -9,7 +9,11 @@ import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectTypeRegistry
+import com.phamtunglam.health_connector_hc_android.mappers.aggregationMetric
+import com.phamtunglam.health_connector_hc_android.mappers.dataType
+import com.phamtunglam.health_connector_hc_android.mappers.endTime
 import com.phamtunglam.health_connector_hc_android.mappers.id
+import com.phamtunglam.health_connector_hc_android.mappers.startTime
 import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectFeature
@@ -683,8 +687,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 )
             }
 
-            // Convert metric to Health Connect metric and create aggregate request
-            val metric = handler.toAggregateMetric(request.aggregationMetric)
+            val metric = handler.toAggregateMetric(request)
             val aggregateRequest = AggregateRequest(
                 metrics = setOf(metric),
                 timeRangeFilter = TimeRangeFilter.between(

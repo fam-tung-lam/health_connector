@@ -9,6 +9,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.toNutrientDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
+import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.EnergyDto
 import com.phamtunglam.health_connector_hc_android.pigeon.EnergyUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
@@ -24,7 +25,7 @@ import kotlin.reflect.KClass
  */
 internal class NutrientHandler(
     private val nutrientType: HealthDataTypeDto
-) : InstantRecordHandler, AggregationSupportingHandler {
+) : InstantRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
 
     override val supportedType: HealthDataTypeDto = nutrientType
 
@@ -49,10 +50,10 @@ internal class NutrientHandler(
         return listOf(AggregationMetricDto.SUM)
     }
 
-    override fun toAggregateMetric(metric: AggregationMetricDto): AggregateMetric<*> {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
         val supportedAggregations = supportedAggregations()
-        require(supportedAggregations.contains(metric)) {
-            "Nutrients only support $supportedAggregations, got $metric"
+        require(supportedAggregations.contains(request.aggregationMetric)) {
+            "Nutrients only support $supportedAggregations, got ${request.aggregationMetric}"
         }
         return when (nutrientType) {
             HealthDataTypeDto.ENERGY_NUTRIENT -> NutritionRecord.ENERGY_TOTAL

@@ -7,6 +7,7 @@ import androidx.health.connect.client.units.Volume
 import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
+import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
@@ -23,7 +24,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only
  * - Health Connect Type: HydrationRecord
  */
-object HydrationHandler : IntervalRecordHandler, AggregationSupportingHandler {
+object HydrationHandler : IntervalRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.HYDRATION
 
     override fun toDto(record: Record): HealthRecordDto {
@@ -46,10 +47,10 @@ object HydrationHandler : IntervalRecordHandler, AggregationSupportingHandler {
         return listOf(AggregationMetricDto.SUM)
     }
 
-    override fun toAggregateMetric(metric: AggregationMetricDto): AggregateMetric<*> {
-        return when (metric) {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
+        return when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> HydrationRecord.VOLUME_TOTAL
-            else -> error("Unsupported aggregation metric $metric for Hydration. Supported: SUM")
+            else -> error("Unsupported aggregation metric ${request.aggregationMetric} for Hydration. Supported: SUM")
         }
     }
 

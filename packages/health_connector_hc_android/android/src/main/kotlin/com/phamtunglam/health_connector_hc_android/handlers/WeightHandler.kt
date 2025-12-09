@@ -7,6 +7,7 @@ import androidx.health.connect.client.units.Mass
 import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
+import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MassDto
@@ -23,7 +24,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports AVG, MIN, MAX
  * - Health Connect Type: WeightRecord
  */
-object WeightHandler : InstantRecordHandler, AggregationSupportingHandler {
+object WeightHandler : InstantRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.WEIGHT
 
     override fun toDto(record: Record): HealthRecordDto {
@@ -50,12 +51,12 @@ object WeightHandler : InstantRecordHandler, AggregationSupportingHandler {
         )
     }
 
-    override fun toAggregateMetric(metric: AggregationMetricDto): AggregateMetric<*> {
-        return when (metric) {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
+        return when (request.aggregationMetric) {
             AggregationMetricDto.AVG -> WeightRecord.WEIGHT_AVG
             AggregationMetricDto.MIN -> WeightRecord.WEIGHT_MIN
             AggregationMetricDto.MAX -> WeightRecord.WEIGHT_MAX
-            else -> error("Unsupported aggregation metric $metric for Weight. Supported: AVG, MIN, MAX")
+            else -> error("Unsupported aggregation metric ${request.aggregationMetric} for Weight. Supported: AVG, MIN, MAX")
         }
     }
 

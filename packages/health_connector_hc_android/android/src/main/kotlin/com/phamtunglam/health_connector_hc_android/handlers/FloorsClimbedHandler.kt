@@ -7,6 +7,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.toNumericDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
+import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.FloorsClimbedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
@@ -21,7 +22,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only
  * - Health Connect Type: FloorsClimbedRecord
  */
-object FloorsClimbedHandler : IntervalRecordHandler, AggregationSupportingHandler {
+object FloorsClimbedHandler : IntervalRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.FLOORS_CLIMBED
 
     override fun toDto(record: Record): HealthRecordDto {
@@ -44,10 +45,10 @@ object FloorsClimbedHandler : IntervalRecordHandler, AggregationSupportingHandle
         return listOf(AggregationMetricDto.SUM)
     }
 
-    override fun toAggregateMetric(metric: AggregationMetricDto): AggregateMetric<*> {
-        return when (metric) {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
+        return when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> FloorsClimbedRecord.FLOORS_CLIMBED_TOTAL
-            else -> error("Unsupported aggregation metric $metric for FloorsClimbed. Supported: SUM")
+            else -> error("Unsupported aggregation metric ${request.aggregationMetric} for FloorsClimbed. Supported: SUM")
         }
     }
 

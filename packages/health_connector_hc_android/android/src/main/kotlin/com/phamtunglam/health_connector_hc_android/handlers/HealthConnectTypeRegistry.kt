@@ -1,5 +1,6 @@
 package com.phamtunglam.health_connector_hc_android.handlers
 
+import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 
 /**
@@ -111,6 +112,7 @@ object HealthConnectTypeRegistry {
      * @param type The health data type
      * @return The aggregation handler if the type supports aggregation, or null otherwise
      */
-    fun getAggregationHandler(type: HealthDataTypeDto): AggregationSupportingHandler? =
-        handlers[type] as? AggregationSupportingHandler
+    @Suppress("UNCHECKED_CAST") // We an unchecked cast here, as we know the request type matches the handler's expected type at runtime
+    fun getAggregationHandler(type: HealthDataTypeDto): AggregationSupportingHandler<AggregateRequestDto>? =
+        handlers[type] as AggregationSupportingHandler<AggregateRequestDto>?
 }

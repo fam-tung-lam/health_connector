@@ -4,7 +4,61 @@ import 'package:health_connector_core/health_connector_core.dart'
         HealthRecord,
         MeasurementUnit,
         ReadRecordRequest,
-        ReadRecordsRequest;
+        ReadRecordsRequest,
+        CommonAggregateRequest,
+        BloodPressureAggregateRequest,
+        BloodPressureHealthDataType,
+        DiastolicBloodPressureHealthDataType,
+        SystolicBloodPressureHealthDataType,
+        ActiveCaloriesBurnedHealthDataType,
+        BodyFatPercentageHealthDataType,
+        BodyTemperatureHealthDataType,
+        DistanceHealthDataType,
+        FloorsClimbedHealthDataType,
+        HeartRateMeasurementRecordHealthDataType,
+        HeartRateSeriesRecordHealthDataType,
+        HeightHealthDataType,
+        HydrationHealthDataType,
+        LeanBodyMassHealthDataType,
+        NutritionHealthDataType,
+        SleepSessionHealthDataType,
+        SleepStageHealthDataType,
+        StepsHealthDataType,
+        WeightHealthDataType,
+        WheelchairPushesHealthDataType,
+        EnergyNutrientDataType,
+        CaffeineNutrientDataType,
+        ProteinNutrientDataType,
+        TotalCarbohydrateNutrientDataType,
+        TotalFatNutrientDataType,
+        SaturatedFatNutrientDataType,
+        MonounsaturatedFatNutrientDataType,
+        PolyunsaturatedFatNutrientDataType,
+        CholesterolNutrientDataType,
+        DietaryFiberNutrientDataType,
+        SugarNutrientDataType,
+        CalciumNutrientDataType,
+        IronNutrientDataType,
+        MagnesiumNutrientDataType,
+        ManganeseNutrientDataType,
+        PhosphorusNutrientDataType,
+        PotassiumNutrientDataType,
+        SeleniumNutrientDataType,
+        SodiumNutrientDataType,
+        ZincNutrientDataType,
+        VitaminANutrientDataType,
+        VitaminB6NutrientDataType,
+        VitaminB12NutrientDataType,
+        VitaminCNutrientDataType,
+        VitaminDNutrientDataType,
+        VitaminENutrientDataType,
+        VitaminKNutrientDataType,
+        ThiaminNutrientDataType,
+        RiboflavinNutrientDataType,
+        NiacinNutrientDataType,
+        FolateNutrientDataType,
+        BiotinNutrientDataType,
+        PantothenicAcidNutrientDataType;
 import 'package:health_connector_hc_android/src/mappers/'
     'aggregation_metric_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mappers.dart';
@@ -17,7 +71,10 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_platform
         AggregateRequestDto,
         WriteRecordRequestDto,
         UpdateRecordRequestDto,
-        WriteRecordsRequestDto;
+        WriteRecordsRequestDto,
+        CommonAggregateRequestDto,
+        BloodPressureAggregateRequestDto,
+        BloodPressureHealthDataTypeDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [ReadRecordRequest] to [ReadRecordRequestDto].
@@ -58,12 +115,85 @@ extension AggregateRequestDtoMapper<
 >
     on AggregateRequest<R, U> {
   AggregateRequestDto toDto() {
-    return AggregateRequestDto(
-      dataType: dataType.toDto(),
-      aggregationMetric: aggregationMetric.toDto(),
-      startTime: startTime.millisecondsSinceEpoch,
-      endTime: endTime.millisecondsSinceEpoch,
-    );
+    switch (this) {
+      case CommonAggregateRequest _:
+        return CommonAggregateRequestDto(
+          dataType: dataType.toDto(),
+          aggregationMetric: aggregationMetric.toDto(),
+          startTime: startTime.millisecondsSinceEpoch,
+          endTime: endTime.millisecondsSinceEpoch,
+        );
+      case BloodPressureAggregateRequest _:
+        switch (dataType) {
+          case DiastolicBloodPressureHealthDataType _:
+            return BloodPressureAggregateRequestDto(
+              bloodPressureDataType: BloodPressureHealthDataTypeDto.diastolic,
+              aggregationMetric: aggregationMetric.toDto(),
+              startTime: startTime.millisecondsSinceEpoch,
+              endTime: endTime.millisecondsSinceEpoch,
+            );
+          case SystolicBloodPressureHealthDataType _:
+            return BloodPressureAggregateRequestDto(
+              bloodPressureDataType: BloodPressureHealthDataTypeDto.systolic,
+              aggregationMetric: aggregationMetric.toDto(),
+              startTime: startTime.millisecondsSinceEpoch,
+              endTime: endTime.millisecondsSinceEpoch,
+            );
+          case ActiveCaloriesBurnedHealthDataType _:
+          case BloodPressureHealthDataType _:
+          case BodyFatPercentageHealthDataType _:
+          case BodyTemperatureHealthDataType _:
+          case DistanceHealthDataType _:
+          case FloorsClimbedHealthDataType _:
+          case HeartRateMeasurementRecordHealthDataType _:
+          case HeartRateSeriesRecordHealthDataType _:
+          case HeightHealthDataType _:
+          case HydrationHealthDataType _:
+          case LeanBodyMassHealthDataType _:
+          case NutritionHealthDataType _:
+          case SleepSessionHealthDataType _:
+          case SleepStageHealthDataType _:
+          case StepsHealthDataType _:
+          case WeightHealthDataType _:
+          case WheelchairPushesHealthDataType _:
+          case EnergyNutrientDataType _:
+          case CaffeineNutrientDataType _:
+          case ProteinNutrientDataType _:
+          case TotalCarbohydrateNutrientDataType _:
+          case TotalFatNutrientDataType _:
+          case SaturatedFatNutrientDataType _:
+          case MonounsaturatedFatNutrientDataType _:
+          case PolyunsaturatedFatNutrientDataType _:
+          case CholesterolNutrientDataType _:
+          case DietaryFiberNutrientDataType _:
+          case SugarNutrientDataType _:
+          case CalciumNutrientDataType _:
+          case IronNutrientDataType _:
+          case MagnesiumNutrientDataType _:
+          case ManganeseNutrientDataType _:
+          case PhosphorusNutrientDataType _:
+          case PotassiumNutrientDataType _:
+          case SeleniumNutrientDataType _:
+          case SodiumNutrientDataType _:
+          case ZincNutrientDataType _:
+          case VitaminANutrientDataType _:
+          case VitaminB6NutrientDataType _:
+          case VitaminB12NutrientDataType _:
+          case VitaminCNutrientDataType _:
+          case VitaminDNutrientDataType _:
+          case VitaminENutrientDataType _:
+          case VitaminKNutrientDataType _:
+          case ThiaminNutrientDataType _:
+          case RiboflavinNutrientDataType _:
+          case NiacinNutrientDataType _:
+          case FolateNutrientDataType _:
+          case BiotinNutrientDataType _:
+          case PantothenicAcidNutrientDataType _:
+            throw ArgumentError(
+              'Invalid data type for BloodPressureAggregateRequest: $dataType.',
+            );
+        }
+    }
   }
 }
 
