@@ -85,14 +85,16 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
 import 'package:health_connector_core/src/models/permissions/permission.dart'
     show HealthDataPermission, HealthDataPermissionAccessType;
 import 'package:health_connector_core/src/models/requests/aggregate_request.dart'
-    show AggregateRequest;
+    show
+        AggregateRequest,
+        BloodPressureAggregateRequest,
+        CommonAggregateRequest;
 import 'package:health_connector_core/src/models/requests/aggregation_metric.dart'
     show AggregationMetric;
 import 'package:health_connector_core/src/models/requests/read_record_request.dart'
     show ReadRecordRequest;
 import 'package:health_connector_core/src/models/requests/read_records_request.dart'
     show ReadRecordsRequest;
-import 'package:health_connector_core/src/utils/validation.dart' show require;
 import 'package:meta/meta.dart' show immutable, internal;
 
 part 'active_calories_burned_health_data_type.dart';

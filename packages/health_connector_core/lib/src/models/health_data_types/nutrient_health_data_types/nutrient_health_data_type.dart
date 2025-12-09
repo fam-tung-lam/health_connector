@@ -83,7 +83,7 @@ final class EnergyNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -167,7 +167,7 @@ final class CaffeineNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,

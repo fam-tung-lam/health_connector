@@ -29,6 +29,7 @@ final class HeartRateMeasurementRecordHealthDataType
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
   ];
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -88,7 +89,7 @@ final class HeartRateMeasurementRecordHealthDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.avg,
       startTime: startTime,
@@ -102,7 +103,7 @@ final class HeartRateMeasurementRecordHealthDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.min,
       startTime: startTime,
@@ -116,7 +117,7 @@ final class HeartRateMeasurementRecordHealthDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.max,
       startTime: startTime,

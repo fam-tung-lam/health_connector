@@ -80,7 +80,7 @@ final class ProteinNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -166,7 +166,7 @@ final class TotalCarbohydrateNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -250,7 +250,7 @@ final class TotalFatNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -334,7 +334,7 @@ final class SaturatedFatNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -420,7 +420,7 @@ final class MonounsaturatedFatNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -506,7 +506,7 @@ final class PolyunsaturatedFatNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -590,7 +590,7 @@ final class CholesterolNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -674,7 +674,7 @@ final class DietaryFiberNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -758,7 +758,7 @@ final class SugarNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,

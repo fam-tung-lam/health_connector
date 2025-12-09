@@ -74,7 +74,7 @@ final class WheelchairPushesHealthDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,

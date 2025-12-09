@@ -18,11 +18,6 @@ final class BloodPressureHealthDataType
   @internal
   const BloodPressureHealthDataType();
 
-  static const _bloodPressureHealthDataTypes = [
-    HealthDataType.diastolicBloodPressure,
-    HealthDataType.systolicBloodPressure,
-  ];
-
   @override
   String get identifier => 'blood_pressure';
 
@@ -83,14 +78,12 @@ final class BloodPressureHealthDataType
     AggregationMetric.max,
   ];
 
-  AggregateRequest<HealthRecord, Pressure> aggregateAverage({
+  BloodPressureAggregateRequest aggregateAverage({
     required HealthDataType<HealthRecord, Pressure> bloodPressureType,
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    _validateBloodPressureType(bloodPressureType);
-
-    return AggregateRequest(
+    return BloodPressureAggregateRequest(
       dataType: bloodPressureType,
       aggregationMetric: AggregationMetric.avg,
       startTime: startTime,
@@ -98,14 +91,12 @@ final class BloodPressureHealthDataType
     );
   }
 
-  AggregateRequest<HealthRecord, Pressure> aggregateMin({
+  BloodPressureAggregateRequest aggregateMin({
     required HealthDataType<HealthRecord, Pressure> bloodPressureType,
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    _validateBloodPressureType(bloodPressureType);
-
-    return AggregateRequest(
+    return BloodPressureAggregateRequest(
       dataType: bloodPressureType,
       aggregationMetric: AggregationMetric.min,
       startTime: startTime,
@@ -113,28 +104,16 @@ final class BloodPressureHealthDataType
     );
   }
 
-  AggregateRequest<HealthRecord, Pressure> aggregateMax({
+  BloodPressureAggregateRequest aggregateMax({
     required HealthDataType<HealthRecord, Pressure> bloodPressureType,
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    _validateBloodPressureType(bloodPressureType);
-
-    return AggregateRequest(
+    return BloodPressureAggregateRequest(
       dataType: bloodPressureType,
       aggregationMetric: AggregationMetric.max,
       startTime: startTime,
       endTime: endTime,
-    );
-  }
-
-  void _validateBloodPressureType(
-    HealthDataType<HealthRecord, Pressure> bloodPressureType,
-  ) {
-    require(
-      _bloodPressureHealthDataTypes.contains(bloodPressureType),
-      '$bloodPressureType is not a valid blood pressure type for aggregation. '
-      'Must be one of: $_bloodPressureHealthDataTypes.',
     );
   }
 }

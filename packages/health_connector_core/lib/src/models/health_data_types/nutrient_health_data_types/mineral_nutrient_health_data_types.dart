@@ -80,7 +80,7 @@ final class CalciumNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -151,7 +151,7 @@ final class IronNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -222,7 +222,7 @@ final class MagnesiumNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -293,7 +293,7 @@ final class ManganeseNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -364,7 +364,7 @@ final class PhosphorusNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -435,7 +435,7 @@ final class PotassiumNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -506,7 +506,7 @@ final class SeleniumNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -577,7 +577,7 @@ final class SodiumNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,
@@ -648,7 +648,7 @@ final class ZincNutrientDataType
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
       startTime: startTime,

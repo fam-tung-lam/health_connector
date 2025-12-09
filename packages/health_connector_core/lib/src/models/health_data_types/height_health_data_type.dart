@@ -78,7 +78,7 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.avg,
       startTime: startTime,
@@ -92,7 +92,7 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.min,
       startTime: startTime,
@@ -106,7 +106,7 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
     required DateTime startTime,
     required DateTime endTime,
   }) {
-    return AggregateRequest(
+    return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.max,
       startTime: startTime,
