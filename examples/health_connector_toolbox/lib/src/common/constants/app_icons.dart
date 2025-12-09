@@ -27,6 +27,7 @@ abstract final class AppIcons {
   static const IconData bedtime = Icons.bedtime;
 
   static const IconData fastfood = Icons.fastfood;
+  static const IconData bloodPressure = Icons.compress;
 
   // Permissions & Security
   static const IconData lockOutline = Icons.lock_outline;

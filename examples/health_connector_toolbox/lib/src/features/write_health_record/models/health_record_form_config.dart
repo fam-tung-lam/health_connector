@@ -6,6 +6,10 @@ import 'package:health_connector_core/health_connector_core.dart'
         BiotinNutrientRecord,
         BodyFatPercentageHealthDataType,
         BodyFatPercentageRecord,
+        BloodPressureBodyPosition,
+        BloodPressureHealthDataType,
+        BloodPressureMeasurementLocation,
+        BloodPressureRecord,
         BodyTemperatureHealthDataType,
         BodyTemperatureRecord,
         CaffeineNutrientDataType,
@@ -16,6 +20,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         CholesterolNutrientRecord,
         DietaryFiberNutrientDataType,
         DietaryFiberNutrientRecord,
+        DiastolicBloodPressureHealthDataType,
+        DiastolicBloodPressureRecord,
         DistanceHealthDataType,
         DistanceRecord,
         Energy,
@@ -68,6 +74,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         PotassiumNutrientRecord,
         ProteinNutrientDataType,
         ProteinNutrientRecord,
+        Pressure,
         RiboflavinNutrientDataType,
         RiboflavinNutrientRecord,
         SaturatedFatNutrientDataType,
@@ -80,6 +87,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         StepsHealthDataType,
         SugarNutrientDataType,
         SugarNutrientRecord,
+        SystolicBloodPressureHealthDataType,
+        SystolicBloodPressureRecord,
         Temperature,
         ThiaminNutrientDataType,
         ThiaminNutrientRecord,
@@ -155,6 +164,11 @@ sealed class HealthRecordFormConfig {
       BodyFatPercentageHealthDataType() => const BodyFatPercentageFormConfig(),
       LeanBodyMassHealthDataType() => const LeanBodyMassFormConfig(),
       BodyTemperatureHealthDataType() => const BodyTemperatureFormConfig(),
+      BloodPressureHealthDataType() => const BloodPressureFormConfig(),
+      SystolicBloodPressureHealthDataType() =>
+        const SystolicBloodPressureFormConfig(),
+      DiastolicBloodPressureHealthDataType() =>
+        const DiastolicBloodPressureFormConfig(),
       DistanceHealthDataType() => const DistanceFormConfig(),
       ActiveCaloriesBurnedHealthDataType() =>
         const ActiveCaloriesBurnedFormConfig(),
@@ -504,6 +518,98 @@ final class BodyTemperatureFormConfig extends HealthRecordFormConfig {
     return BodyTemperatureRecord(
       time: startDateTime,
       temperature: temperatureValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for blood pressure records.
+///
+/// Blood pressure is a composite record that requires:
+/// - Time (single timestamp)
+/// - Systolic pressure
+/// - Diastolic pressure
+/// - Body position
+/// - Measurement location
+final class BloodPressureFormConfig extends HealthRecordFormConfig {
+  const BloodPressureFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    throw UnsupportedError(
+      'BloodPressureFormConfig.buildRecord() should not be called directly. '
+      'Use buildBloodPressureRecord() instead.',
+    );
+  }
+
+  HealthRecord buildBloodPressureRecord({
+    required DateTime time,
+    required Pressure systolic,
+    required Pressure diastolic,
+    required BloodPressureBodyPosition bodyPosition,
+    required BloodPressureMeasurementLocation measurementLocation,
+    required Metadata metadata,
+  }) {
+    return BloodPressureRecord(
+      time: time,
+      systolic: systolic,
+      diastolic: diastolic,
+      bodyPosition: bodyPosition,
+      measurementLocation: measurementLocation,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for systolic blood pressure records.
+final class SystolicBloodPressureFormConfig extends HealthRecordFormConfig {
+  const SystolicBloodPressureFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    final pressureValue = value as Pressure;
+    return SystolicBloodPressureRecord(
+      time: startDateTime,
+      pressure: pressureValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for diastolic blood pressure records.
+final class DiastolicBloodPressureFormConfig extends HealthRecordFormConfig {
+  const DiastolicBloodPressureFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    final pressureValue = value as Pressure;
+    return DiastolicBloodPressureRecord(
+      time: startDateTime,
+      pressure: pressureValue,
       metadata: metadata,
     );
   }

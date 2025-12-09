@@ -3,12 +3,14 @@ import 'package:health_connector_core/health_connector_core.dart'
     show
         ActiveCaloriesBurnedHealthDataType,
         BiotinNutrientDataType,
+        BloodPressureHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
         CaffeineNutrientDataType,
         CalciumNutrientDataType,
         CholesterolNutrientDataType,
         DietaryFiberNutrientDataType,
+        DiastolicBloodPressureHealthDataType,
         DistanceHealthDataType,
         Energy,
         EnergyNutrientDataType,
@@ -35,6 +37,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         PhosphorusNutrientDataType,
         PolyunsaturatedFatNutrientDataType,
         PotassiumNutrientDataType,
+        Pressure,
         ProteinNutrientDataType,
         RiboflavinNutrientDataType,
         SaturatedFatNutrientDataType,
@@ -42,6 +45,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         SodiumNutrientDataType,
         StepsHealthDataType,
         SugarNutrientDataType,
+        SystolicBloodPressureHealthDataType,
         Temperature,
         ThiaminNutrientDataType,
         TotalCarbohydrateNutrientDataType,
@@ -122,6 +126,11 @@ class _HealthValueFieldState extends State<HealthValueField> {
           BodyFatPercentageHealthDataType() => _parseBodyFatPercentage(value),
           LeanBodyMassHealthDataType() => _parseMass(value),
           BodyTemperatureHealthDataType() => _parseTemperature(value),
+          BloodPressureHealthDataType() => throw UnsupportedError(
+            'BloodPressureHealthDataType requires custom form handling',
+          ),
+          SystolicBloodPressureHealthDataType() => _parsePressure(value),
+          DiastolicBloodPressureHealthDataType() => _parsePressure(value),
           DistanceHealthDataType() => _parseLength(value),
           ActiveCaloriesBurnedHealthDataType() => _parseEnergy(value),
           FloorsClimbedHealthDataType() => _parseNumeric(value),
@@ -239,6 +248,14 @@ class _HealthValueFieldState extends State<HealthValueField> {
     return null;
   }
 
+  Pressure? _parsePressure(String value) {
+    final pressureValue = double.tryParse(value);
+    if (pressureValue != null && pressureValue > 0) {
+      return Pressure.millimetersOfMercury(pressureValue);
+    }
+    return null;
+  }
+
   Volume? _parseVolume(String value) {
     final volumeValue = double.tryParse(value);
     if (volumeValue != null && volumeValue > 0) {
@@ -257,6 +274,13 @@ class _HealthValueFieldState extends State<HealthValueField> {
           AppTexts.pleaseEnterBodyFatPercentage,
         LeanBodyMassHealthDataType() => AppTexts.pleaseEnterLeanBodyMass,
         BodyTemperatureHealthDataType() => AppTexts.pleaseEnterBodyTemperature,
+        BloodPressureHealthDataType() => throw UnsupportedError(
+          'BloodPressureHealthDataType requires custom form handling',
+        ),
+        SystolicBloodPressureHealthDataType() =>
+          AppTexts.pleaseEnterSystolicBloodPressure,
+        DiastolicBloodPressureHealthDataType() =>
+          AppTexts.pleaseEnterDiastolicBloodPressure,
         DistanceHealthDataType() => AppTexts.pleaseEnterDistance,
         ActiveCaloriesBurnedHealthDataType() =>
           AppTexts.pleaseEnterActiveCaloriesBurned,
@@ -326,6 +350,11 @@ class _HealthValueFieldState extends State<HealthValueField> {
       BodyFatPercentageHealthDataType() => double.tryParse(value),
       LeanBodyMassHealthDataType() => double.tryParse(value),
       BodyTemperatureHealthDataType() => double.tryParse(value),
+      BloodPressureHealthDataType() => throw UnsupportedError(
+        'BloodPressureHealthDataType requires custom form handling',
+      ),
+      SystolicBloodPressureHealthDataType() => double.tryParse(value),
+      DiastolicBloodPressureHealthDataType() => double.tryParse(value),
       DistanceHealthDataType() => double.tryParse(value),
       ActiveCaloriesBurnedHealthDataType() => double.tryParse(value),
       FloorsClimbedHealthDataType() => int.tryParse(value),
@@ -404,6 +433,17 @@ class _HealthValueFieldState extends State<HealthValueField> {
       BodyTemperatureHealthDataType() => null,
       // Temperature can be any valid number (including negative for very cold)
       // No specific validation needed beyond being a valid number
+      BloodPressureHealthDataType() => throw UnsupportedError(
+        'BloodPressureHealthDataType requires custom form handling',
+      ),
+      SystolicBloodPressureHealthDataType() =>
+        (parsed as double) <= 0
+            ? AppTexts.systolicBloodPressureMustBeGreaterThanZero
+            : null,
+      DiastolicBloodPressureHealthDataType() =>
+        (parsed as double) <= 0
+            ? AppTexts.diastolicBloodPressureMustBeGreaterThanZero
+            : null,
       BodyFatPercentageHealthDataType() => () {
         final percentage = parsed as double;
         return (percentage < 0 || percentage > 100)
@@ -514,6 +554,13 @@ class _HealthValueFieldState extends State<HealthValueField> {
           AppTexts.pleaseEnterBodyFatPercentage,
         LeanBodyMassHealthDataType() => AppTexts.pleaseEnterLeanBodyMass,
         BodyTemperatureHealthDataType() => AppTexts.pleaseEnterBodyTemperature,
+        BloodPressureHealthDataType() => throw UnsupportedError(
+          'BloodPressureHealthDataType requires custom form handling',
+        ),
+        SystolicBloodPressureHealthDataType() =>
+          AppTexts.pleaseEnterSystolicBloodPressure,
+        DiastolicBloodPressureHealthDataType() =>
+          AppTexts.pleaseEnterDiastolicBloodPressure,
         DistanceHealthDataType() => AppTexts.pleaseEnterDistance,
         ActiveCaloriesBurnedHealthDataType() =>
           AppTexts.pleaseEnterActiveCaloriesBurned,
@@ -647,6 +694,31 @@ class _HealthValueFieldState extends State<HealthValueField> {
           labelText: AppTexts.bodyTemperatureValue,
           border: OutlineInputBorder(),
           prefixIcon: Icon(AppIcons.temperature),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      BloodPressureHealthDataType() => throw UnsupportedError(
+        'BloodPressureHealthDataType requires custom form handling',
+      ),
+      SystolicBloodPressureHealthDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.systolicBloodPressureValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.bloodPressure),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      DiastolicBloodPressureHealthDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.diastolicBloodPressureValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.bloodPressure),
         ),
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
         onChanged: _onChanged,

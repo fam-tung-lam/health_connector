@@ -4,10 +4,14 @@ import 'package:health_connector_core/health_connector_core.dart'
         ActiveCaloriesBurnedRecord,
         BiotinNutrientRecord,
         BodyFatPercentageRecord,
+        BloodPressureRecord,
+        BloodPressureBodyPosition,
+        BloodPressureMeasurementLocation,
         BodyTemperatureRecord,
         CaffeineNutrientRecord,
         CalciumNutrientRecord,
         CholesterolNutrientRecord,
+        DiastolicBloodPressureRecord,
         DietaryFiberNutrientRecord,
         DistanceRecord,
         EnergyNutrientRecord,
@@ -41,6 +45,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         SodiumNutrientRecord,
         StepRecord,
         SugarNutrientRecord,
+        SystolicBloodPressureRecord,
         ThiaminNutrientRecord,
         TotalCarbohydrateNutrientRecord,
         TotalFatNutrientRecord,
@@ -203,6 +208,15 @@ final class HealthRecordListTile extends StatelessWidget {
     InstantHealthRecord record,
   ) {
     return switch (record) {
+      BloodPressureRecord() => _buildBloodPressureRecord(record, onDelete),
+      SystolicBloodPressureRecord() => _buildSystolicBloodPressureRecord(
+        record,
+        onDelete,
+      ),
+      DiastolicBloodPressureRecord() => _buildDiastolicBloodPressureRecord(
+        record,
+        onDelete,
+      ),
       WeightRecord() => InstantHealthRecordTile<WeightRecord>(
         record: record,
         icon: AppIcons.monitorWeight,
@@ -1603,5 +1617,156 @@ final class HealthRecordListTile extends StatelessWidget {
       ),
       onDelete: onDelete,
     );
+  }
+
+  Widget _buildBloodPressureRecord(
+    BloodPressureRecord record,
+    VoidCallback onDelete,
+  ) {
+    return InstantHealthRecordTile<BloodPressureRecord>(
+      record: record,
+      icon: AppIcons.bloodPressure,
+      title:
+          '${record.systolic.inMillimetersOfMercury.toStringAsFixed(0)}/'
+          '${record.diastolic.inMillimetersOfMercury.toStringAsFixed(0)} mmHg',
+      subtitleBuilder: (r, ctx) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 4),
+          Text(
+            '${AppTexts.time}: ${DateFormatUtils.formatDateTime(r.time)}',
+          ),
+          Text(
+            '${AppTexts.recording}: ${r.metadata.recordingMethod.name}',
+            style: const TextStyle(
+              fontSize: 12,
+              color: theme.AppColors.grey600,
+            ),
+          ),
+        ],
+      ),
+      detailRowsBuilder: (r, ctx) => [
+        HealthRecordDetailRow(
+          label: AppTexts.systolic,
+          value: '${r.systolic.inMillimetersOfMercury.toStringAsFixed(0)} mmHg',
+        ),
+        HealthRecordDetailRow(
+          label: AppTexts.diastolic,
+          value:
+              '${r.diastolic.inMillimetersOfMercury.toStringAsFixed(0)} mmHg',
+        ),
+        if (r.bodyPosition != BloodPressureBodyPosition.unknown)
+          HealthRecordDetailRow(
+            label: AppTexts.bodyPosition,
+            value: _getBodyPositionDisplayName(r.bodyPosition),
+          ),
+        if (r.measurementLocation != BloodPressureMeasurementLocation.unknown)
+          HealthRecordDetailRow(
+            label: AppTexts.measurementLocation,
+            value: _getMeasurementLocationDisplayName(r.measurementLocation),
+          ),
+      ],
+      onDelete: onDelete,
+    );
+  }
+
+  Widget _buildSystolicBloodPressureRecord(
+    SystolicBloodPressureRecord record,
+    VoidCallback onDelete,
+  ) {
+    return InstantHealthRecordTile<SystolicBloodPressureRecord>(
+      record: record,
+      icon: AppIcons.bloodPressure,
+      title:
+          '${record.pressure.inMillimetersOfMercury.toStringAsFixed(0)} mmHg '
+          '(${AppTexts.systolic})',
+      subtitleBuilder: (r, ctx) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 4),
+          Text(
+            '${AppTexts.time}: ${DateFormatUtils.formatDateTime(r.time)}',
+          ),
+          Text(
+            '${AppTexts.recording}: ${r.metadata.recordingMethod.name}',
+            style: const TextStyle(
+              fontSize: 12,
+              color: theme.AppColors.grey600,
+            ),
+          ),
+        ],
+      ),
+      detailRowsBuilder: (r, ctx) => [
+        HealthRecordDetailRow(
+          label: AppTexts.value,
+          value: '${r.pressure.inMillimetersOfMercury.toStringAsFixed(0)} mmHg',
+        ),
+      ],
+      onDelete: onDelete,
+    );
+  }
+
+  Widget _buildDiastolicBloodPressureRecord(
+    DiastolicBloodPressureRecord record,
+    VoidCallback onDelete,
+  ) {
+    return InstantHealthRecordTile<DiastolicBloodPressureRecord>(
+      record: record,
+      icon: AppIcons.bloodPressure,
+      title:
+          '${record.pressure.inMillimetersOfMercury.toStringAsFixed(0)} mmHg '
+          '(${AppTexts.diastolic})',
+      subtitleBuilder: (r, ctx) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 4),
+          Text(
+            '${AppTexts.time}: ${DateFormatUtils.formatDateTime(r.time)}',
+          ),
+          Text(
+            '${AppTexts.recording}: ${r.metadata.recordingMethod.name}',
+            style: const TextStyle(
+              fontSize: 12,
+              color: theme.AppColors.grey600,
+            ),
+          ),
+        ],
+      ),
+      detailRowsBuilder: (r, ctx) => [
+        HealthRecordDetailRow(
+          label: AppTexts.value,
+          value: '${r.pressure.inMillimetersOfMercury.toStringAsFixed(0)} mmHg',
+        ),
+      ],
+      onDelete: onDelete,
+    );
+  }
+
+  static String _getBodyPositionDisplayName(
+    BloodPressureBodyPosition position,
+  ) {
+    return switch (position) {
+      BloodPressureBodyPosition.unknown => 'Unknown',
+      BloodPressureBodyPosition.sittingDown => AppTexts.bodyPositionSittingDown,
+      BloodPressureBodyPosition.standingUp => AppTexts.bodyPositionStandingUp,
+      BloodPressureBodyPosition.lyingDown => AppTexts.bodyPositionLyingDown,
+      BloodPressureBodyPosition.reclining => AppTexts.bodyPositionReclining,
+    };
+  }
+
+  static String _getMeasurementLocationDisplayName(
+    BloodPressureMeasurementLocation location,
+  ) {
+    return switch (location) {
+      BloodPressureMeasurementLocation.unknown => 'Unknown',
+      BloodPressureMeasurementLocation.leftWrist =>
+        AppTexts.measurementLocationLeftWrist,
+      BloodPressureMeasurementLocation.rightWrist =>
+        AppTexts.measurementLocationRightWrist,
+      BloodPressureMeasurementLocation.leftUpperArm =>
+        AppTexts.measurementLocationLeftUpperArm,
+      BloodPressureMeasurementLocation.rightUpperArm =>
+        AppTexts.measurementLocationRightUpperArm,
+    };
   }
 }

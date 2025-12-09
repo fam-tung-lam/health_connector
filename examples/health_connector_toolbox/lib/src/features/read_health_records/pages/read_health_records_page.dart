@@ -4,12 +4,14 @@ import 'package:health_connector_core/health_connector_core.dart'
     show
         ActiveCaloriesBurnedHealthDataType,
         BiotinNutrientDataType,
+        BloodPressureHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
         CaffeineNutrientDataType,
         CalciumNutrientDataType,
         CholesterolNutrientDataType,
         DietaryFiberNutrientDataType,
+        DiastolicBloodPressureHealthDataType,
         DistanceHealthDataType,
         EnergyNutrientDataType,
         FloorsClimbedHealthDataType,
@@ -41,6 +43,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         SodiumNutrientDataType,
         StepsHealthDataType,
         SugarNutrientDataType,
+        SystolicBloodPressureHealthDataType,
         ThiaminNutrientDataType,
         TotalCarbohydrateNutrientDataType,
         TotalFatNutrientDataType,
@@ -245,6 +248,24 @@ class _ReadHealthRecordsPageState
           ),
         PolyunsaturatedFatNutrientDataType() =>
           HealthDataType.polyunsaturatedFat.readRecords(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        BloodPressureHealthDataType() =>
+          HealthDataType.bloodPressure.readRecords(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        SystolicBloodPressureHealthDataType() =>
+          HealthDataType.systolicBloodPressure.readRecords(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        DiastolicBloodPressureHealthDataType() =>
+          HealthDataType.diastolicBloodPressure.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,

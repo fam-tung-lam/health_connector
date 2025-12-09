@@ -3,7 +3,11 @@ import 'package:health_connector_core/health_connector_core.dart'
     show
         ActiveCaloriesBurnedHealthDataType,
         BiotinNutrientDataType,
+        BloodPressureBodyPosition,
+        BloodPressureHealthDataType,
+        BloodPressureMeasurementLocation,
         BodyFatPercentageHealthDataType,
+        DiastolicBloodPressureHealthDataType,
         BodyTemperatureHealthDataType,
         CaffeineNutrientDataType,
         CalciumNutrientDataType,
@@ -39,6 +43,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         PhosphorusNutrientDataType,
         PolyunsaturatedFatNutrientDataType,
         PotassiumNutrientDataType,
+        Pressure,
         ProteinNutrientDataType,
         RecordingMethod,
         RiboflavinNutrientDataType,
@@ -47,6 +52,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         SodiumNutrientDataType,
         StepsHealthDataType,
         SugarNutrientDataType,
+        SystolicBloodPressureHealthDataType,
         ThiaminNutrientDataType,
         TotalCarbohydrateNutrientDataType,
         TotalFatNutrientDataType,
@@ -70,12 +76,14 @@ import 'package:health_connector_toolbox/src/common/widgets/date_time_picker_row
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/models/health_record_form_config.dart'
     show
+        BloodPressureFormConfig,
         HealthRecordFormConfig,
         HeartRateSeriesRecordFormConfig,
         NutritionFormConfig,
         NutrientFormConfig,
         SleepSessionRecordFormConfig,
         SleepStageRecordFormConfig;
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/blood_pressure_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/duration_picker_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/health_value_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/heart_rate_samples_form_field.dart';
@@ -178,6 +186,10 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
   Mass? _nutritionSodium;
   Mass? _nutritionZinc;
   Mass? _nutritionCaffeine;
+
+  // State for blood pressure record
+  Pressure? _systolic;
+  Pressure? _diastolic;
 
   // Use different state mixins based on whether duration is needed
   DateTime? _startDate;
@@ -342,6 +354,11 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
     } else if (widget.dataType is NutritionHealthDataType) {
       // NutritionRecord doesn't require any fields - all are optional
       // Validation will be handled in the form widget
+    } else if (widget.dataType is BloodPressureHealthDataType) {
+      // Blood pressure records need both systolic and diastolic values
+      if (_systolic == null || _diastolic == null) {
+        return;
+      }
     } else if (_config is NutrientFormConfig) {
       // Nutrient records need a value
       if (_value == null) {
@@ -448,6 +465,15 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
             zinc: _nutritionZinc,
             caffeine: _nutritionCaffeine,
           ),
+        BloodPressureHealthDataType() =>
+          (_config as BloodPressureFormConfig).buildBloodPressureRecord(
+            time: startDateTime!,
+            systolic: _systolic!,
+            diastolic: _diastolic!,
+            bodyPosition: BloodPressureBodyPosition.unknown,
+            measurementLocation: BloodPressureMeasurementLocation.unknown,
+            metadata: metadata,
+          ),
         _ =>
           _config is NutrientFormConfig
               ? _config.buildRecordWithNutrientData(
@@ -517,6 +543,12 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
           AppTexts.writePermissionDeniedLeanBodyMass,
         BodyTemperatureHealthDataType() =>
           AppTexts.writePermissionDeniedBodyTemperature,
+        BloodPressureHealthDataType() =>
+          AppTexts.writePermissionDeniedBloodPressure,
+        SystolicBloodPressureHealthDataType() =>
+          AppTexts.writePermissionDeniedSystolicBloodPressure,
+        DiastolicBloodPressureHealthDataType() =>
+          AppTexts.writePermissionDeniedDiastolicBloodPressure,
         DistanceHealthDataType() => AppTexts.writePermissionDeniedDistance,
         ActiveCaloriesBurnedHealthDataType() =>
           AppTexts.writePermissionDeniedActiveCaloriesBurned,
@@ -599,6 +631,11 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                 AppTexts.insertBodyFatPercentage,
               LeanBodyMassHealthDataType() => AppTexts.insertLeanBodyMass,
               BodyTemperatureHealthDataType() => AppTexts.insertBodyTemperature,
+              BloodPressureHealthDataType() => AppTexts.insertBloodPressure,
+              SystolicBloodPressureHealthDataType() =>
+                AppTexts.insertSystolicBloodPressure,
+              DiastolicBloodPressureHealthDataType() =>
+                AppTexts.insertDiastolicBloodPressure,
               DistanceHealthDataType() => AppTexts.insertDistance,
               ActiveCaloriesBurnedHealthDataType() =>
                 AppTexts.insertActiveCaloriesBurned,
@@ -788,6 +825,19 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                             _nutritionSodium = sodium;
                             _nutritionZinc = zinc;
                             _nutritionCaffeine = caffeine;
+                          });
+                        },
+                  )
+                else if (widget.dataType is BloodPressureHealthDataType)
+                  BloodPressureFormField(
+                    onChanged:
+                        ({
+                          required systolic,
+                          required diastolic,
+                        }) {
+                          setState(() {
+                            _systolic = systolic;
+                            _diastolic = diastolic;
                           });
                         },
                   )

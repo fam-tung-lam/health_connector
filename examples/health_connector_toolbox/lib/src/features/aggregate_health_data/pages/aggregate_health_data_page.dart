@@ -6,7 +6,9 @@ import 'package:health_connector_core/health_connector_core.dart'
         AggregateResponse,
         AggregationMetric,
         BodyFatPercentageHealthDataType,
+        BloodPressureHealthDataType,
         BodyTemperatureHealthDataType,
+        DiastolicBloodPressureHealthDataType,
         DistanceHealthDataType,
         FloorsClimbedHealthDataType,
         HealthConnectorErrorCode,
@@ -41,6 +43,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         MagnesiumNutrientDataType,
         ManganeseNutrientDataType,
         PhosphorusNutrientDataType,
+        SystolicBloodPressureHealthDataType,
         PotassiumNutrientDataType,
         SeleniumNutrientDataType,
         SodiumNutrientDataType,
@@ -310,6 +313,47 @@ class _AggregateHealthDataPageState
         BodyFatPercentageHealthDataType() => throw UnsupportedError(
           'Body fat percentage does not support aggregation',
         ),
+        BloodPressureHealthDataType() => throw UnsupportedError(
+          'Blood Pressure composite type does not support aggregation',
+        ),
+        SystolicBloodPressureHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg =>
+            HealthDataType.systolicBloodPressure.aggregateAverage(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.min =>
+            HealthDataType.systolicBloodPressure.aggregateMin(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.max =>
+            HealthDataType.systolicBloodPressure.aggregateMax(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.sum || AggregationMetric.count =>
+            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+        },
+        DiastolicBloodPressureHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg =>
+            HealthDataType.diastolicBloodPressure.aggregateAverage(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.min =>
+            HealthDataType.diastolicBloodPressure.aggregateMin(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.max =>
+            HealthDataType.diastolicBloodPressure.aggregateMax(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.sum || AggregationMetric.count =>
+            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+        },
         BodyTemperatureHealthDataType() => throw UnsupportedError(
           'Body temperature does not support aggregation',
         ),

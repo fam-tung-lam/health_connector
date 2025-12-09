@@ -128,6 +128,32 @@ abstract final class AppTexts {
   static const String hydrationLiters = 'Hydration (L)';
   static const String hydrationMilliliters = 'Hydration (mL)';
   static const String hydrationFluidOunces = 'Hydration (fl oz)';
+  static const String bloodPressure = 'Blood Pressure';
+  static const String bloodPressureDescription =
+      'Blood pressure measurement (systolic and diastolic) at a point in time';
+  static const String systolicBloodPressure = 'Systolic Blood Pressure';
+  static const String systolicBloodPressureDescription =
+      'Systolic blood pressure measurement at a point in time';
+  static const String diastolicBloodPressure = 'Diastolic Blood Pressure';
+  static const String diastolicBloodPressureDescription =
+      'Diastolic blood pressure measurement at a point in time';
+  static const String systolic = 'Systolic';
+  static const String systolicBloodPressureValue =
+      'Systolic Blood Pressure (mmHg)';
+  static const String diastolic = 'Diastolic';
+  static const String diastolicBloodPressureValue =
+      'Diastolic Blood Pressure (mmHg)';
+  static const String bodyPosition = 'Body Position';
+  static const String bodyPositionSittingDown = 'Sitting Down';
+  static const String bodyPositionStandingUp = 'Standing Up';
+  static const String bodyPositionLyingDown = 'Lying Down';
+  static const String bodyPositionReclining = 'Reclining';
+
+  static const String measurementLocation = 'Measurement Location';
+  static const String measurementLocationLeftWrist = 'Left Wrist';
+  static const String measurementLocationRightWrist = 'Right Wrist';
+  static const String measurementLocationLeftUpperArm = 'Left Upper Arm';
+  static const String measurementLocationRightUpperArm = 'Right Upper Arm';
   static const String heartRate = 'Heart Rate';
   static const String heartRateRecordDescription =
       'Single heart rate measurement at a point in time';
@@ -321,6 +347,15 @@ abstract final class AppTexts {
   static const String writePermissionDeniedSleepStageRecord =
       'Write permission denied or not supported. '
       'Please grant write permission for sleep stage.';
+  static const String writePermissionDeniedBloodPressure =
+      'Write permission denied or not supported. '
+      'Please grant write permission for blood pressure.';
+  static const String writePermissionDeniedSystolicBloodPressure =
+      'Write permission denied or not supported. '
+      'Please grant write permission for systolic blood pressure.';
+  static const String writePermissionDeniedDiastolicBloodPressure =
+      'Write permission denied or not supported. '
+      'Please grant write permission for diastolic blood pressure.';
 
   // ==========================================================================
   // Validation Messages
@@ -351,6 +386,10 @@ abstract final class AppTexts {
       'Please enter body temperature';
   static const String pleaseEnterHydration = 'Please enter hydration';
   static const String pleaseEnterHeartRate = 'Please enter heart rate (BPM)';
+  static const String pleaseEnterSystolicBloodPressure =
+      'Please enter systolic blood pressure';
+  static const String pleaseEnterDiastolicBloodPressure =
+      'Please enter diastolic blood pressure';
   static const String pleaseEnterValidNumber = 'Please enter a valid number';
   static const String endTimeMustBeAfterStartTime =
       'End time must be after start time';
@@ -381,6 +420,10 @@ abstract final class AppTexts {
       'Heart rate must be a valid BPM value (typically 30-220)';
   static const String pageSizeMustBeBetween1And10000 =
       'Page size must be between 1 and 10000';
+  static const String systolicBloodPressureMustBeGreaterThanZero =
+      'Systolic blood pressure must be greater than 0';
+  static const String diastolicBloodPressureMustBeGreaterThanZero =
+      'Diastolic blood pressure must be greater than 0';
 
   // ==========================================================================
   // Page Titles and Actions
@@ -401,6 +444,11 @@ abstract final class AppTexts {
   static const String insertHeartRateRecord = 'Insert Heart Rate';
   static const String insertSleepSession = 'Insert Sleep Session';
   static const String insertSleepStageRecord = 'Insert Sleep Stage';
+  static const String insertBloodPressure = 'Insert Blood Pressure';
+  static const String insertSystolicBloodPressure =
+      'Insert Systolic Blood Pressure';
+  static const String insertDiastolicBloodPressure =
+      'Insert Diastolic Blood Pressure';
   static const String readHealthRecords = 'Read Health Records';
   static const String readAggregateData = 'Read Aggregate Data';
 
