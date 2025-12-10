@@ -73,6 +73,12 @@ internal class HealthConnectorClient {
             return .leanBodyMass
         case is HeartRateMeasurementRecordDto:
             return .heartRateMeasurementRecord
+        case is BloodPressureRecordDto:
+            return .bloodPressure
+        case is SystolicBloodPressureRecordDto:
+            return .systolicBloodPressure
+        case is DiastolicBloodPressureRecordDto:
+            return .diastolicBloodPressure
         case is SleepStageRecordDto:
             return .sleepStageRecord
         // Energy & Other Nutrients
