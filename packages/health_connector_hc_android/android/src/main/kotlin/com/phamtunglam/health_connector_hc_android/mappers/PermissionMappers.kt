@@ -213,6 +213,7 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionDto? {
         "WHEELCHAIR_PUSHES" -> HealthDataTypeDto.WHEELCHAIR_PUSHES
         "HEART_RATE" -> HealthDataTypeDto.HEART_RATE_SERIES_RECORD
         "SLEEP_SESSION" -> HealthDataTypeDto.SLEEP_SESSION
+        "BLOOD_PRESSURE" -> HealthDataTypeDto.BLOOD_PRESSURE
         "NUTRITION" -> HealthDataTypeDto.NUTRITION
         else -> return null // Unknown data type, skip it
     }
