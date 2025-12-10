@@ -89,7 +89,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     healthDataPermissionResults: healthDataResults
                 )
 
-                completion(.success(response))
+                self.complete(completion, with: .success(response))
 
             } catch let error as HealthConnectorError {
                 HealthConnectorLogger.error(
@@ -103,7 +103,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                completion(.failure(error))
+                self.complete(completion, with: .failure(error))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -116,7 +116,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     message: error.localizedDescription,
                     details: error.localizedDescription
                 )
-                completion(.failure(healthConnectorError))
+                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -142,7 +142,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
 
                 let result = try await client.readRecord(request: request)
 
-                completion(.success(result))
+                self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -155,7 +155,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                completion(.failure(error))
+                self.complete(completion, with: .failure(error))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -168,7 +168,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     message: error.localizedDescription,
                     details: error.localizedDescription
                 )
-                completion(.failure(healthConnectorError))
+                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -194,7 +194,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
 
                 let result = try await client.readRecords(request: request)
 
-                completion(.success(result))
+                self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -207,7 +207,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                completion(.failure(error))
+                self.complete(completion, with: .failure(error))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -220,7 +220,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     message: error.localizedDescription,
                     details: error.localizedDescription
                 )
-                completion(.failure(healthConnectorError))
+                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -246,7 +246,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
 
                 let result = try await client.writeRecord(request: request)
 
-                completion(.success(result))
+                self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -259,7 +259,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                completion(.failure(error))
+                self.complete(completion, with: .failure(error))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -272,7 +272,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     message: error.localizedDescription,
                     details: error.localizedDescription
                 )
-                completion(.failure(healthConnectorError))
+                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -298,7 +298,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
 
                 let result = try await client.writeRecords(request: request)
 
-                completion(.success(result))
+                self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -311,7 +311,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                completion(.failure(error))
+                self.complete(completion, with: .failure(error))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -324,7 +324,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     message: error.localizedDescription,
                     details: error.localizedDescription
                 )
-                completion(.failure(healthConnectorError))
+                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -350,7 +350,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
 
                 let result = try await client.updateRecord(request: request)
 
-                completion(.success(result))
+                self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -363,7 +363,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                completion(.failure(error))
+                self.complete(completion, with: .failure(error))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -376,7 +376,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     message: error.localizedDescription,
                     details: error.localizedDescription
                 )
-                completion(.failure(healthConnectorError))
+                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -402,7 +402,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
 
                 let result = try await client.aggregate(request: request)
 
-                completion(.success(result))
+                self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -415,7 +415,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                completion(.failure(error))
+                self.complete(completion, with: .failure(error))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -428,7 +428,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     message: error.localizedDescription,
                     details: error.localizedDescription
                 )
-                completion(.failure(healthConnectorError))
+                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -456,7 +456,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
 
                 try await client.deleteRecordsByIds(request: request)
 
-                completion(.success(()))
+                self.complete(completion, with: .success(()))
             } catch let error as HealthConnectorError {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -469,7 +469,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                completion(.failure(error))
+                self.complete(completion, with: .failure(error))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -482,7 +482,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     message: error.localizedDescription,
                     details: error.localizedDescription
                 )
-                completion(.failure(healthConnectorError))
+                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -508,7 +508,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
 
                 try await client.deleteRecordsByTimeRange(request: request)
 
-                completion(.success(()))
+                self.complete(completion, with: .success(()))
             } catch let error as HealthConnectorError {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -521,7 +521,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                completion(.failure(error))
+                self.complete(completion, with: .failure(error))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -534,8 +534,57 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     message: error.localizedDescription,
                     details: error.localizedDescription
                 )
-                completion(.failure(healthConnectorError))
+                self.complete(completion, with: .failure(healthConnectorError))
             }
+        }
+    }
+
+    // MARK: - Private Helpers
+
+    /**
+     * Dispatches a Pigeon completion handler to the main thread.
+     *
+     * This method **must** be used for all Pigeon API completion handlers called from
+     * within `Task { }` blocks or any asynchronous context.
+     *
+     * ## Why This Is Required
+     *
+     * When Pigeon's generated code calls `completion()`, it triggers a chain that ultimately
+     * invokes `FlutterStandardWriter.writeValue()` to serialize the response back to Dart.
+     * Flutter's binary messenger (`FlutterBinaryMessenger`) is **not thread-safe**, and
+     * calling it from a background thread can cause `EXC_BAD_ACCESS` crashes due to:
+     *
+     * 1. **Unsafe memory access**: The `FlutterStandardWriter` writes to `NSMutableData`
+     *    while the Flutter engine may be reading/writing from the main thread.
+     * 2. **Flutter engine assumptions**: The Flutter engine expects platform channel
+     *    responses to arrive on the main thread (the thread where the engine runs).
+     *
+     * ## When To Use
+     *
+     * Use this method whenever calling a Pigeon completion handler from:
+     * - Inside a `Task { }` block (Swift concurrency runs on a cooperative thread pool)
+     * - Inside a HealthKit query callback (runs on an arbitrary HealthKit queue)
+     * - Any other background thread context
+     *
+     * ## Example
+     *
+     * ```swift
+     * Task {
+     *     let result = try await client.readRecords(request: request)
+     *     complete(completion, with: .success(result))
+     * }
+     * ```
+     *
+     * - Parameters:
+     *   - completion: The Pigeon-generated completion handler to invoke.
+     *   - result: The `Result` to pass to the completion handler.
+     */
+    private func complete<T>(
+    _ completion: @escaping (Result<T, Error>) -> Void,
+    with result: Result<T, Error>
+    ) {
+        DispatchQueue.main.async {
+            completion(result)
         }
     }
 }
