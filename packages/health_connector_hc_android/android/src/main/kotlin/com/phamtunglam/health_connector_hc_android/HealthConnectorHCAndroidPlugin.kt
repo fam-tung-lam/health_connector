@@ -39,6 +39,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Flutter plugin for accessing Health Connect on Android devices.
@@ -182,7 +183,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
     override fun getHealthPlatformStatus(callback: (Result<HealthPlatformStatusDto>) -> Unit) {
         scope.launch {
             val statusDto = HealthConnectorClient.getHealthPlatformStatus(context)
-            callback(Result.success(statusDto))
+            complete(callback, Result.success(statusDto))
         }
     }
 
@@ -213,7 +214,8 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                         phase = "failed",
                         message = "Activity is null. Cannot request permissions without activity context",
                     )
-                    callback(
+                    complete(
+                        callback,
                         Result.failure(
                             HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION.toError(
                                 details = "Activity is unavailable. The app may be in the background or activity has been destroyed."
@@ -224,7 +226,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                 }
 
                 val responseDto = client.requestPermissions(activity = currentActivity, request = request)
-                callback(Result.success(responseDto))
+                complete(callback, Result.success(responseDto))
             } catch (e: HealthConnectorError) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -237,7 +239,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(e))
+                complete(callback, Result.failure(e))
             }
         }
     }
@@ -256,7 +258,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                 }
 
                 val responseDto = client.getGrantedPermissions()
-                callback(Result.success(responseDto))
+                complete(callback, Result.success(responseDto))
             } catch (e: HealthConnectorError) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -269,7 +271,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(e))
+                complete(callback, Result.failure(e))
             }
         }
     }
@@ -288,7 +290,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                 }
 
                 client.revokeAllPermissions()
-                callback(Result.success(Unit))
+                complete(callback, Result.success(Unit))
             } catch (e: HealthConnectorError) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -301,7 +303,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(e))
+                complete(callback, Result.failure(e))
             }
         }
     }
@@ -324,7 +326,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                 }
 
                 val featureStatusDto = client.getFeatureStatus(context, feature)
-                callback(Result.success(featureStatusDto))
+                complete(callback, Result.success(featureStatusDto))
             } catch (e: HealthConnectorError) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -338,7 +340,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(e))
+                complete(callback, Result.failure(e))
             }
         }
     }
@@ -361,7 +363,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                 }
 
                 val result = client.readRecord(request)
-                callback(Result.success(result))
+                complete(callback, Result.success(result))
             } catch (e: HealthConnectorError) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -376,7 +378,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(e))
+                complete(callback, Result.failure(e))
             }
         }
     }
@@ -399,7 +401,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                 }
 
                 val result = client.readRecords(request)
-                callback(Result.success(result))
+                complete(callback, Result.success(result))
             } catch (e: HealthConnectorError) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -416,7 +418,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(e))
+                complete(callback, Result.failure(e))
             }
         }
     }
@@ -439,7 +441,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                 }
 
                 val result = client.writeRecord(request)
-                callback(Result.success(result))
+                complete(callback, Result.success(result))
             } catch (e: HealthConnectorError) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -452,7 +454,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(e))
+                complete(callback, Result.failure(e))
             }
         }
     }
@@ -475,7 +477,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                 }
 
                 val result = client.writeRecords(request)
-                callback(Result.success(result))
+                complete(callback, Result.success(result))
             } catch (e: HealthConnectorError) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -489,7 +491,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(e))
+                complete(callback, Result.failure(e))
             }
         }
     }
@@ -512,7 +514,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                 }
 
                 val result = client.updateRecord(request)
-                callback(Result.success(result))
+                complete(callback, Result.success(result))
             } catch (e: HealthConnectorError) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -525,7 +527,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(e))
+                complete(callback, Result.failure(e))
             }
         }
     }
@@ -549,7 +551,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
 
                 client.deleteRecordsByIds(request)
 
-                callback(Result.success(Unit))
+                complete(callback, Result.success(Unit))
             } catch (e: HealthConnectorError) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -564,7 +566,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(e))
+                complete(callback, Result.failure(e))
             } catch (e: Exception) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -577,7 +579,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(HealthConnectorErrorCodeDto.UNKNOWN.toError(details = e.message)))
+                complete(callback, Result.failure(HealthConnectorErrorCodeDto.UNKNOWN.toError(details = e.message)))
             }
         }
     }
@@ -601,7 +603,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
 
                 client.deleteRecordsByTimeRange(request)
 
-                callback(Result.success(Unit))
+                complete(callback, Result.success(Unit))
             } catch (e: HealthConnectorError) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -617,7 +619,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(e))
+                complete(callback, Result.failure(e))
             } catch (e: Exception) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -631,7 +633,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(HealthConnectorErrorCodeDto.UNKNOWN.toError(details = e.message)))
+                complete(callback, Result.failure(HealthConnectorErrorCodeDto.UNKNOWN.toError(details = e.message)))
             }
         }
     }
@@ -654,7 +656,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                 }
 
                 val result = client.aggregate(request)
-                callback(Result.success(result))
+                complete(callback, Result.success(result))
             } catch (e: HealthConnectorError) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -671,7 +673,7 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(e))
+                complete(callback, Result.failure(e))
             } catch (e: Exception) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -686,8 +688,61 @@ class HealthConnectorHCAndroidPlugin : FlutterPlugin, ActivityAware, HealthConne
                     ),
                     exception = e,
                 )
-                callback(Result.failure(HealthConnectorErrorCodeDto.UNKNOWN.toError(details = e.message)))
+                complete(callback, Result.failure(HealthConnectorErrorCodeDto.UNKNOWN.toError(details = e.message)))
             }
         }
     }
+
+    // region Private Helpers
+
+    /**
+     * Dispatches a Pigeon callback to the main thread for execution.
+     *
+     * ## Why Use This Method
+     *
+     * This method is provided for **performance optimization**.
+     * On Android, Pigeon's reply mechanism is thread-safe and internally marshals
+     * responses to the main thread. However, dispatching callbacks explicitly to the main thread
+     * can reduce context-switching overhead during serialization.
+     *
+     * **Important:** Unlike the iOS/Swift counterpart, this method is **NOT required** to prevent
+     * crashes. On iOS, calling Pigeon's completion handler from a background thread causes
+     * `EXC_BAD_ACCESS` due to Flutter's `FlutterStandardWriter` having UIKit thread-affinity.
+     * Android's `BinaryMessenger` does not have this limitation.
+     *
+     * ## What It Does
+     *
+     * Switches the coroutine context to [Dispatchers.Main] before invoking the Pigeon callback,
+     * ensuring that result serialization happens on the main thread.
+     *
+     * ## When To Use
+     *
+     * Use this method for all Pigeon callback invocations within coroutine scopes launched on
+     * background dispatchers (e.g., [Dispatchers.IO]). While optional for correctness, it provides:
+     * - Consistent threading behavior with the iOS implementation
+     * - Potential performance benefits by reducing internal thread marshalling
+     *
+     * ## Example
+     *
+     * ```kotlin
+     * scope.launch {
+     *     val result = client.readRecords(request)
+     *     complete(callback, Result.success(result))
+     * }
+     * ```
+     *
+     * @param T The type of the result value.
+     * @param callback The Pigeon-generated callback function to invoke.
+     * @param result The [Result] to pass to the callback.
+     */
+    private suspend fun <T> complete(
+        callback: (Result<T>) -> Unit,
+        result: Result<T>
+    ) {
+        withContext(Dispatchers.Main) {
+            callback(result)
+        }
+    }
+
+    // endregion
 }
