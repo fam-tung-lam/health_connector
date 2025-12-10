@@ -1,0 +1,38 @@
+import 'package:health_connector_core/health_connector_core.dart'
+    show SleepStageRecord, HealthRecordId;
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sleep_stage_type_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/metadata_mappers.dart';
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
+    show SleepStageRecordDto;
+import 'package:meta/meta.dart' show internal;
+
+/// Converts [SleepStageRecord] to [SleepStageRecordDto].
+@internal
+extension SleepStageRecordToDto on SleepStageRecord {
+  SleepStageRecordDto toDto() {
+    return SleepStageRecordDto(
+      id: id.toDto(),
+      startTime: startTime.millisecondsSinceEpoch,
+      endTime: endTime.millisecondsSinceEpoch,
+      metadata: metadata.toDto(),
+      stageType: stageType.toDto(),
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+}
+
+/// Converts [SleepStageRecordDto] to [SleepStageRecord].
+@internal
+extension SleepStageRecordDtoToDomain on SleepStageRecordDto {
+  SleepStageRecord toDomain() {
+    return SleepStageRecord(
+      id: id?.toDomain() ?? HealthRecordId.none,
+      metadata: metadata.toDomain(),
+      startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
+      endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
+      stageType: stageType.toDomain(),
+    );
+  }
+}

@@ -6,7 +6,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         AggregateResponse,
         ReadRecordsResponse,
         MeasurementUnit;
-import 'package:health_connector_hk_ios/src/mappers/mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
     show AggregateResponseDto, ReadRecordsResponseDto;
 import 'package:meta/meta.dart' show internal;

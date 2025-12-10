@@ -1,54 +1,84 @@
 import Foundation
 import HealthKit
 
-/// Mappers for converting HKCategorySample to SleepStageRecordDto
+/// Mappers for converting SleepStageRecordDto to HKCategorySample
 ///
-/// This extension provides bidirectional mapping between HealthKit's sleep analysis
-/// category samples and our platform-agnostic sleep stage DTOs.
+/// This extension provides conversion from our platform-agnostic sleep stage DTOs
+/// to HealthKit's native category samples.
 ///
-/// **HealthKit Sleep Analysis:**
-/// - Uses `HKCategoryTypeIdentifier.sleepAnalysis`
-/// - Each sample represents a continuous period in one sleep stage
-/// - Complete sleep session = multiple samples (one per stage transition)
+/// **Usage:**
+/// ```swift
+/// let dto = SleepStageRecordDto(...)
+/// let sample = try dto.toHealthKit()
+/// try await healthStore.save(sample)
+/// ```
 ///
 /// **Compatibility:** iOS 15+
 /// **Verified:** December 1, 2025
-extension HKCategorySample {
-    /// Convert HKCategorySample to SleepStageRecordDto
+extension SleepStageRecordDto {
+    /// Convert SleepStageRecordDto to HKCategorySample
     ///
-    /// - Returns: SleepStageRecordDto if this is a sleep analysis sample, nil otherwise
+    /// Creates an HKCategorySample with:
+    /// - Category type: `.sleepAnalysis`
+    /// - Value: Corresponding HKCategoryValueSleepAnalysis
+    /// - Start/end dates: From DTO timestamps
+    /// - Metadata: Including timezone offsets and device info
+    ///
+    /// - Returns: HKCategorySample representing this sleep stage
+    /// - Throws: NSError if the category type cannot be created
     ///
     /// **Example:**
     /// ```swift
-    /// let categorySample: HKCategorySample = // ... sleep sample from HealthKit
-    /// let dto = categorySample.toSleepStageRecordDto()
-    /// print("Sleep stage: \(dto?.stageType)")
+    /// let dto = SleepStageRecordDto(
+    ///     id: nil,  // Will be assigned by HealthKit
+    ///     startTime: 1640995200000,  // 11:00 PM
+    ///     endTime: 1641002400000,    // 1:00 AM
+    ///     metadata: MetadataDto(...),
+    ///     stageType: .deep
+    /// )
+    /// let sample = try dto.toHealthKit()
     /// ```
-    func toSleepStageRecordDto() -> SleepStageRecordDto? {
-        // Verify this is a sleep analysis sample
-        guard categoryType.identifier == HKCategoryTypeIdentifier.sleepAnalysis.rawValue else {
-            return nil
+    func toHealthKit() throws -> HKCategorySample {
+        // Get the sleep analysis category type
+        guard let categoryType = HKCategoryType.categoryType(forIdentifier: .sleepAnalysis) else {
+            throw NSError(
+                domain: "HealthConnectorError",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to create sleep analysis category type"]
+            )
         }
 
-        // Convert HKCategoryValueSleepAnalysis to SleepStageTypeDto
-        let stageType = HKCategoryValueSleepAnalysis(rawValue: value)?.toDto() ?? .unknown
+        // Convert stage type to HealthKit value
+        let value = HKCategoryValueSleepAnalysis.from(dto: stageType).rawValue
 
-        // Extract timezone offsets from metadata
-        let metadataDict = metadata ?? [:]
-        let startZoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
-        let endZoneOffset = metadataDict.extractTimeZoneOffset(for: endDate)
+        // Convert timestamps to Date objects
+        let startDate = Date(timeIntervalSince1970: TimeInterval(startTime) / 1000.0)
+        let endDate = Date(timeIntervalSince1970: TimeInterval(endTime) / 1000.0)
 
-        return SleepStageRecordDto(
-            id: uuid.uuidString,
-            startTime: Int64(startDate.timeIntervalSince1970 * 1000),
-            endTime: Int64(endDate.timeIntervalSince1970 * 1000),
-            metadata: metadataDict.toMetadataDto(
-                source: sourceRevision.source,
-                device: device
-            ),
-            stageType: stageType,
-            startZoneOffsetSeconds: startZoneOffset,
-            endZoneOffsetSeconds: endZoneOffset
+        // Build metadata dictionary
+        var metadataDict = metadata.toHealthKitMetadata(timeZone: TimeZone.current)
+
+        // Add timezone offsets if provided
+        // Note: We store both start and end offsets since sleep spans can cross DST boundaries
+        if let startOffset = startZoneOffsetSeconds {
+            metadataDict[HKMetadataKeyTimeZone] = TimeZone(secondsFromGMT: Int(startOffset))?.identifier
+        }
+
+        // If end offset differs from start, we note that in custom metadata
+        // (HealthKit doesn't have native support for dual timezone offsets per sample)
+        if let endOffset = endZoneOffsetSeconds,
+           endOffset != startZoneOffsetSeconds {
+            metadataDict["EndTimeZoneOffset"] = endOffset
+        }
+
+        // Create the category sample
+        return HKCategorySample(
+            type: categoryType,
+            value: value,
+            start: startDate,
+            end: endDate,
+            device: metadata.toHealthKitDevice(),
+            metadata: metadataDict
         )
     }
 }

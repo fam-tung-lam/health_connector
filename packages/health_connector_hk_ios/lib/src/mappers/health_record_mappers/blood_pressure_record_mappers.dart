@@ -1,8 +1,54 @@
 import 'package:health_connector_core/health_connector_core.dart'
-    show BloodPressureBodyPosition, BloodPressureMeasurementLocation;
+    show
+        BloodPressureRecord,
+        Pressure,
+        HealthRecordId,
+        BloodPressureMeasurementLocation,
+        BloodPressureBodyPosition;
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/metadata_mappers.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
-    show BodyPositionDto, MeasurementLocationDto;
+    show
+        BloodPressureRecordDto,
+        PressureDto,
+        MeasurementLocationDto,
+        BodyPositionDto;
 import 'package:meta/meta.dart' show internal;
+
+/// Converts [BloodPressureRecord] to [BloodPressureRecordDto].
+@internal
+extension BloodPressureRecordToDto on BloodPressureRecord {
+  BloodPressureRecordDto toDto() {
+    return BloodPressureRecordDto(
+      id: id.toDto(),
+      time: time.millisecondsSinceEpoch,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      metadata: metadata.toDto(),
+      systolic: systolic.toDto() as PressureDto,
+      diastolic: diastolic.toDto() as PressureDto,
+      bodyPosition: bodyPosition.toDto(),
+      measurementLocation: measurementLocation.toDto(),
+    );
+  }
+}
+
+/// Converts [BloodPressureRecordDto] to [BloodPressureRecord].
+@internal
+extension BloodPressureRecordDtoToDomain on BloodPressureRecordDto {
+  BloodPressureRecord toDomain() {
+    return BloodPressureRecord(
+      id: id?.toDomain() ?? HealthRecordId.none,
+      time: DateTime.fromMillisecondsSinceEpoch(time),
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      metadata: metadata.toDomain(),
+      systolic: systolic.toDomain() as Pressure,
+      diastolic: diastolic.toDomain() as Pressure,
+      bodyPosition: bodyPosition.toDomain(),
+      measurementLocation: measurementLocation.toDomain(),
+    );
+  }
+}
 
 /// Converts [BloodPressureBodyPosition] to [BodyPositionDto].
 @internal
