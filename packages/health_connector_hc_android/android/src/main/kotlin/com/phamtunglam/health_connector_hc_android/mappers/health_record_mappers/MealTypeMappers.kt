@@ -1,4 +1,4 @@
-package com.phamtunglam.health_connector_hc_android.mappers
+package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.MealType
 import com.phamtunglam.health_connector_hc_android.pigeon.MealTypeDto

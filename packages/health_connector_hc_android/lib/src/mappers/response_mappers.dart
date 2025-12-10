@@ -6,8 +6,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         AggregateResponse,
         ReadRecordsResponse,
         MeasurementUnit;
-import 'package:health_connector_hc_android/src/mappers/'
-    'health_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/'
     'measurement_unit_mappers.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_platform_api.g.dart'

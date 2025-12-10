@@ -5,9 +5,9 @@ import androidx.health.connect.client.records.NutritionRecord
 import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.units.Energy
 import androidx.health.connect.client.units.Mass
+import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toNutrientDto
 import com.phamtunglam.health_connector_hc_android.mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.mappers.toNutrientDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.EnergyDto
@@ -38,9 +38,13 @@ internal class NutrientHandler(
     }
 
     override fun toHealthConnect(dto: HealthRecordDto): Record {
-        require(isNutrientDto(dto)) {
-            "Expected nutrient DTO for $nutrientType, got ${dto::class.simpleName}"
+        require(dto is NutritionRecordDto) {
+            "Expected NutritionRecordDto, got ${dto::class.simpleName}"
         }
+        require(dto.healthDataType == nutrientType) {
+            "Expected NutritionRecordDto with $nutrientType, got ${dto.healthDataType}"
+        }
+
         return dto.toHealthConnect()
     }
 
@@ -109,12 +113,5 @@ internal class NutrientHandler(
                 mass?.toDto() ?: MassDto(value = 0.0, unit = MassUnitDto.GRAMS)
             }
         }
-    }
-
-    /**
-     * Checks if the DTO is a valid nutrient DTO (instant record) for this handler's nutrient type.
-     */
-    private fun isNutrientDto(dto: HealthRecordDto): Boolean {
-        return dto is NutritionRecordDto && dto.healthDataType == nutrientType
     }
 }

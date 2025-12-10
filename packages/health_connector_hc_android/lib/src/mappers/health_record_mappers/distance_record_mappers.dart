@@ -1,0 +1,40 @@
+import 'package:health_connector_core/health_connector_core.dart'
+    show DistanceRecord, Length, HealthRecordId;
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/metadata_mappers.dart';
+import 'package:health_connector_hc_android/src/pigeon/health_connector_platform_api.g.dart'
+    show DistanceRecordDto, LengthDto;
+import 'package:meta/meta.dart' show internal;
+
+/// Converts [DistanceRecord] to [DistanceRecordDto].
+@internal
+extension DistanceRecordToDto on DistanceRecord {
+  DistanceRecordDto toDto() {
+    return DistanceRecordDto(
+      id: id.toDto(),
+      startTime: startTime.millisecondsSinceEpoch,
+      endTime: endTime.millisecondsSinceEpoch,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      metadata: metadata.toDto(),
+      distance: distance.toDto() as LengthDto,
+    );
+  }
+}
+
+/// Converts [DistanceRecordDto] to [DistanceRecord].
+@internal
+extension DistanceRecordDtoToDomain on DistanceRecordDto {
+  DistanceRecord toDomain() {
+    return DistanceRecord(
+      id: id?.toHealthRecordId() ?? HealthRecordId.none,
+      startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
+      endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      metadata: metadata.toDomain(),
+      distance: distance.toDomain() as Length,
+    );
+  }
+}

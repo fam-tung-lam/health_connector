@@ -3,8 +3,8 @@ package com.phamtunglam.health_connector_hc_android.handlers
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.SleepSessionRecord
-import com.phamtunglam.health_connector_hc_android.mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
+import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.toNumericDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto

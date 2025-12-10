@@ -8,14 +8,14 @@ import androidx.health.connect.client.records.metadata.DataOrigin
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
-import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectTypeRegistry
+import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectTypeHandlerRegistry
 import com.phamtunglam.health_connector_hc_android.mappers.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.mappers.dataType
 import com.phamtunglam.health_connector_hc_android.mappers.endTime
-import com.phamtunglam.health_connector_hc_android.mappers.id
+import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.id
+import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.startTime
 import com.phamtunglam.health_connector_hc_android.mappers.toError
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectFeature
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectRecordClass
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthDataPermissionDto
@@ -288,7 +288,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
 
         try {
             // Get handler for this data type
-            val handler = HealthConnectTypeRegistry.getRecordHandler(request.dataType)
+            val handler = HealthConnectTypeHandlerRegistry.getRecordHandler(request.dataType)
                 ?: throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                     details = "Unsupported data type: ${request.dataType}"
                 )
@@ -376,7 +376,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             )
 
             // Get handler for this data type
-            val handler = HealthConnectTypeRegistry.getRecordHandler(request.dataType)
+            val handler = HealthConnectTypeHandlerRegistry.getRecordHandler(request.dataType)
                 ?: throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                     details = "Unsupported data type: ${request.dataType}"
                 )
@@ -675,7 +675,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             }
 
             // Get aggregation handler for this data type
-            val handler = HealthConnectTypeRegistry.getAggregationHandler(request.dataType)
+            val handler = HealthConnectTypeHandlerRegistry.getAggregationHandler(request.dataType)
                 ?: throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                     details = "Data type ${request.dataType} does not support aggregation"
                 )
