@@ -25,6 +25,13 @@ Add to your `pubspec.yaml`:
 flutter pub add --dev health_connector_lint
 ```
 
+Or manually add to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  health_connector_lint: [latest_version]
+```
+
 Include in your `analysis_options.yaml`:
 
 ```yaml

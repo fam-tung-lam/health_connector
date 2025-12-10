@@ -51,6 +51,8 @@ melos:
       includeCommitId: true
       linkToCommits: true
 
+      workspaceChangelog: false
+
       # Hooks to run before version commit
       hooks:
         preCommit: |

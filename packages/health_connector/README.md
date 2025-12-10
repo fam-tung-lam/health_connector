@@ -81,7 +81,7 @@ Or manually add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  health_connector: ^0.1.0
+  health_connector: [latest_version]
 ```
 
 ### ⚙️ Platform Setup
