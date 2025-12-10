@@ -14,11 +14,12 @@ import com.phamtunglam.health_connector_hc_android.mappers.dataType
 import com.phamtunglam.health_connector_hc_android.mappers.endTime
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.id
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.isFeaturePermission
 import com.phamtunglam.health_connector_hc_android.mappers.startTime
 import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectFeature
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectRecordClass
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthDataPermissionDto
+import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformFeatureDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatusDto
@@ -915,25 +916,20 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             val featurePermissions = mutableListOf<HealthPlatformFeaturePermissionRequestResultDto>()
 
             for (permissionString in grantedPermissionStrings) {
-                // Try to parse as health data permission
-                val healthDataPermission = permissionString.toHealthDataPermissionDto()
-                if (healthDataPermission != null) {
-                    healthDataPermissions.add(
-                        HealthDataPermissionRequestResultDto(
-                            permission = healthDataPermission,
-                            status = PermissionStatusDto.GRANTED,
-                        )
-                    )
-                    continue
-                }
-
-                // Try to parse as feature permission
-                val featurePermission = permissionString.toHealthPlatformFeatureDto()
-                if (featurePermission != null) {
+                if (permissionString.isFeaturePermission) {
+                    val featurePermission = permissionString.toHealthPlatformFeatureDto()
                     featurePermissions.add(
                         HealthPlatformFeaturePermissionRequestResultDto(
                             feature = featurePermission,
                             status = PermissionStatusDto.GRANTED
+                        )
+                    )
+                } else {
+                    val healthDataPermission = permissionString.toDto()
+                    healthDataPermissions.add(
+                        HealthDataPermissionRequestResultDto(
+                            permission = healthDataPermission,
+                            status = PermissionStatusDto.GRANTED,
                         )
                     )
                 }

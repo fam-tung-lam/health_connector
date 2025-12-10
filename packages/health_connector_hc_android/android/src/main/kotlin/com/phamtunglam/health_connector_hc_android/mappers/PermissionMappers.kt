@@ -22,6 +22,13 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureD
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionAccessTypeDto
 
 /**
+ * Health Connect platform feature permission constants.
+ * These special permissions grant additional capabilities beyond basic read/write access.
+ */
+private const val PERMISSION_READ_HEALTH_DATA_IN_BACKGROUND = "android.permission.health.READ_HEALTH_DATA_IN_BACKGROUND"
+private const val PERMISSION_READ_HEALTH_DATA_HISTORY = "android.permission.health.READ_HEALTH_DATA_HISTORY"
+
+/**
  * Converts a [HealthDataPermissionDto] to a Health Connect permission string.
  *
  * @receiver The [HealthDataPermissionDto] to convert
@@ -172,22 +179,36 @@ internal fun HealthDataPermissionDto.toHealthConnectPermission(): String {
 /**
  * Converts a Health Connect permission string back to a [HealthDataPermissionDto].
  *
+ * This function parses Android Health Connect permission strings (e.g.,
+ * "android.permission.health.READ_STEPS") and converts them to the corresponding DTO.
+ *
  * @receiver The Health Connect permission string to parse
- * @return The corresponding [HealthDataPermissionDto], or null if the permission string
- *         doesn't match a known health data permission format
+ * @return The corresponding [HealthDataPermissionDto]
+ * @throws IllegalArgumentException if the permission string format is invalid or doesn't
+ *         start with the expected prefix
+ * @throws UnsupportedOperationException if the data type or access type is not supported
+ *         by this application
  */
-internal fun String.toHealthDataPermissionDto(): HealthDataPermissionDto? {
+@Throws(IllegalArgumentException::class, UnsupportedOperationException::class)
+internal fun String.toDto(): HealthDataPermissionDto {
     // Health Connect permission strings follow the pattern:
     // android.permission.health.READ_STEPS, android.permission.health.WRITE_WEIGHT, etc.
     val prefix = "android.permission.health."
     if (!this.startsWith(prefix)) {
-        return null
+        throw IllegalArgumentException(
+            "Invalid Health Connect permission string: '$this'. " +
+                    "Expected format: 'android.permission.health.READ_<TYPE>' or 'android.permission.health.WRITE_<TYPE>'"
+        )
     }
 
     val suffix = this.removePrefix(prefix)
     val parts = suffix.split("_", limit = 2)
     if (parts.size != 2) {
-        return null
+        throw IllegalArgumentException(
+            "Invalid Health Connect permission string: '$this'. " +
+                    "Permission suffix '$suffix' could not be split into access type and data type. " +
+                    "Expected format: 'READ_<TYPE>' or 'WRITE_<TYPE>'"
+        )
     }
 
     val accessTypeStr = parts[0] // READ or WRITE
@@ -196,7 +217,10 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionDto? {
     val accessType = when (accessTypeStr) {
         "READ" -> PermissionAccessTypeDto.READ
         "WRITE" -> PermissionAccessTypeDto.WRITE
-        else -> return null
+        else -> throw IllegalArgumentException(
+            "Invalid Health Connect permission string: '$this'. " +
+                    "Unknown access type: '$accessTypeStr'. Expected 'READ' or 'WRITE'"
+        )
     }
 
     val dataType = when (dataTypeStr) {
@@ -215,7 +239,9 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionDto? {
         "SLEEP_SESSION" -> HealthDataTypeDto.SLEEP_SESSION
         "BLOOD_PRESSURE" -> HealthDataTypeDto.BLOOD_PRESSURE
         "NUTRITION" -> HealthDataTypeDto.NUTRITION
-        else -> return null // Unknown data type, skip it
+        else -> throw UnsupportedOperationException(
+            "Unsupported Health Connect data type: '$dataTypeStr' in permission '$this'.",
+        )
     }
 
     return HealthDataPermissionDto(healthDataType = dataType, accessType = accessType)
@@ -229,8 +255,8 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionDto? {
  */
 internal fun HealthPlatformFeatureDto.toHealthConnectPermission(): String {
     return when (this) {
-        HealthPlatformFeatureDto.READ_HEALTH_DATA_IN_BACKGROUND -> "android.permission.health.READ_HEALTH_DATA_IN_BACKGROUND"
-        HealthPlatformFeatureDto.READ_HEALTH_DATA_HISTORY -> "android.permission.health.READ_HEALTH_DATA_HISTORY"
+        HealthPlatformFeatureDto.READ_HEALTH_DATA_IN_BACKGROUND -> PERMISSION_READ_HEALTH_DATA_IN_BACKGROUND
+        HealthPlatformFeatureDto.READ_HEALTH_DATA_HISTORY -> PERMISSION_READ_HEALTH_DATA_HISTORY
     }
 }
 
@@ -238,14 +264,31 @@ internal fun HealthPlatformFeatureDto.toHealthConnectPermission(): String {
  * Converts a Health Connect permission string back to a [HealthPlatformFeatureDto].
  *
  * @receiver The Health Connect permission string to parse
- * @return The corresponding [HealthPlatformFeatureDto], or null if the permission string
- *         doesn't match a known feature permission format
+ * @return The corresponding [HealthPlatformFeatureDto]
+ * @throws UnsupportedOperationException if the permission string doesn't match a known
+ *         platform feature or represents a feature not supported by this application
  */
-internal fun String.toHealthPlatformFeatureDto(): HealthPlatformFeatureDto? {
+@Throws(UnsupportedOperationException::class)
+internal fun String.toHealthPlatformFeatureDto(): HealthPlatformFeatureDto {
     return when (this) {
-        "android.permission.health.READ_HEALTH_DATA_IN_BACKGROUND" -> HealthPlatformFeatureDto.READ_HEALTH_DATA_IN_BACKGROUND
-        "android.permission.health.READ_HEALTH_DATA_HISTORY" -> HealthPlatformFeatureDto.READ_HEALTH_DATA_HISTORY
-        else -> null
+        PERMISSION_READ_HEALTH_DATA_IN_BACKGROUND -> HealthPlatformFeatureDto.READ_HEALTH_DATA_IN_BACKGROUND
+        PERMISSION_READ_HEALTH_DATA_HISTORY -> HealthPlatformFeatureDto.READ_HEALTH_DATA_HISTORY
+        else -> throw UnsupportedOperationException(
+            "Unsupported Health Connect platform feature: '$this'. " +
+                    "Supported features: READ_HEALTH_DATA_IN_BACKGROUND, READ_HEALTH_DATA_HISTORY."
+        )
     }
 }
 
+/**
+ * Checks if this permission string represents a Health Connect platform feature permission.
+ *
+ * Platform feature permissions grant special capabilities like background reading or
+ * historical data access, as opposed to regular data type permissions.
+ *
+ * @receiver The permission string to check
+ * @return `true` if this is a platform feature permission, `false` otherwise
+ */
+internal val String.isFeaturePermission: Boolean
+    get() = this == PERMISSION_READ_HEALTH_DATA_IN_BACKGROUND ||
+            this == PERMISSION_READ_HEALTH_DATA_HISTORY
