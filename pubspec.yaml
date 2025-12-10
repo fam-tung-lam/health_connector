@@ -53,11 +53,26 @@ melos:
 
       workspaceChangelog: false
 
+      # Aggregate changelogs for the facade package
+      # This includes changelog entries from platform implementation packages
+      changelogs:
+        - path: packages/health_connector/CHANGELOG.md
+          description: |
+            All notable changes to health_connector and its platform packages.
+          packageFilters:
+            scope:
+              - health_connector
+              - health_connector_hk_ios
+              - health_connector_hc_android
+              - health_connector_core
+
       # Hooks to run before version commit
       hooks:
         preCommit: |
+          dart run scripts/sync_facade_version.dart
           melos run pigeon:generate
           melos run format
+          melos run analyze
 
   scripts:
     # Analysis
