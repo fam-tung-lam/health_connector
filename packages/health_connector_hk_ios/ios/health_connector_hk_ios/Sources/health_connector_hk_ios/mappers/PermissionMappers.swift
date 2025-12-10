@@ -3,138 +3,175 @@ import HealthKit
 
 /**
  * Extension to convert `HealthDataPermissionDto` to HealthKit types.
- *
- * This extension provides utility methods to map Pigeon DTOs to their corresponding
- * HealthKit types for use with the HealthKit SDK.
  */
 extension HealthDataPermissionDto {
     /**
-     * Converts this permission DTO to a HealthKit `HKObjectType`.
+     * Converts this permission DTO to a list of HealthKit `HKObjectType`.
      *
-     * ## HealthKit Object Types
      * HealthKit uses different object types for different health data:
      * - Quantity types: For data that can be measured (e.g., steps, heart rate)
      * - Category types: For data that falls into categories (e.g., sleep analysis)
      * - Characteristic types: For unchanging data (e.g., blood type, biological sex)
      *
-     * - Returns: The corresponding `HKObjectType` for this health data permission.
-     *            Currently supports:
-     *            - `.steps` → `HKQuantityType.quantityType(forIdentifier: .stepCount)`
-     *            - `.weight` → `HKQuantityType.quantityType(forIdentifier: .bodyMass)`
+     * - Returns: A list of corresponding `HKObjectType` for this health data permission.
+     *            For simple types, returns a single-element array.
+     *            For correlation types, returns the correlation type plus all component types.
      */
-    func toHealthKitObjectType() -> HKObjectType {
+    func toHealthKitObjectTypes() -> [HKObjectType] {
         switch self.healthDataType {
         case .activeCaloriesBurned:
-            return HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
+            return [HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!]
         case .distance:
-            return HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!
+            return [HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!]
         case .floorsClimbed:
-            return HKQuantityType.quantityType(forIdentifier: .flightsClimbed)!
+            return [HKQuantityType.quantityType(forIdentifier: .flightsClimbed)!]
         case .height:
-            return HKQuantityType.quantityType(forIdentifier: .height)!
+            return [HKQuantityType.quantityType(forIdentifier: .height)!]
         case .hydration:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryWater)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryWater)!]
         case .leanBodyMass:
-            return HKQuantityType.quantityType(forIdentifier: .leanBodyMass)!
+            return [HKQuantityType.quantityType(forIdentifier: .leanBodyMass)!]
         case .bodyFatPercentage:
-            return HKQuantityType.quantityType(forIdentifier: .bodyFatPercentage)!
+            return [HKQuantityType.quantityType(forIdentifier: .bodyFatPercentage)!]
         case .bodyTemperature:
-            return HKQuantityType.quantityType(forIdentifier: .bodyTemperature)!
+            return [HKQuantityType.quantityType(forIdentifier: .bodyTemperature)!]
         case .steps:
-            return HKQuantityType.quantityType(forIdentifier: .stepCount)!
+            return [HKQuantityType.quantityType(forIdentifier: .stepCount)!]
         case .weight:
-            return HKQuantityType.quantityType(forIdentifier: .bodyMass)!
+            return [HKQuantityType.quantityType(forIdentifier: .bodyMass)!]
         case .wheelchairPushes:
-            return HKQuantityType.quantityType(forIdentifier: .pushCount)!
+            return [HKQuantityType.quantityType(forIdentifier: .pushCount)!]
         case .heartRateMeasurementRecord:
-            return HKQuantityType.quantityType(forIdentifier: .heartRate)!
+            return [HKQuantityType.quantityType(forIdentifier: .heartRate)!]
         case .sleepStageRecord:
-            // Sleep stages use HKCategoryType, not HKQuantityType
-            return HKCategoryType.categoryType(forIdentifier: .sleepAnalysis)!
+            return [HKCategoryType.categoryType(forIdentifier: .sleepAnalysis)!]
 
         // MARK: Nutrients
 
         case .energyNutrient:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed)!]
         case .caffeine:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryCaffeine)!
-
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryCaffeine)!]
         case .protein:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryProtein)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryProtein)!]
         case .totalCarbohydrate:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryCarbohydrates)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryCarbohydrates)!]
         case .totalFat:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryFatTotal)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryFatTotal)!]
         case .saturatedFat:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryFatSaturated)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryFatSaturated)!]
         case .monounsaturatedFat:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryFatMonounsaturated)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryFatMonounsaturated)!]
         case .polyunsaturatedFat:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryFatPolyunsaturated)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryFatPolyunsaturated)!]
         case .cholesterol:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryCholesterol)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryCholesterol)!]
         case .dietaryFiber:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryFiber)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryFiber)!]
         case .sugar:
-            return HKQuantityType.quantityType(forIdentifier: .dietarySugar)!
-
+            return [HKQuantityType.quantityType(forIdentifier: .dietarySugar)!]
         case .vitaminA:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryVitaminA)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryVitaminA)!]
         case .vitaminB6:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryVitaminB6)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryVitaminB6)!]
         case .vitaminB12:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryVitaminB12)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryVitaminB12)!]
         case .vitaminC:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryVitaminC)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryVitaminC)!]
         case .vitaminD:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryVitaminD)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryVitaminD)!]
         case .vitaminE:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryVitaminE)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryVitaminE)!]
         case .vitaminK:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryVitaminK)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryVitaminK)!]
         case .thiamin:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryThiamin)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryThiamin)!]
         case .riboflavin:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryRiboflavin)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryRiboflavin)!]
         case .niacin:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryNiacin)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryNiacin)!]
         case .folate:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryFolate)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryFolate)!]
         case .biotin:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryBiotin)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryBiotin)!]
         case .pantothenicAcid:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryPantothenicAcid)!
-
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryPantothenicAcid)!]
         case .calcium:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryCalcium)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryCalcium)!]
         case .iron:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryIron)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryIron)!]
         case .magnesium:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryMagnesium)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryMagnesium)!]
         case .manganese:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryManganese)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryManganese)!]
         case .phosphorus:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryPhosphorus)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryPhosphorus)!]
         case .potassium:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryPotassium)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryPotassium)!]
         case .selenium:
-            return HKQuantityType.quantityType(forIdentifier: .dietarySelenium)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietarySelenium)!]
         case .sodium:
-            return HKQuantityType.quantityType(forIdentifier: .dietarySodium)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietarySodium)!]
         case .zinc:
-            return HKQuantityType.quantityType(forIdentifier: .dietaryZinc)!
+            return [HKQuantityType.quantityType(forIdentifier: .dietaryZinc)!]
 
         // MARK: Correlation Types
+
         case .nutrition:
-            // Nutrition is a correlation type (HKCorrelation.food)
-            return HKCorrelationType.correlationType(forIdentifier: .food)!
+            // Nutrition is a correlation type (HKCorrelation.food) but HealthKit requires
+            // requesting permissions for the individual quantity types, not the correlation type itself
+            return [
+                // Energy & Other
+                HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryCaffeine)!,
+                // Macronutrients
+                HKQuantityType.quantityType(forIdentifier: .dietaryProtein)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryCarbohydrates)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryFatTotal)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryFatSaturated)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryFatMonounsaturated)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryFatPolyunsaturated)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryCholesterol)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryFiber)!,
+                HKQuantityType.quantityType(forIdentifier: .dietarySugar)!,
+                // Vitamins
+                HKQuantityType.quantityType(forIdentifier: .dietaryVitaminA)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryVitaminB6)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryVitaminB12)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryVitaminC)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryVitaminD)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryVitaminE)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryVitaminK)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryThiamin)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryRiboflavin)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryNiacin)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryFolate)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryBiotin)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryPantothenicAcid)!,
+                // Minerals
+                HKQuantityType.quantityType(forIdentifier: .dietaryCalcium)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryIron)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryMagnesium)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryManganese)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryPhosphorus)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryPotassium)!,
+                HKQuantityType.quantityType(forIdentifier: .dietarySelenium)!,
+                HKQuantityType.quantityType(forIdentifier: .dietarySodium)!,
+                HKQuantityType.quantityType(forIdentifier: .dietaryZinc)!,
+                // Water
+                HKQuantityType.quantityType(forIdentifier: .dietaryWater)!,
+            ]
         case .bloodPressure:
-            // Blood pressure is a correlation type (HKCorrelation.bloodPressure)
-            return HKCorrelationType.correlationType(forIdentifier: .bloodPressure)!
+            // Blood pressure is a correlation type (HKCorrelation.bloodPressure) but HealthKit requires
+            // requesting permissions for the individual quantity types, not the correlation type itself
+            return [
+                HKQuantityType.quantityType(forIdentifier: .bloodPressureSystolic)!,
+                HKQuantityType.quantityType(forIdentifier: .bloodPressureDiastolic)!,
+            ]
         case .systolicBloodPressure:
-            return HKQuantityType.quantityType(forIdentifier: .bloodPressureSystolic)!
+            return [HKQuantityType.quantityType(forIdentifier: .bloodPressureSystolic)!]
         case .diastolicBloodPressure:
-            return HKQuantityType.quantityType(forIdentifier: .bloodPressureDiastolic)!
+            return [HKQuantityType.quantityType(forIdentifier: .bloodPressureDiastolic)!]
         }
     }
 }

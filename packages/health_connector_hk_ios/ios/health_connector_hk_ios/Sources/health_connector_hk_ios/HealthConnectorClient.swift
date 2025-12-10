@@ -303,14 +303,16 @@ internal class HealthConnectorClient {
             var typesToWrite = Set<HKSampleType>()
 
             for permission in healthDataPermissions {
-                let objectType = permission.toHealthKitObjectType()
+                let objectTypes = permission.toHealthKitObjectTypes()
 
-                switch permission.accessType {
-                case .read:
-                    typesToRead.insert(objectType)
-                case .write:
-                    if let sampleType = objectType as? HKSampleType {
-                        typesToWrite.insert(sampleType)
+                for objectType in objectTypes {
+                    switch permission.accessType {
+                    case .read:
+                        typesToRead.insert(objectType)
+                    case .write:
+                        if let sampleType = objectType as? HKSampleType {
+                            typesToWrite.insert(sampleType)
+                        }
                     }
                 }
             }
@@ -321,7 +323,7 @@ internal class HealthConnectorClient {
             // Create permission request results by checking authorization status
             let results = healthDataPermissions.map {
                 permissionDto -> HealthDataPermissionRequestResultDto in
-                let objectType = permissionDto.toHealthKitObjectType()
+                let objectTypes = permissionDto.toHealthKitObjectTypes()
                 let status: PermissionStatusDto
 
                 switch permissionDto.accessType {
@@ -330,20 +332,24 @@ internal class HealthConnectorClient {
                     status = .unknown
 
                 case .write:
-                    if let sampleType = objectType as? HKSampleType {
-                        let authStatus = store.authorizationStatus(for: sampleType)
-                        switch authStatus {
-                        case .sharingAuthorized:
+                    // Check authorization status for all object types
+                    let sampleTypes = objectTypes.compactMap { $0 as? HKSampleType }
+                    
+                    if sampleTypes.isEmpty {
+                        status = .unknown
+                    } else {
+                        let authStatuses = sampleTypes.map { store.authorizationStatus(for: $0) }
+                        
+                        let allAuthorized = authStatuses.allSatisfy { $0 == .sharingAuthorized }
+                        let allDenied = authStatuses.allSatisfy { $0 == .sharingDenied }
+                        
+                        if allAuthorized {
                             status = .granted
-                        case .sharingDenied:
+                        } else if allDenied {
                             status = .denied
-                        case .notDetermined:
-                            status = .unknown
-                        @unknown default:
+                        } else {
                             status = .unknown
                         }
-                    } else {
-                        status = .unknown
                     }
                 }
 
