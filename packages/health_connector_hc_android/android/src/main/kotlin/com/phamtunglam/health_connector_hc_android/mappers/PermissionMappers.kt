@@ -259,7 +259,8 @@ internal fun String.toDto(): HealthDataPermissionDto {
     if (!this.startsWith(prefix)) {
         throw IllegalArgumentException(
             "Invalid Health Connect permission string: '$this'. " +
-                "Expected format: 'android.permission.health.READ_<TYPE>' or 'android.permission.health.WRITE_<TYPE>'",
+                "Expected format: 'android.permission.health.READ_<TYPE>' " +
+                "or 'android.permission.health.WRITE_<TYPE>'",
         )
     }
 

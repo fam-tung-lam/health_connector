@@ -53,7 +53,9 @@ internal object StepsHandler :
             AggregationMetricDto.COUNT,
             ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} is not supported for steps (cumulative data). Only SUM is supported.",
+                    "Aggregation metric ${request.aggregationMetric} " +
+                        "is not supported for steps (cumulative data). " +
+                        "Only SUM is supported.",
                 )
         }
 
@@ -62,7 +64,7 @@ internal object StepsHandler :
         aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val count = aggregationResult[aggregateMetric] as? Long
-            ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+            ?: error("Aggregation result for $aggregateMetric is null")
         return count.toNumericDto()
     }
 }

@@ -53,7 +53,8 @@ internal object WheelchairPushesHandler :
             AggregationMetricDto.COUNT,
             ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} for WheelchairPushes. Supported: SUM",
+                    "Aggregation metric ${request.aggregationMetric} " +
+                        "for WheelchairPushes. Supported: SUM",
                 )
         }
 
@@ -62,7 +63,7 @@ internal object WheelchairPushesHandler :
         aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val count = aggregationResult[aggregateMetric] as? Long
-            ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+            ?: error("Aggregation result for $aggregateMetric is null")
         return count.toNumericDto()
     }
 }

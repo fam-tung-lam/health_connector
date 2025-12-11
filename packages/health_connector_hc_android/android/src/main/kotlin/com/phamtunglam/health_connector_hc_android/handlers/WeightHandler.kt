@@ -52,7 +52,8 @@ internal object WeightHandler :
             AggregationMetricDto.MAX -> WeightRecord.WEIGHT_MAX
             AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} for Weight. Supported: AVG, MIN, MAX",
+                    "Aggregation metric ${request.aggregationMetric} for Weight. " +
+                        "Supported: AVG, MIN, MAX",
                 )
         }
 
@@ -61,7 +62,7 @@ internal object WeightHandler :
         aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val mass = aggregationResult[aggregateMetric] as? Mass
-            ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+            ?: error("Aggregation result for $aggregateMetric is null")
         return mass.toDto()
     }
 }

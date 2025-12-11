@@ -137,8 +137,8 @@ class HealthConnectorHCAndroidPlugin :
     @Throws(IllegalStateException::class)
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         val activityInstance = binding.activity
-        if (activityInstance !is ComponentActivity) {
-            throw IllegalStateException("Activity must be a ComponentActivity.")
+        check(activityInstance is ComponentActivity) {
+            "Activity must be a ComponentActivity."
         }
         activity = activityInstance
     }
@@ -164,8 +164,8 @@ class HealthConnectorHCAndroidPlugin :
     @Throws(IllegalStateException::class)
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
         val activityInstance = binding.activity
-        if (activityInstance !is ComponentActivity) {
-            throw IllegalStateException("Activity must be a ComponentActivity")
+        check(activityInstance is ComponentActivity) {
+            "Activity must be a ComponentActivity"
         }
         activity = activityInstance
     }
@@ -225,7 +225,8 @@ class HealthConnectorHCAndroidPlugin :
                         Result.failure(
                             HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION.toError(
                                 details = "Activity is unavailable. " +
-                                    "The app may be in the background or activity has been destroyed.",
+                                    "The app may be in the background or " +
+                                    "activity has been destroyed.",
                             ),
                         ),
                     )

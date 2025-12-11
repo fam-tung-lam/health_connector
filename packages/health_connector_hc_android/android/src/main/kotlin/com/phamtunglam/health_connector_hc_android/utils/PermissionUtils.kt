@@ -67,7 +67,8 @@ internal object PermissionUtils {
         // Check if the feature permission is declared
         if (!definedPermissions.contains(featurePermissionString)) {
             val errorMessage =
-                "Feature permission '$featurePermissionString' for $feature is not declared in AndroidManifest.xml"
+                "Feature permission '$featurePermissionString' for $feature " +
+                    "is not declared in AndroidManifest.xml"
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "validateFeaturePermissionDeclaredInManifest",
@@ -172,7 +173,7 @@ internal object PermissionUtils {
                     "defined" to defined,
                 ),
             )
-            throw IllegalStateException(errorMessage)
+            error(errorMessage)
         }
 
         HealthConnectorLogger.debug(

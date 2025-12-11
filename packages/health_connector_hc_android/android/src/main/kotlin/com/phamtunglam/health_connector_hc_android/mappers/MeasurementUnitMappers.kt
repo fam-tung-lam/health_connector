@@ -34,6 +34,21 @@ import com.phamtunglam.health_connector_hc_android.pigeon.VolumeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.VolumeUnitDto
 
 /**
+ * Kelvin to Celsius conversion constant.
+ */
+private const val KELVIN_TO_CELSIUS_OFFSET = 273.15
+
+/**
+ * Conversion factor from kilowatts to watts.
+ */
+private const val KILOWATTS_TO_WATTS = 1000
+
+/**
+ * Conversion factor from whole percentage (0-100) to decimal (0.0-1.0).
+ */
+private const val PERCENTAGE_WHOLE_TO_DECIMAL = 100.0
+
+/**
  * Converts a [MassDto] to a Health Connect [Mass] object.
  */
 internal fun MassDto.toHealthConnect(): Mass = when (unit) {
@@ -100,7 +115,7 @@ internal fun Length.toDto(): LengthDto = LengthDto(
 internal fun TemperatureDto.toHealthConnect(): Temperature = when (unit) {
     TemperatureUnitDto.CELSIUS -> Temperature.celsius(value)
     TemperatureUnitDto.FAHRENHEIT -> Temperature.fahrenheit(value)
-    TemperatureUnitDto.KELVIN -> Temperature.celsius(value - 273.15)
+    TemperatureUnitDto.KELVIN -> Temperature.celsius(value - KELVIN_TO_CELSIUS_OFFSET)
 }
 
 /**
@@ -173,7 +188,7 @@ internal fun Volume.toDto(): VolumeDto = VolumeDto(
  */
 internal fun PowerDto.toHealthConnect(): Power = when (unit) {
     PowerUnitDto.WATTS -> Power.watts(value)
-    PowerUnitDto.KILOWATTS -> Power.watts(value * 1000) // Convert kilowatts to watts
+    PowerUnitDto.KILOWATTS -> Power.watts(value * KILOWATTS_TO_WATTS)
 }
 
 /**
@@ -234,7 +249,7 @@ internal fun Double.toNumericDto(): NumericDto = NumericDto(
  */
 internal fun PercentageDto.toHealthConnect(): Percentage = when (unit) {
     PercentageUnitDto.DECIMAL -> Percentage(value)
-    PercentageUnitDto.WHOLE -> Percentage(value / 100.0)
+    PercentageUnitDto.WHOLE -> Percentage(value / PERCENTAGE_WHOLE_TO_DECIMAL)
 }
 
 /**

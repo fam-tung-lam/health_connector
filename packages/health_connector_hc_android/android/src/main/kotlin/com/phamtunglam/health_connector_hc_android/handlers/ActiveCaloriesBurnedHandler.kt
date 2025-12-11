@@ -54,7 +54,8 @@ internal object ActiveCaloriesBurnedHandler :
             AggregationMetricDto.COUNT,
             ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} for ActiveCaloriesBurned. Supported: SUM",
+                    "Aggregation metric ${request.aggregationMetric} " +
+                        "for ActiveCaloriesBurned. Supported: SUM",
                 )
         }
 
@@ -63,7 +64,7 @@ internal object ActiveCaloriesBurnedHandler :
         aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val energy = aggregationResult[aggregateMetric] as? Energy
-            ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+            ?: error("Aggregation result for $aggregateMetric is null")
         return energy.toDto()
     }
 }

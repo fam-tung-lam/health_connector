@@ -63,7 +63,7 @@ internal object DistanceHandler :
         aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val distance = aggregationResult[aggregateMetric] as? Length
-            ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+            ?: error("Aggregation result for $aggregateMetric is null")
         return distance.toDto()
     }
 }

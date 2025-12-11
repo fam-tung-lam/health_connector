@@ -10,6 +10,12 @@ import java.time.Instant
 import java.time.ZoneOffset
 
 /**
+ * Duration in milliseconds to add to start time for instant nutrition records.
+ * This creates a small time interval for individual nutrient records.
+ */
+private const val INSTANT_RECORD_DURATION_MS = 100L
+
+/**
  * Converts a [NutritionRecordDto] to a Health Connect [NutritionRecord] object.
  */
 internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
@@ -25,7 +31,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
     // For combined nutrition, use the provided startTime/endTime
     val (actualStartTime, actualEndTime) = if (healthDataType != HealthDataTypeDto.NUTRITION) {
         val instant = Instant.ofEpochMilli(startTime)
-        Pair(instant, instant.plusMillis(100))
+        Pair(instant, instant.plusMillis(INSTANT_RECORD_DURATION_MS))
     } else {
         Pair(startTimeInstant, endTimeInstant)
     }

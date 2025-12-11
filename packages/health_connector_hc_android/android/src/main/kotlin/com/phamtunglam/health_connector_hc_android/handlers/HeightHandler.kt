@@ -54,7 +54,8 @@ internal object HeightHandler :
             AggregationMetricDto.COUNT,
             ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} for Height. Supported: AVG, MIN, MAX",
+                    "Aggregation metric ${request.aggregationMetric} for Height. " +
+                        "Supported: AVG, MIN, MAX",
                 )
         }
 
@@ -63,7 +64,7 @@ internal object HeightHandler :
         aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val height = aggregationResult[aggregateMetric] as? Length
-            ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+            ?: error("Aggregation result for $aggregateMetric is null")
         return height.toDto()
     }
 }

@@ -54,7 +54,9 @@ internal object SleepSessionHandler :
             AggregationMetricDto.COUNT,
             ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} is not supported for sleep session (cumulative sum). Only SUM is supported.",
+                    "Aggregation metric ${request.aggregationMetric} " +
+                        "is not supported for sleep session (cumulative sum). " +
+                        "Only SUM is supported.",
                 )
         }
 
@@ -64,7 +66,7 @@ internal object SleepSessionHandler :
     ): MeasurementUnitDto {
         // Sleep duration is returned as java.time.Duration, convert to seconds
         val duration = aggregationResult[aggregateMetric] as? Duration
-            ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+            ?: error("Aggregation result for $aggregateMetric is null")
         val seconds = duration.seconds.toDouble()
         return seconds.toNumericDto()
     }

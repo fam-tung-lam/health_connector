@@ -214,7 +214,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             throw HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION.toError(
                 details = e.message,
             )
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "requestPermissions",
@@ -296,7 +296,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             throw HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION.toError(
                 details = e.message,
             )
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "getFeatureStatus",
@@ -367,7 +367,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "readRecord",
@@ -468,7 +468,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "readRecords",
@@ -535,7 +535,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "writeRecord",
@@ -602,7 +602,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "writeRecords",
@@ -639,10 +639,9 @@ internal class HealthConnectorClient private constructor(private val client: Hea
 
         try {
             val recordDto = request.record
-            if (recordDto.id.isNullOrEmpty()) {
-                throw IllegalArgumentException(
-                    "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
-                )
+            require(!recordDto.id.isNullOrEmpty()) {
+                "Record ID must be a valid existing ID for update operations. " +
+                    "Use writeRecord() for new records."
             }
 
             // Convert record DTO to Health Connect Record
@@ -687,7 +686,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "updateRecord",
@@ -724,10 +723,9 @@ internal class HealthConnectorClient private constructor(private val client: Hea
 
         try {
             // Validate time range
-            if (request.startTime >= request.endTime) {
-                throw IllegalArgumentException(
-                    "Invalid time range: startTime must be before endTime. startTime=${request.startTime}, endTime=${request.endTime}",
-                )
+            require(request.startTime < request.endTime) {
+                "Invalid time range: startTime must be before endTime. " +
+                    "startTime=${request.startTime}, endTime=${request.endTime}"
             }
 
             // Get aggregation handler for this data type
@@ -815,7 +813,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregate",
@@ -879,7 +877,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "deleteRecords",
@@ -950,7 +948,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "deleteRecordsByIds",
@@ -1026,7 +1024,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 healthDataPermissionResults = healthDataPermissions,
                 featurePermissionResults = featurePermissions,
             )
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "getGrantedPermissions",
@@ -1064,7 +1062,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "completed",
                 message = "All Health Connect permissions revoked successfully",
             )
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "revokeAllPermissions",

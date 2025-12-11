@@ -71,7 +71,9 @@ internal object BloodPressureHandler :
 
             AggregationMetricDto.COUNT, AggregationMetricDto.SUM ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} is not supported for blood pressure (discrete data). Supported metrics: AVG, MIN, MAX.",
+                    "Aggregation metric ${request.aggregationMetric} " +
+                        "is not supported for blood pressure (discrete data). " +
+                        "Supported metrics: AVG, MIN, MAX.",
                 )
         }
 
@@ -80,7 +82,7 @@ internal object BloodPressureHandler :
         aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val pressure = aggregationResult[aggregateMetric] as? Pressure
-            ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+            ?: error("Aggregation result for $aggregateMetric is null")
         return pressure.toDto()
     }
 }

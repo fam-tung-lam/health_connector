@@ -53,7 +53,8 @@ internal object FloorsClimbedHandler :
             AggregationMetricDto.COUNT,
             ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} for FloorsClimbed. Supported: SUM",
+                    "Aggregation metric ${request.aggregationMetric} " +
+                        "for FloorsClimbed. Supported: SUM",
                 )
         }
 
@@ -62,7 +63,7 @@ internal object FloorsClimbedHandler :
         aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val floors = aggregationResult[aggregateMetric] as? Double
-            ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+            ?: error("Aggregation result for $aggregateMetric is null")
         return floors.toNumericDto()
     }
 }

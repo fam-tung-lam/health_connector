@@ -63,7 +63,7 @@ internal object HydrationHandler :
         aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val volume = aggregationResult[aggregateMetric] as? Volume
-            ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+            ?: error("Aggregation result for $aggregateMetric is null")
         return volume.toDto()
     }
 }

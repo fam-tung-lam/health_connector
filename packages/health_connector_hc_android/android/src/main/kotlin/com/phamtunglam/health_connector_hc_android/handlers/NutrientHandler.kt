@@ -109,7 +109,9 @@ internal class NutrientHandler(private val nutrientType: HealthDataTypeDto) :
             AggregationMetricDto.COUNT,
             ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} is not supported for nutrients (cumulative data). Only SUM is supported.",
+                    "Aggregation metric ${request.aggregationMetric} " +
+                        "is not supported for nutrients (cumulative data). " +
+                        "Only SUM is supported.",
                 )
         }
 
@@ -119,7 +121,7 @@ internal class NutrientHandler(private val nutrientType: HealthDataTypeDto) :
     ): MeasurementUnitDto = when (nutrientType) {
         HealthDataTypeDto.ENERGY_NUTRIENT -> {
             val energy = aggregationResult[aggregateMetric] as? Energy
-                ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+                ?: error("Aggregation result for $aggregateMetric is null")
             energy.toDto()
         }
 
@@ -157,7 +159,7 @@ internal class NutrientHandler(private val nutrientType: HealthDataTypeDto) :
         HealthDataTypeDto.ZINC,
         -> {
             val mass = aggregationResult[aggregateMetric] as? Mass
-                ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+                ?: error("Aggregation result for $aggregateMetric is null")
             mass.toDto()
         }
 
@@ -176,8 +178,9 @@ internal class NutrientHandler(private val nutrientType: HealthDataTypeDto) :
         HealthDataTypeDto.SLEEP_SESSION,
         HealthDataTypeDto.NUTRITION,
         HealthDataTypeDto.BLOOD_PRESSURE,
-        -> throw IllegalStateException(
-            "${NutrientHandler::class.simpleName} must only handle nutrient data types, but received: $nutrientType",
+        -> error(
+            "${NutrientHandler::class.simpleName} must only handle nutrient data types, " +
+                "but received: $nutrientType",
         )
     }
 }

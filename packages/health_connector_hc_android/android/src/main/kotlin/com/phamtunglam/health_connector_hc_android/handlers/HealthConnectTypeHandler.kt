@@ -115,7 +115,8 @@ internal sealed interface SessionRecordHandler : HealthConnectRecordHandler {
  * Handlers implementing this interface can perform statistical aggregations
  * (sum, average, min, max) on their health data type.
  */
-internal interface AggregationSupportingHandler<R : AggregateRequestDto> : HealthConnectRecordHandler {
+internal interface AggregationSupportingHandler<R : AggregateRequestDto> :
+    HealthConnectRecordHandler {
     /**
      * Converts a platform aggregation metric to a Health Connect AggregateMetric.
      *
