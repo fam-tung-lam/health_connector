@@ -43,13 +43,14 @@ object SleepSessionHandler : SessionRecordHandler, AggregationSupportingHandler<
 
     override fun getRecordClass(): KClass<out Record> = SleepSessionRecord::class
 
-    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
-        return when (request.aggregationMetric) {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
+        when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> SleepSessionRecord.SLEEP_DURATION_TOTAL
             AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException("Aggregation metric ${request.aggregationMetric} is not supported for sleep session (cumulative sum). Only SUM is supported.")
+                throw UnsupportedOperationException(
+                    "Aggregation metric ${request.aggregationMetric} is not supported for sleep session (cumulative sum). Only SUM is supported."
+                )
         }
-    }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,

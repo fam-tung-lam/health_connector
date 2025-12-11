@@ -10,24 +10,20 @@ import java.time.ZoneOffset
 /**
  * Converts a Health Connect [WeightRecord] object to a [WeightRecordDto].
  */
-internal fun WeightRecord.toDto(): WeightRecordDto {
-    return WeightRecordDto(
-        id = metadata.id,
-        time = time.toEpochMilli(),
-        zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
-        metadata = metadata.toDto(),
-        weight = weight.toDto()
-    )
-}
+internal fun WeightRecord.toDto(): WeightRecordDto = WeightRecordDto(
+    id = metadata.id,
+    time = time.toEpochMilli(),
+    zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
+    metadata = metadata.toDto(),
+    weight = weight.toDto()
+)
 
 /**
  * Converts a [WeightRecordDto] to a Health Connect [WeightRecord] object.
  */
-internal fun WeightRecordDto.toHealthConnect(): WeightRecord {
-    return WeightRecord(
-        weight = weight.toHealthConnect(),
-        time = Instant.ofEpochMilli(time),
-        zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-        metadata = metadata.toHealthConnect(),
-    )
-}
+internal fun WeightRecordDto.toHealthConnect(): WeightRecord = WeightRecord(
+    weight = weight.toHealthConnect(),
+    time = Instant.ofEpochMilli(time),
+    zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+    metadata = metadata.toHealthConnect()
+)

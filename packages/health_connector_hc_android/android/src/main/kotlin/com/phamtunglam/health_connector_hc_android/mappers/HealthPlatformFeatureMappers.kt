@@ -10,11 +10,11 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureS
  * @receiver The [HealthPlatformFeatureDto] to convert
  * @return The corresponding Health Connect feature constant
  */
-internal fun HealthPlatformFeatureDto.toHealthConnectFeature(): Int {
-    return when (this) {
-        HealthPlatformFeatureDto.READ_HEALTH_DATA_IN_BACKGROUND -> HealthConnectFeatures.FEATURE_READ_HEALTH_DATA_IN_BACKGROUND
-        HealthPlatformFeatureDto.READ_HEALTH_DATA_HISTORY -> HealthConnectFeatures.FEATURE_READ_HEALTH_DATA_HISTORY
-    }
+internal fun HealthPlatformFeatureDto.toHealthConnectFeature(): Int = when (this) {
+    HealthPlatformFeatureDto.READ_HEALTH_DATA_IN_BACKGROUND ->
+        HealthConnectFeatures.FEATURE_READ_HEALTH_DATA_IN_BACKGROUND
+    HealthPlatformFeatureDto.READ_HEALTH_DATA_HISTORY ->
+        HealthConnectFeatures.FEATURE_READ_HEALTH_DATA_HISTORY
 }
 
 /**
@@ -23,11 +23,9 @@ internal fun HealthPlatformFeatureDto.toHealthConnectFeature(): Int {
  * @receiver The Health Connect feature status code
  * @return The corresponding [HealthPlatformFeatureStatusDto]
  */
-internal fun Int.toHealthPlatformFeatureStatusDto(): HealthPlatformFeatureStatusDto {
-    return if (this == HealthConnectFeatures.FEATURE_STATUS_AVAILABLE) {
+internal fun Int.toHealthPlatformFeatureStatusDto(): HealthPlatformFeatureStatusDto =
+    if (this == HealthConnectFeatures.FEATURE_STATUS_AVAILABLE) {
         HealthPlatformFeatureStatusDto.AVAILABLE
     } else {
         HealthPlatformFeatureStatusDto.UNAVAILABLE
     }
-}
-

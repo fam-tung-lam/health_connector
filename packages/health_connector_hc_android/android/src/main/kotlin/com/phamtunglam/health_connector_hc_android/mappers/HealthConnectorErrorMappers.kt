@@ -39,4 +39,3 @@ internal fun HealthConnectorErrorCodeDto.toError(details: Any? = null): HealthCo
     }
     return HealthConnectorError(name, message, details)
 }
-

@@ -12,28 +12,24 @@ import java.time.ZoneOffset
 /**
  * Converts a Health Connect [StepsRecord] object to a [StepRecordDto].
  */
-internal fun StepsRecord.toDto(): StepRecordDto {
-    return StepRecordDto(
-        id = metadata.id,
-        startTime = startTime.toEpochMilli(),
-        endTime = endTime.toEpochMilli(),
-        startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
-        endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
-        metadata = metadata.toDto(),
-        count = count.toNumericDto()
-    )
-}
+internal fun StepsRecord.toDto(): StepRecordDto = StepRecordDto(
+    id = metadata.id,
+    startTime = startTime.toEpochMilli(),
+    endTime = endTime.toEpochMilli(),
+    startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
+    endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
+    metadata = metadata.toDto(),
+    count = count.toNumericDto()
+)
 
 /**
  * Converts a [StepRecordDto] to a Health Connect [StepsRecord] object.
  */
-internal fun StepRecordDto.toHealthConnect(): StepsRecord {
-    return StepsRecord(
-        count = count.toLong(),
-        startTime = Instant.ofEpochMilli(startTime),
-        endTime = Instant.ofEpochMilli(endTime),
-        startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-        endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-        metadata = metadata.toHealthConnect(),
-    )
-}
+internal fun StepRecordDto.toHealthConnect(): StepsRecord = StepsRecord(
+    count = count.toLong(),
+    startTime = Instant.ofEpochMilli(startTime),
+    endTime = Instant.ofEpochMilli(endTime),
+    startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+    endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+    metadata = metadata.toHealthConnect()
+)

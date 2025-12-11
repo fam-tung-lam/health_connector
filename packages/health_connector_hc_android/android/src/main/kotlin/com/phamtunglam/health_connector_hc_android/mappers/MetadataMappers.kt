@@ -9,48 +9,42 @@ import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 /**
  * Converts a Health Connect recording method constant to a [RecordingMethodDto].
  */
-internal fun Int.toRecordingMethodDto(): RecordingMethodDto {
-    return when (this) {
-        Metadata.RECORDING_METHOD_MANUAL_ENTRY -> RecordingMethodDto.MANUAL_ENTRY
-        Metadata.RECORDING_METHOD_AUTOMATICALLY_RECORDED -> RecordingMethodDto.AUTOMATICALLY_RECORDED
-        Metadata.RECORDING_METHOD_ACTIVELY_RECORDED -> RecordingMethodDto.ACTIVELY_RECORDED
-        else -> RecordingMethodDto.UNKNOWN
-    }
+internal fun Int.toRecordingMethodDto(): RecordingMethodDto = when (this) {
+    Metadata.RECORDING_METHOD_MANUAL_ENTRY -> RecordingMethodDto.MANUAL_ENTRY
+    Metadata.RECORDING_METHOD_AUTOMATICALLY_RECORDED -> RecordingMethodDto.AUTOMATICALLY_RECORDED
+    Metadata.RECORDING_METHOD_ACTIVELY_RECORDED -> RecordingMethodDto.ACTIVELY_RECORDED
+    else -> RecordingMethodDto.UNKNOWN
 }
 
 /**
  * Converts a [DeviceTypeDto] to a Health Connect device type constant.
  */
-internal fun DeviceTypeDto.toHealthConnect(): Int {
-    return when (this) {
-        DeviceTypeDto.UNKNOWN -> Device.TYPE_UNKNOWN
-        DeviceTypeDto.WATCH -> Device.TYPE_WATCH
-        DeviceTypeDto.PHONE -> Device.TYPE_PHONE
-        DeviceTypeDto.SCALE -> Device.TYPE_SCALE
-        DeviceTypeDto.RING -> Device.TYPE_RING
-        DeviceTypeDto.FITNESS_BAND -> Device.TYPE_FITNESS_BAND
-        DeviceTypeDto.CHEST_STRAP -> Device.TYPE_CHEST_STRAP
-        DeviceTypeDto.HEAD_MOUNTED -> Device.TYPE_HEAD_MOUNTED
-        DeviceTypeDto.SMART_DISPLAY -> Device.TYPE_SMART_DISPLAY
-    }
+internal fun DeviceTypeDto.toHealthConnect(): Int = when (this) {
+    DeviceTypeDto.UNKNOWN -> Device.TYPE_UNKNOWN
+    DeviceTypeDto.WATCH -> Device.TYPE_WATCH
+    DeviceTypeDto.PHONE -> Device.TYPE_PHONE
+    DeviceTypeDto.SCALE -> Device.TYPE_SCALE
+    DeviceTypeDto.RING -> Device.TYPE_RING
+    DeviceTypeDto.FITNESS_BAND -> Device.TYPE_FITNESS_BAND
+    DeviceTypeDto.CHEST_STRAP -> Device.TYPE_CHEST_STRAP
+    DeviceTypeDto.HEAD_MOUNTED -> Device.TYPE_HEAD_MOUNTED
+    DeviceTypeDto.SMART_DISPLAY -> Device.TYPE_SMART_DISPLAY
 }
 
 /**
  * Converts a Health Connect device type constant to a [DeviceTypeDto].
  */
-internal fun Int.toDeviceTypeDto(): DeviceTypeDto {
-    return when (this) {
-        Device.TYPE_UNKNOWN -> DeviceTypeDto.UNKNOWN
-        Device.TYPE_WATCH -> DeviceTypeDto.WATCH
-        Device.TYPE_PHONE -> DeviceTypeDto.PHONE
-        Device.TYPE_SCALE -> DeviceTypeDto.SCALE
-        Device.TYPE_RING -> DeviceTypeDto.RING
-        Device.TYPE_FITNESS_BAND -> DeviceTypeDto.FITNESS_BAND
-        Device.TYPE_CHEST_STRAP -> DeviceTypeDto.CHEST_STRAP
-        Device.TYPE_HEAD_MOUNTED -> DeviceTypeDto.HEAD_MOUNTED
-        Device.TYPE_SMART_DISPLAY -> DeviceTypeDto.SMART_DISPLAY
-        else -> DeviceTypeDto.UNKNOWN
-    }
+internal fun Int.toDeviceTypeDto(): DeviceTypeDto = when (this) {
+    Device.TYPE_UNKNOWN -> DeviceTypeDto.UNKNOWN
+    Device.TYPE_WATCH -> DeviceTypeDto.WATCH
+    Device.TYPE_PHONE -> DeviceTypeDto.PHONE
+    Device.TYPE_SCALE -> DeviceTypeDto.SCALE
+    Device.TYPE_RING -> DeviceTypeDto.RING
+    Device.TYPE_FITNESS_BAND -> DeviceTypeDto.FITNESS_BAND
+    Device.TYPE_CHEST_STRAP -> DeviceTypeDto.CHEST_STRAP
+    Device.TYPE_HEAD_MOUNTED -> DeviceTypeDto.HEAD_MOUNTED
+    Device.TYPE_SMART_DISPLAY -> DeviceTypeDto.SMART_DISPLAY
+    else -> DeviceTypeDto.UNKNOWN
 }
 
 /**
@@ -67,7 +61,9 @@ internal fun MetadataDto.toHealthConnect(): Metadata {
             model = deviceModel,
             type = deviceType?.toHealthConnect() ?: Device.TYPE_UNKNOWN
         )
-    } else null
+    } else {
+        null
+    }
     val clientRecordVersion = clientRecordVersion ?: 0L
 
     return when (recordingMethod) {
@@ -114,16 +110,13 @@ internal fun MetadataDto.toHealthConnect(): Metadata {
 /**
  * Converts a Health Connect [Metadata] object to a [MetadataDto].
  */
-internal fun Metadata.toDto(): MetadataDto {
-    return MetadataDto(
-        dataOrigin = dataOrigin.packageName,
-        recordingMethod = recordingMethod.toRecordingMethodDto(),
-        lastModifiedTime = lastModifiedTime.toEpochMilli(),
-        clientRecordId = clientRecordId,
-        clientRecordVersion = clientRecordVersion,
-        deviceType = device?.type?.toDeviceTypeDto(),
-        deviceManufacturer = device?.manufacturer,
-        deviceModel = device?.model
-    )
-}
-
+internal fun Metadata.toDto(): MetadataDto = MetadataDto(
+    dataOrigin = dataOrigin.packageName,
+    recordingMethod = recordingMethod.toRecordingMethodDto(),
+    lastModifiedTime = lastModifiedTime.toEpochMilli(),
+    clientRecordId = clientRecordId,
+    clientRecordVersion = clientRecordVersion,
+    deviceType = device?.type?.toDeviceTypeDto(),
+    deviceManufacturer = device?.manufacturer,
+    deviceModel = device?.model
+)

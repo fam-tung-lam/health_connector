@@ -42,13 +42,14 @@ object WheelchairPushesHandler : IntervalRecordHandler, AggregationSupportingHan
 
     override fun getRecordClass(): KClass<out Record> = WheelchairPushesRecord::class
 
-    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
-        return when (request.aggregationMetric) {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
+        when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> WheelchairPushesRecord.COUNT_TOTAL
             AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException("Aggregation metric ${request.aggregationMetric} for WheelchairPushes. Supported: SUM")
+                throw UnsupportedOperationException(
+                    "Aggregation metric ${request.aggregationMetric} for WheelchairPushes. Supported: SUM"
+                )
         }
-    }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,

@@ -43,15 +43,16 @@ object WeightHandler : InstantRecordHandler, AggregationSupportingHandler<Common
 
     override fun getRecordClass(): KClass<out Record> = WeightRecord::class
 
-    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
-        return when (request.aggregationMetric) {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
+        when (request.aggregationMetric) {
             AggregationMetricDto.AVG -> WeightRecord.WEIGHT_AVG
             AggregationMetricDto.MIN -> WeightRecord.WEIGHT_MIN
             AggregationMetricDto.MAX -> WeightRecord.WEIGHT_MAX
             AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException("Aggregation metric ${request.aggregationMetric} for Weight. Supported: AVG, MIN, MAX")
+                throw UnsupportedOperationException(
+                    "Aggregation metric ${request.aggregationMetric} for Weight. Supported: AVG, MIN, MAX"
+                )
         }
-    }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,

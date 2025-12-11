@@ -24,22 +24,20 @@ import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecord
  * This extension uses pattern matching on the sealed class to convert
  * each record type to its corresponding Health Connect record.
  */
-internal fun HealthRecordDto.toHealthConnect(): Record {
-    return when (this) {
-        is ActiveCaloriesBurnedRecordDto -> toHealthConnect()
-        is DistanceRecordDto -> toHealthConnect()
-        is FloorsClimbedRecordDto -> toHealthConnect()
-        is StepRecordDto -> toHealthConnect()
-        is HeightRecordDto -> toHealthConnect()
-        is HydrationRecordDto -> toHealthConnect()
-        is BodyFatPercentageRecordDto -> toHealthConnect()
-        is BodyTemperatureRecordDto -> toHealthConnect()
-        is WeightRecordDto -> toHealthConnect()
-        is LeanBodyMassRecordDto -> toHealthConnect()
-        is WheelchairPushesRecordDto -> toHealthConnect()
-        is HeartRateSeriesRecordDto -> toHealthConnect()
-        is SleepSessionRecordDto -> toHealthConnect()
-        is NutritionRecordDto -> toHealthConnect()
-        is BloodPressureRecordDto -> toHealthConnect()
-    }
+internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
+    is ActiveCaloriesBurnedRecordDto -> toHealthConnect()
+    is DistanceRecordDto -> toHealthConnect()
+    is FloorsClimbedRecordDto -> toHealthConnect()
+    is StepRecordDto -> toHealthConnect()
+    is HeightRecordDto -> toHealthConnect()
+    is HydrationRecordDto -> toHealthConnect()
+    is BodyFatPercentageRecordDto -> toHealthConnect()
+    is BodyTemperatureRecordDto -> toHealthConnect()
+    is WeightRecordDto -> toHealthConnect()
+    is LeanBodyMassRecordDto -> toHealthConnect()
+    is WheelchairPushesRecordDto -> toHealthConnect()
+    is HeartRateSeriesRecordDto -> toHealthConnect()
+    is SleepSessionRecordDto -> toHealthConnect()
+    is NutritionRecordDto -> toHealthConnect()
+    is BloodPressureRecordDto -> toHealthConnect()
 }

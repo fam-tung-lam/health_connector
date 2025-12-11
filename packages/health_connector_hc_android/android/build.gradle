@@ -6,14 +6,17 @@ buildscript {
     ext.gradle_version = "8.9.1"
     ext.health_connect_version = "1.1.0"
     ext.kotlin_coroutines_version = "1.10.2"
+    ext.ktlint_gradle_version = "12.1.2"
     repositories {
         google()
         mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
         classpath("com.android.tools.build:gradle:$gradle_version")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:$ktlint_gradle_version")
     }
 }
 
@@ -26,6 +29,31 @@ allprojects {
 
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
+apply plugin: "org.jlleitschuh.gradle.ktlint"
+
+// Ktlint configuration for Kotlin code formatting
+// https://github.com/JLLeitschuh/ktlint-gradle
+ktlint {
+    version = "1.4.0"
+    android = true
+    outputToConsole = true
+    outputColorName = "RED"
+    ignoreFailures = false
+    reporters {
+        reporter "plain"
+        reporter "checkstyle"
+    }
+    filter {
+        // Exclude Pigeon-generated files and any other generated code
+        exclude { element ->
+            def path = element.file.absolutePath
+            // Match files in pigeon directory or with .g.kt extension
+            path.contains("/pigeon/") ||
+                path.contains("/generated/") ||
+                path.endsWith(".g.kt")
+        }
+    }
+}
 
 android {
     namespace = "com.phamtunglam.health_connector_hc_android"

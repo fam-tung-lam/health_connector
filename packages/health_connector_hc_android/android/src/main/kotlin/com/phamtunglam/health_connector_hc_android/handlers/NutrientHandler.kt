@@ -20,9 +20,9 @@ import kotlin.reflect.KClass
 /**
  * Unified handler for all individual nutrient types.
  */
-internal class NutrientHandler(
-    private val nutrientType: HealthDataTypeDto
-) : InstantRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
+internal class NutrientHandler(private val nutrientType: HealthDataTypeDto) :
+    InstantRecordHandler,
+    AggregationSupportingHandler<CommonAggregateRequestDto> {
 
     override val supportedType: HealthDataTypeDto = nutrientType
 
@@ -47,8 +47,8 @@ internal class NutrientHandler(
 
     override fun getRecordClass(): KClass<out Record> = NutritionRecord::class
 
-    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
-        return when (request.aggregationMetric) {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
+        when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> when (nutrientType) {
                 HealthDataTypeDto.ENERGY_NUTRIENT -> NutritionRecord.ENERGY_TOTAL
                 HealthDataTypeDto.CAFFEINE -> NutritionRecord.CAFFEINE_TOTAL
@@ -83,81 +83,94 @@ internal class NutrientHandler(
                 HealthDataTypeDto.SELENIUM -> NutritionRecord.SELENIUM_TOTAL
                 HealthDataTypeDto.SODIUM -> NutritionRecord.SODIUM_TOTAL
                 HealthDataTypeDto.ZINC -> NutritionRecord.ZINC_TOTAL
-                HealthDataTypeDto.ACTIVE_CALORIES_BURNED, HealthDataTypeDto.DISTANCE, HealthDataTypeDto.FLOORS_CLIMBED, HealthDataTypeDto.STEPS, HealthDataTypeDto.WEIGHT, HealthDataTypeDto.HEIGHT, HealthDataTypeDto.BODY_FAT_PERCENTAGE, HealthDataTypeDto.BODY_TEMPERATURE, HealthDataTypeDto.LEAN_BODY_MASS, HealthDataTypeDto.WHEELCHAIR_PUSHES, HealthDataTypeDto.HYDRATION, HealthDataTypeDto.HEART_RATE_SERIES_RECORD, HealthDataTypeDto.SLEEP_SESSION, HealthDataTypeDto.NUTRITION, HealthDataTypeDto.BLOOD_PRESSURE -> throw IllegalArgumentException(
+                HealthDataTypeDto.ACTIVE_CALORIES_BURNED,
+                HealthDataTypeDto.DISTANCE,
+                HealthDataTypeDto.FLOORS_CLIMBED,
+                HealthDataTypeDto.STEPS,
+                HealthDataTypeDto.WEIGHT,
+                HealthDataTypeDto.HEIGHT,
+                HealthDataTypeDto.BODY_FAT_PERCENTAGE,
+                HealthDataTypeDto.BODY_TEMPERATURE,
+                HealthDataTypeDto.LEAN_BODY_MASS,
+                HealthDataTypeDto.WHEELCHAIR_PUSHES,
+                HealthDataTypeDto.HYDRATION,
+                HealthDataTypeDto.HEART_RATE_SERIES_RECORD,
+                HealthDataTypeDto.SLEEP_SESSION,
+                HealthDataTypeDto.NUTRITION,
+                HealthDataTypeDto.BLOOD_PRESSURE -> throw IllegalArgumentException(
                     "$nutrientType not nutrient data type."
                 )
             }
 
             AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException("Aggregation metric ${request.aggregationMetric} is not supported for nutrients (cumulative data). Only SUM is supported.")
+                throw UnsupportedOperationException(
+                    "Aggregation metric ${request.aggregationMetric} is not supported for nutrients (cumulative data). Only SUM is supported."
+                )
         }
-    }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,
         aggregateMetric: AggregateMetric<*>
-    ): MeasurementUnitDto {
-        return when (nutrientType) {
-            HealthDataTypeDto.ENERGY_NUTRIENT -> {
-                val energy = aggregationResult[aggregateMetric] as? Energy
-                    ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
-                energy.toDto()
-            }
-
-            HealthDataTypeDto.CAFFEINE,
-            HealthDataTypeDto.PROTEIN,
-            HealthDataTypeDto.TOTAL_CARBOHYDRATE,
-            HealthDataTypeDto.TOTAL_FAT,
-            HealthDataTypeDto.SATURATED_FAT,
-            HealthDataTypeDto.MONOUNSATURATED_FAT,
-            HealthDataTypeDto.POLYUNSATURATED_FAT,
-            HealthDataTypeDto.CHOLESTEROL,
-            HealthDataTypeDto.DIETARY_FIBER,
-            HealthDataTypeDto.SUGAR,
-            HealthDataTypeDto.VITAMIN_A,
-            HealthDataTypeDto.VITAMIN_B6,
-            HealthDataTypeDto.VITAMIN_B12,
-            HealthDataTypeDto.VITAMIN_C,
-            HealthDataTypeDto.VITAMIN_D,
-            HealthDataTypeDto.VITAMIN_E,
-            HealthDataTypeDto.VITAMIN_K,
-            HealthDataTypeDto.THIAMIN,
-            HealthDataTypeDto.RIBOFLAVIN,
-            HealthDataTypeDto.NIACIN,
-            HealthDataTypeDto.FOLATE,
-            HealthDataTypeDto.BIOTIN,
-            HealthDataTypeDto.PANTOTHENIC_ACID,
-            HealthDataTypeDto.CALCIUM,
-            HealthDataTypeDto.IRON,
-            HealthDataTypeDto.MAGNESIUM,
-            HealthDataTypeDto.MANGANESE,
-            HealthDataTypeDto.PHOSPHORUS,
-            HealthDataTypeDto.POTASSIUM,
-            HealthDataTypeDto.SELENIUM,
-            HealthDataTypeDto.SODIUM,
-            HealthDataTypeDto.ZINC -> {
-                val mass = aggregationResult[aggregateMetric] as? Mass
-                    ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
-                mass.toDto()
-            }
-
-            HealthDataTypeDto.ACTIVE_CALORIES_BURNED,
-            HealthDataTypeDto.DISTANCE,
-            HealthDataTypeDto.FLOORS_CLIMBED,
-            HealthDataTypeDto.STEPS,
-            HealthDataTypeDto.WEIGHT,
-            HealthDataTypeDto.HEIGHT,
-            HealthDataTypeDto.BODY_FAT_PERCENTAGE,
-            HealthDataTypeDto.BODY_TEMPERATURE,
-            HealthDataTypeDto.LEAN_BODY_MASS,
-            HealthDataTypeDto.WHEELCHAIR_PUSHES,
-            HealthDataTypeDto.HYDRATION,
-            HealthDataTypeDto.HEART_RATE_SERIES_RECORD,
-            HealthDataTypeDto.SLEEP_SESSION,
-            HealthDataTypeDto.NUTRITION,
-            HealthDataTypeDto.BLOOD_PRESSURE -> throw IllegalStateException(
-                "${NutrientHandler::class.simpleName} must only handle nutrient data types, but received: $nutrientType"
-            )
+    ): MeasurementUnitDto = when (nutrientType) {
+        HealthDataTypeDto.ENERGY_NUTRIENT -> {
+            val energy = aggregationResult[aggregateMetric] as? Energy
+                ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+            energy.toDto()
         }
+
+        HealthDataTypeDto.CAFFEINE,
+        HealthDataTypeDto.PROTEIN,
+        HealthDataTypeDto.TOTAL_CARBOHYDRATE,
+        HealthDataTypeDto.TOTAL_FAT,
+        HealthDataTypeDto.SATURATED_FAT,
+        HealthDataTypeDto.MONOUNSATURATED_FAT,
+        HealthDataTypeDto.POLYUNSATURATED_FAT,
+        HealthDataTypeDto.CHOLESTEROL,
+        HealthDataTypeDto.DIETARY_FIBER,
+        HealthDataTypeDto.SUGAR,
+        HealthDataTypeDto.VITAMIN_A,
+        HealthDataTypeDto.VITAMIN_B6,
+        HealthDataTypeDto.VITAMIN_B12,
+        HealthDataTypeDto.VITAMIN_C,
+        HealthDataTypeDto.VITAMIN_D,
+        HealthDataTypeDto.VITAMIN_E,
+        HealthDataTypeDto.VITAMIN_K,
+        HealthDataTypeDto.THIAMIN,
+        HealthDataTypeDto.RIBOFLAVIN,
+        HealthDataTypeDto.NIACIN,
+        HealthDataTypeDto.FOLATE,
+        HealthDataTypeDto.BIOTIN,
+        HealthDataTypeDto.PANTOTHENIC_ACID,
+        HealthDataTypeDto.CALCIUM,
+        HealthDataTypeDto.IRON,
+        HealthDataTypeDto.MAGNESIUM,
+        HealthDataTypeDto.MANGANESE,
+        HealthDataTypeDto.PHOSPHORUS,
+        HealthDataTypeDto.POTASSIUM,
+        HealthDataTypeDto.SELENIUM,
+        HealthDataTypeDto.SODIUM,
+        HealthDataTypeDto.ZINC -> {
+            val mass = aggregationResult[aggregateMetric] as? Mass
+                ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
+            mass.toDto()
+        }
+
+        HealthDataTypeDto.ACTIVE_CALORIES_BURNED,
+        HealthDataTypeDto.DISTANCE,
+        HealthDataTypeDto.FLOORS_CLIMBED,
+        HealthDataTypeDto.STEPS,
+        HealthDataTypeDto.WEIGHT,
+        HealthDataTypeDto.HEIGHT,
+        HealthDataTypeDto.BODY_FAT_PERCENTAGE,
+        HealthDataTypeDto.BODY_TEMPERATURE,
+        HealthDataTypeDto.LEAN_BODY_MASS,
+        HealthDataTypeDto.WHEELCHAIR_PUSHES,
+        HealthDataTypeDto.HYDRATION,
+        HealthDataTypeDto.HEART_RATE_SERIES_RECORD,
+        HealthDataTypeDto.SLEEP_SESSION,
+        HealthDataTypeDto.NUTRITION,
+        HealthDataTypeDto.BLOOD_PRESSURE -> throw IllegalStateException(
+            "${NutrientHandler::class.simpleName} must only handle nutrient data types, but received: $nutrientType"
+        )
     }
 }

@@ -10,24 +10,20 @@ import java.time.ZoneOffset
 /**
  * Converts a Health Connect [LeanBodyMassRecord] object to a [LeanBodyMassRecordDto].
  */
-internal fun LeanBodyMassRecord.toDto(): LeanBodyMassRecordDto {
-    return LeanBodyMassRecordDto(
-        id = metadata.id,
-        time = time.toEpochMilli(),
-        zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
-        metadata = metadata.toDto(),
-        mass = mass.toDto()
-    )
-}
+internal fun LeanBodyMassRecord.toDto(): LeanBodyMassRecordDto = LeanBodyMassRecordDto(
+    id = metadata.id,
+    time = time.toEpochMilli(),
+    zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
+    metadata = metadata.toDto(),
+    mass = mass.toDto()
+)
 
 /**
  * Converts a [LeanBodyMassRecordDto] to a Health Connect [LeanBodyMassRecord] object.
  */
-internal fun LeanBodyMassRecordDto.toHealthConnect(): LeanBodyMassRecord {
-    return LeanBodyMassRecord(
-        mass = mass.toHealthConnect(),
-        time = Instant.ofEpochMilli(time),
-        zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-        metadata = metadata.toHealthConnect(),
-    )
-}
+internal fun LeanBodyMassRecordDto.toHealthConnect(): LeanBodyMassRecord = LeanBodyMassRecord(
+    mass = mass.toHealthConnect(),
+    time = Instant.ofEpochMilli(time),
+    zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+    metadata = metadata.toHealthConnect()
+)

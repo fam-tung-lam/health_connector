@@ -10,24 +10,20 @@ import java.time.ZoneOffset
 /**
  * Converts a Health Connect [HeightRecord] object to a [HeightRecordDto].
  */
-internal fun HeightRecord.toDto(): HeightRecordDto {
-    return HeightRecordDto(
-        id = metadata.id,
-        time = time.toEpochMilli(),
-        zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
-        metadata = metadata.toDto(),
-        height = height.toDto()
-    )
-}
+internal fun HeightRecord.toDto(): HeightRecordDto = HeightRecordDto(
+    id = metadata.id,
+    time = time.toEpochMilli(),
+    zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
+    metadata = metadata.toDto(),
+    height = height.toDto()
+)
 
 /**
  * Converts a [HeightRecordDto] to a Health Connect [HeightRecord] object.
  */
-internal fun HeightRecordDto.toHealthConnect(): HeightRecord {
-    return HeightRecord(
-        height = height.toHealthConnect(),
-        time = Instant.ofEpochMilli(time),
-        zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-        metadata = metadata.toHealthConnect(),
-    )
-}
+internal fun HeightRecordDto.toHealthConnect(): HeightRecord = HeightRecord(
+    height = height.toHealthConnect(),
+    time = Instant.ofEpochMilli(time),
+    zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+    metadata = metadata.toHealthConnect()
+)

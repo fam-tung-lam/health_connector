@@ -43,13 +43,14 @@ object ActiveCaloriesBurnedHandler : IntervalRecordHandler, AggregationSupportin
 
     override fun getRecordClass(): KClass<out Record> = ActiveCaloriesBurnedRecord::class
 
-    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
-        return when (request.aggregationMetric) {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
+        when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> ActiveCaloriesBurnedRecord.ACTIVE_CALORIES_TOTAL
             AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException("Aggregation metric ${request.aggregationMetric} for ActiveCaloriesBurned. Supported: SUM")
+                throw UnsupportedOperationException(
+                    "Aggregation metric ${request.aggregationMetric} for ActiveCaloriesBurned. Supported: SUM"
+                )
         }
-    }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,

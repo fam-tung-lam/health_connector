@@ -36,13 +36,11 @@ import com.phamtunglam.health_connector_hc_android.pigeon.VolumeUnitDto
 /**
  * Converts a [MassDto] to a Health Connect [Mass] object.
  */
-internal fun MassDto.toHealthConnect(): Mass {
-    return when (unit) {
-        MassUnitDto.KILOGRAMS -> Mass.kilograms(value)
-        MassUnitDto.GRAMS -> Mass.grams(value)
-        MassUnitDto.POUNDS -> Mass.pounds(value)
-        MassUnitDto.OUNCES -> Mass.ounces(value)
-    }
+internal fun MassDto.toHealthConnect(): Mass = when (unit) {
+    MassUnitDto.KILOGRAMS -> Mass.kilograms(value)
+    MassUnitDto.GRAMS -> Mass.grams(value)
+    MassUnitDto.POUNDS -> Mass.pounds(value)
+    MassUnitDto.OUNCES -> Mass.ounces(value)
 }
 
 /**
@@ -50,23 +48,19 @@ internal fun MassDto.toHealthConnect(): Mass {
  *
  * Uses kilograms as the transfer unit for consistency.
  */
-internal fun Mass.toDto(): MassDto {
-    return MassDto(
-        value = inKilograms,
-        unit = MassUnitDto.KILOGRAMS
-    )
-}
+internal fun Mass.toDto(): MassDto = MassDto(
+    value = inKilograms,
+    unit = MassUnitDto.KILOGRAMS
+)
 
 /**
  * Converts an [EnergyDto] to a Health Connect [Energy] object.
  */
-internal fun EnergyDto.toHealthConnect(): Energy {
-    return when (unit) {
-        EnergyUnitDto.KILOCALORIES -> Energy.kilocalories(value)
-        EnergyUnitDto.KILOJOULES -> Energy.kilojoules(value)
-        EnergyUnitDto.CALORIES -> Energy.calories(value)
-        EnergyUnitDto.JOULES -> Energy.joules(value)
-    }
+internal fun EnergyDto.toHealthConnect(): Energy = when (unit) {
+    EnergyUnitDto.KILOCALORIES -> Energy.kilocalories(value)
+    EnergyUnitDto.KILOJOULES -> Energy.kilojoules(value)
+    EnergyUnitDto.CALORIES -> Energy.calories(value)
+    EnergyUnitDto.JOULES -> Energy.joules(value)
 }
 
 /**
@@ -74,24 +68,20 @@ internal fun EnergyDto.toHealthConnect(): Energy {
  *
  * Uses kilocalories as the transfer unit for consistency.
  */
-internal fun Energy.toDto(): EnergyDto {
-    return EnergyDto(
-        value = inKilocalories,
-        unit = EnergyUnitDto.KILOCALORIES
-    )
-}
+internal fun Energy.toDto(): EnergyDto = EnergyDto(
+    value = inKilocalories,
+    unit = EnergyUnitDto.KILOCALORIES
+)
 
 /**
  * Converts a [LengthDto] to a Health Connect [Length] object.
  */
-internal fun LengthDto.toHealthConnect(): Length {
-    return when (unit) {
-        LengthUnitDto.METERS -> Length.meters(value)
-        LengthUnitDto.KILOMETERS -> Length.kilometers(value)
-        LengthUnitDto.MILES -> Length.miles(value)
-        LengthUnitDto.FEET -> Length.feet(value)
-        LengthUnitDto.INCHES -> Length.inches(value)
-    }
+internal fun LengthDto.toHealthConnect(): Length = when (unit) {
+    LengthUnitDto.METERS -> Length.meters(value)
+    LengthUnitDto.KILOMETERS -> Length.kilometers(value)
+    LengthUnitDto.MILES -> Length.miles(value)
+    LengthUnitDto.FEET -> Length.feet(value)
+    LengthUnitDto.INCHES -> Length.inches(value)
 }
 
 /**
@@ -99,22 +89,18 @@ internal fun LengthDto.toHealthConnect(): Length {
  *
  * Uses meters as the transfer unit for consistency.
  */
-internal fun Length.toDto(): LengthDto {
-    return LengthDto(
-        value = inMeters,
-        unit = LengthUnitDto.METERS
-    )
-}
+internal fun Length.toDto(): LengthDto = LengthDto(
+    value = inMeters,
+    unit = LengthUnitDto.METERS
+)
 
 /**
  * Converts a [TemperatureDto] to a Health Connect [Temperature] object.
  */
-internal fun TemperatureDto.toHealthConnect(): Temperature {
-    return when (unit) {
-        TemperatureUnitDto.CELSIUS -> Temperature.celsius(value)
-        TemperatureUnitDto.FAHRENHEIT -> Temperature.fahrenheit(value)
-        TemperatureUnitDto.KELVIN -> Temperature.celsius(value - 273.15)
-    }
+internal fun TemperatureDto.toHealthConnect(): Temperature = when (unit) {
+    TemperatureUnitDto.CELSIUS -> Temperature.celsius(value)
+    TemperatureUnitDto.FAHRENHEIT -> Temperature.fahrenheit(value)
+    TemperatureUnitDto.KELVIN -> Temperature.celsius(value - 273.15)
 }
 
 /**
@@ -122,20 +108,16 @@ internal fun TemperatureDto.toHealthConnect(): Temperature {
  *
  * Uses celsius as the transfer unit for consistency.
  */
-internal fun Temperature.toDto(): TemperatureDto {
-    return TemperatureDto(
-        value = inCelsius,
-        unit = TemperatureUnitDto.CELSIUS
-    )
-}
+internal fun Temperature.toDto(): TemperatureDto = TemperatureDto(
+    value = inCelsius,
+    unit = TemperatureUnitDto.CELSIUS
+)
 
 /**
  * Converts a [PressureDto] to a Health Connect [Pressure] object.
  */
-internal fun PressureDto.toHealthConnect(): Pressure {
-    return when (unit) {
-        PressureUnitDto.MILLIMETERS_OF_MERCURY -> Pressure.millimetersOfMercury(value)
-    }
+internal fun PressureDto.toHealthConnect(): Pressure = when (unit) {
+    PressureUnitDto.MILLIMETERS_OF_MERCURY -> Pressure.millimetersOfMercury(value)
 }
 
 /**
@@ -143,22 +125,18 @@ internal fun PressureDto.toHealthConnect(): Pressure {
  *
  * Uses millimeters of mercury as the transfer unit.
  */
-internal fun Pressure.toDto(): PressureDto {
-    return PressureDto(
-        value = inMillimetersOfMercury,
-        unit = PressureUnitDto.MILLIMETERS_OF_MERCURY
-    )
-}
+internal fun Pressure.toDto(): PressureDto = PressureDto(
+    value = inMillimetersOfMercury,
+    unit = PressureUnitDto.MILLIMETERS_OF_MERCURY
+)
 
 /**
  * Converts a [VelocityDto] to a Health Connect [Velocity] object.
  */
-internal fun VelocityDto.toHealthConnect(): Velocity {
-    return when (unit) {
-        VelocityUnitDto.METERS_PER_SECOND -> Velocity.metersPerSecond(value)
-        VelocityUnitDto.KILOMETERS_PER_HOUR -> Velocity.kilometersPerHour(value)
-        VelocityUnitDto.MILES_PER_HOUR -> Velocity.milesPerHour(value)
-    }
+internal fun VelocityDto.toHealthConnect(): Velocity = when (unit) {
+    VelocityUnitDto.METERS_PER_SECOND -> Velocity.metersPerSecond(value)
+    VelocityUnitDto.KILOMETERS_PER_HOUR -> Velocity.kilometersPerHour(value)
+    VelocityUnitDto.MILES_PER_HOUR -> Velocity.milesPerHour(value)
 }
 
 /**
@@ -166,22 +144,18 @@ internal fun VelocityDto.toHealthConnect(): Velocity {
  *
  * Uses meters per second as the transfer unit for consistency.
  */
-internal fun Velocity.toDto(): VelocityDto {
-    return VelocityDto(
-        value = inMetersPerSecond,
-        unit = VelocityUnitDto.METERS_PER_SECOND
-    )
-}
+internal fun Velocity.toDto(): VelocityDto = VelocityDto(
+    value = inMetersPerSecond,
+    unit = VelocityUnitDto.METERS_PER_SECOND
+)
 
 /**
  * Converts a [VolumeDto] to a Health Connect [Volume] object.
  */
-internal fun VolumeDto.toHealthConnect(): Volume {
-    return when (unit) {
-        VolumeUnitDto.LITERS -> Volume.liters(value)
-        VolumeUnitDto.MILLILITERS -> Volume.milliliters(value)
-        VolumeUnitDto.FLUID_OUNCES_US -> Volume.fluidOuncesUs(value)
-    }
+internal fun VolumeDto.toHealthConnect(): Volume = when (unit) {
+    VolumeUnitDto.LITERS -> Volume.liters(value)
+    VolumeUnitDto.MILLILITERS -> Volume.milliliters(value)
+    VolumeUnitDto.FLUID_OUNCES_US -> Volume.fluidOuncesUs(value)
 }
 
 /**
@@ -189,21 +163,17 @@ internal fun VolumeDto.toHealthConnect(): Volume {
  *
  * Uses liters as the transfer unit for consistency.
  */
-internal fun Volume.toDto(): VolumeDto {
-    return VolumeDto(
-        value = inLiters,
-        unit = VolumeUnitDto.LITERS
-    )
-}
+internal fun Volume.toDto(): VolumeDto = VolumeDto(
+    value = inLiters,
+    unit = VolumeUnitDto.LITERS
+)
 
 /**
  * Converts a [PowerDto] to a Health Connect [Power] object.
  */
-internal fun PowerDto.toHealthConnect(): Power {
-    return when (unit) {
-        PowerUnitDto.WATTS -> Power.watts(value)
-        PowerUnitDto.KILOWATTS -> Power.watts(value * 1000) // Convert kilowatts to watts
-    }
+internal fun PowerDto.toHealthConnect(): Power = when (unit) {
+    PowerUnitDto.WATTS -> Power.watts(value)
+    PowerUnitDto.KILOWATTS -> Power.watts(value * 1000) // Convert kilowatts to watts
 }
 
 /**
@@ -211,21 +181,17 @@ internal fun PowerDto.toHealthConnect(): Power {
  *
  * Uses watts as the transfer unit for consistency.
  */
-internal fun Power.toDto(): PowerDto {
-    return PowerDto(
-        value = inWatts,
-        unit = PowerUnitDto.WATTS
-    )
-}
+internal fun Power.toDto(): PowerDto = PowerDto(
+    value = inWatts,
+    unit = PowerUnitDto.WATTS
+)
 
 /**
  * Converts a [BloodGlucoseDto] to a Health Connect [BloodGlucose] object.
  */
-internal fun BloodGlucoseDto.toHealthConnect(): BloodGlucose {
-    return when (unit) {
-        BloodGlucoseUnitDto.MILLIMOLES_PER_LITER -> BloodGlucose.millimolesPerLiter(value)
-        BloodGlucoseUnitDto.MILLIGRAMS_PER_DECILITER -> BloodGlucose.milligramsPerDeciliter(value)
-    }
+internal fun BloodGlucoseDto.toHealthConnect(): BloodGlucose = when (unit) {
+    BloodGlucoseUnitDto.MILLIMOLES_PER_LITER -> BloodGlucose.millimolesPerLiter(value)
+    BloodGlucoseUnitDto.MILLIGRAMS_PER_DECILITER -> BloodGlucose.milligramsPerDeciliter(value)
 }
 
 /**
@@ -233,52 +199,42 @@ internal fun BloodGlucoseDto.toHealthConnect(): BloodGlucose {
  *
  * Uses millimoles per liter as the transfer unit for consistency.
  */
-internal fun BloodGlucose.toDto(): BloodGlucoseDto {
-    return BloodGlucoseDto(
-        value = inMillimolesPerLiter,
-        unit = BloodGlucoseUnitDto.MILLIMOLES_PER_LITER
-    )
-}
+internal fun BloodGlucose.toDto(): BloodGlucoseDto = BloodGlucoseDto(
+    value = inMillimolesPerLiter,
+    unit = BloodGlucoseUnitDto.MILLIMOLES_PER_LITER
+)
 
 /**
  * Converts a [NumericDto] to a numeric value (Long for step counts).
  */
-internal fun NumericDto.toLong(): Long {
-    return value.toLong()
-}
+internal fun NumericDto.toLong(): Long = value.toLong()
 
 /**
  * Converts a numeric value (Long for step counts) to a [NumericDto].
  *
  * Uses numeric unit for consistency.
  */
-internal fun Long.toNumericDto(): NumericDto {
-    return NumericDto(
-        value = this.toDouble(),
-        unit = NumericUnitDto.NUMERIC
-    )
-}
+internal fun Long.toNumericDto(): NumericDto = NumericDto(
+    value = this.toDouble(),
+    unit = NumericUnitDto.NUMERIC
+)
 
 /**
  * Converts a numeric value (Double for floors climbed) to a [NumericDto].
  *
  * Uses numeric unit for consistency.
  */
-internal fun Double.toNumericDto(): NumericDto {
-    return NumericDto(
-        value = this,
-        unit = NumericUnitDto.NUMERIC
-    )
-}
+internal fun Double.toNumericDto(): NumericDto = NumericDto(
+    value = this,
+    unit = NumericUnitDto.NUMERIC
+)
 
 /**
  * Converts a [PercentageDto] to a Health Connect [Percentage] object.
  */
-internal fun PercentageDto.toHealthConnect(): Percentage {
-    return when (unit) {
-        PercentageUnitDto.DECIMAL -> Percentage(value)
-        PercentageUnitDto.WHOLE -> Percentage(value / 100.0)
-    }
+internal fun PercentageDto.toHealthConnect(): Percentage = when (unit) {
+    PercentageUnitDto.DECIMAL -> Percentage(value)
+    PercentageUnitDto.WHOLE -> Percentage(value / 100.0)
 }
 
 /**
@@ -286,22 +242,17 @@ internal fun PercentageDto.toHealthConnect(): Percentage {
  *
  * Uses decimal as the transfer unit for consistency (0.0 to 1.0).
  */
-internal fun Percentage.toDto(): PercentageDto {
-    return PercentageDto(
-        value = value,
-        unit = PercentageUnitDto.DECIMAL
-    )
-}
+internal fun Percentage.toDto(): PercentageDto = PercentageDto(
+    value = value,
+    unit = PercentageUnitDto.DECIMAL
+)
 
 /**
  * Converts a temperature value (Double in Celsius) to a [TemperatureDto].
  *
  * Uses celsius as the transfer unit for consistency.
  */
-internal fun Double.toTemperatureDto(): TemperatureDto {
-    return TemperatureDto(
-        value = this,
-        unit = TemperatureUnitDto.CELSIUS
-    )
-}
-
+internal fun Double.toTemperatureDto(): TemperatureDto = TemperatureDto(
+    value = this,
+    unit = TemperatureUnitDto.CELSIUS
+)

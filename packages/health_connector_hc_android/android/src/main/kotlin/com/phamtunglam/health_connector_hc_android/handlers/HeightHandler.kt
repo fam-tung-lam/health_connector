@@ -43,14 +43,15 @@ object HeightHandler : InstantRecordHandler, AggregationSupportingHandler<Common
 
     override fun getRecordClass(): KClass<out Record> = HeightRecord::class
 
-    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
-        return when (request.aggregationMetric) {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
+        when (request.aggregationMetric) {
             AggregationMetricDto.AVG -> HeightRecord.HEIGHT_AVG
             AggregationMetricDto.MIN -> HeightRecord.HEIGHT_MIN
             AggregationMetricDto.MAX -> HeightRecord.HEIGHT_MAX
-            AggregationMetricDto.SUM, AggregationMetricDto.COUNT -> throw UnsupportedOperationException("Aggregation metric ${request.aggregationMetric} for Height. Supported: AVG, MIN, MAX")
+            AggregationMetricDto.SUM, AggregationMetricDto.COUNT -> throw UnsupportedOperationException(
+                "Aggregation metric ${request.aggregationMetric} for Height. Supported: AVG, MIN, MAX"
+            )
         }
-    }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,

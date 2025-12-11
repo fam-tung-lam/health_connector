@@ -43,13 +43,14 @@ object DistanceHandler : IntervalRecordHandler, AggregationSupportingHandler<Com
 
     override fun getRecordClass(): KClass<out Record> = DistanceRecord::class
 
-    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
-        return when (request.aggregationMetric) {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
+        when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> DistanceRecord.DISTANCE_TOTAL
             AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException("Aggregation metric ${request.aggregationMetric} for Distance. Supported: SUM")
+                throw UnsupportedOperationException(
+                    "Aggregation metric ${request.aggregationMetric} for Distance. Supported: SUM"
+                )
         }
-    }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,

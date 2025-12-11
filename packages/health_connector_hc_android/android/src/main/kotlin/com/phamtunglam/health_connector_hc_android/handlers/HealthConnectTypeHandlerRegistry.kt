@@ -103,8 +103,7 @@ object HealthConnectTypeHandlerRegistry {
      * @param type The health data type
      * @return The record handler for the type, or null if not found
      */
-    fun getRecordHandler(type: HealthDataTypeDto): HealthConnectRecordHandler? =
-        handlers[type]
+    fun getRecordHandler(type: HealthDataTypeDto): HealthConnectRecordHandler? = handlers[type]
 
     /**
      * Retrieves an aggregation-supporting handler for the specified health data type.
@@ -112,7 +111,8 @@ object HealthConnectTypeHandlerRegistry {
      * @param type The health data type
      * @return The aggregation handler if the type supports aggregation, or null otherwise
      */
-    @Suppress("UNCHECKED_CAST") // We an unchecked cast here, as we know the request type matches the handler's expected type at runtime
+    // Unchecked cast: we know the request type matches the handler's expected type at runtime
+    @Suppress("UNCHECKED_CAST")
     fun getAggregationHandler(type: HealthDataTypeDto): AggregationSupportingHandler<AggregateRequestDto>? =
         handlers[type] as AggregationSupportingHandler<AggregateRequestDto>?
 }

@@ -10,24 +10,20 @@ import java.time.ZoneOffset
 /**
  * Converts a Health Connect [BodyFatRecord] object to a [BodyFatPercentageRecordDto].
  */
-internal fun BodyFatRecord.toDto(): BodyFatPercentageRecordDto {
-    return BodyFatPercentageRecordDto(
-        id = metadata.id,
-        time = time.toEpochMilli(),
-        zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
-        metadata = metadata.toDto(),
-        percentage = percentage.toDto()
-    )
-}
+internal fun BodyFatRecord.toDto(): BodyFatPercentageRecordDto = BodyFatPercentageRecordDto(
+    id = metadata.id,
+    time = time.toEpochMilli(),
+    zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
+    metadata = metadata.toDto(),
+    percentage = percentage.toDto()
+)
 
 /**
  * Converts a [BodyFatPercentageRecordDto] to a Health Connect [BodyFatRecord] object.
  */
-internal fun BodyFatPercentageRecordDto.toHealthConnect(): BodyFatRecord {
-    return BodyFatRecord(
-        percentage = percentage.toHealthConnect(),
-        time = Instant.ofEpochMilli(time),
-        zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-        metadata = metadata.toHealthConnect(),
-    )
-}
+internal fun BodyFatPercentageRecordDto.toHealthConnect(): BodyFatRecord = BodyFatRecord(
+    percentage = percentage.toHealthConnect(),
+    time = Instant.ofEpochMilli(time),
+    zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+    metadata = metadata.toHealthConnect()
+)

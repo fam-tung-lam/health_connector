@@ -10,28 +10,24 @@ import java.time.ZoneOffset
 /**
  * Converts a Health Connect [DistanceRecord] object to a [DistanceRecordDto].
  */
-internal fun DistanceRecord.toDto(): DistanceRecordDto {
-    return DistanceRecordDto(
-        id = metadata.id,
-        startTime = startTime.toEpochMilli(),
-        endTime = endTime.toEpochMilli(),
-        startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
-        endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
-        metadata = metadata.toDto(),
-        distance = distance.toDto()
-    )
-}
+internal fun DistanceRecord.toDto(): DistanceRecordDto = DistanceRecordDto(
+    id = metadata.id,
+    startTime = startTime.toEpochMilli(),
+    endTime = endTime.toEpochMilli(),
+    startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
+    endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
+    metadata = metadata.toDto(),
+    distance = distance.toDto()
+)
 
 /**
  * Converts a [DistanceRecordDto] to a Health Connect [DistanceRecord] object.
  */
-internal fun DistanceRecordDto.toHealthConnect(): DistanceRecord {
-    return DistanceRecord(
-        distance = distance.toHealthConnect(),
-        startTime = Instant.ofEpochMilli(startTime),
-        endTime = Instant.ofEpochMilli(endTime),
-        startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-        endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-        metadata = metadata.toHealthConnect(),
-    )
-}
+internal fun DistanceRecordDto.toHealthConnect(): DistanceRecord = DistanceRecord(
+    distance = distance.toHealthConnect(),
+    startTime = Instant.ofEpochMilli(startTime),
+    endTime = Instant.ofEpochMilli(endTime),
+    startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+    endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+    metadata = metadata.toHealthConnect()
+)

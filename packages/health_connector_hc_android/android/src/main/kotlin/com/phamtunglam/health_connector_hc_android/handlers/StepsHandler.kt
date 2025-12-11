@@ -42,13 +42,14 @@ object StepsHandler : IntervalRecordHandler, AggregationSupportingHandler<Common
 
     override fun getRecordClass(): KClass<out Record> = StepsRecord::class
 
-    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> {
-        return when (request.aggregationMetric) {
+    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
+        when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> StepsRecord.COUNT_TOTAL
             AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException("Aggregation metric ${request.aggregationMetric} is not supported for steps (cumulative data). Only SUM is supported.")
+                throw UnsupportedOperationException(
+                    "Aggregation metric ${request.aggregationMetric} is not supported for steps (cumulative data). Only SUM is supported."
+                )
         }
-    }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,

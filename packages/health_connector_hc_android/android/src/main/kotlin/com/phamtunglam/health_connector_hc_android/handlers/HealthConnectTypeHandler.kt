@@ -138,6 +138,7 @@ interface AggregationSupportingHandler<R : AggregateRequestDto> : HealthConnectR
      */
     @Throws(IllegalStateException::class)
     fun extractAggregateValue(
-        aggregationResult: AggregationResult, aggregateMetric: AggregateMetric<*>
+        aggregationResult: AggregationResult,
+        aggregateMetric: AggregateMetric<*>
     ): MeasurementUnitDto
 }

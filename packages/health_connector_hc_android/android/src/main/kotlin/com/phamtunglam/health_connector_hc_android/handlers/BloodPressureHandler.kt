@@ -44,8 +44,8 @@ object BloodPressureHandler : InstantRecordHandler, AggregationSupportingHandler
 
     override fun getRecordClass(): KClass<out Record> = BloodPressureRecord::class
 
-    override fun toAggregateMetric(request: BloodPressureAggregateRequestDto): AggregateMetric<*> {
-        return when (request.aggregationMetric) {
+    override fun toAggregateMetric(request: BloodPressureAggregateRequestDto): AggregateMetric<*> =
+        when (request.aggregationMetric) {
             AggregationMetricDto.AVG -> {
                 when (request.bloodPressureDataType) {
                     BloodPressureHealthDataTypeDto.DIASTOLIC -> BloodPressureRecord.DIASTOLIC_AVG
@@ -68,9 +68,10 @@ object BloodPressureHandler : InstantRecordHandler, AggregationSupportingHandler
             }
 
             AggregationMetricDto.COUNT, AggregationMetricDto.SUM ->
-                throw UnsupportedOperationException("Aggregation metric ${request.aggregationMetric} is not supported for blood pressure (discrete data). Supported metrics: AVG, MIN, MAX.")
+                throw UnsupportedOperationException(
+                    "Aggregation metric ${request.aggregationMetric} is not supported for blood pressure (discrete data). Supported metrics: AVG, MIN, MAX."
+                )
         }
-    }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,
