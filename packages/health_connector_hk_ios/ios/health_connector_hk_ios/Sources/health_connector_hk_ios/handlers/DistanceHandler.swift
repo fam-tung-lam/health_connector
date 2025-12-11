@@ -1,26 +1,9 @@
 import Foundation
 import HealthKit
 
-/// Handler for distance data (interval quantity type)
-///
-/// **Data Type:** Distance (Walking + Running)
-/// **Record Pattern:** Interval (has startTime and endTime)
-/// **Aggregation:** Sum only (cumulative distance)
-/// **HealthKit Type:** HKQuantityTypeIdentifier.distanceWalkingRunning
-///
-/// **Usage:**
-/// - Reading: Retrieves distance traveled over time intervals
-/// - Writing: Records distance traveled during activities
-/// - Aggregating: Supports sum (total distance)
-/// - Pagination: Uses endTime for cursor-based pagination
-///
-/// **Example:**
-/// - Walking 2.5 km from 9:00 AM to 9:30 AM
-/// - startTime: 9:00 AM, endTime: 9:30 AM, distance: 2500 meters
-///
-/// **Note:** This tracks walking and running distance. Cycling and other activities
-/// have separate distance types in HealthKit.
-
+/**
+ * Handler for distance data (interval quantity type)
+ */
 struct DistanceHandler: HealthKitQuantityHandler {
     static var supportedType: HealthDataTypeDto {
         .distance
@@ -35,7 +18,8 @@ struct DistanceHandler: HealthKitQuantityHandler {
             throw HealthConnectorErrors.invalidArgument(message: "Expected HKQuantitySample, got \(type(of: sample))")
         }
         guard let dto = quantitySample.toDistanceRecordDto() else {
-            throw HealthConnectorErrors.invalidArgument(message: "Failed to convert HKQuantitySample to DistanceRecordDto")
+            throw HealthConnectorErrors
+                .invalidArgument(message: "Failed to convert HKQuantitySample to DistanceRecordDto")
         }
         return dto
     }
@@ -49,8 +33,8 @@ struct DistanceHandler: HealthKitQuantityHandler {
         return try distanceDto.toHealthKit()
     }
 
-    static func getSampleType() -> HKSampleType {
-        return HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!
+    static func getSampleType() throws -> HKSampleType {
+        try HKQuantityType.safeQuantityType(forIdentifier: .distanceWalkingRunning)
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {

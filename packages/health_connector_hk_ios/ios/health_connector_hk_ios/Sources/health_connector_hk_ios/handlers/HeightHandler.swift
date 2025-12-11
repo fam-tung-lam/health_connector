@@ -1,26 +1,9 @@
 import Foundation
 import HealthKit
 
-/// Handler for height data (instant quantity type)
-///
-/// **Data Type:** Height
-/// **Record Pattern:** Instant (single timestamp, no duration)
-/// **Aggregation:** Average, Min, Max (discrete values)
-/// **HealthKit Type:** HKQuantityTypeIdentifier.height
-///
-/// **Usage:**
-/// - Reading: Retrieves height measurements at specific points in time
-/// - Writing: Records height measurements
-/// - Aggregating: Supports avg (average height), min (shortest), max (tallest)
-/// - Pagination: Uses time (not endTime) for cursor-based pagination
-///
-/// **Example:**
-/// - Height measurement at doctor's office: 175 cm
-/// - time: appointment timestamp (single point)
-///
-/// **Note:** Height changes slowly over lifetime (growth in children, shrinkage in elderly).
-/// Multiple measurements allow tracking growth or posture changes.
-
+/**
+ * Handler for height data (instant quantity type)
+ */
 struct HeightHandler: HealthKitQuantityHandler {
     static var supportedType: HealthDataTypeDto {
         .height
@@ -35,7 +18,8 @@ struct HeightHandler: HealthKitQuantityHandler {
             throw HealthConnectorErrors.invalidArgument(message: "Expected HKQuantitySample, got \(type(of: sample))")
         }
         guard let dto = quantitySample.toHeightRecordDto() else {
-            throw HealthConnectorErrors.invalidArgument(message: "Failed to convert HKQuantitySample to HeightRecordDto")
+            throw HealthConnectorErrors
+                .invalidArgument(message: "Failed to convert HKQuantitySample to HeightRecordDto")
         }
         return dto
     }
@@ -49,8 +33,8 @@ struct HeightHandler: HealthKitQuantityHandler {
         return try heightDto.toHealthKit()
     }
 
-    static func getSampleType() -> HKSampleType {
-        return HKQuantityType.quantityType(forIdentifier: .height)!
+    static func getSampleType() throws -> HKSampleType {
+        try HKQuantityType.safeQuantityType(forIdentifier: .height)
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {

@@ -24,9 +24,6 @@ enum HealthConnectorLogger {
 
     /**
      * Whether logging is enabled.
-     *
-     * When set to `false`, all logging methods will return immediately without
-     * logging any messages. Defaults to `true`.
      */
     static var isEnabled: Bool {
         get { _isEnabled }
@@ -35,9 +32,6 @@ enum HealthConnectorLogger {
 
     /**
      * Sets whether logging is enabled.
-     *
-     * When set to `false`, all logging methods will return immediately without
-     * logging any messages.
      *
      * - Parameter enabled: Whether to enable logging.
      */
@@ -190,24 +184,24 @@ enum HealthConnectorLogger {
         buffer += "\n\(getIndent(depth: 0))phase: \(phase),"
 
         // Include message if provided
-        if let message = message {
+        if let message {
             buffer += "\n\(getIndent(depth: 0))message: \(message),"
         }
 
         // Include exception block if exception or stackTrace is provided
         if exception != nil || stackTrace != nil {
             buffer += "\n\(getIndent(depth: 0))exception: {"
-            if let exception = exception {
+            if let exception {
                 buffer += "\n\(getIndent(depth: 1))cause: \(String(describing: exception)),"
             }
-            if let stackTrace = stackTrace {
+            if let stackTrace {
                 buffer += "\n\(getIndent(depth: 1))stack_trace: \(stackTrace),"
             }
             buffer += "\n\(getIndent(depth: 0))},"
         }
 
         // Include context if provided and not empty
-        if let context = context, !context.isEmpty {
+        if let context, !context.isEmpty {
             buffer += "\n\(getIndent(depth: 0))context: {"
             for (key, value) in context {
                 buffer += "\n"
@@ -232,7 +226,7 @@ enum HealthConnectorLogger {
      * `day-month-year hour:minute:second.millisecond`.
      */
     private static func formatDateTime(_ date: Date) -> String {
-        return dateFormatter.string(from: date)
+        dateFormatter.string(from: date)
     }
 
     /**
@@ -279,11 +273,10 @@ enum HealthConnectorLogger {
         }
 
         // Extract stack trace from exception if available
-        let stackTrace: String?
-        if exception != nil {
-            stackTrace = Thread.callStackSymbols.joined(separator: "\n")
+        let stackTrace: String? = if exception != nil {
+            Thread.callStackSymbols.joined(separator: "\n")
         } else {
-            stackTrace = nil
+            nil
         }
 
         let structuredMessage = formatStructuredMessage(
@@ -327,15 +320,15 @@ enum HealthConnectorLogger {
     private static func levelName(for level: OSLogType) -> String {
         switch level {
         case .debug:
-            return "DEBUG"
+            "DEBUG"
         case .info:
-            return "INFO"
+            "INFO"
         case .default:
-            return "WARNING"
+            "WARNING"
         case .error, .fault:
-            return "ERROR"
+            "ERROR"
         default:
-            return "UNKNOWN"
+            "UNKNOWN"
         }
     }
 

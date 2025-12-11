@@ -6,10 +6,10 @@ import PackageDescription
 let package = Package(
     name: "health_connector_hk_ios",
     platforms: [
-        .iOS("15.0")
+        .iOS("15.0"),
     ],
     products: [
-        .library(name: "health-connector-hk-ios", targets: ["health_connector_hk_ios"])
+        .library(name: "health-connector-hk-ios", targets: ["health_connector_hk_ios"]),
     ],
     dependencies: [],
     targets: [
@@ -20,6 +20,6 @@ let package = Package(
                 // Privacy manifest for HealthKit usage
                 .process("PrivacyInfo.xcprivacy"),
             ]
-        )
+        ),
     ]
 )

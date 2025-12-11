@@ -3,13 +3,7 @@ import HealthKit
 
 /**
  * Internal client wrapper for the HealthKit SDK.
- *
- * This class encapsulates all interactions with the HealthKit SDK, providing a clean API for the Flutter plugin layer.
- * It mirrors the Android `HealthConnectorClient` implementation while adapting to HealthKit's specific behavior.
- *
- * @property store The underlying HealthKit store instance
  */
-
 class HealthConnectorClient {
     /**
      * Tag used for logging throughout the client.
@@ -26,154 +20,19 @@ class HealthConnectorClient {
      *
      * - Parameter store: The HealthKit store instance.
      */
-
     private init(store: HKHealthStore) {
         self.store = store
         // Trigger handler registration on first initialization
         _ = HealthKitTypeRegistry.shared
     }
 
-    // MARK: - Type Inference Helper
-
-    /**
-     * Infer HealthDataTypeDto from Pigeon DTO runtime type.
-     *
-     * Used when writing records where request contains DTO but not explicit type.
-     * This is the only remaining switch statement (unavoidable without Pigeon DTO protocol changes).
-     *
-     * - Parameter dto: The HealthRecordDto to infer type from
-     * - Returns: The corresponding HealthDataTypeDto
-     * - Throws: HealthConnectorError if DTO type is unknown
-     */
-
-    private func inferDataType(from dto: HealthRecordDto) throws -> HealthDataTypeDto {
-        switch dto {
-        case is StepRecordDto:
-            return .steps
-        case is WeightRecordDto:
-            return .weight
-        case is HeightRecordDto:
-            return .height
-        case is BodyFatPercentageRecordDto:
-            return .bodyFatPercentage
-        case is BodyTemperatureRecordDto:
-            return .bodyTemperature
-        case is ActiveCaloriesBurnedRecordDto:
-            return .activeCaloriesBurned
-        case is DistanceRecordDto:
-            return .distance
-        case is FloorsClimbedRecordDto:
-            return .floorsClimbed
-        case is WheelchairPushesRecordDto:
-            return .wheelchairPushes
-        case is HydrationRecordDto:
-            return .hydration
-        case is LeanBodyMassRecordDto:
-            return .leanBodyMass
-        case is HeartRateMeasurementRecordDto:
-            return .heartRateMeasurementRecord
-        case is BloodPressureRecordDto:
-            return .bloodPressure
-        case is SystolicBloodPressureRecordDto:
-            return .systolicBloodPressure
-        case is DiastolicBloodPressureRecordDto:
-            return .diastolicBloodPressure
-        case is SleepStageRecordDto:
-            return .sleepStageRecord
-        // Energy & Other Nutrients
-        case is EnergyNutrientRecordDto:
-            return .energyNutrient
-        case is CaffeineNutrientRecordDto:
-            return .caffeine
-        // Macronutrients
-        case is ProteinNutrientRecordDto:
-            return .protein
-        case is TotalCarbohydrateNutrientRecordDto:
-            return .totalCarbohydrate
-        case is TotalFatNutrientRecordDto:
-            return .totalFat
-        case is SaturatedFatNutrientRecordDto:
-            return .saturatedFat
-        case is MonounsaturatedFatNutrientRecordDto:
-            return .monounsaturatedFat
-        case is PolyunsaturatedFatNutrientRecordDto:
-            return .polyunsaturatedFat
-        case is CholesterolNutrientRecordDto:
-            return .cholesterol
-        case is DietaryFiberNutrientRecordDto:
-            return .dietaryFiber
-        case is SugarNutrientRecordDto:
-            return .sugar
-        // Vitamins
-        case is VitaminANutrientRecordDto:
-            return .vitaminA
-        case is VitaminB6NutrientRecordDto:
-            return .vitaminB6
-        case is VitaminB12NutrientRecordDto:
-            return .vitaminB12
-        case is VitaminCNutrientRecordDto:
-            return .vitaminC
-        case is VitaminDNutrientRecordDto:
-            return .vitaminD
-        case is VitaminENutrientRecordDto:
-            return .vitaminE
-        case is VitaminKNutrientRecordDto:
-            return .vitaminK
-        case is ThiaminNutrientRecordDto:
-            return .thiamin
-        case is RiboflavinNutrientRecordDto:
-            return .riboflavin
-        case is NiacinNutrientRecordDto:
-            return .niacin
-        case is FolateNutrientRecordDto:
-            return .folate
-        case is BiotinNutrientRecordDto:
-            return .biotin
-        case is PantothenicAcidNutrientRecordDto:
-            return .pantothenicAcid
-        // Minerals
-        case is CalciumNutrientRecordDto:
-            return .calcium
-        case is IronNutrientRecordDto:
-            return .iron
-        case is MagnesiumNutrientRecordDto:
-            return .magnesium
-        case is ManganeseNutrientRecordDto:
-            return .manganese
-        case is PhosphorusNutrientRecordDto:
-            return .phosphorus
-        case is PotassiumNutrientRecordDto:
-            return .potassium
-        case is SeleniumNutrientRecordDto:
-            return .selenium
-        case is SodiumNutrientRecordDto:
-            return .sodium
-        case is ZincNutrientRecordDto:
-            return .zinc
-        case is NutritionRecordDto:
-            return .nutrition
-        default:
-            throw HealthConnectorErrors.invalidArgument(
-                message: "Unknown HealthRecordDto type: \(type(of: dto))"
-            )
-        }
-    }
-
     /**
      * Maps HealthKit errors to HealthConnectorError instances.
-     *
-     * This helper function converts HKError codes to cross-platform error codes:
-     * - `errorAuthorizationDenied` → `SECURITY_ERROR`
-     * - `errorInvalidArgument` → `INVALID_ARGUMENT`
-     * - `errorHealthDataUnavailable`, `errorDatabaseInaccessible` → `HEALTH_PLATFORM_UNAVAILABLE`
-     * - All other errors → `UNKNOWN`
      *
      * - Parameter error: The NSError to map
      * - Returns: A HealthConnectorError with the appropriate error code
      */
-
     static func mapHealthKitError(_ error: NSError) -> HealthConnectorError {
-        // Check if this is a HealthKit error by checking the domain
         if error.domain == HKError.errorDomain {
             let hkErrorCode = HKError.Code(rawValue: error.code)
             switch hkErrorCode {
@@ -209,16 +68,12 @@ class HealthConnectorClient {
     /**
      * Gets or creates a `HealthConnectorClient` instance.
      *
-     * This method wraps the HealthKit store creation and handles common initialization errors.
-     * The client instance is created using `HKHealthStore()` which returns a new instance.
-     *
      * - Returns: A new `HealthConnectorClient` instance wrapping the HealthKit store
      *
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` when:
      *          - HealthKit is not available on the device (e.g., iPad without health capabilities)
      *          - The device is in a restricted mode
      */
-
     static func getOrCreate() throws -> HealthConnectorClient {
         guard HKHealthStore.isHealthDataAvailable() else {
             HealthConnectorLogger.error(
@@ -242,7 +97,6 @@ class HealthConnectorClient {
      *
      * - Returns: The current platform status as a `HealthPlatformStatusDto`
      */
-
     static func getHealthPlatformStatus() -> HealthPlatformStatusDto {
         HealthConnectorLogger.debug(
             tag: tag,
@@ -271,9 +125,6 @@ class HealthConnectorClient {
     /**
      * Requests the specified health data permissions from the user.
      *
-     * Converts between Pigeon DTOs and HealthKit types, handles the authorization request,
-     * and returns a detailed result for each requested permission.
-     *
      * - Parameters:
      *   - healthDataPermissions: List of health data permissions to request.
      *
@@ -284,8 +135,9 @@ class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit is unavailable
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
-
-    func requestPermissions(healthDataPermissions: [HealthDataPermissionDto]) async throws -> [HealthDataPermissionRequestResultDto] {
+    func requestPermissions(healthDataPermissions: [HealthDataPermissionDto]) async throws
+        -> [HealthDataPermissionRequestResultDto]
+    {
         do {
             HealthConnectorLogger.debug(
                 tag: HealthConnectorClient.tag,
@@ -302,7 +154,7 @@ class HealthConnectorClient {
             var typesToWrite = Set<HKSampleType>()
 
             for permission in healthDataPermissions {
-                let objectTypes = permission.toHealthKitObjectTypes()
+                let objectTypes = try permission.toHealthKitObjectTypes()
 
                 for objectType in objectTypes {
                     switch permission.accessType {
@@ -316,13 +168,11 @@ class HealthConnectorClient {
                 }
             }
 
-            // Request authorization from HealthKit
             try await store.requestAuthorization(toShare: typesToWrite, read: typesToRead)
 
-            // Create permission request results by checking authorization status
-            let results = healthDataPermissions.map {
+            let results = try healthDataPermissions.map {
                 permissionDto -> HealthDataPermissionRequestResultDto in
-                let objectTypes = permissionDto.toHealthKitObjectTypes()
+                let objectTypes = try permissionDto.toHealthKitObjectTypes()
                 let status: PermissionStatusDto
 
                 switch permissionDto.accessType {
@@ -376,7 +226,6 @@ class HealthConnectorClient {
             return results
 
         } catch let error as HealthConnectorError {
-            // Re-throw HealthConnectorError as-is
             throw error
         } catch let error as NSError {
             let baseError = HealthConnectorClient.mapHealthKitError(error)
@@ -390,7 +239,6 @@ class HealthConnectorClient {
                 ],
                 exception: error
             )
-            // Create new error with enhanced context
             throw HealthConnectorErrors.unknown(
                 message: "Failed to process \(healthDataPermissions): \(baseError.message ?? "Unknown error")",
                 details: baseError.details
@@ -424,7 +272,6 @@ class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
-
     func readRecord(request: ReadRecordRequestDto) async throws -> ReadRecordResponseDto? {
         do {
             HealthConnectorLogger.debug(
@@ -437,14 +284,12 @@ class HealthConnectorClient {
                 ]
             )
 
-            // Get handler for this data type
             guard let handler = HealthKitTypeRegistry.getSampleHandler(for: request.dataType) else {
                 throw HealthConnectorErrors.invalidArgument(
                     message: "Unsupported data type: \(request.dataType)"
                 )
             }
 
-            // Create UUID from record ID string
             guard let recordUUID = UUID(uuidString: request.recordId) else {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorClient.tag,
@@ -462,20 +307,19 @@ class HealthConnectorClient {
                 )
             }
 
-            // Query for the specific sample by UUID
             let predicate = HKQuery.predicateForObject(with: recordUUID)
+            let sampleType = try handler.getSampleType()
 
-            // Use async continuation to bridge the callback-based API
             let responseDto = try await withCheckedThrowingContinuation {
                 (continuation: CheckedContinuation<ReadRecordResponseDto?, Error>) in
                 let query = HKSampleQuery(
-                    sampleType: handler.getSampleType(),
+                    sampleType: sampleType,
                     predicate: predicate,
                     limit: 1,
                     sortDescriptors: nil
                 ) {
                     _, samples, error in
-                    if let error = error {
+                    if let error {
                         continuation.resume(throwing: error)
                         return
                     }
@@ -485,7 +329,6 @@ class HealthConnectorClient {
                         return
                     }
 
-                    // Convert using handler - single dispatch point!
                     do {
                         let recordDto = try handler.toDTO(sample)
                         let responseDto = ReadRecordResponseDto(record: recordDto)
@@ -511,7 +354,6 @@ class HealthConnectorClient {
 
             return responseDto
         } catch let error as HealthConnectorError {
-            // Re-throw HealthConnectorError as-is
             throw error
         } catch let error as NSError {
             let baseError = HealthConnectorClient.mapHealthKitError(error)
@@ -525,7 +367,6 @@ class HealthConnectorClient {
                 ],
                 exception: error
             )
-            // Create new error with enhanced context, preserving the error code
             throw HealthConnectorError(
                 code: baseError.code,
                 message: "Failed to process \(request): \(baseError.message ?? "Unknown error")",
@@ -550,7 +391,7 @@ class HealthConnectorClient {
     }
 
     /**
-     * Reads multiple health records within a time range (paginated).
+     * Reads multiple health records within a time range.
      *
      * ## Pagination Strategy
      *
@@ -594,7 +435,6 @@ class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
-
     func readRecords(request: ReadRecordsRequestDto) async throws -> ReadRecordsResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -679,14 +519,19 @@ class HealthConnectorClient {
                 options: .strictStartDate
             )
 
+            // Get sample type before creating closure
+            let sampleType = try handler.getSampleType()
+
             // Create compound predicate for data origin filtering if needed
             let predicate: NSPredicate
             if !request.dataOriginPackageNames.isEmpty {
                 // Query for sources to get HKSource objects from bundle identifiers
-                let sources = try await querySources(forsampleType: handler.getSampleType(), bundleIdentifiers: request.dataOriginPackageNames)
+                let sources = try await querySources(
+                    forSampleType: sampleType,
+                    bundleIdentifiers: request.dataOriginPackageNames
+                )
 
                 if sources.isEmpty {
-                    // No sources found for the given bundle identifiers, return empty result
                     HealthConnectorLogger.warning(
                         tag: HealthConnectorClient.tag,
                         operation: "readRecords",
@@ -728,13 +573,13 @@ class HealthConnectorClient {
                 // The extra record will be removed before returning results to the caller,
                 // ensuring they always receive at most pageSize records.
                 let query = HKSampleQuery(
-                    sampleType: handler.getSampleType(),
+                    sampleType: sampleType,
                     predicate: predicate,
                     limit: Int(request.pageSize) + 1,
                     sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)]
                 ) {
                     _, samples, error in
-                    if let error = error {
+                    if let error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
                         } else {
@@ -791,7 +636,6 @@ class HealthConnectorClient {
 
             return responseDto
         } catch let error as HealthConnectorError {
-            // Re-throw HealthConnectorError as-is
             throw error
         } catch let error as NSError {
             let baseError = HealthConnectorClient.mapHealthKitError(error)
@@ -848,22 +692,29 @@ class HealthConnectorClient {
      *   - timestampExtractor: Closure to extract timestamp from record for pagination token
      * - Returns: Tuple of (trimmed records array with at most pageSize items, optional nextPageToken)
      */
-
-    private func applyPagination<T>(records: [T],
-                                    pageSize: Int64,
-                                    timestampExtractor: (T) throws -> Int64) rethrows -> (records: [T], nextPageToken: String?)
+    private func applyPagination<T>(
+        records: [T],
+        pageSize: Int64,
+        timestampExtractor: (T) throws -> Int64
+    ) throws
+        -> (records: [T], nextPageToken: String?)
     {
         var mutableRecords = records
         let nextPageToken: String?
 
         if mutableRecords.count > pageSize {
-            // More pages exist: we received pageSize + 1 records, confirming there's more data.
             // Remove the extra record that was only used to detect if more pages exist.
             // This ensures we return exactly pageSize records to the caller.
             mutableRecords.removeLast()
+
             // Generate nextPageToken from the last record we're actually returning (not the removed one).
-            // This ensures the next page starts from the correct position.
-            nextPageToken = try String(timestampExtractor(mutableRecords.last!))
+            // We know mutableRecords is not empty because we just removed one element and count > pageSize (> 0)
+            guard let lastRecord = mutableRecords.last else {
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "Unexpected empty records array after pagination removal"
+                )
+            }
+            nextPageToken = try String(timestampExtractor(lastRecord))
         } else {
             // This is the last page: we received pageSize or fewer records, meaning no more data exists.
             // Return all records as-is and indicate no more pages with nil nextPageToken.
@@ -891,28 +742,25 @@ class HealthConnectorClient {
      * - Returns: Set of HKSource objects matching the bundle identifiers
      * - Throws: Errors from HealthKit queries
      */
-
-    private func querySources(forsampleType: HKSampleType, bundleIdentifiers: [String]) async throws -> Set<HKSource> {
-        return try await withCheckedThrowingContinuation {
+    private func querySources(forSampleType: HKSampleType, bundleIdentifiers: [String]) async throws -> Set<HKSource> {
+        try await withCheckedThrowingContinuation {
             continuation in
             // Query a sample of records to collect sources
             // Use a reasonable limit to balance between completeness and performance
             let query = HKSampleQuery(
-                sampleType: forsampleType,
+                sampleType: forSampleType,
                 predicate: nil,
-                limit: 1000, // Query up to 1000 samples to find sources
+                limit: 1000,
                 sortDescriptors: nil
             ) {
                 _, samples, error in
-                if let error = error {
+                if let error {
                     continuation.resume(throwing: error)
                     return
                 }
 
                 // Extract unique sources that match the bundle identifiers
-                let matchingSources = Set((samples ?? []).compactMap {
-                    $0.sourceRevision.source
-                }.filter {
+                let matchingSources = Set((samples ?? []).compactMap(\.sourceRevision.source).filter {
                     bundleIdentifiers.contains($0.bundleIdentifier)
                 })
 
@@ -929,12 +777,9 @@ class HealthConnectorClient {
      * - Parameter dataType: The data type for the empty response
      * - Returns: ReadRecordsResponseDto with empty records list
      */
-
     private func createEmptyResponse() -> ReadRecordsResponseDto {
-        return ReadRecordsResponseDto(nextPageToken: nil, records: [])
+        ReadRecordsResponseDto(nextPageToken: nil, records: [])
     }
-
-    // ==================== WRITE OPERATIONS ====================
 
     /**
      * Writes a single health record.
@@ -947,7 +792,6 @@ class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
-
     func writeRecord(request: WriteRecordRequestDto) async throws -> WriteRecordResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -961,7 +805,7 @@ class HealthConnectorClient {
             )
 
             // Infer data type from DTO runtime type
-            let dataType = try inferDataType(from: request.record)
+            let dataType = try request.record.dataType
 
             // Get handler for this data type
             guard let handler = HealthKitTypeRegistry.getSampleHandler(for: dataType) else {
@@ -978,7 +822,7 @@ class HealthConnectorClient {
                 continuation in
                 store.save(sample) {
                     success, error in
-                    if let error = error {
+                    if let error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
                         } else {
@@ -1017,7 +861,6 @@ class HealthConnectorClient {
                 }
             }
         } catch let error as HealthConnectorError {
-            // Re-throw HealthConnectorError as-is
             throw error
         } catch let error as NSError {
             let baseError = HealthConnectorClient.mapHealthKitError(error)
@@ -1069,7 +912,6 @@ class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
-
     func updateRecord(request: UpdateRecordRequestDto) async throws -> UpdateRecordResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -1084,7 +926,7 @@ class HealthConnectorClient {
 
             // Extract record ID and infer data type using registry pattern
             let recordId = request.record.id
-            let dataType = try inferDataType(from: request.record)
+            let dataType = try request.record.dataType
 
             // Validate record ID is not empty
             if recordId?.isEmpty ?? true {
@@ -1112,17 +954,18 @@ class HealthConnectorClient {
             }
 
             // Step 1: Read existing record to verify it exists and get the sample object
+            let sampleType = try handler.getSampleType()
             let existingSample: HKSample = try await withCheckedThrowingContinuation {
                 continuation in
                 let predicate = HKQuery.predicateForObject(with: recordUUID)
                 let query = HKSampleQuery(
-                    sampleType: handler.getSampleType(),
+                    sampleType: sampleType,
                     predicate: predicate,
                     limit: 1,
                     sortDescriptors: nil
                 ) {
                     _, samples, error in
-                    if let error = error {
+                    if let error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
                         } else {
@@ -1161,7 +1004,7 @@ class HealthConnectorClient {
                 (continuation: CheckedContinuation<Void, Error>) in
                 store.delete(existingSample) {
                     success, error in
-                    if let error = error {
+                    if let error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
                         } else {
@@ -1194,7 +1037,7 @@ class HealthConnectorClient {
                 (continuation: CheckedContinuation<String, Error>) in
                 store.save(newSample) {
                     success, error in
-                    if let error = error {
+                    if let error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
                         } else {
@@ -1233,7 +1076,6 @@ class HealthConnectorClient {
 
             return UpdateRecordResponseDto(recordId: newRecordId)
         } catch let error as HealthConnectorError {
-            // Re-throw HealthConnectorError as-is
             throw error
         } catch let error as NSError {
             let baseError = HealthConnectorClient.mapHealthKitError(error)
@@ -1277,7 +1119,6 @@ class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
-
     func writeRecords(request: WriteRecordsRequestDto) async throws -> WriteRecordsResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -1295,7 +1136,7 @@ class HealthConnectorClient {
 
             for recordDto in request.records {
                 // Infer data type from DTO
-                let dataType = try inferDataType(from: recordDto)
+                let dataType = try recordDto.dataType
 
                 // Get handler for this data type
                 guard let handler = HealthKitTypeRegistry.getSampleHandler(for: dataType) else {
@@ -1314,7 +1155,7 @@ class HealthConnectorClient {
                 continuation in
                 store.save(samples) {
                     success, error in
-                    if let error = error {
+                    if let error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
                         } else {
@@ -1329,9 +1170,7 @@ class HealthConnectorClient {
                     }
 
                     if success {
-                        let recordIds = samples.map {
-                            $0.uuid.uuidString
-                        }
+                        let recordIds = samples.map(\.uuid.uuidString)
                         let responseDto = WriteRecordsResponseDto(recordIds: recordIds)
                         HealthConnectorLogger.info(
                             tag: HealthConnectorClient.tag,
@@ -1355,7 +1194,6 @@ class HealthConnectorClient {
                 }
             }
         } catch let error as HealthConnectorError {
-            // Re-throw HealthConnectorError as-is
             throw error
         } catch let error as NSError {
             let baseError = HealthConnectorClient.mapHealthKitError(error)
@@ -1388,8 +1226,6 @@ class HealthConnectorClient {
         }
     }
 
-    // ==================== AGGREGATE OPERATIONS ====================
-
     /**
      * Performs an aggregation query on health records.
      *
@@ -1401,7 +1237,6 @@ class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
      */
-
     func aggregate(request: AggregateRequestDto) async throws -> AggregateResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -1435,7 +1270,7 @@ class HealthConnectorClient {
             }
 
             // Get HealthKit quantity type from handler
-            guard let quantityType = handler.getSampleType() as? HKQuantityType else {
+            guard let quantityType = try handler.getSampleType() as? HKQuantityType else {
                 throw HealthConnectorErrors.invalidArgument(
                     message: "Data type \(request.dataType) is not a quantity type"
                 )
@@ -1472,7 +1307,6 @@ class HealthConnectorClient {
 
             return responseDto
         } catch let error as HealthConnectorError {
-            // Re-throw HealthConnectorError as-is
             throw error
         } catch let error as NSError {
             let baseError = HealthConnectorClient.mapHealthKitError(error)
@@ -1516,14 +1350,180 @@ class HealthConnectorClient {
      *   - handler: The quantity handler for this data type
      * - Returns: AggregateResponseDto with aggregated result
      */
+    private func extractAggregateResponse(
+        from statistics: HKStatistics,
+        dataType: HealthDataTypeDto,
+        metric: AggregationMetricDto
+    ) -> AggregateResponseDto {
+        switch dataType {
+        case .activeCaloriesBurned:
+            guard let sumQuantity = statistics.sumQuantity() else {
+                return AggregateResponseDto(value: EnergyDto(unit: .kilocalories, value: 0.0))
+            }
+            return AggregateResponseDto(value: sumQuantity.toEnergyDto())
 
-    private func aggregateWithStatisticsQuery(quantityType: HKQuantityType,
-                                              predicate: NSPredicate,
-                                              metric: AggregationMetricDto,
-                                              dataType: HealthDataTypeDto,
-                                              handler: HealthKitQuantityHandler.Type) async throws -> AggregateResponseDto
-    {
-        // Get statistics options from handler - throws if metric not supported
+        case .steps:
+            guard let sumQuantity = statistics.sumQuantity() else {
+                return AggregateResponseDto(value: NumericDto(unit: .numeric, value: 0.0))
+            }
+            let stepCount = Int64(sumQuantity.doubleValue(for: .count()))
+            return AggregateResponseDto(value: stepCount.toNumericDto())
+
+        case .weight:
+            let weightQuantity: HKQuantity? = switch metric {
+            case .avg: statistics.averageQuantity()
+            case .min: statistics.minimumQuantity()
+            case .max: statistics.maximumQuantity()
+            default: nil
+            }
+            guard let quantity = weightQuantity else {
+                return AggregateResponseDto(value: MassDto(unit: .kilograms, value: 0.0))
+            }
+            return AggregateResponseDto(value: quantity.toMassDto())
+
+        case .height:
+            let heightQuantity: HKQuantity? = switch metric {
+            case .avg: statistics.averageQuantity()
+            case .min: statistics.minimumQuantity()
+            case .max: statistics.maximumQuantity()
+            default: nil
+            }
+            guard let quantity = heightQuantity else {
+                return AggregateResponseDto(value: LengthDto(unit: .meters, value: 0.0))
+            }
+            return AggregateResponseDto(value: quantity.toLengthDto())
+
+        case .hydration:
+            guard let quantity = statistics.sumQuantity() else {
+                return AggregateResponseDto(value: VolumeDto(unit: .liters, value: 0.0))
+            }
+            return AggregateResponseDto(value: quantity.toVolumeDto())
+
+        case .leanBodyMass:
+            let leanBodyMassQuantity: HKQuantity? = switch metric {
+            case .avg: statistics.averageQuantity()
+            case .min: statistics.minimumQuantity()
+            case .max: statistics.maximumQuantity()
+            default: nil
+            }
+            guard let quantity = leanBodyMassQuantity else {
+                return AggregateResponseDto(value: MassDto(unit: .kilograms, value: 0.0))
+            }
+            return AggregateResponseDto(value: quantity.toMassDto())
+
+        case .distance:
+            guard let sumQuantity = statistics.sumQuantity() else {
+                return AggregateResponseDto(value: LengthDto(unit: .meters, value: 0.0))
+            }
+            return AggregateResponseDto(value: sumQuantity.toLengthDto())
+
+        case .floorsClimbed:
+            guard let sumQuantity = statistics.sumQuantity() else {
+                return AggregateResponseDto(value: NumericDto(unit: .numeric, value: 0.0))
+            }
+            let floorsCount = sumQuantity.doubleValue(for: .count())
+            return AggregateResponseDto(value: NumericDto(unit: .numeric, value: floorsCount))
+
+        case .wheelchairPushes:
+            guard let sumQuantity = statistics.sumQuantity() else {
+                return AggregateResponseDto(value: NumericDto(unit: .numeric, value: 0.0))
+            }
+            let pushesCount = Int64(sumQuantity.doubleValue(for: .count()))
+            return AggregateResponseDto(value: pushesCount.toNumericDto())
+
+        case .heartRateMeasurementRecord:
+            let heartRateQuantity: HKQuantity? = switch metric {
+            case .avg: statistics.averageQuantity()
+            case .min: statistics.minimumQuantity()
+            case .max: statistics.maximumQuantity()
+            default: nil
+            }
+            guard let quantity = heartRateQuantity else {
+                return AggregateResponseDto(value: NumericDto(unit: .numeric, value: 0.0))
+            }
+            let unit = HKUnit.count().unitDivided(by: .minute())
+            let bpmValue = quantity.doubleValue(for: unit)
+            return AggregateResponseDto(value: NumericDto(unit: .numeric, value: bpmValue))
+
+        case .bodyTemperature:
+            let temperatureQuantity: HKQuantity? = switch metric {
+            case .avg: statistics.averageQuantity()
+            case .min: statistics.minimumQuantity()
+            case .max: statistics.maximumQuantity()
+            default: nil
+            }
+            guard let quantity = temperatureQuantity else {
+                return AggregateResponseDto(value: TemperatureDto(unit: .celsius, value: 0.0))
+            }
+            return AggregateResponseDto(value: quantity.toTemperatureDto())
+
+        case .bodyFatPercentage:
+            return AggregateResponseDto(value: PercentageDto(unit: .decimal, value: 0.0))
+
+        case .energyNutrient:
+            guard let sumQuantity = statistics.sumQuantity() else {
+                return AggregateResponseDto(value: EnergyDto(unit: .kilocalories, value: 0.0))
+            }
+            return AggregateResponseDto(value: sumQuantity.toEnergyDto())
+
+        case .caffeine, .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
+             .monounsaturatedFat, .polyunsaturatedFat, .cholesterol, .dietaryFiber, .sugar,
+             .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD, .vitaminE, .vitaminK,
+             .thiamin, .riboflavin, .niacin, .folate, .biotin, .pantothenicAcid,
+             .calcium, .iron, .magnesium, .manganese, .phosphorus, .potassium, .selenium, .sodium, .zinc:
+            guard let sumQuantity = statistics.sumQuantity() else {
+                return AggregateResponseDto(value: MassDto(unit: .grams, value: 0.0))
+            }
+            return AggregateResponseDto(value: sumQuantity.toMassDto())
+
+        case .sleepStageRecord:
+            fatalError(
+                "`HealthDataTypeDto.sleepStageRecord` aggregation must be handled by the `aggregateSleepStages()`."
+            )
+
+        case .nutrition:
+            fatalError("`HealthDataTypeDto.nutrition` records do not support aggregation.")
+
+        case .bloodPressure:
+            fatalError("`HealthDataTypeDto.bloodPressure` records do not support aggregation.")
+
+        case .systolicBloodPressure:
+            let systolicQuantity: HKQuantity? = switch metric {
+            case .avg: statistics.averageQuantity()
+            case .min: statistics.minimumQuantity()
+            case .max: statistics.maximumQuantity()
+            default: nil
+            }
+            guard let quantity = systolicQuantity else {
+                return AggregateResponseDto(value: PressureDto(unit: .millimetersOfMercury, value: 0.0))
+            }
+            return AggregateResponseDto(value: quantity.toPressureDto())
+
+        case .diastolicBloodPressure:
+            let diastolicQuantity: HKQuantity? = switch metric {
+            case .avg: statistics.averageQuantity()
+            case .min: statistics.minimumQuantity()
+            case .max: statistics.maximumQuantity()
+            default: nil
+            }
+            guard let quantity = diastolicQuantity else {
+                return AggregateResponseDto(value: PressureDto(unit: .millimetersOfMercury, value: 0.0))
+            }
+            return AggregateResponseDto(value: quantity.toPressureDto())
+
+        default:
+            return AggregateResponseDto(value: NumericDto(unit: .numeric, value: 0.0))
+        }
+    }
+
+    private func aggregateWithStatisticsQuery(
+        quantityType: HKQuantityType,
+        predicate: NSPredicate,
+        metric: AggregationMetricDto,
+        dataType: HealthDataTypeDto,
+        handler: HealthKitQuantityHandler
+            .Type
+    ) async throws -> AggregateResponseDto {
         let options = try handler.toStatisticsOptions(metric)
 
         return try await withCheckedThrowingContinuation {
@@ -1534,7 +1534,7 @@ class HealthConnectorClient {
                 options: options
             ) {
                 _, statistics, error in
-                if let error = error {
+                if let error {
                     if let nsError = error as NSError? {
                         continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
                     } else {
@@ -1548,7 +1548,7 @@ class HealthConnectorClient {
                     return
                 }
 
-                guard let statistics = statistics else {
+                guard let statistics else {
                     // No data available - create empty numeric value
                     let emptyNumericDto = NumericDto(unit: .numeric, value: 0.0)
                     let response = AggregateResponseDto(value: emptyNumericDto)
@@ -1557,314 +1557,11 @@ class HealthConnectorClient {
                 }
 
                 // Extract aggregated value based on data type and metric
-                let response: AggregateResponseDto
-
-                switch dataType {
-                case .activeCaloriesBurned:
-                    // For active calories burned, we use cumulativeSum which returns sumQuantity
-                    guard let sumQuantity = statistics.sumQuantity() else {
-                        let emptyEnergyDto = EnergyDto(unit: .kilocalories, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyEnergyDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-                    let energyDto = sumQuantity.toEnergyDto()
-                    response = AggregateResponseDto(value: energyDto)
-
-                case .steps:
-                    // For steps, we use cumulativeSum which returns sumQuantity
-                    guard let sumQuantity = statistics.sumQuantity() else {
-                        let emptyNumericDto = NumericDto(unit: .numeric, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyNumericDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-                    let stepCount = Int64(sumQuantity.doubleValue(for: .count()))
-                    let numericDto = stepCount.toNumericDto()
-                    response = AggregateResponseDto(value: numericDto)
-
-                case .weight:
-                    // For weight, we use discreteAverage, discreteMin, or discreteMax
-                    let weightQuantity: HKQuantity?
-                    switch metric {
-                    case .avg:
-                        weightQuantity = statistics.averageQuantity()
-                    case .min:
-                        weightQuantity = statistics.minimumQuantity()
-                    case .max:
-                        weightQuantity = statistics.maximumQuantity()
-                    default:
-                        weightQuantity = nil
-                    }
-
-                    guard let quantity = weightQuantity else {
-                        let emptyMassDto = MassDto(unit: .kilograms, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyMassDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-
-                    let massDto = quantity.toMassDto()
-                    response = AggregateResponseDto(value: massDto)
-
-                case .height:
-                    // For height, we use discreteAverage, discreteMin, or discreteMax
-                    let heightQuantity: HKQuantity?
-                    switch metric {
-                    case .avg:
-                        heightQuantity = statistics.averageQuantity()
-                    case .min:
-                        heightQuantity = statistics.minimumQuantity()
-                    case .max:
-                        heightQuantity = statistics.maximumQuantity()
-                    default:
-                        heightQuantity = nil
-                    }
-
-                    guard let quantity = heightQuantity else {
-                        let emptyLengthDto = LengthDto(unit: .meters, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyLengthDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-
-                    let lengthDto = quantity.toLengthDto()
-                    response = AggregateResponseDto(value: lengthDto)
-
-                case .hydration:
-                    // For hydration (dietaryWater), we use cumulativeSum for sum only
-                    guard let quantity = statistics.sumQuantity() else {
-                        let emptyVolumeDto = VolumeDto(unit: .liters, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyVolumeDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-
-                    let volumeDto = quantity.toVolumeDto()
-                    response = AggregateResponseDto(value: volumeDto)
-
-                case .leanBodyMass:
-                    // For lean body mass, we use discreteAverage, discreteMin, or discreteMax
-                    let leanBodyMassQuantity: HKQuantity?
-                    switch metric {
-                    case .avg:
-                        leanBodyMassQuantity = statistics.averageQuantity()
-                    case .min:
-                        leanBodyMassQuantity = statistics.minimumQuantity()
-                    case .max:
-                        leanBodyMassQuantity = statistics.maximumQuantity()
-                    default:
-                        leanBodyMassQuantity = nil
-                    }
-
-                    guard let quantity = leanBodyMassQuantity else {
-                        let emptyMassDto = MassDto(unit: .kilograms, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyMassDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-
-                    let massDto = quantity.toMassDto()
-                    response = AggregateResponseDto(value: massDto)
-
-                case .distance:
-                    // For distance, we use cumulativeSum which returns sumQuantity
-                    guard let sumQuantity = statistics.sumQuantity() else {
-                        let emptyLengthDto = LengthDto(unit: .meters, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyLengthDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-                    let lengthDto = sumQuantity.toLengthDto()
-                    response = AggregateResponseDto(value: lengthDto)
-
-                case .floorsClimbed:
-                    // For floors climbed, we use cumulativeSum which returns sumQuantity
-                    guard let sumQuantity = statistics.sumQuantity() else {
-                        let emptyNumericDto = NumericDto(unit: .numeric, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyNumericDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-                    let floorsCount = sumQuantity.doubleValue(for: .count())
-                    let numericDto = NumericDto(unit: .numeric, value: floorsCount)
-                    response = AggregateResponseDto(value: numericDto)
-
-                case .wheelchairPushes:
-                    // For wheelchair pushes, we use cumulativeSum which returns sumQuantity
-                    guard let sumQuantity = statistics.sumQuantity() else {
-                        let emptyNumericDto = NumericDto(unit: .numeric, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyNumericDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-                    let pushesCount = Int64(sumQuantity.doubleValue(for: .count()))
-                    let numericDto = pushesCount.toNumericDto()
-                    response = AggregateResponseDto(value: numericDto)
-
-                case .heartRateMeasurementRecord:
-                    // For heart rate, we use discreteAverage, discreteMin, or discreteMax
-                    let heartRateQuantity: HKQuantity?
-                    switch metric {
-                    case .avg:
-                        heartRateQuantity = statistics.averageQuantity()
-                    case .min:
-                        heartRateQuantity = statistics.minimumQuantity()
-                    case .max:
-                        heartRateQuantity = statistics.maximumQuantity()
-                    default:
-                        heartRateQuantity = nil
-                    }
-
-                    guard let quantity = heartRateQuantity else {
-                        let emptyNumericDto = NumericDto(unit: .numeric, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyNumericDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-
-                    // Heart rate is in beats per minute (count/minute)
-                    let unit = HKUnit.count().unitDivided(by: .minute())
-                    let bpmValue = quantity.doubleValue(for: unit)
-                    let numericDto = NumericDto(unit: .numeric, value: bpmValue)
-                    response = AggregateResponseDto(value: numericDto)
-
-                case .bodyTemperature:
-                    // For body temperature, we use discreteAverage, discreteMin, or discreteMax
-                    let temperatureQuantity: HKQuantity?
-                    switch metric {
-                    case .avg:
-                        temperatureQuantity = statistics.averageQuantity()
-                    case .min:
-                        temperatureQuantity = statistics.minimumQuantity()
-                    case .max:
-                        temperatureQuantity = statistics.maximumQuantity()
-                    default:
-                        temperatureQuantity = nil
-                    }
-
-                    guard let quantity = temperatureQuantity else {
-                        let emptyTemperatureDto = TemperatureDto(unit: .celsius, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyTemperatureDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-
-                    let temperatureDto = quantity.toTemperatureDto()
-                    response = AggregateResponseDto(value: temperatureDto)
-
-                case .bodyFatPercentage:
-                    // Body fat percentage does not support aggregation
-                    let emptyPercentageDto = PercentageDto(unit: .decimal, value: 0.0)
-                    let emptyResponse = AggregateResponseDto(value: emptyPercentageDto)
-                    continuation.resume(returning: emptyResponse)
-                    return
-
-                // Nutrient data types (all support sum aggregation)
-                case .energyNutrient:
-                    // For energy nutrient, we use cumulativeSum which returns sumQuantity
-                    guard let sumQuantity = statistics.sumQuantity() else {
-                        let emptyEnergyDto = EnergyDto(unit: .kilocalories, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyEnergyDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-                    let energyDto = sumQuantity.toEnergyDto()
-                    response = AggregateResponseDto(value: energyDto)
-
-                case .caffeine, .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
-                     .monounsaturatedFat, .polyunsaturatedFat, .cholesterol, .dietaryFiber, .sugar,
-                     .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD, .vitaminE, .vitaminK,
-                     .thiamin, .riboflavin, .niacin, .folate, .biotin, .pantothenicAcid,
-                     .calcium, .iron, .magnesium, .manganese, .phosphorus, .potassium, .selenium, .sodium, .zinc:
-                    // For all other nutrients, we use cumulativeSum which returns sumQuantity
-                    guard let sumQuantity = statistics.sumQuantity() else {
-                        let emptyMassDto = MassDto(unit: .grams, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyMassDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-                    let massDto = sumQuantity.toMassDto()
-                    response = AggregateResponseDto(value: massDto)
-
-                case .sleepStageRecord:
-                    // Sleep stages are handled separately by aggregateSleepStages()
-                    // This case should never be reached
-                    continuation.resume(
-                        throwing: HealthConnectorErrors.unknown(
-                            message: "Sleep stage aggregation should be handled by aggregateSleepStages()"
-                        )
-                    )
-                    return
-
-                case .nutrition:
-                    // Nutrition (food correlation) doesn't support aggregation
-                    // This case should never be reached as it's validated upstream
-                    continuation.resume(
-                        throwing: HealthConnectorErrors.invalidArgument(
-                            message: "Nutrition records do not support aggregation"
-                        )
-                    )
-                    return
-
-                case .bloodPressure:
-                    // Blood pressure (correlation) doesn't support aggregation
-                    // This case should never be reached as it's validated upstream
-                    continuation.resume(
-                        throwing: HealthConnectorErrors.invalidArgument(
-                            message: "Blood pressure records do not support aggregation"
-                        )
-                    )
-                    return
-
-                case .systolicBloodPressure:
-                    // For systolic blood pressure, we use discreteAverage, discreteMin, or discreteMax
-                    let systolicQuantity: HKQuantity?
-                    switch metric {
-                    case .avg:
-                        systolicQuantity = statistics.averageQuantity()
-                    case .min:
-                        systolicQuantity = statistics.minimumQuantity()
-                    case .max:
-                        systolicQuantity = statistics.maximumQuantity()
-                    default:
-                        systolicQuantity = nil
-                    }
-
-                    guard let quantity = systolicQuantity else {
-                        let emptyPressureDto = PressureDto(unit: .millimetersOfMercury, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyPressureDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-
-                    let pressureDto = quantity.toPressureDto()
-                    response = AggregateResponseDto(value: pressureDto)
-
-                case .diastolicBloodPressure:
-                    // For diastolic blood pressure, we use discreteAverage, discreteMin, or discreteMax
-                    let diastolicQuantity: HKQuantity?
-                    switch metric {
-                    case .avg:
-                        diastolicQuantity = statistics.averageQuantity()
-                    case .min:
-                        diastolicQuantity = statistics.minimumQuantity()
-                    case .max:
-                        diastolicQuantity = statistics.maximumQuantity()
-                    default:
-                        diastolicQuantity = nil
-                    }
-
-                    guard let quantity = diastolicQuantity else {
-                        let emptyPressureDto = PressureDto(unit: .millimetersOfMercury, value: 0.0)
-                        let emptyResponse = AggregateResponseDto(value: emptyPressureDto)
-                        continuation.resume(returning: emptyResponse)
-                        return
-                    }
-
-                    let pressureDto = quantity.toPressureDto()
-                    response = AggregateResponseDto(value: pressureDto)
-                }
+                let response = self.extractAggregateResponse(
+                    from: statistics,
+                    dataType: dataType,
+                    metric: metric
+                )
 
                 continuation.resume(returning: response)
             }
@@ -1874,7 +1571,7 @@ class HealthConnectorClient {
     }
 
     /**
-     * Performs aggregation for sleep stage records (category samples).
+     * Performs aggregation for sleep stage records.
      *
      * Since category samples don't support HKStatisticsQuery, we query all sleep
      * stage records in the time range and calculate the sum of sleep durations manually.
@@ -1890,7 +1587,6 @@ class HealthConnectorClient {
      * - Returns: AggregateResponseDto with total sleep duration in seconds
      * - Throws: HealthConnectorError if query fails or metric is unsupported
      */
-
     private func aggregateSleepStages(request: AggregateRequestDto) async throws -> AggregateResponseDto {
         // Validate metric - only sum is supported for sleep stages
         guard request.aggregationMetric == .sum else {
@@ -1926,7 +1622,7 @@ class HealthConnectorClient {
                 sortDescriptors: nil
             ) {
                 _, samples, error in
-                if let error = error {
+                if let error {
                     if let nsError = error as NSError? {
                         continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
                     } else {
@@ -1940,7 +1636,7 @@ class HealthConnectorClient {
                     return
                 }
 
-                guard let samples = samples else {
+                guard let samples else {
                     continuation.resume(returning: [])
                     return
                 }
@@ -1963,26 +1659,25 @@ class HealthConnectorClient {
             let sleepValue = HKCategoryValueSleepAnalysis(rawValue: sample.value)
 
             // Define which stages count as "actual sleep"
-            let isActualSleep: Bool
-            switch sleepValue {
+            let isActualSleep = switch sleepValue {
             case .asleep:
                 // Generic sleep (iOS 15 and earlier)
-                isActualSleep = true
+                true
             case .awake, .inBed:
                 // Not sleeping
-                isActualSleep = false
+                false
             default:
                 // For iOS 16+ detailed stages (core/light, deep, REM)
                 // Check raw values: .core=5, .deep=3, .REM=4
                 if #available(iOS 16.0, *) {
                     switch sample.value {
                     case 3, 4, 5: // deep, REM, core
-                        isActualSleep = true
+                        true
                     default:
-                        isActualSleep = false
+                        false
                     }
                 } else {
-                    isActualSleep = false
+                    false
                 }
             }
 
@@ -1998,8 +1693,6 @@ class HealthConnectorClient {
         return AggregateResponseDto(value: numericDto)
     }
 
-    // ==================== DELETE OPERATIONS ====================
-
     /**
      * Deletes all records of a data type within a time range.
      *
@@ -2011,7 +1704,6 @@ class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
      */
-
     func deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) async throws {
         HealthConnectorLogger.debug(
             tag: HealthConnectorClient.tag,
@@ -2039,7 +1731,7 @@ class HealthConnectorClient {
                 )
             }
 
-            let sampleType = handler.getSampleType()
+            let sampleType = try handler.getSampleType()
             let startDate = Date(timeIntervalSince1970: TimeInterval(request.startTime) / 1000.0)
             let endDate = Date(timeIntervalSince1970: TimeInterval(request.endTime) / 1000.0)
 
@@ -2055,7 +1747,7 @@ class HealthConnectorClient {
                 (continuation: CheckedContinuation<Void, Error>) in
                 store.deleteObjects(of: sampleType, predicate: predicate) {
                     success, _, error in
-                    if let error = error {
+                    if let error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
                         } else {
@@ -2091,7 +1783,6 @@ class HealthConnectorClient {
                 }
             }
         } catch let error as HealthConnectorError {
-            // Re-throw HealthConnectorError as-is
             throw error
         } catch let error as NSError {
             let baseError = HealthConnectorClient.mapHealthKitError(error)
@@ -2135,7 +1826,6 @@ class HealthConnectorClient {
      * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
      * - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
      */
-
     func deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) async throws {
         HealthConnectorLogger.debug(
             tag: HealthConnectorClient.tag,
@@ -2148,14 +1838,13 @@ class HealthConnectorClient {
         )
 
         do {
-            // Get handler for this data type
             guard let handler = HealthKitTypeRegistry.getSampleHandler(for: request.dataType) else {
                 throw HealthConnectorErrors.invalidArgument(
                     message: "Unsupported data type: \(request.dataType)"
                 )
             }
 
-            let sampleType = handler.getSampleType()
+            let sampleType = try handler.getSampleType()
 
             // Convert string IDs to UUIDs
             let uuids = request.recordIds.compactMap {
@@ -2180,7 +1869,7 @@ class HealthConnectorClient {
                     sortDescriptors: nil
                 ) {
                     _, samples, error in
-                    if let error = error {
+                    if let error {
                         if let nsError = error as NSError? {
                             continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
                         } else {
@@ -2194,7 +1883,7 @@ class HealthConnectorClient {
                         return
                     }
 
-                    guard let samples = samples else {
+                    guard let samples else {
                         continuation.resume(returning: [])
                         return
                     }
@@ -2211,7 +1900,7 @@ class HealthConnectorClient {
                     (continuation: CheckedContinuation<Void, Error>) in
                     store.delete(samples) {
                         success, error in
-                        if let error = error {
+                        if let error {
                             if let nsError = error as NSError? {
                                 continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
                             } else {
@@ -2255,7 +1944,6 @@ class HealthConnectorClient {
                 )
             }
         } catch let error as HealthConnectorError {
-            // Re-throw HealthConnectorError as-is
             throw error
         } catch let error as NSError {
             let baseError = HealthConnectorClient.mapHealthKitError(error)

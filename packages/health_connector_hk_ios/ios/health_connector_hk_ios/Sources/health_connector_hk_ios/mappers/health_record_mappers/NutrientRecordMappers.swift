@@ -1,21 +1,17 @@
 import Foundation
 import HealthKit
 
-// MARK: - Metadata Keys for Nutrients
-
 private extension String {
     static let foodNameKey = "com.phamtunglam.health_connector.food_name"
     static let mealTypeKey = "com.phamtunglam.health_connector.meal_type"
 }
-
-// MARK: - Metadata Extensions for Nutrients
 
 extension [String: Any] {
     /**
      * Extracts food name from HealthKit metadata.
      */
     func extractFoodName() -> String? {
-        return self[.foodNameKey] as? String
+        self[.foodNameKey] as? String
     }
 
     /**
@@ -32,12 +28,6 @@ extension [String: Any] {
 extension MetadataDto {
     /**
      * Converts metadata DTO to HealthKit metadata including nutrient-specific fields.
-     *
-     * - Parameters:
-     *   - timeZone: Optional timezone for the record
-     *   - foodName: Optional food name
-     *   - mealType: Optional meal type
-     * - Returns: Dictionary compatible with HKSample metadata
      */
     func toHealthKitNutrientMetadata(
         timeZone: TimeZone? = nil,
@@ -47,10 +37,10 @@ extension MetadataDto {
         var metadata = toHealthKitMetadata(timeZone: timeZone)
 
         // Add nutrient-specific metadata
-        if let foodName = foodName {
+        if let foodName {
             metadata[.foodNameKey] = foodName
         }
-        if let mealType = mealType {
+        if let mealType {
             metadata[.mealTypeKey] = mealType.toString()
         }
 
@@ -572,7 +562,9 @@ extension HealthRecordDto {
             throw NSError(
                 domain: "HealthConnectorError",
                 code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create quantity type for \(quantityTypeIdentifier.rawValue)"]
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Failed to create quantity type for \(quantityTypeIdentifier.rawValue)",
+                ]
             )
         }
 
@@ -856,11 +848,10 @@ extension HealthRecordDto {
         }
 
         let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000.0)
-        let timeZone: TimeZone?
-        if let zoneOffsetSeconds = zoneOffsetSeconds {
-            timeZone = TimeZone(secondsFromGMT: Int(zoneOffsetSeconds))
+        let timeZone: TimeZone? = if let zoneOffsetSeconds {
+            TimeZone(secondsFromGMT: Int(zoneOffsetSeconds))
         } else {
-            timeZone = nil
+            nil
         }
 
         return HKQuantitySample(
@@ -889,73 +880,73 @@ extension HealthRecordDto {
     func extractNutrientTime() -> Int64 {
         switch self {
         case let dto as EnergyNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as CaffeineNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as ProteinNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as TotalCarbohydrateNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as TotalFatNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as SaturatedFatNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as MonounsaturatedFatNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as PolyunsaturatedFatNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as CholesterolNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as DietaryFiberNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as SugarNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as VitaminANutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as VitaminB6NutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as VitaminB12NutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as VitaminCNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as VitaminDNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as VitaminENutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as VitaminKNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as ThiaminNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as RiboflavinNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as NiacinNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as FolateNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as BiotinNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as PantothenicAcidNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as CalciumNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as IronNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as MagnesiumNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as ManganeseNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as PhosphorusNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as PotassiumNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as SeleniumNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as SodiumNutrientRecordDto:
-            return dto.time
+            dto.time
         case let dto as ZincNutrientRecordDto:
-            return dto.time
+            dto.time
         default:
-            return 0
+            0
         }
     }
 }

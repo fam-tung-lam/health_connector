@@ -4,19 +4,6 @@ import UIKit
 
 /**
  * Flutter plugin for accessing HealthKit on iOS devices.
- *
- * This plugin serves as the bridge between Flutter and the iOS HealthKit SDK,
- * providing access to health and fitness data stored on the device. It implements both
- * `FlutterPlugin` for lifecycle management and `HealthConnectorPlatformApi` for platform API communication.
- *
- * ## Threading
- *
- * All HealthKit operations are executed asynchronously using Swift's async/await to prevent
- * blocking the main thread. Results are delivered back to Flutter via completion handlers.
- *
- * - See Also:
- *   - `HealthConnectorPlatformApi`
- *   - `HealthConnectorClient`
  */
 public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnectorPlatformApi {
     /**
@@ -26,12 +13,8 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
 
     /**
      * Cached instance of the HealthKit client.
-     * Created lazily on first use and reused for subsequent operations.
-     * Cleared when the engine is detached.
      */
     private var healthClient: HealthConnectorClient?
-
-    // MARK: - FlutterPlugin Lifecycle Methods
 
     /**
      * Registers the plugin with the Flutter engine.
@@ -42,8 +25,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         let instance = HealthConnectorHkIosPlugin()
         HealthConnectorPlatformApiSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
     }
-
-    // MARK: - HealthConnectorPlatformApi Implementation
 
     /**
      * Gets the current status of the HealthKit platform on the device.
@@ -58,9 +39,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     /**
      * Requests permissions from the user.
      *
-     * iOS implementation that auto-grants feature permissions since HealthKit doesn't
-     * have a separate permission system for features.
-     *
      * - Parameters:
      *   - request: Contains lists of health data permissions and feature permissions to request.
      *   - completion: Called with a `Result` containing the permission request results.
@@ -68,10 +46,12 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
      * - Throws: `HealthConnectorError.healthPlatformUnavailable` if HealthKit is unavailable
      * - Throws: `HealthConnectorError.unknown` for unexpected errors
      */
-    public func requestPermissions(request: PermissionsRequestDto, completion: @escaping (Result<PermissionsRequestResponseDto, Error>) -> Void) {
+    public func requestPermissions(
+        request: PermissionsRequestDto,
+        completion: @escaping (Result<PermissionsRequestResponseDto, Error>) -> Void
+    ) {
         Task {
             do {
-                // Get or create the HealthKit client
                 if healthClient == nil {
                     healthClient = try HealthConnectorClient.getOrCreate()
                 }
@@ -80,10 +60,9 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     throw HealthConnectorErrors.healthPlatformUnavailable()
                 }
 
-                // Request health data permissions from HealthKit
-                let healthDataResults = try await client.requestPermissions(healthDataPermissions: request.healthDataPermissions)
+                let healthDataResults = try await client
+                    .requestPermissions(healthDataPermissions: request.healthDataPermissions)
 
-                // Construct the response
                 let response = PermissionsRequestResponseDto(
                     healthDataPermissionResults: healthDataResults
                 )
@@ -127,10 +106,12 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
      *   - request: Contains the data type and record ID to read
      *   - completion: Called with a `Result` containing the read record response or nil if not found
      */
-    public func readRecord(request: ReadRecordRequestDto, completion: @escaping (Result<ReadRecordResponseDto?, Error>) -> Void) {
+    public func readRecord(
+        request: ReadRecordRequestDto,
+        completion: @escaping (Result<ReadRecordResponseDto?, Error>) -> Void
+    ) {
         Task {
             do {
-                // Get or create the HealthKit client
                 if healthClient == nil {
                     healthClient = try HealthConnectorClient.getOrCreate()
                 }
@@ -179,10 +160,12 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
      *   - request: Contains data type, time range, page size, and optional page token
      *   - completion: Called with a `Result` containing the read records response
      */
-    public func readRecords(request: ReadRecordsRequestDto, completion: @escaping (Result<ReadRecordsResponseDto, Error>) -> Void) {
+    public func readRecords(
+        request: ReadRecordsRequestDto,
+        completion: @escaping (Result<ReadRecordsResponseDto, Error>) -> Void
+    ) {
         Task {
             do {
-                // Get or create the HealthKit client
                 if healthClient == nil {
                     healthClient = try HealthConnectorClient.getOrCreate()
                 }
@@ -231,10 +214,12 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
      *   - request: Contains the data type and the typed record to write
      *   - completion: Called with a `Result` containing the write record response
      */
-    public func writeRecord(request: WriteRecordRequestDto, completion: @escaping (Result<WriteRecordResponseDto, Error>) -> Void) {
+    public func writeRecord(
+        request: WriteRecordRequestDto,
+        completion: @escaping (Result<WriteRecordResponseDto, Error>) -> Void
+    ) {
         Task {
             do {
-                // Get or create the HealthKit client
                 if healthClient == nil {
                     healthClient = try HealthConnectorClient.getOrCreate()
                 }
@@ -283,10 +268,12 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
      *   - request: Contains the data types and the list of typed records to write
      *   - completion: Called with a `Result` containing the write records response
      */
-    public func writeRecords(request: WriteRecordsRequestDto, completion: @escaping (Result<WriteRecordsResponseDto, Error>) -> Void) {
+    public func writeRecords(
+        request: WriteRecordsRequestDto,
+        completion: @escaping (Result<WriteRecordsResponseDto, Error>) -> Void
+    ) {
         Task {
             do {
-                // Get or create the HealthKit client
                 if healthClient == nil {
                     healthClient = try HealthConnectorClient.getOrCreate()
                 }
@@ -335,10 +322,12 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
      *   - request: Contains the data type and the typed record to update
      *   - completion: Called with a `Result` containing the update record response
      */
-    public func updateRecord(request: UpdateRecordRequestDto, completion: @escaping (Result<UpdateRecordResponseDto, Error>) -> Void) {
+    public func updateRecord(
+        request: UpdateRecordRequestDto,
+        completion: @escaping (Result<UpdateRecordResponseDto, Error>) -> Void
+    ) {
         Task {
             do {
-                // Get or create the HealthKit client
                 if healthClient == nil {
                     healthClient = try HealthConnectorClient.getOrCreate()
                 }
@@ -387,10 +376,12 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
      *   - request: Contains data type, aggregation metric, and time range
      *   - completion: Called with a `Result` containing the aggregation response
      */
-    public func aggregate(request: AggregateRequestDto, completion: @escaping (Result<AggregateResponseDto, Error>) -> Void) {
+    public func aggregate(
+        request: AggregateRequestDto,
+        completion: @escaping (Result<AggregateResponseDto, Error>) -> Void
+    ) {
         Task {
             do {
-                // Get or create the HealthKit client
                 if healthClient == nil {
                     healthClient = try HealthConnectorClient.getOrCreate()
                 }
@@ -441,10 +432,12 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
      *   - request: Contains the data type and list of record IDs to delete
      *   - completion: Called with a `Result` indicating success or failure
      */
-    public func deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func deleteRecordsByIds(
+        request: DeleteRecordsByIdsRequestDto,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
         Task {
             do {
-                // Get or create the HealthKit client
                 if healthClient == nil {
                     healthClient = try HealthConnectorClient.getOrCreate()
                 }
@@ -493,10 +486,12 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
      *   - request: Contains the data type, start time, and end time
      *   - completion: Called with a `Result` indicating success or failure
      */
-    public func deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto, completion: @escaping (Result<Void, Error>) -> Void) {
+    public func deleteRecordsByTimeRange(
+        request: DeleteRecordsByTimeRangeRequestDto,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
         Task {
             do {
-                // Get or create the HealthKit client
                 if healthClient == nil {
                     healthClient = try HealthConnectorClient.getOrCreate()
                 }
@@ -538,8 +533,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         }
     }
 
-    // MARK: - Private Helpers
-
     /**
      * Dispatches a Pigeon completion handler to the main thread.
      *
@@ -557,13 +550,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
      *    while the Flutter engine may be reading/writing from the main thread.
      * 2. **Flutter engine assumptions**: The Flutter engine expects platform channel
      *    responses to arrive on the main thread (the thread where the engine runs).
-     *
-     * ## When To Use
-     *
-     * Use this method whenever calling a Pigeon completion handler from:
-     * - Inside a `Task { }` block (Swift concurrency runs on a cooperative thread pool)
-     * - Inside a HealthKit query callback (runs on an arbitrary HealthKit queue)
-     * - Any other background thread context
      *
      * ## Example
      *

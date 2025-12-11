@@ -1,15 +1,12 @@
 import Foundation
 import HealthKit
 
-// ==================== ACTIVE CALORIES BURNED RECORD MAPPERS ====================
-
 extension ActiveCaloriesBurnedRecordDto {
     /**
      * Converts this DTO to a HealthKit `HKQuantitySample`.
      *
      * - Throws: An error if the quantity type cannot be created.
      */
-
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) else {
             throw NSError(
@@ -40,7 +37,6 @@ extension HKQuantitySample {
      *
      * Returns `nil` if this sample is not an active energy burned sample.
      */
-
     func toActiveCaloriesBurnedRecordDto() -> ActiveCaloriesBurnedRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.activeEnergyBurned.rawValue else {
             return nil

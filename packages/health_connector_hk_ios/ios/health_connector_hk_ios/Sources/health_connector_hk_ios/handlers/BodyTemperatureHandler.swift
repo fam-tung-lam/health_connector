@@ -1,27 +1,9 @@
 import Foundation
 import HealthKit
 
-/// Handler for body temperature data (instant quantity type)
-///
-/// **Data Type:** Body Temperature
-/// **Record Pattern:** Instant (single timestamp, no duration)
-/// **Aggregation:** None (no aggregation supported)
-/// **HealthKit Type:** HKQuantityTypeIdentifier.bodyTemperature
-///
-/// **Usage:**
-/// - Reading: Retrieves body temperature measurements at specific points
-/// - Writing: Records body temperature measurements
-/// - Aggregating: NOT supported (individual readings are more meaningful)
-/// - Pagination: Uses time (not endTime) for cursor-based pagination
-///
-/// **Example:**
-/// - Body temperature reading: 37.2°C (98.96°F)
-/// - time: measurement timestamp (single point)
-///
-/// **Note:** Body temperature is typically measured orally, rectally, or via ear thermometer.
-/// Aggregating temperature readings (avg/min/max) is not medically meaningful,
-/// so this handler returns empty array for supported aggregations.
-
+/**
+ * Handler for body temperature data (instant quantity type)
+ */
 struct BodyTemperatureHandler: HealthKitQuantityHandler {
     static var supportedType: HealthDataTypeDto {
         .bodyTemperature
@@ -36,7 +18,8 @@ struct BodyTemperatureHandler: HealthKitQuantityHandler {
             throw HealthConnectorErrors.invalidArgument(message: "Expected HKQuantitySample, got \(type(of: sample))")
         }
         guard let dto = quantitySample.toBodyTemperatureRecordDto() else {
-            throw HealthConnectorErrors.invalidArgument(message: "Failed to convert HKQuantitySample to BodyTemperatureRecordDto")
+            throw HealthConnectorErrors
+                .invalidArgument(message: "Failed to convert HKQuantitySample to BodyTemperatureRecordDto")
         }
         return dto
     }
@@ -50,13 +33,14 @@ struct BodyTemperatureHandler: HealthKitQuantityHandler {
         return try temperatureDto.toHealthKit()
     }
 
-    static func getSampleType() -> HKSampleType {
-        return HKQuantityType.quantityType(forIdentifier: .bodyTemperature)!
+    static func getSampleType() throws -> HKSampleType {
+        try HKQuantityType.safeQuantityType(forIdentifier: .bodyTemperature)
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
         guard let temperatureDto = dto as? BodyTemperatureRecordDto else {
-            throw HealthConnectorErrors.invalidArgument(message: "Expected BodyTemperatureRecordDto, got \(type(of: dto))")
+            throw HealthConnectorErrors
+                .invalidArgument(message: "Expected BodyTemperatureRecordDto, got \(type(of: dto))")
         }
         return temperatureDto.time
     }

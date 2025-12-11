@@ -1,34 +1,9 @@
 import Foundation
 import HealthKit
 
-/// Handler for combined nutrition records using HKCorrelation.food
-///
-/// This handler manages food entries that group multiple nutrient samples
-/// into a single correlation. It implements HealthKitCorrelationHandler
-/// to provide proper delete logic that removes both the correlation
-/// and all contained nutrient samples.
-///
-/// ## Overview
-/// In HealthKit, a "food" entry is represented using `HKCorrelation` with
-/// the `.food` type identifier. This correlation acts as a container,
-/// grouping multiple nutritional `HKQuantitySample` objects (e.g., calories,
-/// protein, carbs) together into a single logical meal entry.
-///
-/// ## Writing
-/// When writing a `NutritionRecordDto`, this handler:
-/// 1. Creates individual `HKQuantitySample` for each non-nil nutrient
-/// 2. Groups them into an `HKCorrelation` with `.food` type
-/// 3. Stores food name in `HKMetadataKeyFoodType` metadata
-///
-/// ## Reading
-/// When reading, the handler extracts nutrient values from the contained
-/// samples within the correlation.
-///
-/// ## Deletion
-/// **Critical**: Deleting an `HKCorrelation` does NOT automatically delete
-/// the contained samples. This handler's `deleteCorrelation` method ensures
-/// both the correlation and all contained samples are deleted.
-
+/**
+ * Handler for combined nutrition records using HKCorrelation.food
+ */
 struct NutritionCorrelationHandler: HealthKitCorrelationHandler {
     static var supportedType: HealthDataTypeDto {
         .nutrition
@@ -37,8 +12,6 @@ struct NutritionCorrelationHandler: HealthKitCorrelationHandler {
     static var category: HealthKitDataCategory {
         .correlation
     }
-
-    // MARK: - HealthKitSampleHandler
 
     static func toDTO(_ sample: HKSample) throws -> HealthRecordDto {
         guard let correlation = sample as? HKCorrelation,
@@ -60,8 +33,8 @@ struct NutritionCorrelationHandler: HealthKitCorrelationHandler {
         return try nutritionDto.toHealthKitCorrelation()
     }
 
-    static func getSampleType() -> HKSampleType {
-        return HKCorrelationType.correlationType(forIdentifier: .food)!
+    static func getSampleType() throws -> HKSampleType {
+        try HKCorrelationType.safeCorrelationType(forIdentifier: .food)
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -73,8 +46,6 @@ struct NutritionCorrelationHandler: HealthKitCorrelationHandler {
         return nutritionDto.endTime
     }
 
-    // MARK: - HealthKitCorrelationHandler
-
     static func deleteCorrelation(_ correlation: HKCorrelation, from store: HKHealthStore) async throws {
         // Critical: Must delete both correlation AND all contained samples
         // to avoid orphaned nutrient samples that would cause double-counting.
@@ -85,7 +56,7 @@ struct NutritionCorrelationHandler: HealthKitCorrelationHandler {
             (continuation: CheckedContinuation<Void, Error>) in
             store.delete(objectsToDelete) {
                 success, error in
-                if let error = error {
+                if let error {
                     if let nsError = error as NSError? {
                         continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
                     } else {

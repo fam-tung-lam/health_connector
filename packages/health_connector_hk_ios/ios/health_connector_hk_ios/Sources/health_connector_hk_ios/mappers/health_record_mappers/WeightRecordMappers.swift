@@ -1,15 +1,12 @@
 import Foundation
 import HealthKit
 
-// ==================== WEIGHT RECORD MAPPERS ====================
-
 extension WeightRecordDto {
-    /**
+    /*
      * Converts this DTO to a HealthKit `HKQuantitySample`.
      *
      * - Throws: An error if the quantity type cannot be created.
      */
-
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .bodyMass) else {
             throw NSError(
@@ -34,12 +31,11 @@ extension WeightRecordDto {
 }
 
 extension HKQuantitySample {
-    /**
+    /*
      * Converts this HealthKit sample to a `WeightRecordDto`.
      *
      * Returns `nil` if this sample is not a body mass sample.
      */
-
     func toWeightRecordDto() -> WeightRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bodyMass.rawValue else {
             return nil

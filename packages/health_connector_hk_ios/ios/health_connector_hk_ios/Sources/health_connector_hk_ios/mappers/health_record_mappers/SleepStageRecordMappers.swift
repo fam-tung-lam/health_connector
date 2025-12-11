@@ -1,65 +1,20 @@
 import Foundation
 import HealthKit
 
-/// Mappers for converting SleepStageRecordDto to HKCategorySample
-///
-/// This extension provides conversion from our platform-agnostic sleep stage DTOs
-/// to HealthKit's native category samples.
-///
-/// **Usage:**
-/// ```swift
-/// let dto = SleepStageRecordDto(...)
-/// let sample = try dto.toHealthKit()
-/// try await healthStore.save(sample)
-/// ```
-///
-/// **Compatibility:** iOS 15+
-/// **Verified:** December 1, 2025
+/**
+ * Mappers for converting SleepStageRecordDto to HKCategorySample
+ */
 extension SleepStageRecordDto {
-    /// Convert SleepStageRecordDto to HKCategorySample
-    ///
-    /// Creates an HKCategorySample with:
-    /// - Category type: `.sleepAnalysis`
-    /// - Value: Corresponding HKCategoryValueSleepAnalysis
-    /// - Start/end dates: From DTO timestamps
-    /// - Metadata: Including timezone offsets and device info
-    ///
-    /// - Returns: HKCategorySample representing this sleep stage
-    /// - Throws: NSError if the category type cannot be created
-    ///
-    /// **Example:**
-    /// ```swift
-    /// let dto = SleepStageRecordDto(
-    ///     id: nil,  // Will be assigned by HealthKit
-    ///     startTime: 1640995200000,  // 11:00 PM
-    ///     endTime: 1641002400000,    // 1:00 AM
-    ///     metadata: MetadataDto(...),
-    ///     stageType: .deep
-    /// )
-    /// let sample = try dto.toHealthKit()
-    /// ```
+    /**
+     * Convert SleepStageRecordDto to HKCategorySample
+     */
     func toHealthKit() throws -> HKCategorySample {
-        // Get the sleep analysis category type
-        guard let categoryType = HKCategoryType.categoryType(forIdentifier: .sleepAnalysis) else {
-            throw NSError(
-                domain: "HealthConnectorError",
-                code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create sleep analysis category type"]
-            )
-        }
+        let categoryType = try HKCategoryType.safeCategoryType(forIdentifier: .sleepAnalysis)
 
-        // Convert stage type to HealthKit value
-        let value = HKCategoryValueSleepAnalysis.from(dto: stageType).rawValue
-
-        // Convert timestamps to Date objects
+        let value = try HKCategoryValueSleepAnalysis.from(dto: stageType).rawValue
         let startDate = Date(timeIntervalSince1970: TimeInterval(startTime) / 1000.0)
         let endDate = Date(timeIntervalSince1970: TimeInterval(endTime) / 1000.0)
-
-        // Build metadata dictionary
         var metadataDict = metadata.toHealthKitMetadata(timeZone: TimeZone.current)
-
-        // Add timezone offsets if provided
-        // Note: We store both start and end offsets since sleep spans can cross DST boundaries
         if let startOffset = startZoneOffsetSeconds {
             metadataDict[HKMetadataKeyTimeZone] = TimeZone(secondsFromGMT: Int(startOffset))?.identifier
         }
@@ -72,7 +27,6 @@ extension SleepStageRecordDto {
             metadataDict["EndTimeZoneOffset"] = endOffset
         }
 
-        // Create the category sample
         return HKCategorySample(
             type: categoryType,
             value: value,
@@ -84,22 +38,13 @@ extension SleepStageRecordDto {
     }
 }
 
-/// Mappers for HKCategoryValueSleepAnalysis to SleepStageTypeDto
+/**
+ * Mappers for HKCategoryValueSleepAnalysis to SleepStageTypeDto
+ */
 extension HKCategoryValueSleepAnalysis {
-    /// Convert HKCategoryValueSleepAnalysis to SleepStageTypeDto
-    ///
-    /// Maps iOS HealthKit sleep analysis values to our platform-agnostic enum.
-    ///
-    /// **iOS Sleep Analysis Values:**
-    /// - `.inBed` - User is in bed (not necessarily asleep)
-    /// - `.asleep` - Asleep (generic, when stage detail unavailable) [deprecated in iOS 16]
-    /// - `.awake` - Awake in bed
-    /// - `.core` - Core sleep (iOS 16+, replaces asleep)
-    /// - `.deep` - Deep sleep
-    /// - `.rem` - REM sleep
-    /// - `.unspecified` - Unknown/unspecified
-    ///
-    /// - Returns: Corresponding SleepStageTypeDto value
+    /**
+     * Convert HKCategoryValueSleepAnalysis to SleepStageTypeDto
+     */
     func toDto() -> SleepStageTypeDto {
         switch self {
         case .inBed:
@@ -116,15 +61,12 @@ extension HKCategoryValueSleepAnalysis {
                 // switch on @unknown cases with specific values
                 if #available(iOS 16.0, *) {
                     // iOS 16 introduced new sleep stages:
-                    // - HKCategoryValueSleepAnalysis.core (rawValue: 5)
-                    // - HKCategoryValueSleepAnalysis.deep (rawValue: 3)
-                    // - HKCategoryValueSleepAnalysis.REM (rawValue: 4)
                     switch rawValue {
-                    case 3: // .deep
+                    case 3:
                         return .deep
-                    case 4: // .rem
+                    case 4:
                         return .rem
-                    case 5: // .core (light sleep)
+                    case 5:
                         return .light
                     default:
                         return .unknown
@@ -135,54 +77,33 @@ extension HKCategoryValueSleepAnalysis {
         }
     }
 
-    /// Convert SleepStageTypeDto to HKCategoryValueSleepAnalysis
-    ///
-    /// Maps our platform-agnostic enum to iOS HealthKit sleep analysis values.
-    ///
-    /// - Parameter dto: The SleepStageTypeDto to convert
-    /// - Returns: Corresponding HKCategoryValueSleepAnalysis value
-    ///
-    /// **Note:** iOS 16+ has more detailed stages. On iOS 15, some stages
-    /// fall back to `.asleep` (generic sleep state).
-    static func from(dto: SleepStageTypeDto) -> HKCategoryValueSleepAnalysis {
+    /**
+     * Convert SleepStageTypeDto to HKCategoryValueSleepAnalysis
+     * - Throws: HealthConnectorError if sleep stage value is not supported
+     */
+    static func from(dto: SleepStageTypeDto) throws -> HKCategoryValueSleepAnalysis {
         switch dto {
         case .inBed:
-            return .inBed
+            .inBed
         case .sleeping:
-            return .asleep
+            .asleep
         case .awake:
-            return .awake
+            .awake
         case .outOfBed:
             // HealthKit doesn't have an explicit "out of bed" state
             // Map to awake as the closest equivalent
-            return .awake
+            .awake
         case .light:
-            // iOS 16+: Use .core for light sleep
-            // iOS 15: Fall back to generic .asleep
-            if #available(iOS 16.0, *) {
-                return HKCategoryValueSleepAnalysis(rawValue: 5)! // .core
-            } else {
-                return .asleep
-            }
+            // iOS 16+: Use .core for light sleep (rawValue: 5)
+            try HKCategoryValueSleepAnalysis.safeSleepValue(rawValue: 5)
         case .deep:
-            // iOS 16+: Use .deep
-            // iOS 15: Fall back to generic .asleep
-            if #available(iOS 16.0, *) {
-                return HKCategoryValueSleepAnalysis(rawValue: 3)! // .deep
-            } else {
-                return .asleep
-            }
+            // iOS 16+: Use .deep (rawValue: 3)
+            try HKCategoryValueSleepAnalysis.safeSleepValue(rawValue: 3)
         case .rem:
-            // iOS 16+: Use .REM
-            // iOS 15: Fall back to generic .asleep
-            if #available(iOS 16.0, *) {
-                return HKCategoryValueSleepAnalysis(rawValue: 4)! // .REM
-            } else {
-                return .asleep
-            }
+            // iOS 16+: Use .REM (rawValue: 4)
+            try HKCategoryValueSleepAnalysis.safeSleepValue(rawValue: 4)
         case .unknown:
-            // Use generic asleep for unknown stages
-            return .asleep
+            .asleep
         }
     }
 }

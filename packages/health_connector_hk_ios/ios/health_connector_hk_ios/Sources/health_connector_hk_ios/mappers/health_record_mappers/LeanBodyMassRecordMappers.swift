@@ -1,15 +1,10 @@
 import Foundation
 import HealthKit
 
-// ==================== LEAN BODY MASS RECORD MAPPERS ====================
-
 extension LeanBodyMassRecordDto {
-    /**
+    /*
      * Converts this DTO to a HealthKit `HKQuantitySample`.
-     *
-     * - Throws: An error if the quantity type cannot be created.
      */
-
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .leanBodyMass) else {
             throw NSError(
@@ -34,12 +29,9 @@ extension LeanBodyMassRecordDto {
 }
 
 extension HKQuantitySample {
-    /**
+    /*
      * Converts this HealthKit sample to a `LeanBodyMassRecordDto`.
-     *
-     * Returns `nil` if this sample is not a lean body mass sample.
      */
-
     func toLeanBodyMassRecordDto() -> LeanBodyMassRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.leanBodyMass.rawValue else {
             return nil

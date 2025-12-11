@@ -1,23 +1,20 @@
 import Foundation
 import HealthKit
 
-// ==================== MASS MAPPERS ====================
-
 extension MassDto {
     /**
      * Converts this DTO to a HealthKit `HKQuantity`.
      */
     func toHealthKit() -> HKQuantity {
-        let unit: HKUnit
-        switch self.unit {
+        let unit: HKUnit = switch self.unit {
         case .kilograms:
-            unit = .gramUnit(with: .kilo)
+            .gramUnit(with: .kilo)
         case .grams:
-            unit = .gram()
+            .gram()
         case .pounds:
-            unit = .pound()
+            .pound()
         case .ounces:
-            unit = .ounce()
+            .ounce()
         }
         return HKQuantity(unit: unit, doubleValue: value)
     }
@@ -35,23 +32,20 @@ extension HKQuantity {
     }
 }
 
-// ==================== ENERGY MAPPERS ====================
-
 extension EnergyDto {
     /**
      * Converts this DTO to a HealthKit `HKQuantity`.
      */
     func toHealthKit() -> HKQuantity {
-        let unit: HKUnit
-        switch self.unit {
+        let unit: HKUnit = switch self.unit {
         case .kilocalories:
-            unit = .kilocalorie()
+            .kilocalorie()
         case .kilojoules:
-            unit = .jouleUnit(with: .kilo)
+            .jouleUnit(with: .kilo)
         case .calories:
-            unit = .smallCalorie()
+            .smallCalorie()
         case .joules:
-            unit = .joule()
+            .joule()
         }
         return HKQuantity(unit: unit, doubleValue: value)
     }
@@ -69,25 +63,22 @@ extension HKQuantity {
     }
 }
 
-// ==================== LENGTH MAPPERS ====================
-
 extension LengthDto {
     /**
      * Converts this DTO to a HealthKit `HKQuantity`.
      */
     func toHealthKit() -> HKQuantity {
-        let unit: HKUnit
-        switch self.unit {
+        let unit: HKUnit = switch self.unit {
         case .meters:
-            unit = .meter()
+            .meter()
         case .kilometers:
-            unit = .meterUnit(with: .kilo)
+            .meterUnit(with: .kilo)
         case .miles:
-            unit = .mile()
+            .mile()
         case .feet:
-            unit = .foot()
+            .foot()
         case .inches:
-            unit = .inch()
+            .inch()
         }
         return HKQuantity(unit: unit, doubleValue: value)
     }
@@ -105,21 +96,18 @@ extension HKQuantity {
     }
 }
 
-// ==================== TEMPERATURE MAPPERS ====================
-
 extension TemperatureDto {
     /**
      * Converts this DTO to a HealthKit `HKQuantity`.
      */
     func toHealthKit() -> HKQuantity {
-        let unit: HKUnit
-        switch self.unit {
+        let unit: HKUnit = switch self.unit {
         case .celsius:
-            unit = .degreeCelsius()
+            .degreeCelsius()
         case .fahrenheit:
-            unit = .degreeFahrenheit()
+            .degreeFahrenheit()
         case .kelvin:
-            unit = .kelvin()
+            .kelvin()
         }
         return HKQuantity(unit: unit, doubleValue: value)
     }
@@ -137,17 +125,14 @@ extension HKQuantity {
     }
 }
 
-// ==================== PRESSURE MAPPERS ====================
-
 extension PressureDto {
     /**
      * Converts this DTO to a HealthKit `HKQuantity`.
      */
     func toHealthKit() -> HKQuantity {
-        let unit: HKUnit
-        switch self.unit {
+        let unit: HKUnit = switch self.unit {
         case .millimetersOfMercury:
-            unit = .millimeterOfMercury()
+            .millimeterOfMercury()
         }
         return HKQuantity(unit: unit, doubleValue: value)
     }
@@ -165,21 +150,18 @@ extension HKQuantity {
     }
 }
 
-// ==================== VELOCITY MAPPERS ====================
-
 extension VelocityDto {
     /**
      * Converts this DTO to a HealthKit `HKQuantity`.
      */
     func toHealthKit() -> HKQuantity {
-        let unit: HKUnit
-        switch self.unit {
+        let unit: HKUnit = switch self.unit {
         case .metersPerSecond:
-            unit = .meter().unitDivided(by: .second())
+            .meter().unitDivided(by: .second())
         case .kilometersPerHour:
-            unit = .meterUnit(with: .kilo).unitDivided(by: .hour())
+            .meterUnit(with: .kilo).unitDivided(by: .hour())
         case .milesPerHour:
-            unit = .mile().unitDivided(by: .hour())
+            .mile().unitDivided(by: .hour())
         }
         return HKQuantity(unit: unit, doubleValue: value)
     }
@@ -197,21 +179,18 @@ extension HKQuantity {
     }
 }
 
-// ==================== VOLUME MAPPERS ====================
-
 extension VolumeDto {
     /**
      * Converts this DTO to a HealthKit `HKQuantity`.
      */
     func toHealthKit() -> HKQuantity {
-        let unit: HKUnit
-        switch self.unit {
+        let unit: HKUnit = switch self.unit {
         case .liters:
-            unit = .liter()
+            .liter()
         case .milliliters:
-            unit = .literUnit(with: .milli)
+            .literUnit(with: .milli)
         case .fluidOuncesUs:
-            unit = .fluidOunceUS()
+            .fluidOunceUS()
         }
         return HKQuantity(unit: unit, doubleValue: value)
     }
@@ -229,20 +208,17 @@ extension HKQuantity {
     }
 }
 
-// ==================== POWER MAPPERS ====================
-
 extension PowerDto {
     /**
      * Converts this DTO to a HealthKit `HKQuantity`.
      */
     @available(iOS 16.0, *)
     func toHealthKit() -> HKQuantity {
-        let unit: HKUnit
-        switch self.unit {
+        let unit: HKUnit = switch self.unit {
         case .watts:
-            unit = .watt()
+            .watt()
         case .kilowatts:
-            unit = .wattUnit(with: .kilo)
+            .wattUnit(with: .kilo)
         }
         return HKQuantity(unit: unit, doubleValue: value)
     }
@@ -261,21 +237,18 @@ extension HKQuantity {
     }
 }
 
-// ==================== BLOOD GLUCOSE MAPPERS ====================
-
 extension BloodGlucoseDto {
     /**
      * Converts this DTO to a HealthKit `HKQuantity`.
      */
     func toHealthKit() -> HKQuantity {
-        let unit: HKUnit
-        switch self.unit {
+        let unit = switch self.unit {
         case .millimolesPerLiter:
             // Molar mass of glucose is 180.16 g/mol
-            unit = HKUnit.moleUnit(with: .milli, molarMass: 180.16)
+            HKUnit.moleUnit(with: .milli, molarMass: 180.16)
                 .unitDivided(by: .liter())
         case .milligramsPerDeciliter:
-            unit = HKUnit.gramUnit(with: .milli)
+            HKUnit.gramUnit(with: .milli)
                 .unitDivided(by: HKUnit.literUnit(with: .deci))
         }
         return HKQuantity(unit: unit, doubleValue: value)
@@ -296,14 +269,12 @@ extension HKQuantity {
     }
 }
 
-// ==================== NUMERIC MAPPERS ====================
-
 extension NumericDto {
     /**
      * Converts this DTO to an Int64 value (for step counts).
      */
     func toInt64() -> Int64 {
-        return Int64(value)
+        Int64(value)
     }
 }
 
@@ -314,23 +285,20 @@ extension Int64 {
      * Uses numeric unit for consistency.
      */
     func toNumericDto() -> NumericDto {
-        return NumericDto(unit: .numeric, value: Double(self))
+        NumericDto(unit: .numeric, value: Double(self))
     }
 }
-
-// ==================== PERCENTAGE MAPPERS ====================
 
 extension PercentageDto {
     /**
      * Converts this DTO to a HealthKit `HKQuantity`.
      */
     func toHealthKit() -> HKQuantity {
-        let percentValue: Double
-        switch unit {
+        let percentValue: Double = switch unit {
         case .decimal:
-            percentValue = value
+            value
         case .whole:
-            percentValue = value / 100.0
+            value / 100.0
         }
         return HKQuantity(unit: .percent(), doubleValue: percentValue)
     }

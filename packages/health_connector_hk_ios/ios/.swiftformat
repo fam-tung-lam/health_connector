@@ -1,0 +1,51 @@
+# SwiftFormat Configuration for health_connector_hk_ios
+# https://github.com/nicklockwood/SwiftFormat
+
+# Swift version (enables version-specific rules)
+--swiftversion 5.9
+
+# ============================================================
+# FILE OPTIONS
+# ============================================================
+
+# Exclude Pigeon-generated files
+--exclude **/pigeon
+
+# ============================================================
+# FORMATTING OPTIONS
+# ============================================================
+
+# Indentation: 4 spaces (Apple/Swift standard)
+--indent 4
+
+# Maximum line width
+--maxwidth 120
+
+# Blank lines
+--emptybraces linebreak
+
+# Trailing commas in multiline collections (helps with git diffs)
+--commas always
+
+# Self usage: remove redundant self where possible
+--self remove
+
+# Braces style: same line (K&R style, standard for Swift)
+--allman false
+
+# Wrap function arguments/parameters over multiple lines
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+
+# Closing paren position for wrapped declarations
+--closingparen balanced
+
+# Header comment handling (preserve existing headers)
+--header ignore
+
+# Semicolons: remove inline semicolons
+--semicolons never
+
+# Trailing closure style
+--trailingclosures

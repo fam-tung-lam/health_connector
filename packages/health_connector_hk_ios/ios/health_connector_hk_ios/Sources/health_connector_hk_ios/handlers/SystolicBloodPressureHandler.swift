@@ -1,29 +1,17 @@
 import Foundation
 import HealthKit
 
-/// Handler for systolic blood pressure (instant quantity type)
-///
-/// **Data Type:** Systolic Blood Pressure
-/// **Record Pattern:** Instant (single timestamp)
-/// **Aggregation:** Average, Min, Max
-/// **HealthKit Type:** HKQuantityTypeIdentifier.bloodPressureSystolic
-///
-/// **Note:** When writing a SystolicBloodPressureRecord on iOS, it creates
-/// a standalone quantity sample, not a correlation. For complete blood
-/// pressure readings (systolic + diastolic together), use BloodPressureRecord.
-
+/**
+ * Handler for systolic blood pressure (instant quantity type)
+ */
 struct SystolicBloodPressureHandler: HealthKitQuantityHandler {
-    // MARK: - HealthKitTypeHandler
-
     static var supportedType: HealthDataTypeDto {
-        return .systolicBloodPressure
+        .systolicBloodPressure
     }
 
     static var category: HealthKitDataCategory {
-        return .quantitySample
+        .quantitySample
     }
-
-    // MARK: - HealthKitSampleHandler
 
     static func toDTO(_ sample: HKSample) throws -> HealthRecordDto {
         guard let quantitySample = sample as? HKQuantitySample else {
@@ -32,7 +20,8 @@ struct SystolicBloodPressureHandler: HealthKitQuantityHandler {
             )
         }
         guard let dto = quantitySample.toSystolicBloodPressureRecordDto() else {
-            throw HealthConnectorErrors.invalidArgument(message: "Failed to convert HKQuantitySample to SystolicBloodPressureRecordDto")
+            throw HealthConnectorErrors
+                .invalidArgument(message: "Failed to convert HKQuantitySample to SystolicBloodPressureRecordDto")
         }
         return dto
     }
@@ -46,8 +35,8 @@ struct SystolicBloodPressureHandler: HealthKitQuantityHandler {
         return try systolicDto.toHealthKit()
     }
 
-    static func getSampleType() -> HKSampleType {
-        return HKQuantityType.quantityType(forIdentifier: .bloodPressureSystolic)!
+    static func getSampleType() throws -> HKSampleType {
+        try HKQuantityType.safeQuantityType(forIdentifier: .bloodPressureSystolic)
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -58,8 +47,6 @@ struct SystolicBloodPressureHandler: HealthKitQuantityHandler {
         }
         return systolicDto.time
     }
-
-    // MARK: - HealthKitQuantityHandler (Aggregation Support)
 
     static func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         switch metric {

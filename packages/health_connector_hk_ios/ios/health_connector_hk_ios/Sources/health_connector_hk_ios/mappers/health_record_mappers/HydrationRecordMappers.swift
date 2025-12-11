@@ -1,13 +1,9 @@
 import Foundation
 import HealthKit
 
-// ==================== HYDRATION RECORD MAPPERS ====================
-
 extension HydrationRecordDto {
     /**
      * Converts this DTO to a HealthKit `HKQuantitySample`.
-     *
-     * - Throws: An error if the quantity type cannot be created.
      */
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .dietaryWater) else {
@@ -36,8 +32,6 @@ extension HydrationRecordDto {
 extension HKQuantitySample {
     /**
      * Converts this HealthKit sample to a `HydrationRecordDto`.
-     *
-     * Returns `nil` if this sample is not a dietary water sample.
      */
     func toHydrationRecordDto() -> HydrationRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryWater.rawValue else {

@@ -1,31 +1,16 @@
 import Foundation
 import HealthKit
 
-/// Handler for composite blood pressure records using HKCorrelation.bloodPressure
-///
-/// This handler manages blood pressure readings that group systolic and diastolic
-/// samples into a single correlation.
-///
-/// ## Overview
-/// In HealthKit, a blood pressure reading is represented using `HKCorrelation`
-/// with the `.bloodPressure` type identifier. This correlation contains two
-/// `HKQuantitySample` objects: one for systolic and one for diastolic pressure.
-///
-/// ## Writing
-/// When writing a `BloodPressureRecordDto`, this handler:
-/// 1. Creates `HKQuantitySample` for systolic pressure
-/// 2. Creates `HKQuantitySample` for diastolic pressure
-/// 3. Groups them into an `HKCorrelation` with `.bloodPressure` type
-///
-/// ## Reading
-/// When reading, the handler extracts systolic and diastolic values from
-/// the contained samples within the correlation.
-///
-/// ## Body Position and Measurement Location
-/// Note: HealthKit does not natively support body position or measurement
-/// location for blood pressure. These fields will always return `.unknown`
-/// when reading from HealthKit, and are ignored when writing.
-
+/**
+ * Handler for composite blood pressure records using HKCorrelation.bloodPressure
+ *
+ * ## Overview
+ *
+ * In HealthKit, a blood pressure reading is represented using
+ * `HKCorrelation.bloodPressure` type identifier that contains two `HKQuantitySample` objects:
+ * - One for systolic
+ * - And one for diastolic pressure.
+ */
 struct BloodPressureHandler: HealthKitCorrelationHandler {
     static var supportedType: HealthDataTypeDto {
         .bloodPressure
@@ -34,8 +19,6 @@ struct BloodPressureHandler: HealthKitCorrelationHandler {
     static var category: HealthKitDataCategory {
         .correlation
     }
-
-    // MARK: - HealthKitSampleHandler
 
     static func toDTO(_ sample: HKSample) throws -> HealthRecordDto {
         guard let correlation = sample as? HKCorrelation,
@@ -46,7 +29,8 @@ struct BloodPressureHandler: HealthKitCorrelationHandler {
             )
         }
         guard let dto = correlation.toBloodPressureRecordDto() else {
-            throw HealthConnectorErrors.invalidArgument(message: "Failed to convert HKCorrelation to BloodPressureRecordDto")
+            throw HealthConnectorErrors
+                .invalidArgument(message: "Failed to convert HKCorrelation to BloodPressureRecordDto")
         }
         return dto
     }
@@ -60,8 +44,8 @@ struct BloodPressureHandler: HealthKitCorrelationHandler {
         return try bpDto.toHealthKitCorrelation()
     }
 
-    static func getSampleType() -> HKSampleType {
-        return HKCorrelationType.correlationType(forIdentifier: .bloodPressure)!
+    static func getSampleType() throws -> HKSampleType {
+        try HKCorrelationType.safeCorrelationType(forIdentifier: .bloodPressure)
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -73,10 +57,10 @@ struct BloodPressureHandler: HealthKitCorrelationHandler {
         return bpDto.time
     }
 
-    // MARK: - HealthKitCorrelationHandler
-
+    /**
+     * Deletes both correlation AND all contained samples
+     */
     static func deleteCorrelation(_ correlation: HKCorrelation, from store: HKHealthStore) async throws {
-        // Critical: Must delete both correlation AND all contained samples
         var objectsToDelete: [HKObject] = [correlation]
         objectsToDelete.append(contentsOf: correlation.objects)
 
@@ -84,7 +68,7 @@ struct BloodPressureHandler: HealthKitCorrelationHandler {
             (continuation: CheckedContinuation<Void, Error>) in
             store.delete(objectsToDelete) {
                 success, error in
-                if let error = error {
+                if let error {
                     if let nsError = error as NSError? {
                         continuation.resume(throwing: HealthConnectorClient.mapHealthKitError(nsError))
                     } else {

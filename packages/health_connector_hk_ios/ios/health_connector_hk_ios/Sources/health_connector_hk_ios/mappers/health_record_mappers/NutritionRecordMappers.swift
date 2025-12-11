@@ -1,22 +1,14 @@
 import Foundation
 import HealthKit
 
-// MARK: - Metadata Keys for Nutrition Correlation
-
 private extension String {
     static let mealTypeKey = "com.phamtunglam.health_connector.meal_type"
 }
 
-// MARK: - HKCorrelation → NutritionRecordDto
-
 extension HKCorrelation {
-    /// Converts this food correlation to NutritionRecordDto
-    ///
-    /// Extracts:
-    /// - Food name from `HKMetadataKeyFoodType`
-    /// - Meal type from custom metadata key
-    /// - Individual nutrient values from contained `HKQuantitySample` objects
-
+    /**
+     * Converts this food correlation to NutritionRecordDto
+     */
     func toNutritionRecordDto() -> NutritionRecordDto {
         let id = uuid.uuidString
         let startTime = Int64(startDate.timeIntervalSince1970 * 1000)
@@ -29,10 +21,7 @@ extension HKCorrelation {
             device: device
         )
 
-        // Extract food name from standard HealthKit metadata key
         let foodName = metadataDict[HKMetadataKeyFoodType] as? String
-
-        // Extract meal type from custom metadata key
         let mealType = metadataDict.extractMealType()
 
         return NutritionRecordDto(
@@ -44,9 +33,7 @@ extension HKCorrelation {
             endZoneOffsetSeconds: zoneOffset,
             foodName: foodName,
             mealType: mealType,
-            // Energy
             energy: extractEnergy(),
-            // Macronutrients
             protein: extractMass(for: .dietaryProtein),
             totalCarbohydrate: extractMass(for: .dietaryCarbohydrates),
             totalFat: extractMass(for: .dietaryFatTotal),
@@ -56,7 +43,6 @@ extension HKCorrelation {
             cholesterol: extractMass(for: .dietaryCholesterol),
             dietaryFiber: extractMass(for: .dietaryFiber),
             sugar: extractMass(for: .dietarySugar),
-            // Vitamins
             vitaminA: extractMass(for: .dietaryVitaminA),
             vitaminB6: extractMass(for: .dietaryVitaminB6),
             vitaminB12: extractMass(for: .dietaryVitaminB12),
@@ -70,7 +56,6 @@ extension HKCorrelation {
             folate: extractMass(for: .dietaryFolate),
             biotin: extractMass(for: .dietaryBiotin),
             pantothenicAcid: extractMass(for: .dietaryPantothenicAcid),
-            // Minerals
             calcium: extractMass(for: .dietaryCalcium),
             iron: extractMass(for: .dietaryIron),
             magnesium: extractMass(for: .dietaryMagnesium),
@@ -80,13 +65,13 @@ extension HKCorrelation {
             selenium: extractMass(for: .dietarySelenium),
             sodium: extractMass(for: .dietarySodium),
             zinc: extractMass(for: .dietaryZinc),
-            // Other
             caffeine: extractMass(for: .dietaryCaffeine)
         )
     }
 
-    /// Extracts energy value from contained samples
-
+    /**
+     * Extracts energy value from contained samples
+     */
     private func extractEnergy() -> EnergyDto? {
         guard let energyType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed),
               let sample = objects(for: energyType).first as? HKQuantitySample
@@ -96,8 +81,9 @@ extension HKCorrelation {
         return sample.quantity.toEnergyDto()
     }
 
-    /// Extracts mass value for a specific nutrient type from contained samples
-
+    /**
+     * Extracts mass value for a specific nutrient type from contained samples
+     */
     private func extractMass(for identifier: HKQuantityTypeIdentifier) -> MassDto? {
         guard let quantityType = HKQuantityType.quantityType(forIdentifier: identifier),
               let sample = objects(for: quantityType).first as? HKQuantitySample
@@ -108,16 +94,10 @@ extension HKCorrelation {
     }
 }
 
-// MARK: - NutritionRecordDto → HKCorrelation
-
 extension NutritionRecordDto {
-    /// Converts this DTO to an HKCorrelation for HealthKit
-    ///
-    /// Creates an `HKCorrelation` of type `.food` containing:
-    /// - Individual `HKQuantitySample` for each non-nil nutrient
-    /// - Food name stored in `HKMetadataKeyFoodType`
-    /// - Meal type stored in custom metadata key
-
+    /**
+     * Converts this DTO to an HKCorrelation for HealthKit
+     */
     func toHealthKitCorrelation() throws -> HKCorrelation {
         guard let foodType = HKCorrelationType.correlationType(forIdentifier: .food) else {
             throw HealthConnectorErrors.invalidArgument(
@@ -130,199 +110,64 @@ extension NutritionRecordDto {
 
         // Build nutrient samples
         var samples: Set<HKSample> = []
-
-        // Energy
-        if let energy = energy {
-            if let sample = createEnergySample(energy, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-
-        // Macronutrients
-        if let protein = protein {
-            if let sample = createMassSample(.dietaryProtein, protein, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let carbs = totalCarbohydrate {
-            if let sample = createMassSample(.dietaryCarbohydrates, carbs, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let fat = totalFat {
-            if let sample = createMassSample(.dietaryFatTotal, fat, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let saturatedFat = saturatedFat {
-            if let sample = createMassSample(.dietaryFatSaturated, saturatedFat, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let monoFat = monounsaturatedFat {
-            if let sample = createMassSample(.dietaryFatMonounsaturated, monoFat, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let polyFat = polyunsaturatedFat {
-            if let sample = createMassSample(.dietaryFatPolyunsaturated, polyFat, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let cholesterol = cholesterol {
-            if let sample = createMassSample(.dietaryCholesterol, cholesterol, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let fiber = dietaryFiber {
-            if let sample = createMassSample(.dietaryFiber, fiber, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let sugar = sugar {
-            if let sample = createMassSample(.dietarySugar, sugar, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-
-        // Vitamins
-        if let vitA = vitaminA {
-            if let sample = createMassSample(.dietaryVitaminA, vitA, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let vitB6 = vitaminB6 {
-            if let sample = createMassSample(.dietaryVitaminB6, vitB6, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let vitB12 = vitaminB12 {
-            if let sample = createMassSample(.dietaryVitaminB12, vitB12, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let vitC = vitaminC {
-            if let sample = createMassSample(.dietaryVitaminC, vitC, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let vitD = vitaminD {
-            if let sample = createMassSample(.dietaryVitaminD, vitD, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let vitE = vitaminE {
-            if let sample = createMassSample(.dietaryVitaminE, vitE, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let vitK = vitaminK {
-            if let sample = createMassSample(.dietaryVitaminK, vitK, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let thiamin = thiamin {
-            if let sample = createMassSample(.dietaryThiamin, thiamin, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let riboflavin = riboflavin {
-            if let sample = createMassSample(.dietaryRiboflavin, riboflavin, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let niacin = niacin {
-            if let sample = createMassSample(.dietaryNiacin, niacin, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let folate = folate {
-            if let sample = createMassSample(.dietaryFolate, folate, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let biotin = biotin {
-            if let sample = createMassSample(.dietaryBiotin, biotin, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let pantothenicAcid = pantothenicAcid {
-            if let sample = createMassSample(.dietaryPantothenicAcid, pantothenicAcid, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-
-        // Minerals
-        if let calcium = calcium {
-            if let sample = createMassSample(.dietaryCalcium, calcium, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let iron = iron {
-            if let sample = createMassSample(.dietaryIron, iron, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let magnesium = magnesium {
-            if let sample = createMassSample(.dietaryMagnesium, magnesium, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let manganese = manganese {
-            if let sample = createMassSample(.dietaryManganese, manganese, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let phosphorus = phosphorus {
-            if let sample = createMassSample(.dietaryPhosphorus, phosphorus, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let potassium = potassium {
-            if let sample = createMassSample(.dietaryPotassium, potassium, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let selenium = selenium {
-            if let sample = createMassSample(.dietarySelenium, selenium, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let sodium = sodium {
-            if let sample = createMassSample(.dietarySodium, sodium, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-        if let zinc = zinc {
-            if let sample = createMassSample(.dietaryZinc, zinc, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
-
-        // Other
-        if let caffeine = caffeine {
-            if let sample = createMassSample(.dietaryCaffeine, caffeine, start: startDate, end: endDate) {
-                samples.insert(sample)
-            }
-        }
+        addEnergySample(to: &samples, for: energy, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: protein, type: .dietaryProtein, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: totalCarbohydrate, type: .dietaryCarbohydrates, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: totalFat, type: .dietaryFatTotal, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: saturatedFat, type: .dietaryFatSaturated, start: startDate, end: endDate)
+        addMassSample(
+            to: &samples,
+            for: monounsaturatedFat,
+            type: .dietaryFatMonounsaturated,
+            start: startDate,
+            end: endDate
+        )
+        addMassSample(
+            to: &samples,
+            for: polyunsaturatedFat,
+            type: .dietaryFatPolyunsaturated,
+            start: startDate,
+            end: endDate
+        )
+        addMassSample(to: &samples, for: cholesterol, type: .dietaryCholesterol, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: dietaryFiber, type: .dietaryFiber, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: sugar, type: .dietarySugar, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: vitaminA, type: .dietaryVitaminA, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: vitaminB6, type: .dietaryVitaminB6, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: vitaminB12, type: .dietaryVitaminB12, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: vitaminC, type: .dietaryVitaminC, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: vitaminD, type: .dietaryVitaminD, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: vitaminE, type: .dietaryVitaminE, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: vitaminK, type: .dietaryVitaminK, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: thiamin, type: .dietaryThiamin, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: riboflavin, type: .dietaryRiboflavin, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: niacin, type: .dietaryNiacin, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: folate, type: .dietaryFolate, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: biotin, type: .dietaryBiotin, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: pantothenicAcid, type: .dietaryPantothenicAcid, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: calcium, type: .dietaryCalcium, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: iron, type: .dietaryIron, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: magnesium, type: .dietaryMagnesium, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: manganese, type: .dietaryManganese, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: phosphorus, type: .dietaryPhosphorus, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: potassium, type: .dietaryPotassium, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: selenium, type: .dietarySelenium, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: sodium, type: .dietarySodium, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: zinc, type: .dietaryZinc, start: startDate, end: endDate)
+        addMassSample(to: &samples, for: caffeine, type: .dietaryCaffeine, start: startDate, end: endDate)
 
         // Build metadata
         let timeZone: TimeZone? = startZoneOffsetSeconds.flatMap {
             TimeZone(secondsFromGMT: Int($0))
         }
         var hkMetadata = metadata.toHealthKitMetadata(timeZone: timeZone)
-
-        // Store food name using standard HealthKit key
-        if let foodName = foodName {
+        if let foodName {
             hkMetadata[HKMetadataKeyFoodType] = foodName
         }
-
-        // Store meal type using custom key
-        if let mealType = mealType {
+        if let mealType {
             hkMetadata[.mealTypeKey] = mealType.toString()
         }
 
-        // Create correlation
         return HKCorrelation(
             type: foodType,
             start: startDate,
@@ -333,10 +178,9 @@ extension NutritionRecordDto {
         )
     }
 
-    // MARK: - Helper Methods
-
-    /// Creates an energy sample for the correlation
-
+    /**
+     * Creates an energy sample for the correlation
+     */
     private func createEnergySample(_ energy: EnergyDto, start: Date, end: Date) -> HKQuantitySample? {
         guard let energyType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed) else {
             return nil
@@ -345,17 +189,54 @@ extension NutritionRecordDto {
         return HKQuantitySample(type: energyType, quantity: quantity, start: start, end: end)
     }
 
-    /// Creates a mass sample for a specific nutrient type
-
-    private func createMassSample(_ identifier: HKQuantityTypeIdentifier,
-                                  _ mass: MassDto,
-                                  start: Date,
-                                  end: Date) -> HKQuantitySample?
-    {
+    /**
+     * Creates a mass sample for a specific nutrient type
+     */
+    private func createMassSample(
+        _ identifier: HKQuantityTypeIdentifier,
+        _ mass: MassDto,
+        start: Date,
+        end: Date
+    ) -> HKQuantitySample? {
         guard let quantityType = HKQuantityType.quantityType(forIdentifier: identifier) else {
             return nil
         }
         let quantity = mass.toHealthKit()
         return HKQuantitySample(type: quantityType, quantity: quantity, start: start, end: end)
+    }
+
+    /**
+     * Adds an energy sample to the set if the DTO is present
+     */
+    private func addEnergySample(
+        to samples: inout Set<HKSample>,
+        for dto: EnergyDto?,
+        start: Date,
+        end: Date
+    ) {
+        guard let dto,
+              let sample = createEnergySample(dto, start: start, end: end)
+        else {
+            return
+        }
+        samples.insert(sample)
+    }
+
+    /**
+     * Adds a mass sample to the set if the DTO is present
+     */
+    private func addMassSample(
+        to samples: inout Set<HKSample>,
+        for dto: MassDto?,
+        type: HKQuantityTypeIdentifier,
+        start: Date,
+        end: Date
+    ) {
+        guard let dto,
+              let sample = createMassSample(type, dto, start: start, end: end)
+        else {
+            return
+        }
+        samples.insert(sample)
     }
 }

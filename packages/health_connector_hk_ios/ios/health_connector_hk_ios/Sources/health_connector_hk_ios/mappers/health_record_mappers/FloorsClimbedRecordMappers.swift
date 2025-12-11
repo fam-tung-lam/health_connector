@@ -1,15 +1,10 @@
 import Foundation
 import HealthKit
 
-// ==================== FLOORS CLIMBED RECORD MAPPERS ====================
-
 extension FloorsClimbedRecordDto {
-    /**
+    /*
      * Converts this DTO to a HealthKit `HKQuantitySample`.
-     *
-     * - Throws: An error if the quantity type cannot be created.
      */
-
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .flightsClimbed) else {
             throw NSError(
@@ -35,12 +30,9 @@ extension FloorsClimbedRecordDto {
 }
 
 extension HKQuantitySample {
-    /**
+    /*
      * Converts this HealthKit sample to a `FloorsClimbedRecordDto`.
-     *
-     * Returns `nil` if this sample is not a flights climbed sample.
      */
-
     func toFloorsClimbedRecordDto() -> FloorsClimbedRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.flightsClimbed.rawValue else {
             return nil

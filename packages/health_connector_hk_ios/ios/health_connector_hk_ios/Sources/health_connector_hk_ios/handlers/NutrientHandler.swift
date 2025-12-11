@@ -1,37 +1,35 @@
 import Foundation
 import HealthKit
 
-/// Unified handler for all individual nutrient types.
-///
-/// **Note:** This struct does not directly conform to HealthKitQuantityHandler because
-/// it uses instance methods. The wrapper structs (e.g., EnergyNutrientHandler) provide
-/// the static protocol conformance by delegating to instance methods of NutrientHandler.
-
+/**
+ * Unified handler for all individual nutrient types.
+ *
+ * **Note:** This struct does not directly conform to HealthKitQuantityHandler because
+ * it uses instance methods. The wrapper structs (e.g., EnergyNutrientHandler) provide
+ * the static protocol conformance by delegating to instance methods of NutrientHandler.
+ */
 struct NutrientHandler {
-    // MARK: - Properties
-
-    /// The specific nutrient type this handler instance supports
+    /**
+     * The specific nutrient type this handler instance supports
+     */
     private let nutrientType: HealthDataTypeDto
 
-    /// The HealthKit quantity type identifier for this nutrient
+    /**
+     * The HealthKit quantity type identifier for this nutrient
+     */
     private let quantityTypeIdentifier: HKQuantityTypeIdentifier
 
-    // MARK: - Initialization
-
-    /**
+    /*
      * Creates a nutrient handler for a specific nutrient type.
      *
      * - Parameters:
      *   - nutrientType: The HealthDataTypeDto for the nutrient
      *   - quantityTypeIdentifier: The corresponding HealthKit quantity type identifier
      */
-
     init(nutrientType: HealthDataTypeDto, quantityTypeIdentifier: HKQuantityTypeIdentifier) {
         self.nutrientType = nutrientType
         self.quantityTypeIdentifier = quantityTypeIdentifier
     }
-
-    // MARK: - HealthKitTypeHandler
 
     static var supportedType: HealthDataTypeDto {
         // This will be overridden by each instance via the instance method
@@ -39,14 +37,12 @@ struct NutrientHandler {
     }
 
     var instanceSupportedType: HealthDataTypeDto {
-        return nutrientType
+        nutrientType
     }
 
     static var category: HealthKitDataCategory {
-        return .quantitySample
+        .quantitySample
     }
-
-    // MARK: - HealthKitSampleHandler
 
     func toDTO(_ sample: HKSample) throws -> HealthRecordDto {
         // Type guard: Verify this is a quantity sample
@@ -65,27 +61,26 @@ struct NutrientHandler {
 
         // Delegate to the appropriate nutrient-specific mapper
         guard let dto = quantitySample.toNutrientDto(for: nutrientType) else {
-            throw HealthConnectorErrors.invalidArgument(message: "Failed to convert HKQuantitySample to nutrient DTO for type \(nutrientType)")
+            throw HealthConnectorErrors
+                .invalidArgument(message: "Failed to convert HKQuantitySample to nutrient DTO for type \(nutrientType)")
         }
         return dto
     }
 
     func toHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
         // Delegate to the nutrient-specific mapper extension
-        return try dto.toHealthKitNutrientSample(for: nutrientType, quantityTypeIdentifier: quantityTypeIdentifier)
+        try dto.toHealthKitNutrientSample(for: nutrientType, quantityTypeIdentifier: quantityTypeIdentifier)
     }
 
-    func getSampleType() -> HKSampleType {
-        return HKQuantityType.quantityType(forIdentifier: quantityTypeIdentifier)!
+    func getSampleType() throws -> HKSampleType {
+        try HKQuantityType.safeQuantityType(forIdentifier: quantityTypeIdentifier)
     }
 
     func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
         // All nutrients are instant records with a 'time' field
         // This will throw if dto doesn't have the expected nutrient time field
-        return dto.extractNutrientTime()
+        dto.extractNutrientTime()
     }
-
-    // MARK: - HealthKitQuantityHandler (Aggregation Support)
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         switch metric {
@@ -129,9 +124,7 @@ struct NutrientHandler {
         }
     }
 
-    // MARK: - Factory Methods
-
-    /**
+    /*
      * Creates nutrient handler instances for all nutrient types.
      *
      * This factory method returns an array of configured handler instances,
@@ -139,9 +132,8 @@ struct NutrientHandler {
      *
      * - Returns: Array of NutrientHandler instances
      */
-
     static func createAllNutrientHandlers() -> [NutrientHandler] {
-        return [
+        [
             NutrientHandler(nutrientType: .energyNutrient, quantityTypeIdentifier: .dietaryEnergyConsumed),
             NutrientHandler(nutrientType: .caffeine, quantityTypeIdentifier: .dietaryCaffeine),
             NutrientHandler(nutrientType: .protein, quantityTypeIdentifier: .dietaryProtein),
@@ -179,8 +171,6 @@ struct NutrientHandler {
     }
 }
 
-// MARK: - Protocol Compatibility Wrappers
-
 /**
  * Wrapper to bridge instance-based NutrientHandler with static protocol requirements.
  *
@@ -188,10 +178,11 @@ struct NutrientHandler {
  * wrapper structs that conform to the static protocol requirements for registry registration.
  */
 
-// Energy nutrient
-
 struct EnergyNutrientHandler: HealthKitQuantityHandler {
-    private static let handler = NutrientHandler(nutrientType: .energyNutrient, quantityTypeIdentifier: .dietaryEnergyConsumed)
+    private static let handler = NutrientHandler(
+        nutrientType: .energyNutrient,
+        quantityTypeIdentifier: .dietaryEnergyConsumed
+    )
 
     static var supportedType: HealthDataTypeDto {
         .energyNutrient
@@ -209,8 +200,8 @@ struct EnergyNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -228,8 +219,6 @@ struct EnergyNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Caffeine
 
 struct CaffeineNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .caffeine, quantityTypeIdentifier: .dietaryCaffeine)
@@ -250,8 +239,8 @@ struct CaffeineNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -269,8 +258,6 @@ struct CaffeineNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Protein
 
 struct ProteinNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .protein, quantityTypeIdentifier: .dietaryProtein)
@@ -291,8 +278,8 @@ struct ProteinNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -311,10 +298,11 @@ struct ProteinNutrientHandler: HealthKitQuantityHandler {
     }
 }
 
-// Total Carbohydrate
-
 struct TotalCarbohydrateNutrientHandler: HealthKitQuantityHandler {
-    private static let handler = NutrientHandler(nutrientType: .totalCarbohydrate, quantityTypeIdentifier: .dietaryCarbohydrates)
+    private static let handler = NutrientHandler(
+        nutrientType: .totalCarbohydrate,
+        quantityTypeIdentifier: .dietaryCarbohydrates
+    )
 
     static var supportedType: HealthDataTypeDto {
         .totalCarbohydrate
@@ -332,8 +320,8 @@ struct TotalCarbohydrateNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -351,8 +339,6 @@ struct TotalCarbohydrateNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Total Fat
 
 struct TotalFatNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .totalFat, quantityTypeIdentifier: .dietaryFatTotal)
@@ -373,8 +359,8 @@ struct TotalFatNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -393,10 +379,11 @@ struct TotalFatNutrientHandler: HealthKitQuantityHandler {
     }
 }
 
-// Saturated Fat
-
 struct SaturatedFatNutrientHandler: HealthKitQuantityHandler {
-    private static let handler = NutrientHandler(nutrientType: .saturatedFat, quantityTypeIdentifier: .dietaryFatSaturated)
+    private static let handler = NutrientHandler(
+        nutrientType: .saturatedFat,
+        quantityTypeIdentifier: .dietaryFatSaturated
+    )
 
     static var supportedType: HealthDataTypeDto {
         .saturatedFat
@@ -414,8 +401,8 @@ struct SaturatedFatNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -434,10 +421,11 @@ struct SaturatedFatNutrientHandler: HealthKitQuantityHandler {
     }
 }
 
-// Monounsaturated Fat
-
 struct MonounsaturatedFatNutrientHandler: HealthKitQuantityHandler {
-    private static let handler = NutrientHandler(nutrientType: .monounsaturatedFat, quantityTypeIdentifier: .dietaryFatMonounsaturated)
+    private static let handler = NutrientHandler(
+        nutrientType: .monounsaturatedFat,
+        quantityTypeIdentifier: .dietaryFatMonounsaturated
+    )
 
     static var supportedType: HealthDataTypeDto {
         .monounsaturatedFat
@@ -455,8 +443,8 @@ struct MonounsaturatedFatNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -475,10 +463,11 @@ struct MonounsaturatedFatNutrientHandler: HealthKitQuantityHandler {
     }
 }
 
-// Polyunsaturated Fat
-
 struct PolyunsaturatedFatNutrientHandler: HealthKitQuantityHandler {
-    private static let handler = NutrientHandler(nutrientType: .polyunsaturatedFat, quantityTypeIdentifier: .dietaryFatPolyunsaturated)
+    private static let handler = NutrientHandler(
+        nutrientType: .polyunsaturatedFat,
+        quantityTypeIdentifier: .dietaryFatPolyunsaturated
+    )
 
     static var supportedType: HealthDataTypeDto {
         .polyunsaturatedFat
@@ -496,8 +485,8 @@ struct PolyunsaturatedFatNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -516,10 +505,11 @@ struct PolyunsaturatedFatNutrientHandler: HealthKitQuantityHandler {
     }
 }
 
-// Cholesterol
-
 struct CholesterolNutrientHandler: HealthKitQuantityHandler {
-    private static let handler = NutrientHandler(nutrientType: .cholesterol, quantityTypeIdentifier: .dietaryCholesterol)
+    private static let handler = NutrientHandler(
+        nutrientType: .cholesterol,
+        quantityTypeIdentifier: .dietaryCholesterol
+    )
 
     static var supportedType: HealthDataTypeDto {
         .cholesterol
@@ -537,8 +527,8 @@ struct CholesterolNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -556,8 +546,6 @@ struct CholesterolNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Dietary Fiber
 
 struct DietaryFiberNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .dietaryFiber, quantityTypeIdentifier: .dietaryFiber)
@@ -578,8 +566,8 @@ struct DietaryFiberNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -597,8 +585,6 @@ struct DietaryFiberNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Sugar
 
 struct SugarNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .sugar, quantityTypeIdentifier: .dietarySugar)
@@ -619,8 +605,8 @@ struct SugarNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -638,8 +624,6 @@ struct SugarNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Vitamin A
 
 struct VitaminANutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .vitaminA, quantityTypeIdentifier: .dietaryVitaminA)
@@ -660,8 +644,8 @@ struct VitaminANutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -679,8 +663,6 @@ struct VitaminANutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Vitamin B6
 
 struct VitaminB6NutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .vitaminB6, quantityTypeIdentifier: .dietaryVitaminB6)
@@ -701,8 +683,8 @@ struct VitaminB6NutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -720,8 +702,6 @@ struct VitaminB6NutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Vitamin B12
 
 struct VitaminB12NutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .vitaminB12, quantityTypeIdentifier: .dietaryVitaminB12)
@@ -742,8 +722,8 @@ struct VitaminB12NutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -761,8 +741,6 @@ struct VitaminB12NutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Vitamin C
 
 struct VitaminCNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .vitaminC, quantityTypeIdentifier: .dietaryVitaminC)
@@ -783,8 +761,8 @@ struct VitaminCNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -802,8 +780,6 @@ struct VitaminCNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Vitamin D
 
 struct VitaminDNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .vitaminD, quantityTypeIdentifier: .dietaryVitaminD)
@@ -824,8 +800,8 @@ struct VitaminDNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -843,8 +819,6 @@ struct VitaminDNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Vitamin E
 
 struct VitaminENutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .vitaminE, quantityTypeIdentifier: .dietaryVitaminE)
@@ -865,8 +839,8 @@ struct VitaminENutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -884,8 +858,6 @@ struct VitaminENutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Vitamin K
 
 struct VitaminKNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .vitaminK, quantityTypeIdentifier: .dietaryVitaminK)
@@ -906,8 +878,8 @@ struct VitaminKNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -925,8 +897,6 @@ struct VitaminKNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Thiamin
 
 struct ThiaminNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .thiamin, quantityTypeIdentifier: .dietaryThiamin)
@@ -947,8 +917,8 @@ struct ThiaminNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -966,8 +936,6 @@ struct ThiaminNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Riboflavin
 
 struct RiboflavinNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .riboflavin, quantityTypeIdentifier: .dietaryRiboflavin)
@@ -988,8 +956,8 @@ struct RiboflavinNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -1007,8 +975,6 @@ struct RiboflavinNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Niacin
 
 struct NiacinNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .niacin, quantityTypeIdentifier: .dietaryNiacin)
@@ -1029,8 +995,8 @@ struct NiacinNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -1048,8 +1014,6 @@ struct NiacinNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Folate
 
 struct FolateNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .folate, quantityTypeIdentifier: .dietaryFolate)
@@ -1070,8 +1034,8 @@ struct FolateNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -1089,8 +1053,6 @@ struct FolateNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Biotin
 
 struct BiotinNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .biotin, quantityTypeIdentifier: .dietaryBiotin)
@@ -1111,8 +1073,8 @@ struct BiotinNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -1131,10 +1093,11 @@ struct BiotinNutrientHandler: HealthKitQuantityHandler {
     }
 }
 
-// Pantothenic Acid
-
 struct PantothenicAcidNutrientHandler: HealthKitQuantityHandler {
-    private static let handler = NutrientHandler(nutrientType: .pantothenicAcid, quantityTypeIdentifier: .dietaryPantothenicAcid)
+    private static let handler = NutrientHandler(
+        nutrientType: .pantothenicAcid,
+        quantityTypeIdentifier: .dietaryPantothenicAcid
+    )
 
     static var supportedType: HealthDataTypeDto {
         .pantothenicAcid
@@ -1152,8 +1115,8 @@ struct PantothenicAcidNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -1171,8 +1134,6 @@ struct PantothenicAcidNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Calcium
 
 struct CalciumNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .calcium, quantityTypeIdentifier: .dietaryCalcium)
@@ -1193,8 +1154,8 @@ struct CalciumNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -1212,8 +1173,6 @@ struct CalciumNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Iron
 
 struct IronNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .iron, quantityTypeIdentifier: .dietaryIron)
@@ -1234,8 +1193,8 @@ struct IronNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -1253,8 +1212,6 @@ struct IronNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Magnesium
 
 struct MagnesiumNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .magnesium, quantityTypeIdentifier: .dietaryMagnesium)
@@ -1275,8 +1232,8 @@ struct MagnesiumNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -1294,8 +1251,6 @@ struct MagnesiumNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Manganese
 
 struct ManganeseNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .manganese, quantityTypeIdentifier: .dietaryManganese)
@@ -1316,8 +1271,8 @@ struct ManganeseNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -1335,8 +1290,6 @@ struct ManganeseNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Phosphorus
 
 struct PhosphorusNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .phosphorus, quantityTypeIdentifier: .dietaryPhosphorus)
@@ -1357,8 +1310,8 @@ struct PhosphorusNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -1376,8 +1329,6 @@ struct PhosphorusNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Potassium
 
 struct PotassiumNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .potassium, quantityTypeIdentifier: .dietaryPotassium)
@@ -1398,8 +1349,8 @@ struct PotassiumNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -1417,8 +1368,6 @@ struct PotassiumNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Selenium
 
 struct SeleniumNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .selenium, quantityTypeIdentifier: .dietarySelenium)
@@ -1439,8 +1388,8 @@ struct SeleniumNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -1458,8 +1407,6 @@ struct SeleniumNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Sodium
 
 struct SodiumNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .sodium, quantityTypeIdentifier: .dietarySodium)
@@ -1480,8 +1427,8 @@ struct SodiumNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
@@ -1499,8 +1446,6 @@ struct SodiumNutrientHandler: HealthKitQuantityHandler {
         try handler.extractAggregateValue(from: statistics, metric: metric)
     }
 }
-
-// Zinc
 
 struct ZincNutrientHandler: HealthKitQuantityHandler {
     private static let handler = NutrientHandler(nutrientType: .zinc, quantityTypeIdentifier: .dietaryZinc)
@@ -1521,8 +1466,8 @@ struct ZincNutrientHandler: HealthKitQuantityHandler {
         try handler.toHealthKit(dto)
     }
 
-    static func getSampleType() -> HKSampleType {
-        handler.getSampleType()
+    static func getSampleType() throws -> HKSampleType {
+        try handler.getSampleType()
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {

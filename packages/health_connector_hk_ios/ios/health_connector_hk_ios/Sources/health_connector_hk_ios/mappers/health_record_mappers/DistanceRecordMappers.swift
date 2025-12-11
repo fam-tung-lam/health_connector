@@ -1,15 +1,10 @@
 import Foundation
 import HealthKit
 
-// ==================== DISTANCE RECORD MAPPERS ====================
-
 extension DistanceRecordDto {
-    /**
+    /*
      * Converts this DTO to a HealthKit `HKQuantitySample`.
-     *
-     * - Throws: An error if the quantity type cannot be created.
      */
-
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning) else {
             throw NSError(
@@ -35,12 +30,9 @@ extension DistanceRecordDto {
 }
 
 extension HKQuantitySample {
-    /**
+    /*
      * Converts this HealthKit sample to a `DistanceRecordDto`.
-     *
-     * Returns `nil` if this sample is not a distance walking/running sample.
      */
-
     func toDistanceRecordDto() -> DistanceRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue else {
             return nil

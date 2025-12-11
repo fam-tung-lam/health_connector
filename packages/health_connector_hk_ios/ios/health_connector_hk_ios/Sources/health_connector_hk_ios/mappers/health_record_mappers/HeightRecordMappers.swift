@@ -1,15 +1,10 @@
 import Foundation
 import HealthKit
 
-// ==================== HEIGHT RECORD MAPPERS ====================
-
 extension HeightRecordDto {
-    /**
+    /*
      * Converts this DTO to a HealthKit `HKQuantitySample`.
-     *
-     * - Throws: An error if the quantity type cannot be created.
      */
-
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .height) else {
             throw NSError(
@@ -34,12 +29,9 @@ extension HeightRecordDto {
 }
 
 extension HKQuantitySample {
-    /**
+    /*
      * Converts this HealthKit sample to a `HeightRecordDto`.
-     *
-     * Returns `nil` if this sample is not a height sample.
      */
-
     func toHeightRecordDto() -> HeightRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.height.rawValue else {
             return nil

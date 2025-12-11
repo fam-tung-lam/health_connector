@@ -1,26 +1,9 @@
 import Foundation
 import HealthKit
 
-/// Handler for floors climbed data (interval quantity type)
-///
-/// **Data Type:** Floors Climbed
-/// **Record Pattern:** Interval (has startTime and endTime)
-/// **Aggregation:** Sum only (cumulative floors)
-/// **HealthKit Type:** HKQuantityTypeIdentifier.flightsClimbed
-///
-/// **Usage:**
-/// - Reading: Retrieves floors climbed over time intervals
-/// - Writing: Records floors climbed during activities
-/// - Aggregating: Supports sum (total floors climbed)
-/// - Pagination: Uses endTime for cursor-based pagination
-///
-/// **Example:**
-/// - Climbing 5 floors from 10:00 AM to 10:05 AM
-/// - startTime: 10:00 AM, endTime: 10:05 AM, floors: 5
-///
-/// **Note:** One floor is approximately 10 feet (3 meters) of elevation gain.
-/// Measured by barometric pressure changes.
-
+/**
+ * Handler for floors climbed data (interval quantity type)
+ */
 struct FloorsClimbedHandler: HealthKitQuantityHandler {
     static var supportedType: HealthDataTypeDto {
         .floorsClimbed
@@ -35,7 +18,8 @@ struct FloorsClimbedHandler: HealthKitQuantityHandler {
             throw HealthConnectorErrors.invalidArgument(message: "Expected HKQuantitySample, got \(type(of: sample))")
         }
         guard let dto = quantitySample.toFloorsClimbedRecordDto() else {
-            throw HealthConnectorErrors.invalidArgument(message: "Failed to convert HKQuantitySample to FloorsClimbedRecordDto")
+            throw HealthConnectorErrors
+                .invalidArgument(message: "Failed to convert HKQuantitySample to FloorsClimbedRecordDto")
         }
         return dto
     }
@@ -49,13 +33,14 @@ struct FloorsClimbedHandler: HealthKitQuantityHandler {
         return try floorsDto.toHealthKit()
     }
 
-    static func getSampleType() -> HKSampleType {
-        return HKQuantityType.quantityType(forIdentifier: .flightsClimbed)!
+    static func getSampleType() throws -> HKSampleType {
+        try HKQuantityType.safeQuantityType(forIdentifier: .flightsClimbed)
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
         guard let floorsDto = dto as? FloorsClimbedRecordDto else {
-            throw HealthConnectorErrors.invalidArgument(message: "Expected FloorsClimbedRecordDto, got \(type(of: dto))")
+            throw HealthConnectorErrors
+                .invalidArgument(message: "Expected FloorsClimbedRecordDto, got \(type(of: dto))")
         }
         return floorsDto.endTime
     }
@@ -76,7 +61,6 @@ struct FloorsClimbedHandler: HealthKitQuantityHandler {
         from statistics: HKStatistics,
         metric: AggregationMetricDto
     ) throws -> MeasurementUnitDto {
-        // Use immutable switch expression (Swift 5.9+)
         let quantity: HKQuantity? = switch metric {
         case .sum:
             statistics.sumQuantity()

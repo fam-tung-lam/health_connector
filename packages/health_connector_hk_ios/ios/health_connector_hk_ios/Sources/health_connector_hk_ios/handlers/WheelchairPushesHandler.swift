@@ -1,26 +1,9 @@
 import Foundation
 import HealthKit
 
-/// Handler for wheelchair pushes data (interval quantity type)
-///
-/// **Data Type:** Wheelchair Pushes
-/// **Record Pattern:** Interval (has startTime and endTime)
-/// **Aggregation:** Sum only (cumulative pushes)
-/// **HealthKit Type:** HKQuantityTypeIdentifier.pushCount
-///
-/// **Usage:**
-/// - Reading: Retrieves wheelchair pushes over time intervals
-/// - Writing: Records wheelchair pushes during activities
-/// - Aggregating: Supports sum (total pushes)
-/// - Pagination: Uses endTime for cursor-based pagination
-///
-/// **Example:**
-/// - 120 wheelchair pushes from 3:00 PM to 3:15 PM
-/// - startTime: 3:00 PM, endTime: 3:15 PM, pushes: 120
-///
-/// **Note:** This metric is specifically for manual wheelchair users.
-/// Measured by Apple Watch with wheelchair mode enabled.
-
+/**
+ * Handler for wheelchair pushes data
+ */
 struct WheelchairPushesHandler: HealthKitQuantityHandler {
     static var supportedType: HealthDataTypeDto {
         .wheelchairPushes
@@ -35,7 +18,8 @@ struct WheelchairPushesHandler: HealthKitQuantityHandler {
             throw HealthConnectorErrors.invalidArgument(message: "Expected HKQuantitySample, got \(type(of: sample))")
         }
         guard let dto = quantitySample.toWheelchairPushesRecordDto() else {
-            throw HealthConnectorErrors.invalidArgument(message: "Failed to convert HKQuantitySample to WheelchairPushesRecordDto")
+            throw HealthConnectorErrors
+                .invalidArgument(message: "Failed to convert HKQuantitySample to WheelchairPushesRecordDto")
         }
         return dto
     }
@@ -49,13 +33,14 @@ struct WheelchairPushesHandler: HealthKitQuantityHandler {
         return try pushesDto.toHealthKit()
     }
 
-    static func getSampleType() -> HKSampleType {
-        return HKQuantityType.quantityType(forIdentifier: .pushCount)!
+    static func getSampleType() throws -> HKSampleType {
+        try HKQuantityType.safeQuantityType(forIdentifier: .pushCount)
     }
 
     static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
         guard let pushesDto = dto as? WheelchairPushesRecordDto else {
-            throw HealthConnectorErrors.invalidArgument(message: "Expected WheelchairPushesRecordDto, got \(type(of: dto))")
+            throw HealthConnectorErrors
+                .invalidArgument(message: "Expected WheelchairPushesRecordDto, got \(type(of: dto))")
         }
         return pushesDto.endTime
     }

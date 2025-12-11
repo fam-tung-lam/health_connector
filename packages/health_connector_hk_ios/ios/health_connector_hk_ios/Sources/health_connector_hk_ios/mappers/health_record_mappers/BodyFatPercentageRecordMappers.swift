@@ -1,15 +1,10 @@
 import Foundation
 import HealthKit
 
-// ==================== BODY FAT PERCENTAGE RECORD MAPPERS ====================
-
 extension BodyFatPercentageRecordDto {
-    /**
+    /*
      * Converts this DTO to a HealthKit `HKQuantitySample`.
-     *
-     * - Throws: An error if the quantity type cannot be created.
      */
-
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .bodyFatPercentage) else {
             throw NSError(
@@ -34,12 +29,9 @@ extension BodyFatPercentageRecordDto {
 }
 
 extension HKQuantitySample {
-    /**
+    /*
      * Converts this HealthKit sample to a `BodyFatPercentageRecordDto`.
-     *
-     * Returns `nil` if this sample is not a body fat percentage sample.
      */
-
     func toBodyFatPercentageRecordDto() -> BodyFatPercentageRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bodyFatPercentage.rawValue else {
             return nil

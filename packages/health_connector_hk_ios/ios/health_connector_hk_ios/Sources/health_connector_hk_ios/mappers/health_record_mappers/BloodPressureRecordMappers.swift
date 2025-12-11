@@ -1,20 +1,15 @@
 import Foundation
 import HealthKit
 
-// ==================== BLOOD PRESSURE RECORD MAPPERS ====================
-
 extension HKCorrelation {
     /**
      * Converts a blood pressure correlation to a `BloodPressureRecordDto`.
-     *
-     * Extracts systolic and diastolic values from the contained quantity samples.
      */
     func toBloodPressureRecordDto() -> BloodPressureRecordDto? {
         guard correlationType.identifier == HKCorrelationTypeIdentifier.bloodPressure.rawValue else {
             return nil
         }
 
-        // Extract systolic and diastolic samples from correlation
         var systolicValue = 0.0
         var diastolicValue = 0.0
         let mmHgUnit = HKUnit.millimeterOfMercury()
