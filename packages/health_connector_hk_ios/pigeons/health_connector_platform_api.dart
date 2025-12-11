@@ -554,6 +554,9 @@ enum HealthDataTypeDto {
   /// Combined nutrition record (HKCorrelation.food).
   nutrition,
 
+  /// Resting heart rate data.
+  restingHeartRate,
+
   /// Composite blood pressure (HKCorrelationType.bloodPressure).
   bloodPressure,
 
@@ -562,6 +565,32 @@ enum HealthDataTypeDto {
 
   /// Diastolic blood pressure (HKQuantityType.bloodPressureDiastolic).
   diastolicBloodPressure,
+}
+
+/// Represents a resting heart rate record for platform transfer.
+class RestingHeartRateRecordDto extends HealthRecordDto {
+  RestingHeartRateRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.beatsPerMinute,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Resting heart rate in beats per minute.
+  final NumericDto beatsPerMinute;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
 }
 
 /// Represents an active calories burned record for platform transfer.

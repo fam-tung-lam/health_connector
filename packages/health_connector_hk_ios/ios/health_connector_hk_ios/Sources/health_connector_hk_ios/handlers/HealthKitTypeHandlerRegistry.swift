@@ -130,6 +130,7 @@ class HealthKitTypeRegistry {
         register(BodyTemperatureHandler.self)
         register(LeanBodyMassHandler.self)
         register(HeartRateHandler.self)
+        register(RestingHeartRateHandler.self)
         register(SleepStageHandler.self)
         register(EnergyNutrientHandler.self)
         register(CaffeineNutrientHandler.self)

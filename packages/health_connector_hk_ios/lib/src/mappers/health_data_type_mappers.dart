@@ -36,6 +36,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         ManganeseNutrientDataType,
         PhosphorusNutrientDataType,
         PotassiumNutrientDataType,
+        RestingHeartRateHealthDataType,
         SeleniumNutrientDataType,
         SodiumNutrientDataType,
         ZincNutrientDataType,
@@ -172,6 +173,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.systolicBloodPressure;
       case HealthDataTypeDto.diastolicBloodPressure:
         return HealthDataType.diastolicBloodPressure;
+      case HealthDataTypeDto.restingHeartRate:
+        return HealthDataType.restingHeartRate;
     }
   }
 }
@@ -301,6 +304,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.systolicBloodPressure;
       case DiastolicBloodPressureHealthDataType _:
         return HealthDataTypeDto.diastolicBloodPressure;
+      case RestingHeartRateHealthDataType _:
+        return HealthDataTypeDto.restingHeartRate;
     }
   }
 }

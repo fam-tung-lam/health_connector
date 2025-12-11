@@ -44,6 +44,8 @@ extension HealthDataPermissionDto {
             try [HKQuantityType.safeQuantityType(forIdentifier: .pushCount)]
         case .heartRateMeasurementRecord:
             try [HKQuantityType.safeQuantityType(forIdentifier: .heartRate)]
+        case .restingHeartRate:
+            try [HKQuantityType.safeQuantityType(forIdentifier: .restingHeartRate)]
         case .sleepStageRecord:
             try [HKCategoryType.safeCategoryType(forIdentifier: .sleepAnalysis)]
 

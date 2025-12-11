@@ -39,6 +39,8 @@ extension HealthRecordDto {
                 return .leanBodyMass
             case is HeartRateMeasurementRecordDto:
                 return .heartRateMeasurementRecord
+            case is RestingHeartRateRecordDto:
+                return .restingHeartRate
             case is BloodPressureRecordDto:
                 return .bloodPressure
             case is SystolicBloodPressureRecordDto:
@@ -169,6 +171,8 @@ extension HealthDataTypeDto {
             try HKQuantityType.safeQuantityType(forIdentifier: .pushCount)
         case .heartRateMeasurementRecord:
             try HKQuantityType.safeQuantityType(forIdentifier: .heartRate)
+        case .restingHeartRate:
+            try HKQuantityType.safeQuantityType(forIdentifier: .restingHeartRate)
         case .systolicBloodPressure:
             try HKQuantityType.safeQuantityType(forIdentifier: .bloodPressureSystolic)
         case .diastolicBloodPressure:

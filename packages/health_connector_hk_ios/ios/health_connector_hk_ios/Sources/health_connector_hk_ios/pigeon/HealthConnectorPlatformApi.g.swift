@@ -19,184 +19,184 @@
 import Foundation
 
 #if os(iOS)
-    import Flutter
+  import Flutter
 #elseif os(macOS)
-    import FlutterMacOS
+  import FlutterMacOS
 #else
-    #error("Unsupported platform.")
+  #error("Unsupported platform.")
 #endif
 
 /// Error class for passing custom error details to Dart side.
 final class HealthConnectorError: Error {
-    let code: String
-    let message: String?
-    let details: Sendable?
+  let code: String
+  let message: String?
+  let details: Sendable?
 
-    init(code: String, message: String?, details: Sendable?) {
-        self.code = code
-        self.message = message
-        self.details = details
-    }
+  init(code: String, message: String?, details: Sendable?) {
+    self.code = code
+    self.message = message
+    self.details = details
+  }
 
-    var localizedDescription: String {
-        return
-            "HealthConnectorError(code: \(code), message: \(message ?? "<nil>"), details: \(details ?? "<nil>")"
-    }
+  var localizedDescription: String {
+    return
+      "HealthConnectorError(code: \(code), message: \(message ?? "<nil>"), details: \(details ?? "<nil>")"
+  }
 }
 
 private func wrapResult(_ result: Any?) -> [Any?] {
-    return [result]
+  return [result]
 }
 
 private func wrapError(_ error: Any) -> [Any?] {
-    if let pigeonError = error as? HealthConnectorError {
-        return [
-            pigeonError.code,
-            pigeonError.message,
-            pigeonError.details,
-        ]
-    }
-    if let flutterError = error as? FlutterError {
-        return [
-            flutterError.code,
-            flutterError.message,
-            flutterError.details,
-        ]
-    }
+  if let pigeonError = error as? HealthConnectorError {
     return [
-        "\(error)",
-        "\(type(of: error))",
-        "Stacktrace: \(Thread.callStackSymbols)",
+      pigeonError.code,
+      pigeonError.message,
+      pigeonError.details,
     ]
+  }
+  if let flutterError = error as? FlutterError {
+    return [
+      flutterError.code,
+      flutterError.message,
+      flutterError.details,
+    ]
+  }
+  return [
+    "\(error)",
+    "\(type(of: error))",
+    "Stacktrace: \(Thread.callStackSymbols)",
+  ]
 }
 
 private func isNullish(_ value: Any?) -> Bool {
-    return value is NSNull || value == nil
+  return value is NSNull || value == nil
 }
 
 private func nilOrValue<T>(_ value: Any?) -> T? {
-    if value is NSNull { return nil }
-    return value as! T?
+  if value is NSNull { return nil }
+  return value as! T?
 }
 
 func deepEqualsHealthConnectorPlatformApi(_ lhs: Any?, _ rhs: Any?) -> Bool {
-    let cleanLhs = nilOrValue(lhs) as Any?
-    let cleanRhs = nilOrValue(rhs) as Any?
-    switch (cleanLhs, cleanRhs) {
-    case (nil, nil):
-        return true
+  let cleanLhs = nilOrValue(lhs) as Any?
+  let cleanRhs = nilOrValue(rhs) as Any?
+  switch (cleanLhs, cleanRhs) {
+  case (nil, nil):
+    return true
 
-    case (nil, _), (_, nil):
+  case (nil, _), (_, nil):
+    return false
+
+  case is (Void, Void):
+    return true
+
+  case let (cleanLhsHashable, cleanRhsHashable) as (AnyHashable, AnyHashable):
+    return cleanLhsHashable == cleanRhsHashable
+
+  case let (cleanLhsArray, cleanRhsArray) as ([Any?], [Any?]):
+    guard cleanLhsArray.count == cleanRhsArray.count else { return false }
+    for (index, element) in cleanLhsArray.enumerated() {
+      if !deepEqualsHealthConnectorPlatformApi(element, cleanRhsArray[index]) {
         return false
-
-    case is (Void, Void):
-        return true
-
-    case let (cleanLhsHashable, cleanRhsHashable) as (AnyHashable, AnyHashable):
-        return cleanLhsHashable == cleanRhsHashable
-
-    case let (cleanLhsArray, cleanRhsArray) as ([Any?], [Any?]):
-        guard cleanLhsArray.count == cleanRhsArray.count else { return false }
-        for (index, element) in cleanLhsArray.enumerated() {
-            if !deepEqualsHealthConnectorPlatformApi(element, cleanRhsArray[index]) {
-                return false
-            }
-        }
-        return true
-
-    case let (cleanLhsDictionary, cleanRhsDictionary) as ([AnyHashable: Any?], [AnyHashable: Any?]):
-        guard cleanLhsDictionary.count == cleanRhsDictionary.count else { return false }
-        for (key, cleanLhsValue) in cleanLhsDictionary {
-            guard cleanRhsDictionary.index(forKey: key) != nil else { return false }
-            if !deepEqualsHealthConnectorPlatformApi(cleanLhsValue, cleanRhsDictionary[key]!) {
-                return false
-            }
-        }
-        return true
-
-    default:
-        // Any other type shouldn't be able to be used with pigeon. File an issue if you find this to be untrue.
-        return false
+      }
     }
+    return true
+
+  case let (cleanLhsDictionary, cleanRhsDictionary) as ([AnyHashable: Any?], [AnyHashable: Any?]):
+    guard cleanLhsDictionary.count == cleanRhsDictionary.count else { return false }
+    for (key, cleanLhsValue) in cleanLhsDictionary {
+      guard cleanRhsDictionary.index(forKey: key) != nil else { return false }
+      if !deepEqualsHealthConnectorPlatformApi(cleanLhsValue, cleanRhsDictionary[key]!) {
+        return false
+      }
+    }
+    return true
+
+  default:
+    // Any other type shouldn't be able to be used with pigeon. File an issue if you find this to be untrue.
+    return false
+  }
 }
 
 func deepHashHealthConnectorPlatformApi(value: Any?, hasher: inout Hasher) {
-    if let valueList = value as? [AnyHashable] {
-        for item in valueList {
-            deepHashHealthConnectorPlatformApi(value: item, hasher: &hasher)
-        }
-        return
-    }
+  if let valueList = value as? [AnyHashable] {
+     for item in valueList { deepHashHealthConnectorPlatformApi(value: item, hasher: &hasher) }
+     return
+  }
 
-    if let valueDict = value as? [AnyHashable: AnyHashable] {
-        for key in valueDict.keys {
-            hasher.combine(key)
-            deepHashHealthConnectorPlatformApi(value: valueDict[key]!, hasher: &hasher)
-        }
-        return
+  if let valueDict = value as? [AnyHashable: AnyHashable] {
+    for key in valueDict.keys { 
+      hasher.combine(key)
+      deepHashHealthConnectorPlatformApi(value: valueDict[key]!, hasher: &hasher)
     }
+    return
+  }
 
-    if let hashableValue = value as? AnyHashable {
-        hasher.combine(hashableValue.hashValue)
-    }
+  if let hashableValue = value as? AnyHashable {
+    hasher.combine(hashableValue.hashValue)
+  }
 
-    return hasher.combine(String(describing: value))
+  return hasher.combine(String(describing: value))
 }
+
+    
 
 /// Error codes that native platforms can use when throwing error.
 public enum HealthConnectorErrorCodeDto: Int {
-    /// Health platform is unavailable on this device.
-    case healthPlatformUnavailable = 0
-    /// Invalid platform configuration detected.
-    case invalidPlatformConfiguration = 1
-    /// Invalid argument or input validation error.
-    case invalidArgument = 2
-    /// Attempted to use platform APIs that are not supported on
-    /// the current health platform.
-    case unsupportedHealthPlatformApi = 3
-    /// Unknown or unspecified error.
-    case unknown = 4
-    /// Security/permission error occurred.
-    case securityError = 5
+  /// Health platform is unavailable on this device.
+  case healthPlatformUnavailable = 0
+  /// Invalid platform configuration detected.
+  case invalidPlatformConfiguration = 1
+  /// Invalid argument or input validation error.
+  case invalidArgument = 2
+  /// Attempted to use platform APIs that are not supported on
+  /// the current health platform.
+  case unsupportedHealthPlatformApi = 3
+  /// Unknown or unspecified error.
+  case unknown = 4
+  /// Security/permission error occurred.
+  case securityError = 5
 }
 
 /// Represents the status of the health platform on the device.
 public enum HealthPlatformStatusDto: Int {
-    /// The health platform is available and ready to use.
-    case available = 0
-    /// The health platform is not available on this device.
-    case notAvailable = 1
+  /// The health platform is available and ready to use.
+  case available = 0
+  /// The health platform is not available on this device.
+  case notAvailable = 1
 }
 
 /// Blood glucose unit types supported by the plugin.
 public enum BloodGlucoseUnitDto: Int {
-    case milligramsPerDeciliter = 0
-    case millimolesPerLiter = 1
+  case milligramsPerDeciliter = 0
+  case millimolesPerLiter = 1
 }
 
 /// Energy unit types supported by the plugin.
 public enum EnergyUnitDto: Int {
-    case calories = 0
-    case joules = 1
-    case kilocalories = 2
-    case kilojoules = 3
+  case calories = 0
+  case joules = 1
+  case kilocalories = 2
+  case kilojoules = 3
 }
 
 /// Length unit types supported by the plugin.
 public enum LengthUnitDto: Int {
-    case feet = 0
-    case inches = 1
-    case kilometers = 2
-    case meters = 3
-    case miles = 4
+  case feet = 0
+  case inches = 1
+  case kilometers = 2
+  case meters = 3
+  case miles = 4
 }
 
 /// Mass unit types supported by the plugin.
 public enum MassUnitDto: Int {
-    case grams = 0
-    case kilograms = 1
-    case ounces = 2
-    case pounds = 3
+  case grams = 0
+  case kilograms = 1
+  case ounces = 2
+  case pounds = 3
 }
 
 /// Numeric unit types supported by the plugin.
@@ -204,1119 +204,1116 @@ public enum MassUnitDto: Int {
 /// Numeric values don't have unit conversions, but this enum is provided
 /// for consistency with other unit types.
 public enum NumericUnitDto: Int {
-    case numeric = 0
+  case numeric = 0
 }
 
 /// Percentage unit types supported by the plugin.
 public enum PercentageUnitDto: Int {
-    /// Percentage as a decimal value (0.0 to 1.0).
-    case decimal = 0
-    /// Percentage as a whole number (0 to 100).
-    case whole = 1
+  /// Percentage as a decimal value (0.0 to 1.0).
+  case decimal = 0
+  /// Percentage as a whole number (0 to 100).
+  case whole = 1
 }
 
 /// Represents the type of access requested for health data.
 public enum PermissionAccessTypeDto: Int {
-    /// Read access to health data.
-    case read = 0
-    /// Write access to health data.
-    case write = 1
+  /// Read access to health data.
+  case read = 0
+  /// Write access to health data.
+  case write = 1
 }
 
 /// Represents the status of a permission.
 public enum PermissionStatusDto: Int {
-    /// Permission has been explicitly denied by the user.
-    case denied = 0
-    /// Permission has been explicitly granted by the user.
-    case granted = 1
-    /// The permission status cannot be determined.
-    case unknown = 2
+  /// Permission has been explicitly denied by the user.
+  case denied = 0
+  /// Permission has been explicitly granted by the user.
+  case granted = 1
+  /// The permission status cannot be determined.
+  case unknown = 2
 }
 
 /// Pressure unit types supported by the plugin.
 public enum PressureUnitDto: Int {
-    case millimetersOfMercury = 0
+  case millimetersOfMercury = 0
 }
 
 /// Power unit types supported by the plugin.
 public enum PowerUnitDto: Int {
-    case kilowatts = 0
-    case watts = 1
+  case kilowatts = 0
+  case watts = 1
 }
 
 /// Temperature unit types supported by the plugin.
 public enum TemperatureUnitDto: Int {
-    case celsius = 0
-    case fahrenheit = 1
-    case kelvin = 2
+  case celsius = 0
+  case fahrenheit = 1
+  case kelvin = 2
 }
 
 /// Velocity unit types supported by the plugin.
 public enum VelocityUnitDto: Int {
-    case kilometersPerHour = 0
-    case metersPerSecond = 1
-    case milesPerHour = 2
+  case kilometersPerHour = 0
+  case metersPerSecond = 1
+  case milesPerHour = 2
 }
 
 /// Volume unit types supported by the plugin.
 public enum VolumeUnitDto: Int {
-    case fluidOuncesUs = 0
-    case liters = 1
-    case milliliters = 2
+  case fluidOuncesUs = 0
+  case liters = 1
+  case milliliters = 2
 }
 
 /// Meal type classification for nutrient records.
 ///
 /// Represents the type of meal associated with a nutrition or nutrient record.
 public enum MealTypeDto: Int {
-    /// Unknown or unspecified meal type.
-    case unknown = 0
-    /// Breakfast meal.
-    case breakfast = 1
-    /// Lunch meal.
-    case lunch = 2
-    /// Dinner meal.
-    case dinner = 3
-    /// Snack or other meal type.
-    case snack = 4
+  /// Unknown or unspecified meal type.
+  case unknown = 0
+  /// Breakfast meal.
+  case breakfast = 1
+  /// Lunch meal.
+  case lunch = 2
+  /// Dinner meal.
+  case dinner = 3
+  /// Snack or other meal type.
+  case snack = 4
 }
 
 /// Body position during blood pressure measurement.
 /// Note: Not directly supported by HealthKit - included for Android parity.
 public enum BodyPositionDto: Int {
-    /// Unknown body position.
-    case unknown = 0
-    /// Standing up.
-    case standingUp = 1
-    /// Sitting down.
-    case sittingDown = 2
-    /// Lying down.
-    case lyingDown = 3
-    /// Reclining.
-    case reclining = 4
+  /// Unknown body position.
+  case unknown = 0
+  /// Standing up.
+  case standingUp = 1
+  /// Sitting down.
+  case sittingDown = 2
+  /// Lying down.
+  case lyingDown = 3
+  /// Reclining.
+  case reclining = 4
 }
 
 /// Measurement location for blood pressure reading.
 /// Note: Not directly supported by HealthKit - included for Android parity.
 public enum MeasurementLocationDto: Int {
-    /// Unknown location.
-    case unknown = 0
-    /// Left wrist.
-    case leftWrist = 1
-    /// Right wrist.
-    case rightWrist = 2
-    /// Left upper arm.
-    case leftUpperArm = 3
-    /// Right upper arm.
-    case rightUpperArm = 4
+  /// Unknown location.
+  case unknown = 0
+  /// Left wrist.
+  case leftWrist = 1
+  /// Right wrist.
+  case rightWrist = 2
+  /// Left upper arm.
+  case leftUpperArm = 3
+  /// Right upper arm.
+  case rightUpperArm = 4
 }
 
 /// Represents the type of sleep stage.
 ///
 /// Maps to iOS HKCategoryValueSleepAnalysis values.
 public enum SleepStageTypeDto: Int {
-    /// Unknown or unspecified sleep stage.
-    case unknown = 0
-    /// Awake in bed.
-    case awake = 1
-    /// Asleep (generic, when detailed stage unavailable).
-    case sleeping = 2
-    /// Out of bed.
-    case outOfBed = 3
-    /// Light sleep stage.
-    case light = 4
-    /// Deep sleep stage.
-    case deep = 5
-    /// REM (Rapid Eye Movement) sleep stage.
-    case rem = 6
-    /// In bed (not yet asleep).
-    case inBed = 7
+  /// Unknown or unspecified sleep stage.
+  case unknown = 0
+  /// Awake in bed.
+  case awake = 1
+  /// Asleep (generic, when detailed stage unavailable).
+  case sleeping = 2
+  /// Out of bed.
+  case outOfBed = 3
+  /// Light sleep stage.
+  case light = 4
+  /// Deep sleep stage.
+  case deep = 5
+  /// REM (Rapid Eye Movement) sleep stage.
+  case rem = 6
+  /// In bed (not yet asleep).
+  case inBed = 7
 }
 
 /// Represents a health data type.
 public enum HealthDataTypeDto: Int {
-    /// Active calories burned data.
-    case activeCaloriesBurned = 0
-    /// Distance traveled data.
-    case distance = 1
-    /// Floors climbed data.
-    case floorsClimbed = 2
-    /// Step count data.
-    case steps = 3
-    /// Body weight data.
-    case weight = 4
-    /// Body height data.
-    case height = 5
-    /// Body fat percentage data.
-    case bodyFatPercentage = 6
-    /// Body temperature data.
-    case bodyTemperature = 7
-    /// Lean body mass data.
-    case leanBodyMass = 8
-    /// Wheelchair pushes data.
-    case wheelchairPushes = 9
-    /// Hydration (water intake) data.
-    case hydration = 10
-    /// Heart rate measurement record data (iOS).
-    case heartRateMeasurementRecord = 11
-    /// Sleep stage record data (iOS).
-    case sleepStageRecord = 12
-    /// Energy nutrient data (calories consumed).
-    case energyNutrient = 13
-    /// Caffeine nutrient data.
-    case caffeine = 14
-    /// Protein nutrient data.
-    case protein = 15
-    /// Total carbohydrate nutrient data.
-    case totalCarbohydrate = 16
-    /// Total fat nutrient data.
-    case totalFat = 17
-    /// Saturated fat nutrient data.
-    case saturatedFat = 18
-    /// Monounsaturated fat nutrient data.
-    case monounsaturatedFat = 19
-    /// Polyunsaturated fat nutrient data.
-    case polyunsaturatedFat = 20
-    /// Cholesterol nutrient data.
-    case cholesterol = 21
-    /// Dietary fiber nutrient data.
-    case dietaryFiber = 22
-    /// Sugar nutrient data.
-    case sugar = 23
-    /// Vitamin A nutrient data.
-    case vitaminA = 24
-    /// Vitamin B6 nutrient data.
-    case vitaminB6 = 25
-    /// Vitamin B12 nutrient data.
-    case vitaminB12 = 26
-    /// Vitamin C nutrient data.
-    case vitaminC = 27
-    /// Vitamin D nutrient data.
-    case vitaminD = 28
-    /// Vitamin E nutrient data.
-    case vitaminE = 29
-    /// Vitamin K nutrient data.
-    case vitaminK = 30
-    /// Thiamin (Vitamin B1) nutrient data.
-    case thiamin = 31
-    /// Riboflavin (Vitamin B2) nutrient data.
-    case riboflavin = 32
-    /// Niacin (Vitamin B3) nutrient data.
-    case niacin = 33
-    /// Folate (Vitamin B9) nutrient data.
-    case folate = 34
-    /// Biotin (Vitamin B7) nutrient data.
-    case biotin = 35
-    /// Pantothenic acid (Vitamin B5) nutrient data.
-    case pantothenicAcid = 36
-    /// Calcium nutrient data.
-    case calcium = 37
-    /// Iron nutrient data.
-    case iron = 38
-    /// Magnesium nutrient data.
-    case magnesium = 39
-    /// Manganese nutrient data.
-    case manganese = 40
-    /// Phosphorus nutrient data.
-    case phosphorus = 41
-    /// Potassium nutrient data.
-    case potassium = 42
-    /// Selenium nutrient data.
-    case selenium = 43
-    /// Sodium nutrient data.
-    case sodium = 44
-    /// Zinc nutrient data.
-    case zinc = 45
-    /// Combined nutrition record (HKCorrelation.food).
-    case nutrition = 46
-    /// Composite blood pressure (HKCorrelationType.bloodPressure).
-    case bloodPressure = 47
-    /// Systolic blood pressure (HKQuantityType.bloodPressureSystolic).
-    case systolicBloodPressure = 48
-    /// Diastolic blood pressure (HKQuantityType.bloodPressureDiastolic).
-    case diastolicBloodPressure = 49
+  /// Active calories burned data.
+  case activeCaloriesBurned = 0
+  /// Distance traveled data.
+  case distance = 1
+  /// Floors climbed data.
+  case floorsClimbed = 2
+  /// Step count data.
+  case steps = 3
+  /// Body weight data.
+  case weight = 4
+  /// Body height data.
+  case height = 5
+  /// Body fat percentage data.
+  case bodyFatPercentage = 6
+  /// Body temperature data.
+  case bodyTemperature = 7
+  /// Lean body mass data.
+  case leanBodyMass = 8
+  /// Wheelchair pushes data.
+  case wheelchairPushes = 9
+  /// Hydration (water intake) data.
+  case hydration = 10
+  /// Heart rate measurement record data (iOS).
+  case heartRateMeasurementRecord = 11
+  /// Sleep stage record data (iOS).
+  case sleepStageRecord = 12
+  /// Energy nutrient data (calories consumed).
+  case energyNutrient = 13
+  /// Caffeine nutrient data.
+  case caffeine = 14
+  /// Protein nutrient data.
+  case protein = 15
+  /// Total carbohydrate nutrient data.
+  case totalCarbohydrate = 16
+  /// Total fat nutrient data.
+  case totalFat = 17
+  /// Saturated fat nutrient data.
+  case saturatedFat = 18
+  /// Monounsaturated fat nutrient data.
+  case monounsaturatedFat = 19
+  /// Polyunsaturated fat nutrient data.
+  case polyunsaturatedFat = 20
+  /// Cholesterol nutrient data.
+  case cholesterol = 21
+  /// Dietary fiber nutrient data.
+  case dietaryFiber = 22
+  /// Sugar nutrient data.
+  case sugar = 23
+  /// Vitamin A nutrient data.
+  case vitaminA = 24
+  /// Vitamin B6 nutrient data.
+  case vitaminB6 = 25
+  /// Vitamin B12 nutrient data.
+  case vitaminB12 = 26
+  /// Vitamin C nutrient data.
+  case vitaminC = 27
+  /// Vitamin D nutrient data.
+  case vitaminD = 28
+  /// Vitamin E nutrient data.
+  case vitaminE = 29
+  /// Vitamin K nutrient data.
+  case vitaminK = 30
+  /// Thiamin (Vitamin B1) nutrient data.
+  case thiamin = 31
+  /// Riboflavin (Vitamin B2) nutrient data.
+  case riboflavin = 32
+  /// Niacin (Vitamin B3) nutrient data.
+  case niacin = 33
+  /// Folate (Vitamin B9) nutrient data.
+  case folate = 34
+  /// Biotin (Vitamin B7) nutrient data.
+  case biotin = 35
+  /// Pantothenic acid (Vitamin B5) nutrient data.
+  case pantothenicAcid = 36
+  /// Calcium nutrient data.
+  case calcium = 37
+  /// Iron nutrient data.
+  case iron = 38
+  /// Magnesium nutrient data.
+  case magnesium = 39
+  /// Manganese nutrient data.
+  case manganese = 40
+  /// Phosphorus nutrient data.
+  case phosphorus = 41
+  /// Potassium nutrient data.
+  case potassium = 42
+  /// Selenium nutrient data.
+  case selenium = 43
+  /// Sodium nutrient data.
+  case sodium = 44
+  /// Zinc nutrient data.
+  case zinc = 45
+  /// Combined nutrition record (HKCorrelation.food).
+  case nutrition = 46
+  /// Resting heart rate data.
+  case restingHeartRate = 47
+  /// Composite blood pressure (HKCorrelationType.bloodPressure).
+  case bloodPressure = 48
+  /// Systolic blood pressure (HKQuantityType.bloodPressureSystolic).
+  case systolicBloodPressure = 49
+  /// Diastolic blood pressure (HKQuantityType.bloodPressureDiastolic).
+  case diastolicBloodPressure = 50
 }
 
 /// Aggregation metric types for health data queries.
 public enum AggregationMetricDto: Int {
-    /// Average (mean) value across all data points.
-    case avg = 0
-    /// Count of data points (records) in the dataset.
-    case count = 1
-    /// Maximum value in the dataset.
-    case max = 2
-    /// Minimum value in the dataset.
-    case min = 3
-    /// Sum of all values in the time range.
-    case sum = 4
+  /// Average (mean) value across all data points.
+  case avg = 0
+  /// Count of data points (records) in the dataset.
+  case count = 1
+  /// Maximum value in the dataset.
+  case max = 2
+  /// Minimum value in the dataset.
+  case min = 3
+  /// Sum of all values in the time range.
+  case sum = 4
 }
 
 /// Sealed class for all measurement unit DTOs.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 /// This protocol should not be extended by any user class outside of the generated file.
-protocol MeasurementUnitDto {}
+protocol MeasurementUnitDto {
+
+}
 
 /// Represents a blood glucose measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct BloodGlucoseDto: MeasurementUnitDto {
-    /// The unit in which the value is expressed.
-    var unit: BloodGlucoseUnitDto
-    /// The numeric value of the blood glucose.
-    var value: Double
+  /// The unit in which the value is expressed.
+  var unit: BloodGlucoseUnitDto
+  /// The numeric value of the blood glucose.
+  var value: Double
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> BloodGlucoseDto? {
-        let unit = pigeonVar_list[0] as! BloodGlucoseUnitDto
-        let value = pigeonVar_list[1] as! Double
 
-        return BloodGlucoseDto(
-            unit: unit,
-            value: value
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> BloodGlucoseDto? {
+    let unit = pigeonVar_list[0] as! BloodGlucoseUnitDto
+    let value = pigeonVar_list[1] as! Double
 
-    func toList() -> [Any?] {
-        return [
-            unit,
-            value,
-        ]
-    }
-
-    public static func == (lhs: BloodGlucoseDto, rhs: BloodGlucoseDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return BloodGlucoseDto(
+      unit: unit,
+      value: value
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      unit,
+      value,
+    ]
+  }
+  public static func == (lhs: BloodGlucoseDto, rhs: BloodGlucoseDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents an energy measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct EnergyDto: MeasurementUnitDto {
-    /// The unit in which the value is expressed.
-    var unit: EnergyUnitDto
-    /// The numeric value of the energy.
-    var value: Double
+  /// The unit in which the value is expressed.
+  var unit: EnergyUnitDto
+  /// The numeric value of the energy.
+  var value: Double
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> EnergyDto? {
-        let unit = pigeonVar_list[0] as! EnergyUnitDto
-        let value = pigeonVar_list[1] as! Double
 
-        return EnergyDto(
-            unit: unit,
-            value: value
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> EnergyDto? {
+    let unit = pigeonVar_list[0] as! EnergyUnitDto
+    let value = pigeonVar_list[1] as! Double
 
-    func toList() -> [Any?] {
-        return [
-            unit,
-            value,
-        ]
-    }
-
-    public static func == (lhs: EnergyDto, rhs: EnergyDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return EnergyDto(
+      unit: unit,
+      value: value
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      unit,
+      value,
+    ]
+  }
+  public static func == (lhs: EnergyDto, rhs: EnergyDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a length measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct LengthDto: MeasurementUnitDto {
-    /// The unit in which the value is expressed.
-    var unit: LengthUnitDto
-    /// The numeric value of the length.
-    var value: Double
+  /// The unit in which the value is expressed.
+  var unit: LengthUnitDto
+  /// The numeric value of the length.
+  var value: Double
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> LengthDto? {
-        let unit = pigeonVar_list[0] as! LengthUnitDto
-        let value = pigeonVar_list[1] as! Double
 
-        return LengthDto(
-            unit: unit,
-            value: value
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> LengthDto? {
+    let unit = pigeonVar_list[0] as! LengthUnitDto
+    let value = pigeonVar_list[1] as! Double
 
-    func toList() -> [Any?] {
-        return [
-            unit,
-            value,
-        ]
-    }
-
-    public static func == (lhs: LengthDto, rhs: LengthDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return LengthDto(
+      unit: unit,
+      value: value
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      unit,
+      value,
+    ]
+  }
+  public static func == (lhs: LengthDto, rhs: LengthDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a mass measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct MassDto: MeasurementUnitDto {
-    /// The unit in which the value is expressed.
-    var unit: MassUnitDto
-    /// The numeric value of the mass.
-    var value: Double
+  /// The unit in which the value is expressed.
+  var unit: MassUnitDto
+  /// The numeric value of the mass.
+  var value: Double
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> MassDto? {
-        let unit = pigeonVar_list[0] as! MassUnitDto
-        let value = pigeonVar_list[1] as! Double
 
-        return MassDto(
-            unit: unit,
-            value: value
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> MassDto? {
+    let unit = pigeonVar_list[0] as! MassUnitDto
+    let value = pigeonVar_list[1] as! Double
 
-    func toList() -> [Any?] {
-        return [
-            unit,
-            value,
-        ]
-    }
-
-    public static func == (lhs: MassDto, rhs: MassDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return MassDto(
+      unit: unit,
+      value: value
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      unit,
+      value,
+    ]
+  }
+  public static func == (lhs: MassDto, rhs: MassDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a numeric measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct NumericDto: MeasurementUnitDto {
-    /// The unit in which the value is expressed.
-    var unit: NumericUnitDto
-    /// The numeric value.
-    var value: Double
+  /// The unit in which the value is expressed.
+  var unit: NumericUnitDto
+  /// The numeric value.
+  var value: Double
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> NumericDto? {
-        let unit = pigeonVar_list[0] as! NumericUnitDto
-        let value = pigeonVar_list[1] as! Double
 
-        return NumericDto(
-            unit: unit,
-            value: value
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> NumericDto? {
+    let unit = pigeonVar_list[0] as! NumericUnitDto
+    let value = pigeonVar_list[1] as! Double
 
-    func toList() -> [Any?] {
-        return [
-            unit,
-            value,
-        ]
-    }
-
-    public static func == (lhs: NumericDto, rhs: NumericDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return NumericDto(
+      unit: unit,
+      value: value
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      unit,
+      value,
+    ]
+  }
+  public static func == (lhs: NumericDto, rhs: NumericDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a percentage measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct PercentageDto: MeasurementUnitDto {
-    /// The unit in which the value is expressed.
-    var unit: PercentageUnitDto
-    /// The numeric value of the percentage.
-    var value: Double
+  /// The unit in which the value is expressed.
+  var unit: PercentageUnitDto
+  /// The numeric value of the percentage.
+  var value: Double
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> PercentageDto? {
-        let unit = pigeonVar_list[0] as! PercentageUnitDto
-        let value = pigeonVar_list[1] as! Double
 
-        return PercentageDto(
-            unit: unit,
-            value: value
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> PercentageDto? {
+    let unit = pigeonVar_list[0] as! PercentageUnitDto
+    let value = pigeonVar_list[1] as! Double
 
-    func toList() -> [Any?] {
-        return [
-            unit,
-            value,
-        ]
-    }
-
-    public static func == (lhs: PercentageDto, rhs: PercentageDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return PercentageDto(
+      unit: unit,
+      value: value
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      unit,
+      value,
+    ]
+  }
+  public static func == (lhs: PercentageDto, rhs: PercentageDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a power measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct PowerDto: MeasurementUnitDto {
-    /// The unit in which the value is expressed.
-    var unit: PowerUnitDto
-    /// The numeric value of the power.
-    var value: Double
+  /// The unit in which the value is expressed.
+  var unit: PowerUnitDto
+  /// The numeric value of the power.
+  var value: Double
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> PowerDto? {
-        let unit = pigeonVar_list[0] as! PowerUnitDto
-        let value = pigeonVar_list[1] as! Double
 
-        return PowerDto(
-            unit: unit,
-            value: value
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> PowerDto? {
+    let unit = pigeonVar_list[0] as! PowerUnitDto
+    let value = pigeonVar_list[1] as! Double
 
-    func toList() -> [Any?] {
-        return [
-            unit,
-            value,
-        ]
-    }
-
-    public static func == (lhs: PowerDto, rhs: PowerDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return PowerDto(
+      unit: unit,
+      value: value
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      unit,
+      value,
+    ]
+  }
+  public static func == (lhs: PowerDto, rhs: PowerDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a pressure measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct PressureDto: MeasurementUnitDto {
-    /// The unit in which the value is expressed.
-    var unit: PressureUnitDto
-    /// The numeric value of the pressure.
-    var value: Double
+  /// The unit in which the value is expressed.
+  var unit: PressureUnitDto
+  /// The numeric value of the pressure.
+  var value: Double
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> PressureDto? {
-        let unit = pigeonVar_list[0] as! PressureUnitDto
-        let value = pigeonVar_list[1] as! Double
 
-        return PressureDto(
-            unit: unit,
-            value: value
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> PressureDto? {
+    let unit = pigeonVar_list[0] as! PressureUnitDto
+    let value = pigeonVar_list[1] as! Double
 
-    func toList() -> [Any?] {
-        return [
-            unit,
-            value,
-        ]
-    }
-
-    public static func == (lhs: PressureDto, rhs: PressureDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return PressureDto(
+      unit: unit,
+      value: value
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      unit,
+      value,
+    ]
+  }
+  public static func == (lhs: PressureDto, rhs: PressureDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a temperature measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct TemperatureDto: MeasurementUnitDto {
-    /// The unit in which the value is expressed.
-    var unit: TemperatureUnitDto
-    /// The numeric value of the temperature.
-    var value: Double
+  /// The unit in which the value is expressed.
+  var unit: TemperatureUnitDto
+  /// The numeric value of the temperature.
+  var value: Double
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> TemperatureDto? {
-        let unit = pigeonVar_list[0] as! TemperatureUnitDto
-        let value = pigeonVar_list[1] as! Double
 
-        return TemperatureDto(
-            unit: unit,
-            value: value
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> TemperatureDto? {
+    let unit = pigeonVar_list[0] as! TemperatureUnitDto
+    let value = pigeonVar_list[1] as! Double
 
-    func toList() -> [Any?] {
-        return [
-            unit,
-            value,
-        ]
-    }
-
-    public static func == (lhs: TemperatureDto, rhs: TemperatureDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return TemperatureDto(
+      unit: unit,
+      value: value
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      unit,
+      value,
+    ]
+  }
+  public static func == (lhs: TemperatureDto, rhs: TemperatureDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a velocity measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct VelocityDto: MeasurementUnitDto {
-    /// The unit in which the value is expressed.
-    var unit: VelocityUnitDto
-    /// The numeric value of the velocity.
-    var value: Double
+  /// The unit in which the value is expressed.
+  var unit: VelocityUnitDto
+  /// The numeric value of the velocity.
+  var value: Double
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> VelocityDto? {
-        let unit = pigeonVar_list[0] as! VelocityUnitDto
-        let value = pigeonVar_list[1] as! Double
 
-        return VelocityDto(
-            unit: unit,
-            value: value
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> VelocityDto? {
+    let unit = pigeonVar_list[0] as! VelocityUnitDto
+    let value = pigeonVar_list[1] as! Double
 
-    func toList() -> [Any?] {
-        return [
-            unit,
-            value,
-        ]
-    }
-
-    public static func == (lhs: VelocityDto, rhs: VelocityDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return VelocityDto(
+      unit: unit,
+      value: value
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      unit,
+      value,
+    ]
+  }
+  public static func == (lhs: VelocityDto, rhs: VelocityDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a volume measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct VolumeDto: MeasurementUnitDto {
-    /// The unit in which the value is expressed.
-    var unit: VolumeUnitDto
-    /// The numeric value of the volume.
-    var value: Double
+  /// The unit in which the value is expressed.
+  var unit: VolumeUnitDto
+  /// The numeric value of the volume.
+  var value: Double
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> VolumeDto? {
-        let unit = pigeonVar_list[0] as! VolumeUnitDto
-        let value = pigeonVar_list[1] as! Double
 
-        return VolumeDto(
-            unit: unit,
-            value: value
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> VolumeDto? {
+    let unit = pigeonVar_list[0] as! VolumeUnitDto
+    let value = pigeonVar_list[1] as! Double
 
-    func toList() -> [Any?] {
-        return [
-            unit,
-            value,
-        ]
-    }
-
-    public static func == (lhs: VolumeDto, rhs: VolumeDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return VolumeDto(
+      unit: unit,
+      value: value
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      unit,
+      value,
+    ]
+  }
+  public static func == (lhs: VolumeDto, rhs: VolumeDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents metadata for a health record.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct MetadataDto: Hashable {
-    /// A custom identifier assigned by your application.
-    ///
-    /// Use this for client-side record tracking, deduplication, or correlation.
-    var clientRecordId: String? = nil
-    /// A version number assigned by your application.
-    ///
-    /// Use this to implement your own versioning or tracking logic.
-    var clientRecordVersion: Int64? = nil
-    /// The package name of the source app that wrote this health record.
-    var dataOrigin: String
-    /// The name of the device that recorded the data (optional).
-    var deviceName: String? = nil
-    /// The manufacturer of the device that recorded the data (optional).
-    var deviceManufacturer: String? = nil
-    /// The model of the device that recorded the data (optional).
-    var deviceModel: String? = nil
-    /// The hardware version of the device that recorded the data (optional).
-    var deviceHardwareVersion: String? = nil
-    /// The firmware version of the device that recorded the data (optional).
-    var deviceFirmwareVersion: String? = nil
-    /// The software version of the device that recorded the data (optional).
-    var deviceSoftwareVersion: String? = nil
-    /// A local identifier for the device that recorded the data (optional).
-    var deviceLocalIdentifier: String? = nil
-    /// The UDI (Unique Device Identifier) for the device that recorded
-    /// the data (optional).
-    var deviceUdiDeviceIdentifier: String? = nil
-    /// Whether this data was manually entered by the user.
-    ///
-    /// `true` indicates manual entry, `false` indicates unknown/not manual entry.
-    var isManualEntry: Bool
+  /// A custom identifier assigned by your application.
+  ///
+  /// Use this for client-side record tracking, deduplication, or correlation.
+  var clientRecordId: String? = nil
+  /// A version number assigned by your application.
+  ///
+  /// Use this to implement your own versioning or tracking logic.
+  var clientRecordVersion: Int64? = nil
+  /// The package name of the source app that wrote this health record.
+  var dataOrigin: String
+  /// The name of the device that recorded the data (optional).
+  var deviceName: String? = nil
+  /// The manufacturer of the device that recorded the data (optional).
+  var deviceManufacturer: String? = nil
+  /// The model of the device that recorded the data (optional).
+  var deviceModel: String? = nil
+  /// The hardware version of the device that recorded the data (optional).
+  var deviceHardwareVersion: String? = nil
+  /// The firmware version of the device that recorded the data (optional).
+  var deviceFirmwareVersion: String? = nil
+  /// The software version of the device that recorded the data (optional).
+  var deviceSoftwareVersion: String? = nil
+  /// A local identifier for the device that recorded the data (optional).
+  var deviceLocalIdentifier: String? = nil
+  /// The UDI (Unique Device Identifier) for the device that recorded
+  /// the data (optional).
+  var deviceUdiDeviceIdentifier: String? = nil
+  /// Whether this data was manually entered by the user.
+  ///
+  /// `true` indicates manual entry, `false` indicates unknown/not manual entry.
+  var isManualEntry: Bool
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> MetadataDto? {
-        let clientRecordId: String? = nilOrValue(pigeonVar_list[0])
-        let clientRecordVersion: Int64? = nilOrValue(pigeonVar_list[1])
-        let dataOrigin = pigeonVar_list[2] as! String
-        let deviceName: String? = nilOrValue(pigeonVar_list[3])
-        let deviceManufacturer: String? = nilOrValue(pigeonVar_list[4])
-        let deviceModel: String? = nilOrValue(pigeonVar_list[5])
-        let deviceHardwareVersion: String? = nilOrValue(pigeonVar_list[6])
-        let deviceFirmwareVersion: String? = nilOrValue(pigeonVar_list[7])
-        let deviceSoftwareVersion: String? = nilOrValue(pigeonVar_list[8])
-        let deviceLocalIdentifier: String? = nilOrValue(pigeonVar_list[9])
-        let deviceUdiDeviceIdentifier: String? = nilOrValue(pigeonVar_list[10])
-        let isManualEntry = pigeonVar_list[11] as! Bool
 
-        return MetadataDto(
-            clientRecordId: clientRecordId,
-            clientRecordVersion: clientRecordVersion,
-            dataOrigin: dataOrigin,
-            deviceName: deviceName,
-            deviceManufacturer: deviceManufacturer,
-            deviceModel: deviceModel,
-            deviceHardwareVersion: deviceHardwareVersion,
-            deviceFirmwareVersion: deviceFirmwareVersion,
-            deviceSoftwareVersion: deviceSoftwareVersion,
-            deviceLocalIdentifier: deviceLocalIdentifier,
-            deviceUdiDeviceIdentifier: deviceUdiDeviceIdentifier,
-            isManualEntry: isManualEntry
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> MetadataDto? {
+    let clientRecordId: String? = nilOrValue(pigeonVar_list[0])
+    let clientRecordVersion: Int64? = nilOrValue(pigeonVar_list[1])
+    let dataOrigin = pigeonVar_list[2] as! String
+    let deviceName: String? = nilOrValue(pigeonVar_list[3])
+    let deviceManufacturer: String? = nilOrValue(pigeonVar_list[4])
+    let deviceModel: String? = nilOrValue(pigeonVar_list[5])
+    let deviceHardwareVersion: String? = nilOrValue(pigeonVar_list[6])
+    let deviceFirmwareVersion: String? = nilOrValue(pigeonVar_list[7])
+    let deviceSoftwareVersion: String? = nilOrValue(pigeonVar_list[8])
+    let deviceLocalIdentifier: String? = nilOrValue(pigeonVar_list[9])
+    let deviceUdiDeviceIdentifier: String? = nilOrValue(pigeonVar_list[10])
+    let isManualEntry = pigeonVar_list[11] as! Bool
 
-    func toList() -> [Any?] {
-        return [
-            clientRecordId,
-            clientRecordVersion,
-            dataOrigin,
-            deviceName,
-            deviceManufacturer,
-            deviceModel,
-            deviceHardwareVersion,
-            deviceFirmwareVersion,
-            deviceSoftwareVersion,
-            deviceLocalIdentifier,
-            deviceUdiDeviceIdentifier,
-            isManualEntry,
-        ]
-    }
-
-    public static func == (lhs: MetadataDto, rhs: MetadataDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return MetadataDto(
+      clientRecordId: clientRecordId,
+      clientRecordVersion: clientRecordVersion,
+      dataOrigin: dataOrigin,
+      deviceName: deviceName,
+      deviceManufacturer: deviceManufacturer,
+      deviceModel: deviceModel,
+      deviceHardwareVersion: deviceHardwareVersion,
+      deviceFirmwareVersion: deviceFirmwareVersion,
+      deviceSoftwareVersion: deviceSoftwareVersion,
+      deviceLocalIdentifier: deviceLocalIdentifier,
+      deviceUdiDeviceIdentifier: deviceUdiDeviceIdentifier,
+      isManualEntry: isManualEntry
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      clientRecordId,
+      clientRecordVersion,
+      dataOrigin,
+      deviceName,
+      deviceManufacturer,
+      deviceModel,
+      deviceHardwareVersion,
+      deviceFirmwareVersion,
+      deviceSoftwareVersion,
+      deviceLocalIdentifier,
+      deviceUdiDeviceIdentifier,
+      isManualEntry,
+    ]
+  }
+  public static func == (lhs: MetadataDto, rhs: MetadataDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a permission request for accessing specific health data.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct HealthDataPermissionDto: Hashable {
-    /// The type of access being requested (read or write).
-    var accessType: PermissionAccessTypeDto
-    /// The type of health data for which permission is requested.
-    var healthDataType: HealthDataTypeDto
+  /// The type of access being requested (read or write).
+  var accessType: PermissionAccessTypeDto
+  /// The type of health data for which permission is requested.
+  var healthDataType: HealthDataTypeDto
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> HealthDataPermissionDto? {
-        let accessType = pigeonVar_list[0] as! PermissionAccessTypeDto
-        let healthDataType = pigeonVar_list[1] as! HealthDataTypeDto
 
-        return HealthDataPermissionDto(
-            accessType: accessType,
-            healthDataType: healthDataType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> HealthDataPermissionDto? {
+    let accessType = pigeonVar_list[0] as! PermissionAccessTypeDto
+    let healthDataType = pigeonVar_list[1] as! HealthDataTypeDto
 
-    func toList() -> [Any?] {
-        return [
-            accessType,
-            healthDataType,
-        ]
-    }
-
-    public static func == (lhs: HealthDataPermissionDto, rhs: HealthDataPermissionDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return HealthDataPermissionDto(
+      accessType: accessType,
+      healthDataType: healthDataType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      accessType,
+      healthDataType,
+    ]
+  }
+  public static func == (lhs: HealthDataPermissionDto, rhs: HealthDataPermissionDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Sealed class for all health record DTOs.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 /// This protocol should not be extended by any user class outside of the generated file.
-protocol HealthRecordDto {}
+protocol HealthRecordDto {
+
+}
+
+/// Represents a resting heart rate record for platform transfer.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct RestingHeartRateRecordDto: HealthRecordDto {
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Measurement time in milliseconds since epoch (UTC).
+  var time: Int64
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Resting heart rate in beats per minute.
+  var beatsPerMinute: NumericDto
+  /// Timezone offset in seconds for measurement time (optional).
+  var zoneOffsetSeconds: Int64? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> RestingHeartRateRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let time = pigeonVar_list[1] as! Int64
+    let metadata = pigeonVar_list[2] as! MetadataDto
+    let beatsPerMinute = pigeonVar_list[3] as! NumericDto
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
+
+    return RestingHeartRateRecordDto(
+      id: id,
+      time: time,
+      metadata: metadata,
+      beatsPerMinute: beatsPerMinute,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      time,
+      metadata,
+      beatsPerMinute,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: RestingHeartRateRecordDto, rhs: RestingHeartRateRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
+}
 
 /// Represents an active calories burned record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct ActiveCaloriesBurnedRecordDto: HealthRecordDto {
-    /// Energy (calories) burned during the interval.
-    var energy: EnergyDto
-    /// End time in milliseconds since epoch (UTC).
-    var endTime: Int64
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Start time in milliseconds since epoch (UTC).
-    var startTime: Int64
-    /// Timezone offset in seconds (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Energy (calories) burned during the interval.
+  var energy: EnergyDto
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// Timezone offset in seconds (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> ActiveCaloriesBurnedRecordDto? {
-        let energy = pigeonVar_list[0] as! EnergyDto
-        let endTime = pigeonVar_list[1] as! Int64
-        let id: String? = nilOrValue(pigeonVar_list[2])
-        let metadata = pigeonVar_list[3] as! MetadataDto
-        let startTime = pigeonVar_list[4] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
-        return ActiveCaloriesBurnedRecordDto(
-            energy: energy,
-            endTime: endTime,
-            id: id,
-            metadata: metadata,
-            startTime: startTime,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ActiveCaloriesBurnedRecordDto? {
+    let energy = pigeonVar_list[0] as! EnergyDto
+    let endTime = pigeonVar_list[1] as! Int64
+    let id: String? = nilOrValue(pigeonVar_list[2])
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let startTime = pigeonVar_list[4] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
-    func toList() -> [Any?] {
-        return [
-            energy,
-            endTime,
-            id,
-            metadata,
-            startTime,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: ActiveCaloriesBurnedRecordDto, rhs: ActiveCaloriesBurnedRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return ActiveCaloriesBurnedRecordDto(
+      energy: energy,
+      endTime: endTime,
+      id: id,
+      metadata: metadata,
+      startTime: startTime,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      energy,
+      endTime,
+      id,
+      metadata,
+      startTime,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: ActiveCaloriesBurnedRecordDto, rhs: ActiveCaloriesBurnedRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a distance record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct DistanceRecordDto: HealthRecordDto {
-    /// Distance traveled during the interval.
-    var distance: LengthDto
-    /// End time in milliseconds since epoch (UTC).
-    var endTime: Int64
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Start time in milliseconds since epoch (UTC).
-    var startTime: Int64
-    /// Timezone offset in seconds (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Distance traveled during the interval.
+  var distance: LengthDto
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// Timezone offset in seconds (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> DistanceRecordDto? {
-        let distance = pigeonVar_list[0] as! LengthDto
-        let endTime = pigeonVar_list[1] as! Int64
-        let id: String? = nilOrValue(pigeonVar_list[2])
-        let metadata = pigeonVar_list[3] as! MetadataDto
-        let startTime = pigeonVar_list[4] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
-        return DistanceRecordDto(
-            distance: distance,
-            endTime: endTime,
-            id: id,
-            metadata: metadata,
-            startTime: startTime,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> DistanceRecordDto? {
+    let distance = pigeonVar_list[0] as! LengthDto
+    let endTime = pigeonVar_list[1] as! Int64
+    let id: String? = nilOrValue(pigeonVar_list[2])
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let startTime = pigeonVar_list[4] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
-    func toList() -> [Any?] {
-        return [
-            distance,
-            endTime,
-            id,
-            metadata,
-            startTime,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: DistanceRecordDto, rhs: DistanceRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return DistanceRecordDto(
+      distance: distance,
+      endTime: endTime,
+      id: id,
+      metadata: metadata,
+      startTime: startTime,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      distance,
+      endTime,
+      id,
+      metadata,
+      startTime,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: DistanceRecordDto, rhs: DistanceRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a floors climbed record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct FloorsClimbedRecordDto: HealthRecordDto {
-    /// Number of floors (flights of stairs) climbed during the interval.
-    var floors: NumericDto
-    /// End time in milliseconds since epoch (UTC).
-    var endTime: Int64
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Start time in milliseconds since epoch (UTC).
-    var startTime: Int64
-    /// Timezone offset in seconds (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Number of floors (flights of stairs) climbed during the interval.
+  var floors: NumericDto
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// Timezone offset in seconds (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> FloorsClimbedRecordDto? {
-        let floors = pigeonVar_list[0] as! NumericDto
-        let endTime = pigeonVar_list[1] as! Int64
-        let id: String? = nilOrValue(pigeonVar_list[2])
-        let metadata = pigeonVar_list[3] as! MetadataDto
-        let startTime = pigeonVar_list[4] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
-        return FloorsClimbedRecordDto(
-            floors: floors,
-            endTime: endTime,
-            id: id,
-            metadata: metadata,
-            startTime: startTime,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> FloorsClimbedRecordDto? {
+    let floors = pigeonVar_list[0] as! NumericDto
+    let endTime = pigeonVar_list[1] as! Int64
+    let id: String? = nilOrValue(pigeonVar_list[2])
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let startTime = pigeonVar_list[4] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
-    func toList() -> [Any?] {
-        return [
-            floors,
-            endTime,
-            id,
-            metadata,
-            startTime,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: FloorsClimbedRecordDto, rhs: FloorsClimbedRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return FloorsClimbedRecordDto(
+      floors: floors,
+      endTime: endTime,
+      id: id,
+      metadata: metadata,
+      startTime: startTime,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      floors,
+      endTime,
+      id,
+      metadata,
+      startTime,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: FloorsClimbedRecordDto, rhs: FloorsClimbedRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a wheelchair pushes record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct WheelchairPushesRecordDto: HealthRecordDto {
-    /// Number of wheelchair pushes performed during the interval.
-    var pushes: NumericDto
-    /// End time in milliseconds since epoch (UTC).
-    var endTime: Int64
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Start time in milliseconds since epoch (UTC).
-    var startTime: Int64
-    /// Timezone offset in seconds (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Number of wheelchair pushes performed during the interval.
+  var pushes: NumericDto
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// Timezone offset in seconds (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> WheelchairPushesRecordDto? {
-        let pushes = pigeonVar_list[0] as! NumericDto
-        let endTime = pigeonVar_list[1] as! Int64
-        let id: String? = nilOrValue(pigeonVar_list[2])
-        let metadata = pigeonVar_list[3] as! MetadataDto
-        let startTime = pigeonVar_list[4] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
-        return WheelchairPushesRecordDto(
-            pushes: pushes,
-            endTime: endTime,
-            id: id,
-            metadata: metadata,
-            startTime: startTime,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> WheelchairPushesRecordDto? {
+    let pushes = pigeonVar_list[0] as! NumericDto
+    let endTime = pigeonVar_list[1] as! Int64
+    let id: String? = nilOrValue(pigeonVar_list[2])
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let startTime = pigeonVar_list[4] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
-    func toList() -> [Any?] {
-        return [
-            pushes,
-            endTime,
-            id,
-            metadata,
-            startTime,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: WheelchairPushesRecordDto, rhs: WheelchairPushesRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return WheelchairPushesRecordDto(
+      pushes: pushes,
+      endTime: endTime,
+      id: id,
+      metadata: metadata,
+      startTime: startTime,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      pushes,
+      endTime,
+      id,
+      metadata,
+      startTime,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: WheelchairPushesRecordDto, rhs: WheelchairPushesRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a step count record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct StepRecordDto: HealthRecordDto {
-    /// Number of steps taken during the interval (must be >= 0).
-    var count: NumericDto
-    /// End time in milliseconds since epoch (UTC).
-    var endTime: Int64
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Start time in milliseconds since epoch (UTC).
-    var startTime: Int64
-    /// Timezone offset in seconds (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Number of steps taken during the interval (must be >= 0).
+  var count: NumericDto
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// Timezone offset in seconds (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> StepRecordDto? {
-        let count = pigeonVar_list[0] as! NumericDto
-        let endTime = pigeonVar_list[1] as! Int64
-        let id: String? = nilOrValue(pigeonVar_list[2])
-        let metadata = pigeonVar_list[3] as! MetadataDto
-        let startTime = pigeonVar_list[4] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
-        return StepRecordDto(
-            count: count,
-            endTime: endTime,
-            id: id,
-            metadata: metadata,
-            startTime: startTime,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> StepRecordDto? {
+    let count = pigeonVar_list[0] as! NumericDto
+    let endTime = pigeonVar_list[1] as! Int64
+    let id: String? = nilOrValue(pigeonVar_list[2])
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let startTime = pigeonVar_list[4] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
-    func toList() -> [Any?] {
-        return [
-            count,
-            endTime,
-            id,
-            metadata,
-            startTime,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: StepRecordDto, rhs: StepRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return StepRecordDto(
+      count: count,
+      endTime: endTime,
+      id: id,
+      metadata: metadata,
+      startTime: startTime,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      count,
+      endTime,
+      id,
+      metadata,
+      startTime,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: StepRecordDto, rhs: StepRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a weight record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct WeightRecordDto: HealthRecordDto {
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Measurement time in milliseconds since epoch (UTC).
-    var time: Int64
-    /// Weight measurement.
-    var weight: MassDto
-    /// Timezone offset in seconds for measurement time (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Measurement time in milliseconds since epoch (UTC).
+  var time: Int64
+  /// Weight measurement.
+  var weight: MassDto
+  /// Timezone offset in seconds for measurement time (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> WeightRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let weight = pigeonVar_list[3] as! MassDto
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-        return WeightRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            weight: weight,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> WeightRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let weight = pigeonVar_list[3] as! MassDto
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            weight,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: WeightRecordDto, rhs: WeightRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return WeightRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      weight: weight,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      weight,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: WeightRecordDto, rhs: WeightRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a composite blood pressure record for platform transfer.
@@ -1324,67 +1321,64 @@ public struct WeightRecordDto: HealthRecordDto {
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct BloodPressureRecordDto: HealthRecordDto {
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Measurement time in milliseconds since epoch (UTC).
-    var time: Int64
-    /// Systolic blood pressure measurement.
-    var systolic: PressureDto
-    /// Diastolic blood pressure measurement.
-    var diastolic: PressureDto
-    /// Body position during measurement (Android only, always unknown on iOS).
-    var bodyPosition: BodyPositionDto
-    /// Location where measurement was taken (Android only, always unknown on
-    /// iOS).
-    var measurementLocation: MeasurementLocationDto
-    /// Timezone offset in seconds for measurement time (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Measurement time in milliseconds since epoch (UTC).
+  var time: Int64
+  /// Systolic blood pressure measurement.
+  var systolic: PressureDto
+  /// Diastolic blood pressure measurement.
+  var diastolic: PressureDto
+  /// Body position during measurement (Android only, always unknown on iOS).
+  var bodyPosition: BodyPositionDto
+  /// Location where measurement was taken (Android only, always unknown on
+  /// iOS).
+  var measurementLocation: MeasurementLocationDto
+  /// Timezone offset in seconds for measurement time (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> BloodPressureRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let systolic = pigeonVar_list[3] as! PressureDto
-        let diastolic = pigeonVar_list[4] as! PressureDto
-        let bodyPosition = pigeonVar_list[5] as! BodyPositionDto
-        let measurementLocation = pigeonVar_list[6] as! MeasurementLocationDto
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[7])
 
-        return BloodPressureRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            systolic: systolic,
-            diastolic: diastolic,
-            bodyPosition: bodyPosition,
-            measurementLocation: measurementLocation,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> BloodPressureRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let systolic = pigeonVar_list[3] as! PressureDto
+    let diastolic = pigeonVar_list[4] as! PressureDto
+    let bodyPosition = pigeonVar_list[5] as! BodyPositionDto
+    let measurementLocation = pigeonVar_list[6] as! MeasurementLocationDto
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[7])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            systolic,
-            diastolic,
-            bodyPosition,
-            measurementLocation,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: BloodPressureRecordDto, rhs: BloodPressureRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return BloodPressureRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      systolic: systolic,
+      diastolic: diastolic,
+      bodyPosition: bodyPosition,
+      measurementLocation: measurementLocation,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      systolic,
+      diastolic,
+      bodyPosition,
+      measurementLocation,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: BloodPressureRecordDto, rhs: BloodPressureRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a systolic blood pressure record for platform transfer.
@@ -1392,51 +1386,48 @@ public struct BloodPressureRecordDto: HealthRecordDto {
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct SystolicBloodPressureRecordDto: HealthRecordDto {
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Measurement time in milliseconds since epoch (UTC).
-    var time: Int64
-    /// Systolic blood pressure measurement.
-    var pressure: PressureDto
-    /// Timezone offset in seconds for measurement time (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Measurement time in milliseconds since epoch (UTC).
+  var time: Int64
+  /// Systolic blood pressure measurement.
+  var pressure: PressureDto
+  /// Timezone offset in seconds for measurement time (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> SystolicBloodPressureRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let pressure = pigeonVar_list[3] as! PressureDto
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-        return SystolicBloodPressureRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            pressure: pressure,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> SystolicBloodPressureRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let pressure = pigeonVar_list[3] as! PressureDto
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            pressure,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: SystolicBloodPressureRecordDto, rhs: SystolicBloodPressureRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return SystolicBloodPressureRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      pressure: pressure,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      pressure,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: SystolicBloodPressureRecordDto, rhs: SystolicBloodPressureRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a diastolic blood pressure record for platform transfer.
@@ -1444,311 +1435,293 @@ public struct SystolicBloodPressureRecordDto: HealthRecordDto {
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct DiastolicBloodPressureRecordDto: HealthRecordDto {
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Measurement time in milliseconds since epoch (UTC).
-    var time: Int64
-    /// Diastolic blood pressure measurement.
-    var pressure: PressureDto
-    /// Timezone offset in seconds for measurement time (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Measurement time in milliseconds since epoch (UTC).
+  var time: Int64
+  /// Diastolic blood pressure measurement.
+  var pressure: PressureDto
+  /// Timezone offset in seconds for measurement time (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> DiastolicBloodPressureRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let pressure = pigeonVar_list[3] as! PressureDto
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-        return DiastolicBloodPressureRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            pressure: pressure,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> DiastolicBloodPressureRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let pressure = pigeonVar_list[3] as! PressureDto
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            pressure,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: DiastolicBloodPressureRecordDto, rhs: DiastolicBloodPressureRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return DiastolicBloodPressureRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      pressure: pressure,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      pressure,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: DiastolicBloodPressureRecordDto, rhs: DiastolicBloodPressureRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// DTO for lean body mass health data.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct LeanBodyMassRecordDto: HealthRecordDto {
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Measurement time in milliseconds since epoch (UTC).
-    var time: Int64
-    /// Lean body mass measurement.
-    var mass: MassDto
-    /// Timezone offset in seconds for measurement time (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Measurement time in milliseconds since epoch (UTC).
+  var time: Int64
+  /// Lean body mass measurement.
+  var mass: MassDto
+  /// Timezone offset in seconds for measurement time (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> LeanBodyMassRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let mass = pigeonVar_list[3] as! MassDto
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-        return LeanBodyMassRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            mass: mass,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> LeanBodyMassRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let mass = pigeonVar_list[3] as! MassDto
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            mass,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: LeanBodyMassRecordDto, rhs: LeanBodyMassRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return LeanBodyMassRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      mass: mass,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      mass,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: LeanBodyMassRecordDto, rhs: LeanBodyMassRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// DTO for body height health data.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct HeightRecordDto: HealthRecordDto {
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Measurement time in milliseconds since epoch (UTC).
-    var time: Int64
-    /// Height measurement.
-    var height: LengthDto
-    /// Timezone offset in seconds for measurement time (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Measurement time in milliseconds since epoch (UTC).
+  var time: Int64
+  /// Height measurement.
+  var height: LengthDto
+  /// Timezone offset in seconds for measurement time (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> HeightRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let height = pigeonVar_list[3] as! LengthDto
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-        return HeightRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            height: height,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> HeightRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let height = pigeonVar_list[3] as! LengthDto
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            height,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: HeightRecordDto, rhs: HeightRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return HeightRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      height: height,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      height,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: HeightRecordDto, rhs: HeightRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// DTO for body fat percentage health data.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct BodyFatPercentageRecordDto: HealthRecordDto {
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Measurement time in milliseconds since epoch (UTC).
-    var time: Int64
-    /// Body fat percentage measurement.
-    var percentage: PercentageDto
-    /// Timezone offset in seconds for measurement time (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Measurement time in milliseconds since epoch (UTC).
+  var time: Int64
+  /// Body fat percentage measurement.
+  var percentage: PercentageDto
+  /// Timezone offset in seconds for measurement time (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> BodyFatPercentageRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let percentage = pigeonVar_list[3] as! PercentageDto
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-        return BodyFatPercentageRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            percentage: percentage,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> BodyFatPercentageRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let percentage = pigeonVar_list[3] as! PercentageDto
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            percentage,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: BodyFatPercentageRecordDto, rhs: BodyFatPercentageRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return BodyFatPercentageRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      percentage: percentage,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      percentage,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: BodyFatPercentageRecordDto, rhs: BodyFatPercentageRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// DTO for body temperature health data.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct BodyTemperatureRecordDto: HealthRecordDto {
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Measurement time in milliseconds since epoch (UTC).
-    var time: Int64
-    /// Body temperature measurement.
-    var temperature: TemperatureDto
-    /// Timezone offset in seconds for measurement time (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Measurement time in milliseconds since epoch (UTC).
+  var time: Int64
+  /// Body temperature measurement.
+  var temperature: TemperatureDto
+  /// Timezone offset in seconds for measurement time (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> BodyTemperatureRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let temperature = pigeonVar_list[3] as! TemperatureDto
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-        return BodyTemperatureRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            temperature: temperature,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> BodyTemperatureRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let temperature = pigeonVar_list[3] as! TemperatureDto
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            temperature,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: BodyTemperatureRecordDto, rhs: BodyTemperatureRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return BodyTemperatureRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      temperature: temperature,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      temperature,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: BodyTemperatureRecordDto, rhs: BodyTemperatureRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a hydration (water intake) record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct HydrationRecordDto: HealthRecordDto {
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Start time in milliseconds since epoch (UTC).
-    var startTime: Int64
-    /// End time in milliseconds since epoch (UTC).
-    var endTime: Int64
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Volume of water consumed during the interval.
-    var volume: VolumeDto
-    /// Timezone offset in seconds (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Volume of water consumed during the interval.
+  var volume: VolumeDto
+  /// Timezone offset in seconds (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> HydrationRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let startTime = pigeonVar_list[1] as! Int64
-        let endTime = pigeonVar_list[2] as! Int64
-        let metadata = pigeonVar_list[3] as! MetadataDto
-        let volume = pigeonVar_list[4] as! VolumeDto
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
-        return HydrationRecordDto(
-            id: id,
-            startTime: startTime,
-            endTime: endTime,
-            metadata: metadata,
-            volume: volume,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> HydrationRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let startTime = pigeonVar_list[1] as! Int64
+    let endTime = pigeonVar_list[2] as! Int64
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let volume = pigeonVar_list[4] as! VolumeDto
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            startTime,
-            endTime,
-            metadata,
-            volume,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: HydrationRecordDto, rhs: HydrationRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return HydrationRecordDto(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      volume: volume,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      startTime,
+      endTime,
+      metadata,
+      volume,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: HydrationRecordDto, rhs: HydrationRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a single heart rate measurement for platform transfer.
@@ -1758,87 +1731,81 @@ public struct HydrationRecordDto: HealthRecordDto {
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct HeartRateMeasurementDto: Hashable {
-    /// Timestamp in milliseconds since epoch (UTC).
-    var time: Int64
-    /// Heart rate value in beats per minute (BPM).
-    var beatsPerMinute: NumericDto
+  /// Timestamp in milliseconds since epoch (UTC).
+  var time: Int64
+  /// Heart rate value in beats per minute (BPM).
+  var beatsPerMinute: NumericDto
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> HeartRateMeasurementDto? {
-        let time = pigeonVar_list[0] as! Int64
-        let beatsPerMinute = pigeonVar_list[1] as! NumericDto
 
-        return HeartRateMeasurementDto(
-            time: time,
-            beatsPerMinute: beatsPerMinute
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> HeartRateMeasurementDto? {
+    let time = pigeonVar_list[0] as! Int64
+    let beatsPerMinute = pigeonVar_list[1] as! NumericDto
 
-    func toList() -> [Any?] {
-        return [
-            time,
-            beatsPerMinute,
-        ]
-    }
-
-    public static func == (lhs: HeartRateMeasurementDto, rhs: HeartRateMeasurementDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return HeartRateMeasurementDto(
+      time: time,
+      beatsPerMinute: beatsPerMinute
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      time,
+      beatsPerMinute,
+    ]
+  }
+  public static func == (lhs: HeartRateMeasurementDto, rhs: HeartRateMeasurementDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a heart rate measurement record for platform transfer (iOS).
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct HeartRateMeasurementRecordDto: HealthRecordDto {
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Measurement time in milliseconds since epoch (UTC).
-    var time: Int64
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// The heart rate measurement.
-    var measurement: HeartRateMeasurementDto
-    /// Timezone offset in seconds for measurement time (optional).
-    var zoneOffsetSeconds: Int64? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Measurement time in milliseconds since epoch (UTC).
+  var time: Int64
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// The heart rate measurement.
+  var measurement: HeartRateMeasurementDto
+  /// Timezone offset in seconds for measurement time (optional).
+  var zoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> HeartRateMeasurementRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let time = pigeonVar_list[1] as! Int64
-        let metadata = pigeonVar_list[2] as! MetadataDto
-        let measurement = pigeonVar_list[3] as! HeartRateMeasurementDto
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-        return HeartRateMeasurementRecordDto(
-            id: id,
-            time: time,
-            metadata: metadata,
-            measurement: measurement,
-            zoneOffsetSeconds: zoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> HeartRateMeasurementRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let time = pigeonVar_list[1] as! Int64
+    let metadata = pigeonVar_list[2] as! MetadataDto
+    let measurement = pigeonVar_list[3] as! HeartRateMeasurementDto
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            time,
-            metadata,
-            measurement,
-            zoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: HeartRateMeasurementRecordDto, rhs: HeartRateMeasurementRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return HeartRateMeasurementRecordDto(
+      id: id,
+      time: time,
+      metadata: metadata,
+      measurement: measurement,
+      zoneOffsetSeconds: zoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      time,
+      metadata,
+      measurement,
+      zoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: HeartRateMeasurementRecordDto, rhs: HeartRateMeasurementRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a sleep stage record for platform transfer (iOS).
@@ -1849,61 +1816,58 @@ public struct HeartRateMeasurementRecordDto: HealthRecordDto {
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct SleepStageRecordDto: HealthRecordDto {
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Start time in milliseconds since epoch (UTC).
-    var startTime: Int64
-    /// End time in milliseconds since epoch (UTC).
-    var endTime: Int64
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// The sleep stage type for this record.
-    var stageType: SleepStageTypeDto
-    /// Timezone offset in seconds for start time (optional).
-    var startZoneOffsetSeconds: Int64? = nil
-    /// Timezone offset in seconds for end time (optional).
-    var endZoneOffsetSeconds: Int64? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// The sleep stage type for this record.
+  var stageType: SleepStageTypeDto
+  /// Timezone offset in seconds for start time (optional).
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time (optional).
+  var endZoneOffsetSeconds: Int64? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> SleepStageRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let startTime = pigeonVar_list[1] as! Int64
-        let endTime = pigeonVar_list[2] as! Int64
-        let metadata = pigeonVar_list[3] as! MetadataDto
-        let stageType = pigeonVar_list[4] as! SleepStageTypeDto
-        let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
-        let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
-        return SleepStageRecordDto(
-            id: id,
-            startTime: startTime,
-            endTime: endTime,
-            metadata: metadata,
-            stageType: stageType,
-            startZoneOffsetSeconds: startZoneOffsetSeconds,
-            endZoneOffsetSeconds: endZoneOffsetSeconds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> SleepStageRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let startTime = pigeonVar_list[1] as! Int64
+    let endTime = pigeonVar_list[2] as! Int64
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let stageType = pigeonVar_list[4] as! SleepStageTypeDto
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            startTime,
-            endTime,
-            metadata,
-            stageType,
-            startZoneOffsetSeconds,
-            endZoneOffsetSeconds,
-        ]
-    }
-
-    public static func == (lhs: SleepStageRecordDto, rhs: SleepStageRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return SleepStageRecordDto(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      stageType: stageType,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      startTime,
+      endTime,
+      metadata,
+      stageType,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+    ]
+  }
+  public static func == (lhs: SleepStageRecordDto, rhs: SleepStageRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents energy nutrient data for platform transfer.
@@ -1914,1789 +1878,1690 @@ public struct SleepStageRecordDto: HealthRecordDto {
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct EnergyNutrientRecordDto: HealthRecordDto {
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Time in milliseconds since epoch (UTC).
-    var time: Int64
-    /// Timezone offset in seconds (optional).
-    var zoneOffsetSeconds: Int64? = nil
-    /// Energy value (in kilocalories).
-    var value: EnergyDto
-    /// Name of the food (optional).
-    var foodName: String? = nil
-    /// Meal type classification.
-    var mealType: MealTypeDto? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Time in milliseconds since epoch (UTC).
+  var time: Int64
+  /// Timezone offset in seconds (optional).
+  var zoneOffsetSeconds: Int64? = nil
+  /// Energy value (in kilocalories).
+  var value: EnergyDto
+  /// Name of the food (optional).
+  var foodName: String? = nil
+  /// Meal type classification.
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> EnergyNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! EnergyDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return EnergyNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> EnergyNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! EnergyDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: EnergyNutrientRecordDto, rhs: EnergyNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return EnergyNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: EnergyNutrientRecordDto, rhs: EnergyNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents caffeine nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct CaffeineNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> CaffeineNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return CaffeineNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> CaffeineNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: CaffeineNutrientRecordDto, rhs: CaffeineNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return CaffeineNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: CaffeineNutrientRecordDto, rhs: CaffeineNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents protein nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct ProteinNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> ProteinNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return ProteinNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ProteinNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: ProteinNutrientRecordDto, rhs: ProteinNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return ProteinNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: ProteinNutrientRecordDto, rhs: ProteinNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents total carbohydrate nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct TotalCarbohydrateNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> TotalCarbohydrateNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return TotalCarbohydrateNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> TotalCarbohydrateNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: TotalCarbohydrateNutrientRecordDto, rhs: TotalCarbohydrateNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return TotalCarbohydrateNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: TotalCarbohydrateNutrientRecordDto, rhs: TotalCarbohydrateNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents total fat nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct TotalFatNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> TotalFatNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return TotalFatNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> TotalFatNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: TotalFatNutrientRecordDto, rhs: TotalFatNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return TotalFatNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: TotalFatNutrientRecordDto, rhs: TotalFatNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents saturated fat nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct SaturatedFatNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> SaturatedFatNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return SaturatedFatNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> SaturatedFatNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: SaturatedFatNutrientRecordDto, rhs: SaturatedFatNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return SaturatedFatNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: SaturatedFatNutrientRecordDto, rhs: SaturatedFatNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents monounsaturated fat nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct MonounsaturatedFatNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> MonounsaturatedFatNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return MonounsaturatedFatNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> MonounsaturatedFatNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: MonounsaturatedFatNutrientRecordDto, rhs: MonounsaturatedFatNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return MonounsaturatedFatNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: MonounsaturatedFatNutrientRecordDto, rhs: MonounsaturatedFatNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents polyunsaturated fat nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct PolyunsaturatedFatNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> PolyunsaturatedFatNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return PolyunsaturatedFatNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> PolyunsaturatedFatNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: PolyunsaturatedFatNutrientRecordDto, rhs: PolyunsaturatedFatNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return PolyunsaturatedFatNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: PolyunsaturatedFatNutrientRecordDto, rhs: PolyunsaturatedFatNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents cholesterol nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct CholesterolNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> CholesterolNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return CholesterolNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> CholesterolNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: CholesterolNutrientRecordDto, rhs: CholesterolNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return CholesterolNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: CholesterolNutrientRecordDto, rhs: CholesterolNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents dietary fiber nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct DietaryFiberNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> DietaryFiberNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return DietaryFiberNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> DietaryFiberNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: DietaryFiberNutrientRecordDto, rhs: DietaryFiberNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return DietaryFiberNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: DietaryFiberNutrientRecordDto, rhs: DietaryFiberNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents sugar nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct SugarNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> SugarNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return SugarNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> SugarNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: SugarNutrientRecordDto, rhs: SugarNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return SugarNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: SugarNutrientRecordDto, rhs: SugarNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents vitamin A nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct VitaminANutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> VitaminANutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return VitaminANutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> VitaminANutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: VitaminANutrientRecordDto, rhs: VitaminANutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return VitaminANutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: VitaminANutrientRecordDto, rhs: VitaminANutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents vitamin B6 nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct VitaminB6NutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> VitaminB6NutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return VitaminB6NutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> VitaminB6NutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: VitaminB6NutrientRecordDto, rhs: VitaminB6NutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return VitaminB6NutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: VitaminB6NutrientRecordDto, rhs: VitaminB6NutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents vitamin B12 nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct VitaminB12NutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> VitaminB12NutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return VitaminB12NutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> VitaminB12NutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: VitaminB12NutrientRecordDto, rhs: VitaminB12NutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return VitaminB12NutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: VitaminB12NutrientRecordDto, rhs: VitaminB12NutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents vitamin C nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct VitaminCNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> VitaminCNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return VitaminCNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> VitaminCNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: VitaminCNutrientRecordDto, rhs: VitaminCNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return VitaminCNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: VitaminCNutrientRecordDto, rhs: VitaminCNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents vitamin D nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct VitaminDNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> VitaminDNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return VitaminDNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> VitaminDNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: VitaminDNutrientRecordDto, rhs: VitaminDNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return VitaminDNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: VitaminDNutrientRecordDto, rhs: VitaminDNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents vitamin E nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct VitaminENutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> VitaminENutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return VitaminENutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> VitaminENutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: VitaminENutrientRecordDto, rhs: VitaminENutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return VitaminENutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: VitaminENutrientRecordDto, rhs: VitaminENutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents vitamin K nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct VitaminKNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> VitaminKNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return VitaminKNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> VitaminKNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: VitaminKNutrientRecordDto, rhs: VitaminKNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return VitaminKNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: VitaminKNutrientRecordDto, rhs: VitaminKNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents thiamin (vitamin B1) nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct ThiaminNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> ThiaminNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return ThiaminNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ThiaminNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: ThiaminNutrientRecordDto, rhs: ThiaminNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return ThiaminNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: ThiaminNutrientRecordDto, rhs: ThiaminNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents riboflavin (vitamin B2) nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct RiboflavinNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> RiboflavinNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return RiboflavinNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> RiboflavinNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: RiboflavinNutrientRecordDto, rhs: RiboflavinNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return RiboflavinNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: RiboflavinNutrientRecordDto, rhs: RiboflavinNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents niacin (vitamin B3) nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct NiacinNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> NiacinNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return NiacinNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> NiacinNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: NiacinNutrientRecordDto, rhs: NiacinNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return NiacinNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: NiacinNutrientRecordDto, rhs: NiacinNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents folate (vitamin B9) nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct FolateNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> FolateNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return FolateNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> FolateNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: FolateNutrientRecordDto, rhs: FolateNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return FolateNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: FolateNutrientRecordDto, rhs: FolateNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents biotin (vitamin B7) nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct BiotinNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> BiotinNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return BiotinNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> BiotinNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: BiotinNutrientRecordDto, rhs: BiotinNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return BiotinNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: BiotinNutrientRecordDto, rhs: BiotinNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents pantothenic acid (vitamin B5) nutrient data.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct PantothenicAcidNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> PantothenicAcidNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return PantothenicAcidNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> PantothenicAcidNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: PantothenicAcidNutrientRecordDto, rhs: PantothenicAcidNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return PantothenicAcidNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: PantothenicAcidNutrientRecordDto, rhs: PantothenicAcidNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents calcium nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct CalciumNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> CalciumNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return CalciumNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> CalciumNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: CalciumNutrientRecordDto, rhs: CalciumNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return CalciumNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: CalciumNutrientRecordDto, rhs: CalciumNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents iron nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct IronNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> IronNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return IronNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> IronNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: IronNutrientRecordDto, rhs: IronNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return IronNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: IronNutrientRecordDto, rhs: IronNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents magnesium nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct MagnesiumNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> MagnesiumNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return MagnesiumNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> MagnesiumNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: MagnesiumNutrientRecordDto, rhs: MagnesiumNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return MagnesiumNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: MagnesiumNutrientRecordDto, rhs: MagnesiumNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents manganese nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct ManganeseNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> ManganeseNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return ManganeseNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ManganeseNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: ManganeseNutrientRecordDto, rhs: ManganeseNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return ManganeseNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: ManganeseNutrientRecordDto, rhs: ManganeseNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents phosphorus nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct PhosphorusNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> PhosphorusNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return PhosphorusNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> PhosphorusNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: PhosphorusNutrientRecordDto, rhs: PhosphorusNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return PhosphorusNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: PhosphorusNutrientRecordDto, rhs: PhosphorusNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents potassium nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct PotassiumNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> PotassiumNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return PotassiumNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> PotassiumNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: PotassiumNutrientRecordDto, rhs: PotassiumNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return PotassiumNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: PotassiumNutrientRecordDto, rhs: PotassiumNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents selenium nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct SeleniumNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> SeleniumNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return SeleniumNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> SeleniumNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: SeleniumNutrientRecordDto, rhs: SeleniumNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return SeleniumNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: SeleniumNutrientRecordDto, rhs: SeleniumNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents sodium nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct SodiumNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> SodiumNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return SodiumNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> SodiumNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: SodiumNutrientRecordDto, rhs: SodiumNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return SodiumNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: SodiumNutrientRecordDto, rhs: SodiumNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents zinc nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct ZincNutrientRecordDto: HealthRecordDto {
-    var id: String? = nil
-    var metadata: MetadataDto
-    var time: Int64
-    var zoneOffsetSeconds: Int64? = nil
-    var value: MassDto
-    var foodName: String? = nil
-    var mealType: MealTypeDto? = nil
+  var id: String? = nil
+  var metadata: MetadataDto
+  var time: Int64
+  var zoneOffsetSeconds: Int64? = nil
+  var value: MassDto
+  var foodName: String? = nil
+  var mealType: MealTypeDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> ZincNutrientRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let metadata = pigeonVar_list[1] as! MetadataDto
-        let time = pigeonVar_list[2] as! Int64
-        let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-        let value = pigeonVar_list[4] as! MassDto
-        let foodName: String? = nilOrValue(pigeonVar_list[5])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-        return ZincNutrientRecordDto(
-            id: id,
-            metadata: metadata,
-            time: time,
-            zoneOffsetSeconds: zoneOffsetSeconds,
-            value: value,
-            foodName: foodName,
-            mealType: mealType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ZincNutrientRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let time = pigeonVar_list[2] as! Int64
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
+    let value = pigeonVar_list[4] as! MassDto
+    let foodName: String? = nilOrValue(pigeonVar_list[5])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            metadata,
-            time,
-            zoneOffsetSeconds,
-            value,
-            foodName,
-            mealType,
-        ]
-    }
-
-    public static func == (lhs: ZincNutrientRecordDto, rhs: ZincNutrientRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return ZincNutrientRecordDto(
+      id: id,
+      metadata: metadata,
+      time: time,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      value: value,
+      foodName: foodName,
+      mealType: mealType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+      value,
+      foodName,
+      mealType,
+    ]
+  }
+  public static func == (lhs: ZincNutrientRecordDto, rhs: ZincNutrientRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a combined nutrition record for platform transfer.
@@ -3711,1646 +3576,1598 @@ public struct ZincNutrientRecordDto: HealthRecordDto {
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct NutritionRecordDto: HealthRecordDto {
-    /// Platform-assigned unique identifier.
-    var id: String? = nil
-    /// Start time in milliseconds since epoch (UTC).
-    var startTime: Int64
-    /// End time in milliseconds since epoch (UTC).
-    var endTime: Int64
-    /// Metadata about this record.
-    var metadata: MetadataDto
-    /// Timezone offset in seconds for start time (optional).
-    var startZoneOffsetSeconds: Int64? = nil
-    /// Timezone offset in seconds for end time (optional).
-    var endZoneOffsetSeconds: Int64? = nil
-    /// Name of the food (stored in HKMetadataKeyFoodType).
-    var foodName: String? = nil
-    /// Meal type classification.
-    var mealType: MealTypeDto? = nil
-    /// Energy value (in kilocalories).
-    var energy: EnergyDto? = nil
-    /// Protein amount.
-    var protein: MassDto? = nil
-    /// Total carbohydrate amount.
-    var totalCarbohydrate: MassDto? = nil
-    /// Total fat amount.
-    var totalFat: MassDto? = nil
-    /// Saturated fat amount.
-    var saturatedFat: MassDto? = nil
-    /// Monounsaturated fat amount.
-    var monounsaturatedFat: MassDto? = nil
-    /// Polyunsaturated fat amount.
-    var polyunsaturatedFat: MassDto? = nil
-    /// Cholesterol amount.
-    var cholesterol: MassDto? = nil
-    /// Dietary fiber amount.
-    var dietaryFiber: MassDto? = nil
-    /// Sugar amount.
-    var sugar: MassDto? = nil
-    /// Vitamin A amount.
-    var vitaminA: MassDto? = nil
-    /// Vitamin B6 amount.
-    var vitaminB6: MassDto? = nil
-    /// Vitamin B12 amount.
-    var vitaminB12: MassDto? = nil
-    /// Vitamin C amount.
-    var vitaminC: MassDto? = nil
-    /// Vitamin D amount.
-    var vitaminD: MassDto? = nil
-    /// Vitamin E amount.
-    var vitaminE: MassDto? = nil
-    /// Vitamin K amount.
-    var vitaminK: MassDto? = nil
-    /// Thiamin amount.
-    var thiamin: MassDto? = nil
-    /// Riboflavin amount.
-    var riboflavin: MassDto? = nil
-    /// Niacin amount.
-    var niacin: MassDto? = nil
-    /// Folate amount.
-    var folate: MassDto? = nil
-    /// Biotin amount.
-    var biotin: MassDto? = nil
-    /// Pantothenic acid amount.
-    var pantothenicAcid: MassDto? = nil
-    /// Calcium amount.
-    var calcium: MassDto? = nil
-    /// Iron amount.
-    var iron: MassDto? = nil
-    /// Magnesium amount.
-    var magnesium: MassDto? = nil
-    /// Manganese amount.
-    var manganese: MassDto? = nil
-    /// Phosphorus amount.
-    var phosphorus: MassDto? = nil
-    /// Potassium amount.
-    var potassium: MassDto? = nil
-    /// Selenium amount.
-    var selenium: MassDto? = nil
-    /// Sodium amount.
-    var sodium: MassDto? = nil
-    /// Zinc amount.
-    var zinc: MassDto? = nil
-    /// Caffeine amount.
-    var caffeine: MassDto? = nil
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Timezone offset in seconds for start time (optional).
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time (optional).
+  var endZoneOffsetSeconds: Int64? = nil
+  /// Name of the food (stored in HKMetadataKeyFoodType).
+  var foodName: String? = nil
+  /// Meal type classification.
+  var mealType: MealTypeDto? = nil
+  /// Energy value (in kilocalories).
+  var energy: EnergyDto? = nil
+  /// Protein amount.
+  var protein: MassDto? = nil
+  /// Total carbohydrate amount.
+  var totalCarbohydrate: MassDto? = nil
+  /// Total fat amount.
+  var totalFat: MassDto? = nil
+  /// Saturated fat amount.
+  var saturatedFat: MassDto? = nil
+  /// Monounsaturated fat amount.
+  var monounsaturatedFat: MassDto? = nil
+  /// Polyunsaturated fat amount.
+  var polyunsaturatedFat: MassDto? = nil
+  /// Cholesterol amount.
+  var cholesterol: MassDto? = nil
+  /// Dietary fiber amount.
+  var dietaryFiber: MassDto? = nil
+  /// Sugar amount.
+  var sugar: MassDto? = nil
+  /// Vitamin A amount.
+  var vitaminA: MassDto? = nil
+  /// Vitamin B6 amount.
+  var vitaminB6: MassDto? = nil
+  /// Vitamin B12 amount.
+  var vitaminB12: MassDto? = nil
+  /// Vitamin C amount.
+  var vitaminC: MassDto? = nil
+  /// Vitamin D amount.
+  var vitaminD: MassDto? = nil
+  /// Vitamin E amount.
+  var vitaminE: MassDto? = nil
+  /// Vitamin K amount.
+  var vitaminK: MassDto? = nil
+  /// Thiamin amount.
+  var thiamin: MassDto? = nil
+  /// Riboflavin amount.
+  var riboflavin: MassDto? = nil
+  /// Niacin amount.
+  var niacin: MassDto? = nil
+  /// Folate amount.
+  var folate: MassDto? = nil
+  /// Biotin amount.
+  var biotin: MassDto? = nil
+  /// Pantothenic acid amount.
+  var pantothenicAcid: MassDto? = nil
+  /// Calcium amount.
+  var calcium: MassDto? = nil
+  /// Iron amount.
+  var iron: MassDto? = nil
+  /// Magnesium amount.
+  var magnesium: MassDto? = nil
+  /// Manganese amount.
+  var manganese: MassDto? = nil
+  /// Phosphorus amount.
+  var phosphorus: MassDto? = nil
+  /// Potassium amount.
+  var potassium: MassDto? = nil
+  /// Selenium amount.
+  var selenium: MassDto? = nil
+  /// Sodium amount.
+  var sodium: MassDto? = nil
+  /// Zinc amount.
+  var zinc: MassDto? = nil
+  /// Caffeine amount.
+  var caffeine: MassDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> NutritionRecordDto? {
-        let id: String? = nilOrValue(pigeonVar_list[0])
-        let startTime = pigeonVar_list[1] as! Int64
-        let endTime = pigeonVar_list[2] as! Int64
-        let metadata = pigeonVar_list[3] as! MetadataDto
-        let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
-        let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
-        let foodName: String? = nilOrValue(pigeonVar_list[6])
-        let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[7])
-        let energy: EnergyDto? = nilOrValue(pigeonVar_list[8])
-        let protein: MassDto? = nilOrValue(pigeonVar_list[9])
-        let totalCarbohydrate: MassDto? = nilOrValue(pigeonVar_list[10])
-        let totalFat: MassDto? = nilOrValue(pigeonVar_list[11])
-        let saturatedFat: MassDto? = nilOrValue(pigeonVar_list[12])
-        let monounsaturatedFat: MassDto? = nilOrValue(pigeonVar_list[13])
-        let polyunsaturatedFat: MassDto? = nilOrValue(pigeonVar_list[14])
-        let cholesterol: MassDto? = nilOrValue(pigeonVar_list[15])
-        let dietaryFiber: MassDto? = nilOrValue(pigeonVar_list[16])
-        let sugar: MassDto? = nilOrValue(pigeonVar_list[17])
-        let vitaminA: MassDto? = nilOrValue(pigeonVar_list[18])
-        let vitaminB6: MassDto? = nilOrValue(pigeonVar_list[19])
-        let vitaminB12: MassDto? = nilOrValue(pigeonVar_list[20])
-        let vitaminC: MassDto? = nilOrValue(pigeonVar_list[21])
-        let vitaminD: MassDto? = nilOrValue(pigeonVar_list[22])
-        let vitaminE: MassDto? = nilOrValue(pigeonVar_list[23])
-        let vitaminK: MassDto? = nilOrValue(pigeonVar_list[24])
-        let thiamin: MassDto? = nilOrValue(pigeonVar_list[25])
-        let riboflavin: MassDto? = nilOrValue(pigeonVar_list[26])
-        let niacin: MassDto? = nilOrValue(pigeonVar_list[27])
-        let folate: MassDto? = nilOrValue(pigeonVar_list[28])
-        let biotin: MassDto? = nilOrValue(pigeonVar_list[29])
-        let pantothenicAcid: MassDto? = nilOrValue(pigeonVar_list[30])
-        let calcium: MassDto? = nilOrValue(pigeonVar_list[31])
-        let iron: MassDto? = nilOrValue(pigeonVar_list[32])
-        let magnesium: MassDto? = nilOrValue(pigeonVar_list[33])
-        let manganese: MassDto? = nilOrValue(pigeonVar_list[34])
-        let phosphorus: MassDto? = nilOrValue(pigeonVar_list[35])
-        let potassium: MassDto? = nilOrValue(pigeonVar_list[36])
-        let selenium: MassDto? = nilOrValue(pigeonVar_list[37])
-        let sodium: MassDto? = nilOrValue(pigeonVar_list[38])
-        let zinc: MassDto? = nilOrValue(pigeonVar_list[39])
-        let caffeine: MassDto? = nilOrValue(pigeonVar_list[40])
 
-        return NutritionRecordDto(
-            id: id,
-            startTime: startTime,
-            endTime: endTime,
-            metadata: metadata,
-            startZoneOffsetSeconds: startZoneOffsetSeconds,
-            endZoneOffsetSeconds: endZoneOffsetSeconds,
-            foodName: foodName,
-            mealType: mealType,
-            energy: energy,
-            protein: protein,
-            totalCarbohydrate: totalCarbohydrate,
-            totalFat: totalFat,
-            saturatedFat: saturatedFat,
-            monounsaturatedFat: monounsaturatedFat,
-            polyunsaturatedFat: polyunsaturatedFat,
-            cholesterol: cholesterol,
-            dietaryFiber: dietaryFiber,
-            sugar: sugar,
-            vitaminA: vitaminA,
-            vitaminB6: vitaminB6,
-            vitaminB12: vitaminB12,
-            vitaminC: vitaminC,
-            vitaminD: vitaminD,
-            vitaminE: vitaminE,
-            vitaminK: vitaminK,
-            thiamin: thiamin,
-            riboflavin: riboflavin,
-            niacin: niacin,
-            folate: folate,
-            biotin: biotin,
-            pantothenicAcid: pantothenicAcid,
-            calcium: calcium,
-            iron: iron,
-            magnesium: magnesium,
-            manganese: manganese,
-            phosphorus: phosphorus,
-            potassium: potassium,
-            selenium: selenium,
-            sodium: sodium,
-            zinc: zinc,
-            caffeine: caffeine
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> NutritionRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let startTime = pigeonVar_list[1] as! Int64
+    let endTime = pigeonVar_list[2] as! Int64
+    let metadata = pigeonVar_list[3] as! MetadataDto
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let foodName: String? = nilOrValue(pigeonVar_list[6])
+    let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[7])
+    let energy: EnergyDto? = nilOrValue(pigeonVar_list[8])
+    let protein: MassDto? = nilOrValue(pigeonVar_list[9])
+    let totalCarbohydrate: MassDto? = nilOrValue(pigeonVar_list[10])
+    let totalFat: MassDto? = nilOrValue(pigeonVar_list[11])
+    let saturatedFat: MassDto? = nilOrValue(pigeonVar_list[12])
+    let monounsaturatedFat: MassDto? = nilOrValue(pigeonVar_list[13])
+    let polyunsaturatedFat: MassDto? = nilOrValue(pigeonVar_list[14])
+    let cholesterol: MassDto? = nilOrValue(pigeonVar_list[15])
+    let dietaryFiber: MassDto? = nilOrValue(pigeonVar_list[16])
+    let sugar: MassDto? = nilOrValue(pigeonVar_list[17])
+    let vitaminA: MassDto? = nilOrValue(pigeonVar_list[18])
+    let vitaminB6: MassDto? = nilOrValue(pigeonVar_list[19])
+    let vitaminB12: MassDto? = nilOrValue(pigeonVar_list[20])
+    let vitaminC: MassDto? = nilOrValue(pigeonVar_list[21])
+    let vitaminD: MassDto? = nilOrValue(pigeonVar_list[22])
+    let vitaminE: MassDto? = nilOrValue(pigeonVar_list[23])
+    let vitaminK: MassDto? = nilOrValue(pigeonVar_list[24])
+    let thiamin: MassDto? = nilOrValue(pigeonVar_list[25])
+    let riboflavin: MassDto? = nilOrValue(pigeonVar_list[26])
+    let niacin: MassDto? = nilOrValue(pigeonVar_list[27])
+    let folate: MassDto? = nilOrValue(pigeonVar_list[28])
+    let biotin: MassDto? = nilOrValue(pigeonVar_list[29])
+    let pantothenicAcid: MassDto? = nilOrValue(pigeonVar_list[30])
+    let calcium: MassDto? = nilOrValue(pigeonVar_list[31])
+    let iron: MassDto? = nilOrValue(pigeonVar_list[32])
+    let magnesium: MassDto? = nilOrValue(pigeonVar_list[33])
+    let manganese: MassDto? = nilOrValue(pigeonVar_list[34])
+    let phosphorus: MassDto? = nilOrValue(pigeonVar_list[35])
+    let potassium: MassDto? = nilOrValue(pigeonVar_list[36])
+    let selenium: MassDto? = nilOrValue(pigeonVar_list[37])
+    let sodium: MassDto? = nilOrValue(pigeonVar_list[38])
+    let zinc: MassDto? = nilOrValue(pigeonVar_list[39])
+    let caffeine: MassDto? = nilOrValue(pigeonVar_list[40])
 
-    func toList() -> [Any?] {
-        return [
-            id,
-            startTime,
-            endTime,
-            metadata,
-            startZoneOffsetSeconds,
-            endZoneOffsetSeconds,
-            foodName,
-            mealType,
-            energy,
-            protein,
-            totalCarbohydrate,
-            totalFat,
-            saturatedFat,
-            monounsaturatedFat,
-            polyunsaturatedFat,
-            cholesterol,
-            dietaryFiber,
-            sugar,
-            vitaminA,
-            vitaminB6,
-            vitaminB12,
-            vitaminC,
-            vitaminD,
-            vitaminE,
-            vitaminK,
-            thiamin,
-            riboflavin,
-            niacin,
-            folate,
-            biotin,
-            pantothenicAcid,
-            calcium,
-            iron,
-            magnesium,
-            manganese,
-            phosphorus,
-            potassium,
-            selenium,
-            sodium,
-            zinc,
-            caffeine,
-        ]
-    }
-
-    public static func == (lhs: NutritionRecordDto, rhs: NutritionRecordDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return NutritionRecordDto(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      foodName: foodName,
+      mealType: mealType,
+      energy: energy,
+      protein: protein,
+      totalCarbohydrate: totalCarbohydrate,
+      totalFat: totalFat,
+      saturatedFat: saturatedFat,
+      monounsaturatedFat: monounsaturatedFat,
+      polyunsaturatedFat: polyunsaturatedFat,
+      cholesterol: cholesterol,
+      dietaryFiber: dietaryFiber,
+      sugar: sugar,
+      vitaminA: vitaminA,
+      vitaminB6: vitaminB6,
+      vitaminB12: vitaminB12,
+      vitaminC: vitaminC,
+      vitaminD: vitaminD,
+      vitaminE: vitaminE,
+      vitaminK: vitaminK,
+      thiamin: thiamin,
+      riboflavin: riboflavin,
+      niacin: niacin,
+      folate: folate,
+      biotin: biotin,
+      pantothenicAcid: pantothenicAcid,
+      calcium: calcium,
+      iron: iron,
+      magnesium: magnesium,
+      manganese: manganese,
+      phosphorus: phosphorus,
+      potassium: potassium,
+      selenium: selenium,
+      sodium: sodium,
+      zinc: zinc,
+      caffeine: caffeine
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      startTime,
+      endTime,
+      metadata,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+      foodName,
+      mealType,
+      energy,
+      protein,
+      totalCarbohydrate,
+      totalFat,
+      saturatedFat,
+      monounsaturatedFat,
+      polyunsaturatedFat,
+      cholesterol,
+      dietaryFiber,
+      sugar,
+      vitaminA,
+      vitaminB6,
+      vitaminB12,
+      vitaminC,
+      vitaminD,
+      vitaminE,
+      vitaminK,
+      thiamin,
+      riboflavin,
+      niacin,
+      folate,
+      biotin,
+      pantothenicAcid,
+      calcium,
+      iron,
+      magnesium,
+      manganese,
+      phosphorus,
+      potassium,
+      selenium,
+      sodium,
+      zinc,
+      caffeine,
+    ]
+  }
+  public static func == (lhs: NutritionRecordDto, rhs: NutritionRecordDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents the result of a health data permission request.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct HealthDataPermissionRequestResultDto: Hashable {
-    /// The health data permission that was requested.
-    var permission: HealthDataPermissionDto
-    /// The status of the permission after the request.
-    var status: PermissionStatusDto
+  /// The health data permission that was requested.
+  var permission: HealthDataPermissionDto
+  /// The status of the permission after the request.
+  var status: PermissionStatusDto
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> HealthDataPermissionRequestResultDto? {
-        let permission = pigeonVar_list[0] as! HealthDataPermissionDto
-        let status = pigeonVar_list[1] as! PermissionStatusDto
 
-        return HealthDataPermissionRequestResultDto(
-            permission: permission,
-            status: status
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> HealthDataPermissionRequestResultDto? {
+    let permission = pigeonVar_list[0] as! HealthDataPermissionDto
+    let status = pigeonVar_list[1] as! PermissionStatusDto
 
-    func toList() -> [Any?] {
-        return [
-            permission,
-            status,
-        ]
-    }
-
-    public static func == (lhs: HealthDataPermissionRequestResultDto, rhs: HealthDataPermissionRequestResultDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return HealthDataPermissionRequestResultDto(
+      permission: permission,
+      status: status
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      permission,
+      status,
+    ]
+  }
+  public static func == (lhs: HealthDataPermissionRequestResultDto, rhs: HealthDataPermissionRequestResultDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents a permissions request.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct PermissionsRequestDto: Hashable {
-    /// List of health data permissions to request.
-    var healthDataPermissions: [HealthDataPermissionDto]
+  /// List of health data permissions to request.
+  var healthDataPermissions: [HealthDataPermissionDto]
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> PermissionsRequestDto? {
-        let healthDataPermissions = pigeonVar_list[0] as! [HealthDataPermissionDto]
 
-        return PermissionsRequestDto(
-            healthDataPermissions: healthDataPermissions
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> PermissionsRequestDto? {
+    let healthDataPermissions = pigeonVar_list[0] as! [HealthDataPermissionDto]
 
-    func toList() -> [Any?] {
-        return [
-            healthDataPermissions,
-        ]
-    }
-
-    public static func == (lhs: PermissionsRequestDto, rhs: PermissionsRequestDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return PermissionsRequestDto(
+      healthDataPermissions: healthDataPermissions
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      healthDataPermissions
+    ]
+  }
+  public static func == (lhs: PermissionsRequestDto, rhs: PermissionsRequestDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Represents the response from a permissions request.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct PermissionsRequestResponseDto: Hashable {
-    /// Results for each health data permission that was requested.
-    var healthDataPermissionResults: [HealthDataPermissionRequestResultDto]
+  /// Results for each health data permission that was requested.
+  var healthDataPermissionResults: [HealthDataPermissionRequestResultDto]
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> PermissionsRequestResponseDto? {
-        let healthDataPermissionResults = pigeonVar_list[0] as! [HealthDataPermissionRequestResultDto]
 
-        return PermissionsRequestResponseDto(
-            healthDataPermissionResults: healthDataPermissionResults
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> PermissionsRequestResponseDto? {
+    let healthDataPermissionResults = pigeonVar_list[0] as! [HealthDataPermissionRequestResultDto]
 
-    func toList() -> [Any?] {
-        return [
-            healthDataPermissionResults,
-        ]
-    }
-
-    public static func == (lhs: PermissionsRequestResponseDto, rhs: PermissionsRequestResponseDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return PermissionsRequestResponseDto(
+      healthDataPermissionResults: healthDataPermissionResults
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      healthDataPermissionResults
+    ]
+  }
+  public static func == (lhs: PermissionsRequestResponseDto, rhs: PermissionsRequestResponseDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Request to perform aggregation on health records.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct AggregateRequestDto: Hashable {
-    /// The type of aggregation to perform.
-    var aggregationMetric: AggregationMetricDto
-    /// The type of health data to aggregate.
-    var dataType: HealthDataTypeDto
-    /// End of time range in milliseconds since epoch (UTC), exclusive.
-    var endTime: Int64
-    /// Start of time range in milliseconds since epoch (UTC), inclusive.
-    var startTime: Int64
+  /// The type of aggregation to perform.
+  var aggregationMetric: AggregationMetricDto
+  /// The type of health data to aggregate.
+  var dataType: HealthDataTypeDto
+  /// End of time range in milliseconds since epoch (UTC), exclusive.
+  var endTime: Int64
+  /// Start of time range in milliseconds since epoch (UTC), inclusive.
+  var startTime: Int64
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> AggregateRequestDto? {
-        let aggregationMetric = pigeonVar_list[0] as! AggregationMetricDto
-        let dataType = pigeonVar_list[1] as! HealthDataTypeDto
-        let endTime = pigeonVar_list[2] as! Int64
-        let startTime = pigeonVar_list[3] as! Int64
 
-        return AggregateRequestDto(
-            aggregationMetric: aggregationMetric,
-            dataType: dataType,
-            endTime: endTime,
-            startTime: startTime
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> AggregateRequestDto? {
+    let aggregationMetric = pigeonVar_list[0] as! AggregationMetricDto
+    let dataType = pigeonVar_list[1] as! HealthDataTypeDto
+    let endTime = pigeonVar_list[2] as! Int64
+    let startTime = pigeonVar_list[3] as! Int64
 
-    func toList() -> [Any?] {
-        return [
-            aggregationMetric,
-            dataType,
-            endTime,
-            startTime,
-        ]
-    }
-
-    public static func == (lhs: AggregateRequestDto, rhs: AggregateRequestDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return AggregateRequestDto(
+      aggregationMetric: aggregationMetric,
+      dataType: dataType,
+      endTime: endTime,
+      startTime: startTime
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      aggregationMetric,
+      dataType,
+      endTime,
+      startTime,
+    ]
+  }
+  public static func == (lhs: AggregateRequestDto, rhs: AggregateRequestDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Response containing aggregated value.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct AggregateResponseDto: Hashable {
-    /// Aggregated value.
-    var value: MeasurementUnitDto
+  /// Aggregated value.
+  var value: MeasurementUnitDto
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> AggregateResponseDto? {
-        let value = pigeonVar_list[0] as! MeasurementUnitDto
 
-        return AggregateResponseDto(
-            value: value
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> AggregateResponseDto? {
+    let value = pigeonVar_list[0] as! MeasurementUnitDto
 
-    func toList() -> [Any?] {
-        return [
-            value,
-        ]
-    }
-
-    public static func == (lhs: AggregateResponseDto, rhs: AggregateResponseDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return AggregateResponseDto(
+      value: value
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      value
+    ]
+  }
+  public static func == (lhs: AggregateResponseDto, rhs: AggregateResponseDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Request to delete specific records by their IDs.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct DeleteRecordsByIdsRequestDto: Hashable {
-    /// The type of health data to delete.
-    var dataType: HealthDataTypeDto
-    /// List of unique identifiers for records to delete.
-    var recordIds: [String]
+  /// The type of health data to delete.
+  var dataType: HealthDataTypeDto
+  /// List of unique identifiers for records to delete.
+  var recordIds: [String]
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> DeleteRecordsByIdsRequestDto? {
-        let dataType = pigeonVar_list[0] as! HealthDataTypeDto
-        let recordIds = pigeonVar_list[1] as! [String]
 
-        return DeleteRecordsByIdsRequestDto(
-            dataType: dataType,
-            recordIds: recordIds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> DeleteRecordsByIdsRequestDto? {
+    let dataType = pigeonVar_list[0] as! HealthDataTypeDto
+    let recordIds = pigeonVar_list[1] as! [String]
 
-    func toList() -> [Any?] {
-        return [
-            dataType,
-            recordIds,
-        ]
-    }
-
-    public static func == (lhs: DeleteRecordsByIdsRequestDto, rhs: DeleteRecordsByIdsRequestDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return DeleteRecordsByIdsRequestDto(
+      dataType: dataType,
+      recordIds: recordIds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      dataType,
+      recordIds,
+    ]
+  }
+  public static func == (lhs: DeleteRecordsByIdsRequestDto, rhs: DeleteRecordsByIdsRequestDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Request to delete records by time range.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct DeleteRecordsByTimeRangeRequestDto: Hashable {
-    /// The type of health data to delete.
-    var dataType: HealthDataTypeDto
-    /// End of time range in milliseconds since epoch (UTC), exclusive.
-    var endTime: Int64
-    /// Start of time range in milliseconds since epoch (UTC), inclusive.
-    var startTime: Int64
+  /// The type of health data to delete.
+  var dataType: HealthDataTypeDto
+  /// End of time range in milliseconds since epoch (UTC), exclusive.
+  var endTime: Int64
+  /// Start of time range in milliseconds since epoch (UTC), inclusive.
+  var startTime: Int64
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> DeleteRecordsByTimeRangeRequestDto? {
-        let dataType = pigeonVar_list[0] as! HealthDataTypeDto
-        let endTime = pigeonVar_list[1] as! Int64
-        let startTime = pigeonVar_list[2] as! Int64
 
-        return DeleteRecordsByTimeRangeRequestDto(
-            dataType: dataType,
-            endTime: endTime,
-            startTime: startTime
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> DeleteRecordsByTimeRangeRequestDto? {
+    let dataType = pigeonVar_list[0] as! HealthDataTypeDto
+    let endTime = pigeonVar_list[1] as! Int64
+    let startTime = pigeonVar_list[2] as! Int64
 
-    func toList() -> [Any?] {
-        return [
-            dataType,
-            endTime,
-            startTime,
-        ]
-    }
-
-    public static func == (lhs: DeleteRecordsByTimeRangeRequestDto, rhs: DeleteRecordsByTimeRangeRequestDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return DeleteRecordsByTimeRangeRequestDto(
+      dataType: dataType,
+      endTime: endTime,
+      startTime: startTime
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      dataType,
+      endTime,
+      startTime,
+    ]
+  }
+  public static func == (lhs: DeleteRecordsByTimeRangeRequestDto, rhs: DeleteRecordsByTimeRangeRequestDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Request to read a single health record by ID.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct ReadRecordRequestDto: Hashable {
-    /// The unique identifier of the record to read.
-    var recordId: String
-    /// The type of health data to read.
-    var dataType: HealthDataTypeDto
+  /// The unique identifier of the record to read.
+  var recordId: String
+  /// The type of health data to read.
+  var dataType: HealthDataTypeDto
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> ReadRecordRequestDto? {
-        let recordId = pigeonVar_list[0] as! String
-        let dataType = pigeonVar_list[1] as! HealthDataTypeDto
 
-        return ReadRecordRequestDto(
-            recordId: recordId,
-            dataType: dataType
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ReadRecordRequestDto? {
+    let recordId = pigeonVar_list[0] as! String
+    let dataType = pigeonVar_list[1] as! HealthDataTypeDto
 
-    func toList() -> [Any?] {
-        return [
-            recordId,
-            dataType,
-        ]
-    }
-
-    public static func == (lhs: ReadRecordRequestDto, rhs: ReadRecordRequestDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return ReadRecordRequestDto(
+      recordId: recordId,
+      dataType: dataType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      recordId,
+      dataType,
+    ]
+  }
+  public static func == (lhs: ReadRecordRequestDto, rhs: ReadRecordRequestDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Response containing a single health record.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct ReadRecordResponseDto: Hashable {
-    /// The health record that was read.
-    var record: HealthRecordDto? = nil
+  /// The health record that was read.
+  var record: HealthRecordDto? = nil
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> ReadRecordResponseDto? {
-        let record: HealthRecordDto? = nilOrValue(pigeonVar_list[0])
 
-        return ReadRecordResponseDto(
-            record: record
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ReadRecordResponseDto? {
+    let record: HealthRecordDto? = nilOrValue(pigeonVar_list[0])
 
-    func toList() -> [Any?] {
-        return [
-            record,
-        ]
-    }
-
-    public static func == (lhs: ReadRecordResponseDto, rhs: ReadRecordResponseDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return ReadRecordResponseDto(
+      record: record
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      record
+    ]
+  }
+  public static func == (lhs: ReadRecordResponseDto, rhs: ReadRecordResponseDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Request to read multiple health records within a time range.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct ReadRecordsRequestDto: Hashable {
-    /// The type of health data to read.
-    var dataType: HealthDataTypeDto
-    /// Maximum number of records to return per page (1-10,000).
-    var pageSize: Int64
-    /// Opaque pagination token for fetching next page (optional).
-    ///
-    /// Provided by previous response's nextPageToken.
-    var pageToken: String? = nil
-    /// Start of time range in milliseconds since epoch (UTC), inclusive.
-    var startTime: Int64
-    /// End of time range in milliseconds since epoch (UTC), exclusive.
-    var endTime: Int64
-    /// List of package names to filter by.
-    var dataOriginPackageNames: [String]
+  /// The type of health data to read.
+  var dataType: HealthDataTypeDto
+  /// Maximum number of records to return per page (1-10,000).
+  var pageSize: Int64
+  /// Opaque pagination token for fetching next page (optional).
+  ///
+  /// Provided by previous response's nextPageToken.
+  var pageToken: String? = nil
+  /// Start of time range in milliseconds since epoch (UTC), inclusive.
+  var startTime: Int64
+  /// End of time range in milliseconds since epoch (UTC), exclusive.
+  var endTime: Int64
+  /// List of package names to filter by.
+  var dataOriginPackageNames: [String]
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> ReadRecordsRequestDto? {
-        let dataType = pigeonVar_list[0] as! HealthDataTypeDto
-        let pageSize = pigeonVar_list[1] as! Int64
-        let pageToken: String? = nilOrValue(pigeonVar_list[2])
-        let startTime = pigeonVar_list[3] as! Int64
-        let endTime = pigeonVar_list[4] as! Int64
-        let dataOriginPackageNames = pigeonVar_list[5] as! [String]
 
-        return ReadRecordsRequestDto(
-            dataType: dataType,
-            pageSize: pageSize,
-            pageToken: pageToken,
-            startTime: startTime,
-            endTime: endTime,
-            dataOriginPackageNames: dataOriginPackageNames
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ReadRecordsRequestDto? {
+    let dataType = pigeonVar_list[0] as! HealthDataTypeDto
+    let pageSize = pigeonVar_list[1] as! Int64
+    let pageToken: String? = nilOrValue(pigeonVar_list[2])
+    let startTime = pigeonVar_list[3] as! Int64
+    let endTime = pigeonVar_list[4] as! Int64
+    let dataOriginPackageNames = pigeonVar_list[5] as! [String]
 
-    func toList() -> [Any?] {
-        return [
-            dataType,
-            pageSize,
-            pageToken,
-            startTime,
-            endTime,
-            dataOriginPackageNames,
-        ]
-    }
-
-    public static func == (lhs: ReadRecordsRequestDto, rhs: ReadRecordsRequestDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return ReadRecordsRequestDto(
+      dataType: dataType,
+      pageSize: pageSize,
+      pageToken: pageToken,
+      startTime: startTime,
+      endTime: endTime,
+      dataOriginPackageNames: dataOriginPackageNames
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      dataType,
+      pageSize,
+      pageToken,
+      startTime,
+      endTime,
+      dataOriginPackageNames,
+    ]
+  }
+  public static func == (lhs: ReadRecordsRequestDto, rhs: ReadRecordsRequestDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Response containing paginated health records.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct ReadRecordsResponseDto: Hashable {
-    /// Token for fetching next page, null if no more pages exist.
-    var nextPageToken: String? = nil
-    /// List of health records that were read.
-    var records: [HealthRecordDto]
+  /// Token for fetching next page, null if no more pages exist.
+  var nextPageToken: String? = nil
+  /// List of health records that were read.
+  var records: [HealthRecordDto]
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> ReadRecordsResponseDto? {
-        let nextPageToken: String? = nilOrValue(pigeonVar_list[0])
-        let records = pigeonVar_list[1] as! [HealthRecordDto]
 
-        return ReadRecordsResponseDto(
-            nextPageToken: nextPageToken,
-            records: records
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ReadRecordsResponseDto? {
+    let nextPageToken: String? = nilOrValue(pigeonVar_list[0])
+    let records = pigeonVar_list[1] as! [HealthRecordDto]
 
-    func toList() -> [Any?] {
-        return [
-            nextPageToken,
-            records,
-        ]
-    }
-
-    public static func == (lhs: ReadRecordsResponseDto, rhs: ReadRecordsResponseDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return ReadRecordsResponseDto(
+      nextPageToken: nextPageToken,
+      records: records
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      nextPageToken,
+      records,
+    ]
+  }
+  public static func == (lhs: ReadRecordsResponseDto, rhs: ReadRecordsResponseDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Request to write a single health record.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct WriteRecordRequestDto: Hashable {
-    /// Health record.
-    var record: HealthRecordDto
+  /// Health record.
+  var record: HealthRecordDto
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> WriteRecordRequestDto? {
-        let record = pigeonVar_list[0] as! HealthRecordDto
 
-        return WriteRecordRequestDto(
-            record: record
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> WriteRecordRequestDto? {
+    let record = pigeonVar_list[0] as! HealthRecordDto
 
-    func toList() -> [Any?] {
-        return [
-            record,
-        ]
-    }
-
-    public static func == (lhs: WriteRecordRequestDto, rhs: WriteRecordRequestDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return WriteRecordRequestDto(
+      record: record
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      record
+    ]
+  }
+  public static func == (lhs: WriteRecordRequestDto, rhs: WriteRecordRequestDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Response after writing a single record.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct WriteRecordResponseDto: Hashable {
-    /// Platform-assigned unique identifier for the written record.
-    var recordId: String
+  /// Platform-assigned unique identifier for the written record.
+  var recordId: String
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> WriteRecordResponseDto? {
-        let recordId = pigeonVar_list[0] as! String
 
-        return WriteRecordResponseDto(
-            recordId: recordId
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> WriteRecordResponseDto? {
+    let recordId = pigeonVar_list[0] as! String
 
-    func toList() -> [Any?] {
-        return [
-            recordId,
-        ]
-    }
-
-    public static func == (lhs: WriteRecordResponseDto, rhs: WriteRecordResponseDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return WriteRecordResponseDto(
+      recordId: recordId
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      recordId
+    ]
+  }
+  public static func == (lhs: WriteRecordResponseDto, rhs: WriteRecordResponseDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Request to write multiple health records atomically.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct WriteRecordsRequestDto: Hashable {
-    /// Records being written.
-    var records: [HealthRecordDto]
+  /// Records being written.
+  var records: [HealthRecordDto]
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> WriteRecordsRequestDto? {
-        let records = pigeonVar_list[0] as! [HealthRecordDto]
 
-        return WriteRecordsRequestDto(
-            records: records
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> WriteRecordsRequestDto? {
+    let records = pigeonVar_list[0] as! [HealthRecordDto]
 
-    func toList() -> [Any?] {
-        return [
-            records,
-        ]
-    }
-
-    public static func == (lhs: WriteRecordsRequestDto, rhs: WriteRecordsRequestDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return WriteRecordsRequestDto(
+      records: records
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      records
+    ]
+  }
+  public static func == (lhs: WriteRecordsRequestDto, rhs: WriteRecordsRequestDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Response after writing multiple records.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct WriteRecordsResponseDto: Hashable {
-    /// Platform-assigned unique identifiers for written records.
-    var recordIds: [String]
+  /// Platform-assigned unique identifiers for written records.
+  var recordIds: [String]
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> WriteRecordsResponseDto? {
-        let recordIds = pigeonVar_list[0] as! [String]
 
-        return WriteRecordsResponseDto(
-            recordIds: recordIds
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> WriteRecordsResponseDto? {
+    let recordIds = pigeonVar_list[0] as! [String]
 
-    func toList() -> [Any?] {
-        return [
-            recordIds,
-        ]
-    }
-
-    public static func == (lhs: WriteRecordsResponseDto, rhs: WriteRecordsResponseDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return WriteRecordsResponseDto(
+      recordIds: recordIds
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      recordIds
+    ]
+  }
+  public static func == (lhs: WriteRecordsResponseDto, rhs: WriteRecordsResponseDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Request to update a single health record.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct UpdateRecordRequestDto: Hashable {
-    /// The health record to update.
-    var record: HealthRecordDto
+  /// The health record to update.
+  var record: HealthRecordDto
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> UpdateRecordRequestDto? {
-        let record = pigeonVar_list[0] as! HealthRecordDto
 
-        return UpdateRecordRequestDto(
-            record: record
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> UpdateRecordRequestDto? {
+    let record = pigeonVar_list[0] as! HealthRecordDto
 
-    func toList() -> [Any?] {
-        return [
-            record,
-        ]
-    }
-
-    public static func == (lhs: UpdateRecordRequestDto, rhs: UpdateRecordRequestDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return UpdateRecordRequestDto(
+      record: record
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      record
+    ]
+  }
+  public static func == (lhs: UpdateRecordRequestDto, rhs: UpdateRecordRequestDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 /// Response after updating a single record.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct UpdateRecordResponseDto: Hashable {
-    /// Platform-assigned unique identifier for the updated record.
-    var recordId: String
+  /// Platform-assigned unique identifier for the updated record.
+  var recordId: String
 
-    // swift-format-ignore: AlwaysUseLowerCamelCase
-    static func fromList(_ pigeonVar_list: [Any?]) -> UpdateRecordResponseDto? {
-        let recordId = pigeonVar_list[0] as! String
 
-        return UpdateRecordResponseDto(
-            recordId: recordId
-        )
-    }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> UpdateRecordResponseDto? {
+    let recordId = pigeonVar_list[0] as! String
 
-    func toList() -> [Any?] {
-        return [
-            recordId,
-        ]
-    }
-
-    public static func == (lhs: UpdateRecordResponseDto, rhs: UpdateRecordResponseDto) -> Bool {
-        return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
-    }
+    return UpdateRecordResponseDto(
+      recordId: recordId
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      recordId
+    ]
+  }
+  public static func == (lhs: UpdateRecordResponseDto, rhs: UpdateRecordResponseDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
 }
 
 private class HealthConnectorPlatformApiPigeonCodecReader: FlutterStandardReader {
-    override func readValue(ofType type: UInt8) -> Any? {
-        switch type {
-        case 129:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return HealthConnectorErrorCodeDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 130:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return HealthPlatformStatusDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 131:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return BloodGlucoseUnitDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 132:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return EnergyUnitDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 133:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return LengthUnitDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 134:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return MassUnitDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 135:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return NumericUnitDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 136:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return PercentageUnitDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 137:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return PermissionAccessTypeDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 138:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return PermissionStatusDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 139:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return PressureUnitDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 140:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return PowerUnitDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 141:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return TemperatureUnitDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 142:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return VelocityUnitDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 143:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return VolumeUnitDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 144:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return MealTypeDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 145:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return BodyPositionDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 146:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return MeasurementLocationDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 147:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return SleepStageTypeDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 148:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return HealthDataTypeDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 149:
-            let enumResultAsInt: Int? = nilOrValue(readValue() as! Int?)
-            if let enumResultAsInt = enumResultAsInt {
-                return AggregationMetricDto(rawValue: enumResultAsInt)
-            }
-            return nil
-        case 150:
-            return BloodGlucoseDto.fromList(readValue() as! [Any?])
-        case 151:
-            return EnergyDto.fromList(readValue() as! [Any?])
-        case 152:
-            return LengthDto.fromList(readValue() as! [Any?])
-        case 153:
-            return MassDto.fromList(readValue() as! [Any?])
-        case 154:
-            return NumericDto.fromList(readValue() as! [Any?])
-        case 155:
-            return PercentageDto.fromList(readValue() as! [Any?])
-        case 156:
-            return PowerDto.fromList(readValue() as! [Any?])
-        case 157:
-            return PressureDto.fromList(readValue() as! [Any?])
-        case 158:
-            return TemperatureDto.fromList(readValue() as! [Any?])
-        case 159:
-            return VelocityDto.fromList(readValue() as! [Any?])
-        case 160:
-            return VolumeDto.fromList(readValue() as! [Any?])
-        case 161:
-            return MetadataDto.fromList(readValue() as! [Any?])
-        case 162:
-            return HealthDataPermissionDto.fromList(readValue() as! [Any?])
-        case 163:
-            return ActiveCaloriesBurnedRecordDto.fromList(readValue() as! [Any?])
-        case 164:
-            return DistanceRecordDto.fromList(readValue() as! [Any?])
-        case 165:
-            return FloorsClimbedRecordDto.fromList(readValue() as! [Any?])
-        case 166:
-            return WheelchairPushesRecordDto.fromList(readValue() as! [Any?])
-        case 167:
-            return StepRecordDto.fromList(readValue() as! [Any?])
-        case 168:
-            return WeightRecordDto.fromList(readValue() as! [Any?])
-        case 169:
-            return BloodPressureRecordDto.fromList(readValue() as! [Any?])
-        case 170:
-            return SystolicBloodPressureRecordDto.fromList(readValue() as! [Any?])
-        case 171:
-            return DiastolicBloodPressureRecordDto.fromList(readValue() as! [Any?])
-        case 172:
-            return LeanBodyMassRecordDto.fromList(readValue() as! [Any?])
-        case 173:
-            return HeightRecordDto.fromList(readValue() as! [Any?])
-        case 174:
-            return BodyFatPercentageRecordDto.fromList(readValue() as! [Any?])
-        case 175:
-            return BodyTemperatureRecordDto.fromList(readValue() as! [Any?])
-        case 176:
-            return HydrationRecordDto.fromList(readValue() as! [Any?])
-        case 177:
-            return HeartRateMeasurementDto.fromList(readValue() as! [Any?])
-        case 178:
-            return HeartRateMeasurementRecordDto.fromList(readValue() as! [Any?])
-        case 179:
-            return SleepStageRecordDto.fromList(readValue() as! [Any?])
-        case 180:
-            return EnergyNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 181:
-            return CaffeineNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 182:
-            return ProteinNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 183:
-            return TotalCarbohydrateNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 184:
-            return TotalFatNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 185:
-            return SaturatedFatNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 186:
-            return MonounsaturatedFatNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 187:
-            return PolyunsaturatedFatNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 188:
-            return CholesterolNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 189:
-            return DietaryFiberNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 190:
-            return SugarNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 191:
-            return VitaminANutrientRecordDto.fromList(readValue() as! [Any?])
-        case 192:
-            return VitaminB6NutrientRecordDto.fromList(readValue() as! [Any?])
-        case 193:
-            return VitaminB12NutrientRecordDto.fromList(readValue() as! [Any?])
-        case 194:
-            return VitaminCNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 195:
-            return VitaminDNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 196:
-            return VitaminENutrientRecordDto.fromList(readValue() as! [Any?])
-        case 197:
-            return VitaminKNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 198:
-            return ThiaminNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 199:
-            return RiboflavinNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 200:
-            return NiacinNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 201:
-            return FolateNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 202:
-            return BiotinNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 203:
-            return PantothenicAcidNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 204:
-            return CalciumNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 205:
-            return IronNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 206:
-            return MagnesiumNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 207:
-            return ManganeseNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 208:
-            return PhosphorusNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 209:
-            return PotassiumNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 210:
-            return SeleniumNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 211:
-            return SodiumNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 212:
-            return ZincNutrientRecordDto.fromList(readValue() as! [Any?])
-        case 213:
-            return NutritionRecordDto.fromList(readValue() as! [Any?])
-        case 214:
-            return HealthDataPermissionRequestResultDto.fromList(readValue() as! [Any?])
-        case 215:
-            return PermissionsRequestDto.fromList(readValue() as! [Any?])
-        case 216:
-            return PermissionsRequestResponseDto.fromList(readValue() as! [Any?])
-        case 217:
-            return AggregateRequestDto.fromList(readValue() as! [Any?])
-        case 218:
-            return AggregateResponseDto.fromList(readValue() as! [Any?])
-        case 219:
-            return DeleteRecordsByIdsRequestDto.fromList(readValue() as! [Any?])
-        case 220:
-            return DeleteRecordsByTimeRangeRequestDto.fromList(readValue() as! [Any?])
-        case 221:
-            return ReadRecordRequestDto.fromList(readValue() as! [Any?])
-        case 222:
-            return ReadRecordResponseDto.fromList(readValue() as! [Any?])
-        case 223:
-            return ReadRecordsRequestDto.fromList(readValue() as! [Any?])
-        case 224:
-            return ReadRecordsResponseDto.fromList(readValue() as! [Any?])
-        case 225:
-            return WriteRecordRequestDto.fromList(readValue() as! [Any?])
-        case 226:
-            return WriteRecordResponseDto.fromList(readValue() as! [Any?])
-        case 227:
-            return WriteRecordsRequestDto.fromList(readValue() as! [Any?])
-        case 228:
-            return WriteRecordsResponseDto.fromList(readValue() as! [Any?])
-        case 229:
-            return UpdateRecordRequestDto.fromList(readValue() as! [Any?])
-        case 230:
-            return UpdateRecordResponseDto.fromList(readValue() as! [Any?])
-        default:
-            return super.readValue(ofType: type)
-        }
+  override func readValue(ofType type: UInt8) -> Any? {
+    switch type {
+    case 129:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return HealthConnectorErrorCodeDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 130:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return HealthPlatformStatusDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 131:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return BloodGlucoseUnitDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 132:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return EnergyUnitDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 133:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return LengthUnitDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 134:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return MassUnitDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 135:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return NumericUnitDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 136:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return PercentageUnitDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 137:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return PermissionAccessTypeDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 138:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return PermissionStatusDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 139:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return PressureUnitDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 140:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return PowerUnitDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 141:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return TemperatureUnitDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 142:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return VelocityUnitDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 143:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return VolumeUnitDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 144:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return MealTypeDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 145:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return BodyPositionDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 146:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return MeasurementLocationDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 147:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return SleepStageTypeDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 148:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return HealthDataTypeDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 149:
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return AggregationMetricDto(rawValue: enumResultAsInt)
+      }
+      return nil
+    case 150:
+      return BloodGlucoseDto.fromList(self.readValue() as! [Any?])
+    case 151:
+      return EnergyDto.fromList(self.readValue() as! [Any?])
+    case 152:
+      return LengthDto.fromList(self.readValue() as! [Any?])
+    case 153:
+      return MassDto.fromList(self.readValue() as! [Any?])
+    case 154:
+      return NumericDto.fromList(self.readValue() as! [Any?])
+    case 155:
+      return PercentageDto.fromList(self.readValue() as! [Any?])
+    case 156:
+      return PowerDto.fromList(self.readValue() as! [Any?])
+    case 157:
+      return PressureDto.fromList(self.readValue() as! [Any?])
+    case 158:
+      return TemperatureDto.fromList(self.readValue() as! [Any?])
+    case 159:
+      return VelocityDto.fromList(self.readValue() as! [Any?])
+    case 160:
+      return VolumeDto.fromList(self.readValue() as! [Any?])
+    case 161:
+      return MetadataDto.fromList(self.readValue() as! [Any?])
+    case 162:
+      return HealthDataPermissionDto.fromList(self.readValue() as! [Any?])
+    case 163:
+      return RestingHeartRateRecordDto.fromList(self.readValue() as! [Any?])
+    case 164:
+      return ActiveCaloriesBurnedRecordDto.fromList(self.readValue() as! [Any?])
+    case 165:
+      return DistanceRecordDto.fromList(self.readValue() as! [Any?])
+    case 166:
+      return FloorsClimbedRecordDto.fromList(self.readValue() as! [Any?])
+    case 167:
+      return WheelchairPushesRecordDto.fromList(self.readValue() as! [Any?])
+    case 168:
+      return StepRecordDto.fromList(self.readValue() as! [Any?])
+    case 169:
+      return WeightRecordDto.fromList(self.readValue() as! [Any?])
+    case 170:
+      return BloodPressureRecordDto.fromList(self.readValue() as! [Any?])
+    case 171:
+      return SystolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
+    case 172:
+      return DiastolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
+    case 173:
+      return LeanBodyMassRecordDto.fromList(self.readValue() as! [Any?])
+    case 174:
+      return HeightRecordDto.fromList(self.readValue() as! [Any?])
+    case 175:
+      return BodyFatPercentageRecordDto.fromList(self.readValue() as! [Any?])
+    case 176:
+      return BodyTemperatureRecordDto.fromList(self.readValue() as! [Any?])
+    case 177:
+      return HydrationRecordDto.fromList(self.readValue() as! [Any?])
+    case 178:
+      return HeartRateMeasurementDto.fromList(self.readValue() as! [Any?])
+    case 179:
+      return HeartRateMeasurementRecordDto.fromList(self.readValue() as! [Any?])
+    case 180:
+      return SleepStageRecordDto.fromList(self.readValue() as! [Any?])
+    case 181:
+      return EnergyNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 182:
+      return CaffeineNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 183:
+      return ProteinNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 184:
+      return TotalCarbohydrateNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 185:
+      return TotalFatNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 186:
+      return SaturatedFatNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 187:
+      return MonounsaturatedFatNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 188:
+      return PolyunsaturatedFatNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 189:
+      return CholesterolNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 190:
+      return DietaryFiberNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 191:
+      return SugarNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 192:
+      return VitaminANutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 193:
+      return VitaminB6NutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 194:
+      return VitaminB12NutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 195:
+      return VitaminCNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 196:
+      return VitaminDNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 197:
+      return VitaminENutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 198:
+      return VitaminKNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 199:
+      return ThiaminNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 200:
+      return RiboflavinNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 201:
+      return NiacinNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 202:
+      return FolateNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 203:
+      return BiotinNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 204:
+      return PantothenicAcidNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 205:
+      return CalciumNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 206:
+      return IronNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 207:
+      return MagnesiumNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 208:
+      return ManganeseNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 209:
+      return PhosphorusNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 210:
+      return PotassiumNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 211:
+      return SeleniumNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 212:
+      return SodiumNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 213:
+      return ZincNutrientRecordDto.fromList(self.readValue() as! [Any?])
+    case 214:
+      return NutritionRecordDto.fromList(self.readValue() as! [Any?])
+    case 215:
+      return HealthDataPermissionRequestResultDto.fromList(self.readValue() as! [Any?])
+    case 216:
+      return PermissionsRequestDto.fromList(self.readValue() as! [Any?])
+    case 217:
+      return PermissionsRequestResponseDto.fromList(self.readValue() as! [Any?])
+    case 218:
+      return AggregateRequestDto.fromList(self.readValue() as! [Any?])
+    case 219:
+      return AggregateResponseDto.fromList(self.readValue() as! [Any?])
+    case 220:
+      return DeleteRecordsByIdsRequestDto.fromList(self.readValue() as! [Any?])
+    case 221:
+      return DeleteRecordsByTimeRangeRequestDto.fromList(self.readValue() as! [Any?])
+    case 222:
+      return ReadRecordRequestDto.fromList(self.readValue() as! [Any?])
+    case 223:
+      return ReadRecordResponseDto.fromList(self.readValue() as! [Any?])
+    case 224:
+      return ReadRecordsRequestDto.fromList(self.readValue() as! [Any?])
+    case 225:
+      return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
+    case 226:
+      return WriteRecordRequestDto.fromList(self.readValue() as! [Any?])
+    case 227:
+      return WriteRecordResponseDto.fromList(self.readValue() as! [Any?])
+    case 228:
+      return WriteRecordsRequestDto.fromList(self.readValue() as! [Any?])
+    case 229:
+      return WriteRecordsResponseDto.fromList(self.readValue() as! [Any?])
+    case 230:
+      return UpdateRecordRequestDto.fromList(self.readValue() as! [Any?])
+    case 231:
+      return UpdateRecordResponseDto.fromList(self.readValue() as! [Any?])
+    default:
+      return super.readValue(ofType: type)
     }
+  }
 }
 
 private class HealthConnectorPlatformApiPigeonCodecWriter: FlutterStandardWriter {
-    override func writeValue(_ value: Any) {
-        if let value = value as? HealthConnectorErrorCodeDto {
-            super.writeByte(129)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? HealthPlatformStatusDto {
-            super.writeByte(130)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? BloodGlucoseUnitDto {
-            super.writeByte(131)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? EnergyUnitDto {
-            super.writeByte(132)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? LengthUnitDto {
-            super.writeByte(133)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? MassUnitDto {
-            super.writeByte(134)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? NumericUnitDto {
-            super.writeByte(135)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? PercentageUnitDto {
-            super.writeByte(136)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? PermissionAccessTypeDto {
-            super.writeByte(137)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? PermissionStatusDto {
-            super.writeByte(138)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? PressureUnitDto {
-            super.writeByte(139)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? PowerUnitDto {
-            super.writeByte(140)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? TemperatureUnitDto {
-            super.writeByte(141)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? VelocityUnitDto {
-            super.writeByte(142)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? VolumeUnitDto {
-            super.writeByte(143)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? MealTypeDto {
-            super.writeByte(144)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? BodyPositionDto {
-            super.writeByte(145)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? MeasurementLocationDto {
-            super.writeByte(146)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? SleepStageTypeDto {
-            super.writeByte(147)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? HealthDataTypeDto {
-            super.writeByte(148)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? AggregationMetricDto {
-            super.writeByte(149)
-            super.writeValue(value.rawValue)
-        } else if let value = value as? BloodGlucoseDto {
-            super.writeByte(150)
-            super.writeValue(value.toList())
-        } else if let value = value as? EnergyDto {
-            super.writeByte(151)
-            super.writeValue(value.toList())
-        } else if let value = value as? LengthDto {
-            super.writeByte(152)
-            super.writeValue(value.toList())
-        } else if let value = value as? MassDto {
-            super.writeByte(153)
-            super.writeValue(value.toList())
-        } else if let value = value as? NumericDto {
-            super.writeByte(154)
-            super.writeValue(value.toList())
-        } else if let value = value as? PercentageDto {
-            super.writeByte(155)
-            super.writeValue(value.toList())
-        } else if let value = value as? PowerDto {
-            super.writeByte(156)
-            super.writeValue(value.toList())
-        } else if let value = value as? PressureDto {
-            super.writeByte(157)
-            super.writeValue(value.toList())
-        } else if let value = value as? TemperatureDto {
-            super.writeByte(158)
-            super.writeValue(value.toList())
-        } else if let value = value as? VelocityDto {
-            super.writeByte(159)
-            super.writeValue(value.toList())
-        } else if let value = value as? VolumeDto {
-            super.writeByte(160)
-            super.writeValue(value.toList())
-        } else if let value = value as? MetadataDto {
-            super.writeByte(161)
-            super.writeValue(value.toList())
-        } else if let value = value as? HealthDataPermissionDto {
-            super.writeByte(162)
-            super.writeValue(value.toList())
-        } else if let value = value as? ActiveCaloriesBurnedRecordDto {
-            super.writeByte(163)
-            super.writeValue(value.toList())
-        } else if let value = value as? DistanceRecordDto {
-            super.writeByte(164)
-            super.writeValue(value.toList())
-        } else if let value = value as? FloorsClimbedRecordDto {
-            super.writeByte(165)
-            super.writeValue(value.toList())
-        } else if let value = value as? WheelchairPushesRecordDto {
-            super.writeByte(166)
-            super.writeValue(value.toList())
-        } else if let value = value as? StepRecordDto {
-            super.writeByte(167)
-            super.writeValue(value.toList())
-        } else if let value = value as? WeightRecordDto {
-            super.writeByte(168)
-            super.writeValue(value.toList())
-        } else if let value = value as? BloodPressureRecordDto {
-            super.writeByte(169)
-            super.writeValue(value.toList())
-        } else if let value = value as? SystolicBloodPressureRecordDto {
-            super.writeByte(170)
-            super.writeValue(value.toList())
-        } else if let value = value as? DiastolicBloodPressureRecordDto {
-            super.writeByte(171)
-            super.writeValue(value.toList())
-        } else if let value = value as? LeanBodyMassRecordDto {
-            super.writeByte(172)
-            super.writeValue(value.toList())
-        } else if let value = value as? HeightRecordDto {
-            super.writeByte(173)
-            super.writeValue(value.toList())
-        } else if let value = value as? BodyFatPercentageRecordDto {
-            super.writeByte(174)
-            super.writeValue(value.toList())
-        } else if let value = value as? BodyTemperatureRecordDto {
-            super.writeByte(175)
-            super.writeValue(value.toList())
-        } else if let value = value as? HydrationRecordDto {
-            super.writeByte(176)
-            super.writeValue(value.toList())
-        } else if let value = value as? HeartRateMeasurementDto {
-            super.writeByte(177)
-            super.writeValue(value.toList())
-        } else if let value = value as? HeartRateMeasurementRecordDto {
-            super.writeByte(178)
-            super.writeValue(value.toList())
-        } else if let value = value as? SleepStageRecordDto {
-            super.writeByte(179)
-            super.writeValue(value.toList())
-        } else if let value = value as? EnergyNutrientRecordDto {
-            super.writeByte(180)
-            super.writeValue(value.toList())
-        } else if let value = value as? CaffeineNutrientRecordDto {
-            super.writeByte(181)
-            super.writeValue(value.toList())
-        } else if let value = value as? ProteinNutrientRecordDto {
-            super.writeByte(182)
-            super.writeValue(value.toList())
-        } else if let value = value as? TotalCarbohydrateNutrientRecordDto {
-            super.writeByte(183)
-            super.writeValue(value.toList())
-        } else if let value = value as? TotalFatNutrientRecordDto {
-            super.writeByte(184)
-            super.writeValue(value.toList())
-        } else if let value = value as? SaturatedFatNutrientRecordDto {
-            super.writeByte(185)
-            super.writeValue(value.toList())
-        } else if let value = value as? MonounsaturatedFatNutrientRecordDto {
-            super.writeByte(186)
-            super.writeValue(value.toList())
-        } else if let value = value as? PolyunsaturatedFatNutrientRecordDto {
-            super.writeByte(187)
-            super.writeValue(value.toList())
-        } else if let value = value as? CholesterolNutrientRecordDto {
-            super.writeByte(188)
-            super.writeValue(value.toList())
-        } else if let value = value as? DietaryFiberNutrientRecordDto {
-            super.writeByte(189)
-            super.writeValue(value.toList())
-        } else if let value = value as? SugarNutrientRecordDto {
-            super.writeByte(190)
-            super.writeValue(value.toList())
-        } else if let value = value as? VitaminANutrientRecordDto {
-            super.writeByte(191)
-            super.writeValue(value.toList())
-        } else if let value = value as? VitaminB6NutrientRecordDto {
-            super.writeByte(192)
-            super.writeValue(value.toList())
-        } else if let value = value as? VitaminB12NutrientRecordDto {
-            super.writeByte(193)
-            super.writeValue(value.toList())
-        } else if let value = value as? VitaminCNutrientRecordDto {
-            super.writeByte(194)
-            super.writeValue(value.toList())
-        } else if let value = value as? VitaminDNutrientRecordDto {
-            super.writeByte(195)
-            super.writeValue(value.toList())
-        } else if let value = value as? VitaminENutrientRecordDto {
-            super.writeByte(196)
-            super.writeValue(value.toList())
-        } else if let value = value as? VitaminKNutrientRecordDto {
-            super.writeByte(197)
-            super.writeValue(value.toList())
-        } else if let value = value as? ThiaminNutrientRecordDto {
-            super.writeByte(198)
-            super.writeValue(value.toList())
-        } else if let value = value as? RiboflavinNutrientRecordDto {
-            super.writeByte(199)
-            super.writeValue(value.toList())
-        } else if let value = value as? NiacinNutrientRecordDto {
-            super.writeByte(200)
-            super.writeValue(value.toList())
-        } else if let value = value as? FolateNutrientRecordDto {
-            super.writeByte(201)
-            super.writeValue(value.toList())
-        } else if let value = value as? BiotinNutrientRecordDto {
-            super.writeByte(202)
-            super.writeValue(value.toList())
-        } else if let value = value as? PantothenicAcidNutrientRecordDto {
-            super.writeByte(203)
-            super.writeValue(value.toList())
-        } else if let value = value as? CalciumNutrientRecordDto {
-            super.writeByte(204)
-            super.writeValue(value.toList())
-        } else if let value = value as? IronNutrientRecordDto {
-            super.writeByte(205)
-            super.writeValue(value.toList())
-        } else if let value = value as? MagnesiumNutrientRecordDto {
-            super.writeByte(206)
-            super.writeValue(value.toList())
-        } else if let value = value as? ManganeseNutrientRecordDto {
-            super.writeByte(207)
-            super.writeValue(value.toList())
-        } else if let value = value as? PhosphorusNutrientRecordDto {
-            super.writeByte(208)
-            super.writeValue(value.toList())
-        } else if let value = value as? PotassiumNutrientRecordDto {
-            super.writeByte(209)
-            super.writeValue(value.toList())
-        } else if let value = value as? SeleniumNutrientRecordDto {
-            super.writeByte(210)
-            super.writeValue(value.toList())
-        } else if let value = value as? SodiumNutrientRecordDto {
-            super.writeByte(211)
-            super.writeValue(value.toList())
-        } else if let value = value as? ZincNutrientRecordDto {
-            super.writeByte(212)
-            super.writeValue(value.toList())
-        } else if let value = value as? NutritionRecordDto {
-            super.writeByte(213)
-            super.writeValue(value.toList())
-        } else if let value = value as? HealthDataPermissionRequestResultDto {
-            super.writeByte(214)
-            super.writeValue(value.toList())
-        } else if let value = value as? PermissionsRequestDto {
-            super.writeByte(215)
-            super.writeValue(value.toList())
-        } else if let value = value as? PermissionsRequestResponseDto {
-            super.writeByte(216)
-            super.writeValue(value.toList())
-        } else if let value = value as? AggregateRequestDto {
-            super.writeByte(217)
-            super.writeValue(value.toList())
-        } else if let value = value as? AggregateResponseDto {
-            super.writeByte(218)
-            super.writeValue(value.toList())
-        } else if let value = value as? DeleteRecordsByIdsRequestDto {
-            super.writeByte(219)
-            super.writeValue(value.toList())
-        } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
-            super.writeByte(220)
-            super.writeValue(value.toList())
-        } else if let value = value as? ReadRecordRequestDto {
-            super.writeByte(221)
-            super.writeValue(value.toList())
-        } else if let value = value as? ReadRecordResponseDto {
-            super.writeByte(222)
-            super.writeValue(value.toList())
-        } else if let value = value as? ReadRecordsRequestDto {
-            super.writeByte(223)
-            super.writeValue(value.toList())
-        } else if let value = value as? ReadRecordsResponseDto {
-            super.writeByte(224)
-            super.writeValue(value.toList())
-        } else if let value = value as? WriteRecordRequestDto {
-            super.writeByte(225)
-            super.writeValue(value.toList())
-        } else if let value = value as? WriteRecordResponseDto {
-            super.writeByte(226)
-            super.writeValue(value.toList())
-        } else if let value = value as? WriteRecordsRequestDto {
-            super.writeByte(227)
-            super.writeValue(value.toList())
-        } else if let value = value as? WriteRecordsResponseDto {
-            super.writeByte(228)
-            super.writeValue(value.toList())
-        } else if let value = value as? UpdateRecordRequestDto {
-            super.writeByte(229)
-            super.writeValue(value.toList())
-        } else if let value = value as? UpdateRecordResponseDto {
-            super.writeByte(230)
-            super.writeValue(value.toList())
-        } else {
-            super.writeValue(value)
-        }
+  override func writeValue(_ value: Any) {
+    if let value = value as? HealthConnectorErrorCodeDto {
+      super.writeByte(129)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? HealthPlatformStatusDto {
+      super.writeByte(130)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? BloodGlucoseUnitDto {
+      super.writeByte(131)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? EnergyUnitDto {
+      super.writeByte(132)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? LengthUnitDto {
+      super.writeByte(133)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? MassUnitDto {
+      super.writeByte(134)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? NumericUnitDto {
+      super.writeByte(135)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PercentageUnitDto {
+      super.writeByte(136)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PermissionAccessTypeDto {
+      super.writeByte(137)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PermissionStatusDto {
+      super.writeByte(138)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PressureUnitDto {
+      super.writeByte(139)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? PowerUnitDto {
+      super.writeByte(140)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? TemperatureUnitDto {
+      super.writeByte(141)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? VelocityUnitDto {
+      super.writeByte(142)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? VolumeUnitDto {
+      super.writeByte(143)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? MealTypeDto {
+      super.writeByte(144)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? BodyPositionDto {
+      super.writeByte(145)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? MeasurementLocationDto {
+      super.writeByte(146)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? SleepStageTypeDto {
+      super.writeByte(147)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? HealthDataTypeDto {
+      super.writeByte(148)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? AggregationMetricDto {
+      super.writeByte(149)
+      super.writeValue(value.rawValue)
+    } else if let value = value as? BloodGlucoseDto {
+      super.writeByte(150)
+      super.writeValue(value.toList())
+    } else if let value = value as? EnergyDto {
+      super.writeByte(151)
+      super.writeValue(value.toList())
+    } else if let value = value as? LengthDto {
+      super.writeByte(152)
+      super.writeValue(value.toList())
+    } else if let value = value as? MassDto {
+      super.writeByte(153)
+      super.writeValue(value.toList())
+    } else if let value = value as? NumericDto {
+      super.writeByte(154)
+      super.writeValue(value.toList())
+    } else if let value = value as? PercentageDto {
+      super.writeByte(155)
+      super.writeValue(value.toList())
+    } else if let value = value as? PowerDto {
+      super.writeByte(156)
+      super.writeValue(value.toList())
+    } else if let value = value as? PressureDto {
+      super.writeByte(157)
+      super.writeValue(value.toList())
+    } else if let value = value as? TemperatureDto {
+      super.writeByte(158)
+      super.writeValue(value.toList())
+    } else if let value = value as? VelocityDto {
+      super.writeByte(159)
+      super.writeValue(value.toList())
+    } else if let value = value as? VolumeDto {
+      super.writeByte(160)
+      super.writeValue(value.toList())
+    } else if let value = value as? MetadataDto {
+      super.writeByte(161)
+      super.writeValue(value.toList())
+    } else if let value = value as? HealthDataPermissionDto {
+      super.writeByte(162)
+      super.writeValue(value.toList())
+    } else if let value = value as? RestingHeartRateRecordDto {
+      super.writeByte(163)
+      super.writeValue(value.toList())
+    } else if let value = value as? ActiveCaloriesBurnedRecordDto {
+      super.writeByte(164)
+      super.writeValue(value.toList())
+    } else if let value = value as? DistanceRecordDto {
+      super.writeByte(165)
+      super.writeValue(value.toList())
+    } else if let value = value as? FloorsClimbedRecordDto {
+      super.writeByte(166)
+      super.writeValue(value.toList())
+    } else if let value = value as? WheelchairPushesRecordDto {
+      super.writeByte(167)
+      super.writeValue(value.toList())
+    } else if let value = value as? StepRecordDto {
+      super.writeByte(168)
+      super.writeValue(value.toList())
+    } else if let value = value as? WeightRecordDto {
+      super.writeByte(169)
+      super.writeValue(value.toList())
+    } else if let value = value as? BloodPressureRecordDto {
+      super.writeByte(170)
+      super.writeValue(value.toList())
+    } else if let value = value as? SystolicBloodPressureRecordDto {
+      super.writeByte(171)
+      super.writeValue(value.toList())
+    } else if let value = value as? DiastolicBloodPressureRecordDto {
+      super.writeByte(172)
+      super.writeValue(value.toList())
+    } else if let value = value as? LeanBodyMassRecordDto {
+      super.writeByte(173)
+      super.writeValue(value.toList())
+    } else if let value = value as? HeightRecordDto {
+      super.writeByte(174)
+      super.writeValue(value.toList())
+    } else if let value = value as? BodyFatPercentageRecordDto {
+      super.writeByte(175)
+      super.writeValue(value.toList())
+    } else if let value = value as? BodyTemperatureRecordDto {
+      super.writeByte(176)
+      super.writeValue(value.toList())
+    } else if let value = value as? HydrationRecordDto {
+      super.writeByte(177)
+      super.writeValue(value.toList())
+    } else if let value = value as? HeartRateMeasurementDto {
+      super.writeByte(178)
+      super.writeValue(value.toList())
+    } else if let value = value as? HeartRateMeasurementRecordDto {
+      super.writeByte(179)
+      super.writeValue(value.toList())
+    } else if let value = value as? SleepStageRecordDto {
+      super.writeByte(180)
+      super.writeValue(value.toList())
+    } else if let value = value as? EnergyNutrientRecordDto {
+      super.writeByte(181)
+      super.writeValue(value.toList())
+    } else if let value = value as? CaffeineNutrientRecordDto {
+      super.writeByte(182)
+      super.writeValue(value.toList())
+    } else if let value = value as? ProteinNutrientRecordDto {
+      super.writeByte(183)
+      super.writeValue(value.toList())
+    } else if let value = value as? TotalCarbohydrateNutrientRecordDto {
+      super.writeByte(184)
+      super.writeValue(value.toList())
+    } else if let value = value as? TotalFatNutrientRecordDto {
+      super.writeByte(185)
+      super.writeValue(value.toList())
+    } else if let value = value as? SaturatedFatNutrientRecordDto {
+      super.writeByte(186)
+      super.writeValue(value.toList())
+    } else if let value = value as? MonounsaturatedFatNutrientRecordDto {
+      super.writeByte(187)
+      super.writeValue(value.toList())
+    } else if let value = value as? PolyunsaturatedFatNutrientRecordDto {
+      super.writeByte(188)
+      super.writeValue(value.toList())
+    } else if let value = value as? CholesterolNutrientRecordDto {
+      super.writeByte(189)
+      super.writeValue(value.toList())
+    } else if let value = value as? DietaryFiberNutrientRecordDto {
+      super.writeByte(190)
+      super.writeValue(value.toList())
+    } else if let value = value as? SugarNutrientRecordDto {
+      super.writeByte(191)
+      super.writeValue(value.toList())
+    } else if let value = value as? VitaminANutrientRecordDto {
+      super.writeByte(192)
+      super.writeValue(value.toList())
+    } else if let value = value as? VitaminB6NutrientRecordDto {
+      super.writeByte(193)
+      super.writeValue(value.toList())
+    } else if let value = value as? VitaminB12NutrientRecordDto {
+      super.writeByte(194)
+      super.writeValue(value.toList())
+    } else if let value = value as? VitaminCNutrientRecordDto {
+      super.writeByte(195)
+      super.writeValue(value.toList())
+    } else if let value = value as? VitaminDNutrientRecordDto {
+      super.writeByte(196)
+      super.writeValue(value.toList())
+    } else if let value = value as? VitaminENutrientRecordDto {
+      super.writeByte(197)
+      super.writeValue(value.toList())
+    } else if let value = value as? VitaminKNutrientRecordDto {
+      super.writeByte(198)
+      super.writeValue(value.toList())
+    } else if let value = value as? ThiaminNutrientRecordDto {
+      super.writeByte(199)
+      super.writeValue(value.toList())
+    } else if let value = value as? RiboflavinNutrientRecordDto {
+      super.writeByte(200)
+      super.writeValue(value.toList())
+    } else if let value = value as? NiacinNutrientRecordDto {
+      super.writeByte(201)
+      super.writeValue(value.toList())
+    } else if let value = value as? FolateNutrientRecordDto {
+      super.writeByte(202)
+      super.writeValue(value.toList())
+    } else if let value = value as? BiotinNutrientRecordDto {
+      super.writeByte(203)
+      super.writeValue(value.toList())
+    } else if let value = value as? PantothenicAcidNutrientRecordDto {
+      super.writeByte(204)
+      super.writeValue(value.toList())
+    } else if let value = value as? CalciumNutrientRecordDto {
+      super.writeByte(205)
+      super.writeValue(value.toList())
+    } else if let value = value as? IronNutrientRecordDto {
+      super.writeByte(206)
+      super.writeValue(value.toList())
+    } else if let value = value as? MagnesiumNutrientRecordDto {
+      super.writeByte(207)
+      super.writeValue(value.toList())
+    } else if let value = value as? ManganeseNutrientRecordDto {
+      super.writeByte(208)
+      super.writeValue(value.toList())
+    } else if let value = value as? PhosphorusNutrientRecordDto {
+      super.writeByte(209)
+      super.writeValue(value.toList())
+    } else if let value = value as? PotassiumNutrientRecordDto {
+      super.writeByte(210)
+      super.writeValue(value.toList())
+    } else if let value = value as? SeleniumNutrientRecordDto {
+      super.writeByte(211)
+      super.writeValue(value.toList())
+    } else if let value = value as? SodiumNutrientRecordDto {
+      super.writeByte(212)
+      super.writeValue(value.toList())
+    } else if let value = value as? ZincNutrientRecordDto {
+      super.writeByte(213)
+      super.writeValue(value.toList())
+    } else if let value = value as? NutritionRecordDto {
+      super.writeByte(214)
+      super.writeValue(value.toList())
+    } else if let value = value as? HealthDataPermissionRequestResultDto {
+      super.writeByte(215)
+      super.writeValue(value.toList())
+    } else if let value = value as? PermissionsRequestDto {
+      super.writeByte(216)
+      super.writeValue(value.toList())
+    } else if let value = value as? PermissionsRequestResponseDto {
+      super.writeByte(217)
+      super.writeValue(value.toList())
+    } else if let value = value as? AggregateRequestDto {
+      super.writeByte(218)
+      super.writeValue(value.toList())
+    } else if let value = value as? AggregateResponseDto {
+      super.writeByte(219)
+      super.writeValue(value.toList())
+    } else if let value = value as? DeleteRecordsByIdsRequestDto {
+      super.writeByte(220)
+      super.writeValue(value.toList())
+    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
+      super.writeByte(221)
+      super.writeValue(value.toList())
+    } else if let value = value as? ReadRecordRequestDto {
+      super.writeByte(222)
+      super.writeValue(value.toList())
+    } else if let value = value as? ReadRecordResponseDto {
+      super.writeByte(223)
+      super.writeValue(value.toList())
+    } else if let value = value as? ReadRecordsRequestDto {
+      super.writeByte(224)
+      super.writeValue(value.toList())
+    } else if let value = value as? ReadRecordsResponseDto {
+      super.writeByte(225)
+      super.writeValue(value.toList())
+    } else if let value = value as? WriteRecordRequestDto {
+      super.writeByte(226)
+      super.writeValue(value.toList())
+    } else if let value = value as? WriteRecordResponseDto {
+      super.writeByte(227)
+      super.writeValue(value.toList())
+    } else if let value = value as? WriteRecordsRequestDto {
+      super.writeByte(228)
+      super.writeValue(value.toList())
+    } else if let value = value as? WriteRecordsResponseDto {
+      super.writeByte(229)
+      super.writeValue(value.toList())
+    } else if let value = value as? UpdateRecordRequestDto {
+      super.writeByte(230)
+      super.writeValue(value.toList())
+    } else if let value = value as? UpdateRecordResponseDto {
+      super.writeByte(231)
+      super.writeValue(value.toList())
+    } else {
+      super.writeValue(value)
     }
+  }
 }
 
 private class HealthConnectorPlatformApiPigeonCodecReaderWriter: FlutterStandardReaderWriter {
-    override func reader(with data: Data) -> FlutterStandardReader {
-        return HealthConnectorPlatformApiPigeonCodecReader(data: data)
-    }
+  override func reader(with data: Data) -> FlutterStandardReader {
+    return HealthConnectorPlatformApiPigeonCodecReader(data: data)
+  }
 
-    override func writer(with data: NSMutableData) -> FlutterStandardWriter {
-        return HealthConnectorPlatformApiPigeonCodecWriter(data: data)
-    }
+  override func writer(with data: NSMutableData) -> FlutterStandardWriter {
+    return HealthConnectorPlatformApiPigeonCodecWriter(data: data)
+  }
 }
 
 class HealthConnectorPlatformApiPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
-    static let shared = HealthConnectorPlatformApiPigeonCodec(readerWriter: HealthConnectorPlatformApiPigeonCodecReaderWriter())
+  static let shared = HealthConnectorPlatformApiPigeonCodec(readerWriter: HealthConnectorPlatformApiPigeonCodecReaderWriter())
 }
+
 
 /// The main API for communicating with the health platform.
 ///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol HealthConnectorPlatformApi {
-    func aggregate(request: AggregateRequestDto, completion: @escaping (Result<AggregateResponseDto, Error>) -> Void)
-    func deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto, completion: @escaping (Result<Void, Error>) -> Void)
-    func deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto, completion: @escaping (Result<Void, Error>) -> Void)
-    func getHealthPlatformStatus(completion: @escaping (Result<HealthPlatformStatusDto, Error>) -> Void)
-    func requestPermissions(request: PermissionsRequestDto, completion: @escaping (Result<PermissionsRequestResponseDto, Error>) -> Void)
-    func readRecord(request: ReadRecordRequestDto, completion: @escaping (Result<ReadRecordResponseDto?, Error>) -> Void)
-    func readRecords(request: ReadRecordsRequestDto, completion: @escaping (Result<ReadRecordsResponseDto, Error>) -> Void)
-    func writeRecord(request: WriteRecordRequestDto, completion: @escaping (Result<WriteRecordResponseDto, Error>) -> Void)
-    func writeRecords(request: WriteRecordsRequestDto, completion: @escaping (Result<WriteRecordsResponseDto, Error>) -> Void)
-    func updateRecord(request: UpdateRecordRequestDto, completion: @escaping (Result<UpdateRecordResponseDto, Error>) -> Void)
+  func aggregate(request: AggregateRequestDto, completion: @escaping (Result<AggregateResponseDto, Error>) -> Void)
+  func deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto, completion: @escaping (Result<Void, Error>) -> Void)
+  func deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto, completion: @escaping (Result<Void, Error>) -> Void)
+  func getHealthPlatformStatus(completion: @escaping (Result<HealthPlatformStatusDto, Error>) -> Void)
+  func requestPermissions(request: PermissionsRequestDto, completion: @escaping (Result<PermissionsRequestResponseDto, Error>) -> Void)
+  func readRecord(request: ReadRecordRequestDto, completion: @escaping (Result<ReadRecordResponseDto?, Error>) -> Void)
+  func readRecords(request: ReadRecordsRequestDto, completion: @escaping (Result<ReadRecordsResponseDto, Error>) -> Void)
+  func writeRecord(request: WriteRecordRequestDto, completion: @escaping (Result<WriteRecordResponseDto, Error>) -> Void)
+  func writeRecords(request: WriteRecordsRequestDto, completion: @escaping (Result<WriteRecordsResponseDto, Error>) -> Void)
+  func updateRecord(request: UpdateRecordRequestDto, completion: @escaping (Result<UpdateRecordResponseDto, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
 class HealthConnectorPlatformApiSetup {
-    static var codec: FlutterStandardMessageCodec { HealthConnectorPlatformApiPigeonCodec.shared }
-    /// Sets up an instance of `HealthConnectorPlatformApi` to handle messages through the `binaryMessenger`.
-    static func setUp(binaryMessenger: FlutterBinaryMessenger, api: HealthConnectorPlatformApi?, messageChannelSuffix: String = "") {
-        let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
-        let aggregateChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.aggregate\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-        if let api = api {
-            aggregateChannel.setMessageHandler { message, reply in
-                let args = message as! [Any?]
-                let requestArg = args[0] as! AggregateRequestDto
-                api.aggregate(request: requestArg) { result in
-                    switch result {
-                    case let .success(res):
-                        reply(wrapResult(res))
-                    case let .failure(error):
-                        reply(wrapError(error))
-                    }
-                }
-            }
-        } else {
-            aggregateChannel.setMessageHandler(nil)
+  static var codec: FlutterStandardMessageCodec { HealthConnectorPlatformApiPigeonCodec.shared }
+  /// Sets up an instance of `HealthConnectorPlatformApi` to handle messages through the `binaryMessenger`.
+  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: HealthConnectorPlatformApi?, messageChannelSuffix: String = "") {
+    let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
+    let aggregateChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.aggregate\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      aggregateChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let requestArg = args[0] as! AggregateRequestDto
+        api.aggregate(request: requestArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
         }
-        let deleteRecordsByIdsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.deleteRecordsByIds\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-        if let api = api {
-            deleteRecordsByIdsChannel.setMessageHandler { message, reply in
-                let args = message as! [Any?]
-                let requestArg = args[0] as! DeleteRecordsByIdsRequestDto
-                api.deleteRecordsByIds(request: requestArg) { result in
-                    switch result {
-                    case .success:
-                        reply(wrapResult(nil))
-                    case let .failure(error):
-                        reply(wrapError(error))
-                    }
-                }
-            }
-        } else {
-            deleteRecordsByIdsChannel.setMessageHandler(nil)
-        }
-        let deleteRecordsByTimeRangeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.deleteRecordsByTimeRange\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-        if let api = api {
-            deleteRecordsByTimeRangeChannel.setMessageHandler { message, reply in
-                let args = message as! [Any?]
-                let requestArg = args[0] as! DeleteRecordsByTimeRangeRequestDto
-                api.deleteRecordsByTimeRange(request: requestArg) { result in
-                    switch result {
-                    case .success:
-                        reply(wrapResult(nil))
-                    case let .failure(error):
-                        reply(wrapError(error))
-                    }
-                }
-            }
-        } else {
-            deleteRecordsByTimeRangeChannel.setMessageHandler(nil)
-        }
-        let getHealthPlatformStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.getHealthPlatformStatus\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-        if let api = api {
-            getHealthPlatformStatusChannel.setMessageHandler { _, reply in
-                api.getHealthPlatformStatus { result in
-                    switch result {
-                    case let .success(res):
-                        reply(wrapResult(res))
-                    case let .failure(error):
-                        reply(wrapError(error))
-                    }
-                }
-            }
-        } else {
-            getHealthPlatformStatusChannel.setMessageHandler(nil)
-        }
-        let requestPermissionsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.requestPermissions\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-        if let api = api {
-            requestPermissionsChannel.setMessageHandler { message, reply in
-                let args = message as! [Any?]
-                let requestArg = args[0] as! PermissionsRequestDto
-                api.requestPermissions(request: requestArg) { result in
-                    switch result {
-                    case let .success(res):
-                        reply(wrapResult(res))
-                    case let .failure(error):
-                        reply(wrapError(error))
-                    }
-                }
-            }
-        } else {
-            requestPermissionsChannel.setMessageHandler(nil)
-        }
-        let readRecordChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.readRecord\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-        if let api = api {
-            readRecordChannel.setMessageHandler { message, reply in
-                let args = message as! [Any?]
-                let requestArg = args[0] as! ReadRecordRequestDto
-                api.readRecord(request: requestArg) { result in
-                    switch result {
-                    case let .success(res):
-                        reply(wrapResult(res))
-                    case let .failure(error):
-                        reply(wrapError(error))
-                    }
-                }
-            }
-        } else {
-            readRecordChannel.setMessageHandler(nil)
-        }
-        let readRecordsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.readRecords\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-        if let api = api {
-            readRecordsChannel.setMessageHandler { message, reply in
-                let args = message as! [Any?]
-                let requestArg = args[0] as! ReadRecordsRequestDto
-                api.readRecords(request: requestArg) { result in
-                    switch result {
-                    case let .success(res):
-                        reply(wrapResult(res))
-                    case let .failure(error):
-                        reply(wrapError(error))
-                    }
-                }
-            }
-        } else {
-            readRecordsChannel.setMessageHandler(nil)
-        }
-        let writeRecordChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.writeRecord\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-        if let api = api {
-            writeRecordChannel.setMessageHandler { message, reply in
-                let args = message as! [Any?]
-                let requestArg = args[0] as! WriteRecordRequestDto
-                api.writeRecord(request: requestArg) { result in
-                    switch result {
-                    case let .success(res):
-                        reply(wrapResult(res))
-                    case let .failure(error):
-                        reply(wrapError(error))
-                    }
-                }
-            }
-        } else {
-            writeRecordChannel.setMessageHandler(nil)
-        }
-        let writeRecordsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.writeRecords\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-        if let api = api {
-            writeRecordsChannel.setMessageHandler { message, reply in
-                let args = message as! [Any?]
-                let requestArg = args[0] as! WriteRecordsRequestDto
-                api.writeRecords(request: requestArg) { result in
-                    switch result {
-                    case let .success(res):
-                        reply(wrapResult(res))
-                    case let .failure(error):
-                        reply(wrapError(error))
-                    }
-                }
-            }
-        } else {
-            writeRecordsChannel.setMessageHandler(nil)
-        }
-        let updateRecordChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.updateRecord\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-        if let api = api {
-            updateRecordChannel.setMessageHandler { message, reply in
-                let args = message as! [Any?]
-                let requestArg = args[0] as! UpdateRecordRequestDto
-                api.updateRecord(request: requestArg) { result in
-                    switch result {
-                    case let .success(res):
-                        reply(wrapResult(res))
-                    case let .failure(error):
-                        reply(wrapError(error))
-                    }
-                }
-            }
-        } else {
-            updateRecordChannel.setMessageHandler(nil)
-        }
+      }
+    } else {
+      aggregateChannel.setMessageHandler(nil)
     }
+    let deleteRecordsByIdsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.deleteRecordsByIds\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      deleteRecordsByIdsChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let requestArg = args[0] as! DeleteRecordsByIdsRequestDto
+        api.deleteRecordsByIds(request: requestArg) { result in
+          switch result {
+          case .success:
+            reply(wrapResult(nil))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      deleteRecordsByIdsChannel.setMessageHandler(nil)
+    }
+    let deleteRecordsByTimeRangeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.deleteRecordsByTimeRange\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      deleteRecordsByTimeRangeChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let requestArg = args[0] as! DeleteRecordsByTimeRangeRequestDto
+        api.deleteRecordsByTimeRange(request: requestArg) { result in
+          switch result {
+          case .success:
+            reply(wrapResult(nil))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      deleteRecordsByTimeRangeChannel.setMessageHandler(nil)
+    }
+    let getHealthPlatformStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.getHealthPlatformStatus\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getHealthPlatformStatusChannel.setMessageHandler { _, reply in
+        api.getHealthPlatformStatus { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      getHealthPlatformStatusChannel.setMessageHandler(nil)
+    }
+    let requestPermissionsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.requestPermissions\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      requestPermissionsChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let requestArg = args[0] as! PermissionsRequestDto
+        api.requestPermissions(request: requestArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      requestPermissionsChannel.setMessageHandler(nil)
+    }
+    let readRecordChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.readRecord\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      readRecordChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let requestArg = args[0] as! ReadRecordRequestDto
+        api.readRecord(request: requestArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      readRecordChannel.setMessageHandler(nil)
+    }
+    let readRecordsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.readRecords\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      readRecordsChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let requestArg = args[0] as! ReadRecordsRequestDto
+        api.readRecords(request: requestArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      readRecordsChannel.setMessageHandler(nil)
+    }
+    let writeRecordChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.writeRecord\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      writeRecordChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let requestArg = args[0] as! WriteRecordRequestDto
+        api.writeRecord(request: requestArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      writeRecordChannel.setMessageHandler(nil)
+    }
+    let writeRecordsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.writeRecords\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      writeRecordsChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let requestArg = args[0] as! WriteRecordsRequestDto
+        api.writeRecords(request: requestArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      writeRecordsChannel.setMessageHandler(nil)
+    }
+    let updateRecordChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.updateRecord\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      updateRecordChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let requestArg = args[0] as! UpdateRecordRequestDto
+        api.updateRecord(request: requestArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      updateRecordChannel.setMessageHandler(nil)
+    }
+  }
 }

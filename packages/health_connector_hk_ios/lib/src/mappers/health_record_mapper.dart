@@ -31,6 +31,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         PolyunsaturatedFatNutrientRecord,
         PotassiumNutrientRecord,
         ProteinNutrientRecord,
+        RestingHeartRateRecord,
         RiboflavinNutrientRecord,
         SaturatedFatNutrientRecord,
         SeleniumNutrientRecord,
@@ -86,6 +87,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api
         PolyunsaturatedFatNutrientRecordDto,
         PotassiumNutrientRecordDto,
         ProteinNutrientRecordDto,
+        RestingHeartRateRecordDto,
         RiboflavinNutrientRecordDto,
         SaturatedFatNutrientRecordDto,
         SeleniumNutrientRecordDto,
@@ -214,6 +216,8 @@ extension HealthRecordToDto on HealthRecord {
         return record.toDto();
       case final DiastolicBloodPressureRecord record:
         return record.toDto();
+      case final RestingHeartRateRecord record:
+        return record.toDto();
       case final SleepSessionRecord _:
         throw UnsupportedError(
           '$SleepSessionRecord is not supported on iOS HealthKit. '
@@ -266,6 +270,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
       case final SystolicBloodPressureRecordDto dto:
         return dto.toDomain();
       case final DiastolicBloodPressureRecordDto dto:
+        return dto.toDomain();
+      case final RestingHeartRateRecordDto dto:
         return dto.toDomain();
       case final EnergyNutrientRecordDto dto:
         return dto.toDomain();
