@@ -22,6 +22,7 @@ import 'package:health_connector/health_connector.dart'
         LeanBodyMassHealthDataType,
         MeasurementUnit,
         Pressure,
+        RestingHeartRateHealthDataType,
         StepsHealthDataType,
         WeightHealthDataType,
         WheelchairPushesHealthDataType,
@@ -491,6 +492,23 @@ class _AggregateHealthDataPageState
               startTime: startDateTime!,
               endTime: endDateTime!,
             ),
+          AggregationMetric.sum || AggregationMetric.count =>
+            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+        },
+        RestingHeartRateHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg =>
+            HealthDataType.restingHeartRate.aggregateAverage(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.min => HealthDataType.restingHeartRate.aggregateMin(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.max => HealthDataType.restingHeartRate.aggregateMax(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
           AggregationMetric.sum || AggregationMetric.count =>
             throw UnsupportedError('Unsupported metric: $_selectedMetric'),
         },

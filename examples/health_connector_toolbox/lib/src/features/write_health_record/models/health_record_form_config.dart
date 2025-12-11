@@ -77,6 +77,8 @@ import 'package:health_connector/health_connector.dart'
         Pressure,
         RiboflavinNutrientDataType,
         RiboflavinNutrientRecord,
+        RestingHeartRateHealthDataType,
+        RestingHeartRateRecord,
         SaturatedFatNutrientDataType,
         SaturatedFatNutrientRecord,
         SeleniumNutrientDataType,
@@ -219,6 +221,7 @@ sealed class HealthRecordFormConfig {
       PantothenicAcidNutrientDataType() =>
         const PantothenicAcidNutrientFormConfig(),
       NutritionHealthDataType() => const NutritionFormConfig(),
+      RestingHeartRateHealthDataType() => const RestingHeartRateFormConfig(),
     };
   }
 }
@@ -1809,6 +1812,30 @@ final class HeartRateSeriesRecordFormConfig extends HealthRecordFormConfig {
       startTime: startDateTime,
       endTime: endDateTime,
       samples: samples,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for resting heart rate records.
+final class RestingHeartRateFormConfig extends HealthRecordFormConfig {
+  const RestingHeartRateFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    final numericValue = value as Numeric;
+
+    return RestingHeartRateRecord(
+      time: startDateTime,
+      beatsPerMinute: numericValue,
       metadata: metadata,
     );
   }

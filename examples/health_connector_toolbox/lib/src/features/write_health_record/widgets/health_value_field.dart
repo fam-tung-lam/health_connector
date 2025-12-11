@@ -40,6 +40,7 @@ import 'package:health_connector/health_connector.dart'
         Pressure,
         ProteinNutrientDataType,
         RiboflavinNutrientDataType,
+        RestingHeartRateHealthDataType,
         SaturatedFatNutrientDataType,
         SeleniumNutrientDataType,
         SodiumNutrientDataType,
@@ -147,6 +148,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
           SleepStageHealthDataType() => throw UnsupportedError(
             'SleepStageHealthDataType requires custom form handling',
           ),
+          RestingHeartRateHealthDataType() => _parseNumeric(value),
           EnergyNutrientDataType() => _parseEnergy(value),
           CaffeineNutrientDataType() => _parseMass(value),
           ProteinNutrientDataType() => _parseMass(value),
@@ -300,6 +302,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
         SleepStageHealthDataType() => throw UnsupportedError(
           'SleepStageHealthDataType requires custom form handling',
         ),
+        RestingHeartRateHealthDataType() => AppTexts.pleaseEnterHeartRate,
         EnergyNutrientDataType() => AppTexts.pleaseEnterEnergy,
         CaffeineNutrientDataType() => AppTexts.pleaseEnterCaffeine,
         ProteinNutrientDataType() => AppTexts.pleaseEnterProtein,
@@ -371,6 +374,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
       SleepStageHealthDataType() => throw UnsupportedError(
         'SleepStageHealthDataType requires custom form handling',
       ),
+      RestingHeartRateHealthDataType() => int.tryParse(value),
       EnergyNutrientDataType() => double.tryParse(value),
       CaffeineNutrientDataType() => double.tryParse(value),
       ProteinNutrientDataType() => double.tryParse(value),
@@ -421,6 +425,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
       WheelchairPushesHealthDataType() =>
         (parsed as int) < 0 ? AppTexts.wheelchairPushesMustBeNonNegative : null,
       HeartRateMeasurementRecordHealthDataType() =>
+        (parsed as int) < 0 ? AppTexts.heartRateMustBePositive : null,
+      RestingHeartRateHealthDataType() =>
         (parsed as int) < 0 ? AppTexts.heartRateMustBePositive : null,
       WeightHealthDataType() =>
         (parsed as double) <= 0 ? AppTexts.weightMustBeGreaterThanZero : null,
@@ -536,6 +542,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
       SleepStageHealthDataType() => throw UnsupportedError(
         'SleepStageHealthDataType requires custom form handling',
       ),
+
       NutritionHealthDataType() => throw UnsupportedError(
         'NutritionHealthDataType requires NutritionFormField',
       ),
@@ -580,6 +587,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
         SleepStageHealthDataType() => throw UnsupportedError(
           'SleepStageHealthDataType requires custom form handling',
         ),
+        RestingHeartRateHealthDataType() => AppTexts.pleaseEnterHeartRate,
         EnergyNutrientDataType() => AppTexts.pleaseEnterEnergy,
         CaffeineNutrientDataType() => AppTexts.pleaseEnterCaffeine,
         ProteinNutrientDataType() => AppTexts.pleaseEnterProtein,
@@ -799,6 +807,17 @@ class _HealthValueFieldState extends State<HealthValueField> {
       ),
       SleepStageHealthDataType() => throw UnsupportedError(
         'SleepStageHealthDataType requires custom form handling',
+      ),
+      RestingHeartRateHealthDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.restingHeartRateValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.favorite),
+        ),
+        keyboardType: TextInputType.number,
+        onChanged: _onChanged,
+        validator: _validate,
       ),
       EnergyNutrientDataType() => TextFormField(
         controller: _controller,

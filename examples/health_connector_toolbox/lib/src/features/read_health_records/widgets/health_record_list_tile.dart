@@ -38,6 +38,7 @@ import 'package:health_connector/health_connector.dart'
         PolyunsaturatedFatNutrientRecord,
         PotassiumNutrientRecord,
         ProteinNutrientRecord,
+        RestingHeartRateRecord,
         RiboflavinNutrientRecord,
         SaturatedFatNutrientRecord,
         SeleniumNutrientRecord,
@@ -397,6 +398,37 @@ final class HealthRecordListTile extends StatelessWidget {
           detailRowsBuilder: (r, ctx) => [
             HealthRecordDetailRow(
               label: AppTexts.heartRateBpm,
+              value: r.beatsPerMinute.value.toInt().toString(),
+            ),
+          ],
+          onDelete: onDelete,
+        ),
+      RestingHeartRateRecord() =>
+        InstantHealthRecordTile<RestingHeartRateRecord>(
+          record: record,
+          icon: AppIcons.favorite,
+          title:
+              '${record.beatsPerMinute.value.toInt()} '
+              '${AppTexts.heartRateLabel}',
+          subtitleBuilder: (r, ctx) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 4),
+              Text(
+                '${AppTexts.time}: ${DateFormatUtils.formatDateTime(r.time)}',
+              ),
+              Text(
+                '${AppTexts.recording}: ${r.metadata.recordingMethod.name}',
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: theme.AppColors.grey600,
+                ),
+              ),
+            ],
+          ),
+          detailRowsBuilder: (r, ctx) => [
+            HealthRecordDetailRow(
+              label: AppTexts.restingHeartRateValue,
               value: r.beatsPerMinute.value.toInt().toString(),
             ),
           ],

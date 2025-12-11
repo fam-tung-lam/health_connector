@@ -47,6 +47,7 @@ import 'package:health_connector/health_connector.dart'
         ProteinNutrientDataType,
         RecordingMethod,
         RiboflavinNutrientDataType,
+        RestingHeartRateHealthDataType,
         SaturatedFatNutrientDataType,
         SeleniumNutrientDataType,
         SodiumNutrientDataType,
@@ -610,6 +611,8 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
         PantothenicAcidNutrientDataType() =>
           AppTexts.writePermissionDeniedPantothenicAcid,
         NutritionHealthDataType() => AppTexts.writePermissionDeniedNutrition,
+        RestingHeartRateHealthDataType() =>
+          AppTexts.writePermissionDeniedRestingHeartRateRecord,
       };
     }
     return e.message;
@@ -687,6 +690,8 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
               PantothenicAcidNutrientDataType() =>
                 AppTexts.insertPantothenicAcid,
               NutritionHealthDataType() => AppTexts.insertNutrition,
+              RestingHeartRateHealthDataType() =>
+                AppTexts.insertRestingHeartRateRecord,
             },
           ),
         ),

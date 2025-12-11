@@ -162,6 +162,10 @@ abstract final class AppTexts {
   static const String heartRateValue = 'Heart Rate (BPM)';
   static const String heartRateBpm = 'Heart Rate (BPM)';
   static const String heartRateLabel = 'BPM';
+  static const String restingHeartRate = 'Resting Heart Rate';
+  static const String restingHeartRateDescription =
+      'Resting heart rate measurement at a point in time';
+  static const String restingHeartRateValue = 'Resting Heart Rate (BPM)';
   static const String heartRateSamples = 'Heart Rate Samples';
   static const String addSample = 'Add Sample';
   static const String removeSample = 'Remove Sample';
@@ -276,6 +280,9 @@ abstract final class AppTexts {
   static const String hydrationWrite = 'Hydration - Write';
   static const String heartRateRecordRead = 'Heart Rate - Read';
   static const String heartRateRecordWrite = 'Heart Rate - Write';
+  static const String restingHeartRateRecordRead = 'Resting Heart Rate - Read';
+  static const String restingHeartRateRecordWrite =
+      'Resting Heart Rate - Write';
   static const String iosReadPermissionUnknownStatusNote =
       'Note: On iOS, read permissions may show as "unknown" status even after '
       'being granted due to privacy restrictions. '
@@ -341,6 +348,9 @@ abstract final class AppTexts {
   static const String writePermissionDeniedHeartRateRecord =
       'Write permission denied or not supported. '
       'Please grant write permission for heart rate.';
+  static const String writePermissionDeniedRestingHeartRateRecord =
+      'Write permission denied or not supported. '
+      'Please grant write permission for resting heart rate.';
   static const String writePermissionDeniedSleepSession =
       'Write permission denied or not supported. '
       'Please grant write permission for sleep session.';
@@ -442,6 +452,8 @@ abstract final class AppTexts {
   static const String insertWheelchairPushes = 'Insert Wheelchair Pushes';
   static const String insertHydration = 'Insert Hydration';
   static const String insertHeartRateRecord = 'Insert Heart Rate';
+  static const String insertRestingHeartRateRecord =
+      'Insert Resting Heart Rate';
   static const String insertSleepSession = 'Insert Sleep Session';
   static const String insertSleepStageRecord = 'Insert Sleep Stage';
   static const String insertBloodPressure = 'Insert Blood Pressure';

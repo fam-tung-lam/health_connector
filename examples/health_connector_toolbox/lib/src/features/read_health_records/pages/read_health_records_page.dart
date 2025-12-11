@@ -57,6 +57,7 @@ import 'package:health_connector/health_connector.dart'
         WheelchairPushesHealthDataType,
         ZincNutrientDataType,
         SleepSessionHealthDataType,
+        RestingHeartRateHealthDataType,
         SleepStageHealthDataType;
 import 'package:health_connector/health_connector.dart' show HealthPlatform;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
@@ -193,6 +194,12 @@ class _ReadHealthRecordsPageState
           ),
         HeartRateSeriesRecordHealthDataType() =>
           HealthDataType.heartRateSeriesRecord.readRecords(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        RestingHeartRateHealthDataType() =>
+          HealthDataType.restingHeartRate.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
