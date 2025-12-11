@@ -24,7 +24,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only
  * - Health Connect Type: DistanceRecord
  */
-object DistanceHandler :
+internal object DistanceHandler :
     IntervalRecordHandler,
     AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.DISTANCE

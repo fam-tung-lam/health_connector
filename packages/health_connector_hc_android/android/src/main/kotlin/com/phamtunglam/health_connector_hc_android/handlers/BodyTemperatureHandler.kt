@@ -17,7 +17,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Not supported
  * - Health Connect Type: BodyTemperatureRecord
  */
-object BodyTemperatureHandler : InstantRecordHandler {
+internal object BodyTemperatureHandler : InstantRecordHandler {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.BODY_TEMPERATURE
 
     override fun toDto(record: Record): HealthRecordDto {

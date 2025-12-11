@@ -17,7 +17,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Not supported
  * - Health Connect Type: LeanBodyMassRecord
  */
-object LeanBodyMassHandler : InstantRecordHandler {
+internal object LeanBodyMassHandler : InstantRecordHandler {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.LEAN_BODY_MASS
 
     override fun toDto(record: Record): HealthRecordDto {

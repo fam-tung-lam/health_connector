@@ -24,7 +24,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only (duration)
  * - Health Connect Type: SleepSessionRecord
  */
-object SleepSessionHandler :
+internal object SleepSessionHandler :
     SessionRecordHandler,
     AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.SLEEP_SESSION

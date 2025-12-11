@@ -24,7 +24,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports AVG, MIN, MAX
  * - Health Connect Type: HeightRecord
  */
-object HeightHandler :
+internal object HeightHandler :
     InstantRecordHandler,
     AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.HEIGHT

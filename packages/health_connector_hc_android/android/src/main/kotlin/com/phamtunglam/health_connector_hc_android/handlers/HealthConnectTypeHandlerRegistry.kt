@@ -12,7 +12,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
  * The registry is thread-safe through Kotlin's lazy initialization guarantees
  * and uses an immutable map for concurrent read access.
  */
-object HealthConnectTypeHandlerRegistry {
+internal object HealthConnectTypeHandlerRegistry {
     /**
      * Immutable map of health data types to their handlers.
      *

@@ -16,7 +16,7 @@ import kotlin.reflect.KClass
  * Each handler is responsible for managing a specific health data type, including
  * type identification, categorization, and type-specific operations.
  */
-sealed interface HealthConnectTypeHandler {
+internal sealed interface HealthConnectTypeHandler {
     /**
      * The health data type this handler supports.
      */
@@ -34,7 +34,7 @@ sealed interface HealthConnectTypeHandler {
  * This interface provides bidirectional conversion between Health Connect Record types
  * and platform-agnostic DTOs, as well as type information for SDK operations.
  */
-sealed interface HealthConnectRecordHandler : HealthConnectTypeHandler {
+internal sealed interface HealthConnectRecordHandler : HealthConnectTypeHandler {
     /**
      * Converts a Health Connect Record to a platform DTO.
      *
@@ -71,7 +71,7 @@ sealed interface HealthConnectRecordHandler : HealthConnectTypeHandler {
  * Interval records have both startTime and endTime, representing data over a time period.
  * Examples: Steps, Distance, ActiveCaloriesBurned
  */
-sealed interface IntervalRecordHandler : HealthConnectRecordHandler {
+internal sealed interface IntervalRecordHandler : HealthConnectRecordHandler {
     override val category: HealthConnectDataCategory
         get() = HealthConnectDataCategory.INTERVAL_RECORD
 }
@@ -82,7 +82,7 @@ sealed interface IntervalRecordHandler : HealthConnectRecordHandler {
  * Instant records have a single timestamp, representing a point-in-time measurement.
  * Examples: Weight, Height, BodyTemperature
  */
-sealed interface InstantRecordHandler : HealthConnectRecordHandler {
+internal sealed interface InstantRecordHandler : HealthConnectRecordHandler {
     override val category: HealthConnectDataCategory
         get() = HealthConnectDataCategory.INSTANT_RECORD
 }
@@ -93,7 +93,7 @@ sealed interface InstantRecordHandler : HealthConnectRecordHandler {
  * Series records contain multiple samples with individual timestamps over a time range.
  * Examples: HeartRate samples
  */
-sealed interface SeriesRecordHandler : HealthConnectRecordHandler {
+internal sealed interface SeriesRecordHandler : HealthConnectRecordHandler {
     override val category: HealthConnectDataCategory
         get() = HealthConnectDataCategory.SERIES_RECORD
 }
@@ -104,7 +104,7 @@ sealed interface SeriesRecordHandler : HealthConnectRecordHandler {
  * Session records are extended intervals that may contain stages or additional metadata.
  * Examples: Sleep sessions
  */
-sealed interface SessionRecordHandler : HealthConnectRecordHandler {
+internal sealed interface SessionRecordHandler : HealthConnectRecordHandler {
     override val category: HealthConnectDataCategory
         get() = HealthConnectDataCategory.SESSION_RECORD
 }
@@ -115,7 +115,7 @@ sealed interface SessionRecordHandler : HealthConnectRecordHandler {
  * Handlers implementing this interface can perform statistical aggregations
  * (sum, average, min, max) on their health data type.
  */
-interface AggregationSupportingHandler<R : AggregateRequestDto> : HealthConnectRecordHandler {
+internal interface AggregationSupportingHandler<R : AggregateRequestDto> : HealthConnectRecordHandler {
     /**
      * Converts a platform aggregation metric to a Health Connect AggregateMetric.
      *

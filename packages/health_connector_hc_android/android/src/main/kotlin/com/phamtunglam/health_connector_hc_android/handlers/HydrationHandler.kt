@@ -24,7 +24,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only
  * - Health Connect Type: HydrationRecord
  */
-object HydrationHandler :
+internal object HydrationHandler :
     IntervalRecordHandler,
     AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.HYDRATION

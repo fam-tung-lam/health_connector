@@ -24,7 +24,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports AVG, MIN, MAX
  * - Health Connect Type: WeightRecord
  */
-object WeightHandler :
+internal object WeightHandler :
     InstantRecordHandler,
     AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.WEIGHT

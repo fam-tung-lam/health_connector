@@ -23,7 +23,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only
  * - Health Connect Type: StepsRecord
  */
-object StepsHandler :
+internal object StepsHandler :
     IntervalRecordHandler,
     AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.STEPS

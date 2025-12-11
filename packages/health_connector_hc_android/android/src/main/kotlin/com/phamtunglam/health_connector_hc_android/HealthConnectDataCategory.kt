@@ -6,7 +6,7 @@ package com.phamtunglam.health_connector_hc_android
  * This categorization helps in implementing type-specific behavior and understanding the
  * temporal characteristics of each health data type.
  */
-enum class HealthConnectDataCategory {
+internal enum class HealthConnectDataCategory {
     /**
      * Interval records have both startTime and endTime, representing data over a time period.
      * Examples: Steps, Distance, ActiveCaloriesBurned, FloorsClimbed

@@ -23,7 +23,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only
  * - Health Connect Type: FloorsClimbedRecord
  */
-object FloorsClimbedHandler :
+internal object FloorsClimbedHandler :
     IntervalRecordHandler,
     AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.FLOORS_CLIMBED

@@ -24,7 +24,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only
  * - Health Connect Type: ActiveCaloriesBurnedRecord
  */
-object ActiveCaloriesBurnedHandler :
+internal object ActiveCaloriesBurnedHandler :
     IntervalRecordHandler,
     AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.ACTIVE_CALORIES_BURNED

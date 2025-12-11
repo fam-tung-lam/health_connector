@@ -17,7 +17,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Not supported
  * - Health Connect Type: HeartRateRecord
  */
-object HeartRateHandler : SeriesRecordHandler {
+internal object HeartRateHandler : SeriesRecordHandler {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.HEART_RATE_SERIES_RECORD
 
     override fun toDto(record: Record): HealthRecordDto {

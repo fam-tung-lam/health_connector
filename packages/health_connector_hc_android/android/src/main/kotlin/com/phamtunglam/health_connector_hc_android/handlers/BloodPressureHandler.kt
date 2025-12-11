@@ -25,7 +25,7 @@ import kotlin.reflect.KClass
  * - Aggregation: Not supported (use Systolic/Diastolic handlers for aggregation)
  * - Health Connect Type: BloodPressureRecord
  */
-object BloodPressureHandler :
+internal object BloodPressureHandler :
     InstantRecordHandler,
     AggregationSupportingHandler<BloodPressureAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.BLOOD_PRESSURE
