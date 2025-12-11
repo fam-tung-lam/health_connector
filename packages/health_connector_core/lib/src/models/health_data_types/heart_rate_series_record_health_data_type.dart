@@ -51,7 +51,6 @@ final class HeartRateSeriesRecordHealthDataType
     HealthPlatform.healthConnect,
   ];
 
-  // ReadableHealthDataType implementation
   @override
   HealthDataPermission get readPermission => HealthDataPermission(
     dataType: this,
@@ -77,14 +76,12 @@ final class HeartRateSeriesRecordHealthDataType
     );
   }
 
-  // WriteableHealthDataType implementation
   @override
   HealthDataPermission get writePermission => HealthDataPermission(
     dataType: this,
     accessType: HealthDataPermissionAccessType.write,
   );
 
-  // AvgAggregatableHealthDataType implementation
   @override
   AggregateRequest<HeartRateSeriesRecord, Numeric> aggregateAverage({
     required DateTime startTime,
@@ -98,7 +95,6 @@ final class HeartRateSeriesRecordHealthDataType
     );
   }
 
-  // MinAggregatableHealthDataType implementation
   @override
   AggregateRequest<HeartRateSeriesRecord, Numeric> aggregateMin({
     required DateTime startTime,
@@ -112,7 +108,6 @@ final class HeartRateSeriesRecordHealthDataType
     );
   }
 
-  // MaxAggregatableHealthDataType implementation
   @override
   AggregateRequest<HeartRateSeriesRecord, Numeric> aggregateMax({
     required DateTime startTime,

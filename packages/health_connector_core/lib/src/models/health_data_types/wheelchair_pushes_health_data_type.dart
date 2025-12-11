@@ -36,7 +36,6 @@ final class WheelchairPushesHealthDataType
     AggregationMetric.sum,
   ];
 
-  // ReadableHealthDataType implementation
   @override
   HealthDataPermission get readPermission => HealthDataPermission(
     dataType: this,
@@ -62,7 +61,6 @@ final class WheelchairPushesHealthDataType
     );
   }
 
-  // WriteableHealthDataType implementation
   @override
   HealthDataPermission get writePermission => HealthDataPermission(
     dataType: this,

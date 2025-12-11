@@ -7,7 +7,8 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
         supportedOnAppleHealth,
         availableOnAppleHealth,
         sinceV1_1_0,
-        sinceV1_2_0;
+        sinceV1_2_0,
+        sinceV1_3_0;
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
     show HealthConnectorConfigConstants;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';
@@ -49,6 +50,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         PolyunsaturatedFatNutrientRecord,
         PotassiumNutrientRecord,
         ProteinNutrientRecord,
+        RestingHeartRateRecord,
         RiboflavinNutrientRecord,
         SaturatedFatNutrientRecord,
         SeleniumNutrientRecord,
@@ -115,6 +117,7 @@ part 'nutrient_health_data_types/mineral_nutrient_health_data_types.dart';
 part 'nutrient_health_data_types/nutrient_health_data_type.dart';
 part 'nutrient_health_data_types/nutrition_health_data_type.dart';
 part 'nutrient_health_data_types/vitamin_nutrient_health_data_types.dart';
+part 'resting_heart_rate_health_data_type.dart';
 part 'sleep_session_health_data_type.dart';
 part 'sleep_stage_record_health_data_type.dart';
 part 'steps_health_data_type.dart';
@@ -336,6 +339,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports both reading existing sleep data and writing new measurements.
   @supportedOnAppleHealth
   static const sleepStageRecord = SleepStageHealthDataType();
+
+  /// Resting heart rate data type.
+  ///
+  /// Represents the heart rate while at complete rest, typically measured
+  /// first thing in the morning before getting out of bed.
+  /// Supports AVG, MIN, MAX aggregation.
+  @sinceV1_3_0
+  static const restingHeartRate = RestingHeartRateHealthDataType();
 
   /// Nutrition health data type.
   ///
@@ -609,6 +620,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     polyunsaturatedFat,
     potassium,
     protein,
+    restingHeartRate,
     riboflavin,
     saturatedFat,
     selenium,

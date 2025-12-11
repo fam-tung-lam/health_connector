@@ -48,7 +48,6 @@ final class SleepStageHealthDataType
     AggregationMetric.sum,
   ];
 
-  // ReadableHealthDataType implementation
   @override
   HealthDataPermission get readPermission => HealthDataPermission(
     dataType: this,
@@ -74,7 +73,6 @@ final class SleepStageHealthDataType
     );
   }
 
-  // WriteableHealthDataType implementation
   @override
   HealthDataPermission get writePermission => HealthDataPermission(
     dataType: this,

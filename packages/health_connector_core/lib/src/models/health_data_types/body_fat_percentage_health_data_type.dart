@@ -36,7 +36,6 @@ final class BodyFatPercentageHealthDataType
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [];
 
-  // ReadableHealthDataType implementation
   @override
   HealthDataPermission get readPermission => HealthDataPermission(
     dataType: this,
@@ -62,7 +61,6 @@ final class BodyFatPercentageHealthDataType
     );
   }
 
-  // WriteableHealthDataType implementation
   @override
   HealthDataPermission get writePermission => HealthDataPermission(
     dataType: this,

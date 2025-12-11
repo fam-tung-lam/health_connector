@@ -36,7 +36,6 @@ final class DistanceHealthDataType
     AggregationMetric.sum,
   ];
 
-  // ReadableHealthDataType implementation
   @override
   HealthDataPermission get readPermission => HealthDataPermission(
     dataType: this,
@@ -62,7 +61,6 @@ final class DistanceHealthDataType
     );
   }
 
-  // WriteableHealthDataType implementation
   @override
   HealthDataPermission get writePermission => HealthDataPermission(
     dataType: this,

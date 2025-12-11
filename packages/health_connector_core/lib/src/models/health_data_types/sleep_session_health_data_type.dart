@@ -47,7 +47,6 @@ final class SleepSessionHealthDataType
     AggregationMetric.sum,
   ];
 
-  // ReadableHealthDataType implementation
   @override
   HealthDataPermission get readPermission => HealthDataPermission(
     dataType: this,
@@ -73,14 +72,12 @@ final class SleepSessionHealthDataType
     );
   }
 
-  // WriteableHealthDataType implementation
   @override
   HealthDataPermission get writePermission => HealthDataPermission(
     dataType: this,
     accessType: HealthDataPermissionAccessType.write,
   );
 
-  // SumAggregatableHealthDataType implementation
   @override
   AggregateRequest<SleepSessionRecord, Numeric> aggregateSum({
     required DateTime startTime,

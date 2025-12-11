@@ -39,7 +39,6 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
     AggregationMetric.max,
   ];
 
-  // ReadableHealthDataType implementation
   @override
   HealthDataPermission get readPermission => HealthDataPermission(
     dataType: this,
@@ -65,14 +64,12 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
     );
   }
 
-  // WriteableHealthDataType implementation
   @override
   HealthDataPermission get writePermission => HealthDataPermission(
     dataType: this,
     accessType: HealthDataPermissionAccessType.write,
   );
 
-  // AvgAggregatableHealthDataType implementation
   @override
   AggregateRequest<HeightRecord, Length> aggregateAverage({
     required DateTime startTime,
@@ -86,7 +83,6 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
     );
   }
 
-  // MinAggregatableHealthDataType implementation
   @override
   AggregateRequest<HeightRecord, Length> aggregateMin({
     required DateTime startTime,
@@ -100,7 +96,6 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
     );
   }
 
-  // MaxAggregatableHealthDataType implementation
   @override
   AggregateRequest<HeightRecord, Length> aggregateMax({
     required DateTime startTime,

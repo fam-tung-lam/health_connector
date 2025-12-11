@@ -1,20 +1,24 @@
 part of 'health_data_type.dart';
 
-/// Health data type for body weight information.
-@sinceV1_0_0
+/// Health data type for resting heart rate information.
+///
+/// Resting heart rate represents the heart rate while at complete rest,
+/// typically measured first thing in the morning before getting out of bed.
+@sinceV1_3_0
 @immutable
-final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
+final class RestingHeartRateHealthDataType
+    extends HealthDataType<RestingHeartRateRecord, Numeric>
     implements
-        ReadableHealthDataType<WeightRecord>,
+        ReadableHealthDataType<RestingHeartRateRecord>,
         WriteableHealthDataType,
-        AvgAggregatableHealthDataType<WeightRecord, Mass>,
-        MinAggregatableHealthDataType<WeightRecord, Mass>,
-        MaxAggregatableHealthDataType<WeightRecord, Mass> {
+        AvgAggregatableHealthDataType<RestingHeartRateRecord, Numeric>,
+        MinAggregatableHealthDataType<RestingHeartRateRecord, Numeric>,
+        MaxAggregatableHealthDataType<RestingHeartRateRecord, Numeric> {
   @internal
-  const WeightHealthDataType();
+  const RestingHeartRateHealthDataType();
 
   @override
-  String get identifier => 'weight';
+  String get identifier => 'resting_heart_rate';
 
   @override
   String get name => identifier;
@@ -22,7 +26,7 @@ final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WeightHealthDataType &&
+      other is RestingHeartRateHealthDataType &&
           runtimeType == other.runtimeType &&
           identifier == other.identifier;
 
@@ -30,7 +34,7 @@ final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
   int get hashCode => identifier.hashCode;
 
   @override
-  String toString() => 'weight_data_type';
+  String toString() => 'resting_heart_rate_data_type';
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -46,12 +50,12 @@ final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
   );
 
   @override
-  ReadRecordRequest<WeightRecord> readRecord(HealthRecordId id) {
+  ReadRecordRequest<RestingHeartRateRecord> readRecord(HealthRecordId id) {
     return ReadRecordRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<WeightRecord> readRecords({
+  ReadRecordsRequest<RestingHeartRateRecord> readRecords({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
@@ -71,7 +75,7 @@ final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
   );
 
   @override
-  AggregateRequest<WeightRecord, Mass> aggregateAverage({
+  AggregateRequest<RestingHeartRateRecord, Numeric> aggregateAverage({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -84,7 +88,7 @@ final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
   }
 
   @override
-  AggregateRequest<WeightRecord, Mass> aggregateMin({
+  AggregateRequest<RestingHeartRateRecord, Numeric> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -97,7 +101,7 @@ final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
   }
 
   @override
-  AggregateRequest<WeightRecord, Mass> aggregateMax({
+  AggregateRequest<RestingHeartRateRecord, Numeric> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

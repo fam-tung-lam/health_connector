@@ -33,7 +33,6 @@ final class LeanBodyMassHealthDataType
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [];
 
-  // ReadableHealthDataType implementation
   @override
   HealthDataPermission get readPermission => HealthDataPermission(
     dataType: this,
@@ -59,7 +58,6 @@ final class LeanBodyMassHealthDataType
     );
   }
 
-  // WriteableHealthDataType implementation
   @override
   HealthDataPermission get writePermission => HealthDataPermission(
     dataType: this,

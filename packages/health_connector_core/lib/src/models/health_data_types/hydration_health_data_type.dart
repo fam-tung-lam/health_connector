@@ -85,7 +85,6 @@ final class HydrationHealthDataType
     AggregationMetric.sum,
   ];
 
-  // ReadableHealthDataType implementation
   @override
   HealthDataPermission get readPermission => HealthDataPermission(
     dataType: this,
@@ -111,14 +110,12 @@ final class HydrationHealthDataType
     );
   }
 
-  // WriteableHealthDataType implementation
   @override
   HealthDataPermission get writePermission => HealthDataPermission(
     dataType: this,
     accessType: HealthDataPermissionAccessType.write,
   );
 
-  // SumAggregatableHealthDataType implementation
   @override
   AggregateRequest<HydrationRecord, Volume> aggregateSum({
     required DateTime startTime,

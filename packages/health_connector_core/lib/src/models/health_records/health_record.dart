@@ -5,6 +5,7 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
         PlatformSpecificBehaviors,
         sinceV1_0_0,
         sinceV1_2_0,
+        sinceV1_3_0,
         supportedOnAppleHealth,
         supportedOnHealthConnect;
 import 'package:health_connector_core/src/annotations/internal_use.dart';
@@ -60,6 +61,7 @@ part 'nutrient_health_records/mineral_nutrient_health_records.dart';
 part 'nutrient_health_records/nutrient_health_record.dart';
 part 'nutrient_health_records/nutrition_record.dart';
 part 'nutrient_health_records/vitamin_nutrient_health_records.dart';
+part 'resting_heart_rate_record.dart';
 part 'series_health_record.dart';
 part 'sleep_session_record.dart';
 part 'sleep_stage_record.dart';
