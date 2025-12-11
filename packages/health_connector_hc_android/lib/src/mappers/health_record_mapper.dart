@@ -14,14 +14,46 @@ import 'package:health_connector_core/health_connector_core.dart'
         HeightRecord,
         HydrationRecord,
         LeanBodyMassRecord,
-        NutrientHealthRecord,
         NutritionRecord,
         SleepSessionRecord,
         SleepStageRecord,
         StepRecord,
         SystolicBloodPressureRecord,
         WeightRecord,
-        WheelchairPushesRecord;
+        WheelchairPushesRecord,
+        PhosphorusNutrientRecord,
+        EnergyNutrientRecord,
+        CaffeineNutrientRecord,
+        ProteinNutrientRecord,
+        TotalCarbohydrateNutrientRecord,
+        TotalFatNutrientRecord,
+        SaturatedFatNutrientRecord,
+        MonounsaturatedFatNutrientRecord,
+        PolyunsaturatedFatNutrientRecord,
+        CholesterolNutrientRecord,
+        DietaryFiberNutrientRecord,
+        SugarNutrientRecord,
+        VitaminANutrientRecord,
+        VitaminB6NutrientRecord,
+        VitaminB12NutrientRecord,
+        VitaminCNutrientRecord,
+        VitaminDNutrientRecord,
+        VitaminENutrientRecord,
+        VitaminKNutrientRecord,
+        ThiaminNutrientRecord,
+        RiboflavinNutrientRecord,
+        NiacinNutrientRecord,
+        FolateNutrientRecord,
+        BiotinNutrientRecord,
+        PantothenicAcidNutrientRecord,
+        CalciumNutrientRecord,
+        IronNutrientRecord,
+        MagnesiumNutrientRecord,
+        ManganeseNutrientRecord,
+        PotassiumNutrientRecord,
+        SeleniumNutrientRecord,
+        SodiumNutrientRecord,
+        ZincNutrientRecord;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_mappers.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_platform_api.g.dart'
     show
@@ -74,7 +106,71 @@ extension HealthRecordToDto on HealthRecord {
         return record.toDto();
       case final SleepSessionRecord record:
         return record.toDto();
-      case final NutrientHealthRecord record:
+      case final EnergyNutrientRecord record:
+        return record.toDto();
+      case final CaffeineNutrientRecord record:
+        return record.toDto();
+      case final ProteinNutrientRecord record:
+        return record.toDto();
+      case final TotalCarbohydrateNutrientRecord record:
+        return record.toDto();
+      case final TotalFatNutrientRecord record:
+        return record.toDto();
+      case final SaturatedFatNutrientRecord record:
+        return record.toDto();
+      case final MonounsaturatedFatNutrientRecord record:
+        return record.toDto();
+      case final PolyunsaturatedFatNutrientRecord record:
+        return record.toDto();
+      case final CholesterolNutrientRecord record:
+        return record.toDto();
+      case final DietaryFiberNutrientRecord record:
+        return record.toDto();
+      case final SugarNutrientRecord record:
+        return record.toDto();
+      case final VitaminANutrientRecord record:
+        return record.toDto();
+      case final VitaminB6NutrientRecord record:
+        return record.toDto();
+      case final VitaminB12NutrientRecord record:
+        return record.toDto();
+      case final VitaminCNutrientRecord record:
+        return record.toDto();
+      case final VitaminDNutrientRecord record:
+        return record.toDto();
+      case final VitaminENutrientRecord record:
+        return record.toDto();
+      case final VitaminKNutrientRecord record:
+        return record.toDto();
+      case final ThiaminNutrientRecord record:
+        return record.toDto();
+      case final RiboflavinNutrientRecord record:
+        return record.toDto();
+      case final NiacinNutrientRecord record:
+        return record.toDto();
+      case final FolateNutrientRecord record:
+        return record.toDto();
+      case final BiotinNutrientRecord record:
+        return record.toDto();
+      case final PantothenicAcidNutrientRecord record:
+        return record.toDto();
+      case final CalciumNutrientRecord record:
+        return record.toDto();
+      case final IronNutrientRecord record:
+        return record.toDto();
+      case final MagnesiumNutrientRecord record:
+        return record.toDto();
+      case final ManganeseNutrientRecord record:
+        return record.toDto();
+      case final PhosphorusNutrientRecord record:
+        return record.toDto();
+      case final PotassiumNutrientRecord record:
+        return record.toDto();
+      case final SeleniumNutrientRecord record:
+        return record.toDto();
+      case final SodiumNutrientRecord record:
+        return record.toDto();
+      case final ZincNutrientRecord record:
         return record.toDto();
       case final NutritionRecord record:
         return record.toDto();
