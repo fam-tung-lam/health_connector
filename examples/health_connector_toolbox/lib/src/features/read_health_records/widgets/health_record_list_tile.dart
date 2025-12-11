@@ -1406,7 +1406,7 @@ final class HealthRecordListTile extends StatelessWidget {
 
   Widget _buildSeriesRecord(
     BuildContext context,
-    SeriesHealthRecord record,
+    SeriesHealthRecord<dynamic> record,
   ) {
     return switch (record) {
       HeartRateSeriesRecord() => _buildHeartRateSeriesRecord(

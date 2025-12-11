@@ -9,9 +9,18 @@ formatter:
 analyzer:
   exclude:
     - "**/*.g.dart"
+    - "**/generated_plugin_registrant.dart"
   language:
     strict-casts: true
-    strict-raw-types: false
+    strict-inference: true
+    strict-raw-types: true
+  errors:
+    # Promote critical warnings to errors for CI enforcement
+    dead_code: error
+    unused_local_variable: error
+    unused_import: error
+    # Allow TODOs as info-level (visible but not blocking)
+    todo: info
 
 linter:
   rules:
@@ -28,7 +37,6 @@ linter:
     - avoid_equals_and_hash_code_on_mutable_classes
     - avoid_escaping_inner_quotes
     - avoid_field_initializers_in_const_classes
-    - avoid_final_parameters
     - avoid_init_to_null
     - avoid_js_rounded_ints
     - avoid_multiple_declarations_per_line
@@ -54,7 +62,6 @@ linter:
     - camel_case_types
     - cancel_subscriptions
     - cast_nullable_to_non_nullable
-    - close_sinks
     - collection_methods_unrelated_type
     - comment_references
     - constant_identifier_names
@@ -75,7 +82,6 @@ linter:
     - hash_and_equals
     - implementation_imports
     - join_return_with_assignment
-    - library_names
     - library_prefixes
     - library_private_types_in_public_api
     - lines_longer_than_80_chars
@@ -90,8 +96,8 @@ linter:
     - noop_primitive_operations
     - null_closures
     - omit_local_variable_types
+    - only_throw_errors
     - package_names
-    - package_prefixed_library_names
     - parameter_assignments
     - prefer_adjacent_string_concatenation
     - prefer_asserts_in_initializer_lists
@@ -123,7 +129,6 @@ linter:
     - prefer_single_quotes
     - prefer_spread_collections
     - prefer_typing_uninitialized_variables
-    - prefer_void_to_null
     - provide_deprecation_message
     - recursive_getters
     - require_trailing_commas
@@ -139,11 +144,13 @@ linter:
     - unnecessary_await_in_return
     - unnecessary_brace_in_string_interps
     - unnecessary_breaks
+    - unawaited_futures
     - unnecessary_const
     - unnecessary_constructor_name
     - unnecessary_getters_setters
     - unnecessary_lambdas
     - unnecessary_late
+    - unnecessary_library_name
     - unnecessary_new
     - unnecessary_null_aware_assignments
     - unnecessary_null_checks

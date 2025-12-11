@@ -58,7 +58,7 @@ final class HomePage extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          MaterialPageRoute<Widget>(
                             builder: (_) => Provider<HealthConnector>.value(
                               value: healthConnector,
                               child: PermissionsPage(
@@ -78,7 +78,7 @@ final class HomePage extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          MaterialPageRoute<Widget>(
                             builder: (_) => ChangeNotifierProvider(
                               create: (_) => ReadHealthRecordsChangeNotifier(
                                 healthConnector,
@@ -100,7 +100,7 @@ final class HomePage extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          MaterialPageRoute<Widget>(
                             builder: (_) => Provider<HealthConnector>.value(
                               value: healthConnector,
                               child: ChangeNotifierProvider(
@@ -126,7 +126,7 @@ final class HomePage extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          MaterialPageRoute<Widget>(
                             builder: (_) => ChangeNotifierProvider(
                               create: (_) => AggregateHealthDataChangeNotifier(
                                 healthConnector,
