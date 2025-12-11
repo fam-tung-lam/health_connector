@@ -17,7 +17,9 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
     val endTimeInstant = Instant.ofEpochMilli(endTime)
     val startZoneOffset =
         startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) } ?: ZoneOffset.UTC
-    val endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) } ?: ZoneOffset.UTC
+    val endZoneOffset = endZoneOffsetSeconds?.let {
+        ZoneOffset.ofTotalSeconds(it.toInt())
+    } ?: ZoneOffset.UTC
 
     // For individual nutrients, create a small interval (endTime = startTime + 100ms)
     // For combined nutrition, use the provided startTime/endTime
@@ -38,7 +40,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             energy = energy?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.CAFFEINE -> NutritionRecord(
@@ -49,7 +51,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             caffeine = caffeine?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.PROTEIN -> NutritionRecord(
@@ -60,7 +62,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             protein = protein?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.TOTAL_CARBOHYDRATE -> NutritionRecord(
@@ -71,7 +73,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             totalCarbohydrate = totalCarbohydrate?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.TOTAL_FAT -> NutritionRecord(
@@ -82,7 +84,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             totalFat = totalFat?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.SATURATED_FAT -> NutritionRecord(
@@ -93,7 +95,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             saturatedFat = saturatedFat?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.MONOUNSATURATED_FAT -> NutritionRecord(
@@ -104,7 +106,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             monounsaturatedFat = monounsaturatedFat?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.POLYUNSATURATED_FAT -> NutritionRecord(
@@ -115,7 +117,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             polyunsaturatedFat = polyunsaturatedFat?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.CHOLESTEROL -> NutritionRecord(
@@ -126,7 +128,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             cholesterol = cholesterol?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.DIETARY_FIBER -> NutritionRecord(
@@ -137,7 +139,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             dietaryFiber = dietaryFiber?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.SUGAR -> NutritionRecord(
@@ -148,7 +150,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             sugar = sugar?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.VITAMIN_A -> NutritionRecord(
@@ -159,7 +161,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             vitaminA = vitaminA?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.VITAMIN_B6 -> NutritionRecord(
@@ -170,7 +172,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             vitaminB6 = vitaminB6?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.VITAMIN_B12 -> NutritionRecord(
@@ -181,7 +183,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             vitaminB12 = vitaminB12?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.VITAMIN_C -> NutritionRecord(
@@ -192,7 +194,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             vitaminC = vitaminC?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.VITAMIN_D -> NutritionRecord(
@@ -203,7 +205,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             vitaminD = vitaminD?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.VITAMIN_E -> NutritionRecord(
@@ -214,7 +216,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             vitaminE = vitaminE?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.VITAMIN_K -> NutritionRecord(
@@ -225,7 +227,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             vitaminK = vitaminK?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.THIAMIN -> NutritionRecord(
@@ -236,7 +238,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             thiamin = thiamin?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.RIBOFLAVIN -> NutritionRecord(
@@ -247,7 +249,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             riboflavin = riboflavin?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.NIACIN -> NutritionRecord(
@@ -258,7 +260,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             niacin = niacin?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.FOLATE -> NutritionRecord(
@@ -269,7 +271,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             folate = folate?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.BIOTIN -> NutritionRecord(
@@ -280,7 +282,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             biotin = biotin?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.PANTOTHENIC_ACID -> NutritionRecord(
@@ -291,7 +293,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             pantothenicAcid = pantothenicAcid?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.CALCIUM -> NutritionRecord(
@@ -302,7 +304,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             calcium = calcium?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.IRON -> NutritionRecord(
@@ -313,7 +315,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             iron = iron?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.MAGNESIUM -> NutritionRecord(
@@ -324,7 +326,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             magnesium = magnesium?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.MANGANESE -> NutritionRecord(
@@ -335,7 +337,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             manganese = manganese?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.PHOSPHORUS -> NutritionRecord(
@@ -346,7 +348,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             phosphorus = phosphorus?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.POTASSIUM -> NutritionRecord(
@@ -357,7 +359,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             potassium = potassium?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.SELENIUM -> NutritionRecord(
@@ -368,7 +370,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             selenium = selenium?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.SODIUM -> NutritionRecord(
@@ -379,7 +381,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             sodium = sodium?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.ZINC -> NutritionRecord(
@@ -390,7 +392,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             zinc = zinc?.toHealthConnect(),
             name = foodName,
             mealType = mealType.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
         HealthDataTypeDto.NUTRITION -> NutritionRecord(
@@ -433,10 +435,12 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             sodium = sodium?.toHealthConnect(),
             zinc = zinc?.toHealthConnect(),
             caffeine = caffeine?.toHealthConnect(),
-            metadata = metadata.toHealthConnect()
+            metadata = metadata.toHealthConnect(),
         )
 
-        else -> throw IllegalArgumentException("Unsupported healthDataType for NutritionRecordDto: $healthDataType")
+        else -> throw IllegalArgumentException(
+            "Unsupported healthDataType for NutritionRecordDto: $healthDataType",
+        )
     }
 }
 
@@ -477,7 +481,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 energy = energyDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -494,7 +498,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 caffeine = caffeineDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -511,7 +515,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 protein = proteinDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -528,7 +532,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 totalCarbohydrate = totalCarbohydrateDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -545,7 +549,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 totalFat = totalFatDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -562,7 +566,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 saturatedFat = saturatedFatDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -579,7 +583,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 monounsaturatedFat = monounsaturatedFatDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -596,7 +600,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 polyunsaturatedFat = polyunsaturatedFatDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -613,7 +617,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 cholesterol = cholesterolDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -630,7 +634,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 dietaryFiber = dietaryFiberDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -647,7 +651,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 sugar = sugarDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -664,7 +668,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 vitaminA = vitaminADto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -681,7 +685,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 vitaminB6 = vitaminB6Dto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -698,7 +702,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 vitaminB12 = vitaminB12Dto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -715,7 +719,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 vitaminC = vitaminCDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -732,7 +736,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 vitaminD = vitaminDDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -749,7 +753,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 vitaminE = vitaminEDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -766,7 +770,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 vitaminK = vitaminKDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -783,7 +787,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 thiamin = thiaminDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -800,7 +804,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 riboflavin = riboflavinDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -817,7 +821,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 niacin = niacinDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -834,7 +838,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 folate = folateDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -851,7 +855,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 biotin = biotinDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -868,7 +872,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 pantothenicAcid = pantothenicAcidDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -885,7 +889,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 calcium = calciumDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -902,7 +906,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 iron = ironDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -919,7 +923,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 magnesium = magnesiumDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -936,7 +940,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 manganese = manganeseDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -953,7 +957,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 phosphorus = phosphorusDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -970,7 +974,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 potassium = potassiumDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -987,7 +991,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 selenium = seleniumDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -1004,7 +1008,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 sodium = sodiumDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -1021,7 +1025,7 @@ internal fun NutritionRecord.toNutrientDto(nutrientType: HealthDataTypeDto): Hea
                 endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
                 zinc = zincDto,
                 foodName = name,
-                mealType = mealType.toMealTypeDto()
+                mealType = mealType.toMealTypeDto(),
             )
         }
 
@@ -1076,5 +1080,5 @@ internal fun NutritionRecord.toDto(): NutritionRecordDto = NutritionRecordDto(
     selenium = selenium?.toDto(),
     sodium = sodium?.toDto(),
     zinc = zinc?.toDto(),
-    caffeine = caffeine?.toDto()
+    caffeine = caffeine?.toDto(),
 )

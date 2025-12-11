@@ -24,7 +24,9 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports AVG, MIN, MAX
  * - Health Connect Type: HeightRecord
  */
-object HeightHandler : InstantRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
+object HeightHandler :
+    InstantRecordHandler,
+    AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.HEIGHT
 
     override fun toDto(record: Record): HealthRecordDto {
@@ -48,14 +50,17 @@ object HeightHandler : InstantRecordHandler, AggregationSupportingHandler<Common
             AggregationMetricDto.AVG -> HeightRecord.HEIGHT_AVG
             AggregationMetricDto.MIN -> HeightRecord.HEIGHT_MIN
             AggregationMetricDto.MAX -> HeightRecord.HEIGHT_MAX
-            AggregationMetricDto.SUM, AggregationMetricDto.COUNT -> throw UnsupportedOperationException(
-                "Aggregation metric ${request.aggregationMetric} for Height. Supported: AVG, MIN, MAX"
-            )
+            AggregationMetricDto.SUM,
+            AggregationMetricDto.COUNT,
+            ->
+                throw UnsupportedOperationException(
+                    "Aggregation metric ${request.aggregationMetric} for Height. Supported: AVG, MIN, MAX",
+                )
         }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,
-        aggregateMetric: AggregateMetric<*>
+        aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val height = aggregationResult[aggregateMetric] as? Length
             ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")

@@ -89,7 +89,7 @@ object HealthConnectTypeHandlerRegistry {
      * @param handler The handler to register
      */
     private fun MutableMap<HealthDataTypeDto, HealthConnectRecordHandler>.register(
-        handler: HealthConnectRecordHandler
+        handler: HealthConnectRecordHandler,
     ) {
         put(handler.supportedType, handler)
     }
@@ -113,6 +113,8 @@ object HealthConnectTypeHandlerRegistry {
      */
     // Unchecked cast: we know the request type matches the handler's expected type at runtime
     @Suppress("UNCHECKED_CAST")
-    fun getAggregationHandler(type: HealthDataTypeDto): AggregationSupportingHandler<AggregateRequestDto>? =
+    fun getAggregationHandler(
+        type: HealthDataTypeDto,
+    ): AggregationSupportingHandler<AggregateRequestDto>? =
         handlers[type] as AggregationSupportingHandler<AggregateRequestDto>?
 }

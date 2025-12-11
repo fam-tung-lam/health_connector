@@ -80,13 +80,15 @@ class HealthConnectorHCAndroidPlugin :
      * Uses [Dispatchers.IO] for background execution and [SupervisorJob] to prevent
      * cancellation of sibling coroutines when one fails.
      */
-    private val scope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO + coroutineExceptionHandler)
+    private val scope: CoroutineScope =
+        CoroutineScope(SupervisorJob() + Dispatchers.IO + coroutineExceptionHandler)
 
     private companion object {
         /**
          * Tag used for logging throughout the plugin.
          */
-        private val TAG = HealthConnectorHCAndroidPlugin::class.simpleName ?: "HealthConnectorHCAndroidPlugin"
+        private val TAG = HealthConnectorHCAndroidPlugin::class.simpleName
+            ?: "HealthConnectorHCAndroidPlugin"
 
         /**
          * Global exception handler for coroutines to catch and log unhandled exceptions.
@@ -97,7 +99,7 @@ class HealthConnectorHCAndroidPlugin :
                 operation = "coroutineExceptionHandler",
                 phase = "unhandled_exception",
                 message = "Unhandled exception in coroutine scope",
-                exception = e
+                exception = e,
             )
         }
     }
@@ -201,7 +203,7 @@ class HealthConnectorHCAndroidPlugin :
     @Throws(HealthConnectorError::class)
     override fun requestPermissions(
         request: PermissionsRequestDto,
-        callback: (Result<PermissionsRequestResponseDto>) -> Unit
+        callback: (Result<PermissionsRequestResponseDto>) -> Unit,
     ) {
         scope.launch {
             try {
@@ -215,21 +217,25 @@ class HealthConnectorHCAndroidPlugin :
                         tag = TAG,
                         operation = "requestPermissions",
                         phase = "failed",
-                        message = "Activity is null. Cannot request permissions without activity context"
+                        message = "Activity is null. " +
+                            "Cannot request permissions without activity context",
                     )
                     complete(
                         callback,
                         Result.failure(
                             HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION.toError(
                                 details = "Activity is unavailable. " +
-                                    "The app may be in the background or activity has been destroyed."
-                            )
-                        )
+                                    "The app may be in the background or activity has been destroyed.",
+                            ),
+                        ),
                     )
                     return@launch
                 }
 
-                val responseDto = client.requestPermissions(activity = currentActivity, request = request)
+                val responseDto = client.requestPermissions(
+                    activity = currentActivity,
+                    request = request,
+                )
                 complete(callback, Result.success(responseDto))
             } catch (e: HealthConnectorError) {
                 HealthConnectorLogger.error(
@@ -239,9 +245,9 @@ class HealthConnectorHCAndroidPlugin :
                     message = "Failed to request Health Connect permissions",
                     context = mapOf(
                         "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error")
+                        "error_message" to (e.message ?: "Unknown error"),
                     ),
-                    exception = e
+                    exception = e,
                 )
                 complete(callback, Result.failure(e))
             }
@@ -271,9 +277,9 @@ class HealthConnectorHCAndroidPlugin :
                     message = "Failed to get granted Health Connect permissions",
                     context = mapOf(
                         "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error")
+                        "error_message" to (e.message ?: "Unknown error"),
                     ),
-                    exception = e
+                    exception = e,
                 )
                 complete(callback, Result.failure(e))
             }
@@ -303,9 +309,9 @@ class HealthConnectorHCAndroidPlugin :
                     message = "Failed to revoke all Health Connect permissions",
                     context = mapOf(
                         "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error")
+                        "error_message" to (e.message ?: "Unknown error"),
                     ),
-                    exception = e
+                    exception = e,
                 )
                 complete(callback, Result.failure(e))
             }
@@ -321,7 +327,7 @@ class HealthConnectorHCAndroidPlugin :
     @Throws(HealthConnectorError::class)
     override fun getFeatureStatus(
         feature: HealthPlatformFeatureDto,
-        callback: (Result<HealthPlatformFeatureStatusDto>) -> Unit
+        callback: (Result<HealthPlatformFeatureStatusDto>) -> Unit,
     ) {
         scope.launch {
             try {
@@ -340,9 +346,9 @@ class HealthConnectorHCAndroidPlugin :
                     context = mapOf(
                         "feature" to feature.toString(),
                         "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error")
+                        "error_message" to (e.message ?: "Unknown error"),
                     ),
-                    exception = e
+                    exception = e,
                 )
                 complete(callback, Result.failure(e))
             }
@@ -356,7 +362,10 @@ class HealthConnectorHCAndroidPlugin :
      * @param callback Called with a [Result] containing the read record response or null if not found
      */
     @Throws(HealthConnectorError::class)
-    override fun readRecord(request: ReadRecordRequestDto, callback: (Result<ReadRecordResponseDto?>) -> Unit) {
+    override fun readRecord(
+        request: ReadRecordRequestDto,
+        callback: (Result<ReadRecordResponseDto?>) -> Unit,
+    ) {
         scope.launch {
             try {
                 val client = healthClient ?: HealthConnectorClient.getOrCreate(context).also {
@@ -375,9 +384,9 @@ class HealthConnectorHCAndroidPlugin :
                         "dataType" to request.dataType.toString(),
                         "recordId" to request.recordId,
                         "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error")
+                        "error_message" to (e.message ?: "Unknown error"),
                     ),
-                    exception = e
+                    exception = e,
                 )
                 complete(callback, Result.failure(e))
             }
@@ -391,7 +400,10 @@ class HealthConnectorHCAndroidPlugin :
      * @param callback Called with a [Result] containing the read records response
      */
     @Throws(HealthConnectorError::class)
-    override fun readRecords(request: ReadRecordsRequestDto, callback: (Result<ReadRecordsResponseDto>) -> Unit) {
+    override fun readRecords(
+        request: ReadRecordsRequestDto,
+        callback: (Result<ReadRecordsResponseDto>) -> Unit,
+    ) {
         scope.launch {
             try {
                 val client = healthClient ?: HealthConnectorClient.getOrCreate(context).also {
@@ -412,9 +424,9 @@ class HealthConnectorHCAndroidPlugin :
                         "endTime" to request.endTime,
                         "pageSize" to request.pageSize,
                         "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error")
+                        "error_message" to (e.message ?: "Unknown error"),
                     ),
-                    exception = e
+                    exception = e,
                 )
                 complete(callback, Result.failure(e))
             }
@@ -428,7 +440,10 @@ class HealthConnectorHCAndroidPlugin :
      * @param callback Called with a [Result] containing the write record response
      */
     @Throws(HealthConnectorError::class)
-    override fun writeRecord(request: WriteRecordRequestDto, callback: (Result<WriteRecordResponseDto>) -> Unit) {
+    override fun writeRecord(
+        request: WriteRecordRequestDto,
+        callback: (Result<WriteRecordResponseDto>) -> Unit,
+    ) {
         scope.launch {
             try {
                 val client = healthClient ?: HealthConnectorClient.getOrCreate(context).also {
@@ -445,9 +460,9 @@ class HealthConnectorHCAndroidPlugin :
                     message = "Failed to write Health Connect record",
                     context = mapOf(
                         "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error")
+                        "error_message" to (e.message ?: "Unknown error"),
                     ),
-                    exception = e
+                    exception = e,
                 )
                 complete(callback, Result.failure(e))
             }
@@ -461,7 +476,10 @@ class HealthConnectorHCAndroidPlugin :
      * @param callback Called with a [Result] containing the write records response
      */
     @Throws(HealthConnectorError::class)
-    override fun writeRecords(request: WriteRecordsRequestDto, callback: (Result<WriteRecordsResponseDto>) -> Unit) {
+    override fun writeRecords(
+        request: WriteRecordsRequestDto,
+        callback: (Result<WriteRecordsResponseDto>) -> Unit,
+    ) {
         scope.launch {
             try {
                 val client = healthClient ?: HealthConnectorClient.getOrCreate(context).also {
@@ -479,9 +497,9 @@ class HealthConnectorHCAndroidPlugin :
                     context = mapOf(
                         "recordsCount" to request.records.size,
                         "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error")
+                        "error_message" to (e.message ?: "Unknown error"),
                     ),
-                    exception = e
+                    exception = e,
                 )
                 complete(callback, Result.failure(e))
             }
@@ -495,7 +513,10 @@ class HealthConnectorHCAndroidPlugin :
      * @param callback Called with a [Result] containing the update record response
      */
     @Throws(HealthConnectorError::class)
-    override fun updateRecord(request: UpdateRecordRequestDto, callback: (Result<UpdateRecordResponseDto>) -> Unit) {
+    override fun updateRecord(
+        request: UpdateRecordRequestDto,
+        callback: (Result<UpdateRecordResponseDto>) -> Unit,
+    ) {
         scope.launch {
             try {
                 val client = healthClient ?: HealthConnectorClient.getOrCreate(context).also {
@@ -512,9 +533,9 @@ class HealthConnectorHCAndroidPlugin :
                     message = "Failed to update Health Connect record",
                     context = mapOf(
                         "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error")
+                        "error_message" to (e.message ?: "Unknown error"),
                     ),
-                    exception = e
+                    exception = e,
                 )
                 complete(callback, Result.failure(e))
             }
@@ -528,7 +549,10 @@ class HealthConnectorHCAndroidPlugin :
      * @param callback Called with a [Result] indicating success or failure
      */
     @Throws(HealthConnectorError::class)
-    override fun deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto, callback: (Result<Unit>) -> Unit) {
+    override fun deleteRecordsByIds(
+        request: DeleteRecordsByIdsRequestDto,
+        callback: (Result<Unit>) -> Unit,
+    ) {
         scope.launch {
             try {
                 val client = healthClient ?: HealthConnectorClient.getOrCreate(context).also {
@@ -548,9 +572,9 @@ class HealthConnectorHCAndroidPlugin :
                         "dataType" to request.dataType.toString(),
                         "recordIdsCount" to request.recordIds.size,
                         "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error")
+                        "error_message" to (e.message ?: "Unknown error"),
                     ),
-                    exception = e
+                    exception = e,
                 )
                 complete(callback, Result.failure(e))
             }
@@ -566,7 +590,7 @@ class HealthConnectorHCAndroidPlugin :
     @Throws(HealthConnectorError::class)
     override fun deleteRecordsByTimeRange(
         request: DeleteRecordsByTimeRangeRequestDto,
-        callback: (Result<Unit>) -> Unit
+        callback: (Result<Unit>) -> Unit,
     ) {
         scope.launch {
             try {
@@ -588,9 +612,9 @@ class HealthConnectorHCAndroidPlugin :
                         "startTime" to request.startTime,
                         "endTime" to request.endTime,
                         "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error")
+                        "error_message" to (e.message ?: "Unknown error"),
                     ),
-                    exception = e
+                    exception = e,
                 )
                 complete(callback, Result.failure(e))
             }
@@ -604,7 +628,10 @@ class HealthConnectorHCAndroidPlugin :
      * @param callback Called with a [Result] containing the aggregation response
      */
     @Throws(HealthConnectorError::class)
-    override fun aggregate(request: AggregateRequestDto, callback: (Result<AggregateResponseDto>) -> Unit) {
+    override fun aggregate(
+        request: AggregateRequestDto,
+        callback: (Result<AggregateResponseDto>) -> Unit,
+    ) {
         scope.launch {
             try {
                 val client = healthClient ?: HealthConnectorClient.getOrCreate(context).also {
@@ -625,9 +652,9 @@ class HealthConnectorHCAndroidPlugin :
                         "startTime" to request.startTime,
                         "endTime" to request.endTime,
                         "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error")
+                        "error_message" to (e.message ?: "Unknown error"),
                     ),
-                    exception = e
+                    exception = e,
                 )
                 complete(callback, Result.failure(e))
             }

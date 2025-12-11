@@ -19,7 +19,7 @@ internal fun StepsRecord.toDto(): StepRecordDto = StepRecordDto(
     startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
     endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    count = count.toNumericDto()
+    count = count.toNumericDto(),
 )
 
 /**
@@ -31,5 +31,5 @@ internal fun StepRecordDto.toHealthConnect(): StepsRecord = StepsRecord(
     endTime = Instant.ofEpochMilli(endTime),
     startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
     endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect()
+    metadata = metadata.toHealthConnect(),
 )

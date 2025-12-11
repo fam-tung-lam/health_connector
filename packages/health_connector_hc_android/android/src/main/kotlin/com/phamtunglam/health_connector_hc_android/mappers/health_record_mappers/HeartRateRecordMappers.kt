@@ -23,9 +23,9 @@ internal fun HeartRateRecord.toDto(): HeartRateSeriesRecordDto = HeartRateSeries
     samples = samples.map { sample ->
         HeartRateMeasurementDto(
             time = sample.time.toEpochMilli(),
-            beatsPerMinute = sample.beatsPerMinute.toNumericDto()
+            beatsPerMinute = sample.beatsPerMinute.toNumericDto(),
         )
-    }
+    },
 )
 
 /**
@@ -35,12 +35,12 @@ internal fun HeartRateSeriesRecordDto.toHealthConnect(): HeartRateRecord = Heart
     samples = samples.map { sample ->
         Sample(
             time = Instant.ofEpochMilli(sample.time),
-            beatsPerMinute = sample.beatsPerMinute.value.toLong()
+            beatsPerMinute = sample.beatsPerMinute.value.toLong(),
         )
     },
     startTime = Instant.ofEpochMilli(startTime),
     endTime = Instant.ofEpochMilli(endTime),
     startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
     endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect()
+    metadata = metadata.toHealthConnect(),
 )

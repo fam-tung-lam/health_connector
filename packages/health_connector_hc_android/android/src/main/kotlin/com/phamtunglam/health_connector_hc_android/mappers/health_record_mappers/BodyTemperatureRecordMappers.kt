@@ -17,15 +17,16 @@ internal fun BodyTemperatureRecord.toDto(): BodyTemperatureRecordDto = BodyTempe
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    temperature = temperature.inCelsius.toTemperatureDto()
+    temperature = temperature.inCelsius.toTemperatureDto(),
 )
 
 /**
  * Converts a [BodyTemperatureRecordDto] to a Health Connect [BodyTemperatureRecord] object.
  */
-internal fun BodyTemperatureRecordDto.toHealthConnect(): BodyTemperatureRecord = BodyTemperatureRecord(
-    temperature = Temperature.celsius(temperature.value),
-    time = Instant.ofEpochMilli(time),
-    zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect()
-)
+internal fun BodyTemperatureRecordDto.toHealthConnect(): BodyTemperatureRecord =
+    BodyTemperatureRecord(
+        temperature = Temperature.celsius(temperature.value),
+        time = Instant.ofEpochMilli(time),
+        zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+        metadata = metadata.toHealthConnect(),
+    )

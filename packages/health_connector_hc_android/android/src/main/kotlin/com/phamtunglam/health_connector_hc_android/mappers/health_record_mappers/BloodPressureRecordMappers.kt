@@ -38,8 +38,10 @@ internal fun MeasurementLocationDto.toHealthConnect(): Int = when (this) {
     MeasurementLocationDto.UNKNOWN -> BloodPressureRecord.MEASUREMENT_LOCATION_UNKNOWN
     MeasurementLocationDto.LEFT_WRIST -> BloodPressureRecord.MEASUREMENT_LOCATION_LEFT_WRIST
     MeasurementLocationDto.RIGHT_WRIST -> BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_WRIST
-    MeasurementLocationDto.LEFT_UPPER_ARM -> BloodPressureRecord.MEASUREMENT_LOCATION_LEFT_UPPER_ARM
-    MeasurementLocationDto.RIGHT_UPPER_ARM -> BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_UPPER_ARM
+    MeasurementLocationDto.LEFT_UPPER_ARM ->
+        BloodPressureRecord.MEASUREMENT_LOCATION_LEFT_UPPER_ARM
+    MeasurementLocationDto.RIGHT_UPPER_ARM ->
+        BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_UPPER_ARM
 }
 
 /**
@@ -48,8 +50,10 @@ internal fun MeasurementLocationDto.toHealthConnect(): Int = when (this) {
 internal fun Int.toMeasurementLocationDto(): MeasurementLocationDto = when (this) {
     BloodPressureRecord.MEASUREMENT_LOCATION_LEFT_WRIST -> MeasurementLocationDto.LEFT_WRIST
     BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_WRIST -> MeasurementLocationDto.RIGHT_WRIST
-    BloodPressureRecord.MEASUREMENT_LOCATION_LEFT_UPPER_ARM -> MeasurementLocationDto.LEFT_UPPER_ARM
-    BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_UPPER_ARM -> MeasurementLocationDto.RIGHT_UPPER_ARM
+    BloodPressureRecord.MEASUREMENT_LOCATION_LEFT_UPPER_ARM ->
+        MeasurementLocationDto.LEFT_UPPER_ARM
+    BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_UPPER_ARM ->
+        MeasurementLocationDto.RIGHT_UPPER_ARM
     else -> MeasurementLocationDto.UNKNOWN
 }
 
@@ -64,7 +68,7 @@ internal fun BloodPressureRecord.toDto(): BloodPressureRecordDto = BloodPressure
     systolic = systolic.toDto(),
     diastolic = diastolic.toDto(),
     bodyPosition = bodyPosition.toBodyPositionDto(),
-    measurementLocation = measurementLocation.toMeasurementLocationDto()
+    measurementLocation = measurementLocation.toMeasurementLocationDto(),
 )
 
 /**
@@ -77,5 +81,5 @@ internal fun BloodPressureRecordDto.toHealthConnect(): BloodPressureRecord = Blo
     diastolic = diastolic.toHealthConnect(),
     bodyPosition = bodyPosition.toHealthConnect(),
     measurementLocation = measurementLocation.toHealthConnect(),
-    metadata = metadata.toHealthConnect()
+    metadata = metadata.toHealthConnect(),
 )

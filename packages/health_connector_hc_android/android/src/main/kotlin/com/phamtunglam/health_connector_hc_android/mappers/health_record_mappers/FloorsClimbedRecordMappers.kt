@@ -18,7 +18,7 @@ internal fun FloorsClimbedRecord.toDto(): FloorsClimbedRecordDto = FloorsClimbed
     startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
     endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    floors = floors.toNumericDto()
+    floors = floors.toNumericDto(),
 )
 
 /**
@@ -30,5 +30,5 @@ internal fun FloorsClimbedRecordDto.toHealthConnect(): FloorsClimbedRecord = Flo
     endTime = Instant.ofEpochMilli(endTime),
     startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
     endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect()
+    metadata = metadata.toHealthConnect(),
 )

@@ -24,7 +24,9 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only
  * - Health Connect Type: HydrationRecord
  */
-object HydrationHandler : IntervalRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
+object HydrationHandler :
+    IntervalRecordHandler,
+    AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.HYDRATION
 
     override fun toDto(record: Record): HealthRecordDto {
@@ -46,15 +48,19 @@ object HydrationHandler : IntervalRecordHandler, AggregationSupportingHandler<Co
     override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
         when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> HydrationRecord.VOLUME_TOTAL
-            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX, AggregationMetricDto.COUNT ->
+            AggregationMetricDto.AVG,
+            AggregationMetricDto.MIN,
+            AggregationMetricDto.MAX,
+            AggregationMetricDto.COUNT,
+            ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} for Hydration. Supported: SUM"
+                    "Aggregation metric ${request.aggregationMetric} for Hydration. Supported: SUM",
                 )
         }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,
-        aggregateMetric: AggregateMetric<*>
+        aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val volume = aggregationResult[aggregateMetric] as? Volume
             ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")

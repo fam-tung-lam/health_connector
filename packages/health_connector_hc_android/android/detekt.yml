@@ -1,0 +1,75 @@
+# Detekt Configuration
+# https://detekt.dev/docs/intro
+
+build:
+  maxIssues: 0
+
+console-reports:
+  active: true
+
+output-reports:
+  active: true
+  exclude:
+    - 'TxtOutputReport'
+
+complexity:
+  active: true
+  LongMethod:
+    threshold: 60
+    active: true
+  LongParameterList:
+    functionThreshold: 6
+    constructorThreshold: 7
+    active: true
+
+  TooManyFunctions:
+    thresholdInFiles: 11
+    thresholdInClasses: 11
+    thresholdInInterfaces: 11
+    thresholdInObjects: 11
+    thresholdInEnums: 11
+    active: true
+  ComplexCondition:
+    threshold: 4
+    active: true
+  CyclomaticComplexMethod:
+    threshold: 15
+    active: true
+
+coroutines:
+  active: true
+
+exceptions:
+  active: true
+
+naming:
+  active: true
+
+performance:
+  active: true
+
+potential-bugs:
+  active: true
+
+style:
+  active: true
+  MaxLineLength:
+    maxLineLength: 100
+    excludeCommentStatements: true
+  MagicNumber:
+    active: true
+    ignoreNumbers: ['-1', '0', '1', '2']
+    ignoreHashCodeFunction: true
+    ignorePropertyDeclaration: true
+    ignoreAnnotation: true
+    ignoreEnums: true
+  UnusedPrivateClass:
+    active: true
+  UnusedPrivateMember:
+    active: true
+  ReturnCount:
+    active: true
+    max: 3
+    excludedFunctions: ['equals']
+
+

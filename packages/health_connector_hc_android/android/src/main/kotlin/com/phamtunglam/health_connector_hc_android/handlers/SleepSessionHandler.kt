@@ -24,7 +24,9 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only (duration)
  * - Health Connect Type: SleepSessionRecord
  */
-object SleepSessionHandler : SessionRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
+object SleepSessionHandler :
+    SessionRecordHandler,
+    AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.SLEEP_SESSION
 
     override fun toDto(record: Record): HealthRecordDto {
@@ -46,15 +48,19 @@ object SleepSessionHandler : SessionRecordHandler, AggregationSupportingHandler<
     override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
         when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> SleepSessionRecord.SLEEP_DURATION_TOTAL
-            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX, AggregationMetricDto.COUNT ->
+            AggregationMetricDto.AVG,
+            AggregationMetricDto.MIN,
+            AggregationMetricDto.MAX,
+            AggregationMetricDto.COUNT,
+            ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} is not supported for sleep session (cumulative sum). Only SUM is supported."
+                    "Aggregation metric ${request.aggregationMetric} is not supported for sleep session (cumulative sum). Only SUM is supported.",
                 )
         }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,
-        aggregateMetric: AggregateMetric<*>
+        aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         // Sleep duration is returned as java.time.Duration, convert to seconds
         val duration = aggregationResult[aggregateMetric] as? Duration

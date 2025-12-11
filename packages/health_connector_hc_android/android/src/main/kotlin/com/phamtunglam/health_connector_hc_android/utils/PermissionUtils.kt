@@ -43,19 +43,22 @@ internal object PermissionUtils {
      *         is not declared in AndroidManifest.xml.
      */
     @Throws(HealthConnectorError::class)
-    fun validateFeaturePermissionDeclaredInManifest(context: Context, feature: HealthPlatformFeatureDto) {
+    fun validateFeaturePermissionDeclaredInManifest(
+        context: Context,
+        feature: HealthPlatformFeatureDto,
+    ) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "validateFeaturePermissionDeclaredInManifest",
             phase = "entry",
             message = "Validating feature permission declared in AndroidManifest",
-            context = mapOf("feature" to feature)
+            context = mapOf("feature" to feature),
         )
 
         // Get all permissions declared in AndroidManifest
         val definedPermissions = context.packageManager.getPackageInfo(
             context.packageName,
-            PackageManager.GET_PERMISSIONS
+            PackageManager.GET_PERMISSIONS,
         ).requestedPermissions.orEmpty().toSet()
 
         // Convert feature to Health Connect permission string
@@ -72,11 +75,12 @@ internal object PermissionUtils {
                 message = errorMessage,
                 context = mapOf(
                     "feature" to feature,
-                    "feature_permission_string" to featurePermissionString
-                )
+                    "feature_permission_string" to featurePermissionString,
+                ),
             )
             throw HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION.toError(
-                details = "Please add the permission '$featurePermissionString' to your AndroidManifest.xml file."
+                details = "Please add the permission '$featurePermissionString' " +
+                    "to your AndroidManifest.xml file.",
             )
         }
 
@@ -85,7 +89,7 @@ internal object PermissionUtils {
             operation = "validateFeaturePermissionDeclaredInManifest",
             phase = "completed",
             message = "Feature permission properly declared in AndroidManifest",
-            context = mapOf("feature" to feature)
+            context = mapOf("feature" to feature),
         )
     }
 
@@ -110,14 +114,14 @@ internal object PermissionUtils {
             message = "Validating permissions declared in AndroidManifest",
             context = mapOf(
                 "health_data_permissions" to request.healthDataPermissions,
-                "feature_permissions" to request.featurePermissions
-            )
+                "feature_permissions" to request.featurePermissions,
+            ),
         )
 
         // Get all permissions declared in AndroidManifest
         val definedPermissions = context.packageManager.getPackageInfo(
             context.packageName,
-            PackageManager.GET_PERMISSIONS
+            PackageManager.GET_PERMISSIONS,
         ).requestedPermissions.orEmpty().toSet()
 
         HealthConnectorLogger.debug(
@@ -125,12 +129,16 @@ internal object PermissionUtils {
             operation = "validatePermissionsDeclaredInManifest",
             phase = "in_progress",
             message = "Found permissions declared in AndroidManifest",
-            context = mapOf("declared_permissions_count" to definedPermissions.size)
+            context = mapOf("declared_permissions_count" to definedPermissions.size),
         )
 
         // Convert DTOs to Health Connect permission strings
-        val healthDataPermissionStrings = request.healthDataPermissions.map { it.toHealthConnectPermission() }
-        val featurePermissionStrings = request.featurePermissions.map { it.toHealthConnectPermission() }
+        val healthDataPermissionStrings = request.healthDataPermissions.map {
+            it.toHealthConnectPermission()
+        }
+        val featurePermissionStrings = request.featurePermissions.map {
+            it.toHealthConnectPermission()
+        }
         val allRequestedPermissions = healthDataPermissionStrings + featurePermissionStrings
 
         // Partition into defined and not defined
@@ -145,8 +153,8 @@ internal object PermissionUtils {
             message = "Validation result",
             context = mapOf(
                 "defined_count" to defined.size,
-                "not_defined_count" to notDefined.size
-            )
+                "not_defined_count" to notDefined.size,
+            ),
         )
 
         // Throw error if any permissions are not defined
@@ -161,8 +169,8 @@ internal object PermissionUtils {
                 message = errorMessage,
                 context = mapOf(
                     "not_defined" to notDefined,
-                    "defined" to defined
-                )
+                    "defined" to defined,
+                ),
             )
             throw IllegalStateException(errorMessage)
         }
@@ -171,7 +179,7 @@ internal object PermissionUtils {
             tag = TAG,
             operation = "validatePermissionsDeclaredInManifest",
             phase = "completed",
-            message = "All requested permissions are properly declared in AndroidManifest"
+            message = "All requested permissions are properly declared in AndroidManifest",
         )
     }
 
@@ -182,10 +190,17 @@ internal object PermissionUtils {
      * @param request The permissions to request
      * @return Set of granted permission strings
      */
-    suspend fun requestPermissionsFromSystem(activity: ComponentActivity, request: PermissionsRequestDto): Set<String> {
+    suspend fun requestPermissionsFromSystem(
+        activity: ComponentActivity,
+        request: PermissionsRequestDto,
+    ): Set<String> {
         // Convert DTOs to Health Connect permission strings
-        val healthDataPermissionStrings = request.healthDataPermissions.map { it.toHealthConnectPermission() }
-        val featurePermissionStrings = request.featurePermissions.map { it.toHealthConnectPermission() }
+        val healthDataPermissionStrings = request.healthDataPermissions.map {
+            it.toHealthConnectPermission()
+        }
+        val featurePermissionStrings = request.featurePermissions.map {
+            it.toHealthConnectPermission()
+        }
         val allPermissions = healthDataPermissionStrings.union(featurePermissionStrings)
 
         HealthConnectorLogger.debug(
@@ -193,7 +208,7 @@ internal object PermissionUtils {
             operation = "requestPermissionsFromSystem",
             phase = "entry",
             message = "Launching permission request",
-            context = mapOf("permissions_count" to allPermissions.size)
+            context = mapOf("permissions_count" to allPermissions.size),
         )
 
         // Launch permission request and wait for result
@@ -201,7 +216,7 @@ internal object PermissionUtils {
         val contract = PermissionController.createRequestPermissionResultContract()
         val launcher = activity.activityResultRegistry.register(
             PERMISSION_REQUEST_KEY,
-            contract
+            contract,
         ) { grantedPermissions -> completer.complete(grantedPermissions) }
 
         launcher.launch(allPermissions)
@@ -212,7 +227,7 @@ internal object PermissionUtils {
             operation = "requestPermissionsFromSystem",
             phase = "completed",
             message = "Permission request completed",
-            context = mapOf("granted_permissions_count" to grantedPermissions.size)
+            context = mapOf("granted_permissions_count" to grantedPermissions.size),
         )
         return grantedPermissions
     }
@@ -226,11 +241,14 @@ internal object PermissionUtils {
      */
     fun buildHealthDataPermissionResults(
         requestedPermissions: List<HealthDataPermissionDto>,
-        grantedPermissions: Set<String>
+        grantedPermissions: Set<String>,
     ): List<HealthDataPermissionRequestResultDto> = requestedPermissions.map { permissionDto ->
         HealthDataPermissionRequestResultDto(
             permission = permissionDto,
-            status = determinePermissionStatus(permissionDto.toHealthConnectPermission(), grantedPermissions)
+            status = determinePermissionStatus(
+                permissionDto.toHealthConnectPermission(),
+                grantedPermissions,
+            ),
         )
     }
 
@@ -243,11 +261,14 @@ internal object PermissionUtils {
      */
     fun buildFeaturePermissionResults(
         requestedFeatures: List<HealthPlatformFeatureDto>,
-        grantedPermissions: Set<String>
+        grantedPermissions: Set<String>,
     ): List<HealthPlatformFeaturePermissionRequestResultDto> = requestedFeatures.map { featureDto ->
         HealthPlatformFeaturePermissionRequestResultDto(
             feature = featureDto,
-            status = determinePermissionStatus(featureDto.toHealthConnectPermission(), grantedPermissions)
+            status = determinePermissionStatus(
+                featureDto.toHealthConnectPermission(),
+                grantedPermissions,
+            ),
         )
     }
 
@@ -258,10 +279,12 @@ internal object PermissionUtils {
      * @param grantedPermissions The set of granted permission strings
      * @return [PermissionStatusDto.GRANTED] if the permission was granted, [PermissionStatusDto.DENIED] otherwise
      */
-    fun determinePermissionStatus(permissionString: String, grantedPermissions: Set<String>): PermissionStatusDto =
-        if (permissionString in grantedPermissions) {
-            PermissionStatusDto.GRANTED
-        } else {
-            PermissionStatusDto.DENIED
-        }
+    fun determinePermissionStatus(
+        permissionString: String,
+        grantedPermissions: Set<String>,
+    ): PermissionStatusDto = if (permissionString in grantedPermissions) {
+        PermissionStatusDto.GRANTED
+    } else {
+        PermissionStatusDto.DENIED
+    }
 }

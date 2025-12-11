@@ -25,7 +25,9 @@ import kotlin.reflect.KClass
  * - Aggregation: Not supported (use Systolic/Diastolic handlers for aggregation)
  * - Health Connect Type: BloodPressureRecord
  */
-object BloodPressureHandler : InstantRecordHandler, AggregationSupportingHandler<BloodPressureAggregateRequestDto> {
+object BloodPressureHandler :
+    InstantRecordHandler,
+    AggregationSupportingHandler<BloodPressureAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.BLOOD_PRESSURE
 
     override fun toDto(record: Record): HealthRecordDto {
@@ -69,13 +71,13 @@ object BloodPressureHandler : InstantRecordHandler, AggregationSupportingHandler
 
             AggregationMetricDto.COUNT, AggregationMetricDto.SUM ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} is not supported for blood pressure (discrete data). Supported metrics: AVG, MIN, MAX."
+                    "Aggregation metric ${request.aggregationMetric} is not supported for blood pressure (discrete data). Supported metrics: AVG, MIN, MAX.",
                 )
         }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,
-        aggregateMetric: AggregateMetric<*>
+        aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val pressure = aggregationResult[aggregateMetric] as? Pressure
             ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")

@@ -84,18 +84,22 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     phase = "failed",
                     message = "Failed to create Health Connect client " +
                         "due to SDK version too low or running in a profile mode",
-                    exception = e
+                    exception = e,
                 )
-                throw HealthConnectorErrorCodeDto.INSTALLATION_OR_UPDATE_REQUIRED.toError(details = e.message)
+                throw HealthConnectorErrorCodeDto.INSTALLATION_OR_UPDATE_REQUIRED.toError(
+                    details = e.message,
+                )
             } catch (e: IllegalStateException) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "getOrCreate",
                     phase = "failed",
                     message = "Failed to create Health Connect client due to service not available",
-                    exception = e
+                    exception = e,
                 )
-                throw HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE.toError(details = e.message)
+                throw HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE.toError(
+                    details = e.message,
+                )
             }
         }
 
@@ -110,7 +114,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 tag = TAG,
                 operation = "getHealthPlatformStatus",
                 phase = "entry",
-                message = "Getting Health Connect SDK status"
+                message = "Getting Health Connect SDK status",
             )
 
             val statusCode = HealthConnectClient.getSdkStatus(context)
@@ -123,8 +127,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 message = "Health Connect platform status retrieved",
                 context = mapOf(
                     "status_code" to statusCode,
-                    "status_dto" to statusDto
-                )
+                    "status_dto" to statusDto,
+                ),
             )
 
             return statusDto
@@ -147,7 +151,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
     @Throws(HealthConnectorError::class)
     suspend fun requestPermissions(
         activity: ComponentActivity,
-        request: PermissionsRequestDto
+        request: PermissionsRequestDto,
     ): PermissionsRequestResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -156,23 +160,26 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             message = "Requesting Health Connect permissions",
             context = mapOf(
                 "requested_health_data_permissions" to request.healthDataPermissions,
-                "requested_feature_permissions" to request.featurePermissions
-            )
+                "requested_feature_permissions" to request.featurePermissions,
+            ),
         )
 
         try {
             // Validate that all requested permissions are declared in AndroidManifest
-            PermissionUtils.validatePermissionsDeclaredInManifest(activity.applicationContext, request)
+            PermissionUtils.validatePermissionsDeclaredInManifest(
+                activity.applicationContext,
+                request,
+            )
 
             val grantedPermissions = PermissionUtils.requestPermissionsFromSystem(activity, request)
 
             val healthDataResults = PermissionUtils.buildHealthDataPermissionResults(
                 request.healthDataPermissions,
-                grantedPermissions
+                grantedPermissions,
             )
             val featureResults = PermissionUtils.buildFeaturePermissionResults(
                 request.featurePermissions,
-                grantedPermissions
+                grantedPermissions,
             )
 
             HealthConnectorLogger.info(
@@ -182,13 +189,13 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 message = "Health Connect permissions requested successfully",
                 context = mapOf(
                     "granted_health_data_permissions" to healthDataResults,
-                    "granted_feature_permissions" to featureResults
-                )
+                    "granted_feature_permissions" to featureResults,
+                ),
             )
 
             return PermissionsRequestResponseDto(
                 healthDataPermissionResults = healthDataResults,
-                featurePermissionResults = featureResults
+                featurePermissionResults = featureResults,
             )
         } catch (e: IllegalStateException) {
             HealthConnectorLogger.error(
@@ -199,12 +206,14 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 context = mapOf(
                     "requested_permissions" to mapOf(
                         "health_data_permissions" to request.healthDataPermissions,
-                        "feature_permissions" to request.featurePermissions
-                    )
+                        "feature_permissions" to request.featurePermissions,
+                    ),
                 ),
-                exception = e
+                exception = e,
             )
-            throw HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION.toError(details = e.message)
+            throw HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION.toError(
+                details = e.message,
+            )
         } catch (e: Exception) {
             HealthConnectorLogger.error(
                 tag = TAG,
@@ -214,13 +223,13 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 context = mapOf(
                     "requested_permissions" to mapOf(
                         "health_data_permissions" to request.healthDataPermissions,
-                        "feature_permissions" to request.featurePermissions
-                    )
+                        "feature_permissions" to request.featurePermissions,
+                    ),
                 ),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request : ${e.message ?: "Unknown error"}"
+                details = "Failed to process $request : ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -238,13 +247,16 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorError::class)
-    fun getFeatureStatus(context: Context, feature: HealthPlatformFeatureDto): HealthPlatformFeatureStatusDto {
+    fun getFeatureStatus(
+        context: Context,
+        feature: HealthPlatformFeatureDto,
+    ): HealthPlatformFeatureStatusDto {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "getFeatureStatus",
             phase = "entry",
             message = "Checking Health Connect feature status",
-            context = mapOf("feature" to feature)
+            context = mapOf("feature" to feature),
         )
 
         try {
@@ -267,8 +279,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 message = "Health Connect feature status retrieved",
                 context = mapOf(
                     "feature" to feature,
-                    "status" to statusDto
-                )
+                    "status" to statusDto,
+                ),
             )
 
             return statusDto
@@ -279,9 +291,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = e.message,
                 context = mapOf("feature" to feature),
-                exception = e
+                exception = e,
             )
-            throw HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION.toError(details = e.message)
+            throw HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION.toError(
+                details = e.message,
+            )
         } catch (e: Exception) {
             HealthConnectorLogger.error(
                 tag = TAG,
@@ -289,10 +303,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to get Health Connect feature status",
                 context = mapOf("feature" to feature),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to get feature status for $feature: ${e.message ?: "Unknown error"}"
+                details = "Failed to get feature status for $feature: " +
+                    (e.message ?: "Unknown error"),
             )
         }
     }
@@ -313,7 +328,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             operation = "readRecord",
             phase = "entry",
             message = "Reading Health Connect record",
-            context = mapOf("request" to request)
+            context = mapOf("request" to request),
         )
 
         try {
@@ -334,8 +349,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 message = "Health Connect record read successfully",
                 context = mapOf(
                     "request" to request,
-                    "response" to responseDto
-                )
+                    "response" to responseDto,
+                ),
             )
 
             return responseDto
@@ -346,10 +361,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to read Health Connect record",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
-                details = "Permission access denied while processing $request: ${e.message ?: "Access denied"}"
+                details = "Permission access denied while processing $request: " +
+                    (e.message ?: "Access denied"),
             )
         } catch (e: Exception) {
             HealthConnectorLogger.error(
@@ -358,10 +374,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to read Health Connect record",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}"
+                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -383,14 +399,14 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             operation = "readRecords",
             phase = "entry",
             message = "Reading Health Connect records",
-            context = mapOf("request" to request)
+            context = mapOf("request" to request),
         )
 
         try {
             val recordClass = request.dataType.toHealthConnectRecordClass()
             val timeRangeFilter = TimeRangeFilter.between(
                 Instant.ofEpochMilli(request.startTime),
-                Instant.ofEpochMilli(request.endTime)
+                Instant.ofEpochMilli(request.endTime),
             )
 
             // Create data origin filter if package names are provided
@@ -403,7 +419,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 timeRangeFilter = timeRangeFilter,
                 dataOriginFilter = dataOrigins.toSet(),
                 pageSize = request.pageSize.toInt(),
-                pageToken = request.pageToken
+                pageToken = request.pageToken,
             )
 
             // Get handler for this data type
@@ -424,7 +440,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
 
             val responseDto = ReadRecordsResponseDto(
                 records = recordDtos,
-                nextPageToken = nextPageToken
+                nextPageToken = nextPageToken,
             )
 
             HealthConnectorLogger.info(
@@ -434,8 +450,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 message = "Health Connect records read successfully",
                 context = mapOf(
                     "request" to request,
-                    "response" to responseDto
-                )
+                    "response" to responseDto,
+                ),
             )
 
             return responseDto
@@ -446,10 +462,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to read Health Connect records",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
-                details = "Permission access denied while processing $request: ${e.message ?: "Access denied"}"
+                details = "Permission access denied while processing $request: " +
+                    (e.message ?: "Access denied"),
             )
         } catch (e: Exception) {
             HealthConnectorLogger.error(
@@ -458,10 +475,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to read Health Connect records",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}"
+                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -482,7 +499,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             operation = "writeRecord",
             phase = "entry",
             message = "Writing Health Connect record",
-            context = mapOf("request" to request)
+            context = mapOf("request" to request),
         )
 
         try {
@@ -500,8 +517,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 message = "Health Connect record written successfully",
                 context = mapOf(
                     "request" to request,
-                    "assignedRecordId" to recordId
-                )
+                    "assignedRecordId" to recordId,
+                ),
             )
 
             return WriteRecordResponseDto(recordId = recordId)
@@ -512,10 +529,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to write Health Connect record",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
-                details = "Permission access denied while processing $request: ${e.message ?: "Access denied"}"
+                details = "Permission access denied while processing $request: " +
+                    (e.message ?: "Access denied"),
             )
         } catch (e: Exception) {
             HealthConnectorLogger.error(
@@ -524,10 +542,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to write Health Connect record",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}"
+                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -548,7 +566,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             operation = "writeRecords",
             phase = "entry",
             message = "Writing Health Connect records",
-            context = mapOf("request" to request)
+            context = mapOf("request" to request),
         )
 
         try {
@@ -566,8 +584,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 message = "Health Connect records written successfully",
                 context = mapOf(
                     "request" to request,
-                    "assignedRecordIds" to recordIds
-                )
+                    "assignedRecordIds" to recordIds,
+                ),
             )
 
             return WriteRecordsResponseDto(recordIds = recordIds)
@@ -578,10 +596,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to write Health Connect records",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
-                details = "Permission access denied while processing $request: ${e.message ?: "Access denied"}"
+                details = "Permission access denied while processing $request: " +
+                    (e.message ?: "Access denied"),
             )
         } catch (e: Exception) {
             HealthConnectorLogger.error(
@@ -590,10 +609,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to write Health Connect records",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}"
+                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -615,14 +634,14 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             operation = "updateRecord",
             phase = "entry",
             message = "Updating Health Connect record",
-            context = mapOf("request" to request)
+            context = mapOf("request" to request),
         )
 
         try {
             val recordDto = request.record
             if (recordDto.id.isNullOrEmpty()) {
                 throw IllegalArgumentException(
-                    "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records."
+                    "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
                 )
             }
 
@@ -639,7 +658,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 operation = "updateRecord",
                 phase = "completed",
                 message = "Health Connect record updated successfully",
-                context = mapOf("request" to request)
+                context = mapOf("request" to request),
             )
 
             return UpdateRecordResponseDto(recordId = recordId)
@@ -650,10 +669,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to update Health Connect record",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
-                details = "Invalid record data for update: ${e.message ?: "Invalid argument"}"
+                details = "Invalid record data for update: ${e.message ?: "Invalid argument"}",
             )
         } catch (e: SecurityException) {
             HealthConnectorLogger.error(
@@ -662,10 +681,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to update Health Connect record",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
-                details = "Permission access denied while processing $request: ${e.message ?: "Access denied"}"
+                details = "Permission access denied while processing $request: " +
+                    (e.message ?: "Access denied"),
             )
         } catch (e: Exception) {
             HealthConnectorLogger.error(
@@ -674,10 +694,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to update Health Connect record",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}"
+                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -699,28 +719,30 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             operation = "aggregate",
             phase = "entry",
             message = "Aggregating Health Connect data",
-            context = mapOf("request" to request)
+            context = mapOf("request" to request),
         )
 
         try {
             // Validate time range
             if (request.startTime >= request.endTime) {
                 throw IllegalArgumentException(
-                    "Invalid time range: startTime must be before endTime. startTime=${request.startTime}, endTime=${request.endTime}"
+                    "Invalid time range: startTime must be before endTime. startTime=${request.startTime}, endTime=${request.endTime}",
                 )
             }
 
             // Get aggregation handler for this data type
             val handler = HealthConnectTypeHandlerRegistry.getAggregationHandler(request.dataType)
-                ?: throw IllegalArgumentException("Data type ${request.dataType} does not support aggregation")
+                ?: throw IllegalArgumentException(
+                    "Data type ${request.dataType} does not support aggregation",
+                )
 
             val metric = handler.toAggregateMetric(request)
             val aggregateRequest = AggregateRequest(
                 metrics = setOf(metric),
                 timeRangeFilter = TimeRangeFilter.between(
                     Instant.ofEpochMilli(request.startTime),
-                    Instant.ofEpochMilli(request.endTime)
-                )
+                    Instant.ofEpochMilli(request.endTime),
+                ),
             )
 
             // Execute aggregate request
@@ -738,8 +760,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 message = "Health Connect data aggregated successfully",
                 context = mapOf(
                     "request" to request,
-                    "response" to responseDto
-                )
+                    "response" to responseDto,
+                ),
             )
 
             return responseDto
@@ -750,11 +772,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Unsupported aggregation operation",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNSUPPORTED_HEALTH_PLATFORM_API.toError(
                 details = "Unsupported aggregation metric for ${request.dataType}: " +
-                    "${e.message ?: "Operation not supported"}"
+                    (e.message ?: "Operation not supported"),
             )
         } catch (e: IllegalStateException) {
             HealthConnectorLogger.error(
@@ -763,12 +785,12 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Invalid aggregation state - null result from Health Connect",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                 details = "Health Connect returned null for aggregation metric. " +
                     "This may indicate no data available for the specified time range " +
-                    "or an unexpected API response: ${e.message}"
+                    "or an unexpected API response: ${e.message}",
             )
         } catch (e: IllegalArgumentException) {
             HealthConnectorLogger.error(
@@ -777,7 +799,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to aggregate Health Connect data",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(details = e.message)
         } catch (e: SecurityException) {
@@ -787,10 +809,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to aggregate Health Connect data",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
-                details = "Permission access denied while processing $request: ${e.message ?: "Access denied"}"
+                details = "Permission access denied while processing $request: " +
+                    (e.message ?: "Access denied"),
             )
         } catch (e: Exception) {
             HealthConnectorLogger.error(
@@ -799,10 +822,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to aggregate Health Connect data",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}"
+                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -821,19 +844,19 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             operation = "deleteRecords",
             phase = "entry",
             message = "Deleting Health Connect records by time range",
-            context = mapOf("request" to request)
+            context = mapOf("request" to request),
         )
 
         try {
             val recordClass = request.dataType.toHealthConnectRecordClass()
             val timeRangeFilter = TimeRangeFilter.between(
                 Instant.ofEpochMilli(request.startTime),
-                Instant.ofEpochMilli(request.endTime)
+                Instant.ofEpochMilli(request.endTime),
             )
 
             client.deleteRecords(
                 recordType = recordClass,
-                timeRangeFilter = timeRangeFilter
+                timeRangeFilter = timeRangeFilter,
             )
 
             HealthConnectorLogger.info(
@@ -841,7 +864,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 operation = "deleteRecords",
                 phase = "completed",
                 message = "Health Connect records deleted successfully",
-                context = mapOf("request" to request)
+                context = mapOf("request" to request),
             )
         } catch (e: SecurityException) {
             HealthConnectorLogger.error(
@@ -850,10 +873,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to delete Health Connect records",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
-                details = "Permission access denied while processing $request: ${e.message ?: "Access denied"}"
+                details = "Permission access denied while processing $request: " +
+                    (e.message ?: "Access denied"),
             )
         } catch (e: Exception) {
             HealthConnectorLogger.error(
@@ -862,10 +886,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to delete Health Connect records",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}"
+                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -884,7 +908,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             operation = "deleteRecordsByIds",
             phase = "entry",
             message = "Deleting Health Connect records by IDs",
-            context = mapOf("request" to request)
+            context = mapOf("request" to request),
         )
 
         if (request.recordIds.isEmpty()) {
@@ -892,7 +916,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 tag = TAG,
                 operation = "deleteRecordsByIds",
                 phase = "completed",
-                message = "No records to delete (empty IDs list)"
+                message = "No records to delete (empty IDs list)",
             )
             return
         }
@@ -903,7 +927,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             client.deleteRecords(
                 recordType = recordClass,
                 recordIdsList = request.recordIds,
-                clientRecordIdsList = emptyList()
+                clientRecordIdsList = emptyList(),
             )
 
             HealthConnectorLogger.info(
@@ -911,7 +935,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 operation = "deleteRecordsByIds",
                 phase = "completed",
                 message = "Health Connect records deleted successfully",
-                context = mapOf("request" to request)
+                context = mapOf("request" to request),
             )
         } catch (e: SecurityException) {
             HealthConnectorLogger.error(
@@ -920,10 +944,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to delete Health Connect records by IDs",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
-                details = "Permission access denied while processing $request: ${e.message ?: "Access denied"}"
+                details = "Permission access denied while processing $request: " +
+                    (e.message ?: "Access denied"),
             )
         } catch (e: Exception) {
             HealthConnectorLogger.error(
@@ -932,10 +957,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 phase = "failed",
                 message = "Failed to delete Health Connect records by IDs",
                 context = mapOf("request" to request),
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}"
+                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -954,7 +979,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             tag = TAG,
             operation = "getGrantedPermissions",
             phase = "entry",
-            message = "Getting granted Health Connect permissions"
+            message = "Getting granted Health Connect permissions",
         )
 
         try {
@@ -963,7 +988,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
 
             // Convert permission strings back to DTOs
             val healthDataPermissions = mutableListOf<HealthDataPermissionRequestResultDto>()
-            val featurePermissions = mutableListOf<HealthPlatformFeaturePermissionRequestResultDto>()
+            val featurePermissions =
+                mutableListOf<HealthPlatformFeaturePermissionRequestResultDto>()
 
             for (permissionString in grantedPermissionStrings) {
                 if (permissionString.isFeaturePermission) {
@@ -971,16 +997,16 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                     featurePermissions.add(
                         HealthPlatformFeaturePermissionRequestResultDto(
                             feature = featurePermission,
-                            status = PermissionStatusDto.GRANTED
-                        )
+                            status = PermissionStatusDto.GRANTED,
+                        ),
                     )
                 } else {
                     val healthDataPermission = permissionString.toDto()
                     healthDataPermissions.add(
                         HealthDataPermissionRequestResultDto(
                             permission = healthDataPermission,
-                            status = PermissionStatusDto.GRANTED
-                        )
+                            status = PermissionStatusDto.GRANTED,
+                        ),
                     )
                 }
             }
@@ -992,13 +1018,13 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 message = "Granted Health Connect permissions retrieved",
                 context = mapOf(
                     "granted_health_data_permissions" to healthDataPermissions,
-                    "granted_feature_permissions" to featurePermissions
-                )
+                    "granted_feature_permissions" to featurePermissions,
+                ),
             )
 
             return PermissionsRequestResponseDto(
                 healthDataPermissionResults = healthDataPermissions,
-                featurePermissionResults = featurePermissions
+                featurePermissionResults = featurePermissions,
             )
         } catch (e: Exception) {
             HealthConnectorLogger.error(
@@ -1006,10 +1032,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 operation = "getGrantedPermissions",
                 phase = "failed",
                 message = "Failed to get granted Health Connect permissions",
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to get granted permissions: ${e.message}"
+                details = "Failed to get granted permissions: ${e.message}",
             )
         }
     }
@@ -1025,7 +1051,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             tag = TAG,
             operation = "revokeAllPermissions",
             phase = "entry",
-            message = "Revoking all Health Connect permissions"
+            message = "Revoking all Health Connect permissions",
         )
 
         try {
@@ -1036,7 +1062,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 tag = TAG,
                 operation = "revokeAllPermissions",
                 phase = "completed",
-                message = "All Health Connect permissions revoked successfully"
+                message = "All Health Connect permissions revoked successfully",
             )
         } catch (e: Exception) {
             HealthConnectorLogger.error(
@@ -1044,10 +1070,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 operation = "revokeAllPermissions",
                 phase = "failed",
                 message = "Failed to revoke all Health Connect permissions",
-                exception = e
+                exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to revoke all permissions: ${e.message}"
+                details = "Failed to revoke all permissions: ${e.message}",
             )
         }
     }

@@ -15,7 +15,7 @@ internal fun WeightRecord.toDto(): WeightRecordDto = WeightRecordDto(
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    weight = weight.toDto()
+    weight = weight.toDto(),
 )
 
 /**
@@ -25,5 +25,5 @@ internal fun WeightRecordDto.toHealthConnect(): WeightRecord = WeightRecord(
     weight = weight.toHealthConnect(),
     time = Instant.ofEpochMilli(time),
     zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect()
+    metadata = metadata.toHealthConnect(),
 )

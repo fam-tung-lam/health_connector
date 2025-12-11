@@ -35,13 +35,13 @@ internal fun Int.toSleepStageTypeDto(): SleepStageTypeDto = when (this) {
 internal fun SleepStageDto.toHealthConnect(): SleepSessionRecord.Stage = SleepSessionRecord.Stage(
     startTime = Instant.ofEpochMilli(startTime),
     endTime = Instant.ofEpochMilli(endTime),
-    stage = stage.toHealthConnect()
+    stage = stage.toHealthConnect(),
 )
 
 internal fun SleepSessionRecord.Stage.toDto(): SleepStageDto = SleepStageDto(
     startTime = startTime.toEpochMilli(),
     endTime = endTime.toEpochMilli(),
-    stage = stage.toSleepStageTypeDto()
+    stage = stage.toSleepStageTypeDto(),
 )
 
 /**
@@ -56,7 +56,7 @@ internal fun SleepSessionRecord.toDto(): SleepSessionRecordDto = SleepSessionRec
     endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
     title = title,
     notes = notes,
-    stages = stages.map { it.toDto() }
+    stages = stages.map { it.toDto() },
 )
 
 /**
@@ -74,5 +74,5 @@ internal fun SleepSessionRecordDto.toHealthConnect(): SleepSessionRecord = Sleep
     title = title,
     notes = notes,
     stages = stages.map { it.toHealthConnect() },
-    metadata = metadata.toHealthConnect()
+    metadata = metadata.toHealthConnect(),
 )

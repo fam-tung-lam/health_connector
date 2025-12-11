@@ -23,7 +23,9 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only
  * - Health Connect Type: StepsRecord
  */
-object StepsHandler : IntervalRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
+object StepsHandler :
+    IntervalRecordHandler,
+    AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.STEPS
 
     override fun toDto(record: Record): HealthRecordDto {
@@ -45,15 +47,19 @@ object StepsHandler : IntervalRecordHandler, AggregationSupportingHandler<Common
     override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
         when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> StepsRecord.COUNT_TOTAL
-            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX, AggregationMetricDto.COUNT ->
+            AggregationMetricDto.AVG,
+            AggregationMetricDto.MIN,
+            AggregationMetricDto.MAX,
+            AggregationMetricDto.COUNT,
+            ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} is not supported for steps (cumulative data). Only SUM is supported."
+                    "Aggregation metric ${request.aggregationMetric} is not supported for steps (cumulative data). Only SUM is supported.",
                 )
         }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,
-        aggregateMetric: AggregateMetric<*>
+        aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val count = aggregationResult[aggregateMetric] as? Long
             ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")

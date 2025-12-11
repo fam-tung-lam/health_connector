@@ -17,7 +17,7 @@ internal fun HydrationRecord.toDto(): HydrationRecordDto = HydrationRecordDto(
     startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
     endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    volume = volume.toDto()
+    volume = volume.toDto(),
 )
 
 /**
@@ -29,5 +29,5 @@ internal fun HydrationRecordDto.toHealthConnect(): HydrationRecord = HydrationRe
     endTime = Instant.ofEpochMilli(endTime),
     startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
     endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect()
+    metadata = metadata.toHealthConnect(),
 )

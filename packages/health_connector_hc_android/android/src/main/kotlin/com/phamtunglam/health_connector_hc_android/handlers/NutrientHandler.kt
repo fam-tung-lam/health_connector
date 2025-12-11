@@ -97,20 +97,25 @@ internal class NutrientHandler(private val nutrientType: HealthDataTypeDto) :
                 HealthDataTypeDto.HEART_RATE_SERIES_RECORD,
                 HealthDataTypeDto.SLEEP_SESSION,
                 HealthDataTypeDto.NUTRITION,
-                HealthDataTypeDto.BLOOD_PRESSURE -> throw IllegalArgumentException(
-                    "$nutrientType not nutrient data type."
+                HealthDataTypeDto.BLOOD_PRESSURE,
+                -> throw IllegalArgumentException(
+                    "$nutrientType not nutrient data type.",
                 )
             }
 
-            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX, AggregationMetricDto.COUNT ->
+            AggregationMetricDto.AVG,
+            AggregationMetricDto.MIN,
+            AggregationMetricDto.MAX,
+            AggregationMetricDto.COUNT,
+            ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} is not supported for nutrients (cumulative data). Only SUM is supported."
+                    "Aggregation metric ${request.aggregationMetric} is not supported for nutrients (cumulative data). Only SUM is supported.",
                 )
         }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,
-        aggregateMetric: AggregateMetric<*>
+        aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto = when (nutrientType) {
         HealthDataTypeDto.ENERGY_NUTRIENT -> {
             val energy = aggregationResult[aggregateMetric] as? Energy
@@ -149,7 +154,8 @@ internal class NutrientHandler(private val nutrientType: HealthDataTypeDto) :
         HealthDataTypeDto.POTASSIUM,
         HealthDataTypeDto.SELENIUM,
         HealthDataTypeDto.SODIUM,
-        HealthDataTypeDto.ZINC -> {
+        HealthDataTypeDto.ZINC,
+        -> {
             val mass = aggregationResult[aggregateMetric] as? Mass
                 ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
             mass.toDto()
@@ -169,8 +175,9 @@ internal class NutrientHandler(private val nutrientType: HealthDataTypeDto) :
         HealthDataTypeDto.HEART_RATE_SERIES_RECORD,
         HealthDataTypeDto.SLEEP_SESSION,
         HealthDataTypeDto.NUTRITION,
-        HealthDataTypeDto.BLOOD_PRESSURE -> throw IllegalStateException(
-            "${NutrientHandler::class.simpleName} must only handle nutrient data types, but received: $nutrientType"
+        HealthDataTypeDto.BLOOD_PRESSURE,
+        -> throw IllegalStateException(
+            "${NutrientHandler::class.simpleName} must only handle nutrient data types, but received: $nutrientType",
         )
     }
 }

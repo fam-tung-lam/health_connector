@@ -73,5 +73,6 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
     HealthDataTypeDto.SELENIUM,
     HealthDataTypeDto.SODIUM,
     HealthDataTypeDto.ZINC,
-    HealthDataTypeDto.NUTRITION -> NutritionRecord::class
+    HealthDataTypeDto.NUTRITION,
+    -> NutritionRecord::class
 }

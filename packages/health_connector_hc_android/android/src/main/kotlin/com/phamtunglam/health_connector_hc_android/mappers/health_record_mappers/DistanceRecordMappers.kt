@@ -17,7 +17,7 @@ internal fun DistanceRecord.toDto(): DistanceRecordDto = DistanceRecordDto(
     startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
     endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    distance = distance.toDto()
+    distance = distance.toDto(),
 )
 
 /**
@@ -29,5 +29,5 @@ internal fun DistanceRecordDto.toHealthConnect(): DistanceRecord = DistanceRecor
     endTime = Instant.ofEpochMilli(endTime),
     startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
     endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect()
+    metadata = metadata.toHealthConnect(),
 )

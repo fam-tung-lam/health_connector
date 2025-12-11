@@ -59,7 +59,7 @@ internal fun MetadataDto.toHealthConnect(): Metadata {
         Device(
             manufacturer = deviceManufacturer,
             model = deviceModel,
-            type = deviceType?.toHealthConnect() ?: Device.TYPE_UNKNOWN
+            type = deviceType?.toHealthConnect() ?: Device.TYPE_UNKNOWN,
         )
     } else {
         null
@@ -118,5 +118,5 @@ internal fun Metadata.toDto(): MetadataDto = MetadataDto(
     clientRecordVersion = clientRecordVersion,
     deviceType = device?.type?.toDeviceTypeDto(),
     deviceManufacturer = device?.manufacturer,
-    deviceModel = device?.model
+    deviceModel = device?.model,
 )

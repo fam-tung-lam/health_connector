@@ -29,5 +29,5 @@ enum class HealthConnectDataCategory {
      * Session records are extended intervals that may contain stages or additional metadata.
      * Examples: Sleep sessions
      */
-    SESSION_RECORD
+    SESSION_RECORD,
 }

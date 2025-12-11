@@ -24,7 +24,9 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only
  * - Health Connect Type: ActiveCaloriesBurnedRecord
  */
-object ActiveCaloriesBurnedHandler : IntervalRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
+object ActiveCaloriesBurnedHandler :
+    IntervalRecordHandler,
+    AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.ACTIVE_CALORIES_BURNED
 
     override fun toDto(record: Record): HealthRecordDto {
@@ -46,15 +48,19 @@ object ActiveCaloriesBurnedHandler : IntervalRecordHandler, AggregationSupportin
     override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
         when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> ActiveCaloriesBurnedRecord.ACTIVE_CALORIES_TOTAL
-            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX, AggregationMetricDto.COUNT ->
+            AggregationMetricDto.AVG,
+            AggregationMetricDto.MIN,
+            AggregationMetricDto.MAX,
+            AggregationMetricDto.COUNT,
+            ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} for ActiveCaloriesBurned. Supported: SUM"
+                    "Aggregation metric ${request.aggregationMetric} for ActiveCaloriesBurned. Supported: SUM",
                 )
         }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,
-        aggregateMetric: AggregateMetric<*>
+        aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val energy = aggregationResult[aggregateMetric] as? Energy
             ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")

@@ -15,7 +15,7 @@ internal fun BodyFatRecord.toDto(): BodyFatPercentageRecordDto = BodyFatPercenta
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    percentage = percentage.toDto()
+    percentage = percentage.toDto(),
 )
 
 /**
@@ -25,5 +25,5 @@ internal fun BodyFatPercentageRecordDto.toHealthConnect(): BodyFatRecord = BodyF
     percentage = percentage.toHealthConnect(),
     time = Instant.ofEpochMilli(time),
     zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect()
+    metadata = metadata.toHealthConnect(),
 )

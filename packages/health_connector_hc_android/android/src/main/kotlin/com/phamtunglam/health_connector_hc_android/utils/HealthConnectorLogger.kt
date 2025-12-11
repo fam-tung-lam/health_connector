@@ -148,7 +148,7 @@ internal object HealthConnectorLogger {
         message: String? = null,
         context: Map<String, Any?>? = null,
         exception: Throwable? = null,
-        stackTrace: Array<StackTraceElement>? = null
+        stackTrace: Array<StackTraceElement>? = null,
     ): String {
         val buffer = StringBuilder()
 
@@ -232,7 +232,7 @@ internal object HealthConnectorLogger {
         phase: String,
         message: String? = null,
         context: Map<String, Any?>? = null,
-        exception: Throwable? = null
+        exception: Throwable? = null,
     ) {
         if (!isEnabled) {
             return
@@ -245,7 +245,7 @@ internal object HealthConnectorLogger {
             message = message,
             context = context,
             exception = exception,
-            stackTrace = stackTrace
+            stackTrace = stackTrace,
         )
 
         val uppercaseTag = tag.uppercase(Locale.US)
@@ -305,7 +305,7 @@ internal object HealthConnectorLogger {
         phase: String,
         message: String? = null,
         context: Map<String, Any?>? = null,
-        exception: Throwable? = null
+        exception: Throwable? = null,
     ) {
         log(
             level = LogLevel.DEBUG,
@@ -314,7 +314,7 @@ internal object HealthConnectorLogger {
             phase = phase,
             message = message,
             context = context,
-            exception = exception
+            exception = exception,
         )
     }
 
@@ -337,7 +337,7 @@ internal object HealthConnectorLogger {
         phase: String,
         message: String? = null,
         context: Map<String, Any?>? = null,
-        exception: Throwable? = null
+        exception: Throwable? = null,
     ) {
         log(
             level = LogLevel.INFO,
@@ -346,7 +346,7 @@ internal object HealthConnectorLogger {
             phase = phase,
             message = message,
             context = context,
-            exception = exception
+            exception = exception,
         )
     }
 
@@ -369,7 +369,7 @@ internal object HealthConnectorLogger {
         phase: String,
         message: String? = null,
         context: Map<String, Any?>? = null,
-        exception: Throwable? = null
+        exception: Throwable? = null,
     ) {
         log(
             level = LogLevel.WARNING,
@@ -378,7 +378,7 @@ internal object HealthConnectorLogger {
             phase = phase,
             message = message,
             context = context,
-            exception = exception
+            exception = exception,
         )
     }
 
@@ -401,7 +401,7 @@ internal object HealthConnectorLogger {
         phase: String,
         message: String? = null,
         context: Map<String, Any?>? = null,
-        exception: Throwable? = null
+        exception: Throwable? = null,
     ) {
         log(
             level = LogLevel.ERROR,
@@ -410,7 +410,7 @@ internal object HealthConnectorLogger {
             phase = phase,
             message = message,
             context = context,
-            exception = exception
+            exception = exception,
         )
     }
 
@@ -439,6 +439,6 @@ internal object HealthConnectorLogger {
         /**
          * Error level for serious problems.
          */
-        ERROR
+        ERROR,
     }
 }

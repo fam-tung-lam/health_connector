@@ -50,7 +50,7 @@ internal fun MassDto.toHealthConnect(): Mass = when (unit) {
  */
 internal fun Mass.toDto(): MassDto = MassDto(
     value = inKilograms,
-    unit = MassUnitDto.KILOGRAMS
+    unit = MassUnitDto.KILOGRAMS,
 )
 
 /**
@@ -70,7 +70,7 @@ internal fun EnergyDto.toHealthConnect(): Energy = when (unit) {
  */
 internal fun Energy.toDto(): EnergyDto = EnergyDto(
     value = inKilocalories,
-    unit = EnergyUnitDto.KILOCALORIES
+    unit = EnergyUnitDto.KILOCALORIES,
 )
 
 /**
@@ -91,7 +91,7 @@ internal fun LengthDto.toHealthConnect(): Length = when (unit) {
  */
 internal fun Length.toDto(): LengthDto = LengthDto(
     value = inMeters,
-    unit = LengthUnitDto.METERS
+    unit = LengthUnitDto.METERS,
 )
 
 /**
@@ -110,7 +110,7 @@ internal fun TemperatureDto.toHealthConnect(): Temperature = when (unit) {
  */
 internal fun Temperature.toDto(): TemperatureDto = TemperatureDto(
     value = inCelsius,
-    unit = TemperatureUnitDto.CELSIUS
+    unit = TemperatureUnitDto.CELSIUS,
 )
 
 /**
@@ -127,7 +127,7 @@ internal fun PressureDto.toHealthConnect(): Pressure = when (unit) {
  */
 internal fun Pressure.toDto(): PressureDto = PressureDto(
     value = inMillimetersOfMercury,
-    unit = PressureUnitDto.MILLIMETERS_OF_MERCURY
+    unit = PressureUnitDto.MILLIMETERS_OF_MERCURY,
 )
 
 /**
@@ -146,7 +146,7 @@ internal fun VelocityDto.toHealthConnect(): Velocity = when (unit) {
  */
 internal fun Velocity.toDto(): VelocityDto = VelocityDto(
     value = inMetersPerSecond,
-    unit = VelocityUnitDto.METERS_PER_SECOND
+    unit = VelocityUnitDto.METERS_PER_SECOND,
 )
 
 /**
@@ -165,7 +165,7 @@ internal fun VolumeDto.toHealthConnect(): Volume = when (unit) {
  */
 internal fun Volume.toDto(): VolumeDto = VolumeDto(
     value = inLiters,
-    unit = VolumeUnitDto.LITERS
+    unit = VolumeUnitDto.LITERS,
 )
 
 /**
@@ -183,7 +183,7 @@ internal fun PowerDto.toHealthConnect(): Power = when (unit) {
  */
 internal fun Power.toDto(): PowerDto = PowerDto(
     value = inWatts,
-    unit = PowerUnitDto.WATTS
+    unit = PowerUnitDto.WATTS,
 )
 
 /**
@@ -201,7 +201,7 @@ internal fun BloodGlucoseDto.toHealthConnect(): BloodGlucose = when (unit) {
  */
 internal fun BloodGlucose.toDto(): BloodGlucoseDto = BloodGlucoseDto(
     value = inMillimolesPerLiter,
-    unit = BloodGlucoseUnitDto.MILLIMOLES_PER_LITER
+    unit = BloodGlucoseUnitDto.MILLIMOLES_PER_LITER,
 )
 
 /**
@@ -216,7 +216,7 @@ internal fun NumericDto.toLong(): Long = value.toLong()
  */
 internal fun Long.toNumericDto(): NumericDto = NumericDto(
     value = this.toDouble(),
-    unit = NumericUnitDto.NUMERIC
+    unit = NumericUnitDto.NUMERIC,
 )
 
 /**
@@ -226,7 +226,7 @@ internal fun Long.toNumericDto(): NumericDto = NumericDto(
  */
 internal fun Double.toNumericDto(): NumericDto = NumericDto(
     value = this,
-    unit = NumericUnitDto.NUMERIC
+    unit = NumericUnitDto.NUMERIC,
 )
 
 /**
@@ -244,7 +244,7 @@ internal fun PercentageDto.toHealthConnect(): Percentage = when (unit) {
  */
 internal fun Percentage.toDto(): PercentageDto = PercentageDto(
     value = value,
-    unit = PercentageUnitDto.DECIMAL
+    unit = PercentageUnitDto.DECIMAL,
 )
 
 /**
@@ -254,5 +254,5 @@ internal fun Percentage.toDto(): PercentageDto = PercentageDto(
  */
 internal fun Double.toTemperatureDto(): TemperatureDto = TemperatureDto(
     value = this,
-    unit = TemperatureUnitDto.CELSIUS
+    unit = TemperatureUnitDto.CELSIUS,
 )

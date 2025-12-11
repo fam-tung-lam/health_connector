@@ -23,7 +23,9 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only
  * - Health Connect Type: FloorsClimbedRecord
  */
-object FloorsClimbedHandler : IntervalRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
+object FloorsClimbedHandler :
+    IntervalRecordHandler,
+    AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.FLOORS_CLIMBED
 
     override fun toDto(record: Record): HealthRecordDto {
@@ -45,15 +47,19 @@ object FloorsClimbedHandler : IntervalRecordHandler, AggregationSupportingHandle
     override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
         when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> FloorsClimbedRecord.FLOORS_CLIMBED_TOTAL
-            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX, AggregationMetricDto.COUNT ->
+            AggregationMetricDto.AVG,
+            AggregationMetricDto.MIN,
+            AggregationMetricDto.MAX,
+            AggregationMetricDto.COUNT,
+            ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} for FloorsClimbed. Supported: SUM"
+                    "Aggregation metric ${request.aggregationMetric} for FloorsClimbed. Supported: SUM",
                 )
         }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,
-        aggregateMetric: AggregateMetric<*>
+        aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val floors = aggregationResult[aggregateMetric] as? Double
             ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")

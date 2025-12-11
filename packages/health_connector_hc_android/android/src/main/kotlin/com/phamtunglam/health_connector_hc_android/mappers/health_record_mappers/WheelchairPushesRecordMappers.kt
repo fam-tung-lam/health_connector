@@ -18,17 +18,18 @@ internal fun WheelchairPushesRecord.toDto(): WheelchairPushesRecordDto = Wheelch
     startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
     endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    pushes = count.toNumericDto()
+    pushes = count.toNumericDto(),
 )
 
 /**
  * Converts a [WheelchairPushesRecordDto] to a Health Connect [WheelchairPushesRecord] object.
  */
-internal fun WheelchairPushesRecordDto.toHealthConnect(): WheelchairPushesRecord = WheelchairPushesRecord(
-    count = pushes.value.toLong(),
-    startTime = Instant.ofEpochMilli(startTime),
-    endTime = Instant.ofEpochMilli(endTime),
-    startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect()
-)
+internal fun WheelchairPushesRecordDto.toHealthConnect(): WheelchairPushesRecord =
+    WheelchairPushesRecord(
+        count = pushes.value.toLong(),
+        startTime = Instant.ofEpochMilli(startTime),
+        endTime = Instant.ofEpochMilli(endTime),
+        startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+        endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
+        metadata = metadata.toHealthConnect(),
+    )

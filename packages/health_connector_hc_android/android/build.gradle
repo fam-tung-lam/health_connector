@@ -6,7 +6,9 @@ buildscript {
     ext.gradle_version = "8.9.1"
     ext.health_connect_version = "1.1.0"
     ext.kotlin_coroutines_version = "1.10.2"
+    ext.ktlint_version = "1.6.0"
     ext.ktlint_gradle_version = "12.1.2"
+    ext.detekt_version = "1.23.8"
     repositories {
         google()
         mavenCentral()
@@ -17,6 +19,7 @@ buildscript {
         classpath("com.android.tools.build:gradle:$gradle_version")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
         classpath("org.jlleitschuh.gradle:ktlint-gradle:$ktlint_gradle_version")
+        classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version")
     }
 }
 
@@ -30,11 +33,12 @@ allprojects {
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 apply plugin: "org.jlleitschuh.gradle.ktlint"
+apply plugin: "io.gitlab.arturbosch.detekt"
 
 // Ktlint configuration for Kotlin code formatting
 // https://github.com/JLLeitschuh/ktlint-gradle
 ktlint {
-    version = "1.4.0"
+    version = ktlint_version
     android = true
     outputToConsole = true
     outputColorName = "RED"
@@ -42,17 +46,61 @@ ktlint {
     reporters {
         reporter "plain"
         reporter "checkstyle"
+        reporter "sarif"
+        reporter "html"
     }
     filter {
         // Exclude Pigeon-generated files and any other generated code
-        exclude { element ->
-            def path = element.file.absolutePath
-            // Match files in pigeon directory or with .g.kt extension
-            path.contains("/pigeon/") ||
-                path.contains("/generated/") ||
-                path.endsWith(".g.kt")
-        }
+        exclude("**/*.g.kt")
+        exclude("**/generated/**")
     }
+}
+
+// Detekt configuration for Kotlin static analysis
+// https://detekt.dev/docs/intro
+detekt {
+    buildUponDefaultConfig = true
+    config.setFrom("$projectDir/detekt.yml")
+    baseline = file("$projectDir/detekt-baseline.xml")
+
+    source.setFrom("src/main/kotlin")
+}
+
+// Configure type resolution for Detekt (enables advanced analysis)
+tasks.withType(io.gitlab.arturbosch.detekt.Detekt).configureEach {
+    jvmTarget = "11"
+
+    // Exclude Pigeon-generated files and other generated code
+    exclude("**/*.g.kt", "**/generated/**")
+
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        txt.required.set(false)
+        sarif.required.set(true)
+        md.required.set(false)
+    }
+}
+
+tasks.withType(io.gitlab.arturbosch.detekt.DetektCreateBaselineTask).configureEach {
+    jvmTarget = "11"
+
+    // Exclude Pigeon-generated files and other generated code
+    exclude("**/*.g.kt", "**/generated/**")
+}
+
+// Convenience task to run all detekt tasks with type resolution
+tasks.register("detektAll") {
+    dependsOn("detektMain", "detektTest")
+    group = "verification"
+    description = "Run detekt analysis on all source sets with type resolution"
+}
+
+// Task to run both ktlint and detekt
+tasks.register("lintAll") {
+    dependsOn("ktlintCheck", "detektAll")
+    group = "verification"
+    description = "Run both Ktlint and Detekt analysis"
 }
 
 android {

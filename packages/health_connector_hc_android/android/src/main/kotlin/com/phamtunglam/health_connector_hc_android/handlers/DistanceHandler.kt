@@ -24,7 +24,9 @@ import kotlin.reflect.KClass
  * - Aggregation: Supports SUM only
  * - Health Connect Type: DistanceRecord
  */
-object DistanceHandler : IntervalRecordHandler, AggregationSupportingHandler<CommonAggregateRequestDto> {
+object DistanceHandler :
+    IntervalRecordHandler,
+    AggregationSupportingHandler<CommonAggregateRequestDto> {
     override val supportedType: HealthDataTypeDto = HealthDataTypeDto.DISTANCE
 
     override fun toDto(record: Record): HealthRecordDto {
@@ -46,15 +48,19 @@ object DistanceHandler : IntervalRecordHandler, AggregationSupportingHandler<Com
     override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
         when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> DistanceRecord.DISTANCE_TOTAL
-            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX, AggregationMetricDto.COUNT ->
+            AggregationMetricDto.AVG,
+            AggregationMetricDto.MIN,
+            AggregationMetricDto.MAX,
+            AggregationMetricDto.COUNT,
+            ->
                 throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} for Distance. Supported: SUM"
+                    "Aggregation metric ${request.aggregationMetric} for Distance. Supported: SUM",
                 )
         }
 
     override fun extractAggregateValue(
         aggregationResult: AggregationResult,
-        aggregateMetric: AggregateMetric<*>
+        aggregateMetric: AggregateMetric<*>,
     ): MeasurementUnitDto {
         val distance = aggregationResult[aggregateMetric] as? Length
             ?: throw IllegalStateException("Aggregation result for $aggregateMetric is null")
