@@ -32,6 +32,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         PotassiumNutrientDataType,
         ProteinNutrientDataType,
         RiboflavinNutrientDataType,
+        RestingHeartRateHealthDataType,
         SaturatedFatNutrientDataType,
         SeleniumNutrientDataType,
         SleepSessionHealthDataType,
@@ -158,6 +159,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.zinc;
       case HealthDataTypeDto.nutrition:
         return HealthDataType.nutrition;
+      case HealthDataTypeDto.restingHeartRate:
+        return HealthDataType.restingHeartRate;
       case HealthDataTypeDto.bloodPressure:
         return HealthDataType.bloodPressure;
     }
@@ -265,6 +268,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.bloodPressure;
       case NutritionHealthDataType _:
         return HealthDataTypeDto.nutrition;
+      case RestingHeartRateHealthDataType _:
+        return HealthDataTypeDto.restingHeartRate;
       case SleepStageHealthDataType _:
         throw UnsupportedError(
           '$SleepStageHealthDataType is not supported on '

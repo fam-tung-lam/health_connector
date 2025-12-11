@@ -51,6 +51,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         MagnesiumNutrientRecord,
         ManganeseNutrientRecord,
         PotassiumNutrientRecord,
+        RestingHeartRateRecord,
         SeleniumNutrientRecord,
         SodiumNutrientRecord,
         ZincNutrientRecord;
@@ -69,6 +70,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_platform
         HydrationRecordDto,
         LeanBodyMassRecordDto,
         NutritionRecordDto,
+        RestingHeartRateRecordDto,
         SleepSessionRecordDto,
         StepRecordDto,
         WeightRecordDto,
@@ -174,6 +176,8 @@ extension HealthRecordToDto on HealthRecord {
         return record.toDto();
       case final NutritionRecord record:
         return record.toDto();
+      case final RestingHeartRateRecord record:
+        return record.toDto();
       case final BloodPressureRecord record:
         return record.toDto();
       case final SleepStageRecord _:
@@ -232,6 +236,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
       case final SleepSessionRecordDto dto:
         return dto.toDomain();
       case final NutritionRecordDto dto:
+        return dto.toDomain();
+      case final RestingHeartRateRecordDto dto:
         return dto.toDomain();
       case final BloodPressureRecordDto dto:
         return dto.toDomain();

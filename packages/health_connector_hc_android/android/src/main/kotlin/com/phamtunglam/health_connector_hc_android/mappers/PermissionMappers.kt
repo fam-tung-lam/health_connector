@@ -12,6 +12,7 @@ import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
 import androidx.health.connect.client.records.NutritionRecord
+import androidx.health.connect.client.records.RestingHeartRateRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.WeightRecord
@@ -181,6 +182,17 @@ internal fun HealthDataPermissionDto.toHealthConnectPermission(): String =
             }
         }
 
+        HealthDataTypeDto.RESTING_HEART_RATE -> {
+            when (this.accessType) {
+                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                    RestingHeartRateRecord::class,
+                )
+                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                    RestingHeartRateRecord::class,
+                )
+            }
+        }
+
         HealthDataTypeDto.BLOOD_PRESSURE -> {
             when (this.accessType) {
                 PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
@@ -299,6 +311,7 @@ internal fun String.toDto(): HealthDataPermissionDto {
         "BODY_TEMPERATURE" -> HealthDataTypeDto.BODY_TEMPERATURE
         "WHEELCHAIR_PUSHES" -> HealthDataTypeDto.WHEELCHAIR_PUSHES
         "HEART_RATE" -> HealthDataTypeDto.HEART_RATE_SERIES_RECORD
+        "RESTING_HEART_RATE" -> HealthDataTypeDto.RESTING_HEART_RATE
         "SLEEP_SESSION" -> HealthDataTypeDto.SLEEP_SESSION
         "BLOOD_PRESSURE" -> HealthDataTypeDto.BLOOD_PRESSURE
         "NUTRITION" -> HealthDataTypeDto.NUTRITION

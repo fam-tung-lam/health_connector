@@ -12,6 +12,7 @@ export 'hydration_record_mappers.dart';
 export 'lean_body_mass_record_mappers.dart';
 export 'meal_type_mappers.dart';
 export 'nutrition_record_mappers.dart';
+export 'resting_heart_rate_record_mappers.dart';
 export 'sleep_session_record_mappers.dart';
 export 'sleep_stage_mappers.dart';
 export 'step_record_mappers.dart';
