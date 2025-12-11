@@ -62,7 +62,21 @@ melos:
   scripts:
     # Analysis
     analyze:
-      description: Run `dart analyze` for all packages.
+      description: Run all static analysis (Dart, Swift, Kotlin)
+      steps:
+        - melos run analyze:dart
+        - melos run analyze:swift
+        - melos run analyze:kotlin
+
+    analyze:strict:
+      description: Run all static analysis with fatal warnings
+      steps:
+        - melos run analyze:dart:strict
+        - melos run analyze:swift
+        - melos run analyze:kotlin
+
+    analyze:dart:
+      description: Run dart analyze for all packages
       run: dart analyze .
       exec:
         concurrency: 5
@@ -70,8 +84,8 @@ melos:
       packageFilters:
         dirExists: lib
 
-    analyze:strict:
-      description: Run static analysis with fatal warnings for all packages
+    analyze:dart:strict:
+      description: Run dart analyze with fatal warnings
       run: dart analyze --fatal-infos --fatal-warnings .
       exec:
         concurrency: 5
@@ -79,8 +93,42 @@ melos:
       packageFilters:
         dirExists: lib
 
+    analyze:swift:
+      description: Analyze Swift code for the health_connector_hk_ios package
+      run: cd packages/health_connector_hk_ios/ios && swiftlint lint .
+
+    analyze:swift:deep:
+      description: Deep Swift analysis with type-checked AST analyzer rules (slower)
+      run: |
+        cd packages/health_connector_hk_ios/ios/health_connector_hk_ios && \
+        xcodebuild build-for-testing \
+          -scheme health_connector_hk_ios \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,name=iPhone 15' \
+          2>&1 | tee /tmp/xcodebuild.log && \
+        cd .. && \
+        swiftlint analyze --compiler-log-path /tmp/xcodebuild.log
+
+    analyze:kotlin:
+      description: Analyze Kotlin code for the health_connector_hc_android package
+      run: cd packages/health_connector_hc_android/android && ./gradlew detekt
+
     # Code formatting
     format:
+      description: Format all code (Dart, Swift, Kotlin)
+      steps:
+        - melos run format:dart
+        - melos run format:swift
+        - melos run format:kotlin
+
+    format:check:
+      description: Check all code formatting (Dart, Swift, Kotlin)
+      steps:
+        - melos run format:dart:check
+        - melos run format:swift:check
+        - melos run format:kotlin:check
+
+    format:dart:
       description: Format all Dart code in the workspace
       run: dart format .
       exec:
@@ -88,14 +136,30 @@ melos:
       packageFilters:
         dirExists: lib
 
-    format:check:
-      description: Check code formatting without making changes
+    format:dart:check:
+      description: Check Dart code formatting without making changes
       run: dart format --set-exit-if-changed .
       exec:
         concurrency: 5
         failFast: true
       packageFilters:
         dirExists: lib
+
+    format:swift:
+      description: Format Swift code for the health_connector_hk_ios package
+      run: swiftformat packages/health_connector_hk_ios/ios
+
+    format:swift:check:
+      description: Check Swift code formatting without making changes
+      run: swiftformat --lint packages/health_connector_hk_ios/ios
+
+    format:kotlin:
+      description: Format Kotlin code for the health_connector_hc_android package
+      run: cd packages/health_connector_hc_android/android && ./gradlew ktlintFormat
+
+    format:kotlin:check:
+      description: Check Kotlin code formatting without making changes
+      run: cd packages/health_connector_hc_android/android && ./gradlew ktlintCheck
 
     # Testing
     test:
