@@ -83,6 +83,8 @@ internal object HealthConnectTypeHandlerRegistry {
 
             // Session records
             register(SleepSessionHandler)
+
+            register(MenstruationPeriodHandler)
         }
     }
 

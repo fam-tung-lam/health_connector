@@ -11,6 +11,7 @@ export 'height_record_mappers.dart';
 export 'hydration_record_mappers.dart';
 export 'lean_body_mass_record_mappers.dart';
 export 'meal_type_mappers.dart';
+export 'menstruation_period_record_mappers.dart';
 export 'nutrition_record_mappers.dart';
 export 'oxygen_saturation_record_mappers.dart';
 export 'respiratory_rate_record_mappers.dart';

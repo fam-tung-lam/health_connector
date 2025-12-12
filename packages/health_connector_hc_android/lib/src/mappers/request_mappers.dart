@@ -63,6 +63,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         BiotinNutrientDataType,
         PantothenicAcidNutrientDataType,
         Vo2MaxHealthDataType,
+        MenstruationPeriodHealthDataType,
+        MenstrualCycleHealthDataType,
         sinceV1_0_0;
 import 'package:health_connector_hc_android/src/mappers/'
     'aggregation_metric_mappers.dart';
@@ -201,6 +203,8 @@ extension AggregateRequestDtoMapper<
           case RestingHeartRateHealthDataType _:
           case RespiratoryRateHealthDataType _:
           case Vo2MaxHealthDataType _:
+          case MenstruationPeriodHealthDataType _:
+          case MenstrualCycleHealthDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',
             );

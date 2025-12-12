@@ -12,6 +12,7 @@ import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectTypeHandlerRegistry
+import com.phamtunglam.health_connector_hc_android.handlers.MenstruationPeriodHandler
 import com.phamtunglam.health_connector_hc_android.mappers.dataType
 import com.phamtunglam.health_connector_hc_android.mappers.endTime
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.id
@@ -344,6 +345,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
         )
 
         try {
+            // Special handling for MenstruationPeriodRecord to include flows
+            if (request.dataType == HealthDataTypeDto.MENSTRUATION_PERIOD) {
+                return MenstruationPeriodHandler.readRecordWithFlows(client, request)
+            }
+
             // Get handler for this data type
             val handler = HealthConnectTypeHandlerRegistry.getRecordHandler(request.dataType)
                 ?: throw IllegalArgumentException("Unsupported data type: ${request.dataType}")
@@ -415,6 +421,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
         )
 
         try {
+            // Special handling for MenstruationPeriodRecord to include flows
+            if (request.dataType == HealthDataTypeDto.MENSTRUATION_PERIOD) {
+                return MenstruationPeriodHandler.readRecordsWithFlows(client, request)
+            }
+
             val recordClass = request.dataType.toHealthConnectRecordClass()
             val timeRangeFilter = TimeRangeFilter.between(
                 Instant.ofEpochMilli(request.startTime),

@@ -339,6 +339,21 @@ enum MeasurementLocationDto {
   rightUpperArm,
 }
 
+/// Menstrual flow intensity.
+enum MenstrualFlowDto {
+  /// Unknown or unspecified flow.
+  unknown,
+
+  /// Light menstrual flow.
+  light,
+
+  /// Medium menstrual flow.
+  medium,
+
+  /// Heavy menstrual flow.
+  heavy,
+}
+
 // endregion
 
 // region Metadata
@@ -586,6 +601,9 @@ enum HealthDataTypeDto {
   nutrition,
 
   // endregion
+
+  /// Menstruation period data.
+  menstruationPeriod,
 
   /// Resting heart rate data.
   restingHeartRate,
@@ -1741,4 +1759,64 @@ abstract class HealthConnectorPlatformApi {
 
   @async
   UpdateRecordResponseDto updateRecord(UpdateRecordRequestDto request);
+}
+
+/// Represents a menstruation flow record.
+class MenstruationFlowRecordDto {
+  MenstruationFlowRecordDto({
+    required this.id,
+    required this.time,
+    this.flow,
+    this.metadata,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Valid [MenstrualFlowDto] indicating the intensity of the flow.
+  final MenstrualFlowDto? flow;
+
+  /// Metadata about this record.
+  final MetadataDto? metadata;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// DTO for menstruation period record (Android only).
+class MenstruationPeriodRecordDto extends HealthRecordDto {
+  MenstruationPeriodRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.samples,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// List of menstruation flow records within this period.
+  final List<MenstruationFlowRecordDto?> samples;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
 }

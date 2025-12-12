@@ -103,6 +103,7 @@ internal class NutrientHandler(private val nutrientType: HealthDataTypeDto) :
                 HealthDataTypeDto.OXYGEN_SATURATION,
                 HealthDataTypeDto.RESPIRATORY_RATE,
                 HealthDataTypeDto.VO2MAX,
+                HealthDataTypeDto.MENSTRUATION_PERIOD,
                 -> throw IllegalArgumentException(
                     "$nutrientType not nutrient data type.",
                 )
@@ -188,6 +189,7 @@ internal class NutrientHandler(private val nutrientType: HealthDataTypeDto) :
         HealthDataTypeDto.OXYGEN_SATURATION,
         HealthDataTypeDto.RESPIRATORY_RATE,
         HealthDataTypeDto.VO2MAX,
+        HealthDataTypeDto.MENSTRUATION_PERIOD,
         -> error(
             "${NutrientHandler::class.simpleName} must only handle nutrient data types, " +
                 "but received: $nutrientType",

@@ -1,63 +1,4 @@
-import 'package:health_connector_core/health_connector_core.dart'
-    show
-        ActiveCaloriesBurnedRecord,
-        BloodPressureRecord,
-        BodyFatPercentageRecord,
-        BodyTemperatureRecord,
-        DiastolicBloodPressureRecord,
-        DistanceRecord,
-        FloorsClimbedRecord,
-        HealthRecord,
-        HeartRateMeasurementRecord,
-        HeartRateSeriesRecord,
-        HeightRecord,
-        HydrationRecord,
-        LeanBodyMassRecord,
-        NutritionRecord,
-        SleepSessionRecord,
-        SleepStageRecord,
-        StepRecord,
-        SystolicBloodPressureRecord,
-        WeightRecord,
-        WheelchairPushesRecord,
-        PhosphorusNutrientRecord,
-        OxygenSaturationRecord,
-        EnergyNutrientRecord,
-        CaffeineNutrientRecord,
-        ProteinNutrientRecord,
-        TotalCarbohydrateNutrientRecord,
-        TotalFatNutrientRecord,
-        SaturatedFatNutrientRecord,
-        MonounsaturatedFatNutrientRecord,
-        PolyunsaturatedFatNutrientRecord,
-        CholesterolNutrientRecord,
-        DietaryFiberNutrientRecord,
-        SugarNutrientRecord,
-        VitaminANutrientRecord,
-        VitaminB6NutrientRecord,
-        VitaminB12NutrientRecord,
-        VitaminCNutrientRecord,
-        VitaminDNutrientRecord,
-        VitaminENutrientRecord,
-        VitaminKNutrientRecord,
-        ThiaminNutrientRecord,
-        RiboflavinNutrientRecord,
-        NiacinNutrientRecord,
-        FolateNutrientRecord,
-        BiotinNutrientRecord,
-        PantothenicAcidNutrientRecord,
-        CalciumNutrientRecord,
-        IronNutrientRecord,
-        MagnesiumNutrientRecord,
-        ManganeseNutrientRecord,
-        PotassiumNutrientRecord,
-        RestingHeartRateRecord,
-        SeleniumNutrientRecord,
-        SodiumNutrientRecord,
-        ZincNutrientRecord,
-        Vo2MaxRecord,
-        RespiratoryRateRecord,
-        sinceV1_0_0;
+import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_mappers.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_platform_api.g.dart'
     show
@@ -80,6 +21,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_platform
         WeightRecordDto,
         WheelchairPushesRecordDto,
         Vo2MaxRecordDto,
+        MenstruationPeriodRecordDto,
         RespiratoryRateRecordDto;
 import 'package:meta/meta.dart' show internal;
 
@@ -193,6 +135,8 @@ extension HealthRecordToDto on HealthRecord {
         return record.toDto();
       case final Vo2MaxRecord record:
         return record.toDto();
+      case final MenstruationPeriodRecord record:
+        return record.toDto();
       case final SleepStageRecord _:
         throw UnsupportedError(
           '$SleepStageRecord is not supported on Android. '
@@ -207,6 +151,10 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$SystolicBloodPressureRecord is not supported on '
           'Android Health Connect. Use $BloodPressureRecord instead.',
+        );
+      case final MenstrualCycleRecord _:
+        throw UnsupportedError(
+          '$MenstrualCycleRecord is not supported on Android Health Connect.',
         );
       case final DiastolicBloodPressureRecord _:
         throw UnsupportedError(
@@ -260,6 +208,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
       case final RespiratoryRateRecordDto dto:
         return dto.toDomain();
       case final Vo2MaxRecordDto dto:
+        return dto.toDomain();
+      case final MenstruationPeriodRecordDto dto:
         return dto.toDomain();
     }
   }

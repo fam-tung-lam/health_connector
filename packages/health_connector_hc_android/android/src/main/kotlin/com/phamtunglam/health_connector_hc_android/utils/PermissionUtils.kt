@@ -134,7 +134,7 @@ internal object PermissionUtils {
         )
 
         // Convert DTOs to Health Connect permission strings
-        val healthDataPermissionStrings = request.healthDataPermissions.map {
+        val healthDataPermissionStrings = request.healthDataPermissions.flatMap {
             it.toHealthConnectPermission()
         }
         val featurePermissionStrings = request.featurePermissions.map {
@@ -196,7 +196,7 @@ internal object PermissionUtils {
         request: PermissionsRequestDto,
     ): Set<String> {
         // Convert DTOs to Health Connect permission strings
-        val healthDataPermissionStrings = request.healthDataPermissions.map {
+        val healthDataPermissionStrings = request.healthDataPermissions.flatMap {
             it.toHealthConnectPermission()
         }
         val featurePermissionStrings = request.featurePermissions.map {
@@ -244,12 +244,19 @@ internal object PermissionUtils {
         requestedPermissions: List<HealthDataPermissionDto>,
         grantedPermissions: Set<String>,
     ): List<HealthDataPermissionRequestResultDto> = requestedPermissions.map { permissionDto ->
+        // Get all required permissions for this data type
+        val requiredPermissions = permissionDto.toHealthConnectPermission()
+
+        // Check if ALL required permissions are granted
+        val allGranted = requiredPermissions.all { it in grantedPermissions }
+
         HealthDataPermissionRequestResultDto(
             permission = permissionDto,
-            status = determinePermissionStatus(
-                permissionDto.toHealthConnectPermission(),
-                grantedPermissions,
-            ),
+            status = if (allGranted) {
+                PermissionStatusDto.GRANTED
+            } else {
+                PermissionStatusDto.DENIED
+            },
         )
     }
 

@@ -59,6 +59,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         BloodPressureHealthDataType,
         SystolicBloodPressureHealthDataType,
         DiastolicBloodPressureHealthDataType,
+        MenstruationPeriodHealthDataType,
+        MenstrualCycleHealthDataType,
         sinceV1_0_0;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_platform_api.g.dart'
     show HealthDataTypeDto;
@@ -174,6 +176,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.respiratoryRate;
       case HealthDataTypeDto.vo2Max:
         return HealthDataType.vo2Max;
+      case HealthDataTypeDto.menstruationPeriod:
+        return HealthDataType.menstruationPeriod;
     }
   }
 }
@@ -288,6 +292,13 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.restingHeartRate;
       case Vo2MaxHealthDataType _:
         return HealthDataTypeDto.vo2Max;
+      case MenstruationPeriodHealthDataType _:
+        return HealthDataTypeDto.menstruationPeriod;
+      case MenstrualCycleHealthDataType _:
+        throw UnsupportedError(
+          '$MenstrualCycleHealthDataType is not supported on '
+          'Android Health Connect.',
+        );
       case SleepStageHealthDataType _:
         throw UnsupportedError(
           '$SleepStageHealthDataType is not supported on '

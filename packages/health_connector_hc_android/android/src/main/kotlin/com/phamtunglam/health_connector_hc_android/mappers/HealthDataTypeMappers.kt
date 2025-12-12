@@ -10,6 +10,7 @@ import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
+import androidx.health.connect.client.records.MenstruationPeriodRecord
 import androidx.health.connect.client.records.NutritionRecord
 import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.records.Record
@@ -48,6 +49,7 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
     HealthDataTypeDto.OXYGEN_SATURATION -> OxygenSaturationRecord::class
     HealthDataTypeDto.RESPIRATORY_RATE -> RespiratoryRateRecord::class
     HealthDataTypeDto.VO2MAX -> Vo2MaxRecord::class
+    HealthDataTypeDto.MENSTRUATION_PERIOD -> MenstruationPeriodRecord::class
     HealthDataTypeDto.ENERGY_NUTRIENT,
     HealthDataTypeDto.CAFFEINE,
     HealthDataTypeDto.PROTEIN,

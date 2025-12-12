@@ -12,6 +12,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSeriesRecordD
 import com.phamtunglam.health_connector_hc_android.pigeon.HeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.LeanBodyMassRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.MenstruationPeriodRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.NutritionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.OxygenSaturationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RespiratoryRateRecordDto
@@ -48,4 +49,5 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is RespiratoryRateRecordDto -> toHealthConnect()
     is Vo2MaxRecordDto -> toHealthConnect()
     is BloodPressureRecordDto -> toHealthConnect()
+    is MenstruationPeriodRecordDto -> toHealthConnect()
 }
