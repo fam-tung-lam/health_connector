@@ -12,6 +12,7 @@ import 'package:health_connector/health_connector.dart'
         Pressure,
         RespiratoryRate,
         Temperature,
+        Vo2Max,
         Velocity,
         Volume;
 import 'package:health_connector_toolbox/src/common/theme/app_colors.dart';
@@ -364,6 +365,13 @@ final class MeasurementUnitDisplay extends StatelessWidget {
       ),
       RespiratoryRate(:final breathsPerMinute) => Text(
         '${breathsPerMinute.toStringAsFixed(0)} breaths/min',
+        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).primaryColor,
+        ),
+      ),
+      Vo2Max(:final value) => Text(
+        '${value.toStringAsFixed(2)} mL/kg/min',
         style: Theme.of(context).textTheme.headlineMedium?.copyWith(
           fontWeight: FontWeight.bold,
           color: Theme.of(context).primaryColor,

@@ -59,6 +59,7 @@ import 'package:health_connector/health_connector.dart'
         VitaminDNutrientRecord,
         VitaminENutrientRecord,
         VitaminKNutrientRecord,
+        Vo2MaxRecord,
         WeightRecord,
         WheelchairPushesRecord,
         ZincNutrientRecord,
@@ -212,6 +213,36 @@ final class HealthRecordListTile extends StatelessWidget {
   ) {
     return switch (record) {
       RespiratoryRateRecord() => _buildRespiratoryRateRecord(record, onDelete),
+      Vo2MaxRecord() => InstantHealthRecordTile<Vo2MaxRecord>(
+        record: record,
+        icon: AppIcons.vo2Max,
+        title: '${record.vo2Max.value.toStringAsFixed(1)} mL/kg/min',
+        subtitleBuilder: (r, ctx) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 4),
+            Text(
+              '${AppTexts.time}: ${DateFormatUtils.formatDateTime(r.time)}',
+            ),
+            Text(
+              '${AppTexts.recording}: ${r.metadata.recordingMethod.name}',
+              style: const TextStyle(
+                fontSize: 12,
+                color: theme.AppColors.grey600,
+              ),
+            ),
+          ],
+        ),
+        detailRowsBuilder: (r, ctx) => [
+          const HealthRecordDetailRow(label: AppTexts.value, value: ''),
+          MeasurementUnitDisplay(unit: r.vo2Max),
+          HealthRecordDetailRow(
+            label: AppTexts.vo2MaxTestType,
+            value: r.testType?.name ?? AppTexts.unknown,
+          ),
+        ],
+        onDelete: onDelete,
+      ),
       BloodPressureRecord() => _buildBloodPressureRecord(record, onDelete),
 
       SystolicBloodPressureRecord() => _buildSystolicBloodPressureRecord(

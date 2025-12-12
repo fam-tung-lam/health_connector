@@ -129,7 +129,11 @@ import 'package:health_connector/health_connector.dart'
         SleepStageType,
         RespiratoryRate,
         RespiratoryRateRecord,
-        RespiratoryRateHealthDataType;
+        RespiratoryRateHealthDataType,
+        Vo2Max,
+        Vo2MaxHealthDataType,
+        Vo2MaxRecord,
+        Vo2MaxTestType;
 
 /// Configuration for a health record write form.
 ///
@@ -229,6 +233,7 @@ sealed class HealthRecordFormConfig {
       NutritionHealthDataType() => const NutritionFormConfig(),
       RestingHeartRateHealthDataType() => const RestingHeartRateFormConfig(),
       RespiratoryRateHealthDataType() => const RespiratoryRateFormConfig(),
+      Vo2MaxHealthDataType() => const Vo2MaxFormConfig(),
     };
   }
 }
@@ -1899,6 +1904,41 @@ final class RestingHeartRateFormConfig extends HealthRecordFormConfig {
     return RestingHeartRateRecord(
       time: startDateTime,
       beatsPerMinute: numericValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for VO2 max records.
+final class Vo2MaxFormConfig extends HealthRecordFormConfig {
+  const Vo2MaxFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    throw UnsupportedError(
+      'Vo2MaxFormConfig.buildRecord() should not be called directly. '
+      'Use buildVo2MaxRecord() instead.',
+    );
+  }
+
+  HealthRecord buildVo2MaxRecord({
+    required DateTime time,
+    required Vo2Max vo2Max,
+    required Vo2MaxTestType testType,
+    required Metadata metadata,
+  }) {
+    return Vo2MaxRecord(
+      time: time,
+      vo2Max: vo2Max,
+      testType: testType,
       metadata: metadata,
     );
   }

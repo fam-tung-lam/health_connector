@@ -72,7 +72,10 @@ import 'package:health_connector/health_connector.dart'
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
         SleepStage,
-        SleepStageType;
+        SleepStageType,
+        Vo2Max,
+        Vo2MaxHealthDataType,
+        Vo2MaxTestType;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/show_snack_bar.dart';
 import 'package:health_connector_toolbox/src/common/widgets/date_time_picker_row.dart';
@@ -85,7 +88,8 @@ import 'package:health_connector_toolbox/src/features/write_health_record/models
         NutritionFormConfig,
         NutrientFormConfig,
         SleepSessionRecordFormConfig,
-        SleepStageRecordFormConfig;
+        SleepStageRecordFormConfig,
+        Vo2MaxFormConfig;
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/blood_pressure_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/duration_picker_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/health_value_field.dart';
@@ -193,6 +197,9 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
   // State for blood pressure record
   Pressure? _systolic;
   Pressure? _diastolic;
+
+  // State for Vo2Max
+  Vo2MaxTestType? _vo2MaxTestType;
 
   // Use different state mixins based on whether duration is needed
   DateTime? _startDate;
@@ -362,6 +369,10 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
       if (_systolic == null || _diastolic == null) {
         return;
       }
+    } else if (widget.dataType is Vo2MaxHealthDataType) {
+      if (_value == null || _vo2MaxTestType == null) {
+        return;
+      }
     } else if (_config is NutrientFormConfig) {
       // Nutrient records need a value
       if (_value == null) {
@@ -475,6 +486,13 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
             diastolic: _diastolic!,
             bodyPosition: BloodPressureBodyPosition.unknown,
             measurementLocation: BloodPressureMeasurementLocation.unknown,
+            metadata: metadata,
+          ),
+        Vo2MaxHealthDataType() =>
+          (_config as Vo2MaxFormConfig).buildVo2MaxRecord(
+            time: startDateTime!,
+            vo2Max: _value! as Vo2Max,
+            testType: _vo2MaxTestType!,
             metadata: metadata,
           ),
         _ =>
@@ -619,6 +637,7 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
           AppTexts.writePermissionDeniedOxygenSaturation,
         RespiratoryRateHealthDataType() =>
           AppTexts.writePermissionDeniedRespiratoryRate,
+        Vo2MaxHealthDataType() => AppTexts.writePermissionDeniedVo2Max,
       };
     }
     return e.message;
@@ -701,6 +720,7 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
               OxygenSaturationHealthDataType() =>
                 AppTexts.insertOxygenSaturation,
               RespiratoryRateHealthDataType() => AppTexts.insertRespiratoryRate,
+              Vo2MaxHealthDataType() => AppTexts.insertVo2Max,
             },
           ),
         ),
@@ -855,7 +875,31 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                           });
                         },
                   )
-                else ...[
+                else if (widget.dataType is Vo2MaxHealthDataType) ...[
+                  HealthValueField(
+                    dataType: widget.dataType,
+                    onChanged: (value) => setState(() => _value = value),
+                  ),
+                  const SizedBox(height: 16),
+                  DropdownButtonFormField<Vo2MaxTestType>(
+                    initialValue: _vo2MaxTestType,
+                    decoration: const InputDecoration(
+                      labelText: AppTexts.vo2MaxTestType,
+                      border: OutlineInputBorder(),
+                    ),
+                    items: Vo2MaxTestType.values
+                        .map(
+                          (type) => DropdownMenuItem(
+                            value: type,
+                            child: Text(type.name),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (val) => setState(() => _vo2MaxTestType = val),
+                    validator: (val) =>
+                        val == null ? AppTexts.pleaseSelect : null,
+                  ),
+                ] else ...[
                   HealthValueField(
                     dataType: widget.dataType,
                     onChanged: (value) {

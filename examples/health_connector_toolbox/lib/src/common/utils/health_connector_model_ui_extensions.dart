@@ -80,7 +80,11 @@ import 'package:health_connector/health_connector.dart'
         Velocity,
         Volume;
 import 'package:health_connector/health_connector.dart'
-    show RespiratoryRate, RespiratoryRateHealthDataType;
+    show
+        RespiratoryRate,
+        RespiratoryRateHealthDataType,
+        Vo2Max,
+        Vo2MaxHealthDataType;
 
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
@@ -208,6 +212,7 @@ extension HealthDataTypeUI on HealthDataType {
       BiotinNutrientDataType _ => AppTexts.biotin,
       PantothenicAcidNutrientDataType _ => AppTexts.pantothenicAcid,
       RespiratoryRateHealthDataType _ => AppTexts.respiratoryRate,
+      Vo2MaxHealthDataType _ => AppTexts.vo2Max,
     };
   }
 
@@ -281,6 +286,7 @@ extension HealthDataTypeUI on HealthDataType {
       BiotinNutrientDataType _ => AppTexts.biotinDescription,
       PantothenicAcidNutrientDataType _ => AppTexts.pantothenicAcidDescription,
       RespiratoryRateHealthDataType _ => AppTexts.respiratoryRateDescription,
+      Vo2MaxHealthDataType _ => AppTexts.vo2MaxDescription,
     };
   }
 
@@ -345,6 +351,7 @@ extension HealthDataTypeUI on HealthDataType {
       BiotinNutrientDataType _ => AppIcons.fastfood,
       PantothenicAcidNutrientDataType _ => AppIcons.fastfood,
       RespiratoryRateHealthDataType _ => AppIcons.air,
+      Vo2MaxHealthDataType _ => AppIcons.vo2Max,
     };
   }
 }
@@ -447,6 +454,7 @@ extension MeasurementUnitUI on MeasurementUnit {
       Velocity _ => AppTexts.velocity,
       Volume _ => AppTexts.volume,
       RespiratoryRate _ => AppTexts.respiratoryRate,
+      Vo2Max _ => AppTexts.vo2Max,
     };
   }
 
@@ -465,6 +473,7 @@ extension MeasurementUnitUI on MeasurementUnit {
       Velocity _ => AppIcons.velocity,
       Volume _ => AppIcons.volume,
       RespiratoryRate _ => AppIcons.air,
+      Vo2Max _ => AppIcons.vo2Max,
     };
   }
 }

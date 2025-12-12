@@ -66,7 +66,9 @@ import 'package:health_connector/health_connector.dart'
         SleepStageHealthDataType,
         OxygenSaturationHealthDataType,
         RespiratoryRate,
-        RespiratoryRateHealthDataType;
+        RespiratoryRateHealthDataType,
+        Vo2Max,
+        Vo2MaxHealthDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -154,6 +156,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
           ),
           RestingHeartRateHealthDataType() => _parseNumeric(value),
           RespiratoryRateHealthDataType() => _parseRespiratoryRate(value),
+          Vo2MaxHealthDataType() => _parseVo2Max(value),
 
           EnergyNutrientDataType() => _parseEnergy(value),
           CaffeineNutrientDataType() => _parseMass(value),
@@ -280,6 +283,14 @@ class _HealthValueFieldState extends State<HealthValueField> {
     return null;
   }
 
+  Vo2Max? _parseVo2Max(String value) {
+    final val = double.tryParse(value);
+    if (val != null && val >= 0) {
+      return Vo2Max.millilitersPerKilogramPerMinute(val);
+    }
+    return null;
+  }
+
   String? _validate(String? value) {
     if (value == null || value.isEmpty) {
       return switch (widget.dataType) {
@@ -320,6 +331,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
         ),
         RestingHeartRateHealthDataType() => AppTexts.pleaseEnterHeartRate,
         RespiratoryRateHealthDataType() => AppTexts.pleaseEnterRespiratoryRate,
+        Vo2MaxHealthDataType() => AppTexts.pleaseEnterVo2Max,
 
         EnergyNutrientDataType() => AppTexts.pleaseEnterEnergy,
         CaffeineNutrientDataType() => AppTexts.pleaseEnterCaffeine,
@@ -395,6 +407,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
       ),
       RestingHeartRateHealthDataType() => int.tryParse(value),
       RespiratoryRateHealthDataType() => double.tryParse(value),
+      Vo2MaxHealthDataType() => double.tryParse(value),
 
       EnergyNutrientDataType() => double.tryParse(value),
       CaffeineNutrientDataType() => double.tryParse(value),
@@ -451,6 +464,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
         (parsed as int) < 0 ? AppTexts.heartRateMustBePositive : null,
       RespiratoryRateHealthDataType() =>
         (parsed as double) < 0 ? AppTexts.respiratoryRateMustBePositive : null,
+      Vo2MaxHealthDataType() =>
+        (parsed as double) < 0 ? AppTexts.vo2MaxMustBePositive : null,
       WeightHealthDataType() =>
         (parsed as double) <= 0 ? AppTexts.weightMustBeGreaterThanZero : null,
       HeightHealthDataType() =>
@@ -661,6 +676,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
         NutritionHealthDataType() => throw UnsupportedError(
           'NutritionHealthDataType requires NutritionFormField',
         ),
+        Vo2MaxHealthDataType() => AppTexts.pleaseEnterVo2Max,
       };
     }
 
@@ -1239,6 +1255,17 @@ class _HealthValueFieldState extends State<HealthValueField> {
       ),
       NutritionHealthDataType() => throw UnsupportedError(
         'NutritionHealthDataType requires NutritionFormField',
+      ),
+      Vo2MaxHealthDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.vo2MaxValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.vo2Max),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
       ),
     };
   }

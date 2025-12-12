@@ -60,7 +60,8 @@ import 'package:health_connector/health_connector.dart'
         ZincNutrientDataType,
         SleepSessionHealthDataType,
         RestingHeartRateHealthDataType,
-        SleepStageHealthDataType;
+        SleepStageHealthDataType,
+        Vo2MaxHealthDataType;
 import 'package:health_connector/health_connector.dart' show HealthPlatform;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
@@ -423,6 +424,11 @@ class _ReadHealthRecordsPageState
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
+        Vo2MaxHealthDataType() => HealthDataType.vo2Max.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
       };
 
       await notifier.readHealthRecords(request);

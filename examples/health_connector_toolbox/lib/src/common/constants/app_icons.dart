@@ -29,6 +29,7 @@ abstract final class AppIcons {
 
   static const IconData fastfood = Icons.fastfood;
   static const IconData bloodPressure = Icons.compress;
+  static const IconData vo2Max = Icons.directions_run;
 
   // Permissions & Security
   static const IconData lockOutline = Icons.lock_outline;

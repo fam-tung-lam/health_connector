@@ -156,6 +156,11 @@ abstract final class AppTexts {
   static const String respiratoryRateDescription =
       'Respiratory rate measurement at a point in time';
   static const String respiratoryRateValue = 'Respiratory Rate (breaths/min)';
+  static const String vo2Max = 'VO2 Max';
+  static const String vo2MaxDescription =
+      'Maximal oxygen consumption measured during incremental exercise';
+  static const String vo2MaxValue = 'VO2 Max (mL/kg/min)';
+  static const String vo2MaxTestType = 'Test Type';
 
   static const String measurementLocation = 'Measurement Location';
   static const String measurementLocationLeftWrist = 'Left Wrist';
@@ -381,6 +386,9 @@ abstract final class AppTexts {
   static const String writePermissionDeniedRespiratoryRate =
       'Write permission denied or not supported. '
       'Please grant write permission for respiratory rate.';
+  static const String writePermissionDeniedVo2Max =
+      'Write permission denied or not supported. '
+      'Please grant write permission for VO2 Max.';
 
   // ==========================================================================
   // Validation Messages
@@ -458,6 +466,10 @@ abstract final class AppTexts {
       'Please enter respiratory rate';
   static const String respiratoryRateMustBePositive =
       'Respiratory rate must be a positive number';
+  static const String pleaseEnterVo2Max = 'Please enter VO2 Max';
+  static const String vo2MaxMustBePositive =
+      'VO2 Max must be a positive number';
+  static const String vo2MaxMustBeValid = 'VO2 Max must be a valid number';
 
   // ==========================================================================
   // Page Titles and Actions
@@ -487,6 +499,7 @@ abstract final class AppTexts {
       'Insert Diastolic Blood Pressure';
   static const String insertOxygenSaturation = 'Insert Oxygen Saturation';
   static const String insertRespiratoryRate = 'Insert Respiratory Rate';
+  static const String insertVo2Max = 'Insert VO2 Max';
 
   static const String readHealthRecords = 'Read Health Records';
   static const String readAggregateData = 'Read Aggregate Data';

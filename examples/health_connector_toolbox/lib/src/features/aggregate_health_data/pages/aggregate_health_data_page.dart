@@ -65,6 +65,7 @@ import 'package:health_connector/health_connector.dart'
         FolateNutrientDataType,
         BiotinNutrientDataType,
         PantothenicAcidNutrientDataType,
+        Vo2MaxHealthDataType,
         HealthPlatform;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
@@ -575,6 +576,23 @@ class _AggregateHealthDataPageState
           AggregationMetric.sum || AggregationMetric.count =>
             throw UnsupportedError('Unsupported metric: $_selectedMetric'),
         },
+        Vo2MaxHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg => HealthDataType.vo2Max.aggregateAverage(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.min => HealthDataType.vo2Max.aggregateMin(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.max => HealthDataType.vo2Max.aggregateMax(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.sum || AggregationMetric.count =>
+            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+        },
+
         // All nutrient data types follow the same pattern: only sum aggregation
         EnergyNutrientDataType() ||
         CaffeineNutrientDataType() ||
