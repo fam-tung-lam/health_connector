@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core.dart'
-    show sinceV1_1_0;
+    show sinceV1_1_0, sinceV1_4_0;
 import 'package:health_connector_core/src/annotations/annotations.dart'
     show
         PlatformSpecificBehaviors,
@@ -23,6 +23,7 @@ import 'package:health_connector_core/src/models/health_records/sleep_stage_type
     show SleepStageType;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show
+        BloodGlucose,
         Energy,
         Length,
         Mass,
@@ -43,6 +44,7 @@ import 'package:health_connector_core/src/utils/validation.dart' show require;
 import 'package:meta/meta.dart' show immutable, internal;
 
 part 'active_calories_burned_record.dart';
+part 'blood_glucose_record.dart';
 part 'blood_pressure_records/blood_pressure_record.dart';
 part 'blood_pressure_records/diastolic_blood_pressure_record.dart';
 part 'blood_pressure_records/systolic_blood_pressure_record.dart';

@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core.dart'
-    show Permission;
+    show Permission, sinceV1_4_0;
 import 'package:health_connector_core/src/annotations/annotations.dart'
     show
         sinceV1_0_0,
@@ -21,6 +21,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         ActiveCaloriesBurnedRecord,
         BiotinNutrientRecord,
         BloodPressureRecord,
+        BloodGlucoseRecord,
         BodyFatPercentageRecord,
         BodyTemperatureRecord,
         CaffeineNutrientRecord,
@@ -78,6 +79,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         ZincNutrientRecord;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show
+        BloodGlucose,
         Energy,
         Length,
         Mass,
@@ -105,6 +107,7 @@ import 'package:health_connector_core/src/models/requests/read_records_request.d
 import 'package:meta/meta.dart' show immutable, internal;
 
 part 'active_calories_burned_health_data_type.dart';
+part 'blood_glucose_health_data_type.dart';
 part 'blood_pressure_health_data_types/blood_pressure_health_data_type.dart';
 part 'blood_pressure_health_data_types/diastolic_blood_pressure_health_data_type.dart';
 part 'blood_pressure_health_data_types/systolic_blood_pressure_health_data_type.dart';
@@ -128,9 +131,9 @@ part 'resting_heart_rate_health_data_type.dart';
 part 'sleep_session_health_data_type.dart';
 part 'sleep_stage_record_health_data_type.dart';
 part 'steps_health_data_type.dart';
+part 'vo2_max_health_data_type.dart';
 part 'weight_health_data_type.dart';
 part 'wheelchair_pushes_health_data_type.dart';
-part 'vo2_max_health_data_type.dart';
 
 /// [HealthDataType] represents different kinds of health and fitness data
 /// that can be read from or written to health platforms.
@@ -224,6 +227,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Represents the user's body weight measurements. Supports both reading
   /// existing weight data and writing new weight measurements.
   static const weight = WeightHealthDataType();
+
+  /// Blood glucose data type.
+  ///
+  /// Represents the concentration of glucose in the blood.
+  /// Supports AVG, MIN, MAX aggregation.
+  @sinceV1_4_0
+  static const bloodGlucose = BloodGlucoseHealthDataType();
 
   /// Blood pressure data type (composite).
   ///
@@ -623,6 +633,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   static const List<HealthDataType<HealthRecord, MeasurementUnit>> values = [
     activeCaloriesBurned,
     biotin,
+    bloodGlucose,
     bloodPressure,
     bodyFatPercentage,
     bodyTemperature,
