@@ -326,6 +326,21 @@ enum MeasurementLocationDto {
   rightUpperArm,
 }
 
+/// Menstrual flow intensity.
+enum MenstrualFlowDto {
+  /// Unknown or unspecified flow.
+  unknown,
+
+  /// Light menstrual flow.
+  light,
+
+  /// Medium menstrual flow.
+  medium,
+
+  /// Heavy menstrual flow.
+  heavy,
+}
+
 // endregion
 
 // region Metadata
@@ -587,6 +602,9 @@ enum HealthDataTypeDto {
 
   /// Combined nutrition record (HKCorrelation.food).
   nutrition,
+
+  /// Menstrual cycle data.
+  menstrualCycle,
 
   /// Resting heart rate data.
   restingHeartRate,
@@ -2370,4 +2388,42 @@ abstract class HealthConnectorPlatformApi {
 
   @async
   UpdateRecordResponseDto updateRecord(UpdateRecordRequestDto request);
+}
+
+/// DTO for menstrual cycle record (iOS only).
+class MenstrualCycleRecordDto extends HealthRecordDto {
+  MenstrualCycleRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.flow,
+    required this.isStartOfCycle,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The menstrual flow intensity.
+  final MenstrualFlowDto flow;
+
+  /// Whether this record represents the start of a menstrual cycle.
+  final bool isStartOfCycle;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
 }

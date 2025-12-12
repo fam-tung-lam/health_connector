@@ -57,6 +57,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         OxygenSaturationRecord,
         RespiratoryRateRecord,
         Vo2MaxRecord,
+        MenstruationPeriodRecord,
+        MenstrualCycleRecord,
         sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mappers.dart';
 
@@ -116,6 +118,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api
         ZincNutrientRecordDto,
         OxygenSaturationRecordDto,
         RespiratoryRateRecordDto,
+        MenstrualCycleRecordDto,
         Vo2MaxRecordDto;
 import 'package:meta/meta.dart' show internal;
 
@@ -243,6 +246,13 @@ extension HealthRecordToDto on HealthRecord {
         );
       case final Vo2MaxRecord record:
         return record.toDto();
+      case final MenstrualCycleRecord record:
+        return record.toDto();
+      case final MenstruationPeriodRecord _:
+        throw UnsupportedError(
+          '$MenstruationPeriodRecord is not supported on iOS HealthKit. '
+          'Use $MenstrualCycleRecord instead.',
+        );
     }
   }
 }
@@ -359,6 +369,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
       case final NutritionRecordDto dto:
         return dto.toDomain();
       case final Vo2MaxRecordDto dto:
+        return dto.toDomain();
+      case final MenstrualCycleRecordDto dto:
         return dto.toDomain();
     }
   }

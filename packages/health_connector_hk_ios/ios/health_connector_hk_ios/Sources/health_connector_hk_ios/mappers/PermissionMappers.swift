@@ -179,6 +179,8 @@ extension HealthDataPermissionDto {
             try [HKQuantityType.safeQuantityType(forIdentifier: .respiratoryRate)]
         case .vo2Max:
             try [HKQuantityType.safeQuantityType(forIdentifier: .vo2Max)]
+        case .menstrualCycle:
+            try [HKCategoryType.safeCategoryType(forIdentifier: .menstrualFlow)]
         }
     }
 }

@@ -123,6 +123,8 @@ extension HealthRecordDto {
                 return .respiratoryRate
             case is Vo2MaxRecordDto:
                 return .vo2Max
+            case is MenstrualCycleRecordDto:
+                return .menstrualCycle
             default:
                 throw HealthConnectorErrors.invalidArgument(
                     message: "Unknown HealthRecordDto type: \(type(of: self))"
@@ -147,6 +149,8 @@ extension HealthDataTypeDto {
 
         case .sleepStageRecord:
             try HKCategoryType.safeCategoryType(forIdentifier: .sleepAnalysis)
+        case .menstrualCycle:
+            try HKCategoryType.safeCategoryType(forIdentifier: .menstrualFlow)
 
         // MARK: - Correlation Types
         case .bloodPressure:

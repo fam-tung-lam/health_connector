@@ -265,6 +265,13 @@ extension AggregationMetricDto {
                 // SUM not meaningful for diastolic blood pressure, COUNT requires reading records
                 return []
             }
+
+        case .menstrualCycle:
+            // Menstrual cycle (category samples) does not support aggregation
+            throw HealthConnectorErrors.invalidArgument(
+                message: "Menstrual cycle records do not support aggregation",
+                details: "Menstrual cycle records are category samples and do not support aggregation operations."
+            )
         }
     }
 
@@ -505,6 +512,12 @@ extension AggregationMetricDto {
                     details: "\(metricName) not directly supported for diastolicBloodPressure in HealthKit."
                 )
             }
+        case .menstrualCycle:
+            // Menstrual cycle (category samples) does not support aggregation
+            throw HealthConnectorErrors.invalidArgument(
+                message: "Menstrual cycle records do not support aggregation",
+                details: "Menstrual cycle records are category samples and do not support aggregation operations."
+            )
         }
     }
 }

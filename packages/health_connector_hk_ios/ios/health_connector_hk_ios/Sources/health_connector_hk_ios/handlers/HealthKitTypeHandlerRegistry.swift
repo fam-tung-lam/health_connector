@@ -172,5 +172,6 @@ class HealthKitTypeRegistry {
         register(BloodPressureHandler.self)
         register(SystolicBloodPressureHandler.self)
         register(DiastolicBloodPressureHandler.self)
+        register(MenstrualCycleHandler.self)
     }
 }

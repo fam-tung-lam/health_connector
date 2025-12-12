@@ -59,8 +59,9 @@ import 'package:health_connector_core/health_connector_core.dart'
         SystolicBloodPressureHealthDataType,
         DiastolicBloodPressureHealthDataType,
         Vo2MaxHealthDataType,
+        MenstruationPeriodHealthDataType,
+        MenstrualCycleHealthDataType,
         sinceV1_0_0;
-
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
     show HealthDataTypeDto;
 import 'package:meta/meta.dart' show internal;
@@ -184,6 +185,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.respiratoryRate;
       case HealthDataTypeDto.vo2Max:
         return HealthDataType.vo2Max;
+      case HealthDataTypeDto.menstrualCycle:
+        return HealthDataType.menstrualCycle;
     }
   }
 }
@@ -319,6 +322,13 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.respiratoryRate;
       case Vo2MaxHealthDataType _:
         return HealthDataTypeDto.vo2Max;
+      case MenstruationPeriodHealthDataType _:
+        throw UnsupportedError(
+          '$MenstruationPeriodHealthDataType is not supported on '
+          'iOS HealthKit. Use $MenstrualCycleHealthDataType instead.',
+        );
+      case MenstrualCycleHealthDataType _:
+        return HealthDataTypeDto.menstrualCycle;
     }
   }
 }
