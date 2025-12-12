@@ -56,6 +56,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         ZincNutrientRecord,
         OxygenSaturationRecord,
         RespiratoryRateRecord,
+        BloodGlucoseRecord,
         Vo2MaxRecord,
         sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mappers.dart';
@@ -116,6 +117,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api
         ZincNutrientRecordDto,
         OxygenSaturationRecordDto,
         RespiratoryRateRecordDto,
+        BloodGlucoseRecordDto,
         Vo2MaxRecordDto;
 import 'package:meta/meta.dart' show internal;
 
@@ -243,6 +245,8 @@ extension HealthRecordToDto on HealthRecord {
         );
       case final Vo2MaxRecord record:
         return record.toDto();
+      case final BloodGlucoseRecord record:
+        return record.toDto();
     }
   }
 }
@@ -359,6 +363,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
       case final NutritionRecordDto dto:
         return dto.toDomain();
       case final Vo2MaxRecordDto dto:
+        return dto.toDomain();
+      case final BloodGlucoseRecordDto dto:
         return dto.toDomain();
     }
   }

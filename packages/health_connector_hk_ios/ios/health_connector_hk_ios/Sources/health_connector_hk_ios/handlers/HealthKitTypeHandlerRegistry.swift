@@ -168,7 +168,9 @@ class HealthKitTypeRegistry {
         register(OxygenSaturationHandler.self)
         register(RespiratoryRateHandler.self)
         register(Vo2MaxHandler.self)
+        register(BloodGlucoseHandler.self)
         register(NutritionCorrelationHandler.self)
+
         register(BloodPressureHandler.self)
         register(SystolicBloodPressureHandler.self)
         register(DiastolicBloodPressureHandler.self)

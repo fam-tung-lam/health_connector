@@ -59,8 +59,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         SystolicBloodPressureHealthDataType,
         DiastolicBloodPressureHealthDataType,
         Vo2MaxHealthDataType,
-        sinceV1_0_0;
-
+        sinceV1_0_0,
+        BloodGlucoseHealthDataType;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
     show HealthDataTypeDto;
 import 'package:meta/meta.dart' show internal;
@@ -168,8 +168,6 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.zinc;
       case HealthDataTypeDto.nutrition:
         return HealthDataType.nutrition;
-
-      // Blood pressure types
       case HealthDataTypeDto.bloodPressure:
         return HealthDataType.bloodPressure;
       case HealthDataTypeDto.systolicBloodPressure:
@@ -182,6 +180,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.oxygenSaturation;
       case HealthDataTypeDto.respiratoryRate:
         return HealthDataType.respiratoryRate;
+      case HealthDataTypeDto.bloodGlucose:
+        return HealthDataType.bloodGlucose;
       case HealthDataTypeDto.vo2Max:
         return HealthDataType.vo2Max;
     }
@@ -224,8 +224,6 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.energyNutrient;
       case CaffeineNutrientDataType _:
         return HealthDataTypeDto.caffeine;
-
-      // Macronutrients (9)
       case ProteinNutrientDataType _:
         return HealthDataTypeDto.protein;
       case TotalCarbohydrateNutrientDataType _:
@@ -303,8 +301,6 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$HeartRateSeriesRecordHealthDataType is not supported on iOS. '
           'Use $HeartRateMeasurementRecordHealthDataType instead.',
         );
-
-      // Blood pressure types
       case BloodPressureHealthDataType _:
         return HealthDataTypeDto.bloodPressure;
       case SystolicBloodPressureHealthDataType _:
@@ -319,6 +315,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.respiratoryRate;
       case Vo2MaxHealthDataType _:
         return HealthDataTypeDto.vo2Max;
+      case BloodGlucoseHealthDataType _:
+        return HealthDataTypeDto.bloodGlucose;
     }
   }
 }

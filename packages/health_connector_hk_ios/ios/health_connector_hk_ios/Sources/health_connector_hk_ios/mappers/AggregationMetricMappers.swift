@@ -198,6 +198,19 @@ extension AggregationMetricDto {
                 return []
             }
 
+        case .bloodGlucose:
+            switch self {
+            case .avg:
+                return .discreteAverage
+            case .min:
+                return .discreteMin
+            case .max:
+                return .discreteMax
+            case .sum, .count:
+                // SUM/COUNT not meaningful/supported for blood glucose
+                return []
+            }
+
         case .sleepStageRecord:
             // Sleep stages (category samples) do not support aggregation
             throw HealthConnectorErrors.invalidArgument(
@@ -427,6 +440,18 @@ extension AggregationMetricDto {
                 throw HealthConnectorErrors.invalidArgument(
                     message: "\(metricName) not directly supported for respiratoryRate in HealthKit",
                     details: "\(metricName) not directly supported for respiratoryRate in HealthKit."
+                )
+            }
+        case .bloodGlucose:
+            // Only AVG, MIN, MAX are supported for blood glucose
+            switch self {
+            case .avg, .min, .max:
+                break // These are supported
+            case .sum, .count:
+                let metricName = String(describing: self)
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "\(metricName) not directly supported for bloodGlucose in HealthKit",
+                    details: "\(metricName) not directly supported for bloodGlucose in HealthKit."
                 )
             }
         case .vo2Max:

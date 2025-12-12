@@ -117,6 +117,8 @@ extension HealthRecordDto {
                 return .zinc
             case is NutritionRecordDto:
                 return .nutrition
+            case is BloodGlucoseRecordDto:
+                return .bloodGlucose
             case is OxygenSaturationRecordDto:
                 return .oxygenSaturation
             case is RespiratoryRateRecordDto:
@@ -257,6 +259,8 @@ extension HealthDataTypeDto {
             try HKQuantityType.safeQuantityType(forIdentifier: .dietarySodium)
         case .zinc:
             try HKQuantityType.safeQuantityType(forIdentifier: .dietaryZinc)
+        case .bloodGlucose:
+            try HKQuantityType.safeQuantityType(forIdentifier: .bloodGlucose)
         }
     }
 }
