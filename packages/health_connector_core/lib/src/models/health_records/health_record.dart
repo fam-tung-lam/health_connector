@@ -32,6 +32,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
         Pressure,
         RespiratoryRate,
         Temperature,
+        Vo2Max,
         Volume;
 import 'package:health_connector_core/src/models/metadata/metadata.dart'
     show Metadata;
@@ -69,6 +70,7 @@ part 'series_health_record.dart';
 part 'sleep_session_record.dart';
 part 'sleep_stage_record.dart';
 part 'step_record.dart';
+part 'vo2_max_record.dart';
 part 'weight_record.dart';
 part 'wheelchair_pushes_record.dart';
 

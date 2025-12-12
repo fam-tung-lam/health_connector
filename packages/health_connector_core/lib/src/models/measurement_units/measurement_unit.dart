@@ -17,6 +17,7 @@ part 'pressure.dart';
 part 'respiratory_rate.dart';
 part 'temperature.dart';
 part 'velocity.dart';
+part 'vo2_max.dart';
 part 'volume.dart';
 
 /// Base abstract class for all measurement units in the health connector.

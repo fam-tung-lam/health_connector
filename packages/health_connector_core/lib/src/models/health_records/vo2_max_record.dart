@@ -1,0 +1,153 @@
+part of 'health_record.dart';
+
+/// Represents the test type or measurement method used to determine VO₂ max.
+///
+/// This enum provides a cross-platform abstraction for:
+/// - **Android**: `Vo2MaxMeasurementMethod` constants
+/// - **iOS**: `HKMetadataKeyVO2MaxTestType` enum
+///
+/// ## Platform Mapping
+///
+/// - **[metabolicCart]**: Android `METABOLIC_CART` (1), iOS `.maxExercise`
+/// - **[heartRateRatio]**: Android `HEART_RATE_RATIO` (2),
+///   iOS `.predictionNonExercise`
+/// - **[cooperTest]**: Android `COOPER_TEST` (3),
+///   iOS `.predictionSubMaxExercise`
+/// - **[multistageFitnessTest]**: Android `MULTISTAGE_FITNESS_TEST` (4),
+///   iOS `.predictionSubMaxExercise`
+/// - **[rockportFitnessTest]**: Android `ROCKPORT_FITNESS_TEST` (5),
+///   iOS `.predictionSubMaxExercise`
+/// - **[predictionStepTest]**: Android `OTHER` (0), iOS `.predictionStepTest`
+/// - **[other]**: Android `OTHER` (0), iOS `.predictionSubMaxExercise`
+@sinceV1_3_0
+enum Vo2MaxTestType {
+  /// Direct measurement using gas exchange analysis (metabolic cart).
+  ///
+  /// This is the gold standard for VO₂ max measurement, typically performed
+  /// in a laboratory setting with specialized equipment.
+  metabolicCart,
+
+  /// Calculated using heart rate ratio (maxHR / restingHR).
+  ///
+  /// A non-exercise prediction method that estimates VO₂ max based on
+  /// resting heart rate and demographic data.
+  heartRateRatio,
+
+  /// Based on the Cooper 12-minute run test.
+  ///
+  /// A field test where the distance covered in 12 minutes is used to
+  /// estimate VO₂ max using validated formulas.
+  cooperTest,
+
+  /// Based on the multistage fitness test (beep test / bleep test).
+  ///
+  /// A progressive shuttle run test with increasing intensity levels.
+  multistageFitnessTest,
+
+  /// Based on the Rockport 1-mile walk test.
+  ///
+  /// A submaximal walking test that uses heart rate and walking speed
+  /// to estimate VO₂ max.
+  rockportFitnessTest,
+
+  /// Step-based protocol (e.g., 3-minute step test).
+  ///
+  /// A prediction based on heart rate response to stepping exercises.
+  predictionStepTest,
+
+  /// Other or proprietary measurement method.
+  ///
+  /// Used when the specific method is unknown or not covered by
+  /// the standard options (e.g., device-specific algorithms).
+  other,
+}
+
+/// Represents a VO₂ max (maximal oxygen uptake) measurement at a specific
+/// point in time.
+///
+/// VO₂ max is the maximum rate of oxygen consumption measured during
+/// incremental exercise. It is a key indicator of cardiorespiratory fitness
+/// and endurance capacity.
+///
+/// This is a point-in-time (instant) record with a single timestamp.
+///
+/// ## Platform Mapping
+///
+/// - **Android**: Maps to Health Connect's `Vo2MaxRecord`
+/// - **iOS**: Maps to HealthKit's `HKQuantityType(.vo2Max)`
+///
+/// ## Measurement Unit
+///
+/// VO₂ max is expressed in milliliters of oxygen per kilogram of body weight
+/// per minute (mL/kg/min).
+@sinceV1_3_0
+@immutable
+final class Vo2MaxRecord extends InstantHealthRecord {
+  /// Creates a VO₂ max record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [id]: The unique identifier for this record.
+  /// - [time]: The timestamp when the VO₂ max was measured.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [vo2Max]: The VO₂ max measurement in mL/kg/min.
+  /// - [testType]: Optional test type or measurement method used.
+  const Vo2MaxRecord({
+    required super.time,
+    required super.metadata,
+    required this.vo2Max,
+    this.testType,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+  });
+
+  /// The VO₂ max measurement in mL/kg/min.
+  final Vo2Max vo2Max;
+
+  /// The test type or measurement method used to determine this VO₂ max value.
+  ///
+  /// This provides context about how the measurement was obtained:
+  /// - Direct measurement (metabolic cart)
+  /// - Field tests (Cooper, Rockport, beep test)
+  /// - Prediction algorithms (heart rate ratio, step test)
+  ///
+  /// May be `null` if the measurement method is unknown.
+  final Vo2MaxTestType? testType;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Vo2MaxRecord &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          time == other.time &&
+          zoneOffsetSeconds == other.zoneOffsetSeconds &&
+          vo2Max == other.vo2Max &&
+          testType == other.testType &&
+          metadata == other.metadata;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      time.hashCode ^
+      (zoneOffsetSeconds?.hashCode ?? 0) ^
+      vo2Max.hashCode ^
+      (testType?.hashCode ?? 0) ^
+      metadata.hashCode;
+
+  @override
+  String toString() =>
+      'Vo2MaxRecord('
+      'id: $id, '
+      'vo2Max: ${vo2Max.value.toStringAsFixed(1)} mL/kg/min, '
+      'testType: ${testType?.name ?? "unknown"}, '
+      'time: $time'
+      ')';
+
+  @override
+  String get name => 'vo2_max_record';
+
+  @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+}

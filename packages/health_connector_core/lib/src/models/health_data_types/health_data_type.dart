@@ -72,6 +72,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         VitaminDNutrientRecord,
         VitaminENutrientRecord,
         VitaminKNutrientRecord,
+        Vo2MaxRecord,
         WeightRecord,
         WheelchairPushesRecord,
         ZincNutrientRecord;
@@ -86,6 +87,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
         Pressure,
         RespiratoryRate,
         Temperature,
+        Vo2Max,
         Volume;
 import 'package:health_connector_core/src/models/permissions/permission.dart'
     show HealthDataPermission, HealthDataPermissionAccessType;
@@ -128,6 +130,7 @@ part 'sleep_stage_record_health_data_type.dart';
 part 'steps_health_data_type.dart';
 part 'weight_health_data_type.dart';
 part 'wheelchair_pushes_health_data_type.dart';
+part 'vo2_max_health_data_type.dart';
 
 /// [HealthDataType] represents different kinds of health and fitness data
 /// that can be read from or written to health platforms.
@@ -367,6 +370,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports reading and writing respiratory rate measurements.
   @sinceV1_0_0
   static const respiratoryRate = RespiratoryRateHealthDataType();
+
+  /// VO₂ max (maximal oxygen uptake) data type.
+  ///
+  /// Represents the maximum rate of oxygen consumption during exercise,
+  /// a key indicator of cardiorespiratory fitness.
+  /// Supports AVG, MIN, MAX aggregation.
+  @sinceV1_3_0
+  static const vo2Max = Vo2MaxHealthDataType();
 
   /// Nutrition health data type.
   ///
@@ -662,6 +673,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     vitaminD,
     vitaminE,
     vitaminK,
+    vo2Max,
     weight,
     wheelchairPushes,
     zinc,
