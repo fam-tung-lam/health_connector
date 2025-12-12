@@ -119,6 +119,8 @@ extension HealthRecordDto {
                 return .nutrition
             case is OxygenSaturationRecordDto:
                 return .oxygenSaturation
+            case is RespiratoryRateRecordDto:
+                return .respiratoryRate
             default:
                 throw HealthConnectorErrors.invalidArgument(
                     message: "Unknown HealthRecordDto type: \(type(of: self))"
@@ -177,6 +179,8 @@ extension HealthDataTypeDto {
             try HKQuantityType.safeQuantityType(forIdentifier: .restingHeartRate)
         case .oxygenSaturation:
             try HKQuantityType.safeQuantityType(forIdentifier: .oxygenSaturation)
+        case .respiratoryRate:
+            try HKQuantityType.safeQuantityType(forIdentifier: .respiratoryRate)
         case .systolicBloodPressure:
             try HKQuantityType.safeQuantityType(forIdentifier: .bloodPressureSystolic)
         case .diastolicBloodPressure:

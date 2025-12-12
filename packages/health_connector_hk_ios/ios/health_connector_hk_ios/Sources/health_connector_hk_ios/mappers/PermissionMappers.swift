@@ -175,6 +175,8 @@ extension HealthDataPermissionDto {
             try [HKQuantityType.safeQuantityType(forIdentifier: .bloodPressureDiastolic)]
         case .oxygenSaturation:
             try [HKQuantityType.safeQuantityType(forIdentifier: .oxygenSaturation)]
+        case .respiratoryRate:
+            try [HKQuantityType.safeQuantityType(forIdentifier: .respiratoryRate)]
         }
     }
 }

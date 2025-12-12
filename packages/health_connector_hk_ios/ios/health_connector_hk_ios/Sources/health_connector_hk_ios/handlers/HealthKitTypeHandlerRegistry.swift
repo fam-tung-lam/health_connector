@@ -166,6 +166,7 @@ class HealthKitTypeRegistry {
         register(SodiumNutrientHandler.self)
         register(ZincNutrientHandler.self)
         register(OxygenSaturationHandler.self)
+        register(RespiratoryRateHandler.self)
         register(NutritionCorrelationHandler.self)
         register(BloodPressureHandler.self)
         register(SystolicBloodPressureHandler.self)

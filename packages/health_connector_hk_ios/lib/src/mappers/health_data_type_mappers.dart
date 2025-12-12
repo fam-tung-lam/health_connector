@@ -28,6 +28,9 @@ import 'package:health_connector_core/health_connector_core.dart'
         SaturatedFatNutrientDataType,
         MonounsaturatedFatNutrientDataType,
         CholesterolNutrientDataType,
+        RespiratoryRateHealthDataType,
+        OxygenSaturationHealthDataType,
+        RestingHeartRateHealthDataType,
         DietaryFiberNutrientDataType,
         SugarNutrientDataType,
         CalciumNutrientDataType,
@@ -36,7 +39,6 @@ import 'package:health_connector_core/health_connector_core.dart'
         ManganeseNutrientDataType,
         PhosphorusNutrientDataType,
         PotassiumNutrientDataType,
-        RestingHeartRateHealthDataType,
         SeleniumNutrientDataType,
         SodiumNutrientDataType,
         ZincNutrientDataType,
@@ -55,8 +57,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         PantothenicAcidNutrientDataType,
         BloodPressureHealthDataType,
         SystolicBloodPressureHealthDataType,
-        DiastolicBloodPressureHealthDataType,
-        OxygenSaturationHealthDataType;
+        DiastolicBloodPressureHealthDataType;
+
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
     show HealthDataTypeDto;
 import 'package:meta/meta.dart' show internal;
@@ -178,6 +180,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.restingHeartRate;
       case HealthDataTypeDto.oxygenSaturation:
         return HealthDataType.oxygenSaturation;
+      case HealthDataTypeDto.respiratoryRate:
+        return HealthDataType.respiratoryRate;
     }
   }
 }
@@ -311,6 +315,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.restingHeartRate;
       case OxygenSaturationHealthDataType _:
         return HealthDataTypeDto.oxygenSaturation;
+      case RespiratoryRateHealthDataType _:
+        return HealthDataTypeDto.respiratoryRate;
     }
   }
 }

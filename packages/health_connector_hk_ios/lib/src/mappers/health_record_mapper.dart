@@ -54,8 +54,10 @@ import 'package:health_connector_core/health_connector_core.dart'
         WeightRecord,
         WheelchairPushesRecord,
         ZincNutrientRecord,
-        OxygenSaturationRecord;
+        OxygenSaturationRecord,
+        RespiratoryRateRecord;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mappers.dart';
+
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
     show
         ActiveCaloriesBurnedRecordDto,
@@ -110,7 +112,8 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api
         WeightRecordDto,
         WheelchairPushesRecordDto,
         ZincNutrientRecordDto,
-        OxygenSaturationRecordDto;
+        OxygenSaturationRecordDto,
+        RespiratoryRateRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [HealthRecord] to [HealthRecordDto].
@@ -212,6 +215,10 @@ extension HealthRecordToDto on HealthRecord {
         return record.toDto();
       case final ZincNutrientRecord record:
         return record.toDto();
+      case final OxygenSaturationRecord record:
+        return record.toDto();
+      case final RespiratoryRateRecord record:
+        return record.toDto();
       case final BloodPressureRecord record:
         return record.toDto();
       case final SystolicBloodPressureRecord record:
@@ -230,8 +237,6 @@ extension HealthRecordToDto on HealthRecord {
           '$SleepSessionRecord is not supported on iOS HealthKit. '
           'Use $SleepStageRecord instead.',
         );
-      case final OxygenSaturationRecord record:
-        return record.toDto();
     }
   }
 }
@@ -265,7 +270,9 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return dto.toDomain();
       case final SleepStageRecordDto dto:
         return dto.toDomain();
-      case final NutritionRecordDto dto:
+      case final OxygenSaturationRecordDto dto:
+        return dto.toDomain();
+      case final RespiratoryRateRecordDto dto:
         return dto.toDomain();
       case final BloodPressureRecordDto dto:
         return dto.toDomain();
@@ -341,7 +348,7 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return dto.toDomain();
       case final ZincNutrientRecordDto dto:
         return dto.toDomain();
-      case final OxygenSaturationRecordDto dto:
+      case final NutritionRecordDto dto:
         return dto.toDomain();
     }
   }
