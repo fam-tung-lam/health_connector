@@ -45,6 +45,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         MonounsaturatedFatNutrientRecord,
         NiacinNutrientRecord,
         NutritionRecord,
+        OxygenSaturationRecord,
         PantothenicAcidNutrientRecord,
         PhosphorusNutrientRecord,
         PolyunsaturatedFatNutrientRecord,
@@ -117,6 +118,7 @@ part 'nutrient_health_data_types/mineral_nutrient_health_data_types.dart';
 part 'nutrient_health_data_types/nutrient_health_data_type.dart';
 part 'nutrient_health_data_types/nutrition_health_data_type.dart';
 part 'nutrient_health_data_types/vitamin_nutrient_health_data_types.dart';
+part 'oxygen_saturation_health_data_type.dart';
 part 'resting_heart_rate_health_data_type.dart';
 part 'sleep_session_health_data_type.dart';
 part 'sleep_stage_record_health_data_type.dart';
@@ -347,6 +349,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports AVG, MIN, MAX aggregation.
   @sinceV1_3_0
   static const restingHeartRate = RestingHeartRateHealthDataType();
+
+  /// Oxygen saturation data type.
+  ///
+  /// Represents the percentage of oxygen-saturated hemoglobin relative
+  /// to total hemoglobin in the blood. Supports reading and writing
+  /// oxygen saturation measurements.
+  @sinceV1_3_0
+  static const oxygenSaturation = OxygenSaturationHealthDataType();
 
   /// Nutrition health data type.
   ///
@@ -615,6 +625,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     monounsaturatedFat,
     niacin,
     nutrition,
+    oxygenSaturation,
     pantothenicAcid,
     phosphorus,
     polyunsaturatedFat,

@@ -61,6 +61,7 @@ part 'nutrient_health_records/mineral_nutrient_health_records.dart';
 part 'nutrient_health_records/nutrient_health_record.dart';
 part 'nutrient_health_records/nutrition_record.dart';
 part 'nutrient_health_records/vitamin_nutrient_health_records.dart';
+part 'oxygen_saturation_record.dart';
 part 'resting_heart_rate_record.dart';
 part 'series_health_record.dart';
 part 'sleep_session_record.dart';
