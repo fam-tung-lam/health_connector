@@ -3,6 +3,7 @@ package com.phamtunglam.health_connector_hc_android
 import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.health.connect.client.HealthConnectClient
+import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.RespiratoryRateRecord
@@ -28,6 +29,8 @@ import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatu
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
@@ -1292,6 +1295,199 @@ internal class HealthConnectorClient private constructor(private val client: Hea
     }
 
     /**
+     * Computes aggregation value for Blood Glucose records by reading all records
+     * and manually computing the aggregation.
+     *
+     * @param startTime Start of time range in milliseconds since epoch (UTC), inclusive
+     * @param endTime End of time range in milliseconds since epoch (UTC), exclusive
+     * @param metric The aggregation metric to compute (AVG, MIN, or MAX)
+     * @return Pair of (aggregated value as Double, record count)
+     * @throws IllegalStateException if no records found or values cannot be computed
+     * @throws UnsupportedOperationException if metric is SUM or COUNT
+     */
+    private suspend fun computeBloodGlucoseAggregation(
+        startTime: Long,
+        endTime: Long,
+        metric: AggregationMetricDto,
+    ): Pair<Double, Int> {
+        // Read all Blood Glucose records in the time range
+        val timeRangeFilter = TimeRangeFilter.between(
+            Instant.ofEpochMilli(startTime),
+            Instant.ofEpochMilli(endTime),
+        )
+
+        val allRecords = mutableListOf<BloodGlucoseRecord>()
+        var pageToken: String? = null
+
+        // Handle pagination - read all pages
+        do {
+            val readRequest = ReadRecordsRequest(
+                recordType = BloodGlucoseRecord::class,
+                timeRangeFilter = timeRangeFilter,
+                pageSize = 1000, // Use a reasonable page size
+                pageToken = pageToken,
+            )
+
+            val response = client.readRecords(readRequest)
+            allRecords.addAll(response.records.filterIsInstance<BloodGlucoseRecord>())
+            pageToken = response.pageToken
+        } while (!pageToken.isNullOrEmpty())
+
+        // Check if we have any records
+        if (allRecords.isEmpty()) {
+            throw IllegalStateException(
+                "No Blood Glucose records found in the specified time range",
+            )
+        }
+
+        // Extract level values from records (in millimoles per liter)
+        val levelValues = allRecords.map { record ->
+            record.level.inMillimolesPerLiter // BloodGlucose.inMillimolesPerLiter returns Double
+        }
+
+        // Compute aggregation based on metric
+        val aggregatedValue = when (metric) {
+            AggregationMetricDto.AVG -> levelValues.average()
+            AggregationMetricDto.MIN -> levelValues.minOrNull()
+                ?: throw IllegalStateException("No values to compute minimum")
+            AggregationMetricDto.MAX -> levelValues.maxOrNull()
+                ?: throw IllegalStateException("No values to compute maximum")
+            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
+                throw UnsupportedOperationException(
+                    "Unsupported metric: $metric",
+                )
+        }
+
+        return Pair(aggregatedValue, allRecords.size)
+    }
+
+    /**
+     * Manually aggregates Blood Glucose records by reading all records and computing
+     * the aggregation value in application logic.
+     *
+     * This is necessary because BloodGlucoseRecord doesn't support native aggregation
+     * metrics in Health Connect, so we use manual aggregation via readRecords.
+     *
+     * @param request The aggregate request (must be CommonAggregateRequestDto for BLOOD_GLUCOSE)
+     * @return AggregateResponseDto with the computed aggregation value
+     *
+     * @throws HealthConnectorError with code `INVALID_ARGUMENT` if metric is invalid or no records found
+     * @throws HealthConnectorError with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
+     * @throws HealthConnectorError with code `SECURITY_ERROR` if authorization is denied
+     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     */
+    @Throws(HealthConnectorError::class)
+    private suspend fun aggregateBloodGlucoseManually(
+        request: AggregateRequestDto,
+    ): AggregateResponseDto {
+        HealthConnectorLogger.debug(
+            tag = TAG,
+            operation = "aggregateBloodGlucoseManually",
+            phase = "entry",
+            message = "Manually aggregating Blood Glucose records",
+            context = mapOf("request" to request),
+        )
+
+        // Ensure request is CommonAggregateRequestDto
+        require(request is CommonAggregateRequestDto) {
+            "Expected CommonAggregateRequestDto for Blood Glucose aggregation"
+        }
+
+        // Validate aggregation metric
+        when (request.aggregationMetric) {
+            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
+                throw UnsupportedOperationException(
+                    "Aggregation metric ${request.aggregationMetric} for Blood Glucose. " +
+                        "Supported: AVG, MIN, MAX",
+                )
+            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX -> {
+                // These are supported
+            }
+        }
+
+        try {
+            val (aggregatedValue, recordCount) = computeBloodGlucoseAggregation(
+                startTime = request.startTime,
+                endTime = request.endTime,
+                metric = request.aggregationMetric,
+            )
+
+            // Create BloodGlucoseDto with the aggregated value
+            // Use millimoles per liter as the unit for consistency
+            val valueDto = BloodGlucoseDto(
+                value = aggregatedValue,
+                unit = BloodGlucoseUnitDto.MILLIMOLES_PER_LITER,
+            )
+
+            val responseDto = AggregateResponseDto(value = valueDto)
+
+            HealthConnectorLogger.info(
+                tag = TAG,
+                operation = "aggregateBloodGlucoseManually",
+                phase = "completed",
+                message = "Blood Glucose records aggregated successfully",
+                context = mapOf(
+                    "request" to request,
+                    "recordCount" to recordCount,
+                    "aggregatedValue" to aggregatedValue,
+                ),
+            )
+
+            return responseDto
+        } catch (e: UnsupportedOperationException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "aggregateBloodGlucoseManually",
+                phase = "failed",
+                message = "Unsupported aggregation operation",
+                context = mapOf("request" to request),
+                exception = e,
+            )
+            throw HealthConnectorErrorCodeDto.UNSUPPORTED_HEALTH_PLATFORM_API.toError(
+                details = "Unsupported aggregation metric for Blood Glucose: " +
+                    (e.message ?: "Operation not supported"),
+            )
+        } catch (e: IllegalStateException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "aggregateBloodGlucoseManually",
+                phase = "failed",
+                message = "Invalid aggregation state",
+                context = mapOf("request" to request),
+                exception = e,
+            )
+            throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
+                details = e.message ?: "No data available for aggregation",
+            )
+        } catch (e: SecurityException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "aggregateBloodGlucoseManually",
+                phase = "failed",
+                message = "Failed to aggregate Blood Glucose records",
+                context = mapOf("request" to request),
+                exception = e,
+            )
+            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+                details = "Permission access denied while processing $request: " +
+                    (e.message ?: "Access denied"),
+            )
+        } catch (e: RuntimeException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "aggregateBloodGlucoseManually",
+                phase = "failed",
+                message = "Failed to aggregate Blood Glucose records",
+                context = mapOf("request" to request),
+                exception = e,
+            )
+            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
+            )
+        }
+    }
+
+    /**
      * Performs an aggregation query on health records.
      *
      * @param request Contains data type, aggregation metric, and time range
@@ -1334,6 +1530,12 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             // so we use manual aggregation via readRecords
             if (request.dataType == HealthDataTypeDto.VO2MAX) {
                 return aggregateVo2MaxManually(request)
+            }
+
+            // Special case: Blood Glucose doesn't support native aggregation,
+            // so we use manual aggregation via readRecords
+            if (request.dataType == HealthDataTypeDto.BLOOD_GLUCOSE) {
+                return aggregateBloodGlucoseManually(request)
             }
 
             // Get aggregation handler for this data type

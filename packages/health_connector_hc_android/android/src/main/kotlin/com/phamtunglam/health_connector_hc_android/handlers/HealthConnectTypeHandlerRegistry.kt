@@ -1,5 +1,6 @@
 package com.phamtunglam.health_connector_hc_android.handlers
 
+import com.phamtunglam.health_connector_hc_android.handlers.BloodGlucoseHandler
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 
@@ -77,6 +78,7 @@ internal object HealthConnectTypeHandlerRegistry {
             register(OxygenSaturationHandler)
             register(RespiratoryRateHandler)
             register(Vo2MaxHandler)
+            register(BloodGlucoseHandler)
 
             // Series records
             register(HeartRateHandler)

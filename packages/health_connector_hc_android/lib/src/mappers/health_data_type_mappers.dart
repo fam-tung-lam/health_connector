@@ -2,6 +2,7 @@ import 'package:health_connector_core/health_connector_core.dart'
     show
         ActiveCaloriesBurnedHealthDataType,
         BiotinNutrientDataType,
+        BloodGlucoseHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
         CaffeineNutrientDataType,
@@ -174,6 +175,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.respiratoryRate;
       case HealthDataTypeDto.vo2Max:
         return HealthDataType.vo2Max;
+      case HealthDataTypeDto.bloodGlucose:
+        return HealthDataType.bloodGlucose;
     }
   }
 }
@@ -288,6 +291,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.restingHeartRate;
       case Vo2MaxHealthDataType _:
         return HealthDataTypeDto.vo2Max;
+      case BloodGlucoseHealthDataType _:
+        return HealthDataTypeDto.bloodGlucose;
       case SleepStageHealthDataType _:
         throw UnsupportedError(
           '$SleepStageHealthDataType is not supported on '

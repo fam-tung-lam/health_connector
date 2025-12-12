@@ -1,6 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.mappers
 
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
+import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
@@ -45,6 +46,7 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
     HealthDataTypeDto.SLEEP_SESSION -> SleepSessionRecord::class
     HealthDataTypeDto.RESTING_HEART_RATE -> RestingHeartRateRecord::class
     HealthDataTypeDto.BLOOD_PRESSURE -> BloodPressureRecord::class
+    HealthDataTypeDto.BLOOD_GLUCOSE -> BloodGlucoseRecord::class
     HealthDataTypeDto.OXYGEN_SATURATION -> OxygenSaturationRecord::class
     HealthDataTypeDto.RESPIRATORY_RATE -> RespiratoryRateRecord::class
     HealthDataTypeDto.VO2MAX -> Vo2MaxRecord::class

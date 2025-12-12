@@ -2,6 +2,7 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 
 import androidx.health.connect.client.records.Record
 import com.phamtunglam.health_connector_hc_android.pigeon.ActiveCaloriesBurnedRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyFatPercentageRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyTemperatureRecordDto
@@ -48,4 +49,5 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is RespiratoryRateRecordDto -> toHealthConnect()
     is Vo2MaxRecordDto -> toHealthConnect()
     is BloodPressureRecordDto -> toHealthConnect()
+    is BloodGlucoseRecordDto -> toHealthConnect()
 }

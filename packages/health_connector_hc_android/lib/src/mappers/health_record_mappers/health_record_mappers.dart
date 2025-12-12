@@ -1,4 +1,5 @@
 export 'active_calories_burned_record_mappers.dart';
+export 'blood_glucose_record_mappers.dart';
 export 'blood_pressure_record_mappers.dart';
 export 'body_fat_percentage_record_mappers.dart';
 export 'body_temperature_record_mappers.dart';

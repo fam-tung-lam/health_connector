@@ -7,6 +7,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         ReadRecordsRequest,
         CommonAggregateRequest,
         BloodPressureAggregateRequest,
+        BloodGlucoseHealthDataType,
         BloodPressureHealthDataType,
         DiastolicBloodPressureHealthDataType,
         SystolicBloodPressureHealthDataType,
@@ -201,6 +202,7 @@ extension AggregateRequestDtoMapper<
           case RestingHeartRateHealthDataType _:
           case RespiratoryRateHealthDataType _:
           case Vo2MaxHealthDataType _:
+          case BloodGlucoseHealthDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',
             );

@@ -2,6 +2,7 @@ package com.phamtunglam.health_connector_hc_android.mappers
 
 import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
+import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
@@ -207,6 +208,17 @@ internal fun HealthDataPermissionDto.toHealthConnectPermission(): String =
             }
         }
 
+        HealthDataTypeDto.BLOOD_GLUCOSE -> {
+            when (this.accessType) {
+                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                    BloodGlucoseRecord::class,
+                )
+                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                    BloodGlucoseRecord::class,
+                )
+            }
+        }
+
         HealthDataTypeDto.OXYGEN_SATURATION -> {
             when (this.accessType) {
                 PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
@@ -350,6 +362,7 @@ internal fun String.toDto(): HealthDataPermissionDto {
         "RESTING_HEART_RATE" -> HealthDataTypeDto.RESTING_HEART_RATE
         "SLEEP_SESSION" -> HealthDataTypeDto.SLEEP_SESSION
         "BLOOD_PRESSURE" -> HealthDataTypeDto.BLOOD_PRESSURE
+        "BLOOD_GLUCOSE" -> HealthDataTypeDto.BLOOD_GLUCOSE
         "OXYGEN_SATURATION" -> HealthDataTypeDto.OXYGEN_SATURATION
         "RESPIRATORY_RATE" -> HealthDataTypeDto.RESPIRATORY_RATE
         "VO2_MAX" -> HealthDataTypeDto.VO2MAX

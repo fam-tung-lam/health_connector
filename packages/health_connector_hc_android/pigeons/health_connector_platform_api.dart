@@ -339,6 +339,48 @@ enum MeasurementLocationDto {
   rightUpperArm,
 }
 
+/// Relationship of a blood glucose measurement to a meal.
+enum BloodGlucoseRelationToMealDto {
+  /// Unknown relationship.
+  unknown,
+
+  /// General relationship (not specific to a meal).
+  general,
+
+  /// Fasting state (no recent meal).
+  fasting,
+
+  /// Measurement taken before a meal.
+  beforeMeal,
+
+  /// Measurement taken after a meal.
+  afterMeal,
+}
+
+/// Source of the biological specimen for valid blood glucose measurement.
+enum BloodGlucoseSpecimenSourceDto {
+  /// Unknown specimen source.
+  unknown,
+
+  /// Interstitial fluid.
+  interstitialFluid,
+
+  /// Capillary blood.
+  capillaryBlood,
+
+  /// Plasma.
+  plasma,
+
+  /// Serum.
+  serum,
+
+  /// Tears.
+  tears,
+
+  /// Whole blood.
+  wholeBlood,
+}
+
 // endregion
 
 // region Metadata
@@ -601,6 +643,47 @@ enum HealthDataTypeDto {
 
   /// VO2 max (maximal oxygen uptake) data.
   vo2Max,
+
+  /// Blood glucose data.
+  bloodGlucose,
+}
+
+/// Represents a blood glucose record for platform transfer.
+class BloodGlucoseRecordDto extends HealthRecordDto {
+  BloodGlucoseRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.bloodGlucose,
+    this.relationToMeal,
+    this.specimenSource,
+    this.mealType,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The blood glucose level.
+  final BloodGlucoseDto bloodGlucose;
+
+  /// The relationship to a meal (optional).
+  final BloodGlucoseRelationToMealDto? relationToMeal;
+
+  /// The source of the specimen (optional).
+  final BloodGlucoseSpecimenSourceDto? specimenSource;
+
+  /// The type of meal (optional).
+  final MealTypeDto? mealType;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
 }
 
 /// Represents a resting heart rate record for platform transfer.

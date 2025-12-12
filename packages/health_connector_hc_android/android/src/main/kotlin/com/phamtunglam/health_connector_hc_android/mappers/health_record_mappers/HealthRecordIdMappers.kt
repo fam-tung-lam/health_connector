@@ -1,6 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import com.phamtunglam.health_connector_hc_android.pigeon.ActiveCaloriesBurnedRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyFatPercentageRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyTemperatureRecordDto
@@ -54,6 +55,9 @@ internal val HealthRecordDto.id: String?
 
         // Blood pressure records
         is BloodPressureRecordDto -> id
+
+        // Blood glucose records
+        is BloodGlucoseRecordDto -> id
 
         // Unified nutrition record
         is NutritionRecordDto -> id
