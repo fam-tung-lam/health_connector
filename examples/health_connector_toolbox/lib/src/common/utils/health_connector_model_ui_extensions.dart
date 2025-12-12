@@ -84,7 +84,9 @@ import 'package:health_connector/health_connector.dart'
         RespiratoryRate,
         RespiratoryRateHealthDataType,
         Vo2Max,
-        Vo2MaxHealthDataType;
+        Vo2MaxHealthDataType,
+        MenstruationPeriodHealthDataType,
+        MenstrualCycleHealthDataType;
 
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
@@ -213,6 +215,8 @@ extension HealthDataTypeUI on HealthDataType {
       PantothenicAcidNutrientDataType _ => AppTexts.pantothenicAcid,
       RespiratoryRateHealthDataType _ => AppTexts.respiratoryRate,
       Vo2MaxHealthDataType _ => AppTexts.vo2Max,
+      MenstruationPeriodHealthDataType _ => AppTexts.menstruationPeriod,
+      MenstrualCycleHealthDataType _ => AppTexts.menstrualCycle,
     };
   }
 
@@ -287,6 +291,9 @@ extension HealthDataTypeUI on HealthDataType {
       PantothenicAcidNutrientDataType _ => AppTexts.pantothenicAcidDescription,
       RespiratoryRateHealthDataType _ => AppTexts.respiratoryRateDescription,
       Vo2MaxHealthDataType _ => AppTexts.vo2MaxDescription,
+      MenstruationPeriodHealthDataType _ =>
+        AppTexts.menstruationPeriodDescription,
+      MenstrualCycleHealthDataType _ => AppTexts.menstrualCycleDescription,
     };
   }
 
@@ -352,6 +359,8 @@ extension HealthDataTypeUI on HealthDataType {
       PantothenicAcidNutrientDataType _ => AppIcons.fastfood,
       RespiratoryRateHealthDataType _ => AppIcons.air,
       Vo2MaxHealthDataType _ => AppIcons.vo2Max,
+      MenstruationPeriodHealthDataType _ => AppIcons.waterDrop,
+      MenstrualCycleHealthDataType _ => AppIcons.waterDrop,
     };
   }
 }

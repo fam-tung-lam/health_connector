@@ -65,6 +65,8 @@ import 'package:health_connector/health_connector.dart'
         FolateNutrientDataType,
         BiotinNutrientDataType,
         PantothenicAcidNutrientDataType,
+        MenstruationPeriodHealthDataType,
+        MenstrualCycleHealthDataType,
         Vo2MaxHealthDataType,
         HealthPlatform;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
@@ -631,6 +633,10 @@ class _AggregateHealthDataPageState
           _selectedMetric!,
           startDateTime!,
           endDateTime!,
+        ),
+        MenstruationPeriodHealthDataType() ||
+        MenstrualCycleHealthDataType() => throw UnsupportedError(
+          'Menstruation data does not support aggregation',
         ),
       };
 

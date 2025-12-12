@@ -61,7 +61,9 @@ import 'package:health_connector/health_connector.dart'
         SleepSessionHealthDataType,
         RestingHeartRateHealthDataType,
         SleepStageHealthDataType,
-        Vo2MaxHealthDataType;
+        Vo2MaxHealthDataType,
+        MenstruationPeriodHealthDataType,
+        MenstrualCycleHealthDataType;
 import 'package:health_connector/health_connector.dart' show HealthPlatform;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
@@ -429,6 +431,18 @@ class _ReadHealthRecordsPageState
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
+        MenstruationPeriodHealthDataType() =>
+          HealthDataType.menstruationPeriod.readRecords(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        MenstrualCycleHealthDataType() =>
+          HealthDataType.menstrualCycle.readRecords(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
       };
 
       await notifier.readHealthRecords(request);

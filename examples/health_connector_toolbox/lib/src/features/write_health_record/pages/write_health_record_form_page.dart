@@ -42,6 +42,8 @@ import 'package:health_connector/health_connector.dart'
         PantothenicAcidNutrientDataType,
         PhosphorusNutrientDataType,
         OxygenSaturationHealthDataType,
+        MenstrualCycleHealthDataType,
+        MenstruationPeriodHealthDataType,
         PolyunsaturatedFatNutrientDataType,
         PotassiumNutrientDataType,
         Pressure,
@@ -638,6 +640,10 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
         RespiratoryRateHealthDataType() =>
           AppTexts.writePermissionDeniedRespiratoryRate,
         Vo2MaxHealthDataType() => AppTexts.writePermissionDeniedVo2Max,
+        MenstruationPeriodHealthDataType() =>
+          AppTexts.writePermissionDeniedMenstruationPeriod,
+        MenstrualCycleHealthDataType() =>
+          AppTexts.writePermissionDeniedMenstrualCycle,
       };
     }
     return e.message;
@@ -721,6 +727,9 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                 AppTexts.insertOxygenSaturation,
               RespiratoryRateHealthDataType() => AppTexts.insertRespiratoryRate,
               Vo2MaxHealthDataType() => AppTexts.insertVo2Max,
+              MenstruationPeriodHealthDataType() =>
+                AppTexts.insertMenstruationPeriod,
+              MenstrualCycleHealthDataType() => AppTexts.insertMenstrualCycle,
             },
           ),
         ),

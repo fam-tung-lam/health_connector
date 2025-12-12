@@ -1,72 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_connector/health_connector.dart'
-    show
-        ActiveCaloriesBurnedRecord,
-        BiotinNutrientRecord,
-        BodyFatPercentageRecord,
-        BloodPressureRecord,
-        BloodPressureBodyPosition,
-        BloodPressureMeasurementLocation,
-        BodyTemperatureRecord,
-        CaffeineNutrientRecord,
-        CalciumNutrientRecord,
-        CholesterolNutrientRecord,
-        DiastolicBloodPressureRecord,
-        DietaryFiberNutrientRecord,
-        DistanceRecord,
-        EnergyNutrientRecord,
-        FloorsClimbedRecord,
-        FolateNutrientRecord,
-        HealthRecord,
-        HeartRateMeasurement,
-        HeartRateMeasurementRecord,
-        HeartRateSeriesRecord,
-        HeightRecord,
-        HydrationRecord,
-        InstantHealthRecord,
-        IntervalHealthRecord,
-        IronNutrientRecord,
-        LeanBodyMassRecord,
-        MagnesiumNutrientRecord,
-        ManganeseNutrientRecord,
-        MealType,
-        MonounsaturatedFatNutrientRecord,
-        NiacinNutrientRecord,
-        NutritionRecord,
-        PantothenicAcidNutrientRecord,
-        OxygenSaturationRecord,
-        PhosphorusNutrientRecord,
-        PolyunsaturatedFatNutrientRecord,
-        PotassiumNutrientRecord,
-        ProteinNutrientRecord,
-        RespiratoryRateRecord,
-        RestingHeartRateRecord,
-        RiboflavinNutrientRecord,
-        SaturatedFatNutrientRecord,
-        SeleniumNutrientRecord,
-        SeriesHealthRecord,
-        SodiumNutrientRecord,
-        StepRecord,
-        SugarNutrientRecord,
-        SystolicBloodPressureRecord,
-        ThiaminNutrientRecord,
-        TotalCarbohydrateNutrientRecord,
-        TotalFatNutrientRecord,
-        VitaminANutrientRecord,
-        VitaminB12NutrientRecord,
-        VitaminB6NutrientRecord,
-        VitaminCNutrientRecord,
-        VitaminDNutrientRecord,
-        VitaminENutrientRecord,
-        VitaminKNutrientRecord,
-        Vo2MaxRecord,
-        WeightRecord,
-        WheelchairPushesRecord,
-        ZincNutrientRecord,
-        SleepSessionRecord,
-        SleepStageRecord,
-        SleepStage,
-        SleepStageType;
+import 'package:health_connector/health_connector.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/theme/app_colors.dart'
@@ -1035,6 +968,10 @@ final class HealthRecordListTile extends StatelessWidget {
     return switch (record) {
       HeartRateSeriesRecord() => _buildSeriesRecord(context, record),
       SleepSessionRecord() => _buildSeriesRecord(context, record),
+      MenstruationPeriodRecord() => _buildMenstruationPeriodRecord(
+        context,
+        record,
+      ),
       StepRecord() => IntervalHealthRecordTile<StepRecord>(
         record: record,
         icon: AppIcons.directionsWalk,
@@ -1230,6 +1167,7 @@ final class HealthRecordListTile extends StatelessWidget {
           ],
           onDelete: onDelete,
         ),
+      MenstrualCycleRecord _ => Container(),
       HydrationRecord() => IntervalHealthRecordTile<HydrationRecord>(
         record: record,
         icon: AppIcons.volume,
@@ -1270,7 +1208,7 @@ final class HealthRecordListTile extends StatelessWidget {
         ],
         onDelete: onDelete,
       ),
-      SleepStageRecord() => _buildSleepStageRecord(context, record),
+      MenstruationPeriodRecord _ || SleepStageRecord _ => Container(),
       NutritionRecord() => _buildNutritionRecord(context, record, onDelete),
     };
   }
@@ -1517,20 +1455,6 @@ final class HealthRecordListTile extends StatelessWidget {
     };
   }
 
-  /// Maps a [SleepStageType] to its display string.
-  static String _getStageTypeDisplayName(SleepStageType type) {
-    return switch (type) {
-      SleepStageType.unknown => AppTexts.sleepStageUnknown,
-      SleepStageType.awake => AppTexts.sleepStageAwake,
-      SleepStageType.sleeping => AppTexts.sleepStageSleeping,
-      SleepStageType.outOfBed => AppTexts.sleepStageOutOfBed,
-      SleepStageType.light => AppTexts.sleepStageLight,
-      SleepStageType.deep => AppTexts.sleepStageDeep,
-      SleepStageType.rem => AppTexts.sleepStageRem,
-      SleepStageType.inBed => AppTexts.sleepStageInBed,
-    };
-  }
-
   /// Maps a [MealType] to its display string.
   static String _getMealTypeDisplayName(MealType type) {
     return switch (type) {
@@ -1540,54 +1464,6 @@ final class HealthRecordListTile extends StatelessWidget {
       MealType.dinner => AppTexts.mealTypeDinner,
       MealType.snack => AppTexts.mealTypeSnack,
     };
-  }
-
-  Widget _buildSleepStageRecord(
-    BuildContext context,
-    SleepStageRecord record,
-  ) {
-    final duration = record.duration;
-    final stageTypeName = _getStageTypeDisplayName(record.stageType);
-    return IntervalHealthRecordTile<SleepStageRecord>(
-      record: record,
-      icon: AppIcons.bedtime,
-      title: '$stageTypeName (${duration.inMinutes}m)',
-      subtitleBuilder: (r, ctx) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 4),
-            Text(
-              '${AppTexts.startLabel} '
-              '${DateFormatUtils.formatDateTime(r.startTime)}',
-            ),
-            Text(
-              '${AppTexts.endLabel} '
-              '${DateFormatUtils.formatDateTime(r.endTime)}',
-            ),
-            Text(
-              '${AppTexts.duration} ${duration.inHours}h '
-              '${duration.inMinutes.remainder(60)}m',
-              style: const TextStyle(
-                fontSize: 12,
-                color: theme.AppColors.grey600,
-              ),
-            ),
-          ],
-        );
-      },
-      detailRowsBuilder: (r, ctx) => [
-        HealthRecordDetailRow(
-          label: AppTexts.stageType,
-          value: _getStageTypeDisplayName(r.stageType),
-        ),
-        HealthRecordDetailRow(
-          label: AppTexts.duration,
-          value: '${duration.inHours}h ${duration.inMinutes.remainder(60)}m',
-        ),
-      ],
-      onDelete: onDelete,
-    );
   }
 
   Widget _buildSleepSessionRecord(
@@ -1899,6 +1775,75 @@ final class HealthRecordListTile extends StatelessWidget {
               '${AppTexts.breathsPerMinute}',
         ),
       ],
+      onDelete: onDelete,
+    );
+  }
+
+  Widget _buildMenstruationPeriodRecord(
+    BuildContext context,
+    MenstruationPeriodRecord record,
+  ) {
+    final duration = record.endTime.difference(record.startTime);
+    return IntervalHealthRecordTile<MenstruationPeriodRecord>(
+      record: record,
+      icon: AppIcons.waterDrop,
+      title: 'Period (${duration.inDays + 1} days)',
+      subtitleBuilder: (r, ctx) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 4),
+            Text(
+              '${AppTexts.startLabel} '
+              '${DateFormatUtils.formatDateTime(r.startTime)}',
+            ),
+            Text(
+              '${AppTexts.endLabel} '
+              '${DateFormatUtils.formatDateTime(r.endTime)}',
+            ),
+            Text(
+              '${AppTexts.recording}: ${r.metadata.recordingMethod.name}',
+              style: const TextStyle(
+                fontSize: 12,
+                color: theme.AppColors.grey600,
+              ),
+            ),
+          ],
+        );
+      },
+      detailRowsBuilder: (r, ctx) {
+        final rows = <Widget>[
+          const SizedBox(height: 8),
+          const Text(
+            'Flow Samples',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 4),
+        ];
+
+        if (r.samples.isEmpty) {
+          rows.add(
+            const Text(
+              'No flow samples recorded',
+              style: TextStyle(
+                fontSize: 12,
+                fontStyle: FontStyle.italic,
+                color: theme.AppColors.grey600,
+              ),
+            ),
+          );
+        } else {
+          for (final sample in r.samples) {
+            rows.add(
+              HealthRecordDetailRow(
+                label: DateFormatUtils.formatDateTime(sample.time),
+                value: sample.flow?.name ?? 'Unknown',
+              ),
+            );
+          }
+        }
+        return rows;
+      },
       onDelete: onDelete,
     );
   }

@@ -161,6 +161,11 @@ abstract final class AppTexts {
       'Maximal oxygen consumption measured during incremental exercise';
   static const String vo2MaxValue = 'VO2 Max (mL/kg/min)';
   static const String vo2MaxTestType = 'Test Type';
+  static const String menstruationPeriod = 'Menstruation Period';
+  static const String menstruationPeriodDescription =
+      'Menstruation period data';
+  static const String menstrualCycle = 'Menstrual Cycle';
+  static const String menstrualCycleDescription = 'Menstrual cycle data';
 
   static const String measurementLocation = 'Measurement Location';
   static const String measurementLocationLeftWrist = 'Left Wrist';
@@ -389,6 +394,12 @@ abstract final class AppTexts {
   static const String writePermissionDeniedVo2Max =
       'Write permission denied or not supported. '
       'Please grant write permission for VO2 Max.';
+  static const String writePermissionDeniedMenstruationPeriod =
+      'Write permission denied or not supported. '
+      'Please grant write permission for menstruation period.';
+  static const String writePermissionDeniedMenstrualCycle =
+      'Write permission denied or not supported. '
+      'Please grant write permission for menstrual cycle.';
 
   // ==========================================================================
   // Validation Messages
@@ -500,6 +511,8 @@ abstract final class AppTexts {
   static const String insertOxygenSaturation = 'Insert Oxygen Saturation';
   static const String insertRespiratoryRate = 'Insert Respiratory Rate';
   static const String insertVo2Max = 'Insert VO2 Max';
+  static const String insertMenstruationPeriod = 'Insert Menstruation Period';
+  static const String insertMenstrualCycle = 'Insert Menstrual Cycle';
 
   static const String readHealthRecords = 'Read Health Records';
   static const String readAggregateData = 'Read Aggregate Data';

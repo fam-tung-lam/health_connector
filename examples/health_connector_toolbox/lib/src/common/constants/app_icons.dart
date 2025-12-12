@@ -84,6 +84,7 @@ abstract final class AppIcons {
   static const IconData temperature = Icons.thermostat;
   static const IconData velocity = Icons.speed;
   static const IconData volume = Icons.water_drop;
+  static const IconData waterDrop = Icons.water_drop;
 
   // Health Platforms
   static const IconData apple = Icons.apple;

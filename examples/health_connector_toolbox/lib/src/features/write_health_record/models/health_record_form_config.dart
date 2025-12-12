@@ -133,7 +133,12 @@ import 'package:health_connector/health_connector.dart'
         Vo2Max,
         Vo2MaxHealthDataType,
         Vo2MaxRecord,
-        Vo2MaxTestType;
+        Vo2MaxTestType,
+        MenstruationPeriodHealthDataType,
+        MenstruationPeriodRecord,
+        MenstrualCycleHealthDataType,
+        MenstrualCycleRecord,
+        MenstrualFlow;
 
 /// Configuration for a health record write form.
 ///
@@ -234,6 +239,9 @@ sealed class HealthRecordFormConfig {
       RestingHeartRateHealthDataType() => const RestingHeartRateFormConfig(),
       RespiratoryRateHealthDataType() => const RespiratoryRateFormConfig(),
       Vo2MaxHealthDataType() => const Vo2MaxFormConfig(),
+      MenstruationPeriodHealthDataType() =>
+        const MenstruationPeriodFormConfig(),
+      MenstrualCycleHealthDataType() => const MenstrualCycleFormConfig(),
     };
   }
 }
@@ -1939,6 +1947,72 @@ final class Vo2MaxFormConfig extends HealthRecordFormConfig {
       time: time,
       vo2Max: vo2Max,
       testType: testType,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for menstruation period records (Android).
+final class MenstruationPeriodFormConfig extends HealthRecordFormConfig {
+  const MenstruationPeriodFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    if (endDateTime == null) {
+      throw ArgumentError(
+        'endDateTime is required for menstruation period records',
+      );
+    }
+
+    return MenstruationPeriodRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      samples: const [],
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for menstrual cycle records (iOS).
+final class MenstrualCycleFormConfig extends HealthRecordFormConfig {
+  const MenstrualCycleFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    throw UnsupportedError(
+      'MenstrualCycleFormConfig.buildRecord() should not be called directly. '
+      'Use buildMenstrualCycleRecord() instead.',
+    );
+  }
+
+  HealthRecord buildMenstrualCycleRecord({
+    required DateTime startTime,
+    required DateTime endTime,
+    required MenstrualFlow flow,
+    required bool isStartOfCycle,
+    required Metadata metadata,
+  }) {
+    return MenstrualCycleRecord(
+      startTime: startTime,
+      endTime: endTime,
+      flow: flow,
+      isStartOfCycle: isStartOfCycle,
       metadata: metadata,
     );
   }

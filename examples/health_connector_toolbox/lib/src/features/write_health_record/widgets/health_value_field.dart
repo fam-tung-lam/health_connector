@@ -68,7 +68,9 @@ import 'package:health_connector/health_connector.dart'
         RespiratoryRate,
         RespiratoryRateHealthDataType,
         Vo2Max,
-        Vo2MaxHealthDataType;
+        Vo2MaxHealthDataType,
+        MenstruationPeriodHealthDataType,
+        MenstrualCycleHealthDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -157,6 +159,12 @@ class _HealthValueFieldState extends State<HealthValueField> {
           RestingHeartRateHealthDataType() => _parseNumeric(value),
           RespiratoryRateHealthDataType() => _parseRespiratoryRate(value),
           Vo2MaxHealthDataType() => _parseVo2Max(value),
+          MenstruationPeriodHealthDataType() => throw UnsupportedError(
+            'MenstruationPeriodHealthDataType requires custom form handling',
+          ),
+          MenstrualCycleHealthDataType() => throw UnsupportedError(
+            'MenstrualCycleHealthDataType requires custom form handling',
+          ),
 
           EnergyNutrientDataType() => _parseEnergy(value),
           CaffeineNutrientDataType() => _parseMass(value),
@@ -294,6 +302,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
   String? _validate(String? value) {
     if (value == null || value.isEmpty) {
       return switch (widget.dataType) {
+        MenstruationPeriodHealthDataType() || MenstrualCycleHealthDataType() =>
+          throw UnsupportedError('Unsupported data type: ${widget.dataType}'),
         StepsHealthDataType() => AppTexts.pleaseEnterStepCount,
         WeightHealthDataType() => AppTexts.pleaseEnterWeight,
         HeightHealthDataType() => AppTexts.pleaseEnterHeight,
@@ -445,6 +455,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
       NutritionHealthDataType() => throw UnsupportedError(
         'NutritionHealthDataType requires NutritionFormField',
       ),
+      MenstruationPeriodHealthDataType() || MenstrualCycleHealthDataType() =>
+        throw UnsupportedError('Unsupported data type: ${widget.dataType}'),
     };
 
     if (parsed == null) {
@@ -590,6 +602,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
       NutritionHealthDataType() => throw UnsupportedError(
         'NutritionHealthDataType requires NutritionFormField',
       ),
+      MenstruationPeriodHealthDataType() || MenstrualCycleHealthDataType() =>
+        throw UnsupportedError('Unsupported data type: ${widget.dataType}'),
     };
 
     if (validationError != null) {
@@ -598,6 +612,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
 
     if (_value == null) {
       return switch (widget.dataType) {
+        MenstruationPeriodHealthDataType() || MenstrualCycleHealthDataType() =>
+          throw UnsupportedError('Unsupported data type: ${widget.dataType}'),
         StepsHealthDataType() => AppTexts.pleaseEnterStepCount,
         WeightHealthDataType() => AppTexts.pleaseEnterWeight,
         HeightHealthDataType() => AppTexts.pleaseEnterHeight,
@@ -1256,6 +1272,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
       NutritionHealthDataType() => throw UnsupportedError(
         'NutritionHealthDataType requires NutritionFormField',
       ),
+      MenstruationPeriodHealthDataType() || MenstrualCycleHealthDataType() =>
+        throw UnsupportedError('Unsupported data type: ${widget.dataType}'),
       Vo2MaxHealthDataType() => TextFormField(
         controller: _controller,
         decoration: const InputDecoration(
