@@ -67,6 +67,8 @@ import 'package:health_connector/health_connector.dart'
         PantothenicAcidNutrientDataType,
         PantothenicAcidNutrientRecord,
         Percentage,
+        OxygenSaturationHealthDataType,
+        OxygenSaturationRecord,
         Length,
         PhosphorusNutrientDataType,
         PhosphorusNutrientRecord,
@@ -165,6 +167,7 @@ sealed class HealthRecordFormConfig {
       HeightHealthDataType() => const HeightFormConfig(),
       BodyFatPercentageHealthDataType() => const BodyFatPercentageFormConfig(),
       LeanBodyMassHealthDataType() => const LeanBodyMassFormConfig(),
+      OxygenSaturationHealthDataType() => const OxygenSaturationFormConfig(),
       BodyTemperatureHealthDataType() => const BodyTemperatureFormConfig(),
       BloodPressureHealthDataType() => const BloodPressureFormConfig(),
       SystolicBloodPressureHealthDataType() =>
@@ -463,6 +466,34 @@ final class BodyFatPercentageFormConfig extends HealthRecordFormConfig {
     final percentageValue = value as Percentage;
 
     return BodyFatPercentageRecord(
+      time: startDateTime,
+      percentage: percentageValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for oxygen saturation records.
+///
+/// Oxygen saturation is an instant-based record that requires:
+/// - Time (single timestamp)
+/// - Percentage value
+final class OxygenSaturationFormConfig extends HealthRecordFormConfig {
+  const OxygenSaturationFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    final percentageValue = value as Percentage;
+
+    return OxygenSaturationRecord(
       time: startDateTime,
       percentage: percentageValue,
       metadata: metadata,

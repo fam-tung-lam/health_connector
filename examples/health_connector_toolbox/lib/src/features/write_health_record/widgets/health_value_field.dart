@@ -63,7 +63,8 @@ import 'package:health_connector/health_connector.dart'
         WheelchairPushesHealthDataType,
         ZincNutrientDataType,
         SleepSessionHealthDataType,
-        SleepStageHealthDataType;
+        SleepStageHealthDataType,
+        OxygenSaturationHealthDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -137,6 +138,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
           FloorsClimbedHealthDataType() => _parseNumeric(value),
           WheelchairPushesHealthDataType() => _parseNumeric(value),
           HydrationHealthDataType() => _parseVolume(value),
+          OxygenSaturationHealthDataType() => _parseBodyFatPercentage(value),
           HeartRateMeasurementRecordHealthDataType() => _parseNumeric(value),
           HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
             'HeartRateSeriesRecordHealthDataType '
@@ -290,6 +292,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
         WheelchairPushesHealthDataType() =>
           AppTexts.pleaseEnterWheelchairPushes,
         HydrationHealthDataType() => AppTexts.pleaseEnterHydration,
+        OxygenSaturationHealthDataType() =>
+          AppTexts.pleaseEnterOxygenSaturation,
         HeartRateMeasurementRecordHealthDataType() =>
           AppTexts.pleaseEnterHeartRate,
         HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
@@ -363,6 +367,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
       FloorsClimbedHealthDataType() => int.tryParse(value),
       WheelchairPushesHealthDataType() => int.tryParse(value),
       HydrationHealthDataType() => double.tryParse(value),
+      OxygenSaturationHealthDataType() => double.tryParse(value),
       HeartRateMeasurementRecordHealthDataType() => int.tryParse(value),
       HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
         'HeartRateSeriesRecordHealthDataType should '
@@ -454,6 +459,12 @@ class _HealthValueFieldState extends State<HealthValueField> {
         final percentage = parsed as double;
         return (percentage < 0 || percentage > 100)
             ? AppTexts.bodyFatPercentageMustBeBetween0And100
+            : null;
+      }(),
+      OxygenSaturationHealthDataType() => () {
+        final percentage = parsed as double;
+        return (percentage < 0 || percentage > 100)
+            ? AppTexts.oxygenSaturationMustBeBetween0And100
             : null;
       }(),
       DistanceHealthDataType() =>
@@ -575,6 +586,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
         WheelchairPushesHealthDataType() =>
           AppTexts.pleaseEnterWheelchairPushes,
         HydrationHealthDataType() => AppTexts.pleaseEnterHydration,
+        OxygenSaturationHealthDataType() =>
+          AppTexts.pleaseEnterOxygenSaturation,
         HeartRateMeasurementRecordHealthDataType() =>
           AppTexts.pleaseEnterHeartRate,
         HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
@@ -678,6 +691,17 @@ class _HealthValueFieldState extends State<HealthValueField> {
         controller: _controller,
         decoration: const InputDecoration(
           labelText: AppTexts.bodyFatPercentageValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.percent),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      OxygenSaturationHealthDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.oxygenSaturationValue,
           border: OutlineInputBorder(),
           prefixIcon: Icon(AppIcons.percent),
         ),

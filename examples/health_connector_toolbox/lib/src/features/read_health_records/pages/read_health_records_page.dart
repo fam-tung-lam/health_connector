@@ -33,6 +33,7 @@ import 'package:health_connector/health_connector.dart'
         PolyunsaturatedFatNutrientDataType,
         NutritionHealthDataType,
         PantothenicAcidNutrientDataType,
+        OxygenSaturationHealthDataType,
         PhosphorusNutrientDataType,
         PotassiumNutrientDataType,
         ProteinNutrientDataType,
@@ -409,6 +410,12 @@ class _ReadHealthRecordsPageState
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
+        OxygenSaturationHealthDataType() =>
+          HealthDataType.oxygenSaturation.readRecords(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
       };
 
       await notifier.readHealthRecords(request);

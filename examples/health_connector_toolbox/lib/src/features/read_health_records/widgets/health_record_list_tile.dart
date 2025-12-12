@@ -34,6 +34,7 @@ import 'package:health_connector/health_connector.dart'
         NiacinNutrientRecord,
         NutritionRecord,
         PantothenicAcidNutrientRecord,
+        OxygenSaturationRecord,
         PhosphorusNutrientRecord,
         PolyunsaturatedFatNutrientRecord,
         PotassiumNutrientRecord,
@@ -282,6 +283,36 @@ final class HealthRecordListTile extends StatelessWidget {
       ),
       BodyFatPercentageRecord() =>
         InstantHealthRecordTile<BodyFatPercentageRecord>(
+          record: record,
+          icon: AppIcons.percent,
+          title: '${record.percentage.asWhole.toStringAsFixed(2)}%',
+          subtitleBuilder: (r, ctx) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 4),
+              Text(
+                '${AppTexts.time}: ${DateFormatUtils.formatDateTime(r.time)}',
+              ),
+              Text(
+                '${AppTexts.recording}: ${r.metadata.recordingMethod.name}',
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: theme.AppColors.grey600,
+                ),
+              ),
+            ],
+          ),
+          detailRowsBuilder: (r, ctx) => [
+            const HealthRecordDetailRow(
+              label: AppTexts.value,
+              value: '',
+            ),
+            MeasurementUnitDisplay(unit: r.percentage),
+          ],
+          onDelete: onDelete,
+        ),
+      OxygenSaturationRecord() =>
+        InstantHealthRecordTile<OxygenSaturationRecord>(
           record: record,
           icon: AppIcons.percent,
           title: '${record.percentage.asWhole.toStringAsFixed(2)}%',

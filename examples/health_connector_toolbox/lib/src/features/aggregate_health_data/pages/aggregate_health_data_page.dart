@@ -46,6 +46,7 @@ import 'package:health_connector/health_connector.dart'
         ManganeseNutrientDataType,
         PhosphorusNutrientDataType,
         SystolicBloodPressureHealthDataType,
+        OxygenSaturationHealthDataType,
         PotassiumNutrientDataType,
         SeleniumNutrientDataType,
         SodiumNutrientDataType,
@@ -539,6 +540,23 @@ class _AggregateHealthDataPageState
         NutritionHealthDataType() => throw UnsupportedError(
           'Nutrition does not support aggregation',
         ),
+        OxygenSaturationHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg =>
+            HealthDataType.oxygenSaturation.aggregateAverage(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.min => HealthDataType.oxygenSaturation.aggregateMin(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.max => HealthDataType.oxygenSaturation.aggregateMax(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.sum || AggregationMetric.count =>
+            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+        },
         // All nutrient data types follow the same pattern: only sum aggregation
         EnergyNutrientDataType() ||
         CaffeineNutrientDataType() ||

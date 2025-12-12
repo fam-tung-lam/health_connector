@@ -148,6 +148,10 @@ abstract final class AppTexts {
   static const String bodyPositionStandingUp = 'Standing Up';
   static const String bodyPositionLyingDown = 'Lying Down';
   static const String bodyPositionReclining = 'Reclining';
+  static const String oxygenSaturation = 'Oxygen Saturation';
+  static const String oxygenSaturationDescription =
+      'Oxygen saturation measurement at a point in time';
+  static const String oxygenSaturationValue = 'Oxygen Saturation (%)';
 
   static const String measurementLocation = 'Measurement Location';
   static const String measurementLocationLeftWrist = 'Left Wrist';
@@ -366,6 +370,9 @@ abstract final class AppTexts {
   static const String writePermissionDeniedDiastolicBloodPressure =
       'Write permission denied or not supported. '
       'Please grant write permission for diastolic blood pressure.';
+  static const String writePermissionDeniedOxygenSaturation =
+      'Write permission denied or not supported. '
+      'Please grant write permission for oxygen saturation.';
 
   // ==========================================================================
   // Validation Messages
@@ -434,6 +441,10 @@ abstract final class AppTexts {
       'Systolic blood pressure must be greater than 0';
   static const String diastolicBloodPressureMustBeGreaterThanZero =
       'Diastolic blood pressure must be greater than 0';
+  static const String pleaseEnterOxygenSaturation =
+      'Please enter oxygen saturation';
+  static const String oxygenSaturationMustBeBetween0And100 =
+      'Oxygen saturation must be between 0 and 100';
 
   // ==========================================================================
   // Page Titles and Actions
@@ -461,6 +472,7 @@ abstract final class AppTexts {
       'Insert Systolic Blood Pressure';
   static const String insertDiastolicBloodPressure =
       'Insert Diastolic Blood Pressure';
+  static const String insertOxygenSaturation = 'Insert Oxygen Saturation';
   static const String readHealthRecords = 'Read Health Records';
   static const String readAggregateData = 'Read Aggregate Data';
 

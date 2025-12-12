@@ -41,6 +41,7 @@ import 'package:health_connector/health_connector.dart'
         NutritionHealthDataType,
         PantothenicAcidNutrientDataType,
         PhosphorusNutrientDataType,
+        OxygenSaturationHealthDataType,
         PolyunsaturatedFatNutrientDataType,
         PotassiumNutrientDataType,
         Pressure,
@@ -613,6 +614,8 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
         NutritionHealthDataType() => AppTexts.writePermissionDeniedNutrition,
         RestingHeartRateHealthDataType() =>
           AppTexts.writePermissionDeniedRestingHeartRateRecord,
+        OxygenSaturationHealthDataType() =>
+          AppTexts.writePermissionDeniedOxygenSaturation,
       };
     }
     return e.message;
@@ -692,6 +695,8 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
               NutritionHealthDataType() => AppTexts.insertNutrition,
               RestingHeartRateHealthDataType() =>
                 AppTexts.insertRestingHeartRateRecord,
+              OxygenSaturationHealthDataType() =>
+                AppTexts.insertOxygenSaturation,
             },
           ),
         ),
