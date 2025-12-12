@@ -36,6 +36,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         RestingHeartRateHealthDataType,
         SaturatedFatNutrientDataType,
         SeleniumNutrientDataType,
+        RespiratoryRateHealthDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
         SodiumNutrientDataType,
@@ -166,6 +167,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.bloodPressure;
       case HealthDataTypeDto.oxygenSaturation:
         return HealthDataType.oxygenSaturation;
+      case HealthDataTypeDto.respiratoryRate:
+        return HealthDataType.respiratoryRate;
     }
   }
 }
@@ -271,6 +274,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.bloodPressure;
       case OxygenSaturationHealthDataType _:
         return HealthDataTypeDto.oxygenSaturation;
+      case RespiratoryRateHealthDataType _:
+        return HealthDataTypeDto.respiratoryRate;
       case NutritionHealthDataType _:
         return HealthDataTypeDto.nutrition;
       case RestingHeartRateHealthDataType _:

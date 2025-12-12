@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.records.Record
+import androidx.health.connect.client.records.RespiratoryRateRecord
 import androidx.health.connect.client.records.metadata.DataOrigin
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
@@ -37,6 +38,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureD
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeaturePermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDto
+import com.phamtunglam.health_connector_hc_android.pigeon.NumericDto
+import com.phamtunglam.health_connector_hc_android.pigeon.NumericUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PercentageDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PercentageUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
@@ -901,6 +904,199 @@ internal class HealthConnectorClient private constructor(private val client: Hea
     }
 
     /**
+     * Computes aggregation value for Respiratory Rate records by reading all records
+     * and manually computing the aggregation.
+     *
+     * @param startTime Start of time range in milliseconds since epoch (UTC), inclusive
+     * @param endTime End of time range in milliseconds since epoch (UTC), exclusive
+     * @param metric The aggregation metric to compute (AVG, MIN, or MAX)
+     * @return Pair of (aggregated value as Double, record count)
+     * @throws IllegalStateException if no records found or values cannot be computed
+     * @throws UnsupportedOperationException if metric is SUM or COUNT
+     */
+    private suspend fun computeRespiratoryRateAggregation(
+        startTime: Long,
+        endTime: Long,
+        metric: AggregationMetricDto,
+    ): Pair<Double, Int> {
+        // Read all Respiratory Rate records in the time range
+        val timeRangeFilter = TimeRangeFilter.between(
+            Instant.ofEpochMilli(startTime),
+            Instant.ofEpochMilli(endTime),
+        )
+
+        val allRecords = mutableListOf<RespiratoryRateRecord>()
+        var pageToken: String? = null
+
+        // Handle pagination - read all pages
+        do {
+            val readRequest = ReadRecordsRequest(
+                recordType = RespiratoryRateRecord::class,
+                timeRangeFilter = timeRangeFilter,
+                pageSize = 1000, // Use a reasonable page size
+                pageToken = pageToken,
+            )
+
+            val response = client.readRecords(readRequest)
+            allRecords.addAll(response.records.filterIsInstance<RespiratoryRateRecord>())
+            pageToken = response.pageToken
+        } while (!pageToken.isNullOrEmpty())
+
+        // Check if we have any records
+        if (allRecords.isEmpty()) {
+            throw IllegalStateException(
+                "No Respiratory Rate records found in the specified time range",
+            )
+        }
+
+        // Extract rate values from records (breaths per minute)
+        val rateValues = allRecords.map { record ->
+            record.rate // rate is Double (breaths per minute)
+        }
+
+        // Compute aggregation based on metric
+        val aggregatedValue = when (metric) {
+            AggregationMetricDto.AVG -> rateValues.average()
+            AggregationMetricDto.MIN -> rateValues.minOrNull()
+                ?: throw IllegalStateException("No values to compute minimum")
+            AggregationMetricDto.MAX -> rateValues.maxOrNull()
+                ?: throw IllegalStateException("No values to compute maximum")
+            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
+                throw UnsupportedOperationException(
+                    "Unsupported metric: $metric",
+                )
+        }
+
+        return Pair(aggregatedValue, allRecords.size)
+    }
+
+    /**
+     * Manually aggregates Respiratory Rate records by reading all records and computing
+     * the aggregation value in application logic.
+     *
+     * This is necessary because RespiratoryRateHandler doesn't implement
+     * AggregationSupportingHandler, so we can't use Health Connect's native aggregation API.
+     *
+     * @param request The aggregate request (must be CommonAggregateRequestDto for RESPIRATORY_RATE)
+     * @return AggregateResponseDto with the computed aggregation value
+     *
+     * @throws HealthConnectorError with code `INVALID_ARGUMENT` if metric is invalid or no records found
+     * @throws HealthConnectorError with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
+     * @throws HealthConnectorError with code `SECURITY_ERROR` if authorization is denied
+     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     */
+    @Throws(HealthConnectorError::class)
+    private suspend fun aggregateRespiratoryRateManually(
+        request: AggregateRequestDto,
+    ): AggregateResponseDto {
+        HealthConnectorLogger.debug(
+            tag = TAG,
+            operation = "aggregateRespiratoryRateManually",
+            phase = "entry",
+            message = "Manually aggregating Respiratory Rate records",
+            context = mapOf("request" to request),
+        )
+
+        // Ensure request is CommonAggregateRequestDto
+        require(request is CommonAggregateRequestDto) {
+            "Expected CommonAggregateRequestDto for Respiratory Rate aggregation"
+        }
+
+        // Validate aggregation metric
+        when (request.aggregationMetric) {
+            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
+                throw UnsupportedOperationException(
+                    "Aggregation metric ${request.aggregationMetric} for RespiratoryRate. " +
+                        "Supported: AVG, MIN, MAX",
+                )
+            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX -> {
+                // These are supported
+            }
+        }
+
+        try {
+            val (aggregatedValue, recordCount) = computeRespiratoryRateAggregation(
+                startTime = request.startTime,
+                endTime = request.endTime,
+                metric = request.aggregationMetric,
+            )
+
+            // Create NumericDto with the aggregated value
+            // Respiratory rate values are stored as breaths per minute (numeric)
+            val valueDto = NumericDto(
+                value = aggregatedValue,
+                unit = NumericUnitDto.NUMERIC,
+            )
+
+            val responseDto = AggregateResponseDto(value = valueDto)
+
+            HealthConnectorLogger.info(
+                tag = TAG,
+                operation = "aggregateRespiratoryRateManually",
+                phase = "completed",
+                message = "Respiratory Rate records aggregated successfully",
+                context = mapOf(
+                    "request" to request,
+                    "recordCount" to recordCount,
+                    "aggregatedValue" to aggregatedValue,
+                ),
+            )
+
+            return responseDto
+        } catch (e: UnsupportedOperationException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "aggregateRespiratoryRateManually",
+                phase = "failed",
+                message = "Unsupported aggregation operation",
+                context = mapOf("request" to request),
+                exception = e,
+            )
+            throw HealthConnectorErrorCodeDto.UNSUPPORTED_HEALTH_PLATFORM_API.toError(
+                details = "Unsupported aggregation metric for Respiratory Rate: " +
+                    (e.message ?: "Operation not supported"),
+            )
+        } catch (e: IllegalStateException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "aggregateRespiratoryRateManually",
+                phase = "failed",
+                message = "Invalid aggregation state",
+                context = mapOf("request" to request),
+                exception = e,
+            )
+            throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
+                details = e.message ?: "No data available for aggregation",
+            )
+        } catch (e: SecurityException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "aggregateRespiratoryRateManually",
+                phase = "failed",
+                message = "Failed to aggregate Respiratory Rate records",
+                context = mapOf("request" to request),
+                exception = e,
+            )
+            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+                details = "Permission access denied while processing $request: " +
+                    (e.message ?: "Access denied"),
+            )
+        } catch (e: RuntimeException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "aggregateRespiratoryRateManually",
+                phase = "failed",
+                message = "Failed to aggregate Respiratory Rate records",
+                context = mapOf("request" to request),
+                exception = e,
+            )
+            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
+            )
+        }
+    }
+
+    /**
      * Performs an aggregation query on health records.
      *
      * @param request Contains data type, aggregation metric, and time range
@@ -931,6 +1127,12 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             // so we use manual aggregation via readRecords
             if (request.dataType == HealthDataTypeDto.OXYGEN_SATURATION) {
                 return aggregateOxygenSaturationManually(request)
+            }
+
+            // Special case: Respiratory Rate doesn't support native aggregation,
+            // so we use manual aggregation via readRecords
+            if (request.dataType == HealthDataTypeDto.RESPIRATORY_RATE) {
+                return aggregateRespiratoryRateManually(request)
             }
 
             // Get aggregation handler for this data type

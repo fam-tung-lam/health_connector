@@ -11,6 +11,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         BloodGlucose,
         Numeric,
         Percentage,
+        RespiratoryRate,
         MeasurementUnit;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_platform_api.g.dart'
     show
@@ -96,6 +97,11 @@ extension MeasurementUnitToDto on MeasurementUnit {
         return PercentageDto(
           value: unit.asDecimal,
           unit: PercentageUnitDto.decimal,
+        );
+      case final RespiratoryRate unit:
+        return NumericDto(
+          value: unit.breathsPerMinute,
+          unit: NumericUnitDto.numeric,
         );
     }
   }

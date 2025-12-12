@@ -47,6 +47,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         RestingHeartRateHealthDataType,
         SeleniumNutrientDataType,
         SodiumNutrientDataType,
+        RespiratoryRateHealthDataType,
         ZincNutrientDataType,
         VitaminANutrientDataType,
         VitaminB6NutrientDataType,
@@ -193,6 +194,7 @@ extension AggregateRequestDtoMapper<
           case PantothenicAcidNutrientDataType _:
           case OxygenSaturationHealthDataType _:
           case RestingHeartRateHealthDataType _:
+          case RespiratoryRateHealthDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',
             );

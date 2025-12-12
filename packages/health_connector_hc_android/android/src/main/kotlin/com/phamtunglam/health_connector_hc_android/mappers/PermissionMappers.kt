@@ -13,6 +13,7 @@ import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
 import androidx.health.connect.client.records.NutritionRecord
 import androidx.health.connect.client.records.OxygenSaturationRecord
+import androidx.health.connect.client.records.RespiratoryRateRecord
 import androidx.health.connect.client.records.RestingHeartRateRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
@@ -212,6 +213,17 @@ internal fun HealthDataPermissionDto.toHealthConnectPermission(): String =
                 )
                 PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
                     OxygenSaturationRecord::class,
+                )
+            }
+        }
+
+        HealthDataTypeDto.RESPIRATORY_RATE -> {
+            when (this.accessType) {
+                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                    RespiratoryRateRecord::class,
+                )
+                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                    RespiratoryRateRecord::class,
                 )
             }
         }
