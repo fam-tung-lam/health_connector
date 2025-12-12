@@ -389,6 +389,9 @@ abstract final class AppTexts {
   static const String writePermissionDeniedVo2Max =
       'Write permission denied or not supported. '
       'Please grant write permission for VO2 Max.';
+  static const String writePermissionDeniedBloodGlucose =
+      'Write permission denied or not supported. '
+      'Please grant write permission for blood glucose.';
 
   // ==========================================================================
   // Validation Messages
@@ -470,6 +473,10 @@ abstract final class AppTexts {
   static const String vo2MaxMustBePositive =
       'VO2 Max must be a positive number';
   static const String vo2MaxMustBeValid = 'VO2 Max must be a valid number';
+  static const String pleaseEnterBloodGlucose =
+      'Please enter blood glucose (mg/dL)';
+  static const String bloodGlucoseMustBeGreaterThanZero =
+      'Blood glucose must be greater than 0';
 
   // ==========================================================================
   // Page Titles and Actions
@@ -500,6 +507,7 @@ abstract final class AppTexts {
   static const String insertOxygenSaturation = 'Insert Oxygen Saturation';
   static const String insertRespiratoryRate = 'Insert Respiratory Rate';
   static const String insertVo2Max = 'Insert VO2 Max';
+  static const String insertBloodGlucose = 'Insert Blood Glucose';
 
   static const String readHealthRecords = 'Read Health Records';
   static const String readAggregateData = 'Read Aggregate Data';
@@ -572,6 +580,13 @@ abstract final class AppTexts {
   static const String foodName = 'Food Name';
   static const String food = 'Food';
   static const String meal = 'Meal';
+  static const String relationToMeal = 'Relation to Meal';
+  static const String specimenSource = 'Specimen Source';
+  static const String bloodGlucoseText = 'Blood Glucose';
+  static const String bloodGlucoseDescription =
+      'Concentration of glucose in the blood';
+  static const String bloodGlucoseValue = 'Blood Glucose (mg/dL)';
+  static const String bloodGlucoseMgDl = 'Blood Glucose (mg/dL)';
 
   // ==========================================================================
   // Nutrient Data Types

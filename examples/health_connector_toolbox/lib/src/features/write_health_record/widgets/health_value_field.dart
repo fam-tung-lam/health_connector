@@ -67,6 +67,8 @@ import 'package:health_connector/health_connector.dart'
         OxygenSaturationHealthDataType,
         RespiratoryRate,
         RespiratoryRateHealthDataType,
+        BloodGlucose,
+        BloodGlucoseHealthDataType,
         Vo2Max,
         Vo2MaxHealthDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
@@ -157,6 +159,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
           RestingHeartRateHealthDataType() => _parseNumeric(value),
           RespiratoryRateHealthDataType() => _parseRespiratoryRate(value),
           Vo2MaxHealthDataType() => _parseVo2Max(value),
+          BloodGlucoseHealthDataType() => _parseBloodGlucose(value),
 
           EnergyNutrientDataType() => _parseEnergy(value),
           CaffeineNutrientDataType() => _parseMass(value),
@@ -291,6 +294,14 @@ class _HealthValueFieldState extends State<HealthValueField> {
     return null;
   }
 
+  BloodGlucose? _parseBloodGlucose(String value) {
+    final val = double.tryParse(value);
+    if (val != null && val > 0) {
+      return BloodGlucose.milligramsPerDeciliter(val);
+    }
+    return null;
+  }
+
   String? _validate(String? value) {
     if (value == null || value.isEmpty) {
       return switch (widget.dataType) {
@@ -332,6 +343,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
         RestingHeartRateHealthDataType() => AppTexts.pleaseEnterHeartRate,
         RespiratoryRateHealthDataType() => AppTexts.pleaseEnterRespiratoryRate,
         Vo2MaxHealthDataType() => AppTexts.pleaseEnterVo2Max,
+        BloodGlucoseHealthDataType() => AppTexts.pleaseEnterBloodGlucose,
 
         EnergyNutrientDataType() => AppTexts.pleaseEnterEnergy,
         CaffeineNutrientDataType() => AppTexts.pleaseEnterCaffeine,
@@ -408,6 +420,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
       RestingHeartRateHealthDataType() => int.tryParse(value),
       RespiratoryRateHealthDataType() => double.tryParse(value),
       Vo2MaxHealthDataType() => double.tryParse(value),
+      BloodGlucoseHealthDataType() => double.tryParse(value),
 
       EnergyNutrientDataType() => double.tryParse(value),
       CaffeineNutrientDataType() => double.tryParse(value),
@@ -586,6 +599,10 @@ class _HealthValueFieldState extends State<HealthValueField> {
       SleepStageHealthDataType() => throw UnsupportedError(
         'SleepStageHealthDataType requires custom form handling',
       ),
+      BloodGlucoseHealthDataType() =>
+        (parsed as double) <= 0
+            ? AppTexts.bloodGlucoseMustBeGreaterThanZero
+            : null,
 
       NutritionHealthDataType() => throw UnsupportedError(
         'NutritionHealthDataType requires NutritionFormField',
@@ -677,6 +694,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
           'NutritionHealthDataType requires NutritionFormField',
         ),
         Vo2MaxHealthDataType() => AppTexts.pleaseEnterVo2Max,
+        BloodGlucoseHealthDataType() => AppTexts.pleaseEnterBloodGlucose,
       };
     }
 
@@ -769,6 +787,17 @@ class _HealthValueFieldState extends State<HealthValueField> {
       ),
       BloodPressureHealthDataType() => throw UnsupportedError(
         'BloodPressureHealthDataType requires custom form handling',
+      ),
+      BloodGlucoseHealthDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.bloodGlucoseMgDl,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.bloodGlucose),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
       ),
       SystolicBloodPressureHealthDataType() => TextFormField(
         controller: _controller,

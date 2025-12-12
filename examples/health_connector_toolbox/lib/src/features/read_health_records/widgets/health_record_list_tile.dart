@@ -7,6 +7,7 @@ import 'package:health_connector/health_connector.dart'
         BloodPressureRecord,
         BloodPressureBodyPosition,
         BloodPressureMeasurementLocation,
+        BloodGlucoseRecord,
         BodyTemperatureRecord,
         CaffeineNutrientRecord,
         CalciumNutrientRecord,
@@ -315,6 +316,7 @@ final class HealthRecordListTile extends StatelessWidget {
         ],
         onDelete: onDelete,
       ),
+      BloodGlucoseRecord() => _buildBloodGlucoseRecord(record, onDelete),
       BodyFatPercentageRecord() =>
         InstantHealthRecordTile<BodyFatPercentageRecord>(
           record: record,
@@ -663,6 +665,50 @@ final class HealthRecordListTile extends StatelessWidget {
         onDelete,
       ),
     };
+  }
+
+  Widget _buildBloodGlucoseRecord(
+    BloodGlucoseRecord record,
+    VoidCallback onDelete,
+  ) {
+    return InstantHealthRecordTile<BloodGlucoseRecord>(
+      record: record,
+      icon: AppIcons.bloodGlucose,
+      title: '${record.bloodGlucose.inMilligramsPerDeciliter} mg/dL',
+      subtitleBuilder: (r, ctx) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 4),
+          Text(
+            '${AppTexts.time}: ${DateFormatUtils.formatDateTime(r.time)}',
+          ),
+          Text(
+            '${AppTexts.recording}: ${r.metadata.recordingMethod.name}',
+            style: const TextStyle(
+              fontSize: 12,
+              color: theme.AppColors.grey600,
+            ),
+          ),
+        ],
+      ),
+      detailRowsBuilder: (r, ctx) => [
+        const HealthRecordDetailRow(label: AppTexts.value, value: ''),
+        MeasurementUnitDisplay(unit: r.bloodGlucose),
+        HealthRecordDetailRow(
+          label: AppTexts.relationToMeal,
+          value: r.relationToMeal.name,
+        ),
+        HealthRecordDetailRow(
+          label: AppTexts.mealType,
+          value: r.mealType.name,
+        ),
+        HealthRecordDetailRow(
+          label: AppTexts.specimenSource,
+          value: r.specimenSource.name,
+        ),
+      ],
+      onDelete: onDelete,
+    );
   }
 
   Widget _buildEnergyNutrientRecord(

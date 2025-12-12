@@ -61,7 +61,8 @@ import 'package:health_connector/health_connector.dart'
         SleepSessionHealthDataType,
         RestingHeartRateHealthDataType,
         SleepStageHealthDataType,
-        Vo2MaxHealthDataType;
+        Vo2MaxHealthDataType,
+        BloodGlucoseHealthDataType;
 import 'package:health_connector/health_connector.dart' show HealthPlatform;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
@@ -425,6 +426,11 @@ class _ReadHealthRecordsPageState
             pageSize: _pageSize,
           ),
         Vo2MaxHealthDataType() => HealthDataType.vo2Max.readRecords(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        BloodGlucoseHealthDataType() => HealthDataType.bloodGlucose.readRecords(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,

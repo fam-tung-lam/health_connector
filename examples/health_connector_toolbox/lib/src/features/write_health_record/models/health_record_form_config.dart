@@ -10,8 +10,14 @@ import 'package:health_connector/health_connector.dart'
         BloodPressureHealthDataType,
         BloodPressureMeasurementLocation,
         BloodPressureRecord,
+        BloodGlucose,
         BodyTemperatureHealthDataType,
         BodyTemperatureRecord,
+        BloodGlucoseHealthDataType,
+        BloodGlucoseRecord,
+        BloodGlucoseRelationToMeal,
+        BloodGlucoseMealType,
+        BloodGlucoseSpecimenSource,
         CaffeineNutrientDataType,
         CaffeineNutrientRecord,
         CalciumNutrientDataType,
@@ -234,6 +240,7 @@ sealed class HealthRecordFormConfig {
       RestingHeartRateHealthDataType() => const RestingHeartRateFormConfig(),
       RespiratoryRateHealthDataType() => const RespiratoryRateFormConfig(),
       Vo2MaxHealthDataType() => const Vo2MaxFormConfig(),
+      BloodGlucoseHealthDataType() => const BloodGlucoseFormConfig(),
     };
   }
 }
@@ -1939,6 +1946,45 @@ final class Vo2MaxFormConfig extends HealthRecordFormConfig {
       time: time,
       vo2Max: vo2Max,
       testType: testType,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for blood glucose records.
+final class BloodGlucoseFormConfig extends HealthRecordFormConfig {
+  const BloodGlucoseFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    throw UnsupportedError(
+      'BloodGlucoseFormConfig.buildRecord() should not be called directly. '
+      'Use buildBloodGlucoseRecord() instead.',
+    );
+  }
+
+  HealthRecord buildBloodGlucoseRecord({
+    required DateTime time,
+    required BloodGlucose bloodGlucose,
+    required BloodGlucoseRelationToMeal relationToMeal,
+    required BloodGlucoseSpecimenSource specimenSource,
+    required BloodGlucoseMealType mealType,
+    required Metadata metadata,
+  }) {
+    return BloodGlucoseRecord(
+      time: time,
+      bloodGlucose: bloodGlucose,
+      relationToMeal: relationToMeal,
+      specimenSource: specimenSource,
+      mealType: mealType,
       metadata: metadata,
     );
   }

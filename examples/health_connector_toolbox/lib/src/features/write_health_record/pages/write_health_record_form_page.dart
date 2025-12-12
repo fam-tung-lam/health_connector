@@ -3,6 +3,11 @@ import 'package:health_connector/health_connector.dart'
     show
         ActiveCaloriesBurnedHealthDataType,
         BiotinNutrientDataType,
+        BloodGlucose,
+        BloodGlucoseHealthDataType,
+        BloodGlucoseMealType,
+        BloodGlucoseRelationToMeal,
+        BloodGlucoseSpecimenSource,
         BloodPressureBodyPosition,
         BloodPressureHealthDataType,
         BloodPressureMeasurementLocation,
@@ -89,7 +94,11 @@ import 'package:health_connector_toolbox/src/features/write_health_record/models
         NutrientFormConfig,
         SleepSessionRecordFormConfig,
         SleepStageRecordFormConfig,
+        BloodGlucoseFormConfig,
         Vo2MaxFormConfig;
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/blood_glucose_meal_type_dropdown_field.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/blood_glucose_relation_to_meal_dropdown_field.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/blood_glucose_specimen_source_dropdown_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/blood_pressure_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/duration_picker_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/health_value_field.dart';
@@ -197,6 +206,13 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
   // State for blood pressure record
   Pressure? _systolic;
   Pressure? _diastolic;
+
+  // State for blood glucose record
+  BloodGlucoseRelationToMeal _bgRelationToMeal =
+      BloodGlucoseRelationToMeal.unknown;
+  BloodGlucoseMealType _bgMealType = BloodGlucoseMealType.unknown;
+  BloodGlucoseSpecimenSource _bgSpecimenSource =
+      BloodGlucoseSpecimenSource.unknown;
 
   // State for Vo2Max
   Vo2MaxTestType? _vo2MaxTestType;
@@ -373,6 +389,10 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
       if (_value == null || _vo2MaxTestType == null) {
         return;
       }
+    } else if (widget.dataType is BloodGlucoseHealthDataType) {
+      if (_value == null) {
+        return;
+      }
     } else if (_config is NutrientFormConfig) {
       // Nutrient records need a value
       if (_value == null) {
@@ -494,6 +514,15 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
             vo2Max: _value! as Vo2Max,
             testType: _vo2MaxTestType!,
             metadata: metadata,
+          ),
+        BloodGlucoseHealthDataType() =>
+          (_config as BloodGlucoseFormConfig).buildBloodGlucoseRecord(
+            time: startDateTime!,
+            bloodGlucose: _value! as BloodGlucose,
+            metadata: metadata,
+            relationToMeal: _bgRelationToMeal,
+            mealType: _bgMealType,
+            specimenSource: _bgSpecimenSource,
           ),
         _ =>
           _config is NutrientFormConfig
@@ -638,6 +667,8 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
         RespiratoryRateHealthDataType() =>
           AppTexts.writePermissionDeniedRespiratoryRate,
         Vo2MaxHealthDataType() => AppTexts.writePermissionDeniedVo2Max,
+        BloodGlucoseHealthDataType() =>
+          AppTexts.writePermissionDeniedBloodGlucose,
       };
     }
     return e.message;
@@ -721,6 +752,7 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                 AppTexts.insertOxygenSaturation,
               RespiratoryRateHealthDataType() => AppTexts.insertRespiratoryRate,
               Vo2MaxHealthDataType() => AppTexts.insertVo2Max,
+              BloodGlucoseHealthDataType() => AppTexts.insertBloodGlucose,
             },
           ),
         ),
@@ -781,6 +813,42 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                         return 'Please select a sleep stage type';
                       }
                       return null;
+                    },
+                  ),
+                ] else if (widget.dataType is BloodGlucoseHealthDataType) ...[
+                  HealthValueField(
+                    dataType: widget.dataType,
+                    onChanged: (value) {
+                      setState(() {
+                        _value = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  BloodGlucoseRelationToMealDropdownField(
+                    value: _bgRelationToMeal,
+                    onChanged: (value) {
+                      setState(() {
+                        _bgRelationToMeal = value!;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  BloodGlucoseMealTypeDropdownField(
+                    value: _bgMealType,
+                    onChanged: (value) {
+                      setState(() {
+                        _bgMealType = value!;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  BloodGlucoseSpecimenSourceDropdownField(
+                    value: _bgSpecimenSource,
+                    onChanged: (value) {
+                      setState(() {
+                        _bgSpecimenSource = value!;
+                      });
                     },
                   ),
                 ] else if (widget.dataType is NutritionHealthDataType)

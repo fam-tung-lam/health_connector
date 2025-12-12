@@ -6,6 +6,7 @@ import 'package:health_connector/health_connector.dart'
         AggregateResponse,
         AggregationMetric,
         BodyFatPercentageHealthDataType,
+        BloodGlucoseHealthDataType,
         BloodPressureHealthDataType,
         RespiratoryRateHealthDataType,
         BodyTemperatureHealthDataType,
@@ -586,6 +587,22 @@ class _AggregateHealthDataPageState
             endTime: endDateTime!,
           ),
           AggregationMetric.max => HealthDataType.vo2Max.aggregateMax(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.sum || AggregationMetric.count =>
+            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+        },
+        BloodGlucoseHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg => HealthDataType.bloodGlucose.aggregateAverage(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.min => HealthDataType.bloodGlucose.aggregateMin(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.max => HealthDataType.bloodGlucose.aggregateMax(
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
