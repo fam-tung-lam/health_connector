@@ -124,6 +124,32 @@ enum VelocityUnitDto { kilometersPerHour, metersPerSecond, milesPerHour }
 /// Volume unit types supported by the plugin.
 enum VolumeUnitDto { fluidOuncesUs, liters, milliliters }
 
+/// VO2 max unit types supported by the plugin.
+enum Vo2MaxUnitDto { millilitersPerKilogramPerMinute }
+
+/// Measurement method for VO2 max calculation (Android Health Connect).
+///
+/// Maps to Health Connect Vo2MaxMeasurementMethod constants.
+enum Vo2MaxMeasurementMethodDto {
+  /// Other or unknown measurement method (0).
+  other,
+
+  /// Direct measurement using metabolic cart gas exchange analysis (1).
+  metabolicCart,
+
+  /// Calculated using heart rate ratio (maxHR / restingHR) (2).
+  heartRateRatio,
+
+  /// Based on the Cooper 12-minute run test (3).
+  cooperTest,
+
+  /// Based on the multistage fitness test (beep test) (4).
+  multistageFitnessTest,
+
+  /// Based on the Rockport 1-mile walk test (5).
+  rockportFitnessTest,
+}
+
 /// Represents a blood glucose measurement for platform transfer.
 class BloodGlucoseDto extends MeasurementUnitDto {
   BloodGlucoseDto({required this.value, required this.unit});
@@ -242,6 +268,20 @@ class VolumeDto extends MeasurementUnitDto {
   final VolumeUnitDto unit;
 
   /// The numeric value of the volume.
+  final double value;
+}
+
+/// Represents a VO2 max measurement for platform transfer.
+///
+/// VO2 max is measured in milliliters of oxygen per kilogram of body weight
+/// per minute (mL/kg/min).
+class Vo2MaxDto extends MeasurementUnitDto {
+  Vo2MaxDto({required this.value, required this.unit});
+
+  /// The unit in which the value is expressed.
+  final Vo2MaxUnitDto unit;
+
+  /// The numeric value of the VO2 max.
   final double value;
 }
 
@@ -558,6 +598,9 @@ enum HealthDataTypeDto {
 
   /// Respiratory rate data.
   respiratoryRate,
+
+  /// VO2 max (maximal oxygen uptake) data.
+  vo2Max,
 }
 
 /// Represents a resting heart rate record for platform transfer.
@@ -638,7 +681,41 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 }
 
-/// Represents an active calories burned record for platform transfer.
+/// Represents a VO2 max record for platform transfer.
+///
+/// VO2 max is the maximum rate of oxygen consumption during exercise,
+/// typically measured in mL/kg/min.
+class Vo2MaxRecordDto extends HealthRecordDto {
+  Vo2MaxRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.vo2Max,
+    this.measurementMethod,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The VO2 max value in mL/kg/min.
+  final Vo2MaxDto vo2Max;
+
+  /// The method used to measure or estimate VO2 max.
+  ///
+  /// Maps to Health Connect's Vo2MaxMeasurementMethod.
+  final Vo2MaxMeasurementMethodDto? measurementMethod;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
 class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
   ActiveCaloriesBurnedRecordDto({
     required this.id,

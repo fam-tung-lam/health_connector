@@ -76,6 +76,7 @@ internal object HealthConnectTypeHandlerRegistry {
             register(RestingHeartRateHandler)
             register(OxygenSaturationHandler)
             register(RespiratoryRateHandler)
+            register(Vo2MaxHandler)
 
             // Series records
             register(HeartRateHandler)

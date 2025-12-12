@@ -56,6 +56,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         SeleniumNutrientRecord,
         SodiumNutrientRecord,
         ZincNutrientRecord,
+        Vo2MaxRecord,
         RespiratoryRateRecord;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_mappers.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_platform_api.g.dart'
@@ -78,6 +79,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_platform
         StepRecordDto,
         WeightRecordDto,
         WheelchairPushesRecordDto,
+        Vo2MaxRecordDto,
         RespiratoryRateRecordDto;
 import 'package:meta/meta.dart' show internal;
 
@@ -188,6 +190,8 @@ extension HealthRecordToDto on HealthRecord {
         return record.toDto();
       case final RespiratoryRateRecord record:
         return record.toDto();
+      case final Vo2MaxRecord record:
+        return record.toDto();
       case final SleepStageRecord _:
         throw UnsupportedError(
           '$SleepStageRecord is not supported on Android. '
@@ -252,6 +256,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
       case final BloodPressureRecordDto dto:
         return dto.toDomain();
       case final RespiratoryRateRecordDto dto:
+        return dto.toDomain();
+      case final Vo2MaxRecordDto dto:
         return dto.toDomain();
     }
   }

@@ -6,6 +6,7 @@ import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.RespiratoryRateRecord
+import androidx.health.connect.client.records.Vo2MaxRecord
 import androidx.health.connect.client.records.metadata.DataOrigin
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
@@ -51,6 +52,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordResponseDto
+import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxDto
+import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsRequestDto
@@ -1097,6 +1100,198 @@ internal class HealthConnectorClient private constructor(private val client: Hea
     }
 
     /**
+     * Computes aggregation value for VO2Max records by reading all records
+     * and manually computing the aggregation.
+     *
+     * @param startTime Start of time range in milliseconds since epoch (UTC), inclusive
+     * @param endTime End of time range in milliseconds since epoch (UTC), exclusive
+     * @param metric The aggregation metric to compute (AVG, MIN, or MAX)
+     * @return Pair of (aggregated value as Double, record count)
+     * @throws IllegalStateException if no records found or values cannot be computed
+     * @throws UnsupportedOperationException if metric is SUM or COUNT
+     */
+    private suspend fun computeVo2MaxAggregation(
+        startTime: Long,
+        endTime: Long,
+        metric: AggregationMetricDto,
+    ): Pair<Double, Int> {
+        // Read all VO2Max records in the time range
+        val timeRangeFilter = TimeRangeFilter.between(
+            Instant.ofEpochMilli(startTime),
+            Instant.ofEpochMilli(endTime),
+        )
+
+        val allRecords = mutableListOf<Vo2MaxRecord>()
+        var pageToken: String? = null
+
+        // Handle pagination - read all pages
+        do {
+            val readRequest = ReadRecordsRequest(
+                recordType = Vo2MaxRecord::class,
+                timeRangeFilter = timeRangeFilter,
+                pageSize = 1000, // Use a reasonable page size
+                pageToken = pageToken,
+            )
+
+            val response = client.readRecords(readRequest)
+            allRecords.addAll(response.records.filterIsInstance<Vo2MaxRecord>())
+            pageToken = response.pageToken
+        } while (!pageToken.isNullOrEmpty())
+
+        // Check if we have any records
+        if (allRecords.isEmpty()) {
+            throw IllegalStateException(
+                "No VO2Max records found in the specified time range",
+            )
+        }
+
+        // Extract VO2Max values from records (milliliters per minute per kilogram)
+        val vo2MaxValues = allRecords.map { record ->
+            record.vo2MillilitersPerMinuteKilogram // Double value
+        }
+
+        // Compute aggregation based on metric
+        val aggregatedValue = when (metric) {
+            AggregationMetricDto.AVG -> vo2MaxValues.average()
+            AggregationMetricDto.MIN -> vo2MaxValues.minOrNull()
+                ?: throw IllegalStateException("No values to compute minimum")
+            AggregationMetricDto.MAX -> vo2MaxValues.maxOrNull()
+                ?: throw IllegalStateException("No values to compute maximum")
+            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
+                throw UnsupportedOperationException(
+                    "Unsupported metric: $metric",
+                )
+        }
+
+        return Pair(aggregatedValue, allRecords.size)
+    }
+
+    /**
+     * Manually aggregates VO2Max records by reading all records and computing
+     * the aggregation value in application logic.
+     *
+     * This is necessary because VO2Max doesn't support native aggregation,
+     * so we use manual aggregation via readRecords.
+     *
+     * @param request The aggregate request (must be CommonAggregateRequestDto for VO2MAX)
+     * @return AggregateResponseDto with the computed aggregation value
+     *
+     * @throws HealthConnectorError with code `INVALID_ARGUMENT` if metric is invalid or no records found
+     * @throws HealthConnectorError with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
+     * @throws HealthConnectorError with code `SECURITY_ERROR` if authorization is denied
+     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     */
+    @Throws(HealthConnectorError::class)
+    private suspend fun aggregateVo2MaxManually(
+        request: AggregateRequestDto,
+    ): AggregateResponseDto {
+        HealthConnectorLogger.debug(
+            tag = TAG,
+            operation = "aggregateVo2MaxManually",
+            phase = "entry",
+            message = "Manually aggregating VO2Max records",
+            context = mapOf("request" to request),
+        )
+
+        // Ensure request is CommonAggregateRequestDto
+        require(request is CommonAggregateRequestDto) {
+            "Expected CommonAggregateRequestDto for VO2Max aggregation"
+        }
+
+        // Validate aggregation metric
+        when (request.aggregationMetric) {
+            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
+                throw UnsupportedOperationException(
+                    "Aggregation metric ${request.aggregationMetric} for VO2Max. " +
+                        "Supported: AVG, MIN, MAX",
+                )
+            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX -> {
+                // These are supported
+            }
+        }
+
+        try {
+            val (aggregatedValue, recordCount) = computeVo2MaxAggregation(
+                startTime = request.startTime,
+                endTime = request.endTime,
+                metric = request.aggregationMetric,
+            )
+
+            // Create Vo2MaxDto with the aggregated value
+            val valueDto = Vo2MaxDto(
+                value = aggregatedValue,
+                unit = Vo2MaxUnitDto.MILLILITERS_PER_KILOGRAM_PER_MINUTE,
+            )
+
+            val responseDto = AggregateResponseDto(value = valueDto)
+
+            HealthConnectorLogger.info(
+                tag = TAG,
+                operation = "aggregateVo2MaxManually",
+                phase = "completed",
+                message = "VO2Max records aggregated successfully",
+                context = mapOf(
+                    "request" to request,
+                    "recordCount" to recordCount,
+                    "aggregatedValue" to aggregatedValue,
+                ),
+            )
+
+            return responseDto
+        } catch (e: UnsupportedOperationException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "aggregateVo2MaxManually",
+                phase = "failed",
+                message = "Unsupported aggregation operation",
+                context = mapOf("request" to request),
+                exception = e,
+            )
+            throw HealthConnectorErrorCodeDto.UNSUPPORTED_HEALTH_PLATFORM_API.toError(
+                details = "Unsupported aggregation metric for VO2Max: " +
+                    (e.message ?: "Operation not supported"),
+            )
+        } catch (e: IllegalStateException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "aggregateVo2MaxManually",
+                phase = "failed",
+                message = "Invalid aggregation state",
+                context = mapOf("request" to request),
+                exception = e,
+            )
+            throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
+                details = e.message ?: "No data available for aggregation",
+            )
+        } catch (e: SecurityException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "aggregateVo2MaxManually",
+                phase = "failed",
+                message = "Failed to aggregate VO2Max records",
+                context = mapOf("request" to request),
+                exception = e,
+            )
+            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+                details = "Permission access denied while processing $request: " +
+                    (e.message ?: "Access denied"),
+            )
+        } catch (e: RuntimeException) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "aggregateVo2MaxManually",
+                phase = "failed",
+                message = "Failed to aggregate VO2Max records",
+                context = mapOf("request" to request),
+                exception = e,
+            )
+            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
+            )
+        }
+    }
+
+    /**
      * Performs an aggregation query on health records.
      *
      * @param request Contains data type, aggregation metric, and time range
@@ -1133,6 +1328,12 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             // so we use manual aggregation via readRecords
             if (request.dataType == HealthDataTypeDto.RESPIRATORY_RATE) {
                 return aggregateRespiratoryRateManually(request)
+            }
+
+            // Special case: VO2Max doesn't support native aggregation,
+            // so we use manual aggregation via readRecords
+            if (request.dataType == HealthDataTypeDto.VO2MAX) {
+                return aggregateVo2MaxManually(request)
             }
 
             // Get aggregation handler for this data type

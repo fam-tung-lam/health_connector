@@ -17,6 +17,7 @@ import androidx.health.connect.client.records.RespiratoryRateRecord
 import androidx.health.connect.client.records.RestingHeartRateRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
+import androidx.health.connect.client.records.Vo2MaxRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
@@ -46,6 +47,7 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
     HealthDataTypeDto.BLOOD_PRESSURE -> BloodPressureRecord::class
     HealthDataTypeDto.OXYGEN_SATURATION -> OxygenSaturationRecord::class
     HealthDataTypeDto.RESPIRATORY_RATE -> RespiratoryRateRecord::class
+    HealthDataTypeDto.VO2MAX -> Vo2MaxRecord::class
     HealthDataTypeDto.ENERGY_NUTRIENT,
     HealthDataTypeDto.CAFFEINE,
     HealthDataTypeDto.PROTEIN,

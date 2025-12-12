@@ -188,6 +188,34 @@ enum VolumeUnitDto {
   milliliters,
 }
 
+/// VO2 max unit types supported by the plugin.
+enum Vo2MaxUnitDto {
+  millilitersPerKilogramPerMinute,
+}
+
+/// Measurement method for VO2 max calculation (Android Health Connect).
+///
+/// Maps to Health Connect Vo2MaxMeasurementMethod constants.
+enum Vo2MaxMeasurementMethodDto {
+  /// Other or unknown measurement method (0).
+  other,
+
+  /// Direct measurement using metabolic cart gas exchange analysis (1).
+  metabolicCart,
+
+  /// Calculated using heart rate ratio (maxHR / restingHR) (2).
+  heartRateRatio,
+
+  /// Based on the Cooper 12-minute run test (3).
+  cooperTest,
+
+  /// Based on the multistage fitness test (beep test) (4).
+  multistageFitnessTest,
+
+  /// Based on the Rockport 1-mile walk test (5).
+  rockportFitnessTest,
+}
+
 /// Meal type classification for nutrition records.
 enum MealTypeDto {
   /// Unknown or unspecified meal type.
@@ -441,6 +469,9 @@ enum HealthDataTypeDto {
 
   /// Respiratory rate data.
   respiratoryRate,
+
+  /// VO2 max (maximal oxygen uptake) data.
+  vo2Max,
 }
 
 /// Sleep stage type enum.
@@ -1038,6 +1069,58 @@ class VolumeDto extends MeasurementUnitDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
+/// Represents a VO2 max measurement for platform transfer.
+///
+/// VO2 max is measured in milliliters of oxygen per kilogram of body weight
+/// per minute (mL/kg/min).
+class Vo2MaxDto extends MeasurementUnitDto {
+  Vo2MaxDto({
+    required this.unit,
+    required this.value,
+  });
+
+  /// The unit in which the value is expressed.
+  Vo2MaxUnitDto unit;
+
+  /// The numeric value of the VO2 max.
+  double value;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      unit,
+      value,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static Vo2MaxDto decode(Object result) {
+    result as List<Object?>;
+    return Vo2MaxDto(
+      unit: result[0]! as Vo2MaxUnitDto,
+      value: result[1]! as double,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! Vo2MaxDto || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
 /// Represents metadata for a health record.
 class MetadataDto {
   MetadataDto({
@@ -1337,7 +1420,84 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents an active calories burned record for platform transfer.
+/// Represents a VO2 max record for platform transfer.
+///
+/// VO2 max is the maximum rate of oxygen consumption during exercise,
+/// typically measured in mL/kg/min.
+class Vo2MaxRecordDto extends HealthRecordDto {
+  Vo2MaxRecordDto({
+    this.id,
+    required this.time,
+    required this.metadata,
+    required this.vo2Max,
+    this.measurementMethod,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  String? id;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  int time;
+
+  /// Metadata about this record.
+  MetadataDto metadata;
+
+  /// The VO2 max value in mL/kg/min.
+  Vo2MaxDto vo2Max;
+
+  /// The method used to measure or estimate VO2 max.
+  ///
+  /// Maps to Health Connect's Vo2MaxMeasurementMethod.
+  Vo2MaxMeasurementMethodDto? measurementMethod;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  int? zoneOffsetSeconds;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      id,
+      time,
+      metadata,
+      vo2Max,
+      measurementMethod,
+      zoneOffsetSeconds,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static Vo2MaxRecordDto decode(Object result) {
+    result as List<Object?>;
+    return Vo2MaxRecordDto(
+      id: result[0] as String?,
+      time: result[1]! as int,
+      metadata: result[2]! as MetadataDto,
+      vo2Max: result[3]! as Vo2MaxDto,
+      measurementMethod: result[4] as Vo2MaxMeasurementMethodDto?,
+      zoneOffsetSeconds: result[5] as int?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! Vo2MaxRecordDto || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
 class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
   ActiveCaloriesBurnedRecordDto({
     required this.energy,
@@ -3857,194 +4017,206 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is VolumeUnitDto) {
       buffer.putUint8(143);
       writeValue(buffer, value.index);
-    } else if (value is MealTypeDto) {
+    } else if (value is Vo2MaxUnitDto) {
       buffer.putUint8(144);
       writeValue(buffer, value.index);
-    } else if (value is BodyPositionDto) {
+    } else if (value is Vo2MaxMeasurementMethodDto) {
       buffer.putUint8(145);
       writeValue(buffer, value.index);
-    } else if (value is MeasurementLocationDto) {
+    } else if (value is MealTypeDto) {
       buffer.putUint8(146);
       writeValue(buffer, value.index);
-    } else if (value is DeviceTypeDto) {
+    } else if (value is BodyPositionDto) {
       buffer.putUint8(147);
       writeValue(buffer, value.index);
-    } else if (value is RecordingMethodDto) {
+    } else if (value is MeasurementLocationDto) {
       buffer.putUint8(148);
       writeValue(buffer, value.index);
-    } else if (value is HealthDataTypeDto) {
+    } else if (value is DeviceTypeDto) {
       buffer.putUint8(149);
       writeValue(buffer, value.index);
-    } else if (value is SleepStageTypeDto) {
+    } else if (value is RecordingMethodDto) {
       buffer.putUint8(150);
       writeValue(buffer, value.index);
-    } else if (value is HealthPlatformFeatureDto) {
+    } else if (value is HealthDataTypeDto) {
       buffer.putUint8(151);
       writeValue(buffer, value.index);
-    } else if (value is HealthPlatformFeatureStatusDto) {
+    } else if (value is SleepStageTypeDto) {
       buffer.putUint8(152);
       writeValue(buffer, value.index);
-    } else if (value is AggregationMetricDto) {
+    } else if (value is HealthPlatformFeatureDto) {
       buffer.putUint8(153);
       writeValue(buffer, value.index);
-    } else if (value is BloodPressureHealthDataTypeDto) {
+    } else if (value is HealthPlatformFeatureStatusDto) {
       buffer.putUint8(154);
       writeValue(buffer, value.index);
-    } else if (value is BloodGlucoseDto) {
+    } else if (value is AggregationMetricDto) {
       buffer.putUint8(155);
-      writeValue(buffer, value.encode());
-    } else if (value is EnergyDto) {
+      writeValue(buffer, value.index);
+    } else if (value is BloodPressureHealthDataTypeDto) {
       buffer.putUint8(156);
-      writeValue(buffer, value.encode());
-    } else if (value is LengthDto) {
+      writeValue(buffer, value.index);
+    } else if (value is BloodGlucoseDto) {
       buffer.putUint8(157);
       writeValue(buffer, value.encode());
-    } else if (value is MassDto) {
+    } else if (value is EnergyDto) {
       buffer.putUint8(158);
       writeValue(buffer, value.encode());
-    } else if (value is NumericDto) {
+    } else if (value is LengthDto) {
       buffer.putUint8(159);
       writeValue(buffer, value.encode());
-    } else if (value is PercentageDto) {
+    } else if (value is MassDto) {
       buffer.putUint8(160);
       writeValue(buffer, value.encode());
-    } else if (value is PowerDto) {
+    } else if (value is NumericDto) {
       buffer.putUint8(161);
       writeValue(buffer, value.encode());
-    } else if (value is PressureDto) {
+    } else if (value is PercentageDto) {
       buffer.putUint8(162);
       writeValue(buffer, value.encode());
-    } else if (value is TemperatureDto) {
+    } else if (value is PowerDto) {
       buffer.putUint8(163);
       writeValue(buffer, value.encode());
-    } else if (value is VelocityDto) {
+    } else if (value is PressureDto) {
       buffer.putUint8(164);
       writeValue(buffer, value.encode());
-    } else if (value is VolumeDto) {
+    } else if (value is TemperatureDto) {
       buffer.putUint8(165);
       writeValue(buffer, value.encode());
-    } else if (value is MetadataDto) {
+    } else if (value is VelocityDto) {
       buffer.putUint8(166);
       writeValue(buffer, value.encode());
-    } else if (value is RestingHeartRateRecordDto) {
+    } else if (value is VolumeDto) {
       buffer.putUint8(167);
       writeValue(buffer, value.encode());
-    } else if (value is OxygenSaturationRecordDto) {
+    } else if (value is Vo2MaxDto) {
       buffer.putUint8(168);
       writeValue(buffer, value.encode());
-    } else if (value is RespiratoryRateRecordDto) {
+    } else if (value is MetadataDto) {
       buffer.putUint8(169);
       writeValue(buffer, value.encode());
-    } else if (value is ActiveCaloriesBurnedRecordDto) {
+    } else if (value is RestingHeartRateRecordDto) {
       buffer.putUint8(170);
       writeValue(buffer, value.encode());
-    } else if (value is DistanceRecordDto) {
+    } else if (value is OxygenSaturationRecordDto) {
       buffer.putUint8(171);
       writeValue(buffer, value.encode());
-    } else if (value is FloorsClimbedRecordDto) {
+    } else if (value is RespiratoryRateRecordDto) {
       buffer.putUint8(172);
       writeValue(buffer, value.encode());
-    } else if (value is WheelchairPushesRecordDto) {
+    } else if (value is Vo2MaxRecordDto) {
       buffer.putUint8(173);
       writeValue(buffer, value.encode());
-    } else if (value is StepRecordDto) {
+    } else if (value is ActiveCaloriesBurnedRecordDto) {
       buffer.putUint8(174);
       writeValue(buffer, value.encode());
-    } else if (value is WeightRecordDto) {
+    } else if (value is DistanceRecordDto) {
       buffer.putUint8(175);
       writeValue(buffer, value.encode());
-    } else if (value is BloodPressureRecordDto) {
+    } else if (value is FloorsClimbedRecordDto) {
       buffer.putUint8(176);
       writeValue(buffer, value.encode());
-    } else if (value is LeanBodyMassRecordDto) {
+    } else if (value is WheelchairPushesRecordDto) {
       buffer.putUint8(177);
       writeValue(buffer, value.encode());
-    } else if (value is HeightRecordDto) {
+    } else if (value is StepRecordDto) {
       buffer.putUint8(178);
       writeValue(buffer, value.encode());
-    } else if (value is BodyFatPercentageRecordDto) {
+    } else if (value is WeightRecordDto) {
       buffer.putUint8(179);
       writeValue(buffer, value.encode());
-    } else if (value is BodyTemperatureRecordDto) {
+    } else if (value is BloodPressureRecordDto) {
       buffer.putUint8(180);
       writeValue(buffer, value.encode());
-    } else if (value is HydrationRecordDto) {
+    } else if (value is LeanBodyMassRecordDto) {
       buffer.putUint8(181);
       writeValue(buffer, value.encode());
-    } else if (value is HeartRateMeasurementDto) {
+    } else if (value is HeightRecordDto) {
       buffer.putUint8(182);
       writeValue(buffer, value.encode());
-    } else if (value is HeartRateSeriesRecordDto) {
+    } else if (value is BodyFatPercentageRecordDto) {
       buffer.putUint8(183);
       writeValue(buffer, value.encode());
-    } else if (value is SleepStageDto) {
+    } else if (value is BodyTemperatureRecordDto) {
       buffer.putUint8(184);
       writeValue(buffer, value.encode());
-    } else if (value is SleepSessionRecordDto) {
+    } else if (value is HydrationRecordDto) {
       buffer.putUint8(185);
       writeValue(buffer, value.encode());
-    } else if (value is NutritionRecordDto) {
+    } else if (value is HeartRateMeasurementDto) {
       buffer.putUint8(186);
       writeValue(buffer, value.encode());
-    } else if (value is HealthPlatformFeaturePermissionRequestResultDto) {
+    } else if (value is HeartRateSeriesRecordDto) {
       buffer.putUint8(187);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataPermissionDto) {
+    } else if (value is SleepStageDto) {
       buffer.putUint8(188);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataPermissionRequestResultDto) {
+    } else if (value is SleepSessionRecordDto) {
       buffer.putUint8(189);
       writeValue(buffer, value.encode());
-    } else if (value is PermissionsRequestDto) {
+    } else if (value is NutritionRecordDto) {
       buffer.putUint8(190);
       writeValue(buffer, value.encode());
-    } else if (value is PermissionsRequestResponseDto) {
+    } else if (value is HealthPlatformFeaturePermissionRequestResultDto) {
       buffer.putUint8(191);
       writeValue(buffer, value.encode());
-    } else if (value is CommonAggregateRequestDto) {
+    } else if (value is HealthDataPermissionDto) {
       buffer.putUint8(192);
       writeValue(buffer, value.encode());
-    } else if (value is BloodPressureAggregateRequestDto) {
+    } else if (value is HealthDataPermissionRequestResultDto) {
       buffer.putUint8(193);
       writeValue(buffer, value.encode());
-    } else if (value is AggregateResponseDto) {
+    } else if (value is PermissionsRequestDto) {
       buffer.putUint8(194);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByIdsRequestDto) {
+    } else if (value is PermissionsRequestResponseDto) {
       buffer.putUint8(195);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
+    } else if (value is CommonAggregateRequestDto) {
       buffer.putUint8(196);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordRequestDto) {
+    } else if (value is BloodPressureAggregateRequestDto) {
       buffer.putUint8(197);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordResponseDto) {
+    } else if (value is AggregateResponseDto) {
       buffer.putUint8(198);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsRequestDto) {
+    } else if (value is DeleteRecordsByIdsRequestDto) {
       buffer.putUint8(199);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsResponseDto) {
+    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
       buffer.putUint8(200);
       writeValue(buffer, value.encode());
-    } else if (value is WriteRecordRequestDto) {
+    } else if (value is ReadRecordRequestDto) {
       buffer.putUint8(201);
       writeValue(buffer, value.encode());
-    } else if (value is WriteRecordResponseDto) {
+    } else if (value is ReadRecordResponseDto) {
       buffer.putUint8(202);
       writeValue(buffer, value.encode());
-    } else if (value is WriteRecordsRequestDto) {
+    } else if (value is ReadRecordsRequestDto) {
       buffer.putUint8(203);
       writeValue(buffer, value.encode());
-    } else if (value is WriteRecordsResponseDto) {
+    } else if (value is ReadRecordsResponseDto) {
       buffer.putUint8(204);
       writeValue(buffer, value.encode());
-    } else if (value is UpdateRecordRequestDto) {
+    } else if (value is WriteRecordRequestDto) {
       buffer.putUint8(205);
       writeValue(buffer, value.encode());
-    } else if (value is UpdateRecordResponseDto) {
+    } else if (value is WriteRecordResponseDto) {
       buffer.putUint8(206);
+      writeValue(buffer, value.encode());
+    } else if (value is WriteRecordsRequestDto) {
+      buffer.putUint8(207);
+      writeValue(buffer, value.encode());
+    } else if (value is WriteRecordsResponseDto) {
+      buffer.putUint8(208);
+      writeValue(buffer, value.encode());
+    } else if (value is UpdateRecordRequestDto) {
+      buffer.putUint8(209);
+      writeValue(buffer, value.encode());
+    } else if (value is UpdateRecordResponseDto) {
+      buffer.putUint8(210);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -4101,146 +4273,156 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : VolumeUnitDto.values[value];
       case 144:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : MealTypeDto.values[value];
+        return value == null ? null : Vo2MaxUnitDto.values[value];
       case 145:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : BodyPositionDto.values[value];
+        return value == null ? null : Vo2MaxMeasurementMethodDto.values[value];
       case 146:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : MeasurementLocationDto.values[value];
+        return value == null ? null : MealTypeDto.values[value];
       case 147:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : DeviceTypeDto.values[value];
+        return value == null ? null : BodyPositionDto.values[value];
       case 148:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : RecordingMethodDto.values[value];
+        return value == null ? null : MeasurementLocationDto.values[value];
       case 149:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : HealthDataTypeDto.values[value];
+        return value == null ? null : DeviceTypeDto.values[value];
       case 150:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : SleepStageTypeDto.values[value];
+        return value == null ? null : RecordingMethodDto.values[value];
       case 151:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : HealthPlatformFeatureDto.values[value];
+        return value == null ? null : HealthDataTypeDto.values[value];
       case 152:
         final int? value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : HealthPlatformFeatureStatusDto.values[value];
+        return value == null ? null : SleepStageTypeDto.values[value];
       case 153:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : AggregationMetricDto.values[value];
+        return value == null ? null : HealthPlatformFeatureDto.values[value];
       case 154:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
-            : BloodPressureHealthDataTypeDto.values[value];
+            : HealthPlatformFeatureStatusDto.values[value];
       case 155:
-        return BloodGlucoseDto.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : AggregationMetricDto.values[value];
       case 156:
-        return EnergyDto.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null
+            ? null
+            : BloodPressureHealthDataTypeDto.values[value];
       case 157:
-        return LengthDto.decode(readValue(buffer)!);
+        return BloodGlucoseDto.decode(readValue(buffer)!);
       case 158:
-        return MassDto.decode(readValue(buffer)!);
+        return EnergyDto.decode(readValue(buffer)!);
       case 159:
-        return NumericDto.decode(readValue(buffer)!);
+        return LengthDto.decode(readValue(buffer)!);
       case 160:
-        return PercentageDto.decode(readValue(buffer)!);
+        return MassDto.decode(readValue(buffer)!);
       case 161:
-        return PowerDto.decode(readValue(buffer)!);
+        return NumericDto.decode(readValue(buffer)!);
       case 162:
-        return PressureDto.decode(readValue(buffer)!);
+        return PercentageDto.decode(readValue(buffer)!);
       case 163:
-        return TemperatureDto.decode(readValue(buffer)!);
+        return PowerDto.decode(readValue(buffer)!);
       case 164:
-        return VelocityDto.decode(readValue(buffer)!);
+        return PressureDto.decode(readValue(buffer)!);
       case 165:
-        return VolumeDto.decode(readValue(buffer)!);
+        return TemperatureDto.decode(readValue(buffer)!);
       case 166:
-        return MetadataDto.decode(readValue(buffer)!);
+        return VelocityDto.decode(readValue(buffer)!);
       case 167:
-        return RestingHeartRateRecordDto.decode(readValue(buffer)!);
+        return VolumeDto.decode(readValue(buffer)!);
       case 168:
-        return OxygenSaturationRecordDto.decode(readValue(buffer)!);
+        return Vo2MaxDto.decode(readValue(buffer)!);
       case 169:
-        return RespiratoryRateRecordDto.decode(readValue(buffer)!);
+        return MetadataDto.decode(readValue(buffer)!);
       case 170:
-        return ActiveCaloriesBurnedRecordDto.decode(readValue(buffer)!);
+        return RestingHeartRateRecordDto.decode(readValue(buffer)!);
       case 171:
-        return DistanceRecordDto.decode(readValue(buffer)!);
+        return OxygenSaturationRecordDto.decode(readValue(buffer)!);
       case 172:
-        return FloorsClimbedRecordDto.decode(readValue(buffer)!);
+        return RespiratoryRateRecordDto.decode(readValue(buffer)!);
       case 173:
-        return WheelchairPushesRecordDto.decode(readValue(buffer)!);
+        return Vo2MaxRecordDto.decode(readValue(buffer)!);
       case 174:
-        return StepRecordDto.decode(readValue(buffer)!);
+        return ActiveCaloriesBurnedRecordDto.decode(readValue(buffer)!);
       case 175:
-        return WeightRecordDto.decode(readValue(buffer)!);
+        return DistanceRecordDto.decode(readValue(buffer)!);
       case 176:
-        return BloodPressureRecordDto.decode(readValue(buffer)!);
+        return FloorsClimbedRecordDto.decode(readValue(buffer)!);
       case 177:
-        return LeanBodyMassRecordDto.decode(readValue(buffer)!);
+        return WheelchairPushesRecordDto.decode(readValue(buffer)!);
       case 178:
-        return HeightRecordDto.decode(readValue(buffer)!);
+        return StepRecordDto.decode(readValue(buffer)!);
       case 179:
-        return BodyFatPercentageRecordDto.decode(readValue(buffer)!);
+        return WeightRecordDto.decode(readValue(buffer)!);
       case 180:
-        return BodyTemperatureRecordDto.decode(readValue(buffer)!);
+        return BloodPressureRecordDto.decode(readValue(buffer)!);
       case 181:
-        return HydrationRecordDto.decode(readValue(buffer)!);
+        return LeanBodyMassRecordDto.decode(readValue(buffer)!);
       case 182:
-        return HeartRateMeasurementDto.decode(readValue(buffer)!);
+        return HeightRecordDto.decode(readValue(buffer)!);
       case 183:
-        return HeartRateSeriesRecordDto.decode(readValue(buffer)!);
+        return BodyFatPercentageRecordDto.decode(readValue(buffer)!);
       case 184:
-        return SleepStageDto.decode(readValue(buffer)!);
+        return BodyTemperatureRecordDto.decode(readValue(buffer)!);
       case 185:
-        return SleepSessionRecordDto.decode(readValue(buffer)!);
+        return HydrationRecordDto.decode(readValue(buffer)!);
       case 186:
-        return NutritionRecordDto.decode(readValue(buffer)!);
+        return HeartRateMeasurementDto.decode(readValue(buffer)!);
       case 187:
+        return HeartRateSeriesRecordDto.decode(readValue(buffer)!);
+      case 188:
+        return SleepStageDto.decode(readValue(buffer)!);
+      case 189:
+        return SleepSessionRecordDto.decode(readValue(buffer)!);
+      case 190:
+        return NutritionRecordDto.decode(readValue(buffer)!);
+      case 191:
         return HealthPlatformFeaturePermissionRequestResultDto.decode(
           readValue(buffer)!,
         );
-      case 188:
-        return HealthDataPermissionDto.decode(readValue(buffer)!);
-      case 189:
-        return HealthDataPermissionRequestResultDto.decode(readValue(buffer)!);
-      case 190:
-        return PermissionsRequestDto.decode(readValue(buffer)!);
-      case 191:
-        return PermissionsRequestResponseDto.decode(readValue(buffer)!);
       case 192:
-        return CommonAggregateRequestDto.decode(readValue(buffer)!);
+        return HealthDataPermissionDto.decode(readValue(buffer)!);
       case 193:
-        return BloodPressureAggregateRequestDto.decode(readValue(buffer)!);
+        return HealthDataPermissionRequestResultDto.decode(readValue(buffer)!);
       case 194:
-        return AggregateResponseDto.decode(readValue(buffer)!);
+        return PermissionsRequestDto.decode(readValue(buffer)!);
       case 195:
-        return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
+        return PermissionsRequestResponseDto.decode(readValue(buffer)!);
       case 196:
-        return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
+        return CommonAggregateRequestDto.decode(readValue(buffer)!);
       case 197:
-        return ReadRecordRequestDto.decode(readValue(buffer)!);
+        return BloodPressureAggregateRequestDto.decode(readValue(buffer)!);
       case 198:
-        return ReadRecordResponseDto.decode(readValue(buffer)!);
+        return AggregateResponseDto.decode(readValue(buffer)!);
       case 199:
-        return ReadRecordsRequestDto.decode(readValue(buffer)!);
+        return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
       case 200:
-        return ReadRecordsResponseDto.decode(readValue(buffer)!);
+        return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
       case 201:
-        return WriteRecordRequestDto.decode(readValue(buffer)!);
+        return ReadRecordRequestDto.decode(readValue(buffer)!);
       case 202:
-        return WriteRecordResponseDto.decode(readValue(buffer)!);
+        return ReadRecordResponseDto.decode(readValue(buffer)!);
       case 203:
-        return WriteRecordsRequestDto.decode(readValue(buffer)!);
+        return ReadRecordsRequestDto.decode(readValue(buffer)!);
       case 204:
-        return WriteRecordsResponseDto.decode(readValue(buffer)!);
+        return ReadRecordsResponseDto.decode(readValue(buffer)!);
       case 205:
-        return UpdateRecordRequestDto.decode(readValue(buffer)!);
+        return WriteRecordRequestDto.decode(readValue(buffer)!);
       case 206:
+        return WriteRecordResponseDto.decode(readValue(buffer)!);
+      case 207:
+        return WriteRecordsRequestDto.decode(readValue(buffer)!);
+      case 208:
+        return WriteRecordsResponseDto.decode(readValue(buffer)!);
+      case 209:
+        return UpdateRecordRequestDto.decode(readValue(buffer)!);
+      case 210:
         return UpdateRecordResponseDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);

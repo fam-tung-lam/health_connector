@@ -18,6 +18,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.RespiratoryRateRecordD
 import com.phamtunglam.health_connector_hc_android.pigeon.RestingHeartRateRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecordDto
 
@@ -45,5 +46,6 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is NutritionRecordDto -> toHealthConnect()
     is OxygenSaturationRecordDto -> toHealthConnect()
     is RespiratoryRateRecordDto -> toHealthConnect()
+    is Vo2MaxRecordDto -> toHealthConnect()
     is BloodPressureRecordDto -> toHealthConnect()
 }

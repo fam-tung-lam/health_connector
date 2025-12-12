@@ -52,6 +52,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         VitaminDNutrientDataType,
         VitaminENutrientDataType,
         VitaminKNutrientDataType,
+        Vo2MaxHealthDataType,
         WeightHealthDataType,
         WheelchairPushesHealthDataType,
         ZincNutrientDataType,
@@ -169,6 +170,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.oxygenSaturation;
       case HealthDataTypeDto.respiratoryRate:
         return HealthDataType.respiratoryRate;
+      case HealthDataTypeDto.vo2Max:
+        return HealthDataType.vo2Max;
     }
   }
 }
@@ -280,6 +283,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.nutrition;
       case RestingHeartRateHealthDataType _:
         return HealthDataTypeDto.restingHeartRate;
+      case Vo2MaxHealthDataType _:
+        return HealthDataTypeDto.vo2Max;
       case SleepStageHealthDataType _:
         throw UnsupportedError(
           '$SleepStageHealthDataType is not supported on '

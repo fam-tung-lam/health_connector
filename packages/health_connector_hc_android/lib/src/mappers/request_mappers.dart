@@ -61,7 +61,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         NiacinNutrientDataType,
         FolateNutrientDataType,
         BiotinNutrientDataType,
-        PantothenicAcidNutrientDataType;
+        PantothenicAcidNutrientDataType,
+        Vo2MaxHealthDataType;
 import 'package:health_connector_hc_android/src/mappers/'
     'aggregation_metric_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mappers.dart';
@@ -195,6 +196,7 @@ extension AggregateRequestDtoMapper<
           case OxygenSaturationHealthDataType _:
           case RestingHeartRateHealthDataType _:
           case RespiratoryRateHealthDataType _:
+          case Vo2MaxHealthDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',
             );

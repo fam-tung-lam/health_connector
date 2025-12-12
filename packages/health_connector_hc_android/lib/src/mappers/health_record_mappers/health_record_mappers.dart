@@ -15,9 +15,9 @@ export 'nutrition_record_mappers.dart';
 export 'oxygen_saturation_record_mappers.dart';
 export 'respiratory_rate_record_mappers.dart';
 export 'resting_heart_rate_record_mappers.dart';
-
 export 'sleep_session_record_mappers.dart';
 export 'sleep_stage_mappers.dart';
 export 'step_record_mappers.dart';
+export 'vo2_max_record_mappers.dart';
 export 'weight_record_mappers.dart';
 export 'wheelchair_pushes_record_mappers.dart';
