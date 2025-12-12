@@ -12,6 +12,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         Numeric,
         Percentage,
         RespiratoryRate,
+        Vo2Max,
         MeasurementUnit;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
     show
@@ -37,7 +38,9 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api
         PowerUnitDto,
         BloodGlucoseUnitDto,
         NumericUnitDto,
-        PercentageUnitDto;
+        PercentageUnitDto,
+        Vo2MaxDto,
+        Vo2MaxUnitDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [MeasurementUnit] to [MeasurementUnitDto].
@@ -102,6 +105,11 @@ extension MeasurementUnitToDto on MeasurementUnit {
         return NumericDto(
           value: unit.breathsPerMinute,
           unit: NumericUnitDto.numeric,
+        );
+      case final Vo2Max unit:
+        return Vo2MaxDto(
+          value: unit.value,
+          unit: Vo2MaxUnitDto.millilitersPerKilogramPerMinute,
         );
     }
   }
@@ -201,6 +209,11 @@ extension MeasurementUnitDtoToDomain on MeasurementUnitDto {
             return Percentage.fromDecimal(dto.value);
           case PercentageUnitDto.whole:
             return Percentage.fromWhole(dto.value);
+        }
+      case final Vo2MaxDto dto:
+        switch (dto.unit) {
+          case Vo2MaxUnitDto.millilitersPerKilogramPerMinute:
+            return Vo2Max.millilitersPerKilogramPerMinute(dto.value);
         }
     }
   }

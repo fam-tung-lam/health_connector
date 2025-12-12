@@ -113,6 +113,26 @@ enum VelocityUnitDto { kilometersPerHour, metersPerSecond, milesPerHour }
 /// Volume unit types supported by the plugin.
 enum VolumeUnitDto { fluidOuncesUs, liters, milliliters }
 
+/// VO2 max unit types supported by the plugin.
+enum Vo2MaxUnitDto { millilitersPerKilogramPerMinute }
+
+/// Test type for VO2 max measurement (iOS HealthKit).
+///
+/// Maps to HKMetadataKeyVO2MaxTestType enum values.
+enum Vo2MaxTestTypeDto {
+  /// Direct measurement at maximum exercise (gold standard).
+  maxExercise,
+
+  /// Estimated from sub-maximal exercise.
+  predictionSubMaxExercise,
+
+  /// Estimated without exercise (e.g., from heart rate ratio).
+  predictionNonExercise,
+
+  /// Step-based protocol prediction.
+  predictionStepTest,
+}
+
 /// Represents a blood glucose measurement for platform transfer.
 class BloodGlucoseDto extends MeasurementUnitDto {
   BloodGlucoseDto({required this.value, required this.unit});
@@ -231,6 +251,20 @@ class VolumeDto extends MeasurementUnitDto {
   final VolumeUnitDto unit;
 
   /// The numeric value of the volume.
+  final double value;
+}
+
+/// Represents a VO2 max measurement for platform transfer.
+///
+/// VO2 max is measured in milliliters of oxygen per kilogram of body weight
+/// per minute (mL/kg/min).
+class Vo2MaxDto extends MeasurementUnitDto {
+  Vo2MaxDto({required this.value, required this.unit});
+
+  /// The unit in which the value is expressed.
+  final Vo2MaxUnitDto unit;
+
+  /// The numeric value of the VO2 max.
   final double value;
 }
 
@@ -571,6 +605,9 @@ enum HealthDataTypeDto {
 
   /// Respiratory rate data.
   respiratoryRate,
+
+  /// VO2 max (maximal oxygen uptake) data.
+  vo2Max,
 }
 
 /// Represents a resting heart rate record for platform transfer.
@@ -599,7 +636,41 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 }
 
-/// Represents an active calories burned record for platform transfer.
+/// Represents a VO2 max record for platform transfer.
+///
+/// VO2 max is the maximum rate of oxygen consumption during exercise,
+/// typically measured in mL/kg/min.
+class Vo2MaxRecordDto extends HealthRecordDto {
+  Vo2MaxRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.vo2Max,
+    this.testType,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The VO2 max value in mL/kg/min.
+  final Vo2MaxDto vo2Max;
+
+  /// The test type used to determine VO2 max.
+  ///
+  /// Maps to HKMetadataKeyVO2MaxTestType.
+  final Vo2MaxTestTypeDto? testType;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
 class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
   ActiveCaloriesBurnedRecordDto({
     required this.id,

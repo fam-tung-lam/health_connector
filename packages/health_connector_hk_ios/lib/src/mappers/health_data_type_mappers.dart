@@ -57,7 +57,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         PantothenicAcidNutrientDataType,
         BloodPressureHealthDataType,
         SystolicBloodPressureHealthDataType,
-        DiastolicBloodPressureHealthDataType;
+        DiastolicBloodPressureHealthDataType,
+        Vo2MaxHealthDataType;
 
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
     show HealthDataTypeDto;
@@ -182,6 +183,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.oxygenSaturation;
       case HealthDataTypeDto.respiratoryRate:
         return HealthDataType.respiratoryRate;
+      case HealthDataTypeDto.vo2Max:
+        return HealthDataType.vo2Max;
     }
   }
 }
@@ -317,6 +320,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.oxygenSaturation;
       case RespiratoryRateHealthDataType _:
         return HealthDataTypeDto.respiratoryRate;
+      case Vo2MaxHealthDataType _:
+        return HealthDataTypeDto.vo2Max;
     }
   }
 }

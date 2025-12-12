@@ -55,7 +55,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         WheelchairPushesRecord,
         ZincNutrientRecord,
         OxygenSaturationRecord,
-        RespiratoryRateRecord;
+        RespiratoryRateRecord,
+        Vo2MaxRecord;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mappers.dart';
 
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
@@ -113,7 +114,8 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api
         WheelchairPushesRecordDto,
         ZincNutrientRecordDto,
         OxygenSaturationRecordDto,
-        RespiratoryRateRecordDto;
+        RespiratoryRateRecordDto,
+        Vo2MaxRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [HealthRecord] to [HealthRecordDto].
@@ -237,6 +239,8 @@ extension HealthRecordToDto on HealthRecord {
           '$SleepSessionRecord is not supported on iOS HealthKit. '
           'Use $SleepStageRecord instead.',
         );
+      case final Vo2MaxRecord record:
+        return record.toDto();
     }
   }
 }
@@ -349,6 +353,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
       case final ZincNutrientRecordDto dto:
         return dto.toDomain();
       case final NutritionRecordDto dto:
+        return dto.toDomain();
+      case final Vo2MaxRecordDto dto:
         return dto.toDomain();
     }
   }
