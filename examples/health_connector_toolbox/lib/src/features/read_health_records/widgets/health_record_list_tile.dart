@@ -39,6 +39,7 @@ import 'package:health_connector/health_connector.dart'
         PolyunsaturatedFatNutrientRecord,
         PotassiumNutrientRecord,
         ProteinNutrientRecord,
+        RespiratoryRateRecord,
         RestingHeartRateRecord,
         RiboflavinNutrientRecord,
         SaturatedFatNutrientRecord,
@@ -210,7 +211,9 @@ final class HealthRecordListTile extends StatelessWidget {
     InstantHealthRecord record,
   ) {
     return switch (record) {
+      RespiratoryRateRecord() => _buildRespiratoryRateRecord(record, onDelete),
       BloodPressureRecord() => _buildBloodPressureRecord(record, onDelete),
+
       SystolicBloodPressureRecord() => _buildSystolicBloodPressureRecord(
         record,
         onDelete,
@@ -1831,5 +1834,41 @@ final class HealthRecordListTile extends StatelessWidget {
       BloodPressureMeasurementLocation.rightUpperArm =>
         AppTexts.measurementLocationRightUpperArm,
     };
+  }
+
+  Widget _buildRespiratoryRateRecord(
+    RespiratoryRateRecord record,
+    VoidCallback onDelete,
+  ) {
+    return InstantHealthRecordTile<RespiratoryRateRecord>(
+      record: record,
+      icon: AppIcons.air,
+      title: '${record.rate.breathsPerMinute} ${AppTexts.breathsPerMinute}',
+      subtitleBuilder: (r, ctx) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 4),
+          Text(
+            '${AppTexts.time}: ${DateFormatUtils.formatDateTime(r.time)}',
+          ),
+          Text(
+            '${AppTexts.recording}: ${r.metadata.recordingMethod.name}',
+            style: const TextStyle(
+              fontSize: 12,
+              color: theme.AppColors.grey600,
+            ),
+          ),
+        ],
+      ),
+      detailRowsBuilder: (r, ctx) => [
+        HealthRecordDetailRow(
+          label: AppTexts.value,
+          value:
+              '${r.rate.breathsPerMinute.toStringAsFixed(1)} '
+              '${AppTexts.breathsPerMinute}',
+        ),
+      ],
+      onDelete: onDelete,
+    );
   }
 }

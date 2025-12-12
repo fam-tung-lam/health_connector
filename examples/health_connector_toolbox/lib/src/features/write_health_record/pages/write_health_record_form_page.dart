@@ -53,6 +53,7 @@ import 'package:health_connector/health_connector.dart'
         SeleniumNutrientDataType,
         SodiumNutrientDataType,
         StepsHealthDataType,
+        RespiratoryRateHealthDataType,
         SugarNutrientDataType,
         SystolicBloodPressureHealthDataType,
         ThiaminNutrientDataType,
@@ -616,6 +617,8 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
           AppTexts.writePermissionDeniedRestingHeartRateRecord,
         OxygenSaturationHealthDataType() =>
           AppTexts.writePermissionDeniedOxygenSaturation,
+        RespiratoryRateHealthDataType() =>
+          AppTexts.writePermissionDeniedRespiratoryRate,
       };
     }
     return e.message;
@@ -697,6 +700,7 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                 AppTexts.insertRestingHeartRateRecord,
               OxygenSaturationHealthDataType() =>
                 AppTexts.insertOxygenSaturation,
+              RespiratoryRateHealthDataType() => AppTexts.insertRespiratoryRate,
             },
           ),
         ),

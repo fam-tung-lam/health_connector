@@ -152,6 +152,10 @@ abstract final class AppTexts {
   static const String oxygenSaturationDescription =
       'Oxygen saturation measurement at a point in time';
   static const String oxygenSaturationValue = 'Oxygen Saturation (%)';
+  static const String respiratoryRate = 'Respiratory Rate';
+  static const String respiratoryRateDescription =
+      'Respiratory rate measurement at a point in time';
+  static const String respiratoryRateValue = 'Respiratory Rate (breaths/min)';
 
   static const String measurementLocation = 'Measurement Location';
   static const String measurementLocationLeftWrist = 'Left Wrist';
@@ -374,6 +378,10 @@ abstract final class AppTexts {
       'Write permission denied or not supported. '
       'Please grant write permission for oxygen saturation.';
 
+  static const String writePermissionDeniedRespiratoryRate =
+      'Write permission denied or not supported. '
+      'Please grant write permission for respiratory rate.';
+
   // ==========================================================================
   // Validation Messages
   // ==========================================================================
@@ -446,6 +454,11 @@ abstract final class AppTexts {
   static const String oxygenSaturationMustBeBetween0And100 =
       'Oxygen saturation must be between 0 and 100';
 
+  static const String pleaseEnterRespiratoryRate =
+      'Please enter respiratory rate';
+  static const String respiratoryRateMustBePositive =
+      'Respiratory rate must be a positive number';
+
   // ==========================================================================
   // Page Titles and Actions
   // ==========================================================================
@@ -473,6 +486,8 @@ abstract final class AppTexts {
   static const String insertDiastolicBloodPressure =
       'Insert Diastolic Blood Pressure';
   static const String insertOxygenSaturation = 'Insert Oxygen Saturation';
+  static const String insertRespiratoryRate = 'Insert Respiratory Rate';
+
   static const String readHealthRecords = 'Read Health Records';
   static const String readAggregateData = 'Read Aggregate Data';
 
@@ -824,4 +839,5 @@ abstract final class AppTexts {
   static const String energyKcalHelper = 'Enter energy in kilocalories';
   static const String fieldOptionalHelper = 'Enter value in';
   static const String fieldOptional = '(optional)';
+  static const String breathsPerMinute = 'breaths/min';
 }

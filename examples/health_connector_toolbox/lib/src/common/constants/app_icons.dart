@@ -25,6 +25,7 @@ abstract final class AppIcons {
   static const IconData calculate = Icons.calculate;
   static const IconData favorite = Icons.favorite;
   static const IconData bedtime = Icons.bedtime;
+  static const IconData air = Icons.air;
 
   static const IconData fastfood = Icons.fastfood;
   static const IconData bloodPressure = Icons.compress;

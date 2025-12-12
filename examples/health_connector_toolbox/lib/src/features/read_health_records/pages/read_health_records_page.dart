@@ -38,6 +38,7 @@ import 'package:health_connector/health_connector.dart'
         PotassiumNutrientDataType,
         ProteinNutrientDataType,
         RiboflavinNutrientDataType,
+        RespiratoryRateHealthDataType,
         SaturatedFatNutrientDataType,
         SeleniumNutrientDataType,
         SodiumNutrientDataType,
@@ -412,6 +413,12 @@ class _ReadHealthRecordsPageState
         ),
         OxygenSaturationHealthDataType() =>
           HealthDataType.oxygenSaturation.readRecords(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        RespiratoryRateHealthDataType() =>
+          HealthDataType.respiratoryRate.readRecords(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,

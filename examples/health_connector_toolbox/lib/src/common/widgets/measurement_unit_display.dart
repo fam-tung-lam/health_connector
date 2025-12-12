@@ -10,6 +10,7 @@ import 'package:health_connector/health_connector.dart'
         Percentage,
         Power,
         Pressure,
+        RespiratoryRate,
         Temperature,
         Velocity,
         Volume;
@@ -360,6 +361,13 @@ final class MeasurementUnitDisplay extends StatelessWidget {
             ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
           ),
         ],
+      ),
+      RespiratoryRate(:final breathsPerMinute) => Text(
+        '${breathsPerMinute.toStringAsFixed(0)} breaths/min',
+        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).primaryColor,
+        ),
       ),
     };
   }

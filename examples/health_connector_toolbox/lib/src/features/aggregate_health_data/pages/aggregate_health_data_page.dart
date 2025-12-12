@@ -7,6 +7,7 @@ import 'package:health_connector/health_connector.dart'
         AggregationMetric,
         BodyFatPercentageHealthDataType,
         BloodPressureHealthDataType,
+        RespiratoryRateHealthDataType,
         BodyTemperatureHealthDataType,
         DiastolicBloodPressureHealthDataType,
         DistanceHealthDataType,
@@ -551,6 +552,23 @@ class _AggregateHealthDataPageState
             endTime: endDateTime!,
           ),
           AggregationMetric.max => HealthDataType.oxygenSaturation.aggregateMax(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.sum || AggregationMetric.count =>
+            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+        },
+        RespiratoryRateHealthDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg =>
+            HealthDataType.respiratoryRate.aggregateAverage(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.min => HealthDataType.respiratoryRate.aggregateMin(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.max => HealthDataType.respiratoryRate.aggregateMax(
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),

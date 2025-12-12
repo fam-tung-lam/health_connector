@@ -79,6 +79,9 @@ import 'package:health_connector/health_connector.dart'
         Temperature,
         Velocity,
         Volume;
+import 'package:health_connector/health_connector.dart'
+    show RespiratoryRate, RespiratoryRateHealthDataType;
+
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -204,6 +207,7 @@ extension HealthDataTypeUI on HealthDataType {
       FolateNutrientDataType _ => AppTexts.folate,
       BiotinNutrientDataType _ => AppTexts.biotin,
       PantothenicAcidNutrientDataType _ => AppTexts.pantothenicAcid,
+      RespiratoryRateHealthDataType _ => AppTexts.respiratoryRate,
     };
   }
 
@@ -276,6 +280,7 @@ extension HealthDataTypeUI on HealthDataType {
       FolateNutrientDataType _ => AppTexts.folateDescription,
       BiotinNutrientDataType _ => AppTexts.biotinDescription,
       PantothenicAcidNutrientDataType _ => AppTexts.pantothenicAcidDescription,
+      RespiratoryRateHealthDataType _ => AppTexts.respiratoryRateDescription,
     };
   }
 
@@ -339,6 +344,7 @@ extension HealthDataTypeUI on HealthDataType {
       FolateNutrientDataType _ => AppIcons.fastfood,
       BiotinNutrientDataType _ => AppIcons.fastfood,
       PantothenicAcidNutrientDataType _ => AppIcons.fastfood,
+      RespiratoryRateHealthDataType _ => AppIcons.air,
     };
   }
 }
@@ -440,6 +446,7 @@ extension MeasurementUnitUI on MeasurementUnit {
       Temperature _ => AppTexts.temperature,
       Velocity _ => AppTexts.velocity,
       Volume _ => AppTexts.volume,
+      RespiratoryRate _ => AppTexts.respiratoryRate,
     };
   }
 
@@ -457,6 +464,7 @@ extension MeasurementUnitUI on MeasurementUnit {
       Temperature _ => AppIcons.temperature,
       Velocity _ => AppIcons.velocity,
       Volume _ => AppIcons.volume,
+      RespiratoryRate _ => AppIcons.air,
     };
   }
 }

@@ -64,7 +64,9 @@ import 'package:health_connector/health_connector.dart'
         ZincNutrientDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
-        OxygenSaturationHealthDataType;
+        OxygenSaturationHealthDataType,
+        RespiratoryRate,
+        RespiratoryRateHealthDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -151,6 +153,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
             'SleepStageHealthDataType requires custom form handling',
           ),
           RestingHeartRateHealthDataType() => _parseNumeric(value),
+          RespiratoryRateHealthDataType() => _parseRespiratoryRate(value),
+
           EnergyNutrientDataType() => _parseEnergy(value),
           CaffeineNutrientDataType() => _parseMass(value),
           ProteinNutrientDataType() => _parseMass(value),
@@ -268,6 +272,14 @@ class _HealthValueFieldState extends State<HealthValueField> {
     return null;
   }
 
+  RespiratoryRate? _parseRespiratoryRate(String value) {
+    final rateValue = double.tryParse(value);
+    if (rateValue != null && rateValue >= 0) {
+      return RespiratoryRate(breathsPerMinute: rateValue);
+    }
+    return null;
+  }
+
   String? _validate(String? value) {
     if (value == null || value.isEmpty) {
       return switch (widget.dataType) {
@@ -307,6 +319,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
           'SleepStageHealthDataType requires custom form handling',
         ),
         RestingHeartRateHealthDataType() => AppTexts.pleaseEnterHeartRate,
+        RespiratoryRateHealthDataType() => AppTexts.pleaseEnterRespiratoryRate,
+
         EnergyNutrientDataType() => AppTexts.pleaseEnterEnergy,
         CaffeineNutrientDataType() => AppTexts.pleaseEnterCaffeine,
         ProteinNutrientDataType() => AppTexts.pleaseEnterProtein,
@@ -380,6 +394,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
         'SleepStageHealthDataType requires custom form handling',
       ),
       RestingHeartRateHealthDataType() => int.tryParse(value),
+      RespiratoryRateHealthDataType() => double.tryParse(value),
+
       EnergyNutrientDataType() => double.tryParse(value),
       CaffeineNutrientDataType() => double.tryParse(value),
       ProteinNutrientDataType() => double.tryParse(value),
@@ -433,6 +449,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
         (parsed as int) < 0 ? AppTexts.heartRateMustBePositive : null,
       RestingHeartRateHealthDataType() =>
         (parsed as int) < 0 ? AppTexts.heartRateMustBePositive : null,
+      RespiratoryRateHealthDataType() =>
+        (parsed as double) < 0 ? AppTexts.respiratoryRateMustBePositive : null,
       WeightHealthDataType() =>
         (parsed as double) <= 0 ? AppTexts.weightMustBeGreaterThanZero : null,
       HeightHealthDataType() =>
@@ -601,6 +619,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
           'SleepStageHealthDataType requires custom form handling',
         ),
         RestingHeartRateHealthDataType() => AppTexts.pleaseEnterHeartRate,
+        RespiratoryRateHealthDataType() => AppTexts.pleaseEnterRespiratoryRate,
+
         EnergyNutrientDataType() => AppTexts.pleaseEnterEnergy,
         CaffeineNutrientDataType() => AppTexts.pleaseEnterCaffeine,
         ProteinNutrientDataType() => AppTexts.pleaseEnterProtein,
@@ -1201,6 +1221,17 @@ class _HealthValueFieldState extends State<HealthValueField> {
           labelText: AppTexts.pantothenicAcidG,
           border: OutlineInputBorder(),
           prefixIcon: Icon(AppIcons.fastfood),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      RespiratoryRateHealthDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.respiratoryRateValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.air),
         ),
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
         onChanged: _onChanged,

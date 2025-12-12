@@ -126,7 +126,10 @@ import 'package:health_connector/health_connector.dart'
         SleepStage,
         SleepStageRecord,
         SleepStageHealthDataType,
-        SleepStageType;
+        SleepStageType,
+        RespiratoryRate,
+        RespiratoryRateRecord,
+        RespiratoryRateHealthDataType;
 
 /// Configuration for a health record write form.
 ///
@@ -225,6 +228,7 @@ sealed class HealthRecordFormConfig {
         const PantothenicAcidNutrientFormConfig(),
       NutritionHealthDataType() => const NutritionFormConfig(),
       RestingHeartRateHealthDataType() => const RestingHeartRateFormConfig(),
+      RespiratoryRateHealthDataType() => const RespiratoryRateFormConfig(),
     };
   }
 }
@@ -496,6 +500,34 @@ final class OxygenSaturationFormConfig extends HealthRecordFormConfig {
     return OxygenSaturationRecord(
       time: startDateTime,
       percentage: percentageValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for respiratory rate records.
+///
+/// Respiratory rate is an instant-based record that requires:
+/// - Time (single timestamp)
+/// - Rate value (breaths per minute)
+final class RespiratoryRateFormConfig extends HealthRecordFormConfig {
+  const RespiratoryRateFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    final rateValue = value as RespiratoryRate;
+
+    return RespiratoryRateRecord(
+      time: startDateTime,
+      rate: rateValue,
       metadata: metadata,
     );
   }
