@@ -26,6 +26,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         MonounsaturatedFatNutrientDataType,
         NiacinNutrientDataType,
         NutritionHealthDataType,
+        OxygenSaturationHealthDataType,
         PantothenicAcidNutrientDataType,
         PhosphorusNutrientDataType,
         PolyunsaturatedFatNutrientDataType,
@@ -163,6 +164,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.restingHeartRate;
       case HealthDataTypeDto.bloodPressure:
         return HealthDataType.bloodPressure;
+      case HealthDataTypeDto.oxygenSaturation:
+        return HealthDataType.oxygenSaturation;
     }
   }
 }
@@ -266,6 +269,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.zinc;
       case BloodPressureHealthDataType _:
         return HealthDataTypeDto.bloodPressure;
+      case OxygenSaturationHealthDataType _:
+        return HealthDataTypeDto.oxygenSaturation;
       case NutritionHealthDataType _:
         return HealthDataTypeDto.nutrition;
       case RestingHeartRateHealthDataType _:

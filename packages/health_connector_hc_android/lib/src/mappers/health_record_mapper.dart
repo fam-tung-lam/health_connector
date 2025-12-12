@@ -22,6 +22,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         WeightRecord,
         WheelchairPushesRecord,
         PhosphorusNutrientRecord,
+        OxygenSaturationRecord,
         EnergyNutrientRecord,
         CaffeineNutrientRecord,
         ProteinNutrientRecord,
@@ -70,6 +71,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_platform
         HydrationRecordDto,
         LeanBodyMassRecordDto,
         NutritionRecordDto,
+        OxygenSaturationRecordDto,
         RestingHeartRateRecordDto,
         SleepSessionRecordDto,
         StepRecordDto,
@@ -178,6 +180,8 @@ extension HealthRecordToDto on HealthRecord {
         return record.toDto();
       case final RestingHeartRateRecord record:
         return record.toDto();
+      case final OxygenSaturationRecord record:
+        return record.toDto();
       case final BloodPressureRecord record:
         return record.toDto();
       case final SleepStageRecord _:
@@ -238,6 +242,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
       case final NutritionRecordDto dto:
         return dto.toDomain();
       case final RestingHeartRateRecordDto dto:
+        return dto.toDomain();
+      case final OxygenSaturationRecordDto dto:
         return dto.toDomain();
       case final BloodPressureRecordDto dto:
         return dto.toDomain();

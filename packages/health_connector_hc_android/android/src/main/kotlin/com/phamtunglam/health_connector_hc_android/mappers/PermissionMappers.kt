@@ -12,6 +12,7 @@ import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
 import androidx.health.connect.client.records.NutritionRecord
+import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.records.RestingHeartRateRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.StepsRecord
@@ -204,6 +205,17 @@ internal fun HealthDataPermissionDto.toHealthConnectPermission(): String =
             }
         }
 
+        HealthDataTypeDto.OXYGEN_SATURATION -> {
+            when (this.accessType) {
+                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                    OxygenSaturationRecord::class,
+                )
+                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                    OxygenSaturationRecord::class,
+                )
+            }
+        }
+
         HealthDataTypeDto.ENERGY_NUTRIENT,
         HealthDataTypeDto.CAFFEINE,
         HealthDataTypeDto.PROTEIN,
@@ -314,6 +326,7 @@ internal fun String.toDto(): HealthDataPermissionDto {
         "RESTING_HEART_RATE" -> HealthDataTypeDto.RESTING_HEART_RATE
         "SLEEP_SESSION" -> HealthDataTypeDto.SLEEP_SESSION
         "BLOOD_PRESSURE" -> HealthDataTypeDto.BLOOD_PRESSURE
+        "OXYGEN_SATURATION" -> HealthDataTypeDto.OXYGEN_SATURATION
         "NUTRITION" -> HealthDataTypeDto.NUTRITION
         else -> throw UnsupportedOperationException(
             "Unsupported Health Connect data type: '$dataTypeStr' in permission '$this'.",

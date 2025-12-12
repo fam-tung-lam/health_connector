@@ -505,6 +505,7 @@ extension NutritionRecordDtoToDomain on NutritionRecordDto {
       case HealthDataTypeDto.sleepSession:
       case HealthDataTypeDto.bloodPressure:
       case HealthDataTypeDto.restingHeartRate:
+      case HealthDataTypeDto.oxygenSaturation:
         throw ArgumentError('Invalid DTO for $NutritionRecordDto: $this');
     }
   }

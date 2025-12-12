@@ -21,6 +21,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
         NutritionHealthDataType,
+        OxygenSaturationHealthDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
         StepsHealthDataType,
@@ -190,6 +191,7 @@ extension AggregateRequestDtoMapper<
           case FolateNutrientDataType _:
           case BiotinNutrientDataType _:
           case PantothenicAcidNutrientDataType _:
+          case OxygenSaturationHealthDataType _:
           case RestingHeartRateHealthDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',

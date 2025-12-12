@@ -11,6 +11,7 @@ import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
 import androidx.health.connect.client.records.NutritionRecord
+import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.RestingHeartRateRecord
 import androidx.health.connect.client.records.SleepSessionRecord
@@ -42,6 +43,7 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
     HealthDataTypeDto.SLEEP_SESSION -> SleepSessionRecord::class
     HealthDataTypeDto.RESTING_HEART_RATE -> RestingHeartRateRecord::class
     HealthDataTypeDto.BLOOD_PRESSURE -> BloodPressureRecord::class
+    HealthDataTypeDto.OXYGEN_SATURATION -> OxygenSaturationRecord::class
     HealthDataTypeDto.ENERGY_NUTRIENT,
     HealthDataTypeDto.CAFFEINE,
     HealthDataTypeDto.PROTEIN,
