@@ -51,6 +51,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         PolyunsaturatedFatNutrientRecord,
         PotassiumNutrientRecord,
         ProteinNutrientRecord,
+        RespiratoryRateRecord,
         RestingHeartRateRecord,
         RiboflavinNutrientRecord,
         SaturatedFatNutrientRecord,
@@ -83,6 +84,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
         Numeric,
         Percentage,
         Pressure,
+        RespiratoryRate,
         Temperature,
         Volume;
 import 'package:health_connector_core/src/models/permissions/permission.dart'
@@ -119,6 +121,7 @@ part 'nutrient_health_data_types/nutrient_health_data_type.dart';
 part 'nutrient_health_data_types/nutrition_health_data_type.dart';
 part 'nutrient_health_data_types/vitamin_nutrient_health_data_types.dart';
 part 'oxygen_saturation_health_data_type.dart';
+part 'respiratory_rate_health_data_type.dart';
 part 'resting_heart_rate_health_data_type.dart';
 part 'sleep_session_health_data_type.dart';
 part 'sleep_stage_record_health_data_type.dart';
@@ -357,6 +360,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// oxygen saturation measurements.
   @sinceV1_3_0
   static const oxygenSaturation = OxygenSaturationHealthDataType();
+
+  /// Respiratory rate data type.
+  ///
+  /// Represents the number of breaths a person takes per minute.
+  /// Supports reading and writing respiratory rate measurements.
+  @sinceV1_0_0
+  static const respiratoryRate = RespiratoryRateHealthDataType();
 
   /// Nutrition health data type.
   ///
@@ -631,6 +641,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     polyunsaturatedFat,
     potassium,
     protein,
+    respiratoryRate,
     restingHeartRate,
     riboflavin,
     saturatedFat,

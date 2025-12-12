@@ -14,6 +14,7 @@ part 'numeric.dart';
 part 'percentage.dart';
 part 'power.dart';
 part 'pressure.dart';
+part 'respiratory_rate.dart';
 part 'temperature.dart';
 part 'velocity.dart';
 part 'volume.dart';
