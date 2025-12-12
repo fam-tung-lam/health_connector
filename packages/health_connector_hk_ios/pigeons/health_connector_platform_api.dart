@@ -565,6 +565,9 @@ enum HealthDataTypeDto {
 
   /// Diastolic blood pressure (HKQuantityType.bloodPressureDiastolic).
   diastolicBloodPressure,
+
+  /// Oxygen saturation data.
+  oxygenSaturation,
 }
 
 /// Represents a resting heart rate record for platform transfer.
@@ -962,6 +965,32 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
 
   /// Body temperature measurement.
   final TemperatureDto temperature;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// Represents an oxygen saturation record for platform transfer.
+class OxygenSaturationRecordDto extends HealthRecordDto {
+  OxygenSaturationRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.percentage,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Oxygen saturation percentage.
+  final PercentageDto percentage;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;

@@ -159,6 +159,19 @@ extension AggregationMetricDto {
                 return []
             }
 
+        case .oxygenSaturation:
+            switch self {
+            case .avg:
+                return .discreteAverage
+            case .min:
+                return .discreteMin
+            case .max:
+                return .discreteMax
+            case .sum, .count:
+                // SUM/COUNT not meaningful/supported for oxygen saturation
+                return []
+            }
+
         case .sleepStageRecord:
             // Sleep stages (category samples) do not support aggregation
             throw HealthConnectorErrors.invalidArgument(
@@ -364,6 +377,18 @@ extension AggregationMetricDto {
                 throw HealthConnectorErrors.invalidArgument(
                     message: "\(metricName) not directly supported for restingHeartRate in HealthKit",
                     details: "\(metricName) not directly supported for restingHeartRate in HealthKit."
+                )
+            }
+        case .oxygenSaturation:
+            // Only AVG, MIN, MAX are supported for oxygen saturation
+            switch self {
+            case .avg, .min, .max:
+                break // These are supported
+            case .sum, .count:
+                let metricName = String(describing: self)
+                throw HealthConnectorErrors.invalidArgument(
+                    message: "\(metricName) not directly supported for oxygenSaturation in HealthKit",
+                    details: "\(metricName) not directly supported for oxygenSaturation in HealthKit."
                 )
             }
         case .sleepStageRecord:

@@ -53,7 +53,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         VitaminKNutrientRecord,
         WeightRecord,
         WheelchairPushesRecord,
-        ZincNutrientRecord;
+        ZincNutrientRecord,
+        OxygenSaturationRecord;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
     show
@@ -108,7 +109,8 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api
         VitaminKNutrientRecordDto,
         WeightRecordDto,
         WheelchairPushesRecordDto,
-        ZincNutrientRecordDto;
+        ZincNutrientRecordDto,
+        OxygenSaturationRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [HealthRecord] to [HealthRecordDto].
@@ -218,22 +220,22 @@ extension HealthRecordToDto on HealthRecord {
         return record.toDto();
       case final RestingHeartRateRecord record:
         return record.toDto();
-      case final SleepSessionRecord _:
-        throw UnsupportedError(
-          '$SleepSessionRecord is not supported on iOS HealthKit. '
-          'Use $SleepStageRecord instead.',
-        );
       case final HeartRateSeriesRecord _:
         throw UnsupportedError(
           '$HeartRateSeriesRecord is not supported on iOS HealthKit. '
           'Use $HeartRateMeasurementRecord instead.',
         );
+      case final SleepSessionRecord _:
+        throw UnsupportedError(
+          '$SleepSessionRecord is not supported on iOS HealthKit. '
+          'Use $SleepStageRecord instead.',
+        );
+      case final OxygenSaturationRecord record:
+        return record.toDto();
     }
   }
 }
 
-/// Converts [HealthRecordDto] to [HealthRecord].
-@internal
 extension HealthRecordDtoToDomain on HealthRecordDto {
   HealthRecord toDomain() {
     switch (this) {
@@ -338,6 +340,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
       case final SodiumNutrientRecordDto dto:
         return dto.toDomain();
       case final ZincNutrientRecordDto dto:
+        return dto.toDomain();
+      case final OxygenSaturationRecordDto dto:
         return dto.toDomain();
     }
   }
