@@ -6,6 +6,7 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
         sinceV1_0_0,
         sinceV1_2_0,
         sinceV1_3_0,
+        sinceV1_4_0,
         supportedOnAppleHealth,
         supportedOnHealthConnect;
 import 'package:health_connector_core/src/annotations/internal_use.dart';
@@ -57,6 +58,9 @@ part 'hydration_record.dart';
 part 'instant_health_record.dart';
 part 'interval_health_record.dart';
 part 'lean_body_mass_record.dart';
+part 'menstrual_cycle_record.dart';
+part 'menstrual_flow.dart';
+part 'menstruation_period_record.dart';
 part 'nutrient_health_records/macronutrient_health_records.dart';
 part 'nutrient_health_records/meal_type.dart';
 part 'nutrient_health_records/mineral_nutrient_health_records.dart';

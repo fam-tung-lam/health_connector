@@ -32,3 +32,4 @@ const sinceV1_0_0 = Since('1.0.0');
 const sinceV1_1_0 = Since('1.1.0');
 const sinceV1_2_0 = Since('1.2.0');
 const sinceV1_3_0 = Since('1.3.0');
+const sinceV1_4_0 = Since('1.4.0');

@@ -8,7 +8,8 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
         availableOnAppleHealth,
         sinceV1_1_0,
         sinceV1_2_0,
-        sinceV1_3_0;
+        sinceV1_3_0,
+        sinceV1_4_0;
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
     show HealthConnectorConfigConstants;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';
@@ -75,7 +76,10 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         Vo2MaxRecord,
         WeightRecord,
         WheelchairPushesRecord,
-        ZincNutrientRecord;
+        ZincNutrientRecord,
+        MenstruationPeriodRecord,
+        MenstruationFlowRecord,
+        MenstrualCycleRecord;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show
         Energy,
@@ -131,6 +135,8 @@ part 'steps_health_data_type.dart';
 part 'weight_health_data_type.dart';
 part 'wheelchair_pushes_health_data_type.dart';
 part 'vo2_max_health_data_type.dart';
+part 'menstruation_period_health_data_type.dart';
+part 'menstrual_cycle_health_data_type.dart';
 
 /// [HealthDataType] represents different kinds of health and fitness data
 /// that can be read from or written to health platforms.
@@ -193,6 +199,9 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
 
   @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
+  String get name => identifier;
 
   /// The unique identifier for this data type.
   ///
@@ -378,6 +387,20 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports AVG, MIN, MAX aggregation.
   @sinceV1_3_0
   static const vo2Max = Vo2MaxHealthDataType();
+
+  /// Menstruation period data type (Android only).
+  ///
+  /// Represents a complete menstrual period.
+  @sinceV1_4_0
+  @supportedOnHealthConnect
+  static const menstruationPeriod = MenstruationPeriodHealthDataType();
+
+  /// Menstrual cycle data type (iOS only).
+  ///
+  /// Represents menstrual flow data on iOS.
+  @sinceV1_4_0
+  @supportedOnAppleHealth
+  static const menstrualCycle = MenstrualCycleHealthDataType();
 
   /// Nutrition health data type.
   ///
@@ -674,8 +697,9 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     vitaminE,
     vitaminK,
     vo2Max,
-    weight,
     wheelchairPushes,
     zinc,
+    menstruationPeriod,
+    menstrualCycle,
   ];
 }
