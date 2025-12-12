@@ -444,8 +444,8 @@ print('Max weight: ${maxResponse.value.inKilograms} kg');
 | **Body Temperature**    | ✅         | [`BodyTemperatureRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyTemperatureRecord)   |
 | **Oxygen Saturation**   | ✅         | [`OxygenSaturationRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/OxygenSaturationRecord) |
 | **Respiratory Rate**    | ✅         | [`RespiratoryRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RespiratoryRateRecord)   |
+| **Vo2 Max**             | ✅         | [`Vo2MaxRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)                     |
 | **Blood Glucose**       | ❌         | [`BloodGlucoseRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodGlucoseRecord)         |
-| **Vo2 Max**             | ❌         | [`Vo2MaxRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)                     |
 
 ### 🧘 Wellness / Mental Health
 
