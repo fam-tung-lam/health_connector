@@ -3,11 +3,7 @@ package com.phamtunglam.health_connector_hc_android
 import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.health.connect.client.HealthConnectClient
-import androidx.health.connect.client.records.BloodGlucoseRecord
-import androidx.health.connect.client.records.OxygenSaturationRecord
-import androidx.health.connect.client.records.Record
-import androidx.health.connect.client.records.RespiratoryRateRecord
-import androidx.health.connect.client.records.Vo2MaxRecord
+import androidx.health.connect.client.records.*
 import androidx.health.connect.client.records.metadata.DataOrigin
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
@@ -15,56 +11,13 @@ import androidx.health.connect.client.time.TimeRangeFilter
 import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectTypeHandlerRegistry
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.logger.TAG
-import com.phamtunglam.health_connector_hc_android.mappers.dataType
-import com.phamtunglam.health_connector_hc_android.mappers.endTime
+import com.phamtunglam.health_connector_hc_android.mappers.*
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.id
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.mappers.isFeaturePermission
-import com.phamtunglam.health_connector_hc_android.mappers.startTime
-import com.phamtunglam.health_connector_hc_android.mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.toError
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectPermission
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectRecordClass
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformFeatureDto
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatusDto
-import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.AggregateResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
-import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseUnitDto
-import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeaturePermissionRequestResultDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDto
-import com.phamtunglam.health_connector_hc_android.pigeon.NumericDto
-import com.phamtunglam.health_connector_hc_android.pigeon.NumericUnitDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PercentageDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PercentageUnitDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PermissionsRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PermissionsRequestResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxDto
-import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxUnitDto
-import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsResponseDto
+import com.phamtunglam.health_connector_hc_android.pigeon.*
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorFeatureService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorManifestService
-import com.phamtunglam.health_connector_hc_android.utils.PermissionUtils
+import com.phamtunglam.health_connector_hc_android.services.HealthConnectorPermissionService
 import java.time.Instant
 
 /**
@@ -76,6 +29,7 @@ internal class HealthConnectorClient private constructor(
     private val client: HealthConnectClient,
     private val manifestService: HealthConnectorManifestService,
     private val featureService: HealthConnectorFeatureService,
+    private val permissionService: HealthConnectorPermissionService,
 ) {
     companion object {
         /**
@@ -95,11 +49,14 @@ internal class HealthConnectorClient private constructor(
                 val client = HealthConnectClient.getOrCreate(context)
                 val manifestService = HealthConnectorManifestService(context)
                 val featureService = HealthConnectorFeatureService(client.features)
+                val permissionService =
+                    HealthConnectorPermissionService(client.permissionController)
 
                 return HealthConnectorClient(
                     client = client,
                     manifestService = manifestService,
                     featureService = featureService,
+                    permissionService = permissionService,
                 )
             } catch (e: UnsupportedOperationException) {
                 HealthConnectorLogger.error(
@@ -164,7 +121,7 @@ internal class HealthConnectorClient private constructor(
      *
      * @param activity The [ComponentActivity] that will host the permission request UI
      * @param request The permissions request containing both health data and feature permissions
-     * @return [PermissionsRequestResponseDto] containing separate result lists for health data
+     * @return [PermissionRequestsResponseDto] containing separate result lists for health data
      *         and feature permissions
      *
      * @throws HealthConnectorErrorDto with code `INVALID_PLATFORM_CONFIGURATION` if any requested
@@ -175,57 +132,28 @@ internal class HealthConnectorClient private constructor(
     @Throws(HealthConnectorErrorDto::class)
     suspend fun requestPermissions(
         activity: ComponentActivity,
-        request: PermissionsRequestDto,
-    ): PermissionsRequestResponseDto {
+        request: PermissionRequestsDto,
+    ): PermissionRequestsResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "requestPermissions",
             phase = "entry",
             message = "Requesting Health Connect permissions",
             context = mapOf(
-                "requested_health_data_permissions" to request.healthDataPermissions,
-                "requested_feature_permissions" to request.featurePermissions,
+                "requested_permissions" to request.permissionRequests,
             ),
         )
 
         try {
-            // Validate that all requested permissions are declared in AndroidManifest
-            val healthDataPermissionStrings = request.healthDataPermissions.map {
-                it.toHealthConnectPermission()
+            val permissionStrings = request.permissionRequests.map {
+                it.toHealthConnect()
             }
-            val featurePermissionStrings = request.featurePermissions.map {
-                it.toHealthConnectPermission()
-            }
-            manifestService.checkPermissionsDeclared(
-                (healthDataPermissionStrings + featurePermissionStrings).toSet(),
-            )
 
-            val grantedPermissions = PermissionUtils.requestPermissionsFromSystem(activity, request)
+            manifestService.checkPermissionsDeclared(permissionStrings.toSet())
 
-            val healthDataResults = PermissionUtils.buildHealthDataPermissionResults(
-                request.healthDataPermissions,
-                grantedPermissions,
-            )
-            val featureResults = PermissionUtils.buildFeaturePermissionResults(
-                request.featurePermissions,
-                grantedPermissions,
-            )
+            val permissionRequestResults = permissionService.requestPermissions(activity, request)
 
-            HealthConnectorLogger.info(
-                tag = TAG,
-                operation = "requestPermissions",
-                phase = "completed",
-                message = "Health Connect permissions requested successfully",
-                context = mapOf(
-                    "granted_health_data_permissions" to healthDataResults,
-                    "granted_feature_permissions" to featureResults,
-                ),
-            )
-
-            return PermissionsRequestResponseDto(
-                healthDataPermissionResults = healthDataResults,
-                featurePermissionResults = featureResults,
-            )
+            return PermissionRequestsResponseDto(permissionRequestResults)
         } catch (e: IllegalStateException) {
             HealthConnectorLogger.error(
                 tag = TAG,
@@ -233,10 +161,7 @@ internal class HealthConnectorClient private constructor(
                 phase = "failed",
                 message = e.message,
                 context = mapOf(
-                    "requested_permissions" to mapOf(
-                        "health_data_permissions" to request.healthDataPermissions,
-                        "feature_permissions" to request.featurePermissions,
-                    ),
+                    "requested_permissions" to request.permissionRequests,
                 ),
                 exception = e,
             )
@@ -250,10 +175,7 @@ internal class HealthConnectorClient private constructor(
                 phase = "failed",
                 message = "Failed to request Health Connect permissions",
                 context = mapOf(
-                    "requested_permissions" to mapOf(
-                        "health_data_permissions" to request.healthDataPermissions,
-                        "feature_permissions" to request.featurePermissions,
-                    ),
+                    "requested_permissions" to request.permissionRequests,
                 ),
                 exception = e,
             )
@@ -289,7 +211,7 @@ internal class HealthConnectorClient private constructor(
         )
 
         try {
-            val featurePermissionString = feature.toHealthConnectPermission()
+            val featurePermissionString = feature.toHealthConnect()
             manifestService.checkPermissionsDeclared(setOf(featurePermissionString))
 
             val featureStatus = featureService.getFeatureStatus(feature)
@@ -779,8 +701,10 @@ internal class HealthConnectorClient private constructor(
             AggregationMetricDto.AVG -> percentageValues.average()
             AggregationMetricDto.MIN -> percentageValues.minOrNull()
                 ?: throw IllegalStateException("No values to compute minimum")
+
             AggregationMetricDto.MAX -> percentageValues.maxOrNull()
                 ?: throw IllegalStateException("No values to compute maximum")
+
             AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
                 throw UnsupportedOperationException(
                     "Unsupported metric: $metric",
@@ -829,6 +753,7 @@ internal class HealthConnectorClient private constructor(
                     "Aggregation metric ${request.aggregationMetric} for OxygenSaturation. " +
                         "Supported: AVG, MIN, MAX",
                 )
+
             AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX -> {
                 // These are supported
             }
@@ -972,8 +897,10 @@ internal class HealthConnectorClient private constructor(
             AggregationMetricDto.AVG -> rateValues.average()
             AggregationMetricDto.MIN -> rateValues.minOrNull()
                 ?: throw IllegalStateException("No values to compute minimum")
+
             AggregationMetricDto.MAX -> rateValues.maxOrNull()
                 ?: throw IllegalStateException("No values to compute maximum")
+
             AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
                 throw UnsupportedOperationException(
                     "Unsupported metric: $metric",
@@ -1022,6 +949,7 @@ internal class HealthConnectorClient private constructor(
                     "Aggregation metric ${request.aggregationMetric} for RespiratoryRate. " +
                         "Supported: AVG, MIN, MAX",
                 )
+
             AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX -> {
                 // These are supported
             }
@@ -1165,8 +1093,10 @@ internal class HealthConnectorClient private constructor(
             AggregationMetricDto.AVG -> vo2MaxValues.average()
             AggregationMetricDto.MIN -> vo2MaxValues.minOrNull()
                 ?: throw IllegalStateException("No values to compute minimum")
+
             AggregationMetricDto.MAX -> vo2MaxValues.maxOrNull()
                 ?: throw IllegalStateException("No values to compute maximum")
+
             AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
                 throw UnsupportedOperationException(
                     "Unsupported metric: $metric",
@@ -1215,6 +1145,7 @@ internal class HealthConnectorClient private constructor(
                     "Aggregation metric ${request.aggregationMetric} for VO2Max. " +
                         "Supported: AVG, MIN, MAX",
                 )
+
             AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX -> {
                 // These are supported
             }
@@ -1357,8 +1288,10 @@ internal class HealthConnectorClient private constructor(
             AggregationMetricDto.AVG -> levelValues.average()
             AggregationMetricDto.MIN -> levelValues.minOrNull()
                 ?: throw IllegalStateException("No values to compute minimum")
+
             AggregationMetricDto.MAX -> levelValues.maxOrNull()
                 ?: throw IllegalStateException("No values to compute maximum")
+
             AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
                 throw UnsupportedOperationException(
                     "Unsupported metric: $metric",
@@ -1407,6 +1340,7 @@ internal class HealthConnectorClient private constructor(
                     "Aggregation metric ${request.aggregationMetric} for Blood Glucose. " +
                         "Supported: AVG, MIN, MAX",
                 )
+
             AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX -> {
                 // These are supported
             }
@@ -1783,13 +1717,13 @@ internal class HealthConnectorClient private constructor(
     /**
      * Gets all permissions that have been granted to the app.
      *
-     * @return [PermissionsRequestResponseDto] containing separate lists for health data and feature permissions
+     * @return [PermissionRequestsResponseDto] containing separate lists for health data and feature permissions
      *         that have been granted
      *
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
-    suspend fun getGrantedPermissions(): PermissionsRequestResponseDto {
+    suspend fun getGrantedPermissions(): PermissionRequestsResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "getGrantedPermissions",
@@ -1798,49 +1732,7 @@ internal class HealthConnectorClient private constructor(
         )
 
         try {
-            // Get granted permissions from Health Connect SDK
-            val grantedPermissionStrings = client.permissionController.getGrantedPermissions()
-
-            // Convert permission strings back to DTOs
-            val healthDataPermissions = mutableListOf<HealthDataPermissionRequestResultDto>()
-            val featurePermissions =
-                mutableListOf<HealthPlatformFeaturePermissionRequestResultDto>()
-
-            for (permissionString in grantedPermissionStrings) {
-                if (permissionString.isFeaturePermission) {
-                    val featurePermission = permissionString.toHealthPlatformFeatureDto()
-                    featurePermissions.add(
-                        HealthPlatformFeaturePermissionRequestResultDto(
-                            feature = featurePermission,
-                            status = PermissionStatusDto.GRANTED,
-                        ),
-                    )
-                } else {
-                    val healthDataPermission = permissionString.toDto()
-                    healthDataPermissions.add(
-                        HealthDataPermissionRequestResultDto(
-                            permission = healthDataPermission,
-                            status = PermissionStatusDto.GRANTED,
-                        ),
-                    )
-                }
-            }
-
-            HealthConnectorLogger.info(
-                tag = TAG,
-                operation = "getGrantedPermissions",
-                phase = "completed",
-                message = "Granted Health Connect permissions retrieved",
-                context = mapOf(
-                    "granted_health_data_permissions" to healthDataPermissions,
-                    "granted_feature_permissions" to featurePermissions,
-                ),
-            )
-
-            return PermissionsRequestResponseDto(
-                healthDataPermissionResults = healthDataPermissions,
-                featurePermissionResults = featurePermissions,
-            )
+            return permissionService.getGrantedPermissions()
         } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
@@ -1870,8 +1762,7 @@ internal class HealthConnectorClient private constructor(
         )
 
         try {
-            // Revoke all permissions using Health Connect SDK
-            client.permissionController.revokeAllPermissions()
+            permissionService.revokeAllPermissions()
 
             HealthConnectorLogger.info(
                 tag = TAG,

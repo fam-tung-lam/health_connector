@@ -4,7 +4,6 @@ import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.records.Record
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.OxygenSaturationRecordDto

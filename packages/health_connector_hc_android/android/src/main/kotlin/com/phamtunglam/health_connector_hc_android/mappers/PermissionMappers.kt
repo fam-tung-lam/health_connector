@@ -21,10 +21,16 @@ import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.Vo2MaxRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeaturePermissionRequest
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeaturePermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionAccessTypeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestResultDto
+import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
 
 /**
  * Health Connect platform feature permission constants.
@@ -36,283 +42,316 @@ private const val PERMISSION_READ_HEALTH_DATA_HISTORY =
     "android.permission.health.READ_HEALTH_DATA_HISTORY"
 
 /**
- * Converts a [HealthDataPermissionDto] to a Health Connect permission string.
+ * Converts a [PermissionRequestDto] to a Health Connect permission string.
  *
- * @receiver The [HealthDataPermissionDto] to convert
+ * @receiver The [PermissionRequestDto] to convert
  * @return The Health Connect permission string corresponding to the DTO
  */
-internal fun HealthDataPermissionDto.toHealthConnectPermission(): String =
-    when (this.healthDataType) {
-        HealthDataTypeDto.ACTIVE_CALORIES_BURNED -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    ActiveCaloriesBurnedRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    ActiveCaloriesBurnedRecord::class,
-                )
-            }
-        }
+internal fun PermissionRequestDto.toHealthConnect(): String = when (this) {
+    is HealthDataPermissionRequestDto ->
+        getHealthConnectPermission(this.healthDataType, this.accessType)
 
-        HealthDataTypeDto.STEPS -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    StepsRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    StepsRecord::class,
-                )
-            }
-        }
+    is HealthPlatformFeaturePermissionRequest ->
+        this.feature.toHealthConnect()
+}
 
-        HealthDataTypeDto.WEIGHT -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    WeightRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    WeightRecord::class,
-                )
-            }
-        }
+/**
+ * Helper function to map data type and access type to Health Connect permission string.
+ */
+private fun getHealthConnectPermission(
+    dataType: HealthDataTypeDto,
+    accessType: PermissionAccessTypeDto,
+): String = when (dataType) {
+    HealthDataTypeDto.ACTIVE_CALORIES_BURNED -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                ActiveCaloriesBurnedRecord::class,
+            )
 
-        HealthDataTypeDto.DISTANCE -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    DistanceRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    DistanceRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.FLOORS_CLIMBED -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    FloorsClimbedRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    FloorsClimbedRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.HEIGHT -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    HeightRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    HeightRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.HYDRATION -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    HydrationRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    HydrationRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.LEAN_BODY_MASS -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    LeanBodyMassRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    LeanBodyMassRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.BODY_FAT_PERCENTAGE -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    BodyFatRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    BodyFatRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.BODY_TEMPERATURE -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    BodyTemperatureRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    BodyTemperatureRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.WHEELCHAIR_PUSHES -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    WheelchairPushesRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    WheelchairPushesRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.HEART_RATE_SERIES_RECORD -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    HeartRateRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    HeartRateRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.SLEEP_SESSION -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    SleepSessionRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    SleepSessionRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.RESTING_HEART_RATE -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    RestingHeartRateRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    RestingHeartRateRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.BLOOD_PRESSURE -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    BloodPressureRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    BloodPressureRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.BLOOD_GLUCOSE -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    BloodGlucoseRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    BloodGlucoseRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.OXYGEN_SATURATION -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    OxygenSaturationRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    OxygenSaturationRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.RESPIRATORY_RATE -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    RespiratoryRateRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    RespiratoryRateRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.VO2MAX -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    Vo2MaxRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    Vo2MaxRecord::class,
-                )
-            }
-        }
-
-        HealthDataTypeDto.ENERGY_NUTRIENT,
-        HealthDataTypeDto.CAFFEINE,
-        HealthDataTypeDto.PROTEIN,
-        HealthDataTypeDto.TOTAL_CARBOHYDRATE,
-        HealthDataTypeDto.TOTAL_FAT,
-        HealthDataTypeDto.SATURATED_FAT,
-        HealthDataTypeDto.MONOUNSATURATED_FAT,
-        HealthDataTypeDto.POLYUNSATURATED_FAT,
-        HealthDataTypeDto.CHOLESTEROL,
-        HealthDataTypeDto.DIETARY_FIBER,
-        HealthDataTypeDto.SUGAR,
-        HealthDataTypeDto.VITAMIN_A,
-        HealthDataTypeDto.VITAMIN_B6,
-        HealthDataTypeDto.VITAMIN_B12,
-        HealthDataTypeDto.VITAMIN_C,
-        HealthDataTypeDto.VITAMIN_D,
-        HealthDataTypeDto.VITAMIN_E,
-        HealthDataTypeDto.VITAMIN_K,
-        HealthDataTypeDto.THIAMIN,
-        HealthDataTypeDto.RIBOFLAVIN,
-        HealthDataTypeDto.NIACIN,
-        HealthDataTypeDto.FOLATE,
-        HealthDataTypeDto.BIOTIN,
-        HealthDataTypeDto.PANTOTHENIC_ACID,
-        HealthDataTypeDto.CALCIUM,
-        HealthDataTypeDto.IRON,
-        HealthDataTypeDto.MAGNESIUM,
-        HealthDataTypeDto.MANGANESE,
-        HealthDataTypeDto.PHOSPHORUS,
-        HealthDataTypeDto.POTASSIUM,
-        HealthDataTypeDto.SELENIUM,
-        HealthDataTypeDto.SODIUM,
-        HealthDataTypeDto.ZINC,
-        HealthDataTypeDto.NUTRITION,
-        -> {
-            when (this.accessType) {
-                PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
-                    NutritionRecord::class,
-                )
-                PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
-                    NutritionRecord::class,
-                )
-            }
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                ActiveCaloriesBurnedRecord::class,
+            )
         }
     }
 
+    HealthDataTypeDto.STEPS -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                StepsRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                StepsRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.WEIGHT -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                WeightRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                WeightRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.DISTANCE -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                DistanceRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                DistanceRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.FLOORS_CLIMBED -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                FloorsClimbedRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                FloorsClimbedRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.HEIGHT -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                HeightRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                HeightRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.HYDRATION -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                HydrationRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                HydrationRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.LEAN_BODY_MASS -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                LeanBodyMassRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                LeanBodyMassRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.BODY_FAT_PERCENTAGE -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                BodyFatRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                BodyFatRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.BODY_TEMPERATURE -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                BodyTemperatureRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                BodyTemperatureRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.WHEELCHAIR_PUSHES -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                WheelchairPushesRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                WheelchairPushesRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.HEART_RATE_SERIES_RECORD -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                HeartRateRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                HeartRateRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.SLEEP_SESSION -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                SleepSessionRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                SleepSessionRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.RESTING_HEART_RATE -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                RestingHeartRateRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                RestingHeartRateRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.BLOOD_PRESSURE -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                BloodPressureRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                BloodPressureRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.BLOOD_GLUCOSE -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                BloodGlucoseRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                BloodGlucoseRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.OXYGEN_SATURATION -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                OxygenSaturationRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                OxygenSaturationRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.RESPIRATORY_RATE -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                RespiratoryRateRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                RespiratoryRateRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.VO2MAX -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                Vo2MaxRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                Vo2MaxRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.ENERGY_NUTRIENT,
+    HealthDataTypeDto.CAFFEINE,
+    HealthDataTypeDto.PROTEIN,
+    HealthDataTypeDto.TOTAL_CARBOHYDRATE,
+    HealthDataTypeDto.TOTAL_FAT,
+    HealthDataTypeDto.SATURATED_FAT,
+    HealthDataTypeDto.MONOUNSATURATED_FAT,
+    HealthDataTypeDto.POLYUNSATURATED_FAT,
+    HealthDataTypeDto.CHOLESTEROL,
+    HealthDataTypeDto.DIETARY_FIBER,
+    HealthDataTypeDto.SUGAR,
+    HealthDataTypeDto.VITAMIN_A,
+    HealthDataTypeDto.VITAMIN_B6,
+    HealthDataTypeDto.VITAMIN_B12,
+    HealthDataTypeDto.VITAMIN_C,
+    HealthDataTypeDto.VITAMIN_D,
+    HealthDataTypeDto.VITAMIN_E,
+    HealthDataTypeDto.VITAMIN_K,
+    HealthDataTypeDto.THIAMIN,
+    HealthDataTypeDto.RIBOFLAVIN,
+    HealthDataTypeDto.NIACIN,
+    HealthDataTypeDto.FOLATE,
+    HealthDataTypeDto.BIOTIN,
+    HealthDataTypeDto.PANTOTHENIC_ACID,
+    HealthDataTypeDto.CALCIUM,
+    HealthDataTypeDto.IRON,
+    HealthDataTypeDto.MAGNESIUM,
+    HealthDataTypeDto.MANGANESE,
+    HealthDataTypeDto.PHOSPHORUS,
+    HealthDataTypeDto.POTASSIUM,
+    HealthDataTypeDto.SELENIUM,
+    HealthDataTypeDto.SODIUM,
+    HealthDataTypeDto.ZINC,
+    HealthDataTypeDto.NUTRITION,
+    -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                NutritionRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                NutritionRecord::class,
+            )
+        }
+    }
+}
+
 /**
- * Converts a Health Connect permission string back to a [HealthDataPermissionDto].
+ * Converts a Health Connect permission string back to a [HealthDataPermissionRequestDto].
  *
  * This function parses Android Health Connect permission strings (e.g.,
  * "android.permission.health.READ_STEPS") and converts them to the corresponding DTO.
  *
  * @receiver The Health Connect permission string to parse
- * @return The corresponding [HealthDataPermissionDto]
+ * @return The corresponding [HealthDataPermissionRequestDto]
  * @throws IllegalArgumentException if the permission string format is invalid or doesn't
  *         start with the expected prefix
  * @throws UnsupportedOperationException if the data type or access type is not supported
  *         by this application
  */
 @Throws(IllegalArgumentException::class, UnsupportedOperationException::class)
-internal fun String.toDto(): HealthDataPermissionDto {
+internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto {
     // Health Connect permission strings follow the pattern:
     // android.permission.health.READ_STEPS, android.permission.health.WRITE_WEIGHT, etc.
     val prefix = "android.permission.health."
@@ -372,8 +411,24 @@ internal fun String.toDto(): HealthDataPermissionDto {
         )
     }
 
-    return HealthDataPermissionDto(healthDataType = dataType, accessType = accessType)
+    return HealthDataPermissionRequestDto(healthDataType = dataType, accessType = accessType)
 }
+
+/**
+ * Helper to map a raw permission string to its corresponding DTO result.
+ */
+fun String.toPermissionRequestResultDto(): PermissionRequestResultDto =
+    if (this.isFeaturePermission) {
+        HealthPlatformFeaturePermissionRequestResultDto(
+            feature = this.toHealthPlatformFeatureDto(),
+            status = PermissionStatusDto.GRANTED,
+        )
+    } else {
+        HealthDataPermissionRequestResultDto(
+            permission = this.toHealthDataPermissionDto(),
+            status = PermissionStatusDto.GRANTED,
+        )
+    }
 
 /**
  * Converts a Health Platform Feature DTO to a Health Connect permission string.
@@ -381,9 +436,10 @@ internal fun String.toDto(): HealthDataPermissionDto {
  * @receiver The [HealthPlatformFeatureDto] to convert
  * @return The Health Connect permission string corresponding to the feature
  */
-internal fun HealthPlatformFeatureDto.toHealthConnectPermission(): String = when (this) {
+internal fun HealthPlatformFeatureDto.toHealthConnect(): String = when (this) {
     HealthPlatformFeatureDto.READ_HEALTH_DATA_IN_BACKGROUND ->
         PERMISSION_READ_HEALTH_DATA_IN_BACKGROUND
+
     HealthPlatformFeatureDto.READ_HEALTH_DATA_HISTORY ->
         PERMISSION_READ_HEALTH_DATA_HISTORY
 }
@@ -400,8 +456,10 @@ internal fun HealthPlatformFeatureDto.toHealthConnectPermission(): String = when
 internal fun String.toHealthPlatformFeatureDto(): HealthPlatformFeatureDto = when (this) {
     PERMISSION_READ_HEALTH_DATA_IN_BACKGROUND ->
         HealthPlatformFeatureDto.READ_HEALTH_DATA_IN_BACKGROUND
+
     PERMISSION_READ_HEALTH_DATA_HISTORY ->
         HealthPlatformFeatureDto.READ_HEALTH_DATA_HISTORY
+
     else -> throw UnsupportedOperationException(
         "Unsupported Health Connect platform feature: '$this'. " +
             "Supported features: READ_HEALTH_DATA_IN_BACKGROUND, READ_HEALTH_DATA_HISTORY.",

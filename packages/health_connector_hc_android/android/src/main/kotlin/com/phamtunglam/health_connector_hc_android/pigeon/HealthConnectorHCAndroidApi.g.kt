@@ -2546,6 +2546,20 @@ data class NutritionRecordDto (
 }
 
 /**
+ * Represents a permission request.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ * This class should not be extended by any user class outside of the generated file.
+ */
+sealed class PermissionRequestDto 
+/**
+ * Represents the result of a permission request.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ * This class should not be extended by any user class outside of the generated file.
+ */
+sealed class PermissionRequestResultDto 
+/**
  * Represents the result of a feature permission request.
  *
  * Generated class from Pigeon that represents data sent in messages.
@@ -2555,7 +2569,7 @@ data class HealthPlatformFeaturePermissionRequestResultDto (
   val feature: HealthPlatformFeatureDto,
   /** The status of the permission after the request. */
   val status: PermissionStatusDto
-)
+) : PermissionRequestResultDto()
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): HealthPlatformFeaturePermissionRequestResultDto {
@@ -2587,18 +2601,18 @@ data class HealthPlatformFeaturePermissionRequestResultDto (
  *
  * Generated class from Pigeon that represents data sent in messages.
  */
-data class HealthDataPermissionDto (
+data class HealthDataPermissionRequestDto (
   /** The type of access being requested (read or write). */
   val accessType: PermissionAccessTypeDto,
   /** The type of health data for which permission is requested. */
   val healthDataType: HealthDataTypeDto
-)
+) : PermissionRequestDto()
  {
   companion object {
-    fun fromList(pigeonVar_list: List<Any?>): HealthDataPermissionDto {
+    fun fromList(pigeonVar_list: List<Any?>): HealthDataPermissionRequestDto {
       val accessType = pigeonVar_list[0] as PermissionAccessTypeDto
       val healthDataType = pigeonVar_list[1] as HealthDataTypeDto
-      return HealthDataPermissionDto(accessType, healthDataType)
+      return HealthDataPermissionRequestDto(accessType, healthDataType)
     }
   }
   fun toList(): List<Any?> {
@@ -2608,7 +2622,7 @@ data class HealthDataPermissionDto (
     )
   }
   override fun equals(other: Any?): Boolean {
-    if (other !is HealthDataPermissionDto) {
+    if (other !is HealthDataPermissionRequestDto) {
       return false
     }
     if (this === other) {
@@ -2626,14 +2640,14 @@ data class HealthDataPermissionDto (
  */
 data class HealthDataPermissionRequestResultDto (
   /** The health data permission that was requested. */
-  val permission: HealthDataPermissionDto,
+  val permission: HealthDataPermissionRequestDto,
   /** The status of the permission after the request. */
   val status: PermissionStatusDto
-)
+) : PermissionRequestResultDto()
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): HealthDataPermissionRequestResultDto {
-      val permission = pigeonVar_list[0] as HealthDataPermissionDto
+      val permission = pigeonVar_list[0] as HealthDataPermissionRequestDto
       val status = pigeonVar_list[1] as PermissionStatusDto
       return HealthDataPermissionRequestResultDto(permission, status)
     }
@@ -2656,33 +2670,58 @@ data class HealthDataPermissionRequestResultDto (
   override fun hashCode(): Int = toList().hashCode()
 }
 
-/**
- * Represents a permissions request.
- *
- * Generated class from Pigeon that represents data sent in messages.
- */
-data class PermissionsRequestDto (
-  /** List of features for which to request permissions. */
-  val featurePermissions: List<HealthPlatformFeatureDto>,
-  /** List of health data permissions to request. */
-  val healthDataPermissions: List<HealthDataPermissionDto>
-)
+/** Generated class from Pigeon that represents data sent in messages. */
+data class HealthPlatformFeaturePermissionRequest (
+  /** Feature for which to request permission. */
+  val feature: HealthPlatformFeatureDto
+) : PermissionRequestDto()
  {
   companion object {
-    fun fromList(pigeonVar_list: List<Any?>): PermissionsRequestDto {
-      val featurePermissions = pigeonVar_list[0] as List<HealthPlatformFeatureDto>
-      val healthDataPermissions = pigeonVar_list[1] as List<HealthDataPermissionDto>
-      return PermissionsRequestDto(featurePermissions, healthDataPermissions)
+    fun fromList(pigeonVar_list: List<Any?>): HealthPlatformFeaturePermissionRequest {
+      val feature = pigeonVar_list[0] as HealthPlatformFeatureDto
+      return HealthPlatformFeaturePermissionRequest(feature)
     }
   }
   fun toList(): List<Any?> {
     return listOf(
-      featurePermissions,
-      healthDataPermissions,
+      feature,
     )
   }
   override fun equals(other: Any?): Boolean {
-    if (other !is PermissionsRequestDto) {
+    if (other !is HealthPlatformFeaturePermissionRequest) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
+
+  override fun hashCode(): Int = toList().hashCode()
+}
+
+/**
+ * Represents a permission requests.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class PermissionRequestsDto (
+  /** List of permission requests. */
+  val permissionRequests: List<PermissionRequestDto>
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): PermissionRequestsDto {
+      val permissionRequests = pigeonVar_list[0] as List<PermissionRequestDto>
+      return PermissionRequestsDto(permissionRequests)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      permissionRequests,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other !is PermissionRequestsDto) {
       return false
     }
     if (this === other) {
@@ -2698,28 +2737,24 @@ data class PermissionsRequestDto (
  *
  * Generated class from Pigeon that represents data sent in messages.
  */
-data class PermissionsRequestResponseDto (
-  /** Results for each feature permission that was requested. */
-  val featurePermissionResults: List<HealthPlatformFeaturePermissionRequestResultDto>,
-  /** Results for each health data permission that was requested. */
-  val healthDataPermissionResults: List<HealthDataPermissionRequestResultDto>
+data class PermissionRequestsResponseDto (
+  /** Results for each permission that was requested. */
+  val permissionResults: List<PermissionRequestResultDto>
 )
  {
   companion object {
-    fun fromList(pigeonVar_list: List<Any?>): PermissionsRequestResponseDto {
-      val featurePermissionResults = pigeonVar_list[0] as List<HealthPlatformFeaturePermissionRequestResultDto>
-      val healthDataPermissionResults = pigeonVar_list[1] as List<HealthDataPermissionRequestResultDto>
-      return PermissionsRequestResponseDto(featurePermissionResults, healthDataPermissionResults)
+    fun fromList(pigeonVar_list: List<Any?>): PermissionRequestsResponseDto {
+      val permissionResults = pigeonVar_list[0] as List<PermissionRequestResultDto>
+      return PermissionRequestsResponseDto(permissionResults)
     }
   }
   fun toList(): List<Any?> {
     return listOf(
-      featurePermissionResults,
-      healthDataPermissionResults,
+      permissionResults,
     )
   }
   override fun equals(other: Any?): Boolean {
-    if (other !is PermissionsRequestResponseDto) {
+    if (other !is PermissionRequestsResponseDto) {
       return false
     }
     if (this === other) {
@@ -3634,7 +3669,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       195.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthDataPermissionDto.fromList(it)
+          HealthDataPermissionRequestDto.fromList(it)
         }
       }
       196.toByte() -> {
@@ -3644,85 +3679,90 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       197.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PermissionsRequestDto.fromList(it)
+          HealthPlatformFeaturePermissionRequest.fromList(it)
         }
       }
       198.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PermissionsRequestResponseDto.fromList(it)
+          PermissionRequestsDto.fromList(it)
         }
       }
       199.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          CommonAggregateRequestDto.fromList(it)
+          PermissionRequestsResponseDto.fromList(it)
         }
       }
       200.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BloodPressureAggregateRequestDto.fromList(it)
+          CommonAggregateRequestDto.fromList(it)
         }
       }
       201.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          AggregateResponseDto.fromList(it)
+          BloodPressureAggregateRequestDto.fromList(it)
         }
       }
       202.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByIdsRequestDto.fromList(it)
+          AggregateResponseDto.fromList(it)
         }
       }
       203.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByTimeRangeRequestDto.fromList(it)
+          DeleteRecordsByIdsRequestDto.fromList(it)
         }
       }
       204.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordRequestDto.fromList(it)
+          DeleteRecordsByTimeRangeRequestDto.fromList(it)
         }
       }
       205.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordResponseDto.fromList(it)
+          ReadRecordRequestDto.fromList(it)
         }
       }
       206.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsRequestDto.fromList(it)
+          ReadRecordResponseDto.fromList(it)
         }
       }
       207.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsResponseDto.fromList(it)
+          ReadRecordsRequestDto.fromList(it)
         }
       }
       208.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          WriteRecordRequestDto.fromList(it)
+          ReadRecordsResponseDto.fromList(it)
         }
       }
       209.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          WriteRecordResponseDto.fromList(it)
+          WriteRecordRequestDto.fromList(it)
         }
       }
       210.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          WriteRecordsRequestDto.fromList(it)
+          WriteRecordResponseDto.fromList(it)
         }
       }
       211.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          WriteRecordsResponseDto.fromList(it)
+          WriteRecordsRequestDto.fromList(it)
         }
       }
       212.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          UpdateRecordRequestDto.fromList(it)
+          WriteRecordsResponseDto.fromList(it)
         }
       }
       213.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          UpdateRecordRequestDto.fromList(it)
+        }
+      }
+      214.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
           UpdateRecordResponseDto.fromList(it)
         }
@@ -3996,7 +4036,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(194)
         writeValue(stream, value.toList())
       }
-      is HealthDataPermissionDto -> {
+      is HealthDataPermissionRequestDto -> {
         stream.write(195)
         writeValue(stream, value.toList())
       }
@@ -4004,72 +4044,76 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(196)
         writeValue(stream, value.toList())
       }
-      is PermissionsRequestDto -> {
+      is HealthPlatformFeaturePermissionRequest -> {
         stream.write(197)
         writeValue(stream, value.toList())
       }
-      is PermissionsRequestResponseDto -> {
+      is PermissionRequestsDto -> {
         stream.write(198)
         writeValue(stream, value.toList())
       }
-      is CommonAggregateRequestDto -> {
+      is PermissionRequestsResponseDto -> {
         stream.write(199)
         writeValue(stream, value.toList())
       }
-      is BloodPressureAggregateRequestDto -> {
+      is CommonAggregateRequestDto -> {
         stream.write(200)
         writeValue(stream, value.toList())
       }
-      is AggregateResponseDto -> {
+      is BloodPressureAggregateRequestDto -> {
         stream.write(201)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByIdsRequestDto -> {
+      is AggregateResponseDto -> {
         stream.write(202)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByTimeRangeRequestDto -> {
+      is DeleteRecordsByIdsRequestDto -> {
         stream.write(203)
         writeValue(stream, value.toList())
       }
-      is ReadRecordRequestDto -> {
+      is DeleteRecordsByTimeRangeRequestDto -> {
         stream.write(204)
         writeValue(stream, value.toList())
       }
-      is ReadRecordResponseDto -> {
+      is ReadRecordRequestDto -> {
         stream.write(205)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsRequestDto -> {
+      is ReadRecordResponseDto -> {
         stream.write(206)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsResponseDto -> {
+      is ReadRecordsRequestDto -> {
         stream.write(207)
         writeValue(stream, value.toList())
       }
-      is WriteRecordRequestDto -> {
+      is ReadRecordsResponseDto -> {
         stream.write(208)
         writeValue(stream, value.toList())
       }
-      is WriteRecordResponseDto -> {
+      is WriteRecordRequestDto -> {
         stream.write(209)
         writeValue(stream, value.toList())
       }
-      is WriteRecordsRequestDto -> {
+      is WriteRecordResponseDto -> {
         stream.write(210)
         writeValue(stream, value.toList())
       }
-      is WriteRecordsResponseDto -> {
+      is WriteRecordsRequestDto -> {
         stream.write(211)
         writeValue(stream, value.toList())
       }
-      is UpdateRecordRequestDto -> {
+      is WriteRecordsResponseDto -> {
         stream.write(212)
         writeValue(stream, value.toList())
       }
-      is UpdateRecordResponseDto -> {
+      is UpdateRecordRequestDto -> {
         stream.write(213)
+        writeValue(stream, value.toList())
+      }
+      is UpdateRecordResponseDto -> {
+        stream.write(214)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)
@@ -4089,8 +4133,8 @@ interface HealthConnectorHCAndroidApi {
   fun deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto, callback: (Result<Unit>) -> Unit)
   fun getFeatureStatus(feature: HealthPlatformFeatureDto, callback: (Result<HealthPlatformFeatureStatusDto>) -> Unit)
   fun getHealthPlatformStatus(callback: (Result<HealthPlatformStatusDto>) -> Unit)
-  fun requestPermissions(request: PermissionsRequestDto, callback: (Result<PermissionsRequestResponseDto>) -> Unit)
-  fun getGrantedPermissions(callback: (Result<PermissionsRequestResponseDto>) -> Unit)
+  fun requestPermissions(request: PermissionRequestsDto, callback: (Result<PermissionRequestsResponseDto>) -> Unit)
+  fun getGrantedPermissions(callback: (Result<PermissionRequestsResponseDto>) -> Unit)
   fun revokeAllPermissions(callback: (Result<Unit>) -> Unit)
   fun readRecord(request: ReadRecordRequestDto, callback: (Result<ReadRecordResponseDto?>) -> Unit)
   fun readRecords(request: ReadRecordsRequestDto, callback: (Result<ReadRecordsResponseDto>) -> Unit)
@@ -4208,8 +4252,8 @@ interface HealthConnectorHCAndroidApi {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val requestArg = args[0] as PermissionsRequestDto
-            api.requestPermissions(requestArg) { result: Result<PermissionsRequestResponseDto> ->
+            val requestArg = args[0] as PermissionRequestsDto
+            api.requestPermissions(requestArg) { result: Result<PermissionRequestsResponseDto> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
@@ -4227,7 +4271,7 @@ interface HealthConnectorHCAndroidApi {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getGrantedPermissions$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { _, reply ->
-            api.getGrantedPermissions{ result: Result<PermissionsRequestResponseDto> ->
+            api.getGrantedPermissions{ result: Result<PermissionRequestsResponseDto> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))

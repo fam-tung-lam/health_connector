@@ -3091,8 +3091,15 @@ class NutritionRecordDto extends HealthRecordDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
+/// Represents a permission request.
+sealed class PermissionRequestDto {}
+
+/// Represents the result of a permission request.
+sealed class PermissionRequestResultDto {}
+
 /// Represents the result of a feature permission request.
-class HealthPlatformFeaturePermissionRequestResultDto {
+class HealthPlatformFeaturePermissionRequestResultDto
+    extends PermissionRequestResultDto {
   HealthPlatformFeaturePermissionRequestResultDto({
     required this.feature,
     required this.status,
@@ -3142,8 +3149,8 @@ class HealthPlatformFeaturePermissionRequestResultDto {
 }
 
 /// Represents a permission request for accessing specific health data.
-class HealthDataPermissionDto {
-  HealthDataPermissionDto({
+class HealthDataPermissionRequestDto extends PermissionRequestDto {
+  HealthDataPermissionRequestDto({
     required this.accessType,
     required this.healthDataType,
   });
@@ -3165,9 +3172,9 @@ class HealthDataPermissionDto {
     return _toList();
   }
 
-  static HealthDataPermissionDto decode(Object result) {
+  static HealthDataPermissionRequestDto decode(Object result) {
     result as List<Object?>;
-    return HealthDataPermissionDto(
+    return HealthDataPermissionRequestDto(
       accessType: result[0]! as PermissionAccessTypeDto,
       healthDataType: result[1]! as HealthDataTypeDto,
     );
@@ -3176,7 +3183,8 @@ class HealthDataPermissionDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HealthDataPermissionDto || other.runtimeType != runtimeType) {
+    if (other is! HealthDataPermissionRequestDto ||
+        other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3191,14 +3199,14 @@ class HealthDataPermissionDto {
 }
 
 /// Represents the result of a health data permission request.
-class HealthDataPermissionRequestResultDto {
+class HealthDataPermissionRequestResultDto extends PermissionRequestResultDto {
   HealthDataPermissionRequestResultDto({
     required this.permission,
     required this.status,
   });
 
   /// The health data permission that was requested.
-  HealthDataPermissionDto permission;
+  HealthDataPermissionRequestDto permission;
 
   /// The status of the permission after the request.
   PermissionStatusDto status;
@@ -3217,7 +3225,7 @@ class HealthDataPermissionRequestResultDto {
   static HealthDataPermissionRequestResultDto decode(Object result) {
     result as List<Object?>;
     return HealthDataPermissionRequestResultDto(
-      permission: result[0]! as HealthDataPermissionDto,
+      permission: result[0]! as HealthDataPermissionRequestDto,
       status: result[1]! as PermissionStatusDto,
     );
   }
@@ -3240,23 +3248,17 @@ class HealthDataPermissionRequestResultDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents a permissions request.
-class PermissionsRequestDto {
-  PermissionsRequestDto({
-    required this.featurePermissions,
-    required this.healthDataPermissions,
+class HealthPlatformFeaturePermissionRequest extends PermissionRequestDto {
+  HealthPlatformFeaturePermissionRequest({
+    required this.feature,
   });
 
-  /// List of features for which to request permissions.
-  List<HealthPlatformFeatureDto> featurePermissions;
-
-  /// List of health data permissions to request.
-  List<HealthDataPermissionDto> healthDataPermissions;
+  /// Feature for which to request permission.
+  HealthPlatformFeatureDto feature;
 
   List<Object?> _toList() {
     return <Object?>[
-      featurePermissions,
-      healthDataPermissions,
+      feature,
     ];
   }
 
@@ -3264,20 +3266,62 @@ class PermissionsRequestDto {
     return _toList();
   }
 
-  static PermissionsRequestDto decode(Object result) {
+  static HealthPlatformFeaturePermissionRequest decode(Object result) {
     result as List<Object?>;
-    return PermissionsRequestDto(
-      featurePermissions: (result[0] as List<Object?>?)!
-          .cast<HealthPlatformFeatureDto>(),
-      healthDataPermissions: (result[1] as List<Object?>?)!
-          .cast<HealthDataPermissionDto>(),
+    return HealthPlatformFeaturePermissionRequest(
+      feature: result[0]! as HealthPlatformFeatureDto,
     );
   }
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! PermissionsRequestDto || other.runtimeType != runtimeType) {
+    if (other is! HealthPlatformFeaturePermissionRequest ||
+        other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
+/// Represents a permission requests.
+class PermissionRequestsDto {
+  PermissionRequestsDto({
+    required this.permissionRequests,
+  });
+
+  /// List of permission requests.
+  List<PermissionRequestDto> permissionRequests;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      permissionRequests,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static PermissionRequestsDto decode(Object result) {
+    result as List<Object?>;
+    return PermissionRequestsDto(
+      permissionRequests: (result[0] as List<Object?>?)!
+          .cast<PermissionRequestDto>(),
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! PermissionRequestsDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3292,23 +3336,17 @@ class PermissionsRequestDto {
 }
 
 /// Represents the response from a permissions request.
-class PermissionsRequestResponseDto {
-  PermissionsRequestResponseDto({
-    required this.featurePermissionResults,
-    required this.healthDataPermissionResults,
+class PermissionRequestsResponseDto {
+  PermissionRequestsResponseDto({
+    required this.permissionResults,
   });
 
-  /// Results for each feature permission that was requested.
-  List<HealthPlatformFeaturePermissionRequestResultDto>
-  featurePermissionResults;
-
-  /// Results for each health data permission that was requested.
-  List<HealthDataPermissionRequestResultDto> healthDataPermissionResults;
+  /// Results for each permission that was requested.
+  List<PermissionRequestResultDto> permissionResults;
 
   List<Object?> _toList() {
     return <Object?>[
-      featurePermissionResults,
-      healthDataPermissionResults,
+      permissionResults,
     ];
   }
 
@@ -3316,20 +3354,18 @@ class PermissionsRequestResponseDto {
     return _toList();
   }
 
-  static PermissionsRequestResponseDto decode(Object result) {
+  static PermissionRequestsResponseDto decode(Object result) {
     result as List<Object?>;
-    return PermissionsRequestResponseDto(
-      featurePermissionResults: (result[0] as List<Object?>?)!
-          .cast<HealthPlatformFeaturePermissionRequestResultDto>(),
-      healthDataPermissionResults: (result[1] as List<Object?>?)!
-          .cast<HealthDataPermissionRequestResultDto>(),
+    return PermissionRequestsResponseDto(
+      permissionResults: (result[0] as List<Object?>?)!
+          .cast<PermissionRequestResultDto>(),
     );
   }
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! PermissionsRequestResponseDto ||
+    if (other is! PermissionRequestsResponseDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -4299,62 +4335,65 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is HealthPlatformFeaturePermissionRequestResultDto) {
       buffer.putUint8(194);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataPermissionDto) {
+    } else if (value is HealthDataPermissionRequestDto) {
       buffer.putUint8(195);
       writeValue(buffer, value.encode());
     } else if (value is HealthDataPermissionRequestResultDto) {
       buffer.putUint8(196);
       writeValue(buffer, value.encode());
-    } else if (value is PermissionsRequestDto) {
+    } else if (value is HealthPlatformFeaturePermissionRequest) {
       buffer.putUint8(197);
       writeValue(buffer, value.encode());
-    } else if (value is PermissionsRequestResponseDto) {
+    } else if (value is PermissionRequestsDto) {
       buffer.putUint8(198);
       writeValue(buffer, value.encode());
-    } else if (value is CommonAggregateRequestDto) {
+    } else if (value is PermissionRequestsResponseDto) {
       buffer.putUint8(199);
       writeValue(buffer, value.encode());
-    } else if (value is BloodPressureAggregateRequestDto) {
+    } else if (value is CommonAggregateRequestDto) {
       buffer.putUint8(200);
       writeValue(buffer, value.encode());
-    } else if (value is AggregateResponseDto) {
+    } else if (value is BloodPressureAggregateRequestDto) {
       buffer.putUint8(201);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByIdsRequestDto) {
+    } else if (value is AggregateResponseDto) {
       buffer.putUint8(202);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
+    } else if (value is DeleteRecordsByIdsRequestDto) {
       buffer.putUint8(203);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordRequestDto) {
+    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
       buffer.putUint8(204);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordResponseDto) {
+    } else if (value is ReadRecordRequestDto) {
       buffer.putUint8(205);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsRequestDto) {
+    } else if (value is ReadRecordResponseDto) {
       buffer.putUint8(206);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsResponseDto) {
+    } else if (value is ReadRecordsRequestDto) {
       buffer.putUint8(207);
       writeValue(buffer, value.encode());
-    } else if (value is WriteRecordRequestDto) {
+    } else if (value is ReadRecordsResponseDto) {
       buffer.putUint8(208);
       writeValue(buffer, value.encode());
-    } else if (value is WriteRecordResponseDto) {
+    } else if (value is WriteRecordRequestDto) {
       buffer.putUint8(209);
       writeValue(buffer, value.encode());
-    } else if (value is WriteRecordsRequestDto) {
+    } else if (value is WriteRecordResponseDto) {
       buffer.putUint8(210);
       writeValue(buffer, value.encode());
-    } else if (value is WriteRecordsResponseDto) {
+    } else if (value is WriteRecordsRequestDto) {
       buffer.putUint8(211);
       writeValue(buffer, value.encode());
-    } else if (value is UpdateRecordRequestDto) {
+    } else if (value is WriteRecordsResponseDto) {
       buffer.putUint8(212);
       writeValue(buffer, value.encode());
-    } else if (value is UpdateRecordResponseDto) {
+    } else if (value is UpdateRecordRequestDto) {
       buffer.putUint8(213);
+      writeValue(buffer, value.encode());
+    } else if (value is UpdateRecordResponseDto) {
+      buffer.putUint8(214);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -4537,42 +4576,46 @@ class _PigeonCodec extends StandardMessageCodec {
           readValue(buffer)!,
         );
       case 195:
-        return HealthDataPermissionDto.decode(readValue(buffer)!);
+        return HealthDataPermissionRequestDto.decode(readValue(buffer)!);
       case 196:
         return HealthDataPermissionRequestResultDto.decode(readValue(buffer)!);
       case 197:
-        return PermissionsRequestDto.decode(readValue(buffer)!);
+        return HealthPlatformFeaturePermissionRequest.decode(
+          readValue(buffer)!,
+        );
       case 198:
-        return PermissionsRequestResponseDto.decode(readValue(buffer)!);
+        return PermissionRequestsDto.decode(readValue(buffer)!);
       case 199:
-        return CommonAggregateRequestDto.decode(readValue(buffer)!);
+        return PermissionRequestsResponseDto.decode(readValue(buffer)!);
       case 200:
-        return BloodPressureAggregateRequestDto.decode(readValue(buffer)!);
+        return CommonAggregateRequestDto.decode(readValue(buffer)!);
       case 201:
-        return AggregateResponseDto.decode(readValue(buffer)!);
+        return BloodPressureAggregateRequestDto.decode(readValue(buffer)!);
       case 202:
-        return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
+        return AggregateResponseDto.decode(readValue(buffer)!);
       case 203:
-        return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
+        return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
       case 204:
-        return ReadRecordRequestDto.decode(readValue(buffer)!);
+        return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
       case 205:
-        return ReadRecordResponseDto.decode(readValue(buffer)!);
+        return ReadRecordRequestDto.decode(readValue(buffer)!);
       case 206:
-        return ReadRecordsRequestDto.decode(readValue(buffer)!);
+        return ReadRecordResponseDto.decode(readValue(buffer)!);
       case 207:
-        return ReadRecordsResponseDto.decode(readValue(buffer)!);
+        return ReadRecordsRequestDto.decode(readValue(buffer)!);
       case 208:
-        return WriteRecordRequestDto.decode(readValue(buffer)!);
+        return ReadRecordsResponseDto.decode(readValue(buffer)!);
       case 209:
-        return WriteRecordResponseDto.decode(readValue(buffer)!);
+        return WriteRecordRequestDto.decode(readValue(buffer)!);
       case 210:
-        return WriteRecordsRequestDto.decode(readValue(buffer)!);
+        return WriteRecordResponseDto.decode(readValue(buffer)!);
       case 211:
-        return WriteRecordsResponseDto.decode(readValue(buffer)!);
+        return WriteRecordsRequestDto.decode(readValue(buffer)!);
       case 212:
-        return UpdateRecordRequestDto.decode(readValue(buffer)!);
+        return WriteRecordsResponseDto.decode(readValue(buffer)!);
       case 213:
+        return UpdateRecordRequestDto.decode(readValue(buffer)!);
+      case 214:
         return UpdateRecordResponseDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -4750,8 +4793,8 @@ class HealthConnectorHCAndroidApi {
     }
   }
 
-  Future<PermissionsRequestResponseDto> requestPermissions(
-    PermissionsRequestDto request,
+  Future<PermissionRequestsResponseDto> requestPermissions(
+    PermissionRequestsDto request,
   ) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.requestPermissions$pigeonVar_messageChannelSuffix';
@@ -4780,11 +4823,11 @@ class HealthConnectorHCAndroidApi {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
-      return (pigeonVar_replyList[0] as PermissionsRequestResponseDto?)!;
+      return (pigeonVar_replyList[0] as PermissionRequestsResponseDto?)!;
     }
   }
 
-  Future<PermissionsRequestResponseDto> getGrantedPermissions() async {
+  Future<PermissionRequestsResponseDto> getGrantedPermissions() async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getGrantedPermissions$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
@@ -4810,7 +4853,7 @@ class HealthConnectorHCAndroidApi {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
-      return (pigeonVar_replyList[0] as PermissionsRequestResponseDto?)!;
+      return (pigeonVar_replyList[0] as PermissionRequestsResponseDto?)!;
     }
   }
 
