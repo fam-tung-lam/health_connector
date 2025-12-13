@@ -11,16 +11,20 @@ extension HealthConnectorErrorCodeDto {
         switch self {
         case .unknown:
             "UNKNOWN"
-        case .healthPlatformUnavailable:
-            "HEALTH_PLATFORM_UNAVAILABLE"
-        case .unsupportedHealthPlatformApi:
-            "UNSUPPORTED_HEALTH_PLATFORM_API"
-        case .invalidPlatformConfiguration:
-            "INVALID_PLATFORM_CONFIGURATION"
+        case .healthProviderUnavailable:
+            "HEALTH_PROVIDER_UNAVAILABLE"
+        case .unsupportedOperation:
+            "UNSUPPORTED_OPERATION"
+        case .invalidConfiguration:
+            "INVALID_CONFIGURATION"
         case .invalidArgument:
             "INVALID_ARGUMENT"
-        case .securityError:
-            "SECURITY_ERROR"
+        case .notAuthorized:
+            "NOT_AUTHORIZED"
+        case .remoteError:
+            "REMOTE_ERROR"
+        case .userCancelled:
+            "USER_CANCELLED"
         }
     }
 }
@@ -29,20 +33,24 @@ extension HealthConnectorErrorCodeDto {
  * Creates a [HealthConnectorError] from this error code with the appropriate message.
  */
 extension HealthConnectorErrorCodeDto {
-    func toError(details: Any? = nil) -> HealthConnectorError {
+    func toError(details: Sendable? = nil) -> HealthConnectorError {
         let message = switch self {
-        case .healthPlatformUnavailable:
+        case .healthProviderUnavailable:
             "HealthKit is unavailable"
-        case .invalidPlatformConfiguration:
+        case .invalidConfiguration:
             "Invalid platform configuration"
         case .unknown:
             "An unknown error occurred"
-        case .securityError:
+        case .notAuthorized:
             "Security/permission error: Access denied or insufficient permissions"
         case .invalidArgument:
             "Invalid argument: Input validation failed"
-        case .unsupportedHealthPlatformApi:
+        case .unsupportedOperation:
             "Unsupported health platform API"
+        case .remoteError:
+            "A transient I/O or communication error occurred"
+        case .userCancelled:
+            "User cancelled the operation"
         }
         return HealthConnectorError(code: stringValue, message: message, details: details)
     }
@@ -55,9 +63,9 @@ enum HealthConnectorErrors {
     /**
      * Creates a `HealthConnectorError` indicating that HealthKit is unavailable on the device.
      */
-    static func healthPlatformUnavailable(message: String? = nil, details: Sendable? = nil) -> HealthConnectorError {
+    static func healthProviderUnavailable(message: String? = nil, details: Sendable? = nil) -> HealthConnectorError {
         HealthConnectorError(
-            code: HealthConnectorErrorCodeDto.healthPlatformUnavailable.stringValue,
+            code: HealthConnectorErrorCodeDto.healthProviderUnavailable.stringValue,
             message: "HealthKit is unavailable\(getMessageOrEmpty(message))",
             details: details
         )
@@ -78,9 +86,9 @@ enum HealthConnectorErrors {
      * Creates a `HealthConnectorError` indicating that the requested API or feature is not
      * supported on iOS HealthKit.
      */
-    static func unsupportedHealthPlatformApi(message: String? = nil, details: Sendable? = nil) -> HealthConnectorError {
+    static func unsupportedOperation(message: String? = nil, details: Sendable? = nil) -> HealthConnectorError {
         HealthConnectorError(
-            code: HealthConnectorErrorCodeDto.unsupportedHealthPlatformApi.stringValue,
+            code: HealthConnectorErrorCodeDto.unsupportedOperation.stringValue,
             message: "Unsupported health platform API\(getMessageOrEmpty(message))",
             details: details
         )
@@ -90,9 +98,9 @@ enum HealthConnectorErrors {
      * Creates a `HealthConnectorError` for invalid platform configuration issues, f.e. missing
      * required permissions in Info.plist.
      */
-    static func invalidPlatformConfiguration(message: String? = nil, details: Sendable? = nil) -> HealthConnectorError {
+    static func invalidConfiguration(message: String? = nil, details: Sendable? = nil) -> HealthConnectorError {
         HealthConnectorError(
-            code: HealthConnectorErrorCodeDto.invalidPlatformConfiguration.stringValue,
+            code: HealthConnectorErrorCodeDto.invalidConfiguration.stringValue,
             message: "Invalid platform configuration\(getMessageOrEmpty(message))",
             details: details
         )
@@ -114,9 +122,9 @@ enum HealthConnectorErrors {
      *
      * This error maps to `HKError.errorAuthorizationDenied` on iOS.
      */
-    static func securityError(message: String? = nil, details: Sendable? = nil) -> HealthConnectorError {
+    static func notAuthorized(message: String? = nil, details: Sendable? = nil) -> HealthConnectorError {
         HealthConnectorError(
-            code: HealthConnectorErrorCodeDto.securityError.stringValue,
+            code: HealthConnectorErrorCodeDto.notAuthorized.stringValue,
             message: "Security error: Permission denied or insufficient access\(getMessageOrEmpty(message))",
             details: details
         )

@@ -57,7 +57,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 }
 
                 guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthPlatformUnavailable()
+                    throw HealthConnectorErrors.healthProviderUnavailable()
                 }
 
                 let healthDataResults = try await client
@@ -117,7 +117,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 }
 
                 guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthPlatformUnavailable()
+                    throw HealthConnectorErrors.healthProviderUnavailable()
                 }
 
                 let result = try await client.readRecord(request: request)
@@ -171,7 +171,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 }
 
                 guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthPlatformUnavailable()
+                    throw HealthConnectorErrors.healthProviderUnavailable()
                 }
 
                 let result = try await client.readRecords(request: request)
@@ -225,7 +225,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 }
 
                 guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthPlatformUnavailable()
+                    throw HealthConnectorErrors.healthProviderUnavailable()
                 }
 
                 let result = try await client.writeRecord(request: request)
@@ -279,7 +279,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 }
 
                 guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthPlatformUnavailable()
+                    throw HealthConnectorErrors.healthProviderUnavailable()
                 }
 
                 let result = try await client.writeRecords(request: request)
@@ -333,7 +333,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 }
 
                 guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthPlatformUnavailable()
+                    throw HealthConnectorErrors.healthProviderUnavailable()
                 }
 
                 let result = try await client.updateRecord(request: request)
@@ -387,7 +387,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 }
 
                 guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthPlatformUnavailable()
+                    throw HealthConnectorErrors.healthProviderUnavailable()
                 }
 
                 let result = try await client.aggregate(request: request)
@@ -443,7 +443,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 }
 
                 guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthPlatformUnavailable()
+                    throw HealthConnectorErrors.healthProviderUnavailable()
                 }
 
                 try await client.deleteRecordsByIds(request: request)
@@ -497,7 +497,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 }
 
                 guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthPlatformUnavailable()
+                    throw HealthConnectorErrors.healthProviderUnavailable()
                 }
 
                 try await client.deleteRecordsByTimeRange(request: request)

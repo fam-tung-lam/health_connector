@@ -64,10 +64,10 @@ final class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.healthPlatformUnavailable]
+  ///   [HealthConnectorErrorCode.healthProviderUnavailable]
   ///   if Health platform is unavailable on this device.
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.installationOrUpdateRequired]
+  ///   [HealthConnectorErrorCode.healthProviderNotInstalledOrUpdateRequired]
   ///   if Health platform installation or update is required.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   if an unexpected error occurs
@@ -94,7 +94,7 @@ final class HealthConnector {
         );
 
         throw HealthConnectorException(
-          HealthConnectorErrorCode.healthPlatformUnavailable,
+          HealthConnectorErrorCode.healthProviderUnavailable,
           '$healthPlatform is not available.',
         );
       case HealthPlatformStatus.installationOrUpdateRequired:
@@ -107,7 +107,7 @@ final class HealthConnector {
         );
 
         throw HealthConnectorException(
-          HealthConnectorErrorCode.installationOrUpdateRequired,
+          HealthConnectorErrorCode.healthProviderNotInstalledOrUpdateRequired,
           '$healthPlatform needs installation or update.',
         );
       case HealthPlatformStatus.available:
@@ -221,7 +221,7 @@ final class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.invalidPlatformConfiguration] if
+  ///   [HealthConnectorErrorCode.invalidConfiguration] if
   ///    required permissions are missing from platform configuration
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   if unexpected error occurs
@@ -314,7 +314,7 @@ final class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.unsupportedHealthPlatformApi] if
+  ///   [HealthConnectorErrorCode.unsupportedOperation] if
   ///   this API is not supported on the current platform
   /// - [HealthConnectorException] if the platform request fails or
   ///   returns invalid data
@@ -364,7 +364,7 @@ final class HealthConnector {
         );
 
         throw const HealthConnectorException(
-          HealthConnectorErrorCode.unsupportedHealthPlatformApi,
+          HealthConnectorErrorCode.unsupportedOperation,
           'getGrantedPermissions is only available on Health Connect. ',
         );
       case HealthPlatform.healthConnect:
@@ -401,7 +401,7 @@ final class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.unsupportedHealthPlatformApi] if this API is
+  ///   [HealthConnectorErrorCode.unsupportedOperation] if this API is
   ///   not supported on the current platform
   /// - [HealthConnectorException] if the platform request fails
   ///
@@ -442,7 +442,7 @@ final class HealthConnector {
         );
 
         throw const HealthConnectorException(
-          HealthConnectorErrorCode.unsupportedHealthPlatformApi,
+          HealthConnectorErrorCode.unsupportedOperation,
           'revokeAllPermissions is only available on Health Connect. ',
         );
       case HealthPlatform.healthConnect:
@@ -487,7 +487,7 @@ final class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.invalidPlatformConfiguration] if
+  ///   [HealthConnectorErrorCode.invalidConfiguration] if
   ///   required feature permissions are missing from platform configuration
   /// - [HealthConnectorException] if unable to query feature status
   ///
@@ -584,7 +584,7 @@ final class HealthConnector {
   ///
   /// ## Throws
   ///
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.securityError]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if read permission has not been granted
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   if an unexpected error occurs
@@ -669,7 +669,7 @@ final class HealthConnector {
   ///
   /// ## Throws
   ///
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.securityError]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if read permission has not been granted
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   if an unexpected error occurs
@@ -744,7 +744,7 @@ final class HealthConnector {
   ///
   /// ## Throws
   ///
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.securityError]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if write permission has not been granted
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if the record ID is not
@@ -844,7 +844,7 @@ final class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.securityError] if write permission has not
+  ///   [HealthConnectorErrorCode.notAuthorized] if write permission has not
   ///   been granted
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if any record ID is not
@@ -958,7 +958,7 @@ final class HealthConnector {
   ///
   /// ## Throws
   ///
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.securityError]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if read permission has not been granted
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   if an unexpected error occurs
@@ -1036,9 +1036,9 @@ final class HealthConnector {
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if
   ///   [endTime] before [startTime]
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.securityError]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if delete/write permission has not been granted
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.securityError]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if attempting to delete records not created by this app
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   if an unexpected error occurs
@@ -1121,12 +1121,12 @@ final class HealthConnector {
   ///
   /// ## Throws
   ///
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.securityError]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if delete/write permission has not been granted
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if
   ///   any record ID is [HealthRecordId.none]
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.securityError]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if attempting to delete records not created by this app
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   if an unexpected error occurs
@@ -1230,9 +1230,9 @@ final class HealthConnector {
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if the record ID is
   ///   [HealthRecordId.none] or invalid
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.securityError]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if write/delete permission has not been granted
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.securityError]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if attempting to update a record not created by this app
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   if an unexpected error occurs

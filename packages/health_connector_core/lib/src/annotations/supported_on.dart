@@ -14,7 +14,7 @@ import 'package:meta/meta.dart' show immutable, internal;
 ///
 /// When the annotated API is called on an unsupported platform, the annotated
 /// API should throw a [HealthConnectorException] with
-/// [HealthConnectorErrorCode.unsupportedHealthPlatformApi].
+/// [HealthConnectorErrorCode.unsupportedOperation].
 ///
 /// ## Example
 ///
