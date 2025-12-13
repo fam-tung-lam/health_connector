@@ -40,6 +40,7 @@ internal fun MeasurementLocationDto.toHealthConnect(): Int = when (this) {
     MeasurementLocationDto.RIGHT_WRIST -> BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_WRIST
     MeasurementLocationDto.LEFT_UPPER_ARM ->
         BloodPressureRecord.MEASUREMENT_LOCATION_LEFT_UPPER_ARM
+
     MeasurementLocationDto.RIGHT_UPPER_ARM ->
         BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_UPPER_ARM
 }
@@ -52,8 +53,10 @@ internal fun Int.toMeasurementLocationDto(): MeasurementLocationDto = when (this
     BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_WRIST -> MeasurementLocationDto.RIGHT_WRIST
     BloodPressureRecord.MEASUREMENT_LOCATION_LEFT_UPPER_ARM ->
         MeasurementLocationDto.LEFT_UPPER_ARM
+
     BloodPressureRecord.MEASUREMENT_LOCATION_RIGHT_UPPER_ARM ->
         MeasurementLocationDto.RIGHT_UPPER_ARM
+
     else -> MeasurementLocationDto.UNKNOWN
 }
 

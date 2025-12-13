@@ -39,8 +39,10 @@ internal fun BloodGlucoseSpecimenSourceDto.toHealthConnect(): Int = when (this) 
     BloodGlucoseSpecimenSourceDto.UNKNOWN -> BloodGlucoseRecord.SPECIMEN_SOURCE_UNKNOWN
     BloodGlucoseSpecimenSourceDto.INTERSTITIAL_FLUID ->
         BloodGlucoseRecord.SPECIMEN_SOURCE_INTERSTITIAL_FLUID
+
     BloodGlucoseSpecimenSourceDto.CAPILLARY_BLOOD ->
         BloodGlucoseRecord.SPECIMEN_SOURCE_CAPILLARY_BLOOD
+
     BloodGlucoseSpecimenSourceDto.PLASMA -> BloodGlucoseRecord.SPECIMEN_SOURCE_PLASMA
     BloodGlucoseSpecimenSourceDto.SERUM -> BloodGlucoseRecord.SPECIMEN_SOURCE_SERUM
     BloodGlucoseSpecimenSourceDto.TEARS -> BloodGlucoseRecord.SPECIMEN_SOURCE_TEARS
@@ -53,8 +55,10 @@ internal fun BloodGlucoseSpecimenSourceDto.toHealthConnect(): Int = when (this) 
 internal fun Int.toBloodGlucoseSpecimenSourceDto(): BloodGlucoseSpecimenSourceDto = when (this) {
     BloodGlucoseRecord.SPECIMEN_SOURCE_INTERSTITIAL_FLUID ->
         BloodGlucoseSpecimenSourceDto.INTERSTITIAL_FLUID
+
     BloodGlucoseRecord.SPECIMEN_SOURCE_CAPILLARY_BLOOD ->
         BloodGlucoseSpecimenSourceDto.CAPILLARY_BLOOD
+
     BloodGlucoseRecord.SPECIMEN_SOURCE_PLASMA -> BloodGlucoseSpecimenSourceDto.PLASMA
     BloodGlucoseRecord.SPECIMEN_SOURCE_SERUM -> BloodGlucoseSpecimenSourceDto.SERUM
     BloodGlucoseRecord.SPECIMEN_SOURCE_TEARS -> BloodGlucoseSpecimenSourceDto.TEARS

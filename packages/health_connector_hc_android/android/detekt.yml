@@ -1,8 +1,9 @@
-# Detekt Configuration
+# Detekt Configuration for Kotlin/Android Projects
 # https://detekt.dev/docs/intro
 
 build:
   maxIssues: 0
+  excludeCorrectable: false
 
 console-reports:
   active: true
@@ -12,53 +13,127 @@ output-reports:
   exclude:
     - 'TxtOutputReport'
 
+# ============================================================================
+# Complexity Rules
+# ============================================================================
 complexity:
   active: true
-  LongMethod:
-    threshold: 60
+
+  CyclomaticComplexMethod:
     active: true
+    threshold: 15
+
+  CognitiveComplexMethod:
+    active: true
+    threshold: 25
+    ignoreFunctions: ['equals']
+    ignoreNestingFunctions: true
+
+  LongMethod:
+    active: true
+    threshold: 60
+
   LongParameterList:
+    active: true
     functionThreshold: 6
     constructorThreshold: 7
-    active: true
 
   TooManyFunctions:
+    active: true
     thresholdInFiles: 11
     thresholdInClasses: 11
     thresholdInInterfaces: 11
     thresholdInObjects: 11
     thresholdInEnums: 11
-    active: true
-  ComplexCondition:
-    threshold: 4
-    active: true
-  CyclomaticComplexMethod:
-    threshold: 15
-    active: true
 
+  NestedBlockDepth:
+    active: true
+    allowedDepth: 3
+
+  ComplexCondition:
+    active: true
+    threshold: 4
+
+  LargeClass:
+    active: true
+    allowedLines: 600
+
+# ============================================================================
+# Coroutines Rules
+# ============================================================================
 coroutines:
   active: true
+  SuspendFunWithCoroutineScopeReceiver:
+    active: true
 
+# ============================================================================
+# Exception Rules
+# ============================================================================
 exceptions:
   active: true
+  # Catch generic Exception only when explicitly needed
+  ExceptionRaisedInUnexpectedLocation:
+    active: true
+    methodNames: ['toString', 'hashCode', 'equals', 'finalize']
 
+# ============================================================================
+# Naming Rules
+# ============================================================================
 naming:
   active: true
-  PackageNaming:
-    active: true
-    packagePattern: '[a-z]+(\.[a-z][A-Za-z0-9_]*)*'
 
+  # NOTE: PackageNaming disabled due to Flutter plugin convention (snake_case allowed)
+  # This is intentionally disabled to support plugin naming patterns like:
+  # com.example_flutter.health_connect
+  PackageNaming:
+    active: false
+    packagePattern: '[a-z]+(\\.[a-z][A-Za-z0-9_]*)*'
+    reason: 'Flutter plugins use snake_case in package names by convention'
+
+  ConstructorParameterNaming:
+    active: true
+    parameterPattern: '[a-z][A-Za-z0-9]*'
+    privateParameterPattern: '[a-z][A-Za-z0-9]*'
+
+  EnumNaming:
+    active: true
+    enumEntryPattern: '[A-Z][_a-zA-Z0-9]*'
+
+  FunctionNaming:
+    active: true
+    functionPattern: '[a-z][a-zA-Z0-9]*'
+    excludeClassPattern: '$^'
+    ignoreAnnotated: ['Composable']
+
+  VariableNaming:
+    active: true
+    variablePattern: '[a-z][A-Za-z0-9]*'
+    privateVariablePattern: '(_)?[a-z][A-Za-z0-9]*'
+
+# ============================================================================
+# Performance Rules
+# ============================================================================
 performance:
   active: true
 
+# ============================================================================
+# Potential Bugs Rules
+# ============================================================================
 potential-bugs:
   active: true
 
+# ============================================================================
+# Style Rules
+# ============================================================================
 style:
   active: true
+
   MaxLineLength:
+    active: true
     maxLineLength: 100
     excludeCommentStatements: true
+    reason: 'Aligns with .editorconfig and improves readability'
+
   MagicNumber:
     active: true
     ignoreNumbers: ['-1', '0', '1', '2']
@@ -66,13 +141,54 @@ style:
     ignorePropertyDeclaration: true
     ignoreAnnotation: true
     ignoreEnums: true
+    reason: 'Common magic numbers are often legitimate constants'
+
   UnusedPrivateClass:
     active: true
+
   UnusedPrivateMember:
     active: true
+
   ReturnCount:
     active: true
     max: 3
     excludedFunctions: ['equals']
+    reason: 'Limits cognitive complexity; functions should have focused return paths'
 
+  # Modern style rules (Detekt 1.23.0+)
+  BracesOnIfStatements:
+    active: true
+    reason: 'Enforces explicit braces on if statements for consistency and safety'
 
+  BracesOnWhenStatements:
+    active: true
+    reason: 'Enforces explicit braces on when statements, matching .editorconfig rules'
+
+  DoubleNegativeLambda:
+    active: true
+    reason: 'Prevents confusing double negatives in lambda expressions'
+
+  CastNullableToNonNullableType:
+    active: true
+    reason: 'Catches potential NPE issues from unsafe casts'
+
+  PreferredName:
+    active: true
+    vararg: 'args'
+    lambda: 'it'
+    reason: 'Enforces common naming conventions for special parameters'
+
+  NoTabs:
+    active: true
+    reason: 'Aligns with .editorconfig indent_style = space'
+
+  FunctionOnlyReturningConstant:
+    active: true
+    reason: 'Suggests replacing single-return-constant functions with properties/companions'
+
+  # Explicitly disabled rules with documented reasons
+  TrailingComma:
+    active: true
+    useTrailingCommaOnCallSite: true
+    useTrailingCommaOnDeclarationSite: true
+    reason: 'Aligns with .editorconfig: trailing-comma enabled for better git diffs'
