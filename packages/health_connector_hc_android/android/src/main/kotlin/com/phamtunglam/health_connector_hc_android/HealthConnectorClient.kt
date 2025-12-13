@@ -23,11 +23,9 @@ import com.phamtunglam.health_connector_hc_android.mappers.isFeaturePermission
 import com.phamtunglam.health_connector_hc_android.mappers.startTime
 import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toError
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectFeature
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectPermission
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectRecordClass
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformFeatureDto
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateResponseDto
@@ -64,6 +62,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsResponseDto
+import com.phamtunglam.health_connector_hc_android.services.HealthConnectorFeatureService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorManifestService
 import com.phamtunglam.health_connector_hc_android.utils.PermissionUtils
 import java.time.Instant
@@ -71,11 +70,12 @@ import java.time.Instant
 /**
  * Internal client wrapper for the Android Health Connect SDK.
  *
- * @property healthConnectClient The underlying Health Connect SDK client instance
+ * @property client The underlying Health Connect SDK client instance
  */
 internal class HealthConnectorClient private constructor(
-    private val healthConnectClient: HealthConnectClient,
+    private val client: HealthConnectClient,
     private val manifestService: HealthConnectorManifestService,
+    private val featureService: HealthConnectorFeatureService,
 ) {
     companion object {
         /**
@@ -92,9 +92,14 @@ internal class HealthConnectorClient private constructor(
         @Throws(HealthConnectorErrorDto::class)
         fun getOrCreate(context: Context): HealthConnectorClient {
             try {
+                val client = HealthConnectClient.getOrCreate(context)
+                val manifestService = HealthConnectorManifestService(context)
+                val featureService = HealthConnectorFeatureService(client.features)
+
                 return HealthConnectorClient(
-                    healthConnectClient = HealthConnectClient.getOrCreate(context),
-                    manifestService = HealthConnectorManifestService(context),
+                    client = client,
+                    manifestService = manifestService,
+                    featureService = featureService,
                 )
             } catch (e: UnsupportedOperationException) {
                 HealthConnectorLogger.error(
@@ -284,18 +289,10 @@ internal class HealthConnectorClient private constructor(
         )
 
         try {
-            // Validate that the feature permission is declared in AndroidManifest
             val featurePermissionString = feature.toHealthConnectPermission()
             manifestService.checkPermissionsDeclared(setOf(featurePermissionString))
 
-            // Map HealthPlatformFeatureDto to Health Connect feature constants
-            val healthConnectFeature = feature.toHealthConnectFeature()
-
-            // Check feature status using Health Connect SDK
-            val statusCode = healthConnectClient.features.getFeatureStatus(healthConnectFeature)
-
-            // Map Health Connect status to HealthPlatformFeatureStatusDto
-            val statusDto = statusCode.toHealthPlatformFeatureStatusDto()
+            val featureStatus = featureService.getFeatureStatus(feature)
 
             HealthConnectorLogger.info(
                 tag = TAG,
@@ -304,11 +301,11 @@ internal class HealthConnectorClient private constructor(
                 message = "Health Connect feature status retrieved",
                 context = mapOf(
                     "feature" to feature,
-                    "status" to statusDto,
+                    "status" to featureStatus,
                 ),
             )
 
-            return statusDto
+            return featureStatus
         } catch (e: IllegalStateException) {
             HealthConnectorLogger.error(
                 tag = TAG,
@@ -362,7 +359,7 @@ internal class HealthConnectorClient private constructor(
                 ?: throw IllegalArgumentException("Unsupported data type: ${request.dataType}")
 
             val recordClass = handler.getRecordClass()
-            val response = healthConnectClient.readRecord(recordClass, request.recordId)
+            val response = client.readRecord(recordClass, request.recordId)
 
             val recordDto = handler.toDto(response.record)
             val responseDto = ReadRecordResponseDto(record = recordDto)
@@ -451,7 +448,7 @@ internal class HealthConnectorClient private constructor(
             val handler = HealthConnectTypeHandlerRegistry.getRecordHandler(request.dataType)
                 ?: throw IllegalArgumentException("Unsupported data type: ${request.dataType}")
 
-            val response = healthConnectClient.readRecords(readRequest)
+            val response = client.readRecords(readRequest)
             val nextPageToken = if (response.pageToken.isNullOrEmpty()) {
                 null
             } else {
@@ -532,7 +529,7 @@ internal class HealthConnectorClient private constructor(
             val record: Record = request.record.toHealthConnect()
 
             // Write to Health Connect using ACID transaction
-            val response = healthConnectClient.insertRecords(listOf(record))
+            val response = client.insertRecords(listOf(record))
             val recordId = response.recordIdsList.first()
 
             HealthConnectorLogger.info(
@@ -599,7 +596,7 @@ internal class HealthConnectorClient private constructor(
             val records = request.records.map { it.toHealthConnect() }
 
             // Atomic batch write using Health Connect's ACID transaction
-            val response = healthConnectClient.insertRecords(records)
+            val response = client.insertRecords(records)
             val recordIds = response.recordIdsList
 
             HealthConnectorLogger.info(
@@ -672,7 +669,7 @@ internal class HealthConnectorClient private constructor(
             // Convert record DTO to Health Connect Record
             val record: Record = recordDto.toHealthConnect()
 
-            healthConnectClient.updateRecords(listOf(record))
+            client.updateRecords(listOf(record))
 
             // Retrieve updated record ID from the response metadata
             val recordId = record.metadata.id
@@ -760,7 +757,7 @@ internal class HealthConnectorClient private constructor(
                 pageToken = pageToken,
             )
 
-            val response = healthConnectClient.readRecords(readRequest)
+            val response = client.readRecords(readRequest)
             allRecords.addAll(response.records)
             pageToken = response.pageToken
         } while (!pageToken.isNullOrEmpty())
@@ -953,7 +950,7 @@ internal class HealthConnectorClient private constructor(
                 pageToken = pageToken,
             )
 
-            val response = healthConnectClient.readRecords(readRequest)
+            val response = client.readRecords(readRequest)
             allRecords.addAll(response.records)
             pageToken = response.pageToken
         } while (!pageToken.isNullOrEmpty())
@@ -1146,7 +1143,7 @@ internal class HealthConnectorClient private constructor(
                 pageToken = pageToken,
             )
 
-            val response = healthConnectClient.readRecords(readRequest)
+            val response = client.readRecords(readRequest)
             allRecords.addAll(response.records)
             pageToken = response.pageToken
         } while (!pageToken.isNullOrEmpty())
@@ -1338,7 +1335,7 @@ internal class HealthConnectorClient private constructor(
                 pageToken = pageToken,
             )
 
-            val response = healthConnectClient.readRecords(readRequest)
+            val response = client.readRecords(readRequest)
             allRecords.addAll(response.records)
             pageToken = response.pageToken
         } while (!pageToken.isNullOrEmpty())
@@ -1564,7 +1561,7 @@ internal class HealthConnectorClient private constructor(
             )
 
             // Execute aggregate request
-            val response = healthConnectClient.aggregate(aggregateRequest)
+            val response = client.aggregate(aggregateRequest)
 
             // Convert result to MeasurementUnitDto using handler
             val valueDto = handler.extractAggregateValue(response, metric)
@@ -1672,7 +1669,7 @@ internal class HealthConnectorClient private constructor(
                 Instant.ofEpochMilli(request.endTime),
             )
 
-            healthConnectClient.deleteRecords(
+            client.deleteRecords(
                 recordType = recordClass,
                 timeRangeFilter = timeRangeFilter,
             )
@@ -1742,7 +1739,7 @@ internal class HealthConnectorClient private constructor(
         try {
             val recordClass = request.dataType.toHealthConnectRecordClass()
 
-            healthConnectClient.deleteRecords(
+            client.deleteRecords(
                 recordType = recordClass,
                 recordIdsList = request.recordIds,
                 clientRecordIdsList = emptyList(),
@@ -1802,7 +1799,7 @@ internal class HealthConnectorClient private constructor(
 
         try {
             // Get granted permissions from Health Connect SDK
-            val grantedPermissionStrings = healthConnectClient.permissionController.getGrantedPermissions()
+            val grantedPermissionStrings = client.permissionController.getGrantedPermissions()
 
             // Convert permission strings back to DTOs
             val healthDataPermissions = mutableListOf<HealthDataPermissionRequestResultDto>()
@@ -1874,7 +1871,7 @@ internal class HealthConnectorClient private constructor(
 
         try {
             // Revoke all permissions using Health Connect SDK
-            healthConnectClient.permissionController.revokeAllPermissions()
+            client.permissionController.revokeAllPermissions()
 
             HealthConnectorLogger.info(
                 tag = TAG,
