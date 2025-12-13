@@ -7,13 +7,13 @@ import 'package:pigeon/pigeon.dart';
 /// code from these definitions.
 @ConfigurePigeon(
   PigeonOptions(
-    dartOut: 'lib/src/pigeon/health_connector_platform_api.g.dart',
+    dartOut: 'lib/src/pigeon/health_connector_hc_android_api.g.dart',
     dartOptions: DartOptions(),
     kotlinOut:
-        'android/src/main/kotlin/com/phamtunglam/health_connector_hc_android/pigeon/HealthConnectorPlatformApi.g.kt',
+        'android/src/main/kotlin/com/phamtunglam/health_connector_hc_android/pigeon/HealthConnectorHCAndroidApi.g.kt',
     kotlinOptions: KotlinOptions(
       package: 'com.phamtunglam.health_connector_hc_android.pigeon',
-      errorClassName: 'HealthConnectorError',
+      errorClassName: 'HealthConnectorErrorDto',
     ),
     copyrightHeader: 'pigeons/copyright_header.txt',
   ),
@@ -1781,7 +1781,7 @@ class UpdateRecordResponseDto {
 
 /// The main API for communicating with the health platform.
 @HostApi()
-abstract class HealthConnectorPlatformApi {
+abstract class HealthConnectorHCAndroidApi {
   @async
   AggregateResponseDto aggregate(AggregateRequestDto request);
 
