@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:health_connector_core/health_connector_core.dart'
     show HealthConnectorErrorCode, sinceV1_0_0;
-import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
     show HealthConnectorErrorCodeDto;
 import 'package:meta/meta.dart' show internal;
 
@@ -13,18 +13,20 @@ extension HealthConnectorErrorCodeDtoToDomain on HealthConnectorErrorCodeDto {
     switch (this) {
       case HealthConnectorErrorCodeDto.unknown:
         return HealthConnectorErrorCode.unknown;
-      case HealthConnectorErrorCodeDto.installationOrUpdateRequired:
-        return HealthConnectorErrorCode.installationOrUpdateRequired;
-      case HealthConnectorErrorCodeDto.healthPlatformUnavailable:
-        return HealthConnectorErrorCode.healthPlatformUnavailable;
-      case HealthConnectorErrorCodeDto.unsupportedHealthPlatformApi:
-        return HealthConnectorErrorCode.unsupportedHealthPlatformApi;
-      case HealthConnectorErrorCodeDto.invalidPlatformConfiguration:
-        return HealthConnectorErrorCode.invalidPlatformConfiguration;
+      case HealthConnectorErrorCodeDto.healthProviderUnavailable:
+        return HealthConnectorErrorCode.healthProviderUnavailable;
+      case HealthConnectorErrorCodeDto.unsupportedOperation:
+        return HealthConnectorErrorCode.unsupportedOperation;
+      case HealthConnectorErrorCodeDto.invalidConfiguration:
+        return HealthConnectorErrorCode.invalidConfiguration;
       case HealthConnectorErrorCodeDto.invalidArgument:
         return HealthConnectorErrorCode.invalidArgument;
-      case HealthConnectorErrorCodeDto.securityError:
-        return HealthConnectorErrorCode.securityError;
+      case HealthConnectorErrorCodeDto.notAuthorized:
+        return HealthConnectorErrorCode.notAuthorized;
+      case HealthConnectorErrorCodeDto.remoteError:
+        return HealthConnectorErrorCode.remoteError;
+      case HealthConnectorErrorCodeDto.userCancelled:
+        return HealthConnectorErrorCode.userCancelled;
     }
   }
 }

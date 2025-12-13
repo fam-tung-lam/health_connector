@@ -285,7 +285,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
       if (!mounted) {
         return;
       }
-      if (e.code == HealthConnectorErrorCode.unsupportedHealthPlatformApi) {
+      if (e.code == HealthConnectorErrorCode.unsupportedOperation) {
         _showError(
           'getGrantedPermissions is only available on Health Connect. '
           'HealthKit does not allow querying granted permissions.',
@@ -329,7 +329,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
       if (!mounted) {
         return;
       }
-      if (e.code == HealthConnectorErrorCode.unsupportedHealthPlatformApi) {
+      if (e.code == HealthConnectorErrorCode.unsupportedOperation) {
         _showError(
           'revokeAllPermissions is only available on Health Connect. '
           'On iOS, users must revoke permissions manually in Settings.',

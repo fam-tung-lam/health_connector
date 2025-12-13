@@ -1,5 +1,5 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_0_0;
+    show sinceV1_0_0, sinceV2_0_0;
 import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart'
     show HealthConnectorException;
 
@@ -8,60 +8,125 @@ import 'package:health_connector_core/src/models/exceptions/health_connector_exc
 /// These codes help identify the specific type of error that occurred.
 @sinceV1_0_0
 enum HealthConnectorErrorCode {
-  /// Unknown or unspecified error.
-  unknown('UNKNOWN'),
-
-  /// Health platform app installation or update is required.
-  installationOrUpdateRequired('INSTALLATION_OR_UPDATE_REQUIRED'),
-
-  /// Health platform is unavailable on this device.
-  healthPlatformUnavailable('HEALTH_PLATFORM_UNAVAILABLE'),
-
-  /// Failed to parse data from the platform.
+  /// The health provider needs to be installed or updated.
   ///
-  /// This can occur when the platform returns malformed data or when
-  /// the JSON structure doesn't match the expected format.
-  parsingError('PARSING_ERROR'),
-
-  /// Attempted to use platform APIs or features that are not supported
-  /// on the current health platform.
+  /// **Platform:** Android only (iOS Apple Health is pre-installed)
   ///
-  /// This typically indicates a developer error where plugin API are being
-  /// requested that aren't available on the current health platform.
-  unsupportedHealthPlatformApi('UNSUPPORTED_HEALTH_PLATFORM_API'),
-
-  /// Platform configuration is missing or invalid.
+  /// **Causes:**
+  /// - Health Connect app is not installed.
+  /// - Health Connect app is outdated and requires an update.
   ///
-  /// This indicates platform-specific configuration is not properly set up.
-  invalidPlatformConfiguration('INVALID_PLATFORM_CONFIGURATION'),
+  /// **Action:**
+  /// - Prompt the user to install or update Health Connect from the Play Store.
+  /// - Provide a direct link.
+  healthProviderNotInstalledOrUpdateRequired(
+    'HEALTH_PROVIDER_NOT_INSTALLED_OR_UPDATE_REQUIRED',
+  ),
 
-  /// Security/permission error occurred.
+  /// The health provider is unavailable on this device.
   ///
-  /// This error occurs when a request is made without proper permissions
-  /// or when access is denied by the health platform.
-  securityError('SECURITY_ERROR'),
-
-  /// I/O error occurred during data operations.
-  ioError('IO_ERROR'),
-
-  /// Remote/IPC communication error occurred.
+  /// **Causes:**
+  /// - Device does not support health API (Android < SDK 28, unsupported iPad).
+  /// - Enterprise policy (MDM) or parental controls block access.
+  /// - Health service is explicitly disabled by the system.
+  /// - Device is in a restricted profile (Android work profile).
   ///
-  /// This error occurs when inter-process communication (IPC) with the health
-  /// platform service fails.
+  /// **Action:**
+  /// - Inform the user that health features are not available on their device.
+  /// - Gracefully disable health-related functionality.
+  healthProviderUnavailable('HEALTH_PROVIDER_UNAVAILABLE'),
+
+  /// Attempted to use an API not supported by the current platform or version.
+  ///
+  /// **Causes:**
+  /// - Calling an Android-specific API on iOS (or vice versa).
+  /// - Requesting a data type unsupported by the current SDK version.
+  ///
+  /// **Action:**
+  /// - Check platform/version before calling the API.
+  /// - This error should not occur in production if properly guarded.
+  unsupportedOperation('UNSUPPORTED_OPERATION'),
+
+  /// Missing or invalid app configuration.
+  ///
+  /// **Causes:**
+  /// - Android: Missing permissions in `AndroidManifest.xml`.
+  /// - Android: Missing Play Console health data declarations.
+  /// - iOS: Missing HealthKit entitlement in Signing & Capabilities.
+  /// - iOS: Missing usage description keys in `Info.plist`.
+  ///
+  /// **Action:**
+  /// - Check build logs and fix the app configuration.
+  /// - This error should not occur in production if properly configured.
+  invalidConfiguration('INVALID_CONFIGURATION'),
+
+  /// Invalid argument provided to the API.
+  ///
+  /// **Causes:**
+  /// - `startTime` is after `endTime`.
+  /// - Value out of valid range (e.g., negative step count).
+  /// - Record ID does not exist (delete/update operations).
+  ///
+  /// **Action:**
+  /// - Validate inputs before calling the plugin.
+  /// - Refresh local record ID cache before delete/update operations.
+  invalidArgument('INVALID_ARGUMENT'),
+
+  /// Access to health data was denied or not yet authorized.
+  ///
+  /// **Causes:**
+  /// - Permissions have not been requested yet.
+  /// - User denied permissions in the system dialog.
+  /// - Permissions were revoked via system settings.
+  ///
+  /// **Action:**
+  /// - If not yet requested: Trigger the permission request flow.
+  /// - If denied: Explain why the feature needs access and
+  ///   guide user to settings.
+  /// - Respect user choice; avoid repeated prompting.
+  notAuthorized('NOT_AUTHORIZED'),
+
+  /// A transient I/O or communication error occurred.
+  ///
+  /// **Causes:**
+  /// - Temporary disk I/O failure.
+  /// - Inter-process communication (IPC) interrupted.
+  /// - Background service temporarily unreachable.
+  /// - Too many read/write operations in a short time window (Android only).
+  ///
+  /// **Action:**
+  /// - Retry with exponential backoff (e.g., 1s → 2s → 4s, max 30s).
+  /// - These issues typically resolve quickly without user intervention.
   remoteError('REMOTE_ERROR'),
 
-  /// Invalid argument provided to the operation.
+  /// User cancelled the operation.
   ///
-  /// This error occurs when invalid parameters are passed to an operation.
-  /// For example:
-  /// - Invalid record IDs
-  /// - Invalid time ranges
-  /// - Invalid data types or values
-  /// - Missing required parameters
-  invalidArgument('INVALID_ARGUMENT');
+  /// **Causes:**
+  /// - User dismissed the permission dialog without making a choice.
+  /// - User cancelled an in-progress action.
+  ///
+  /// **Action:**
+  /// - Respect the user's choice; do not immediately re-prompt.
+  /// - Continue app flow without health features if appropriate.
+  /// - This is not an error condition requiring user notification.
+  @sinceV2_0_0
+  userCancelled('USER_CANCELLED'),
+
+  /// An unknown or unexpected error occurred.
+  ///
+  /// **Causes:**
+  /// - Unmapped native error code.
+  /// - Internal platform bug.
+  /// - New error type from SDK update.
+  ///
+  /// **Action:**
+  /// - Log the full error details for investigation.
+  /// - Show a generic "Something went wrong" message to the user.
+  /// - Report to crash analytics.
+  unknown('UNKNOWN');
 
   const HealthConnectorErrorCode(this.code);
 
-  /// The error code string.
+  /// The string representation of the error code.
   final String code;
 }

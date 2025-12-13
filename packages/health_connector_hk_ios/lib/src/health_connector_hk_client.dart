@@ -21,7 +21,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         PermissionListExtension,
         sinceV1_0_0,
         internalUse;
-import 'package:health_connector_hk_ios/src/mappers/error_code_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_connector_error_code_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
