@@ -14,5 +14,6 @@ internal fun Int.toHealthPlatformStatusDto(): HealthPlatformStatusDto = when (th
     HealthConnectClient.SDK_UNAVAILABLE -> HealthPlatformStatusDto.NOT_AVAILABLE
     HealthConnectClient.SDK_UNAVAILABLE_PROVIDER_UPDATE_REQUIRED ->
         HealthPlatformStatusDto.INSTALLATION_OR_UPDATE_REQUIRED
+
     else -> HealthPlatformStatusDto.NOT_AVAILABLE
 }

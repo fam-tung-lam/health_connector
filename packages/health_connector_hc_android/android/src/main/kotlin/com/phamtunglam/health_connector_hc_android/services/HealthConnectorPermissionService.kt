@@ -58,8 +58,7 @@ internal class HealthConnectorPermissionService(
         return request.permissionRequests.map { permissionRequest ->
             val permissionString = permissionRequest.toHealthConnect()
             val isGranted = permissionString in grantedPermissionStrings
-            val status =
-                if (isGranted) PermissionStatusDto.GRANTED else PermissionStatusDto.DENIED
+            val status = if (isGranted) PermissionStatusDto.GRANTED else PermissionStatusDto.DENIED
 
             when (permissionRequest) {
                 is HealthDataPermissionRequestDto -> {

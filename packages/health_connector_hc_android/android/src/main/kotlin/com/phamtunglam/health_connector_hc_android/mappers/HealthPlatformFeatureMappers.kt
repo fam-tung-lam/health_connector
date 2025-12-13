@@ -13,6 +13,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureS
 internal fun HealthPlatformFeatureDto.toHealthConnectFeature(): Int = when (this) {
     HealthPlatformFeatureDto.READ_HEALTH_DATA_IN_BACKGROUND ->
         HealthConnectFeatures.FEATURE_READ_HEALTH_DATA_IN_BACKGROUND
+
     HealthPlatformFeatureDto.READ_HEALTH_DATA_HISTORY ->
         HealthConnectFeatures.FEATURE_READ_HEALTH_DATA_HISTORY
 }
