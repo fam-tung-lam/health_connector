@@ -37,7 +37,7 @@ class HealthConnectorClient {
             let hkErrorCode = HKError.Code(rawValue: error.code)
             switch hkErrorCode {
             case .errorAuthorizationDenied:
-                return HealthConnectorErrors.securityError(
+                return HealthConnectorErrors.notAuthorized(
                     message: error.localizedDescription,
                     details: error.localizedDescription
                 )
@@ -47,7 +47,7 @@ class HealthConnectorClient {
                     details: error.localizedDescription
                 )
             case .errorHealthDataUnavailable, .errorDatabaseInaccessible:
-                return HealthConnectorErrors.healthPlatformUnavailable(
+                return HealthConnectorErrors.healthProviderUnavailable(
                     message: error.localizedDescription,
                     details: error.localizedDescription
                 )
@@ -82,7 +82,7 @@ class HealthConnectorClient {
                 phase: "failed",
                 message: "HealthKit is not available on this device"
             )
-            throw HealthConnectorErrors.healthPlatformUnavailable(
+            throw HealthConnectorErrors.healthProviderUnavailable(
                 message: nil,
                 details: nil
             )

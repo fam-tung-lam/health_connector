@@ -582,7 +582,7 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
   }
 
   String _getErrorMessage(HealthConnectorException e) {
-    if (e.code == HealthConnectorErrorCode.unsupportedHealthPlatformApi) {
+    if (e.code == HealthConnectorErrorCode.unsupportedOperation) {
       return switch (widget.dataType) {
         StepsHealthDataType() => AppTexts.writePermissionDeniedSteps,
         WeightHealthDataType() => AppTexts.writePermissionDeniedWeight,

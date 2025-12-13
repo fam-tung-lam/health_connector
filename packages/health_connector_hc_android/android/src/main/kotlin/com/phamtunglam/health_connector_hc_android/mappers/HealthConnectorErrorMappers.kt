@@ -16,26 +16,32 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDt
  */
 internal fun HealthConnectorErrorCodeDto.toError(details: Any? = null): HealthConnectorErrorDto {
     val message = when (this) {
-        HealthConnectorErrorCodeDto.INSTALLATION_OR_UPDATE_REQUIRED ->
+        HealthConnectorErrorCodeDto.HEALTH_PROVIDER_NOT_INSTALLED_OR_UPDATE_REQUIRED ->
             "Health Connect is required to be installed or updated"
 
-        HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE ->
+        HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE ->
             "Health Connect is unavailable"
 
-        HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION ->
+        HealthConnectorErrorCodeDto.INVALID_CONFIGURATION ->
             "Invalid platform configuration"
 
         HealthConnectorErrorCodeDto.UNKNOWN ->
             "An unknown error occurred"
 
-        HealthConnectorErrorCodeDto.SECURITY_ERROR ->
+        HealthConnectorErrorCodeDto.NOT_AUTHORIZED ->
             "Security/permission error: Access denied or insufficient permissions"
 
         HealthConnectorErrorCodeDto.INVALID_ARGUMENT ->
             "Invalid argument: Input validation failed"
 
-        HealthConnectorErrorCodeDto.UNSUPPORTED_HEALTH_PLATFORM_API ->
+        HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION ->
             "Unsupported health platform API"
+
+        HealthConnectorErrorCodeDto.REMOTE_ERROR ->
+            "A transient I/O or communication error occurred"
+
+        HealthConnectorErrorCodeDto.USER_CANCELLED ->
+            "User cancelled the operation"
     }
     return HealthConnectorErrorDto(name, message, details)
 }

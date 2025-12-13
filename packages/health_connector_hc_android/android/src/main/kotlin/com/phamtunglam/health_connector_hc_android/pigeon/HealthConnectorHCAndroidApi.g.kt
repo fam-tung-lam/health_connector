@@ -95,22 +95,26 @@ class HealthConnectorErrorDto (
 /** Error codes that native platforms can use when throwing error. */
 enum class HealthConnectorErrorCodeDto(val raw: Int) {
   /** Health Connect installation or update is required. */
-  INSTALLATION_OR_UPDATE_REQUIRED(0),
+  HEALTH_PROVIDER_NOT_INSTALLED_OR_UPDATE_REQUIRED(0),
   /** Health platform is unavailable on this device. */
-  HEALTH_PLATFORM_UNAVAILABLE(1),
+  HEALTH_PROVIDER_UNAVAILABLE(1),
   /** Invalid platform configuration detected. */
-  INVALID_PLATFORM_CONFIGURATION(2),
+  INVALID_CONFIGURATION(2),
   /** Invalid argument or input validation error. */
   INVALID_ARGUMENT(3),
   /**
    * Attempted to use platform APIs or features that are not supported
    * on the current health platform.
    */
-  UNSUPPORTED_HEALTH_PLATFORM_API(4),
+  UNSUPPORTED_OPERATION(4),
   /** Unknown or unspecified error. */
   UNKNOWN(5),
   /** Security/permission error occurred. */
-  SECURITY_ERROR(6);
+  NOT_AUTHORIZED(6),
+  /** A transient I/O or communication error occurred. */
+  REMOTE_ERROR(7),
+  /** User cancelled the operation. */
+  USER_CANCELLED(8);
 
   companion object {
     fun ofRaw(raw: Int): HealthConnectorErrorCodeDto? {

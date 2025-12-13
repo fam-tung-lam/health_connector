@@ -431,8 +431,7 @@ final class PermissionsPage extends StatelessWidget {
       if (!context.mounted) {
         return;
       }
-      final message =
-          e.code == HealthConnectorErrorCode.unsupportedHealthPlatformApi
+      final message = e.code == HealthConnectorErrorCode.unsupportedOperation
           ? '${AppTexts.failedToRequestPermissions} ${e.message}'
           : e.message;
       showAppSnackBar(context, SnackBarType.error, message);

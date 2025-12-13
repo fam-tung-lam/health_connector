@@ -18,23 +18,29 @@ import 'package:pigeon/pigeon.dart';
 /// Error codes that native platforms can use when throwing error.
 enum HealthConnectorErrorCodeDto {
   /// Health platform is unavailable on this device.
-  healthPlatformUnavailable,
+  healthProviderUnavailable,
 
   /// Invalid platform configuration detected.
-  invalidPlatformConfiguration,
+  invalidConfiguration,
 
   /// Invalid argument or input validation error.
   invalidArgument,
 
   /// Attempted to use platform APIs that are not supported on
   /// the current health platform.
-  unsupportedHealthPlatformApi,
+  unsupportedOperation,
 
   /// Unknown or unspecified error.
   unknown,
 
   /// Security/permission error occurred.
-  securityError,
+  notAuthorized,
+
+  /// A transient I/O or communication error occurred.
+  remoteError,
+
+  /// User cancelled the operation.
+  userCancelled,
 }
 
 /// Represents the status of the health platform on the device.

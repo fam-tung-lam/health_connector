@@ -108,9 +108,10 @@ internal class HealthConnectorClient private constructor(
                         "due to SDK version too low or running in a profile mode",
                     exception = e,
                 )
-                throw HealthConnectorErrorCodeDto.INSTALLATION_OR_UPDATE_REQUIRED.toError(
-                    details = e.message,
-                )
+                throw HealthConnectorErrorCodeDto
+                    .HEALTH_PROVIDER_NOT_INSTALLED_OR_UPDATE_REQUIRED.toError(
+                        details = e.message,
+                    )
             } catch (e: IllegalStateException) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -119,7 +120,7 @@ internal class HealthConnectorClient private constructor(
                     message = "Failed to create Health Connect client due to service not available",
                     exception = e,
                 )
-                throw HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE.toError(
+                throw HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE.toError(
                     details = e.message,
                 )
             }
@@ -206,7 +207,7 @@ internal class HealthConnectorClient private constructor(
                 ),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION.toError(
+            throw HealthConnectorErrorCodeDto.INVALID_CONFIGURATION.toError(
                 details = e.message,
             )
         } catch (e: RuntimeException) {
@@ -278,7 +279,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("feature" to feature),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION.toError(
+            throw HealthConnectorErrorCodeDto.INVALID_CONFIGURATION.toError(
                 details = e.message,
             )
         } catch (e: RuntimeException) {
@@ -348,7 +349,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
@@ -449,7 +450,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
@@ -516,7 +517,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
@@ -583,7 +584,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
@@ -667,7 +668,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
@@ -838,7 +839,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.UNSUPPORTED_HEALTH_PLATFORM_API.toError(
+            throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
                 details = "Unsupported aggregation metric for Oxygen Saturation: " +
                     (e.message ?: "Operation not supported"),
             )
@@ -863,7 +864,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
@@ -1034,7 +1035,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.UNSUPPORTED_HEALTH_PLATFORM_API.toError(
+            throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
                 details = "Unsupported aggregation metric for Respiratory Rate: " +
                     (e.message ?: "Operation not supported"),
             )
@@ -1059,7 +1060,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
@@ -1229,7 +1230,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.UNSUPPORTED_HEALTH_PLATFORM_API.toError(
+            throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
                 details = "Unsupported aggregation metric for VO2Max: " +
                     (e.message ?: "Operation not supported"),
             )
@@ -1254,7 +1255,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
@@ -1425,7 +1426,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.UNSUPPORTED_HEALTH_PLATFORM_API.toError(
+            throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
                 details = "Unsupported aggregation metric for Blood Glucose: " +
                     (e.message ?: "Operation not supported"),
             )
@@ -1450,7 +1451,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
@@ -1564,7 +1565,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.UNSUPPORTED_HEALTH_PLATFORM_API.toError(
+            throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
                 details = "Unsupported aggregation metric for ${request.dataType}: " +
                     (e.message ?: "Operation not supported"),
             )
@@ -1601,7 +1602,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
@@ -1665,7 +1666,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )
@@ -1736,7 +1737,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("request" to request),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.SECURITY_ERROR.toError(
+            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
                 details = "Permission access denied while processing $request: " +
                     (e.message ?: "Access denied"),
             )

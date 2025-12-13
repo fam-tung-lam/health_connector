@@ -657,8 +657,7 @@ class _AggregateHealthDataPageState
         return;
       }
 
-      final message =
-          e.code == HealthConnectorErrorCode.unsupportedHealthPlatformApi
+      final message = e.code == HealthConnectorErrorCode.unsupportedOperation
           ? AppTexts.readPermissionDenied
           : e.message;
       showAppSnackBar(context, SnackBarType.error, message);

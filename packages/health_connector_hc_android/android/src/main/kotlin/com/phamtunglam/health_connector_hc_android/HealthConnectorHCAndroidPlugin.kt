@@ -218,7 +218,7 @@ class HealthConnectorHCAndroidPlugin :
                     complete(
                         callback,
                         Result.failure(
-                            HealthConnectorErrorCodeDto.INVALID_PLATFORM_CONFIGURATION.toError(
+                            HealthConnectorErrorCodeDto.INVALID_CONFIGURATION.toError(
                                 details = "Activity is unavailable. " +
                                     "The app may be in the background or " +
                                     "activity has been destroyed.",

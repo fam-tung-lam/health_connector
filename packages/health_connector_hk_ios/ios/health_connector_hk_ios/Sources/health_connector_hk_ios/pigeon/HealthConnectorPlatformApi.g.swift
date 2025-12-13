@@ -146,18 +146,22 @@ func deepHashHealthConnectorPlatformApi(value: Any?, hasher: inout Hasher) {
 /// Error codes that native platforms can use when throwing error.
 public enum HealthConnectorErrorCodeDto: Int {
   /// Health platform is unavailable on this device.
-  case healthPlatformUnavailable = 0
+  case healthProviderUnavailable = 0
   /// Invalid platform configuration detected.
-  case invalidPlatformConfiguration = 1
+  case invalidConfiguration = 1
   /// Invalid argument or input validation error.
   case invalidArgument = 2
   /// Attempted to use platform APIs that are not supported on
   /// the current health platform.
-  case unsupportedHealthPlatformApi = 3
+  case unsupportedOperation = 3
   /// Unknown or unspecified error.
   case unknown = 4
   /// Security/permission error occurred.
-  case securityError = 5
+  case notAuthorized = 5
+  /// A transient I/O or communication error occurred.
+  case remoteError = 6
+  /// User cancelled the operation.
+  case userCancelled = 7
 }
 
 /// Represents the status of the health platform on the device.
