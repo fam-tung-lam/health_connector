@@ -13,6 +13,8 @@ import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectTypeHandlerRegistry
+import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
+import com.phamtunglam.health_connector_hc_android.logger.TAG
 import com.phamtunglam.health_connector_hc_android.mappers.dataType
 import com.phamtunglam.health_connector_hc_android.mappers.endTime
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.id
@@ -22,6 +24,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.startTime
 import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectFeature
+import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectPermission
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectRecordClass
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformFeatureDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformFeatureStatusDto
@@ -61,8 +64,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsResponseDto
-import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
-import com.phamtunglam.health_connector_hc_android.logger.TAG
+import com.phamtunglam.health_connector_hc_android.services.HealthConnectorManifestService
 import com.phamtunglam.health_connector_hc_android.utils.PermissionUtils
 import java.time.Instant
 
@@ -73,6 +75,7 @@ import java.time.Instant
  */
 internal class HealthConnectorClient private constructor(
     private val healthConnectClient: HealthConnectClient,
+    private val manifestService: HealthConnectorManifestService,
 ) {
     companion object {
         /**
@@ -89,7 +92,10 @@ internal class HealthConnectorClient private constructor(
         @Throws(HealthConnectorErrorDto::class)
         fun getOrCreate(context: Context): HealthConnectorClient {
             try {
-                return HealthConnectorClient(HealthConnectClient.getOrCreate(context))
+                return HealthConnectorClient(
+                    healthConnectClient = HealthConnectClient.getOrCreate(context),
+                    manifestService = HealthConnectorManifestService(context),
+                )
             } catch (e: UnsupportedOperationException) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -179,9 +185,14 @@ internal class HealthConnectorClient private constructor(
 
         try {
             // Validate that all requested permissions are declared in AndroidManifest
-            PermissionUtils.validatePermissionsDeclaredInManifest(
-                activity.applicationContext,
-                request,
+            val healthDataPermissionStrings = request.healthDataPermissions.map {
+                it.toHealthConnectPermission()
+            }
+            val featurePermissionStrings = request.featurePermissions.map {
+                it.toHealthConnectPermission()
+            }
+            manifestService.checkPermissionsDeclared(
+                (healthDataPermissionStrings + featurePermissionStrings).toSet(),
             )
 
             val grantedPermissions = PermissionUtils.requestPermissionsFromSystem(activity, request)
@@ -274,7 +285,8 @@ internal class HealthConnectorClient private constructor(
 
         try {
             // Validate that the feature permission is declared in AndroidManifest
-            PermissionUtils.validateFeaturePermissionDeclaredInManifest(context, feature)
+            val featurePermissionString = feature.toHealthConnectPermission()
+            manifestService.checkPermissionsDeclared(setOf(featurePermissionString))
 
             // Map HealthPlatformFeatureDto to Health Connect feature constants
             val healthConnectFeature = feature.toHealthConnectFeature()
