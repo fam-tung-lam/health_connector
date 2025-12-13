@@ -42,8 +42,10 @@ private fun Int.toVo2MaxMeasurementMethodDto(): Vo2MaxMeasurementMethodDto? = wh
     Vo2MaxRecord.MEASUREMENT_METHOD_COOPER_TEST -> Vo2MaxMeasurementMethodDto.COOPER_TEST
     Vo2MaxRecord.MEASUREMENT_METHOD_MULTISTAGE_FITNESS_TEST ->
         Vo2MaxMeasurementMethodDto.MULTISTAGE_FITNESS_TEST
+
     Vo2MaxRecord.MEASUREMENT_METHOD_ROCKPORT_FITNESS_TEST ->
         Vo2MaxMeasurementMethodDto.ROCKPORT_FITNESS_TEST
+
     Vo2MaxRecord.MEASUREMENT_METHOD_OTHER -> Vo2MaxMeasurementMethodDto.OTHER
     else -> null
 }
@@ -54,8 +56,10 @@ private fun Vo2MaxMeasurementMethodDto?.toVo2MaxMeasurementMethodInt(): Int = wh
     Vo2MaxMeasurementMethodDto.COOPER_TEST -> Vo2MaxRecord.MEASUREMENT_METHOD_COOPER_TEST
     Vo2MaxMeasurementMethodDto.MULTISTAGE_FITNESS_TEST ->
         Vo2MaxRecord.MEASUREMENT_METHOD_MULTISTAGE_FITNESS_TEST
+
     Vo2MaxMeasurementMethodDto.ROCKPORT_FITNESS_TEST ->
         Vo2MaxRecord.MEASUREMENT_METHOD_ROCKPORT_FITNESS_TEST
+
     Vo2MaxMeasurementMethodDto.OTHER -> Vo2MaxRecord.MEASUREMENT_METHOD_OTHER
     null -> Vo2MaxRecord.MEASUREMENT_METHOD_OTHER
 }
