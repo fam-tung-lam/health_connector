@@ -12,83 +12,67 @@ import 'package:health_connector_hc_android/src/mappers/'
     'health_platform_feature_mappers.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show
-        PermissionsRequestDto,
-        HealthDataPermissionDto,
+        PermissionRequestsDto,
+        HealthDataPermissionRequestDto,
+        HealthPlatformFeaturePermissionRequest,
         PermissionAccessTypeDto,
-        HealthPlatformFeatureDto,
-        PermissionsRequestResponseDto,
+        PermissionRequestsResponseDto,
+        HealthDataPermissionRequestResultDto,
+        HealthPlatformFeaturePermissionRequestResultDto,
         PermissionStatusDto;
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [List<Permission>] to [PermissionsRequestDto].
+/// Converts [List<Permission>] to [PermissionRequestsDto].
 @sinceV1_0_0
 @internal
 extension PermissionsListToDto on List<Permission> {
-  /// Converts a list of [Permission] objects to a [PermissionsRequestDto].
-  PermissionsRequestDto toDto() {
-    final healthDataPermissions = <HealthDataPermissionDto>[];
-    final featurePermissions = <HealthPlatformFeatureDto>[];
+  /// Converts a list of [Permission] objects to a [PermissionRequestsDto].
+  PermissionRequestsDto toDto() {
+    final permissionRequests = map((permission) {
+      return switch (permission) {
+        final HealthDataPermission p => HealthDataPermissionRequestDto(
+          healthDataType: p.dataType.toDto(),
+          accessType: p.accessType == HealthDataPermissionAccessType.read
+              ? PermissionAccessTypeDto.read
+              : PermissionAccessTypeDto.write,
+        ),
+        final HealthPlatformFeaturePermission p =>
+          HealthPlatformFeaturePermissionRequest(
+            feature: p.feature.toDto(),
+          ),
+      };
+    }).toList();
 
-    for (final permission in this) {
-      switch (permission) {
-        case HealthDataPermission _:
-          healthDataPermissions.add(
-            HealthDataPermissionDto(
-              healthDataType: permission.dataType.toDto(),
-              accessType:
-                  permission.accessType == HealthDataPermissionAccessType.read
-                  ? PermissionAccessTypeDto.read
-                  : PermissionAccessTypeDto.write,
-            ),
-          );
-        case HealthPlatformFeaturePermission _:
-          featurePermissions.add(permission.feature.toDto());
-      }
-    }
-
-    return PermissionsRequestDto(
-      healthDataPermissions: healthDataPermissions,
-      featurePermissions: featurePermissions,
-    );
+    return PermissionRequestsDto(permissionRequests: permissionRequests);
   }
 }
 
-/// Converts [PermissionsRequestResponseDto] to [List<PermissionRequestResult>].
+/// Converts [PermissionRequestsResponseDto] to [List<PermissionRequestResult>].
 @sinceV1_0_0
 @internal
 extension PermissionsRequestResponseDtoToDomain
-    on PermissionsRequestResponseDto {
+    on PermissionRequestsResponseDto {
   List<PermissionRequestResult> toDomain() {
-    final results = <PermissionRequestResult>[];
-
-    for (final healthDataResult in healthDataPermissionResults) {
-      results.add(
-        PermissionRequestResult(
+    return permissionResults.map((result) {
+      return switch (result) {
+        final HealthDataPermissionRequestResultDto r => PermissionRequestResult(
           permission: HealthDataPermission(
-            dataType: healthDataResult.permission.healthDataType.toDomain(),
-            accessType:
-                healthDataResult.permission.accessType ==
-                    PermissionAccessTypeDto.read
+            dataType: r.permission.healthDataType.toDomain(),
+            accessType: r.permission.accessType == PermissionAccessTypeDto.read
                 ? HealthDataPermissionAccessType.read
                 : HealthDataPermissionAccessType.write,
           ),
-          status: healthDataResult.status.toDomain(),
+          status: r.status.toDomain(),
         ),
-      );
-    }
-
-    for (final featureResult in featurePermissionResults) {
-      results.add(
-        PermissionRequestResult(
-          permission: HealthPlatformFeaturePermission(
-            featureResult.feature.toDomain(),
+        final HealthPlatformFeaturePermissionRequestResultDto r =>
+          PermissionRequestResult(
+            permission: HealthPlatformFeaturePermission(
+              r.feature.toDomain(),
+            ),
+            status: r.status.toDomain(),
           ),
-          status: featureResult.status.toDomain(),
-        ),
-      );
-    }
-
-    return results;
+      };
+    }).toList();
   }
 }
 

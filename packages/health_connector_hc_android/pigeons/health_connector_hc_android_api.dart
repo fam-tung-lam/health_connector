@@ -1483,8 +1483,15 @@ enum HealthPlatformFeatureStatusDto {
   unavailable,
 }
 
+/// Represents a permission request.
+sealed class PermissionRequestDto {}
+
+/// Represents the result of a permission request.
+sealed class PermissionRequestResultDto {}
+
 /// Represents the result of a feature permission request.
-class HealthPlatformFeaturePermissionRequestResultDto {
+class HealthPlatformFeaturePermissionRequestResultDto
+    extends PermissionRequestResultDto {
   HealthPlatformFeaturePermissionRequestResultDto({
     required this.feature,
     required this.status,
@@ -1498,8 +1505,8 @@ class HealthPlatformFeaturePermissionRequestResultDto {
 }
 
 /// Represents a permission request for accessing specific health data.
-class HealthDataPermissionDto {
-  HealthDataPermissionDto({
+class HealthDataPermissionRequestDto extends PermissionRequestDto {
+  HealthDataPermissionRequestDto({
     required this.healthDataType,
     required this.accessType,
   });
@@ -1512,46 +1519,40 @@ class HealthDataPermissionDto {
 }
 
 /// Represents the result of a health data permission request.
-class HealthDataPermissionRequestResultDto {
+class HealthDataPermissionRequestResultDto extends PermissionRequestResultDto {
   HealthDataPermissionRequestResultDto({
     required this.permission,
     required this.status,
   });
 
   /// The health data permission that was requested.
-  final HealthDataPermissionDto permission;
+  final HealthDataPermissionRequestDto permission;
 
   /// The status of the permission after the request.
   final PermissionStatusDto status;
 }
 
-/// Represents a permissions request.
-class PermissionsRequestDto {
-  PermissionsRequestDto({
-    required this.healthDataPermissions,
-    required this.featurePermissions,
-  });
+class HealthPlatformFeaturePermissionRequest extends PermissionRequestDto {
+  HealthPlatformFeaturePermissionRequest(this.feature);
 
-  /// List of features for which to request permissions.
-  final List<HealthPlatformFeatureDto> featurePermissions;
+  /// Feature for which to request permission.
+  final HealthPlatformFeatureDto feature;
+}
 
-  /// List of health data permissions to request.
-  final List<HealthDataPermissionDto> healthDataPermissions;
+/// Represents a permission requests.
+class PermissionRequestsDto {
+  PermissionRequestsDto(this.permissionRequests);
+
+  /// List of permission requests.
+  final List<PermissionRequestDto> permissionRequests;
 }
 
 /// Represents the response from a permissions request.
-class PermissionsRequestResponseDto {
-  PermissionsRequestResponseDto({
-    required this.healthDataPermissionResults,
-    required this.featurePermissionResults,
-  });
+class PermissionRequestsResponseDto {
+  PermissionRequestsResponseDto(this.permissionResults);
 
-  /// Results for each feature permission that was requested.
-  final List<HealthPlatformFeaturePermissionRequestResultDto>
-  featurePermissionResults;
-
-  /// Results for each health data permission that was requested.
-  final List<HealthDataPermissionRequestResultDto> healthDataPermissionResults;
+  /// Results for each permission that was requested.
+  final List<PermissionRequestResultDto> permissionResults;
 }
 
 /// Aggregation metric types for health data queries.
@@ -1800,12 +1801,12 @@ abstract class HealthConnectorHCAndroidApi {
   HealthPlatformStatusDto getHealthPlatformStatus();
 
   @async
-  PermissionsRequestResponseDto requestPermissions(
-    PermissionsRequestDto request,
+  PermissionRequestsResponseDto requestPermissions(
+    PermissionRequestsDto request,
   );
 
   @async
-  PermissionsRequestResponseDto getGrantedPermissions();
+  PermissionRequestsResponseDto getGrantedPermissions();
 
   @async
   void revokeAllPermissions();
