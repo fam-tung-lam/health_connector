@@ -11,9 +11,9 @@ import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorError
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorPlatformApi
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorHCAndroidApi
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDto
@@ -44,13 +44,13 @@ import kotlinx.coroutines.withContext
 /**
  * Flutter plugin for accessing Health Connect on Android devices.
  *
- * @see HealthConnectorPlatformApi
+ * @see HealthConnectorHCAndroidApi
  * @see HealthConnectorClient
  */
 class HealthConnectorHCAndroidPlugin :
     FlutterPlugin,
     ActivityAware,
-    HealthConnectorPlatformApi {
+    HealthConnectorHCAndroidApi {
 
     /**
      * Application context used for accessing Health Connect services.
@@ -111,7 +111,7 @@ class HealthConnectorHCAndroidPlugin :
      */
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         context = flutterPluginBinding.applicationContext
-        HealthConnectorPlatformApi.setUp(flutterPluginBinding.binaryMessenger, this)
+        HealthConnectorHCAndroidApi.setUp(flutterPluginBinding.binaryMessenger, this)
     }
 
     /**
@@ -120,7 +120,7 @@ class HealthConnectorHCAndroidPlugin :
      * @param binding The Flutter plugin binding being detached
      */
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        HealthConnectorPlatformApi.setUp(binding.binaryMessenger, null)
+        HealthConnectorHCAndroidApi.setUp(binding.binaryMessenger, null)
         scope.cancel()
         healthClient = null
     }
@@ -200,7 +200,7 @@ class HealthConnectorHCAndroidPlugin :
      * @param request The permissions request containing both health data and feature permissions
      * @param callback Called with a [Result] containing the permission request response
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     override fun requestPermissions(
         request: PermissionsRequestDto,
         callback: (Result<PermissionsRequestResponseDto>) -> Unit,
@@ -238,7 +238,7 @@ class HealthConnectorHCAndroidPlugin :
                     request = request,
                 )
                 complete(callback, Result.success(responseDto))
-            } catch (e: HealthConnectorError) {
+            } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "requestPermissions",
@@ -260,7 +260,7 @@ class HealthConnectorHCAndroidPlugin :
      *
      * @param callback Called with a [Result] containing the permission response
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     override fun getGrantedPermissions(callback: (Result<PermissionsRequestResponseDto>) -> Unit) {
         scope.launch {
             try {
@@ -270,7 +270,7 @@ class HealthConnectorHCAndroidPlugin :
 
                 val responseDto = client.getGrantedPermissions()
                 complete(callback, Result.success(responseDto))
-            } catch (e: HealthConnectorError) {
+            } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "getGrantedPermissions",
@@ -292,7 +292,7 @@ class HealthConnectorHCAndroidPlugin :
      *
      * @param callback Called with a [Result] containing the operation result
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     override fun revokeAllPermissions(callback: (Result<Unit>) -> Unit) {
         scope.launch {
             try {
@@ -302,7 +302,7 @@ class HealthConnectorHCAndroidPlugin :
 
                 client.revokeAllPermissions()
                 complete(callback, Result.success(Unit))
-            } catch (e: HealthConnectorError) {
+            } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "revokeAllPermissions",
@@ -325,7 +325,7 @@ class HealthConnectorHCAndroidPlugin :
      * @param feature The feature to check availability for
      * @param callback Called with a [Result] containing the feature status
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     override fun getFeatureStatus(
         feature: HealthPlatformFeatureDto,
         callback: (Result<HealthPlatformFeatureStatusDto>) -> Unit,
@@ -338,7 +338,7 @@ class HealthConnectorHCAndroidPlugin :
 
                 val featureStatusDto = client.getFeatureStatus(context, feature)
                 complete(callback, Result.success(featureStatusDto))
-            } catch (e: HealthConnectorError) {
+            } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "getFeatureStatus",
@@ -362,7 +362,7 @@ class HealthConnectorHCAndroidPlugin :
      * @param request Contains the data type and record ID to read
      * @param callback Called with a [Result] containing the read record response or null if not found
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     override fun readRecord(
         request: ReadRecordRequestDto,
         callback: (Result<ReadRecordResponseDto?>) -> Unit,
@@ -375,7 +375,7 @@ class HealthConnectorHCAndroidPlugin :
 
                 val result = client.readRecord(request)
                 complete(callback, Result.success(result))
-            } catch (e: HealthConnectorError) {
+            } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "readRecord",
@@ -400,7 +400,7 @@ class HealthConnectorHCAndroidPlugin :
      * @param request Contains data type, time range, page size, and optional page token
      * @param callback Called with a [Result] containing the read records response
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     override fun readRecords(
         request: ReadRecordsRequestDto,
         callback: (Result<ReadRecordsResponseDto>) -> Unit,
@@ -413,7 +413,7 @@ class HealthConnectorHCAndroidPlugin :
 
                 val result = client.readRecords(request)
                 complete(callback, Result.success(result))
-            } catch (e: HealthConnectorError) {
+            } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "readRecords",
@@ -440,7 +440,7 @@ class HealthConnectorHCAndroidPlugin :
      * @param request Contains the data type and the typed record to write
      * @param callback Called with a [Result] containing the write record response
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     override fun writeRecord(
         request: WriteRecordRequestDto,
         callback: (Result<WriteRecordResponseDto>) -> Unit,
@@ -453,7 +453,7 @@ class HealthConnectorHCAndroidPlugin :
 
                 val result = client.writeRecord(request)
                 complete(callback, Result.success(result))
-            } catch (e: HealthConnectorError) {
+            } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "writeRecord",
@@ -476,7 +476,7 @@ class HealthConnectorHCAndroidPlugin :
      * @param request Contains the data type and the list of typed records to write
      * @param callback Called with a [Result] containing the write records response
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     override fun writeRecords(
         request: WriteRecordsRequestDto,
         callback: (Result<WriteRecordsResponseDto>) -> Unit,
@@ -489,7 +489,7 @@ class HealthConnectorHCAndroidPlugin :
 
                 val result = client.writeRecords(request)
                 complete(callback, Result.success(result))
-            } catch (e: HealthConnectorError) {
+            } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "writeRecords",
@@ -513,7 +513,7 @@ class HealthConnectorHCAndroidPlugin :
      * @param request Contains the data type and the typed record to update
      * @param callback Called with a [Result] containing the update record response
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     override fun updateRecord(
         request: UpdateRecordRequestDto,
         callback: (Result<UpdateRecordResponseDto>) -> Unit,
@@ -526,7 +526,7 @@ class HealthConnectorHCAndroidPlugin :
 
                 val result = client.updateRecord(request)
                 complete(callback, Result.success(result))
-            } catch (e: HealthConnectorError) {
+            } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "updateRecord",
@@ -549,7 +549,7 @@ class HealthConnectorHCAndroidPlugin :
      * @param request Contains the data type and list of record IDs to delete
      * @param callback Called with a [Result] indicating success or failure
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     override fun deleteRecordsByIds(
         request: DeleteRecordsByIdsRequestDto,
         callback: (Result<Unit>) -> Unit,
@@ -563,7 +563,7 @@ class HealthConnectorHCAndroidPlugin :
                 client.deleteRecordsByIds(request)
 
                 complete(callback, Result.success(Unit))
-            } catch (e: HealthConnectorError) {
+            } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "deleteRecordsByIds",
@@ -588,7 +588,7 @@ class HealthConnectorHCAndroidPlugin :
      * @param request Contains the data type and time range (start and end timestamps) for deletion
      * @param callback Called with a [Result] indicating success or failure
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     override fun deleteRecordsByTimeRange(
         request: DeleteRecordsByTimeRangeRequestDto,
         callback: (Result<Unit>) -> Unit,
@@ -602,7 +602,7 @@ class HealthConnectorHCAndroidPlugin :
                 client.deleteRecordsByTimeRange(request)
 
                 complete(callback, Result.success(Unit))
-            } catch (e: HealthConnectorError) {
+            } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "deleteRecordsByTimeRange",
@@ -628,7 +628,7 @@ class HealthConnectorHCAndroidPlugin :
      * @param request Contains data type, aggregation metric, and time range
      * @param callback Called with a [Result] containing the aggregation response
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     override fun aggregate(
         request: AggregateRequestDto,
         callback: (Result<AggregateResponseDto>) -> Unit,
@@ -641,7 +641,7 @@ class HealthConnectorHCAndroidPlugin :
 
                 val result = client.aggregate(request)
                 complete(callback, Result.success(result))
-            } catch (e: HealthConnectorError) {
+            } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "aggregate",

@@ -6,8 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.health.connect.client.PermissionController
 import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectPermission
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorError
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
@@ -39,10 +39,10 @@ internal object PermissionUtils {
      * @param context The Android application context
      * @param feature The feature to validate
      *
-     * @throws HealthConnectorError with code `INVALID_PLATFORM_CONFIGURATION` if the feature permission
+     * @throws HealthConnectorErrorDto with code `INVALID_PLATFORM_CONFIGURATION` if the feature permission
      *         is not declared in AndroidManifest.xml.
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     fun validateFeaturePermissionDeclaredInManifest(
         context: Context,
         feature: HealthPlatformFeatureDto,

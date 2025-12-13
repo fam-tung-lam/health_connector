@@ -1,20 +1,20 @@
 package com.phamtunglam.health_connector_hc_android.mappers
 
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorError
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 
 /**
- * Extension functions for creating standardized [HealthConnectorError] instances used throughout the Health Connector plugin.
+ * Extension functions for creating standardized [HealthConnectorErrorDto] instances used throughout the Health Connector plugin.
  */
 
 /**
- * Creates a [HealthConnectorError] from this error code with the appropriate message.
+ * Creates a [HealthConnectorErrorDto] from this error code with the appropriate message.
  *
  * @param details Additional error details such as the original exception information or
  *                suggested actions for the user.
- * @return A [HealthConnectorError] instance with the appropriate error code and message.
+ * @return A [HealthConnectorErrorDto] instance with the appropriate error code and message.
  */
-internal fun HealthConnectorErrorCodeDto.toError(details: Any? = null): HealthConnectorError {
+internal fun HealthConnectorErrorCodeDto.toError(details: Any? = null): HealthConnectorErrorDto {
     val message = when (this) {
         HealthConnectorErrorCodeDto.INSTALLATION_OR_UPDATE_REQUIRED ->
             "Health Connect is required to be installed or updated"
@@ -37,5 +37,5 @@ internal fun HealthConnectorErrorCodeDto.toError(details: Any? = null): HealthCo
         HealthConnectorErrorCodeDto.UNSUPPORTED_HEALTH_PLATFORM_API ->
             "Unsupported health platform API"
     }
-    return HealthConnectorError(name, message, details)
+    return HealthConnectorErrorDto(name, message, details)
 }
