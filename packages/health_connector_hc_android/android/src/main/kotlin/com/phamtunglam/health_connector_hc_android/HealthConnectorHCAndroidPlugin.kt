@@ -2,6 +2,8 @@ package com.phamtunglam.health_connector_hc_android
 
 import android.content.Context
 import androidx.activity.ComponentActivity
+import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
+import com.phamtunglam.health_connector_hc_android.logger.TAG
 import com.phamtunglam.health_connector_hc_android.mappers.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.mappers.dataType
 import com.phamtunglam.health_connector_hc_android.mappers.endTime
@@ -17,8 +19,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorHCAndro
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PermissionsRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PermissionsRequestResponseDto
+import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsDto
+import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
@@ -29,7 +31,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsResponseDto
-import com.phamtunglam.health_connector_hc_android.utils.HealthConnectorLogger
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -84,12 +85,6 @@ class HealthConnectorHCAndroidPlugin :
         CoroutineScope(SupervisorJob() + Dispatchers.IO + coroutineExceptionHandler)
 
     private companion object {
-        /**
-         * Tag used for logging throughout the plugin.
-         */
-        private val TAG = HealthConnectorHCAndroidPlugin::class.simpleName
-            ?: "HealthConnectorHCAndroidPlugin"
-
         /**
          * Global exception handler for coroutines to catch and log unhandled exceptions.
          */
@@ -202,8 +197,8 @@ class HealthConnectorHCAndroidPlugin :
      */
     @Throws(HealthConnectorErrorDto::class)
     override fun requestPermissions(
-        request: PermissionsRequestDto,
-        callback: (Result<PermissionsRequestResponseDto>) -> Unit,
+        request: PermissionRequestsDto,
+        callback: (Result<PermissionRequestsResponseDto>) -> Unit,
     ) {
         scope.launch {
             try {
@@ -261,7 +256,7 @@ class HealthConnectorHCAndroidPlugin :
      * @param callback Called with a [Result] containing the permission response
      */
     @Throws(HealthConnectorErrorDto::class)
-    override fun getGrantedPermissions(callback: (Result<PermissionsRequestResponseDto>) -> Unit) {
+    override fun getGrantedPermissions(callback: (Result<PermissionRequestsResponseDto>) -> Unit) {
         scope.launch {
             try {
                 val client = healthClient ?: HealthConnectorClient.getOrCreate(context).also {

@@ -1,11 +1,11 @@
-package com.phamtunglam.health_connector_hc_android.utils
+package com.phamtunglam.health_connector_hc_android.logger
 
 import android.util.Log
-import com.phamtunglam.health_connector_hc_android.utils.HealthConnectorLogger.MAX_CACHED_INDENT_DEPTH
+import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger.MAX_CACHED_INDENT_DEPTH
 import java.util.Locale
 
 /**
- * A singleton logger that wraps Android's [Log] class.
+ * A singleton logger that wraps Android's [android.util.Log] class.
  *
  * This logger provides a consistent structured logging interface with
  * formatted messages across the plugin. It supports structured logging with
@@ -29,6 +29,7 @@ internal object HealthConnectorLogger {
      *
      * @param enabled Whether to enable logging.
      */
+    @Suppress("unused")
     fun setEnabled(enabled: Boolean) {
         isEnabled = enabled
     }
