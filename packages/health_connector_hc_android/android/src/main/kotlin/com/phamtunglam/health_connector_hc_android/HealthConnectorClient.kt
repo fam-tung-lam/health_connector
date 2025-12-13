@@ -61,22 +61,20 @@ import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsResponseDto
-import com.phamtunglam.health_connector_hc_android.utils.HealthConnectorLogger
+import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
+import com.phamtunglam.health_connector_hc_android.logger.TAG
 import com.phamtunglam.health_connector_hc_android.utils.PermissionUtils
 import java.time.Instant
 
 /**
  * Internal client wrapper for the Android Health Connect SDK.
  *
- * @property client The underlying Health Connect SDK client instance
+ * @property healthConnectClient The underlying Health Connect SDK client instance
  */
-internal class HealthConnectorClient private constructor(private val client: HealthConnectClient) {
+internal class HealthConnectorClient private constructor(
+    private val healthConnectClient: HealthConnectClient,
+) {
     companion object {
-        /**
-         * Tag used for logging throughout the client.
-         */
-        private val TAG = HealthConnectorClient::class.simpleName ?: "HealthConnectorClient"
-
         /**
          * Gets or creates a [HealthConnectorClient] instance.
          *
@@ -282,7 +280,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             val healthConnectFeature = feature.toHealthConnectFeature()
 
             // Check feature status using Health Connect SDK
-            val statusCode = client.features.getFeatureStatus(healthConnectFeature)
+            val statusCode = healthConnectClient.features.getFeatureStatus(healthConnectFeature)
 
             // Map Health Connect status to HealthPlatformFeatureStatusDto
             val statusDto = statusCode.toHealthPlatformFeatureStatusDto()
@@ -352,7 +350,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 ?: throw IllegalArgumentException("Unsupported data type: ${request.dataType}")
 
             val recordClass = handler.getRecordClass()
-            val response = client.readRecord(recordClass, request.recordId)
+            val response = healthConnectClient.readRecord(recordClass, request.recordId)
 
             val recordDto = handler.toDto(response.record)
             val responseDto = ReadRecordResponseDto(record = recordDto)
@@ -441,7 +439,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             val handler = HealthConnectTypeHandlerRegistry.getRecordHandler(request.dataType)
                 ?: throw IllegalArgumentException("Unsupported data type: ${request.dataType}")
 
-            val response = client.readRecords(readRequest)
+            val response = healthConnectClient.readRecords(readRequest)
             val nextPageToken = if (response.pageToken.isNullOrEmpty()) {
                 null
             } else {
@@ -522,7 +520,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             val record: Record = request.record.toHealthConnect()
 
             // Write to Health Connect using ACID transaction
-            val response = client.insertRecords(listOf(record))
+            val response = healthConnectClient.insertRecords(listOf(record))
             val recordId = response.recordIdsList.first()
 
             HealthConnectorLogger.info(
@@ -589,7 +587,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             val records = request.records.map { it.toHealthConnect() }
 
             // Atomic batch write using Health Connect's ACID transaction
-            val response = client.insertRecords(records)
+            val response = healthConnectClient.insertRecords(records)
             val recordIds = response.recordIdsList
 
             HealthConnectorLogger.info(
@@ -662,7 +660,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             // Convert record DTO to Health Connect Record
             val record: Record = recordDto.toHealthConnect()
 
-            client.updateRecords(listOf(record))
+            healthConnectClient.updateRecords(listOf(record))
 
             // Retrieve updated record ID from the response metadata
             val recordId = record.metadata.id
@@ -750,8 +748,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 pageToken = pageToken,
             )
 
-            val response = client.readRecords(readRequest)
-            allRecords.addAll(response.records.filterIsInstance<OxygenSaturationRecord>())
+            val response = healthConnectClient.readRecords(readRequest)
+            allRecords.addAll(response.records)
             pageToken = response.pageToken
         } while (!pageToken.isNullOrEmpty())
 
@@ -943,8 +941,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 pageToken = pageToken,
             )
 
-            val response = client.readRecords(readRequest)
-            allRecords.addAll(response.records.filterIsInstance<RespiratoryRateRecord>())
+            val response = healthConnectClient.readRecords(readRequest)
+            allRecords.addAll(response.records)
             pageToken = response.pageToken
         } while (!pageToken.isNullOrEmpty())
 
@@ -1136,8 +1134,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 pageToken = pageToken,
             )
 
-            val response = client.readRecords(readRequest)
-            allRecords.addAll(response.records.filterIsInstance<Vo2MaxRecord>())
+            val response = healthConnectClient.readRecords(readRequest)
+            allRecords.addAll(response.records)
             pageToken = response.pageToken
         } while (!pageToken.isNullOrEmpty())
 
@@ -1328,8 +1326,8 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 pageToken = pageToken,
             )
 
-            val response = client.readRecords(readRequest)
-            allRecords.addAll(response.records.filterIsInstance<BloodGlucoseRecord>())
+            val response = healthConnectClient.readRecords(readRequest)
+            allRecords.addAll(response.records)
             pageToken = response.pageToken
         } while (!pageToken.isNullOrEmpty())
 
@@ -1554,7 +1552,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
             )
 
             // Execute aggregate request
-            val response = client.aggregate(aggregateRequest)
+            val response = healthConnectClient.aggregate(aggregateRequest)
 
             // Convert result to MeasurementUnitDto using handler
             val valueDto = handler.extractAggregateValue(response, metric)
@@ -1662,7 +1660,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
                 Instant.ofEpochMilli(request.endTime),
             )
 
-            client.deleteRecords(
+            healthConnectClient.deleteRecords(
                 recordType = recordClass,
                 timeRangeFilter = timeRangeFilter,
             )
@@ -1732,7 +1730,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
         try {
             val recordClass = request.dataType.toHealthConnectRecordClass()
 
-            client.deleteRecords(
+            healthConnectClient.deleteRecords(
                 recordType = recordClass,
                 recordIdsList = request.recordIds,
                 clientRecordIdsList = emptyList(),
@@ -1792,7 +1790,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
 
         try {
             // Get granted permissions from Health Connect SDK
-            val grantedPermissionStrings = client.permissionController.getGrantedPermissions()
+            val grantedPermissionStrings = healthConnectClient.permissionController.getGrantedPermissions()
 
             // Convert permission strings back to DTOs
             val healthDataPermissions = mutableListOf<HealthDataPermissionRequestResultDto>()
@@ -1864,7 +1862,7 @@ internal class HealthConnectorClient private constructor(private val client: Hea
 
         try {
             // Revoke all permissions using Health Connect SDK
-            client.permissionController.revokeAllPermissions()
+            healthConnectClient.permissionController.revokeAllPermissions()
 
             HealthConnectorLogger.info(
                 tag = TAG,
