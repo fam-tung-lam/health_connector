@@ -2,7 +2,7 @@ import 'package:health_connector_core/health_connector_core.dart'
     show HealthRecordId, Vo2Max, Vo2MaxRecord, Vo2MaxTestType, sinceV1_3_0;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers.dart';
-import 'package:health_connector_hc_android/src/pigeon/health_connector_platform_api.g.dart'
+import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show Vo2MaxDto, Vo2MaxMeasurementMethodDto, Vo2MaxRecordDto, Vo2MaxUnitDto;
 import 'package:meta/meta.dart' show internal;
 

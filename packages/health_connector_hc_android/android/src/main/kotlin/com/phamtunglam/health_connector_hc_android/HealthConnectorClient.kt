@@ -34,8 +34,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorError
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
@@ -83,12 +83,12 @@ internal class HealthConnectorClient private constructor(private val client: Hea
          * @param context Android application context used to access Health Connect services
          * @return A new [HealthConnectorClient] instance wrapping the Health Connect SDK client
          *
-         * @throws HealthConnectorError with code `HEALTH_PLATFORM_NOT_AVAILABLE` when:
+         * @throws HealthConnectorErrorDto with code `HEALTH_PLATFORM_NOT_AVAILABLE` when:
          *         - The device SDK version is too low (below API 26)
          *         - The app is running in a profile/work profile that doesn't support Health Connect
          *         - Health Connect SDK initialization fails
          */
-        @Throws(HealthConnectorError::class)
+        @Throws(HealthConnectorErrorDto::class)
         fun getOrCreate(context: Context): HealthConnectorClient {
             try {
                 return HealthConnectorClient(HealthConnectClient.getOrCreate(context))
@@ -158,12 +158,12 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * @return [PermissionsRequestResponseDto] containing separate result lists for health data
      *         and feature permissions
      *
-     * @throws HealthConnectorError with code `INVALID_PLATFORM_CONFIGURATION` if any requested
+     * @throws HealthConnectorErrorDto with code `INVALID_PLATFORM_CONFIGURATION` if any requested
      *         permissions/features are not declared in AndroidManifest.xml (caught from
      *         [IllegalStateException] thrown by validation)
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun requestPermissions(
         activity: ComponentActivity,
         request: PermissionsRequestDto,
@@ -257,11 +257,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * @return [HealthPlatformFeatureStatusDto.AVAILABLE] if the feature is available,
      *         [HealthPlatformFeatureStatusDto.UNAVAILABLE] otherwise
      *
-     * @throws HealthConnectorError with code `INVALID_PLATFORM_CONFIGURATION` if the feature permission
+     * @throws HealthConnectorErrorDto with code `INVALID_PLATFORM_CONFIGURATION` if the feature permission
      *         is not declared in AndroidManifest.xml
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     fun getFeatureStatus(
         context: Context,
         feature: HealthPlatformFeatureDto,
@@ -333,10 +333,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * @param request Contains the data type and record ID to read
      * @return ReadRecordResponseDto with the appropriate typed field populated, or null if not found
      *
-     * @throws HealthConnectorError with code `SECURITY_ERROR` if permission access is denied
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun readRecord(request: ReadRecordRequestDto): ReadRecordResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -404,10 +404,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      *                and optional data origin package names for filtering
      * @return ReadRecordsResponseDto with the appropriate typed list populated and optional next page token
      *
-     * @throws HealthConnectorError with code `SECURITY_ERROR` if permission access is denied
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun readRecords(request: ReadRecordsRequestDto): ReadRecordsResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -504,10 +504,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * @param request Contains the data type and the typed record to write
      * @return WriteRecordResponseDto containing the platform-assigned record ID
      *
-     * @throws HealthConnectorError with code `SECURITY_ERROR` if permission access is denied
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun writeRecord(request: WriteRecordRequestDto): WriteRecordResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -571,10 +571,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * @param request Contains the data type and the list of typed records to write
      * @return WriteRecordsResponseDto containing the platform-assigned record IDs
      *
-     * @throws HealthConnectorError with code `SECURITY_ERROR` if permission access is denied
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun writeRecords(request: WriteRecordsRequestDto): WriteRecordsResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -638,11 +638,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * @param request Contains the data type and the typed record to update
      * @return UpdateRecordResponseDto containing the updated record ID (same as input)
      *
-     * @throws HealthConnectorError with code `INVALID_ARGUMENT` if record ID is invalid
-     * @throws HealthConnectorError with code `SECURITY_ERROR` if permission access is denied
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if record ID is invalid
+     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun updateRecord(request: UpdateRecordRequestDto): UpdateRecordResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -793,12 +793,12 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * @param request The aggregate request (must be CommonAggregateRequestDto for OXYGEN_SATURATION)
      * @return AggregateResponseDto with the computed aggregation value
      *
-     * @throws HealthConnectorError with code `INVALID_ARGUMENT` if metric is invalid or no records found
-     * @throws HealthConnectorError with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
-     * @throws HealthConnectorError with code `SECURITY_ERROR` if authorization is denied
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if metric is invalid or no records found
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
+     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if authorization is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     private suspend fun aggregateOxygenSaturationManually(
         request: AggregateRequestDto,
     ): AggregateResponseDto {
@@ -986,12 +986,12 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * @param request The aggregate request (must be CommonAggregateRequestDto for RESPIRATORY_RATE)
      * @return AggregateResponseDto with the computed aggregation value
      *
-     * @throws HealthConnectorError with code `INVALID_ARGUMENT` if metric is invalid or no records found
-     * @throws HealthConnectorError with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
-     * @throws HealthConnectorError with code `SECURITY_ERROR` if authorization is denied
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if metric is invalid or no records found
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
+     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if authorization is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     private suspend fun aggregateRespiratoryRateManually(
         request: AggregateRequestDto,
     ): AggregateResponseDto {
@@ -1179,12 +1179,12 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * @param request The aggregate request (must be CommonAggregateRequestDto for VO2MAX)
      * @return AggregateResponseDto with the computed aggregation value
      *
-     * @throws HealthConnectorError with code `INVALID_ARGUMENT` if metric is invalid or no records found
-     * @throws HealthConnectorError with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
-     * @throws HealthConnectorError with code `SECURITY_ERROR` if authorization is denied
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if metric is invalid or no records found
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
+     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if authorization is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     private suspend fun aggregateVo2MaxManually(
         request: AggregateRequestDto,
     ): AggregateResponseDto {
@@ -1371,12 +1371,12 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * @param request The aggregate request (must be CommonAggregateRequestDto for BLOOD_GLUCOSE)
      * @return AggregateResponseDto with the computed aggregation value
      *
-     * @throws HealthConnectorError with code `INVALID_ARGUMENT` if metric is invalid or no records found
-     * @throws HealthConnectorError with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
-     * @throws HealthConnectorError with code `SECURITY_ERROR` if authorization is denied
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if metric is invalid or no records found
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
+     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if authorization is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     private suspend fun aggregateBloodGlucoseManually(
         request: AggregateRequestDto,
     ): AggregateResponseDto {
@@ -1493,11 +1493,11 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * @param request Contains data type, aggregation metric, and time range
      * @return AggregateResponseDto with aggregated value and data point count
      *
-     * @throws HealthConnectorError with code `INVALID_ARGUMENT` if time range or metric is invalid
-     * @throws HealthConnectorError with code `SECURITY_ERROR` if authorization is denied
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if time range or metric is invalid
+     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if authorization is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun aggregate(request: AggregateRequestDto): AggregateResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -1642,10 +1642,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * Deletes all records of a data type within a time range.
      *
      * @param request Contains data type and time range for deletion
-     * @throws HealthConnectorError with code `SECURITY_ERROR` if permission access is denied
-     * @throws HealthConnectorError with code `UNKNOWN` if deletion fails
+     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if deletion fails
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -1706,10 +1706,10 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * Deletes specific records by their IDs.
      *
      * @param request Contains data type and list of record IDs to delete
-     * @throws HealthConnectorError with code `SECURITY_ERROR` if permission access is denied
-     * @throws HealthConnectorError with code `UNKNOWN` if deletion fails
+     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if deletion fails
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -1779,9 +1779,9 @@ internal class HealthConnectorClient private constructor(private val client: Hea
      * @return [PermissionsRequestResponseDto] containing separate lists for health data and feature permissions
      *         that have been granted
      *
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun getGrantedPermissions(): PermissionsRequestResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -1851,9 +1851,9 @@ internal class HealthConnectorClient private constructor(private val client: Hea
     /**
      * Revokes all permissions that have been granted to the app.
      *
-     * @throws HealthConnectorError with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
-    @Throws(HealthConnectorError::class)
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun revokeAllPermissions() {
         HealthConnectorLogger.debug(
             tag = TAG,

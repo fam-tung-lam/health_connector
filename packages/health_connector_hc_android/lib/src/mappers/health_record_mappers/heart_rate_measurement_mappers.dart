@@ -1,7 +1,7 @@
 import 'package:health_connector_core/health_connector_core.dart'
     show HeartRateMeasurement, Numeric, sinceV1_0_0;
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers.dart';
-import 'package:health_connector_hc_android/src/pigeon/health_connector_platform_api.g.dart'
+import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show HeartRateMeasurementDto, NumericDto;
 import 'package:meta/meta.dart' show internal;
 

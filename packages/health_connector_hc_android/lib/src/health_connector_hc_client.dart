@@ -32,11 +32,11 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/he
 import 'package:health_connector_hc_android/src/mappers/permission_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/request_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/response_mappers.dart';
-import 'package:health_connector_hc_android/src/pigeon/health_connector_platform_api.g.dart'
+import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show
         DeleteRecordsByIdsRequestDto,
         DeleteRecordsByTimeRangeRequestDto,
-        HealthConnectorPlatformApi,
+        HealthConnectorHCAndroidApi,
         HealthPlatformStatusDto;
 import 'package:health_connector_logger/health_connector_logger.dart'
     show HealthConnectorLogger;
@@ -55,8 +55,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
   static final String _tag = (HealthConnectorHCClient).toString();
 
   /// The Pigeon-generated platform API client for native communication.
-  static final HealthConnectorPlatformApi _platformClient =
-      HealthConnectorPlatformApi();
+  static final HealthConnectorHCAndroidApi _platformClient =
+      HealthConnectorHCAndroidApi();
 
   /// All nutrient health data types that share the same permission as
   /// [HealthDataType.nutrition] in Health Connect.
