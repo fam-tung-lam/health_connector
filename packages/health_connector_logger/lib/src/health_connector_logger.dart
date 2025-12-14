@@ -7,8 +7,14 @@ import 'package:meta/meta.dart' show internal, visibleForTesting;
 /// A singleton logger that wraps the `log` function from `dart:developer`.
 ///
 /// This logger provides a consistent structured logging interface with
-/// formatted messages across the plugin. It supports structured logging with
-/// operation, optional phase, optional message, and context.
+
+/// information:
+///
+/// - Level (INFO, DEBUG, WARNING, ERROR)
+/// - Tag (Category)
+/// - Operation (Action being performed)
+/// - Timestamp
+/// - Structured data (JSON-like format)
 abstract final class HealthConnectorLogger {
   /// Private constructor to prevent instantiation.
   const HealthConnectorLogger._();
@@ -82,7 +88,7 @@ abstract final class HealthConnectorLogger {
   ///
   /// - [tag]: A tag for categorizing the log entry (converted to uppercase).
   /// - [operation]: The operation being performed.
-  /// - [phase]: Optional phase of the operation.
+
   /// - [message]: Optional message to include in the log.
   /// - [context]: Optional contextual information.
   /// - [exception]: Optional exception object to include in the log.
@@ -94,7 +100,6 @@ abstract final class HealthConnectorLogger {
   /// HealthConnectorLogger.info(
   ///   'API',
   ///   operation: 'readRecords',
-  ///   phase: 'succeeded',
   ///   message: 'Successfully read records',
   ///   context: {'recordCount': 42, 'duration': '123ms'},
   /// );
@@ -102,7 +107,6 @@ abstract final class HealthConnectorLogger {
   static void info(
     String tag, {
     required String operation,
-    String? phase,
     String? message,
     Map<String, dynamic>? context,
     Object? exception,
@@ -112,7 +116,6 @@ abstract final class HealthConnectorLogger {
       LogLevel.info,
       tag,
       operation: operation,
-      phase: phase,
       message: message,
       context: context,
       exception: exception,
@@ -129,7 +132,7 @@ abstract final class HealthConnectorLogger {
   ///
   /// - [tag]: A tag for categorizing the log entry (converted to uppercase).
   /// - [operation]: The operation being performed.
-  /// - [phase]: Optional phase of the operation.
+
   /// - [message]: Optional message to include in the log.
   /// - [context]: Optional contextual information.
   /// - [exception]: Optional exception object to include in the log.
@@ -141,7 +144,6 @@ abstract final class HealthConnectorLogger {
   /// HealthConnectorLogger.debug(
   ///   'API',
   ///   operation: 'readRecords',
-  ///   phase: 'entry',
   ///   message: 'Starting to read records',
   ///   context: {'dataType': 'StepsRecord', 'pageSize': 100},
   /// );
@@ -149,7 +151,6 @@ abstract final class HealthConnectorLogger {
   static void debug(
     String tag, {
     required String operation,
-    String? phase,
     String? message,
     Map<String, dynamic>? context,
     Object? exception,
@@ -159,7 +160,6 @@ abstract final class HealthConnectorLogger {
       LogLevel.debug,
       tag,
       operation: operation,
-      phase: phase,
       message: message,
       context: context,
       exception: exception,
@@ -176,7 +176,7 @@ abstract final class HealthConnectorLogger {
   ///
   /// - [tag]: A tag for categorizing the log entry (converted to uppercase).
   /// - [operation]: The operation being performed.
-  /// - [phase]: Optional phase of the operation.
+
   /// - [message]: Optional message to include in the log.
   /// - [context]: Optional contextual information.
   /// - [exception]: Optional exception object to include in the log.
@@ -188,7 +188,6 @@ abstract final class HealthConnectorLogger {
   /// HealthConnectorLogger.warning(
   ///   'API',
   ///   operation: 'readRecords',
-  ///   phase: 'slow operation detected',
   ///   message: 'Operation exceeded threshold',
   ///   context: {'duration': '6234ms', 'threshold': '5000ms'},
   /// );
@@ -196,7 +195,6 @@ abstract final class HealthConnectorLogger {
   static void warning(
     String tag, {
     required String operation,
-    String? phase,
     String? message,
     Map<String, dynamic>? context,
     Object? exception,
@@ -206,7 +204,6 @@ abstract final class HealthConnectorLogger {
       LogLevel.warning,
       tag,
       operation: operation,
-      phase: phase,
       message: message,
       context: context,
       exception: exception,
@@ -223,7 +220,7 @@ abstract final class HealthConnectorLogger {
   ///
   /// - [tag]: A tag for categorizing the log entry (converted to uppercase).
   /// - [operation]: The operation being performed.
-  /// - [phase]: Optional phase of the operation.
+
   /// - [message]: Optional message to include in the log.
   /// - [context]: Optional contextual information.
   /// - [exception]: Optional exception object to include in the log.
@@ -235,7 +232,6 @@ abstract final class HealthConnectorLogger {
   /// HealthConnectorLogger.error(
   ///   'API',
   ///   operation: 'readRecords',
-  ///   phase: 'failed',
   ///   message: 'Failed to read records',
   ///   context: {'dataType': 'StepsRecord', 'duration': '123ms'},
   ///   exception: e,
@@ -245,7 +241,6 @@ abstract final class HealthConnectorLogger {
   static void error(
     String tag, {
     required String operation,
-    String? phase,
     String? message,
     Map<String, dynamic>? context,
     Object? exception,
@@ -255,7 +250,6 @@ abstract final class HealthConnectorLogger {
       LogLevel.error,
       tag,
       operation: operation,
-      phase: phase,
       message: message,
       context: context,
       exception: exception,
@@ -272,7 +266,6 @@ abstract final class HealthConnectorLogger {
   /// {
   ///    datetime: {datetime},
   ///    operation: {operation},
-  ///    phase: {phase},  // Optional, only included if provided
   ///    message: {message},
   ///    exception: {
   ///      cause: {exception},
@@ -289,7 +282,6 @@ abstract final class HealthConnectorLogger {
   /// - [level]: The log level (DEBUG, INFO, WARNING, ERROR).
   /// - [tag]: The tag for categorizing the log entry.
   /// - [operation]: The operation being performed.
-  /// - [phase]: Optional phase of the operation.
   /// - [message]: Optional message to include in the log.
   /// - [context]: Optional contextual information.
   /// - [exception]: Optional exception object.
@@ -298,7 +290,6 @@ abstract final class HealthConnectorLogger {
     LogLevel level,
     String tag, {
     required String operation,
-    String? phase,
     String? message,
     Map<String, dynamic>? context,
     Object? exception,
@@ -313,11 +304,11 @@ abstract final class HealthConnectorLogger {
     final now = DateTime.now();
 
     // Format structured message with the timestamp
+    // Format structured message with the timestamp
     final structuredMessage = formatStructuredMessage(
       level: level,
       operation: operation,
       dateTime: now,
-      phase: phase,
       message: message,
       context: context,
       exception: exception,
@@ -325,12 +316,12 @@ abstract final class HealthConnectorLogger {
     );
 
     // Create and emit log event
+    // Create and emit log event
     final logEvent = HealthConnectorLog(
       level: level,
       tag: tag,
       operation: operation,
       dateTime: now,
-      phase: phase,
       message: message,
       context: context,
       exception: exception,
@@ -356,7 +347,6 @@ abstract final class HealthConnectorLogger {
   /// ## Parameters
   ///
   /// - [operation]: The operation being performed (e.g., 'readRecords').
-  /// - [phase]: Optional phase of the operation (e.g., 'entry', 'completed').
   /// - [message]: Optional message to include in the log.
   /// - [context]: Optional map of contextual information.
   /// - [exception]: Optional exception object.
@@ -371,7 +361,6 @@ abstract final class HealthConnectorLogger {
     required LogLevel level,
     required String operation,
     DateTime? dateTime,
-    String? phase,
     String? message,
     Map<String, dynamic>? context,
     Object? exception,
@@ -400,11 +389,6 @@ abstract final class HealthConnectorLogger {
       ..write(dateTimeToLog.millisecond.toString().padLeft(3, '0'));
     buffer.write(',');
     buffer.write('\n${_getIndent(0)}operation: $operation,');
-
-    // Include phase if provided
-    if (phase != null) {
-      buffer.write('\n${_getIndent(0)}phase: $phase,');
-    }
 
     // Include message if provided
     if (message != null) {

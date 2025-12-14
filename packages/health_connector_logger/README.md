@@ -18,7 +18,7 @@ exception tracking.
 
 ### 🔧 Features
 
-- **Structured Logging**: Consistent format with operation, phase, message, and context
+- **Structured Logging**: Consistent format with operation, message, and context
 - **Log Levels**: Support for debug, info, warning, and error levels
 - **Exception Tracking**: Built-in support for exceptions and stack traces
 - **Context Data**: Flexible context map for additional metadata
@@ -58,7 +58,6 @@ HealthConnectorLogger.isEnabled = true;
 HealthConnectorLogger.debug(
   'API',
   operation: 'readRecords',
-  phase: 'entry',
   message: 'Starting to read records',
   context: {'dataType': 'StepsRecord', 'pageSize': 100},
 );
@@ -66,7 +65,6 @@ HealthConnectorLogger.debug(
 HealthConnectorLogger.info(
   'API',
   operation: 'readRecords',
-  phase: 'succeeded',
   message: 'Successfully read records',
   context: {'recordCount': 42, 'duration': '123ms'},
 );
@@ -74,7 +72,6 @@ HealthConnectorLogger.info(
 HealthConnectorLogger.warning(
   'API',
   operation: 'readRecords',
-  phase: 'slow operation detected',
   message: 'Operation exceeded threshold',
   context: {'duration': '6234ms', 'threshold': '5000ms'},
 );
@@ -82,7 +79,6 @@ HealthConnectorLogger.warning(
 HealthConnectorLogger.error(
   'API',
   operation: 'readRecords',
-  phase: 'failed',
   message: 'Failed to read records',
   context: {'dataType': 'StepsRecord', 'duration': '123ms'},
   exception: e,
@@ -112,4 +108,3 @@ The logger produces structured messages in JSON-like format:
 ## 🤝 Contributing
 
 To report issues or request features, please visit our [GitHub Issues](https://github.com/fam-tung-lam/health_connector/issues).
-

@@ -6,7 +6,7 @@ import OSLog
  *
  * This logger provides a consistent structured logging interface with
  * formatted messages across the plugin. It supports structured logging with
- * operation, phase, optional message, and context.
+ * operation, optional message, and context.
  */
 enum HealthConnectorLogger {
     /**
@@ -159,7 +159,7 @@ enum HealthConnectorLogger {
      *
      * - Parameters:
      *   - operation: The operation being performed (e.g., 'readRecords').
-     *   - phase: The phase of the operation (e.g., 'entry', 'completed').
+
      *   - message: Optional message to include in the log.
      *   - context: Optional dictionary of contextual information.
      *   - exception: Optional error object.
@@ -168,7 +168,7 @@ enum HealthConnectorLogger {
      */
     private static func formatStructuredMessage(
         operation: String,
-        phase: String,
+
         message: String? = nil,
         context: [String: Any?]? = nil,
         exception: Error? = nil,
@@ -179,9 +179,6 @@ enum HealthConnectorLogger {
         // Always include operation
         buffer += "{\n"
         buffer += "\(getIndent(depth: 0))operation: \(operation),"
-
-        // Include phase if provided
-        buffer += "\n\(getIndent(depth: 0))phase: \(phase),"
 
         // Include message if provided
         if let message {
@@ -238,7 +235,7 @@ enum HealthConnectorLogger {
      * [{datetime}][{level}]:
      * {
      *    operation: {operation},
-     *    phase: {phase},
+
      *    message: {message},
      *    exception: {
      *      cause: {exception},
@@ -254,7 +251,7 @@ enum HealthConnectorLogger {
      *   - level: The log level (DEBUG, INFO, WARNING, ERROR).
      *   - tag: The tag for categorizing the log entry (converted to uppercase).
      *   - operation: The operation being performed.
-     *   - phase: The phase of the operation.
+
      *   - message: Optional message to include in the log.
      *   - context: Optional contextual information.
      *   - exception: Optional error object.
@@ -263,7 +260,7 @@ enum HealthConnectorLogger {
         level: OSLogType,
         tag: String,
         operation: String,
-        phase: String,
+
         message: String? = nil,
         context: [String: Any?]? = nil,
         exception: Error? = nil
@@ -281,7 +278,7 @@ enum HealthConnectorLogger {
 
         let structuredMessage = formatStructuredMessage(
             operation: operation,
-            phase: phase,
+
             message: message,
             context: context,
             exception: exception,
@@ -341,7 +338,7 @@ enum HealthConnectorLogger {
      * - Parameters:
      *   - tag: A tag for categorizing the log entry (converted to uppercase).
      *   - operation: The operation being performed.
-     *   - phase: The phase of the operation.
+
      *   - message: Optional message to include in the log.
      *   - context: Optional contextual information.
      *   - exception: Optional error object to include in the log.
@@ -349,7 +346,7 @@ enum HealthConnectorLogger {
     static func debug(
         tag: String,
         operation: String,
-        phase: String,
+
         message: String? = nil,
         context: [String: Any?]? = nil,
         exception: Error? = nil
@@ -358,7 +355,7 @@ enum HealthConnectorLogger {
             level: .debug,
             tag: tag,
             operation: operation,
-            phase: phase,
+
             message: message,
             context: context,
             exception: exception
@@ -374,7 +371,7 @@ enum HealthConnectorLogger {
      * - Parameters:
      *   - tag: A tag for categorizing the log entry (converted to uppercase).
      *   - operation: The operation being performed.
-     *   - phase: The phase of the operation.
+
      *   - message: Optional message to include in the log.
      *   - context: Optional contextual information.
      *   - exception: Optional error object to include in the log.
@@ -382,7 +379,7 @@ enum HealthConnectorLogger {
     static func info(
         tag: String,
         operation: String,
-        phase: String,
+
         message: String? = nil,
         context: [String: Any?]? = nil,
         exception: Error? = nil
@@ -391,7 +388,7 @@ enum HealthConnectorLogger {
             level: .info,
             tag: tag,
             operation: operation,
-            phase: phase,
+
             message: message,
             context: context,
             exception: exception
@@ -407,7 +404,7 @@ enum HealthConnectorLogger {
      * - Parameters:
      *   - tag: A tag for categorizing the log entry (converted to uppercase).
      *   - operation: The operation being performed.
-     *   - phase: The phase of the operation.
+
      *   - message: Optional message to include in the log.
      *   - context: Optional contextual information.
      *   - exception: Optional error object to include in the log.
@@ -415,7 +412,7 @@ enum HealthConnectorLogger {
     static func warning(
         tag: String,
         operation: String,
-        phase: String,
+
         message: String? = nil,
         context: [String: Any?]? = nil,
         exception: Error? = nil
@@ -424,7 +421,7 @@ enum HealthConnectorLogger {
             level: .default,
             tag: tag,
             operation: operation,
-            phase: phase,
+
             message: message,
             context: context,
             exception: exception
@@ -440,7 +437,7 @@ enum HealthConnectorLogger {
      * - Parameters:
      *   - tag: A tag for categorizing the log entry (converted to uppercase).
      *   - operation: The operation being performed.
-     *   - phase: The phase of the operation.
+
      *   - message: Optional message to include in the log.
      *   - context: Optional contextual information.
      *   - exception: Optional error object to include in the log.
@@ -448,7 +445,7 @@ enum HealthConnectorLogger {
     static func error(
         tag: String,
         operation: String,
-        phase: String,
+
         message: String? = nil,
         context: [String: Any?]? = nil,
         exception: Error? = nil
@@ -457,7 +454,7 @@ enum HealthConnectorLogger {
             level: .error,
             tag: tag,
             operation: operation,
-            phase: phase,
+
             message: message,
             context: context,
             exception: exception

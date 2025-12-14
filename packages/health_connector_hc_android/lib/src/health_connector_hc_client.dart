@@ -124,7 +124,6 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorLogger.debug(
       tag,
       operation: 'getHealthPlatformStatus',
-      phase: 'entry',
       message: 'Checking Health Connect platform status',
     );
 
@@ -142,7 +141,6 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.info(
         tag,
         operation: 'getHealthPlatformStatus',
-        phase: 'succeeded',
         message: 'Health Connect platform status retrieved',
         context: {
           'health_platform_status': status.name,
@@ -154,7 +152,6 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.error(
         tag,
         operation: 'getHealthPlatformStatus',
-        phase: 'failed',
         message: 'Failed to get Health Connect platform status',
         exception: e,
         stackTrace: st,
@@ -177,7 +174,6 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorLogger.debug(
       tag,
       operation: 'requestPermissions',
-      phase: 'entry',
       message: 'Requesting Health Connect permissions',
       context: {
         'requested_health_data_permissions': permissions.healthDataPermissions,
@@ -189,7 +185,6 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.warning(
         tag,
         operation: 'requestPermissions',
-        phase: 'succeeded',
         message: 'No permissions to request (empty list)',
       );
 
@@ -213,7 +208,6 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.info(
         tag,
         operation: 'requestPermissions',
-        phase: 'succeeded',
         message: 'Health Connect permissions requested successfully',
         context: {
           'granted_health_data_permissions':
@@ -227,7 +221,6 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.error(
         tag,
         operation: 'requestPermissions',
-        phase: 'failed',
         message: 'Failed to request Health Connect permissions',
         context: {
           'requested_permissions': {
@@ -267,7 +260,6 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorLogger.debug(
       tag,
       operation: 'getGrantedPermissions',
-      phase: 'entry',
       message: 'Getting granted Health Connect permissions',
     );
 
@@ -289,7 +281,6 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.info(
         tag,
         operation: 'getGrantedPermissions',
-        phase: 'succeeded',
         message: 'Granted Health Connect permissions retrieved',
         context: {
           'granted_health_data_permissions':
@@ -303,7 +294,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.error(
         tag,
         operation: 'getGrantedPermissions',
-        phase: 'failed',
+
         message: 'Failed to get granted Health Connect permissions',
         exception: e,
         stackTrace: st,
@@ -332,7 +323,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorLogger.debug(
       tag,
       operation: 'revokeAllPermissions',
-      phase: 'entry',
+
       message: 'Revoking all Health Connect permissions',
     );
 
@@ -342,14 +333,14 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.info(
         tag,
         operation: 'revokeAllPermissions',
-        phase: 'succeeded',
+
         message: 'All Health Connect permissions revoked successfully',
       );
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
         tag,
         operation: 'revokeAllPermissions',
-        phase: 'failed',
+
         message: 'Failed to revoke all Health Connect permissions',
         exception: e,
         stackTrace: st,
@@ -388,7 +379,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorLogger.debug(
       tag,
       operation: 'getFeatureStatus',
-      phase: 'entry',
+
       message: 'Checking Health Connect feature status',
       context: {'feature': feature},
     );
@@ -403,7 +394,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.info(
         tag,
         operation: 'getFeatureStatus',
-        phase: 'succeeded',
+
         message: 'Health Connect feature status retrieved',
         context: {'feature': feature, 'status': status.name},
       );
@@ -413,7 +404,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.error(
         tag,
         operation: 'getFeatureStatus',
-        phase: 'failed',
+
         message: 'Failed to get Health Connect feature status',
         context: {'feature': feature},
         exception: e,
@@ -437,7 +428,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorLogger.debug(
       tag,
       operation: 'readRecord',
-      phase: 'entry',
+
       message: 'Reading Health Connect record',
       context: {'request': request},
     );
@@ -451,7 +442,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         HealthConnectorLogger.info(
           tag,
           operation: 'readRecord',
-          phase: 'succeeded',
+
           message: 'Health Connect record not found',
           context: {'request': request, 'response': null},
         );
@@ -464,7 +455,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.info(
         tag,
         operation: 'readRecord',
-        phase: 'succeeded',
+
         message: 'Health Connect record read successfully',
         context: {'request': request, 'response': record},
       );
@@ -474,7 +465,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.error(
         tag,
         operation: 'readRecord',
-        phase: 'failed',
+
         message: 'Failed to read Health Connect record',
         context: {'request': request},
         exception: e,
@@ -497,7 +488,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorLogger.debug(
       tag,
       operation: 'readRecords',
-      phase: 'entry',
+
       message: 'Reading Health Connect records',
       context: {'request': request},
     );
@@ -512,7 +503,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.info(
         tag,
         operation: 'readRecords',
-        phase: 'succeeded',
+
         message: 'Health Connect records read successfully',
         context: {'request': request, 'response': response},
       );
@@ -522,7 +513,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.error(
         tag,
         operation: 'readRecords',
-        phase: 'failed',
+
         message: 'Failed to read Health Connect records',
         context: {'request': request},
         exception: e,
@@ -543,7 +534,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorLogger.debug(
       tag,
       operation: 'writeRecord',
-      phase: 'entry',
+
       message: 'Writing Health Connect record',
       context: {'record': record},
     );
@@ -558,7 +549,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.info(
         tag,
         operation: 'writeRecord',
-        phase: 'succeeded',
+
         message: 'Health Connect record written successfully',
         context: {'record': record, 'assignedRecordId': assignedRecordId},
       );
@@ -568,7 +559,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.error(
         tag,
         operation: 'writeRecord',
-        phase: 'failed',
+
         message: 'Failed to write Health Connect record',
         context: {'record': record},
         exception: e,
@@ -591,7 +582,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorLogger.debug(
       tag,
       operation: 'writeRecords',
-      phase: 'entry',
+
       message: 'Writing Health Connect records',
       context: {'records': records},
     );
@@ -600,7 +591,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.warning(
         tag,
         operation: 'writeRecords',
-        phase: 'succeeded',
+
         message: 'No records to write (empty list)',
       );
 
@@ -619,7 +610,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.info(
         tag,
         operation: 'writeRecords',
-        phase: 'succeeded',
+
         message: 'Health Connect records written successfully',
         context: {'records': records, 'assignedRecordIds': recordIds},
       );
@@ -629,7 +620,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.error(
         tag,
         operation: 'writeRecords',
-        phase: 'failed',
+
         message: 'Failed to write Health Connect records',
         context: {'records': records},
         exception: e,
@@ -650,7 +641,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorLogger.debug(
       tag,
       operation: 'updateRecord',
-      phase: 'entry',
+
       message: 'Updating Health Connect record',
       context: {'record': record},
     );
@@ -665,7 +656,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.info(
         tag,
         operation: 'updateRecord',
-        phase: 'succeeded',
+
         message: 'Health Connect record updated successfully',
         context: {'record': record},
       );
@@ -675,7 +666,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.error(
         tag,
         operation: 'updateRecord',
-        phase: 'failed',
+
         message: 'Failed to update Health Connect record',
         context: {'record': record},
         exception: e,
@@ -699,7 +690,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorLogger.debug(
       tag,
       operation: 'aggregate',
-      phase: 'entry',
+
       message: 'Aggregating Health Connect data',
       context: {'request': request},
     );
@@ -714,7 +705,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.info(
         tag,
         operation: 'aggregate',
-        phase: 'succeeded',
+
         message: 'Health Connect data aggregated successfully',
         context: {'request': request, 'response': response},
       );
@@ -724,7 +715,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.error(
         tag,
         operation: 'aggregate',
-        phase: 'failed',
+
         message: 'Failed to aggregate Health Connect data',
         context: {'request': request},
         exception: e,
@@ -754,7 +745,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorLogger.debug(
       tag,
       operation: 'deleteRecords',
-      phase: 'entry',
+
       message: 'Deleting Health Connect records by time range',
       context: {'request': request},
     );
@@ -771,7 +762,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.info(
         tag,
         operation: 'deleteRecords',
-        phase: 'succeeded',
+
         message: 'Health Connect records deleted successfully',
         context: {'request': request},
       );
@@ -779,7 +770,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.error(
         tag,
         operation: 'deleteRecords',
-        phase: 'failed',
+
         message: 'Failed to delete Health Connect records',
         context: {'request': request},
         exception: e,
@@ -808,7 +799,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorLogger.debug(
       tag,
       operation: 'deleteRecordsByIds',
-      phase: 'entry',
+
       message: 'Deleting Health Connect records by IDs',
       context: {'request': request},
     );
@@ -817,7 +808,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.warning(
         tag,
         operation: 'deleteRecordsByIds',
-        phase: 'succeeded',
+
         message: 'No records to delete (empty IDs list)',
       );
 
@@ -835,7 +826,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.info(
         tag,
         operation: 'deleteRecordsByIds',
-        phase: 'succeeded',
+
         message: 'Health Connect records deleted successfully',
         context: {'request': request},
       );
@@ -843,7 +834,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       HealthConnectorLogger.error(
         tag,
         operation: 'deleteRecordsByIds',
-        phase: 'failed',
+
         message: 'Failed to delete Health Connect records by IDs',
         context: {'request': request},
         exception: e,

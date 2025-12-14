@@ -103,7 +103,6 @@ internal class HealthConnectorClient private constructor(
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "getOrCreate",
-                    phase = "failed",
                     message = "Failed to create Health Connect client " +
                         "due to SDK version too low or running in a profile mode",
                     exception = e,
@@ -116,7 +115,6 @@ internal class HealthConnectorClient private constructor(
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "getOrCreate",
-                    phase = "failed",
                     message = "Failed to create Health Connect client due to service not available",
                     exception = e,
                 )
@@ -136,7 +134,6 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "getHealthPlatformStatus",
-                phase = "entry",
                 message = "Getting Health Connect SDK status",
             )
 
@@ -146,7 +143,6 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "getHealthPlatformStatus",
-                phase = "completed",
                 message = "Health Connect platform status retrieved",
                 context = mapOf(
                     "status_code" to statusCode,
@@ -179,7 +175,6 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "requestPermissions",
-            phase = "entry",
             message = "Requesting Health Connect permissions",
             context = mapOf(
                 "requested_permissions" to request.permissionRequests,
@@ -200,7 +195,6 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "requestPermissions",
-                phase = "failed",
                 message = e.message,
                 context = mapOf(
                     "requested_permissions" to request.permissionRequests,
@@ -214,7 +208,6 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "requestPermissions",
-                phase = "failed",
                 message = "Failed to request Health Connect permissions",
                 context = mapOf(
                     "requested_permissions" to request.permissionRequests,
@@ -247,7 +240,6 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "getFeatureStatus",
-            phase = "entry",
             message = "Checking Health Connect feature status",
             context = mapOf("feature" to feature),
         )
@@ -261,7 +253,6 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "getFeatureStatus",
-                phase = "completed",
                 message = "Health Connect feature status retrieved",
                 context = mapOf(
                     "feature" to feature,
@@ -274,7 +265,6 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "getFeatureStatus",
-                phase = "failed",
                 message = e.message,
                 context = mapOf("feature" to feature),
                 exception = e,
@@ -286,7 +276,6 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "getFeatureStatus",
-                phase = "failed",
                 message = "Failed to get Health Connect feature status",
                 context = mapOf("feature" to feature),
                 exception = e,
@@ -312,7 +301,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "readRecord",
-            phase = "entry",
+
             message = "Reading Health Connect record",
             context = mapOf("request" to request),
         )
@@ -331,7 +320,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "readRecord",
-                phase = "completed",
+
                 message = "Health Connect record read successfully",
                 context = mapOf(
                     "request" to request,
@@ -344,7 +333,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "readRecord",
-                phase = "failed",
+
                 message = "Failed to read Health Connect record",
                 context = mapOf("request" to request),
                 exception = e,
@@ -357,7 +346,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "readRecord",
-                phase = "failed",
+
                 message = "Failed to read Health Connect record",
                 context = mapOf("request" to request),
                 exception = e,
@@ -383,7 +372,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "readRecords",
-            phase = "entry",
+
             message = "Reading Health Connect records",
             context = mapOf("request" to request),
         )
@@ -432,7 +421,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "readRecords",
-                phase = "completed",
+
                 message = "Health Connect records read successfully",
                 context = mapOf(
                     "request" to request,
@@ -445,7 +434,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "readRecords",
-                phase = "failed",
+
                 message = "Failed to read Health Connect records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -458,7 +447,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "readRecords",
-                phase = "failed",
+
                 message = "Failed to read Health Connect records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -483,7 +472,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "writeRecord",
-            phase = "entry",
+
             message = "Writing Health Connect record",
             context = mapOf("request" to request),
         )
@@ -499,7 +488,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "writeRecord",
-                phase = "completed",
+
                 message = "Health Connect record written successfully",
                 context = mapOf(
                     "request" to request,
@@ -512,7 +501,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "writeRecord",
-                phase = "failed",
+
                 message = "Failed to write Health Connect record",
                 context = mapOf("request" to request),
                 exception = e,
@@ -525,7 +514,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "writeRecord",
-                phase = "failed",
+
                 message = "Failed to write Health Connect record",
                 context = mapOf("request" to request),
                 exception = e,
@@ -550,7 +539,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "writeRecords",
-            phase = "entry",
+
             message = "Writing Health Connect records",
             context = mapOf("request" to request),
         )
@@ -566,7 +555,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "writeRecords",
-                phase = "completed",
+
                 message = "Health Connect records written successfully",
                 context = mapOf(
                     "request" to request,
@@ -579,7 +568,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "writeRecords",
-                phase = "failed",
+
                 message = "Failed to write Health Connect records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -592,7 +581,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "writeRecords",
-                phase = "failed",
+
                 message = "Failed to write Health Connect records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -618,7 +607,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "updateRecord",
-            phase = "entry",
+
             message = "Updating Health Connect record",
             context = mapOf("request" to request),
         )
@@ -641,7 +630,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "updateRecord",
-                phase = "completed",
+
                 message = "Health Connect record updated successfully",
                 context = mapOf("request" to request),
             )
@@ -651,7 +640,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "updateRecord",
-                phase = "failed",
+
                 message = "Failed to update Health Connect record",
                 context = mapOf("request" to request),
                 exception = e,
@@ -663,7 +652,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "updateRecord",
-                phase = "failed",
+
                 message = "Failed to update Health Connect record",
                 context = mapOf("request" to request),
                 exception = e,
@@ -676,7 +665,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "updateRecord",
-                phase = "failed",
+
                 message = "Failed to update Health Connect record",
                 context = mapOf("request" to request),
                 exception = e,
@@ -778,7 +767,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "aggregateOxygenSaturationManually",
-            phase = "entry",
+
             message = "Manually aggregating Oxygen Saturation records",
             context = mapOf("request" to request),
         )
@@ -820,7 +809,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "aggregateOxygenSaturationManually",
-                phase = "completed",
+
                 message = "Oxygen Saturation records aggregated successfully",
                 context = mapOf(
                     "request" to request,
@@ -834,7 +823,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateOxygenSaturationManually",
-                phase = "failed",
+
                 message = "Unsupported aggregation operation",
                 context = mapOf("request" to request),
                 exception = e,
@@ -847,7 +836,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateOxygenSaturationManually",
-                phase = "failed",
+
                 message = "Invalid aggregation state",
                 context = mapOf("request" to request),
                 exception = e,
@@ -859,7 +848,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateOxygenSaturationManually",
-                phase = "failed",
+
                 message = "Failed to aggregate Oxygen Saturation records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -872,7 +861,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateOxygenSaturationManually",
-                phase = "failed",
+
                 message = "Failed to aggregate Oxygen Saturation records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -974,7 +963,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "aggregateRespiratoryRateManually",
-            phase = "entry",
+
             message = "Manually aggregating Respiratory Rate records",
             context = mapOf("request" to request),
         )
@@ -1016,7 +1005,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "aggregateRespiratoryRateManually",
-                phase = "completed",
+
                 message = "Respiratory Rate records aggregated successfully",
                 context = mapOf(
                     "request" to request,
@@ -1030,7 +1019,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateRespiratoryRateManually",
-                phase = "failed",
+
                 message = "Unsupported aggregation operation",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1043,7 +1032,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateRespiratoryRateManually",
-                phase = "failed",
+
                 message = "Invalid aggregation state",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1055,7 +1044,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateRespiratoryRateManually",
-                phase = "failed",
+
                 message = "Failed to aggregate Respiratory Rate records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1068,7 +1057,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateRespiratoryRateManually",
-                phase = "failed",
+
                 message = "Failed to aggregate Respiratory Rate records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1170,7 +1159,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "aggregateVo2MaxManually",
-            phase = "entry",
+
             message = "Manually aggregating VO2Max records",
             context = mapOf("request" to request),
         )
@@ -1211,7 +1200,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "aggregateVo2MaxManually",
-                phase = "completed",
+
                 message = "VO2Max records aggregated successfully",
                 context = mapOf(
                     "request" to request,
@@ -1225,7 +1214,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateVo2MaxManually",
-                phase = "failed",
+
                 message = "Unsupported aggregation operation",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1238,7 +1227,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateVo2MaxManually",
-                phase = "failed",
+
                 message = "Invalid aggregation state",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1250,7 +1239,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateVo2MaxManually",
-                phase = "failed",
+
                 message = "Failed to aggregate VO2Max records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1263,7 +1252,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateVo2MaxManually",
-                phase = "failed",
+
                 message = "Failed to aggregate VO2Max records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1365,7 +1354,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "aggregateBloodGlucoseManually",
-            phase = "entry",
+
             message = "Manually aggregating Blood Glucose records",
             context = mapOf("request" to request),
         )
@@ -1407,7 +1396,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "aggregateBloodGlucoseManually",
-                phase = "completed",
+
                 message = "Blood Glucose records aggregated successfully",
                 context = mapOf(
                     "request" to request,
@@ -1421,7 +1410,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateBloodGlucoseManually",
-                phase = "failed",
+
                 message = "Unsupported aggregation operation",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1434,7 +1423,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateBloodGlucoseManually",
-                phase = "failed",
+
                 message = "Invalid aggregation state",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1446,7 +1435,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateBloodGlucoseManually",
-                phase = "failed",
+
                 message = "Failed to aggregate Blood Glucose records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1459,7 +1448,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregateBloodGlucoseManually",
-                phase = "failed",
+
                 message = "Failed to aggregate Blood Glucose records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1485,7 +1474,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "aggregate",
-            phase = "entry",
+
             message = "Aggregating Health Connect data",
             context = mapOf("request" to request),
         )
@@ -1547,7 +1536,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "aggregate",
-                phase = "completed",
+
                 message = "Health Connect data aggregated successfully",
                 context = mapOf(
                     "request" to request,
@@ -1560,7 +1549,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregate",
-                phase = "failed",
+
                 message = "Unsupported aggregation operation",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1573,7 +1562,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregate",
-                phase = "failed",
+
                 message = "Invalid aggregation state - null result from Health Connect",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1587,7 +1576,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregate",
-                phase = "failed",
+
                 message = "Failed to aggregate Health Connect data",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1597,7 +1586,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregate",
-                phase = "failed",
+
                 message = "Failed to aggregate Health Connect data",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1610,7 +1599,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregate",
-                phase = "failed",
+
                 message = "Failed to aggregate Health Connect data",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1633,7 +1622,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "deleteRecords",
-            phase = "entry",
+
             message = "Deleting Health Connect records by time range",
             context = mapOf("request" to request),
         )
@@ -1653,7 +1642,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "deleteRecords",
-                phase = "completed",
+
                 message = "Health Connect records deleted successfully",
                 context = mapOf("request" to request),
             )
@@ -1661,7 +1650,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "deleteRecords",
-                phase = "failed",
+
                 message = "Failed to delete Health Connect records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1674,7 +1663,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "deleteRecords",
-                phase = "failed",
+
                 message = "Failed to delete Health Connect records",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1697,7 +1686,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "deleteRecordsByIds",
-            phase = "entry",
+
             message = "Deleting Health Connect records by IDs",
             context = mapOf("request" to request),
         )
@@ -1706,7 +1695,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.warning(
                 tag = TAG,
                 operation = "deleteRecordsByIds",
-                phase = "completed",
+
                 message = "No records to delete (empty IDs list)",
             )
             return
@@ -1724,7 +1713,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "deleteRecordsByIds",
-                phase = "completed",
+
                 message = "Health Connect records deleted successfully",
                 context = mapOf("request" to request),
             )
@@ -1732,7 +1721,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "deleteRecordsByIds",
-                phase = "failed",
+
                 message = "Failed to delete Health Connect records by IDs",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1745,7 +1734,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "deleteRecordsByIds",
-                phase = "failed",
+
                 message = "Failed to delete Health Connect records by IDs",
                 context = mapOf("request" to request),
                 exception = e,
@@ -1769,7 +1758,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "getGrantedPermissions",
-            phase = "entry",
+
             message = "Getting granted Health Connect permissions",
         )
 
@@ -1779,7 +1768,7 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "getGrantedPermissions",
-                phase = "failed",
+
                 message = "Failed to get granted Health Connect permissions",
                 exception = e,
             )
@@ -1799,7 +1788,7 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "revokeAllPermissions",
-            phase = "entry",
+
             message = "Revoking all Health Connect permissions",
         )
 
@@ -1809,14 +1798,14 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "revokeAllPermissions",
-                phase = "completed",
+
                 message = "All Health Connect permissions revoked successfully",
             )
         } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "revokeAllPermissions",
-                phase = "failed",
+
                 message = "Failed to revoke all Health Connect permissions",
                 exception = e,
             )
