@@ -136,7 +136,7 @@ internal object HealthConnectorLogger {
      * only non-null fields.
      *
      * @param operation The operation being performed (e.g., 'readRecords').
-     * @param phase The phase of the operation (e.g., 'entry', 'completed').
+
      * @param message Optional message to include in the log.
      * @param context Optional map of contextual information.
      * @param exception Optional exception object.
@@ -145,7 +145,6 @@ internal object HealthConnectorLogger {
      */
     private fun formatStructuredMessage(
         operation: String,
-        phase: String,
         message: String? = null,
         context: Map<String, Any?>? = null,
         exception: Throwable? = null,
@@ -156,9 +155,6 @@ internal object HealthConnectorLogger {
         // Always include operation
         buffer.appendLine("{")
         buffer.append("${getIndent(0)}operation: $operation,")
-
-        // Include phase if provided
-        buffer.append("\n${getIndent(0)}phase: $phase,")
 
         // Include message if provided
         if (message != null) {
@@ -203,7 +199,7 @@ internal object HealthConnectorLogger {
      * ```
      * {
      *    operation: {operation},
-     *    phase: {phase},
+
      *    message: {message},
      *    exception: {
      *      cause: {exception},
@@ -221,7 +217,7 @@ internal object HealthConnectorLogger {
      * @param level The log level (DEBUG, INFO, WARNING, ERROR).
      * @param tag The tag for categorizing the log entry (converted to uppercase).
      * @param operation The operation being performed.
-     * @param phase The phase of the operation.
+
      * @param message Optional message to include in the log.
      * @param context Optional contextual information.
      * @param exception Optional exception object.
@@ -230,7 +226,6 @@ internal object HealthConnectorLogger {
         level: LogLevel,
         tag: String,
         operation: String,
-        phase: String,
         message: String? = null,
         context: Map<String, Any?>? = null,
         exception: Throwable? = null,
@@ -242,7 +237,7 @@ internal object HealthConnectorLogger {
         val stackTrace = exception?.stackTrace
         val structuredMessage = formatStructuredMessage(
             operation = operation,
-            phase = phase,
+
             message = message,
             context = context,
             exception = exception,
@@ -295,7 +290,7 @@ internal object HealthConnectorLogger {
      *
      * @param tag A tag for categorizing the log entry (converted to uppercase).
      * @param operation The operation being performed.
-     * @param phase The phase of the operation.
+
      * @param message Optional message to include in the log.
      * @param context Optional contextual information.
      * @param exception Optional exception object to include in the log.
@@ -303,7 +298,6 @@ internal object HealthConnectorLogger {
     fun debug(
         tag: String,
         operation: String,
-        phase: String,
         message: String? = null,
         context: Map<String, Any?>? = null,
         exception: Throwable? = null,
@@ -312,7 +306,7 @@ internal object HealthConnectorLogger {
             level = LogLevel.DEBUG,
             tag = tag,
             operation = operation,
-            phase = phase,
+
             message = message,
             context = context,
             exception = exception,
@@ -327,7 +321,7 @@ internal object HealthConnectorLogger {
      *
      * @param tag A tag for categorizing the log entry (converted to uppercase).
      * @param operation The operation being performed.
-     * @param phase The phase of the operation.
+
      * @param message Optional message to include in the log.
      * @param context Optional contextual information.
      * @param exception Optional exception object to include in the log.
@@ -335,7 +329,6 @@ internal object HealthConnectorLogger {
     fun info(
         tag: String,
         operation: String,
-        phase: String,
         message: String? = null,
         context: Map<String, Any?>? = null,
         exception: Throwable? = null,
@@ -344,7 +337,7 @@ internal object HealthConnectorLogger {
             level = LogLevel.INFO,
             tag = tag,
             operation = operation,
-            phase = phase,
+
             message = message,
             context = context,
             exception = exception,
@@ -359,7 +352,7 @@ internal object HealthConnectorLogger {
      *
      * @param tag A tag for categorizing the log entry (converted to uppercase).
      * @param operation The operation being performed.
-     * @param phase The phase of the operation.
+
      * @param message Optional message to include in the log.
      * @param context Optional contextual information.
      * @param exception Optional exception object to include in the log.
@@ -367,7 +360,6 @@ internal object HealthConnectorLogger {
     fun warning(
         tag: String,
         operation: String,
-        phase: String,
         message: String? = null,
         context: Map<String, Any?>? = null,
         exception: Throwable? = null,
@@ -376,7 +368,7 @@ internal object HealthConnectorLogger {
             level = LogLevel.WARNING,
             tag = tag,
             operation = operation,
-            phase = phase,
+
             message = message,
             context = context,
             exception = exception,
@@ -391,7 +383,7 @@ internal object HealthConnectorLogger {
      *
      * @param tag A tag for categorizing the log entry (converted to uppercase).
      * @param operation The operation being performed.
-     * @param phase The phase of the operation.
+
      * @param message Optional message to include in the log.
      * @param context Optional contextual information.
      * @param exception Optional exception object to include in the log.
@@ -399,7 +391,6 @@ internal object HealthConnectorLogger {
     fun error(
         tag: String,
         operation: String,
-        phase: String,
         message: String? = null,
         context: Map<String, Any?>? = null,
         exception: Throwable? = null,
@@ -408,7 +399,7 @@ internal object HealthConnectorLogger {
             level = LogLevel.ERROR,
             tag = tag,
             operation = operation,
-            phase = phase,
+
             message = message,
             context = context,
             exception = exception,

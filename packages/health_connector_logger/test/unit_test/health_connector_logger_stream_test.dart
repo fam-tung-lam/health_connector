@@ -49,7 +49,6 @@ void main() {
       HealthConnectorLogger.debug(
         'DEBUG_TAG',
         operation: 'debugOp',
-        phase: 'entry',
       );
 
       await Future<void>.delayed(Duration.zero);
@@ -58,7 +57,6 @@ void main() {
       expect(logs[0].level, equals(LogLevel.debug));
       expect(logs[0].tag, equals('DEBUG_TAG'));
       expect(logs[0].operation, equals('debugOp'));
-      expect(logs[0].phase, equals('entry'));
 
       await subscription.cancel();
     });
@@ -225,12 +223,18 @@ void main() {
         final secondParts = timeParts[2].split('.');
 
         final messageDateTime = DateTime(
-          int.parse(dateParts[2]), // year
-          int.parse(dateParts[1]), // month
-          int.parse(dateParts[0]), // day
-          int.parse(timeParts[0]), // hour
-          int.parse(timeParts[1]), // minute
-          int.parse(secondParts[0]), // second
+          int.parse(dateParts[2]),
+          // year
+          int.parse(dateParts[1]),
+          // month
+          int.parse(dateParts[0]),
+          // day
+          int.parse(timeParts[0]),
+          // hour
+          int.parse(timeParts[1]),
+          // minute
+          int.parse(secondParts[0]),
+          // second
           int.parse(secondParts[1]), // millisecond
         );
 
@@ -253,7 +257,7 @@ void main() {
       HealthConnectorLogger.info(
         'API',
         operation: 'readRecords',
-        phase: 'completed',
+
         message: 'Successfully read 42 records',
         context: {'count': 42, 'duration': '123ms'},
       );
@@ -265,7 +269,7 @@ void main() {
 
       // Verify structured message contains all the data
       expect(log.structuredMessage, contains('operation: readRecords'));
-      expect(log.structuredMessage, contains('phase: completed'));
+
       expect(
         log.structuredMessage,
         contains('message: Successfully read 42 records'),
@@ -311,7 +315,7 @@ void main() {
       HealthConnectorLogger.error(
         'ERROR_TAG',
         operation: 'failedOperation',
-        phase: 'execution',
+
         message: 'Operation failed with error',
         context: {'attempt': 3, 'maxRetries': 5},
         exception: exception,
@@ -326,7 +330,7 @@ void main() {
       expect(log.level, equals(LogLevel.error));
       expect(log.tag, equals('ERROR_TAG'));
       expect(log.operation, equals('failedOperation'));
-      expect(log.phase, equals('execution'));
+
       expect(log.message, equals('Operation failed with error'));
       expect(log.context, equals({'attempt': 3, 'maxRetries': 5}));
       expect(log.exception, equals(exception));

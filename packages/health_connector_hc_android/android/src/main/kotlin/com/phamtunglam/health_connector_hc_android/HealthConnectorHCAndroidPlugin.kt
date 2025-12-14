@@ -94,7 +94,6 @@ class HealthConnectorHCAndroidPlugin :
             HealthConnectorLogger.warning(
                 tag = TAG,
                 operation = "coroutineExceptionHandler",
-                phase = "unhandled_exception",
                 message = "Unhandled exception in coroutine scope",
                 exception = e,
             )
@@ -190,7 +189,6 @@ class HealthConnectorHCAndroidPlugin :
             HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "create",
-                phase = "entry",
                 message = "Creating ${HealthConnectorClient.TAG}...",
                 context = mapOf("isLoggerEnabled" to config.isLoggerEnabled.toString()),
             )
@@ -205,7 +203,6 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.debug(
                     tag = TAG,
                     operation = "create",
-                    phase = "succeeded",
                     message = "${HealthConnectorClient.TAG} initialized successfully",
                     context = mapOf("isLoggerEnabled" to config.isLoggerEnabled.toString()),
                 )
@@ -215,7 +212,6 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "create",
-                    phase = "failed",
                     message = "Failed to create ${HealthConnectorClient.TAG}",
                     context = mapOf(
                         "error_code" to e.code,
@@ -262,7 +258,6 @@ class HealthConnectorHCAndroidPlugin :
                     HealthConnectorLogger.error(
                         tag = TAG,
                         operation = "requestPermissions",
-                        phase = "failed",
                         message = "Activity is null. " +
                             "Cannot request permissions without activity context",
                     )
@@ -291,7 +286,6 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "requestPermissions",
-                    phase = "failed",
                     message = "Failed to request Health Connect permissions",
                     context = mapOf(
                         "error_code" to e.code,
@@ -321,7 +315,7 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "getGrantedPermissions",
-                    phase = "failed",
+
                     message = "Failed to get granted Health Connect permissions",
                     context = mapOf(
                         "error_code" to e.code,
@@ -351,7 +345,7 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "revokeAllPermissions",
-                    phase = "failed",
+
                     message = "Failed to revoke all Health Connect permissions",
                     context = mapOf(
                         "error_code" to e.code,
@@ -385,7 +379,7 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "getFeatureStatus",
-                    phase = "failed",
+
                     message = "Failed to get Health Connect feature status",
                     context = mapOf(
                         "feature" to feature.toString(),
@@ -420,7 +414,7 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "readRecord",
-                    phase = "failed",
+
                     message = "Failed to read Health Connect record",
                     context = mapOf(
                         "dataType" to request.dataType.toString(),
@@ -456,7 +450,7 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "readRecords",
-                    phase = "failed",
+
                     message = "Failed to read Health Connect records",
                     context = mapOf(
                         "dataType" to request.dataType.toString(),
@@ -494,7 +488,7 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "writeRecord",
-                    phase = "failed",
+
                     message = "Failed to write Health Connect record",
                     context = mapOf(
                         "error_code" to e.code,
@@ -528,7 +522,7 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "writeRecords",
-                    phase = "failed",
+
                     message = "Failed to write Health Connect records",
                     context = mapOf(
                         "recordsCount" to request.records.size,
@@ -563,7 +557,7 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "updateRecord",
-                    phase = "failed",
+
                     message = "Failed to update Health Connect record",
                     context = mapOf(
                         "error_code" to e.code,
@@ -597,7 +591,7 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "deleteRecordsByIds",
-                    phase = "failed",
+
                     message = "Failed to delete Health Connect records by IDs",
                     context = mapOf(
                         "dataType" to request.dataType.toString(),
@@ -633,7 +627,7 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "deleteRecordsByTimeRange",
-                    phase = "failed",
+
                     message = "Failed to delete Health Connect records by time range",
                     context = mapOf(
                         "dataType" to request.dataType.toString(),
@@ -670,7 +664,7 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "aggregate",
-                    phase = "failed",
+
                     message = "Failed to aggregate Health Connect data",
                     context = mapOf(
                         "dataType" to request.dataType.toString(),

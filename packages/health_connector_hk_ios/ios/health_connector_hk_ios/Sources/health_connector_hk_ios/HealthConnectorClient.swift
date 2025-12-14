@@ -79,7 +79,6 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: tag,
                 operation: "getOrCreate",
-                phase: "failed",
                 message: "HealthKit is not available on this device"
             )
             throw HealthConnectorErrors.healthProviderUnavailable(
@@ -101,7 +100,6 @@ class HealthConnectorClient {
         HealthConnectorLogger.debug(
             tag: tag,
             operation: "getHealthPlatformStatus",
-            phase: "entry",
             message: "Getting HealthKit availability status"
         )
 
@@ -111,7 +109,6 @@ class HealthConnectorClient {
         HealthConnectorLogger.info(
             tag: tag,
             operation: "getHealthPlatformStatus",
-            phase: "completed",
             message: "HealthKit platform status retrieved",
             context: [
                 "isAvailable": isAvailable,
@@ -142,7 +139,6 @@ class HealthConnectorClient {
             HealthConnectorLogger.debug(
                 tag: HealthConnectorClient.tag,
                 operation: "requestPermissions",
-                phase: "entry",
                 message: "Requesting Health Connect permissions",
                 context: [
                     "requested_health_data_permissions": healthDataPermissions,
@@ -216,7 +212,6 @@ class HealthConnectorClient {
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
                 operation: "requestPermissions",
-                phase: "completed",
                 message: "Health Connect permissions requested successfully",
                 context: [
                     "granted_health_data_permissions": results,
@@ -232,7 +227,6 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "requestPermissions",
-                phase: "failed",
                 message: "Failed to request Health Connect permissions",
                 context: [
                     "requested_permissions": healthDataPermissions,
@@ -247,7 +241,6 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "requestPermissions",
-                phase: "failed",
                 message: "Failed to request Health Connect permissions",
                 context: [
                     "requested_permissions": healthDataPermissions,
@@ -277,7 +270,6 @@ class HealthConnectorClient {
             HealthConnectorLogger.debug(
                 tag: HealthConnectorClient.tag,
                 operation: "readRecord",
-                phase: "entry",
                 message: "Reading Health Connect record",
                 context: [
                     "request": request,
@@ -294,7 +286,6 @@ class HealthConnectorClient {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorClient.tag,
                     operation: "readRecord",
-                    phase: "failed",
                     message: "Invalid record ID format",
                     context: [
                         "dataType": String(describing: request.dataType),
@@ -344,7 +335,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
                 operation: "readRecord",
-                phase: "completed",
+
                 message: "Health Connect record read successfully",
                 context: [
                     "request": request,
@@ -360,7 +351,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "readRecord",
-                phase: "failed",
+
                 message: "Failed to read Health Connect record",
                 context: [
                     "request": request,
@@ -376,7 +367,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "readRecord",
-                phase: "failed",
+
                 message: "Failed to read Health Connect record",
                 context: [
                     "request": request,
@@ -440,7 +431,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.debug(
                 tag: HealthConnectorClient.tag,
                 operation: "readRecords",
-                phase: "entry",
+
                 message: "Reading Health Connect records",
                 context: [
                     "request": request,
@@ -469,7 +460,7 @@ class HealthConnectorClient {
                         HealthConnectorLogger.warning(
                             tag: HealthConnectorClient.tag,
                             operation: "readRecords",
-                            phase: "completed",
+
                             message: "Invalid pageToken: adjusted startTime >= endTime",
                             context: [
                                 "adjustedStartTime": effectiveStartTime,
@@ -482,7 +473,7 @@ class HealthConnectorClient {
                     HealthConnectorLogger.debug(
                         tag: HealthConnectorClient.tag,
                         operation: "readRecords",
-                        phase: "pagination",
+
                         message: "Using pageToken for pagination",
                         context: [
                             "originalStartTime": request.startTime,
@@ -494,7 +485,7 @@ class HealthConnectorClient {
                     HealthConnectorLogger.warning(
                         tag: HealthConnectorClient.tag,
                         operation: "readRecords",
-                        phase: "pagination",
+
                         message: "Invalid pageToken format, using original startTime",
                         context: [
                             "pageToken": pageToken,
@@ -535,7 +526,7 @@ class HealthConnectorClient {
                     HealthConnectorLogger.warning(
                         tag: HealthConnectorClient.tag,
                         operation: "readRecords",
-                        phase: "completed",
+
                         message: "No sources found for bundle identifiers",
                         context: [
                             "bundleIdentifiers": request.dataOriginPackageNames,
@@ -626,7 +617,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
                 operation: "readRecords",
-                phase: "completed",
+
                 message: "Health Connect records read successfully",
                 context: [
                     "request": request,
@@ -642,7 +633,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "readRecords",
-                phase: "failed",
+
                 message: "Failed to read Health Connect records",
                 context: [
                     "request": request,
@@ -654,7 +645,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "readRecords",
-                phase: "failed",
+
                 message: "Failed to read Health Connect records",
                 context: [
                     "request": request,
@@ -797,7 +788,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.debug(
                 tag: HealthConnectorClient.tag,
                 operation: "writeRecord",
-                phase: "entry",
+
                 message: "Writing Health Connect record",
                 context: [
                     "request": request,
@@ -842,7 +833,7 @@ class HealthConnectorClient {
                         HealthConnectorLogger.info(
                             tag: HealthConnectorClient.tag,
                             operation: "writeRecord",
-                            phase: "completed",
+
                             message: "Health Connect record written successfully",
                             context: [
                                 "request": request,
@@ -867,7 +858,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "writeRecord",
-                phase: "failed",
+
                 message: "Failed to write Health Connect record",
                 context: [
                     "request": request,
@@ -879,7 +870,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "writeRecord",
-                phase: "failed",
+
                 message: "Failed to write Health Connect record",
                 context: [
                     "request": request,
@@ -917,7 +908,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.debug(
                 tag: HealthConnectorClient.tag,
                 operation: "updateRecord",
-                phase: "entry",
+
                 message: "Updating Health Connect record",
                 context: [
                     "request": request,
@@ -1056,7 +1047,7 @@ class HealthConnectorClient {
                         HealthConnectorLogger.info(
                             tag: HealthConnectorClient.tag,
                             operation: "updateRecord",
-                            phase: "completed",
+
                             message: "Health Connect record updated successfully",
                             context: [
                                 "request": request,
@@ -1082,7 +1073,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "updateRecord",
-                phase: "failed",
+
                 message: "Failed to update Health Connect record",
                 context: [
                     "request": request,
@@ -1094,7 +1085,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "updateRecord",
-                phase: "failed",
+
                 message: "Failed to update Health Connect record",
                 context: [
                     "request": request,
@@ -1124,7 +1115,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.debug(
                 tag: HealthConnectorClient.tag,
                 operation: "writeRecords",
-                phase: "entry",
+
                 message: "Writing Health Connect records",
                 context: [
                     "request": request,
@@ -1175,7 +1166,7 @@ class HealthConnectorClient {
                         HealthConnectorLogger.info(
                             tag: HealthConnectorClient.tag,
                             operation: "writeRecords",
-                            phase: "completed",
+
                             message: "Health Connect records written successfully",
                             context: [
                                 "request": request,
@@ -1200,7 +1191,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "writeRecords",
-                phase: "failed",
+
                 message: "Failed to write Health Connect records",
                 context: [
                     "request": request,
@@ -1212,7 +1203,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "writeRecords",
-                phase: "failed",
+
                 message: "Failed to write Health Connect records",
                 context: [
                     "request": request,
@@ -1242,7 +1233,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.debug(
                 tag: HealthConnectorClient.tag,
                 operation: "aggregate",
-                phase: "entry",
+
                 message: "Aggregating Health Connect data",
                 context: [
                     "request": request,
@@ -1297,7 +1288,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
                 operation: "aggregate",
-                phase: "completed",
+
                 message: "Health Connect data aggregated successfully",
                 context: [
                     "request": request,
@@ -1313,7 +1304,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "aggregate",
-                phase: "failed",
+
                 message: "Failed to aggregate Health Connect data",
                 context: [
                     "request": request,
@@ -1325,7 +1316,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "aggregate",
-                phase: "failed",
+
                 message: "Failed to aggregate Health Connect data",
                 context: [
                     "request": request,
@@ -1708,7 +1699,7 @@ class HealthConnectorClient {
         HealthConnectorLogger.debug(
             tag: HealthConnectorClient.tag,
             operation: "deleteRecordsByTimeRange",
-            phase: "entry",
+
             message: "Deleting Health Connect records by time range",
             context: [
                 "request": request,
@@ -1765,7 +1756,7 @@ class HealthConnectorClient {
                         HealthConnectorLogger.info(
                             tag: HealthConnectorClient.tag,
                             operation: "deleteRecordsByTimeRange",
-                            phase: "completed",
+
                             message: "Health Connect records deleted successfully",
                             context: [
                                 "request": request,
@@ -1789,7 +1780,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "deleteRecordsByTimeRange",
-                phase: "failed",
+
                 message: "Failed to delete Health Connect records by time range",
                 context: [
                     "request": request,
@@ -1801,7 +1792,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "deleteRecordsByTimeRange",
-                phase: "failed",
+
                 message: "Failed to delete Health Connect records by time range",
                 context: [
                     "request": request,
@@ -1830,7 +1821,7 @@ class HealthConnectorClient {
         HealthConnectorLogger.debug(
             tag: HealthConnectorClient.tag,
             operation: "deleteRecordsByIds",
-            phase: "entry",
+
             message: "Deleting Health Connect records by IDs",
             context: [
                 "request": request,
@@ -1918,7 +1909,7 @@ class HealthConnectorClient {
                             HealthConnectorLogger.info(
                                 tag: HealthConnectorClient.tag,
                                 operation: "deleteRecordsByIds",
-                                phase: "completed",
+
                                 message: "Health Connect records deleted successfully",
                                 context: [
                                     "request": request,
@@ -1939,7 +1930,7 @@ class HealthConnectorClient {
                 HealthConnectorLogger.warning(
                     tag: HealthConnectorClient.tag,
                     operation: "deleteRecordsByIds",
-                    phase: "completed",
+
                     message: "No records to delete (empty IDs list)"
                 )
             }
@@ -1950,7 +1941,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "deleteRecordsByIds",
-                phase: "failed",
+
                 message: "Failed to delete Health Connect records by IDs",
                 context: [
                     "request": request,
@@ -1962,7 +1953,7 @@ class HealthConnectorClient {
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "deleteRecordsByIds",
-                phase: "failed",
+
                 message: "Failed to delete Health Connect records by IDs",
                 context: [
                     "request": request,

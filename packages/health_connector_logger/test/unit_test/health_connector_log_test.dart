@@ -21,7 +21,7 @@ void main() {
       expect(log.operation, equals('testOp'));
       expect(log.dateTime, equals(testDateTime));
       expect(log.structuredMessage, equals(testStructuredMessage));
-      expect(log.phase, isNull);
+
       expect(log.message, isNull);
       expect(log.context, isNull);
       expect(log.exception, isNull);
@@ -39,14 +39,13 @@ void main() {
         operation: 'failedOp',
         dateTime: testDateTime,
         structuredMessage: testStructuredMessage,
-        phase: 'failed',
+
         message: 'Operation failed',
         context: context,
         exception: exception,
         stackTrace: stackTrace,
       );
 
-      expect(log.phase, equals('failed'));
       expect(log.message, equals('Operation failed'));
       expect(log.context, equals(context));
       expect(log.exception, equals(exception));
@@ -61,7 +60,7 @@ void main() {
           operation: 'testOp',
           dateTime: testDateTime,
           structuredMessage: testStructuredMessage,
-          phase: 'entry',
+
           message: 'test message',
           context: const {'key': 'value'},
         );
@@ -72,7 +71,7 @@ void main() {
           operation: 'testOp',
           dateTime: testDateTime,
           structuredMessage: testStructuredMessage,
-          phase: 'entry',
+
           message: 'test message',
           context: const {'key': 'value'},
         );
@@ -151,7 +150,7 @@ void main() {
         operation: 'warnOp',
         dateTime: testDateTime,
         structuredMessage: testStructuredMessage,
-        phase: 'check',
+
         message: 'Warning message',
         context: const {'count': 5},
       );
@@ -161,7 +160,7 @@ void main() {
       expect(str, contains('WARN'));
       expect(str, contains('warnOp'));
       expect(str, contains('2024-03-15'));
-      expect(str, contains('check'));
+
       expect(str, contains('Warning message'));
       expect(str, contains('{count: 5}'));
     });
