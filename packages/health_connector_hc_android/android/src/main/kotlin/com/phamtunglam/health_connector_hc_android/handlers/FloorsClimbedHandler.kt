@@ -1,69 +1,47 @@
 package com.phamtunglam.health_connector_hc_android.handlers
 
+import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.aggregate.AggregationResult
 import androidx.health.connect.client.records.FloorsClimbedRecord
-import androidx.health.connect.client.records.Record
-import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.mappers.toNumericDto
+import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
-import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.FloorsClimbedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
-import kotlin.reflect.KClass
 
 /**
- * Handler for Floors Climbed health data type.
- *
- * Characteristics:
- * - Category: Interval record (startTime + endTime)
- * - Aggregation: Supports SUM only
- * - Health Connect Type: FloorsClimbedRecord
+ * Handler for Floors Climbed records.
  */
-internal object FloorsClimbedHandler :
-    IntervalRecordHandler,
-    AggregationSupportingHandler<CommonAggregateRequestDto> {
-    override val supportedType: HealthDataTypeDto = HealthDataTypeDto.FLOORS_CLIMBED
+internal class FloorsClimbedHandler(override val client: HealthConnectClient) :
+    HealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    HealthConnectAggregatableHealthRecordHandler {
 
-    override fun toDto(record: Record): HealthRecordDto {
-        require(record is FloorsClimbedRecord) {
-            "Expected FloorsClimbedRecord, got ${record::class.simpleName}"
-        }
-        return record.toDto()
-    }
+    override val dataType = HealthDataTypeDto.FLOORS_CLIMBED
 
-    override fun toHealthConnect(dto: HealthRecordDto): Record {
-        require(dto is FloorsClimbedRecordDto) {
-            "Expected FloorsClimbedRecordDto, got ${dto::class.simpleName}"
-        }
-        return dto.toHealthConnect()
-    }
-
-    override fun getRecordClass(): KClass<out Record> = FloorsClimbedRecord::class
-
-    override fun toAggregateMetric(request: CommonAggregateRequestDto): AggregateMetric<*> =
+    override fun toAggregateMetric(request: AggregateRequestDto): AggregateMetric<*> =
         when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> FloorsClimbedRecord.FLOORS_CLIMBED_TOTAL
-            AggregationMetricDto.AVG,
-            AggregationMetricDto.MIN,
-            AggregationMetricDto.MAX,
-            AggregationMetricDto.COUNT,
-            ->
-                throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} " +
-                        "for FloorsClimbed. Supported: SUM",
-                )
+            else -> throw UnsupportedOperationException(
+                "Unsupported metric: ${request.aggregationMetric}",
+            )
         }
 
     override fun extractAggregateValue(
-        aggregationResult: AggregationResult,
-        aggregateMetric: AggregateMetric<*>,
-    ): MeasurementUnitDto {
-        val floors = aggregationResult[aggregateMetric] as? Double
-            ?: error("Aggregation result for $aggregateMetric is null")
-        return floors.toNumericDto()
+        result: AggregationResult,
+        metric: AggregateMetric<*>,
+    ): MeasurementUnitDto = when (metric) {
+        FloorsClimbedRecord.FLOORS_CLIMBED_TOTAL -> {
+            val floors = result[metric]
+                ?: error("Aggregation result for $metric is null")
+            floors.toNumericDto()
+        }
+
+        else -> throw UnsupportedOperationException("Unsupported metric: $metric")
     }
 }

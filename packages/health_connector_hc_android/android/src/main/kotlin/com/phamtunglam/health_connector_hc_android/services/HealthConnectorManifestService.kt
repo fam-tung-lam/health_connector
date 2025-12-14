@@ -2,6 +2,8 @@ package com.phamtunglam.health_connector_hc_android.services
 
 import android.content.Context
 import android.content.pm.PackageManager
+import com.phamtunglam.health_connector_hc_android.mappers.toError
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 
 /**
  * Internal service responsible for validating the application's Android Manifest configuration.
@@ -19,16 +21,17 @@ internal class HealthConnectorManifestService(private val context: Context) {
      * runtime issues.
      *
      * @param permissions The set of permission strings to validate (e.g., `android.permission.health.READ_STEPS`).
-     * @throws IllegalStateException If any of the [permissions] are missing from the manifest declaration.
+     * @throws HealthConnectorErrorCodeDto.INVALID_CONFIGURATION If any of the [permissions] are missing from the manifest declaration.
      */
-    @Throws(IllegalStateException::class)
     fun checkPermissionsDeclared(permissions: Set<String>) {
         val (_, missing) = partitionDeclaredPermissions(permissions)
 
-        check(missing.isEmpty()) {
-            "Health Connect integration is misconfigured. " +
-                "Missing permissions in AndroidManifest.xml: $missing. " +
-                "Please add <uses-permission> tags."
+        if (missing.isNotEmpty()) {
+            throw HealthConnectorErrorCodeDto.INVALID_CONFIGURATION.toError(
+                "Health Connect integration is misconfigured. " +
+                    "Missing permissions in AndroidManifest.xml: $missing. " +
+                    "Please add <uses-permission> tags.",
+            )
         }
     }
 

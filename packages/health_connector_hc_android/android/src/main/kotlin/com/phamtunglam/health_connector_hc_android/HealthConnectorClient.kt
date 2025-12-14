@@ -3,45 +3,30 @@ package com.phamtunglam.health_connector_hc_android
 import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.health.connect.client.HealthConnectClient
-import androidx.health.connect.client.records.BloodGlucoseRecord
-import androidx.health.connect.client.records.OxygenSaturationRecord
-import androidx.health.connect.client.records.Record
-import androidx.health.connect.client.records.RespiratoryRateRecord
-import androidx.health.connect.client.records.Vo2MaxRecord
 import androidx.health.connect.client.records.metadata.DataOrigin
-import androidx.health.connect.client.request.AggregateRequest
-import androidx.health.connect.client.request.ReadRecordsRequest
-import androidx.health.connect.client.time.TimeRangeFilter
-import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectTypeHandlerRegistry
+import com.phamtunglam.health_connector_hc_android.handlers.CustomAggregatableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.HealthRecordHandlerRegistry
+import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.logger.TAG
 import com.phamtunglam.health_connector_hc_android.mappers.dataType
-import com.phamtunglam.health_connector_hc_android.mappers.endTime
-import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.id
-import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.mappers.startTime
+import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.dataType
 import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectRecordClass
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
-import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseUnitDto
-import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDto
-import com.phamtunglam.health_connector_hc_android.pigeon.NumericDto
-import com.phamtunglam.health_connector_hc_android.pigeon.NumericUnitDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PercentageDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PercentageUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
@@ -50,8 +35,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxDto
-import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsRequestDto
@@ -63,14 +46,12 @@ import java.time.Instant
 
 /**
  * Internal client wrapper for the Android Health Connect SDK.
- *
- * @property client The underlying Health Connect SDK client instance
  */
 internal class HealthConnectorClient private constructor(
-    private val client: HealthConnectClient,
     private val manifestService: HealthConnectorManifestService,
     private val featureService: HealthConnectorFeatureService,
     private val permissionService: HealthConnectorPermissionService,
+    private val recordHandlerRegistry: HealthRecordHandlerRegistry,
 ) {
     companion object {
         /**
@@ -90,14 +71,16 @@ internal class HealthConnectorClient private constructor(
                 val client = HealthConnectClient.getOrCreate(context)
                 val manifestService = HealthConnectorManifestService(context)
                 val featureService = HealthConnectorFeatureService(client.features)
-                val permissionService =
-                    HealthConnectorPermissionService(client.permissionController)
+                val permissionService = HealthConnectorPermissionService(
+                    client.permissionController,
+                )
+                val recordHandlerRegistry = HealthRecordHandlerRegistry(client)
 
                 return HealthConnectorClient(
-                    client = client,
                     manifestService = manifestService,
                     featureService = featureService,
                     permissionService = permissionService,
+                    recordHandlerRegistry = recordHandlerRegistry,
                 )
             } catch (e: UnsupportedOperationException) {
                 HealthConnectorLogger.error(
@@ -109,7 +92,7 @@ internal class HealthConnectorClient private constructor(
                 )
                 throw HealthConnectorErrorCodeDto
                     .HEALTH_PROVIDER_NOT_INSTALLED_OR_UPDATE_REQUIRED.toError(
-                        details = e.message,
+                        e.message,
                     )
             } catch (e: IllegalStateException) {
                 HealthConnectorLogger.error(
@@ -119,7 +102,7 @@ internal class HealthConnectorClient private constructor(
                     exception = e,
                 )
                 throw HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE.toError(
-                    details = e.message,
+                    e.message,
                 )
             }
         }
@@ -191,20 +174,9 @@ internal class HealthConnectorClient private constructor(
             val permissionRequestResults = permissionService.requestPermissions(activity, request)
 
             return PermissionRequestsResponseDto(permissionRequestResults)
-        } catch (e: IllegalStateException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "requestPermissions",
-                message = e.message,
-                context = mapOf(
-                    "requested_permissions" to request.permissionRequests,
-                ),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.INVALID_CONFIGURATION.toError(
-                details = e.message,
-            )
-        } catch (e: RuntimeException) {
+        } catch (e: HealthConnectorErrorDto) {
+            throw e
+        } catch (e: Exception) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "requestPermissions",
@@ -215,7 +187,7 @@ internal class HealthConnectorClient private constructor(
                 exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request : ${e.message ?: "Unknown error"}",
+                "Failed to process $request : ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -270,7 +242,7 @@ internal class HealthConnectorClient private constructor(
                 exception = e,
             )
             throw HealthConnectorErrorCodeDto.INVALID_CONFIGURATION.toError(
-                details = e.message,
+                e.message,
             )
         } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
@@ -281,8 +253,7 @@ internal class HealthConnectorClient private constructor(
                 exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to get feature status for $feature: " +
-                    (e.message ?: "Unknown error"),
+                "Failed to get feature status for $feature: " + (e.message ?: "Unknown error"),
             )
         }
     }
@@ -293,7 +264,8 @@ internal class HealthConnectorClient private constructor(
      * @param request Contains the data type and record ID to read
      * @return ReadRecordResponseDto with the appropriate typed field populated, or null if not found
      *
-     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support reading
+     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
@@ -301,70 +273,53 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "readRecord",
-
             message = "Reading Health Connect record",
             context = mapOf("request" to request),
         )
 
         try {
-            // Get handler for this data type
-            val handler = HealthConnectTypeHandlerRegistry.getRecordHandler(request.dataType)
-                ?: throw IllegalArgumentException("Unsupported data type: ${request.dataType}")
+            val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
+                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "No handler found for type ${request.dataType}",
+                )
 
-            val recordClass = handler.getRecordClass()
-            val response = client.readRecord(recordClass, request.recordId)
+            if (handler !is ReadableHealthRecordHandler) {
+                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "Type ${request.dataType} does not support reading",
+                )
+            }
 
-            val recordDto = handler.toDto(response.record)
-            val responseDto = ReadRecordResponseDto(record = recordDto)
+            val dto = handler.readRecord(request.recordId)
 
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "readRecord",
-
                 message = "Health Connect record read successfully",
-                context = mapOf(
-                    "request" to request,
-                    "response" to responseDto,
-                ),
+                context = mapOf("dataType" to request.dataType, "recordId" to request.recordId),
             )
 
-            return responseDto
-        } catch (e: SecurityException) {
+            return ReadRecordResponseDto(record = dto)
+        } catch (e: HealthConnectorErrorDto) {
+            throw e
+        } catch (e: Exception) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "readRecord",
-
-                message = "Failed to read Health Connect record",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
-                details = "Permission access denied while processing $request: " +
-                    (e.message ?: "Access denied"),
-            )
-        } catch (e: RuntimeException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "readRecord",
-
-                message = "Failed to read Health Connect record",
+                message = "Unexpected error escaped from handler",
                 context = mapOf("request" to request),
                 exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
+                "Unexpected error: ${e.message ?: "Unknown error"}",
             )
         }
     }
 
     /**
-     * Reads multiple health records within a time range (paginated).
+     * Reads a collection of records based on the criteria.
      *
-     * @param request Contains data type, time range, page size, optional page token,
-     *                and optional data origin package names for filtering
-     * @return ReadRecordsResponseDto with the appropriate typed list populated and optional next page token
-     *
-     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support reading
+     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
@@ -372,88 +327,53 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "readRecords",
-
             message = "Reading Health Connect records",
             context = mapOf("request" to request),
         )
 
         try {
-            val recordClass = request.dataType.toHealthConnectRecordClass()
-            val timeRangeFilter = TimeRangeFilter.between(
-                Instant.ofEpochMilli(request.startTime),
-                Instant.ofEpochMilli(request.endTime),
-            )
+            val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
+                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "No handler found for type ${request.dataType}",
+                )
 
-            // Create data origin filter if package names are provided
-            val dataOrigins = request.dataOriginPackageNames.map { packageName ->
-                DataOrigin(packageName)
+            if (handler !is ReadableHealthRecordHandler) {
+                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "Type ${request.dataType} does not support reading",
+                )
             }
 
-            val readRequest = ReadRecordsRequest(
-                recordType = recordClass,
-                timeRangeFilter = timeRangeFilter,
-                dataOriginFilter = dataOrigins.toSet(),
+            val (records, nextPageToken) = handler.readRecords(
+                startTime = Instant.ofEpochMilli(request.startTime),
+                endTime = Instant.ofEpochMilli(request.endTime),
                 pageSize = request.pageSize.toInt(),
                 pageToken = request.pageToken,
-            )
-
-            // Get handler for this data type
-            val handler = HealthConnectTypeHandlerRegistry.getRecordHandler(request.dataType)
-                ?: throw IllegalArgumentException("Unsupported data type: ${request.dataType}")
-
-            val response = client.readRecords(readRequest)
-            val nextPageToken = if (response.pageToken.isNullOrEmpty()) {
-                null
-            } else {
-                response.pageToken
-            }
-
-            // Convert SDK records to DTOs using handler
-            val recordDtos = response.records.mapNotNull { record ->
-                handler.toDto(record)
-            }
-
-            val responseDto = ReadRecordsResponseDto(
-                records = recordDtos,
-                nextPageToken = nextPageToken,
+                dataOrigins = request.dataOriginPackageNames.map { DataOrigin(it) }.toSet(),
             )
 
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "readRecords",
-
                 message = "Health Connect records read successfully",
-                context = mapOf(
-                    "request" to request,
-                    "response" to responseDto,
-                ),
+                context = mapOf("dataType" to request.dataType, "count" to records.size),
             )
 
-            return responseDto
-        } catch (e: SecurityException) {
+            return ReadRecordsResponseDto(
+                records = records,
+                nextPageToken = nextPageToken,
+            )
+        } catch (e: HealthConnectorErrorDto) {
+            throw e
+        } catch (e: Exception) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "readRecords",
-
-                message = "Failed to read Health Connect records",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
-                details = "Permission access denied while processing $request: " +
-                    (e.message ?: "Access denied"),
-            )
-        } catch (e: RuntimeException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "readRecords",
-
-                message = "Failed to read Health Connect records",
+                message = "Unexpected error escaped from handler",
                 context = mapOf("request" to request),
                 exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
+                "Unexpected error: ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -464,7 +384,8 @@ internal class HealthConnectorClient private constructor(
      * @param request Contains the data type and the typed record to write
      * @return WriteRecordResponseDto containing the platform-assigned record ID
      *
-     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support writing
+     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
@@ -472,66 +393,53 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "writeRecord",
-
             message = "Writing Health Connect record",
             context = mapOf("request" to request),
         )
 
         try {
-            // Convert record DTO to Health Connect Record using extension
-            val record: Record = request.record.toHealthConnect()
+            val handler = recordHandlerRegistry.getRecordHandler(request.record.dataType)
+                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "No handler found for type ${request.record.dataType}",
+                )
 
-            // Write to Health Connect using ACID transaction
-            val response = client.insertRecords(listOf(record))
-            val recordId = response.recordIdsList.first()
+            if (handler !is WritableHealthRecordHandler) {
+                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "Type ${request.record.dataType} does not support writing",
+                )
+            }
+
+            val recordId = handler.writeRecord(request.record)
 
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "writeRecord",
-
                 message = "Health Connect record written successfully",
-                context = mapOf(
-                    "request" to request,
-                    "assignedRecordId" to recordId,
-                ),
+                context = mapOf("dataType" to request.record.dataType, "recordId" to recordId),
             )
 
             return WriteRecordResponseDto(recordId = recordId)
-        } catch (e: SecurityException) {
+        } catch (e: HealthConnectorErrorDto) {
+            throw e
+        } catch (e: Exception) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "writeRecord",
-
-                message = "Failed to write Health Connect record",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
-                details = "Permission access denied while processing $request: " +
-                    (e.message ?: "Access denied"),
-            )
-        } catch (e: RuntimeException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "writeRecord",
-
-                message = "Failed to write Health Connect record",
+                message = "Unexpected error escaped from handler",
                 context = mapOf("request" to request),
                 exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
+                "Unexpected error: ${e.message ?: "Unknown error"}",
             )
         }
     }
 
     /**
-     * Writes multiple health records atomically.
+     * Writes multiple records to Health Connect.
      *
-     * @param request Contains the data type and the list of typed records to write
-     * @return WriteRecordsResponseDto containing the platform-assigned record IDs
-     *
-     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support writing
+     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
@@ -539,55 +447,49 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "writeRecords",
-
             message = "Writing Health Connect records",
             context = mapOf("request" to request),
         )
 
         try {
-            // Convert record DTOs to Health Connect Records using extension
-            val records = request.records.map { it.toHealthConnect() }
+            if (request.records.isEmpty()) {
+                return WriteRecordsResponseDto(recordIds = emptyList())
+            }
 
-            // Atomic batch write using Health Connect's ACID transaction
-            val response = client.insertRecords(records)
-            val recordIds = response.recordIdsList
+            val firstRecord = request.records.first()
+            val handler = recordHandlerRegistry.getRecordHandler(firstRecord.dataType)
+                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "No handler found for type ${firstRecord.dataType}",
+                )
+
+            if (handler !is WritableHealthRecordHandler) {
+                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "Type ${firstRecord.dataType} does not support writing",
+                )
+            }
+
+            val recordIds = handler.writeRecords(request.records)
 
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "writeRecords",
-
                 message = "Health Connect records written successfully",
-                context = mapOf(
-                    "request" to request,
-                    "assignedRecordIds" to recordIds,
-                ),
+                context = mapOf("dataType" to firstRecord.dataType, "count" to recordIds.size),
             )
 
             return WriteRecordsResponseDto(recordIds = recordIds)
-        } catch (e: SecurityException) {
+        } catch (e: HealthConnectorErrorDto) {
+            throw e
+        } catch (e: Exception) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "writeRecords",
-
-                message = "Failed to write Health Connect records",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
-                details = "Permission access denied while processing $request: " +
-                    (e.message ?: "Access denied"),
-            )
-        } catch (e: RuntimeException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "writeRecords",
-
-                message = "Failed to write Health Connect records",
+                message = "Unexpected error escaped from handler",
                 context = mapOf("request" to request),
                 exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
+                "Unexpected error: ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -598,8 +500,9 @@ internal class HealthConnectorClient private constructor(
      * @param request Contains the data type and the typed record to update
      * @return UpdateRecordResponseDto containing the updated record ID (same as input)
      *
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support updates
      * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if record ID is invalid
-     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
@@ -607,854 +510,159 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "updateRecord",
-
             message = "Updating Health Connect record",
             context = mapOf("request" to request),
         )
 
         try {
-            val recordDto = request.record
-            require(!recordDto.id.isNullOrEmpty()) {
-                "Record ID must be a valid existing ID for update operations. " +
-                    "Use writeRecord() for new records."
+            val handler = recordHandlerRegistry.getRecordHandler(request.record.dataType)
+                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "No handler found for type ${request.record.dataType}",
+                )
+
+            if (handler !is UpdatableHealthRecordHandler) {
+                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "Type ${request.record.dataType} does not support updates",
+                )
             }
 
-            // Convert record DTO to Health Connect Record
-            val record: Record = recordDto.toHealthConnect()
-
-            client.updateRecords(listOf(record))
-
-            // Retrieve updated record ID from the response metadata
-            val recordId = record.metadata.id
+            val recordId = handler.updateRecord(request.record)
 
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "updateRecord",
-
                 message = "Health Connect record updated successfully",
-                context = mapOf("request" to request),
+                context = mapOf("dataType" to request.record.dataType, "recordId" to recordId),
             )
 
             return UpdateRecordResponseDto(recordId = recordId)
-        } catch (e: IllegalArgumentException) {
+        } catch (e: HealthConnectorErrorDto) {
+            throw e
+        } catch (e: Exception) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "updateRecord",
-
-                message = "Failed to update Health Connect record",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
-                details = "Invalid record data for update: ${e.message ?: "Invalid argument"}",
-            )
-        } catch (e: SecurityException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "updateRecord",
-
-                message = "Failed to update Health Connect record",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
-                details = "Permission access denied while processing $request: " +
-                    (e.message ?: "Access denied"),
-            )
-        } catch (e: RuntimeException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "updateRecord",
-
-                message = "Failed to update Health Connect record",
+                message = "Unexpected error escaped from handler",
                 context = mapOf("request" to request),
                 exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
+                "Unexpected error: ${e.message ?: "Unknown error"}",
             )
         }
     }
 
     /**
-     * Computes aggregation value for Oxygen Saturation records by reading all records
-     * and manually computing the aggregation.
+     * Deletes specific records by their IDs.
      *
-     * @param startTime Start of time range in milliseconds since epoch (UTC), inclusive
-     * @param endTime End of time range in milliseconds since epoch (UTC), exclusive
-     * @param metric The aggregation metric to compute (AVG, MIN, or MAX)
-     * @return Pair of (aggregated value as Double, record count)
-     * @throws IllegalStateException if no records found or values cannot be computed
-     * @throws UnsupportedOperationException if metric is SUM or COUNT
-     */
-    private suspend fun computeOxygenSaturationAggregation(
-        startTime: Long,
-        endTime: Long,
-        metric: AggregationMetricDto,
-    ): Pair<Double, Int> {
-        // Read all Oxygen Saturation records in the time range
-        val timeRangeFilter = TimeRangeFilter.between(
-            Instant.ofEpochMilli(startTime),
-            Instant.ofEpochMilli(endTime),
-        )
-
-        val allRecords = mutableListOf<OxygenSaturationRecord>()
-        var pageToken: String? = null
-
-        // Handle pagination - read all pages
-        do {
-            val readRequest = ReadRecordsRequest(
-                recordType = OxygenSaturationRecord::class,
-                timeRangeFilter = timeRangeFilter,
-                pageSize = 1000, // Use a reasonable page size
-                pageToken = pageToken,
-            )
-
-            val response = client.readRecords(readRequest)
-            allRecords.addAll(response.records)
-            pageToken = response.pageToken
-        } while (!pageToken.isNullOrEmpty())
-
-        // Check if we have any records
-        if (allRecords.isEmpty()) {
-            throw IllegalStateException(
-                "No Oxygen Saturation records found in the specified time range",
-            )
-        }
-
-        // Extract percentage values from records
-        val percentageValues = allRecords.map { record ->
-            record.percentage.value // Percentage.value returns Double (0.0-1.0)
-        }
-
-        // Compute aggregation based on metric
-        val aggregatedValue = when (metric) {
-            AggregationMetricDto.AVG -> percentageValues.average()
-            AggregationMetricDto.MIN -> percentageValues.minOrNull()
-                ?: throw IllegalStateException("No values to compute minimum")
-
-            AggregationMetricDto.MAX -> percentageValues.maxOrNull()
-                ?: throw IllegalStateException("No values to compute maximum")
-
-            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException(
-                    "Unsupported metric: $metric",
-                )
-        }
-
-        return Pair(aggregatedValue, allRecords.size)
-    }
-
-    /**
-     * Manually aggregates Oxygen Saturation records by reading all records and computing
-     * the aggregation value in application logic.
-     *
-     * This is necessary because OxygenSaturationHandler doesn't implement
-     * AggregationSupportingHandler, so we can't use Health Connect's native aggregation API.
-     *
-     * @param request The aggregate request (must be CommonAggregateRequestDto for OXYGEN_SATURATION)
-     * @return AggregateResponseDto with the computed aggregation value
-     *
-     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if metric is invalid or no records found
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
-     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if authorization is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @param request Contains data type and list of record IDs to delete
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support deletion
+     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if deletion fails
      */
     @Throws(HealthConnectorErrorDto::class)
-    private suspend fun aggregateOxygenSaturationManually(
-        request: AggregateRequestDto,
-    ): AggregateResponseDto {
+    suspend fun deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) {
         HealthConnectorLogger.debug(
             tag = TAG,
-            operation = "aggregateOxygenSaturationManually",
-
-            message = "Manually aggregating Oxygen Saturation records",
+            operation = "deleteRecordsByIds",
+            message = "Deleting Health Connect records by IDs",
             context = mapOf("request" to request),
         )
 
-        // Ensure request is CommonAggregateRequestDto
-        require(request is CommonAggregateRequestDto) {
-            "Expected CommonAggregateRequestDto for Oxygen Saturation aggregation"
-        }
-
-        // Validate aggregation metric
-        when (request.aggregationMetric) {
-            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} for OxygenSaturation. " +
-                        "Supported: AVG, MIN, MAX",
-                )
-
-            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX -> {
-                // These are supported
-            }
+        if (request.recordIds.isEmpty()) {
+            HealthConnectorLogger.warning(
+                tag = TAG,
+                operation = "deleteRecordsByIds",
+                message = "No records to delete (empty IDs list)",
+            )
+            return
         }
 
         try {
-            val (aggregatedValue, recordCount) = computeOxygenSaturationAggregation(
-                startTime = request.startTime,
-                endTime = request.endTime,
-                metric = request.aggregationMetric,
-            )
+            val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
+                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "No handler found for type ${request.dataType}",
+                )
 
-            // Create PercentageDto with the aggregated value
-            // Percentage values are stored as decimals (0.0-1.0)
-            val valueDto = PercentageDto(
-                value = aggregatedValue,
-                unit = PercentageUnitDto.DECIMAL,
-            )
+            if (handler !is DeletableHealthRecordHandler) {
+                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "Type ${request.dataType} does not support deletion",
+                )
+            }
 
-            val responseDto = AggregateResponseDto(value = valueDto)
+            handler.deleteRecords(request.recordIds)
 
             HealthConnectorLogger.info(
                 tag = TAG,
-                operation = "aggregateOxygenSaturationManually",
-
-                message = "Oxygen Saturation records aggregated successfully",
-                context = mapOf(
-                    "request" to request,
-                    "recordCount" to recordCount,
-                    "aggregatedValue" to aggregatedValue,
-                ),
+                operation = "deleteRecordsByIds",
+                message = "Health Connect records deleted successfully",
+                context = mapOf("dataType" to request.dataType, "count" to request.recordIds.size),
             )
-
-            return responseDto
-        } catch (e: UnsupportedOperationException) {
+        } catch (e: HealthConnectorErrorDto) {
+            throw e
+        } catch (e: Exception) {
             HealthConnectorLogger.error(
                 tag = TAG,
-                operation = "aggregateOxygenSaturationManually",
-
-                message = "Unsupported aggregation operation",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                details = "Unsupported aggregation metric for Oxygen Saturation: " +
-                    (e.message ?: "Operation not supported"),
-            )
-        } catch (e: IllegalStateException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateOxygenSaturationManually",
-
-                message = "Invalid aggregation state",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
-                details = e.message ?: "No data available for aggregation",
-            )
-        } catch (e: SecurityException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateOxygenSaturationManually",
-
-                message = "Failed to aggregate Oxygen Saturation records",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
-                details = "Permission access denied while processing $request: " +
-                    (e.message ?: "Access denied"),
-            )
-        } catch (e: RuntimeException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateOxygenSaturationManually",
-
-                message = "Failed to aggregate Oxygen Saturation records",
+                operation = "deleteRecordsByIds",
+                message = "Unexpected error escaped from handler",
                 context = mapOf("request" to request),
                 exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
+                "Unexpected error: ${e.message ?: "Unknown error"}",
             )
         }
     }
 
     /**
-     * Computes aggregation value for Respiratory Rate records by reading all records
-     * and manually computing the aggregation.
+     * Deletes all records of a data type within a time range.
      *
-     * @param startTime Start of time range in milliseconds since epoch (UTC), inclusive
-     * @param endTime End of time range in milliseconds since epoch (UTC), exclusive
-     * @param metric The aggregation metric to compute (AVG, MIN, or MAX)
-     * @return Pair of (aggregated value as Double, record count)
-     * @throws IllegalStateException if no records found or values cannot be computed
-     * @throws UnsupportedOperationException if metric is SUM or COUNT
-     */
-    private suspend fun computeRespiratoryRateAggregation(
-        startTime: Long,
-        endTime: Long,
-        metric: AggregationMetricDto,
-    ): Pair<Double, Int> {
-        // Read all Respiratory Rate records in the time range
-        val timeRangeFilter = TimeRangeFilter.between(
-            Instant.ofEpochMilli(startTime),
-            Instant.ofEpochMilli(endTime),
-        )
-
-        val allRecords = mutableListOf<RespiratoryRateRecord>()
-        var pageToken: String? = null
-
-        // Handle pagination - read all pages
-        do {
-            val readRequest = ReadRecordsRequest(
-                recordType = RespiratoryRateRecord::class,
-                timeRangeFilter = timeRangeFilter,
-                pageSize = 1000, // Use a reasonable page size
-                pageToken = pageToken,
-            )
-
-            val response = client.readRecords(readRequest)
-            allRecords.addAll(response.records)
-            pageToken = response.pageToken
-        } while (!pageToken.isNullOrEmpty())
-
-        // Check if we have any records
-        if (allRecords.isEmpty()) {
-            throw IllegalStateException(
-                "No Respiratory Rate records found in the specified time range",
-            )
-        }
-
-        // Extract rate values from records (breaths per minute)
-        val rateValues = allRecords.map { record ->
-            record.rate // rate is Double (breaths per minute)
-        }
-
-        // Compute aggregation based on metric
-        val aggregatedValue = when (metric) {
-            AggregationMetricDto.AVG -> rateValues.average()
-            AggregationMetricDto.MIN -> rateValues.minOrNull()
-                ?: throw IllegalStateException("No values to compute minimum")
-
-            AggregationMetricDto.MAX -> rateValues.maxOrNull()
-                ?: throw IllegalStateException("No values to compute maximum")
-
-            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException(
-                    "Unsupported metric: $metric",
-                )
-        }
-
-        return Pair(aggregatedValue, allRecords.size)
-    }
-
-    /**
-     * Manually aggregates Respiratory Rate records by reading all records and computing
-     * the aggregation value in application logic.
-     *
-     * This is necessary because RespiratoryRateHandler doesn't implement
-     * AggregationSupportingHandler, so we can't use Health Connect's native aggregation API.
-     *
-     * @param request The aggregate request (must be CommonAggregateRequestDto for RESPIRATORY_RATE)
-     * @return AggregateResponseDto with the computed aggregation value
-     *
-     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if metric is invalid or no records found
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
-     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if authorization is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @param request Contains data type and time range for deletion
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support deletion
+     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if deletion fails
      */
     @Throws(HealthConnectorErrorDto::class)
-    private suspend fun aggregateRespiratoryRateManually(
-        request: AggregateRequestDto,
-    ): AggregateResponseDto {
+    suspend fun deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) {
         HealthConnectorLogger.debug(
             tag = TAG,
-            operation = "aggregateRespiratoryRateManually",
-
-            message = "Manually aggregating Respiratory Rate records",
+            operation = "deleteRecordsByTimeRange",
+            message = "Deleting Health Connect records by time range",
             context = mapOf("request" to request),
         )
 
-        // Ensure request is CommonAggregateRequestDto
-        require(request is CommonAggregateRequestDto) {
-            "Expected CommonAggregateRequestDto for Respiratory Rate aggregation"
-        }
-
-        // Validate aggregation metric
-        when (request.aggregationMetric) {
-            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} for RespiratoryRate. " +
-                        "Supported: AVG, MIN, MAX",
+        try {
+            val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
+                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "No handler found for type ${request.dataType}",
                 )
 
-            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX -> {
-                // These are supported
+            if (handler !is DeletableHealthRecordHandler) {
+                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "Type ${request.dataType} does not support deletion",
+                )
             }
-        }
 
-        try {
-            val (aggregatedValue, recordCount) = computeRespiratoryRateAggregation(
-                startTime = request.startTime,
-                endTime = request.endTime,
-                metric = request.aggregationMetric,
-            )
-
-            // Create NumericDto with the aggregated value
-            // Respiratory rate values are stored as breaths per minute (numeric)
-            val valueDto = NumericDto(
-                value = aggregatedValue,
-                unit = NumericUnitDto.NUMERIC,
-            )
-
-            val responseDto = AggregateResponseDto(value = valueDto)
+            handler.deleteRecordsByTimeRange(request.startTime, request.endTime)
 
             HealthConnectorLogger.info(
                 tag = TAG,
-                operation = "aggregateRespiratoryRateManually",
-
-                message = "Respiratory Rate records aggregated successfully",
-                context = mapOf(
-                    "request" to request,
-                    "recordCount" to recordCount,
-                    "aggregatedValue" to aggregatedValue,
-                ),
+                operation = "deleteRecordsByTimeRange",
+                message = "Health Connect records deleted successfully",
+                context = mapOf("dataType" to request.dataType),
             )
-
-            return responseDto
-        } catch (e: UnsupportedOperationException) {
+        } catch (e: HealthConnectorErrorDto) {
+            throw e
+        } catch (e: Exception) {
             HealthConnectorLogger.error(
                 tag = TAG,
-                operation = "aggregateRespiratoryRateManually",
-
-                message = "Unsupported aggregation operation",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                details = "Unsupported aggregation metric for Respiratory Rate: " +
-                    (e.message ?: "Operation not supported"),
-            )
-        } catch (e: IllegalStateException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateRespiratoryRateManually",
-
-                message = "Invalid aggregation state",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
-                details = e.message ?: "No data available for aggregation",
-            )
-        } catch (e: SecurityException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateRespiratoryRateManually",
-
-                message = "Failed to aggregate Respiratory Rate records",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
-                details = "Permission access denied while processing $request: " +
-                    (e.message ?: "Access denied"),
-            )
-        } catch (e: RuntimeException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateRespiratoryRateManually",
-
-                message = "Failed to aggregate Respiratory Rate records",
+                operation = "deleteRecordsByTimeRange",
+                message = "Unexpected error escaped from handler",
                 context = mapOf("request" to request),
                 exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
-            )
-        }
-    }
-
-    /**
-     * Computes aggregation value for VO2Max records by reading all records
-     * and manually computing the aggregation.
-     *
-     * @param startTime Start of time range in milliseconds since epoch (UTC), inclusive
-     * @param endTime End of time range in milliseconds since epoch (UTC), exclusive
-     * @param metric The aggregation metric to compute (AVG, MIN, or MAX)
-     * @return Pair of (aggregated value as Double, record count)
-     * @throws IllegalStateException if no records found or values cannot be computed
-     * @throws UnsupportedOperationException if metric is SUM or COUNT
-     */
-    private suspend fun computeVo2MaxAggregation(
-        startTime: Long,
-        endTime: Long,
-        metric: AggregationMetricDto,
-    ): Pair<Double, Int> {
-        // Read all VO2Max records in the time range
-        val timeRangeFilter = TimeRangeFilter.between(
-            Instant.ofEpochMilli(startTime),
-            Instant.ofEpochMilli(endTime),
-        )
-
-        val allRecords = mutableListOf<Vo2MaxRecord>()
-        var pageToken: String? = null
-
-        // Handle pagination - read all pages
-        do {
-            val readRequest = ReadRecordsRequest(
-                recordType = Vo2MaxRecord::class,
-                timeRangeFilter = timeRangeFilter,
-                pageSize = 1000, // Use a reasonable page size
-                pageToken = pageToken,
-            )
-
-            val response = client.readRecords(readRequest)
-            allRecords.addAll(response.records)
-            pageToken = response.pageToken
-        } while (!pageToken.isNullOrEmpty())
-
-        // Check if we have any records
-        if (allRecords.isEmpty()) {
-            throw IllegalStateException(
-                "No VO2Max records found in the specified time range",
-            )
-        }
-
-        // Extract VO2Max values from records (milliliters per minute per kilogram)
-        val vo2MaxValues = allRecords.map { record ->
-            record.vo2MillilitersPerMinuteKilogram // Double value
-        }
-
-        // Compute aggregation based on metric
-        val aggregatedValue = when (metric) {
-            AggregationMetricDto.AVG -> vo2MaxValues.average()
-            AggregationMetricDto.MIN -> vo2MaxValues.minOrNull()
-                ?: throw IllegalStateException("No values to compute minimum")
-
-            AggregationMetricDto.MAX -> vo2MaxValues.maxOrNull()
-                ?: throw IllegalStateException("No values to compute maximum")
-
-            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException(
-                    "Unsupported metric: $metric",
-                )
-        }
-
-        return Pair(aggregatedValue, allRecords.size)
-    }
-
-    /**
-     * Manually aggregates VO2Max records by reading all records and computing
-     * the aggregation value in application logic.
-     *
-     * This is necessary because VO2Max doesn't support native aggregation,
-     * so we use manual aggregation via readRecords.
-     *
-     * @param request The aggregate request (must be CommonAggregateRequestDto for VO2MAX)
-     * @return AggregateResponseDto with the computed aggregation value
-     *
-     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if metric is invalid or no records found
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
-     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if authorization is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
-     */
-    @Throws(HealthConnectorErrorDto::class)
-    private suspend fun aggregateVo2MaxManually(
-        request: AggregateRequestDto,
-    ): AggregateResponseDto {
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "aggregateVo2MaxManually",
-
-            message = "Manually aggregating VO2Max records",
-            context = mapOf("request" to request),
-        )
-
-        // Ensure request is CommonAggregateRequestDto
-        require(request is CommonAggregateRequestDto) {
-            "Expected CommonAggregateRequestDto for VO2Max aggregation"
-        }
-
-        // Validate aggregation metric
-        when (request.aggregationMetric) {
-            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} for VO2Max. " +
-                        "Supported: AVG, MIN, MAX",
-                )
-
-            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX -> {
-                // These are supported
-            }
-        }
-
-        try {
-            val (aggregatedValue, recordCount) = computeVo2MaxAggregation(
-                startTime = request.startTime,
-                endTime = request.endTime,
-                metric = request.aggregationMetric,
-            )
-
-            // Create Vo2MaxDto with the aggregated value
-            val valueDto = Vo2MaxDto(
-                value = aggregatedValue,
-                unit = Vo2MaxUnitDto.MILLILITERS_PER_KILOGRAM_PER_MINUTE,
-            )
-
-            val responseDto = AggregateResponseDto(value = valueDto)
-
-            HealthConnectorLogger.info(
-                tag = TAG,
-                operation = "aggregateVo2MaxManually",
-
-                message = "VO2Max records aggregated successfully",
-                context = mapOf(
-                    "request" to request,
-                    "recordCount" to recordCount,
-                    "aggregatedValue" to aggregatedValue,
-                ),
-            )
-
-            return responseDto
-        } catch (e: UnsupportedOperationException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateVo2MaxManually",
-
-                message = "Unsupported aggregation operation",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                details = "Unsupported aggregation metric for VO2Max: " +
-                    (e.message ?: "Operation not supported"),
-            )
-        } catch (e: IllegalStateException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateVo2MaxManually",
-
-                message = "Invalid aggregation state",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
-                details = e.message ?: "No data available for aggregation",
-            )
-        } catch (e: SecurityException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateVo2MaxManually",
-
-                message = "Failed to aggregate VO2Max records",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
-                details = "Permission access denied while processing $request: " +
-                    (e.message ?: "Access denied"),
-            )
-        } catch (e: RuntimeException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateVo2MaxManually",
-
-                message = "Failed to aggregate VO2Max records",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
-            )
-        }
-    }
-
-    /**
-     * Computes aggregation value for Blood Glucose records by reading all records
-     * and manually computing the aggregation.
-     *
-     * @param startTime Start of time range in milliseconds since epoch (UTC), inclusive
-     * @param endTime End of time range in milliseconds since epoch (UTC), exclusive
-     * @param metric The aggregation metric to compute (AVG, MIN, or MAX)
-     * @return Pair of (aggregated value as Double, record count)
-     * @throws IllegalStateException if no records found or values cannot be computed
-     * @throws UnsupportedOperationException if metric is SUM or COUNT
-     */
-    private suspend fun computeBloodGlucoseAggregation(
-        startTime: Long,
-        endTime: Long,
-        metric: AggregationMetricDto,
-    ): Pair<Double, Int> {
-        // Read all Blood Glucose records in the time range
-        val timeRangeFilter = TimeRangeFilter.between(
-            Instant.ofEpochMilli(startTime),
-            Instant.ofEpochMilli(endTime),
-        )
-
-        val allRecords = mutableListOf<BloodGlucoseRecord>()
-        var pageToken: String? = null
-
-        // Handle pagination - read all pages
-        do {
-            val readRequest = ReadRecordsRequest(
-                recordType = BloodGlucoseRecord::class,
-                timeRangeFilter = timeRangeFilter,
-                pageSize = 1000, // Use a reasonable page size
-                pageToken = pageToken,
-            )
-
-            val response = client.readRecords(readRequest)
-            allRecords.addAll(response.records)
-            pageToken = response.pageToken
-        } while (!pageToken.isNullOrEmpty())
-
-        // Check if we have any records
-        if (allRecords.isEmpty()) {
-            throw IllegalStateException(
-                "No Blood Glucose records found in the specified time range",
-            )
-        }
-
-        // Extract level values from records (in millimoles per liter)
-        val levelValues = allRecords.map { record ->
-            record.level.inMillimolesPerLiter // BloodGlucose.inMillimolesPerLiter returns Double
-        }
-
-        // Compute aggregation based on metric
-        val aggregatedValue = when (metric) {
-            AggregationMetricDto.AVG -> levelValues.average()
-            AggregationMetricDto.MIN -> levelValues.minOrNull()
-                ?: throw IllegalStateException("No values to compute minimum")
-
-            AggregationMetricDto.MAX -> levelValues.maxOrNull()
-                ?: throw IllegalStateException("No values to compute maximum")
-
-            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException(
-                    "Unsupported metric: $metric",
-                )
-        }
-
-        return Pair(aggregatedValue, allRecords.size)
-    }
-
-    /**
-     * Manually aggregates Blood Glucose records by reading all records and computing
-     * the aggregation value in application logic.
-     *
-     * This is necessary because BloodGlucoseRecord doesn't support native aggregation
-     * metrics in Health Connect, so we use manual aggregation via readRecords.
-     *
-     * @param request The aggregate request (must be CommonAggregateRequestDto for BLOOD_GLUCOSE)
-     * @return AggregateResponseDto with the computed aggregation value
-     *
-     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if metric is invalid or no records found
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_HEALTH_PLATFORM_API` if metric is SUM or COUNT
-     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if authorization is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
-     */
-    @Throws(HealthConnectorErrorDto::class)
-    private suspend fun aggregateBloodGlucoseManually(
-        request: AggregateRequestDto,
-    ): AggregateResponseDto {
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "aggregateBloodGlucoseManually",
-
-            message = "Manually aggregating Blood Glucose records",
-            context = mapOf("request" to request),
-        )
-
-        // Ensure request is CommonAggregateRequestDto
-        require(request is CommonAggregateRequestDto) {
-            "Expected CommonAggregateRequestDto for Blood Glucose aggregation"
-        }
-
-        // Validate aggregation metric
-        when (request.aggregationMetric) {
-            AggregationMetricDto.SUM, AggregationMetricDto.COUNT ->
-                throw UnsupportedOperationException(
-                    "Aggregation metric ${request.aggregationMetric} for Blood Glucose. " +
-                        "Supported: AVG, MIN, MAX",
-                )
-
-            AggregationMetricDto.AVG, AggregationMetricDto.MIN, AggregationMetricDto.MAX -> {
-                // These are supported
-            }
-        }
-
-        try {
-            val (aggregatedValue, recordCount) = computeBloodGlucoseAggregation(
-                startTime = request.startTime,
-                endTime = request.endTime,
-                metric = request.aggregationMetric,
-            )
-
-            // Create BloodGlucoseDto with the aggregated value
-            // Use millimoles per liter as the unit for consistency
-            val valueDto = BloodGlucoseDto(
-                value = aggregatedValue,
-                unit = BloodGlucoseUnitDto.MILLIMOLES_PER_LITER,
-            )
-
-            val responseDto = AggregateResponseDto(value = valueDto)
-
-            HealthConnectorLogger.info(
-                tag = TAG,
-                operation = "aggregateBloodGlucoseManually",
-
-                message = "Blood Glucose records aggregated successfully",
-                context = mapOf(
-                    "request" to request,
-                    "recordCount" to recordCount,
-                    "aggregatedValue" to aggregatedValue,
-                ),
-            )
-
-            return responseDto
-        } catch (e: UnsupportedOperationException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateBloodGlucoseManually",
-
-                message = "Unsupported aggregation operation",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                details = "Unsupported aggregation metric for Blood Glucose: " +
-                    (e.message ?: "Operation not supported"),
-            )
-        } catch (e: IllegalStateException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateBloodGlucoseManually",
-
-                message = "Invalid aggregation state",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
-                details = e.message ?: "No data available for aggregation",
-            )
-        } catch (e: SecurityException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateBloodGlucoseManually",
-
-                message = "Failed to aggregate Blood Glucose records",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
-                details = "Permission access denied while processing $request: " +
-                    (e.message ?: "Access denied"),
-            )
-        } catch (e: RuntimeException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregateBloodGlucoseManually",
-
-                message = "Failed to aggregate Blood Glucose records",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
+                "Unexpected error: ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -1465,8 +673,9 @@ internal class HealthConnectorClient private constructor(
      * @param request Contains data type, aggregation metric, and time range
      * @return AggregateResponseDto with aggregated value and data point count
      *
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support aggregation
      * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if time range or metric is invalid
-     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if authorization is denied
+     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if authorization is denied
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
@@ -1474,69 +683,27 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "aggregate",
-
             message = "Aggregating Health Connect data",
             context = mapOf("request" to request),
         )
 
         try {
-            // Validate time range
-            require(request.startTime < request.endTime) {
-                "Invalid time range: startTime must be before endTime. " +
-                    "startTime=${request.startTime}, endTime=${request.endTime}"
-            }
-
-            // Special case: Oxygen Saturation doesn't support native aggregation,
-            // so we use manual aggregation via readRecords
-            if (request.dataType == HealthDataTypeDto.OXYGEN_SATURATION) {
-                return aggregateOxygenSaturationManually(request)
-            }
-
-            // Special case: Respiratory Rate doesn't support native aggregation,
-            // so we use manual aggregation via readRecords
-            if (request.dataType == HealthDataTypeDto.RESPIRATORY_RATE) {
-                return aggregateRespiratoryRateManually(request)
-            }
-
-            // Special case: VO2Max doesn't support native aggregation,
-            // so we use manual aggregation via readRecords
-            if (request.dataType == HealthDataTypeDto.VO2MAX) {
-                return aggregateVo2MaxManually(request)
-            }
-
-            // Special case: Blood Glucose doesn't support native aggregation,
-            // so we use manual aggregation via readRecords
-            if (request.dataType == HealthDataTypeDto.BLOOD_GLUCOSE) {
-                return aggregateBloodGlucoseManually(request)
-            }
-
-            // Get aggregation handler for this data type
-            val handler = HealthConnectTypeHandlerRegistry.getAggregationHandler(request.dataType)
-                ?: throw IllegalArgumentException(
+            val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
+                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
                     "Data type ${request.dataType} does not support aggregation",
                 )
 
-            val metric = handler.toAggregateMetric(request)
-            val aggregateRequest = AggregateRequest(
-                metrics = setOf(metric),
-                timeRangeFilter = TimeRangeFilter.between(
-                    Instant.ofEpochMilli(request.startTime),
-                    Instant.ofEpochMilli(request.endTime),
-                ),
-            )
-
-            // Execute aggregate request
-            val response = client.aggregate(aggregateRequest)
-
-            // Convert result to MeasurementUnitDto using handler
-            val valueDto = handler.extractAggregateValue(response, metric)
-
-            val responseDto = AggregateResponseDto(value = valueDto)
+            val responseDto = when (handler) {
+                is HealthConnectAggregatableHealthRecordHandler -> handler.aggregate(request)
+                is CustomAggregatableHealthRecordHandler -> handler.aggregate(request)
+                else -> throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "Type ${request.dataType} does not support aggregation",
+                )
+            }
 
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "aggregate",
-
                 message = "Health Connect data aggregated successfully",
                 context = mapOf(
                     "request" to request,
@@ -1545,202 +712,18 @@ internal class HealthConnectorClient private constructor(
             )
 
             return responseDto
-        } catch (e: UnsupportedOperationException) {
+        } catch (e: HealthConnectorErrorDto) {
+            throw e
+        } catch (e: Exception) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "aggregate",
-
-                message = "Unsupported aggregation operation",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                details = "Unsupported aggregation metric for ${request.dataType}: " +
-                    (e.message ?: "Operation not supported"),
-            )
-        } catch (e: IllegalStateException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregate",
-
-                message = "Invalid aggregation state - null result from Health Connect",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
-                details = "Health Connect returned null for aggregation metric. " +
-                    "This may indicate no data available for the specified time range " +
-                    "or an unexpected API response: ${e.message}",
-            )
-        } catch (e: IllegalArgumentException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregate",
-
-                message = "Failed to aggregate Health Connect data",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(details = e.message)
-        } catch (e: SecurityException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregate",
-
-                message = "Failed to aggregate Health Connect data",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
-                details = "Permission access denied while processing $request: " +
-                    (e.message ?: "Access denied"),
-            )
-        } catch (e: RuntimeException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregate",
-
-                message = "Failed to aggregate Health Connect data",
+                message = "Unexpected error escaped from handler",
                 context = mapOf("request" to request),
                 exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
-            )
-        }
-    }
-
-    /**
-     * Deletes all records of a data type within a time range.
-     *
-     * @param request Contains data type and time range for deletion
-     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if deletion fails
-     */
-    @Throws(HealthConnectorErrorDto::class)
-    suspend fun deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) {
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "deleteRecords",
-
-            message = "Deleting Health Connect records by time range",
-            context = mapOf("request" to request),
-        )
-
-        try {
-            val recordClass = request.dataType.toHealthConnectRecordClass()
-            val timeRangeFilter = TimeRangeFilter.between(
-                Instant.ofEpochMilli(request.startTime),
-                Instant.ofEpochMilli(request.endTime),
-            )
-
-            client.deleteRecords(
-                recordType = recordClass,
-                timeRangeFilter = timeRangeFilter,
-            )
-
-            HealthConnectorLogger.info(
-                tag = TAG,
-                operation = "deleteRecords",
-
-                message = "Health Connect records deleted successfully",
-                context = mapOf("request" to request),
-            )
-        } catch (e: SecurityException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "deleteRecords",
-
-                message = "Failed to delete Health Connect records",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
-                details = "Permission access denied while processing $request: " +
-                    (e.message ?: "Access denied"),
-            )
-        } catch (e: RuntimeException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "deleteRecords",
-
-                message = "Failed to delete Health Connect records",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
-            )
-        }
-    }
-
-    /**
-     * Deletes specific records by their IDs.
-     *
-     * @param request Contains data type and list of record IDs to delete
-     * @throws HealthConnectorErrorDto with code `SECURITY_ERROR` if permission access is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if deletion fails
-     */
-    @Throws(HealthConnectorErrorDto::class)
-    suspend fun deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) {
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "deleteRecordsByIds",
-
-            message = "Deleting Health Connect records by IDs",
-            context = mapOf("request" to request),
-        )
-
-        if (request.recordIds.isEmpty()) {
-            HealthConnectorLogger.warning(
-                tag = TAG,
-                operation = "deleteRecordsByIds",
-
-                message = "No records to delete (empty IDs list)",
-            )
-            return
-        }
-
-        try {
-            val recordClass = request.dataType.toHealthConnectRecordClass()
-
-            client.deleteRecords(
-                recordType = recordClass,
-                recordIdsList = request.recordIds,
-                clientRecordIdsList = emptyList(),
-            )
-
-            HealthConnectorLogger.info(
-                tag = TAG,
-                operation = "deleteRecordsByIds",
-
-                message = "Health Connect records deleted successfully",
-                context = mapOf("request" to request),
-            )
-        } catch (e: SecurityException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "deleteRecordsByIds",
-
-                message = "Failed to delete Health Connect records by IDs",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.NOT_AUTHORIZED.toError(
-                details = "Permission access denied while processing $request: " +
-                    (e.message ?: "Access denied"),
-            )
-        } catch (e: RuntimeException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "deleteRecordsByIds",
-
-                message = "Failed to delete Health Connect records by IDs",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to process $request: ${e.message ?: "Unknown error"}",
+                "Unexpected error: ${e.message ?: "Unknown error"}",
             )
         }
     }
@@ -1758,22 +741,22 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "getGrantedPermissions",
-
             message = "Getting granted Health Connect permissions",
         )
 
         try {
             return permissionService.getGrantedPermissions()
-        } catch (e: RuntimeException) {
+        } catch (e: HealthConnectorErrorDto) {
+            throw e
+        } catch (e: Exception) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "getGrantedPermissions",
-
                 message = "Failed to get granted Health Connect permissions",
                 exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to get granted permissions: ${e.message}",
+                "Failed to get granted permissions: ${e.message}",
             )
         }
     }
@@ -1788,7 +771,6 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "revokeAllPermissions",
-
             message = "Revoking all Health Connect permissions",
         )
 
@@ -1798,19 +780,19 @@ internal class HealthConnectorClient private constructor(
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "revokeAllPermissions",
-
                 message = "All Health Connect permissions revoked successfully",
             )
-        } catch (e: RuntimeException) {
+        } catch (e: HealthConnectorErrorDto) {
+            throw e
+        } catch (e: Exception) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "revokeAllPermissions",
-
                 message = "Failed to revoke all Health Connect permissions",
                 exception = e,
             )
             throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                details = "Failed to revoke all permissions: ${e.message}",
+                "Failed to revoke all permissions: ${e.message}",
             )
         }
     }

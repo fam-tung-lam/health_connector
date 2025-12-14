@@ -1,38 +1,38 @@
 package com.phamtunglam.health_connector_hc_android.handlers
 
-import androidx.health.connect.client.records.Record
-import androidx.health.connect.client.records.Vo2MaxRecord
-import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
+import androidx.health.connect.client.HealthConnectClient
+import com.phamtunglam.health_connector_hc_android.mappers.toNumericDto
+import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxRecordDto
-import kotlin.reflect.KClass
 
 /**
- * Handler for VO2 Max health data type.
+ * Handler for Vo2Max records.
  *
- * Characteristics:
- * - Category: Instant record (single timestamp)
- * - Aggregation: Supports AVG, MIN, MAX (implemented via manual computation using ReadRecordsRequest)
- * - Health Connect Type: Vo2MaxRecord
+ * This handler leverages the default paginated aggregation implementation from
+ * [CustomAggregatableHealthRecordHandler], requiring only value extraction and result wrapping logic.
  */
-internal object Vo2MaxHandler : InstantRecordHandler {
-    override val supportedType: HealthDataTypeDto = HealthDataTypeDto.VO2MAX
+internal class Vo2MaxHandler(override val client: HealthConnectClient) :
+    HealthRecordHandler,
+    CustomAggregatableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler {
 
-    override fun toDto(record: Record): HealthRecordDto {
-        require(record is Vo2MaxRecord) {
-            "Expected Vo2MaxRecord, got ${record::class.simpleName}"
-        }
-        return record.toDto()
-    }
+    override val dataType = HealthDataTypeDto.VO2MAX
 
-    override fun toHealthConnect(dto: HealthRecordDto): Record {
-        require(dto is Vo2MaxRecordDto) {
-            "Expected Vo2MaxRecordDto, got ${dto::class.simpleName}"
-        }
-        return dto.toHealthConnect()
-    }
+    override val supportedAggregationMetrics: Set<AggregationMetricDto>
+        get() = setOf(
+            AggregationMetricDto.AVG,
+            AggregationMetricDto.COUNT,
+            AggregationMetricDto.MIN,
+            AggregationMetricDto.MAX,
+        )
 
-    override fun getRecordClass(): KClass<out Record> = Vo2MaxRecord::class
+    override fun extractValueForAggregation(recordDto: HealthRecordDto): Double? =
+        (recordDto as? Vo2MaxRecordDto)?.vo2Max?.value
+
+    override fun wrapAggregationResult(value: Double): MeasurementUnitDto = value.toNumericDto()
 }

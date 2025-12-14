@@ -370,7 +370,7 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto 
         "BLOOD_GLUCOSE" -> HealthDataTypeDto.BLOOD_GLUCOSE
         "OXYGEN_SATURATION" -> HealthDataTypeDto.OXYGEN_SATURATION
         "RESPIRATORY_RATE" -> HealthDataTypeDto.RESPIRATORY_RATE
-        "VO2_MAX" -> HealthDataTypeDto.VO2MAX
+        "VO2MAX" -> HealthDataTypeDto.VO2MAX
         "NUTRITION" -> HealthDataTypeDto.NUTRITION
         else -> throw UnsupportedOperationException(
             "Unsupported Health Connect data type: '$dataTypeStr' in permission '$this'.",

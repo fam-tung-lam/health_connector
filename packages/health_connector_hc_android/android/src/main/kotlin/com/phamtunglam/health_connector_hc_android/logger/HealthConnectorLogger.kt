@@ -29,7 +29,6 @@ internal object HealthConnectorLogger {
      *
      * @param enabled Whether to enable logging.
      */
-    @Suppress("unused")
     fun setEnabled(enabled: Boolean) {
         isEnabled = enabled
     }
