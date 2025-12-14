@@ -1,38 +1,36 @@
 package com.phamtunglam.health_connector_hc_android.handlers
 
-import androidx.health.connect.client.records.OxygenSaturationRecord
-import androidx.health.connect.client.records.Record
-import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
+import androidx.health.connect.client.HealthConnectClient
+import com.phamtunglam.health_connector_hc_android.mappers.toNumericDto
+import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.OxygenSaturationRecordDto
-import kotlin.reflect.KClass
 
 /**
- * Handler for Oxygen Saturation health data type.
+ * Handler for Oxygen Saturation records.
  *
- * Characteristics:
- * - Category: Instant record (single timestamp)
- * - Aggregation: Supports AVG, MIN, MAX
- * - Health Connect Type: OxygenSaturationRecord
+ * This handler leverages the default paginated aggregation implementation from
+ * [CustomAggregatableHealthRecordHandler], requiring only value extraction and result wrapping logic.
  */
-internal object OxygenSaturationHandler : InstantRecordHandler {
-    override val supportedType: HealthDataTypeDto = HealthDataTypeDto.OXYGEN_SATURATION
+internal class OxygenSaturationHandler(override val client: HealthConnectClient) :
+    CustomAggregatableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    DeletableHealthRecordHandler {
 
-    override fun toDto(record: Record): HealthRecordDto {
-        require(record is OxygenSaturationRecord) {
-            "Expected OxygenSaturationRecord, got ${record::class.simpleName}"
-        }
-        return record.toDto()
-    }
+    override val dataType = HealthDataTypeDto.OXYGEN_SATURATION
 
-    override fun toHealthConnect(dto: HealthRecordDto): Record {
-        require(dto is OxygenSaturationRecordDto) {
-            "Expected OxygenSaturationRecordDto, got ${dto::class.simpleName}"
-        }
-        return dto.toHealthConnect()
-    }
+    override val supportedAggregationMetrics: Set<AggregationMetricDto>
+        get() = setOf(
+            AggregationMetricDto.AVG,
+            AggregationMetricDto.COUNT,
+            AggregationMetricDto.MIN,
+            AggregationMetricDto.MAX,
+        )
 
-    override fun getRecordClass(): KClass<out Record> = OxygenSaturationRecord::class
+    override fun extractValueForAggregation(recordDto: HealthRecordDto): Double? =
+        (recordDto as? OxygenSaturationRecordDto)?.percentage?.value
+
+    override fun wrapAggregationResult(value: Double): MeasurementUnitDto = value.toNumericDto()
 }

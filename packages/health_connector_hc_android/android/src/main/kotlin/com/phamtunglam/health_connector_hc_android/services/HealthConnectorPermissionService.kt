@@ -4,8 +4,10 @@ import android.content.ActivityNotFoundException
 import android.os.RemoteException
 import androidx.activity.ComponentActivity
 import androidx.health.connect.client.PermissionController
+import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.toPermissionRequestResultDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeaturePermissionRequest
@@ -107,8 +109,8 @@ internal class HealthConnectorPermissionService(
         try {
             launcher.launch(permissionStrings)
             completer.await()
-        } catch (_: ActivityNotFoundException) {
-            throw NotImplementedError()
+        } catch (e: ActivityNotFoundException) {
+            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(e.message)
         } finally {
             // Unregister the callback to prevent memory leaks and keep the registry clean.
             launcher.unregister()
@@ -132,12 +134,12 @@ internal class HealthConnectorPermissionService(
             }
 
             return PermissionRequestsResponseDto(grantedPermissions)
-        } catch (_: RemoteException) {
-            throw NotImplementedError()
-        } catch (_: IOException) {
-            throw NotImplementedError()
-        } catch (_: IllegalStateException) {
-            throw NotImplementedError()
+        } catch (e: RemoteException) {
+            throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
+        } catch (e: IOException) {
+            throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
+        } catch (e: IllegalStateException) {
+            throw HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE.toError(e.message)
         }
     }
 
@@ -151,12 +153,12 @@ internal class HealthConnectorPermissionService(
     suspend fun revokeAllPermissions() {
         try {
             permissionClient.revokeAllPermissions()
-        } catch (_: RemoteException) {
-            throw NotImplementedError()
-        } catch (_: IOException) {
-            throw NotImplementedError()
-        } catch (_: IllegalStateException) {
-            throw NotImplementedError()
+        } catch (e: RemoteException) {
+            throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
+        } catch (e: IOException) {
+            throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
+        } catch (e: IllegalStateException) {
+            throw HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE.toError(e.message)
         }
     }
 }

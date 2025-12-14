@@ -1,38 +1,42 @@
 package com.phamtunglam.health_connector_hc_android.handlers
 
-import androidx.health.connect.client.records.BloodGlucoseRecord
-import androidx.health.connect.client.records.Record
-import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
+import androidx.health.connect.client.HealthConnectClient
+import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
-import kotlin.reflect.KClass
+import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 
 /**
- * Handler for Blood Glucose health data type.
+ * Handler for Blood Glucose records.
  *
- * Characteristics:
- * - Category: Instant record (single timestamp)
- * - Aggregation: Supports AVG, MIN, MAX (via manual aggregation - reading records and computing)
- * - Health Connect Type: BloodGlucoseRecord
+ * This handler leverages the default paginated aggregation implementation from
+ * [CustomAggregatableHealthRecordHandler], requiring only value extraction and result wrapping logic.
  */
-internal object BloodGlucoseHandler : InstantRecordHandler {
-    override val supportedType: HealthDataTypeDto = HealthDataTypeDto.BLOOD_GLUCOSE
+internal class BloodGlucoseHandler(override val client: HealthConnectClient) :
+    HealthRecordHandler,
+    CustomAggregatableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler {
 
-    override fun toDto(record: Record): HealthRecordDto {
-        require(record is BloodGlucoseRecord) {
-            "Expected BloodGlucoseRecord, got ${record::class.simpleName}"
-        }
-        return record.toDto()
-    }
+    override val dataType = HealthDataTypeDto.BLOOD_GLUCOSE
 
-    override fun toHealthConnect(dto: HealthRecordDto): Record {
-        require(dto is BloodGlucoseRecordDto) {
-            "Expected BloodGlucoseRecordDto, got ${dto::class.simpleName}"
-        }
-        return dto.toHealthConnect()
-    }
+    override val supportedAggregationMetrics: Set<AggregationMetricDto>
+        get() = setOf(
+            AggregationMetricDto.AVG,
+            AggregationMetricDto.COUNT,
+            AggregationMetricDto.MIN,
+            AggregationMetricDto.MAX,
+        )
 
-    override fun getRecordClass(): KClass<out Record> = BloodGlucoseRecord::class
+    override fun extractValueForAggregation(recordDto: HealthRecordDto): Double? =
+        (recordDto as? BloodGlucoseRecordDto)?.bloodGlucose?.value
+
+    override fun wrapAggregationResult(value: Double): MeasurementUnitDto = BloodGlucoseDto(
+        BloodGlucoseUnitDto.MILLIGRAMS_PER_DECILITER,
+        value,
+    )
 }
