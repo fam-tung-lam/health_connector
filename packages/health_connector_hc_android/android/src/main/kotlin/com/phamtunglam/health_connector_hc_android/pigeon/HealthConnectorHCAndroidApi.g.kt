@@ -535,86 +535,20 @@ enum class HealthDataTypeDto(val raw: Int) {
   HEART_RATE_SERIES_RECORD(11),
   /** Sleep session data. */
   SLEEP_SESSION(12),
-  /** Energy nutrient data (calories consumed). */
-  ENERGY_NUTRIENT(13),
-  /** Caffeine nutrient data. */
-  CAFFEINE(14),
-  /** Protein nutrient data. */
-  PROTEIN(15),
-  /** Total carbohydrate nutrient data. */
-  TOTAL_CARBOHYDRATE(16),
-  /** Total fat nutrient data. */
-  TOTAL_FAT(17),
-  /** Saturated fat nutrient data. */
-  SATURATED_FAT(18),
-  /** Monounsaturated fat nutrient data. */
-  MONOUNSATURATED_FAT(19),
-  /** Polyunsaturated fat nutrient data. */
-  POLYUNSATURATED_FAT(20),
-  /** Cholesterol nutrient data. */
-  CHOLESTEROL(21),
-  /** Dietary fiber nutrient data. */
-  DIETARY_FIBER(22),
-  /** Sugar nutrient data. */
-  SUGAR(23),
-  /** Vitamin A nutrient data. */
-  VITAMIN_A(24),
-  /** Vitamin B6 nutrient data. */
-  VITAMIN_B6(25),
-  /** Vitamin B12 nutrient data. */
-  VITAMIN_B12(26),
-  /** Vitamin C nutrient data. */
-  VITAMIN_C(27),
-  /** Vitamin D nutrient data. */
-  VITAMIN_D(28),
-  /** Vitamin E nutrient data. */
-  VITAMIN_E(29),
-  /** Vitamin K nutrient data. */
-  VITAMIN_K(30),
-  /** Thiamin (Vitamin B1) nutrient data. */
-  THIAMIN(31),
-  /** Riboflavin (Vitamin B2) nutrient data. */
-  RIBOFLAVIN(32),
-  /** Niacin (Vitamin B3) nutrient data. */
-  NIACIN(33),
-  /** Folate (Vitamin B9) nutrient data. */
-  FOLATE(34),
-  /** Biotin (Vitamin B7) nutrient data. */
-  BIOTIN(35),
-  /** Pantothenic acid (Vitamin B5) nutrient data. */
-  PANTOTHENIC_ACID(36),
-  /** Calcium nutrient data. */
-  CALCIUM(37),
-  /** Iron nutrient data. */
-  IRON(38),
-  /** Magnesium nutrient data. */
-  MAGNESIUM(39),
-  /** Manganese nutrient data. */
-  MANGANESE(40),
-  /** Phosphorus nutrient data. */
-  PHOSPHORUS(41),
-  /** Potassium nutrient data. */
-  POTASSIUM(42),
-  /** Selenium nutrient data. */
-  SELENIUM(43),
-  /** Sodium nutrient data. */
-  SODIUM(44),
-  /** Zinc nutrient data. */
-  ZINC(45),
   /** Combined nutrition record with all nutrients. */
-  NUTRITION(46),
+  NUTRITION(13),
   /** Resting heart rate data. */
-  RESTING_HEART_RATE(47),
+  RESTING_HEART_RATE(14),
   /** Composite blood pressure data (systolic + diastolic). */
-  BLOOD_PRESSURE(48),
+  BLOOD_PRESSURE(15),
   /** Oxygen saturation data. */
-  OXYGEN_SATURATION(49),
+  OXYGEN_SATURATION(16),
   /** Respiratory rate data. */
-  RESPIRATORY_RATE(50),
+  RESPIRATORY_RATE(17),
   /** VO2 max (maximal oxygen uptake) data. */
-  VO2MAX(51),
+  VO2MAX(18),
   /** Blood glucose data. */
-  BLOOD_GLUCOSE(52);
+  BLOOD_GLUCOSE(19);
 
   companion object {
     fun ofRaw(raw: Int): HealthDataTypeDto? {

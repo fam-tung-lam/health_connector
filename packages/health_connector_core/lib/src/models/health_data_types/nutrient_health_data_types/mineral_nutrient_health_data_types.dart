@@ -1,6 +1,7 @@
 part of '../health_data_type.dart';
 
 @sinceV1_1_0
+@supportedOnAppleHealth
 @internal
 @immutable
 sealed class MineralNutrientDataType<R extends HealthRecord>
@@ -20,6 +21,7 @@ sealed class MineralNutrientDataType<R extends HealthRecord>
 
 /// Health data type for calcium intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class CalciumNutrientDataType
     extends MineralNutrientDataType<CalciumNutrientRecord>
@@ -94,6 +96,7 @@ final class CalciumNutrientDataType
 
 /// Health data type for iron intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class IronNutrientDataType
     extends MineralNutrientDataType<IronNutrientRecord>
@@ -165,6 +168,7 @@ final class IronNutrientDataType
 
 /// Health data type for magnesium intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class MagnesiumNutrientDataType
     extends MineralNutrientDataType<MagnesiumNutrientRecord>
@@ -236,6 +240,7 @@ final class MagnesiumNutrientDataType
 
 /// Health data type for manganese intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class ManganeseNutrientDataType
     extends MineralNutrientDataType<ManganeseNutrientRecord>
@@ -307,6 +312,7 @@ final class ManganeseNutrientDataType
 
 /// Health data type for phosphorus intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class PhosphorusNutrientDataType
     extends MineralNutrientDataType<PhosphorusNutrientRecord>
@@ -378,6 +384,7 @@ final class PhosphorusNutrientDataType
 
 /// Health data type for potassium intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class PotassiumNutrientDataType
     extends MineralNutrientDataType<PotassiumNutrientRecord>
@@ -449,6 +456,7 @@ final class PotassiumNutrientDataType
 
 /// Health data type for selenium intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class SeleniumNutrientDataType
     extends MineralNutrientDataType<SeleniumNutrientRecord>
@@ -520,6 +528,7 @@ final class SeleniumNutrientDataType
 
 /// Health data type for sodium intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class SodiumNutrientDataType
     extends MineralNutrientDataType<SodiumNutrientRecord>
@@ -591,6 +600,7 @@ final class SodiumNutrientDataType
 
 /// Health data type for zinc intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class ZincNutrientDataType
     extends MineralNutrientDataType<ZincNutrientRecord>

@@ -1,6 +1,7 @@
 part of '../health_data_type.dart';
 
 @sinceV1_0_0
+@supportedOnAppleHealth
 @internal
 @immutable
 sealed class NutrientHealthDataType<
@@ -9,10 +10,16 @@ sealed class NutrientHealthDataType<
 >
     extends HealthDataType<R, U> {
   const NutrientHealthDataType();
+
+  @override
+  List<HealthPlatform> get supportedHealthPlatforms => [
+    HealthPlatform.appleHealth,
+  ];
 }
 
 /// Health data type for energy (calorie) intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class EnergyNutrientDataType
     extends NutrientHealthDataType<EnergyNutrientRecord, Energy>
@@ -97,6 +104,7 @@ final class EnergyNutrientDataType
 
 /// Health data type for caffeine intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class CaffeineNutrientDataType
     extends NutrientHealthDataType<CaffeineNutrientRecord, Mass>

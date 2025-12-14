@@ -2,6 +2,7 @@ part of '../health_record.dart';
 
 /// Base class for macronutrient health records.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @internal
 @immutable
 sealed class MacronutrientRecord extends NutrientHealthRecord<Mass> {
@@ -18,6 +19,7 @@ sealed class MacronutrientRecord extends NutrientHealthRecord<Mass> {
 
 /// Health record for protein intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class ProteinNutrientRecord extends MacronutrientRecord {
   factory ProteinNutrientRecord({
@@ -56,6 +58,7 @@ final class ProteinNutrientRecord extends MacronutrientRecord {
 
 /// Health record for total carbohydrate intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class TotalCarbohydrateNutrientRecord extends MacronutrientRecord {
   factory TotalCarbohydrateNutrientRecord({
@@ -94,6 +97,7 @@ final class TotalCarbohydrateNutrientRecord extends MacronutrientRecord {
 
 /// Health record for total fat intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class TotalFatNutrientRecord extends MacronutrientRecord {
   factory TotalFatNutrientRecord({
@@ -132,6 +136,7 @@ final class TotalFatNutrientRecord extends MacronutrientRecord {
 
 /// Health record for saturated fat intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class SaturatedFatNutrientRecord extends MacronutrientRecord {
   factory SaturatedFatNutrientRecord({
@@ -170,6 +175,7 @@ final class SaturatedFatNutrientRecord extends MacronutrientRecord {
 
 /// Health record for monounsaturated fat intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class MonounsaturatedFatNutrientRecord extends MacronutrientRecord {
   factory MonounsaturatedFatNutrientRecord({
@@ -208,6 +214,7 @@ final class MonounsaturatedFatNutrientRecord extends MacronutrientRecord {
 
 /// Health record for polyunsaturated fat intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class PolyunsaturatedFatNutrientRecord extends MacronutrientRecord {
   factory PolyunsaturatedFatNutrientRecord({
@@ -246,6 +253,7 @@ final class PolyunsaturatedFatNutrientRecord extends MacronutrientRecord {
 
 /// Health record for cholesterol intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class CholesterolNutrientRecord extends MacronutrientRecord {
   factory CholesterolNutrientRecord({
@@ -284,6 +292,7 @@ final class CholesterolNutrientRecord extends MacronutrientRecord {
 
 /// Health record for dietary fiber intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class DietaryFiberNutrientRecord extends MacronutrientRecord {
   factory DietaryFiberNutrientRecord({
@@ -322,6 +331,7 @@ final class DietaryFiberNutrientRecord extends MacronutrientRecord {
 
 /// Health record for sugar intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class SugarNutrientRecord extends MacronutrientRecord {
   factory SugarNutrientRecord({

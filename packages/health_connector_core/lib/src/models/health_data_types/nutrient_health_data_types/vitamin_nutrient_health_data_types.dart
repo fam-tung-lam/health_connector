@@ -1,6 +1,7 @@
 part of '../health_data_type.dart';
 
 @sinceV1_1_0
+@supportedOnAppleHealth
 @internal
 @immutable
 sealed class VitaminNutrientDataType<R extends HealthRecord>
@@ -10,6 +11,7 @@ sealed class VitaminNutrientDataType<R extends HealthRecord>
 
 /// Health data type for vitamin a intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminANutrientDataType
     extends VitaminNutrientDataType<VitaminANutrientRecord>
@@ -81,6 +83,7 @@ final class VitaminANutrientDataType
 
 /// Health data type for vitamin b6 intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminB6NutrientDataType
     extends VitaminNutrientDataType<VitaminB6NutrientRecord>
@@ -152,6 +155,7 @@ final class VitaminB6NutrientDataType
 
 /// Health data type for vitamin b12 intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminB12NutrientDataType
     extends VitaminNutrientDataType<VitaminB12NutrientRecord>
@@ -223,6 +227,7 @@ final class VitaminB12NutrientDataType
 
 /// Health data type for vitamin c intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminCNutrientDataType
     extends VitaminNutrientDataType<VitaminCNutrientRecord>
@@ -294,6 +299,7 @@ final class VitaminCNutrientDataType
 
 /// Health data type for vitamin d intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminDNutrientDataType
     extends VitaminNutrientDataType<VitaminDNutrientRecord>
@@ -365,6 +371,7 @@ final class VitaminDNutrientDataType
 
 /// Health data type for vitamin e intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminENutrientDataType
     extends VitaminNutrientDataType<VitaminENutrientRecord>
@@ -436,6 +443,7 @@ final class VitaminENutrientDataType
 
 /// Health data type for vitamin k intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminKNutrientDataType
     extends VitaminNutrientDataType<VitaminKNutrientRecord>
@@ -507,6 +515,7 @@ final class VitaminKNutrientDataType
 
 /// Health data type for thiamin intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class ThiaminNutrientDataType
     extends VitaminNutrientDataType<ThiaminNutrientRecord>
@@ -578,6 +587,7 @@ final class ThiaminNutrientDataType
 
 /// Health data type for riboflavin intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class RiboflavinNutrientDataType
     extends VitaminNutrientDataType<RiboflavinNutrientRecord>
@@ -649,6 +659,7 @@ final class RiboflavinNutrientDataType
 
 /// Health data type for niacin intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class NiacinNutrientDataType
     extends VitaminNutrientDataType<NiacinNutrientRecord>
@@ -720,6 +731,7 @@ final class NiacinNutrientDataType
 
 /// Health data type for folate intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class FolateNutrientDataType
     extends VitaminNutrientDataType<FolateNutrientRecord>
@@ -791,6 +803,7 @@ final class FolateNutrientDataType
 
 /// Health data type for biotin intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class BiotinNutrientDataType
     extends VitaminNutrientDataType<BiotinNutrientRecord>
@@ -862,6 +875,7 @@ final class BiotinNutrientDataType
 
 /// Health data type for pantothenic acid intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class PantothenicAcidNutrientDataType
     extends VitaminNutrientDataType<PantothenicAcidNutrientRecord>

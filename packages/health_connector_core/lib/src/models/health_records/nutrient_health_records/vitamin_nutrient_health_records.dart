@@ -2,6 +2,7 @@ part of '../health_record.dart';
 
 /// Base class for vitamin nutrient health records.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @internal
 @immutable
 sealed class VitaminNutrientRecord extends NutrientHealthRecord<Mass> {
@@ -18,6 +19,7 @@ sealed class VitaminNutrientRecord extends NutrientHealthRecord<Mass> {
 
 /// Health record for vitamin A intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminANutrientRecord extends VitaminNutrientRecord {
   factory VitaminANutrientRecord({
@@ -56,6 +58,7 @@ final class VitaminANutrientRecord extends VitaminNutrientRecord {
 
 /// Health record for vitamin B6 intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminB6NutrientRecord extends VitaminNutrientRecord {
   factory VitaminB6NutrientRecord({
@@ -94,6 +97,7 @@ final class VitaminB6NutrientRecord extends VitaminNutrientRecord {
 
 /// Health record for vitamin B12 intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminB12NutrientRecord extends VitaminNutrientRecord {
   factory VitaminB12NutrientRecord({
@@ -132,6 +136,7 @@ final class VitaminB12NutrientRecord extends VitaminNutrientRecord {
 
 /// Health record for vitamin C intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminCNutrientRecord extends VitaminNutrientRecord {
   factory VitaminCNutrientRecord({
@@ -170,6 +175,7 @@ final class VitaminCNutrientRecord extends VitaminNutrientRecord {
 
 /// Health record for vitamin D intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminDNutrientRecord extends VitaminNutrientRecord {
   factory VitaminDNutrientRecord({
@@ -208,6 +214,7 @@ final class VitaminDNutrientRecord extends VitaminNutrientRecord {
 
 /// Health record for vitamin E intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminENutrientRecord extends VitaminNutrientRecord {
   factory VitaminENutrientRecord({
@@ -246,6 +253,7 @@ final class VitaminENutrientRecord extends VitaminNutrientRecord {
 
 /// Health record for vitamin K intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class VitaminKNutrientRecord extends VitaminNutrientRecord {
   factory VitaminKNutrientRecord({
@@ -284,6 +292,7 @@ final class VitaminKNutrientRecord extends VitaminNutrientRecord {
 
 /// Health record for thiamin (vitamin B1) intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class ThiaminNutrientRecord extends VitaminNutrientRecord {
   factory ThiaminNutrientRecord({
@@ -322,6 +331,7 @@ final class ThiaminNutrientRecord extends VitaminNutrientRecord {
 
 /// Health record for riboflavin (vitamin B2) intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class RiboflavinNutrientRecord extends VitaminNutrientRecord {
   factory RiboflavinNutrientRecord({
@@ -360,6 +370,7 @@ final class RiboflavinNutrientRecord extends VitaminNutrientRecord {
 
 /// Health record for niacin (vitamin B3) intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class NiacinNutrientRecord extends VitaminNutrientRecord {
   factory NiacinNutrientRecord({
@@ -398,6 +409,7 @@ final class NiacinNutrientRecord extends VitaminNutrientRecord {
 
 /// Health record for folate (vitamin B9) intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class FolateNutrientRecord extends VitaminNutrientRecord {
   factory FolateNutrientRecord({
@@ -436,6 +448,7 @@ final class FolateNutrientRecord extends VitaminNutrientRecord {
 
 /// Health record for biotin (vitamin B7) intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class BiotinNutrientRecord extends VitaminNutrientRecord {
   factory BiotinNutrientRecord({
@@ -474,6 +487,7 @@ final class BiotinNutrientRecord extends VitaminNutrientRecord {
 
 /// Health record for pantothenic acid (vitamin B5) intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class PantothenicAcidNutrientRecord extends VitaminNutrientRecord {
   factory PantothenicAcidNutrientRecord({
