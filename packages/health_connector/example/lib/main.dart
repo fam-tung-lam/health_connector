@@ -78,8 +78,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
       }
 
       // Create connector instance
-      final config = HealthConnectorConfig();
-      final connector = await HealthConnector.create(config);
+      final connector = await HealthConnector.create();
 
       if (!mounted) {
         return;

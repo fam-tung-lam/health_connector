@@ -4662,6 +4662,37 @@ public struct UpdateRecordResponseDto: Hashable {
   }
 }
 
+/// Configuration data transfer object for Health Connector.
+///
+/// Contains configuration settings that are passed from Dart to native
+/// platform code during client initialization.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct HealthConnectorConfigDto: Hashable {
+  /// Whether logging is enabled for the Health Connector.
+  var isLoggerEnabled: Bool
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> HealthConnectorConfigDto? {
+    let isLoggerEnabled = pigeonVar_list[0] as! Bool
+
+    return HealthConnectorConfigDto(
+      isLoggerEnabled: isLoggerEnabled
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      isLoggerEnabled
+    ]
+  }
+  public static func == (lhs: HealthConnectorConfigDto, rhs: HealthConnectorConfigDto) -> Bool {
+    return deepEqualsHealthConnectorPlatformApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorPlatformApi(value: toList(), hasher: &hasher)
+  }
+}
+
 private class HealthConnectorPlatformApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -4989,6 +5020,8 @@ private class HealthConnectorPlatformApiPigeonCodecReader: FlutterStandardReader
       return UpdateRecordRequestDto.fromList(self.readValue() as! [Any?])
     case 240:
       return UpdateRecordResponseDto.fromList(self.readValue() as! [Any?])
+    case 241:
+      return HealthConnectorConfigDto.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
     }
@@ -5333,6 +5366,9 @@ private class HealthConnectorPlatformApiPigeonCodecWriter: FlutterStandardWriter
     } else if let value = value as? UpdateRecordResponseDto {
       super.writeByte(240)
       super.writeValue(value.toList())
+    } else if let value = value as? HealthConnectorConfigDto {
+      super.writeByte(241)
+      super.writeValue(value.toList())
     } else {
       super.writeValue(value)
     }
@@ -5358,6 +5394,11 @@ class HealthConnectorPlatformApiPigeonCodec: FlutterStandardMessageCodec, @unche
 ///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol HealthConnectorPlatformApi {
+  /// Initializes the Health Connector client with the provided configuration.
+  ///
+  /// This method must be called before any other Health Connector operations
+  /// to properly configure the native platform code, including logger settings.
+  func initialize(config: HealthConnectorConfigDto, completion: @escaping (Result<Void, Error>) -> Void)
   func aggregate(request: AggregateRequestDto, completion: @escaping (Result<AggregateResponseDto, Error>) -> Void)
   func deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto, completion: @escaping (Result<Void, Error>) -> Void)
   func deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto, completion: @escaping (Result<Void, Error>) -> Void)
@@ -5376,6 +5417,27 @@ class HealthConnectorPlatformApiSetup {
   /// Sets up an instance of `HealthConnectorPlatformApi` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: HealthConnectorPlatformApi?, messageChannelSuffix: String = "") {
     let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
+    /// Initializes the Health Connector client with the provided configuration.
+    ///
+    /// This method must be called before any other Health Connector operations
+    /// to properly configure the native platform code, including logger settings.
+    let initializeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.initialize\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      initializeChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let configArg = args[0] as! HealthConnectorConfigDto
+        api.initialize(config: configArg) { result in
+          switch result {
+          case .success:
+            reply(wrapResult(nil))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      initializeChannel.setMessageHandler(nil)
+    }
     let aggregateChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.aggregate\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       aggregateChannel.setMessageHandler { message, reply in
