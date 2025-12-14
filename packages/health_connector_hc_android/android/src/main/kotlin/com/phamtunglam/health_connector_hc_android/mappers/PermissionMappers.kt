@@ -290,41 +290,7 @@ private fun getHealthConnectPermission(
         }
     }
 
-    HealthDataTypeDto.ENERGY_NUTRIENT,
-    HealthDataTypeDto.CAFFEINE,
-    HealthDataTypeDto.PROTEIN,
-    HealthDataTypeDto.TOTAL_CARBOHYDRATE,
-    HealthDataTypeDto.TOTAL_FAT,
-    HealthDataTypeDto.SATURATED_FAT,
-    HealthDataTypeDto.MONOUNSATURATED_FAT,
-    HealthDataTypeDto.POLYUNSATURATED_FAT,
-    HealthDataTypeDto.CHOLESTEROL,
-    HealthDataTypeDto.DIETARY_FIBER,
-    HealthDataTypeDto.SUGAR,
-    HealthDataTypeDto.VITAMIN_A,
-    HealthDataTypeDto.VITAMIN_B6,
-    HealthDataTypeDto.VITAMIN_B12,
-    HealthDataTypeDto.VITAMIN_C,
-    HealthDataTypeDto.VITAMIN_D,
-    HealthDataTypeDto.VITAMIN_E,
-    HealthDataTypeDto.VITAMIN_K,
-    HealthDataTypeDto.THIAMIN,
-    HealthDataTypeDto.RIBOFLAVIN,
-    HealthDataTypeDto.NIACIN,
-    HealthDataTypeDto.FOLATE,
-    HealthDataTypeDto.BIOTIN,
-    HealthDataTypeDto.PANTOTHENIC_ACID,
-    HealthDataTypeDto.CALCIUM,
-    HealthDataTypeDto.IRON,
-    HealthDataTypeDto.MAGNESIUM,
-    HealthDataTypeDto.MANGANESE,
-    HealthDataTypeDto.PHOSPHORUS,
-    HealthDataTypeDto.POTASSIUM,
-    HealthDataTypeDto.SELENIUM,
-    HealthDataTypeDto.SODIUM,
-    HealthDataTypeDto.ZINC,
-    HealthDataTypeDto.NUTRITION,
-    -> {
+    HealthDataTypeDto.NUTRITION -> {
         when (accessType) {
             PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
                 NutritionRecord::class,

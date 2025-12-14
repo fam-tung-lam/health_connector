@@ -1,6 +1,7 @@
 part of '../health_record.dart';
 
 @sinceV1_1_0
+@supportedOnAppleHealth
 @internalUse
 @immutable
 sealed class NutrientHealthRecord<U extends MeasurementUnit>
@@ -22,11 +23,11 @@ sealed class NutrientHealthRecord<U extends MeasurementUnit>
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
-    HealthPlatform.healthConnect,
   ];
 }
 
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class EnergyNutrientRecord extends NutrientHealthRecord<Energy> {
   factory EnergyNutrientRecord({
@@ -64,6 +65,7 @@ final class EnergyNutrientRecord extends NutrientHealthRecord<Energy> {
 }
 
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class CaffeineNutrientRecord extends NutrientHealthRecord<Mass> {
   factory CaffeineNutrientRecord({
