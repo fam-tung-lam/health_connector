@@ -92,7 +92,6 @@ final class HealthConnector {
         HealthConnectorLogger.error(
           _tag,
           operation: 'create',
-          phase: 'failed',
           message: 'Health platform unavailable',
           context: {'platform': healthPlatform.name},
         );
@@ -105,7 +104,6 @@ final class HealthConnector {
         HealthConnectorLogger.warning(
           _tag,
           operation: 'create',
-          phase: 'failed',
           message: 'Health platform installation or update required',
           context: {'platform': healthPlatform.name},
         );
@@ -118,7 +116,6 @@ final class HealthConnector {
         HealthConnectorLogger.info(
           _tag,
           operation: 'create',
-          phase: 'succeeded',
           message: 'HealthConnector created successfully',
           context: {'platform': healthPlatform.name},
         );
@@ -182,7 +179,6 @@ final class HealthConnector {
     HealthConnectorLogger.debug(
       _tag,
       operation: 'getHealthPlatformStatus',
-      phase: 'entry',
       message: 'Checking health platform status',
     );
 
@@ -200,7 +196,6 @@ final class HealthConnector {
       HealthConnectorLogger.info(
         _tag,
         operation: 'getHealthPlatformStatus',
-        phase: 'succeeded',
         message: 'Health platform status retrieved',
         context: {'status': status.name},
       );
@@ -210,7 +205,6 @@ final class HealthConnector {
       HealthConnectorLogger.error(
         _tag,
         operation: 'getHealthPlatformStatus',
-        phase: 'failed',
         message: 'Failed to get health platform status',
         exception: e,
         stackTrace: st,
@@ -272,7 +266,6 @@ final class HealthConnector {
     HealthConnectorLogger.debug(
       tag,
       operation: 'requestPermissions',
-      phase: 'entry',
       message: 'Requesting permissions',
       context: {'permissions': permissions},
     );
@@ -287,7 +280,6 @@ final class HealthConnector {
       HealthConnectorLogger.info(
         tag,
         operation: 'requestPermissions',
-        phase: 'succeeded',
         message: 'Permissions requested successfully',
         context: {'results': results},
       );
@@ -297,7 +289,6 @@ final class HealthConnector {
       HealthConnectorLogger.error(
         tag,
         operation: 'requestPermissions',
-        phase: 'failed',
         message: 'Failed to request permissions',
         exception: e,
         stackTrace: st,
@@ -356,7 +347,6 @@ final class HealthConnector {
     HealthConnectorLogger.debug(
       tag,
       operation: 'getGrantedPermissions',
-      phase: 'entry',
       message: 'Getting granted permissions',
     );
 
@@ -365,7 +355,6 @@ final class HealthConnector {
         HealthConnectorLogger.error(
           tag,
           operation: 'getGrantedPermissions',
-          phase: 'failed',
           message: 'getGrantedPermissions is only available on Health Connect',
           context: {'current_health_platform': _healthPlatform.name},
         );
@@ -382,7 +371,6 @@ final class HealthConnector {
           HealthConnectorLogger.info(
             tag,
             operation: 'getGrantedPermissions',
-            phase: 'succeeded',
             message: 'Granted permissions retrieved',
             context: {'permissions': permissions},
           );
@@ -392,7 +380,6 @@ final class HealthConnector {
           HealthConnectorLogger.error(
             tag,
             operation: 'getGrantedPermissions',
-            phase: 'failed',
             message: 'Failed to get granted permissions',
             exception: e,
             stackTrace: st,
@@ -434,7 +421,6 @@ final class HealthConnector {
     HealthConnectorLogger.debug(
       tag,
       operation: 'revokeAllPermissions',
-      phase: 'entry',
       message: 'Revoking all permissions',
     );
 
@@ -443,7 +429,6 @@ final class HealthConnector {
         HealthConnectorLogger.error(
           tag,
           operation: 'revokeAllPermissions',
-          phase: 'failed',
           message: 'revokeAllPermissions is only available on Health Connect',
           context: {'current_health_platform': _healthPlatform.name},
         );
@@ -460,14 +445,12 @@ final class HealthConnector {
           HealthConnectorLogger.info(
             tag,
             operation: 'revokeAllPermissions',
-            phase: 'succeeded',
             message: 'All permissions revoked successfully',
           );
         } catch (e, st) {
           HealthConnectorLogger.error(
             tag,
             operation: 'revokeAllPermissions',
-            phase: 'failed',
             message: 'Failed to revoke all permissions',
             exception: e,
             stackTrace: st,
@@ -529,7 +512,6 @@ final class HealthConnector {
     HealthConnectorLogger.debug(
       tag,
       operation: 'getFeatureStatus',
-      phase: 'entry',
       message: 'Checking feature status',
       context: {'feature': feature.toString()},
     );
@@ -539,7 +521,6 @@ final class HealthConnector {
         HealthConnectorLogger.info(
           tag,
           operation: 'getFeatureStatus',
-          phase: 'succeeded',
           message: 'Feature status retrieved',
           context: {'feature': feature.toString(), 'status': 'available'},
         );
@@ -553,7 +534,6 @@ final class HealthConnector {
           HealthConnectorLogger.info(
             tag,
             operation: 'getFeatureStatus',
-            phase: 'succeeded',
             message: 'Feature status retrieved',
             context: {
               'feature': feature.toString(),
@@ -566,7 +546,6 @@ final class HealthConnector {
           HealthConnectorLogger.error(
             tag,
             operation: 'getFeatureStatus',
-            phase: 'failed',
             message: 'Failed to get feature status',
             context: {'feature': feature.toString()},
             exception: e,
@@ -615,7 +594,6 @@ final class HealthConnector {
     HealthConnectorLogger.debug(
       tag,
       operation: 'readRecord',
-      phase: 'entry',
       message: 'Reading health record',
       context: {'request': request},
     );
@@ -627,7 +605,6 @@ final class HealthConnector {
         HealthConnectorLogger.info(
           tag,
           operation: 'readRecord',
-          phase: 'succeeded',
           message: 'Health record read successfully',
           context: {'request': request, 'response': record},
         );
@@ -635,7 +612,6 @@ final class HealthConnector {
         HealthConnectorLogger.info(
           tag,
           operation: 'readRecord',
-          phase: 'succeeded',
           message: 'Health record not found',
           context: {'request': request, 'response': null},
         );
@@ -646,7 +622,6 @@ final class HealthConnector {
       HealthConnectorLogger.error(
         tag,
         operation: 'readRecord',
-        phase: 'failed',
         message: 'Failed to read health record',
         context: {'request': request},
         exception: e,
@@ -704,7 +679,6 @@ final class HealthConnector {
     HealthConnectorLogger.debug(
       tag,
       operation: 'readRecords',
-      phase: 'entry',
       message: 'Reading health records',
       context: {'request': request},
     );
@@ -715,7 +689,6 @@ final class HealthConnector {
       HealthConnectorLogger.info(
         tag,
         operation: 'readRecords',
-        phase: 'succeeded',
         message: 'Health records read successfully',
         context: {'request': request, 'response': response},
       );
@@ -725,7 +698,6 @@ final class HealthConnector {
       HealthConnectorLogger.error(
         tag,
         operation: 'readRecords',
-        phase: 'failed',
         message: 'Failed to read health records',
         context: {'request': request},
         exception: e,
@@ -780,7 +752,6 @@ final class HealthConnector {
     HealthConnectorLogger.debug(
       tag,
       operation: 'writeRecord',
-      phase: 'entry',
       message: 'Writing health record',
       context: {'record': record},
     );
@@ -796,7 +767,6 @@ final class HealthConnector {
       HealthConnectorLogger.info(
         tag,
         operation: 'writeRecord',
-        phase: 'succeeded',
         message: 'Health record written successfully',
         context: {'record': record, 'assignedRecordId': recordId},
       );
@@ -806,7 +776,6 @@ final class HealthConnector {
       HealthConnectorLogger.error(
         tag,
         operation: 'writeRecord',
-        phase: 'failed',
         message: 'Validation failed',
         context: {'record': record},
         exception: e,
@@ -821,7 +790,6 @@ final class HealthConnector {
       HealthConnectorLogger.error(
         tag,
         operation: 'writeRecord',
-        phase: 'failed',
         message: 'Failed to write health record',
         context: {'record': record},
         exception: e,
@@ -891,7 +859,6 @@ final class HealthConnector {
     HealthConnectorLogger.debug(
       tag,
       operation: 'writeRecords',
-      phase: 'entry',
       message: 'Writing health records',
       context: {'records': records},
     );
@@ -912,7 +879,6 @@ final class HealthConnector {
       HealthConnectorLogger.info(
         tag,
         operation: 'writeRecords',
-        phase: 'succeeded',
         message: 'Health records written successfully',
         context: {'records': records, 'assignedRecordIds': recordIds},
       );
@@ -922,7 +888,6 @@ final class HealthConnector {
       HealthConnectorLogger.error(
         tag,
         operation: 'writeRecords',
-        phase: 'failed',
         message: 'Validation failed',
         context: {'records': records},
         exception: e,
@@ -937,7 +902,6 @@ final class HealthConnector {
       HealthConnectorLogger.error(
         tag,
         operation: 'writeRecords',
-        phase: 'failed',
         message: 'Failed to write health records',
         context: {'records': records},
         exception: e,
@@ -989,7 +953,6 @@ final class HealthConnector {
     HealthConnectorLogger.debug(
       tag,
       operation: 'aggregate',
-      phase: 'entry',
       message: 'Aggregating health data',
       context: {'request': request},
     );
@@ -1000,7 +963,6 @@ final class HealthConnector {
       HealthConnectorLogger.info(
         tag,
         operation: 'aggregate',
-        phase: 'succeeded',
         message: 'Health data aggregated successfully',
         context: {'request': request, 'response': response},
       );
@@ -1010,7 +972,6 @@ final class HealthConnector {
       HealthConnectorLogger.error(
         tag,
         operation: 'aggregate',
-        phase: 'failed',
         message: 'Failed to aggregate health data',
         context: {'request': request},
         exception: e,
@@ -1074,7 +1035,6 @@ final class HealthConnector {
     HealthConnectorLogger.debug(
       tag,
       operation: 'deleteRecords',
-      phase: 'entry',
       message: 'Deleting health records by time range',
       context: {'request': request},
     );
@@ -1091,7 +1051,6 @@ final class HealthConnector {
       HealthConnectorLogger.info(
         tag,
         operation: 'deleteRecords',
-        phase: 'succeeded',
         message: 'Health records deleted successfully',
         context: {'request': request},
       );
@@ -1099,7 +1058,6 @@ final class HealthConnector {
       HealthConnectorLogger.error(
         tag,
         operation: 'deleteRecords',
-        phase: 'failed',
         message: 'Failed to delete health records',
         context: {'request': request},
         exception: e,
@@ -1165,7 +1123,6 @@ final class HealthConnector {
     HealthConnectorLogger.debug(
       tag,
       operation: 'deleteRecordsByIds',
-      phase: 'entry',
       message: 'Deleting health records by IDs',
       context: {'request': request},
     );
@@ -1185,7 +1142,6 @@ final class HealthConnector {
       HealthConnectorLogger.info(
         tag,
         operation: 'deleteRecordsByIds',
-        phase: 'succeeded',
         message: 'Health records deleted successfully',
         context: {'request': request},
       );
@@ -1193,7 +1149,6 @@ final class HealthConnector {
       HealthConnectorLogger.error(
         tag,
         operation: 'deleteRecordsByIds',
-        phase: 'failed',
         message: 'Validation failed',
         context: {'request': request},
         exception: e,
@@ -1208,7 +1163,6 @@ final class HealthConnector {
       HealthConnectorLogger.error(
         tag,
         operation: 'deleteRecordsByIds',
-        phase: 'failed',
         message: 'Failed to delete health records by IDs',
         context: {'request': request},
         exception: e,
@@ -1283,7 +1237,6 @@ final class HealthConnector {
     HealthConnectorLogger.debug(
       tag,
       operation: 'updateRecord',
-      phase: 'entry',
       message: 'Updating health record',
       context: {'record': record},
     );
@@ -1299,7 +1252,6 @@ final class HealthConnector {
       HealthConnectorLogger.info(
         tag,
         operation: 'updateRecord',
-        phase: 'succeeded',
         message: 'Health record updated successfully',
         context: {'record': record},
       );
@@ -1309,7 +1261,6 @@ final class HealthConnector {
       HealthConnectorLogger.warning(
         tag,
         operation: 'updateRecord',
-        phase: 'failed',
         message: 'Validation failed',
         context: {'record': record},
         exception: e,
@@ -1324,7 +1275,6 @@ final class HealthConnector {
       HealthConnectorLogger.error(
         tag,
         operation: 'updateRecord',
-        phase: 'failed',
         message: 'Failed to update health record',
         context: {'record': record},
         exception: e,

@@ -20,7 +20,6 @@ void main() {
         expect(result, contains('operation: readRecords'));
         expect(result, startsWith('{'));
         expect(result, endsWith('\n}'));
-        expect(result, isNot(contains('phase:')));
         expect(result, isNot(contains('message:')));
         expect(result, isNot(contains('exception:')));
         expect(result, isNot(contains('context:')));
@@ -86,42 +85,6 @@ void main() {
           loggedDateTime.isBefore(after.add(const Duration(seconds: 1))),
           isTrue,
         );
-      });
-    });
-
-    group('optional phase parameter', () {
-      test('includes phase field when provided', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
-          operation: 'readRecords',
-          phase: 'entry',
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('phase: entry'));
-        expect(result, contains('operation: readRecords'));
-      });
-
-      test('omits phase field when null', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
-          operation: 'readRecords',
-          dateTime: testDateTime,
-        );
-
-        expect(result, isNot(contains('phase:')));
-        expect(result, contains('operation: readRecords'));
-      });
-
-      test('handles phase with special characters', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
-          operation: 'test',
-          phase: 'phase with spaces and-special-chars',
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('phase: phase with spaces and-special-chars'));
       });
     });
 
@@ -456,7 +419,6 @@ void main() {
           level: LogLevel.info,
           operation: 'readRecords',
           dateTime: testDateTime,
-          phase: 'completed',
           message: 'Successfully read records',
           context: context,
           exception: exception,
@@ -466,7 +428,6 @@ void main() {
         // Verify all fields are present
         expect(result, contains('datetime: 15-03-2024 10:30:45.123'));
         expect(result, contains('operation: readRecords'));
-        expect(result, contains('phase: completed'));
         expect(result, contains('message: Successfully read records'));
         expect(result, contains('exception: {'));
         expect(result, contains('cause: $exception'));

@@ -43,7 +43,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         HealthConnectorLogger.debug(
             tag: HealthConnectorHkIosPlugin.tag,
             operation: "create",
-            phase: "entry",
             message: "Creating HealthConnectorClient...",
             context: ["isLoggerEnabled": String(config.isLoggerEnabled)]
         )
@@ -59,7 +58,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
             HealthConnectorLogger.debug(
                 tag: HealthConnectorHkIosPlugin.tag,
                 operation: "create",
-                phase: "succeeded",
                 message: "HealthConnector initialized successfully",
                 context: ["isLoggerEnabled": String(config.isLoggerEnabled)]
             )
@@ -69,7 +67,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
             HealthConnectorLogger.error(
                 tag: HealthConnectorHkIosPlugin.tag,
                 operation: "create",
-                phase: "failed",
                 message: "Failed to create HealthConnectorClient",
                 exception: error
             )
@@ -116,7 +113,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "requestPermissions",
-                    phase: "failed",
                     message: "Failed to request Health Connect permissions",
                     context: [
                         "error_code": String(describing: error.code),
@@ -129,7 +125,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "requestPermissions",
-                    phase: "failed",
                     message: "Failed to request Health Connect permissions",
                     exception: error
                 )
@@ -162,7 +157,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "readRecord",
-                    phase: "failed",
                     message: "Failed to read Health Connect record",
                     context: [
                         "error_code": String(describing: error.code),
@@ -175,7 +169,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "readRecord",
-                    phase: "failed",
                     message: "Failed to read Health Connect record",
                     exception: error
                 )
@@ -208,7 +201,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "readRecords",
-                    phase: "failed",
                     message: "Failed to read Health Connect records",
                     context: [
                         "error_code": String(describing: error.code),
@@ -221,7 +213,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "readRecords",
-                    phase: "failed",
                     message: "Failed to read Health Connect records",
                     exception: error
                 )
@@ -254,7 +245,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "writeRecord",
-                    phase: "failed",
                     message: "Failed to write Health Connect record",
                     context: [
                         "error_code": String(describing: error.code),
@@ -267,7 +257,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "writeRecord",
-                    phase: "failed",
                     message: "Failed to write Health Connect record",
                     exception: error
                 )
@@ -300,7 +289,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "writeRecords",
-                    phase: "failed",
                     message: "Failed to write Health Connect records",
                     context: [
                         "error_code": String(describing: error.code),
@@ -313,7 +301,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "writeRecords",
-                    phase: "failed",
+
                     message: "Failed to write Health Connect records",
                     exception: error
                 )
@@ -346,7 +334,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "updateRecord",
-                    phase: "failed",
+
                     message: "Failed to update Health Connect record",
                     context: [
                         "error_code": String(describing: error.code),
@@ -359,7 +347,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "updateRecord",
-                    phase: "failed",
+
                     message: "Failed to update Health Connect record",
                     exception: error
                 )
@@ -392,7 +380,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "aggregate",
-                    phase: "failed",
+
                     message: "Failed to aggregate Health Connect data",
                     context: [
                         "error_code": String(describing: error.code),
@@ -405,7 +393,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "aggregate",
-                    phase: "failed",
+
                     message: "Failed to aggregate Health Connect data",
                     exception: error
                 )
@@ -440,7 +428,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "deleteRecordsByIds",
-                    phase: "failed",
+
                     message: "Failed to delete Health Connect records by IDs",
                     context: [
                         "error_code": String(describing: error.code),
@@ -453,7 +441,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "deleteRecordsByIds",
-                    phase: "failed",
+
                     message: "Failed to delete Health Connect records by IDs",
                     exception: error
                 )
@@ -486,7 +474,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "deleteRecordsByTimeRange",
-                    phase: "failed",
+
                     message: "Failed to delete Health Connect records by time range",
                     context: [
                         "error_code": String(describing: error.code),
@@ -499,7 +487,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "deleteRecordsByTimeRange",
-                    phase: "failed",
+
                     message: "Failed to delete Health Connect records by time range",
                     exception: error
                 )

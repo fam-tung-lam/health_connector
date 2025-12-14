@@ -26,11 +26,6 @@ import 'package:meta/meta.dart';
 /// - [tag]: A category identifier for the log (e.g., 'API', 'DATABASE')
 /// - [operation]: The operation being logged (e.g., 'readRecords')
 /// - [dateTime]: The timestamp when the log was created
-/// - [phase]: Optional operation phase (e.g., 'entry', 'completed')
-/// - [message]: Optional descriptive message
-/// - [context]: Optional contextual data as key-value pairs
-/// - [exception]: Optional exception object if an error occurred
-/// - [stackTrace]: Optional stack trace associated with an exception
 /// - [structuredMessage]: The formatted structured message output
 @immutable
 class HealthConnectorLog {
@@ -50,11 +45,6 @@ class HealthConnectorLog {
 
   /// The timestamp when this log was created.
   final DateTime dateTime;
-
-  /// Optional phase of the operation.
-  ///
-  /// Examples: 'entry', 'exit', 'succeeded', 'failed'.
-  final String? phase;
 
   /// Optional descriptive message.
   final String? message;
@@ -83,8 +73,8 @@ class HealthConnectorLog {
     required this.operation,
     required this.dateTime,
     required this.structuredMessage,
-    this.phase,
     this.message,
+
     this.context,
     this.exception,
     this.stackTrace,
@@ -99,7 +89,6 @@ class HealthConnectorLog {
           tag == other.tag &&
           operation == other.operation &&
           dateTime == other.dateTime &&
-          phase == other.phase &&
           message == other.message &&
           _mapEquals(context, other.context) &&
           exception == other.exception &&
@@ -112,7 +101,6 @@ class HealthConnectorLog {
       tag.hashCode ^
       operation.hashCode ^
       dateTime.hashCode ^
-      phase.hashCode ^
       message.hashCode ^
       _mapHashCode(context) ^
       exception.hashCode ^
@@ -126,7 +114,6 @@ class HealthConnectorLog {
       'tag: $tag, '
       'operation: $operation, '
       'dateTime: $dateTime, '
-      'phase: $phase, '
       'message: $message, '
       'context: $context, '
       'exception: $exception, '
