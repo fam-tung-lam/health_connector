@@ -2425,9 +2425,27 @@ class UpdateRecordResponseDto {
 
 // endregion
 
+/// Configuration data transfer object for Health Connector.
+///
+/// Contains configuration settings that are passed from Dart to native
+/// platform code during client initialization.
+class HealthConnectorConfigDto {
+  HealthConnectorConfigDto({required this.isLoggerEnabled});
+
+  /// Whether logging is enabled for the Health Connector.
+  final bool isLoggerEnabled;
+}
+
 /// The main API for communicating with the health platform.
 @HostApi()
 abstract class HealthConnectorPlatformApi {
+  /// Initializes the Health Connector client with the provided configuration.
+  ///
+  /// This method must be called before any other Health Connector operations
+  /// to properly configure the native platform code, including logger settings.
+  @async
+  void initialize(HealthConnectorConfigDto config);
+
   @async
   AggregateResponseDto aggregate(AggregateRequestDto request);
 

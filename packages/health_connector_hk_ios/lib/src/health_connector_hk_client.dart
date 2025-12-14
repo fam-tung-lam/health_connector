@@ -3,6 +3,7 @@ import 'package:health_connector_core/health_connector_core.dart'
     show
         AggregateRequest,
         AggregateResponse,
+        HealthConnectorConfig,
         HealthConnectorException,
         HealthConnectorPlatformClient,
         HealthDataType,
@@ -21,6 +22,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         PermissionListExtension,
         sinceV1_0_0,
         internalUse;
+import 'package:health_connector_hk_ios/src/mappers/config_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_connector_error_code_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mapper.dart';
@@ -34,8 +36,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api
         DeleteRecordsByTimeRangeRequestDto,
         HealthConnectorPlatformApi,
         HealthPlatformStatusDto;
-import 'package:health_connector_logger/health_connector_logger.dart'
-    show HealthConnectorLogger;
+import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart' show immutable;
 
 /// Platform client that communicates with native iOS HealthKit code.
@@ -46,18 +47,35 @@ import 'package:meta/meta.dart' show immutable;
 @internalUse
 @immutable
 final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
-  const HealthConnectorHKClient();
-
-  static const String _tag = 'HealthConnectorHKClient';
+  const HealthConnectorHKClient._();
 
   /// The Pigeon-generated platform API client for native communication.
   static final HealthConnectorPlatformApi _platformClient =
       HealthConnectorPlatformApi();
 
+  /// Creates a new [HealthConnectorHKClient] instance with the given config.
+  ///
+  /// This factory method initializes the native iOS HealthKit platform code
+  /// with the provided configuration before returning the client instance.
+  ///
+  /// ## Parameters
+  ///
+  /// - [config]: The configuration to use for initializing the client.
+  ///
+  /// ## Returns
+  ///
+  /// A configured [HealthConnectorHKClient] instance ready for use.
+  static Future<HealthConnectorHKClient> create([
+    HealthConnectorConfig config = const HealthConnectorConfig(),
+  ]) async {
+    await _platformClient.initialize(config.toDto());
+    return const HealthConnectorHKClient._();
+  }
+
   @override
   Future<HealthPlatformStatus> getHealthPlatformStatus() async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'getHealthPlatformStatus',
       phase: 'entry',
       message: 'Checking HealthKit platform status',
@@ -73,7 +91,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       };
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'getHealthPlatformStatus',
         phase: 'succeeded',
         message: 'HealthKit platform status retrieved',
@@ -85,7 +103,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       return status;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'getHealthPlatformStatus',
         phase: 'failed',
         message: 'Failed to get HealthKit platform status',
@@ -118,7 +136,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     final featureCount = featurePermissions.length;
 
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'requestPermissions',
       phase: 'entry',
       message: 'Requesting HealthKit permissions',
@@ -132,7 +150,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
 
     if (permissions.isEmpty) {
       HealthConnectorLogger.warning(
-        _tag,
+        tag,
         operation: 'requestPermissions',
         phase: 'succeeded',
         message: 'No permissions to request (empty list)',
@@ -156,7 +174,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         results.addAll(healthDataResults);
       } on PlatformException catch (e, st) {
         HealthConnectorLogger.error(
-          _tag,
+          tag,
           operation: 'requestPermissions',
           phase: 'failed',
           message: 'Failed to request HealthKit permissions',
@@ -198,7 +216,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         grantedPermissions.healthDataPermissions;
 
     HealthConnectorLogger.info(
-      _tag,
+      tag,
       operation: 'requestPermissions',
       phase: 'succeeded',
       message: 'HealthKit permissions requested successfully',
@@ -217,7 +235,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     ReadRecordRequest<R> request,
   ) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'readRecord',
       phase: 'entry',
       message: 'Reading HealthKit record',
@@ -231,7 +249,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
 
       if (responseDto == null) {
         HealthConnectorLogger.info(
-          _tag,
+          tag,
           operation: 'readRecord',
           phase: 'succeeded',
           message: 'HealthKit record not found',
@@ -244,7 +262,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       final record = responseDto.record?.toDomain() as R?;
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'readRecord',
         phase: 'succeeded',
         message: 'HealthKit record read successfully',
@@ -254,7 +272,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       return record;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'readRecord',
         phase: 'failed',
         message: 'Failed to read HealthKit record',
@@ -277,7 +295,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     ReadRecordsRequest<R> request,
   ) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'readRecords',
       phase: 'entry',
       message: 'Reading HealthKit records',
@@ -292,7 +310,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       final response = responseDto.toDomain<R>(request);
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'readRecords',
         phase: 'succeeded',
         message: 'HealthKit records read successfully',
@@ -302,7 +320,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       return response;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'readRecords',
         phase: 'failed',
         message: 'Failed to read HealthKit records',
@@ -323,7 +341,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   @override
   Future<HealthRecordId> writeRecord<R extends HealthRecord>(R record) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'writeRecord',
       phase: 'entry',
       message: 'Writing HealthKit record',
@@ -338,7 +356,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       final assignedRecordId = responseDto.recordId.toDomain();
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'writeRecord',
         phase: 'succeeded',
         message: 'HealthKit record written successfully',
@@ -348,7 +366,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       return assignedRecordId;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'writeRecord',
         phase: 'failed',
         message: 'Failed to write HealthKit record',
@@ -371,7 +389,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     List<R> records,
   ) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'writeRecords',
       phase: 'entry',
       message: 'Writing HealthKit records',
@@ -380,7 +398,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
 
     if (records.isEmpty) {
       HealthConnectorLogger.warning(
-        _tag,
+        tag,
         operation: 'writeRecords',
         phase: 'succeeded',
         message: 'No records to write (empty list)',
@@ -399,7 +417,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
           .toList();
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'writeRecords',
         phase: 'succeeded',
         message: 'HealthKit records written successfully',
@@ -409,7 +427,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       return recordIds;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'writeRecords',
         phase: 'failed',
         message: 'Failed to write HealthKit records',
@@ -430,7 +448,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   @override
   Future<HealthRecordId> updateRecord<R extends HealthRecord>(R record) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'updateRecord',
       phase: 'entry',
       message: 'Updating HealthKit record',
@@ -445,7 +463,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       final updatedRecordId = responseDto.recordId.toDomain();
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'updateRecord',
         phase: 'succeeded',
         message: 'HealthKit record updated successfully',
@@ -455,7 +473,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       return updatedRecordId;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'updateRecord',
         phase: 'failed',
         message: 'Failed to update HealthKit record',
@@ -479,7 +497,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     U extends MeasurementUnit
   >(AggregateRequest<R, U> request) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'aggregate',
       phase: 'entry',
       message: 'Aggregating HealthKit data',
@@ -494,7 +512,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       final response = responseDto.toDomain<R, U>(request.dataType);
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'aggregate',
         phase: 'succeeded',
         message: 'HealthKit data aggregated successfully',
@@ -504,7 +522,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       return response;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'aggregate',
         phase: 'failed',
         message: 'Failed to aggregate HealthKit data',
@@ -534,7 +552,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     };
 
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'deleteRecords',
       phase: 'entry',
       message: 'Deleting HealthKit records by time range',
@@ -551,7 +569,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       await _platformClient.deleteRecordsByTimeRange(requestDto);
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'deleteRecords',
         phase: 'succeeded',
         message: 'HealthKit records deleted successfully',
@@ -559,7 +577,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       );
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'deleteRecords',
         phase: 'failed',
         message: 'Failed to delete HealthKit records',
@@ -588,7 +606,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     };
 
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'deleteRecordsByIds',
       phase: 'entry',
       message: 'Deleting HealthKit records by IDs',
@@ -597,7 +615,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
 
     if (recordIds.isEmpty) {
       HealthConnectorLogger.warning(
-        _tag,
+        tag,
         operation: 'deleteRecordsByIds',
         phase: 'succeeded',
         message: 'No records to delete (empty IDs list)',
@@ -615,7 +633,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       await _platformClient.deleteRecordsByIds(requestDto);
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'deleteRecordsByIds',
         phase: 'succeeded',
         message: 'HealthKit records deleted successfully',
@@ -623,7 +641,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       );
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'deleteRecordsByIds',
         phase: 'failed',
         message: 'Failed to delete HealthKit records by IDs',

@@ -1,10 +1,10 @@
 import 'dart:io' show Platform;
 
-import 'package:health_connector/src/health_connector_config.dart';
 import 'package:health_connector_core/health_connector_core.dart'
     show
         AggregateRequest,
         AggregateResponse,
+        HealthConnectorConfig,
         HealthConnectorException,
         HealthConnectorErrorCode,
         HealthConnectorPlatformClient,
@@ -32,8 +32,9 @@ import 'package:health_connector_core/health_connector_core.dart'
         ExperimentalOn;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
-import 'package:health_connector_logger/health_connector_logger.dart'
-    show HealthConnectorLogger;
+import 'package:health_connector_hk_ios/health_connector_hk_ios.dart'
+    show HealthConnectorHKClient;
+import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart' show immutable;
 
 /// Main entry point for interacting with platform-specific health APIs.
@@ -53,6 +54,7 @@ final class HealthConnector {
   }) : _healthPlatform = healthPlatform,
        _client = healthPlatformClient;
 
+  /// The tag used for logging in static methods.
   static const String _tag = 'HealthConnector';
 
   /// Creates a new [HealthConnector] instance.
@@ -75,7 +77,9 @@ final class HealthConnector {
   /// ## See
   ///
   /// - [HealthConnector.getHealthPlatformStatus]
-  static Future<HealthConnector> create(HealthConnectorConfig config) async {
+  static Future<HealthConnector> create([
+    HealthConnectorConfig config = const HealthConnectorConfig(),
+  ]) async {
     HealthConnectorLogger.isEnabled = config.isLoggerEnabled;
 
     final healthPlatform = Platform.isIOS
@@ -120,8 +124,12 @@ final class HealthConnector {
         );
 
         final healthPlatformClient = switch (healthPlatform) {
-          HealthPlatform.appleHealth => config.healthKitClient,
-          HealthPlatform.healthConnect => config.healthConnectClient,
+          HealthPlatform.appleHealth => await HealthConnectorHKClient.create(
+            config,
+          ),
+          HealthPlatform.healthConnect => await HealthConnectorHCClient.create(
+            config,
+          ),
         };
 
         return HealthConnector._(
@@ -162,7 +170,7 @@ final class HealthConnector {
   /// final status = await HealthConnector.getHealthPlatformStatus();
   /// switch (status) {
   ///   case HealthPlatformStatus.available:
-  ///     final connector = await HealthConnector.create(config);
+  ///     final connector = await HealthConnector.create();
   ///     // Proceed with health data operations
   ///   case HealthPlatformStatus.installationOrUpdateRequired:
   ///     // Show dialog prompting user to install/update health platform
@@ -183,9 +191,8 @@ final class HealthConnector {
           ? HealthPlatform.appleHealth
           : HealthPlatform.healthConnect;
       final healthPlatformClient = switch (healthPlatform) {
-        HealthPlatform.appleHealth => HealthConnectorConfig().healthKitClient,
-        HealthPlatform.healthConnect =>
-          HealthConnectorConfig().healthConnectClient,
+        HealthPlatform.appleHealth => await HealthConnectorHKClient.create(),
+        HealthPlatform.healthConnect => await HealthConnectorHCClient.create(),
       };
 
       final status = await healthPlatformClient.getHealthPlatformStatus();
@@ -229,7 +236,7 @@ final class HealthConnector {
   /// ## Example
   ///
   /// ```dart
-  /// final connector = await HealthConnector.create(config);
+  /// final connector = await HealthConnector.create();
   ///
   /// // Request multiple permissions
   /// final permissions = [
@@ -263,7 +270,7 @@ final class HealthConnector {
     List<Permission> permissions,
   ) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'requestPermissions',
       phase: 'entry',
       message: 'Requesting permissions',
@@ -278,7 +285,7 @@ final class HealthConnector {
       final results = await _client.requestPermissions(permissions);
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'requestPermissions',
         phase: 'succeeded',
         message: 'Permissions requested successfully',
@@ -288,7 +295,7 @@ final class HealthConnector {
       return results;
     } on HealthConnectorException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'requestPermissions',
         phase: 'failed',
         message: 'Failed to request permissions',
@@ -322,7 +329,7 @@ final class HealthConnector {
   /// ## Example
   ///
   /// ```dart
-  /// final connector = await HealthConnector.create(config);
+  /// final connector = await HealthConnector.create();
   ///
   /// try {
   ///   final grantedPermissions = await connector.getGrantedPermissions();
@@ -347,7 +354,7 @@ final class HealthConnector {
   @supportedOnHealthConnect
   Future<List<Permission>> getGrantedPermissions() async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'getGrantedPermissions',
       phase: 'entry',
       message: 'Getting granted permissions',
@@ -356,7 +363,7 @@ final class HealthConnector {
     switch (_healthPlatform) {
       case HealthPlatform.appleHealth:
         HealthConnectorLogger.error(
-          _tag,
+          tag,
           operation: 'getGrantedPermissions',
           phase: 'failed',
           message: 'getGrantedPermissions is only available on Health Connect',
@@ -373,7 +380,7 @@ final class HealthConnector {
           final permissions = await hcClient.getGrantedPermissions();
 
           HealthConnectorLogger.info(
-            _tag,
+            tag,
             operation: 'getGrantedPermissions',
             phase: 'succeeded',
             message: 'Granted permissions retrieved',
@@ -383,7 +390,7 @@ final class HealthConnector {
           return permissions;
         } catch (e, st) {
           HealthConnectorLogger.error(
-            _tag,
+            tag,
             operation: 'getGrantedPermissions',
             phase: 'failed',
             message: 'Failed to get granted permissions',
@@ -408,7 +415,7 @@ final class HealthConnector {
   /// ## Example
   ///
   /// ```dart
-  /// final connector = await HealthConnector.create(config);
+  /// final connector = await HealthConnector.create();
   ///
   /// try {
   ///   await connector.revokeAllPermissions();
@@ -425,7 +432,7 @@ final class HealthConnector {
   @supportedOnHealthConnect
   Future<void> revokeAllPermissions() async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'revokeAllPermissions',
       phase: 'entry',
       message: 'Revoking all permissions',
@@ -434,7 +441,7 @@ final class HealthConnector {
     switch (_healthPlatform) {
       case HealthPlatform.appleHealth:
         HealthConnectorLogger.error(
-          _tag,
+          tag,
           operation: 'revokeAllPermissions',
           phase: 'failed',
           message: 'revokeAllPermissions is only available on Health Connect',
@@ -451,14 +458,14 @@ final class HealthConnector {
           await hcClient.revokeAllPermissions();
 
           HealthConnectorLogger.info(
-            _tag,
+            tag,
             operation: 'revokeAllPermissions',
             phase: 'succeeded',
             message: 'All permissions revoked successfully',
           );
         } catch (e, st) {
           HealthConnectorLogger.error(
-            _tag,
+            tag,
             operation: 'revokeAllPermissions',
             phase: 'failed',
             message: 'Failed to revoke all permissions',
@@ -494,7 +501,7 @@ final class HealthConnector {
   /// ## Example
   ///
   /// ```dart
-  /// final connector = await HealthConnector.create(config);
+  /// final connector = await HealthConnector.create();
   /// final status = await connector.getFeatureStatus(
   ///                 HealthPlatformFeature.readHealthDataInBackground,
   ///               );
@@ -520,7 +527,7 @@ final class HealthConnector {
     HealthPlatformFeature feature,
   ) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'getFeatureStatus',
       phase: 'entry',
       message: 'Checking feature status',
@@ -530,7 +537,7 @@ final class HealthConnector {
     switch (_healthPlatform) {
       case HealthPlatform.appleHealth:
         HealthConnectorLogger.info(
-          _tag,
+          tag,
           operation: 'getFeatureStatus',
           phase: 'succeeded',
           message: 'Feature status retrieved',
@@ -544,7 +551,7 @@ final class HealthConnector {
           final status = await hcClient.getFeatureStatus(feature);
 
           HealthConnectorLogger.info(
-            _tag,
+            tag,
             operation: 'getFeatureStatus',
             phase: 'succeeded',
             message: 'Feature status retrieved',
@@ -557,7 +564,7 @@ final class HealthConnector {
           return status;
         } catch (e, st) {
           HealthConnectorLogger.error(
-            _tag,
+            tag,
             operation: 'getFeatureStatus',
             phase: 'failed',
             message: 'Failed to get feature status',
@@ -606,7 +613,7 @@ final class HealthConnector {
     ReadRecordRequest<R> request,
   ) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'readRecord',
       phase: 'entry',
       message: 'Reading health record',
@@ -618,7 +625,7 @@ final class HealthConnector {
 
       if (record != null) {
         HealthConnectorLogger.info(
-          _tag,
+          tag,
           operation: 'readRecord',
           phase: 'succeeded',
           message: 'Health record read successfully',
@@ -626,7 +633,7 @@ final class HealthConnector {
         );
       } else {
         HealthConnectorLogger.info(
-          _tag,
+          tag,
           operation: 'readRecord',
           phase: 'succeeded',
           message: 'Health record not found',
@@ -637,7 +644,7 @@ final class HealthConnector {
       return record;
     } catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'readRecord',
         phase: 'failed',
         message: 'Failed to read health record',
@@ -695,7 +702,7 @@ final class HealthConnector {
     ReadRecordsRequest<R> request,
   ) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'readRecords',
       phase: 'entry',
       message: 'Reading health records',
@@ -706,7 +713,7 @@ final class HealthConnector {
       final response = await _client.readRecords(request);
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'readRecords',
         phase: 'succeeded',
         message: 'Health records read successfully',
@@ -716,7 +723,7 @@ final class HealthConnector {
       return response;
     } catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'readRecords',
         phase: 'failed',
         message: 'Failed to read health records',
@@ -771,7 +778,7 @@ final class HealthConnector {
   /// ```
   Future<HealthRecordId> writeRecord<R extends HealthRecord>(R record) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'writeRecord',
       phase: 'entry',
       message: 'Writing health record',
@@ -787,7 +794,7 @@ final class HealthConnector {
       final recordId = await _client.writeRecord(record);
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'writeRecord',
         phase: 'succeeded',
         message: 'Health record written successfully',
@@ -797,7 +804,7 @@ final class HealthConnector {
       return recordId;
     } on ArgumentError catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'writeRecord',
         phase: 'failed',
         message: 'Validation failed',
@@ -812,7 +819,7 @@ final class HealthConnector {
       );
     } catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'writeRecord',
         phase: 'failed',
         message: 'Failed to write health record',
@@ -882,7 +889,7 @@ final class HealthConnector {
     List<R> records,
   ) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'writeRecords',
       phase: 'entry',
       message: 'Writing health records',
@@ -903,7 +910,7 @@ final class HealthConnector {
       final recordIds = await _client.writeRecords(records);
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'writeRecords',
         phase: 'succeeded',
         message: 'Health records written successfully',
@@ -913,7 +920,7 @@ final class HealthConnector {
       return recordIds;
     } on ArgumentError catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'writeRecords',
         phase: 'failed',
         message: 'Validation failed',
@@ -928,7 +935,7 @@ final class HealthConnector {
       );
     } on HealthConnectorException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'writeRecords',
         phase: 'failed',
         message: 'Failed to write health records',
@@ -980,7 +987,7 @@ final class HealthConnector {
     U extends MeasurementUnit
   >(AggregateRequest<R, U> request) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'aggregate',
       phase: 'entry',
       message: 'Aggregating health data',
@@ -991,7 +998,7 @@ final class HealthConnector {
       final response = await _client.aggregate(request);
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'aggregate',
         phase: 'succeeded',
         message: 'Health data aggregated successfully',
@@ -1001,7 +1008,7 @@ final class HealthConnector {
       return response;
     } catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'aggregate',
         phase: 'failed',
         message: 'Failed to aggregate health data',
@@ -1065,7 +1072,7 @@ final class HealthConnector {
     };
 
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'deleteRecords',
       phase: 'entry',
       message: 'Deleting health records by time range',
@@ -1082,7 +1089,7 @@ final class HealthConnector {
       );
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'deleteRecords',
         phase: 'succeeded',
         message: 'Health records deleted successfully',
@@ -1090,7 +1097,7 @@ final class HealthConnector {
       );
     } on HealthConnectorException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'deleteRecords',
         phase: 'failed',
         message: 'Failed to delete health records',
@@ -1156,7 +1163,7 @@ final class HealthConnector {
     };
 
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'deleteRecordsByIds',
       phase: 'entry',
       message: 'Deleting health records by IDs',
@@ -1176,7 +1183,7 @@ final class HealthConnector {
       );
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'deleteRecordsByIds',
         phase: 'succeeded',
         message: 'Health records deleted successfully',
@@ -1184,7 +1191,7 @@ final class HealthConnector {
       );
     } on ArgumentError catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'deleteRecordsByIds',
         phase: 'failed',
         message: 'Validation failed',
@@ -1199,7 +1206,7 @@ final class HealthConnector {
       );
     } on HealthConnectorException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'deleteRecordsByIds',
         phase: 'failed',
         message: 'Failed to delete health records by IDs',
@@ -1274,7 +1281,7 @@ final class HealthConnector {
   })
   Future<HealthRecordId> updateRecord<R extends HealthRecord>(R record) async {
     HealthConnectorLogger.debug(
-      _tag,
+      tag,
       operation: 'updateRecord',
       phase: 'entry',
       message: 'Updating health record',
@@ -1290,7 +1297,7 @@ final class HealthConnector {
       final recordId = await _client.updateRecord(record);
 
       HealthConnectorLogger.info(
-        _tag,
+        tag,
         operation: 'updateRecord',
         phase: 'succeeded',
         message: 'Health record updated successfully',
@@ -1300,7 +1307,7 @@ final class HealthConnector {
       return recordId;
     } on ArgumentError catch (e, st) {
       HealthConnectorLogger.warning(
-        _tag,
+        tag,
         operation: 'updateRecord',
         phase: 'failed',
         message: 'Validation failed',
@@ -1315,7 +1322,7 @@ final class HealthConnector {
       );
     } on HealthConnectorException catch (e, st) {
       HealthConnectorLogger.error(
-        _tag,
+        tag,
         operation: 'updateRecord',
         phase: 'failed',
         message: 'Failed to update health record',

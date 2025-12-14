@@ -6382,6 +6382,53 @@ class UpdateRecordResponseDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
+/// Configuration data transfer object for Health Connector.
+///
+/// Contains configuration settings that are passed from Dart to native
+/// platform code during client initialization.
+class HealthConnectorConfigDto {
+  HealthConnectorConfigDto({
+    required this.isLoggerEnabled,
+  });
+
+  /// Whether logging is enabled for the Health Connector.
+  bool isLoggerEnabled;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      isLoggerEnabled,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static HealthConnectorConfigDto decode(Object result) {
+    result as List<Object?>;
+    return HealthConnectorConfigDto(
+      isLoggerEnabled: result[0]! as bool,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! HealthConnectorConfigDto ||
+        other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -6725,6 +6772,9 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is UpdateRecordResponseDto) {
       buffer.putUint8(240);
       writeValue(buffer, value.encode());
+    } else if (value is HealthConnectorConfigDto) {
+      buffer.putUint8(241);
+      writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
     }
@@ -6986,6 +7036,8 @@ class _PigeonCodec extends StandardMessageCodec {
         return UpdateRecordRequestDto.decode(readValue(buffer)!);
       case 240:
         return UpdateRecordResponseDto.decode(readValue(buffer)!);
+      case 241:
+        return HealthConnectorConfigDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -7009,6 +7061,37 @@ class HealthConnectorPlatformApi {
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
   final String pigeonVar_messageChannelSuffix;
+
+  /// Initializes the Health Connector client with the provided configuration.
+  ///
+  /// This method must be called before any other Health Connector operations
+  /// to properly configure the native platform code, including logger settings.
+  Future<void> initialize(HealthConnectorConfigDto config) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.initialize$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[config],
+    );
+    final List<Object?>? pigeonVar_replyList =
+        await pigeonVar_sendFuture as List<Object?>?;
+    if (pigeonVar_replyList == null) {
+      throw _createConnectionError(pigeonVar_channelName);
+    } else if (pigeonVar_replyList.length > 1) {
+      throw PlatformException(
+        code: pigeonVar_replyList[0]! as String,
+        message: pigeonVar_replyList[1] as String?,
+        details: pigeonVar_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
 
   Future<AggregateResponseDto> aggregate(AggregateRequestDto request) async {
     final String pigeonVar_channelName =

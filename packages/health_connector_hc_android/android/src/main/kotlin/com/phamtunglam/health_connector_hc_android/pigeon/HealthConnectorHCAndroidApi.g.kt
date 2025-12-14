@@ -3272,6 +3272,42 @@ data class UpdateRecordResponseDto (
 
   override fun hashCode(): Int = toList().hashCode()
 }
+
+/**
+ * Configuration data transfer object for Health Connector.
+ *
+ * Contains configuration settings that are passed from Dart to native
+ * platform code during client initialization.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class HealthConnectorConfigDto (
+  /** Whether logging is enabled for the Health Connector. */
+  val isLoggerEnabled: Boolean
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): HealthConnectorConfigDto {
+      val isLoggerEnabled = pigeonVar_list[0] as Boolean
+      return HealthConnectorConfigDto(isLoggerEnabled)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      isLoggerEnabled,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other !is HealthConnectorConfigDto) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
+
+  override fun hashCode(): Int = toList().hashCode()
+}
 private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec() {
   override fun readValueOfType(type: Byte, buffer: ByteBuffer): Any? {
     return when (type) {
@@ -3705,6 +3741,11 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
           UpdateRecordResponseDto.fromList(it)
         }
       }
+      215.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          HealthConnectorConfigDto.fromList(it)
+        }
+      }
       else -> super.readValueOfType(type, buffer)
     }
   }
@@ -4054,6 +4095,10 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(214)
         writeValue(stream, value.toList())
       }
+      is HealthConnectorConfigDto -> {
+        stream.write(215)
+        writeValue(stream, value.toList())
+      }
       else -> super.writeValue(stream, value)
     }
   }
@@ -4066,6 +4111,13 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
  * Generated interface from Pigeon that represents a handler of messages from Flutter.
  */
 interface HealthConnectorHCAndroidApi {
+  /**
+   * Initializes the Health Connector client with the provided configuration.
+   *
+   * This method must be called before any other Health Connector operations
+   * to properly configure the native platform code, including logger settings.
+   */
+  fun initialize(config: HealthConnectorConfigDto, callback: (Result<Unit>) -> Unit)
   fun aggregate(request: AggregateRequestDto, callback: (Result<AggregateResponseDto>) -> Unit)
   fun deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto, callback: (Result<Unit>) -> Unit)
   fun deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto, callback: (Result<Unit>) -> Unit)
@@ -4089,6 +4141,25 @@ interface HealthConnectorHCAndroidApi {
     @JvmOverloads
     fun setUp(binaryMessenger: BinaryMessenger, api: HealthConnectorHCAndroidApi?, messageChannelSuffix: String = "") {
       val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.initialize$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val configArg = args[0] as HealthConnectorConfigDto
+            api.initialize(configArg) { result: Result<Unit> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
+              } else {
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapResult(null))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
       run {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.aggregate$separatedMessageChannelSuffix", codec)
         if (api != null) {

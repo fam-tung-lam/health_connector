@@ -1,5 +1,7 @@
+import 'dart:async' show Stream, StreamController;
 import 'dart:developer' show log;
 
+import 'package:health_connector_logger/src/health_connector_log.dart';
 import 'package:meta/meta.dart' show internal, visibleForTesting;
 
 /// A singleton logger that wraps the `log` function from `dart:developer`.
@@ -16,6 +18,46 @@ abstract final class HealthConnectorLogger {
   /// When set to `false`, all logging methods will return immediately without
   /// logging any messages. Defaults to `true`.
   static bool isEnabled = true;
+
+  /// Stream controller for broadcasting log events.
+  ///
+  /// Uses a broadcast stream to allow multiple simultaneous subscribers.
+  static final StreamController<HealthConnectorLog> _logsController =
+      StreamController<HealthConnectorLog>.broadcast();
+
+  /// Stream of structured log events.
+  ///
+  /// Subscribe to this stream to receive [HealthConnectorLog] events for all
+  /// logging calls made through this logger. Multiple subscribers are
+  /// supported via a broadcast stream.
+  ///
+  /// Events are only emitted when [isEnabled] is `true`. When logging is
+  /// disabled, no events will be emitted.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// // Subscribe to log events
+  /// final subscription = HealthConnectorLogger.logs.listen((log) {
+  ///   print('[${log.level.name}] ${log.operation}');
+  ///   if (log.exception != null) {
+  ///     // Handle exceptions
+  ///     print('Exception: ${log.exception}');
+  ///   }
+  /// });
+  ///
+  /// // Generate a log
+  /// HealthConnectorLogger.info(
+  ///   'API',
+  ///   operation: 'readRecords',
+  ///   message: 'Successfully read records',
+  ///   context: {'count': 42},
+  /// );
+  ///
+  /// // Clean up when done
+  /// await subscription.cancel();
+  /// ```
+  static Stream<HealthConnectorLog> get logs => _logsController.stream;
 
   /// Base indentation unit (4 spaces).
   static const String _indentation = '    ';
@@ -262,9 +304,19 @@ abstract final class HealthConnectorLogger {
     Object? exception,
     StackTrace? stackTrace,
   }) {
+    // Early exit if logging is disabled
+    if (!isEnabled) {
+      return;
+    }
+
+    // Generate timestamp once for consistency
+    final now = DateTime.now();
+
+    // Format structured message with the timestamp
     final structuredMessage = formatStructuredMessage(
       level: level,
       operation: operation,
+      dateTime: now,
       phase: phase,
       message: message,
       context: context,
@@ -272,8 +324,23 @@ abstract final class HealthConnectorLogger {
       stackTrace: stackTrace,
     );
 
-    final formattedMessage = '[${level.name}]: \n$structuredMessage';
+    // Create and emit log event
+    final logEvent = HealthConnectorLog(
+      level: level,
+      tag: tag,
+      operation: operation,
+      dateTime: now,
+      phase: phase,
+      message: message,
+      context: context,
+      exception: exception,
+      stackTrace: stackTrace,
+      structuredMessage: structuredMessage,
+    );
+    _logsController.add(logEvent);
 
+    // Existing dart:developer.log output
+    final formattedMessage = '[${level.name}]: \n$structuredMessage';
     log(
       formattedMessage,
       name: tag,

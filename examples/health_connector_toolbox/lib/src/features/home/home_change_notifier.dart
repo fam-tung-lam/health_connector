@@ -23,9 +23,7 @@ final class HomeChangeNotifier extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final healthConnector = await HealthConnector.create(
-        HealthConnectorConfig(),
-      );
+      final healthConnector = await HealthConnector.create();
 
       _healthConnector = healthConnector;
     } on HealthConnectorException catch (e) {
