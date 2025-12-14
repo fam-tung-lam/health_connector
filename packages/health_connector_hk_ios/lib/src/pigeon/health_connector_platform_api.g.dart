@@ -29,49 +29,38 @@ PlatformException _createConnectionError(String channelName) {
     message: 'Unable to establish connection on channel: "$channelName".',
   );
 }
-
 bool _deepEquals(Object? a, Object? b) {
   if (a is List && b is List) {
     return a.length == b.length &&
-        a.indexed.every(
-          ((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]),
-        );
+        a.indexed
+        .every(((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]));
   }
   if (a is Map && b is Map) {
-    return a.length == b.length &&
-        a.entries.every(
-          (MapEntry<Object?, Object?> entry) =>
-              (b as Map<Object?, Object?>).containsKey(entry.key) &&
-              _deepEquals(entry.value, b[entry.key]),
-        );
+    return a.length == b.length && a.entries.every((MapEntry<Object?, Object?> entry) =>
+        (b as Map<Object?, Object?>).containsKey(entry.key) &&
+        _deepEquals(entry.value, b[entry.key]));
   }
   return a == b;
 }
+
 
 /// Error codes that native platforms can use when throwing error.
 enum HealthConnectorErrorCodeDto {
   /// Health platform is unavailable on this device.
   healthProviderUnavailable,
-
   /// Invalid platform configuration detected.
   invalidConfiguration,
-
   /// Invalid argument or input validation error.
   invalidArgument,
-
   /// Attempted to use platform APIs that are not supported on
   /// the current health platform.
   unsupportedOperation,
-
   /// Unknown or unspecified error.
   unknown,
-
   /// Security/permission error occurred.
   notAuthorized,
-
   /// A transient I/O or communication error occurred.
   remoteError,
-
   /// User cancelled the operation.
   userCancelled,
 }
@@ -80,7 +69,6 @@ enum HealthConnectorErrorCodeDto {
 enum HealthPlatformStatusDto {
   /// The health platform is available and ready to use.
   available,
-
   /// The health platform is not available on this device.
   notAvailable,
 }
@@ -128,7 +116,6 @@ enum NumericUnitDto {
 enum PercentageUnitDto {
   /// Percentage as a decimal value (0.0 to 1.0).
   decimal,
-
   /// Percentage as a whole number (0 to 100).
   whole,
 }
@@ -137,7 +124,6 @@ enum PercentageUnitDto {
 enum PermissionAccessTypeDto {
   /// Read access to health data.
   read,
-
   /// Write access to health data.
   write,
 }
@@ -146,10 +132,8 @@ enum PermissionAccessTypeDto {
 enum PermissionStatusDto {
   /// Permission has been explicitly denied by the user.
   denied,
-
   /// Permission has been explicitly granted by the user.
   granted,
-
   /// The permission status cannot be determined.
   unknown,
 }
@@ -197,13 +181,10 @@ enum Vo2MaxUnitDto {
 enum Vo2MaxTestTypeDto {
   /// Direct measurement at maximum exercise (gold standard).
   maxExercise,
-
   /// Estimated from sub-maximal exercise.
   predictionSubMaxExercise,
-
   /// Estimated without exercise (e.g., from heart rate ratio).
   predictionNonExercise,
-
   /// Step-based protocol prediction.
   predictionStepTest,
 }
@@ -214,16 +195,12 @@ enum Vo2MaxTestTypeDto {
 enum MealTypeDto {
   /// Unknown or unspecified meal type.
   unknown,
-
   /// Breakfast meal.
   breakfast,
-
   /// Lunch meal.
   lunch,
-
   /// Dinner meal.
   dinner,
-
   /// Snack or other meal type.
   snack,
 }
@@ -233,16 +210,12 @@ enum MealTypeDto {
 enum BodyPositionDto {
   /// Unknown body position.
   unknown,
-
   /// Standing up.
   standingUp,
-
   /// Sitting down.
   sittingDown,
-
   /// Lying down.
   lyingDown,
-
   /// Reclining.
   reclining,
 }
@@ -252,16 +225,12 @@ enum BodyPositionDto {
 enum MeasurementLocationDto {
   /// Unknown location.
   unknown,
-
   /// Left wrist.
   leftWrist,
-
   /// Right wrist.
   rightWrist,
-
   /// Left upper arm.
   leftUpperArm,
-
   /// Right upper arm.
   rightUpperArm,
 }
@@ -270,16 +239,12 @@ enum MeasurementLocationDto {
 enum BloodGlucoseRelationToMealDto {
   /// Unknown relationship.
   unknown,
-
   /// General relationship (not specific to a meal).
   general,
-
   /// Fasting state (no recent meal).
   fasting,
-
   /// Measurement taken before a meal.
   beforeMeal,
-
   /// Measurement taken after a meal.
   afterMeal,
 }
@@ -288,22 +253,16 @@ enum BloodGlucoseRelationToMealDto {
 enum BloodGlucoseSpecimenSourceDto {
   /// Unknown specimen source.
   unknown,
-
   /// Interstitial fluid.
   interstitialFluid,
-
   /// Capillary blood.
   capillaryBlood,
-
   /// Plasma.
   plasma,
-
   /// Serum.
   serum,
-
   /// Tears.
   tears,
-
   /// Whole blood.
   wholeBlood,
 }
@@ -314,25 +273,18 @@ enum BloodGlucoseSpecimenSourceDto {
 enum SleepStageTypeDto {
   /// Unknown or unspecified sleep stage.
   unknown,
-
   /// Awake in bed.
   awake,
-
   /// Asleep (generic, when detailed stage unavailable).
   sleeping,
-
   /// Out of bed.
   outOfBed,
-
   /// Light sleep stage.
   light,
-
   /// Deep sleep stage.
   deep,
-
   /// REM (Rapid Eye Movement) sleep stage.
   rem,
-
   /// In bed (not yet asleep).
   inBed,
 }
@@ -341,166 +293,112 @@ enum SleepStageTypeDto {
 enum HealthDataTypeDto {
   /// Active calories burned data.
   activeCaloriesBurned,
-
   /// Distance traveled data.
   distance,
-
   /// Floors climbed data.
   floorsClimbed,
-
   /// Step count data.
   steps,
-
   /// Body weight data.
   weight,
-
   /// Body height data.
   height,
-
   /// Body fat percentage data.
   bodyFatPercentage,
-
   /// Body temperature data.
   bodyTemperature,
-
   /// Lean body mass data.
   leanBodyMass,
-
   /// Wheelchair pushes data.
   wheelchairPushes,
-
   /// Hydration (water intake) data.
   hydration,
-
   /// Heart rate measurement record data (iOS).
   heartRateMeasurementRecord,
-
   /// Sleep stage record data (iOS).
   sleepStageRecord,
-
   /// Energy nutrient data (calories consumed).
   energyNutrient,
-
   /// Caffeine nutrient data.
   caffeine,
-
   /// Protein nutrient data.
   protein,
-
   /// Total carbohydrate nutrient data.
   totalCarbohydrate,
-
   /// Total fat nutrient data.
   totalFat,
-
   /// Saturated fat nutrient data.
   saturatedFat,
-
   /// Monounsaturated fat nutrient data.
   monounsaturatedFat,
-
   /// Polyunsaturated fat nutrient data.
   polyunsaturatedFat,
-
   /// Cholesterol nutrient data.
   cholesterol,
-
   /// Dietary fiber nutrient data.
   dietaryFiber,
-
   /// Sugar nutrient data.
   sugar,
-
   /// Vitamin A nutrient data.
   vitaminA,
-
   /// Vitamin B6 nutrient data.
   vitaminB6,
-
   /// Vitamin B12 nutrient data.
   vitaminB12,
-
   /// Vitamin C nutrient data.
   vitaminC,
-
   /// Vitamin D nutrient data.
   vitaminD,
-
   /// Vitamin E nutrient data.
   vitaminE,
-
   /// Vitamin K nutrient data.
   vitaminK,
-
   /// Thiamin (Vitamin B1) nutrient data.
   thiamin,
-
   /// Riboflavin (Vitamin B2) nutrient data.
   riboflavin,
-
   /// Niacin (Vitamin B3) nutrient data.
   niacin,
-
   /// Folate (Vitamin B9) nutrient data.
   folate,
-
   /// Biotin (Vitamin B7) nutrient data.
   biotin,
-
   /// Pantothenic acid (Vitamin B5) nutrient data.
   pantothenicAcid,
-
   /// Calcium nutrient data.
   calcium,
-
   /// Iron nutrient data.
   iron,
-
   /// Magnesium nutrient data.
   magnesium,
-
   /// Manganese nutrient data.
   manganese,
-
   /// Phosphorus nutrient data.
   phosphorus,
-
   /// Potassium nutrient data.
   potassium,
-
   /// Selenium nutrient data.
   selenium,
-
   /// Sodium nutrient data.
   sodium,
-
   /// Zinc nutrient data.
   zinc,
-
   /// Combined nutrition record (HKCorrelation.food).
   nutrition,
-
   /// Resting heart rate data.
   restingHeartRate,
-
   /// Composite blood pressure (HKCorrelationType.bloodPressure).
   bloodPressure,
-
   /// Systolic blood pressure (HKQuantityType.bloodPressureSystolic).
   systolicBloodPressure,
-
   /// Diastolic blood pressure (HKQuantityType.bloodPressureDiastolic).
   diastolicBloodPressure,
-
   /// Oxygen saturation data.
   oxygenSaturation,
-
   /// Respiratory rate data.
   respiratoryRate,
-
   /// VO2 max (maximal oxygen uptake) data.
   vo2Max,
-
   /// Blood glucose data.
   bloodGlucose,
 }
@@ -509,22 +407,19 @@ enum HealthDataTypeDto {
 enum AggregationMetricDto {
   /// Average (mean) value across all data points.
   avg,
-
   /// Count of data points (records) in the dataset.
   count,
-
   /// Maximum value in the dataset.
   max,
-
   /// Minimum value in the dataset.
   min,
-
   /// Sum of all values in the time range.
   sum,
 }
 
 /// Sealed class for all measurement unit DTOs.
-sealed class MeasurementUnitDto {}
+sealed class MeasurementUnitDto {
+}
 
 /// Represents a blood glucose measurement for platform transfer.
 class BloodGlucoseDto extends MeasurementUnitDto {
@@ -547,8 +442,7 @@ class BloodGlucoseDto extends MeasurementUnitDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BloodGlucoseDto decode(Object result) {
     result as List<Object?>;
@@ -572,7 +466,8 @@ class BloodGlucoseDto extends MeasurementUnitDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents an energy measurement for platform transfer.
@@ -596,8 +491,7 @@ class EnergyDto extends MeasurementUnitDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static EnergyDto decode(Object result) {
     result as List<Object?>;
@@ -621,7 +515,8 @@ class EnergyDto extends MeasurementUnitDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a length measurement for platform transfer.
@@ -645,8 +540,7 @@ class LengthDto extends MeasurementUnitDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static LengthDto decode(Object result) {
     result as List<Object?>;
@@ -670,7 +564,8 @@ class LengthDto extends MeasurementUnitDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a mass measurement for platform transfer.
@@ -694,8 +589,7 @@ class MassDto extends MeasurementUnitDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static MassDto decode(Object result) {
     result as List<Object?>;
@@ -719,7 +613,8 @@ class MassDto extends MeasurementUnitDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a numeric measurement for platform transfer.
@@ -743,8 +638,7 @@ class NumericDto extends MeasurementUnitDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static NumericDto decode(Object result) {
     result as List<Object?>;
@@ -768,7 +662,8 @@ class NumericDto extends MeasurementUnitDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a percentage measurement for platform transfer.
@@ -792,8 +687,7 @@ class PercentageDto extends MeasurementUnitDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static PercentageDto decode(Object result) {
     result as List<Object?>;
@@ -817,7 +711,8 @@ class PercentageDto extends MeasurementUnitDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a power measurement for platform transfer.
@@ -841,8 +736,7 @@ class PowerDto extends MeasurementUnitDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static PowerDto decode(Object result) {
     result as List<Object?>;
@@ -866,7 +760,8 @@ class PowerDto extends MeasurementUnitDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a pressure measurement for platform transfer.
@@ -890,8 +785,7 @@ class PressureDto extends MeasurementUnitDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static PressureDto decode(Object result) {
     result as List<Object?>;
@@ -915,7 +809,8 @@ class PressureDto extends MeasurementUnitDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a temperature measurement for platform transfer.
@@ -939,8 +834,7 @@ class TemperatureDto extends MeasurementUnitDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static TemperatureDto decode(Object result) {
     result as List<Object?>;
@@ -964,7 +858,8 @@ class TemperatureDto extends MeasurementUnitDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a velocity measurement for platform transfer.
@@ -988,8 +883,7 @@ class VelocityDto extends MeasurementUnitDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static VelocityDto decode(Object result) {
     result as List<Object?>;
@@ -1013,7 +907,8 @@ class VelocityDto extends MeasurementUnitDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a volume measurement for platform transfer.
@@ -1037,8 +932,7 @@ class VolumeDto extends MeasurementUnitDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static VolumeDto decode(Object result) {
     result as List<Object?>;
@@ -1062,7 +956,8 @@ class VolumeDto extends MeasurementUnitDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a VO2 max measurement for platform transfer.
@@ -1089,8 +984,7 @@ class Vo2MaxDto extends MeasurementUnitDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static Vo2MaxDto decode(Object result) {
     result as List<Object?>;
@@ -1114,7 +1008,8 @@ class Vo2MaxDto extends MeasurementUnitDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents metadata for a health record.
@@ -1195,8 +1090,7 @@ class MetadataDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static MetadataDto decode(Object result) {
     result as List<Object?>;
@@ -1230,7 +1124,8 @@ class MetadataDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a permission request for accessing specific health data.
@@ -1254,8 +1149,7 @@ class HealthDataPermissionDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HealthDataPermissionDto decode(Object result) {
     result as List<Object?>;
@@ -1279,11 +1173,13 @@ class HealthDataPermissionDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Sealed class for all health record DTOs.
-sealed class HealthRecordDto {}
+sealed class HealthRecordDto {
+}
 
 /// Represents a resting heart rate record for platform transfer.
 class RestingHeartRateRecordDto extends HealthRecordDto {
@@ -1321,8 +1217,7 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static RestingHeartRateRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1338,8 +1233,7 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! RestingHeartRateRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! RestingHeartRateRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -1350,7 +1244,8 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a VO2 max record for platform transfer.
@@ -1399,8 +1294,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static Vo2MaxRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1428,7 +1322,8 @@ class Vo2MaxRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a blood glucose record for platform transfer.
@@ -1482,8 +1377,7 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BloodGlucoseRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1513,7 +1407,8 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
@@ -1556,8 +1451,7 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ActiveCaloriesBurnedRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1574,8 +1468,7 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ActiveCaloriesBurnedRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ActiveCaloriesBurnedRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -1586,7 +1479,8 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a distance record for platform transfer.
@@ -1630,8 +1524,7 @@ class DistanceRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static DistanceRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1659,7 +1552,8 @@ class DistanceRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a floors climbed record for platform transfer.
@@ -1703,8 +1597,7 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static FloorsClimbedRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1732,7 +1625,8 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a wheelchair pushes record for platform transfer.
@@ -1776,8 +1670,7 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static WheelchairPushesRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1794,8 +1687,7 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! WheelchairPushesRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! WheelchairPushesRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -1806,7 +1698,8 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a step count record for platform transfer.
@@ -1850,8 +1743,7 @@ class StepRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static StepRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1879,7 +1771,8 @@ class StepRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a weight record for platform transfer.
@@ -1918,8 +1811,7 @@ class WeightRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static WeightRecordDto decode(Object result) {
     result as List<Object?>;
@@ -1946,7 +1838,8 @@ class WeightRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a composite blood pressure record for platform transfer.
@@ -2002,8 +1895,7 @@ class BloodPressureRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BloodPressureRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2033,7 +1925,8 @@ class BloodPressureRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a systolic blood pressure record for platform transfer.
@@ -2073,8 +1966,7 @@ class SystolicBloodPressureRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static SystolicBloodPressureRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2090,8 +1982,7 @@ class SystolicBloodPressureRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! SystolicBloodPressureRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! SystolicBloodPressureRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -2102,7 +1993,8 @@ class SystolicBloodPressureRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a diastolic blood pressure record for platform transfer.
@@ -2142,8 +2034,7 @@ class DiastolicBloodPressureRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static DiastolicBloodPressureRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2159,8 +2050,7 @@ class DiastolicBloodPressureRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! DiastolicBloodPressureRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! DiastolicBloodPressureRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -2171,7 +2061,8 @@ class DiastolicBloodPressureRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// DTO for lean body mass health data.
@@ -2210,8 +2101,7 @@ class LeanBodyMassRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static LeanBodyMassRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2238,7 +2128,8 @@ class LeanBodyMassRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// DTO for body height health data.
@@ -2277,8 +2168,7 @@ class HeightRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HeightRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2305,7 +2195,8 @@ class HeightRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// DTO for body fat percentage health data.
@@ -2344,8 +2235,7 @@ class BodyFatPercentageRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BodyFatPercentageRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2361,8 +2251,7 @@ class BodyFatPercentageRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! BodyFatPercentageRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! BodyFatPercentageRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -2373,7 +2262,8 @@ class BodyFatPercentageRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// DTO for body temperature health data.
@@ -2412,8 +2302,7 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BodyTemperatureRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2429,8 +2318,7 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! BodyTemperatureRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! BodyTemperatureRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -2441,7 +2329,8 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents an oxygen saturation record for platform transfer.
@@ -2480,8 +2369,7 @@ class OxygenSaturationRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static OxygenSaturationRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2497,8 +2385,7 @@ class OxygenSaturationRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! OxygenSaturationRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! OxygenSaturationRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -2509,7 +2396,8 @@ class OxygenSaturationRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a respiratory rate record for platform transfer.
@@ -2548,8 +2436,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static RespiratoryRateRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2565,8 +2452,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! RespiratoryRateRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! RespiratoryRateRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -2577,7 +2463,8 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a hydration (water intake) record for platform transfer.
@@ -2621,8 +2508,7 @@ class HydrationRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HydrationRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2650,7 +2536,8 @@ class HydrationRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a single heart rate measurement for platform transfer.
@@ -2677,8 +2564,7 @@ class HeartRateMeasurementDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HeartRateMeasurementDto decode(Object result) {
     result as List<Object?>;
@@ -2702,7 +2588,8 @@ class HeartRateMeasurementDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a heart rate measurement record for platform transfer (iOS).
@@ -2741,8 +2628,7 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HeartRateMeasurementRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2758,8 +2644,7 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HeartRateMeasurementRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! HeartRateMeasurementRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -2770,7 +2655,8 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a sleep stage record for platform transfer (iOS).
@@ -2823,8 +2709,7 @@ class SleepStageRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static SleepStageRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2853,7 +2738,8 @@ class SleepStageRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents energy nutrient data for platform transfer.
@@ -2906,8 +2792,7 @@ class EnergyNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static EnergyNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2936,7 +2821,8 @@ class EnergyNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents caffeine nutrient data for platform transfer.
@@ -2978,8 +2864,7 @@ class CaffeineNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static CaffeineNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -2997,8 +2882,7 @@ class CaffeineNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! CaffeineNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! CaffeineNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3009,7 +2893,8 @@ class CaffeineNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents protein nutrient data for platform transfer.
@@ -3051,8 +2936,7 @@ class ProteinNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ProteinNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3070,8 +2954,7 @@ class ProteinNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ProteinNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ProteinNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3082,7 +2965,8 @@ class ProteinNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents total carbohydrate nutrient data for platform transfer.
@@ -3124,8 +3008,7 @@ class TotalCarbohydrateNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static TotalCarbohydrateNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3143,8 +3026,7 @@ class TotalCarbohydrateNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! TotalCarbohydrateNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! TotalCarbohydrateNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3155,7 +3037,8 @@ class TotalCarbohydrateNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents total fat nutrient data for platform transfer.
@@ -3197,8 +3080,7 @@ class TotalFatNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static TotalFatNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3216,8 +3098,7 @@ class TotalFatNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! TotalFatNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! TotalFatNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3228,7 +3109,8 @@ class TotalFatNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents saturated fat nutrient data for platform transfer.
@@ -3270,8 +3152,7 @@ class SaturatedFatNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static SaturatedFatNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3289,8 +3170,7 @@ class SaturatedFatNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! SaturatedFatNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! SaturatedFatNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3301,7 +3181,8 @@ class SaturatedFatNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents monounsaturated fat nutrient data for platform transfer.
@@ -3343,8 +3224,7 @@ class MonounsaturatedFatNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static MonounsaturatedFatNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3362,8 +3242,7 @@ class MonounsaturatedFatNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! MonounsaturatedFatNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! MonounsaturatedFatNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3374,7 +3253,8 @@ class MonounsaturatedFatNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents polyunsaturated fat nutrient data for platform transfer.
@@ -3416,8 +3296,7 @@ class PolyunsaturatedFatNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static PolyunsaturatedFatNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3435,8 +3314,7 @@ class PolyunsaturatedFatNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! PolyunsaturatedFatNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! PolyunsaturatedFatNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3447,7 +3325,8 @@ class PolyunsaturatedFatNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents cholesterol nutrient data for platform transfer.
@@ -3489,8 +3368,7 @@ class CholesterolNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static CholesterolNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3508,8 +3386,7 @@ class CholesterolNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! CholesterolNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! CholesterolNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3520,7 +3397,8 @@ class CholesterolNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents dietary fiber nutrient data for platform transfer.
@@ -3562,8 +3440,7 @@ class DietaryFiberNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static DietaryFiberNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3581,8 +3458,7 @@ class DietaryFiberNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! DietaryFiberNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! DietaryFiberNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3593,7 +3469,8 @@ class DietaryFiberNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents sugar nutrient data for platform transfer.
@@ -3635,8 +3512,7 @@ class SugarNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static SugarNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3665,7 +3541,8 @@ class SugarNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents vitamin A nutrient data for platform transfer.
@@ -3707,8 +3584,7 @@ class VitaminANutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static VitaminANutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3726,8 +3602,7 @@ class VitaminANutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminANutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! VitaminANutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3738,7 +3613,8 @@ class VitaminANutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents vitamin B6 nutrient data for platform transfer.
@@ -3780,8 +3656,7 @@ class VitaminB6NutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static VitaminB6NutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3799,8 +3674,7 @@ class VitaminB6NutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminB6NutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! VitaminB6NutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3811,7 +3685,8 @@ class VitaminB6NutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents vitamin B12 nutrient data for platform transfer.
@@ -3853,8 +3728,7 @@ class VitaminB12NutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static VitaminB12NutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3872,8 +3746,7 @@ class VitaminB12NutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminB12NutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! VitaminB12NutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3884,7 +3757,8 @@ class VitaminB12NutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents vitamin C nutrient data for platform transfer.
@@ -3926,8 +3800,7 @@ class VitaminCNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static VitaminCNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -3945,8 +3818,7 @@ class VitaminCNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminCNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! VitaminCNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3957,7 +3829,8 @@ class VitaminCNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents vitamin D nutrient data for platform transfer.
@@ -3999,8 +3872,7 @@ class VitaminDNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static VitaminDNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4018,8 +3890,7 @@ class VitaminDNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminDNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! VitaminDNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -4030,7 +3901,8 @@ class VitaminDNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents vitamin E nutrient data for platform transfer.
@@ -4072,8 +3944,7 @@ class VitaminENutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static VitaminENutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4091,8 +3962,7 @@ class VitaminENutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminENutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! VitaminENutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -4103,7 +3973,8 @@ class VitaminENutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents vitamin K nutrient data for platform transfer.
@@ -4145,8 +4016,7 @@ class VitaminKNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static VitaminKNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4164,8 +4034,7 @@ class VitaminKNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminKNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! VitaminKNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -4176,7 +4045,8 @@ class VitaminKNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents thiamin (vitamin B1) nutrient data for platform transfer.
@@ -4218,8 +4088,7 @@ class ThiaminNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ThiaminNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4237,8 +4106,7 @@ class ThiaminNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ThiaminNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ThiaminNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -4249,7 +4117,8 @@ class ThiaminNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents riboflavin (vitamin B2) nutrient data for platform transfer.
@@ -4291,8 +4160,7 @@ class RiboflavinNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static RiboflavinNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4310,8 +4178,7 @@ class RiboflavinNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! RiboflavinNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! RiboflavinNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -4322,7 +4189,8 @@ class RiboflavinNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents niacin (vitamin B3) nutrient data for platform transfer.
@@ -4364,8 +4232,7 @@ class NiacinNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static NiacinNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4394,7 +4261,8 @@ class NiacinNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents folate (vitamin B9) nutrient data for platform transfer.
@@ -4436,8 +4304,7 @@ class FolateNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static FolateNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4466,7 +4333,8 @@ class FolateNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents biotin (vitamin B7) nutrient data for platform transfer.
@@ -4508,8 +4376,7 @@ class BiotinNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static BiotinNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4538,7 +4405,8 @@ class BiotinNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents pantothenic acid (vitamin B5) nutrient data.
@@ -4580,8 +4448,7 @@ class PantothenicAcidNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static PantothenicAcidNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4599,8 +4466,7 @@ class PantothenicAcidNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! PantothenicAcidNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! PantothenicAcidNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -4611,7 +4477,8 @@ class PantothenicAcidNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents calcium nutrient data for platform transfer.
@@ -4653,8 +4520,7 @@ class CalciumNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static CalciumNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4672,8 +4538,7 @@ class CalciumNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! CalciumNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! CalciumNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -4684,7 +4549,8 @@ class CalciumNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents iron nutrient data for platform transfer.
@@ -4726,8 +4592,7 @@ class IronNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static IronNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4756,7 +4621,8 @@ class IronNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents magnesium nutrient data for platform transfer.
@@ -4798,8 +4664,7 @@ class MagnesiumNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static MagnesiumNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4817,8 +4682,7 @@ class MagnesiumNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! MagnesiumNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! MagnesiumNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -4829,7 +4693,8 @@ class MagnesiumNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents manganese nutrient data for platform transfer.
@@ -4871,8 +4736,7 @@ class ManganeseNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ManganeseNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4890,8 +4754,7 @@ class ManganeseNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ManganeseNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! ManganeseNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -4902,7 +4765,8 @@ class ManganeseNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents phosphorus nutrient data for platform transfer.
@@ -4944,8 +4808,7 @@ class PhosphorusNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static PhosphorusNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -4963,8 +4826,7 @@ class PhosphorusNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! PhosphorusNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! PhosphorusNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -4975,7 +4837,8 @@ class PhosphorusNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents potassium nutrient data for platform transfer.
@@ -5017,8 +4880,7 @@ class PotassiumNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static PotassiumNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -5036,8 +4898,7 @@ class PotassiumNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! PotassiumNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! PotassiumNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -5048,7 +4909,8 @@ class PotassiumNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents selenium nutrient data for platform transfer.
@@ -5090,8 +4952,7 @@ class SeleniumNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static SeleniumNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -5109,8 +4970,7 @@ class SeleniumNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! SeleniumNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! SeleniumNutrientRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -5121,7 +4981,8 @@ class SeleniumNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents sodium nutrient data for platform transfer.
@@ -5163,8 +5024,7 @@ class SodiumNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static SodiumNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -5193,7 +5053,8 @@ class SodiumNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents zinc nutrient data for platform transfer.
@@ -5235,8 +5096,7 @@ class ZincNutrientRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ZincNutrientRecordDto decode(Object result) {
     result as List<Object?>;
@@ -5265,7 +5125,8 @@ class ZincNutrientRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a combined nutrition record for platform transfer.
@@ -5492,8 +5353,7 @@ class NutritionRecordDto extends HealthRecordDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static NutritionRecordDto decode(Object result) {
     result as List<Object?>;
@@ -5556,7 +5416,8 @@ class NutritionRecordDto extends HealthRecordDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents the result of a health data permission request.
@@ -5580,8 +5441,7 @@ class HealthDataPermissionRequestResultDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HealthDataPermissionRequestResultDto decode(Object result) {
     result as List<Object?>;
@@ -5594,8 +5454,7 @@ class HealthDataPermissionRequestResultDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HealthDataPermissionRequestResultDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! HealthDataPermissionRequestResultDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -5606,7 +5465,8 @@ class HealthDataPermissionRequestResultDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents a permissions request.
@@ -5625,14 +5485,12 @@ class PermissionsRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static PermissionsRequestDto decode(Object result) {
     result as List<Object?>;
     return PermissionsRequestDto(
-      healthDataPermissions: (result[0] as List<Object?>?)!
-          .cast<HealthDataPermissionDto>(),
+      healthDataPermissions: (result[0] as List<Object?>?)!.cast<HealthDataPermissionDto>(),
     );
   }
 
@@ -5650,7 +5508,8 @@ class PermissionsRequestDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Represents the response from a permissions request.
@@ -5669,22 +5528,19 @@ class PermissionsRequestResponseDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static PermissionsRequestResponseDto decode(Object result) {
     result as List<Object?>;
     return PermissionsRequestResponseDto(
-      healthDataPermissionResults: (result[0] as List<Object?>?)!
-          .cast<HealthDataPermissionRequestResultDto>(),
+      healthDataPermissionResults: (result[0] as List<Object?>?)!.cast<HealthDataPermissionRequestResultDto>(),
     );
   }
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! PermissionsRequestResponseDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! PermissionsRequestResponseDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -5695,7 +5551,8 @@ class PermissionsRequestResponseDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Request to perform aggregation on health records.
@@ -5729,8 +5586,7 @@ class AggregateRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static AggregateRequestDto decode(Object result) {
     result as List<Object?>;
@@ -5756,7 +5612,8 @@ class AggregateRequestDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Response containing aggregated value.
@@ -5775,8 +5632,7 @@ class AggregateResponseDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static AggregateResponseDto decode(Object result) {
     result as List<Object?>;
@@ -5799,7 +5655,8 @@ class AggregateResponseDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Request to delete specific records by their IDs.
@@ -5823,8 +5680,7 @@ class DeleteRecordsByIdsRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static DeleteRecordsByIdsRequestDto decode(Object result) {
     result as List<Object?>;
@@ -5837,8 +5693,7 @@ class DeleteRecordsByIdsRequestDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! DeleteRecordsByIdsRequestDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! DeleteRecordsByIdsRequestDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -5849,7 +5704,8 @@ class DeleteRecordsByIdsRequestDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Request to delete records by time range.
@@ -5878,8 +5734,7 @@ class DeleteRecordsByTimeRangeRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static DeleteRecordsByTimeRangeRequestDto decode(Object result) {
     result as List<Object?>;
@@ -5893,8 +5748,7 @@ class DeleteRecordsByTimeRangeRequestDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! DeleteRecordsByTimeRangeRequestDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! DeleteRecordsByTimeRangeRequestDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -5905,7 +5759,8 @@ class DeleteRecordsByTimeRangeRequestDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Request to read a single health record by ID.
@@ -5929,8 +5784,7 @@ class ReadRecordRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ReadRecordRequestDto decode(Object result) {
     result as List<Object?>;
@@ -5954,7 +5808,8 @@ class ReadRecordRequestDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Response containing a single health record.
@@ -5973,8 +5828,7 @@ class ReadRecordResponseDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ReadRecordResponseDto decode(Object result) {
     result as List<Object?>;
@@ -5997,7 +5851,8 @@ class ReadRecordResponseDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Request to read multiple health records within a time range.
@@ -6043,8 +5898,7 @@ class ReadRecordsRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ReadRecordsRequestDto decode(Object result) {
     result as List<Object?>;
@@ -6072,7 +5926,8 @@ class ReadRecordsRequestDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Response containing paginated health records.
@@ -6096,8 +5951,7 @@ class ReadRecordsResponseDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static ReadRecordsResponseDto decode(Object result) {
     result as List<Object?>;
@@ -6121,7 +5975,8 @@ class ReadRecordsResponseDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Request to write a single health record.
@@ -6140,8 +5995,7 @@ class WriteRecordRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static WriteRecordRequestDto decode(Object result) {
     result as List<Object?>;
@@ -6164,7 +6018,8 @@ class WriteRecordRequestDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Response after writing a single record.
@@ -6183,8 +6038,7 @@ class WriteRecordResponseDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static WriteRecordResponseDto decode(Object result) {
     result as List<Object?>;
@@ -6207,7 +6061,8 @@ class WriteRecordResponseDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Request to write multiple health records atomically.
@@ -6226,8 +6081,7 @@ class WriteRecordsRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static WriteRecordsRequestDto decode(Object result) {
     result as List<Object?>;
@@ -6250,7 +6104,8 @@ class WriteRecordsRequestDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Response after writing multiple records.
@@ -6269,8 +6124,7 @@ class WriteRecordsResponseDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static WriteRecordsResponseDto decode(Object result) {
     result as List<Object?>;
@@ -6293,7 +6147,8 @@ class WriteRecordsResponseDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Request to update a single health record.
@@ -6312,8 +6167,7 @@ class UpdateRecordRequestDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static UpdateRecordRequestDto decode(Object result) {
     result as List<Object?>;
@@ -6336,7 +6190,8 @@ class UpdateRecordRequestDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Response after updating a single record.
@@ -6355,8 +6210,7 @@ class UpdateRecordResponseDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static UpdateRecordResponseDto decode(Object result) {
     result as List<Object?>;
@@ -6379,7 +6233,8 @@ class UpdateRecordResponseDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
 
 /// Configuration data transfer object for Health Connector.
@@ -6401,8 +6256,7 @@ class HealthConnectorConfigDto {
   }
 
   Object encode() {
-    return _toList();
-  }
+    return _toList();  }
 
   static HealthConnectorConfigDto decode(Object result) {
     result as List<Object?>;
@@ -6414,8 +6268,7 @@ class HealthConnectorConfigDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HealthConnectorConfigDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! HealthConnectorConfigDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -6426,8 +6279,10 @@ class HealthConnectorConfigDto {
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
+  int get hashCode => Object.hashAll(_toList())
+;
 }
+
 
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
@@ -6436,343 +6291,343 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    } else if (value is HealthConnectorErrorCodeDto) {
+    }    else if (value is HealthConnectorErrorCodeDto) {
       buffer.putUint8(129);
       writeValue(buffer, value.index);
-    } else if (value is HealthPlatformStatusDto) {
+    }    else if (value is HealthPlatformStatusDto) {
       buffer.putUint8(130);
       writeValue(buffer, value.index);
-    } else if (value is BloodGlucoseUnitDto) {
+    }    else if (value is BloodGlucoseUnitDto) {
       buffer.putUint8(131);
       writeValue(buffer, value.index);
-    } else if (value is EnergyUnitDto) {
+    }    else if (value is EnergyUnitDto) {
       buffer.putUint8(132);
       writeValue(buffer, value.index);
-    } else if (value is LengthUnitDto) {
+    }    else if (value is LengthUnitDto) {
       buffer.putUint8(133);
       writeValue(buffer, value.index);
-    } else if (value is MassUnitDto) {
+    }    else if (value is MassUnitDto) {
       buffer.putUint8(134);
       writeValue(buffer, value.index);
-    } else if (value is NumericUnitDto) {
+    }    else if (value is NumericUnitDto) {
       buffer.putUint8(135);
       writeValue(buffer, value.index);
-    } else if (value is PercentageUnitDto) {
+    }    else if (value is PercentageUnitDto) {
       buffer.putUint8(136);
       writeValue(buffer, value.index);
-    } else if (value is PermissionAccessTypeDto) {
+    }    else if (value is PermissionAccessTypeDto) {
       buffer.putUint8(137);
       writeValue(buffer, value.index);
-    } else if (value is PermissionStatusDto) {
+    }    else if (value is PermissionStatusDto) {
       buffer.putUint8(138);
       writeValue(buffer, value.index);
-    } else if (value is PressureUnitDto) {
+    }    else if (value is PressureUnitDto) {
       buffer.putUint8(139);
       writeValue(buffer, value.index);
-    } else if (value is PowerUnitDto) {
+    }    else if (value is PowerUnitDto) {
       buffer.putUint8(140);
       writeValue(buffer, value.index);
-    } else if (value is TemperatureUnitDto) {
+    }    else if (value is TemperatureUnitDto) {
       buffer.putUint8(141);
       writeValue(buffer, value.index);
-    } else if (value is VelocityUnitDto) {
+    }    else if (value is VelocityUnitDto) {
       buffer.putUint8(142);
       writeValue(buffer, value.index);
-    } else if (value is VolumeUnitDto) {
+    }    else if (value is VolumeUnitDto) {
       buffer.putUint8(143);
       writeValue(buffer, value.index);
-    } else if (value is Vo2MaxUnitDto) {
+    }    else if (value is Vo2MaxUnitDto) {
       buffer.putUint8(144);
       writeValue(buffer, value.index);
-    } else if (value is Vo2MaxTestTypeDto) {
+    }    else if (value is Vo2MaxTestTypeDto) {
       buffer.putUint8(145);
       writeValue(buffer, value.index);
-    } else if (value is MealTypeDto) {
+    }    else if (value is MealTypeDto) {
       buffer.putUint8(146);
       writeValue(buffer, value.index);
-    } else if (value is BodyPositionDto) {
+    }    else if (value is BodyPositionDto) {
       buffer.putUint8(147);
       writeValue(buffer, value.index);
-    } else if (value is MeasurementLocationDto) {
+    }    else if (value is MeasurementLocationDto) {
       buffer.putUint8(148);
       writeValue(buffer, value.index);
-    } else if (value is BloodGlucoseRelationToMealDto) {
+    }    else if (value is BloodGlucoseRelationToMealDto) {
       buffer.putUint8(149);
       writeValue(buffer, value.index);
-    } else if (value is BloodGlucoseSpecimenSourceDto) {
+    }    else if (value is BloodGlucoseSpecimenSourceDto) {
       buffer.putUint8(150);
       writeValue(buffer, value.index);
-    } else if (value is SleepStageTypeDto) {
+    }    else if (value is SleepStageTypeDto) {
       buffer.putUint8(151);
       writeValue(buffer, value.index);
-    } else if (value is HealthDataTypeDto) {
+    }    else if (value is HealthDataTypeDto) {
       buffer.putUint8(152);
       writeValue(buffer, value.index);
-    } else if (value is AggregationMetricDto) {
+    }    else if (value is AggregationMetricDto) {
       buffer.putUint8(153);
       writeValue(buffer, value.index);
-    } else if (value is BloodGlucoseDto) {
+    }    else if (value is BloodGlucoseDto) {
       buffer.putUint8(154);
       writeValue(buffer, value.encode());
-    } else if (value is EnergyDto) {
+    }    else if (value is EnergyDto) {
       buffer.putUint8(155);
       writeValue(buffer, value.encode());
-    } else if (value is LengthDto) {
+    }    else if (value is LengthDto) {
       buffer.putUint8(156);
       writeValue(buffer, value.encode());
-    } else if (value is MassDto) {
+    }    else if (value is MassDto) {
       buffer.putUint8(157);
       writeValue(buffer, value.encode());
-    } else if (value is NumericDto) {
+    }    else if (value is NumericDto) {
       buffer.putUint8(158);
       writeValue(buffer, value.encode());
-    } else if (value is PercentageDto) {
+    }    else if (value is PercentageDto) {
       buffer.putUint8(159);
       writeValue(buffer, value.encode());
-    } else if (value is PowerDto) {
+    }    else if (value is PowerDto) {
       buffer.putUint8(160);
       writeValue(buffer, value.encode());
-    } else if (value is PressureDto) {
+    }    else if (value is PressureDto) {
       buffer.putUint8(161);
       writeValue(buffer, value.encode());
-    } else if (value is TemperatureDto) {
+    }    else if (value is TemperatureDto) {
       buffer.putUint8(162);
       writeValue(buffer, value.encode());
-    } else if (value is VelocityDto) {
+    }    else if (value is VelocityDto) {
       buffer.putUint8(163);
       writeValue(buffer, value.encode());
-    } else if (value is VolumeDto) {
+    }    else if (value is VolumeDto) {
       buffer.putUint8(164);
       writeValue(buffer, value.encode());
-    } else if (value is Vo2MaxDto) {
+    }    else if (value is Vo2MaxDto) {
       buffer.putUint8(165);
       writeValue(buffer, value.encode());
-    } else if (value is MetadataDto) {
+    }    else if (value is MetadataDto) {
       buffer.putUint8(166);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataPermissionDto) {
+    }    else if (value is HealthDataPermissionDto) {
       buffer.putUint8(167);
       writeValue(buffer, value.encode());
-    } else if (value is RestingHeartRateRecordDto) {
+    }    else if (value is RestingHeartRateRecordDto) {
       buffer.putUint8(168);
       writeValue(buffer, value.encode());
-    } else if (value is Vo2MaxRecordDto) {
+    }    else if (value is Vo2MaxRecordDto) {
       buffer.putUint8(169);
       writeValue(buffer, value.encode());
-    } else if (value is BloodGlucoseRecordDto) {
+    }    else if (value is BloodGlucoseRecordDto) {
       buffer.putUint8(170);
       writeValue(buffer, value.encode());
-    } else if (value is ActiveCaloriesBurnedRecordDto) {
+    }    else if (value is ActiveCaloriesBurnedRecordDto) {
       buffer.putUint8(171);
       writeValue(buffer, value.encode());
-    } else if (value is DistanceRecordDto) {
+    }    else if (value is DistanceRecordDto) {
       buffer.putUint8(172);
       writeValue(buffer, value.encode());
-    } else if (value is FloorsClimbedRecordDto) {
+    }    else if (value is FloorsClimbedRecordDto) {
       buffer.putUint8(173);
       writeValue(buffer, value.encode());
-    } else if (value is WheelchairPushesRecordDto) {
+    }    else if (value is WheelchairPushesRecordDto) {
       buffer.putUint8(174);
       writeValue(buffer, value.encode());
-    } else if (value is StepRecordDto) {
+    }    else if (value is StepRecordDto) {
       buffer.putUint8(175);
       writeValue(buffer, value.encode());
-    } else if (value is WeightRecordDto) {
+    }    else if (value is WeightRecordDto) {
       buffer.putUint8(176);
       writeValue(buffer, value.encode());
-    } else if (value is BloodPressureRecordDto) {
+    }    else if (value is BloodPressureRecordDto) {
       buffer.putUint8(177);
       writeValue(buffer, value.encode());
-    } else if (value is SystolicBloodPressureRecordDto) {
+    }    else if (value is SystolicBloodPressureRecordDto) {
       buffer.putUint8(178);
       writeValue(buffer, value.encode());
-    } else if (value is DiastolicBloodPressureRecordDto) {
+    }    else if (value is DiastolicBloodPressureRecordDto) {
       buffer.putUint8(179);
       writeValue(buffer, value.encode());
-    } else if (value is LeanBodyMassRecordDto) {
+    }    else if (value is LeanBodyMassRecordDto) {
       buffer.putUint8(180);
       writeValue(buffer, value.encode());
-    } else if (value is HeightRecordDto) {
+    }    else if (value is HeightRecordDto) {
       buffer.putUint8(181);
       writeValue(buffer, value.encode());
-    } else if (value is BodyFatPercentageRecordDto) {
+    }    else if (value is BodyFatPercentageRecordDto) {
       buffer.putUint8(182);
       writeValue(buffer, value.encode());
-    } else if (value is BodyTemperatureRecordDto) {
+    }    else if (value is BodyTemperatureRecordDto) {
       buffer.putUint8(183);
       writeValue(buffer, value.encode());
-    } else if (value is OxygenSaturationRecordDto) {
+    }    else if (value is OxygenSaturationRecordDto) {
       buffer.putUint8(184);
       writeValue(buffer, value.encode());
-    } else if (value is RespiratoryRateRecordDto) {
+    }    else if (value is RespiratoryRateRecordDto) {
       buffer.putUint8(185);
       writeValue(buffer, value.encode());
-    } else if (value is HydrationRecordDto) {
+    }    else if (value is HydrationRecordDto) {
       buffer.putUint8(186);
       writeValue(buffer, value.encode());
-    } else if (value is HeartRateMeasurementDto) {
+    }    else if (value is HeartRateMeasurementDto) {
       buffer.putUint8(187);
       writeValue(buffer, value.encode());
-    } else if (value is HeartRateMeasurementRecordDto) {
+    }    else if (value is HeartRateMeasurementRecordDto) {
       buffer.putUint8(188);
       writeValue(buffer, value.encode());
-    } else if (value is SleepStageRecordDto) {
+    }    else if (value is SleepStageRecordDto) {
       buffer.putUint8(189);
       writeValue(buffer, value.encode());
-    } else if (value is EnergyNutrientRecordDto) {
+    }    else if (value is EnergyNutrientRecordDto) {
       buffer.putUint8(190);
       writeValue(buffer, value.encode());
-    } else if (value is CaffeineNutrientRecordDto) {
+    }    else if (value is CaffeineNutrientRecordDto) {
       buffer.putUint8(191);
       writeValue(buffer, value.encode());
-    } else if (value is ProteinNutrientRecordDto) {
+    }    else if (value is ProteinNutrientRecordDto) {
       buffer.putUint8(192);
       writeValue(buffer, value.encode());
-    } else if (value is TotalCarbohydrateNutrientRecordDto) {
+    }    else if (value is TotalCarbohydrateNutrientRecordDto) {
       buffer.putUint8(193);
       writeValue(buffer, value.encode());
-    } else if (value is TotalFatNutrientRecordDto) {
+    }    else if (value is TotalFatNutrientRecordDto) {
       buffer.putUint8(194);
       writeValue(buffer, value.encode());
-    } else if (value is SaturatedFatNutrientRecordDto) {
+    }    else if (value is SaturatedFatNutrientRecordDto) {
       buffer.putUint8(195);
       writeValue(buffer, value.encode());
-    } else if (value is MonounsaturatedFatNutrientRecordDto) {
+    }    else if (value is MonounsaturatedFatNutrientRecordDto) {
       buffer.putUint8(196);
       writeValue(buffer, value.encode());
-    } else if (value is PolyunsaturatedFatNutrientRecordDto) {
+    }    else if (value is PolyunsaturatedFatNutrientRecordDto) {
       buffer.putUint8(197);
       writeValue(buffer, value.encode());
-    } else if (value is CholesterolNutrientRecordDto) {
+    }    else if (value is CholesterolNutrientRecordDto) {
       buffer.putUint8(198);
       writeValue(buffer, value.encode());
-    } else if (value is DietaryFiberNutrientRecordDto) {
+    }    else if (value is DietaryFiberNutrientRecordDto) {
       buffer.putUint8(199);
       writeValue(buffer, value.encode());
-    } else if (value is SugarNutrientRecordDto) {
+    }    else if (value is SugarNutrientRecordDto) {
       buffer.putUint8(200);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminANutrientRecordDto) {
+    }    else if (value is VitaminANutrientRecordDto) {
       buffer.putUint8(201);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminB6NutrientRecordDto) {
+    }    else if (value is VitaminB6NutrientRecordDto) {
       buffer.putUint8(202);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminB12NutrientRecordDto) {
+    }    else if (value is VitaminB12NutrientRecordDto) {
       buffer.putUint8(203);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminCNutrientRecordDto) {
+    }    else if (value is VitaminCNutrientRecordDto) {
       buffer.putUint8(204);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminDNutrientRecordDto) {
+    }    else if (value is VitaminDNutrientRecordDto) {
       buffer.putUint8(205);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminENutrientRecordDto) {
+    }    else if (value is VitaminENutrientRecordDto) {
       buffer.putUint8(206);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminKNutrientRecordDto) {
+    }    else if (value is VitaminKNutrientRecordDto) {
       buffer.putUint8(207);
       writeValue(buffer, value.encode());
-    } else if (value is ThiaminNutrientRecordDto) {
+    }    else if (value is ThiaminNutrientRecordDto) {
       buffer.putUint8(208);
       writeValue(buffer, value.encode());
-    } else if (value is RiboflavinNutrientRecordDto) {
+    }    else if (value is RiboflavinNutrientRecordDto) {
       buffer.putUint8(209);
       writeValue(buffer, value.encode());
-    } else if (value is NiacinNutrientRecordDto) {
+    }    else if (value is NiacinNutrientRecordDto) {
       buffer.putUint8(210);
       writeValue(buffer, value.encode());
-    } else if (value is FolateNutrientRecordDto) {
+    }    else if (value is FolateNutrientRecordDto) {
       buffer.putUint8(211);
       writeValue(buffer, value.encode());
-    } else if (value is BiotinNutrientRecordDto) {
+    }    else if (value is BiotinNutrientRecordDto) {
       buffer.putUint8(212);
       writeValue(buffer, value.encode());
-    } else if (value is PantothenicAcidNutrientRecordDto) {
+    }    else if (value is PantothenicAcidNutrientRecordDto) {
       buffer.putUint8(213);
       writeValue(buffer, value.encode());
-    } else if (value is CalciumNutrientRecordDto) {
+    }    else if (value is CalciumNutrientRecordDto) {
       buffer.putUint8(214);
       writeValue(buffer, value.encode());
-    } else if (value is IronNutrientRecordDto) {
+    }    else if (value is IronNutrientRecordDto) {
       buffer.putUint8(215);
       writeValue(buffer, value.encode());
-    } else if (value is MagnesiumNutrientRecordDto) {
+    }    else if (value is MagnesiumNutrientRecordDto) {
       buffer.putUint8(216);
       writeValue(buffer, value.encode());
-    } else if (value is ManganeseNutrientRecordDto) {
+    }    else if (value is ManganeseNutrientRecordDto) {
       buffer.putUint8(217);
       writeValue(buffer, value.encode());
-    } else if (value is PhosphorusNutrientRecordDto) {
+    }    else if (value is PhosphorusNutrientRecordDto) {
       buffer.putUint8(218);
       writeValue(buffer, value.encode());
-    } else if (value is PotassiumNutrientRecordDto) {
+    }    else if (value is PotassiumNutrientRecordDto) {
       buffer.putUint8(219);
       writeValue(buffer, value.encode());
-    } else if (value is SeleniumNutrientRecordDto) {
+    }    else if (value is SeleniumNutrientRecordDto) {
       buffer.putUint8(220);
       writeValue(buffer, value.encode());
-    } else if (value is SodiumNutrientRecordDto) {
+    }    else if (value is SodiumNutrientRecordDto) {
       buffer.putUint8(221);
       writeValue(buffer, value.encode());
-    } else if (value is ZincNutrientRecordDto) {
+    }    else if (value is ZincNutrientRecordDto) {
       buffer.putUint8(222);
       writeValue(buffer, value.encode());
-    } else if (value is NutritionRecordDto) {
+    }    else if (value is NutritionRecordDto) {
       buffer.putUint8(223);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataPermissionRequestResultDto) {
+    }    else if (value is HealthDataPermissionRequestResultDto) {
       buffer.putUint8(224);
       writeValue(buffer, value.encode());
-    } else if (value is PermissionsRequestDto) {
+    }    else if (value is PermissionsRequestDto) {
       buffer.putUint8(225);
       writeValue(buffer, value.encode());
-    } else if (value is PermissionsRequestResponseDto) {
+    }    else if (value is PermissionsRequestResponseDto) {
       buffer.putUint8(226);
       writeValue(buffer, value.encode());
-    } else if (value is AggregateRequestDto) {
+    }    else if (value is AggregateRequestDto) {
       buffer.putUint8(227);
       writeValue(buffer, value.encode());
-    } else if (value is AggregateResponseDto) {
+    }    else if (value is AggregateResponseDto) {
       buffer.putUint8(228);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByIdsRequestDto) {
+    }    else if (value is DeleteRecordsByIdsRequestDto) {
       buffer.putUint8(229);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
+    }    else if (value is DeleteRecordsByTimeRangeRequestDto) {
       buffer.putUint8(230);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordRequestDto) {
+    }    else if (value is ReadRecordRequestDto) {
       buffer.putUint8(231);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordResponseDto) {
+    }    else if (value is ReadRecordResponseDto) {
       buffer.putUint8(232);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsRequestDto) {
+    }    else if (value is ReadRecordsRequestDto) {
       buffer.putUint8(233);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsResponseDto) {
+    }    else if (value is ReadRecordsResponseDto) {
       buffer.putUint8(234);
       writeValue(buffer, value.encode());
-    } else if (value is WriteRecordRequestDto) {
+    }    else if (value is WriteRecordRequestDto) {
       buffer.putUint8(235);
       writeValue(buffer, value.encode());
-    } else if (value is WriteRecordResponseDto) {
+    }    else if (value is WriteRecordResponseDto) {
       buffer.putUint8(236);
       writeValue(buffer, value.encode());
-    } else if (value is WriteRecordsRequestDto) {
+    }    else if (value is WriteRecordsRequestDto) {
       buffer.putUint8(237);
       writeValue(buffer, value.encode());
-    } else if (value is WriteRecordsResponseDto) {
+    }    else if (value is WriteRecordsResponseDto) {
       buffer.putUint8(238);
       writeValue(buffer, value.encode());
-    } else if (value is UpdateRecordRequestDto) {
+    }    else if (value is UpdateRecordRequestDto) {
       buffer.putUint8(239);
       writeValue(buffer, value.encode());
-    } else if (value is UpdateRecordResponseDto) {
+    }    else if (value is UpdateRecordResponseDto) {
       buffer.putUint8(240);
       writeValue(buffer, value.encode());
-    } else if (value is HealthConnectorConfigDto) {
+    }    else if (value is HealthConnectorConfigDto) {
       buffer.putUint8(241);
       writeValue(buffer, value.encode());
     } else {
@@ -6783,260 +6638,256 @@ class _PigeonCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 129:
+      case 129: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : HealthConnectorErrorCodeDto.values[value];
-      case 130:
+      case 130: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : HealthPlatformStatusDto.values[value];
-      case 131:
+      case 131: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : BloodGlucoseUnitDto.values[value];
-      case 132:
+      case 132: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : EnergyUnitDto.values[value];
-      case 133:
+      case 133: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : LengthUnitDto.values[value];
-      case 134:
+      case 134: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : MassUnitDto.values[value];
-      case 135:
+      case 135: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : NumericUnitDto.values[value];
-      case 136:
+      case 136: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PercentageUnitDto.values[value];
-      case 137:
+      case 137: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PermissionAccessTypeDto.values[value];
-      case 138:
+      case 138: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PermissionStatusDto.values[value];
-      case 139:
+      case 139: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PressureUnitDto.values[value];
-      case 140:
+      case 140: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : PowerUnitDto.values[value];
-      case 141:
+      case 141: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : TemperatureUnitDto.values[value];
-      case 142:
+      case 142: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : VelocityUnitDto.values[value];
-      case 143:
+      case 143: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : VolumeUnitDto.values[value];
-      case 144:
+      case 144: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : Vo2MaxUnitDto.values[value];
-      case 145:
+      case 145: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : Vo2MaxTestTypeDto.values[value];
-      case 146:
+      case 146: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : MealTypeDto.values[value];
-      case 147:
+      case 147: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : BodyPositionDto.values[value];
-      case 148:
+      case 148: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : MeasurementLocationDto.values[value];
-      case 149:
+      case 149: 
         final int? value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : BloodGlucoseRelationToMealDto.values[value];
-      case 150:
+        return value == null ? null : BloodGlucoseRelationToMealDto.values[value];
+      case 150: 
         final int? value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : BloodGlucoseSpecimenSourceDto.values[value];
-      case 151:
+        return value == null ? null : BloodGlucoseSpecimenSourceDto.values[value];
+      case 151: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : SleepStageTypeDto.values[value];
-      case 152:
+      case 152: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : HealthDataTypeDto.values[value];
-      case 153:
+      case 153: 
         final int? value = readValue(buffer) as int?;
         return value == null ? null : AggregationMetricDto.values[value];
-      case 154:
+      case 154: 
         return BloodGlucoseDto.decode(readValue(buffer)!);
-      case 155:
+      case 155: 
         return EnergyDto.decode(readValue(buffer)!);
-      case 156:
+      case 156: 
         return LengthDto.decode(readValue(buffer)!);
-      case 157:
+      case 157: 
         return MassDto.decode(readValue(buffer)!);
-      case 158:
+      case 158: 
         return NumericDto.decode(readValue(buffer)!);
-      case 159:
+      case 159: 
         return PercentageDto.decode(readValue(buffer)!);
-      case 160:
+      case 160: 
         return PowerDto.decode(readValue(buffer)!);
-      case 161:
+      case 161: 
         return PressureDto.decode(readValue(buffer)!);
-      case 162:
+      case 162: 
         return TemperatureDto.decode(readValue(buffer)!);
-      case 163:
+      case 163: 
         return VelocityDto.decode(readValue(buffer)!);
-      case 164:
+      case 164: 
         return VolumeDto.decode(readValue(buffer)!);
-      case 165:
+      case 165: 
         return Vo2MaxDto.decode(readValue(buffer)!);
-      case 166:
+      case 166: 
         return MetadataDto.decode(readValue(buffer)!);
-      case 167:
+      case 167: 
         return HealthDataPermissionDto.decode(readValue(buffer)!);
-      case 168:
+      case 168: 
         return RestingHeartRateRecordDto.decode(readValue(buffer)!);
-      case 169:
+      case 169: 
         return Vo2MaxRecordDto.decode(readValue(buffer)!);
-      case 170:
+      case 170: 
         return BloodGlucoseRecordDto.decode(readValue(buffer)!);
-      case 171:
+      case 171: 
         return ActiveCaloriesBurnedRecordDto.decode(readValue(buffer)!);
-      case 172:
+      case 172: 
         return DistanceRecordDto.decode(readValue(buffer)!);
-      case 173:
+      case 173: 
         return FloorsClimbedRecordDto.decode(readValue(buffer)!);
-      case 174:
+      case 174: 
         return WheelchairPushesRecordDto.decode(readValue(buffer)!);
-      case 175:
+      case 175: 
         return StepRecordDto.decode(readValue(buffer)!);
-      case 176:
+      case 176: 
         return WeightRecordDto.decode(readValue(buffer)!);
-      case 177:
+      case 177: 
         return BloodPressureRecordDto.decode(readValue(buffer)!);
-      case 178:
+      case 178: 
         return SystolicBloodPressureRecordDto.decode(readValue(buffer)!);
-      case 179:
+      case 179: 
         return DiastolicBloodPressureRecordDto.decode(readValue(buffer)!);
-      case 180:
+      case 180: 
         return LeanBodyMassRecordDto.decode(readValue(buffer)!);
-      case 181:
+      case 181: 
         return HeightRecordDto.decode(readValue(buffer)!);
-      case 182:
+      case 182: 
         return BodyFatPercentageRecordDto.decode(readValue(buffer)!);
-      case 183:
+      case 183: 
         return BodyTemperatureRecordDto.decode(readValue(buffer)!);
-      case 184:
+      case 184: 
         return OxygenSaturationRecordDto.decode(readValue(buffer)!);
-      case 185:
+      case 185: 
         return RespiratoryRateRecordDto.decode(readValue(buffer)!);
-      case 186:
+      case 186: 
         return HydrationRecordDto.decode(readValue(buffer)!);
-      case 187:
+      case 187: 
         return HeartRateMeasurementDto.decode(readValue(buffer)!);
-      case 188:
+      case 188: 
         return HeartRateMeasurementRecordDto.decode(readValue(buffer)!);
-      case 189:
+      case 189: 
         return SleepStageRecordDto.decode(readValue(buffer)!);
-      case 190:
+      case 190: 
         return EnergyNutrientRecordDto.decode(readValue(buffer)!);
-      case 191:
+      case 191: 
         return CaffeineNutrientRecordDto.decode(readValue(buffer)!);
-      case 192:
+      case 192: 
         return ProteinNutrientRecordDto.decode(readValue(buffer)!);
-      case 193:
+      case 193: 
         return TotalCarbohydrateNutrientRecordDto.decode(readValue(buffer)!);
-      case 194:
+      case 194: 
         return TotalFatNutrientRecordDto.decode(readValue(buffer)!);
-      case 195:
+      case 195: 
         return SaturatedFatNutrientRecordDto.decode(readValue(buffer)!);
-      case 196:
+      case 196: 
         return MonounsaturatedFatNutrientRecordDto.decode(readValue(buffer)!);
-      case 197:
+      case 197: 
         return PolyunsaturatedFatNutrientRecordDto.decode(readValue(buffer)!);
-      case 198:
+      case 198: 
         return CholesterolNutrientRecordDto.decode(readValue(buffer)!);
-      case 199:
+      case 199: 
         return DietaryFiberNutrientRecordDto.decode(readValue(buffer)!);
-      case 200:
+      case 200: 
         return SugarNutrientRecordDto.decode(readValue(buffer)!);
-      case 201:
+      case 201: 
         return VitaminANutrientRecordDto.decode(readValue(buffer)!);
-      case 202:
+      case 202: 
         return VitaminB6NutrientRecordDto.decode(readValue(buffer)!);
-      case 203:
+      case 203: 
         return VitaminB12NutrientRecordDto.decode(readValue(buffer)!);
-      case 204:
+      case 204: 
         return VitaminCNutrientRecordDto.decode(readValue(buffer)!);
-      case 205:
+      case 205: 
         return VitaminDNutrientRecordDto.decode(readValue(buffer)!);
-      case 206:
+      case 206: 
         return VitaminENutrientRecordDto.decode(readValue(buffer)!);
-      case 207:
+      case 207: 
         return VitaminKNutrientRecordDto.decode(readValue(buffer)!);
-      case 208:
+      case 208: 
         return ThiaminNutrientRecordDto.decode(readValue(buffer)!);
-      case 209:
+      case 209: 
         return RiboflavinNutrientRecordDto.decode(readValue(buffer)!);
-      case 210:
+      case 210: 
         return NiacinNutrientRecordDto.decode(readValue(buffer)!);
-      case 211:
+      case 211: 
         return FolateNutrientRecordDto.decode(readValue(buffer)!);
-      case 212:
+      case 212: 
         return BiotinNutrientRecordDto.decode(readValue(buffer)!);
-      case 213:
+      case 213: 
         return PantothenicAcidNutrientRecordDto.decode(readValue(buffer)!);
-      case 214:
+      case 214: 
         return CalciumNutrientRecordDto.decode(readValue(buffer)!);
-      case 215:
+      case 215: 
         return IronNutrientRecordDto.decode(readValue(buffer)!);
-      case 216:
+      case 216: 
         return MagnesiumNutrientRecordDto.decode(readValue(buffer)!);
-      case 217:
+      case 217: 
         return ManganeseNutrientRecordDto.decode(readValue(buffer)!);
-      case 218:
+      case 218: 
         return PhosphorusNutrientRecordDto.decode(readValue(buffer)!);
-      case 219:
+      case 219: 
         return PotassiumNutrientRecordDto.decode(readValue(buffer)!);
-      case 220:
+      case 220: 
         return SeleniumNutrientRecordDto.decode(readValue(buffer)!);
-      case 221:
+      case 221: 
         return SodiumNutrientRecordDto.decode(readValue(buffer)!);
-      case 222:
+      case 222: 
         return ZincNutrientRecordDto.decode(readValue(buffer)!);
-      case 223:
+      case 223: 
         return NutritionRecordDto.decode(readValue(buffer)!);
-      case 224:
+      case 224: 
         return HealthDataPermissionRequestResultDto.decode(readValue(buffer)!);
-      case 225:
+      case 225: 
         return PermissionsRequestDto.decode(readValue(buffer)!);
-      case 226:
+      case 226: 
         return PermissionsRequestResponseDto.decode(readValue(buffer)!);
-      case 227:
+      case 227: 
         return AggregateRequestDto.decode(readValue(buffer)!);
-      case 228:
+      case 228: 
         return AggregateResponseDto.decode(readValue(buffer)!);
-      case 229:
+      case 229: 
         return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
-      case 230:
+      case 230: 
         return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
-      case 231:
+      case 231: 
         return ReadRecordRequestDto.decode(readValue(buffer)!);
-      case 232:
+      case 232: 
         return ReadRecordResponseDto.decode(readValue(buffer)!);
-      case 233:
+      case 233: 
         return ReadRecordsRequestDto.decode(readValue(buffer)!);
-      case 234:
+      case 234: 
         return ReadRecordsResponseDto.decode(readValue(buffer)!);
-      case 235:
+      case 235: 
         return WriteRecordRequestDto.decode(readValue(buffer)!);
-      case 236:
+      case 236: 
         return WriteRecordResponseDto.decode(readValue(buffer)!);
-      case 237:
+      case 237: 
         return WriteRecordsRequestDto.decode(readValue(buffer)!);
-      case 238:
+      case 238: 
         return WriteRecordsResponseDto.decode(readValue(buffer)!);
-      case 239:
+      case 239: 
         return UpdateRecordRequestDto.decode(readValue(buffer)!);
-      case 240:
+      case 240: 
         return UpdateRecordResponseDto.decode(readValue(buffer)!);
-      case 241:
+      case 241: 
         return HealthConnectorConfigDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -7049,13 +6900,9 @@ class HealthConnectorPlatformApi {
   /// Constructor for [HealthConnectorPlatformApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  HealthConnectorPlatformApi({
-    BinaryMessenger? binaryMessenger,
-    String messageChannelSuffix = '',
-  }) : pigeonVar_binaryMessenger = binaryMessenger,
-       pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty
-           ? '.$messageChannelSuffix'
-           : '';
+  HealthConnectorPlatformApi({BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
+      : pigeonVar_binaryMessenger = binaryMessenger,
+        pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -7067,17 +6914,13 @@ class HealthConnectorPlatformApi {
   /// This method must be called before any other Health Connector operations
   /// to properly configure the native platform code, including logger settings.
   Future<void> initialize(HealthConnectorConfigDto config) async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.initialize$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[config],
+    final String pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.initialize$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
     );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[config]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -7094,17 +6937,13 @@ class HealthConnectorPlatformApi {
   }
 
   Future<AggregateResponseDto> aggregate(AggregateRequestDto request) async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.aggregate$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
+    final String pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.aggregate$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
     );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -7126,17 +6965,13 @@ class HealthConnectorPlatformApi {
   }
 
   Future<void> deleteRecordsByIds(DeleteRecordsByIdsRequestDto request) async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.deleteRecordsByIds$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
+    final String pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.deleteRecordsByIds$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
     );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -7152,20 +6987,14 @@ class HealthConnectorPlatformApi {
     }
   }
 
-  Future<void> deleteRecordsByTimeRange(
-    DeleteRecordsByTimeRangeRequestDto request,
-  ) async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.deleteRecordsByTimeRange$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
+  Future<void> deleteRecordsByTimeRange(DeleteRecordsByTimeRangeRequestDto request) async {
+    final String pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.deleteRecordsByTimeRange$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
     );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -7182,14 +7011,12 @@ class HealthConnectorPlatformApi {
   }
 
   Future<HealthPlatformStatusDto> getHealthPlatformStatus() async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.getHealthPlatformStatus$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
+    final String pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.getHealthPlatformStatus$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
+    );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -7211,20 +7038,14 @@ class HealthConnectorPlatformApi {
     }
   }
 
-  Future<PermissionsRequestResponseDto> requestPermissions(
-    PermissionsRequestDto request,
-  ) async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.requestPermissions$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
+  Future<PermissionsRequestResponseDto> requestPermissions(PermissionsRequestDto request) async {
+    final String pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.requestPermissions$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
     );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -7245,20 +7066,14 @@ class HealthConnectorPlatformApi {
     }
   }
 
-  Future<ReadRecordResponseDto?> readRecord(
-    ReadRecordRequestDto request,
-  ) async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.readRecord$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
+  Future<ReadRecordResponseDto?> readRecord(ReadRecordRequestDto request) async {
+    final String pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.readRecord$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
     );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -7274,20 +7089,14 @@ class HealthConnectorPlatformApi {
     }
   }
 
-  Future<ReadRecordsResponseDto> readRecords(
-    ReadRecordsRequestDto request,
-  ) async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.readRecords$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
+  Future<ReadRecordsResponseDto> readRecords(ReadRecordsRequestDto request) async {
+    final String pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.readRecords$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
     );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -7308,20 +7117,14 @@ class HealthConnectorPlatformApi {
     }
   }
 
-  Future<WriteRecordResponseDto> writeRecord(
-    WriteRecordRequestDto request,
-  ) async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.writeRecord$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
+  Future<WriteRecordResponseDto> writeRecord(WriteRecordRequestDto request) async {
+    final String pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.writeRecord$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
     );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -7342,20 +7145,14 @@ class HealthConnectorPlatformApi {
     }
   }
 
-  Future<WriteRecordsResponseDto> writeRecords(
-    WriteRecordsRequestDto request,
-  ) async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.writeRecords$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
+  Future<WriteRecordsResponseDto> writeRecords(WriteRecordsRequestDto request) async {
+    final String pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.writeRecords$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
     );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -7376,20 +7173,14 @@ class HealthConnectorPlatformApi {
     }
   }
 
-  Future<UpdateRecordResponseDto> updateRecord(
-    UpdateRecordRequestDto request,
-  ) async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.updateRecord$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
+  Future<UpdateRecordResponseDto> updateRecord(UpdateRecordRequestDto request) async {
+    final String pigeonVar_channelName = 'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.updateRecord$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel = BasicMessageChannel<Object?>(
+      pigeonVar_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: pigeonVar_binaryMessenger,
     );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(<Object?>[request]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
