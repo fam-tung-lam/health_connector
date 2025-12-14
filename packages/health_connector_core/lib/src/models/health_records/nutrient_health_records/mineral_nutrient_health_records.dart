@@ -2,6 +2,7 @@ part of '../health_record.dart';
 
 /// Base class for mineral nutrient health records.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @internal
 @immutable
 sealed class MineralNutrientRecord extends NutrientHealthRecord<Mass> {
@@ -18,6 +19,7 @@ sealed class MineralNutrientRecord extends NutrientHealthRecord<Mass> {
 
 /// Health record for calcium intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class CalciumNutrientRecord extends MineralNutrientRecord {
   factory CalciumNutrientRecord({
@@ -56,6 +58,7 @@ final class CalciumNutrientRecord extends MineralNutrientRecord {
 
 /// Health record for iron intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class IronNutrientRecord extends MineralNutrientRecord {
   factory IronNutrientRecord({
@@ -94,6 +97,7 @@ final class IronNutrientRecord extends MineralNutrientRecord {
 
 /// Health record for magnesium intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class MagnesiumNutrientRecord extends MineralNutrientRecord {
   factory MagnesiumNutrientRecord({
@@ -132,6 +136,7 @@ final class MagnesiumNutrientRecord extends MineralNutrientRecord {
 
 /// Health record for manganese intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class ManganeseNutrientRecord extends MineralNutrientRecord {
   factory ManganeseNutrientRecord({
@@ -170,6 +175,7 @@ final class ManganeseNutrientRecord extends MineralNutrientRecord {
 
 /// Health record for phosphorus intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class PhosphorusNutrientRecord extends MineralNutrientRecord {
   factory PhosphorusNutrientRecord({
@@ -208,6 +214,7 @@ final class PhosphorusNutrientRecord extends MineralNutrientRecord {
 
 /// Health record for potassium intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class PotassiumNutrientRecord extends MineralNutrientRecord {
   factory PotassiumNutrientRecord({
@@ -246,6 +253,7 @@ final class PotassiumNutrientRecord extends MineralNutrientRecord {
 
 /// Health record for selenium intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class SeleniumNutrientRecord extends MineralNutrientRecord {
   factory SeleniumNutrientRecord({
@@ -284,6 +292,7 @@ final class SeleniumNutrientRecord extends MineralNutrientRecord {
 
 /// Health record for sodium intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class SodiumNutrientRecord extends MineralNutrientRecord {
   factory SodiumNutrientRecord({
@@ -322,6 +331,7 @@ final class SodiumNutrientRecord extends MineralNutrientRecord {
 
 /// Health record for zinc intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class ZincNutrientRecord extends MineralNutrientRecord {
   factory ZincNutrientRecord({

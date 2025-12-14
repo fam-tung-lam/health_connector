@@ -1,6 +1,7 @@
 part of '../health_data_type.dart';
 
 @sinceV1_1_0
+@supportedOnAppleHealth
 @internal
 @immutable
 sealed class MacronutrientDataType<R extends HealthRecord>
@@ -10,6 +11,7 @@ sealed class MacronutrientDataType<R extends HealthRecord>
 
 /// Health data type for protein intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class ProteinNutrientDataType
     extends MacronutrientDataType<ProteinNutrientRecord>
@@ -94,6 +96,7 @@ final class ProteinNutrientDataType
 
 /// Health data type for total carbohydrate intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class TotalCarbohydrateNutrientDataType
     extends MacronutrientDataType<TotalCarbohydrateNutrientRecord>
@@ -180,6 +183,7 @@ final class TotalCarbohydrateNutrientDataType
 
 /// Health data type for total fat intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class TotalFatNutrientDataType
     extends MacronutrientDataType<TotalFatNutrientRecord>
@@ -264,6 +268,7 @@ final class TotalFatNutrientDataType
 
 /// Health data type for saturated fat intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class SaturatedFatNutrientDataType
     extends MacronutrientDataType<SaturatedFatNutrientRecord>
@@ -348,6 +353,7 @@ final class SaturatedFatNutrientDataType
 
 /// Health data type for monounsaturated fat intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class MonounsaturatedFatNutrientDataType
     extends MacronutrientDataType<MonounsaturatedFatNutrientRecord>
@@ -434,6 +440,7 @@ final class MonounsaturatedFatNutrientDataType
 
 /// Health data type for polyunsaturated fat intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class PolyunsaturatedFatNutrientDataType
     extends MacronutrientDataType<PolyunsaturatedFatNutrientRecord>
@@ -520,6 +527,7 @@ final class PolyunsaturatedFatNutrientDataType
 
 /// Health data type for cholesterol intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class CholesterolNutrientDataType
     extends MacronutrientDataType<CholesterolNutrientRecord>
@@ -604,6 +612,7 @@ final class CholesterolNutrientDataType
 
 /// Health data type for dietary fiber intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class DietaryFiberNutrientDataType
     extends MacronutrientDataType<DietaryFiberNutrientRecord>
@@ -688,6 +697,7 @@ final class DietaryFiberNutrientDataType
 
 /// Health data type for sugar intake.
 @sinceV1_1_0
+@supportedOnAppleHealth
 @immutable
 final class SugarNutrientDataType
     extends MacronutrientDataType<SugarNutrientRecord>
