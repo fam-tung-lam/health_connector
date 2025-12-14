@@ -35,16 +35,36 @@ class ExampleAppHomePage extends StatefulWidget {
 
 class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
   // Instance of HealthConnectorHCClient to use for all API calls
-  final _client = const HealthConnectorHCClient();
+  late final HealthConnectorHCClient _client;
 
   // Loading state to show overlay during async operations
-  bool _isPageLoading = false;
+  bool _isPageLoading = true;
   bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    _getHealthPlatformStatus();
+    _initClient();
+  }
+
+  Future<void> _initClient() async {
+    try {
+      _client = await HealthConnectorHCClient.create();
+      if (mounted) {
+        await _getHealthPlatformStatus();
+      }
+    } on HealthConnectorException catch (e) {
+      if (!mounted) {
+        return;
+      }
+      _showError('Failed to request permissions: ${e.message}');
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   /// Shows a snack bar with the given message and color.

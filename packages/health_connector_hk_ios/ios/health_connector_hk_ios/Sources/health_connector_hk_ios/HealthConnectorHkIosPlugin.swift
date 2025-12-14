@@ -14,7 +14,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     /**
      * Cached instance of the HealthKit client.
      */
-    private var healthClient: HealthConnectorClient?
+    private var healthClient: HealthConnectorClient!
 
     /**
      * Registers the plugin with the Flutter engine.
@@ -24,6 +24,57 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     public static func register(with registrar: FlutterPluginRegistrar) {
         let instance = HealthConnectorHkIosPlugin()
         HealthConnectorPlatformApiSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
+    }
+
+    /**
+     * Initializes the Health Connector client with the provided configuration.
+     *
+     * This method must be called before any other Health Connector operations
+     * to properly configure the native platform code, including logger settings.
+     *
+     * - Parameters:
+     *   - config: Configuration settings for the Health Connector
+     *   - completion: Called with a `Result` indicating success or failure
+     */
+    public func initialize(
+        config: HealthConnectorConfigDto,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
+        HealthConnectorLogger.debug(
+            tag: HealthConnectorHkIosPlugin.tag,
+            operation: "create",
+            phase: "entry",
+            message: "Creating HealthConnectorClient...",
+            context: ["isLoggerEnabled": String(config.isLoggerEnabled)]
+        )
+
+        do {
+            if healthClient == nil {
+                healthClient = try HealthConnectorClient.getOrCreate()
+            }
+
+            // Configure the native logger based on the provided configuration
+            HealthConnectorLogger.isEnabled = config.isLoggerEnabled
+
+            HealthConnectorLogger.debug(
+                tag: HealthConnectorHkIosPlugin.tag,
+                operation: "create",
+                phase: "succeeded",
+                message: "HealthConnector initialized successfully",
+                context: ["isLoggerEnabled": String(config.isLoggerEnabled)]
+            )
+
+            completion(.success(()))
+        } catch {
+            HealthConnectorLogger.error(
+                tag: HealthConnectorHkIosPlugin.tag,
+                operation: "create",
+                phase: "failed",
+                message: "Failed to create HealthConnectorClient",
+                exception: error
+            )
+            completion(.failure(error))
+        }
     }
 
     /**
@@ -52,15 +103,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ) {
         Task {
             do {
-                if healthClient == nil {
-                    healthClient = try HealthConnectorClient.getOrCreate()
-                }
-
-                guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthProviderUnavailable()
-                }
-
-                let healthDataResults = try await client
+                let healthDataResults = try await healthClient
                     .requestPermissions(healthDataPermissions: request.healthDataPermissions)
 
                 let response = PermissionsRequestResponseDto(
@@ -112,15 +155,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ) {
         Task {
             do {
-                if healthClient == nil {
-                    healthClient = try HealthConnectorClient.getOrCreate()
-                }
-
-                guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthProviderUnavailable()
-                }
-
-                let result = try await client.readRecord(request: request)
+                let result = try await healthClient.readRecord(request: request)
 
                 self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
@@ -166,15 +201,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ) {
         Task {
             do {
-                if healthClient == nil {
-                    healthClient = try HealthConnectorClient.getOrCreate()
-                }
-
-                guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthProviderUnavailable()
-                }
-
-                let result = try await client.readRecords(request: request)
+                let result = try await healthClient.readRecords(request: request)
 
                 self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
@@ -220,15 +247,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ) {
         Task {
             do {
-                if healthClient == nil {
-                    healthClient = try HealthConnectorClient.getOrCreate()
-                }
-
-                guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthProviderUnavailable()
-                }
-
-                let result = try await client.writeRecord(request: request)
+                let result = try await healthClient.writeRecord(request: request)
 
                 self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
@@ -274,15 +293,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ) {
         Task {
             do {
-                if healthClient == nil {
-                    healthClient = try HealthConnectorClient.getOrCreate()
-                }
-
-                guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthProviderUnavailable()
-                }
-
-                let result = try await client.writeRecords(request: request)
+                let result = try await healthClient.writeRecords(request: request)
 
                 self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
@@ -328,15 +339,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ) {
         Task {
             do {
-                if healthClient == nil {
-                    healthClient = try HealthConnectorClient.getOrCreate()
-                }
-
-                guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthProviderUnavailable()
-                }
-
-                let result = try await client.updateRecord(request: request)
+                let result = try await healthClient.updateRecord(request: request)
 
                 self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
@@ -382,15 +385,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ) {
         Task {
             do {
-                if healthClient == nil {
-                    healthClient = try HealthConnectorClient.getOrCreate()
-                }
-
-                guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthProviderUnavailable()
-                }
-
-                let result = try await client.aggregate(request: request)
+                let result = try await healthClient.aggregate(request: request)
 
                 self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
@@ -438,15 +433,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ) {
         Task {
             do {
-                if healthClient == nil {
-                    healthClient = try HealthConnectorClient.getOrCreate()
-                }
-
-                guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthProviderUnavailable()
-                }
-
-                try await client.deleteRecordsByIds(request: request)
+                try await healthClient.deleteRecordsByIds(request: request)
 
                 self.complete(completion, with: .success(()))
             } catch let error as HealthConnectorError {
@@ -492,15 +479,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ) {
         Task {
             do {
-                if healthClient == nil {
-                    healthClient = try HealthConnectorClient.getOrCreate()
-                }
-
-                guard let client = healthClient else {
-                    throw HealthConnectorErrors.healthProviderUnavailable()
-                }
-
-                try await client.deleteRecordsByTimeRange(request: request)
+                try await healthClient.deleteRecordsByTimeRange(request: request)
 
                 self.complete(completion, with: .success(()))
             } catch let error as HealthConnectorError {
