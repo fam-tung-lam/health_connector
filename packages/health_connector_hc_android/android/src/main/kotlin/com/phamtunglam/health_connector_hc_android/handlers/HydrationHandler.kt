@@ -27,7 +27,7 @@ internal class HydrationHandler(override val client: HealthConnectClient) :
     override fun toAggregateMetric(request: AggregateRequestDto): AggregateMetric<*> =
         when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> HydrationRecord.VOLUME_TOTAL
-            else -> throw UnsupportedOperationException(
+            else -> throw IllegalArgumentException(
                 "Unsupported metric: ${request.aggregationMetric}",
             )
         }

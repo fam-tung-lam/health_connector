@@ -85,7 +85,7 @@ internal class HealthConnectorClient private constructor(
             } catch (e: UnsupportedOperationException) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "getOrCreate",
+                    operation = "get_or_create",
                     message = "Failed to create Health Connect client " +
                         "due to SDK version too low or running in a profile mode",
                     exception = e,
@@ -97,7 +97,7 @@ internal class HealthConnectorClient private constructor(
             } catch (e: IllegalStateException) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "getOrCreate",
+                    operation = "get_or_create",
                     message = "Failed to create Health Connect client due to service not available",
                     exception = e,
                 )
@@ -116,7 +116,7 @@ internal class HealthConnectorClient private constructor(
         fun getHealthPlatformStatus(context: Context): HealthPlatformStatusDto {
             HealthConnectorLogger.debug(
                 tag = TAG,
-                operation = "getHealthPlatformStatus",
+                operation = "get_health_platform_status",
                 message = "Getting Health Connect SDK status",
             )
 
@@ -125,7 +125,7 @@ internal class HealthConnectorClient private constructor(
 
             HealthConnectorLogger.info(
                 tag = TAG,
-                operation = "getHealthPlatformStatus",
+                operation = "get_health_platform_status",
                 message = "Health Connect platform status retrieved",
                 context = mapOf(
                     "status_code" to statusCode,
@@ -157,7 +157,7 @@ internal class HealthConnectorClient private constructor(
     ): PermissionRequestsResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
-            operation = "requestPermissions",
+            operation = "request_permissions",
             message = "Requesting Health Connect permissions",
             context = mapOf(
                 "requested_permissions" to request.permissionRequests,
@@ -176,19 +176,6 @@ internal class HealthConnectorClient private constructor(
             return PermissionRequestsResponseDto(permissionRequestResults)
         } catch (e: HealthConnectorErrorDto) {
             throw e
-        } catch (e: Exception) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "requestPermissions",
-                message = "Failed to request Health Connect permissions",
-                context = mapOf(
-                    "requested_permissions" to request.permissionRequests,
-                ),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                "Failed to process $request : ${e.message ?: "Unknown error"}",
-            )
         }
     }
 
@@ -211,7 +198,7 @@ internal class HealthConnectorClient private constructor(
     ): HealthPlatformFeatureStatusDto {
         HealthConnectorLogger.debug(
             tag = TAG,
-            operation = "getFeatureStatus",
+            operation = "get_feature_status",
             message = "Checking Health Connect feature status",
             context = mapOf("feature" to feature),
         )
@@ -224,7 +211,7 @@ internal class HealthConnectorClient private constructor(
 
             HealthConnectorLogger.info(
                 tag = TAG,
-                operation = "getFeatureStatus",
+                operation = "get_feature_status",
                 message = "Health Connect feature status retrieved",
                 context = mapOf(
                     "feature" to feature,
@@ -236,7 +223,7 @@ internal class HealthConnectorClient private constructor(
         } catch (e: IllegalStateException) {
             HealthConnectorLogger.error(
                 tag = TAG,
-                operation = "getFeatureStatus",
+                operation = "get_feature_status",
                 message = e.message,
                 context = mapOf("feature" to feature),
                 exception = e,
@@ -247,7 +234,7 @@ internal class HealthConnectorClient private constructor(
         } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
                 tag = TAG,
-                operation = "getFeatureStatus",
+                operation = "get_feature_status",
                 message = "Failed to get Health Connect feature status",
                 context = mapOf("feature" to feature),
                 exception = e,
@@ -272,7 +259,7 @@ internal class HealthConnectorClient private constructor(
     suspend fun readRecord(request: ReadRecordRequestDto): ReadRecordResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
-            operation = "readRecord",
+            operation = "read_record",
             message = "Reading Health Connect record",
             context = mapOf("request" to request),
         )
@@ -293,25 +280,14 @@ internal class HealthConnectorClient private constructor(
 
             HealthConnectorLogger.info(
                 tag = TAG,
-                operation = "readRecord",
+                operation = "read_record",
                 message = "Health Connect record read successfully",
-                context = mapOf("dataType" to request.dataType, "recordId" to request.recordId),
+                context = mapOf("data_type" to request.dataType, "record_id" to request.recordId),
             )
 
             return ReadRecordResponseDto(record = dto)
         } catch (e: HealthConnectorErrorDto) {
             throw e
-        } catch (e: Exception) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "readRecord",
-                message = "Unexpected error escaped from handler",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                "Unexpected error: ${e.message ?: "Unknown error"}",
-            )
         }
     }
 
@@ -326,7 +302,7 @@ internal class HealthConnectorClient private constructor(
     suspend fun readRecords(request: ReadRecordsRequestDto): ReadRecordsResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
-            operation = "readRecords",
+            operation = "read_records",
             message = "Reading Health Connect records",
             context = mapOf("request" to request),
         )
@@ -353,9 +329,9 @@ internal class HealthConnectorClient private constructor(
 
             HealthConnectorLogger.info(
                 tag = TAG,
-                operation = "readRecords",
+                operation = "read_records",
                 message = "Health Connect records read successfully",
-                context = mapOf("dataType" to request.dataType, "count" to records.size),
+                context = mapOf("data_type" to request.dataType, "count" to records.size),
             )
 
             return ReadRecordsResponseDto(
@@ -364,17 +340,6 @@ internal class HealthConnectorClient private constructor(
             )
         } catch (e: HealthConnectorErrorDto) {
             throw e
-        } catch (e: Exception) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "readRecords",
-                message = "Unexpected error escaped from handler",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                "Unexpected error: ${e.message ?: "Unknown error"}",
-            )
         }
     }
 
@@ -392,7 +357,7 @@ internal class HealthConnectorClient private constructor(
     suspend fun writeRecord(request: WriteRecordRequestDto): WriteRecordResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
-            operation = "writeRecord",
+            operation = "write_record",
             message = "Writing Health Connect record",
             context = mapOf("request" to request),
         )
@@ -413,25 +378,14 @@ internal class HealthConnectorClient private constructor(
 
             HealthConnectorLogger.info(
                 tag = TAG,
-                operation = "writeRecord",
+                operation = "write_record",
                 message = "Health Connect record written successfully",
-                context = mapOf("dataType" to request.record.dataType, "recordId" to recordId),
+                context = mapOf("data_type" to request.record.dataType, "record_id" to recordId),
             )
 
             return WriteRecordResponseDto(recordId = recordId)
         } catch (e: HealthConnectorErrorDto) {
             throw e
-        } catch (e: Exception) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "writeRecord",
-                message = "Unexpected error escaped from handler",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                "Unexpected error: ${e.message ?: "Unknown error"}",
-            )
         }
     }
 
@@ -446,7 +400,7 @@ internal class HealthConnectorClient private constructor(
     suspend fun writeRecords(request: WriteRecordsRequestDto): WriteRecordsResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
-            operation = "writeRecords",
+            operation = "write_records",
             message = "Writing Health Connect records",
             context = mapOf("request" to request),
         )
@@ -472,25 +426,14 @@ internal class HealthConnectorClient private constructor(
 
             HealthConnectorLogger.info(
                 tag = TAG,
-                operation = "writeRecords",
+                operation = "write_records",
                 message = "Health Connect records written successfully",
-                context = mapOf("dataType" to firstRecord.dataType, "count" to recordIds.size),
+                context = mapOf("data_type" to firstRecord.dataType, "count" to recordIds.size),
             )
 
             return WriteRecordsResponseDto(recordIds = recordIds)
         } catch (e: HealthConnectorErrorDto) {
             throw e
-        } catch (e: Exception) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "writeRecords",
-                message = "Unexpected error escaped from handler",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                "Unexpected error: ${e.message ?: "Unknown error"}",
-            )
         }
     }
 
@@ -509,7 +452,7 @@ internal class HealthConnectorClient private constructor(
     suspend fun updateRecord(request: UpdateRecordRequestDto): UpdateRecordResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
-            operation = "updateRecord",
+            operation = "update_record",
             message = "Updating Health Connect record",
             context = mapOf("request" to request),
         )
@@ -530,25 +473,14 @@ internal class HealthConnectorClient private constructor(
 
             HealthConnectorLogger.info(
                 tag = TAG,
-                operation = "updateRecord",
+                operation = "update_record",
                 message = "Health Connect record updated successfully",
-                context = mapOf("dataType" to request.record.dataType, "recordId" to recordId),
+                context = mapOf("data_type" to request.record.dataType, "record_id" to recordId),
             )
 
             return UpdateRecordResponseDto(recordId = recordId)
         } catch (e: HealthConnectorErrorDto) {
             throw e
-        } catch (e: Exception) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "updateRecord",
-                message = "Unexpected error escaped from handler",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                "Unexpected error: ${e.message ?: "Unknown error"}",
-            )
         }
     }
 
@@ -564,7 +496,7 @@ internal class HealthConnectorClient private constructor(
     suspend fun deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) {
         HealthConnectorLogger.debug(
             tag = TAG,
-            operation = "deleteRecordsByIds",
+            operation = "delete_records_by_ids",
             message = "Deleting Health Connect records by IDs",
             context = mapOf("request" to request),
         )
@@ -572,7 +504,7 @@ internal class HealthConnectorClient private constructor(
         if (request.recordIds.isEmpty()) {
             HealthConnectorLogger.warning(
                 tag = TAG,
-                operation = "deleteRecordsByIds",
+                operation = "delete_records_by_ids",
                 message = "No records to delete (empty IDs list)",
             )
             return
@@ -594,23 +526,12 @@ internal class HealthConnectorClient private constructor(
 
             HealthConnectorLogger.info(
                 tag = TAG,
-                operation = "deleteRecordsByIds",
+                operation = "delete_records_by_ids",
                 message = "Health Connect records deleted successfully",
-                context = mapOf("dataType" to request.dataType, "count" to request.recordIds.size),
+                context = mapOf("data_type" to request.dataType, "count" to request.recordIds.size),
             )
         } catch (e: HealthConnectorErrorDto) {
             throw e
-        } catch (e: Exception) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "deleteRecordsByIds",
-                message = "Unexpected error escaped from handler",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                "Unexpected error: ${e.message ?: "Unknown error"}",
-            )
         }
     }
 
@@ -626,7 +547,7 @@ internal class HealthConnectorClient private constructor(
     suspend fun deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) {
         HealthConnectorLogger.debug(
             tag = TAG,
-            operation = "deleteRecordsByTimeRange",
+            operation = "delete_records_by_time_range",
             message = "Deleting Health Connect records by time range",
             context = mapOf("request" to request),
         )
@@ -643,27 +564,19 @@ internal class HealthConnectorClient private constructor(
                 )
             }
 
-            handler.deleteRecordsByTimeRange(request.startTime, request.endTime)
+            handler.deleteRecordsByTimeRange(
+                startTime = Instant.ofEpochMilli(request.startTime),
+                endTime = Instant.ofEpochMilli(request.endTime),
+            )
 
             HealthConnectorLogger.info(
                 tag = TAG,
-                operation = "deleteRecordsByTimeRange",
+                operation = "delete_records_by_time_range",
                 message = "Health Connect records deleted successfully",
-                context = mapOf("dataType" to request.dataType),
+                context = mapOf("data_type" to request.dataType),
             )
         } catch (e: HealthConnectorErrorDto) {
             throw e
-        } catch (e: Exception) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "deleteRecordsByTimeRange",
-                message = "Unexpected error escaped from handler",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                "Unexpected error: ${e.message ?: "Unknown error"}",
-            )
         }
     }
 
@@ -714,17 +627,6 @@ internal class HealthConnectorClient private constructor(
             return responseDto
         } catch (e: HealthConnectorErrorDto) {
             throw e
-        } catch (e: Exception) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "aggregate",
-                message = "Unexpected error escaped from handler",
-                context = mapOf("request" to request),
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                "Unexpected error: ${e.message ?: "Unknown error"}",
-            )
         }
     }
 
@@ -740,7 +642,7 @@ internal class HealthConnectorClient private constructor(
     suspend fun getGrantedPermissions(): PermissionRequestsResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
-            operation = "getGrantedPermissions",
+            operation = "get_granted_permissions",
             message = "Getting granted Health Connect permissions",
         )
 
@@ -748,16 +650,6 @@ internal class HealthConnectorClient private constructor(
             return permissionService.getGrantedPermissions()
         } catch (e: HealthConnectorErrorDto) {
             throw e
-        } catch (e: Exception) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "getGrantedPermissions",
-                message = "Failed to get granted Health Connect permissions",
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                "Failed to get granted permissions: ${e.message}",
-            )
         }
     }
 
@@ -770,7 +662,7 @@ internal class HealthConnectorClient private constructor(
     suspend fun revokeAllPermissions() {
         HealthConnectorLogger.debug(
             tag = TAG,
-            operation = "revokeAllPermissions",
+            operation = "revoke_all_permissions",
             message = "Revoking all Health Connect permissions",
         )
 
@@ -779,21 +671,11 @@ internal class HealthConnectorClient private constructor(
 
             HealthConnectorLogger.info(
                 tag = TAG,
-                operation = "revokeAllPermissions",
+                operation = "revoke_all_permissions",
                 message = "All Health Connect permissions revoked successfully",
             )
         } catch (e: HealthConnectorErrorDto) {
             throw e
-        } catch (e: Exception) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = "revokeAllPermissions",
-                message = "Failed to revoke all Health Connect permissions",
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                "Failed to revoke all permissions: ${e.message}",
-            )
         }
     }
 }

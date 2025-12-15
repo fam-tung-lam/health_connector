@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 
 /**
  * Internal service responsible for validating the application's Android Manifest configuration.
@@ -23,6 +24,7 @@ internal class HealthConnectorManifestService(private val context: Context) {
      * @param permissions The set of permission strings to validate (e.g., `android.permission.health.READ_STEPS`).
      * @throws HealthConnectorErrorCodeDto.INVALID_CONFIGURATION If any of the [permissions] are missing from the manifest declaration.
      */
+    @Throws(HealthConnectorErrorDto::class)
     fun checkPermissionsDeclared(permissions: Set<String>) {
         val (_, missing) = partitionDeclaredPermissions(permissions)
 

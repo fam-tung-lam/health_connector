@@ -27,7 +27,7 @@ internal class SleepSessionHandler(override val client: HealthConnectClient) :
     override fun toAggregateMetric(request: AggregateRequestDto): AggregateMetric<*> =
         when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> SleepSessionRecord.SLEEP_DURATION_TOTAL
-            else -> throw UnsupportedOperationException(
+            else -> throw IllegalArgumentException(
                 "Unsupported metric: ${request.aggregationMetric}",
             )
         }
@@ -42,6 +42,6 @@ internal class SleepSessionHandler(override val client: HealthConnectClient) :
             duration.seconds.toNumericDto()
         }
 
-        else -> throw UnsupportedOperationException("Unsupported metric: $metric")
+        else -> throw IllegalArgumentException("Unsupported metric: $metric")
     }
 }

@@ -8,6 +8,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.toPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeaturePermissionRequest
@@ -46,7 +47,9 @@ internal class HealthConnectorPermissionService(
      * @param activity The [ComponentActivity] required to register the result contract.
      * @param request The DTO containing the list of permissions (data or feature) to request.
      * @return A list of [PermissionRequestResultDto] indicating the status (GRANTED/DENIED) of each requested permission.
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.UNKNOWN] for [ActivityNotFoundException].
      */
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun requestPermissions(
         activity: ComponentActivity,
         request: PermissionRequestsDto,
@@ -89,7 +92,9 @@ internal class HealthConnectorPermissionService(
      * @param activity The [ComponentActivity] context for registering the result contract.
      * @param permissionStrings The set of permission strings to request.
      * @return A set of granted permission strings.
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.UNKNOWN] for [ActivityNotFoundException].
      */
+    @Throws(HealthConnectorErrorDto::class)
     private suspend fun launchPermissionRequest(
         activity: ComponentActivity,
         permissionStrings: Set<String>,
@@ -121,10 +126,12 @@ internal class HealthConnectorPermissionService(
      * Retrieves the list of permissions currently granted to this application by the user.
      *
      * @return A [PermissionRequestsResponseDto] containing all granted permissions.
-     * @throws RemoteException For any IPC transportation failures.
-     * @throws IOException For any disk I/O issues.
-     * @throws IllegalStateException If service is not available.
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.REMOTE_ERROR] for
+     *         any IPC transportation and disk I/O issues.
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE]
+     *         if service is not available.
      */
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun getGrantedPermissions(): PermissionRequestsResponseDto {
         try {
             val grantedPermissionStrings = permissionClient.getGrantedPermissions()
@@ -146,10 +153,12 @@ internal class HealthConnectorPermissionService(
     /**
      * Revokes all previously granted permissions by the user to the calling app.
      *
-     * @throws RemoteException For any IPC transportation failures.
-     * @throws IOException For any disk I/O issues.
-     * @throws IllegalStateException If service is not available.
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.REMOTE_ERROR] for
+     *         any IPC transportation and disk I/O issues.
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE]
+     *         if service is not available.
      */
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun revokeAllPermissions() {
         try {
             permissionClient.revokeAllPermissions()

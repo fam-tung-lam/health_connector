@@ -56,7 +56,7 @@ internal class BloodPressureHandler(override val client: HealthConnectClient) :
                 }
             }
 
-            else -> throw UnsupportedOperationException(
+            else -> throw IllegalArgumentException(
                 "Aggregation metric ${request.aggregationMetric} is not supported for blood pressure",
             )
         }

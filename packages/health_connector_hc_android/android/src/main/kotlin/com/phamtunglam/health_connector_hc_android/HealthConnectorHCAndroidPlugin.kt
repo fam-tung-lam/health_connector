@@ -93,7 +93,7 @@ class HealthConnectorHCAndroidPlugin :
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, e ->
             HealthConnectorLogger.warning(
                 tag = TAG,
-                operation = "coroutineExceptionHandler",
+                operation = "coroutine_exception_handler",
                 message = "Unhandled exception in coroutine scope",
                 exception = e,
             )
@@ -190,7 +190,7 @@ class HealthConnectorHCAndroidPlugin :
                 tag = TAG,
                 operation = "create",
                 message = "Creating ${HealthConnectorClient.TAG}...",
-                context = mapOf("isLoggerEnabled" to config.isLoggerEnabled.toString()),
+                context = mapOf("is_logger_enabled" to config.isLoggerEnabled.toString()),
             )
 
             try {
@@ -204,7 +204,7 @@ class HealthConnectorHCAndroidPlugin :
                     tag = TAG,
                     operation = "create",
                     message = "${HealthConnectorClient.TAG} initialized successfully",
-                    context = mapOf("isLoggerEnabled" to config.isLoggerEnabled.toString()),
+                    context = mapOf("is_logger_enabled" to config.isLoggerEnabled.toString()),
                 )
 
                 complete(callback, Result.success(Unit))
@@ -221,6 +221,24 @@ class HealthConnectorHCAndroidPlugin :
                 )
 
                 complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "create",
+                    message = "Unexpected error during initialization",
+                    context = mapOf("is_logger_enabled" to config.isLoggerEnabled.toString()),
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
             }
         }
     }
@@ -232,9 +250,28 @@ class HealthConnectorHCAndroidPlugin :
      */
     override fun getHealthPlatformStatus(callback: (Result<HealthPlatformStatusDto>) -> Unit) {
         scope.launch {
-            val statusDto = HealthConnectorClient.getHealthPlatformStatus(context)
+            try {
+                val statusDto = HealthConnectorClient.getHealthPlatformStatus(context)
 
-            complete(callback, Result.success(statusDto))
+                complete(callback, Result.success(statusDto))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "get_health_platform_status",
+                    message = "Unexpected error while getting platform status",
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
+            }
         }
     }
 
@@ -257,7 +294,7 @@ class HealthConnectorHCAndroidPlugin :
                 if (currentActivity == null) {
                     HealthConnectorLogger.error(
                         tag = TAG,
-                        operation = "requestPermissions",
+                        operation = "request_permissions",
                         message = "Activity is null. " +
                             "Cannot request permissions without activity context",
                     )
@@ -285,7 +322,7 @@ class HealthConnectorHCAndroidPlugin :
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "requestPermissions",
+                    operation = "request_permissions",
                     message = "Failed to request Health Connect permissions",
                     context = mapOf(
                         "error_code" to e.code,
@@ -295,6 +332,24 @@ class HealthConnectorHCAndroidPlugin :
                 )
 
                 complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "request_permissions",
+                    message = "Unexpected error while requesting permissions",
+                    context = mapOf("requested_permissions" to request.permissionRequests),
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
             }
         }
     }
@@ -314,7 +369,7 @@ class HealthConnectorHCAndroidPlugin :
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "getGrantedPermissions",
+                    operation = "get_granted_permissions",
 
                     message = "Failed to get granted Health Connect permissions",
                     context = mapOf(
@@ -325,6 +380,23 @@ class HealthConnectorHCAndroidPlugin :
                 )
 
                 complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "get_granted_permissions",
+                    message = "Unexpected error while getting granted permissions",
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
             }
         }
     }
@@ -344,7 +416,7 @@ class HealthConnectorHCAndroidPlugin :
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "revokeAllPermissions",
+                    operation = "revoke_all_permissions",
 
                     message = "Failed to revoke all Health Connect permissions",
                     context = mapOf(
@@ -355,6 +427,23 @@ class HealthConnectorHCAndroidPlugin :
                 )
 
                 complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "revoke_all_permissions",
+                    message = "Unexpected error while revoking all permissions",
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
             }
         }
     }
@@ -378,7 +467,7 @@ class HealthConnectorHCAndroidPlugin :
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "getFeatureStatus",
+                    operation = "get_feature_status",
 
                     message = "Failed to get Health Connect feature status",
                     context = mapOf(
@@ -390,6 +479,24 @@ class HealthConnectorHCAndroidPlugin :
                 )
 
                 complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "get_feature_status",
+                    message = "Unexpected error while getting feature status",
+                    context = mapOf("feature" to feature.toString()),
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
             }
         }
     }
@@ -413,12 +520,12 @@ class HealthConnectorHCAndroidPlugin :
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "readRecord",
+                    operation = "read_record",
 
                     message = "Failed to read Health Connect record",
                     context = mapOf(
-                        "dataType" to request.dataType.toString(),
-                        "recordId" to request.recordId,
+                        "data_type" to request.dataType.toString(),
+                        "record_id" to request.recordId,
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),
@@ -426,6 +533,24 @@ class HealthConnectorHCAndroidPlugin :
                 )
 
                 complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "read_record",
+                    message = "Unexpected error escaped from handler",
+                    context = mapOf("request" to request),
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
             }
         }
     }
@@ -449,14 +574,14 @@ class HealthConnectorHCAndroidPlugin :
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "readRecords",
+                    operation = "read_records",
 
                     message = "Failed to read Health Connect records",
                     context = mapOf(
-                        "dataType" to request.dataType.toString(),
-                        "startTime" to request.startTime,
-                        "endTime" to request.endTime,
-                        "pageSize" to request.pageSize,
+                        "data_type" to request.dataType.toString(),
+                        "start_time" to request.startTime,
+                        "end_time" to request.endTime,
+                        "page_size" to request.pageSize,
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),
@@ -464,6 +589,24 @@ class HealthConnectorHCAndroidPlugin :
                 )
 
                 complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "read_records",
+                    message = "Unexpected error escaped from handler",
+                    context = mapOf("request" to request),
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
             }
         }
     }
@@ -487,7 +630,7 @@ class HealthConnectorHCAndroidPlugin :
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "writeRecord",
+                    operation = "write_record",
 
                     message = "Failed to write Health Connect record",
                     context = mapOf(
@@ -498,6 +641,24 @@ class HealthConnectorHCAndroidPlugin :
                 )
 
                 complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "write_record",
+                    message = "Unexpected error escaped from handler",
+                    context = mapOf("request" to request),
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
             }
         }
     }
@@ -521,11 +682,11 @@ class HealthConnectorHCAndroidPlugin :
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "writeRecords",
+                    operation = "write_records",
 
                     message = "Failed to write Health Connect records",
                     context = mapOf(
-                        "recordsCount" to request.records.size,
+                        "records_count" to request.records.size,
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),
@@ -533,6 +694,24 @@ class HealthConnectorHCAndroidPlugin :
                 )
 
                 complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "write_records",
+                    message = "Unexpected error escaped from handler",
+                    context = mapOf("request" to request),
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
             }
         }
     }
@@ -556,7 +735,7 @@ class HealthConnectorHCAndroidPlugin :
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "updateRecord",
+                    operation = "update_record",
 
                     message = "Failed to update Health Connect record",
                     context = mapOf(
@@ -567,6 +746,24 @@ class HealthConnectorHCAndroidPlugin :
                 )
 
                 complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "update_record",
+                    message = "Unexpected error escaped from handler",
+                    context = mapOf("request" to request),
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
             }
         }
     }
@@ -590,12 +787,12 @@ class HealthConnectorHCAndroidPlugin :
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "deleteRecordsByIds",
+                    operation = "delete_records_by_ids",
 
                     message = "Failed to delete Health Connect records by IDs",
                     context = mapOf(
-                        "dataType" to request.dataType.toString(),
-                        "recordIdsCount" to request.recordIds.size,
+                        "data_type" to request.dataType.toString(),
+                        "record_ids_count" to request.recordIds.size,
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),
@@ -603,6 +800,24 @@ class HealthConnectorHCAndroidPlugin :
                 )
 
                 complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "delete_records_by_ids",
+                    message = "Unexpected error escaped from handler",
+                    context = mapOf("request" to request),
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
             }
         }
     }
@@ -626,13 +841,13 @@ class HealthConnectorHCAndroidPlugin :
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "deleteRecordsByTimeRange",
+                    operation = "delete_records_by_time_range",
 
                     message = "Failed to delete Health Connect records by time range",
                     context = mapOf(
-                        "dataType" to request.dataType.toString(),
-                        "startTime" to request.startTime,
-                        "endTime" to request.endTime,
+                        "data_type" to request.dataType.toString(),
+                        "start_time" to request.startTime,
+                        "end_time" to request.endTime,
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),
@@ -640,6 +855,24 @@ class HealthConnectorHCAndroidPlugin :
                 )
 
                 complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "delete_records_by_time_range",
+                    message = "Unexpected error escaped from handler",
+                    context = mapOf("request" to request),
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
             }
         }
     }
@@ -667,10 +900,10 @@ class HealthConnectorHCAndroidPlugin :
 
                     message = "Failed to aggregate Health Connect data",
                     context = mapOf(
-                        "dataType" to request.dataType.toString(),
-                        "aggregationMetric" to request.aggregationMetric.toString(),
-                        "startTime" to request.startTime,
-                        "endTime" to request.endTime,
+                        "data_type" to request.dataType.toString(),
+                        "aggregation_metric" to request.aggregationMetric.toString(),
+                        "start_time" to request.startTime,
+                        "end_time" to request.endTime,
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),
@@ -678,6 +911,24 @@ class HealthConnectorHCAndroidPlugin :
                 )
 
                 complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "aggregate",
+                    message = "Unexpected error escaped from handler",
+                    context = mapOf("request" to request),
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
             }
         }
     }
