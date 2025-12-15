@@ -21,6 +21,11 @@ class HealthConnectorClient {
     private let infoPlistService: HealthConnectorInfoPListService
 
     /**
+     * Service for managing HealthKit permissions.
+     */
+    private let permissionService: HealthConnectorPermissionService
+
+    /**
      * Private initializer to prevent external instantiation.
      *
      * - Parameter store: The HealthKit store instance.
@@ -28,6 +33,7 @@ class HealthConnectorClient {
     private init(store: HKHealthStore) {
         self.store = store
         self.infoPlistService = HealthConnectorInfoPListService()
+        self.permissionService = HealthConnectorPermissionService(store: store)
 
         // Trigger handler registration on first initialization
         _ = HealthKitTypeRegistry.shared
@@ -145,123 +151,17 @@ class HealthConnectorClient {
     func requestPermissions(healthDataPermissions: [HealthDataPermissionDto]) async throws
         -> [HealthDataPermissionRequestResultDto]
     {
-        do {
-            HealthConnectorLogger.debug(
-                tag: HealthConnectorClient.tag,
-                operation: "requestPermissions",
-                message: "Requesting Health Connect permissions",
-                context: [
-                    "requested_health_data_permissions": healthDataPermissions,
-                ]
-            )
+        HealthConnectorLogger.debug(
+            tag: HealthConnectorClient.tag,
+            operation: "requestPermissions",
+            message: "Requesting HealthKit permissions via permission service",
+            context: [
+                "requested_health_data_permissions": healthDataPermissions,
+            ]
+        )
 
-            // Separate permissions into read and write sets
-            var typesToRead = Set<HKObjectType>()
-            var typesToWrite = Set<HKSampleType>()
-
-            for permission in healthDataPermissions {
-                let objectTypes = try permission.toHealthKitObjectTypes()
-
-                for objectType in objectTypes {
-                    switch permission.accessType {
-                    case .read:
-                        typesToRead.insert(objectType)
-                    case .write:
-                        if let sampleType = objectType as? HKSampleType {
-                            typesToWrite.insert(sampleType)
-                        }
-                    }
-                }
-            }
-
-            try await store.requestAuthorization(toShare: typesToWrite, read: typesToRead)
-
-            let results = try healthDataPermissions.map {
-                permissionDto -> HealthDataPermissionRequestResultDto in
-                let objectTypes = try permissionDto.toHealthKitObjectTypes()
-                let status: PermissionStatusDto
-
-                switch permissionDto.accessType {
-                case .read:
-                    // HealthKit never reveals read permission status for privacy reasons
-                    status = .unknown
-
-                case .write:
-                    // Check authorization status for all object types
-                    let sampleTypes = objectTypes.compactMap {
-                        $0 as? HKSampleType
-                    }
-
-                    if sampleTypes.isEmpty {
-                        status = .unknown
-                    } else {
-                        let authStatuses = sampleTypes.map {
-                            store.authorizationStatus(for: $0)
-                        }
-
-                        let allAuthorized = authStatuses.allSatisfy {
-                            $0 == .sharingAuthorized
-                        }
-                        let allDenied = authStatuses.allSatisfy {
-                            $0 == .sharingDenied
-                        }
-
-                        if allAuthorized {
-                            status = .granted
-                        } else if allDenied {
-                            status = .denied
-                        } else {
-                            status = .unknown
-                        }
-                    }
-                }
-
-                return HealthDataPermissionRequestResultDto(permission: permissionDto, status: status)
-            }
-
-            HealthConnectorLogger.info(
-                tag: HealthConnectorClient.tag,
-                operation: "requestPermissions",
-                message: "Health Connect permissions requested successfully",
-                context: [
-                    "granted_health_data_permissions": results,
-                ]
-            )
-
-            return results
-
-        } catch let error as HealthConnectorError {
-            throw error
-        } catch let error as NSError {
-            let baseError = HealthConnectorClient.mapHealthKitError(error)
-            HealthConnectorLogger.error(
-                tag: HealthConnectorClient.tag,
-                operation: "requestPermissions",
-                message: "Failed to request Health Connect permissions",
-                context: [
-                    "requested_permissions": healthDataPermissions,
-                ],
-                exception: error
-            )
-            throw HealthConnectorErrors.unknown(
-                message: "Failed to process \(healthDataPermissions): \(baseError.message ?? "Unknown error")",
-                details: baseError.details
-            )
-        } catch {
-            HealthConnectorLogger.error(
-                tag: HealthConnectorClient.tag,
-                operation: "requestPermissions",
-                message: "Failed to request Health Connect permissions",
-                context: [
-                    "requested_permissions": healthDataPermissions,
-                ],
-                exception: error
-            )
-            throw HealthConnectorErrors.unknown(
-                message: "Failed to process \(healthDataPermissions): \(error.localizedDescription)",
-                details: error.localizedDescription
-            )
-        }
+        // Delegate to permission service
+        return try await permissionService.requestAuthorization(for: healthDataPermissions)
     }
 
     /**
