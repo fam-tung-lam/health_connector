@@ -1,5 +1,6 @@
 package com.phamtunglam.health_connector_hc_android.handlers
 
+import android.os.RemoteException
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.aggregate.AggregationResult
@@ -30,14 +31,6 @@ import java.time.Instant
 
 /**
  * Base interface for all Health Connect record handlers.
- *
- * Each handler is responsible for:
- * - Type identification and categorization
- * - Bidirectional DTO ↔ Record conversion
- * - Implementing capability interfaces for supported operations
- *
- * Handlers are singletons that encapsulate all logic for a specific health data type.
- * The client property provides access to Health Connect SDK for implementing operations.
  */
 internal interface HealthRecordHandler {
     /**
@@ -60,7 +53,6 @@ internal interface HealthRecordHandler {
      * - [SecurityException] -> [HealthConnectorErrorCodeDto.NOT_AUTHORIZED]
      * - [IllegalArgumentException] -> [HealthConnectorErrorCodeDto.INVALID_ARGUMENT]
      * - [IllegalStateException] -> [HealthConnectorErrorCodeDto.INVALID_ARGUMENT]
-     * - [UnsupportedOperationException] -> [HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION]
      * - [IOException] -> [HealthConnectorErrorCodeDto.REMOTE_ERROR]
      *
      * @param operation Human-readable operation name for logging (e.g., "readRecord", "writeRecords")
@@ -69,9 +61,10 @@ internal interface HealthRecordHandler {
      * @return The result of the block if successful
      * @throws HealthConnectorErrorDto with appropriate error code
      */
+    @Throws(HealthConnectorErrorDto::class)
     suspend fun <T> process(
         operation: String,
-        context: Map<String, Any>? = null,
+        context: Map<String, Any?>? = null,
         block: suspend () -> T,
     ): T {
         try {
@@ -109,17 +102,6 @@ internal interface HealthRecordHandler {
             throw HealthConnectorErrorCodeDto.INVALID_ARGUMENT.toError(
                 "Invalid state for $dataType: ${e.message}",
             )
-        } catch (e: UnsupportedOperationException) {
-            HealthConnectorLogger.error(
-                tag = TAG,
-                operation = operation,
-                message = "Unsupported operation while $operation for $dataType",
-                context = context,
-                exception = e,
-            )
-            throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                "Operation not supported for $dataType: ${e.message}",
-            )
         } catch (e: IOException) {
             HealthConnectorLogger.error(
                 tag = TAG,
@@ -142,9 +124,7 @@ internal interface ReadableHealthRecordHandler : HealthRecordHandler {
 
     companion object {
         /**
-         * Page size for record reading.
-         * Can be overridden by implementations if different page sizes are needed.
-         * Default is 1000 records per page.
+         * Default page size for record reading.
          */
         const val DEFAULT_PAGE_SIZE: Int = 1000
     }
@@ -154,24 +134,20 @@ internal interface ReadableHealthRecordHandler : HealthRecordHandler {
      *
      * @param recordId The unique identifier of the record to read
      * @return The health record DTO
-     * @throws HealthConnectorErrorDto with code NOT_AUTHORIZED if permission denied
-     * @throws HealthConnectorErrorDto with code INVALID_ARGUMENT if record ID invalid
-     * @throws HealthConnectorErrorDto with code UNKNOWN for other errors
+     * @throws Exception that can be thrown by [HealthConnectClient.readRecords]
      */
+    @Throws(
+        RemoteException::class,
+        SecurityException::class,
+        IOException::class,
+    )
     suspend fun readRecord(recordId: String): HealthRecordDto = process(
-        operation = "readRecord",
-        context = mapOf("recordId" to recordId),
+        operation = "read_record",
+        context = mapOf("record_id" to recordId),
     ) {
         val response = client.readRecord(
             recordType = dataType.toHealthConnectRecordClass(),
             recordId = recordId,
-        )
-
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "readRecord",
-            message = "$dataType record read from SDK",
-            context = mapOf("recordId" to recordId),
         )
 
         response.record.toDto()
@@ -180,10 +156,13 @@ internal interface ReadableHealthRecordHandler : HealthRecordHandler {
     /**
      * Reads multiple records within a time range with pagination support.
      *
-     * @throws HealthConnectorErrorDto with code NOT_AUTHORIZED if permission denied
-     * @throws HealthConnectorErrorDto with code INVALID_ARGUMENT if arguments invalid
-     * @throws HealthConnectorErrorDto with code UNKNOWN for other errors
+     * @throws Exception that can be thrown by [HealthConnectClient.readRecords]
      */
+    @Throws(
+        RemoteException::class,
+        SecurityException::class,
+        IOException::class,
+    )
     suspend fun readRecords(
         startTime: Instant,
         endTime: Instant,
@@ -191,10 +170,10 @@ internal interface ReadableHealthRecordHandler : HealthRecordHandler {
         pageToken: String? = null,
         dataOrigins: Set<DataOrigin> = emptySet(),
     ): Pair<List<HealthRecordDto>, String?> = process(
-        operation = "readRecords",
+        operation = "read_records",
         context = mapOf(
-            "startTime" to startTime.toString(),
-            "endTime" to endTime.toString(),
+            "start_time" to startTime.toString(),
+            "end_time" to endTime.toString(),
         ),
     ) {
         val request = ReadRecordsRequest(
@@ -207,13 +186,6 @@ internal interface ReadableHealthRecordHandler : HealthRecordHandler {
 
         val response = client.readRecords(request)
         val dtos = response.records.map { record -> record.toDto() }
-
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "readRecords",
-            message = "$dataType records read from SDK",
-            context = mapOf("count" to dtos.size, "hasMore" to (response.pageToken != null)),
-        )
 
         Pair(dtos, response.pageToken)
     }
@@ -228,23 +200,20 @@ internal interface WritableHealthRecordHandler : HealthRecordHandler {
      *
      * @param dto The health record DTO to write
      * @return The platform-assigned record ID
-     * @throws HealthConnectorErrorDto with code NOT_AUTHORIZED if permission denied
-     * @throws HealthConnectorErrorDto with code INVALID_ARGUMENT if record data invalid
-     * @throws HealthConnectorErrorDto with code UNKNOWN for other errors
+     * @throws Exception that can be thrown by [HealthConnectClient.insertRecords]
      */
+    @Throws(
+        RemoteException::class,
+        SecurityException::class,
+        IOException::class,
+    )
     suspend fun writeRecord(dto: HealthRecordDto): String = process(
-        operation = "writeRecord",
+        operation = "write_record",
         context = mapOf("dto" to dto),
     ) {
         val record = dto.toHealthConnect()
-        val response = client.insertRecords(listOf(record))
 
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "writeRecord",
-            message = "$dataType record written to SDK",
-            context = mapOf("recordId" to response.recordIdsList.first()),
-        )
+        val response = client.insertRecords(listOf(record))
 
         response.recordIdsList.first()
     }
@@ -254,28 +223,25 @@ internal interface WritableHealthRecordHandler : HealthRecordHandler {
      *
      * @param dtos The list of health record DTOs to write
      * @return The list of platform-assigned record IDs
-     * @throws HealthConnectorErrorDto with code NOT_AUTHORIZED if permission denied
-     * @throws HealthConnectorErrorDto with code INVALID_ARGUMENT if record data invalid
-     * @throws HealthConnectorErrorDto with code UNKNOWN for other errors
+     * @throws Exception that can be thrown by [HealthConnectClient.insertRecords]
      */
+    @Throws(
+        RemoteException::class,
+        SecurityException::class,
+        IOException::class,
+    )
     suspend fun writeRecords(dtos: List<HealthRecordDto>): List<String> {
         if (dtos.isEmpty()) {
             return emptyList()
         }
 
         return process(
-            operation = "writeRecords",
+            operation = "write_records",
             context = mapOf("count" to dtos.size),
         ) {
             val records = dtos.map { it.toHealthConnect() }
-            val response = client.insertRecords(records)
 
-            HealthConnectorLogger.debug(
-                tag = TAG,
-                operation = "writeRecords",
-                message = "$dataType records written to SDK",
-                context = mapOf("recordCount" to records.size),
-            )
+            val response = client.insertRecords(records)
 
             response.recordIdsList
         }
@@ -291,27 +257,26 @@ internal interface UpdatableHealthRecordHandler : HealthRecordHandler {
      *
      * @param dto The health record DTO to update (must contain valid ID)
      * @return The record ID
-     * @throws HealthConnectorErrorDto with code INVALID_ARGUMENT if record ID missing or invalid
-     * @throws HealthConnectorErrorDto with code NOT_AUTHORIZED if permission denied
-     * @throws HealthConnectorErrorDto with code UNKNOWN for other errors
+     * @throws IllegalArgumentException if the [HealthRecordDto.id] is null or empty
+     * @throws Exception that can be thrown by [HealthConnectClient.updateRecords]
      */
+    @Throws(
+        IllegalArgumentException::class,
+        RemoteException::class,
+        SecurityException::class,
+        IOException::class,
+    )
     suspend fun updateRecord(dto: HealthRecordDto): String = process(
-        operation = "updateRecord",
-        context = mapOf("recordId" to (dto.id ?: "null")),
+        operation = "update_record",
+        context = mapOf("record_id" to dto.id),
     ) {
         require(!dto.id.isNullOrEmpty()) {
-            "Record ID must be provided for update operations. Use writeRecord() for new records."
+            "Record ID must be provided for update operations. Use `writeRecord()` for new records."
         }
 
         val record = dto.toHealthConnect()
-        client.updateRecords(listOf(record))
 
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "updateRecord",
-            message = "$dataType record updated in SDK",
-            context = mapOf("recordId" to dto.id),
-        )
+        client.updateRecords(listOf(record))
 
         dto.id!!
     }
@@ -325,35 +290,26 @@ internal interface DeletableHealthRecordHandler : HealthRecordHandler {
      * Deletes specific records by their IDs.
      *
      * @param recordIds The list of record IDs to delete
-     * @throws HealthConnectorErrorDto with code NOT_AUTHORIZED if permission denied
-     * @throws HealthConnectorErrorDto with code INVALID_ARGUMENT if record IDs invalid
-     * @throws HealthConnectorErrorDto with code UNKNOWN for other errors
+     * @throws Exception that can be thrown by [HealthConnectClient.deleteRecords]
      */
+    @Throws(
+        RemoteException::class,
+        SecurityException::class,
+        IOException::class,
+    )
     suspend fun deleteRecords(recordIds: List<String>) {
         if (recordIds.isEmpty()) {
-            HealthConnectorLogger.warning(
-                tag = TAG,
-                operation = "deleteRecords",
-                message = "No records to delete (empty IDs list)",
-            )
             return
         }
 
         process(
-            operation = "deleteRecords",
-            context = mapOf("recordIds" to recordIds),
+            operation = "delete_records",
+            context = mapOf("record_ids" to recordIds),
         ) {
             client.deleteRecords(
                 recordType = dataType.toHealthConnectRecordClass(),
                 recordIdsList = recordIds,
                 clientRecordIdsList = emptyList(),
-            )
-
-            HealthConnectorLogger.debug(
-                tag = TAG,
-                operation = "deleteRecords",
-                message = "$dataType records deleted from SDK",
-                context = mapOf("recordIds" to recordIds),
             )
         }
     }
@@ -363,30 +319,27 @@ internal interface DeletableHealthRecordHandler : HealthRecordHandler {
      *
      * @param startTime The start of the time range (epoch millis)
      * @param endTime The end of the time range (epoch millis)
-     * @throws HealthConnectorErrorDto with code NOT_AUTHORIZED if permission denied
-     * @throws HealthConnectorErrorDto with code INVALID_ARGUMENT if time range invalid
-     * @throws HealthConnectorErrorDto with code UNKNOWN for other errors
+     * @throws IllegalArgumentException if [startTime] > [endTime]
+     * @throws Exception that can be thrown by [HealthConnectClient.deleteRecords]
      */
-    suspend fun deleteRecordsByTimeRange(startTime: Long, endTime: Long) {
+    @Throws(
+        IllegalArgumentException::class,
+        RemoteException::class,
+        SecurityException::class,
+        IOException::class,
+    )
+    suspend fun deleteRecordsByTimeRange(startTime: Instant, endTime: Instant) {
         process(
-            operation = "deleteRecordsByTimeRange",
-            context = mapOf("startTime" to startTime, "endTime" to endTime),
+            operation = "delete_records_by_time_range",
+            context = mapOf("start_time" to startTime, "end_time" to endTime),
         ) {
-            val timeRangeFilter = TimeRangeFilter.between(
-                Instant.ofEpochMilli(startTime),
-                Instant.ofEpochMilli(endTime),
-            )
+            require(startTime < endTime) {
+                "Invalid time range: startTime must be before endTime"
+            }
 
             client.deleteRecords(
                 recordType = dataType.toHealthConnectRecordClass(),
-                timeRangeFilter = timeRangeFilter,
-            )
-
-            HealthConnectorLogger.debug(
-                tag = TAG,
-                operation = "deleteRecordsByTimeRange",
-                message = "$dataType records deleted from SDK by time range",
-                context = mapOf("startTime" to startTime, "endTime" to endTime),
+                timeRangeFilter = TimeRangeFilter.between(startTime, endTime),
             )
         }
     }
@@ -394,10 +347,6 @@ internal interface DeletableHealthRecordHandler : HealthRecordHandler {
 
 /**
  * Capability for handlers that support aggregation operations.
- *
- * This is a marker interface. Handlers should implement either:
- * - [HealthConnectAggregatableHealthRecordHandler] for native Health Connect aggregation
- * - [CustomAggregatableHealthRecordHandler] for custom manual aggregation
  */
 internal interface AggregatableHealthRecordHandler : HealthRecordHandler
 
@@ -407,13 +356,32 @@ internal interface AggregatableHealthRecordHandler : HealthRecordHandler
 internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHealthRecordHandler {
 
     /**
-     * Converts platform aggregation request to Health Connect metric.
+     * Converts a platform aggregation request to a Health Connect metric.
+     *
+     * Validates that the requested [request] metric is compatible with the health data type.
+     * For example, steps only supports [AggregationMetricDto.SUM], while weight supports AVG, MIN, and MAX.
+     *
+     * @param request The aggregation request containing the metric type to map.
+     * @return The native Health Connect [AggregateMetric].
+     * @throws IllegalArgumentException If the [request] contains a metric type that is
+     *         incompatible with this specific health data type.
      */
+    @Throws(IllegalArgumentException::class)
     fun toAggregateMetric(request: AggregateRequestDto): AggregateMetric<*>
 
     /**
-     * Extracts aggregation result and converts to platform DTO.
+     * Extracts aggregation result from Health Connect and converts to platform DTO.
+     *
+     * This method retrieves the aggregated value for a specific metric from the Health Connect
+     * AggregationResult and wraps it in the appropriate measurement unit DTO.
+     *
+     * @param result The aggregation result from Health Connect SDK
+     * @param metric The specific metric to extract from the result
+     * @return The measurement unit DTO containing the aggregated value
+     * @throws IllegalArgumentException if the metric is not recognized/supported
+     * @throws IllegalStateException if the aggregation result is unexpectedly null
      */
+    @Throws(IllegalArgumentException::class, IllegalStateException::class)
     fun extractAggregateValue(
         result: AggregationResult,
         metric: AggregateMetric<*>,
@@ -424,11 +392,15 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
      *
      * @param request The aggregation request containing data type, metric, and time range
      * @return The aggregation response with the computed value
-     * @throws HealthConnectorErrorDto with code INVALID_ARGUMENT if time range invalid
-     * @throws HealthConnectorErrorDto with code UNSUPPORTED_OPERATION if metric not supported
-     * @throws HealthConnectorErrorDto with code NOT_AUTHORIZED if permission denied
-     * @throws HealthConnectorErrorDto with code UNKNOWN for other errors
+     * @throws IllegalArgumentException if [startTime] > [endTime]
+     * @throws Exception that can be thrown by [HealthConnectClient.deleteRecords]
      */
+    @Throws(
+        IllegalArgumentException::class,
+        RemoteException::class,
+        SecurityException::class,
+        IOException::class,
+    )
     suspend fun aggregate(request: AggregateRequestDto): AggregateResponseDto = process(
         operation = "aggregate",
         context = mapOf("request" to request),
@@ -447,18 +419,8 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
         )
 
         val result = client.aggregate(aggregateRequest)
-        val valueDto = extractAggregateValue(result, metric)
 
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "aggregate",
-            message = "$dataType aggregated from SDK",
-            context = mapOf(
-                "metric" to request.aggregationMetric,
-                "startTime" to request.startTime,
-                "endTime" to request.endTime,
-            ),
-        )
+        val valueDto = extractAggregateValue(result, metric)
 
         AggregateResponseDto(value = valueDto)
     }
@@ -562,21 +524,28 @@ internal interface CustomAggregatableHealthRecordHandler :
      *
      * @param request The aggregation request containing data type, metric, and time range
      * @return The aggregation response with the computed value
-     * @throws HealthConnectorErrorDto with code INVALID_ARGUMENT if time range invalid
-     * @throws HealthConnectorErrorDto with code UNSUPPORTED_OPERATION if metric not supported
-     * @throws HealthConnectorErrorDto with code NOT_AUTHORIZED if permission denied
-     * @throws HealthConnectorErrorDto with code UNKNOWN for other errors
+     * @throws IllegalArgumentException if [startTime] > [endTime]
+     * @throws Exception that can be thrown by [HealthConnectClient.readRecords]
      */
-    suspend fun aggregate(request: AggregateRequestDto): AggregateResponseDto {
+    @Throws(
+        IllegalArgumentException::class,
+        RemoteException::class,
+        SecurityException::class,
+        IOException::class,
+    )
+    suspend fun aggregate(request: AggregateRequestDto): AggregateResponseDto = process(
+        "custom_aggregate",
+        context = mapOf("request" to request),
+    ) {
         require(request.startTime < request.endTime) {
             "Invalid time range: startTime (${request.startTime}) must be less than endTime (${request.endTime})"
         }
 
-        if (!supportedAggregationMetrics.contains(request.aggregationMetric)) {
-            throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                "Aggregation metric ${request.aggregationMetric} not supported for $dataType. " +
-                    "Supported metrics: $supportedAggregationMetrics",
-            )
+        require(
+            supportedAggregationMetrics.contains(request.aggregationMetric),
+        ) {
+            "Aggregation metric ${request.aggregationMetric} not supported for $dataType. " +
+                "Supported metrics: $supportedAggregationMetrics"
         }
 
         val aggregationResult = paginateAndAggregate(
@@ -585,7 +554,7 @@ internal interface CustomAggregatableHealthRecordHandler :
         )
 
         if (aggregationResult.count == 0) {
-            return AggregateResponseDto(value = wrapAggregationResult(0.0))
+            AggregateResponseDto(value = wrapAggregationResult(0.0))
         }
 
         val resultValue = when (request.aggregationMetric) {
@@ -596,7 +565,7 @@ internal interface CustomAggregatableHealthRecordHandler :
             AggregationMetricDto.SUM -> aggregationResult.sum
         }
 
-        return AggregateResponseDto(value = wrapAggregationResult(resultValue))
+        AggregateResponseDto(value = wrapAggregationResult(resultValue))
     }
 
     /**
