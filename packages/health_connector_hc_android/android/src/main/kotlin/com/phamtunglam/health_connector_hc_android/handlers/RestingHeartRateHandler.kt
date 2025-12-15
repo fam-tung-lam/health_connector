@@ -29,7 +29,7 @@ internal class RestingHeartRateHandler(override val client: HealthConnectClient)
             AggregationMetricDto.AVG -> RestingHeartRateRecord.BPM_AVG
             AggregationMetricDto.MIN -> RestingHeartRateRecord.BPM_MIN
             AggregationMetricDto.MAX -> RestingHeartRateRecord.BPM_MAX
-            else -> throw UnsupportedOperationException(
+            else -> throw IllegalArgumentException(
                 "Unsupported metric: ${request.aggregationMetric}",
             )
         }
@@ -47,6 +47,6 @@ internal class RestingHeartRateHandler(override val client: HealthConnectClient)
             bpm.toNumericDto()
         }
 
-        else -> throw UnsupportedOperationException("Unsupported metric: $metric")
+        else -> throw IllegalArgumentException("Unsupported metric: $metric")
     }
 }

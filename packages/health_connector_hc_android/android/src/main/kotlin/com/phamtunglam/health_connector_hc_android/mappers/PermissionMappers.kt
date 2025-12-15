@@ -372,8 +372,8 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto 
         "RESPIRATORY_RATE" -> HealthDataTypeDto.RESPIRATORY_RATE
         "VO2MAX" -> HealthDataTypeDto.VO2MAX
         "NUTRITION" -> HealthDataTypeDto.NUTRITION
-        else -> throw UnsupportedOperationException(
-            "Unsupported Health Connect data type: '$dataTypeStr' in permission '$this'.",
+        else -> throw IllegalArgumentException(
+            "Invalid/unsupported/unimplemented Health Connect data type: $dataTypeStr.",
         )
     }
 
@@ -426,9 +426,8 @@ internal fun String.toHealthPlatformFeatureDto(): HealthPlatformFeatureDto = whe
     PERMISSION_READ_HEALTH_DATA_HISTORY ->
         HealthPlatformFeatureDto.READ_HEALTH_DATA_HISTORY
 
-    else -> throw UnsupportedOperationException(
-        "Unsupported Health Connect platform feature: '$this'. " +
-            "Supported features: READ_HEALTH_DATA_IN_BACKGROUND, READ_HEALTH_DATA_HISTORY.",
+    else -> throw IllegalArgumentException(
+        "Invalid/unsupported/unimplemented Health Connect feature string: '$this'",
     )
 }
 

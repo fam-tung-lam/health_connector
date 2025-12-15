@@ -27,7 +27,7 @@ internal class WheelchairPushesHandler(override val client: HealthConnectClient)
     override fun toAggregateMetric(request: AggregateRequestDto): AggregateMetric<*> =
         when (request.aggregationMetric) {
             AggregationMetricDto.SUM -> WheelchairPushesRecord.COUNT_TOTAL
-            else -> throw UnsupportedOperationException(
+            else -> throw IllegalArgumentException(
                 "Unsupported metric: ${request.aggregationMetric}",
             )
         }
@@ -42,6 +42,6 @@ internal class WheelchairPushesHandler(override val client: HealthConnectClient)
             count.toNumericDto()
         }
 
-        else -> throw UnsupportedOperationException("Unsupported metric: $metric")
+        else -> throw IllegalArgumentException("Unsupported metric: $metric")
     }
 }

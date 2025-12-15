@@ -29,7 +29,7 @@ internal class WeightHandler(override val client: HealthConnectClient) :
             AggregationMetricDto.AVG -> WeightRecord.WEIGHT_AVG
             AggregationMetricDto.MIN -> WeightRecord.WEIGHT_MIN
             AggregationMetricDto.MAX -> WeightRecord.WEIGHT_MAX
-            else -> throw UnsupportedOperationException(
+            else -> throw IllegalArgumentException(
                 "Unsupported metric: ${request.aggregationMetric}",
             )
         }
@@ -47,6 +47,6 @@ internal class WeightHandler(override val client: HealthConnectClient) :
             mass.toDto()
         }
 
-        else -> throw UnsupportedOperationException("Unsupported metric: $metric")
+        else -> throw IllegalArgumentException("Unsupported metric: $metric")
     }
 }
