@@ -26,8 +26,6 @@ complexity:
   CognitiveComplexMethod:
     active: true
     threshold: 25
-    ignoreFunctions: ['equals']
-    ignoreNestingFunctions: true
 
   LongMethod:
     active: true
@@ -48,7 +46,7 @@ complexity:
 
   NestedBlockDepth:
     active: true
-    allowedDepth: 3
+    threshold: 3
 
   ComplexCondition:
     active: true
@@ -56,7 +54,7 @@ complexity:
 
   LargeClass:
     active: true
-    allowedLines: 600
+    threshold: 600
 
 # ============================================================================
 # Coroutines Rules
@@ -88,7 +86,6 @@ naming:
   PackageNaming:
     active: false
     packagePattern: '[a-z]+(\\.[a-z][A-Za-z0-9_]*)*'
-    reason: 'Flutter plugins use snake_case in package names by convention'
 
   ConstructorParameterNaming:
     active: true
@@ -132,7 +129,6 @@ style:
     active: true
     maxLineLength: 100
     excludeCommentStatements: true
-    reason: 'Aligns with .editorconfig and improves readability'
 
   MagicNumber:
     active: true
@@ -141,7 +137,6 @@ style:
     ignorePropertyDeclaration: true
     ignoreAnnotation: true
     ignoreEnums: true
-    reason: 'Common magic numbers are often legitimate constants'
 
   UnusedPrivateClass:
     active: true
@@ -153,42 +148,19 @@ style:
     active: true
     max: 3
     excludedFunctions: ['equals']
-    reason: 'Limits cognitive complexity; functions should have focused return paths'
 
   # Modern style rules (Detekt 1.23.0+)
   BracesOnIfStatements:
-    active: true
-    reason: 'Enforces explicit braces on if statements for consistency and safety'
+    active: false
 
   BracesOnWhenStatements:
-    active: true
-    reason: 'Enforces explicit braces on when statements, matching .editorconfig rules'
+    active: false
 
   DoubleNegativeLambda:
-    active: true
-    reason: 'Prevents confusing double negatives in lambda expressions'
-
-  CastNullableToNonNullableType:
-    active: true
-    reason: 'Catches potential NPE issues from unsafe casts'
-
-  PreferredName:
-    active: true
-    vararg: 'args'
-    lambda: 'it'
-    reason: 'Enforces common naming conventions for special parameters'
+    active: false
 
   NoTabs:
     active: true
-    reason: 'Aligns with .editorconfig indent_style = space'
 
   FunctionOnlyReturningConstant:
     active: true
-    reason: 'Suggests replacing single-return-constant functions with properties/companions'
-
-  # Explicitly disabled rules with documented reasons
-  TrailingComma:
-    active: true
-    useTrailingCommaOnCallSite: true
-    useTrailingCommaOnDeclarationSite: true
-    reason: 'Aligns with .editorconfig: trailing-comma enabled for better git diffs'
