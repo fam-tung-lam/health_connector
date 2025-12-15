@@ -16,14 +16,24 @@ class HealthConnectorClient {
     private let store: HKHealthStore
 
     /**
+     * Service for validating Info.plist configuration.
+     */
+    private let infoPlistService: HealthConnectorInfoPListService
+
+    /**
      * Private initializer to prevent external instantiation.
      *
      * - Parameter store: The HealthKit store instance.
      */
     private init(store: HKHealthStore) {
         self.store = store
+        self.infoPlistService = HealthConnectorInfoPListService()
+
         // Trigger handler registration on first initialization
         _ = HealthKitTypeRegistry.shared
+
+        // Verify Info.plist configuration (logs warnings if misconfigured)
+        infoPlistService.checkUsageDescriptions()
     }
 
     /**
