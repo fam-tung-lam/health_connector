@@ -22,10 +22,6 @@ final class FloorsClimbedHandler:
         .floorsClimbed
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = FloorsClimbedRecordDto
     typealias SampleType = HKQuantitySample
 

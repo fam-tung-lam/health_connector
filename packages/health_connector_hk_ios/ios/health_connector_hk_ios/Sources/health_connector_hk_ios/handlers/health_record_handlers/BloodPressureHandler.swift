@@ -21,10 +21,6 @@ final class BloodPressureHandler:
         .bloodPressure
     }
 
-    static var category: HealthKitDataCategory {
-        .correlation
-    }
-
     typealias RecordDto = BloodPressureRecordDto
     typealias SampleType = HKCorrelation
 

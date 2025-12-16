@@ -22,10 +22,6 @@ final class BodyTemperatureHandler:
         .bodyTemperature
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = BodyTemperatureRecordDto
     typealias SampleType = HKQuantitySample
 

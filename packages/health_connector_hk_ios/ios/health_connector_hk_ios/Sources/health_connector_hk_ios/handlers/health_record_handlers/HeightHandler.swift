@@ -21,10 +21,6 @@ final class HeightHandler:
         .height
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = HeightRecordDto
     typealias SampleType = HKQuantitySample
 

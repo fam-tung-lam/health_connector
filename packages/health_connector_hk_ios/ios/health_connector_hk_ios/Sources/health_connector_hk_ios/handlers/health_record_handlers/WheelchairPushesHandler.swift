@@ -21,10 +21,6 @@ final class WheelchairPushesHandler:
         .wheelchairPushes
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = WheelchairPushesRecordDto
     typealias SampleType = HKQuantitySample
 

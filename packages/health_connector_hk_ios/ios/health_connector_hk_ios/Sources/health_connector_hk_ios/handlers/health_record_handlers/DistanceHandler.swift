@@ -21,10 +21,6 @@ final class DistanceHandler:
         .distance
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = DistanceRecordDto
     typealias SampleType = HKQuantitySample
 

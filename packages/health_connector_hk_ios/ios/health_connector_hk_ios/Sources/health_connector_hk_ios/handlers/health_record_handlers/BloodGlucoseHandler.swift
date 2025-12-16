@@ -22,10 +22,6 @@ final class BloodGlucoseHandler:
         .bloodGlucose
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = BloodGlucoseRecordDto
     typealias SampleType = HKQuantitySample
 

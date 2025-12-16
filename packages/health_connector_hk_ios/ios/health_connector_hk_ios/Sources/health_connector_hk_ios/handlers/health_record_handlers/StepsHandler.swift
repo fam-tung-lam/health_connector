@@ -21,10 +21,6 @@ final class StepsHandler:
         .steps
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = StepRecordDto
     typealias SampleType = HKQuantitySample
 

@@ -20,10 +20,6 @@ final class SleepStageHandler:
         .sleepStageRecord
     }
 
-    static var category: HealthKitDataCategory {
-        .categorySample
-    }
-
     typealias RecordDto = SleepStageRecordDto
     typealias SampleType = HKCategorySample
 

@@ -21,10 +21,6 @@ final class RespiratoryRateHandler:
         .respiratoryRate
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = RespiratoryRateRecordDto
     typealias SampleType = HKQuantitySample
 

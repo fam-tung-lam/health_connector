@@ -22,10 +22,6 @@ final class BodyFatPercentageHandler:
         .bodyFatPercentage
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = BodyFatPercentageRecordDto
     typealias SampleType = HKQuantitySample
 

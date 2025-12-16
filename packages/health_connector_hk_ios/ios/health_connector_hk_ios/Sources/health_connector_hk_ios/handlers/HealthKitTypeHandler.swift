@@ -29,9 +29,6 @@ protocol HealthKitTypeHandler: AnyObject {
     /// The HealthDataTypeDto enum case this handler supports
     static var supportedType: HealthDataTypeDto { get }
 
-    /// The HealthKit data category (determines API usage patterns)
-    static var category: HealthKitDataCategory { get }
-
     /**
      * Centralized error handling wrapper for handler operations.
      *
@@ -96,7 +93,7 @@ extension HealthKitTypeHandler {
                 tag: tag,
                 operation: operation,
                 message:
-                    "Handler operation failed for \(Self.supportedType.rawValue): \(error.message ?? "<no message>")",
+                "Handler operation failed for \(Self.supportedType.rawValue): \(error.message ?? "<no message>")",
                 context: context,
                 exception: error
             )
@@ -122,7 +119,7 @@ extension HealthKitTypeHandler {
                 tag: tag,
                 operation: operation,
                 message:
-                    "Handler operation failed for \(Self.supportedType.rawValue): \(error.localizedDescription)",
+                "Handler operation failed for \(Self.supportedType.rawValue): \(error.localizedDescription)",
                 context: context,
                 exception: error as NSError
             )

@@ -21,10 +21,6 @@ final class Vo2MaxHandler:
         .vo2Max
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = Vo2MaxRecordDto
     typealias SampleType = HKQuantitySample
 

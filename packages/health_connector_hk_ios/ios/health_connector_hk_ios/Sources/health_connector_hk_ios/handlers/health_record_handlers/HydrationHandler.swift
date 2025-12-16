@@ -21,10 +21,6 @@ final class HydrationHandler:
         .hydration
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = HydrationRecordDto
     typealias SampleType = HKQuantitySample
 
