@@ -6,17 +6,11 @@ extension ActiveCaloriesBurnedRecordDto {
     ///
     /// - Throws: An error if the quantity type cannot be created.
     func toHealthKit() throws -> HKQuantitySample {
-        guard let type = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) else {
-            throw NSError(
-                domain: "HealthConnectorError",
-                code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create active energy burned quantity type"]
-            )
-        }
+        let type = try HKQuantityType.make(from: .activeEnergyBurned)
 
         let quantity = energy.toHealthKit()
-        let startDate = Date(timeIntervalSince1970: TimeInterval(startTime) / 1000.0)
-        let endDate = Date(timeIntervalSince1970: TimeInterval(endTime) / 1000.0)
+        let startDate = Date(millisecondsSince1970: startTime)
+        let endDate = Date(millisecondsSince1970: endTime)
 
         return HKQuantitySample(
             type: type,
@@ -43,13 +37,13 @@ extension HKQuantitySample {
 
         return ActiveCaloriesBurnedRecordDto(
             energy: quantity.toEnergyDto(),
-            endTime: Int64(endDate.timeIntervalSince1970 * 1000),
+            endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,
             metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device
             ),
-            startTime: Int64(startDate.timeIntervalSince1970 * 1000),
+            startTime: startDate.millisecondsSince1970,
             zoneOffsetSeconds: zoneOffset
         )
     }

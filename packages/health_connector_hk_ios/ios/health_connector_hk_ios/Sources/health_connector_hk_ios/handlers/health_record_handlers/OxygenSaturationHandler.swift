@@ -47,15 +47,6 @@ final class OxygenSaturationHandler:
         return try oxygenSaturationDto.toHealthKit()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let oxygenSaturationDto = dto as? OxygenSaturationRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected OxygenSaturationRecordDto, got \(type(of: dto))"
-            )
-        }
-        return oxygenSaturationDto.time
-    }
-
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .oxygenSaturation)
     }

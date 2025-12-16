@@ -1,38 +1,32 @@
 import Foundation
 import HealthKit
 
-private let kMetadataKeyMealType = "com.healthconnect.sync.mealType"
-private let kMetadataKeySpecimenSource = "com.healthconnect.sync.specimenSource"
-private let kMetadataKeyRelationToMeal = "com.healthconnect.sync.relationToMeal"
+private enum BloodGlucoseMetadataKeys {
+    static let mealType = "com.healthconnect.sync.mealType"
+    static let specimenSource = "com.healthconnect.sync.specimenSource"
+    static let relationToMeal = "com.healthconnect.sync.relationToMeal"
+}
 
 extension BloodGlucoseRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
-        guard let type = HKQuantityType.quantityType(forIdentifier: .bloodGlucose) else {
-            throw NSError(
-                domain: "HealthConnectorError",
-                code: -1,
-                userInfo: [
-                    NSLocalizedDescriptionKey: "Failed to create blood glucose quantity type",
-                ]
-            )
-        }
+        let type = try HKQuantityType.make(from: .bloodGlucose)
 
         let quantity = bloodGlucose.toHealthKit()
-        let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000.0)
+        let date = Date(millisecondsSince1970: time)
 
         // Base metadata
         var metadataDict = metadata.toHealthKitMetadata() ?? [:]
 
         // Add Custom Metadata Keys for full fidelity
         if let relation = relationToMeal {
-            metadataDict[kMetadataKeyRelationToMeal] = relation.rawValue
+            metadataDict[BloodGlucoseMetadataKeys.relationToMeal] = relation.rawValue
         }
         if let source = specimenSource {
-            metadataDict[kMetadataKeySpecimenSource] = source.rawValue
+            metadataDict[BloodGlucoseMetadataKeys.specimenSource] = source.rawValue
         }
         if let meal = mealType {
-            metadataDict[kMetadataKeyMealType] = meal.rawValue
+            metadataDict[BloodGlucoseMetadataKeys.mealType] = meal.rawValue
         }
 
         // Add Native Metadata Keys (Priority for UI/Legacy support)
@@ -85,31 +79,33 @@ extension HKQuantitySample {
                 relation = .afterMeal
             @unknown default:
                 // Fallback to custom key
-                if let customRelationRaw = metadataDict[kMetadataKeyRelationToMeal] as? Int {
+                if let customRelationRaw = metadataDict[BloodGlucoseMetadataKeys.relationToMeal]
+                    as? Int
+                {
                     relation =
                         BloodGlucoseRelationToMealDto(rawValue: customRelationRaw) ?? .unknown
                 }
             }
         } else {
             // No native key, check custom key
-            if let customRelationRaw = metadataDict[kMetadataKeyRelationToMeal] as? Int {
+            if let customRelationRaw = metadataDict[BloodGlucoseMetadataKeys.relationToMeal] as? Int {
                 relation = BloodGlucoseRelationToMealDto(rawValue: customRelationRaw) ?? .unknown
             }
         }
 
         // 2. Specimen Source
-        if let customSourceRaw = metadataDict[kMetadataKeySpecimenSource] as? Int {
+        if let customSourceRaw = metadataDict[BloodGlucoseMetadataKeys.specimenSource] as? Int {
             source = BloodGlucoseSpecimenSourceDto(rawValue: customSourceRaw) ?? .unknown
         }
 
         // 3. Meal Type
-        if let customMealRaw = metadataDict[kMetadataKeyMealType] as? Int {
+        if let customMealRaw = metadataDict[BloodGlucoseMetadataKeys.mealType] as? Int {
             meal = MealTypeDto(rawValue: customMealRaw) ?? .unknown
         }
 
         return BloodGlucoseRecordDto(
             id: uuid.uuidString,
-            time: Int64(startDate.timeIntervalSince1970 * 1000),
+            time: startDate.millisecondsSince1970,
             metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device

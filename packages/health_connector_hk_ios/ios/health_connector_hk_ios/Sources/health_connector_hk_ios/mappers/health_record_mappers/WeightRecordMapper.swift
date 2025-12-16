@@ -6,16 +6,10 @@ extension WeightRecordDto {
     ///
     /// - Throws: An error if the quantity type cannot be created.
     func toHealthKit() throws -> HKQuantitySample {
-        guard let type = HKQuantityType.quantityType(forIdentifier: .bodyMass) else {
-            throw NSError(
-                domain: "HealthConnectorError",
-                code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create body mass quantity type"]
-            )
-        }
+        let type = try HKQuantityType.make(from: .bodyMass)
 
         let quantity = weight.toHealthKit()
-        let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000.0)
+        let date = Date(millisecondsSince1970: time)
 
         return HKQuantitySample(
             type: type,
@@ -46,7 +40,7 @@ extension HKQuantitySample {
                 source: sourceRevision.source,
                 device: device
             ),
-            time: Int64(startDate.timeIntervalSince1970 * 1000),
+            time: startDate.millisecondsSince1970,
             weight: quantity.toMassDto(),
             zoneOffsetSeconds: zoneOffset
         )

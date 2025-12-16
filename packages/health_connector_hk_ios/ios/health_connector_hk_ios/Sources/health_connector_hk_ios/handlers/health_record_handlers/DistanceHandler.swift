@@ -47,15 +47,6 @@ final class DistanceHandler:
         return try distanceDto.toHealthKit()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let distanceDto = dto as? DistanceRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected DistanceRecordDto, got \(type(of: dto))"
-            )
-        }
-        return distanceDto.endTime
-    }
-
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .distanceWalkingRunning)
     }

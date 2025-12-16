@@ -58,7 +58,7 @@ extension HKQuantitySample {
         let foodName = metadataDict.extractFoodName()
         let mealType = metadataDict.extractMealType()
 
-        let time = Int64(startDate.timeIntervalSince1970 * 1000)
+        let time = startDate.millisecondsSince1970
         let id = uuid.uuidString
         let metadataDto = metadataDict.toMetadataDto(
             source: sourceRevision.source,
@@ -67,7 +67,8 @@ extension HKQuantitySample {
 
         switch nutrientType {
         case .energyNutrient:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryEnergyConsumed.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryEnergyConsumed.rawValue
+            else {
                 return nil
             }
             return EnergyNutrientRecordDto(
@@ -81,7 +82,8 @@ extension HKQuantitySample {
             )
 
         case .caffeine:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryCaffeine.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryCaffeine.rawValue
+            else {
                 return nil
             }
             return CaffeineNutrientRecordDto(
@@ -109,7 +111,8 @@ extension HKQuantitySample {
             )
 
         case .totalCarbohydrate:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryCarbohydrates.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryCarbohydrates.rawValue
+            else {
                 return nil
             }
             return TotalCarbohydrateNutrientRecordDto(
@@ -123,7 +126,8 @@ extension HKQuantitySample {
             )
 
         case .totalFat:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryFatTotal.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryFatTotal.rawValue
+            else {
                 return nil
             }
             return TotalFatNutrientRecordDto(
@@ -137,7 +141,8 @@ extension HKQuantitySample {
             )
 
         case .saturatedFat:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryFatSaturated.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryFatSaturated.rawValue
+            else {
                 return nil
             }
             return SaturatedFatNutrientRecordDto(
@@ -151,7 +156,10 @@ extension HKQuantitySample {
             )
 
         case .monounsaturatedFat:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryFatMonounsaturated.rawValue else {
+            guard
+                quantityType.identifier
+                == HKQuantityTypeIdentifier.dietaryFatMonounsaturated.rawValue
+            else {
                 return nil
             }
             return MonounsaturatedFatNutrientRecordDto(
@@ -165,7 +173,10 @@ extension HKQuantitySample {
             )
 
         case .polyunsaturatedFat:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryFatPolyunsaturated.rawValue else {
+            guard
+                quantityType.identifier
+                == HKQuantityTypeIdentifier.dietaryFatPolyunsaturated.rawValue
+            else {
                 return nil
             }
             return PolyunsaturatedFatNutrientRecordDto(
@@ -179,7 +190,8 @@ extension HKQuantitySample {
             )
 
         case .cholesterol:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryCholesterol.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryCholesterol.rawValue
+            else {
                 return nil
             }
             return CholesterolNutrientRecordDto(
@@ -221,7 +233,8 @@ extension HKQuantitySample {
             )
 
         case .vitaminA:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminA.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminA.rawValue
+            else {
                 return nil
             }
             return VitaminANutrientRecordDto(
@@ -235,7 +248,8 @@ extension HKQuantitySample {
             )
 
         case .vitaminB6:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminB6.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminB6.rawValue
+            else {
                 return nil
             }
             return VitaminB6NutrientRecordDto(
@@ -249,7 +263,8 @@ extension HKQuantitySample {
             )
 
         case .vitaminB12:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminB12.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminB12.rawValue
+            else {
                 return nil
             }
             return VitaminB12NutrientRecordDto(
@@ -263,7 +278,8 @@ extension HKQuantitySample {
             )
 
         case .vitaminC:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminC.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminC.rawValue
+            else {
                 return nil
             }
             return VitaminCNutrientRecordDto(
@@ -277,7 +293,8 @@ extension HKQuantitySample {
             )
 
         case .vitaminD:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminD.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminD.rawValue
+            else {
                 return nil
             }
             return VitaminDNutrientRecordDto(
@@ -291,7 +308,8 @@ extension HKQuantitySample {
             )
 
         case .vitaminE:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminE.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminE.rawValue
+            else {
                 return nil
             }
             return VitaminENutrientRecordDto(
@@ -305,7 +323,8 @@ extension HKQuantitySample {
             )
 
         case .vitaminK:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminK.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminK.rawValue
+            else {
                 return nil
             }
             return VitaminKNutrientRecordDto(
@@ -333,7 +352,8 @@ extension HKQuantitySample {
             )
 
         case .riboflavin:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryRiboflavin.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryRiboflavin.rawValue
+            else {
                 return nil
             }
             return RiboflavinNutrientRecordDto(
@@ -389,7 +409,9 @@ extension HKQuantitySample {
             )
 
         case .pantothenicAcid:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryPantothenicAcid.rawValue else {
+            guard
+                quantityType.identifier == HKQuantityTypeIdentifier.dietaryPantothenicAcid.rawValue
+            else {
                 return nil
             }
             return PantothenicAcidNutrientRecordDto(
@@ -431,7 +453,8 @@ extension HKQuantitySample {
             )
 
         case .magnesium:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryMagnesium.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryMagnesium.rawValue
+            else {
                 return nil
             }
             return MagnesiumNutrientRecordDto(
@@ -445,7 +468,8 @@ extension HKQuantitySample {
             )
 
         case .manganese:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryManganese.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryManganese.rawValue
+            else {
                 return nil
             }
             return ManganeseNutrientRecordDto(
@@ -459,7 +483,8 @@ extension HKQuantitySample {
             )
 
         case .phosphorus:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryPhosphorus.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryPhosphorus.rawValue
+            else {
                 return nil
             }
             return PhosphorusNutrientRecordDto(
@@ -473,7 +498,8 @@ extension HKQuantitySample {
             )
 
         case .potassium:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryPotassium.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryPotassium.rawValue
+            else {
                 return nil
             }
             return PotassiumNutrientRecordDto(
@@ -487,7 +513,8 @@ extension HKQuantitySample {
             )
 
         case .selenium:
-            guard quantityType.identifier == HKQuantityTypeIdentifier.dietarySelenium.rawValue else {
+            guard quantityType.identifier == HKQuantityTypeIdentifier.dietarySelenium.rawValue
+            else {
                 return nil
             }
             return SeleniumNutrientRecordDto(
@@ -548,15 +575,7 @@ extension HealthRecordDto {
         for nutrientType: HealthDataTypeDto,
         quantityTypeIdentifier: HKQuantityTypeIdentifier
     ) throws -> HKQuantitySample {
-        guard let quantityType = HKQuantityType.quantityType(forIdentifier: quantityTypeIdentifier) else {
-            throw NSError(
-                domain: "HealthConnectorError",
-                code: -1,
-                userInfo: [
-                    NSLocalizedDescriptionKey: "Failed to create quantity type for \(quantityTypeIdentifier.rawValue)",
-                ]
-            )
-        }
+        let quantityType = try HKQuantityType.make(from: quantityTypeIdentifier)
 
         let quantity: HKQuantity
         let time: Int64
@@ -837,12 +856,13 @@ extension HealthRecordDto {
             )
         }
 
-        let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000.0)
-        let timeZone: TimeZone? = if let zoneOffsetSeconds {
-            TimeZone(secondsFromGMT: Int(zoneOffsetSeconds))
-        } else {
-            nil
-        }
+        let date = Date(millisecondsSince1970: time)
+        let timeZone: TimeZone? =
+            if let zoneOffsetSeconds {
+                TimeZone(secondsFromGMT: Int(zoneOffsetSeconds))
+            } else {
+                nil
+            }
 
         return HKQuantitySample(
             type: quantityType,
@@ -856,85 +876,5 @@ extension HealthRecordDto {
                 mealType: mealType
             )
         )
-    }
-}
-
-// MARK: - Helper Extension for Timestamp Extraction
-
-extension HealthRecordDto {
-    /// Extracts the time field from a nutrient record DTO.
-    ///
-    /// - Returns: Timestamp in milliseconds since epoch, or 0 if not a nutrient DTO
-    func extractNutrientTime() -> Int64 {
-        switch self {
-        case let dto as EnergyNutrientRecordDto:
-            dto.time
-        case let dto as CaffeineNutrientRecordDto:
-            dto.time
-        case let dto as ProteinNutrientRecordDto:
-            dto.time
-        case let dto as TotalCarbohydrateNutrientRecordDto:
-            dto.time
-        case let dto as TotalFatNutrientRecordDto:
-            dto.time
-        case let dto as SaturatedFatNutrientRecordDto:
-            dto.time
-        case let dto as MonounsaturatedFatNutrientRecordDto:
-            dto.time
-        case let dto as PolyunsaturatedFatNutrientRecordDto:
-            dto.time
-        case let dto as CholesterolNutrientRecordDto:
-            dto.time
-        case let dto as DietaryFiberNutrientRecordDto:
-            dto.time
-        case let dto as SugarNutrientRecordDto:
-            dto.time
-        case let dto as VitaminANutrientRecordDto:
-            dto.time
-        case let dto as VitaminB6NutrientRecordDto:
-            dto.time
-        case let dto as VitaminB12NutrientRecordDto:
-            dto.time
-        case let dto as VitaminCNutrientRecordDto:
-            dto.time
-        case let dto as VitaminDNutrientRecordDto:
-            dto.time
-        case let dto as VitaminENutrientRecordDto:
-            dto.time
-        case let dto as VitaminKNutrientRecordDto:
-            dto.time
-        case let dto as ThiaminNutrientRecordDto:
-            dto.time
-        case let dto as RiboflavinNutrientRecordDto:
-            dto.time
-        case let dto as NiacinNutrientRecordDto:
-            dto.time
-        case let dto as FolateNutrientRecordDto:
-            dto.time
-        case let dto as BiotinNutrientRecordDto:
-            dto.time
-        case let dto as PantothenicAcidNutrientRecordDto:
-            dto.time
-        case let dto as CalciumNutrientRecordDto:
-            dto.time
-        case let dto as IronNutrientRecordDto:
-            dto.time
-        case let dto as MagnesiumNutrientRecordDto:
-            dto.time
-        case let dto as ManganeseNutrientRecordDto:
-            dto.time
-        case let dto as PhosphorusNutrientRecordDto:
-            dto.time
-        case let dto as PotassiumNutrientRecordDto:
-            dto.time
-        case let dto as SeleniumNutrientRecordDto:
-            dto.time
-        case let dto as SodiumNutrientRecordDto:
-            dto.time
-        case let dto as ZincNutrientRecordDto:
-            dto.time
-        default:
-            0
-        }
     }
 }

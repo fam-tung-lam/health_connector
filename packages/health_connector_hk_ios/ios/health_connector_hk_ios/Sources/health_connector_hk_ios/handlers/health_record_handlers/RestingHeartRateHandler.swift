@@ -47,15 +47,6 @@ final class RestingHeartRateHandler:
         return try restingHeartRateDto.toHealthKit()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let restingHeartRateDto = dto as? RestingHeartRateRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected RestingHeartRateRecordDto, got \(type(of: dto))"
-            )
-        }
-        return restingHeartRateDto.time
-    }
-
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .restingHeartRate)
     }

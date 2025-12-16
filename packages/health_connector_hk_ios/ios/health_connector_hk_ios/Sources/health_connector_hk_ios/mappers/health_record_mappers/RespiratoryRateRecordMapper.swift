@@ -4,19 +4,11 @@ import HealthKit
 extension RespiratoryRateRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
-        guard let type = HKQuantityType.quantityType(forIdentifier: .respiratoryRate) else {
-            throw NSError(
-                domain: "HealthConnectorError",
-                code: -1,
-                userInfo: [
-                    NSLocalizedDescriptionKey: "Failed to create respiratory rate quantity type",
-                ]
-            )
-        }
+        let type = try HKQuantityType.make(from: .respiratoryRate)
 
         let unit = HKUnit.count().unitDivided(by: .minute())
         let quantity = HKQuantity(unit: unit, doubleValue: rate.value)
-        let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000.0)
+        let date = Date(millisecondsSince1970: time)
 
         return HKQuantitySample(
             type: type,
@@ -42,7 +34,7 @@ extension HKQuantitySample {
 
         return RespiratoryRateRecordDto(
             id: uuid.uuidString,
-            time: Int64(startDate.timeIntervalSince1970 * 1000),
+            time: startDate.millisecondsSince1970,
             metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device

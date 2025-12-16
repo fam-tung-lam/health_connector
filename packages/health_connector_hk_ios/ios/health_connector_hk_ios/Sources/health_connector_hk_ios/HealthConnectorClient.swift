@@ -101,7 +101,7 @@ final class HealthConnectorClient: Taggable {
 
         let isAvailable = HKHealthStore.isHealthDataAvailable()
 
-        let statusDto = HealthPlatformStatusDto.fromHealthKitAvailability(isAvailable)
+        let statusDto = HealthPlatformStatusDto.fromBool(isAvailable)
         HealthConnectorLogger.info(
             tag: tag,
             operation: "getHealthPlatformStatus",
@@ -454,9 +454,7 @@ final class HealthConnectorClient: Taggable {
                         let (trimmedRecords, nextPageToken) = try self.applyPagination(
                             records: recordDtos,
                             pageSize: request.pageSize,
-                            timestampExtractor: {
-                                try type(of: handler).extractTimestamp($0)
-                            }
+                            timestampExtractor: { try $0.extractTimestamp() }
                         )
 
                         let responseDto = ReadRecordsResponseDto(

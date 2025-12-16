@@ -4,18 +4,10 @@ import HealthKit
 extension OxygenSaturationRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
-        guard let type = HKQuantityType.quantityType(forIdentifier: .oxygenSaturation) else {
-            throw NSError(
-                domain: "HealthConnectorError",
-                code: -1,
-                userInfo: [
-                    NSLocalizedDescriptionKey: "Failed to create oxygen saturation quantity type",
-                ]
-            )
-        }
+        let type = try HKQuantityType.make(from: .oxygenSaturation)
 
         let quantity = percentage.toHealthKit()
-        let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000.0)
+        let date = Date(millisecondsSince1970: time)
 
         return HKQuantitySample(
             type: type,
@@ -40,7 +32,7 @@ extension HKQuantitySample {
 
         return OxygenSaturationRecordDto(
             id: uuid.uuidString,
-            time: Int64(startDate.timeIntervalSince1970 * 1000),
+            time: startDate.millisecondsSince1970,
             metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device

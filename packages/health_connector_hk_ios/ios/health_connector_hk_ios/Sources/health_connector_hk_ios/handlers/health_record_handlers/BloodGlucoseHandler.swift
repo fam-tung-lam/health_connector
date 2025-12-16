@@ -50,16 +50,6 @@ final class BloodGlucoseHandler:
         return try bgDto.toHealthKit()
     }
 
-    /// Extract timestamp from DTO for pagination
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let bgDto = dto as? BloodGlucoseRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected BloodGlucoseRecordDto, got \(type(of: dto))"
-            )
-        }
-        return bgDto.time
-    }
-
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .bloodGlucose)

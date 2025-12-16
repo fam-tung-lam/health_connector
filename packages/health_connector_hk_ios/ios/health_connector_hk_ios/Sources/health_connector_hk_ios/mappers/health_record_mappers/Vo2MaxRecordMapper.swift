@@ -6,18 +6,12 @@ extension Vo2MaxRecordDto {
     ///
     /// - Throws: An error if the quantity type cannot be created.
     func toHealthKit() throws -> HKQuantitySample {
-        guard let type = HKQuantityType.quantityType(forIdentifier: .vo2Max) else {
-            throw NSError(
-                domain: "HealthConnectorError",
-                code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create VO2 max quantity type"]
-            )
-        }
+        let type = try HKQuantityType.make(from: .vo2Max)
 
         let unit = HKUnit.literUnit(with: .milli)
             .unitDivided(by: HKUnit.gramUnit(with: .kilo).unitMultiplied(by: .minute()))
         let quantity = HKQuantity(unit: unit, doubleValue: vo2Max.value)
-        let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000.0)
+        let date = Date(millisecondsSince1970: time)
 
         var metadataDict = metadata.toHealthKitMetadata() ?? [:]
 
@@ -59,7 +53,7 @@ extension HKQuantitySample {
 
         return Vo2MaxRecordDto(
             id: uuid.uuidString,
-            time: Int64(startDate.timeIntervalSince1970 * 1000),
+            time: startDate.millisecondsSince1970,
             metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device

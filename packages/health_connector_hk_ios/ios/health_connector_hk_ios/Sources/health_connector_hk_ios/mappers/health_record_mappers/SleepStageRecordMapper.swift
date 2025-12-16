@@ -1,6 +1,16 @@
 import Foundation
 import HealthKit
 
+/// iOS 16+ sleep stage raw values.
+///
+/// HealthKit introduced detailed sleep stages in iOS 16 with specific raw values.
+/// These constants provide type-safe access to those values.
+private enum iOS16SleepStage: Int {
+    case deep = 3
+    case rem = 4
+    case light = 5 // HealthKit calls this "core" sleep
+}
+
 /// Mappers for converting SleepStageRecordDto to HKCategorySample
 extension SleepStageRecordDto {
     /// Convert SleepStageRecordDto to HKCategorySample
@@ -8,8 +18,8 @@ extension SleepStageRecordDto {
         let categoryType = try HKCategoryType.make(from: HKCategoryTypeIdentifier.sleepAnalysis)
 
         let value = try HKCategoryValueSleepAnalysis.from(dto: stageType).rawValue
-        let startDate = Date(timeIntervalSince1970: TimeInterval(startTime) / 1000.0)
-        let endDate = Date(timeIntervalSince1970: TimeInterval(endTime) / 1000.0)
+        let startDate = Date(millisecondsSince1970: startTime)
+        let endDate = Date(millisecondsSince1970: endTime)
         var metadataDict = metadata.toHealthKitMetadata(timeZone: TimeZone.current)
         if let startOffset = startZoneOffsetSeconds {
             metadataDict[HKMetadataKeyTimeZone] =
@@ -53,13 +63,13 @@ extension HKCategoryValueSleepAnalysis {
                 // Note: We need to use rawValue comparison because Swift doesn't allow
                 // switch on @unknown cases with specific values
                 if #available(iOS 16.0, *) {
-                    // iOS 16 introduced new sleep stages:
+                    // iOS 16 introduced detailed sleep stages with specific raw values
                     switch rawValue {
-                    case 3:
+                    case iOS16SleepStage.deep.rawValue:
                         return .deep
-                    case 4:
+                    case iOS16SleepStage.rem.rawValue:
                         return .rem
-                    case 5:
+                    case iOS16SleepStage.light.rawValue:
                         return .light
                     default:
                         return .unknown

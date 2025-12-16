@@ -47,15 +47,6 @@ final class StepsHandler:
         return try stepDto.toHealthKit()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let stepDto = dto as? StepRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected StepRecordDto, got \(type(of: dto))"
-            )
-        }
-        return stepDto.endTime
-    }
-
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .stepCount)
     }

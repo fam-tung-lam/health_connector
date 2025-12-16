@@ -4,18 +4,10 @@ import HealthKit
 extension BodyFatPercentageRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
-        guard let type = HKQuantityType.quantityType(forIdentifier: .bodyFatPercentage) else {
-            throw NSError(
-                domain: "HealthConnectorError",
-                code: -1,
-                userInfo: [
-                    NSLocalizedDescriptionKey: "Failed to create body fat percentage quantity type",
-                ]
-            )
-        }
+        let type = try HKQuantityType.make(from: .bodyFatPercentage)
 
         let quantity = percentage.toHealthKit()
-        let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000.0)
+        let date = Date(millisecondsSince1970: time)
 
         return HKQuantitySample(
             type: type,
@@ -44,7 +36,7 @@ extension HKQuantitySample {
                 source: sourceRevision.source,
                 device: device
             ),
-            time: Int64(startDate.timeIntervalSince1970 * 1000),
+            time: startDate.millisecondsSince1970,
             percentage: quantity.toPercentageDto(),
             zoneOffsetSeconds: zoneOffset
         )
