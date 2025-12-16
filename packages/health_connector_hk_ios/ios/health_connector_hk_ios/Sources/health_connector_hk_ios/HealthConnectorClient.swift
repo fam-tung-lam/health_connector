@@ -3,42 +3,32 @@ import HealthKit
 
 /// Internal client wrapper for the HealthKit SDK.
 final class HealthConnectorClient: Taggable {
-    /**
-     * The underlying HealthKit store instance.
-     */
+    /// The underlying HealthKit store instance.
     private let store: HKHealthStore
 
-    /**
-     * Service for managing HealthKit permissions.
-     */
+    /// Service for managing HealthKit permissions.
     private let permissionService: HealthConnectorPermissionService
 
-    /**
-     * Registry for handler instances
-     *
-     * **Changed:** Now stores handler instances (not static singleton)
-     */
+    /// Registry for handler instances
+    ///
+    /// **Changed:** Now stores handler instances (not static singleton)
     private let handlerRegistry: HealthRecordHandlerRegistry
 
-    /**
-     * Private initializer to prevent external instantiation.
-     *
-     * - Parameter store: The HealthKit store instance.
-     *
-     * **Changed:** Creates handler registry with dependency injection
-     */
+    /// Private initializer to prevent external instantiation.
+    ///
+    /// - Parameter store: The HealthKit store instance.
+    ///
+    /// **Changed:** Creates handler registry with dependency injection
     private init(store: HKHealthStore) {
         self.store = store
         permissionService = HealthConnectorPermissionService(store: store)
         handlerRegistry = HealthRecordHandlerRegistry(healthStore: store)
     }
 
-    /**
-     * Maps HealthKit errors to HealthConnectorError instances.
-     *
-     * - Parameter error: The NSError to map
-     * - Returns: A HealthConnectorError with the appropriate error code
-     */
+    /// Maps HealthKit errors to HealthConnectorError instances.
+    ///
+    /// - Parameter error: The NSError to map
+    /// - Returns: A HealthConnectorError with the appropriate error code
     static func mapHealthKitError(_ error: NSError) -> HealthConnectorError {
         if error.domain == HKError.errorDomain {
             let hkErrorCode = HKError.Code(rawValue: error.code)
@@ -99,11 +89,9 @@ final class HealthConnectorClient: Taggable {
         return HealthConnectorClient(store: HKHealthStore())
     }
 
-    /**
-     * Gets the current status of the HealthKit platform on the device.
-     *
-     * - Returns: The current platform status as a `HealthPlatformStatusDto`
-     */
+    /// Gets the current status of the HealthKit platform on the device.
+    ///
+    /// - Returns: The current platform status as a `HealthPlatformStatusDto`
     static func getHealthPlatformStatus() -> HealthPlatformStatusDto {
         HealthConnectorLogger.debug(
             tag: tag,
@@ -127,19 +115,17 @@ final class HealthConnectorClient: Taggable {
         return statusDto
     }
 
-    /**
-     * Requests the specified health data permissions from the user.
-     *
-     * - Parameters:
-     *   - healthDataPermissions: List of health data permissions to request.
-     *
-     * - Returns: A list of `HealthDataPermissionRequestResultDto` containing the status for each requested permission.
-     *
-     * - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-     * - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if invalid permission parameters are provided
-     * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit is unavailable
-     * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
-     */
+    /// Requests the specified health data permissions from the user.
+    ///
+    /// - Parameters:
+    ///   - healthDataPermissions: List of health data permissions to request.
+    ///
+    /// - Returns: A list of `HealthDataPermissionRequestResultDto` containing the status for each requested permission.
+    ///
+    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if invalid permission parameters are provided
+    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit is unavailable
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func requestPermissions(healthDataPermissions: [HealthDataPermissionDto]) async throws
         -> [HealthDataPermissionRequestResultDto]
     {
@@ -156,17 +142,15 @@ final class HealthConnectorClient: Taggable {
         return try await permissionService.requestAuthorization(for: healthDataPermissions)
     }
 
-    /**
-     * Reads a single health record by ID.
-     *
-     * - Parameter request: Contains the data type and record ID to read
-     * - Returns: ReadRecordResponseDto with the record populated, or nil if not found
-     *
-     * - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if the record ID format is invalid
-     * - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-     * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-     * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
-     */
+    /// Reads a single health record by ID.
+    ///
+    /// - Parameter request: Contains the data type and record ID to read
+    /// - Returns: ReadRecordResponseDto with the record populated, or nil if not found
+    ///
+    /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if the record ID format is invalid
+    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func readRecord(request: ReadRecordRequestDto) async throws -> ReadRecordResponseDto? {
         do {
             HealthConnectorLogger.debug(
@@ -244,51 +228,49 @@ final class HealthConnectorClient: Taggable {
         }
     }
 
-    /**
-     * Reads multiple health records within a time range.
-     *
-     * ## Pagination Strategy
-     *
-     * HealthKit doesn't provide native pagination tokens, so this method implements
-     * cursor-based pagination using timestamps. To correctly determine if more pages exist,
-     * this method uses an "over-fetch" strategy:
-     *
-     * 1. **Query pageSize + 1 records**: The method queries `pageSize + 1` records from HealthKit
-     *    instead of exactly `pageSize`. This extra record acts as a "lookahead" to determine
-     *    if more data exists beyond the current page.
-     *
-     * 2. **Detect last page**: After receiving results:
-     *    - If `pageSize + 1` records are returned → more pages exist
-     *    - If fewer than `pageSize + 1` records are returned → this is the last page
-     *
-     * 3. **Remove extra record**: If more pages exist, the last record is removed from the
-     *    response before returning to the caller. The caller always receives exactly `pageSize`
-     *    records (or fewer on the last page).
-     *
-     * 4. **Generate nextPageToken**: When more pages exist, `nextPageToken` is generated from
-     *    the timestamp of the last record being returned (not the removed record). Subsequent
-     *    requests use this token to resume pagination from the correct position.
-     *
-     * **Why this approach?**
-     *
-     * Without querying `pageSize + 1`, when HealthKit returns exactly `pageSize` records,
-     * the method cannot distinguish between:
-     * - "This is exactly the last page" (no more records exist)
-     * - "More records exist but weren't returned yet" (another page is needed)
-     *
-     * The extra record eliminates this ambiguity and ensures the last page never incorrectly
-     * includes a `nextPageToken` that leads to empty results.
-     *
-     * - Parameter request: Contains data type, time range, page size, optional page token,
-     *                     and optional data origin package names for filtering
-     * - Returns: ReadRecordsResponseDto with the records list populated and optional next page token.
-     *            The list will contain at most `pageSize` records. `nextPageToken` is nil when no more pages exist.
-     *
-     * - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if time range or page size is invalid
-     * - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-     * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-     * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
-     */
+    /// Reads multiple health records within a time range.
+    ///
+    /// ## Pagination Strategy
+    ///
+    /// HealthKit doesn't provide native pagination tokens, so this method implements
+    /// cursor-based pagination using timestamps. To correctly determine if more pages exist,
+    /// this method uses an "over-fetch" strategy:
+    ///
+    /// 1. **Query pageSize + 1 records**: The method queries `pageSize + 1` records from HealthKit
+    ///    instead of exactly `pageSize`. This extra record acts as a "lookahead" to determine
+    ///    if more data exists beyond the current page.
+    ///
+    /// 2. **Detect last page**: After receiving results:
+    ///    - If `pageSize + 1` records are returned → more pages exist
+    ///    - If fewer than `pageSize + 1` records are returned → this is the last page
+    ///
+    /// 3. **Remove extra record**: If more pages exist, the last record is removed from the
+    ///    response before returning to the caller. The caller always receives exactly `pageSize`
+    ///    records (or fewer on the last page).
+    ///
+    /// 4. **Generate nextPageToken**: When more pages exist, `nextPageToken` is generated from
+    ///    the timestamp of the last record being returned (not the removed record). Subsequent
+    ///    requests use this token to resume pagination from the correct position.
+    ///
+    /// **Why this approach?**
+    ///
+    /// Without querying `pageSize + 1`, when HealthKit returns exactly `pageSize` records,
+    /// the method cannot distinguish between:
+    /// - "This is exactly the last page" (no more records exist)
+    /// - "More records exist but weren't returned yet" (another page is needed)
+    ///
+    /// The extra record eliminates this ambiguity and ensures the last page never incorrectly
+    /// includes a `nextPageToken` that leads to empty results.
+    ///
+    /// - Parameter request: Contains data type, time range, page size, optional page token,
+    ///                     and optional data origin package names for filtering
+    /// - Returns: ReadRecordsResponseDto with the records list populated and optional next page token.
+    ///            The list will contain at most `pageSize` records. `nextPageToken` is nil when no more pages exist.
+    ///
+    /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if time range or page size is invalid
+    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func readRecords(request: ReadRecordsRequestDto) async throws -> ReadRecordsResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -535,30 +517,28 @@ final class HealthConnectorClient: Taggable {
         }
     }
 
-    /**
-     * Applies pagination logic to records array.
-     *
-     * This helper implements the "over-fetch" pagination strategy:
-     *
-     * - **Input**: Records array that may contain `pageSize + 1` items (due to querying one extra)
-     * - **Output**: Exactly `pageSize` records (or fewer if last page) with optional `nextPageToken`
-     *
-     * **Why remove the last record?**
-     *
-     * When we query `pageSize + 1` records and receive that many, it means more data exists.
-     * However, we must return exactly `pageSize` records to the caller. The extra (last) record
-     * was only used as a "lookahead" indicator. We remove it and generate `nextPageToken` from
-     * the actual last record being returned, so the next page starts from the correct position.
-     *
-     * If we receive `pageSize` or fewer records, all records are returned and no `nextPageToken`
-     * is generated, indicating this is the last page.
-     *
-     * - Parameters:
-     *   - records: Array of records (may contain pageSize + 1 items as a result of over-fetching)
-     *   - pageSize: Requested page size (the maximum number of records to return)
-     *   - timestampExtractor: Closure to extract timestamp from record for pagination token
-     * - Returns: Tuple of (trimmed records array with at most pageSize items, optional nextPageToken)
-     */
+    /// Applies pagination logic to records array.
+    ///
+    /// This helper implements the "over-fetch" pagination strategy:
+    ///
+    /// - **Input**: Records array that may contain `pageSize + 1` items (due to querying one extra)
+    /// - **Output**: Exactly `pageSize` records (or fewer if last page) with optional `nextPageToken`
+    ///
+    /// **Why remove the last record?**
+    ///
+    /// When we query `pageSize + 1` records and receive that many, it means more data exists.
+    /// However, we must return exactly `pageSize` records to the caller. The extra (last) record
+    /// was only used as a "lookahead" indicator. We remove it and generate `nextPageToken` from
+    /// the actual last record being returned, so the next page starts from the correct position.
+    ///
+    /// If we receive `pageSize` or fewer records, all records are returned and no `nextPageToken`
+    /// is generated, indicating this is the last page.
+    ///
+    /// - Parameters:
+    ///   - records: Array of records (may contain pageSize + 1 items as a result of over-fetching)
+    ///   - pageSize: Requested page size (the maximum number of records to return)
+    ///   - timestampExtractor: Closure to extract timestamp from record for pagination token
+    /// - Returns: Tuple of (trimmed records array with at most pageSize items, optional nextPageToken)
     private func applyPagination<T>(
         records: [T],
         pageSize: Int64,
@@ -591,24 +571,22 @@ final class HealthConnectorClient: Taggable {
         return (mutableRecords, nextPageToken)
     }
 
-    /**
-     * Queries HealthKit for sources matching the given bundle identifiers.
-     *
-     * This helper method queries a sample of records for a given sample type to
-     * collect HKSource objects, then filters them by bundle identifier. This is
-     * necessary because HealthKit doesn't provide a direct API to get sources by
-     * bundle identifier - sources must be obtained from existing samples.
-     *
-     * To improve efficiency, we query a reasonable number of samples (up to 1000)
-     * to collect unique sources. If all requested bundle identifiers are found
-     * before reaching the limit, we can return early.
-     *
-     * - Parameters:
-     *   - sampleType: The HealthKit sample type to query sources for
-     *   - bundleIdentifiers: List of bundle identifiers to filter sources by
-     * - Returns: Set of HKSource objects matching the bundle identifiers
-     * - Throws: Errors from HealthKit queries
-     */
+    /// Queries HealthKit for sources matching the given bundle identifiers.
+    ///
+    /// This helper method queries a sample of records for a given sample type to
+    /// collect HKSource objects, then filters them by bundle identifier. This is
+    /// necessary because HealthKit doesn't provide a direct API to get sources by
+    /// bundle identifier - sources must be obtained from existing samples.
+    ///
+    /// To improve efficiency, we query a reasonable number of samples (up to 1000)
+    /// to collect unique sources. If all requested bundle identifiers are found
+    /// before reaching the limit, we can return early.
+    ///
+    /// - Parameters:
+    ///   - sampleType: The HealthKit sample type to query sources for
+    ///   - bundleIdentifiers: List of bundle identifiers to filter sources by
+    /// - Returns: Set of HKSource objects matching the bundle identifiers
+    /// - Throws: Errors from HealthKit queries
     private func querySources(forSampleType: HKSampleType, bundleIdentifiers: [String]) async throws
         -> Set<HKSource>
     {
@@ -641,27 +619,23 @@ final class HealthConnectorClient: Taggable {
         }
     }
 
-    /**
-     * Creates an empty response DTO for the given data type.
-     *
-     * - Parameter dataType: The data type for the empty response
-     * - Returns: ReadRecordsResponseDto with empty records list
-     */
+    /// Creates an empty response DTO for the given data type.
+    ///
+    /// - Parameter dataType: The data type for the empty response
+    /// - Returns: ReadRecordsResponseDto with empty records list
     private func createEmptyResponse() -> ReadRecordsResponseDto {
         ReadRecordsResponseDto(nextPageToken: nil, records: [])
     }
 
-    /**
-     * Writes a single health record.
-     *
-     * - Parameter request: Contains the health record to write
-     * - Returns: WriteRecordResponseDto containing the platform-assigned record ID
-     *
-     * - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if record data is invalid
-     * - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-     * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-     * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
-     */
+    /// Writes a single health record.
+    ///
+    /// - Parameter request: Contains the health record to write
+    /// - Returns: WriteRecordResponseDto containing the platform-assigned record ID
+    ///
+    /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if record data is invalid
+    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func writeRecord(request: WriteRecordRequestDto) async throws -> WriteRecordResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -771,25 +745,23 @@ final class HealthConnectorClient: Taggable {
         }
     }
 
-    /**
-     * Updates a single health record using delete-then-insert pattern.
-     *
-     * HealthKit uses an immutable data model where samples cannot be updated once saved.
-     * This method implements update-like behavior by:
-     * 1. Deleting the old sample using delete(_:withCompletion:)
-     * 2. Inserting a new sample with corrected values using save(_:withCompletion:)
-     *
-     * Since HealthKit assigns a new UUID to each sample, the returned record ID will
-     * be different from the input ID. This is expected HealthKit behavior.
-     *
-     * - Parameter request: Contains the health record to update
-     * - Returns: UpdateRecordResponseDto containing the new record ID (different from input)
-     *
-     * - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if record ID is invalid or record data is invalid
-     * - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-     * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-     * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
-     */
+    /// Updates a single health record using delete-then-insert pattern.
+    ///
+    /// HealthKit uses an immutable data model where samples cannot be updated once saved.
+    /// This method implements update-like behavior by:
+    /// 1. Deleting the old sample using delete(_:withCompletion:)
+    /// 2. Inserting a new sample with corrected values using save(_:withCompletion:)
+    ///
+    /// Since HealthKit assigns a new UUID to each sample, the returned record ID will
+    /// be different from the input ID. This is expected HealthKit behavior.
+    ///
+    /// - Parameter request: Contains the health record to update
+    /// - Returns: UpdateRecordResponseDto containing the new record ID (different from input)
+    ///
+    /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if record ID is invalid or record data is invalid
+    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func updateRecord(request: UpdateRecordRequestDto) async throws -> UpdateRecordResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -885,17 +857,15 @@ final class HealthConnectorClient: Taggable {
         }
     }
 
-    /**
-     * Writes multiple health records atomically.
-     *
-     * - Parameter request: Contains the list of health records to write
-     * - Returns: WriteRecordsResponseDto containing the platform-assigned record IDs
-     *
-     * - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if any record data is invalid
-     * - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-     * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-     * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
-     */
+    /// Writes multiple health records atomically.
+    ///
+    /// - Parameter request: Contains the list of health records to write
+    /// - Returns: WriteRecordsResponseDto containing the platform-assigned record IDs
+    ///
+    /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if any record data is invalid
+    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func writeRecords(request: WriteRecordsRequestDto) async throws -> WriteRecordsResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -1011,17 +981,15 @@ final class HealthConnectorClient: Taggable {
         }
     }
 
-    /**
-     * Performs an aggregation query on health records.
-     *
-     * - Parameter request: Contains data type, aggregation metric, and time range
-     * - Returns: AggregateResponseDto with aggregated value and data point count
-     *
-     * - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if time range or metric is invalid
-     * - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-     * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-     * - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
-     */
+    /// Performs an aggregation query on health records.
+    ///
+    /// - Parameter request: Contains data type, aggregation metric, and time range
+    /// - Returns: AggregateResponseDto with aggregated value and data point count
+    ///
+    /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if time range or metric is invalid
+    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func aggregate(request: AggregateRequestDto) async throws -> AggregateResponseDto {
         do {
             HealthConnectorLogger.debug(
@@ -1132,17 +1100,15 @@ final class HealthConnectorClient: Taggable {
         }
     }
 
-    /**
-     * Performs aggregation using HKStatisticsQuery for metrics supported by HealthKit statistics.
-     *
-     * - Parameters:
-     *   - quantityType: The HealthKit quantity type to aggregate
-     *   - predicate: The time range predicate
-     *   - metric: The aggregation metric
-     *   - dataType: The health data type
-     *   - handler: The quantity handler for this data type
-     * - Returns: AggregateResponseDto with aggregated result
-     */
+    /// Performs aggregation using HKStatisticsQuery for metrics supported by HealthKit statistics.
+    ///
+    /// - Parameters:
+    ///   - quantityType: The HealthKit quantity type to aggregate
+    ///   - predicate: The time range predicate
+    ///   - metric: The aggregation metric
+    ///   - dataType: The health data type
+    ///   - handler: The quantity handler for this data type
+    /// - Returns: AggregateResponseDto with aggregated result
     private func extractAggregateResponse(
         from statistics: HKStatistics,
         dataType: HealthDataTypeDto,
@@ -1375,23 +1341,21 @@ final class HealthConnectorClient: Taggable {
         }
     }
 
-    /**
-     * Performs aggregation for sleep stage records.
-     *
-     * Since category samples don't support HKStatisticsQuery, we query all sleep
-     * stage records in the time range and calculate the sum of sleep durations manually.
-     *
-     * **Supported Metrics:**
-     * - `.sum` - Total sleep time in seconds across all sleep stages
-     *
-     * **Sleep Stage Filtering:**
-     * Only counts actual sleep stages (excludes awake, inBed, outOfBed states).
-     * Includes: sleeping, light, deep, rem
-     *
-     * - Parameter request: The aggregation request
-     * - Returns: AggregateResponseDto with total sleep duration in seconds
-     * - Throws: HealthConnectorError if query fails or metric is unsupported
-     */
+    /// Performs aggregation for sleep stage records.
+    ///
+    /// Since category samples don't support HKStatisticsQuery, we query all sleep
+    /// stage records in the time range and calculate the sum of sleep durations manually.
+    ///
+    /// **Supported Metrics:**
+    /// - `.sum` - Total sleep time in seconds across all sleep stages
+    ///
+    /// **Sleep Stage Filtering:**
+    /// Only counts actual sleep stages (excludes awake, inBed, outOfBed states).
+    /// Includes: sleeping, light, deep, rem
+    ///
+    /// - Parameter request: The aggregation request
+    /// - Returns: AggregateResponseDto with total sleep duration in seconds
+    /// - Throws: HealthConnectorError if query fails or metric is unsupported
     private func aggregateSleepStages(request: AggregateRequestDto) async throws
         -> AggregateResponseDto
     {
@@ -1505,17 +1469,15 @@ final class HealthConnectorClient: Taggable {
         return AggregateResponseDto(value: numericDto)
     }
 
-    /**
-     * Deletes all records of a data type within a time range.
-     *
-     * Uses HealthKit's `deleteObjects(of:predicate:withCompletion:)` API.
-     *
-     * - Parameter request: Contains data type and time range for deletion
-     * - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if time range is invalid
-     * - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-     * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-     * - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
-     */
+    /// Deletes all records of a data type within a time range.
+    ///
+    /// Uses HealthKit's `deleteObjects(of:predicate:withCompletion:)` API.
+    ///
+    /// - Parameter request: Contains data type and time range for deletion
+    /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if time range is invalid
+    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
     func deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) async throws {
         HealthConnectorLogger.debug(
             tag: HealthConnectorClient.tag,
@@ -1595,17 +1557,15 @@ final class HealthConnectorClient: Taggable {
         }
     }
 
-    /**
-     * Deletes specific records by their IDs.
-     *
-     * Uses query-then-delete pattern since HealthKit doesn't support direct UUID deletion.
-     *
-     * - Parameter request: Contains data type and list of record IDs to delete
-     * - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if record IDs are invalid
-     * - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-     * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-     * - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
-     */
+    /// Deletes specific records by their IDs.
+    ///
+    /// Uses query-then-delete pattern since HealthKit doesn't support direct UUID deletion.
+    ///
+    /// - Parameter request: Contains data type and list of record IDs to delete
+    /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if record IDs are invalid
+    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
     func deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) async throws {
         HealthConnectorLogger.debug(
             tag: HealthConnectorClient.tag,
