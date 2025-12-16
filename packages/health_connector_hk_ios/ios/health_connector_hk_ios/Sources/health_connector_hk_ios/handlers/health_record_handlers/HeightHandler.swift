@@ -57,7 +57,7 @@ final class HeightHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .height)
+        try HKQuantityType.make(from: .height)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

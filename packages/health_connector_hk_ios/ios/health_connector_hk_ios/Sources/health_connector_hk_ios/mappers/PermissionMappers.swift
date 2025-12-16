@@ -19,101 +19,101 @@ extension HealthDataPermissionDto {
     func toHealthKitObjectTypes() throws -> [HKObjectType] {
         switch healthDataType {
         case .activeCaloriesBurned:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .activeEnergyBurned)]
+            try [HKQuantityType.make(from: .activeEnergyBurned)]
         case .distance:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .distanceWalkingRunning)]
+            try [HKQuantityType.make(from: .distanceWalkingRunning)]
         case .floorsClimbed:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .flightsClimbed)]
+            try [HKQuantityType.make(from: .flightsClimbed)]
         case .height:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .height)]
+            try [HKQuantityType.make(from: .height)]
         case .hydration:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryWater)]
+            try [HKQuantityType.make(from: .dietaryWater)]
         case .leanBodyMass:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .leanBodyMass)]
+            try [HKQuantityType.make(from: .leanBodyMass)]
         case .bodyFatPercentage:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .bodyFatPercentage)]
+            try [HKQuantityType.make(from: .bodyFatPercentage)]
         case .bodyTemperature:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .bodyTemperature)]
+            try [HKQuantityType.make(from: .bodyTemperature)]
         case .steps:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .stepCount)]
+            try [HKQuantityType.make(from: .stepCount)]
         case .weight:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .bodyMass)]
+            try [HKQuantityType.make(from: .bodyMass)]
         case .wheelchairPushes:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .pushCount)]
+            try [HKQuantityType.make(from: .pushCount)]
         case .heartRateMeasurementRecord:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .heartRate)]
+            try [HKQuantityType.make(from: .heartRate)]
         case .restingHeartRate:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .restingHeartRate)]
+            try [HKQuantityType.make(from: .restingHeartRate)]
         case .sleepStageRecord:
-            try [HKCategoryType.safeCategoryType(forIdentifier: .sleepAnalysis)]
+            try [HKCategoryType.make(from: .sleepAnalysis)]
 
         // MARK: Nutrients
         case .energyNutrient:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryEnergyConsumed)]
+            try [HKQuantityType.make(from: .dietaryEnergyConsumed)]
         case .caffeine:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryCaffeine)]
+            try [HKQuantityType.make(from: .dietaryCaffeine)]
         case .protein:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryProtein)]
+            try [HKQuantityType.make(from: .dietaryProtein)]
         case .totalCarbohydrate:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryCarbohydrates)]
+            try [HKQuantityType.make(from: .dietaryCarbohydrates)]
         case .totalFat:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatTotal)]
+            try [HKQuantityType.make(from: .dietaryFatTotal)]
         case .saturatedFat:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatSaturated)]
+            try [HKQuantityType.make(from: .dietaryFatSaturated)]
         case .monounsaturatedFat:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatMonounsaturated)]
+            try [HKQuantityType.make(from: .dietaryFatMonounsaturated)]
         case .polyunsaturatedFat:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatPolyunsaturated)]
+            try [HKQuantityType.make(from: .dietaryFatPolyunsaturated)]
         case .cholesterol:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryCholesterol)]
+            try [HKQuantityType.make(from: .dietaryCholesterol)]
         case .dietaryFiber:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryFiber)]
+            try [HKQuantityType.make(from: .dietaryFiber)]
         case .sugar:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietarySugar)]
+            try [HKQuantityType.make(from: .dietarySugar)]
         case .vitaminA:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminA)]
+            try [HKQuantityType.make(from: .dietaryVitaminA)]
         case .vitaminB6:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminB6)]
+            try [HKQuantityType.make(from: .dietaryVitaminB6)]
         case .vitaminB12:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminB12)]
+            try [HKQuantityType.make(from: .dietaryVitaminB12)]
         case .vitaminC:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminC)]
+            try [HKQuantityType.make(from: .dietaryVitaminC)]
         case .vitaminD:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminD)]
+            try [HKQuantityType.make(from: .dietaryVitaminD)]
         case .vitaminE:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminE)]
+            try [HKQuantityType.make(from: .dietaryVitaminE)]
         case .vitaminK:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminK)]
+            try [HKQuantityType.make(from: .dietaryVitaminK)]
         case .thiamin:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryThiamin)]
+            try [HKQuantityType.make(from: .dietaryThiamin)]
         case .riboflavin:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryRiboflavin)]
+            try [HKQuantityType.make(from: .dietaryRiboflavin)]
         case .niacin:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryNiacin)]
+            try [HKQuantityType.make(from: .dietaryNiacin)]
         case .folate:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryFolate)]
+            try [HKQuantityType.make(from: .dietaryFolate)]
         case .biotin:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryBiotin)]
+            try [HKQuantityType.make(from: .dietaryBiotin)]
         case .pantothenicAcid:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryPantothenicAcid)]
+            try [HKQuantityType.make(from: .dietaryPantothenicAcid)]
         case .calcium:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryCalcium)]
+            try [HKQuantityType.make(from: .dietaryCalcium)]
         case .iron:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryIron)]
+            try [HKQuantityType.make(from: .dietaryIron)]
         case .magnesium:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryMagnesium)]
+            try [HKQuantityType.make(from: .dietaryMagnesium)]
         case .manganese:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryManganese)]
+            try [HKQuantityType.make(from: .dietaryManganese)]
         case .phosphorus:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryPhosphorus)]
+            try [HKQuantityType.make(from: .dietaryPhosphorus)]
         case .potassium:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryPotassium)]
+            try [HKQuantityType.make(from: .dietaryPotassium)]
         case .selenium:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietarySelenium)]
+            try [HKQuantityType.make(from: .dietarySelenium)]
         case .sodium:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietarySodium)]
+            try [HKQuantityType.make(from: .dietarySodium)]
         case .zinc:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .dietaryZinc)]
+            try [HKQuantityType.make(from: .dietaryZinc)]
 
         // MARK: Correlation Types
         case .nutrition:
@@ -124,65 +124,65 @@ extension HealthDataPermissionDto {
             // Blood pressure is a correlation type (HKCorrelation.bloodPressure) but HealthKit requires
             // requesting permissions for the individual quantity types, not the correlation type itself
             try [
-                HKQuantityType.safeQuantityType(forIdentifier: .bloodPressureSystolic),
-                HKQuantityType.safeQuantityType(forIdentifier: .bloodPressureDiastolic),
+                HKQuantityType.make(from: .bloodPressureSystolic),
+                HKQuantityType.make(from: .bloodPressureDiastolic),
             ]
         case .systolicBloodPressure:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .bloodPressureSystolic)]
+            try [HKQuantityType.make(from: .bloodPressureSystolic)]
         case .diastolicBloodPressure:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .bloodPressureDiastolic)]
+            try [HKQuantityType.make(from: .bloodPressureDiastolic)]
         case .oxygenSaturation:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .oxygenSaturation)]
+            try [HKQuantityType.make(from: .oxygenSaturation)]
         case .respiratoryRate:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .respiratoryRate)]
+            try [HKQuantityType.make(from: .respiratoryRate)]
         case .vo2Max:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .vo2Max)]
+            try [HKQuantityType.make(from: .vo2Max)]
         case .bloodGlucose:
-            try [HKQuantityType.safeQuantityType(forIdentifier: .bloodGlucose)]
+            try [HKQuantityType.make(from: .bloodGlucose)]
         }
     }
 
     private func getNutritionTypes() throws -> [HKObjectType] {
         try [
             // Energy & Other
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryEnergyConsumed),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryCaffeine),
+            HKQuantityType.make(from: .dietaryEnergyConsumed),
+            HKQuantityType.make(from: .dietaryCaffeine),
             // Macronutrients
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryProtein),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryCarbohydrates),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatTotal),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatSaturated),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatMonounsaturated),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatPolyunsaturated),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryCholesterol),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryFiber),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietarySugar),
+            HKQuantityType.make(from: .dietaryProtein),
+            HKQuantityType.make(from: .dietaryCarbohydrates),
+            HKQuantityType.make(from: .dietaryFatTotal),
+            HKQuantityType.make(from: .dietaryFatSaturated),
+            HKQuantityType.make(from: .dietaryFatMonounsaturated),
+            HKQuantityType.make(from: .dietaryFatPolyunsaturated),
+            HKQuantityType.make(from: .dietaryCholesterol),
+            HKQuantityType.make(from: .dietaryFiber),
+            HKQuantityType.make(from: .dietarySugar),
             // Vitamins
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminA),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminB6),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminB12),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminC),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminD),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminE),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminK),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryThiamin),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryRiboflavin),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryNiacin),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryFolate),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryBiotin),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryPantothenicAcid),
+            HKQuantityType.make(from: .dietaryVitaminA),
+            HKQuantityType.make(from: .dietaryVitaminB6),
+            HKQuantityType.make(from: .dietaryVitaminB12),
+            HKQuantityType.make(from: .dietaryVitaminC),
+            HKQuantityType.make(from: .dietaryVitaminD),
+            HKQuantityType.make(from: .dietaryVitaminE),
+            HKQuantityType.make(from: .dietaryVitaminK),
+            HKQuantityType.make(from: .dietaryThiamin),
+            HKQuantityType.make(from: .dietaryRiboflavin),
+            HKQuantityType.make(from: .dietaryNiacin),
+            HKQuantityType.make(from: .dietaryFolate),
+            HKQuantityType.make(from: .dietaryBiotin),
+            HKQuantityType.make(from: .dietaryPantothenicAcid),
             // Minerals
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryCalcium),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryIron),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryMagnesium),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryManganese),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryPhosphorus),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryPotassium),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietarySelenium),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietarySodium),
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryZinc),
+            HKQuantityType.make(from: .dietaryCalcium),
+            HKQuantityType.make(from: .dietaryIron),
+            HKQuantityType.make(from: .dietaryMagnesium),
+            HKQuantityType.make(from: .dietaryManganese),
+            HKQuantityType.make(from: .dietaryPhosphorus),
+            HKQuantityType.make(from: .dietaryPotassium),
+            HKQuantityType.make(from: .dietarySelenium),
+            HKQuantityType.make(from: .dietarySodium),
+            HKQuantityType.make(from: .dietaryZinc),
             // Water
-            HKQuantityType.safeQuantityType(forIdentifier: .dietaryWater),
+            HKQuantityType.make(from: .dietaryWater),
         ]
     }
 }

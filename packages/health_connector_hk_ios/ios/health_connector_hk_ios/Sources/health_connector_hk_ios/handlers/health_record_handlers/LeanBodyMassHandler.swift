@@ -57,7 +57,7 @@ final class LeanBodyMassHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .leanBodyMass)
+        try HKQuantityType.make(from: .leanBodyMass)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

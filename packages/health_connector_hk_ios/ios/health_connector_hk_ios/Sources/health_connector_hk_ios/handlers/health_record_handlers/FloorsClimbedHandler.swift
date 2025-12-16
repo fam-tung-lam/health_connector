@@ -62,7 +62,7 @@ final class FloorsClimbedHandler:
 
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .flightsClimbed)
+        try HKQuantityType.make(from: .flightsClimbed)
     }
 
     /// Convert aggregation metric to HKStatisticsOptions

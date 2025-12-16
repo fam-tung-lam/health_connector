@@ -57,7 +57,7 @@ final class HydrationHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .dietaryWater)
+        try HKQuantityType.make(from: .dietaryWater)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

@@ -57,7 +57,7 @@ final class WeightHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .bodyMass)
+        try HKQuantityType.make(from: .bodyMass)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

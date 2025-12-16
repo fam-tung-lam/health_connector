@@ -62,7 +62,7 @@ final class BodyFatPercentageHandler:
 
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .bodyFatPercentage)
+        try HKQuantityType.make(from: .bodyFatPercentage)
     }
 
     /// Convert aggregation metric to HKStatisticsOptions

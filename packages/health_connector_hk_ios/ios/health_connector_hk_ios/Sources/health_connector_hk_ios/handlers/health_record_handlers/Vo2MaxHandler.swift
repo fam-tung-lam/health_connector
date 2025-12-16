@@ -57,7 +57,7 @@ final class Vo2MaxHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .vo2Max)
+        try HKQuantityType.make(from: .vo2Max)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

@@ -3,7 +3,6 @@ import HealthKit
 
 /// Internal service responsible for managing HealthKit permissions.
 struct HealthConnectorPermissionService: Taggable {
-
     private let store: HKHealthStore
 
     init(store: HKHealthStore) {
@@ -12,14 +11,14 @@ struct HealthConnectorPermissionService: Taggable {
 
     /// Requests HealthKit authorization.
     func requestAuthorization(
-    for permissions: [HealthDataPermissionDto]
+        for permissions: [HealthDataPermissionDto]
     ) async throws -> [HealthDataPermissionRequestResultDto] {
         HealthConnectorLogger.info(
             tag: Self.tag,
             operation: "request_permissions",
             message: "Requesting permissions for \(permissions.count) data types",
             context: [
-                "permissions": permissions.map { "\($0.healthDataType.rawValue):\($0.accessType)" }
+                "permissions": permissions.map { "\($0.healthDataType.rawValue):\($0.accessType)" },
             ]
         )
 
@@ -52,8 +51,8 @@ struct HealthConnectorPermissionService: Taggable {
     /// Builds set of HKObjectType for reading.
     func buildReadTypes(from permissions: [HealthDataPermissionDto]) throws -> Set<HKObjectType> {
         let types = try permissions
-        .filter { $0.accessType == .read }
-        .flatMap { try $0.toHealthKitObjectTypes() }
+            .filter { $0.accessType == .read }
+            .flatMap { try $0.toHealthKitObjectTypes() }
 
         return Set(types)
     }
@@ -61,16 +60,16 @@ struct HealthConnectorPermissionService: Taggable {
     /// Builds set of HKSampleType for writing.
     func buildWriteTypes(from permissions: [HealthDataPermissionDto]) throws -> Set<HKSampleType> {
         let types = try permissions
-        .filter { $0.accessType == .write }
-        .flatMap { try $0.toHealthKitObjectTypes() }
-        .compactMap { $0 as? HKSampleType } // Write requires HKSampleType specifically
+            .filter { $0.accessType == .write }
+            .flatMap { try $0.toHealthKitObjectTypes() }
+            .compactMap { $0 as? HKSampleType } // Write requires HKSampleType specifically
 
         return Set(types)
     }
 
     /// Builds a permission result DTO with authorization status.
     private func buildPermissionResult(
-    for permission: HealthDataPermissionDto
+        for permission: HealthDataPermissionDto
     ) throws -> HealthDataPermissionRequestResultDto {
         let objectTypes = try permission.toHealthKitObjectTypes()
         var status: PermissionStatusDto = .unknown

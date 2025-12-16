@@ -62,7 +62,7 @@ final class DiastolicBloodPressureHandler:
 
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .bloodPressureDiastolic)
+        try HKQuantityType.make(from: .bloodPressureDiastolic)
     }
 
     /// Convert aggregation metric to HKStatisticsOptions

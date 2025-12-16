@@ -65,6 +65,6 @@ final class SleepStageHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKCategoryType.safeCategoryType(forIdentifier: .sleepAnalysis)
+        try HKCategoryType.make(from: .sleepAnalysis)
     }
 }

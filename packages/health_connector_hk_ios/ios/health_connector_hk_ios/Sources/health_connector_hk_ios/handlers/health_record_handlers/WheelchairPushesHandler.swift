@@ -57,7 +57,7 @@ final class WheelchairPushesHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .pushCount)
+        try HKQuantityType.make(from: .pushCount)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

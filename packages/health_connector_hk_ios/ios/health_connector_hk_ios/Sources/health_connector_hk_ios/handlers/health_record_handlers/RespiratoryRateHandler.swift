@@ -57,7 +57,7 @@ final class RespiratoryRateHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .respiratoryRate)
+        try HKQuantityType.make(from: .respiratoryRate)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
