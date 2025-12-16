@@ -5,12 +5,12 @@ import HealthKit
 ///
 /// This registry provides type-safe dispatch from `HealthDataTypeDto` to the appropriate handler.
 /// Handlers are registered once at initialization and retrieved throughout the app lifecycle.
-class HealthKitTypeRegistry {
+final class HealthRecordHandlerRegistry {
     /// Private storage for registered handler instances
     ///
     /// Key: `HealthDataTypeDto` (enum case)
-    /// Value: Handler instance (any HealthKitTypeHandler)
-    private var handlers: [HealthDataTypeDto: any HealthKitTypeHandler] = [:]
+    /// Value: Handler instance (any HealthRecordHandler)
+    private var handlers: [HealthDataTypeDto: any HealthRecordHandler] = [:]
 
     /// The HealthKit store shared across all handlers
     private let healthStore: HKHealthStore
@@ -26,7 +26,7 @@ class HealthKitTypeRegistry {
     /// Register a handler instance
     ///
     /// - Parameter handler: The handler instance to register
-    private func register(_ handler: any HealthKitTypeHandler) {
+    private func register(_ handler: any HealthRecordHandler) {
         handlers[type(of: handler).supportedType] = handler
     }
 
@@ -34,7 +34,7 @@ class HealthKitTypeRegistry {
     ///
     /// - Parameter type: The HealthDataTypeDto to look up
     /// - Returns: The handler instance, or nil if not registered
-    func getHandler(for type: HealthDataTypeDto) -> (any HealthKitTypeHandler)? {
+    func getHandler(for type: HealthDataTypeDto) -> (any HealthRecordHandler)? {
         handlers[type]
     }
 

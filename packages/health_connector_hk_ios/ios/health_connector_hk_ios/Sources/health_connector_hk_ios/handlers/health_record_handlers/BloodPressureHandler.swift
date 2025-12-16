@@ -3,12 +3,12 @@ import HealthKit
 
 /// Handler for composite blood pressure samples (correlation type)
 final class BloodPressureHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler
 {
     /// The HealthKit store for all operations
     let healthStore: HKHealthStore

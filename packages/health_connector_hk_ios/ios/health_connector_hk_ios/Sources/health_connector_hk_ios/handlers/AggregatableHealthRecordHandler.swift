@@ -5,7 +5,7 @@ import HealthKit
 ///
 /// Only quantity types support aggregation. Category types, correlations, and
 /// characteristics do NOT implement this capability.
-protocol AggregatableHealthKitTypeHandler: HealthKitTypeHandler {
+protocol AggregatableHealthRecordHandler: HealthRecordHandler {
     /// Get the HKSampleType for aggregation queries
     ///
     /// - Returns: The HKSampleType (must be HKQuantityType) used for this health data type
@@ -32,7 +32,7 @@ protocol AggregatableHealthKitTypeHandler: HealthKitTypeHandler {
     ) throws -> MeasurementUnitDto
 }
 
-extension AggregatableHealthKitTypeHandler {
+extension AggregatableHealthRecordHandler {
     /// Performs aggregation over a time range
     ///
     /// - Parameters:

@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Protocol that associates handlers with their specific DTO and HKSample types.
-protocol HealthKitTypeMapper {
+protocol MappableHealthRecordHandler {
     /// The specific DTO type this handler works with
     associatedtype RecordDto: HealthRecordDto
 
@@ -22,7 +22,7 @@ protocol HealthKitTypeMapper {
 /// Base protocol for all health data type handlers.
 ///
 /// This protocol defines the minimal interface that all handlers must implement.
-protocol HealthKitTypeHandler: AnyObject {
+protocol HealthRecordHandler: AnyObject {
     /// The HealthKit store for all operations
     var healthStore: HKHealthStore { get }
 
@@ -49,7 +49,7 @@ protocol HealthKitTypeHandler: AnyObject {
 }
 
 /// Default implementation of the `process()` error handling wrapper.
-extension HealthKitTypeHandler {
+extension HealthRecordHandler {
     func process<T>(
         operation: String,
         context: [String: Any]? = nil,

@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Internal client wrapper for the HealthKit SDK.
-class HealthConnectorClient: Taggable {
+final class HealthConnectorClient: Taggable {
     /**
      * The underlying HealthKit store instance.
      */
@@ -18,7 +18,7 @@ class HealthConnectorClient: Taggable {
      *
      * **Changed:** Now stores handler instances (not static singleton)
      */
-    private let handlerRegistry: HealthKitTypeRegistry
+    private let handlerRegistry: HealthRecordHandlerRegistry
 
     /**
      * Private initializer to prevent external instantiation.
@@ -30,7 +30,7 @@ class HealthConnectorClient: Taggable {
     private init(store: HKHealthStore) {
         self.store = store
         permissionService = HealthConnectorPermissionService(store: store)
-        handlerRegistry = HealthKitTypeRegistry(healthStore: store)
+        handlerRegistry = HealthRecordHandlerRegistry(healthStore: store)
     }
 
     /**
@@ -184,7 +184,7 @@ class HealthConnectorClient: Taggable {
                 )
             }
 
-            guard let handler = baseHandler as? ReadableHealthKitTypeHandler else {
+            guard let handler = baseHandler as? ReadableHealthRecordHandler else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Data type \(request.dataType) does not support read operations"
                 )
@@ -365,7 +365,7 @@ class HealthConnectorClient: Taggable {
                 )
             }
 
-            guard let handler = baseHandler as? ReadableHealthKitTypeHandler else {
+            guard let handler = baseHandler as? ReadableHealthRecordHandler else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Data type \(request.dataType) does not support read operations"
                 )
@@ -684,7 +684,7 @@ class HealthConnectorClient: Taggable {
                 )
             }
 
-            guard let handler = baseHandler as? WritableHealthKitTypeHandler else {
+            guard let handler = baseHandler as? WritableHealthRecordHandler else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Data type \(dataType) does not support write operations"
                 )
@@ -822,7 +822,7 @@ class HealthConnectorClient: Taggable {
                 )
             }
 
-            guard let handler = baseHandler as? UpdatableHealthKitTypeHandler else {
+            guard let handler = baseHandler as? UpdatableHealthRecordHandler else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Data type \(dataType) does not support update operations"
                 )
@@ -922,7 +922,7 @@ class HealthConnectorClient: Taggable {
                     )
                 }
 
-                guard let handler = baseHandler as? WritableHealthKitTypeHandler else {
+                guard let handler = baseHandler as? WritableHealthRecordHandler else {
                     throw HealthConnectorError.unsupportedOperation(
                         message: "Data type \(dataType) does not support write operations"
                     )
@@ -1056,7 +1056,7 @@ class HealthConnectorClient: Taggable {
                 )
             }
 
-            guard let handler = baseHandler as? AggregatableHealthKitTypeHandler else {
+            guard let handler = baseHandler as? AggregatableHealthRecordHandler else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Aggregation not supported for data type: \(request.dataType)"
                 )
@@ -1324,7 +1324,7 @@ class HealthConnectorClient: Taggable {
         predicate: NSPredicate,
         metric: AggregationMetricDto,
         dataType: HealthDataTypeDto,
-        handler: any AggregatableHealthKitTypeHandler
+        handler: any AggregatableHealthRecordHandler
     ) async throws -> AggregateResponseDto {
         // ✅ Call instance method
         let options = try handler.toStatisticsOptions(metric)
@@ -1545,7 +1545,7 @@ class HealthConnectorClient: Taggable {
                 )
             }
 
-            guard let handler = baseHandler as? DeletableHealthKitTypeHandler else {
+            guard let handler = baseHandler as? DeletableHealthRecordHandler else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Data type \(request.dataType) does not support delete operations"
                 )
@@ -1625,7 +1625,7 @@ class HealthConnectorClient: Taggable {
                 )
             }
 
-            guard let handler = baseHandler as? DeletableHealthKitTypeHandler else {
+            guard let handler = baseHandler as? DeletableHealthRecordHandler else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Data type \(request.dataType) does not support delete operations"
                 )
