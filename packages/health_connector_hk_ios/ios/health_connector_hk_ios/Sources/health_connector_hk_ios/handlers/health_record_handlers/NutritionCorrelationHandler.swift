@@ -20,10 +20,6 @@ final class NutritionCorrelationHandler:
         .nutrition
     }
 
-    static var category: HealthKitDataCategory {
-        .correlation
-    }
-
     typealias RecordDto = NutritionRecordDto
     typealias SampleType = HKCorrelation
 

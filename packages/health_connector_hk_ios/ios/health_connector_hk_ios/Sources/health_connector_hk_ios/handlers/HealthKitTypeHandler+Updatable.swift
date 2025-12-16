@@ -19,7 +19,8 @@ protocol UpdatableHealthKitTypeHandler: HealthKitTypeHandler, HealthKitTypeMappe
 }
 
 extension UpdatableHealthKitTypeHandler
-where Self: ReadableHealthKitTypeHandler & WritableHealthKitTypeHandler & HealthKitTypeMapper {
+    where Self: ReadableHealthKitTypeHandler & WritableHealthKitTypeHandler & HealthKitTypeMapper
+{
     /**
      * Updates a record by deleting the old version and creating a new one
      *

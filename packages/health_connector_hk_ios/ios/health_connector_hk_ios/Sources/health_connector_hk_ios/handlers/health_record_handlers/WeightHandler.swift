@@ -21,10 +21,6 @@ final class WeightHandler:
         .weight
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = WeightRecordDto
     typealias SampleType = HKQuantitySample
 

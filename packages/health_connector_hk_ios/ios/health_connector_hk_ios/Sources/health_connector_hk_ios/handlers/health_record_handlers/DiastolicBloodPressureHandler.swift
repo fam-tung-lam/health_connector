@@ -22,10 +22,6 @@ final class DiastolicBloodPressureHandler:
         .diastolicBloodPressure
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = DiastolicBloodPressureRecordDto
     typealias SampleType = HKQuantitySample
 

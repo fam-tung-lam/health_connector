@@ -191,19 +191,19 @@ extension AggregationMetricDto {
                 message: "Sleep stage records do not support aggregation",
                 context: [
                     "details":
-                        "Sleep stage records are category samples and do not support aggregation operations."
+                        "Sleep stage records are category samples and do not support aggregation operations.",
                 ]
             )
 
         case .energyNutrient, .caffeine,
-            .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
-            .monounsaturatedFat, .polyunsaturatedFat, .cholesterol,
-            .dietaryFiber, .sugar,
-            .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD,
-            .vitaminE, .vitaminK, .thiamin, .riboflavin, .niacin,
-            .folate, .biotin, .pantothenicAcid,
-            .calcium, .iron, .magnesium, .manganese, .phosphorus,
-            .potassium, .selenium, .sodium, .zinc:
+             .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
+             .monounsaturatedFat, .polyunsaturatedFat, .cholesterol,
+             .dietaryFiber, .sugar,
+             .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD,
+             .vitaminE, .vitaminK, .thiamin, .riboflavin, .niacin,
+             .folate, .biotin, .pantothenicAcid,
+             .calcium, .iron, .magnesium, .manganese, .phosphorus,
+             .potassium, .selenium, .sodium, .zinc:
             return try getNutrientStatisticsOptions(dataType: dataType)
 
         case .nutrition:
@@ -211,7 +211,7 @@ extension AggregationMetricDto {
                 message: "Nutrition records do not support aggregation",
                 context: [
                     "details":
-                        "Nutrition records are correlation types and do not support aggregation operations."
+                        "Nutrition records are correlation types and do not support aggregation operations.",
                 ]
             )
 
@@ -220,7 +220,7 @@ extension AggregationMetricDto {
                 message: "Blood pressure records do not support aggregation",
                 context: [
                     "details":
-                        "Blood pressure records are correlation types and do not support aggregation operations."
+                        "Blood pressure records are correlation types and do not support aggregation operations.",
                 ]
             )
 
@@ -266,10 +266,10 @@ extension AggregationMetricDto {
                 let metricName = String(describing: self)
                 throw HealthConnectorError.invalidArgument(
                     message:
-                        "\(metricName) not directly supported for activeCaloriesBurned in HealthKit",
+                    "\(metricName) not directly supported for activeCaloriesBurned in HealthKit",
                     context: [
                         "details":
-                            "\(metricName) not directly supported for activeCaloriesBurned in HealthKit."
+                            "\(metricName) not directly supported for activeCaloriesBurned in HealthKit.",
                     ]
                 )
             }
@@ -279,7 +279,7 @@ extension AggregationMetricDto {
                 throw HealthConnectorError.invalidArgument(
                     message: "\(metricName) not directly supported for steps in HealthKit",
                     context: [
-                        "details": "\(metricName) not directly supported for steps in HealthKit."
+                        "details": "\(metricName) not directly supported for steps in HealthKit.",
                     ]
                 )
             }
@@ -292,7 +292,7 @@ extension AggregationMetricDto {
                 throw HealthConnectorError.invalidArgument(
                     message: "\(metricName) not directly supported for weight in HealthKit",
                     context: [
-                        "details": "\(metricName) not directly supported for weight in HealthKit."
+                        "details": "\(metricName) not directly supported for weight in HealthKit.",
                     ]
                 )
             }
@@ -305,7 +305,7 @@ extension AggregationMetricDto {
                 throw HealthConnectorError.invalidArgument(
                     message: "\(metricName) not directly supported for height in HealthKit",
                     context: [
-                        "details": "\(metricName) not directly supported for height in HealthKit."
+                        "details": "\(metricName) not directly supported for height in HealthKit.",
                     ]
                 )
             }
@@ -317,10 +317,10 @@ extension AggregationMetricDto {
                 let metricName = String(describing: self)
                 throw HealthConnectorError.invalidArgument(
                     message:
-                        "\(metricName) not directly supported for bodyFatPercentage in HealthKit",
+                    "\(metricName) not directly supported for bodyFatPercentage in HealthKit",
                     context: [
                         "details":
-                            "\(metricName) not directly supported for bodyFatPercentage in HealthKit."
+                            "\(metricName) not directly supported for bodyFatPercentage in HealthKit.",
                     ]
                 )
             }
@@ -330,7 +330,7 @@ extension AggregationMetricDto {
                 throw HealthConnectorError.invalidArgument(
                     message: "\(metricName) not directly supported for distance in HealthKit",
                     context: [
-                        "details": "\(metricName) not directly supported for distance in HealthKit."
+                        "details": "\(metricName) not directly supported for distance in HealthKit.",
                     ]
                 )
             }
@@ -341,7 +341,7 @@ extension AggregationMetricDto {
                     message: "\(metricName) not directly supported for floorsClimbed in HealthKit",
                     context: [
                         "details":
-                            "\(metricName) not directly supported for floorsClimbed in HealthKit."
+                            "\(metricName) not directly supported for floorsClimbed in HealthKit.",
                     ]
                 )
             }
@@ -350,10 +350,10 @@ extension AggregationMetricDto {
                 let metricName = String(describing: self)
                 throw HealthConnectorError.invalidArgument(
                     message:
-                        "\(metricName) not directly supported for wheelchairPushes in HealthKit",
+                    "\(metricName) not directly supported for wheelchairPushes in HealthKit",
                     context: [
                         "details":
-                            "\(metricName) not directly supported for wheelchairPushes in HealthKit."
+                            "\(metricName) not directly supported for wheelchairPushes in HealthKit.",
                     ]
                 )
             }
@@ -364,7 +364,7 @@ extension AggregationMetricDto {
                     message: "\(metricName) not directly supported for hydration in HealthKit",
                     context: [
                         "details":
-                            "\(metricName) not directly supported for hydration in HealthKit."
+                            "\(metricName) not directly supported for hydration in HealthKit.",
                     ]
                 )
             }
@@ -387,10 +387,10 @@ extension AggregationMetricDto {
                 let metricName = String(describing: self)
                 throw HealthConnectorError.invalidArgument(
                     message:
-                        "\(metricName) not directly supported for heartRateMeasurementRecord in HealthKit",
+                    "\(metricName) not directly supported for heartRateMeasurementRecord in HealthKit",
                     context: [
                         "details":
-                            "\(metricName) not directly supported for heartRateMeasurementRecord in HealthKit."
+                            "\(metricName) not directly supported for heartRateMeasurementRecord in HealthKit.",
                     ]
                 )
             }
@@ -402,10 +402,10 @@ extension AggregationMetricDto {
                 let metricName = String(describing: self)
                 throw HealthConnectorError.invalidArgument(
                     message:
-                        "\(metricName) not directly supported for restingHeartRate in HealthKit",
+                    "\(metricName) not directly supported for restingHeartRate in HealthKit",
                     context: [
                         "details":
-                            "\(metricName) not directly supported for restingHeartRate in HealthKit."
+                            "\(metricName) not directly supported for restingHeartRate in HealthKit.",
                     ]
                 )
             }
@@ -417,10 +417,10 @@ extension AggregationMetricDto {
                 let metricName = String(describing: self)
                 throw HealthConnectorError.invalidArgument(
                     message:
-                        "\(metricName) not directly supported for oxygenSaturation in HealthKit",
+                    "\(metricName) not directly supported for oxygenSaturation in HealthKit",
                     context: [
                         "details":
-                            "\(metricName) not directly supported for oxygenSaturation in HealthKit."
+                            "\(metricName) not directly supported for oxygenSaturation in HealthKit.",
                     ]
                 )
             }
@@ -432,10 +432,10 @@ extension AggregationMetricDto {
                 let metricName = String(describing: self)
                 throw HealthConnectorError.invalidArgument(
                     message:
-                        "\(metricName) not directly supported for respiratoryRate in HealthKit",
+                    "\(metricName) not directly supported for respiratoryRate in HealthKit",
                     context: [
                         "details":
-                            "\(metricName) not directly supported for respiratoryRate in HealthKit."
+                            "\(metricName) not directly supported for respiratoryRate in HealthKit.",
                     ]
                 )
             }
@@ -449,7 +449,7 @@ extension AggregationMetricDto {
                     message: "\(metricName) not directly supported for bloodGlucose in HealthKit",
                     context: [
                         "details":
-                            "\(metricName) not directly supported for bloodGlucose in HealthKit."
+                            "\(metricName) not directly supported for bloodGlucose in HealthKit.",
                     ]
                 )
             }
@@ -462,7 +462,7 @@ extension AggregationMetricDto {
                 throw HealthConnectorError.invalidArgument(
                     message: "\(metricName) not directly supported for vo2Max in HealthKit",
                     context: [
-                        "details": "\(metricName) not directly supported for vo2Max in HealthKit."
+                        "details": "\(metricName) not directly supported for vo2Max in HealthKit.",
                     ]
                 )
             }
@@ -471,28 +471,28 @@ extension AggregationMetricDto {
                 message: "Sleep stage records do not support aggregation",
                 context: [
                     "details":
-                        "Sleep stage records are category samples and do not support aggregation operations."
+                        "Sleep stage records are category samples and do not support aggregation operations.",
                 ]
             )
         case .energyNutrient, .caffeine,
-            .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
-            .monounsaturatedFat, .polyunsaturatedFat, .cholesterol,
-            .dietaryFiber, .sugar,
-            .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD,
-            .vitaminE, .vitaminK, .thiamin, .riboflavin, .niacin,
-            .folate, .biotin, .pantothenicAcid,
-            .calcium, .iron, .magnesium, .manganese, .phosphorus,
-            .potassium, .selenium, .sodium, .zinc:
+             .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
+             .monounsaturatedFat, .polyunsaturatedFat, .cholesterol,
+             .dietaryFiber, .sugar,
+             .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD,
+             .vitaminE, .vitaminK, .thiamin, .riboflavin, .niacin,
+             .folate, .biotin, .pantothenicAcid,
+             .calcium, .iron, .magnesium, .manganese, .phosphorus,
+             .potassium, .selenium, .sodium, .zinc:
             // Only SUM is supported for nutrients (matches Android Health Connect behavior)
             if self != .sum {
                 let metricName = String(describing: self)
                 let dataTypeName = String(describing: dataType)
                 throw HealthConnectorError.invalidArgument(
                     message:
-                        "\(metricName) not directly supported for \(dataTypeName) in HealthKit",
+                    "\(metricName) not directly supported for \(dataTypeName) in HealthKit",
                     context: [
                         "details":
-                            "\(metricName) not directly supported for \(dataTypeName) in HealthKit."
+                            "\(metricName) not directly supported for \(dataTypeName) in HealthKit.",
                     ]
                 )
             }
@@ -501,7 +501,7 @@ extension AggregationMetricDto {
                 message: "Nutrition records do not support aggregation",
                 context: [
                     "details":
-                        "Nutrition records are correlation types and do not support aggregation operations."
+                        "Nutrition records are correlation types and do not support aggregation operations.",
                 ]
             )
         case .bloodPressure:
@@ -509,7 +509,7 @@ extension AggregationMetricDto {
                 message: "Blood pressure records do not support aggregation",
                 context: [
                     "details":
-                        "Blood pressure records are correlation types and do not support aggregation operations."
+                        "Blood pressure records are correlation types and do not support aggregation operations.",
                 ]
             )
         case .systolicBloodPressure:
@@ -520,10 +520,10 @@ extension AggregationMetricDto {
                 let metricName = String(describing: self)
                 throw HealthConnectorError.invalidArgument(
                     message:
-                        "\(metricName) not directly supported for systolicBloodPressure in HealthKit",
+                    "\(metricName) not directly supported for systolicBloodPressure in HealthKit",
                     context: [
                         "details":
-                            "\(metricName) not directly supported for systolicBloodPressure in HealthKit."
+                            "\(metricName) not directly supported for systolicBloodPressure in HealthKit.",
                     ]
                 )
             }
@@ -535,10 +535,10 @@ extension AggregationMetricDto {
                 let metricName = String(describing: self)
                 throw HealthConnectorError.invalidArgument(
                     message:
-                        "\(metricName) not directly supported for diastolicBloodPressure in HealthKit",
+                    "\(metricName) not directly supported for diastolicBloodPressure in HealthKit",
                     context: [
                         "details":
-                            "\(metricName) not directly supported for diastolicBloodPressure in HealthKit."
+                            "\(metricName) not directly supported for diastolicBloodPressure in HealthKit.",
                     ]
                 )
             }
@@ -564,7 +564,7 @@ extension AggregationMetricDto {
         throw HealthConnectorError.invalidArgument(
             message: "\(metricName) not directly supported for \(dataTypeName) in HealthKit",
             context: [
-                "details": "\(metricName) not directly supported for \(dataTypeName) in HealthKit."
+                "details": "\(metricName) not directly supported for \(dataTypeName) in HealthKit.",
             ]
         )
     }

@@ -116,7 +116,7 @@ extension ReadableHealthKitTypeHandler where Self: HealthKitTypeMapper {
 
             // Pagination predicate (if pageToken provided)
             if let pageTokenString = pageToken,
-                let pageTokenTimestamp = Int64(pageTokenString)
+               let pageTokenTimestamp = Int64(pageTokenString)
             {
                 let pageTokenDate = Date(timeIntervalSince1970: Double(pageTokenTimestamp) / 1000.0)
                 predicates.append(

@@ -141,10 +141,6 @@ final class EnergyNutrientHandler:
         .energyNutrient
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -207,10 +203,6 @@ final class CaffeineNutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .caffeine
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
@@ -277,10 +269,6 @@ final class ProteinNutrientHandler:
         .protein
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -345,10 +333,6 @@ final class TotalCarbohydrateNutrientHandler:
         .totalCarbohydrate
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -410,7 +394,6 @@ final class TotalFatNutrientHandler:
     typealias SampleType = HKQuantitySample
 
     static var supportedType: HealthDataTypeDto { .totalFat }
-    static var category: HealthKitDataCategory { .quantitySample }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
@@ -465,7 +448,6 @@ final class SaturatedFatNutrientHandler:
     typealias SampleType = HKQuantitySample
 
     static var supportedType: HealthDataTypeDto { .saturatedFat }
-    static var category: HealthKitDataCategory { .quantitySample }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
@@ -520,7 +502,6 @@ final class MonounsaturatedFatNutrientHandler:
     typealias SampleType = HKQuantitySample
 
     static var supportedType: HealthDataTypeDto { .monounsaturatedFat }
-    static var category: HealthKitDataCategory { .quantitySample }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
@@ -577,7 +558,6 @@ final class PolyunsaturatedFatNutrientHandler:
     typealias SampleType = HKQuantitySample
 
     static var supportedType: HealthDataTypeDto { .polyunsaturatedFat }
-    static var category: HealthKitDataCategory { .quantitySample }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
@@ -635,10 +615,6 @@ final class CholesterolNutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .cholesterol
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
@@ -705,10 +681,6 @@ final class DietaryFiberNutrientHandler:
         .dietaryFiber
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -771,10 +743,6 @@ final class SugarNutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .sugar
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
@@ -841,10 +809,6 @@ final class VitaminANutrientHandler:
         .vitaminA
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -907,10 +871,6 @@ final class VitaminB6NutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .vitaminB6
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
@@ -977,10 +937,6 @@ final class VitaminB12NutrientHandler:
         .vitaminB12
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -1043,10 +999,6 @@ final class VitaminCNutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .vitaminC
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
@@ -1113,10 +1065,6 @@ final class VitaminDNutrientHandler:
         .vitaminD
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -1179,10 +1127,6 @@ final class VitaminENutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .vitaminE
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
@@ -1249,10 +1193,6 @@ final class VitaminKNutrientHandler:
         .vitaminK
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -1315,10 +1255,6 @@ final class ThiaminNutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .thiamin
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
@@ -1385,10 +1321,6 @@ final class RiboflavinNutrientHandler:
         .riboflavin
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -1451,10 +1383,6 @@ final class NiacinNutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .niacin
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
@@ -1521,10 +1449,6 @@ final class FolateNutrientHandler:
         .folate
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -1587,10 +1511,6 @@ final class BiotinNutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .biotin
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
@@ -1657,10 +1577,6 @@ final class PantothenicAcidNutrientHandler:
         .pantothenicAcid
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -1723,10 +1639,6 @@ final class CalciumNutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .calcium
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
@@ -1793,10 +1705,6 @@ final class IronNutrientHandler:
         .iron
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -1859,10 +1767,6 @@ final class MagnesiumNutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .magnesium
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
@@ -1929,10 +1833,6 @@ final class ManganeseNutrientHandler:
         .manganese
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -1995,10 +1895,6 @@ final class PhosphorusNutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .phosphorus
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
@@ -2065,10 +1961,6 @@ final class PotassiumNutrientHandler:
         .potassium
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -2131,10 +2023,6 @@ final class SeleniumNutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .selenium
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
@@ -2201,10 +2089,6 @@ final class SodiumNutrientHandler:
         .sodium
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
         try NutrientHandler.toDTO(
             sample,
@@ -2267,10 +2151,6 @@ final class ZincNutrientHandler:
 
     static var supportedType: HealthDataTypeDto {
         .zinc
-    }
-
-    static var category: HealthKitDataCategory {
-        .quantitySample
     }
 
     static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {

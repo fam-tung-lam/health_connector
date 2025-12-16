@@ -21,10 +21,6 @@ final class HeartRateHandler:
         .heartRateMeasurementRecord
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = HeartRateMeasurementRecordDto
     typealias SampleType = HKQuantitySample
 

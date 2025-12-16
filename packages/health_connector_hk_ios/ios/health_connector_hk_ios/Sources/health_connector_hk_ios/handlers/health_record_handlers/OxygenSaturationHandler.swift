@@ -21,10 +21,6 @@ final class OxygenSaturationHandler:
         .oxygenSaturation
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = OxygenSaturationRecordDto
     typealias SampleType = HKQuantitySample
 

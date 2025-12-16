@@ -21,10 +21,6 @@ final class LeanBodyMassHandler:
         .leanBodyMass
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = LeanBodyMassRecordDto
     typealias SampleType = HKQuantitySample
 

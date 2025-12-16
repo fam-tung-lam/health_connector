@@ -22,10 +22,6 @@ final class ActiveCaloriesBurnedHandler:
         .activeCaloriesBurned
     }
 
-    static var category: HealthKitDataCategory {
-        .quantitySample
-    }
-
     typealias RecordDto = ActiveCaloriesBurnedRecordDto
 
     typealias SampleType = HKQuantitySample
