@@ -2,9 +2,7 @@ import Foundation
 import HealthKit
 
 extension HeightRecordDto {
-    /*
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .height) else {
             throw NSError(
@@ -29,9 +27,7 @@ extension HeightRecordDto {
 }
 
 extension HKQuantitySample {
-    /*
-     * Converts this HealthKit sample to a `HeightRecordDto`.
-     */
+    /// Converts this HealthKit sample to a `HeightRecordDto`.
     func toHeightRecordDto() -> HeightRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.height.rawValue else {
             return nil

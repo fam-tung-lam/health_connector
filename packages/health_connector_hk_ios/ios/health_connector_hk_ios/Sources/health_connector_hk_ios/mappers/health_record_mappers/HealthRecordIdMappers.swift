@@ -1,17 +1,13 @@
 import Foundation
 
-/**
- * Extension providing common property access for `HealthRecordDto` protocol
- *
- * ## Pigeon Base Class Limitation
- *
- * Pigeon does not allow defining properties in base classes and interfaces, this extension
- * provides a computed property to access fields that exist in all `HealthRecordDto` implementations.
- */
+/// Extension providing common property access for `HealthRecordDto` protocol
+///
+/// ## Pigeon Base Class Limitation
+///
+/// Pigeon does not allow defining properties in base classes and interfaces, this extension
+/// provides a computed property to access fields that exist in all `HealthRecordDto` implementations.
 extension HealthRecordDto {
-    /**
-     * Platform-assigned unique identifier for this health record
-     */
+    /// Platform-assigned unique identifier for this health record
     var id: String? {
         switch self {
         case let record as ActiveCaloriesBurnedRecordDto:

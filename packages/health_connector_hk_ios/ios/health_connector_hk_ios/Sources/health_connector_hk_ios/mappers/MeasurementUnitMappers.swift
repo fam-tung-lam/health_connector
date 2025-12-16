@@ -2,9 +2,7 @@ import Foundation
 import HealthKit
 
 extension MassDto {
-    /**
-     * Converts this DTO to a HealthKit `HKQuantity`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantity`.
     func toHealthKit() -> HKQuantity {
         let unit: HKUnit = switch self.unit {
         case .kilograms:
@@ -21,11 +19,9 @@ extension MassDto {
 }
 
 extension HKQuantity {
-    /**
-     * Converts this HealthKit quantity to a `MassDto`.
-     *
-     * Uses kilograms as the transfer unit for consistency.
-     */
+    /// Converts this HealthKit quantity to a `MassDto`.
+    ///
+    /// Uses kilograms as the transfer unit for consistency.
     func toMassDto() -> MassDto {
         let kilograms = doubleValue(for: .gramUnit(with: .kilo))
         return MassDto(unit: .kilograms, value: kilograms)
@@ -33,9 +29,7 @@ extension HKQuantity {
 }
 
 extension EnergyDto {
-    /**
-     * Converts this DTO to a HealthKit `HKQuantity`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantity`.
     func toHealthKit() -> HKQuantity {
         let unit: HKUnit = switch self.unit {
         case .kilocalories:
@@ -52,11 +46,9 @@ extension EnergyDto {
 }
 
 extension HKQuantity {
-    /**
-     * Converts this HealthKit quantity to an `EnergyDto`.
-     *
-     * Uses kilocalories as the transfer unit for consistency.
-     */
+    /// Converts this HealthKit quantity to an `EnergyDto`.
+    ///
+    /// Uses kilocalories as the transfer unit for consistency.
     func toEnergyDto() -> EnergyDto {
         let kilocalories = doubleValue(for: .kilocalorie())
         return EnergyDto(unit: .kilocalories, value: kilocalories)
@@ -64,9 +56,7 @@ extension HKQuantity {
 }
 
 extension LengthDto {
-    /**
-     * Converts this DTO to a HealthKit `HKQuantity`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantity`.
     func toHealthKit() -> HKQuantity {
         let unit: HKUnit = switch self.unit {
         case .meters:
@@ -85,11 +75,9 @@ extension LengthDto {
 }
 
 extension HKQuantity {
-    /**
-     * Converts this HealthKit quantity to a `LengthDto`.
-     *
-     * Uses meters as the transfer unit for consistency.
-     */
+    /// Converts this HealthKit quantity to a `LengthDto`.
+    ///
+    /// Uses meters as the transfer unit for consistency.
     func toLengthDto() -> LengthDto {
         let meters = doubleValue(for: .meter())
         return LengthDto(unit: .meters, value: meters)
@@ -97,9 +85,7 @@ extension HKQuantity {
 }
 
 extension TemperatureDto {
-    /**
-     * Converts this DTO to a HealthKit `HKQuantity`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantity`.
     func toHealthKit() -> HKQuantity {
         let unit: HKUnit = switch self.unit {
         case .celsius:
@@ -114,11 +100,9 @@ extension TemperatureDto {
 }
 
 extension HKQuantity {
-    /**
-     * Converts this HealthKit quantity to a `TemperatureDto`.
-     *
-     * Uses celsius as the transfer unit for consistency.
-     */
+    /// Converts this HealthKit quantity to a `TemperatureDto`.
+    ///
+    /// Uses celsius as the transfer unit for consistency.
     func toTemperatureDto() -> TemperatureDto {
         let celsius = doubleValue(for: .degreeCelsius())
         return TemperatureDto(unit: .celsius, value: celsius)
@@ -126,9 +110,7 @@ extension HKQuantity {
 }
 
 extension PressureDto {
-    /**
-     * Converts this DTO to a HealthKit `HKQuantity`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantity`.
     func toHealthKit() -> HKQuantity {
         let unit: HKUnit = switch self.unit {
         case .millimetersOfMercury:
@@ -139,11 +121,9 @@ extension PressureDto {
 }
 
 extension HKQuantity {
-    /**
-     * Converts this HealthKit quantity to a `PressureDto`.
-     *
-     * Uses millimeters of mercury as the transfer unit.
-     */
+    /// Converts this HealthKit quantity to a `PressureDto`.
+    ///
+    /// Uses millimeters of mercury as the transfer unit.
     func toPressureDto() -> PressureDto {
         let mmHg = doubleValue(for: .millimeterOfMercury())
         return PressureDto(unit: .millimetersOfMercury, value: mmHg)
@@ -151,9 +131,7 @@ extension HKQuantity {
 }
 
 extension VelocityDto {
-    /**
-     * Converts this DTO to a HealthKit `HKQuantity`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantity`.
     func toHealthKit() -> HKQuantity {
         let unit: HKUnit = switch self.unit {
         case .metersPerSecond:
@@ -168,11 +146,9 @@ extension VelocityDto {
 }
 
 extension HKQuantity {
-    /**
-     * Converts this HealthKit quantity to a `VelocityDto`.
-     *
-     * Uses meters per second as the transfer unit for consistency.
-     */
+    /// Converts this HealthKit quantity to a `VelocityDto`.
+    ///
+    /// Uses meters per second as the transfer unit for consistency.
     func toVelocityDto() -> VelocityDto {
         let metersPerSecond = doubleValue(for: .meter().unitDivided(by: .second()))
         return VelocityDto(unit: .metersPerSecond, value: metersPerSecond)
@@ -180,9 +156,7 @@ extension HKQuantity {
 }
 
 extension VolumeDto {
-    /**
-     * Converts this DTO to a HealthKit `HKQuantity`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantity`.
     func toHealthKit() -> HKQuantity {
         let unit: HKUnit = switch self.unit {
         case .liters:
@@ -197,11 +171,9 @@ extension VolumeDto {
 }
 
 extension HKQuantity {
-    /**
-     * Converts this HealthKit quantity to a `VolumeDto`.
-     *
-     * Uses liters as the transfer unit for consistency.
-     */
+    /// Converts this HealthKit quantity to a `VolumeDto`.
+    ///
+    /// Uses liters as the transfer unit for consistency.
     func toVolumeDto() -> VolumeDto {
         let liters = doubleValue(for: .liter())
         return VolumeDto(unit: .liters, value: liters)
@@ -209,9 +181,7 @@ extension HKQuantity {
 }
 
 extension PowerDto {
-    /**
-     * Converts this DTO to a HealthKit `HKQuantity`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantity`.
     @available(iOS 16.0, *)
     func toHealthKit() -> HKQuantity {
         let unit: HKUnit = switch self.unit {
@@ -225,11 +195,9 @@ extension PowerDto {
 }
 
 extension HKQuantity {
-    /**
-     * Converts this HealthKit quantity to a `PowerDto`.
-     *
-     * Uses watts as the transfer unit for consistency.
-     */
+    /// Converts this HealthKit quantity to a `PowerDto`.
+    ///
+    /// Uses watts as the transfer unit for consistency.
     @available(iOS 16.0, *)
     func toPowerDto() -> PowerDto {
         let watts = doubleValue(for: .watt())
@@ -238,9 +206,7 @@ extension HKQuantity {
 }
 
 extension BloodGlucoseDto {
-    /**
-     * Converts this DTO to a HealthKit `HKQuantity`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantity`.
     func toHealthKit() -> HKQuantity {
         let unit = switch self.unit {
         case .millimolesPerLiter:
@@ -256,11 +222,9 @@ extension BloodGlucoseDto {
 }
 
 extension HKQuantity {
-    /**
-     * Converts this HealthKit quantity to a `BloodGlucoseDto`.
-     *
-     * Uses millimoles per liter as the transfer unit for consistency.
-     */
+    /// Converts this HealthKit quantity to a `BloodGlucoseDto`.
+    ///
+    /// Uses millimoles per liter as the transfer unit for consistency.
     func toBloodGlucoseDto() -> BloodGlucoseDto {
         // Molar mass of glucose is 180.16 g/mol
         let mmolPerL = doubleValue(for: HKUnit.moleUnit(with: .milli, molarMass: 180.16)
@@ -270,29 +234,23 @@ extension HKQuantity {
 }
 
 extension NumericDto {
-    /**
-     * Converts this DTO to an Int64 value (for step counts).
-     */
+    /// Converts this DTO to an Int64 value (for step counts).
     func toInt64() -> Int64 {
         Int64(value)
     }
 }
 
 extension Int64 {
-    /**
-     * Converts an Int64 value (for step counts) to a `NumericDto`.
-     *
-     * Uses numeric unit for consistency.
-     */
+    /// Converts an Int64 value (for step counts) to a `NumericDto`.
+    ///
+    /// Uses numeric unit for consistency.
     func toNumericDto() -> NumericDto {
         NumericDto(unit: .numeric, value: Double(self))
     }
 }
 
 extension PercentageDto {
-    /**
-     * Converts this DTO to a HealthKit `HKQuantity`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantity`.
     func toHealthKit() -> HKQuantity {
         let percentValue: Double = switch unit {
         case .decimal:
@@ -305,11 +263,9 @@ extension PercentageDto {
 }
 
 extension HKQuantity {
-    /**
-     * Converts this HealthKit quantity to a `PercentageDto`.
-     *
-     * Uses decimal as the transfer unit for consistency (0.0 to 1.0).
-     */
+    /// Converts this HealthKit quantity to a `PercentageDto`.
+    ///
+    /// Uses decimal as the transfer unit for consistency (0.0 to 1.0).
     func toPercentageDto() -> PercentageDto {
         let decimalValue = doubleValue(for: .percent())
         return PercentageDto(unit: .decimal, value: decimalValue)

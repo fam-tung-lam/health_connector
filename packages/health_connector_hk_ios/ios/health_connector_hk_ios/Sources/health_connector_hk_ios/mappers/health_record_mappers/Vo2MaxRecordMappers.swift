@@ -2,11 +2,9 @@ import Foundation
 import HealthKit
 
 extension Vo2MaxRecordDto {
-    /*
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     *
-     * - Throws: An error if the quantity type cannot be created.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
+    ///
+    /// - Throws: An error if the quantity type cannot be created.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .vo2Max) else {
             throw NSError(
@@ -39,11 +37,9 @@ extension Vo2MaxRecordDto {
 }
 
 extension HKQuantitySample {
-    /*
-     * Converts this HealthKit sample to a `Vo2MaxRecordDto`.
-     *
-     * Returns `nil` if this sample is not a VO2 max sample.
-     */
+    /// Converts this HealthKit sample to a `Vo2MaxRecordDto`.
+    ///
+    /// Returns `nil` if this sample is not a VO2 max sample.
     func toVo2MaxRecordDto() -> Vo2MaxRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.vo2Max.rawValue else {
             return nil

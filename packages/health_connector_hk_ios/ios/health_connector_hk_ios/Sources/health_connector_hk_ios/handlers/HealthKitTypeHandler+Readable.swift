@@ -3,29 +3,23 @@ import HealthKit
 
 /// Capability for handlers that support reading health records.
 protocol ReadableHealthKitTypeHandler: HealthKitTypeHandler, HealthKitTypeMapper {
-    /**
-     * Get the HKSampleType for queries
-     *
-     * - Returns: The HKSampleType used for this health data type
-     * - Throws: HealthConnectorError if the type cannot be created
-     */
+    /// Get the HKSampleType for queries
+    ///
+    /// - Returns: The HKSampleType used for this health data type
+    /// - Throws: HealthConnectorError if the type cannot be created
     func getSampleType() throws -> HKSampleType
 }
 
 extension ReadableHealthKitTypeHandler where Self: HealthKitTypeMapper {
-    /**
-     * Default page size for record reading
-     */
+    /// Default page size for record reading
     static var defaultPageSize: Int { 1000 }
 
-    /**
-     * Reads a single record by ID
-     *
-     * - Parameters:
-     *   - id: The UUID of the record to read
-     * - Returns: The health record DTO
-     * - Throws: HealthConnectorError if record not found or read fails
-     */
+    /// Reads a single record by ID
+    ///
+    /// - Parameters:
+    ///   - id: The UUID of the record to read
+    /// - Returns: The health record DTO
+    /// - Throws: HealthConnectorError if record not found or read fails
     func readRecord(id: String) async throws -> HealthRecordDto {
         try await process(operation: "read_record", context: ["id": id]) {
             guard let uuid = UUID(uuidString: id) else {
@@ -71,17 +65,15 @@ extension ReadableHealthKitTypeHandler where Self: HealthKitTypeMapper {
         }
     }
 
-    /**
-     * Reads multiple records within a time range with pagination
-     *
-     * - Parameters:
-     *   - startTime: Start of time range (milliseconds since epoch)
-     *   - endTime: End of time range (milliseconds since epoch)
-     *   - pageToken: Timestamp for pagination (milliseconds since epoch), nil for first page
-     *   - pageSize: Maximum number of records to return
-     * - Returns: Tuple of (records array, next page token)
-     * - Throws: HealthConnectorError if read fails
-     */
+    /// Reads multiple records within a time range with pagination
+    ///
+    /// - Parameters:
+    ///   - startTime: Start of time range (milliseconds since epoch)
+    ///   - endTime: End of time range (milliseconds since epoch)
+    ///   - pageToken: Timestamp for pagination (milliseconds since epoch), nil for first page
+    ///   - pageSize: Maximum number of records to return
+    /// - Returns: Tuple of (records array, next page token)
+    /// - Throws: HealthConnectorError if read fails
     func readRecords(
         startTime: Int64,
         endTime: Int64,

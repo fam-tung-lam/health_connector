@@ -29,20 +29,18 @@ protocol HealthKitTypeHandler: AnyObject {
     /// The HealthDataTypeDto enum case this handler supports
     static var supportedType: HealthDataTypeDto { get }
 
-    /**
-     * Centralized error handling wrapper for handler operations.
-     *
-     * This method wraps handler operations with consistent exception handling,
-     * mapping HealthKit errors to HealthConnectorError with appropriate error codes
-     * and logging all operations and errors.
-     *
-     * - Parameters:
-     *   - operation: Human-readable operation name for logging (e.g., "read_record", "write_records")
-     *   - context: Additional context for logging (e.g., recordId, time range)
-     *   - block: The async throwing operation to execute
-     * - Returns: The result of the block if successful
-     * - Throws: HealthConnectorError with appropriate error code
-     */
+    /// Centralized error handling wrapper for handler operations.
+    ///
+    /// This method wraps handler operations with consistent exception handling,
+    /// mapping HealthKit errors to HealthConnectorError with appropriate error codes
+    /// and logging all operations and errors.
+    ///
+    /// - Parameters:
+    ///   - operation: Human-readable operation name for logging (e.g., "read_record", "write_records")
+    ///   - context: Additional context for logging (e.g., recordId, time range)
+    ///   - block: The async throwing operation to execute
+    /// - Returns: The result of the block if successful
+    /// - Throws: HealthConnectorError with appropriate error code
     func process<T>(
         operation: String,
         context: [String: Any]?,

@@ -1,13 +1,9 @@
 import Foundation
 import HealthKit
 
-/**
- * Mappers for converting HKCategorySample to SleepStageRecordDto
- */
+/// Mappers for converting HKCategorySample to SleepStageRecordDto
 extension HKCategorySample {
-    /**
-     * Convert HKCategorySample to SleepStageRecordDto
-     */
+    /// Convert HKCategorySample to SleepStageRecordDto
     func toSleepStageRecordDto() -> SleepStageRecordDto? {
         guard categoryType.identifier == HKCategoryTypeIdentifier.sleepAnalysis.rawValue else {
             return nil

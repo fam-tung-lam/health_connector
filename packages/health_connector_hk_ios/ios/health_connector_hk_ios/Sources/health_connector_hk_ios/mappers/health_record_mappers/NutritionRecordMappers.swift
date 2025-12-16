@@ -6,9 +6,7 @@ private extension String {
 }
 
 extension HKCorrelation {
-    /**
-     * Converts this food correlation to NutritionRecordDto
-     */
+    /// Converts this food correlation to NutritionRecordDto
     func toNutritionRecordDto() -> NutritionRecordDto {
         let id = uuid.uuidString
         let startTime = Int64(startDate.timeIntervalSince1970 * 1000)
@@ -69,9 +67,7 @@ extension HKCorrelation {
         )
     }
 
-    /**
-     * Extracts energy value from contained samples
-     */
+    /// Extracts energy value from contained samples
     private func extractEnergy() -> EnergyDto? {
         guard let energyType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed),
               let sample = objects(for: energyType).first as? HKQuantitySample
@@ -81,9 +77,7 @@ extension HKCorrelation {
         return sample.quantity.toEnergyDto()
     }
 
-    /**
-     * Extracts mass value for a specific nutrient type from contained samples
-     */
+    /// Extracts mass value for a specific nutrient type from contained samples
     private func extractMass(for identifier: HKQuantityTypeIdentifier) -> MassDto? {
         guard let quantityType = HKQuantityType.quantityType(forIdentifier: identifier),
               let sample = objects(for: quantityType).first as? HKQuantitySample
@@ -95,9 +89,7 @@ extension HKCorrelation {
 }
 
 extension NutritionRecordDto {
-    /**
-     * Converts this DTO to an HKCorrelation for HealthKit
-     */
+    /// Converts this DTO to an HKCorrelation for HealthKit
     func toHealthKitCorrelation() throws -> HKCorrelation {
         guard let foodType = HKCorrelationType.correlationType(forIdentifier: .food) else {
             throw HealthConnectorError.invalidArgument(
@@ -178,9 +170,7 @@ extension NutritionRecordDto {
         )
     }
 
-    /**
-     * Creates an energy sample for the correlation
-     */
+    /// Creates an energy sample for the correlation
     private func createEnergySample(_ energy: EnergyDto, start: Date, end: Date) -> HKQuantitySample? {
         guard let energyType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed) else {
             return nil
@@ -189,9 +179,7 @@ extension NutritionRecordDto {
         return HKQuantitySample(type: energyType, quantity: quantity, start: start, end: end)
     }
 
-    /**
-     * Creates a mass sample for a specific nutrient type
-     */
+    /// Creates a mass sample for a specific nutrient type
     private func createMassSample(
         _ identifier: HKQuantityTypeIdentifier,
         _ mass: MassDto,
@@ -205,9 +193,7 @@ extension NutritionRecordDto {
         return HKQuantitySample(type: quantityType, quantity: quantity, start: start, end: end)
     }
 
-    /**
-     * Adds an energy sample to the set if the DTO is present
-     */
+    /// Adds an energy sample to the set if the DTO is present
     private func addEnergySample(
         to samples: inout Set<HKSample>,
         for dto: EnergyDto?,
@@ -222,9 +208,7 @@ extension NutritionRecordDto {
         samples.insert(sample)
     }
 
-    /**
-     * Adds a mass sample to the set if the DTO is present
-     */
+    /// Adds a mass sample to the set if the DTO is present
     private func addMassSample(
         to samples: inout Set<HKSample>,
         for dto: MassDto?,

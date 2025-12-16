@@ -2,15 +2,15 @@ import Foundation
 import HealthKit
 
 extension FloorsClimbedRecordDto {
-    /*
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .flightsClimbed) else {
             throw NSError(
                 domain: "HealthConnectorError",
                 code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create flights climbed quantity type"]
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Failed to create flights climbed quantity type",
+                ]
             )
         }
 
@@ -30,9 +30,7 @@ extension FloorsClimbedRecordDto {
 }
 
 extension HKQuantitySample {
-    /*
-     * Converts this HealthKit sample to a `FloorsClimbedRecordDto`.
-     */
+    /// Converts this HealthKit sample to a `FloorsClimbedRecordDto`.
     func toFloorsClimbedRecordDto() -> FloorsClimbedRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.flightsClimbed.rawValue else {
             return nil

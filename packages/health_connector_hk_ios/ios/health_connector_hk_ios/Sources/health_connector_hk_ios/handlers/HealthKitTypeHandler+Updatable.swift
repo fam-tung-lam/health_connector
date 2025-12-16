@@ -21,13 +21,11 @@ protocol UpdatableHealthKitTypeHandler: HealthKitTypeHandler, HealthKitTypeMappe
 extension UpdatableHealthKitTypeHandler
     where Self: ReadableHealthKitTypeHandler & WritableHealthKitTypeHandler & HealthKitTypeMapper
 {
-    /**
-     * Updates a record by deleting the old version and creating a new one
-     *
-     * - Parameters:
-     *   - dto: The updated health record DTO (must have valid ID)
-     * - Throws: HealthConnectorError if update fails
-     */
+    /// Updates a record by deleting the old version and creating a new one
+    ///
+    /// - Parameters:
+    ///   - dto: The updated health record DTO (must have valid ID)
+    /// - Throws: HealthConnectorError if update fails
     func updateRecord(_ dto: HealthRecordDto) async throws {
         try await process(operation: "update_record", context: nil) {
             // Validate ID is present

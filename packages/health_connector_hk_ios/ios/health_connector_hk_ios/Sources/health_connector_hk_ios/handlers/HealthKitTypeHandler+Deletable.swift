@@ -6,23 +6,19 @@ import HealthKit
 /// **Requirements:**
 /// - `getSampleType()` - needed to query HealthKit for samples to delete
 protocol DeletableHealthKitTypeHandler: HealthKitTypeHandler {
-    /**
-     * Get the HKSampleType for queries
-     *
-     * - Returns: The HKSampleType used for this health data type
-     * - Throws: HealthConnectorError if the type cannot be created
-     */
+    /// Get the HKSampleType for queries
+    ///
+    /// - Returns: The HKSampleType used for this health data type
+    /// - Throws: HealthConnectorError if the type cannot be created
     func getSampleType() throws -> HKSampleType
 }
 
 extension DeletableHealthKitTypeHandler {
-    /**
-     * Deletes records by IDs
-     *
-     * - Parameters:
-     *   - ids: Array of record UUIDs to delete
-     * - Throws: HealthConnectorError if deletion fails
-     */
+    /// Deletes records by IDs
+    ///
+    /// - Parameters:
+    ///   - ids: Array of record UUIDs to delete
+    /// - Throws: HealthConnectorError if deletion fails
     func deleteRecords(ids: [String]) async throws {
         try await process(
             operation: "delete_records_by_ids",
@@ -92,14 +88,12 @@ extension DeletableHealthKitTypeHandler {
         }
     }
 
-    /**
-     * Deletes all records within a time range
-     *
-     * - Parameters:
-     *   - startTime: Start of time range (milliseconds since epoch)
-     *   - endTime: End of time range (milliseconds since epoch)
-     * - Throws: HealthConnectorError if deletion fails
-     */
+    /// Deletes all records within a time range
+    ///
+    /// - Parameters:
+    ///   - startTime: Start of time range (milliseconds since epoch)
+    ///   - endTime: End of time range (milliseconds since epoch)
+    /// - Throws: HealthConnectorError if deletion fails
     func deleteRecords(
         startTime: Int64,
         endTime: Int64

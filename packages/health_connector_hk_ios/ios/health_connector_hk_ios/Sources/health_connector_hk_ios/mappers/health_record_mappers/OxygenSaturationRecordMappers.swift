@@ -2,15 +2,15 @@ import Foundation
 import HealthKit
 
 extension OxygenSaturationRecordDto {
-    /*
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .oxygenSaturation) else {
             throw NSError(
                 domain: "HealthConnectorError",
                 code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create oxygen saturation quantity type"]
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Failed to create oxygen saturation quantity type",
+                ]
             )
         }
 
@@ -29,9 +29,7 @@ extension OxygenSaturationRecordDto {
 }
 
 extension HKQuantitySample {
-    /*
-     * Converts this HealthKit sample to a `OxygenSaturationRecordDto`.
-     */
+    /// Converts this HealthKit sample to a `OxygenSaturationRecordDto`.
     func toOxygenSaturationRecordDto() -> OxygenSaturationRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.oxygenSaturation.rawValue else {
             return nil

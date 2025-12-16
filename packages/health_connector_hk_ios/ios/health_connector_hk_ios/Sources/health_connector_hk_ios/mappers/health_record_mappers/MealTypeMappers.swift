@@ -1,13 +1,9 @@
 import Foundation
 
-/**
- * HealthKit doesn't have a dedicated meal type enum, so we store meal type
- * information as metadata on nutrition samples.
- */
+/// HealthKit doesn't have a dedicated meal type enum, so we store meal type
+/// information as metadata on nutrition samples.
 extension MealTypeDto {
-    /**
-     * Converts this MealTypeDto to a string representation for HealthKit metadata.
-     */
+    /// Converts this MealTypeDto to a string representation for HealthKit metadata.
     func toString() -> String {
         switch self {
         case .unknown:
@@ -23,9 +19,7 @@ extension MealTypeDto {
         }
     }
 
-    /**
-     * Creates a MealTypeDto from a string representation.
-     */
+    /// Creates a MealTypeDto from a string representation.
     static func fromString(_ string: String?) -> MealTypeDto {
         guard let string else {
             return .unknown

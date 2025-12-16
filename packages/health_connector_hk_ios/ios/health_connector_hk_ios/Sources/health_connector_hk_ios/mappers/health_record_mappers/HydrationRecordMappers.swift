@@ -2,9 +2,7 @@ import Foundation
 import HealthKit
 
 extension HydrationRecordDto {
-    /**
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .dietaryWater) else {
             throw NSError(
@@ -30,9 +28,7 @@ extension HydrationRecordDto {
 }
 
 extension HKQuantitySample {
-    /**
-     * Converts this HealthKit sample to a `HydrationRecordDto`.
-     */
+    /// Converts this HealthKit sample to a `HydrationRecordDto`.
     func toHydrationRecordDto() -> HydrationRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryWater.rawValue else {
             return nil
