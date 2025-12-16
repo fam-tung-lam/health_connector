@@ -47,15 +47,6 @@ final class WheelchairPushesHandler:
         return try pushesDto.toHealthKit()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let pushesDto = dto as? WheelchairPushesRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected WheelchairPushesRecordDto, got \(type(of: dto))"
-            )
-        }
-        return pushesDto.endTime
-    }
-
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .pushCount)
     }

@@ -17,8 +17,6 @@ struct NutrientHandler {
         self.healthStore = healthStore
     }
 
-    // MARK: - Mapper Methods
-
     static func toDTO(
         _ sample: HKSample,
         nutrientType: HealthDataTypeDto,
@@ -57,12 +55,6 @@ struct NutrientHandler {
             for: nutrientType, quantityTypeIdentifier: quantityTypeIdentifier
         )
     }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try dto.extractNutrientTime()
-    }
-
-    // MARK: - Capability Methods
 
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: quantityTypeIdentifier)
@@ -157,10 +149,6 @@ final class EnergyNutrientHandler:
         )
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
     }
@@ -219,10 +207,6 @@ final class CaffeineNutrientHandler:
             nutrientType: .caffeine,
             quantityTypeIdentifier: .dietaryCaffeine
         )
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -285,10 +269,6 @@ final class ProteinNutrientHandler:
         )
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
     }
@@ -349,10 +329,6 @@ final class TotalCarbohydrateNutrientHandler:
         )
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
     }
@@ -407,10 +383,6 @@ final class TotalFatNutrientHandler:
         )
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func getSampleType() throws -> HKSampleType { try handler.getSampleType() }
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -459,10 +431,6 @@ final class SaturatedFatNutrientHandler:
         try NutrientHandler.toHealthKit(
             dto, nutrientType: .saturatedFat, quantityTypeIdentifier: .dietaryFatSaturated
         )
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func getSampleType() throws -> HKSampleType { try handler.getSampleType() }
@@ -517,10 +485,6 @@ final class MonounsaturatedFatNutrientHandler:
         )
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func getSampleType() throws -> HKSampleType { try handler.getSampleType() }
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -571,10 +535,6 @@ final class PolyunsaturatedFatNutrientHandler:
             dto, nutrientType: .polyunsaturatedFat,
             quantityTypeIdentifier: .dietaryFatPolyunsaturated
         )
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func getSampleType() throws -> HKSampleType { try handler.getSampleType() }
@@ -637,10 +597,6 @@ final class CholesterolNutrientHandler:
         try handler.getSampleType()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -699,10 +655,6 @@ final class DietaryFiberNutrientHandler:
 
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -765,10 +717,6 @@ final class SugarNutrientHandler:
         try handler.getSampleType()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -827,10 +775,6 @@ final class VitaminANutrientHandler:
 
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -893,10 +837,6 @@ final class VitaminB6NutrientHandler:
         try handler.getSampleType()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -955,10 +895,6 @@ final class VitaminB12NutrientHandler:
 
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1021,10 +957,6 @@ final class VitaminCNutrientHandler:
         try handler.getSampleType()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -1083,10 +1015,6 @@ final class VitaminDNutrientHandler:
 
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1149,10 +1077,6 @@ final class VitaminENutrientHandler:
         try handler.getSampleType()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -1211,10 +1135,6 @@ final class VitaminKNutrientHandler:
 
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1277,10 +1197,6 @@ final class ThiaminNutrientHandler:
         try handler.getSampleType()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -1339,10 +1255,6 @@ final class RiboflavinNutrientHandler:
 
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1405,10 +1317,6 @@ final class NiacinNutrientHandler:
         try handler.getSampleType()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -1467,10 +1375,6 @@ final class FolateNutrientHandler:
 
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1533,10 +1437,6 @@ final class BiotinNutrientHandler:
         try handler.getSampleType()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -1595,10 +1495,6 @@ final class PantothenicAcidNutrientHandler:
 
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1661,10 +1557,6 @@ final class CalciumNutrientHandler:
         try handler.getSampleType()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -1723,10 +1615,6 @@ final class IronNutrientHandler:
 
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1789,10 +1677,6 @@ final class MagnesiumNutrientHandler:
         try handler.getSampleType()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -1851,10 +1735,6 @@ final class ManganeseNutrientHandler:
 
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1917,10 +1797,6 @@ final class PhosphorusNutrientHandler:
         try handler.getSampleType()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -1979,10 +1855,6 @@ final class PotassiumNutrientHandler:
 
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -2045,10 +1917,6 @@ final class SeleniumNutrientHandler:
         try handler.getSampleType()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -2109,10 +1977,6 @@ final class SodiumNutrientHandler:
         try handler.getSampleType()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -2171,10 +2035,6 @@ final class ZincNutrientHandler:
 
     func getSampleType() throws -> HKSampleType {
         try handler.getSampleType()
-    }
-
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        try NutrientHandler.extractTimestamp(dto)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

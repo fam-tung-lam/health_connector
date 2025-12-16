@@ -4,18 +4,10 @@ import HealthKit
 extension BodyTemperatureRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
-        guard let type = HKQuantityType.quantityType(forIdentifier: .bodyTemperature) else {
-            throw NSError(
-                domain: "HealthConnectorError",
-                code: -1,
-                userInfo: [
-                    NSLocalizedDescriptionKey: "Failed to create body temperature quantity type",
-                ]
-            )
-        }
+        let type = try HKQuantityType.make(from: .bodyTemperature)
 
         let quantity = HKQuantity(unit: .degreeCelsius(), doubleValue: temperature.value)
-        let date = Date(timeIntervalSince1970: TimeInterval(time) / 1000.0)
+        let date = Date(millisecondsSince1970: time)
 
         return HKQuantitySample(
             type: type,
@@ -47,7 +39,7 @@ extension HKQuantitySample {
                 source: sourceRevision.source,
                 device: device
             ),
-            time: Int64(startDate.timeIntervalSince1970 * 1000),
+            time: startDate.millisecondsSince1970,
             temperature: TemperatureDto(unit: TemperatureUnitDto.celsius, value: value),
             zoneOffsetSeconds: zoneOffset
         )

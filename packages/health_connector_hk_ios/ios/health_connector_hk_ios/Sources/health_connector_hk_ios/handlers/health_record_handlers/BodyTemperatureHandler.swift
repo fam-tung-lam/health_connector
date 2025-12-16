@@ -50,16 +50,6 @@ final class BodyTemperatureHandler:
         return try temperatureDto.toHealthKit()
     }
 
-    /// Extract timestamp from DTO for pagination
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let temperatureDto = dto as? BodyTemperatureRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected BodyTemperatureRecordDto, got \(type(of: dto))"
-            )
-        }
-        return temperatureDto.time
-    }
-
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .bodyTemperature)

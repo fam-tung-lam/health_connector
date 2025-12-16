@@ -52,16 +52,6 @@ final class BloodPressureHandler:
         return try bpDto.toHealthKitCorrelation()
     }
 
-    /// Extract timestamp from DTO for pagination
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let bpDto = dto as? BloodPressureRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected BloodPressureRecordDto, got \(type(of: dto))"
-            )
-        }
-        return bpDto.time
-    }
-
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
         try HKCorrelationType.make(from: .bloodPressure)

@@ -50,16 +50,6 @@ final class FloorsClimbedHandler:
         return try floorsDto.toHealthKit()
     }
 
-    /// Extract timestamp from DTO for pagination
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let floorsDto = dto as? FloorsClimbedRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected FloorsClimbedRecordDto, got \(type(of: dto))"
-            )
-        }
-        return floorsDto.endTime
-    }
-
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .flightsClimbed)

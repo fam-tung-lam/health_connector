@@ -55,15 +55,6 @@ final class SleepStageHandler:
         return try sleepDto.toHealthKit()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let sleepDto = dto as? SleepStageRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected SleepStageRecordDto, got \(type(of: dto))"
-            )
-        }
-        return sleepDto.endTime
-    }
-
     func getSampleType() throws -> HKSampleType {
         try HKCategoryType.make(from: .sleepAnalysis)
     }

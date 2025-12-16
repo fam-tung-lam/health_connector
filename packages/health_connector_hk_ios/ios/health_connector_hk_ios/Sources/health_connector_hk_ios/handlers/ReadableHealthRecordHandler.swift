@@ -155,7 +155,7 @@ extension ReadableHealthRecordHandler where Self: MappableHealthRecordHandler {
                         // Determine next page token
                         let nextPageToken: String?
                         if hasMorePages, let lastDto = dtos.last {
-                            let timestamp = try Self.extractTimestamp(lastDto)
+                            let timestamp = try lastDto.extractTimestamp()
                             nextPageToken = String(timestamp)
                         } else {
                             nextPageToken = nil

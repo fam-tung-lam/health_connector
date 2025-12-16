@@ -14,9 +14,6 @@ protocol MappableHealthRecordHandler {
 
     /// Convert DTO to HealthKit sample
     static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample
-
-    /// Extract timestamp from DTO for pagination
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64
 }
 
 /// Base protocol for all health data type handlers.

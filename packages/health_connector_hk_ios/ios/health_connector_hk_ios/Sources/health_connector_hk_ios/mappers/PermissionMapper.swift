@@ -44,8 +44,6 @@ extension HealthDataPermissionDto {
             try [HKQuantityType.make(from: .restingHeartRate)]
         case .sleepStageRecord:
             try [HKCategoryType.make(from: .sleepAnalysis)]
-
-        // MARK: Nutrients
         case .energyNutrient:
             try [HKQuantityType.make(from: .dietaryEnergyConsumed)]
         case .caffeine:
@@ -112,15 +110,13 @@ extension HealthDataPermissionDto {
             try [HKQuantityType.make(from: .dietarySodium)]
         case .zinc:
             try [HKQuantityType.make(from: .dietaryZinc)]
-
-        // MARK: Correlation Types
         case .nutrition:
-            // Nutrition is a correlation type (HKCorrelation.food) but HealthKit requires
-            // requesting permissions for the individual quantity types, not the correlation type itself
+            // Nutrition is a correlation type but HealthKit requires requesting permissions for
+            // the individual quantity types, not the correlation type itself
             try getNutritionTypes()
         case .bloodPressure:
-            // Blood pressure is a correlation type (HKCorrelation.bloodPressure) but HealthKit requires
-            // requesting permissions for the individual quantity types, not the correlation type itself
+            // Blood pressure is a correlation type but HealthKit requires requesting
+            // permissions for the individual quantity types, not the correlation type itself
             try [
                 HKQuantityType.make(from: .bloodPressureSystolic),
                 HKQuantityType.make(from: .bloodPressureDiastolic),
@@ -142,10 +138,8 @@ extension HealthDataPermissionDto {
 
     private func getNutritionTypes() throws -> [HKObjectType] {
         try [
-            // Energy & Other
             HKQuantityType.make(from: .dietaryEnergyConsumed),
             HKQuantityType.make(from: .dietaryCaffeine),
-            // Macronutrients
             HKQuantityType.make(from: .dietaryProtein),
             HKQuantityType.make(from: .dietaryCarbohydrates),
             HKQuantityType.make(from: .dietaryFatTotal),
@@ -155,7 +149,6 @@ extension HealthDataPermissionDto {
             HKQuantityType.make(from: .dietaryCholesterol),
             HKQuantityType.make(from: .dietaryFiber),
             HKQuantityType.make(from: .dietarySugar),
-            // Vitamins
             HKQuantityType.make(from: .dietaryVitaminA),
             HKQuantityType.make(from: .dietaryVitaminB6),
             HKQuantityType.make(from: .dietaryVitaminB12),
@@ -169,7 +162,6 @@ extension HealthDataPermissionDto {
             HKQuantityType.make(from: .dietaryFolate),
             HKQuantityType.make(from: .dietaryBiotin),
             HKQuantityType.make(from: .dietaryPantothenicAcid),
-            // Minerals
             HKQuantityType.make(from: .dietaryCalcium),
             HKQuantityType.make(from: .dietaryIron),
             HKQuantityType.make(from: .dietaryMagnesium),
@@ -179,7 +171,6 @@ extension HealthDataPermissionDto {
             HKQuantityType.make(from: .dietarySelenium),
             HKQuantityType.make(from: .dietarySodium),
             HKQuantityType.make(from: .dietaryZinc),
-            // Water
             HKQuantityType.make(from: .dietaryWater),
         ]
     }

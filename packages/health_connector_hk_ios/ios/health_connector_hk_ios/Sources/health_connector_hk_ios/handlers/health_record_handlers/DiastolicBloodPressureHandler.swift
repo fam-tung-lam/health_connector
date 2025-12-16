@@ -50,16 +50,6 @@ final class DiastolicBloodPressureHandler:
         return try diastolicDto.toHealthKit()
     }
 
-    /// Extract timestamp from DTO for pagination
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let diastolicDto = dto as? DiastolicBloodPressureRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected DiastolicBloodPressureRecordDto, got \(type(of: dto))"
-            )
-        }
-        return diastolicDto.time
-    }
-
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .bloodPressureDiastolic)

@@ -50,16 +50,6 @@ final class BodyFatPercentageHandler:
         return try bodyFatDto.toHealthKit()
     }
 
-    /// Extract timestamp from DTO for pagination
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let bodyFatDto = dto as? BodyFatPercentageRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected BodyFatPercentageRecordDto, got \(type(of: dto))"
-            )
-        }
-        return bodyFatDto.time
-    }
-
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .bodyFatPercentage)

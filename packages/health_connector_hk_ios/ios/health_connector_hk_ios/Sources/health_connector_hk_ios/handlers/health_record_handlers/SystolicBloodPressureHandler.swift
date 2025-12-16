@@ -47,15 +47,6 @@ final class SystolicBloodPressureHandler:
         return try systolicDto.toHealthKit()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let systolicDto = dto as? SystolicBloodPressureRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected SystolicBloodPressureRecordDto, got \(type(of: dto))"
-            )
-        }
-        return systolicDto.time
-    }
-
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .bloodPressureSystolic)
     }

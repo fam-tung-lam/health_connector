@@ -47,15 +47,6 @@ final class LeanBodyMassHandler:
         return try leanMassDto.toHealthKit()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let leanMassDto = dto as? LeanBodyMassRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected LeanBodyMassRecordDto, got \(type(of: dto))"
-            )
-        }
-        return leanMassDto.time
-    }
-
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .leanBodyMass)
     }

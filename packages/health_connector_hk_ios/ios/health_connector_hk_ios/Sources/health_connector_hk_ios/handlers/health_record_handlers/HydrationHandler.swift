@@ -47,15 +47,6 @@ final class HydrationHandler:
         return try hydrationDto.toHealthKit()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let hydrationDto = dto as? HydrationRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HydrationRecordDto, got \(type(of: dto))"
-            )
-        }
-        return hydrationDto.endTime
-    }
-
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .dietaryWater)
     }

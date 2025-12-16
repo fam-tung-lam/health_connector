@@ -4,17 +4,11 @@ import HealthKit
 extension HydrationRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
-        guard let type = HKQuantityType.quantityType(forIdentifier: .dietaryWater) else {
-            throw NSError(
-                domain: "HealthConnectorError",
-                code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create dietary water quantity type"]
-            )
-        }
+        let type = try HKQuantityType.make(from: .dietaryWater)
 
         let quantity = volume.toHealthKit()
-        let startDate = Date(timeIntervalSince1970: TimeInterval(startTime) / 1000.0)
-        let endDate = Date(timeIntervalSince1970: TimeInterval(endTime) / 1000.0)
+        let startDate = Date(millisecondsSince1970: startTime)
+        let endDate = Date(millisecondsSince1970: endTime)
 
         return HKQuantitySample(
             type: type,
@@ -39,8 +33,8 @@ extension HKQuantitySample {
 
         return HydrationRecordDto(
             id: uuid.uuidString,
-            startTime: Int64(startDate.timeIntervalSince1970 * 1000),
-            endTime: Int64(endDate.timeIntervalSince1970 * 1000),
+            startTime: startDate.millisecondsSince1970,
+            endTime: endDate.millisecondsSince1970,
             metadata: metadataDict.toMetadataDto(
                 source: sourceRevision.source,
                 device: device

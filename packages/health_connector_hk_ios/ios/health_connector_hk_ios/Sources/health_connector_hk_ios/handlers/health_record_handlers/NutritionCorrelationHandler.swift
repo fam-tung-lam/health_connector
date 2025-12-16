@@ -43,15 +43,6 @@ final class NutritionCorrelationHandler:
         return try nutritionDto.toHealthKitCorrelation()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let nutritionDto = dto as? NutritionRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected NutritionRecordDto, got \(type(of: dto))"
-            )
-        }
-        return nutritionDto.endTime
-    }
-
     func getSampleType() throws -> HKSampleType {
         try HKCorrelationType.make(from: .food)
     }

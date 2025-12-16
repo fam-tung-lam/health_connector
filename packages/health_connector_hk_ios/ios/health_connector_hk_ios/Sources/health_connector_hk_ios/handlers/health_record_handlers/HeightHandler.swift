@@ -47,15 +47,6 @@ final class HeightHandler:
         return try heightDto.toHealthKit()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let heightDto = dto as? HeightRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HeightRecordDto, got \(type(of: dto))"
-            )
-        }
-        return heightDto.time
-    }
-
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .height)
     }

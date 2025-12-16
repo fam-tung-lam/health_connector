@@ -51,16 +51,6 @@ final class ActiveCaloriesBurnedHandler:
         return try caloriesDto.toHealthKit()
     }
 
-    /// Extract timestamp from DTO for pagination
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let caloriesDto = dto as? ActiveCaloriesBurnedRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected ActiveCaloriesBurnedRecordDto, got \(type(of: dto))"
-            )
-        }
-        return caloriesDto.endTime // For interval records
-    }
-
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .activeEnergyBurned)

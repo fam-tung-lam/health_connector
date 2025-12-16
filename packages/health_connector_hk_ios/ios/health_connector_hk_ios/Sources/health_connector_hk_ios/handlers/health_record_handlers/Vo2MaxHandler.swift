@@ -47,15 +47,6 @@ final class Vo2MaxHandler:
         return try vo2MaxDto.toHealthKit()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let vo2MaxDto = dto as? Vo2MaxRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected Vo2MaxRecordDto, got \(type(of: dto))"
-            )
-        }
-        return vo2MaxDto.time
-    }
-
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .vo2Max)
     }

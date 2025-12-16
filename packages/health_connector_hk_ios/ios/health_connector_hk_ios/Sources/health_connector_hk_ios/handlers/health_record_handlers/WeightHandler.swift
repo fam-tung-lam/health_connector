@@ -47,15 +47,6 @@ final class WeightHandler:
         return try weightDto.toHealthKit()
     }
 
-    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
-        guard let weightDto = dto as? WeightRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected WeightRecordDto, got \(type(of: dto))"
-            )
-        }
-        return weightDto.time
-    }
-
     func getSampleType() throws -> HKSampleType {
         try HKQuantityType.make(from: .bodyMass)
     }
