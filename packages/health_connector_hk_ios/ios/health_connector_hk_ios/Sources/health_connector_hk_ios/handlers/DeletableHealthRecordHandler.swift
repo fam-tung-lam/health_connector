@@ -5,7 +5,7 @@ import HealthKit
 ///
 /// **Requirements:**
 /// - `getSampleType()` - needed to query HealthKit for samples to delete
-protocol DeletableHealthKitTypeHandler: HealthKitTypeHandler {
+protocol DeletableHealthRecordHandler: HealthRecordHandler {
     /// Get the HKSampleType for queries
     ///
     /// - Returns: The HKSampleType used for this health data type
@@ -13,7 +13,7 @@ protocol DeletableHealthKitTypeHandler: HealthKitTypeHandler {
     func getSampleType() throws -> HKSampleType
 }
 
-extension DeletableHealthKitTypeHandler {
+extension DeletableHealthRecordHandler {
     /// Deletes records by IDs
     ///
     /// - Parameters:

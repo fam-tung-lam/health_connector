@@ -3,13 +3,13 @@ import HealthKit
 
 /// Handler for systolic blood pressure (instant quantity type)
 final class SystolicBloodPressureHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
 

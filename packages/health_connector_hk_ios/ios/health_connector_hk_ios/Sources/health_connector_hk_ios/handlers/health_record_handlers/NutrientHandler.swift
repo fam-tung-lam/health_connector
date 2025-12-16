@@ -114,13 +114,13 @@ struct NutrientHandler {
 }
 
 final class EnergyNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -178,13 +178,13 @@ final class EnergyNutrientHandler:
 }
 
 final class CaffeineNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -242,13 +242,13 @@ final class CaffeineNutrientHandler:
 }
 
 final class ProteinNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -306,13 +306,13 @@ final class ProteinNutrientHandler:
 }
 
 final class TotalCarbohydrateNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -370,13 +370,13 @@ final class TotalCarbohydrateNutrientHandler:
 }
 
 final class TotalFatNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -424,13 +424,13 @@ final class TotalFatNutrientHandler:
 }
 
 final class SaturatedFatNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -478,13 +478,13 @@ final class SaturatedFatNutrientHandler:
 }
 
 final class MonounsaturatedFatNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -534,13 +534,13 @@ final class MonounsaturatedFatNutrientHandler:
 }
 
 final class PolyunsaturatedFatNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -590,13 +590,13 @@ final class PolyunsaturatedFatNutrientHandler:
 }
 
 final class CholesterolNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -654,13 +654,13 @@ final class CholesterolNutrientHandler:
 }
 
 final class DietaryFiberNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -718,13 +718,13 @@ final class DietaryFiberNutrientHandler:
 }
 
 final class SugarNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -782,13 +782,13 @@ final class SugarNutrientHandler:
 }
 
 final class VitaminANutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -846,13 +846,13 @@ final class VitaminANutrientHandler:
 }
 
 final class VitaminB6NutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -910,13 +910,13 @@ final class VitaminB6NutrientHandler:
 }
 
 final class VitaminB12NutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -974,13 +974,13 @@ final class VitaminB12NutrientHandler:
 }
 
 final class VitaminCNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1038,13 +1038,13 @@ final class VitaminCNutrientHandler:
 }
 
 final class VitaminDNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1102,13 +1102,13 @@ final class VitaminDNutrientHandler:
 }
 
 final class VitaminENutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1166,13 +1166,13 @@ final class VitaminENutrientHandler:
 }
 
 final class VitaminKNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1230,13 +1230,13 @@ final class VitaminKNutrientHandler:
 }
 
 final class ThiaminNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1294,13 +1294,13 @@ final class ThiaminNutrientHandler:
 }
 
 final class RiboflavinNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1358,13 +1358,13 @@ final class RiboflavinNutrientHandler:
 }
 
 final class NiacinNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1422,13 +1422,13 @@ final class NiacinNutrientHandler:
 }
 
 final class FolateNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1486,13 +1486,13 @@ final class FolateNutrientHandler:
 }
 
 final class BiotinNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1550,13 +1550,13 @@ final class BiotinNutrientHandler:
 }
 
 final class PantothenicAcidNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1614,13 +1614,13 @@ final class PantothenicAcidNutrientHandler:
 }
 
 final class CalciumNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1678,13 +1678,13 @@ final class CalciumNutrientHandler:
 }
 
 final class IronNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1742,13 +1742,13 @@ final class IronNutrientHandler:
 }
 
 final class MagnesiumNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1806,13 +1806,13 @@ final class MagnesiumNutrientHandler:
 }
 
 final class ManganeseNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1870,13 +1870,13 @@ final class ManganeseNutrientHandler:
 }
 
 final class PhosphorusNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1934,13 +1934,13 @@ final class PhosphorusNutrientHandler:
 }
 
 final class PotassiumNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -1998,13 +1998,13 @@ final class PotassiumNutrientHandler:
 }
 
 final class SeleniumNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -2062,13 +2062,13 @@ final class SeleniumNutrientHandler:
 }
 
 final class SodiumNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
@@ -2126,13 +2126,13 @@ final class SodiumNutrientHandler:
 }
 
 final class ZincNutrientHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
     private let handler: NutrientHandler

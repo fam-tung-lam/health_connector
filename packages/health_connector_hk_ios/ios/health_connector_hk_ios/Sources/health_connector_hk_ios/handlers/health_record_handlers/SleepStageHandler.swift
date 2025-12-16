@@ -3,12 +3,12 @@ import HealthKit
 
 /// Handler for sleep stage data (category sample type)
 final class SleepStageHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler
 {
     let healthStore: HKHealthStore
 

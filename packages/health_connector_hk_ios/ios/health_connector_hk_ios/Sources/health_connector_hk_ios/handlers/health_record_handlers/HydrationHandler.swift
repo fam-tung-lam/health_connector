@@ -3,13 +3,13 @@ import HealthKit
 
 /// Handler for hydration data (interval quantity type)
 final class HydrationHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
 

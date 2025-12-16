@@ -3,13 +3,13 @@ import HealthKit
 
 /// Handler for wheelchair pushes data
 final class WheelchairPushesHandler:
-    HealthKitTypeHandler,
-    HealthKitTypeMapper,
-    ReadableHealthKitTypeHandler,
-    WritableHealthKitTypeHandler,
-    UpdatableHealthKitTypeHandler,
-    DeletableHealthKitTypeHandler,
-    AggregatableHealthKitTypeHandler
+    HealthRecordHandler,
+    MappableHealthRecordHandler,
+    ReadableHealthRecordHandler,
+    WritableHealthRecordHandler,
+    UpdatableHealthRecordHandler,
+    DeletableHealthRecordHandler,
+    AggregatableHealthRecordHandler
 {
     let healthStore: HKHealthStore
 

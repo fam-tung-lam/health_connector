@@ -2,10 +2,10 @@ import Foundation
 import HealthKit
 
 /// Capability for handlers that support writing health records.
-protocol WritableHealthKitTypeHandler: HealthKitTypeHandler, HealthKitTypeMapper {
+protocol WritableHealthRecordHandler: HealthRecordHandler, MappableHealthRecordHandler {
 }
 
-extension WritableHealthKitTypeHandler where Self: HealthKitTypeMapper {
+extension WritableHealthRecordHandler where Self: MappableHealthRecordHandler {
     /// Writes a single record to HealthKit
     ///
     /// - Parameters:

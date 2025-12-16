@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Capability for handlers that support reading health records.
-protocol ReadableHealthKitTypeHandler: HealthKitTypeHandler, HealthKitTypeMapper {
+protocol ReadableHealthRecordHandler: HealthRecordHandler, MappableHealthRecordHandler {
     /// Get the HKSampleType for queries
     ///
     /// - Returns: The HKSampleType used for this health data type
@@ -10,7 +10,7 @@ protocol ReadableHealthKitTypeHandler: HealthKitTypeHandler, HealthKitTypeMapper
     func getSampleType() throws -> HKSampleType
 }
 
-extension ReadableHealthKitTypeHandler where Self: HealthKitTypeMapper {
+extension ReadableHealthRecordHandler where Self: MappableHealthRecordHandler {
     /// Default page size for record reading
     static var defaultPageSize: Int { 1000 }
 
