@@ -2,15 +2,15 @@ import Foundation
 import HealthKit
 
 extension BodyTemperatureRecordDto {
-    /*
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .bodyTemperature) else {
             throw NSError(
                 domain: "HealthConnectorError",
                 code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create body temperature quantity type"]
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Failed to create body temperature quantity type",
+                ]
             )
         }
 
@@ -29,9 +29,7 @@ extension BodyTemperatureRecordDto {
 }
 
 extension HKQuantitySample {
-    /*
-     * Converts this HealthKit sample to a `BodyTemperatureRecordDto`.
-     */
+    /// Converts this HealthKit sample to a `BodyTemperatureRecordDto`.
     func toBodyTemperatureRecordDto() -> BodyTemperatureRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bodyTemperature.rawValue else {
             return nil

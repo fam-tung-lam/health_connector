@@ -6,16 +6,14 @@ import HealthKit
 /// Note: HealthKit uses different aggregation approaches than Android Health Connect.
 /// This mapper adapts the DTO to HealthKit's query-based aggregation.
 extension AggregationMetricDto {
-    /**
-     * Gets the HealthKit statistics options for this aggregation metric.
-     *
-     * HealthKit uses `HKStatisticsOptions` for aggregation queries, which differ
-     * from Android's direct metric constants.
-     *
-     * - Parameter dataType: The health data type for which to get aggregation options
-     * - Returns: The appropriate `HKStatisticsOptions` for the aggregation metric
-     * - Throws: `HealthConnectorError.invalidArgument` if the data type does not support aggregation
-     */
+    /// Gets the HealthKit statistics options for this aggregation metric.
+    ///
+    /// HealthKit uses `HKStatisticsOptions` for aggregation queries, which differ
+    /// from Android's direct metric constants.
+    ///
+    /// - Parameter dataType: The health data type for which to get aggregation options
+    /// - Returns: The appropriate `HKStatisticsOptions` for the aggregation metric
+    /// - Throws: `HealthConnectorError.invalidArgument` if the data type does not support aggregation
     func toHealthKitStatisticsOptions(dataType: HealthDataTypeDto) throws -> HKStatisticsOptions {
         switch dataType {
         case .activeCaloriesBurned:
@@ -250,15 +248,13 @@ extension AggregationMetricDto {
         }
     }
 
-    /**
-     * Validates if this aggregation metric is valid for the given data type.
-     *
-     * This matches the Android implementation which only supports metrics that can be
-     * performed directly via the platform's aggregation API.
-     *
-     * - Parameter dataType: The health data type to validate against
-     * - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if the metric is invalid
-     */
+    /// Validates if this aggregation metric is valid for the given data type.
+    ///
+    /// This matches the Android implementation which only supports metrics that can be
+    /// performed directly via the platform's aggregation API.
+    ///
+    /// - Parameter dataType: The health data type to validate against
+    /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if the metric is invalid
     func validateForDataType(_ dataType: HealthDataTypeDto) throws {
         switch dataType {
         case .activeCaloriesBurned:
@@ -569,11 +565,9 @@ extension AggregationMetricDto {
         )
     }
 
-    /**
-     * Maps the aggregation metric directly to HealthKit statistics options.
-     *
-     * - Returns: The corresponding `HKStatisticsOptions`.
-     */
+    /// Maps the aggregation metric directly to HealthKit statistics options.
+    ///
+    /// - Returns: The corresponding `HKStatisticsOptions`.
     func toHKStatisticsOption() throws -> HKStatisticsOptions {
         switch self {
         case .sum:

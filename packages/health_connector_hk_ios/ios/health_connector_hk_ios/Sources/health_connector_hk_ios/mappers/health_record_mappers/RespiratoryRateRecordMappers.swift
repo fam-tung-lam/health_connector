@@ -2,15 +2,15 @@ import Foundation
 import HealthKit
 
 extension RespiratoryRateRecordDto {
-    /*
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .respiratoryRate) else {
             throw NSError(
                 domain: "HealthConnectorError",
                 code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create respiratory rate quantity type"]
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Failed to create respiratory rate quantity type",
+                ]
             )
         }
 
@@ -30,9 +30,7 @@ extension RespiratoryRateRecordDto {
 }
 
 extension HKQuantitySample {
-    /*
-     * Converts this HealthKit sample to a `RespiratoryRateRecordDto`.
-     */
+    /// Converts this HealthKit sample to a `RespiratoryRateRecordDto`.
     func toRespiratoryRateRecordDto() -> RespiratoryRateRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.respiratoryRate.rawValue else {
             return nil

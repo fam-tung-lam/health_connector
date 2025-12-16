@@ -2,11 +2,9 @@ import Foundation
 import HealthKit
 
 extension HeartRateMeasurementRecordDto {
-    /**
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     *
-     * - Throws: An error if the quantity type cannot be created.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
+    ///
+    /// - Throws: An error if the quantity type cannot be created.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .heartRate) else {
             throw NSError(
@@ -33,11 +31,9 @@ extension HeartRateMeasurementRecordDto {
 }
 
 extension HKQuantitySample {
-    /**
-     * Converts this HealthKit sample to a `HeartRateMeasurementRecordDto`.
-     *
-     * Returns `nil` if this sample is not a heart rate sample.
-     */
+    /// Converts this HealthKit sample to a `HeartRateMeasurementRecordDto`.
+    ///
+    /// Returns `nil` if this sample is not a heart rate sample.
     func toHeartRateMeasurementRecordDto() -> HeartRateMeasurementRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.heartRate.rawValue else {
             return nil

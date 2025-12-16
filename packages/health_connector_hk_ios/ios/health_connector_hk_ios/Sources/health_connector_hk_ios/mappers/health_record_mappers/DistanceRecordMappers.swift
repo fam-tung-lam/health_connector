@@ -2,9 +2,7 @@ import Foundation
 import HealthKit
 
 extension DistanceRecordDto {
-    /*
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning) else {
             throw NSError(
@@ -30,11 +28,10 @@ extension DistanceRecordDto {
 }
 
 extension HKQuantitySample {
-    /*
-     * Converts this HealthKit sample to a `DistanceRecordDto`.
-     */
+    /// Converts this HealthKit sample to a `DistanceRecordDto`.
     func toDistanceRecordDto() -> DistanceRecordDto? {
-        guard quantityType.identifier == HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue else {
+        guard quantityType.identifier == HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue
+        else {
             return nil
         }
 

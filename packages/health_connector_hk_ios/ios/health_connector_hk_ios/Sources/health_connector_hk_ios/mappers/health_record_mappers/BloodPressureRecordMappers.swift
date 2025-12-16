@@ -2,9 +2,7 @@ import Foundation
 import HealthKit
 
 extension HKCorrelation {
-    /**
-     * Converts a blood pressure correlation to a `BloodPressureRecordDto`.
-     */
+    /// Converts a blood pressure correlation to a `BloodPressureRecordDto`.
     func toBloodPressureRecordDto() -> BloodPressureRecordDto? {
         guard correlationType.identifier == HKCorrelationTypeIdentifier.bloodPressure.rawValue else {
             return nil
@@ -44,9 +42,7 @@ extension HKCorrelation {
 }
 
 extension BloodPressureRecordDto {
-    /**
-     * Converts this DTO to a HealthKit blood pressure correlation.
-     */
+    /// Converts this DTO to a HealthKit blood pressure correlation.
     func toHealthKitCorrelation() throws -> HKCorrelation {
         guard let systolicType = HKQuantityType.quantityType(forIdentifier: .bloodPressureSystolic),
               let diastolicType = HKQuantityType.quantityType(forIdentifier: .bloodPressureDiastolic),
@@ -95,9 +91,7 @@ extension BloodPressureRecordDto {
 }
 
 extension HKQuantitySample {
-    /**
-     * Converts this HealthKit sample to a `SystolicBloodPressureRecordDto`.
-     */
+    /// Converts this HealthKit sample to a `SystolicBloodPressureRecordDto`.
     func toSystolicBloodPressureRecordDto() -> SystolicBloodPressureRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bloodPressureSystolic.rawValue else {
             return nil
@@ -121,9 +115,7 @@ extension HKQuantitySample {
         )
     }
 
-    /**
-     * Converts this HealthKit sample to a `DiastolicBloodPressureRecordDto`.
-     */
+    /// Converts this HealthKit sample to a `DiastolicBloodPressureRecordDto`.
     func toDiastolicBloodPressureRecordDto() -> DiastolicBloodPressureRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bloodPressureDiastolic.rawValue else {
             return nil
@@ -149,9 +141,7 @@ extension HKQuantitySample {
 }
 
 extension SystolicBloodPressureRecordDto {
-    /**
-     * Converts this DTO to a HealthKit quantity sample.
-     */
+    /// Converts this DTO to a HealthKit quantity sample.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .bloodPressureSystolic) else {
             throw NSError(
@@ -177,9 +167,7 @@ extension SystolicBloodPressureRecordDto {
 }
 
 extension DiastolicBloodPressureRecordDto {
-    /**
-     * Converts this DTO to a HealthKit quantity sample.
-     */
+    /// Converts this DTO to a HealthKit quantity sample.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .bloodPressureDiastolic) else {
             throw NSError(

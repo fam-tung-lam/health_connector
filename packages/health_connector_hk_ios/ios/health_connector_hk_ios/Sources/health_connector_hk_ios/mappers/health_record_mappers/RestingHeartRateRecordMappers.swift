@@ -2,17 +2,17 @@ import Foundation
 import HealthKit
 
 extension RestingHeartRateRecordDto {
-    /*
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     *
-     * - Throws: An error if the quantity type cannot be created.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
+    ///
+    /// - Throws: An error if the quantity type cannot be created.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .restingHeartRate) else {
             throw NSError(
                 domain: "HealthConnectorError",
                 code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create resting heart rate quantity type"]
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Failed to create resting heart rate quantity type",
+                ]
             )
         }
 
@@ -32,11 +32,9 @@ extension RestingHeartRateRecordDto {
 }
 
 extension HKQuantitySample {
-    /*
-     * Converts this HealthKit sample to a `RestingHeartRateRecordDto`.
-     *
-     * Returns `nil` if this sample is not a resting heart rate sample.
-     */
+    /// Converts this HealthKit sample to a `RestingHeartRateRecordDto`.
+    ///
+    /// Returns `nil` if this sample is not a resting heart rate sample.
     func toRestingHeartRateRecordDto() -> RestingHeartRateRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.restingHeartRate.rawValue else {
             return nil

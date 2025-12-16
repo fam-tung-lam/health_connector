@@ -2,16 +2,14 @@ import Foundation
 import HealthKit
 
 extension MetadataDto {
-    /**
-     * Converts this DTO to a HealthKit metadata dictionary.
-     *
-     * Uses standard HealthKit metadata keys where available:
-     * - `HKMetadataKeySyncIdentifier` for clientRecordId
-     * - `HKMetadataKeySyncVersion` for clientRecordVersion
-     * - `HKMetadataKeyWasUserEntered` for manual entry detection
-     * - `HKMetadataKeyDeviceName` for device name (redundancy with HKDevice.name)
-     * - `HKMetadataKeyTimeZone` for timezone identifier (if provided)
-     */
+    /// Converts this DTO to a HealthKit metadata dictionary.
+    ///
+    /// Uses standard HealthKit metadata keys where available:
+    /// - `HKMetadataKeySyncIdentifier` for clientRecordId
+    /// - `HKMetadataKeySyncVersion` for clientRecordVersion
+    /// - `HKMetadataKeyWasUserEntered` for manual entry detection
+    /// - `HKMetadataKeyDeviceName` for device name (redundancy with HKDevice.name)
+    /// - `HKMetadataKeyTimeZone` for timezone identifier (if provided)
     func toHealthKitMetadata(timeZone: TimeZone? = nil) -> [String: Any] {
         var metadata: [String: Any] = [:]
 
@@ -37,19 +35,17 @@ extension MetadataDto {
         return metadata
     }
 
-    /**
-     * Extracts the device from this DTO for HealthKit sample creation.
-     *
-     * Uses `deviceModel` value for `name` if `deviceName` is null, as per HealthKit best practices.
-     * Returns `nil` if all device fields are null.
-     *
-     * ## HealthKit Requirement
-     *
-     * HealthKit requires at least one non-nil field when creating an `HKDevice`. If all fields are
-     * nil, HealthKit will throw `NSInvalidArgumentException: 'At least one field of the device must be non-nil.'`
-     *
-     * This method prevents this exception by returning `nil` when no device information is available.
-     */
+    /// Extracts the device from this DTO for HealthKit sample creation.
+    ///
+    /// Uses `deviceModel` value for `name` if `deviceName` is null, as per HealthKit best practices.
+    /// Returns `nil` if all device fields are null.
+    ///
+    /// ## HealthKit Requirement
+    ///
+    /// HealthKit requires at least one non-nil field when creating an `HKDevice`. If all fields are
+    /// nil, HealthKit will throw `NSInvalidArgumentException: 'At least one field of the device must be non-nil.'`
+    ///
+    /// This method prevents this exception by returning `nil` when no device information is available.
     func toHealthKitDevice() -> HKDevice? {
         // Check if at least one field is non-nil
         let deviceName = deviceName ?? deviceModel
@@ -79,15 +75,13 @@ extension MetadataDto {
 }
 
 extension [String: Any] {
-    /**
-     * Converts HealthKit metadata dictionary to a `MetadataDto`.
-     *
-     * Reads from standard HealthKit metadata keys:
-     * - `HKMetadataKeySyncIdentifier` -> clientRecordId
-     * - `HKMetadataKeySyncVersion` -> clientRecordVersion
-     * - `HKMetadataKeyWasUserEntered` -> isManualEntry
-     * - `HKMetadataKeyDeviceName` -> device name (if not in HKDevice)
-     */
+    /// Converts HealthKit metadata dictionary to a `MetadataDto`.
+    ///
+    /// Reads from standard HealthKit metadata keys:
+    /// - `HKMetadataKeySyncIdentifier` -> clientRecordId
+    /// - `HKMetadataKeySyncVersion` -> clientRecordVersion
+    /// - `HKMetadataKeyWasUserEntered` -> isManualEntry
+    /// - `HKMetadataKeyDeviceName` -> device name (if not in HKDevice)
     func toMetadataDto(source: HKSource, device: HKDevice?) -> MetadataDto {
         let clientRecordId = self[HKMetadataKeySyncIdentifier] as? String
         let clientRecordVersion: Int64? = if let versionNumber = self[HKMetadataKeySyncVersion] as? NSNumber {
@@ -118,9 +112,7 @@ extension [String: Any] {
         )
     }
 
-    /**
-     * Extracts timezone offset in seconds from GMT from the metadata dictionary.
-     */
+    /// Extracts timezone offset in seconds from GMT from the metadata dictionary.
     func extractTimeZoneOffset(for date: Date) -> Int64? {
         guard let timeZoneString = self[HKMetadataKeyTimeZone] as? String,
               let timeZone = TimeZone(identifier: timeZoneString)

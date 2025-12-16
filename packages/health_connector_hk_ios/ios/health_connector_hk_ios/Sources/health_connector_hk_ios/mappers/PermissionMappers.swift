@@ -3,19 +3,17 @@ import HealthKit
 
 /// Extension to convert `HealthDataPermissionDto` to HealthKit types.
 extension HealthDataPermissionDto {
-    /**
-     * Converts this permission DTO to a list of HealthKit `HKObjectType`.
-     *
-     * HealthKit uses different object types for different health data:
-     * - Quantity types: For data that can be measured (e.g., steps, heart rate)
-     * - Category types: For data that falls into categories (e.g., sleep analysis)
-     * - Characteristic types: For unchanging data (e.g., blood type, biological sex)
-     *
-     * - Returns: A list of corresponding `HKObjectType` for this health data permission.
-     *            For simple types, returns a single-element array.
-     *            For correlation types, returns the correlation type plus all component types.
-     * - Throws: HealthConnectorError if type creation fails
-     */
+    /// Converts this permission DTO to a list of HealthKit `HKObjectType`.
+    ///
+    /// HealthKit uses different object types for different health data:
+    /// - Quantity types: For data that can be measured (e.g., steps, heart rate)
+    /// - Category types: For data that falls into categories (e.g., sleep analysis)
+    /// - Characteristic types: For unchanging data (e.g., blood type, biological sex)
+    ///
+    /// - Returns: A list of corresponding `HKObjectType` for this health data permission.
+    ///            For simple types, returns a single-element array.
+    ///            For correlation types, returns the correlation type plus all component types.
+    /// - Throws: HealthConnectorError if type creation fails
     func toHealthKitObjectTypes() throws -> [HKObjectType] {
         switch healthDataType {
         case .activeCaloriesBurned:

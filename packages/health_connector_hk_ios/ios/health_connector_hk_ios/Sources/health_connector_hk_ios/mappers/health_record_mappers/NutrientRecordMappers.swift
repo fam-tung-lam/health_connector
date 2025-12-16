@@ -7,16 +7,12 @@ private extension String {
 }
 
 extension [String: Any] {
-    /**
-     * Extracts food name from HealthKit metadata.
-     */
+    /// Extracts food name from HealthKit metadata.
     func extractFoodName() -> String? {
         self[.foodNameKey] as? String
     }
 
-    /**
-     * Extracts meal type from HealthKit metadata.
-     */
+    /// Extracts meal type from HealthKit metadata.
     func extractMealType() -> MealTypeDto? {
         guard let mealTypeString = self[.mealTypeKey] as? String else {
             return nil
@@ -26,9 +22,7 @@ extension [String: Any] {
 }
 
 extension MetadataDto {
-    /**
-     * Converts metadata DTO to HealthKit metadata including nutrient-specific fields.
-     */
+    /// Converts metadata DTO to HealthKit metadata including nutrient-specific fields.
     func toHealthKitNutrientMetadata(
         timeZone: TimeZone? = nil,
         foodName: String? = nil,
@@ -51,15 +45,13 @@ extension MetadataDto {
 // MARK: - Generic Nutrient Mapper Functions
 
 extension HKQuantitySample {
-    /**
-     * Converts this HealthKit quantity sample to a nutrient DTO.
-     *
-     * This is a generic mapper that delegates to specific nutrient DTOs based on the
-     * nutrient type provided.
-     *
-     * - Parameter nutrientType: The type of nutrient to convert to
-     * - Returns: The appropriate nutrient RecordDto, or nil if type mismatch
-     */
+    /// Converts this HealthKit quantity sample to a nutrient DTO.
+    ///
+    /// This is a generic mapper that delegates to specific nutrient DTOs based on the
+    /// nutrient type provided.
+    ///
+    /// - Parameter nutrientType: The type of nutrient to convert to
+    /// - Returns: The appropriate nutrient RecordDto, or nil if type mismatch
     func toNutrientDto(for nutrientType: HealthDataTypeDto) -> HealthRecordDto? {
         let metadataDict = metadata ?? [:]
         let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
@@ -545,15 +537,13 @@ extension HKQuantitySample {
 // MARK: - DTO to HealthKit Conversion
 
 extension HealthRecordDto {
-    /**
-     * Converts nutrient DTO to HealthKit quantity sample.
-     *
-     * - Parameters:
-     *   - nutrientType: The type of nutrient being converted
-     *   - quantityTypeIdentifier: The HealthKit quantity type identifier
-     * - Returns: HKQuantitySample for the nutrient
-     * - Throws: Error if conversion fails or DTO type is wrong
-     */
+    /// Converts nutrient DTO to HealthKit quantity sample.
+    ///
+    /// - Parameters:
+    ///   - nutrientType: The type of nutrient being converted
+    ///   - quantityTypeIdentifier: The HealthKit quantity type identifier
+    /// - Returns: HKQuantitySample for the nutrient
+    /// - Throws: Error if conversion fails or DTO type is wrong
     func toHealthKitNutrientSample(
         for nutrientType: HealthDataTypeDto,
         quantityTypeIdentifier: HKQuantityTypeIdentifier
@@ -872,11 +862,9 @@ extension HealthRecordDto {
 // MARK: - Helper Extension for Timestamp Extraction
 
 extension HealthRecordDto {
-    /**
-     * Extracts the time field from a nutrient record DTO.
-     *
-     * - Returns: Timestamp in milliseconds since epoch, or 0 if not a nutrient DTO
-     */
+    /// Extracts the time field from a nutrient record DTO.
+    ///
+    /// - Returns: Timestamp in milliseconds since epoch, or 0 if not a nutrient DTO
     func extractNutrientTime() -> Int64 {
         switch self {
         case let dto as EnergyNutrientRecordDto:

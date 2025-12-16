@@ -2,15 +2,15 @@ import Foundation
 import HealthKit
 
 extension LeanBodyMassRecordDto {
-    /*
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .leanBodyMass) else {
             throw NSError(
                 domain: "HealthConnectorError",
                 code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create lean body mass quantity type"]
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Failed to create lean body mass quantity type",
+                ]
             )
         }
 
@@ -29,9 +29,7 @@ extension LeanBodyMassRecordDto {
 }
 
 extension HKQuantitySample {
-    /*
-     * Converts this HealthKit sample to a `LeanBodyMassRecordDto`.
-     */
+    /// Converts this HealthKit sample to a `LeanBodyMassRecordDto`.
     func toLeanBodyMassRecordDto() -> LeanBodyMassRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.leanBodyMass.rawValue else {
             return nil

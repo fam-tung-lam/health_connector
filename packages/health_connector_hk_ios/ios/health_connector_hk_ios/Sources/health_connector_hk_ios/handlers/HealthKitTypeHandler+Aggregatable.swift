@@ -6,32 +6,26 @@ import HealthKit
 /// Only quantity types support aggregation. Category types, correlations, and
 /// characteristics do NOT implement this capability.
 protocol AggregatableHealthKitTypeHandler: HealthKitTypeHandler {
-    /**
-     * Get the HKSampleType for aggregation queries
-     *
-     * - Returns: The HKSampleType (must be HKQuantityType) used for this health data type
-     * - Throws: HealthConnectorError if the type cannot be created
-     */
+    /// Get the HKSampleType for aggregation queries
+    ///
+    /// - Returns: The HKSampleType (must be HKQuantityType) used for this health data type
+    /// - Throws: HealthConnectorError if the type cannot be created
     func getSampleType() throws -> HKSampleType
 
-    /**
-     * Convert aggregation metric to HKStatisticsOptions
-     *
-     * - Parameter metric: The aggregation metric requested
-     * - Returns: Corresponding HKStatisticsOptions for the query
-     * - Throws: HealthConnectorError if the metric is not supported
-     */
+    /// Convert aggregation metric to HKStatisticsOptions
+    ///
+    /// - Parameter metric: The aggregation metric requested
+    /// - Returns: Corresponding HKStatisticsOptions for the query
+    /// - Throws: HealthConnectorError if the metric is not supported
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions
 
-    /**
-     * Extract aggregated value from HKStatistics
-     *
-     * - Parameters:
-     *   - statistics: The HKStatistics result from the query
-     *   - metric: The aggregation metric requested
-     * - Returns: The measurement unit DTO (MassDto, LengthDto, NumericDto, etc.)
-     * - Throws: HealthConnectorError if metric is unsupported or result is null
-     */
+    /// Extract aggregated value from HKStatistics
+    ///
+    /// - Parameters:
+    ///   - statistics: The HKStatistics result from the query
+    ///   - metric: The aggregation metric requested
+    /// - Returns: The measurement unit DTO (MassDto, LengthDto, NumericDto, etc.)
+    /// - Throws: HealthConnectorError if metric is unsupported or result is null
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
@@ -39,16 +33,14 @@ protocol AggregatableHealthKitTypeHandler: HealthKitTypeHandler {
 }
 
 extension AggregatableHealthKitTypeHandler {
-    /**
-     * Performs aggregation over a time range
-     *
-     * - Parameters:
-     *   - metric: The aggregation metric to compute
-     *   - startTime: Start of time range (milliseconds since epoch)
-     *   - endTime: End of time range (milliseconds since epoch)
-     * - Returns: The aggregated measurement value
-     * - Throws: HealthConnectorError if aggregation fails
-     */
+    /// Performs aggregation over a time range
+    ///
+    /// - Parameters:
+    ///   - metric: The aggregation metric to compute
+    ///   - startTime: Start of time range (milliseconds since epoch)
+    ///   - endTime: End of time range (milliseconds since epoch)
+    /// - Returns: The aggregated measurement value
+    /// - Throws: HealthConnectorError if aggregation fails
     func aggregate(
         metric: AggregationMetricDto,
         startTime: Int64,

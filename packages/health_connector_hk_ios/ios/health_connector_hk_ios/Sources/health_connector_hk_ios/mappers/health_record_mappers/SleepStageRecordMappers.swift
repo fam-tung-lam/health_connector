@@ -3,9 +3,7 @@ import HealthKit
 
 /// Mappers for converting SleepStageRecordDto to HKCategorySample
 extension SleepStageRecordDto {
-    /**
-     * Convert SleepStageRecordDto to HKCategorySample
-     */
+    /// Convert SleepStageRecordDto to HKCategorySample
     func toHealthKit() throws -> HKCategorySample {
         let categoryType = try HKCategoryType.make(from: HKCategoryTypeIdentifier.sleepAnalysis)
 
@@ -39,9 +37,7 @@ extension SleepStageRecordDto {
 
 /// Mappers for HKCategoryValueSleepAnalysis to SleepStageTypeDto
 extension HKCategoryValueSleepAnalysis {
-    /**
-     * Convert HKCategoryValueSleepAnalysis to SleepStageTypeDto
-     */
+    /// Convert HKCategoryValueSleepAnalysis to SleepStageTypeDto
     func toDto() -> SleepStageTypeDto {
         switch self {
         case .inBed:
@@ -74,10 +70,8 @@ extension HKCategoryValueSleepAnalysis {
         }
     }
 
-    /**
-     * Convert SleepStageTypeDto to HKCategoryValueSleepAnalysis
-     * - Throws: HealthConnectorError if sleep stage value is not supported
-     */
+    /// Convert SleepStageTypeDto to HKCategoryValueSleepAnalysis
+    /// - Throws: HealthConnectorError if sleep stage value is not supported
     static func from(dto: SleepStageTypeDto) throws -> HKCategoryValueSleepAnalysis {
         switch dto {
         case .inBed:

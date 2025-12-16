@@ -6,15 +6,15 @@ private let kMetadataKeySpecimenSource = "com.healthconnect.sync.specimenSource"
 private let kMetadataKeyRelationToMeal = "com.healthconnect.sync.relationToMeal"
 
 extension BloodGlucoseRecordDto {
-    /*
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .bloodGlucose) else {
             throw NSError(
                 domain: "HealthConnectorError",
                 code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create blood glucose quantity type"]
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Failed to create blood glucose quantity type",
+                ]
             )
         }
 
@@ -39,9 +39,11 @@ extension BloodGlucoseRecordDto {
         // HKMetadataKeyBloodGlucoseMealTime only supports Preprandial (Before Meal) and Postprandial (After Meal)
         if let relation = relationToMeal {
             if relation == .beforeMeal {
-                metadataDict[HKMetadataKeyBloodGlucoseMealTime] = HKBloodGlucoseMealTime.preprandial.rawValue
+                metadataDict[HKMetadataKeyBloodGlucoseMealTime] =
+                    HKBloodGlucoseMealTime.preprandial.rawValue
             } else if relation == .afterMeal {
-                metadataDict[HKMetadataKeyBloodGlucoseMealTime] = HKBloodGlucoseMealTime.postprandial.rawValue
+                metadataDict[HKMetadataKeyBloodGlucoseMealTime] =
+                    HKBloodGlucoseMealTime.postprandial.rawValue
             }
         }
 
@@ -57,9 +59,7 @@ extension BloodGlucoseRecordDto {
 }
 
 extension HKQuantitySample {
-    /*
-     * Converts this HealthKit sample to a `BloodGlucoseRecordDto`.
-     */
+    /// Converts this HealthKit sample to a `BloodGlucoseRecordDto`.
     func toBloodGlucoseRecordDto() -> BloodGlucoseRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bloodGlucose.rawValue else {
             return nil
@@ -86,7 +86,8 @@ extension HKQuantitySample {
             @unknown default:
                 // Fallback to custom key
                 if let customRelationRaw = metadataDict[kMetadataKeyRelationToMeal] as? Int {
-                    relation = BloodGlucoseRelationToMealDto(rawValue: customRelationRaw) ?? .unknown
+                    relation =
+                        BloodGlucoseRelationToMealDto(rawValue: customRelationRaw) ?? .unknown
                 }
             }
         } else {

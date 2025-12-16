@@ -2,11 +2,9 @@ import Foundation
 import HealthKit
 
 extension WheelchairPushesRecordDto {
-    /*
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     *
-     * - Throws: An error if the quantity type cannot be created.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
+    ///
+    /// - Throws: An error if the quantity type cannot be created.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .pushCount) else {
             throw NSError(
@@ -32,11 +30,9 @@ extension WheelchairPushesRecordDto {
 }
 
 extension HKQuantitySample {
-    /*
-     * Converts this HealthKit sample to a `WheelchairPushesRecordDto`.
-     *
-     * Returns `nil` if this sample is not a push count sample.
-     */
+    /// Converts this HealthKit sample to a `WheelchairPushesRecordDto`.
+    ///
+    /// Returns `nil` if this sample is not a push count sample.
     func toWheelchairPushesRecordDto() -> WheelchairPushesRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.pushCount.rawValue else {
             return nil

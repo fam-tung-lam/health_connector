@@ -2,15 +2,15 @@ import Foundation
 import HealthKit
 
 extension BodyFatPercentageRecordDto {
-    /*
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .bodyFatPercentage) else {
             throw NSError(
                 domain: "HealthConnectorError",
                 code: -1,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to create body fat percentage quantity type"]
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Failed to create body fat percentage quantity type",
+                ]
             )
         }
 
@@ -29,9 +29,7 @@ extension BodyFatPercentageRecordDto {
 }
 
 extension HKQuantitySample {
-    /*
-     * Converts this HealthKit sample to a `BodyFatPercentageRecordDto`.
-     */
+    /// Converts this HealthKit sample to a `BodyFatPercentageRecordDto`.
     func toBodyFatPercentageRecordDto() -> BodyFatPercentageRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bodyFatPercentage.rawValue else {
             return nil

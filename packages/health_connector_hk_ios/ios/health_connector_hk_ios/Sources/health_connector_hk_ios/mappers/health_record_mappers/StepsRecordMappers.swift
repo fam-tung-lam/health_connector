@@ -2,11 +2,9 @@ import Foundation
 import HealthKit
 
 extension StepRecordDto {
-    /*
-     * Converts this DTO to a HealthKit `HKQuantitySample`.
-     *
-     * - Throws: An error if the quantity type cannot be created.
-     */
+    /// Converts this DTO to a HealthKit `HKQuantitySample`.
+    ///
+    /// - Throws: An error if the quantity type cannot be created.
     func toHealthKit() throws -> HKQuantitySample {
         guard let type = HKQuantityType.quantityType(forIdentifier: .stepCount) else {
             throw NSError(
@@ -32,11 +30,9 @@ extension StepRecordDto {
 }
 
 extension HKQuantitySample {
-    /*
-     * Converts this HealthKit sample to a `StepRecordDto`.
-     *
-     * Returns `nil` if this sample is not a step count sample.
-     */
+    /// Converts this HealthKit sample to a `StepRecordDto`.
+    ///
+    /// Returns `nil` if this sample is not a step count sample.
     func toStepRecordDto() -> StepRecordDto? {
         guard quantityType.identifier == HKQuantityTypeIdentifier.stepCount.rawValue else {
             return nil
