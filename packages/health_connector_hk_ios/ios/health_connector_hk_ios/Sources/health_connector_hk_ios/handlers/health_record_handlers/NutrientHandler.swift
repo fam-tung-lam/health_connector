@@ -65,7 +65,7 @@ struct NutrientHandler {
     // MARK: - Capability Methods
 
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: quantityTypeIdentifier)
+        try HKQuantityType.make(from: quantityTypeIdentifier)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

@@ -57,7 +57,7 @@ final class OxygenSaturationHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .oxygenSaturation)
+        try HKQuantityType.make(from: .oxygenSaturation)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

@@ -63,7 +63,7 @@ final class ActiveCaloriesBurnedHandler:
 
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .activeEnergyBurned)
+        try HKQuantityType.make(from: .activeEnergyBurned)
     }
 
     /// Convert aggregation metric to HKStatisticsOptions

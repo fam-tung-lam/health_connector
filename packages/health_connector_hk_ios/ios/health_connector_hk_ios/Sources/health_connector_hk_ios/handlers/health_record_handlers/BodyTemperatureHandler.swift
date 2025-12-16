@@ -62,7 +62,7 @@ final class BodyTemperatureHandler:
 
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .bodyTemperature)
+        try HKQuantityType.make(from: .bodyTemperature)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

@@ -53,7 +53,7 @@ final class NutritionCorrelationHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKCorrelationType.safeCorrelationType(forIdentifier: .food)
+        try HKCorrelationType.make(from: .food)
     }
 
     func deleteRecords(ids: [String]) async throws {

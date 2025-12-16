@@ -57,7 +57,7 @@ final class SystolicBloodPressureHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .bloodPressureSystolic)
+        try HKQuantityType.make(from: .bloodPressureSystolic)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

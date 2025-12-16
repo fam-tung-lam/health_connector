@@ -57,7 +57,7 @@ final class DistanceHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .distanceWalkingRunning)
+        try HKQuantityType.make(from: .distanceWalkingRunning)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

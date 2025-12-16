@@ -64,7 +64,7 @@ final class BloodPressureHandler:
 
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
-        try HKCorrelationType.safeCorrelationType(forIdentifier: .bloodPressure)
+        try HKCorrelationType.make(from: .bloodPressure)
     }
 
     /// Deletes records by ID, including contained samples for correlations.

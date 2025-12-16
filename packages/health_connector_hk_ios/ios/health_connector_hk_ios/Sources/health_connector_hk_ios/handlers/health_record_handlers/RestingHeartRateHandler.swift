@@ -57,7 +57,7 @@ final class RestingHeartRateHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .restingHeartRate)
+        try HKQuantityType.make(from: .restingHeartRate)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

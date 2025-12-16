@@ -57,7 +57,7 @@ final class StepsHandler:
     }
 
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .stepCount)
+        try HKQuantityType.make(from: .stepCount)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

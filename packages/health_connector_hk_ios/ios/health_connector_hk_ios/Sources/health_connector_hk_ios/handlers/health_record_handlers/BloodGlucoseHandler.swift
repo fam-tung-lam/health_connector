@@ -62,7 +62,7 @@ final class BloodGlucoseHandler:
 
     /// Get the HKSampleType for queries
     func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.safeQuantityType(forIdentifier: .bloodGlucose)
+        try HKQuantityType.make(from: .bloodGlucose)
     }
 
     /// Convert aggregation metric to HKStatisticsOptions

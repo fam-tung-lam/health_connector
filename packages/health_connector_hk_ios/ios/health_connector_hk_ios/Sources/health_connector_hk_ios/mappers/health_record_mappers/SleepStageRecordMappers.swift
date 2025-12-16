@@ -7,8 +7,7 @@ extension SleepStageRecordDto {
      * Convert SleepStageRecordDto to HKCategorySample
      */
     func toHealthKit() throws -> HKCategorySample {
-        let categoryType = try HKCategoryType.safeCategoryType(
-            forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis)
+        let categoryType = try HKCategoryType.make(from: HKCategoryTypeIdentifier.sleepAnalysis)
 
         let value = try HKCategoryValueSleepAnalysis.from(dto: stageType).rawValue
         let startDate = Date(timeIntervalSince1970: TimeInterval(startTime) / 1000.0)
@@ -93,13 +92,13 @@ extension HKCategoryValueSleepAnalysis {
             .awake
         case .light:
             // iOS 16+: Use .core for light sleep (rawValue: 5)
-            try HKCategoryValueSleepAnalysis.safeSleepValue(rawValue: 5)
+            try HKCategoryValueSleepAnalysis.make(from: 5)
         case .deep:
             // iOS 16+: Use .deep (rawValue: 3)
-            try HKCategoryValueSleepAnalysis.safeSleepValue(rawValue: 3)
+            try HKCategoryValueSleepAnalysis.make(from: 3)
         case .rem:
             // iOS 16+: Use .REM (rawValue: 4)
-            try HKCategoryValueSleepAnalysis.safeSleepValue(rawValue: 4)
+            try HKCategoryValueSleepAnalysis.make(from: 4)
         case .unknown:
             .asleep
         }
