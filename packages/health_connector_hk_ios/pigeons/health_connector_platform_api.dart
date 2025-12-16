@@ -11,38 +11,10 @@ import 'package:pigeon/pigeon.dart';
     dartOptions: DartOptions(),
     swiftOut:
         'ios/health_connector_hk_ios/Sources/health_connector_hk_ios/pigeon/HealthConnectorPlatformApi.g.swift',
-    swiftOptions: SwiftOptions(errorClassName: 'HealthConnectorError'),
+    swiftOptions: SwiftOptions(errorClassName: 'HealthConnectorErrorDto'),
     copyrightHeader: 'pigeons/copyright_header.txt',
   ),
 )
-/// Error codes that native platforms can use when throwing error.
-enum HealthConnectorErrorCodeDto {
-  /// Health platform is unavailable on this device.
-  healthProviderUnavailable,
-
-  /// Invalid platform configuration detected.
-  invalidConfiguration,
-
-  /// Invalid argument or input validation error.
-  invalidArgument,
-
-  /// Attempted to use platform APIs that are not supported on
-  /// the current health platform.
-  unsupportedOperation,
-
-  /// Unknown or unspecified error.
-  unknown,
-
-  /// Security/permission error occurred.
-  notAuthorized,
-
-  /// A transient I/O or communication error occurred.
-  remoteError,
-
-  /// User cancelled the operation.
-  userCancelled,
-}
-
 /// Represents the status of the health platform on the device.
 enum HealthPlatformStatusDto {
   /// The health platform is available and ready to use.
