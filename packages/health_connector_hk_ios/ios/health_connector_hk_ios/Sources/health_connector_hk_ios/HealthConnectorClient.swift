@@ -9,11 +9,6 @@ class HealthConnectorClient: Taggable {
     private let store: HKHealthStore
 
     /**
-     * Service for validating Info.plist configuration.
-     */
-    private let infoPlistService: HealthConnectorInfoPListService
-
-    /**
      * Service for managing HealthKit permissions.
      */
     private let permissionService: HealthConnectorPermissionService
@@ -34,13 +29,8 @@ class HealthConnectorClient: Taggable {
      */
     private init(store: HKHealthStore) {
         self.store = store
-        infoPlistService = HealthConnectorInfoPListService()
         permissionService = HealthConnectorPermissionService(store: store)
-
         handlerRegistry = HealthKitTypeRegistry(healthStore: store)
-
-        // Verify Info.plist configuration (logs warnings if misconfigured)
-        infoPlistService.checkUsageDescriptions()
     }
 
     /**
@@ -84,15 +74,14 @@ class HealthConnectorClient: Taggable {
         }
     }
 
-    /**
-     * Gets or creates a `HealthConnectorClient` instance.
-     *
-     * - Returns: A new `HealthConnectorClient` instance wrapping the HealthKit store
-     *
-     * - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` when:
-     *          - HealthKit is not available on the device (e.g., iPad without health capabilities)
-     *          - The device is in a restricted mode
-     */
+    /// Gets or creates a `HealthConnectorClient` instance.
+    ///
+    /// - Returns: A new `HealthConnectorClient` instance wrapping the HealthKit store
+    ///
+    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` when:
+    ///          - HealthKit is not available on the device (e.g., iPad without health capabilities)
+    ///          - The device is in a restricted mode
+    /// - Throws: `HealthConnectorError` with code `INVALID_CONFIGURATION` when required Info.plist keys are missing
     static func getOrCreate() throws -> HealthConnectorClient {
         guard HKHealthStore.isHealthDataAvailable() else {
             HealthConnectorLogger.error(
@@ -105,8 +94,9 @@ class HealthConnectorClient: Taggable {
             )
         }
 
-        let store = HKHealthStore()
-        return HealthConnectorClient(store: store)
+        try HealthConnectorPlistValidator.validateUsageDescriptions()
+
+        return HealthConnectorClient(store: HKHealthStore())
     }
 
     /**
@@ -158,7 +148,7 @@ class HealthConnectorClient: Taggable {
             operation: "requestPermissions",
             message: "Requesting HealthKit permissions via permission service",
             context: [
-                "requested_health_data_permissions": healthDataPermissions,
+                "requested_health_data_permissions": healthDataPermissions
             ]
         )
 
@@ -184,7 +174,7 @@ class HealthConnectorClient: Taggable {
                 operation: "readRecord",
                 message: "Reading Health Connect record",
                 context: [
-                    "request": request,
+                    "request": request
                 ]
             )
 
@@ -220,7 +210,7 @@ class HealthConnectorClient: Taggable {
                 operation: "readRecord",
                 message: "Failed to read Health Connect record",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -232,7 +222,7 @@ class HealthConnectorClient: Taggable {
                 operation: "readRecord",
                 message: "Failed to read Health Connect record",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -243,7 +233,7 @@ class HealthConnectorClient: Taggable {
                 operation: "readRecord",
                 message: "Failed to read Health Connect record",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -307,7 +297,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Reading Health Connect records",
                 context: [
-                    "request": request,
+                    "request": request
                 ]
             )
 
@@ -316,7 +306,7 @@ class HealthConnectorClient: Taggable {
                 throw HealthConnectorError.invalidArgument(
                     message: "Invalid time range: startTime must be before endTime",
                     context: [
-                        "details": "startTime=\(request.startTime), endTime=\(request.endTime)",
+                        "details": "startTime=\(request.startTime), endTime=\(request.endTime)"
                     ]
                 )
             }
@@ -363,7 +353,7 @@ class HealthConnectorClient: Taggable {
 
                         message: "Invalid pageToken format, using original startTime",
                         context: [
-                            "pageToken": pageToken,
+                            "pageToken": pageToken
                         ]
                     )
                 }
@@ -408,7 +398,7 @@ class HealthConnectorClient: Taggable {
 
                         message: "No sources found for bundle identifiers",
                         context: [
-                            "bundleIdentifiers": request.dataOriginPackageNames,
+                            "bundleIdentifiers": request.dataOriginPackageNames
                         ]
                     )
                     return createEmptyResponse()
@@ -450,7 +440,7 @@ class HealthConnectorClient: Taggable {
                     predicate: predicate,
                     limit: Int(request.pageSize) + 1,
                     sortDescriptors: [
-                        NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true),
+                        NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
                     ]
                 ) {
                     _, samples, error in
@@ -462,7 +452,7 @@ class HealthConnectorClient: Taggable {
                             continuation.resume(
                                 throwing: HealthConnectorError.unknown(
                                     message:
-                                    "Failed to read records: \(error.localizedDescription)",
+                                        "Failed to read records: \(error.localizedDescription)",
                                     context: ["details": error.localizedDescription]
                                 )
                             )
@@ -522,7 +512,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to read Health Connect records",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -534,7 +524,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to read Health Connect records",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -680,7 +670,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Writing Health Connect record",
                 context: [
-                    "request": request,
+                    "request": request
                 ]
             )
 
@@ -716,7 +706,7 @@ class HealthConnectorClient: Taggable {
                             continuation.resume(
                                 throwing: HealthConnectorError.unknown(
                                     message:
-                                    "Failed to write record: \(error.localizedDescription)",
+                                        "Failed to write record: \(error.localizedDescription)",
                                     context: ["details": error.localizedDescription]
                                 )
                             )
@@ -758,7 +748,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to write Health Connect record",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -770,7 +760,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to write Health Connect record",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -808,7 +798,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Updating Health Connect record",
                 context: [
-                    "request": request,
+                    "request": request
                 ]
             )
 
@@ -820,7 +810,7 @@ class HealthConnectorClient: Taggable {
             if recordId?.isEmpty ?? true {
                 throw HealthConnectorError.invalidArgument(
                     message:
-                    "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
+                        "Record ID must be a valid existing ID for update operations. Use writeRecord() for new records.",
                     context: ["details": "Record ID: \(recordId ?? "nil")"]
                 )
             }
@@ -857,7 +847,7 @@ class HealthConnectorClient: Taggable {
                 operation: "updateRecord",
                 message: "Health Connect record updated successfully",
                 context: [
-                    "request": request,
+                    "request": request
                 ]
             )
 
@@ -872,7 +862,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to update Health Connect record",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -884,7 +874,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to update Health Connect record",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -914,7 +904,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Writing Health Connect records",
                 context: [
-                    "request": request,
+                    "request": request
                 ]
             )
 
@@ -956,7 +946,7 @@ class HealthConnectorClient: Taggable {
                             continuation.resume(
                                 throwing: HealthConnectorError.unknown(
                                     message:
-                                    "Failed to write records: \(error.localizedDescription)",
+                                        "Failed to write records: \(error.localizedDescription)",
                                     context: ["details": error.localizedDescription]
                                 )
                             )
@@ -998,7 +988,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to write Health Connect records",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -1010,7 +1000,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to write Health Connect records",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -1040,7 +1030,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Aggregating Health Connect data",
                 context: [
-                    "request": request,
+                    "request": request
                 ]
             )
 
@@ -1049,7 +1039,7 @@ class HealthConnectorClient: Taggable {
                 throw HealthConnectorError.invalidArgument(
                     message: "Invalid time range: startTime must be before endTime",
                     context: [
-                        "details": "startTime=\(request.startTime), endTime=\(request.endTime)",
+                        "details": "startTime=\(request.startTime), endTime=\(request.endTime)"
                     ]
                 )
             }
@@ -1119,7 +1109,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to aggregate Health Connect data",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -1131,7 +1121,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to aggregate Health Connect data",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -1275,11 +1265,11 @@ class HealthConnectorClient: Taggable {
             return AggregateResponseDto(value: sumQuantity.toEnergyDto())
 
         case .caffeine, .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
-             .monounsaturatedFat, .polyunsaturatedFat, .cholesterol, .dietaryFiber, .sugar,
-             .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD, .vitaminE, .vitaminK,
-             .thiamin, .riboflavin, .niacin, .folate, .biotin, .pantothenicAcid,
-             .calcium, .iron, .magnesium, .manganese, .phosphorus, .potassium, .selenium, .sodium,
-             .zinc:
+            .monounsaturatedFat, .polyunsaturatedFat, .cholesterol, .dietaryFiber, .sugar,
+            .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD, .vitaminE, .vitaminK,
+            .thiamin, .riboflavin, .niacin, .folate, .biotin, .pantothenicAcid,
+            .calcium, .iron, .magnesium, .manganese, .phosphorus, .potassium, .selenium, .sodium,
+            .zinc:
             guard let sumQuantity = statistics.sumQuantity() else {
                 return AggregateResponseDto(value: MassDto(unit: .grams, value: 0.0))
             }
@@ -1355,7 +1345,7 @@ class HealthConnectorClient: Taggable {
                         continuation.resume(
                             throwing: HealthConnectorError.unknown(
                                 message:
-                                "Failed to aggregate records: \(error.localizedDescription)",
+                                    "Failed to aggregate records: \(error.localizedDescription)",
                                 context: ["details": error.localizedDescription]
                             )
                         )
@@ -1410,7 +1400,7 @@ class HealthConnectorClient: Taggable {
             throw HealthConnectorError.invalidArgument(
                 message: "Only sum aggregation is supported for sleep stage records",
                 context: [
-                    "details": "Supported metrics: [sum]. Requested: \(request.aggregationMetric)",
+                    "details": "Supported metrics: [sum]. Requested: \(request.aggregationMetric)"
                 ]
             )
         }
@@ -1449,7 +1439,7 @@ class HealthConnectorClient: Taggable {
                         continuation.resume(
                             throwing: HealthConnectorError.unknown(
                                 message:
-                                "Failed to query sleep stages: \(error.localizedDescription)",
+                                    "Failed to query sleep stages: \(error.localizedDescription)",
                                 context: ["details": error.localizedDescription]
                             )
                         )
@@ -1493,7 +1483,7 @@ class HealthConnectorClient: Taggable {
                     // Check raw values: .core=5, .deep=3, .REM=4
                     if #available(iOS 16.0, *) {
                         switch sample.value {
-                        case 3, 4, 5: // deep, REM, core
+                        case 3, 4, 5:  // deep, REM, core
                             true
                         default:
                             false
@@ -1533,7 +1523,7 @@ class HealthConnectorClient: Taggable {
 
             message: "Deleting Health Connect records by time range",
             context: [
-                "request": request,
+                "request": request
             ]
         )
 
@@ -1543,7 +1533,7 @@ class HealthConnectorClient: Taggable {
                 throw HealthConnectorError.invalidArgument(
                     message: "Invalid time range: startTime must be before endTime",
                     context: [
-                        "details": "startTime=\(request.startTime), endTime=\(request.endTime)",
+                        "details": "startTime=\(request.startTime), endTime=\(request.endTime)"
                     ]
                 )
             }
@@ -1569,7 +1559,7 @@ class HealthConnectorClient: Taggable {
                 operation: "deleteRecordsByTimeRange",
                 message: "Health Connect records deleted successfully",
                 context: [
-                    "request": request,
+                    "request": request
                 ]
             )
         } catch let error as HealthConnectorError {
@@ -1582,7 +1572,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to delete Health Connect records by time range",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -1594,7 +1584,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to delete Health Connect records by time range",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -1623,7 +1613,7 @@ class HealthConnectorClient: Taggable {
 
             message: "Deleting Health Connect records by IDs",
             context: [
-                "request": request,
+                "request": request
             ]
         )
 
@@ -1649,7 +1639,7 @@ class HealthConnectorClient: Taggable {
                 operation: "deleteRecordsByIds",
                 message: "Health Connect records deleted successfully",
                 context: [
-                    "request": request,
+                    "request": request
                 ]
             )
         } catch let error as HealthConnectorError {
@@ -1662,7 +1652,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to delete Health Connect records by IDs",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
@@ -1674,7 +1664,7 @@ class HealthConnectorClient: Taggable {
 
                 message: "Failed to delete Health Connect records by IDs",
                 context: [
-                    "request": request,
+                    "request": request
                 ],
                 exception: error
             )
