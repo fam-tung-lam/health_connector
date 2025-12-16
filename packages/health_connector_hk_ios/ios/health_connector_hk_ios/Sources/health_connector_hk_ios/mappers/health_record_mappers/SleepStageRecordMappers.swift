@@ -1,22 +1,22 @@
 import Foundation
 import HealthKit
 
-/**
- * Mappers for converting SleepStageRecordDto to HKCategorySample
- */
+/// Mappers for converting SleepStageRecordDto to HKCategorySample
 extension SleepStageRecordDto {
     /**
      * Convert SleepStageRecordDto to HKCategorySample
      */
     func toHealthKit() throws -> HKCategorySample {
-        let categoryType = try HKCategoryType.safeCategoryType(forIdentifier: .sleepAnalysis)
+        let categoryType = try HKCategoryType.safeCategoryType(
+            forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis)
 
         let value = try HKCategoryValueSleepAnalysis.from(dto: stageType).rawValue
         let startDate = Date(timeIntervalSince1970: TimeInterval(startTime) / 1000.0)
         let endDate = Date(timeIntervalSince1970: TimeInterval(endTime) / 1000.0)
         var metadataDict = metadata.toHealthKitMetadata(timeZone: TimeZone.current)
         if let startOffset = startZoneOffsetSeconds {
-            metadataDict[HKMetadataKeyTimeZone] = TimeZone(secondsFromGMT: Int(startOffset))?.identifier
+            metadataDict[HKMetadataKeyTimeZone] =
+                TimeZone(secondsFromGMT: Int(startOffset))?.identifier
         }
 
         // If end offset differs from start, we note that in custom metadata
@@ -38,9 +38,7 @@ extension SleepStageRecordDto {
     }
 }
 
-/**
- * Mappers for HKCategoryValueSleepAnalysis to SleepStageTypeDto
- */
+/// Mappers for HKCategoryValueSleepAnalysis to SleepStageTypeDto
 extension HKCategoryValueSleepAnalysis {
     /**
      * Convert HKCategoryValueSleepAnalysis to SleepStageTypeDto

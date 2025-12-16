@@ -2,15 +2,8 @@ import Flutter
 import HealthKit
 import UIKit
 
-/**
- * Flutter plugin for accessing HealthKit on iOS devices.
- */
+/// Flutter plugin for accessing HealthKit on iOS devices.
 public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnectorPlatformApi {
-    /**
-     * Tag used for logging throughout the plugin.
-     */
-    private static let tag = "HealthConnectorHkIosPlugin"
-
     /**
      * Cached instance of the HealthKit client.
      */
@@ -41,7 +34,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
         HealthConnectorLogger.debug(
-            tag: HealthConnectorHkIosPlugin.tag,
+            tag: Self.tag,
             operation: "create",
             message: "Creating HealthConnectorClient...",
             context: ["isLoggerEnabled": String(config.isLoggerEnabled)]
@@ -65,12 +58,17 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
             completion(.success(()))
         } catch {
             HealthConnectorLogger.error(
-                tag: HealthConnectorHkIosPlugin.tag,
+                tag: Self.tag,
                 operation: "create",
                 message: "Failed to create HealthConnectorClient",
                 exception: error
             )
-            completion(.failure(error))
+            completion(
+                .failure(
+                    HealthConnectorError.unknown(
+                        message: error.localizedDescription,
+                        cause: error
+                    ).toDto()))
         }
     }
 
@@ -79,7 +77,9 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
      *
      * - Parameter completion: Called with a `Result` containing the platform status
      */
-    public func getHealthPlatformStatus(completion: @escaping (Result<HealthPlatformStatusDto, Error>) -> Void) {
+    public func getHealthPlatformStatus(
+        completion: @escaping (Result<HealthPlatformStatusDto, Error>) -> Void
+    ) {
         let statusDto = HealthConnectorClient.getHealthPlatformStatus()
         completion(.success(statusDto))
     }
@@ -100,8 +100,9 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ) {
         Task {
             do {
-                let healthDataResults = try await healthClient
-                    .requestPermissions(healthDataPermissions: request.healthDataPermissions)
+                let healthDataResults =
+                    try await healthClient
+                        .requestPermissions(healthDataPermissions: request.healthDataPermissions)
 
                 let response = PermissionsRequestResponseDto(
                     healthDataPermissionResults: healthDataResults
@@ -120,7 +121,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                self.complete(completion, with: .failure(error))
+                self.complete(completion, with: .failure(error.toDto()))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -128,11 +129,14 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     message: "Failed to request Health Connect permissions",
                     exception: error
                 )
-                let healthConnectorError = HealthConnectorErrors.unknown(
-                    message: error.localizedDescription,
-                    details: error.localizedDescription
+                self.complete(
+                    completion,
+                    with: .failure(
+                        HealthConnectorError.unknown(
+                            message: error.localizedDescription,
+                            cause: error
+                        ).toDto())
                 )
-                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -164,7 +168,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                self.complete(completion, with: .failure(error))
+                self.complete(completion, with: .failure(error.toDto()))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -172,11 +176,14 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     message: "Failed to read Health Connect record",
                     exception: error
                 )
-                let healthConnectorError = HealthConnectorErrors.unknown(
-                    message: error.localizedDescription,
-                    details: error.localizedDescription
+                self.complete(
+                    completion,
+                    with: .failure(
+                        HealthConnectorError.unknown(
+                            message: error.localizedDescription,
+                            cause: error
+                        ).toDto())
                 )
-                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -208,7 +215,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                self.complete(completion, with: .failure(error))
+                self.complete(completion, with: .failure(error.toDto()))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -216,11 +223,14 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     message: "Failed to read Health Connect records",
                     exception: error
                 )
-                let healthConnectorError = HealthConnectorErrors.unknown(
-                    message: error.localizedDescription,
-                    details: error.localizedDescription
+                self.complete(
+                    completion,
+                    with: .failure(
+                        HealthConnectorError.unknown(
+                            message: error.localizedDescription,
+                            cause: error
+                        ).toDto())
                 )
-                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -252,7 +262,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                self.complete(completion, with: .failure(error))
+                self.complete(completion, with: .failure(error.toDto()))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
@@ -260,11 +270,14 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     message: "Failed to write Health Connect record",
                     exception: error
                 )
-                let healthConnectorError = HealthConnectorErrors.unknown(
-                    message: error.localizedDescription,
-                    details: error.localizedDescription
+                self.complete(
+                    completion,
+                    with: .failure(
+                        HealthConnectorError.unknown(
+                            message: error.localizedDescription,
+                            cause: error
+                        ).toDto())
                 )
-                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -296,20 +309,22 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                self.complete(completion, with: .failure(error))
+                self.complete(completion, with: .failure(error.toDto()))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "writeRecords",
-
                     message: "Failed to write Health Connect records",
                     exception: error
                 )
-                let healthConnectorError = HealthConnectorErrors.unknown(
-                    message: error.localizedDescription,
-                    details: error.localizedDescription
+                self.complete(
+                    completion,
+                    with: .failure(
+                        HealthConnectorError.unknown(
+                            message: error.localizedDescription,
+                            cause: error
+                        ).toDto())
                 )
-                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -342,20 +357,22 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                self.complete(completion, with: .failure(error))
+                self.complete(completion, with: .failure(error.toDto()))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "updateRecord",
-
                     message: "Failed to update Health Connect record",
                     exception: error
                 )
-                let healthConnectorError = HealthConnectorErrors.unknown(
-                    message: error.localizedDescription,
-                    details: error.localizedDescription
+                self.complete(
+                    completion,
+                    with: .failure(
+                        HealthConnectorError.unknown(
+                            message: error.localizedDescription,
+                            cause: error
+                        ).toDto())
                 )
-                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -388,20 +405,22 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                self.complete(completion, with: .failure(error))
+                self.complete(completion, with: .failure(error.toDto()))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "aggregate",
-
                     message: "Failed to aggregate Health Connect data",
                     exception: error
                 )
-                let healthConnectorError = HealthConnectorErrors.unknown(
-                    message: error.localizedDescription,
-                    details: error.localizedDescription
+                self.complete(
+                    completion,
+                    with: .failure(
+                        HealthConnectorError.unknown(
+                            message: error.localizedDescription,
+                            cause: error
+                        ).toDto())
                 )
-                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -436,20 +455,22 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                self.complete(completion, with: .failure(error))
+                self.complete(completion, with: .failure(error.toDto()))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "deleteRecordsByIds",
-
                     message: "Failed to delete Health Connect records by IDs",
                     exception: error
                 )
-                let healthConnectorError = HealthConnectorErrors.unknown(
-                    message: error.localizedDescription,
-                    details: error.localizedDescription
+                self.complete(
+                    completion,
+                    with: .failure(
+                        HealthConnectorError.unknown(
+                            message: error.localizedDescription,
+                            cause: error
+                        ).toDto())
                 )
-                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }
@@ -482,20 +503,22 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                     ],
                     exception: error
                 )
-                self.complete(completion, with: .failure(error))
+                self.complete(completion, with: .failure(error.toDto()))
             } catch {
                 HealthConnectorLogger.error(
                     tag: HealthConnectorHkIosPlugin.tag,
                     operation: "deleteRecordsByTimeRange",
-
                     message: "Failed to delete Health Connect records by time range",
                     exception: error
                 )
-                let healthConnectorError = HealthConnectorErrors.unknown(
-                    message: error.localizedDescription,
-                    details: error.localizedDescription
+                self.complete(
+                    completion,
+                    with: .failure(
+                        HealthConnectorError.unknown(
+                            message: error.localizedDescription,
+                            cause: error
+                        ).toDto())
                 )
-                self.complete(completion, with: .failure(healthConnectorError))
             }
         }
     }

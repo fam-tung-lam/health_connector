@@ -100,7 +100,7 @@ extension NutritionRecordDto {
      */
     func toHealthKitCorrelation() throws -> HKCorrelation {
         guard let foodType = HKCorrelationType.correlationType(forIdentifier: .food) else {
-            throw HealthConnectorErrors.invalidArgument(
+            throw HealthConnectorError.invalidArgument(
                 message: "Food correlation type not available"
             )
         }

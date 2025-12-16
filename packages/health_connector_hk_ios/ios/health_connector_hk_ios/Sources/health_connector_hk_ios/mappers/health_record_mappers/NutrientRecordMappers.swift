@@ -842,7 +842,7 @@ extension HealthRecordDto {
             metadata = dto.metadata
 
         default:
-            throw HealthConnectorErrors.invalidArgument(
+            throw HealthConnectorError.invalidArgument(
                 message: "Expected nutrient DTO for \(nutrientType), got \(type(of: self))"
             )
         }

@@ -126,7 +126,7 @@ extension HealthRecordDto {
             case is Vo2MaxRecordDto:
                 return .vo2Max
             default:
-                throw HealthConnectorErrors.invalidArgument(
+                throw HealthConnectorError.invalidArgument(
                     message: "Unknown HealthRecordDto type: \(type(of: self))"
                 )
             }
