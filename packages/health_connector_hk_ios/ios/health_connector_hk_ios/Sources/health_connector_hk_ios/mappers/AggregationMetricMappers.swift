@@ -1,12 +1,10 @@
 import Foundation
 import HealthKit
 
-/**
- * Extension to convert `AggregationMetricDto` to HealthKit aggregation options.
- *
- * Note: HealthKit uses different aggregation approaches than Android Health Connect.
- * This mapper adapts the DTO to HealthKit's query-based aggregation.
- */
+/// Extension to convert `AggregationMetricDto` to HealthKit aggregation options.
+///
+/// Note: HealthKit uses different aggregation approaches than Android Health Connect.
+/// This mapper adapts the DTO to HealthKit's query-based aggregation.
 extension AggregationMetricDto {
     /**
      * Gets the HealthKit statistics options for this aggregation metric.
@@ -15,9 +13,8 @@ extension AggregationMetricDto {
      * from Android's direct metric constants.
      *
      * - Parameter dataType: The health data type for which to get aggregation options
-     * - Returns: The appropriate `HKStatisticsOptions` for the aggregation metric.
-     *            Returns empty options ([]) if the metric requires reading records instead.
-     * - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if the data type does not support aggregation
+     * - Returns: The appropriate `HKStatisticsOptions` for the aggregation metric
+     * - Throws: `HealthConnectorError.invalidArgument` if the data type does not support aggregation
      */
     func toHealthKitStatisticsOptions(dataType: HealthDataTypeDto) throws -> HKStatisticsOptions {
         switch dataType {
@@ -26,9 +23,7 @@ extension AggregationMetricDto {
             case .sum:
                 return .cumulativeSum
             case .avg, .min, .max, .count:
-                // These require reading individual records and calculating
-                // HealthKit doesn't provide direct aggregation for these on active calories burned
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .steps:
@@ -36,9 +31,7 @@ extension AggregationMetricDto {
             case .sum:
                 return .cumulativeSum
             case .avg, .min, .max, .count:
-                // These require reading individual records and calculating
-                // HealthKit doesn't provide direct aggregation for these on steps
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .weight:
@@ -50,8 +43,7 @@ extension AggregationMetricDto {
             case .max:
                 return .discreteMax
             case .sum, .count:
-                // SUM not meaningful for weight, COUNT requires reading records
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .height:
@@ -63,8 +55,7 @@ extension AggregationMetricDto {
             case .max:
                 return .discreteMax
             case .sum, .count:
-                // SUM not meaningful for height, COUNT requires reading records
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .bodyFatPercentage:
@@ -76,8 +67,7 @@ extension AggregationMetricDto {
             case .max:
                 return .discreteMax
             case .sum, .count:
-                // SUM not meaningful for body fat percentage, COUNT requires reading records
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .distance:
@@ -85,9 +75,7 @@ extension AggregationMetricDto {
             case .sum:
                 return .cumulativeSum
             case .avg, .min, .max, .count:
-                // These require reading individual records and calculating
-                // HealthKit doesn't provide direct aggregation for these on distance
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .floorsClimbed:
@@ -95,9 +83,7 @@ extension AggregationMetricDto {
             case .sum:
                 return .cumulativeSum
             case .avg, .min, .max, .count:
-                // These require reading individual records and calculating
-                // HealthKit doesn't provide direct aggregation for these on floors climbed
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .wheelchairPushes:
@@ -105,9 +91,7 @@ extension AggregationMetricDto {
             case .sum:
                 return .cumulativeSum
             case .avg, .min, .max, .count:
-                // These require reading individual records and calculating
-                // HealthKit doesn't provide direct aggregation for these on wheelchair pushes
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .hydration:
@@ -115,22 +99,19 @@ extension AggregationMetricDto {
             case .sum:
                 return .cumulativeSum
             case .avg, .min, .max, .count:
-                // Only SUM is supported for hydration (matches Android Health Connect behavior)
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .leanBodyMass:
-            // Lean body mass does not support aggregation
-            throw HealthConnectorErrors.invalidArgument(
+            throw HealthConnectorError.invalidArgument(
                 message: "Lean body mass does not support aggregation",
-                details: "Lean body mass does not support aggregation operations."
+                context: ["details": "Lean body mass does not support aggregation operations."]
             )
 
         case .bodyTemperature:
-            // Body temperature does not support aggregation
-            throw HealthConnectorErrors.invalidArgument(
+            throw HealthConnectorError.invalidArgument(
                 message: "Body temperature does not support aggregation",
-                details: "Body temperature does not support aggregation operations."
+                context: ["details": "Body temperature does not support aggregation operations."]
             )
 
         case .heartRateMeasurementRecord:
@@ -142,8 +123,7 @@ extension AggregationMetricDto {
             case .max:
                 return .discreteMax
             case .sum, .count:
-                // SUM not meaningful for heart rate, COUNT requires reading records
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .restingHeartRate:
@@ -155,8 +135,7 @@ extension AggregationMetricDto {
             case .max:
                 return .discreteMax
             case .sum, .count:
-                // SUM/COUNT not meaningful/supported for resting heart rate
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .oxygenSaturation:
@@ -168,8 +147,7 @@ extension AggregationMetricDto {
             case .max:
                 return .discreteMax
             case .sum, .count:
-                // SUM/COUNT not meaningful/supported for oxygen saturation
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .respiratoryRate:
@@ -181,8 +159,7 @@ extension AggregationMetricDto {
             case .max:
                 return .discreteMax
             case .sum, .count:
-                // SUM/COUNT not meaningful/supported for respiratory rate
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .vo2Max:
@@ -194,8 +171,7 @@ extension AggregationMetricDto {
             case .max:
                 return .discreteMax
             case .sum, .count:
-                // SUM/COUNT not meaningful/supported for Vo2 Max
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .bloodGlucose:
@@ -207,50 +183,45 @@ extension AggregationMetricDto {
             case .max:
                 return .discreteMax
             case .sum, .count:
-                // SUM/COUNT not meaningful/supported for blood glucose
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .sleepStageRecord:
-            // Sleep stages (category samples) do not support aggregation
-            throw HealthConnectorErrors.invalidArgument(
+            throw HealthConnectorError.invalidArgument(
                 message: "Sleep stage records do not support aggregation",
-                details: "Sleep stage records are category samples and do not support aggregation operations."
+                context: [
+                    "details":
+                        "Sleep stage records are category samples and do not support aggregation operations."
+                ]
             )
 
-        // MARK: Nutrients - All support SUM aggregation only
-
         case .energyNutrient, .caffeine,
-             .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
-             .monounsaturatedFat, .polyunsaturatedFat, .cholesterol,
-             .dietaryFiber, .sugar,
-             .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD,
-             .vitaminE, .vitaminK, .thiamin, .riboflavin, .niacin,
-             .folate, .biotin, .pantothenicAcid,
-             .calcium, .iron, .magnesium, .manganese, .phosphorus,
-             .potassium, .selenium, .sodium, .zinc:
-            switch self {
-            case .sum:
-                return .cumulativeSum
-            case .avg, .min, .max, .count:
-                // Only SUM is supported for nutrients (matches Android Health Connect behavior)
-                return []
-            }
-
-        // MARK: Correlation Types
+            .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
+            .monounsaturatedFat, .polyunsaturatedFat, .cholesterol,
+            .dietaryFiber, .sugar,
+            .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD,
+            .vitaminE, .vitaminK, .thiamin, .riboflavin, .niacin,
+            .folate, .biotin, .pantothenicAcid,
+            .calcium, .iron, .magnesium, .manganese, .phosphorus,
+            .potassium, .selenium, .sodium, .zinc:
+            return try getNutrientStatisticsOptions(dataType: dataType)
 
         case .nutrition:
-            // Nutrition (food correlation) does not support aggregation
-            throw HealthConnectorErrors.invalidArgument(
+            throw HealthConnectorError.invalidArgument(
                 message: "Nutrition records do not support aggregation",
-                details: "Nutrition records are correlation types and do not support aggregation operations."
+                context: [
+                    "details":
+                        "Nutrition records are correlation types and do not support aggregation operations."
+                ]
             )
 
         case .bloodPressure:
-            // Blood pressure (correlation) does not support aggregation
-            throw HealthConnectorErrors.invalidArgument(
+            throw HealthConnectorError.invalidArgument(
                 message: "Blood pressure records do not support aggregation",
-                details: "Blood pressure records are correlation types and do not support aggregation operations."
+                context: [
+                    "details":
+                        "Blood pressure records are correlation types and do not support aggregation operations."
+                ]
             )
 
         case .systolicBloodPressure:
@@ -262,8 +233,7 @@ extension AggregationMetricDto {
             case .max:
                 return .discreteMax
             case .sum, .count:
-                // SUM not meaningful for systolic blood pressure, COUNT requires reading records
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
 
         case .diastolicBloodPressure:
@@ -275,8 +245,7 @@ extension AggregationMetricDto {
             case .max:
                 return .discreteMax
             case .sum, .count:
-                // SUM not meaningful for diastolic blood pressure, COUNT requires reading records
-                return []
+                return try throwUnsupportedAggregationError(dataType: dataType)
             }
         }
     }
@@ -293,243 +262,334 @@ extension AggregationMetricDto {
     func validateForDataType(_ dataType: HealthDataTypeDto) throws {
         switch dataType {
         case .activeCaloriesBurned:
-            // Only SUM is supported for active calories burned (matches Android Health Connect behavior)
             if self != .sum {
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
-                    message: "\(metricName) not directly supported for activeCaloriesBurned in HealthKit",
-                    details: "\(metricName) not directly supported for activeCaloriesBurned in HealthKit."
+                throw HealthConnectorError.invalidArgument(
+                    message:
+                        "\(metricName) not directly supported for activeCaloriesBurned in HealthKit",
+                    context: [
+                        "details":
+                            "\(metricName) not directly supported for activeCaloriesBurned in HealthKit."
+                    ]
                 )
             }
         case .steps:
-            // Only SUM is supported for steps (matches Android Health Connect behavior)
             if self != .sum {
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
+                throw HealthConnectorError.invalidArgument(
                     message: "\(metricName) not directly supported for steps in HealthKit",
-                    details: "\(metricName) not directly supported for steps in HealthKit."
+                    context: [
+                        "details": "\(metricName) not directly supported for steps in HealthKit."
+                    ]
                 )
             }
         case .weight:
-            // Only AVG, MIN, MAX are supported for weight (matches Android Health Connect behavior)
             switch self {
             case .avg, .min, .max:
-                break // These are supported
+                try toHKStatisticsOption()
             case .sum, .count:
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
+                throw HealthConnectorError.invalidArgument(
                     message: "\(metricName) not directly supported for weight in HealthKit",
-                    details: "\(metricName) not directly supported for weight in HealthKit."
+                    context: [
+                        "details": "\(metricName) not directly supported for weight in HealthKit."
+                    ]
                 )
             }
         case .height:
-            // Only AVG, MIN, MAX are supported for height (matches Android Health Connect behavior)
             switch self {
             case .avg, .min, .max:
-                break // These are supported
+                try toHKStatisticsOption()
             case .sum, .count:
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
+                throw HealthConnectorError.invalidArgument(
                     message: "\(metricName) not directly supported for height in HealthKit",
-                    details: "\(metricName) not directly supported for height in HealthKit."
+                    context: [
+                        "details": "\(metricName) not directly supported for height in HealthKit."
+                    ]
                 )
             }
         case .bodyFatPercentage:
-            // Only AVG, MIN, MAX are supported for body fat percentage (matches Android Health Connect behavior)
             switch self {
             case .avg, .min, .max:
-                break // These are supported
+                try toHKStatisticsOption()
             case .sum, .count:
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
-                    message: "\(metricName) not directly supported for bodyFatPercentage in HealthKit",
-                    details: "\(metricName) not directly supported for bodyFatPercentage in HealthKit."
+                throw HealthConnectorError.invalidArgument(
+                    message:
+                        "\(metricName) not directly supported for bodyFatPercentage in HealthKit",
+                    context: [
+                        "details":
+                            "\(metricName) not directly supported for bodyFatPercentage in HealthKit."
+                    ]
                 )
             }
         case .distance:
-            // Only SUM is supported for distance (matches Android Health Connect behavior)
             if self != .sum {
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
+                throw HealthConnectorError.invalidArgument(
                     message: "\(metricName) not directly supported for distance in HealthKit",
-                    details: "\(metricName) not directly supported for distance in HealthKit."
+                    context: [
+                        "details": "\(metricName) not directly supported for distance in HealthKit."
+                    ]
                 )
             }
         case .floorsClimbed:
-            // Only SUM is supported for floors climbed (matches Android Health Connect behavior)
             if self != .sum {
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
+                throw HealthConnectorError.invalidArgument(
                     message: "\(metricName) not directly supported for floorsClimbed in HealthKit",
-                    details: "\(metricName) not directly supported for floorsClimbed in HealthKit."
+                    context: [
+                        "details":
+                            "\(metricName) not directly supported for floorsClimbed in HealthKit."
+                    ]
                 )
             }
         case .wheelchairPushes:
-            // Only SUM is supported for wheelchair pushes (matches Android Health Connect behavior)
             if self != .sum {
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
-                    message: "\(metricName) not directly supported for wheelchairPushes in HealthKit",
-                    details: "\(metricName) not directly supported for wheelchairPushes in HealthKit."
+                throw HealthConnectorError.invalidArgument(
+                    message:
+                        "\(metricName) not directly supported for wheelchairPushes in HealthKit",
+                    context: [
+                        "details":
+                            "\(metricName) not directly supported for wheelchairPushes in HealthKit."
+                    ]
                 )
             }
         case .hydration:
-            // Only SUM is supported for hydration (matches Android Health Connect behavior)
             if self != .sum {
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
+                throw HealthConnectorError.invalidArgument(
                     message: "\(metricName) not directly supported for hydration in HealthKit",
-                    details: "\(metricName) not directly supported for hydration in HealthKit."
+                    context: [
+                        "details":
+                            "\(metricName) not directly supported for hydration in HealthKit."
+                    ]
                 )
             }
         case .leanBodyMass:
-            // Lean body mass does not support aggregation
-            throw HealthConnectorErrors.invalidArgument(
+            throw HealthConnectorError.invalidArgument(
                 message: "Lean body mass does not support aggregation",
-                details: "Lean body mass does not support aggregation operations."
+                context: ["details": "Lean body mass does not support aggregation operations."]
             )
         case .bodyTemperature:
             // Body temperature does not support aggregation
-            throw HealthConnectorErrors.invalidArgument(
+            throw HealthConnectorError.invalidArgument(
                 message: "Body temperature does not support aggregation",
-                details: "Body temperature does not support aggregation operations."
+                context: ["details": "Body temperature does not support aggregation operations."]
             )
         case .heartRateMeasurementRecord:
-            // Only AVG, MIN, MAX are supported for heart rate (matches Android Health Connect behavior)
             switch self {
             case .avg, .min, .max:
-                break // These are supported
+                try toHKStatisticsOption()
             case .sum, .count:
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
-                    message: "\(metricName) not directly supported for heartRateMeasurementRecord in HealthKit",
-                    details: "\(metricName) not directly supported for heartRateMeasurementRecord in HealthKit."
+                throw HealthConnectorError.invalidArgument(
+                    message:
+                        "\(metricName) not directly supported for heartRateMeasurementRecord in HealthKit",
+                    context: [
+                        "details":
+                            "\(metricName) not directly supported for heartRateMeasurementRecord in HealthKit."
+                    ]
                 )
             }
         case .restingHeartRate:
-            // Only AVG, MIN, MAX are supported for resting heart rate
             switch self {
             case .avg, .min, .max:
-                break // These are supported
+                try toHKStatisticsOption()
             case .sum, .count:
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
-                    message: "\(metricName) not directly supported for restingHeartRate in HealthKit",
-                    details: "\(metricName) not directly supported for restingHeartRate in HealthKit."
+                throw HealthConnectorError.invalidArgument(
+                    message:
+                        "\(metricName) not directly supported for restingHeartRate in HealthKit",
+                    context: [
+                        "details":
+                            "\(metricName) not directly supported for restingHeartRate in HealthKit."
+                    ]
                 )
             }
         case .oxygenSaturation:
-            // Only AVG, MIN, MAX are supported for oxygen saturation
             switch self {
             case .avg, .min, .max:
-                break // These are supported
+                try toHKStatisticsOption()
             case .sum, .count:
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
-                    message: "\(metricName) not directly supported for oxygenSaturation in HealthKit",
-                    details: "\(metricName) not directly supported for oxygenSaturation in HealthKit."
+                throw HealthConnectorError.invalidArgument(
+                    message:
+                        "\(metricName) not directly supported for oxygenSaturation in HealthKit",
+                    context: [
+                        "details":
+                            "\(metricName) not directly supported for oxygenSaturation in HealthKit."
+                    ]
                 )
             }
         case .respiratoryRate:
-            // Only AVG, MIN, MAX are supported for respiratory rate
             switch self {
             case .avg, .min, .max:
-                break // These are supported
+                try toHKStatisticsOption()
             case .sum, .count:
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
-                    message: "\(metricName) not directly supported for respiratoryRate in HealthKit",
-                    details: "\(metricName) not directly supported for respiratoryRate in HealthKit."
+                throw HealthConnectorError.invalidArgument(
+                    message:
+                        "\(metricName) not directly supported for respiratoryRate in HealthKit",
+                    context: [
+                        "details":
+                            "\(metricName) not directly supported for respiratoryRate in HealthKit."
+                    ]
                 )
             }
         case .bloodGlucose:
-            // Only AVG, MIN, MAX are supported for blood glucose
             switch self {
             case .avg, .min, .max:
-                break // These are supported
+                try toHKStatisticsOption()
             case .sum, .count:
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
+                throw HealthConnectorError.invalidArgument(
                     message: "\(metricName) not directly supported for bloodGlucose in HealthKit",
-                    details: "\(metricName) not directly supported for bloodGlucose in HealthKit."
+                    context: [
+                        "details":
+                            "\(metricName) not directly supported for bloodGlucose in HealthKit."
+                    ]
                 )
             }
         case .vo2Max:
-            // Only AVG, MIN, MAX are supported for Vo2 Max
             switch self {
             case .avg, .min, .max:
-                break // These are supported
+                try toHKStatisticsOption()
             case .sum, .count:
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
+                throw HealthConnectorError.invalidArgument(
                     message: "\(metricName) not directly supported for vo2Max in HealthKit",
-                    details: "\(metricName) not directly supported for vo2Max in HealthKit."
+                    context: [
+                        "details": "\(metricName) not directly supported for vo2Max in HealthKit."
+                    ]
                 )
             }
         case .sleepStageRecord:
-            // Sleep stages (category samples) do not support aggregation
-            throw HealthConnectorErrors.invalidArgument(
+            throw HealthConnectorError.invalidArgument(
                 message: "Sleep stage records do not support aggregation",
-                details: "Sleep stage records are category samples and do not support aggregation operations."
+                context: [
+                    "details":
+                        "Sleep stage records are category samples and do not support aggregation operations."
+                ]
             )
-
-        // MARK: Nutrients - All support SUM aggregation only
         case .energyNutrient, .caffeine,
-             .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
-             .monounsaturatedFat, .polyunsaturatedFat, .cholesterol,
-             .dietaryFiber, .sugar,
-             .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD,
-             .vitaminE, .vitaminK, .thiamin, .riboflavin, .niacin,
-             .folate, .biotin, .pantothenicAcid,
-             .calcium, .iron, .magnesium, .manganese, .phosphorus,
-             .potassium, .selenium, .sodium, .zinc:
+            .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
+            .monounsaturatedFat, .polyunsaturatedFat, .cholesterol,
+            .dietaryFiber, .sugar,
+            .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD,
+            .vitaminE, .vitaminK, .thiamin, .riboflavin, .niacin,
+            .folate, .biotin, .pantothenicAcid,
+            .calcium, .iron, .magnesium, .manganese, .phosphorus,
+            .potassium, .selenium, .sodium, .zinc:
             // Only SUM is supported for nutrients (matches Android Health Connect behavior)
             if self != .sum {
                 let metricName = String(describing: self)
                 let dataTypeName = String(describing: dataType)
-                throw HealthConnectorErrors.invalidArgument(
-                    message: "\(metricName) not directly supported for \(dataTypeName) in HealthKit",
-                    details: "\(metricName) not directly supported for \(dataTypeName) in HealthKit."
+                throw HealthConnectorError.invalidArgument(
+                    message:
+                        "\(metricName) not directly supported for \(dataTypeName) in HealthKit",
+                    context: [
+                        "details":
+                            "\(metricName) not directly supported for \(dataTypeName) in HealthKit."
+                    ]
                 )
             }
-
-        // MARK: Correlation Types
         case .nutrition:
-            // Nutrition (food correlation) does not support aggregation
-            throw HealthConnectorErrors.invalidArgument(
+            throw HealthConnectorError.invalidArgument(
                 message: "Nutrition records do not support aggregation",
-                details: "Nutrition records are correlation types and do not support aggregation operations."
+                context: [
+                    "details":
+                        "Nutrition records are correlation types and do not support aggregation operations."
+                ]
             )
         case .bloodPressure:
-            // Blood pressure (correlation) does not support aggregation
-            throw HealthConnectorErrors.invalidArgument(
+            throw HealthConnectorError.invalidArgument(
                 message: "Blood pressure records do not support aggregation",
-                details: "Blood pressure records are correlation types and do not support aggregation operations."
+                context: [
+                    "details":
+                        "Blood pressure records are correlation types and do not support aggregation operations."
+                ]
             )
         case .systolicBloodPressure:
-            // Only AVG, MIN, MAX are supported for systolic blood pressure (matches Android Health Connect behavior)
             switch self {
             case .avg, .min, .max:
-                break // These are supported
+                try toHKStatisticsOption()
             case .sum, .count:
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
-                    message: "\(metricName) not directly supported for systolicBloodPressure in HealthKit",
-                    details: "\(metricName) not directly supported for systolicBloodPressure in HealthKit."
+                throw HealthConnectorError.invalidArgument(
+                    message:
+                        "\(metricName) not directly supported for systolicBloodPressure in HealthKit",
+                    context: [
+                        "details":
+                            "\(metricName) not directly supported for systolicBloodPressure in HealthKit."
+                    ]
                 )
             }
         case .diastolicBloodPressure:
-            // Only AVG, MIN, MAX are supported for diastolic blood pressure (matches Android Health Connect behavior)
             switch self {
             case .avg, .min, .max:
-                break // These are supported
+                try toHKStatisticsOption()
             case .sum, .count:
                 let metricName = String(describing: self)
-                throw HealthConnectorErrors.invalidArgument(
-                    message: "\(metricName) not directly supported for diastolicBloodPressure in HealthKit",
-                    details: "\(metricName) not directly supported for diastolicBloodPressure in HealthKit."
+                throw HealthConnectorError.invalidArgument(
+                    message:
+                        "\(metricName) not directly supported for diastolicBloodPressure in HealthKit",
+                    context: [
+                        "details":
+                            "\(metricName) not directly supported for diastolicBloodPressure in HealthKit."
+                    ]
                 )
             }
+        }
+    }
+
+    private func getNutrientStatisticsOptions(dataType: HealthDataTypeDto) throws
+        -> HKStatisticsOptions
+    {
+        switch self {
+        case .sum:
+            try toHKStatisticsOption()
+        case .avg, .min, .max, .count:
+            try throwUnsupportedAggregationError(dataType: dataType)
+        }
+    }
+
+    private func throwUnsupportedAggregationError(dataType: HealthDataTypeDto) throws
+        -> HKStatisticsOptions
+    {
+        let metricName = String(describing: self)
+        let dataTypeName = String(describing: dataType)
+        throw HealthConnectorError.invalidArgument(
+            message: "\(metricName) not directly supported for \(dataTypeName) in HealthKit",
+            context: [
+                "details": "\(metricName) not directly supported for \(dataTypeName) in HealthKit."
+            ]
+        )
+    }
+
+    /**
+     * Maps the aggregation metric directly to HealthKit statistics options.
+     *
+     * - Returns: The corresponding `HKStatisticsOptions`.
+     */
+    func toHKStatisticsOption() throws -> HKStatisticsOptions {
+        switch self {
+        case .sum:
+            return .cumulativeSum
+        case .avg:
+            return .discreteAverage
+        case .min:
+            return .discreteMin
+        case .max:
+            return .discreteMax
+        case .count:
+            let metricName = String(describing: self)
+            throw HealthConnectorError.unsupportedOperation(
+                message: "\(metricName) not directly supported in HealthKit",
+                context: nil
+            )
         }
     }
 }

@@ -1,9 +1,7 @@
 import Foundation
 import HealthKit
 
-/**
- * Extension to convert `HealthDataPermissionDto` to HealthKit types.
- */
+/// Extension to convert `HealthDataPermissionDto` to HealthKit types.
 extension HealthDataPermissionDto {
     /**
      * Converts this permission DTO to a list of HealthKit `HKObjectType`.
@@ -121,47 +119,7 @@ extension HealthDataPermissionDto {
         case .nutrition:
             // Nutrition is a correlation type (HKCorrelation.food) but HealthKit requires
             // requesting permissions for the individual quantity types, not the correlation type itself
-            try [
-                // Energy & Other
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryEnergyConsumed),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryCaffeine),
-                // Macronutrients
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryProtein),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryCarbohydrates),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatTotal),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatSaturated),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatMonounsaturated),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatPolyunsaturated),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryCholesterol),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryFiber),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietarySugar),
-                // Vitamins
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminA),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminB6),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminB12),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminC),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminD),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminE),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminK),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryThiamin),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryRiboflavin),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryNiacin),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryFolate),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryBiotin),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryPantothenicAcid),
-                // Minerals
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryCalcium),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryIron),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryMagnesium),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryManganese),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryPhosphorus),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryPotassium),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietarySelenium),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietarySodium),
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryZinc),
-                // Water
-                HKQuantityType.safeQuantityType(forIdentifier: .dietaryWater),
-            ]
+            try getNutritionTypes()
         case .bloodPressure:
             // Blood pressure is a correlation type (HKCorrelation.bloodPressure) but HealthKit requires
             // requesting permissions for the individual quantity types, not the correlation type itself
@@ -182,5 +140,49 @@ extension HealthDataPermissionDto {
         case .bloodGlucose:
             try [HKQuantityType.safeQuantityType(forIdentifier: .bloodGlucose)]
         }
+    }
+
+    private func getNutritionTypes() throws -> [HKObjectType] {
+        try [
+            // Energy & Other
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryEnergyConsumed),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryCaffeine),
+            // Macronutrients
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryProtein),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryCarbohydrates),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatTotal),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatSaturated),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatMonounsaturated),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryFatPolyunsaturated),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryCholesterol),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryFiber),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietarySugar),
+            // Vitamins
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminA),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminB6),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminB12),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminC),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminD),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminE),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryVitaminK),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryThiamin),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryRiboflavin),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryNiacin),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryFolate),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryBiotin),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryPantothenicAcid),
+            // Minerals
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryCalcium),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryIron),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryMagnesium),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryManganese),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryPhosphorus),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryPotassium),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietarySelenium),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietarySodium),
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryZinc),
+            // Water
+            HKQuantityType.safeQuantityType(forIdentifier: .dietaryWater),
+        ]
     }
 }

@@ -61,4 +61,9 @@ struct HealthConnectorInfoPListService: Taggable {
         }
         return !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
+
+    /// Validates usage descriptions (instance method adapter for client)
+    func checkUsageDescriptions() {
+        Self.validate()
+    }
 }

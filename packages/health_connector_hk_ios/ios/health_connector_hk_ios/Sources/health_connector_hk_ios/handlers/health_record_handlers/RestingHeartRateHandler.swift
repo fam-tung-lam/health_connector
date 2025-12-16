@@ -1,0 +1,113 @@
+import Foundation
+import HealthKit
+
+/// Handler for resting heart rate data (instant quantity type)
+final class RestingHeartRateHandler:
+    HealthKitTypeHandler,
+    HealthKitTypeMapper,
+    ReadableHealthKitTypeHandler,
+    WritableHealthKitTypeHandler,
+    UpdatableHealthKitTypeHandler,
+    DeletableHealthKitTypeHandler,
+    AggregatableHealthKitTypeHandler
+{
+    let healthStore: HKHealthStore
+
+    init(healthStore: HKHealthStore) {
+        self.healthStore = healthStore
+    }
+
+    static var supportedType: HealthDataTypeDto {
+        .restingHeartRate
+    }
+
+    static var category: HealthKitDataCategory {
+        .quantitySample
+    }
+
+    typealias RecordDto = RestingHeartRateRecordDto
+    typealias SampleType = HKQuantitySample
+
+    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
+        guard let quantitySample = sample as? HKQuantitySample else {
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected HKQuantitySample, got \(type(of: sample))"
+            )
+        }
+        guard let dto = quantitySample.toRestingHeartRateRecordDto() else {
+            throw HealthConnectorError.invalidArgument(
+                message: "Failed to convert HKQuantitySample to RestingHeartRateRecordDto"
+            )
+        }
+        return dto
+    }
+
+    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
+        guard let restingHeartRateDto = dto as? RestingHeartRateRecordDto else {
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected RestingHeartRateRecordDto, got \(type(of: dto))"
+            )
+        }
+        return try restingHeartRateDto.toHealthKit()
+    }
+
+    static func extractTimestamp(_ dto: HealthRecordDto) throws -> Int64 {
+        guard let restingHeartRateDto = dto as? RestingHeartRateRecordDto else {
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected RestingHeartRateRecordDto, got \(type(of: dto))"
+            )
+        }
+        return restingHeartRateDto.time
+    }
+
+    func getSampleType() throws -> HKSampleType {
+        try HKQuantityType.safeQuantityType(forIdentifier: .restingHeartRate)
+    }
+
+    func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
+        switch metric {
+        case .avg:
+            return .discreteAverage
+        case .min:
+            return .discreteMin
+        case .max:
+            return .discreteMax
+        case .sum, .count:
+            throw HealthConnectorError.invalidArgument(
+                message:
+                "Aggregation metric '\(metric)' not supported for resting heart rate (discrete data)",
+                context: ["details": "Supported metrics: avg, min, max"]
+            )
+        }
+    }
+
+    func extractAggregateValue(
+        from statistics: HKStatistics,
+        metric: AggregationMetricDto
+    ) throws -> MeasurementUnitDto {
+        let quantity: HKQuantity? =
+            switch metric {
+            case .avg:
+                statistics.averageQuantity()
+            case .min:
+                statistics.minimumQuantity()
+            case .max:
+                statistics.maximumQuantity()
+            case .sum, .count:
+                throw HealthConnectorError.invalidArgument(
+                    message: "Aggregation metric '\(metric)' not supported for resting heart rate",
+                    context: ["details": "Supported metrics: avg, min, max"]
+                )
+            }
+
+        guard let quantity else {
+            throw HealthConnectorError.invalidArgument(
+                message: "No aggregation result for metric '\(metric)'",
+                context: ["details": "Statistics returned nil for restingHeartRate"]
+            )
+        }
+
+        let beatsPerMinute = quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
+        return NumericDto(unit: .numeric, value: beatsPerMinute)
+    }
+}
