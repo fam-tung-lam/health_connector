@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for active calories burned data (interval quantity type)
 final class ActiveCaloriesBurnedHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -20,35 +19,6 @@ final class ActiveCaloriesBurnedHandler:
 
     static var supportedType: HealthDataTypeDto {
         .activeCaloriesBurned
-    }
-
-    typealias RecordDto = ActiveCaloriesBurnedRecordDto
-
-    typealias SampleType = HKQuantitySample
-
-    /// Convert HealthKit sample to DTO
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toActiveCaloriesBurnedRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to ActiveCaloriesBurnedRecordDto"
-            )
-        }
-        return dto
-    }
-
-    /// Convert DTO to HealthKit sample
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let caloriesDto = dto as? ActiveCaloriesBurnedRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected ActiveCaloriesBurnedRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try caloriesDto.toHealthKit()
     }
 
     /// Get the HKSampleType for queries

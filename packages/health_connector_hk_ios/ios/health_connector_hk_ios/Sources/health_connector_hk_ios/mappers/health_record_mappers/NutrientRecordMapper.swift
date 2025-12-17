@@ -51,8 +51,9 @@ extension HKQuantitySample {
     /// nutrient type provided.
     ///
     /// - Parameter nutrientType: The type of nutrient to convert to
-    /// - Returns: The appropriate nutrient RecordDto, or nil if type mismatch
-    func toNutrientDto(for nutrientType: HealthDataTypeDto) -> HealthRecordDto? {
+    /// - Returns: The appropriate nutrient RecordDto
+    /// - Throws: `HealthConnectorError.invalidArgument` if type mismatch
+    func toNutrientDto(for nutrientType: HealthDataTypeDto) throws -> HealthRecordDto {
         let metadataDict = metadata ?? [:]
         let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
         let foodName = metadataDict.extractFoodName()
@@ -69,7 +70,14 @@ extension HKQuantitySample {
         case .energyNutrient:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryEnergyConsumed.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary energy consumed quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryEnergyConsumed.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return EnergyNutrientRecordDto(
                 id: id,
@@ -84,7 +92,14 @@ extension HKQuantitySample {
         case .caffeine:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryCaffeine.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary caffeine quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryCaffeine.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return CaffeineNutrientRecordDto(
                 id: id,
@@ -98,7 +113,14 @@ extension HKQuantitySample {
 
         case .protein:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryProtein.rawValue else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary protein quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryProtein.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return ProteinNutrientRecordDto(
                 id: id,
@@ -113,7 +135,14 @@ extension HKQuantitySample {
         case .totalCarbohydrate:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryCarbohydrates.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary carbohydrates quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryCarbohydrates.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return TotalCarbohydrateNutrientRecordDto(
                 id: id,
@@ -128,7 +157,14 @@ extension HKQuantitySample {
         case .totalFat:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryFatTotal.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary fat total quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryFatTotal.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return TotalFatNutrientRecordDto(
                 id: id,
@@ -143,7 +179,14 @@ extension HKQuantitySample {
         case .saturatedFat:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryFatSaturated.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary fat saturated quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryFatSaturated.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return SaturatedFatNutrientRecordDto(
                 id: id,
@@ -160,7 +203,14 @@ extension HKQuantitySample {
                 quantityType.identifier
                 == HKQuantityTypeIdentifier.dietaryFatMonounsaturated.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary fat monounsaturated quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryFatMonounsaturated.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return MonounsaturatedFatNutrientRecordDto(
                 id: id,
@@ -177,7 +227,14 @@ extension HKQuantitySample {
                 quantityType.identifier
                 == HKQuantityTypeIdentifier.dietaryFatPolyunsaturated.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary fat polyunsaturated quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryFatPolyunsaturated.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return PolyunsaturatedFatNutrientRecordDto(
                 id: id,
@@ -192,7 +249,14 @@ extension HKQuantitySample {
         case .cholesterol:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryCholesterol.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary cholesterol quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryCholesterol.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return CholesterolNutrientRecordDto(
                 id: id,
@@ -206,7 +270,14 @@ extension HKQuantitySample {
 
         case .dietaryFiber:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryFiber.rawValue else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary fiber quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryFiber.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return DietaryFiberNutrientRecordDto(
                 id: id,
@@ -220,7 +291,14 @@ extension HKQuantitySample {
 
         case .sugar:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietarySugar.rawValue else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary sugar quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietarySugar.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return SugarNutrientRecordDto(
                 id: id,
@@ -235,7 +313,14 @@ extension HKQuantitySample {
         case .vitaminA:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminA.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary vitamin A quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryVitaminA.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return VitaminANutrientRecordDto(
                 id: id,
@@ -250,7 +335,14 @@ extension HKQuantitySample {
         case .vitaminB6:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminB6.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary vitamin B6 quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryVitaminB6.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return VitaminB6NutrientRecordDto(
                 id: id,
@@ -265,7 +357,14 @@ extension HKQuantitySample {
         case .vitaminB12:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminB12.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary vitamin B12 quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryVitaminB12.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return VitaminB12NutrientRecordDto(
                 id: id,
@@ -280,7 +379,14 @@ extension HKQuantitySample {
         case .vitaminC:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminC.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary vitamin C quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryVitaminC.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return VitaminCNutrientRecordDto(
                 id: id,
@@ -295,7 +401,14 @@ extension HKQuantitySample {
         case .vitaminD:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminD.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary vitamin D quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryVitaminD.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return VitaminDNutrientRecordDto(
                 id: id,
@@ -310,7 +423,14 @@ extension HKQuantitySample {
         case .vitaminE:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminE.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary vitamin E quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryVitaminE.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return VitaminENutrientRecordDto(
                 id: id,
@@ -325,7 +445,14 @@ extension HKQuantitySample {
         case .vitaminK:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryVitaminK.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary vitamin K quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryVitaminK.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return VitaminKNutrientRecordDto(
                 id: id,
@@ -339,7 +466,14 @@ extension HKQuantitySample {
 
         case .thiamin:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryThiamin.rawValue else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary thiamin quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryThiamin.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return ThiaminNutrientRecordDto(
                 id: id,
@@ -354,7 +488,14 @@ extension HKQuantitySample {
         case .riboflavin:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryRiboflavin.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary riboflavin quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryRiboflavin.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return RiboflavinNutrientRecordDto(
                 id: id,
@@ -368,7 +509,14 @@ extension HKQuantitySample {
 
         case .niacin:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryNiacin.rawValue else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary niacin quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryNiacin.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return NiacinNutrientRecordDto(
                 id: id,
@@ -382,7 +530,14 @@ extension HKQuantitySample {
 
         case .folate:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryFolate.rawValue else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary folate quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryFolate.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return FolateNutrientRecordDto(
                 id: id,
@@ -396,7 +551,14 @@ extension HKQuantitySample {
 
         case .biotin:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryBiotin.rawValue else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary biotin quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryBiotin.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return BiotinNutrientRecordDto(
                 id: id,
@@ -412,7 +574,14 @@ extension HKQuantitySample {
             guard
                 quantityType.identifier == HKQuantityTypeIdentifier.dietaryPantothenicAcid.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary pantothenic acid quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryPantothenicAcid.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return PantothenicAcidNutrientRecordDto(
                 id: id,
@@ -426,7 +595,14 @@ extension HKQuantitySample {
 
         case .calcium:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryCalcium.rawValue else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary calcium quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryCalcium.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return CalciumNutrientRecordDto(
                 id: id,
@@ -440,7 +616,14 @@ extension HKQuantitySample {
 
         case .iron:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryIron.rawValue else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary iron quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryIron.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return IronNutrientRecordDto(
                 id: id,
@@ -455,7 +638,14 @@ extension HKQuantitySample {
         case .magnesium:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryMagnesium.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary magnesium quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryMagnesium.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return MagnesiumNutrientRecordDto(
                 id: id,
@@ -470,7 +660,14 @@ extension HKQuantitySample {
         case .manganese:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryManganese.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary manganese quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryManganese.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return ManganeseNutrientRecordDto(
                 id: id,
@@ -485,7 +682,14 @@ extension HKQuantitySample {
         case .phosphorus:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryPhosphorus.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary phosphorus quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryPhosphorus.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return PhosphorusNutrientRecordDto(
                 id: id,
@@ -500,7 +704,14 @@ extension HKQuantitySample {
         case .potassium:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryPotassium.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary potassium quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryPotassium.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return PotassiumNutrientRecordDto(
                 id: id,
@@ -515,7 +726,14 @@ extension HKQuantitySample {
         case .selenium:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietarySelenium.rawValue
             else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary selenium quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietarySelenium.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return SeleniumNutrientRecordDto(
                 id: id,
@@ -529,7 +747,14 @@ extension HKQuantitySample {
 
         case .sodium:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietarySodium.rawValue else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary sodium quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietarySodium.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return SodiumNutrientRecordDto(
                 id: id,
@@ -543,7 +768,14 @@ extension HKQuantitySample {
 
         case .zinc:
             guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryZinc.rawValue else {
-                return nil
+                throw HealthConnectorError.invalidArgument(
+                    message: "Expected dietary zinc quantity type, got \(quantityType.identifier)",
+                    context: [
+                        "expected": HKQuantityTypeIdentifier.dietaryZinc.rawValue,
+                        "actual": quantityType.identifier,
+                        "nutrientType": nutrientType.rawValue,
+                    ]
+                )
             }
             return ZincNutrientRecordDto(
                 id: id,
@@ -556,7 +788,13 @@ extension HKQuantitySample {
             )
 
         default:
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Unsupported nutrient type for HKQuantitySample",
+                context: [
+                    "nutrientType": nutrientType.rawValue,
+                    "quantityType": quantityType.identifier,
+                ]
+            )
         }
     }
 }

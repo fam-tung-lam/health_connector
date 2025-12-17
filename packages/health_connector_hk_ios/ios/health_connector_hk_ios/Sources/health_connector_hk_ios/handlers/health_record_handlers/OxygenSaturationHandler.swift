@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for oxygen saturation data (instant quantity type)
 final class OxygenSaturationHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -19,32 +18,6 @@ final class OxygenSaturationHandler:
 
     static var supportedType: HealthDataTypeDto {
         .oxygenSaturation
-    }
-
-    typealias RecordDto = OxygenSaturationRecordDto
-    typealias SampleType = HKQuantitySample
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toOxygenSaturationRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to OxygenSaturationRecordDto"
-            )
-        }
-        return dto
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let oxygenSaturationDto = dto as? OxygenSaturationRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected OxygenSaturationRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try oxygenSaturationDto.toHealthKit()
     }
 
     func getSampleType() throws -> HKSampleType {

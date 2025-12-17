@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for floors climbed data (interval quantity type)
 final class FloorsClimbedHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -20,34 +19,6 @@ final class FloorsClimbedHandler:
 
     static var supportedType: HealthDataTypeDto {
         .floorsClimbed
-    }
-
-    typealias RecordDto = FloorsClimbedRecordDto
-    typealias SampleType = HKQuantitySample
-
-    /// Convert HealthKit sample to DTO
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toFloorsClimbedRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to FloorsClimbedRecordDto"
-            )
-        }
-        return dto
-    }
-
-    /// Convert DTO to HealthKit sample
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let floorsDto = dto as? FloorsClimbedRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected FloorsClimbedRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try floorsDto.toHealthKit()
     }
 
     /// Get the HKSampleType for queries

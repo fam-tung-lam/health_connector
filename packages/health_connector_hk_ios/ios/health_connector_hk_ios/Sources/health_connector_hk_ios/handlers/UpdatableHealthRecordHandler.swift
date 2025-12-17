@@ -13,14 +13,10 @@ import HealthKit
 ///
 /// Handlers automatically get this capability by conforming to both
 /// ReadableHealthRecordHandler and WritableHealthRecordHandler.
-protocol UpdatableHealthRecordHandler: HealthRecordHandler, MappableHealthRecordHandler,
-    ReadableHealthRecordHandler, WritableHealthRecordHandler
-{
+protocol UpdatableHealthRecordHandler: HealthRecordHandler, ReadableHealthRecordHandler, WritableHealthRecordHandler {
 }
 
-extension UpdatableHealthRecordHandler
-    where Self: ReadableHealthRecordHandler & WritableHealthRecordHandler & MappableHealthRecordHandler
-{
+extension UpdatableHealthRecordHandler where Self: ReadableHealthRecordHandler & WritableHealthRecordHandler {
     /// Updates a record by deleting the old version and creating a new one
     ///
     /// - Parameters:
@@ -37,13 +33,13 @@ extension UpdatableHealthRecordHandler
 
             // Can call readRecord because of ReadableHealthRecordHandler constraint
             let existingDto = try await readRecord(id: idDto)
-            let existingSample = try Self.mapToHealthKit(existingDto)
+            let existingSample = try existingDto.toHealthKit()
 
             // Delete the old record
             try await self.healthStore.delete(existingSample)
 
             // Write the new record
-            let newSample = try Self.mapToHealthKit(dto)
+            let newSample = try dto.toHealthKit()
             try await self.healthStore.save(newSample)
         }
     }

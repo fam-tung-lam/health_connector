@@ -11,10 +11,45 @@ private enum iOS16SleepStage: Int {
     case light = 5 // HealthKit calls this "core" sleep
 }
 
+extension HKCategorySample {
+    /// Convert HKCategorySample to SleepStageRecordDto
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a sleep stage sample.
+    func toSleepStageRecordDto() throws -> SleepStageRecordDto {
+        guard categoryType.identifier == HKCategoryTypeIdentifier.sleepAnalysis.rawValue else {
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected sleep analysis category type, got \(categoryType.identifier)",
+                context: [
+                    "expected": HKCategoryTypeIdentifier.sleepAnalysis.rawValue,
+                    "actual": categoryType.identifier,
+                ]
+            )
+        }
+
+        let stageType = HKCategoryValueSleepAnalysis(rawValue: value)?.toDto() ?? .unknown
+        let metadataDict = metadata ?? [:]
+        let startZoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        let endZoneOffset = metadataDict.extractTimeZoneOffset(for: endDate)
+
+        return SleepStageRecordDto(
+            id: uuid.uuidString,
+            startTime: Int64(startDate.timeIntervalSince1970 * 1000),
+            endTime: Int64(endDate.timeIntervalSince1970 * 1000),
+            metadata: metadataDict.toMetadataDto(
+                source: sourceRevision.source,
+                device: device
+            ),
+            stageType: stageType,
+            startZoneOffsetSeconds: startZoneOffset,
+            endZoneOffsetSeconds: endZoneOffset
+        )
+    }
+}
+
 /// Mappers for converting SleepStageRecordDto to HKCategorySample
 extension SleepStageRecordDto {
-    /// Convert SleepStageRecordDto to HKCategorySample
-    func toHealthKit() throws -> HKCategorySample {
+    /// Converts this DTO to a HealthKit sample.
+    func toHealthKit() throws -> HKSample {
         let categoryType = try HKCategoryType.make(from: HKCategoryTypeIdentifier.sleepAnalysis)
 
         let value = try HKCategoryValueSleepAnalysis.from(dto: stageType).rawValue

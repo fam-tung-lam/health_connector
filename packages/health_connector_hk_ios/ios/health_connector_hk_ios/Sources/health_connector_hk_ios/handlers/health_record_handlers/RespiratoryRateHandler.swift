@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for respiratory rate data (instant quantity type)
 final class RespiratoryRateHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -19,32 +18,6 @@ final class RespiratoryRateHandler:
 
     static var supportedType: HealthDataTypeDto {
         .respiratoryRate
-    }
-
-    typealias RecordDto = RespiratoryRateRecordDto
-    typealias SampleType = HKQuantitySample
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toRespiratoryRateRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to RespiratoryRateRecordDto"
-            )
-        }
-        return dto
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let respiratoryRateDto = dto as? RespiratoryRateRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected RespiratoryRateRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try respiratoryRateDto.toHealthKit()
     }
 
     func getSampleType() throws -> HKSampleType {

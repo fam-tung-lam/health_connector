@@ -2,10 +2,10 @@ import Foundation
 import HealthKit
 
 extension RestingHeartRateRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
+    /// Converts this DTO to a HealthKit sample.
     ///
     /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKQuantitySample {
+    func toHealthKit() throws -> HKSample {
         let type = try HKQuantityType.make(from: .restingHeartRate)
 
         let bpmUnit = HKUnit.count().unitDivided(by: .minute())
@@ -26,10 +26,16 @@ extension RestingHeartRateRecordDto {
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `RestingHeartRateRecordDto`.
     ///
-    /// Returns `nil` if this sample is not a resting heart rate sample.
-    func toRestingHeartRateRecordDto() -> RestingHeartRateRecordDto? {
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a resting heart rate sample.
+    func toRestingHeartRateRecordDto() throws -> RestingHeartRateRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.restingHeartRate.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected resting heart rate quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.restingHeartRate.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let metadataDict = metadata ?? [:]

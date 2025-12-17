@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for height data (instant quantity type)
 final class HeightHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -19,32 +18,6 @@ final class HeightHandler:
 
     static var supportedType: HealthDataTypeDto {
         .height
-    }
-
-    typealias RecordDto = HeightRecordDto
-    typealias SampleType = HKQuantitySample
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toHeightRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to HeightRecordDto"
-            )
-        }
-        return dto
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let heightDto = dto as? HeightRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HeightRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try heightDto.toHealthKit()
     }
 
     func getSampleType() throws -> HKSampleType {

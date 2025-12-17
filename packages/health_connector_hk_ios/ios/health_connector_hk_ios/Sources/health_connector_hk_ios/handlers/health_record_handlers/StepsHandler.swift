@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for step count data (interval quantity type)
 final class StepsHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -19,32 +18,6 @@ final class StepsHandler:
 
     static var supportedType: HealthDataTypeDto {
         .steps
-    }
-
-    typealias RecordDto = StepRecordDto
-    typealias SampleType = HKQuantitySample
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toStepRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to StepRecordDto"
-            )
-        }
-        return dto
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let stepDto = dto as? StepRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected StepRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try stepDto.toHealthKit()
     }
 
     func getSampleType() throws -> HKSampleType {

@@ -35,14 +35,7 @@ struct NutrientHandler {
             )
         }
 
-        guard let dto = quantitySample.toNutrientDto(for: nutrientType) else {
-            throw
-                HealthConnectorError
-                .invalidArgument(
-                    message:
-                    "Failed to convert HKQuantitySample to nutrient DTO for type \(nutrientType)"
-                )
-        }
+        let dto = try quantitySample.toNutrientDto(for: nutrientType)
         return dto
     }
 
@@ -107,7 +100,6 @@ struct NutrientHandler {
 
 final class EnergyNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -126,27 +118,8 @@ final class EnergyNutrientHandler:
         )
     }
 
-    typealias RecordDto = EnergyNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .energyNutrient
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .energyNutrient,
-            quantityTypeIdentifier: .dietaryEnergyConsumed
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .energyNutrient,
-            quantityTypeIdentifier: .dietaryEnergyConsumed
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -167,7 +140,6 @@ final class EnergyNutrientHandler:
 
 final class CaffeineNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -186,27 +158,8 @@ final class CaffeineNutrientHandler:
         )
     }
 
-    typealias RecordDto = CaffeineNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .caffeine
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .caffeine,
-            quantityTypeIdentifier: .dietaryCaffeine
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .caffeine,
-            quantityTypeIdentifier: .dietaryCaffeine
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -227,7 +180,6 @@ final class CaffeineNutrientHandler:
 
 final class ProteinNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -246,27 +198,8 @@ final class ProteinNutrientHandler:
         )
     }
 
-    typealias RecordDto = ProteinNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .protein
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .protein,
-            quantityTypeIdentifier: .dietaryProtein
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .protein,
-            quantityTypeIdentifier: .dietaryProtein
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -287,7 +220,6 @@ final class ProteinNutrientHandler:
 
 final class TotalCarbohydrateNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -306,27 +238,8 @@ final class TotalCarbohydrateNutrientHandler:
         )
     }
 
-    typealias RecordDto = TotalCarbohydrateNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .totalCarbohydrate
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .totalCarbohydrate,
-            quantityTypeIdentifier: .dietaryCarbohydrates
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .totalCarbohydrate,
-            quantityTypeIdentifier: .dietaryCarbohydrates
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -347,7 +260,6 @@ final class TotalCarbohydrateNutrientHandler:
 
 final class TotalFatNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -366,22 +278,7 @@ final class TotalFatNutrientHandler:
         )
     }
 
-    typealias RecordDto = TotalFatNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto { .totalFat }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample, nutrientType: .totalFat, quantityTypeIdentifier: .dietaryFatTotal
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto, nutrientType: .totalFat, quantityTypeIdentifier: .dietaryFatTotal
-        )
-    }
 
     func getSampleType() throws -> HKSampleType { try handler.getSampleType() }
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -397,7 +294,6 @@ final class TotalFatNutrientHandler:
 
 final class SaturatedFatNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -416,22 +312,7 @@ final class SaturatedFatNutrientHandler:
         )
     }
 
-    typealias RecordDto = SaturatedFatNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto { .saturatedFat }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample, nutrientType: .saturatedFat, quantityTypeIdentifier: .dietaryFatSaturated
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto, nutrientType: .saturatedFat, quantityTypeIdentifier: .dietaryFatSaturated
-        )
-    }
 
     func getSampleType() throws -> HKSampleType { try handler.getSampleType() }
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -447,7 +328,6 @@ final class SaturatedFatNutrientHandler:
 
 final class MonounsaturatedFatNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -466,24 +346,7 @@ final class MonounsaturatedFatNutrientHandler:
         )
     }
 
-    typealias RecordDto = MonounsaturatedFatNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto { .monounsaturatedFat }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample, nutrientType: .monounsaturatedFat,
-            quantityTypeIdentifier: .dietaryFatMonounsaturated
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto, nutrientType: .monounsaturatedFat,
-            quantityTypeIdentifier: .dietaryFatMonounsaturated
-        )
-    }
 
     func getSampleType() throws -> HKSampleType { try handler.getSampleType() }
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -499,7 +362,6 @@ final class MonounsaturatedFatNutrientHandler:
 
 final class PolyunsaturatedFatNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -518,24 +380,7 @@ final class PolyunsaturatedFatNutrientHandler:
         )
     }
 
-    typealias RecordDto = PolyunsaturatedFatNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto { .polyunsaturatedFat }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample, nutrientType: .polyunsaturatedFat,
-            quantityTypeIdentifier: .dietaryFatPolyunsaturated
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto, nutrientType: .polyunsaturatedFat,
-            quantityTypeIdentifier: .dietaryFatPolyunsaturated
-        )
-    }
 
     func getSampleType() throws -> HKSampleType { try handler.getSampleType() }
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -551,7 +396,6 @@ final class PolyunsaturatedFatNutrientHandler:
 
 final class CholesterolNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -570,27 +414,8 @@ final class CholesterolNutrientHandler:
         )
     }
 
-    typealias RecordDto = CholesterolNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .cholesterol
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .cholesterol,
-            quantityTypeIdentifier: .dietaryCholesterol
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .cholesterol,
-            quantityTypeIdentifier: .dietaryCholesterol
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -611,7 +436,6 @@ final class CholesterolNutrientHandler:
 
 final class DietaryFiberNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -630,27 +454,8 @@ final class DietaryFiberNutrientHandler:
         )
     }
 
-    typealias RecordDto = DietaryFiberNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .dietaryFiber
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .dietaryFiber,
-            quantityTypeIdentifier: .dietaryFiber
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .dietaryFiber,
-            quantityTypeIdentifier: .dietaryFiber
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -671,7 +476,6 @@ final class DietaryFiberNutrientHandler:
 
 final class SugarNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -690,27 +494,8 @@ final class SugarNutrientHandler:
         )
     }
 
-    typealias RecordDto = SugarNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .sugar
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .sugar,
-            quantityTypeIdentifier: .dietarySugar
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .sugar,
-            quantityTypeIdentifier: .dietarySugar
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -731,7 +516,6 @@ final class SugarNutrientHandler:
 
 final class VitaminANutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -750,27 +534,8 @@ final class VitaminANutrientHandler:
         )
     }
 
-    typealias RecordDto = VitaminANutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .vitaminA
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .vitaminA,
-            quantityTypeIdentifier: .dietaryVitaminA
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .vitaminA,
-            quantityTypeIdentifier: .dietaryVitaminA
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -791,7 +556,6 @@ final class VitaminANutrientHandler:
 
 final class VitaminB6NutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -810,27 +574,8 @@ final class VitaminB6NutrientHandler:
         )
     }
 
-    typealias RecordDto = VitaminB6NutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .vitaminB6
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .vitaminB6,
-            quantityTypeIdentifier: .dietaryVitaminB6
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .vitaminB6,
-            quantityTypeIdentifier: .dietaryVitaminB6
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -851,7 +596,6 @@ final class VitaminB6NutrientHandler:
 
 final class VitaminB12NutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -870,27 +614,8 @@ final class VitaminB12NutrientHandler:
         )
     }
 
-    typealias RecordDto = VitaminB12NutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .vitaminB12
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .vitaminB12,
-            quantityTypeIdentifier: .dietaryVitaminB12
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .vitaminB12,
-            quantityTypeIdentifier: .dietaryVitaminB12
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -911,7 +636,6 @@ final class VitaminB12NutrientHandler:
 
 final class VitaminCNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -930,27 +654,8 @@ final class VitaminCNutrientHandler:
         )
     }
 
-    typealias RecordDto = VitaminCNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .vitaminC
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .vitaminC,
-            quantityTypeIdentifier: .dietaryVitaminC
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .vitaminC,
-            quantityTypeIdentifier: .dietaryVitaminC
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -971,7 +676,6 @@ final class VitaminCNutrientHandler:
 
 final class VitaminDNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -990,27 +694,8 @@ final class VitaminDNutrientHandler:
         )
     }
 
-    typealias RecordDto = VitaminDNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .vitaminD
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .vitaminD,
-            quantityTypeIdentifier: .dietaryVitaminD
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .vitaminD,
-            quantityTypeIdentifier: .dietaryVitaminD
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1031,7 +716,6 @@ final class VitaminDNutrientHandler:
 
 final class VitaminENutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1050,27 +734,8 @@ final class VitaminENutrientHandler:
         )
     }
 
-    typealias RecordDto = VitaminENutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .vitaminE
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .vitaminE,
-            quantityTypeIdentifier: .dietaryVitaminE
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .vitaminE,
-            quantityTypeIdentifier: .dietaryVitaminE
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1091,7 +756,6 @@ final class VitaminENutrientHandler:
 
 final class VitaminKNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1110,27 +774,8 @@ final class VitaminKNutrientHandler:
         )
     }
 
-    typealias RecordDto = VitaminKNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .vitaminK
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .vitaminK,
-            quantityTypeIdentifier: .dietaryVitaminK
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .vitaminK,
-            quantityTypeIdentifier: .dietaryVitaminK
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1151,7 +796,6 @@ final class VitaminKNutrientHandler:
 
 final class ThiaminNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1170,27 +814,8 @@ final class ThiaminNutrientHandler:
         )
     }
 
-    typealias RecordDto = ThiaminNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .thiamin
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .thiamin,
-            quantityTypeIdentifier: .dietaryThiamin
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .thiamin,
-            quantityTypeIdentifier: .dietaryThiamin
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1211,7 +836,6 @@ final class ThiaminNutrientHandler:
 
 final class RiboflavinNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1230,27 +854,8 @@ final class RiboflavinNutrientHandler:
         )
     }
 
-    typealias RecordDto = RiboflavinNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .riboflavin
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .riboflavin,
-            quantityTypeIdentifier: .dietaryRiboflavin
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .riboflavin,
-            quantityTypeIdentifier: .dietaryRiboflavin
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1271,7 +876,6 @@ final class RiboflavinNutrientHandler:
 
 final class NiacinNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1290,27 +894,8 @@ final class NiacinNutrientHandler:
         )
     }
 
-    typealias RecordDto = NiacinNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .niacin
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .niacin,
-            quantityTypeIdentifier: .dietaryNiacin
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .niacin,
-            quantityTypeIdentifier: .dietaryNiacin
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1331,7 +916,6 @@ final class NiacinNutrientHandler:
 
 final class FolateNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1350,27 +934,8 @@ final class FolateNutrientHandler:
         )
     }
 
-    typealias RecordDto = FolateNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .folate
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .folate,
-            quantityTypeIdentifier: .dietaryFolate
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .folate,
-            quantityTypeIdentifier: .dietaryFolate
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1391,7 +956,6 @@ final class FolateNutrientHandler:
 
 final class BiotinNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1410,27 +974,8 @@ final class BiotinNutrientHandler:
         )
     }
 
-    typealias RecordDto = BiotinNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .biotin
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .biotin,
-            quantityTypeIdentifier: .dietaryBiotin
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .biotin,
-            quantityTypeIdentifier: .dietaryBiotin
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1451,7 +996,6 @@ final class BiotinNutrientHandler:
 
 final class PantothenicAcidNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1470,27 +1014,8 @@ final class PantothenicAcidNutrientHandler:
         )
     }
 
-    typealias RecordDto = PantothenicAcidNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .pantothenicAcid
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .pantothenicAcid,
-            quantityTypeIdentifier: .dietaryPantothenicAcid
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .pantothenicAcid,
-            quantityTypeIdentifier: .dietaryPantothenicAcid
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1511,7 +1036,6 @@ final class PantothenicAcidNutrientHandler:
 
 final class CalciumNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1530,27 +1054,8 @@ final class CalciumNutrientHandler:
         )
     }
 
-    typealias RecordDto = CalciumNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .calcium
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .calcium,
-            quantityTypeIdentifier: .dietaryCalcium
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .calcium,
-            quantityTypeIdentifier: .dietaryCalcium
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1571,7 +1076,6 @@ final class CalciumNutrientHandler:
 
 final class IronNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1590,27 +1094,8 @@ final class IronNutrientHandler:
         )
     }
 
-    typealias RecordDto = IronNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .iron
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .iron,
-            quantityTypeIdentifier: .dietaryIron
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .iron,
-            quantityTypeIdentifier: .dietaryIron
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1631,7 +1116,6 @@ final class IronNutrientHandler:
 
 final class MagnesiumNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1650,27 +1134,8 @@ final class MagnesiumNutrientHandler:
         )
     }
 
-    typealias RecordDto = MagnesiumNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .magnesium
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .magnesium,
-            quantityTypeIdentifier: .dietaryMagnesium
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .magnesium,
-            quantityTypeIdentifier: .dietaryMagnesium
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1691,7 +1156,6 @@ final class MagnesiumNutrientHandler:
 
 final class ManganeseNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1710,27 +1174,8 @@ final class ManganeseNutrientHandler:
         )
     }
 
-    typealias RecordDto = ManganeseNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .manganese
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .manganese,
-            quantityTypeIdentifier: .dietaryManganese
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .manganese,
-            quantityTypeIdentifier: .dietaryManganese
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1751,7 +1196,6 @@ final class ManganeseNutrientHandler:
 
 final class PhosphorusNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1770,27 +1214,8 @@ final class PhosphorusNutrientHandler:
         )
     }
 
-    typealias RecordDto = PhosphorusNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .phosphorus
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .phosphorus,
-            quantityTypeIdentifier: .dietaryPhosphorus
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .phosphorus,
-            quantityTypeIdentifier: .dietaryPhosphorus
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1811,7 +1236,6 @@ final class PhosphorusNutrientHandler:
 
 final class PotassiumNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1830,27 +1254,8 @@ final class PotassiumNutrientHandler:
         )
     }
 
-    typealias RecordDto = PotassiumNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .potassium
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .potassium,
-            quantityTypeIdentifier: .dietaryPotassium
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .potassium,
-            quantityTypeIdentifier: .dietaryPotassium
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1871,7 +1276,6 @@ final class PotassiumNutrientHandler:
 
 final class SeleniumNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1890,27 +1294,8 @@ final class SeleniumNutrientHandler:
         )
     }
 
-    typealias RecordDto = SeleniumNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .selenium
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .selenium,
-            quantityTypeIdentifier: .dietarySelenium
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .selenium,
-            quantityTypeIdentifier: .dietarySelenium
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1931,7 +1316,6 @@ final class SeleniumNutrientHandler:
 
 final class SodiumNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -1950,27 +1334,8 @@ final class SodiumNutrientHandler:
         )
     }
 
-    typealias RecordDto = SodiumNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .sodium
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .sodium,
-            quantityTypeIdentifier: .dietarySodium
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .sodium,
-            quantityTypeIdentifier: .dietarySodium
-        )
     }
 
     func getSampleType() throws -> HKSampleType {
@@ -1991,7 +1356,6 @@ final class SodiumNutrientHandler:
 
 final class ZincNutrientHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -2010,27 +1374,8 @@ final class ZincNutrientHandler:
         )
     }
 
-    typealias RecordDto = ZincNutrientRecordDto
-    typealias SampleType = HKQuantitySample
-
     static var supportedType: HealthDataTypeDto {
         .zinc
-    }
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        try NutrientHandler.toDTO(
-            sample,
-            nutrientType: .zinc,
-            quantityTypeIdentifier: .dietaryZinc
-        )
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        try NutrientHandler.toHealthKit(
-            dto,
-            nutrientType: .zinc,
-            quantityTypeIdentifier: .dietaryZinc
-        )
     }
 
     func getSampleType() throws -> HKSampleType {

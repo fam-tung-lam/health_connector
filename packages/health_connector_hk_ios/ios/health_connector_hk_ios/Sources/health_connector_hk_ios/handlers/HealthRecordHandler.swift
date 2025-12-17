@@ -1,21 +1,6 @@
 import Foundation
 import HealthKit
 
-/// Protocol that associates handlers with their specific DTO and HKSample types.
-protocol MappableHealthRecordHandler {
-    /// The specific DTO type this handler works with
-    associatedtype RecordDto: HealthRecordDto
-
-    /// The specific HKSample subclass this handler works with
-    associatedtype SampleType: HKSample
-
-    /// Convert HealthKit sample to DTO
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto
-
-    /// Convert DTO to HealthKit sample
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample
-}
-
 /// Base protocol for all health data type handlers.
 ///
 /// This protocol defines the minimal interface that all handlers must implement.

@@ -2,8 +2,8 @@ import Foundation
 import HealthKit
 
 extension RespiratoryRateRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
-    func toHealthKit() throws -> HKQuantitySample {
+    /// Converts this DTO to a HealthKit sample.
+    func toHealthKit() throws -> HKSample {
         let type = try HKQuantityType.make(from: .respiratoryRate)
 
         let unit = HKUnit.count().unitDivided(by: .minute())
@@ -23,9 +23,17 @@ extension RespiratoryRateRecordDto {
 
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `RespiratoryRateRecordDto`.
-    func toRespiratoryRateRecordDto() -> RespiratoryRateRecordDto? {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a respiratory rate sample.
+    func toRespiratoryRateRecordDto() throws -> RespiratoryRateRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.respiratoryRate.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected respiratory rate quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.respiratoryRate.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let metadataDict = metadata ?? [:]

@@ -22,9 +22,17 @@ extension BodyTemperatureRecordDto {
 
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `BodyTemperatureRecordDto`.
-    func toBodyTemperatureRecordDto() -> BodyTemperatureRecordDto? {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a body temperature sample.
+    func toBodyTemperatureRecordDto() throws -> BodyTemperatureRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bodyTemperature.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected body temperature quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.bodyTemperature.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let unit = HKUnit.degreeCelsius()

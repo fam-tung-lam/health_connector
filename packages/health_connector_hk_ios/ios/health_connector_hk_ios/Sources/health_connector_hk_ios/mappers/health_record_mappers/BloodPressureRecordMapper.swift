@@ -3,10 +3,19 @@ import HealthKit
 
 extension HKCorrelation {
     /// Converts a blood pressure correlation to a `BloodPressureRecordDto`.
-    func toBloodPressureRecordDto() -> BloodPressureRecordDto? {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this correlation is not a blood pressure correlation or
+    /// missing required values.
+    func toBloodPressureRecordDto() throws -> BloodPressureRecordDto {
         guard correlationType.identifier == HKCorrelationTypeIdentifier.bloodPressure.rawValue
         else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected blood pressure correlation type, got \(correlationType.identifier)",
+                context: [
+                    "expected": HKCorrelationTypeIdentifier.bloodPressure.rawValue,
+                    "actual": correlationType.identifier,
+                ]
+            )
         }
 
         var systolicValue: Double?
@@ -29,7 +38,13 @@ extension HKCorrelation {
 
         // Validate that both values are present
         guard let systolic = systolicValue, let diastolic = diastolicValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Blood pressure correlation missing required values",
+                context: [
+                    "hasSystolic": systolicValue != nil,
+                    "hasDiastolic": diastolicValue != nil,
+                ]
+            )
         }
 
         let metadataDict = metadata ?? [:]
@@ -53,7 +68,7 @@ extension HKCorrelation {
 
 extension BloodPressureRecordDto {
     /// Converts this DTO to a HealthKit blood pressure correlation.
-    func toHealthKitCorrelation() throws -> HKCorrelation {
+    func toHealthKit() throws -> HKCorrelation {
         let systolicType = try HKQuantityType.make(from: .bloodPressureSystolic)
         let diastolicType = try HKQuantityType.make(from: .bloodPressureDiastolic)
         let correlationType = try HKCorrelationType.make(from: .bloodPressure)
@@ -95,10 +110,18 @@ extension BloodPressureRecordDto {
 
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `SystolicBloodPressureRecordDto`.
-    func toSystolicBloodPressureRecordDto() -> SystolicBloodPressureRecordDto? {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a systolic blood pressure sample.
+    func toSystolicBloodPressureRecordDto() throws -> SystolicBloodPressureRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bloodPressureSystolic.rawValue
         else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected systolic blood pressure quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.bloodPressureSystolic.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let mmHgUnit = HKUnit.millimeterOfMercury()
@@ -120,10 +143,18 @@ extension HKQuantitySample {
     }
 
     /// Converts this HealthKit sample to a `DiastolicBloodPressureRecordDto`.
-    func toDiastolicBloodPressureRecordDto() -> DiastolicBloodPressureRecordDto? {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a diastolic blood pressure sample.
+    func toDiastolicBloodPressureRecordDto() throws -> DiastolicBloodPressureRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bloodPressureDiastolic.rawValue
         else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected diastolic blood pressure quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.bloodPressureDiastolic.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let mmHgUnit = HKUnit.millimeterOfMercury()

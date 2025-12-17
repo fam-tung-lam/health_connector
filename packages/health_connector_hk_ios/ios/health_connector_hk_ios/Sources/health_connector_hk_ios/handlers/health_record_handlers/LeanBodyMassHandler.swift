@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for lean body mass data (instant quantity type)
 final class LeanBodyMassHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -19,32 +18,6 @@ final class LeanBodyMassHandler:
 
     static var supportedType: HealthDataTypeDto {
         .leanBodyMass
-    }
-
-    typealias RecordDto = LeanBodyMassRecordDto
-    typealias SampleType = HKQuantitySample
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toLeanBodyMassRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to LeanBodyMassRecordDto"
-            )
-        }
-        return dto
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let leanMassDto = dto as? LeanBodyMassRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected LeanBodyMassRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try leanMassDto.toHealthKit()
     }
 
     func getSampleType() throws -> HKSampleType {

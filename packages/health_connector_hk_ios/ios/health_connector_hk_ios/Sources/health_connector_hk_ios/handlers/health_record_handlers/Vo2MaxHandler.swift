@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for VO2 Max data (instant quantity type)
 final class Vo2MaxHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -19,32 +18,6 @@ final class Vo2MaxHandler:
 
     static var supportedType: HealthDataTypeDto {
         .vo2Max
-    }
-
-    typealias RecordDto = Vo2MaxRecordDto
-    typealias SampleType = HKQuantitySample
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toVo2MaxRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to Vo2MaxRecordDto"
-            )
-        }
-        return dto
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let vo2MaxDto = dto as? Vo2MaxRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected Vo2MaxRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try vo2MaxDto.toHealthKit()
     }
 
     func getSampleType() throws -> HKSampleType {

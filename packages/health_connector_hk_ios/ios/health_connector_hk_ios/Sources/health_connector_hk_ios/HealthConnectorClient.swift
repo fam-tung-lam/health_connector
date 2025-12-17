@@ -100,8 +100,8 @@ final class HealthConnectorClient: Taggable {
         )
 
         let isAvailable = HKHealthStore.isHealthDataAvailable()
+        let statusDto = isAvailable ? HealthPlatformStatusDto.available : HealthPlatformStatusDto.notAvailable
 
-        let statusDto = HealthPlatformStatusDto.fromBool(isAvailable)
         HealthConnectorLogger.info(
             tag: tag,
             operation: "getHealthPlatformStatus",
@@ -443,14 +443,11 @@ final class HealthConnectorClient: Taggable {
                     }
 
                     let samples = samples ?? []
-
-                    // ✅ Convert all samples using handler's mapper protocol
                     do {
-                        let recordDtos = try samples.map {
-                            try type(of: handler).mapToDto($0)
+                        let recordDtos = try samples.map { sample in
+                            try sample.toDto()
                         }
 
-                        // ✅ Apply pagination using handler's mapper protocol
                         let (trimmedRecords, nextPageToken) = try self.applyPagination(
                             records: recordDtos,
                             pageSize: request.pageSize,
@@ -662,8 +659,7 @@ final class HealthConnectorClient: Taggable {
                 )
             }
 
-            // ✅ Convert DTO to HealthKit sample using handler's mapper protocol
-            let sample = try type(of: handler).mapToHealthKit(request.record)
+            let sample = try request.record.toHealthKit()
 
             // Write to HealthKit using pseudo-atomic transaction
             return try await withCheckedThrowingContinuation {
@@ -896,8 +892,7 @@ final class HealthConnectorClient: Taggable {
                     )
                 }
 
-                // ✅ Convert using handler's mapper protocol
-                let sample = try type(of: handler).mapToHealthKit(recordDto)
+                let sample = try recordDto.toHealthKit()
                 samples.append(sample)
             }
 

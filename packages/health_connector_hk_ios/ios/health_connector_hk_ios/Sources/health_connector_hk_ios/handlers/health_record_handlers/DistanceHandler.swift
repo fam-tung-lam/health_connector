@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for distance data (interval quantity type)
 final class DistanceHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -19,32 +18,6 @@ final class DistanceHandler:
 
     static var supportedType: HealthDataTypeDto {
         .distance
-    }
-
-    typealias RecordDto = DistanceRecordDto
-    typealias SampleType = HKQuantitySample
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toDistanceRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to DistanceRecordDto"
-            )
-        }
-        return dto
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let distanceDto = dto as? DistanceRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected DistanceRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try distanceDto.toHealthKit()
     }
 
     func getSampleType() throws -> HKSampleType {

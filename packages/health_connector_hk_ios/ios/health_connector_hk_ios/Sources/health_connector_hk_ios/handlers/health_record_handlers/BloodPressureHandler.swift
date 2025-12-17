@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for composite blood pressure samples (correlation type)
 final class BloodPressureHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -19,37 +18,6 @@ final class BloodPressureHandler:
 
     static var supportedType: HealthDataTypeDto {
         .bloodPressure
-    }
-
-    typealias RecordDto = BloodPressureRecordDto
-    typealias SampleType = HKCorrelation
-
-    /// Convert HealthKit sample to DTO
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let correlation = sample as? HKCorrelation,
-              correlation.correlationType.identifier
-              == HKCorrelationTypeIdentifier.bloodPressure.rawValue
-        else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKCorrelation with bloodPressure type, got \(type(of: sample))"
-            )
-        }
-        guard let dto = correlation.toBloodPressureRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKCorrelation to BloodPressureRecordDto"
-            )
-        }
-        return dto
-    }
-
-    /// Convert DTO to HealthKit sample
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let bpDto = dto as? BloodPressureRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected BloodPressureRecordDto but got \(type(of: dto))"
-            )
-        }
-        return try bpDto.toHealthKitCorrelation()
     }
 
     /// Get the HKSampleType for queries

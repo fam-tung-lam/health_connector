@@ -4,10 +4,8 @@ import HealthKit
 /// Handler for combined nutrition records using HKCorrelation.food
 final class NutritionCorrelationHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler
 {
     let healthStore: HKHealthStore
@@ -18,29 +16,6 @@ final class NutritionCorrelationHandler:
 
     static var supportedType: HealthDataTypeDto {
         .nutrition
-    }
-
-    typealias RecordDto = NutritionRecordDto
-    typealias SampleType = HKCorrelation
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let correlation = sample as? HKCorrelation,
-              correlation.correlationType.identifier == HKCorrelationTypeIdentifier.food.rawValue
-        else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKCorrelation with food type, got \(type(of: sample))"
-            )
-        }
-        return correlation.toNutritionRecordDto()
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let nutritionDto = dto as? NutritionRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected NutritionRecordDto but got \(type(of: dto))"
-            )
-        }
-        return try nutritionDto.toHealthKitCorrelation()
     }
 
     func getSampleType() throws -> HKSampleType {

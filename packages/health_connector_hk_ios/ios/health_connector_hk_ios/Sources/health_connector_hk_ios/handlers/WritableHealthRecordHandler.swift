@@ -2,10 +2,10 @@ import Foundation
 import HealthKit
 
 /// Capability for handlers that support writing health records.
-protocol WritableHealthRecordHandler: HealthRecordHandler, MappableHealthRecordHandler {
+protocol WritableHealthRecordHandler: HealthRecordHandler {
 }
 
-extension WritableHealthRecordHandler where Self: MappableHealthRecordHandler {
+extension WritableHealthRecordHandler {
     /// Writes a single record to HealthKit
     ///
     /// - Parameters:
@@ -14,7 +14,7 @@ extension WritableHealthRecordHandler where Self: MappableHealthRecordHandler {
     /// - Throws: HealthConnectorError if write fails
     func writeRecord(_ dto: HealthRecordDto) async throws -> String {
         try await process(operation: "write_record", context: nil) {
-            let sample = try Self.mapToHealthKit(dto)
+            let sample = try dto.toHealthKit()
             try await self.healthStore.save(sample)
             return sample.uuid.uuidString
         }
@@ -31,7 +31,9 @@ extension WritableHealthRecordHandler where Self: MappableHealthRecordHandler {
             operation: "write_records",
             context: ["count": dtos.count]
         ) {
-            let samples = try dtos.map { try Self.mapToHealthKit($0) }
+            let samples = try dtos.map { dto in
+                try dto.toHealthKit()
+            }
             try await self.healthStore.save(samples)
             return samples.map(\.uuid.uuidString)
         }
