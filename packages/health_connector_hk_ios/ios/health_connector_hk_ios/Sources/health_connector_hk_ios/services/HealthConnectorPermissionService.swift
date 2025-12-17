@@ -33,7 +33,7 @@ struct HealthConnectorPermissionService: Sendable, Taggable {
                 operation: "request_authorization",
                 message: "Authorization request completed successfully"
             )
-        } catch let error as NSError {
+        } catch let error as HKError {
             HealthConnectorLogger.error(
                 tag: Self.tag,
                 operation: "request_authorization",
@@ -41,15 +41,7 @@ struct HealthConnectorPermissionService: Sendable, Taggable {
                 exception: error
             )
 
-            // Cast to HKError if possible, otherwise create unknown error
-            if let hkError = error as? HKError {
-                throw HealthConnectorError.create(from: hkError)
-            } else {
-                throw HealthConnectorError.unknown(
-                    message: "Unexpected authorization error",
-                    cause: error
-                )
-            }
+            throw HealthConnectorError.create(from: error)
         }
 
         return try permissions.map { permission in
