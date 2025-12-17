@@ -117,14 +117,12 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func readRecord(request: ReadRecordRequestDto) async throws -> ReadRecordResponseDto? {
-        do {
+        try await process(operation: "readRecord", context: ["request": request]) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
                 operation: "readRecord",
                 message: "Reading Health Connect record",
-                context: [
-                    "request": request,
-                ]
+                context: ["request": request]
             )
 
             guard let baseHandler = handlerRegistry.getHandler(for: request.dataType) else {
@@ -146,54 +144,10 @@ actor HealthConnectorClient: Taggable {
                 tag: Self.tag,
                 operation: "readRecord",
                 message: "Health Connect record read successfully",
-                context: [
-                    "request": request,
-                    "response": responseDto,
-                ]
+                context: ["request": request, "response": responseDto]
             )
 
             return responseDto
-        } catch let error as HealthConnectorError {
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "readRecord",
-                message: "Failed to read Health Connect record",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw error
-        } catch let error as NSError {
-            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
-                .unknown(
-                    message: error.localizedDescription,
-                    cause: error
-                )
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "readRecord",
-                message: "Failed to read Health Connect record",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw baseError
-        } catch {
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "readRecord",
-                message: "Failed to read Health Connect record",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw HealthConnectorError.unknown(
-                message: "Failed to process \(request): \(error.localizedDescription)",
-                context: ["details": error.localizedDescription]
-            )
         }
     }
 
@@ -241,15 +195,12 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func readRecords(request: ReadRecordsRequestDto) async throws -> ReadRecordsResponseDto {
-        do {
+        try await process(operation: "readRecords", context: ["request": request]) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
                 operation: "readRecords",
-
                 message: "Reading Health Connect records",
-                context: [
-                    "request": request,
-                ]
+                context: ["request": request]
             )
 
             // Validate time range
@@ -265,31 +216,22 @@ actor HealthConnectorClient: Taggable {
             // Parse pageToken if present and adjust startTime for pagination
             var effectiveStartTime = request.startTime
             if let pageToken = request.pageToken, !pageToken.isEmpty {
-                // Parse pageToken as timestamp (milliseconds since epoch)
                 if let tokenTimestamp = Int64(pageToken) {
-                    // Use tokenTimestamp + 1ms as new startTime (exclusive to avoid duplicates)
                     effectiveStartTime = tokenTimestamp + 1
-
-                    // Validate that adjusted startTime is still before endTime
                     if effectiveStartTime >= request.endTime {
-                        // Invalid pagination token, return empty result
                         HealthConnectorLogger.warning(
                             tag: HealthConnectorClient.tag,
                             operation: "readRecords",
-
                             message: "Invalid pageToken: adjusted startTime >= endTime",
                             context: [
-                                "adjustedStartTime": effectiveStartTime,
-                                "endTime": request.endTime,
+                                "adjustedStartTime": effectiveStartTime, "endTime": request.endTime,
                             ]
                         )
-                        return createEmptyResponse()
+                        return self.createEmptyResponse()
                     }
-
                     HealthConnectorLogger.debug(
                         tag: HealthConnectorClient.tag,
                         operation: "readRecords",
-
                         message: "Using pageToken for pagination",
                         context: [
                             "originalStartTime": request.startTime,
@@ -297,20 +239,16 @@ actor HealthConnectorClient: Taggable {
                         ]
                     )
                 } else {
-                    // Invalid pageToken format, log warning but continue with original startTime
                     HealthConnectorLogger.warning(
                         tag: HealthConnectorClient.tag,
                         operation: "readRecords",
-
                         message: "Invalid pageToken format, using original startTime",
-                        context: [
-                            "pageToken": pageToken,
-                        ]
+                        context: ["pageToken": pageToken]
                     )
                 }
             }
 
-            guard let baseHandler = handlerRegistry.getHandler(for: request.dataType) else {
+            guard let baseHandler = self.handlerRegistry.getHandler(for: request.dataType) else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Unsupported data type: \(request.dataType)"
                 )
@@ -322,7 +260,6 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            // Create time range predicate using effective startTime
             let startDate = Date(timeIntervalSince1970: TimeInterval(effectiveStartTime) / 1000.0)
             let endDate = Date(timeIntervalSince1970: TimeInterval(request.endTime) / 1000.0)
             let timePredicate = HKQuery.predicateForSamples(
@@ -333,59 +270,33 @@ actor HealthConnectorClient: Taggable {
 
             let sampleType = try type(of: handler).dataType.toHealthKit()
 
-            // Create compound predicate for data origin filtering if needed
             let predicate: NSPredicate
             if !request.dataOriginPackageNames.isEmpty {
-                // Query for sources to get HKSource objects from bundle identifiers
-                let sources = try await querySources(
+                let sources = try await self.querySources(
                     forSampleType: sampleType,
                     bundleIdentifiers: request.dataOriginPackageNames
                 )
-
                 if sources.isEmpty {
                     HealthConnectorLogger.warning(
                         tag: HealthConnectorClient.tag,
                         operation: "readRecords",
-
                         message: "No sources found for bundle identifiers",
-                        context: [
-                            "bundleIdentifiers": request.dataOriginPackageNames,
-                        ]
+                        context: ["bundleIdentifiers": request.dataOriginPackageNames]
                     )
-                    return createEmptyResponse()
+                    return self.createEmptyResponse()
                 }
-
-                // Create individual predicates for each source
-                let sourcePredicates = sources.map {
-                    source in
-                    HKQuery.predicateForObjects(from: source)
-                }
-
-                // Combine source predicates with OR logic
+                let sourcePredicates = sources.map { HKQuery.predicateForObjects(from: $0) }
                 let sourcePredicate = NSCompoundPredicate(
                     orPredicateWithSubpredicates: sourcePredicates)
-
-                // Combine source and time predicates with AND logic
                 predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
                     sourcePredicate, timePredicate,
                 ])
             } else {
-                // No source filtering, use only time predicate
                 predicate = timePredicate
             }
 
-            // Use async continuation to bridge the callback-based API
             let responseDto = try await withCheckedThrowingContinuation {
                 (continuation: CheckedContinuation<ReadRecordsResponseDto, Error>) in
-                // Query pageSize + 1 records to determine if more pages exist.
-                //
-                // Rationale: HealthKit doesn't provide a way to check if more records exist beyond
-                // the current page. By querying one extra record, we can distinguish between:
-                // - Exactly pageSize records returned → last page (no more data)
-                // - pageSize + 1 records returned → more pages exist
-                //
-                // The extra record will be removed before returning results to the caller,
-                // ensuring they always receive at most pageSize records.
                 let query = HKSampleQuery(
                     sampleType: sampleType,
                     predicate: predicate,
@@ -393,8 +304,7 @@ actor HealthConnectorClient: Taggable {
                     sortDescriptors: [
                         NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true),
                     ]
-                ) {
-                    _, samples, error in
+                ) { _, samples, error in
                     if let error {
                         if let hkError = error as? HKError {
                             continuation.resume(
@@ -413,75 +323,32 @@ actor HealthConnectorClient: Taggable {
 
                     let samples = samples ?? []
                     do {
-                        let recordDtos = try samples.map { sample in
-                            try sample.toDto()
-                        }
-
+                        let recordDtos = try samples.map { try $0.toDto() }
                         let (trimmedRecords, nextPageToken) = try self.applyPagination(
                             records: recordDtos,
                             pageSize: request.pageSize,
                             timestampExtractor: { try $0.extractTimestamp() }
                         )
-
-                        let responseDto = ReadRecordsResponseDto(
-                            nextPageToken: nextPageToken,
-                            records: trimmedRecords
-                        )
-                        continuation.resume(returning: responseDto)
+                        continuation.resume(
+                            returning: ReadRecordsResponseDto(
+                                nextPageToken: nextPageToken,
+                                records: trimmedRecords
+                            ))
                     } catch {
                         continuation.resume(throwing: error)
                     }
                 }
-
                 self.store.execute(query)
             }
 
             HealthConnectorLogger.info(
                 tag: Self.tag,
                 operation: "readRecords",
-
                 message: "Health Connect records read successfully",
-                context: [
-                    "request": request,
-                    "response": responseDto,
-                ]
+                context: ["request": request, "response": responseDto]
             )
 
             return responseDto
-        } catch let error as HealthConnectorError {
-            throw error
-        } catch let error as NSError {
-            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
-                .unknown(
-                    message: error.localizedDescription,
-                    cause: error
-                )
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "readRecords",
-
-                message: "Failed to read Health Connect records",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw baseError
-        } catch {
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "readRecords",
-
-                message: "Failed to read Health Connect records",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw HealthConnectorError.unknown(
-                message: "Failed to process \(request): \(error.localizedDescription)",
-                context: ["details": error.localizedDescription]
-            )
         }
     }
 
@@ -608,28 +475,23 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func writeRecord(request: WriteRecordRequestDto) async throws -> WriteRecordResponseDto {
-        do {
+        try await process(operation: "writeRecord", context: ["request": request]) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
                 operation: "writeRecord",
-
                 message: "Writing Health Connect record",
-                context: [
-                    "request": request,
-                ]
+                context: ["request": request]
             )
 
-            // Infer data type from DTO runtime type
             let dataType = try request.record.dataType
 
-            // ✅ Get handler instance from instance registry
-            guard let baseHandler = handlerRegistry.getHandler(for: dataType) else {
+            guard let baseHandler = self.handlerRegistry.getHandler(for: dataType) else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Unsupported data type: \(dataType)"
                 )
             }
 
-            guard let handler = baseHandler as? WritableHealthRecordHandler else {
+            guard baseHandler is WritableHealthRecordHandler else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Data type \(dataType) does not support write operations"
                 )
@@ -637,11 +499,8 @@ actor HealthConnectorClient: Taggable {
 
             let sample = try request.record.toHealthKit()
 
-            // Write to HealthKit using pseudo-atomic transaction
-            return try await withCheckedThrowingContinuation {
-                continuation in
-                store.save(sample) {
-                    success, error in
+            return try await withCheckedThrowingContinuation { continuation in
+                self.store.save(sample) { success, error in
                     if let error {
                         if let hkError = error as? HKError {
                             continuation.resume(
@@ -660,18 +519,13 @@ actor HealthConnectorClient: Taggable {
 
                     if success {
                         let recordId = sample.uuid.uuidString
-                        let responseDto = WriteRecordResponseDto(recordId: recordId)
                         HealthConnectorLogger.info(
                             tag: HealthConnectorClient.tag,
                             operation: "writeRecord",
-
                             message: "Health Connect record written successfully",
-                            context: [
-                                "request": request,
-                                "assignedRecordId": recordId,
-                            ]
+                            context: ["request": request, "assignedRecordId": recordId]
                         )
-                        continuation.resume(returning: responseDto)
+                        continuation.resume(returning: WriteRecordResponseDto(recordId: recordId))
                     } else {
                         continuation.resume(
                             throwing: HealthConnectorError.unknown(
@@ -682,40 +536,6 @@ actor HealthConnectorClient: Taggable {
                     }
                 }
             }
-        } catch let error as HealthConnectorError {
-            throw error
-        } catch let error as NSError {
-            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
-                .unknown(
-                    message: error.localizedDescription,
-                    cause: error
-                )
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "writeRecord",
-
-                message: "Failed to write Health Connect record",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw baseError
-        } catch {
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "writeRecord",
-
-                message: "Failed to write Health Connect record",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw HealthConnectorError.unknown(
-                message: "Failed to process \(request): \(error.localizedDescription)",
-                context: ["details": error.localizedDescription]
-            )
         }
     }
 
@@ -737,22 +557,17 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func updateRecord(request: UpdateRecordRequestDto) async throws -> UpdateRecordResponseDto {
-        do {
+        try await process(operation: "updateRecord", context: ["request": request]) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
                 operation: "updateRecord",
-
                 message: "Updating Health Connect record",
-                context: [
-                    "request": request,
-                ]
+                context: ["request": request]
             )
 
-            // Extract record ID and infer data type using registry pattern
             let recordId = request.record.id
             let dataType = try request.record.dataType
 
-            // Validate record ID is not empty
             if recordId?.isEmpty ?? true {
                 throw HealthConnectorError.invalidArgument(
                     message:
@@ -761,8 +576,7 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            // ✅ Get handler instance from instance registry
-            guard let baseHandler = handlerRegistry.getHandler(for: dataType) else {
+            guard let baseHandler = self.handlerRegistry.getHandler(for: dataType) else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Unsupported data type: \(dataType)"
                 )
@@ -774,8 +588,6 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            // ✅ Delegate to handler instance method (no store parameter)
-            // Handler internally does: read existing -> delete old -> write new
             let recordDto = request.record
             guard let recordIdString = recordDto.id else {
                 throw HealthConnectorError.invalidArgument(
@@ -785,53 +597,14 @@ actor HealthConnectorClient: Taggable {
 
             try await handler.updateRecord(recordDto)
 
-            // Note: updateRecord doesn't return the new ID, so we return the original ID
-            // In HealthKit, updates create new samples with new UUIDs, but we maintain
-            // the original ID in the response for API consistency
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
                 operation: "updateRecord",
                 message: "Health Connect record updated successfully",
-                context: [
-                    "request": request,
-                ]
+                context: ["request": request]
             )
 
             return UpdateRecordResponseDto(recordId: recordIdString)
-        } catch let error as HealthConnectorError {
-            throw error
-        } catch let error as NSError {
-            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
-                .unknown(
-                    message: error.localizedDescription,
-                    cause: error
-                )
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "updateRecord",
-
-                message: "Failed to update Health Connect record",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw baseError
-        } catch {
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "updateRecord",
-
-                message: "Failed to update Health Connect record",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw HealthConnectorError.unknown(
-                message: "Failed to process \(request): \(error.localizedDescription)",
-                context: ["details": error.localizedDescription]
-            )
         }
     }
 
@@ -845,32 +618,26 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func writeRecords(request: WriteRecordsRequestDto) async throws -> WriteRecordsResponseDto {
-        do {
+        try await process(operation: "writeRecords", context: ["request": request]) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
                 operation: "writeRecords",
-
                 message: "Writing Health Connect records",
-                context: [
-                    "request": request,
-                ]
+                context: ["request": request]
             )
 
-            // ✅ Convert all records to HealthKit samples using handlers
             var samples: [HKSample] = []
 
             for recordDto in request.records {
-                // Infer data type from DTO
                 let dataType = try recordDto.dataType
 
-                // ✅ Get handler instance from instance registry
-                guard let baseHandler = handlerRegistry.getHandler(for: dataType) else {
+                guard let baseHandler = self.handlerRegistry.getHandler(for: dataType) else {
                     throw HealthConnectorError.unsupportedOperation(
                         message: "Unsupported data type: \(dataType)"
                     )
                 }
 
-                guard let handler = baseHandler as? WritableHealthRecordHandler else {
+                guard baseHandler is WritableHealthRecordHandler else {
                     throw HealthConnectorError.unsupportedOperation(
                         message: "Data type \(dataType) does not support write operations"
                     )
@@ -880,11 +647,8 @@ actor HealthConnectorClient: Taggable {
                 samples.append(sample)
             }
 
-            // Atomic batch write using HealthKit's pseudo-atomic transaction
-            return try await withCheckedThrowingContinuation {
-                continuation in
-                store.save(samples) {
-                    success, error in
+            return try await withCheckedThrowingContinuation { continuation in
+                self.store.save(samples) { success, error in
                     if let error {
                         if let hkError = error as? HKError {
                             continuation.resume(
@@ -903,18 +667,14 @@ actor HealthConnectorClient: Taggable {
 
                     if success {
                         let recordIds = samples.map(\.uuid.uuidString)
-                        let responseDto = WriteRecordsResponseDto(recordIds: recordIds)
                         HealthConnectorLogger.info(
                             tag: HealthConnectorClient.tag,
                             operation: "writeRecords",
-
                             message: "Health Connect records written successfully",
-                            context: [
-                                "request": request,
-                                "assignedRecordIds": recordIds,
-                            ]
+                            context: ["request": request, "assignedRecordIds": recordIds]
                         )
-                        continuation.resume(returning: responseDto)
+                        continuation.resume(
+                            returning: WriteRecordsResponseDto(recordIds: recordIds))
                     } else {
                         continuation.resume(
                             throwing: HealthConnectorError.unknown(
@@ -925,40 +685,6 @@ actor HealthConnectorClient: Taggable {
                     }
                 }
             }
-        } catch let error as HealthConnectorError {
-            throw error
-        } catch let error as NSError {
-            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
-                .unknown(
-                    message: error.localizedDescription,
-                    cause: error
-                )
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "writeRecords",
-
-                message: "Failed to write Health Connect records",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw baseError
-        } catch {
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "writeRecords",
-
-                message: "Failed to write Health Connect records",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw HealthConnectorError.unknown(
-                message: "Failed to process \(request): \(error.localizedDescription)",
-                context: ["details": error.localizedDescription]
-            )
         }
     }
 
@@ -972,18 +698,14 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func aggregate(request: AggregateRequestDto) async throws -> AggregateResponseDto {
-        do {
+        try await process(operation: "aggregate", context: ["request": request]) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
                 operation: "aggregate",
-
                 message: "Aggregating Health Connect data",
-                context: [
-                    "request": request,
-                ]
+                context: ["request": request]
             )
 
-            // Validate time range
             if request.startTime >= request.endTime {
                 throw HealthConnectorError.invalidArgument(
                     message: "Invalid time range: startTime must be before endTime",
@@ -993,13 +715,11 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            // Special handling for sleep stage aggregation (category sample)
             if request.dataType == .sleepStageRecord {
-                return try await aggregateSleepStages(request: request)
+                return try await self.aggregateSleepStages(request: request)
             }
 
-            // ✅ Get handler instance from instance registry (quantity types only beyond this point)
-            guard let baseHandler = handlerRegistry.getHandler(for: request.dataType) else {
+            guard let baseHandler = self.handlerRegistry.getHandler(for: request.dataType) else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Unsupported data type: \(request.dataType)"
                 )
@@ -1011,7 +731,6 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            // ✅ Get HealthKit quantity type from handler instance
             guard let quantityType = try type(of: handler).dataType.toHealthKit() as? HKQuantityType
             else {
                 throw HealthConnectorError.invalidArgument(
@@ -1019,7 +738,6 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            // Create time range predicate
             let startDate = Date(timeIntervalSince1970: TimeInterval(request.startTime) / 1000.0)
             let endDate = Date(timeIntervalSince1970: TimeInterval(request.endTime) / 1000.0)
             let predicate = HKQuery.predicateForSamples(
@@ -1028,8 +746,7 @@ actor HealthConnectorClient: Taggable {
                 options: .strictStartDate
             )
 
-            // Use HKStatisticsQuery with handler's statistics options
-            let responseDto = try await aggregateWithStatisticsQuery(
+            let responseDto = try await self.aggregateWithStatisticsQuery(
                 quantityType: quantityType,
                 predicate: predicate,
                 metric: request.aggregationMetric,
@@ -1040,49 +757,11 @@ actor HealthConnectorClient: Taggable {
             HealthConnectorLogger.info(
                 tag: Self.tag,
                 operation: "aggregate",
-
                 message: "Health Connect data aggregated successfully",
-                context: [
-                    "request": request,
-                    "response": responseDto,
-                ]
+                context: ["request": request, "response": responseDto]
             )
 
             return responseDto
-        } catch let error as HealthConnectorError {
-            throw error
-        } catch let error as NSError {
-            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
-                .unknown(
-                    message: error.localizedDescription,
-                    cause: error
-                )
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "aggregate",
-
-                message: "Failed to aggregate Health Connect data",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw baseError
-        } catch {
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "aggregate",
-
-                message: "Failed to aggregate Health Connect data",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw HealthConnectorError.unknown(
-                message: "Failed to process \(request): \(error.localizedDescription)",
-                context: ["details": error.localizedDescription]
-            )
         }
     }
 
@@ -1465,18 +1144,14 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
     func deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) async throws {
-        HealthConnectorLogger.debug(
-            tag: HealthConnectorClient.tag,
-            operation: "deleteRecordsByTimeRange",
+        try await process(operation: "deleteRecordsByTimeRange", context: ["request": request]) {
+            HealthConnectorLogger.debug(
+                tag: HealthConnectorClient.tag,
+                operation: "deleteRecordsByTimeRange",
+                message: "Deleting Health Connect records by time range",
+                context: ["request": request]
+            )
 
-            message: "Deleting Health Connect records by time range",
-            context: [
-                "request": request,
-            ]
-        )
-
-        do {
-            // Validate time range
             if request.startTime >= request.endTime {
                 throw HealthConnectorError.invalidArgument(
                     message: "Invalid time range: startTime must be before endTime",
@@ -1486,8 +1161,7 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            // ✅ Get handler instance from instance registry
-            guard let baseHandler = handlerRegistry.getHandler(for: request.dataType) else {
+            guard let baseHandler = self.handlerRegistry.getHandler(for: request.dataType) else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Unsupported data type: \(request.dataType)"
                 )
@@ -1499,50 +1173,13 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            // ✅ Delegate to handler instance method (no store parameter)
             try await handler.deleteRecords(startTime: request.startTime, endTime: request.endTime)
 
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
                 operation: "deleteRecordsByTimeRange",
                 message: "Health Connect records deleted successfully",
-                context: [
-                    "request": request,
-                ]
-            )
-        } catch let error as HealthConnectorError {
-            throw error
-        } catch let error as NSError {
-            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
-                .unknown(
-                    message: error.localizedDescription,
-                    cause: error
-                )
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "deleteRecordsByTimeRange",
-
-                message: "Failed to delete Health Connect records by time range",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw baseError
-        } catch {
-            HealthConnectorLogger.error(
-                tag: Self.tag,
-                operation: "deleteRecordsByTimeRange",
-
-                message: "Failed to delete Health Connect records by time range",
-                context: [
-                    "request": request,
-                ],
-                exception: error
-            )
-            throw HealthConnectorError.unknown(
-                message: "Failed to process \(request): \(error.localizedDescription)",
-                context: ["details": error.localizedDescription]
+                context: ["request": request]
             )
         }
     }
@@ -1557,19 +1194,15 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
     func deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) async throws {
-        HealthConnectorLogger.debug(
-            tag: HealthConnectorClient.tag,
-            operation: "deleteRecordsByIds",
+        try await process(operation: "deleteRecordsByIds", context: ["request": request]) {
+            HealthConnectorLogger.debug(
+                tag: HealthConnectorClient.tag,
+                operation: "deleteRecordsByIds",
+                message: "Deleting Health Connect records by IDs",
+                context: ["request": request]
+            )
 
-            message: "Deleting Health Connect records by IDs",
-            context: [
-                "request": request,
-            ]
-        )
-
-        do {
-            // ✅ Get handler instance from instance registry
-            guard let baseHandler = handlerRegistry.getHandler(for: request.dataType) else {
+            guard let baseHandler = self.handlerRegistry.getHandler(for: request.dataType) else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Unsupported data type: \(request.dataType)"
                 )
@@ -1581,49 +1214,62 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            // ✅ Delegate to handler instance method (no store parameter)
             try await handler.deleteRecords(ids: request.recordIds)
 
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
                 operation: "deleteRecordsByIds",
                 message: "Health Connect records deleted successfully",
-                context: [
-                    "request": request,
-                ]
+                context: ["request": request]
             )
+        }
+    }
+
+    // MARK: - Private Error Handling
+
+    /// Processes an async operation with standardized error handling.
+    ///
+    /// This method wraps async closures with try-catch, converting errors to `HealthConnectorError`
+    /// and logging them consistently. It handles three error types:
+    /// 1. `HealthConnectorError` - rethrown as-is
+    /// 2. `HKError` / `NSError` - converted to appropriate `HealthConnectorError`
+    /// 3. Generic `Error` - wrapped in `HealthConnectorError.unknown`
+    ///
+    /// - Parameters:
+    ///   - operation: The name of the operation for logging purposes
+    ///   - context: Optional context dictionary for logging (e.g., request details)
+    ///   - action: The async closure to execute
+    /// - Returns: The result of the action
+    /// - Throws: `HealthConnectorError` representing the failure
+    private func process<T>(
+        operation: String,
+        context: [String: Any] = [:],
+        action: () async throws -> T
+    ) async throws -> T {
+        do {
+            return try await action()
         } catch let error as HealthConnectorError {
             throw error
-        } catch let error as NSError {
-            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
-                .unknown(
-                    message: error.localizedDescription,
-                    cause: error
-                )
+        } catch let error as HKError {
             HealthConnectorLogger.error(
-                tag: HealthConnectorClient.tag,
-                operation: "deleteRecordsByIds",
-
-                message: "Failed to delete Health Connect records by IDs",
-                context: [
-                    "request": request,
-                ],
+                tag: Self.tag,
+                operation: operation,
+                message: "Failed to \(operation)",
+                context: context,
                 exception: error
             )
-            throw baseError
+
+            throw HealthConnectorError.create(from: error)
         } catch {
             HealthConnectorLogger.error(
-                tag: HealthConnectorClient.tag,
-                operation: "deleteRecordsByIds",
-
-                message: "Failed to delete Health Connect records by IDs",
-                context: [
-                    "request": request,
-                ],
+                tag: Self.tag,
+                operation: operation,
+                message: "Failed to \(operation)",
+                context: context,
                 exception: error
             )
             throw HealthConnectorError.unknown(
-                message: "Failed to process \(request): \(error.localizedDescription)",
+                message: "Failed to \(operation): \(error.localizedDescription)",
                 context: ["details": error.localizedDescription]
             )
         }

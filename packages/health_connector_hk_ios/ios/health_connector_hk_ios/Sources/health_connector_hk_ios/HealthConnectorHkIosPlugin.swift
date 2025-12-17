@@ -90,46 +90,12 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: PermissionsRequestDto,
         completion: @escaping (Result<PermissionsRequestResponseDto, Error>) -> Void
     ) {
-        Task {
-            do {
-                let healthDataResults =
-                    try await healthClient
-                        .requestPermissions(healthDataPermissions: request.healthDataPermissions)
-
-                let response = PermissionsRequestResponseDto(
-                    healthDataPermissionResults: healthDataResults
-                )
-
-                self.complete(completion, with: .success(response))
-
-            } catch let error as HealthConnectorError {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "requestPermissions",
-                    message: "Failed to request Health Connect permissions",
-                    context: [
-                        "error_code": String(describing: error.code),
-                        "error_message": error.message ?? "no message",
-                    ],
-                    exception: error
-                )
-                self.complete(completion, with: .failure(error.toDto()))
-            } catch {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "requestPermissions",
-                    message: "Failed to request Health Connect permissions",
-                    exception: error
-                )
-                self.complete(
-                    completion,
-                    with: .failure(
-                        HealthConnectorError.unknown(
-                            message: error.localizedDescription,
-                            cause: error
-                        ).toDto())
-                )
-            }
+        process(operation: "requestPermissions", completion: completion) {
+            let healthDataResults = try await self.healthClient
+                .requestPermissions(healthDataPermissions: request.healthDataPermissions)
+            return PermissionsRequestResponseDto(
+                healthDataPermissionResults: healthDataResults
+            )
         }
     }
 
@@ -142,39 +108,8 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: ReadRecordRequestDto,
         completion: @escaping (Result<ReadRecordResponseDto?, Error>) -> Void
     ) {
-        Task {
-            do {
-                let result = try await healthClient.readRecord(request: request)
-
-                self.complete(completion, with: .success(result))
-            } catch let error as HealthConnectorError {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "readRecord",
-                    message: "Failed to read Health Connect record",
-                    context: [
-                        "error_code": String(describing: error.code),
-                        "error_message": error.message ?? "no message",
-                    ],
-                    exception: error
-                )
-                self.complete(completion, with: .failure(error.toDto()))
-            } catch {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "readRecord",
-                    message: "Failed to read Health Connect record",
-                    exception: error
-                )
-                self.complete(
-                    completion,
-                    with: .failure(
-                        HealthConnectorError.unknown(
-                            message: error.localizedDescription,
-                            cause: error
-                        ).toDto())
-                )
-            }
+        process(operation: "readRecord", completion: completion) {
+            try await self.healthClient.readRecord(request: request)
         }
     }
 
@@ -187,39 +122,8 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: ReadRecordsRequestDto,
         completion: @escaping (Result<ReadRecordsResponseDto, Error>) -> Void
     ) {
-        Task {
-            do {
-                let result = try await healthClient.readRecords(request: request)
-
-                self.complete(completion, with: .success(result))
-            } catch let error as HealthConnectorError {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "readRecords",
-                    message: "Failed to read Health Connect records",
-                    context: [
-                        "error_code": String(describing: error.code),
-                        "error_message": error.message ?? "no message",
-                    ],
-                    exception: error
-                )
-                self.complete(completion, with: .failure(error.toDto()))
-            } catch {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "readRecords",
-                    message: "Failed to read Health Connect records",
-                    exception: error
-                )
-                self.complete(
-                    completion,
-                    with: .failure(
-                        HealthConnectorError.unknown(
-                            message: error.localizedDescription,
-                            cause: error
-                        ).toDto())
-                )
-            }
+        process(operation: "readRecords", completion: completion) {
+            try await self.healthClient.readRecords(request: request)
         }
     }
 
@@ -232,39 +136,8 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: WriteRecordRequestDto,
         completion: @escaping (Result<WriteRecordResponseDto, Error>) -> Void
     ) {
-        Task {
-            do {
-                let result = try await healthClient.writeRecord(request: request)
-
-                self.complete(completion, with: .success(result))
-            } catch let error as HealthConnectorError {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "writeRecord",
-                    message: "Failed to write Health Connect record",
-                    context: [
-                        "error_code": String(describing: error.code),
-                        "error_message": error.message ?? "no message",
-                    ],
-                    exception: error
-                )
-                self.complete(completion, with: .failure(error.toDto()))
-            } catch {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "writeRecord",
-                    message: "Failed to write Health Connect record",
-                    exception: error
-                )
-                self.complete(
-                    completion,
-                    with: .failure(
-                        HealthConnectorError.unknown(
-                            message: error.localizedDescription,
-                            cause: error
-                        ).toDto())
-                )
-            }
+        process(operation: "writeRecord", completion: completion) {
+            try await self.healthClient.writeRecord(request: request)
         }
     }
 
@@ -277,39 +150,8 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: WriteRecordsRequestDto,
         completion: @escaping (Result<WriteRecordsResponseDto, Error>) -> Void
     ) {
-        Task {
-            do {
-                let result = try await healthClient.writeRecords(request: request)
-
-                self.complete(completion, with: .success(result))
-            } catch let error as HealthConnectorError {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "writeRecords",
-                    message: "Failed to write Health Connect records",
-                    context: [
-                        "error_code": String(describing: error.code),
-                        "error_message": error.message ?? "no message",
-                    ],
-                    exception: error
-                )
-                self.complete(completion, with: .failure(error.toDto()))
-            } catch {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "writeRecords",
-                    message: "Failed to write Health Connect records",
-                    exception: error
-                )
-                self.complete(
-                    completion,
-                    with: .failure(
-                        HealthConnectorError.unknown(
-                            message: error.localizedDescription,
-                            cause: error
-                        ).toDto())
-                )
-            }
+        process(operation: "writeRecords", completion: completion) {
+            try await self.healthClient.writeRecords(request: request)
         }
     }
 
@@ -322,40 +164,8 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: UpdateRecordRequestDto,
         completion: @escaping (Result<UpdateRecordResponseDto, Error>) -> Void
     ) {
-        Task {
-            do {
-                let result = try await healthClient.updateRecord(request: request)
-
-                self.complete(completion, with: .success(result))
-            } catch let error as HealthConnectorError {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "updateRecord",
-
-                    message: "Failed to update Health Connect record",
-                    context: [
-                        "error_code": String(describing: error.code),
-                        "error_message": error.message ?? "no message",
-                    ],
-                    exception: error
-                )
-                self.complete(completion, with: .failure(error.toDto()))
-            } catch {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "updateRecord",
-                    message: "Failed to update Health Connect record",
-                    exception: error
-                )
-                self.complete(
-                    completion,
-                    with: .failure(
-                        HealthConnectorError.unknown(
-                            message: error.localizedDescription,
-                            cause: error
-                        ).toDto())
-                )
-            }
+        process(operation: "updateRecord", completion: completion) {
+            try await self.healthClient.updateRecord(request: request)
         }
     }
 
@@ -368,40 +178,8 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: AggregateRequestDto,
         completion: @escaping (Result<AggregateResponseDto, Error>) -> Void
     ) {
-        Task {
-            do {
-                let result = try await healthClient.aggregate(request: request)
-
-                self.complete(completion, with: .success(result))
-            } catch let error as HealthConnectorError {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "aggregate",
-
-                    message: "Failed to aggregate Health Connect data",
-                    context: [
-                        "error_code": String(describing: error.code),
-                        "error_message": error.message ?? "no message",
-                    ],
-                    exception: error
-                )
-                self.complete(completion, with: .failure(error.toDto()))
-            } catch {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "aggregate",
-                    message: "Failed to aggregate Health Connect data",
-                    exception: error
-                )
-                self.complete(
-                    completion,
-                    with: .failure(
-                        HealthConnectorError.unknown(
-                            message: error.localizedDescription,
-                            cause: error
-                        ).toDto())
-                )
-            }
+        process(operation: "aggregate", completion: completion) {
+            try await self.healthClient.aggregate(request: request)
         }
     }
 
@@ -416,40 +194,8 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: DeleteRecordsByIdsRequestDto,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        Task {
-            do {
-                try await healthClient.deleteRecordsByIds(request: request)
-
-                self.complete(completion, with: .success(()))
-            } catch let error as HealthConnectorError {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "deleteRecordsByIds",
-
-                    message: "Failed to delete Health Connect records by IDs",
-                    context: [
-                        "error_code": String(describing: error.code),
-                        "error_message": error.message ?? "no message",
-                    ],
-                    exception: error
-                )
-                self.complete(completion, with: .failure(error.toDto()))
-            } catch {
-                HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "deleteRecordsByIds",
-                    message: "Failed to delete Health Connect records by IDs",
-                    exception: error
-                )
-                self.complete(
-                    completion,
-                    with: .failure(
-                        HealthConnectorError.unknown(
-                            message: error.localizedDescription,
-                            cause: error
-                        ).toDto())
-                )
-            }
+        process(operation: "deleteRecordsByIds", completion: completion) {
+            try await self.healthClient.deleteRecordsByIds(request: request)
         }
     }
 
@@ -462,17 +208,34 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: DeleteRecordsByTimeRangeRequestDto,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
+        process(operation: "deleteRecordsByTimeRange", completion: completion) {
+            try await self.healthClient.deleteRecordsByTimeRange(request: request)
+        }
+    }
+
+    /// Processes an async operation with standardized error handling.
+    ///
+    /// This method wraps async closures with try-catch, converting errors to DTOs and
+    /// dispatching results to the main thread via the completion handler.
+    ///
+    /// - Parameters:
+    ///   - operation: The name of the operation for logging purposes
+    ///   - completion: The Pigeon-generated completion handler to invoke
+    ///   - action: The async closure to execute
+    private func process<T>(
+        operation: String,
+        completion: @escaping (Result<T, Error>) -> Void,
+        action: @escaping () async throws -> T
+    ) {
         Task {
             do {
-                try await healthClient.deleteRecordsByTimeRange(request: request)
-
-                self.complete(completion, with: .success(()))
+                let result = try await action()
+                self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
                 HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "deleteRecordsByTimeRange",
-
-                    message: "Failed to delete Health Connect records by time range",
+                    tag: Self.tag,
+                    operation: operation,
+                    message: "Failed to \(operation)",
                     context: [
                         "error_code": String(describing: error.code),
                         "error_message": error.message ?? "no message",
@@ -482,9 +245,9 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 self.complete(completion, with: .failure(error.toDto()))
             } catch {
                 HealthConnectorLogger.error(
-                    tag: HealthConnectorHkIosPlugin.tag,
-                    operation: "deleteRecordsByTimeRange",
-                    message: "Failed to delete Health Connect records by time range",
+                    tag: Self.tag,
+                    operation: operation,
+                    message: "Failed to \(operation)",
                     exception: error
                 )
                 self.complete(
