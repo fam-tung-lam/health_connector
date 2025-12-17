@@ -1,7 +1,11 @@
 import Foundation
 
 /// Defines a standardized set of errors that can occur.
-enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible {
+///
+/// Marked as `@unchecked Sendable` to allow crossing actor boundaries.
+/// This is safe because Error instances are effectively immutable once created
+/// and are passed through structured concurrency contexts.
+enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchecked Sendable {
     /// Indicates that the underlying health data provider is not available on the device.
     /// - Parameters:
     ///   - message: A description of why the provider is unavailable.
@@ -60,13 +64,13 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible {
     /// The primary, human-readable description of the error.
     var message: String {
         switch self {
-        case .healthProviderUnavailable(let msg, _),
-            .invalidConfiguration(let msg, _),
-            .invalidArgument(let msg, _),
-            .unsupportedOperation(let msg, _),
-            .unknown(let msg, _, _),
-            .notAuthorized(let msg, _),
-            .userCancelled(let msg):
+        case let .healthProviderUnavailable(msg, _),
+             let .invalidConfiguration(msg, _),
+             let .invalidArgument(msg, _),
+             let .unsupportedOperation(msg, _),
+             let .unknown(msg, _, _),
+             let .notAuthorized(msg, _),
+             let .userCancelled(msg):
             msg
         }
     }
@@ -74,8 +78,8 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible {
     /// The underlying `Error` that caused this error, if any.
     var error: Error? {
         switch self {
-        case .healthProviderUnavailable(_, let cause),
-            .unknown(_, let cause, _):
+        case let .healthProviderUnavailable(_, cause),
+             let .unknown(_, cause, _):
             cause
         default:
             nil
@@ -85,11 +89,11 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible {
     /// Additional key-value data providing context about the error.
     var context: [String: Any]? {
         switch self {
-        case .invalidConfiguration(_, let ctx),
-            .invalidArgument(_, let ctx),
-            .unsupportedOperation(_, let ctx),
-            .unknown(_, _, let ctx),
-            .notAuthorized(_, let ctx):
+        case let .invalidConfiguration(_, ctx),
+             let .invalidArgument(_, ctx),
+             let .unsupportedOperation(_, ctx),
+             let .unknown(_, _, ctx),
+             let .notAuthorized(_, ctx):
             ctx
         default:
             nil
