@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for lean body mass data (instant quantity type)
-final class LeanBodyMassHandler:
+final class LeanBodyMassHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

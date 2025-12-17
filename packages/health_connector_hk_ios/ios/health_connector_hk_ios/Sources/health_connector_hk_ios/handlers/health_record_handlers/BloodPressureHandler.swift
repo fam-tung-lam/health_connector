@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for composite blood pressure samples (correlation type)
-final class BloodPressureHandler:
+final class BloodPressureHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

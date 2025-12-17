@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for distance data (interval quantity type)
-final class DistanceHandler:
+final class DistanceHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

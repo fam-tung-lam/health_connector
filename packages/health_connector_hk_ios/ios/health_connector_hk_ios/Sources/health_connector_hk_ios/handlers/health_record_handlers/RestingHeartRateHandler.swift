@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for resting heart rate data (instant quantity type)
-final class RestingHeartRateHandler:
+final class RestingHeartRateHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

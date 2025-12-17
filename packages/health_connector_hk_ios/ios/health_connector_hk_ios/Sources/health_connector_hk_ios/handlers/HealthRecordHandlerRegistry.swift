@@ -5,7 +5,7 @@ import HealthKit
 ///
 /// This registry provides type-safe dispatch from `HealthDataTypeDto` to the appropriate handler.
 /// Handlers are registered once at initialization and retrieved throughout the app lifecycle.
-final class HealthRecordHandlerRegistry {
+final class HealthRecordHandlerRegistry: @unchecked Sendable {
     /// Private storage for registered handler instances
     ///
     /// Key: `HealthDataTypeDto` (enum case)

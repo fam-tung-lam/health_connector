@@ -1,8 +1,8 @@
 import Foundation
 import HealthKit
 
-/// Handler for height data (instant quantity type)
-final class HeightHandler:
+/// Handler for height measurements (instantaneous quantity type)
+final class HeightHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for step count data (interval quantity type)
-final class StepsHandler:
+final class StepsHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

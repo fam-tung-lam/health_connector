@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for wheelchair pushes data
-final class WheelchairPushesHandler:
+final class WheelchairPushesHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for combined nutrition records using HKCorrelation.food
-final class NutritionCorrelationHandler:
+final class NutritionCorrelationHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

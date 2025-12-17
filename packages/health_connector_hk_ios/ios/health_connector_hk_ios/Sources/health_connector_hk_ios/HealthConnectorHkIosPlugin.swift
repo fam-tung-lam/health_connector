@@ -3,8 +3,10 @@ import HealthKit
 import UIKit
 
 /// Flutter plugin for accessing HealthKit on iOS devices.
+///
+/// **Thread Safety**: Uses actor-based HealthConnectorClient for compiler-enforced serial access.
 public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnectorPlatformApi {
-    /// Cached instance of the HealthKit client.
+    /// Cached instance of the HealthKit client actor.
     private var healthClient: HealthConnectorClient!
 
     /// Registers the plugin with the Flutter engine.
@@ -92,7 +94,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
             do {
                 let healthDataResults =
                     try await healthClient
-                        .requestPermissions(healthDataPermissions: request.healthDataPermissions)
+                    .requestPermissions(healthDataPermissions: request.healthDataPermissions)
 
                 let response = PermissionsRequestResponseDto(
                     healthDataPermissionResults: healthDataResults

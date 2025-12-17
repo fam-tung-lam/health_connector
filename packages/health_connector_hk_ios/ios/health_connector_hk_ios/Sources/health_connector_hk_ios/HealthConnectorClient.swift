@@ -2,7 +2,10 @@ import Foundation
 import HealthKit
 
 /// Internal client wrapper for the HealthKit SDK.
-final class HealthConnectorClient: Taggable {
+///
+/// **Thread Safety**: This actor provides compiler-enforced serial access to HealthKit operations.
+/// All methods are automatically isolated and safe to call from any concurrency context.
+actor HealthConnectorClient: Taggable {
     /// The underlying HealthKit store instance.
     private let store: HKHealthStore
 
@@ -100,7 +103,8 @@ final class HealthConnectorClient: Taggable {
         )
 
         let isAvailable = HKHealthStore.isHealthDataAvailable()
-        let statusDto = isAvailable ? HealthPlatformStatusDto.available : HealthPlatformStatusDto.notAvailable
+        let statusDto =
+            isAvailable ? HealthPlatformStatusDto.available : HealthPlatformStatusDto.notAvailable
 
         HealthConnectorLogger.info(
             tag: tag,
@@ -1024,7 +1028,8 @@ final class HealthConnectorClient: Taggable {
             }
 
             // ✅ Get HealthKit quantity type from handler instance
-            guard let quantityType = try type(of: handler).dataType.toHealthKit() as? HKQuantityType else {
+            guard let quantityType = try type(of: handler).dataType.toHealthKit() as? HKQuantityType
+            else {
                 throw HealthConnectorError.invalidArgument(
                     message: "Data type \(request.dataType) is not a quantity type"
                 )

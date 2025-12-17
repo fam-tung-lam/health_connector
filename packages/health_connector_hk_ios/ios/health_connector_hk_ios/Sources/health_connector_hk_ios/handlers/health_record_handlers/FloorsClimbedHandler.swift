@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for floors climbed data (interval quantity type)
-final class FloorsClimbedHandler:
+final class FloorsClimbedHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

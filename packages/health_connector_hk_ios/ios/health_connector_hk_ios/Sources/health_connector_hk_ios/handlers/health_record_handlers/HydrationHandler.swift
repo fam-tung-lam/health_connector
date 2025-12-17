@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for hydration data (interval quantity type)
-final class HydrationHandler:
+final class HydrationHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
