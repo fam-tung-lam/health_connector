@@ -94,7 +94,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
             do {
                 let healthDataResults =
                     try await healthClient
-                    .requestPermissions(healthDataPermissions: request.healthDataPermissions)
+                        .requestPermissions(healthDataPermissions: request.healthDataPermissions)
 
                 let response = PermissionsRequestResponseDto(
                     healthDataPermissionResults: healthDataResults

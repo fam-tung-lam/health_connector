@@ -81,7 +81,7 @@ extension HealthRecordHandler {
             throw error
 
         } catch let error as NSError {
-            // Map NSError (including HKError) to HealthConnectorError
+            // Map HKError to HealthConnectorError using factory method
             HealthConnectorLogger.error(
                 tag: tag,
                 operation: operation,
@@ -90,9 +90,16 @@ extension HealthRecordHandler {
                 exception: error
             )
 
-            // Use existing mapHealthKitError function from HealthConnectorClient
-            let mappedError = HealthConnectorClient.mapHealthKitError(error)
-            throw mappedError
+            // Cast to HKError if possible, otherwise create unknown error
+            if let hkError = error as? HKError {
+                throw HealthConnectorError.create(from: hkError)
+            } else {
+                throw HealthConnectorError.unknown(
+                    message: "Unexpected error during \(operation) for \(Self.dataType.rawValue)",
+                    cause: error,
+                    context: ["details": error.localizedDescription]
+                )
+            }
 
         } catch {
             // Catch-all for any other error types

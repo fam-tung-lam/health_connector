@@ -76,9 +76,9 @@ final class NutritionCorrelationHandler: @unchecked Sendable,
                     (continuation: CheckedContinuation<Void, Error>) in
                     self.healthStore.delete(objectsToDelete) { success, error in
                         if let error {
-                            if let nsError = error as NSError? {
+                            if let hkError = error as? HKError {
                                 continuation.resume(
-                                    throwing: HealthConnectorClient.mapHealthKitError(nsError))
+                                    throwing: HealthConnectorError.create(from: hkError))
                             } else {
                                 continuation.resume(
                                     throwing: HealthConnectorError.unknown(
