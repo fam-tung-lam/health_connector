@@ -7,7 +7,18 @@ private enum NutritionMetadataKeys {
 
 extension HKCorrelation {
     /// Converts this food correlation to NutritionRecordDto
-    func toNutritionRecordDto() -> NutritionRecordDto {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this correlation is not a food correlation.
+    func toNutritionRecordDto() throws -> NutritionRecordDto {
+        guard correlationType.identifier == HKCorrelationTypeIdentifier.food.rawValue else {
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected food correlation type, got \(correlationType.identifier)",
+                context: [
+                    "expected": HKCorrelationTypeIdentifier.food.rawValue,
+                    "actual": correlationType.identifier,
+                ]
+            )
+        }
         let id = uuid.uuidString
         let startTime = startDate.millisecondsSince1970
         let endTime = endDate.millisecondsSince1970

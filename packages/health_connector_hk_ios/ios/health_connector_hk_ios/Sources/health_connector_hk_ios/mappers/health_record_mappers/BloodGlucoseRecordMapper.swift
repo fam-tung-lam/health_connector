@@ -54,9 +54,17 @@ extension BloodGlucoseRecordDto {
 
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `BloodGlucoseRecordDto`.
-    func toBloodGlucoseRecordDto() -> BloodGlucoseRecordDto? {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a blood glucose sample.
+    func toBloodGlucoseRecordDto() throws -> BloodGlucoseRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bloodGlucose.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected blood glucose quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.bloodGlucose.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let metadataDict = metadata ?? [:]

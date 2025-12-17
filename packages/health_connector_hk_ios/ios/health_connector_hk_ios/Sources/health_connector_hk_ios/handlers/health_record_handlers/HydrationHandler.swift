@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for hydration data (interval quantity type)
 final class HydrationHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -19,32 +18,6 @@ final class HydrationHandler:
 
     static var supportedType: HealthDataTypeDto {
         .hydration
-    }
-
-    typealias RecordDto = HydrationRecordDto
-    typealias SampleType = HKQuantitySample
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toHydrationRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to HydrationRecordDto"
-            )
-        }
-        return dto
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let hydrationDto = dto as? HydrationRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HydrationRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try hydrationDto.toHealthKit()
     }
 
     func getSampleType() throws -> HKSampleType {

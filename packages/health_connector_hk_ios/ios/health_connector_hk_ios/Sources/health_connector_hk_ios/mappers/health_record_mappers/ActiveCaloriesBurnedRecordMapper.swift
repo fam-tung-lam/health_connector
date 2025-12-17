@@ -26,10 +26,16 @@ extension ActiveCaloriesBurnedRecordDto {
 extension HKQuantitySample {
     /// Converts this HealthKit sample to an `ActiveCaloriesBurnedRecordDto`.
     ///
-    /// Returns `nil` if this sample is not an active energy burned sample.
-    func toActiveCaloriesBurnedRecordDto() -> ActiveCaloriesBurnedRecordDto? {
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not an active energy burned sample.
+    func toActiveCaloriesBurnedRecordDto() throws -> ActiveCaloriesBurnedRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.activeEnergyBurned.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected active energy burned quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.activeEnergyBurned.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let metadataDict = metadata ?? [:]

@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for weight data (instant quantity type)
 final class WeightHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -19,32 +18,6 @@ final class WeightHandler:
 
     static var supportedType: HealthDataTypeDto {
         .weight
-    }
-
-    typealias RecordDto = WeightRecordDto
-    typealias SampleType = HKQuantitySample
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toWeightRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to WeightRecordDto"
-            )
-        }
-        return dto
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let weightDto = dto as? WeightRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected WeightRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try weightDto.toHealthKit()
     }
 
     func getSampleType() throws -> HKSampleType {

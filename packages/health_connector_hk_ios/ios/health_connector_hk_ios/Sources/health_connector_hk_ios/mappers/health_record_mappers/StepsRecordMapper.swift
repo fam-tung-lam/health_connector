@@ -2,10 +2,10 @@ import Foundation
 import HealthKit
 
 extension StepRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
+    /// Converts this DTO to a HealthKit sample.
     ///
     /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKQuantitySample {
+    func toHealthKit() throws -> HKSample {
         let type = try HKQuantityType.make(from: .stepCount)
 
         let quantity = HKQuantity(unit: .count(), doubleValue: count.value)
@@ -26,10 +26,16 @@ extension StepRecordDto {
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `StepRecordDto`.
     ///
-    /// Returns `nil` if this sample is not a step count sample.
-    func toStepRecordDto() -> StepRecordDto? {
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a step count sample.
+    func toStepRecordDto() throws -> StepRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.stepCount.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected step count quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.stepCount.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let count = Int64(quantity.doubleValue(for: .count()))

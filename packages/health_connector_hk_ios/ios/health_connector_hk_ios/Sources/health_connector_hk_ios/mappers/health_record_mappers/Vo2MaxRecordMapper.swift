@@ -2,10 +2,10 @@ import Foundation
 import HealthKit
 
 extension Vo2MaxRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
+    /// Converts this DTO to a HealthKit sample.
     ///
     /// - Throws: An error if the quantity type cannot be created.
-    func toHealthKit() throws -> HKQuantitySample {
+    func toHealthKit() throws -> HKSample {
         let type = try HKQuantityType.make(from: .vo2Max)
 
         let unit = HKUnit.literUnit(with: .milli)
@@ -33,10 +33,16 @@ extension Vo2MaxRecordDto {
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `Vo2MaxRecordDto`.
     ///
-    /// Returns `nil` if this sample is not a VO2 max sample.
-    func toVo2MaxRecordDto() -> Vo2MaxRecordDto? {
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a VO2 max sample.
+    func toVo2MaxRecordDto() throws -> Vo2MaxRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.vo2Max.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected VO2 max quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.vo2Max.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let metadataDict = metadata ?? [:]

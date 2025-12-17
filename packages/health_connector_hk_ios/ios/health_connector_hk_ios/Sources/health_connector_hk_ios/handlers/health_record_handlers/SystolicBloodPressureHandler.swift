@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for systolic blood pressure (instant quantity type)
 final class SystolicBloodPressureHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -19,32 +18,6 @@ final class SystolicBloodPressureHandler:
 
     static var supportedType: HealthDataTypeDto {
         .systolicBloodPressure
-    }
-
-    typealias RecordDto = SystolicBloodPressureRecordDto
-    typealias SampleType = HKQuantitySample
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toSystolicBloodPressureRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to SystolicBloodPressureRecordDto"
-            )
-        }
-        return dto
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let systolicDto = dto as? SystolicBloodPressureRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected SystolicBloodPressureRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try systolicDto.toHealthKit()
     }
 
     func getSampleType() throws -> HKSampleType {

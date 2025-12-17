@@ -22,9 +22,17 @@ extension BodyFatPercentageRecordDto {
 
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `BodyFatPercentageRecordDto`.
-    func toBodyFatPercentageRecordDto() -> BodyFatPercentageRecordDto? {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a body fat percentage sample.
+    func toBodyFatPercentageRecordDto() throws -> BodyFatPercentageRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bodyFatPercentage.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected body fat percentage quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.bodyFatPercentage.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let metadataDict = metadata ?? [:]

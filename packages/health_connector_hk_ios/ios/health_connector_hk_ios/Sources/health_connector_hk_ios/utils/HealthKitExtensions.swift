@@ -1,6 +1,154 @@
 import Foundation
 import HealthKit
 
+/// Extension to get HealthDataTypeDto from HKSample identifier.
+extension HKSample {
+    /// Determines the HealthDataTypeDto from this sample's identifier.
+    ///
+    /// - Returns: The corresponding HealthDataTypeDto
+    /// - Throws: `HealthConnectorError.unsupportedOperation` if the sample type is not supported
+    /// - Throws: `HealthConnectorError.invalidArgument` if the identifier is not recognized
+    var healthDataType: HealthDataTypeDto {
+        get throws {
+            let identifier: String
+
+            if let quantitySample = self as? HKQuantitySample {
+                identifier = quantitySample.quantityType.identifier
+            } else if let categorySample = self as? HKCategorySample {
+                identifier = categorySample.categoryType.identifier
+            } else if let correlation = self as? HKCorrelation {
+                identifier = correlation.correlationType.identifier
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Unsupported HKSample type: \(type(of: self))",
+                    context: ["sampleType": String(describing: type(of: self))]
+                )
+            }
+
+            switch identifier {
+            // Quantity types
+            case HKQuantityTypeIdentifier.stepCount.rawValue:
+                return .steps
+            case HKQuantityTypeIdentifier.bodyMass.rawValue:
+                return .weight
+            case HKQuantityTypeIdentifier.height.rawValue:
+                return .height
+            case HKQuantityTypeIdentifier.bodyFatPercentage.rawValue:
+                return .bodyFatPercentage
+            case HKQuantityTypeIdentifier.bodyTemperature.rawValue:
+                return .bodyTemperature
+            case HKQuantityTypeIdentifier.activeEnergyBurned.rawValue:
+                return .activeCaloriesBurned
+            case HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue:
+                return .distance
+            case HKQuantityTypeIdentifier.flightsClimbed.rawValue:
+                return .floorsClimbed
+            case HKQuantityTypeIdentifier.pushCount.rawValue:
+                return .wheelchairPushes
+            case HKQuantityTypeIdentifier.dietaryWater.rawValue:
+                return .hydration
+            case HKQuantityTypeIdentifier.leanBodyMass.rawValue:
+                return .leanBodyMass
+            case HKQuantityTypeIdentifier.heartRate.rawValue:
+                return .heartRateMeasurementRecord
+            case HKQuantityTypeIdentifier.restingHeartRate.rawValue:
+                return .restingHeartRate
+            case HKQuantityTypeIdentifier.oxygenSaturation.rawValue:
+                return .oxygenSaturation
+            case HKQuantityTypeIdentifier.respiratoryRate.rawValue:
+                return .respiratoryRate
+            case HKQuantityTypeIdentifier.vo2Max.rawValue:
+                return .vo2Max
+            case HKQuantityTypeIdentifier.bloodGlucose.rawValue:
+                return .bloodGlucose
+            case HKQuantityTypeIdentifier.bloodPressureSystolic.rawValue:
+                return .systolicBloodPressure
+            case HKQuantityTypeIdentifier.bloodPressureDiastolic.rawValue:
+                return .diastolicBloodPressure
+            case HKQuantityTypeIdentifier.dietaryEnergyConsumed.rawValue:
+                return .energyNutrient
+            case HKQuantityTypeIdentifier.dietaryCaffeine.rawValue:
+                return .caffeine
+            case HKQuantityTypeIdentifier.dietaryProtein.rawValue:
+                return .protein
+            case HKQuantityTypeIdentifier.dietaryCarbohydrates.rawValue:
+                return .totalCarbohydrate
+            case HKQuantityTypeIdentifier.dietaryFatTotal.rawValue:
+                return .totalFat
+            case HKQuantityTypeIdentifier.dietaryFatSaturated.rawValue:
+                return .saturatedFat
+            case HKQuantityTypeIdentifier.dietaryFatMonounsaturated.rawValue:
+                return .monounsaturatedFat
+            case HKQuantityTypeIdentifier.dietaryFatPolyunsaturated.rawValue:
+                return .polyunsaturatedFat
+            case HKQuantityTypeIdentifier.dietaryCholesterol.rawValue:
+                return .cholesterol
+            case HKQuantityTypeIdentifier.dietaryFiber.rawValue:
+                return .dietaryFiber
+            case HKQuantityTypeIdentifier.dietarySugar.rawValue:
+                return .sugar
+            case HKQuantityTypeIdentifier.dietaryVitaminA.rawValue:
+                return .vitaminA
+            case HKQuantityTypeIdentifier.dietaryVitaminB6.rawValue:
+                return .vitaminB6
+            case HKQuantityTypeIdentifier.dietaryVitaminB12.rawValue:
+                return .vitaminB12
+            case HKQuantityTypeIdentifier.dietaryVitaminC.rawValue:
+                return .vitaminC
+            case HKQuantityTypeIdentifier.dietaryVitaminD.rawValue:
+                return .vitaminD
+            case HKQuantityTypeIdentifier.dietaryVitaminE.rawValue:
+                return .vitaminE
+            case HKQuantityTypeIdentifier.dietaryVitaminK.rawValue:
+                return .vitaminK
+            case HKQuantityTypeIdentifier.dietaryThiamin.rawValue:
+                return .thiamin
+            case HKQuantityTypeIdentifier.dietaryRiboflavin.rawValue:
+                return .riboflavin
+            case HKQuantityTypeIdentifier.dietaryNiacin.rawValue:
+                return .niacin
+            case HKQuantityTypeIdentifier.dietaryFolate.rawValue:
+                return .folate
+            case HKQuantityTypeIdentifier.dietaryBiotin.rawValue:
+                return .biotin
+            case HKQuantityTypeIdentifier.dietaryPantothenicAcid.rawValue:
+                return .pantothenicAcid
+            case HKQuantityTypeIdentifier.dietaryCalcium.rawValue:
+                return .calcium
+            case HKQuantityTypeIdentifier.dietaryIron.rawValue:
+                return .iron
+            case HKQuantityTypeIdentifier.dietaryMagnesium.rawValue:
+                return .magnesium
+            case HKQuantityTypeIdentifier.dietaryManganese.rawValue:
+                return .manganese
+            case HKQuantityTypeIdentifier.dietaryPhosphorus.rawValue:
+                return .phosphorus
+            case HKQuantityTypeIdentifier.dietaryPotassium.rawValue:
+                return .potassium
+            case HKQuantityTypeIdentifier.dietarySelenium.rawValue:
+                return .selenium
+            case HKQuantityTypeIdentifier.dietarySodium.rawValue:
+                return .sodium
+            case HKQuantityTypeIdentifier.dietaryZinc.rawValue:
+                return .zinc
+            // Category types
+            case HKCategoryTypeIdentifier.sleepAnalysis.rawValue:
+                return .sleepStageRecord
+            // Correlation types
+            case HKCorrelationTypeIdentifier.bloodPressure.rawValue:
+                return .bloodPressure
+            case HKCorrelationTypeIdentifier.food.rawValue:
+                return .nutrition
+            default:
+                throw HealthConnectorError.invalidArgument(
+                    message: "Unrecognized HealthKit identifier: \(identifier)",
+                    context: ["identifier": identifier]
+                )
+            }
+        }
+    }
+}
+
 // Using convenience initializers or static factory methods allows for idiomatic "try HKQuantityType(...)" usage.
 extension HKQuantityType {
     /// Creates an instance for the given identifier, throwing an error if unavailable.

@@ -25,10 +25,16 @@ extension WeightRecordDto {
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `WeightRecordDto`.
     ///
-    /// Returns `nil` if this sample is not a body mass sample.
-    func toWeightRecordDto() -> WeightRecordDto? {
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a body mass sample.
+    func toWeightRecordDto() throws -> WeightRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bodyMass.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected body mass quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.bodyMass.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let metadataDict = metadata ?? [:]

@@ -26,10 +26,16 @@ extension WheelchairPushesRecordDto {
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `WheelchairPushesRecordDto`.
     ///
-    /// Returns `nil` if this sample is not a push count sample.
-    func toWheelchairPushesRecordDto() -> WheelchairPushesRecordDto? {
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a push count sample.
+    func toWheelchairPushesRecordDto() throws -> WheelchairPushesRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.pushCount.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected push count quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.pushCount.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let unit = HKUnit.count()

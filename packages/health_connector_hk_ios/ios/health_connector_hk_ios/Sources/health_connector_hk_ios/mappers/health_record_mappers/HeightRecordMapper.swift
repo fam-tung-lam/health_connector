@@ -22,9 +22,17 @@ extension HeightRecordDto {
 
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `HeightRecordDto`.
-    func toHeightRecordDto() -> HeightRecordDto? {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a height sample.
+    func toHeightRecordDto() throws -> HeightRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.height.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected height quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.height.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let metadataDict = metadata ?? [:]

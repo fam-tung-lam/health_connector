@@ -23,9 +23,17 @@ extension FloorsClimbedRecordDto {
 
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `FloorsClimbedRecordDto`.
-    func toFloorsClimbedRecordDto() -> FloorsClimbedRecordDto? {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a floors climbed sample.
+    func toFloorsClimbedRecordDto() throws -> FloorsClimbedRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.flightsClimbed.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected flights climbed quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.flightsClimbed.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let unit = HKUnit.count()

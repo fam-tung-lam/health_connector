@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for body temperature data (instant quantity type)
 final class BodyTemperatureHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -20,34 +19,6 @@ final class BodyTemperatureHandler:
 
     static var supportedType: HealthDataTypeDto {
         .bodyTemperature
-    }
-
-    typealias RecordDto = BodyTemperatureRecordDto
-    typealias SampleType = HKQuantitySample
-
-    /// Convert HealthKit sample to DTO
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toBodyTemperatureRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to BodyTemperatureRecordDto"
-            )
-        }
-        return dto
-    }
-
-    /// Convert DTO to HealthKit sample
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let temperatureDto = dto as? BodyTemperatureRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected BodyTemperatureRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try temperatureDto.toHealthKit()
     }
 
     /// Get the HKSampleType for queries
@@ -75,16 +46,17 @@ final class BodyTemperatureHandler:
         from statistics: HKStatistics,
         metric: AggregationMetricDto
     ) throws -> MeasurementUnitDto {
-        let quantity: HKQuantity? = switch metric {
-        case .avg:
-            statistics.averageQuantity()
-        case .min:
-            statistics.minimumQuantity()
-        case .max:
-            statistics.maximumQuantity()
-        default:
-            nil
-        }
+        let quantity: HKQuantity? =
+            switch metric {
+            case .avg:
+                statistics.averageQuantity()
+            case .min:
+                statistics.minimumQuantity()
+            case .max:
+                statistics.maximumQuantity()
+            default:
+                nil
+            }
 
         guard let quantity else {
             throw HealthConnectorError.invalidArgument(

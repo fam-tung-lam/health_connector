@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Capability for handlers that support reading health records.
-protocol ReadableHealthRecordHandler: HealthRecordHandler, MappableHealthRecordHandler {
+protocol ReadableHealthRecordHandler: HealthRecordHandler {
     /// Get the HKSampleType for queries
     ///
     /// - Returns: The HKSampleType used for this health data type
@@ -10,7 +10,7 @@ protocol ReadableHealthRecordHandler: HealthRecordHandler, MappableHealthRecordH
     func getSampleType() throws -> HKSampleType
 }
 
-extension ReadableHealthRecordHandler where Self: MappableHealthRecordHandler {
+extension ReadableHealthRecordHandler {
     /// Default page size for record reading
     static var defaultPageSize: Int { 1000 }
 
@@ -53,7 +53,7 @@ extension ReadableHealthRecordHandler where Self: MappableHealthRecordHandler {
                     }
 
                     do {
-                        let dto = try Self.mapToDto(sample)
+                        let dto = try sample.toDto()
                         continuation.resume(returning: dto)
                     } catch {
                         continuation.resume(throwing: error)
@@ -150,7 +150,10 @@ extension ReadableHealthRecordHandler where Self: MappableHealthRecordHandler {
                         let recordsToReturn =
                             hasMorePages ? Array(samples.prefix(pageSize)) : samples
 
-                        let dtos = try recordsToReturn.map { try Self.mapToDto($0) }
+                        // Use toDto extension method
+                        let dtos = try recordsToReturn.map { sample in
+                            try sample.toDto()
+                        }
 
                         // Determine next page token
                         let nextPageToken: String?

@@ -23,10 +23,18 @@ extension DistanceRecordDto {
 
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `DistanceRecordDto`.
-    func toDistanceRecordDto() -> DistanceRecordDto? {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a distance sample.
+    func toDistanceRecordDto() throws -> DistanceRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue
         else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected distance walking/running quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let metadataDict = metadata ?? [:]

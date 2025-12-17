@@ -23,9 +23,17 @@ extension HydrationRecordDto {
 
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `HydrationRecordDto`.
-    func toHydrationRecordDto() -> HydrationRecordDto? {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a hydration sample.
+    func toHydrationRecordDto() throws -> HydrationRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.dietaryWater.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected dietary water quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.dietaryWater.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let metadataDict = metadata ?? [:]

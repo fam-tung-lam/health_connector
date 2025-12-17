@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for wheelchair pushes data
 final class WheelchairPushesHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -19,32 +18,6 @@ final class WheelchairPushesHandler:
 
     static var supportedType: HealthDataTypeDto {
         .wheelchairPushes
-    }
-
-    typealias RecordDto = WheelchairPushesRecordDto
-    typealias SampleType = HKQuantitySample
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toWheelchairPushesRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to WheelchairPushesRecordDto"
-            )
-        }
-        return dto
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let pushesDto = dto as? WheelchairPushesRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected WheelchairPushesRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try pushesDto.toHealthKit()
     }
 
     func getSampleType() throws -> HKSampleType {

@@ -2,8 +2,8 @@ import Foundation
 import HealthKit
 
 extension OxygenSaturationRecordDto {
-    /// Converts this DTO to a HealthKit `HKQuantitySample`.
-    func toHealthKit() throws -> HKQuantitySample {
+    /// Converts this DTO to a HealthKit sample.
+    func toHealthKit() throws -> HKSample {
         let type = try HKQuantityType.make(from: .oxygenSaturation)
 
         let quantity = percentage.toHealthKit()
@@ -22,9 +22,17 @@ extension OxygenSaturationRecordDto {
 
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `OxygenSaturationRecordDto`.
-    func toOxygenSaturationRecordDto() -> OxygenSaturationRecordDto? {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not an oxygen saturation sample.
+    func toOxygenSaturationRecordDto() throws -> OxygenSaturationRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.oxygenSaturation.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected oxygen saturation quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.oxygenSaturation.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let metadataDict = metadata ?? [:]

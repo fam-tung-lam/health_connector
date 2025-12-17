@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for sleep stage data (category sample type)
 final class SleepStageHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -18,41 +17,6 @@ final class SleepStageHandler:
 
     static var supportedType: HealthDataTypeDto {
         .sleepStageRecord
-    }
-
-    typealias RecordDto = SleepStageRecordDto
-    typealias SampleType = HKCategorySample
-
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let categorySample = sample as? HKCategorySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKCategorySample, got \(type(of: sample))"
-            )
-        }
-        guard
-            categorySample.categoryType.identifier
-            == HKCategoryTypeIdentifier.sleepAnalysis.rawValue
-        else {
-            throw HealthConnectorError.invalidArgument(
-                message:
-                "Expected sleep analysis category, got \(categorySample.categoryType.identifier)"
-            )
-        }
-        guard let dto = categorySample.toSleepStageRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKCategorySample to SleepStageRecordDto"
-            )
-        }
-        return dto
-    }
-
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let sleepDto = dto as? SleepStageRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected SleepStageRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try sleepDto.toHealthKit()
     }
 
     func getSampleType() throws -> HKSampleType {

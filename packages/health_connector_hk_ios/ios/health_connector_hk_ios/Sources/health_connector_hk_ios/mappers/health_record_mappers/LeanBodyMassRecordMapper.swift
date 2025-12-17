@@ -22,9 +22,17 @@ extension LeanBodyMassRecordDto {
 
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `LeanBodyMassRecordDto`.
-    func toLeanBodyMassRecordDto() -> LeanBodyMassRecordDto? {
+    ///
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a lean body mass sample.
+    func toLeanBodyMassRecordDto() throws -> LeanBodyMassRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.leanBodyMass.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected lean body mass quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.leanBodyMass.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         let metadataDict = metadata ?? [:]

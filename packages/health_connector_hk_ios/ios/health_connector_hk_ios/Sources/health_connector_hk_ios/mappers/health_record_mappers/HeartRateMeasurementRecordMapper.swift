@@ -27,10 +27,16 @@ extension HeartRateMeasurementRecordDto {
 extension HKQuantitySample {
     /// Converts this HealthKit sample to a `HeartRateMeasurementRecordDto`.
     ///
-    /// Returns `nil` if this sample is not a heart rate sample.
-    func toHeartRateMeasurementRecordDto() -> HeartRateMeasurementRecordDto? {
+    /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a heart rate sample.
+    func toHeartRateMeasurementRecordDto() throws -> HeartRateMeasurementRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.heartRate.rawValue else {
-            return nil
+            throw HealthConnectorError.invalidArgument(
+                message: "Expected heart rate quantity type, got \(quantityType.identifier)",
+                context: [
+                    "expected": HKQuantityTypeIdentifier.heartRate.rawValue,
+                    "actual": quantityType.identifier,
+                ]
+            )
         }
 
         // Heart rate is in beats per minute (count/minute)

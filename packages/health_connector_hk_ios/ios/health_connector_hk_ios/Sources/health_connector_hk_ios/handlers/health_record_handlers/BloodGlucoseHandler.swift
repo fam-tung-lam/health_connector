@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for blood glucose data (instant quantity type)
 final class BloodGlucoseHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -20,34 +19,6 @@ final class BloodGlucoseHandler:
 
     static var supportedType: HealthDataTypeDto {
         .bloodGlucose
-    }
-
-    typealias RecordDto = BloodGlucoseRecordDto
-    typealias SampleType = HKQuantitySample
-
-    /// Convert HealthKit sample to DTO
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toBloodGlucoseRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to BloodGlucoseRecordDto"
-            )
-        }
-        return dto
-    }
-
-    /// Convert DTO to HealthKit sample
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let bgDto = dto as? BloodGlucoseRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected BloodGlucoseRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try bgDto.toHealthKit()
     }
 
     /// Get the HKSampleType for queries

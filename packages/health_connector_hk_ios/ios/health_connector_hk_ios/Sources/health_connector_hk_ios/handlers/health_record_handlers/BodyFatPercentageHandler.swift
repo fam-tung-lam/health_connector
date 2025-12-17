@@ -4,7 +4,6 @@ import HealthKit
 /// Handler for body fat percentage data (instant quantity type)
 final class BodyFatPercentageHandler:
     HealthRecordHandler,
-    MappableHealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -20,34 +19,6 @@ final class BodyFatPercentageHandler:
 
     static var supportedType: HealthDataTypeDto {
         .bodyFatPercentage
-    }
-
-    typealias RecordDto = BodyFatPercentageRecordDto
-    typealias SampleType = HKQuantitySample
-
-    /// Convert HealthKit sample to DTO
-    static func mapToDto(_ sample: HKSample) throws -> HealthRecordDto {
-        guard let quantitySample = sample as? HKQuantitySample else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected HKQuantitySample, got \(type(of: sample))"
-            )
-        }
-        guard let dto = quantitySample.toBodyFatPercentageRecordDto() else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Failed to convert HKQuantitySample to BodyFatPercentageRecordDto"
-            )
-        }
-        return dto
-    }
-
-    /// Convert DTO to HealthKit sample
-    static func mapToHealthKit(_ dto: HealthRecordDto) throws -> HKSample {
-        guard let bodyFatDto = dto as? BodyFatPercentageRecordDto else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Expected BodyFatPercentageRecordDto, got \(type(of: dto))"
-            )
-        }
-        return try bodyFatDto.toHealthKit()
     }
 
     /// Get the HKSampleType for queries
