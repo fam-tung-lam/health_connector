@@ -15,7 +15,15 @@ extension HealthConnectorError {
     ///
     /// - Returns: A `HealthConnectorErrorDto` containing the error code, message, and enriched details.
     func toDto() -> HealthConnectorErrorDto {
-        var details: [String: Any] = context ?? [:]
+        // Use [String: String] for Sendable compatibility
+        var details: [String: String] = [:]
+
+        // Include context (converting Any values to strings)
+        if let ctx = context {
+            for (key, value) in ctx {
+                details[key] = String(describing: value)
+            }
+        }
 
         // Include underlying error information if available
         if let cause = error {
@@ -24,26 +32,12 @@ extension HealthConnectorError {
             // Extract domain and code from NSError for deeper debugging
             if let nsError = cause as? NSError {
                 details["errorDomain"] = nsError.domain
-                details["errorCode"] = nsError.code
+                details["errorCode"] = String(nsError.code)
 
-                // Include user info dictionary (filtered for serializable values)
+                // Include user info dictionary (converted to strings)
                 if !nsError.userInfo.isEmpty {
-                    var serializableUserInfo: [String: Any] = [:]
                     for (key, value) in nsError.userInfo {
-                        // Only include primitive types and strings for JSON serialization
-                        if let stringValue = value as? String {
-                            serializableUserInfo[key] = stringValue
-                        } else if let numberValue = value as? NSNumber {
-                            serializableUserInfo[key] = numberValue
-                        } else if let boolValue = value as? Bool {
-                            serializableUserInfo[key] = boolValue
-                        } else {
-                            // For complex objects, use their description
-                            serializableUserInfo[key] = String(describing: value)
-                        }
-                    }
-                    if !serializableUserInfo.isEmpty {
-                        details["errorUserInfo"] = serializableUserInfo
+                        details["errorUserInfo_\(key)"] = String(describing: value)
                     }
                 }
             }
@@ -67,7 +61,7 @@ extension HealthConnectorError {
         if stackSymbols.count > 1 {
             // Skip first frame (this method) and limit to 10 frames for reasonable size
             let relevantFrames = Array(stackSymbols.dropFirst().prefix(10))
-            details["stackTrace"] = relevantFrames
+            details["stackTrace"] = relevantFrames.joined(separator: "\n")
         }
 
         return HealthConnectorErrorDto(

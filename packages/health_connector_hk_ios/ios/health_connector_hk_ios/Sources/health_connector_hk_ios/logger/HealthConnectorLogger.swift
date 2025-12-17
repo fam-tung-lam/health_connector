@@ -4,22 +4,37 @@ import OSLog
 /// A singleton logger that wraps Apple's OSLog framework.
 ///
 /// This logger provides a consistent structured logging interface with formatted messages across the plugin.
+///
+/// Uses `NSLock` to protect the `isEnabled` flag for thread-safe access across concurrency domains.
+/// NSLock is used instead of Mutex for iOS 15+ compatibility (Mutex requires iOS 18+).
 enum HealthConnectorLogger {
     /// OSLog subsystem identifier for Health Connector iOS plugin.
     private static let subsystem = "com.phamtunglam.health_connector_hk_ios"
 
-    /// Whether logging is enabled.
+    /// Lock for thread-safe access to _isEnabled
+    private static let lock = NSLock()
+
+    /// Whether logging is enabled (backing storage).
     ///
     /// When set to `false`, all logging methods will return immediately without
     /// logging any messages. Defaults to `true`.
-    private static var _isEnabled: Bool = true
+    ///
+    /// **Thread Safety:** Access protected by NSLock. Use the `isEnabled` property accessor.
+    /// Marked nonisolated(unsafe) for iOS 15+ compatibility with NSLock-based synchronization.
+    private nonisolated(unsafe) static var _isEnabled: Bool = true
 
     /// Whether logging is enabled.
+    ///
+    /// **Thread Safety:** Protected by NSLock for safe concurrent access.
     static var isEnabled: Bool {
         get {
-            _isEnabled
+            lock.lock()
+            defer { lock.unlock() }
+            return _isEnabled
         }
         set {
+            lock.lock()
+            defer { lock.unlock() }
             _isEnabled = newValue
         }
     }

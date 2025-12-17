@@ -507,10 +507,13 @@ actor HealthConnectorClient: Taggable {
     ///   - pageSize: Requested page size (the maximum number of records to return)
     ///   - timestampExtractor: Closure to extract timestamp from record for pagination token
     /// - Returns: Tuple of (trimmed records array with at most pageSize items, optional nextPageToken)
-    private func applyPagination<T>(
+    ///
+    /// **Thread Safety:** This is a pure function that only operates on its parameters,
+    /// so it's safe to mark as nonisolated for use in closures.
+    private nonisolated func applyPagination<T>(
         records: [T],
         pageSize: Int64,
-        timestampExtractor: (T) throws -> Int64
+        timestampExtractor: @Sendable (T) throws -> Int64
     ) throws
         -> (records: [T], nextPageToken: String?)
     {

@@ -5,11 +5,20 @@ import HealthKit
 ///
 /// This registry provides type-safe dispatch from `HealthDataTypeDto` to the appropriate handler.
 /// Handlers are registered once at initialization and retrieved throughout the app lifecycle.
+///
+/// Uses `NSLock` to protect the handler dictionary for thread-safe concurrent access.
+/// NSLock is used instead of Mutex for iOS 15+ compatibility (Mutex requires iOS 18+).
+/// Marked @unchecked Sendable because NSLock-based synchronization ensures thread safety manually.
 final class HealthRecordHandlerRegistry: @unchecked Sendable {
-    /// Private storage for registered handler instances
+    /// Lock for thread-safe access to handlers
+    private let lock = NSLock()
+
+    /// Storage for registered handler instances
     ///
     /// Key: `HealthDataTypeDto` (enum case)
     /// Value: Handler instance (any HealthRecordHandler)
+    ///
+    /// **Thread Safety:** Access protected by NSLock
     private var handlers: [HealthDataTypeDto: any HealthRecordHandler] = [:]
 
     /// The HealthKit store shared across all handlers
@@ -20,28 +29,39 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
     /// - Parameter healthStore: The HKHealthStore to inject into all handlers
     init(healthStore: HKHealthStore) {
         self.healthStore = healthStore
+        // Register all handlers (within lock for thread safety)
+        lock.lock()
+        defer { lock.unlock() }
         registerAllHandlers()
     }
 
-    /// Register a handler instance
+    /// Register a handler instance (called during init only)
     ///
     /// - Parameter handler: The handler instance to register
+    ///
+    /// **Note:** Must be called within lock
     private func register(_ handler: any HealthRecordHandler) {
         handlers[type(of: handler).dataType] = handler
     }
 
     /// Get handler for a specific health data type
     ///
+    /// Thread-safe: Protected by NSLock
+    ///
     /// - Parameter type: The HealthDataTypeDto to look up
     /// - Returns: The handler instance, or nil if not registered
     func getHandler(for type: HealthDataTypeDto) -> (any HealthRecordHandler)? {
-        handlers[type]
+        lock.lock()
+        defer { lock.unlock() }
+        return handlers[type]
     }
 
     /// Register all type handlers
     ///
     /// This method is called once during initialization.
     /// Add new handlers here as they are implemented.
+    ///
+    /// **Note:** Must be called within lock
     private func registerAllHandlers() {
         register(StepsHandler(healthStore: healthStore))
         register(ActiveCaloriesBurnedHandler(healthStore: healthStore))
