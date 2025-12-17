@@ -40,7 +40,16 @@ struct HealthConnectorPermissionService: Sendable, Taggable {
                 message: "Authorization request failed",
                 exception: error
             )
-            throw HealthConnectorClient.mapHealthKitError(error)
+
+            // Cast to HKError if possible, otherwise create unknown error
+            if let hkError = error as? HKError {
+                throw HealthConnectorError.create(from: hkError)
+            } else {
+                throw HealthConnectorError.unknown(
+                    message: "Unexpected authorization error",
+                    cause: error
+                )
+            }
         }
 
         return try permissions.map { permission in

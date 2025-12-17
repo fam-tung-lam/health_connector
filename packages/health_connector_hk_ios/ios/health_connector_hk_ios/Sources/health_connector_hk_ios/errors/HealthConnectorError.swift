@@ -39,13 +39,6 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible {
     ///   - context: Additional key-value data for debugging.
     case notAuthorized(message: String, context: [String: Any]? = nil)
 
-    /// Represents an error that occurred during a HealthKit operation.
-    /// - Parameters:
-    ///   - message: A description of the remote error.
-    ///   - cause: The underlying communication error with HealthKit.
-    ///   - context: Additional key-value data for debugging.
-    case remoteError(message: String, cause: Error? = nil, context: [String: Any]? = nil)
-
     /// Indicates that the user explicitly cancelled the operation (e.g., a permission prompt).
     /// - Parameters:
     ///   - message: A description confirming user cancellation.
@@ -60,7 +53,6 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible {
         case .unsupportedOperation: "UNSUPPORTED_OPERATION"
         case .unknown: "UNKNOWN_ERROR"
         case .notAuthorized: "NOT_AUTHORIZED"
-        case .remoteError: "REMOTE_ERROR"
         case .userCancelled: "USER_CANCELLED"
         }
     }
@@ -68,14 +60,13 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible {
     /// The primary, human-readable description of the error.
     var message: String {
         switch self {
-        case let .healthProviderUnavailable(msg, _),
-             let .invalidConfiguration(msg, _),
-             let .invalidArgument(msg, _),
-             let .unsupportedOperation(msg, _),
-             let .unknown(msg, _, _),
-             let .notAuthorized(msg, _),
-             let .remoteError(msg, _, _),
-             let .userCancelled(msg):
+        case .healthProviderUnavailable(let msg, _),
+            .invalidConfiguration(let msg, _),
+            .invalidArgument(let msg, _),
+            .unsupportedOperation(let msg, _),
+            .unknown(let msg, _, _),
+            .notAuthorized(let msg, _),
+            .userCancelled(let msg):
             msg
         }
     }
@@ -83,9 +74,8 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible {
     /// The underlying `Error` that caused this error, if any.
     var error: Error? {
         switch self {
-        case let .healthProviderUnavailable(_, cause),
-             let .unknown(_, cause, _),
-             let .remoteError(_, cause, _):
+        case .healthProviderUnavailable(_, let cause),
+            .unknown(_, let cause, _):
             cause
         default:
             nil
@@ -95,12 +85,11 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible {
     /// Additional key-value data providing context about the error.
     var context: [String: Any]? {
         switch self {
-        case let .invalidConfiguration(_, ctx),
-             let .invalidArgument(_, ctx),
-             let .unsupportedOperation(_, ctx),
-             let .unknown(_, _, ctx),
-             let .notAuthorized(_, ctx),
-             let .remoteError(_, _, ctx):
+        case .invalidConfiguration(_, let ctx),
+            .invalidArgument(_, let ctx),
+            .unsupportedOperation(_, let ctx),
+            .unknown(_, _, let ctx),
+            .notAuthorized(_, let ctx):
             ctx
         default:
             nil

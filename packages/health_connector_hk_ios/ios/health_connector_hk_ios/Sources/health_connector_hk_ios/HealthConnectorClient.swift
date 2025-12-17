@@ -28,45 +28,6 @@ actor HealthConnectorClient: Taggable {
         handlerRegistry = HealthRecordHandlerRegistry(healthStore: store)
     }
 
-    /// Maps HealthKit errors to HealthConnectorError instances.
-    ///
-    /// - Parameter error: The NSError to map
-    /// - Returns: A HealthConnectorError with the appropriate error code
-    static func mapHealthKitError(_ error: NSError) -> HealthConnectorError {
-        if error.domain == HKError.errorDomain {
-            let hkErrorCode = HKError.Code(rawValue: error.code)
-            switch hkErrorCode {
-            case .errorAuthorizationDenied:
-                return HealthConnectorError.notAuthorized(
-                    message: error.localizedDescription,
-                    context: ["details": error.localizedDescription]
-                )
-            case .errorInvalidArgument:
-                return HealthConnectorError.invalidArgument(
-                    message: error.localizedDescription,
-                    context: ["details": error.localizedDescription]
-                )
-            case .errorHealthDataUnavailable, .errorDatabaseInaccessible:
-                return HealthConnectorError.healthProviderUnavailable(
-                    message: error.localizedDescription,
-                    cause: error
-                )
-            default:
-                return HealthConnectorError.unknown(
-                    message: error.localizedDescription,
-                    cause: error,
-                    context: ["details": error.localizedDescription]
-                )
-            }
-        } else {
-            return HealthConnectorError.unknown(
-                message: error.localizedDescription,
-                cause: error,
-                context: ["details": error.localizedDescription]
-            )
-        }
-    }
-
     /// Gets or creates a `HealthConnectorClient` instance.
     ///
     /// - Returns: A new `HealthConnectorClient` instance wrapping the HealthKit store
@@ -204,7 +165,11 @@ actor HealthConnectorClient: Taggable {
             )
             throw error
         } catch let error as NSError {
-            let baseError = HealthConnectorClient.mapHealthKitError(error)
+            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
+                .unknown(
+                    message: error.localizedDescription,
+                    cause: error
+                )
             HealthConnectorLogger.error(
                 tag: Self.tag,
                 operation: "readRecord",
@@ -431,9 +396,9 @@ actor HealthConnectorClient: Taggable {
                 ) {
                     _, samples, error in
                     if let error {
-                        if let nsError = error as NSError? {
+                        if let hkError = error as? HKError {
                             continuation.resume(
-                                throwing: HealthConnectorClient.mapHealthKitError(nsError))
+                                throwing: HealthConnectorError.create(from: hkError))
                         } else {
                             continuation.resume(
                                 throwing: HealthConnectorError.unknown(
@@ -486,7 +451,11 @@ actor HealthConnectorClient: Taggable {
         } catch let error as HealthConnectorError {
             throw error
         } catch let error as NSError {
-            let baseError = HealthConnectorClient.mapHealthKitError(error)
+            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
+                .unknown(
+                    message: error.localizedDescription,
+                    cause: error
+                )
             HealthConnectorLogger.error(
                 tag: Self.tag,
                 operation: "readRecords",
@@ -671,9 +640,9 @@ actor HealthConnectorClient: Taggable {
                 store.save(sample) {
                     success, error in
                     if let error {
-                        if let nsError = error as NSError? {
+                        if let hkError = error as? HKError {
                             continuation.resume(
-                                throwing: HealthConnectorClient.mapHealthKitError(nsError))
+                                throwing: HealthConnectorError.create(from: hkError))
                         } else {
                             continuation.resume(
                                 throwing: HealthConnectorError.unknown(
@@ -713,7 +682,11 @@ actor HealthConnectorClient: Taggable {
         } catch let error as HealthConnectorError {
             throw error
         } catch let error as NSError {
-            let baseError = HealthConnectorClient.mapHealthKitError(error)
+            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
+                .unknown(
+                    message: error.localizedDescription,
+                    cause: error
+                )
             HealthConnectorLogger.error(
                 tag: Self.tag,
                 operation: "writeRecord",
@@ -825,7 +798,11 @@ actor HealthConnectorClient: Taggable {
         } catch let error as HealthConnectorError {
             throw error
         } catch let error as NSError {
-            let baseError = HealthConnectorClient.mapHealthKitError(error)
+            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
+                .unknown(
+                    message: error.localizedDescription,
+                    cause: error
+                )
             HealthConnectorLogger.error(
                 tag: Self.tag,
                 operation: "updateRecord",
@@ -906,9 +883,9 @@ actor HealthConnectorClient: Taggable {
                 store.save(samples) {
                     success, error in
                     if let error {
-                        if let nsError = error as NSError? {
+                        if let hkError = error as? HKError {
                             continuation.resume(
-                                throwing: HealthConnectorClient.mapHealthKitError(nsError))
+                                throwing: HealthConnectorError.create(from: hkError))
                         } else {
                             continuation.resume(
                                 throwing: HealthConnectorError.unknown(
@@ -948,7 +925,11 @@ actor HealthConnectorClient: Taggable {
         } catch let error as HealthConnectorError {
             throw error
         } catch let error as NSError {
-            let baseError = HealthConnectorClient.mapHealthKitError(error)
+            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
+                .unknown(
+                    message: error.localizedDescription,
+                    cause: error
+                )
             HealthConnectorLogger.error(
                 tag: Self.tag,
                 operation: "writeRecords",
@@ -1068,7 +1049,11 @@ actor HealthConnectorClient: Taggable {
         } catch let error as HealthConnectorError {
             throw error
         } catch let error as NSError {
-            let baseError = HealthConnectorClient.mapHealthKitError(error)
+            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
+                .unknown(
+                    message: error.localizedDescription,
+                    cause: error
+                )
             HealthConnectorLogger.error(
                 tag: Self.tag,
                 operation: "aggregate",
@@ -1302,9 +1287,9 @@ actor HealthConnectorClient: Taggable {
             ) {
                 _, statistics, error in
                 if let error {
-                    if let nsError = error as NSError? {
+                    if let hkError = error as? HKError {
                         continuation.resume(
-                            throwing: HealthConnectorClient.mapHealthKitError(nsError))
+                            throwing: HealthConnectorError.create(from: hkError))
                     } else {
                         continuation.resume(
                             throwing: HealthConnectorError.unknown(
@@ -1394,9 +1379,9 @@ actor HealthConnectorClient: Taggable {
             ) {
                 _, samples, error in
                 if let error {
-                    if let nsError = error as NSError? {
+                    if let hkError = error as? HKError {
                         continuation.resume(
-                            throwing: HealthConnectorClient.mapHealthKitError(nsError))
+                            throwing: HealthConnectorError.create(from: hkError))
                     } else {
                         continuation.resume(
                             throwing: HealthConnectorError.unknown(
@@ -1525,7 +1510,11 @@ actor HealthConnectorClient: Taggable {
         } catch let error as HealthConnectorError {
             throw error
         } catch let error as NSError {
-            let baseError = HealthConnectorClient.mapHealthKitError(error)
+            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
+                .unknown(
+                    message: error.localizedDescription,
+                    cause: error
+                )
             HealthConnectorLogger.error(
                 tag: Self.tag,
                 operation: "deleteRecordsByTimeRange",
@@ -1603,7 +1592,11 @@ actor HealthConnectorClient: Taggable {
         } catch let error as HealthConnectorError {
             throw error
         } catch let error as NSError {
-            let baseError = HealthConnectorClient.mapHealthKitError(error)
+            let baseError = (error as? HKError).map { HealthConnectorError.create(from: $0) } ?? HealthConnectorError
+                .unknown(
+                    message: error.localizedDescription,
+                    cause: error
+                )
             HealthConnectorLogger.error(
                 tag: HealthConnectorClient.tag,
                 operation: "deleteRecordsByIds",
