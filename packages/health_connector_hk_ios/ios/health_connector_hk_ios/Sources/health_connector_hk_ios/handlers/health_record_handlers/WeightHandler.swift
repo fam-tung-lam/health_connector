@@ -1,8 +1,8 @@
 import Foundation
 import HealthKit
 
-/// Handler for weight data (instant quantity type)
-final class WeightHandler:
+/// Handler for body weight measurements (instantaneous quantity type)
+final class WeightHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

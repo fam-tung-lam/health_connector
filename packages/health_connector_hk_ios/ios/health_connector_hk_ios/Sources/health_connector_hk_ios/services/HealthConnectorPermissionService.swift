@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Internal service responsible for managing HealthKit permissions.
-struct HealthConnectorPermissionService: Taggable {
+struct HealthConnectorPermissionService: Sendable, Taggable {
     private let store: HKHealthStore
 
     init(store: HKHealthStore) {
@@ -50,19 +50,21 @@ struct HealthConnectorPermissionService: Taggable {
 
     /// Builds set of HKObjectType for reading.
     func buildReadTypes(from permissions: [HealthDataPermissionDto]) throws -> Set<HKObjectType> {
-        let types = try permissions
-            .filter { $0.accessType == .read }
-            .flatMap { try $0.toHealthKit() }
+        let types =
+            try permissions
+                .filter { $0.accessType == .read }
+                .flatMap { try $0.toHealthKit() }
 
         return Set(types)
     }
 
     /// Builds set of HKSampleType for writing.
     func buildWriteTypes(from permissions: [HealthDataPermissionDto]) throws -> Set<HKSampleType> {
-        let types = try permissions
-            .filter { $0.accessType == .write }
-            .flatMap { try $0.toHealthKit() }
-            .compactMap { $0 as? HKSampleType } // Write requires HKSampleType specifically
+        let types =
+            try permissions
+                .filter { $0.accessType == .write }
+                .flatMap { try $0.toHealthKit() }
+                .compactMap { $0 as? HKSampleType } // Write requires HKSampleType specifically
 
         return Set(types)
     }

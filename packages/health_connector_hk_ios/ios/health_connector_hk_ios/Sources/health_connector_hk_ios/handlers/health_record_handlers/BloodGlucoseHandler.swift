@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for blood glucose data (instant quantity type)
-final class BloodGlucoseHandler:
+final class BloodGlucoseHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for VO2 Max data (instant quantity type)
-final class Vo2MaxHandler:
+final class Vo2MaxHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

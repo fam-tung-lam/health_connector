@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for heart rate measurement data (instant quantity type)
-final class HeartRateHandler:
+final class HeartRateHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

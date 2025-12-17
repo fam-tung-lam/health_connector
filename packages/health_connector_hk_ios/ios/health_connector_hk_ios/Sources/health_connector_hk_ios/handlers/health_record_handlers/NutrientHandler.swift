@@ -94,7 +94,7 @@ struct NutrientHandler {
     }
 }
 
-final class EnergyNutrientHandler:
+final class EnergyNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -130,7 +130,7 @@ final class EnergyNutrientHandler:
     }
 }
 
-final class CaffeineNutrientHandler:
+final class CaffeineNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -166,7 +166,7 @@ final class CaffeineNutrientHandler:
     }
 }
 
-final class ProteinNutrientHandler:
+final class ProteinNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -202,7 +202,7 @@ final class ProteinNutrientHandler:
     }
 }
 
-final class TotalCarbohydrateNutrientHandler:
+final class TotalCarbohydrateNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -238,7 +238,7 @@ final class TotalCarbohydrateNutrientHandler:
     }
 }
 
-final class TotalFatNutrientHandler:
+final class TotalFatNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -271,7 +271,7 @@ final class TotalFatNutrientHandler:
     }
 }
 
-final class SaturatedFatNutrientHandler:
+final class SaturatedFatNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -304,7 +304,7 @@ final class SaturatedFatNutrientHandler:
     }
 }
 
-final class MonounsaturatedFatNutrientHandler:
+final class MonounsaturatedFatNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -337,7 +337,7 @@ final class MonounsaturatedFatNutrientHandler:
     }
 }
 
-final class PolyunsaturatedFatNutrientHandler:
+final class PolyunsaturatedFatNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -370,7 +370,7 @@ final class PolyunsaturatedFatNutrientHandler:
     }
 }
 
-final class CholesterolNutrientHandler:
+final class CholesterolNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -406,7 +406,7 @@ final class CholesterolNutrientHandler:
     }
 }
 
-final class DietaryFiberNutrientHandler:
+final class DietaryFiberNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -442,7 +442,7 @@ final class DietaryFiberNutrientHandler:
     }
 }
 
-final class SugarNutrientHandler:
+final class SugarNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -478,7 +478,7 @@ final class SugarNutrientHandler:
     }
 }
 
-final class VitaminANutrientHandler:
+final class VitaminANutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -514,7 +514,7 @@ final class VitaminANutrientHandler:
     }
 }
 
-final class VitaminB6NutrientHandler:
+final class VitaminB6NutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -550,7 +550,7 @@ final class VitaminB6NutrientHandler:
     }
 }
 
-final class VitaminB12NutrientHandler:
+final class VitaminB12NutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -586,7 +586,7 @@ final class VitaminB12NutrientHandler:
     }
 }
 
-final class VitaminCNutrientHandler:
+final class VitaminCNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -622,7 +622,7 @@ final class VitaminCNutrientHandler:
     }
 }
 
-final class VitaminDNutrientHandler:
+final class VitaminDNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -658,7 +658,7 @@ final class VitaminDNutrientHandler:
     }
 }
 
-final class VitaminENutrientHandler:
+final class VitaminENutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -694,7 +694,7 @@ final class VitaminENutrientHandler:
     }
 }
 
-final class VitaminKNutrientHandler:
+final class VitaminKNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -730,7 +730,7 @@ final class VitaminKNutrientHandler:
     }
 }
 
-final class ThiaminNutrientHandler:
+final class ThiaminNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -766,7 +766,7 @@ final class ThiaminNutrientHandler:
     }
 }
 
-final class RiboflavinNutrientHandler:
+final class RiboflavinNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -802,7 +802,7 @@ final class RiboflavinNutrientHandler:
     }
 }
 
-final class NiacinNutrientHandler:
+final class NiacinNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -838,7 +838,7 @@ final class NiacinNutrientHandler:
     }
 }
 
-final class FolateNutrientHandler:
+final class FolateNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -874,7 +874,7 @@ final class FolateNutrientHandler:
     }
 }
 
-final class BiotinNutrientHandler:
+final class BiotinNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -910,7 +910,7 @@ final class BiotinNutrientHandler:
     }
 }
 
-final class PantothenicAcidNutrientHandler:
+final class PantothenicAcidNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -946,7 +946,7 @@ final class PantothenicAcidNutrientHandler:
     }
 }
 
-final class CalciumNutrientHandler:
+final class CalciumNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -982,7 +982,7 @@ final class CalciumNutrientHandler:
     }
 }
 
-final class IronNutrientHandler:
+final class IronNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -1018,7 +1018,7 @@ final class IronNutrientHandler:
     }
 }
 
-final class MagnesiumNutrientHandler:
+final class MagnesiumNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -1054,7 +1054,7 @@ final class MagnesiumNutrientHandler:
     }
 }
 
-final class ManganeseNutrientHandler:
+final class ManganeseNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -1090,7 +1090,7 @@ final class ManganeseNutrientHandler:
     }
 }
 
-final class PhosphorusNutrientHandler:
+final class PhosphorusNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -1126,7 +1126,7 @@ final class PhosphorusNutrientHandler:
     }
 }
 
-final class PotassiumNutrientHandler:
+final class PotassiumNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -1162,7 +1162,7 @@ final class PotassiumNutrientHandler:
     }
 }
 
-final class SeleniumNutrientHandler:
+final class SeleniumNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -1198,7 +1198,7 @@ final class SeleniumNutrientHandler:
     }
 }
 
-final class SodiumNutrientHandler:
+final class SodiumNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -1234,7 +1234,7 @@ final class SodiumNutrientHandler:
     }
 }
 
-final class ZincNutrientHandler:
+final class ZincNutrientHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

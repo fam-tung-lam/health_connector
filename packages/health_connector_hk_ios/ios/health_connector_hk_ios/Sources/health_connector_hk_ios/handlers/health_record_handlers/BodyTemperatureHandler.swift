@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for body temperature data (instant quantity type)
-final class BodyTemperatureHandler:
+final class BodyTemperatureHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

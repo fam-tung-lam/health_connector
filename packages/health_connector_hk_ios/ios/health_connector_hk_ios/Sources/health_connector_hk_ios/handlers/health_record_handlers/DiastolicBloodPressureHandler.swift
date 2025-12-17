@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for diastolic blood pressure (instant quantity type)
-final class DiastolicBloodPressureHandler:
+final class DiastolicBloodPressureHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

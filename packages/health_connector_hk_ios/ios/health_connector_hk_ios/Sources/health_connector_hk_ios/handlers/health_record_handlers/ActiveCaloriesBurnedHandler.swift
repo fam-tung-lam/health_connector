@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for active calories burned data (interval quantity type)
-final class ActiveCaloriesBurnedHandler:
+final class ActiveCaloriesBurnedHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,

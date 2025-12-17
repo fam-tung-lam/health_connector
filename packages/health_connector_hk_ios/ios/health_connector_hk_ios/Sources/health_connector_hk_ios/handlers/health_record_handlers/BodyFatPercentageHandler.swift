@@ -2,7 +2,7 @@ import Foundation
 import HealthKit
 
 /// Handler for body fat percentage data (instant quantity type)
-final class BodyFatPercentageHandler:
+final class BodyFatPercentageHandler: @unchecked Sendable,
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
