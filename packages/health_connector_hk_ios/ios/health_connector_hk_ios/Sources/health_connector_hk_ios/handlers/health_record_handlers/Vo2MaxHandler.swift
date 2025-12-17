@@ -16,12 +16,8 @@ final class Vo2MaxHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .vo2Max
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .vo2Max)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

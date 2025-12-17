@@ -16,12 +16,8 @@ final class RestingHeartRateHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .restingHeartRate
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .restingHeartRate)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

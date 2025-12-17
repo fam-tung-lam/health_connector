@@ -16,13 +16,8 @@ final class BloodPressureHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .bloodPressure
-    }
-
-    /// Get the HKSampleType for queries
-    func getSampleType() throws -> HKSampleType {
-        try HKCorrelationType.make(from: .bloodPressure)
     }
 
     /// Deletes records by ID, including contained samples for correlations.
@@ -41,7 +36,7 @@ final class BloodPressureHandler:
                 }
 
                 let predicate = HKQuery.predicateForObject(with: uuid)
-                let sampleType = try getSampleType()
+                let sampleType = try type(of: self).dataType.toHealthKit()
                 let samples = try await withCheckedThrowingContinuation {
                     (
                         continuation: CheckedContinuation<

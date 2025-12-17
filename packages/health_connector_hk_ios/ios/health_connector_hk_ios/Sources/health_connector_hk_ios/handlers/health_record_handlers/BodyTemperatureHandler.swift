@@ -17,13 +17,8 @@ final class BodyTemperatureHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .bodyTemperature
-    }
-
-    /// Get the HKSampleType for queries
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .bodyTemperature)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

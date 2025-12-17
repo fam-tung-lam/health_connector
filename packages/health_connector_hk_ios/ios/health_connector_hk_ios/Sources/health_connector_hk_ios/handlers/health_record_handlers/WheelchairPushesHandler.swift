@@ -16,12 +16,8 @@ final class WheelchairPushesHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .wheelchairPushes
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .pushCount)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

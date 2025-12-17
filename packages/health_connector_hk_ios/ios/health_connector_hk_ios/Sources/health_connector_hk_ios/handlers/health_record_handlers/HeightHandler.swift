@@ -16,12 +16,8 @@ final class HeightHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .height
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .height)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

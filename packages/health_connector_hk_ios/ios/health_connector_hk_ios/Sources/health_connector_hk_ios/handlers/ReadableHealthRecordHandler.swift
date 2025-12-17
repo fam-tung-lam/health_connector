@@ -3,11 +3,6 @@ import HealthKit
 
 /// Capability for handlers that support reading health records.
 protocol ReadableHealthRecordHandler: HealthRecordHandler {
-    /// Get the HKSampleType for queries
-    ///
-    /// - Returns: The HKSampleType used for this health data type
-    /// - Throws: HealthConnectorError if the type cannot be created
-    func getSampleType() throws -> HKSampleType
 }
 
 extension ReadableHealthRecordHandler {
@@ -28,7 +23,7 @@ extension ReadableHealthRecordHandler {
                 )
             }
 
-            let sampleType = try getSampleType()
+            let sampleType = try Self.dataType.toHealthKit()
             let predicate = HKQuery.predicateForObject(with: uuid)
 
             return try await withCheckedThrowingContinuation { continuation in
@@ -88,7 +83,7 @@ extension ReadableHealthRecordHandler {
                 "page_size": pageSize,
             ]
         ) {
-            let sampleType = try getSampleType()
+            let sampleType = try Self.dataType.toHealthKit()
 
             // Convert timestamps
             let startDate = Date(timeIntervalSince1970: Double(startTime) / 1000.0)

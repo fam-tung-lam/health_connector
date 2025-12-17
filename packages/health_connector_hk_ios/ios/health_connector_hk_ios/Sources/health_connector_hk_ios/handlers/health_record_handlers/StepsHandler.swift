@@ -16,12 +16,8 @@ final class StepsHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .steps
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .stepCount)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
