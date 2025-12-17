@@ -27,7 +27,7 @@ final class HealthRecordHandlerRegistry {
     ///
     /// - Parameter handler: The handler instance to register
     private func register(_ handler: any HealthRecordHandler) {
-        handlers[type(of: handler).supportedType] = handler
+        handlers[type(of: handler).dataType] = handler
     }
 
     /// Get handler for a specific health data type

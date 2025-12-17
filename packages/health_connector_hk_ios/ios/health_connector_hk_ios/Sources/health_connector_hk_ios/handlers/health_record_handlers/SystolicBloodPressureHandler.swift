@@ -16,12 +16,8 @@ final class SystolicBloodPressureHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .systolicBloodPressure
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .bloodPressureSystolic)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

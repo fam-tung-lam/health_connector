@@ -17,13 +17,8 @@ final class ActiveCaloriesBurnedHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .activeCaloriesBurned
-    }
-
-    /// Get the HKSampleType for queries
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .activeEnergyBurned)
     }
 
     /// Convert aggregation metric to HKStatisticsOptions

@@ -16,12 +16,8 @@ final class OxygenSaturationHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .oxygenSaturation
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .oxygenSaturation)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

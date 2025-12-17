@@ -6,12 +6,6 @@ import HealthKit
 /// Only quantity types support aggregation. Category types, correlations, and
 /// characteristics do NOT implement this capability.
 protocol AggregatableHealthRecordHandler: HealthRecordHandler {
-    /// Get the HKSampleType for aggregation queries
-    ///
-    /// - Returns: The HKSampleType (must be HKQuantityType) used for this health data type
-    /// - Throws: HealthConnectorError if the type cannot be created
-    func getSampleType() throws -> HKSampleType
-
     /// Convert aggregation metric to HKStatisticsOptions
     ///
     /// - Parameter metric: The aggregation metric requested
@@ -54,7 +48,7 @@ extension AggregatableHealthRecordHandler {
                 "end_time": endTime,
             ]
         ) {
-            guard let quantityType = try getSampleType() as? HKQuantityType else {
+            guard let quantityType = try Self.dataType.toHealthKit() as? HKQuantityType else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Aggregation only supported for quantity types"
                 )

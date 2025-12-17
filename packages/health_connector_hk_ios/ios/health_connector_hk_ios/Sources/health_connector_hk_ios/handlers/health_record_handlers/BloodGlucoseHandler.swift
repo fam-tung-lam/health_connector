@@ -17,13 +17,8 @@ final class BloodGlucoseHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .bloodGlucose
-    }
-
-    /// Get the HKSampleType for queries
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .bloodGlucose)
     }
 
     /// Convert aggregation metric to HKStatisticsOptions

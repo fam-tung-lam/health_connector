@@ -2,15 +2,7 @@ import Foundation
 import HealthKit
 
 /// Capability for handlers that support deleting health records.
-///
-/// **Requirements:**
-/// - `getSampleType()` - needed to query HealthKit for samples to delete
 protocol DeletableHealthRecordHandler: HealthRecordHandler {
-    /// Get the HKSampleType for queries
-    ///
-    /// - Returns: The HKSampleType used for this health data type
-    /// - Throws: HealthConnectorError if the type cannot be created
-    func getSampleType() throws -> HKSampleType
 }
 
 extension DeletableHealthRecordHandler {
@@ -39,7 +31,7 @@ extension DeletableHealthRecordHandler {
                         continue
                     }
 
-                    let sampleType = try getSampleType()
+                    let sampleType = try type(of: self).dataType.toHealthKit()
                     let predicate = HKQuery.predicateForObject(with: uuid)
 
                     let sample = try await withCheckedThrowingContinuation {
@@ -105,7 +97,7 @@ extension DeletableHealthRecordHandler {
                 "end_time": endTime,
             ]
         ) {
-            let sampleType = try getSampleType()
+            let sampleType = try type(of: self).dataType.toHealthKit()
 
             let startDate = Date(timeIntervalSince1970: Double(startTime) / 1000.0)
             let endDate = Date(timeIntervalSince1970: Double(endTime) / 1000.0)

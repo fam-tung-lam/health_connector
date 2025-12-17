@@ -16,12 +16,8 @@ final class DistanceHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .distance
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .distanceWalkingRunning)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

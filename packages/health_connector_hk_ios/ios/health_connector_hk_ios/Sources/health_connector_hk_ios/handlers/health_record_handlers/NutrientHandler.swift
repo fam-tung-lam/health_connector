@@ -49,10 +49,6 @@ struct NutrientHandler {
         )
     }
 
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: quantityTypeIdentifier)
-    }
-
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         switch metric {
         case .sum:
@@ -118,12 +114,8 @@ final class EnergyNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .energyNutrient
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -158,12 +150,8 @@ final class CaffeineNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .caffeine
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -198,12 +186,8 @@ final class ProteinNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .protein
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -238,12 +222,8 @@ final class TotalCarbohydrateNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .totalCarbohydrate
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -278,9 +258,8 @@ final class TotalFatNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto { .totalFat }
+    static var dataType: HealthDataTypeDto { .totalFat }
 
-    func getSampleType() throws -> HKSampleType { try handler.getSampleType() }
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -312,9 +291,8 @@ final class SaturatedFatNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto { .saturatedFat }
+    static var dataType: HealthDataTypeDto { .saturatedFat }
 
-    func getSampleType() throws -> HKSampleType { try handler.getSampleType() }
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -346,9 +324,8 @@ final class MonounsaturatedFatNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto { .monounsaturatedFat }
+    static var dataType: HealthDataTypeDto { .monounsaturatedFat }
 
-    func getSampleType() throws -> HKSampleType { try handler.getSampleType() }
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -380,9 +357,8 @@ final class PolyunsaturatedFatNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto { .polyunsaturatedFat }
+    static var dataType: HealthDataTypeDto { .polyunsaturatedFat }
 
-    func getSampleType() throws -> HKSampleType { try handler.getSampleType() }
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
     }
@@ -414,12 +390,8 @@ final class CholesterolNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .cholesterol
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -454,12 +426,8 @@ final class DietaryFiberNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .dietaryFiber
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -494,12 +462,8 @@ final class SugarNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .sugar
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -534,12 +498,8 @@ final class VitaminANutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .vitaminA
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -574,12 +534,8 @@ final class VitaminB6NutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .vitaminB6
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -614,12 +570,8 @@ final class VitaminB12NutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .vitaminB12
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -654,12 +606,8 @@ final class VitaminCNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .vitaminC
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -694,12 +642,8 @@ final class VitaminDNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .vitaminD
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -734,12 +678,8 @@ final class VitaminENutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .vitaminE
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -774,12 +714,8 @@ final class VitaminKNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .vitaminK
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -814,12 +750,8 @@ final class ThiaminNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .thiamin
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -854,12 +786,8 @@ final class RiboflavinNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .riboflavin
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -894,12 +822,8 @@ final class NiacinNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .niacin
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -934,12 +858,8 @@ final class FolateNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .folate
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -974,12 +894,8 @@ final class BiotinNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .biotin
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1014,12 +930,8 @@ final class PantothenicAcidNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .pantothenicAcid
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1054,12 +966,8 @@ final class CalciumNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .calcium
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1094,12 +1002,8 @@ final class IronNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .iron
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1134,12 +1038,8 @@ final class MagnesiumNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .magnesium
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1174,12 +1074,8 @@ final class ManganeseNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .manganese
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1214,12 +1110,8 @@ final class PhosphorusNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .phosphorus
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1254,12 +1146,8 @@ final class PotassiumNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .potassium
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1294,12 +1182,8 @@ final class SeleniumNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .selenium
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1334,12 +1218,8 @@ final class SodiumNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .sodium
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
@@ -1374,12 +1254,8 @@ final class ZincNutrientHandler:
         )
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .zinc
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try handler.getSampleType()
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

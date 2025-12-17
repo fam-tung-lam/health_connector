@@ -17,13 +17,8 @@ final class FloorsClimbedHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .floorsClimbed
-    }
-
-    /// Get the HKSampleType for queries
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .flightsClimbed)
     }
 
     /// Convert aggregation metric to HKStatisticsOptions

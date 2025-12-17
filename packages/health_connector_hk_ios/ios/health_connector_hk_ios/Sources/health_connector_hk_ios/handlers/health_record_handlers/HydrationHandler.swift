@@ -16,12 +16,8 @@ final class HydrationHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .hydration
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .dietaryWater)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

@@ -15,11 +15,7 @@ final class SleepStageHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .sleepStageRecord
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try HKCategoryType.make(from: .sleepAnalysis)
     }
 }

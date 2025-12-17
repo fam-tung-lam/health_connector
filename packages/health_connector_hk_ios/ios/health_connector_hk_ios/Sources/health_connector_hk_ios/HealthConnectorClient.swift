@@ -362,7 +362,7 @@ final class HealthConnectorClient: Taggable {
                 options: .strictStartDate
             )
 
-            let sampleType = try handler.getSampleType()
+            let sampleType = try type(of: handler).dataType.toHealthKit()
 
             // Create compound predicate for data origin filtering if needed
             let predicate: NSPredicate
@@ -1024,7 +1024,7 @@ final class HealthConnectorClient: Taggable {
             }
 
             // ✅ Get HealthKit quantity type from handler instance
-            guard let quantityType = try handler.getSampleType() as? HKQuantityType else {
+            guard let quantityType = try type(of: handler).dataType.toHealthKit() as? HKQuantityType else {
                 throw HealthConnectorError.invalidArgument(
                     message: "Data type \(request.dataType) is not a quantity type"
                 )

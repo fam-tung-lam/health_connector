@@ -16,12 +16,8 @@ final class WeightHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .weight
-    }
-
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .bodyMass)
     }
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {

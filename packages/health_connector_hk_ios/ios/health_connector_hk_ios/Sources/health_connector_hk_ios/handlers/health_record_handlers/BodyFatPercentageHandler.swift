@@ -17,13 +17,8 @@ final class BodyFatPercentageHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .bodyFatPercentage
-    }
-
-    /// Get the HKSampleType for queries
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .bodyFatPercentage)
     }
 
     /// Convert aggregation metric to HKStatisticsOptions

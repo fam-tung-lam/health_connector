@@ -17,13 +17,8 @@ final class DiastolicBloodPressureHandler:
         self.healthStore = healthStore
     }
 
-    static var supportedType: HealthDataTypeDto {
+    static var dataType: HealthDataTypeDto {
         .diastolicBloodPressure
-    }
-
-    /// Get the HKSampleType for queries
-    func getSampleType() throws -> HKSampleType {
-        try HKQuantityType.make(from: .bloodPressureDiastolic)
     }
 
     /// Convert aggregation metric to HKStatisticsOptions

@@ -9,7 +9,7 @@ protocol HealthRecordHandler: AnyObject {
     var healthStore: HKHealthStore { get }
 
     /// The HealthDataTypeDto enum case this handler supports
-    static var supportedType: HealthDataTypeDto { get }
+    static var dataType: HealthDataTypeDto { get }
 
     /// Centralized error handling wrapper for handler operations.
     ///
@@ -41,12 +41,12 @@ extension HealthRecordHandler {
 
         // Log operation start
         var startContext = context ?? [:]
-        startContext["data_type"] = Self.supportedType.rawValue
+        startContext["data_type"] = Self.dataType.rawValue
 
         HealthConnectorLogger.debug(
             tag: tag,
             operation: operation,
-            message: "Starting \(operation) for \(Self.supportedType.rawValue)",
+            message: "Starting \(operation) for \(Self.dataType.rawValue)",
             context: startContext
         )
 
@@ -56,12 +56,12 @@ extension HealthRecordHandler {
 
             // Log successful completion
             var completeContext = context ?? [:]
-            completeContext["data_type"] = Self.supportedType.rawValue
+            completeContext["data_type"] = Self.dataType.rawValue
 
             HealthConnectorLogger.debug(
                 tag: tag,
                 operation: operation,
-                message: "Completed \(operation) for \(Self.supportedType.rawValue)",
+                message: "Completed \(operation) for \(Self.dataType.rawValue)",
                 context: completeContext
             )
 
@@ -73,7 +73,7 @@ extension HealthRecordHandler {
                 tag: tag,
                 operation: operation,
                 message:
-                "Handler operation failed for \(Self.supportedType.rawValue): \(error.message ?? "<no message>")",
+                "Handler operation failed for \(Self.dataType.rawValue): \(error.message ?? "<no message>")",
                 context: context,
                 exception: error
             )
@@ -84,7 +84,7 @@ extension HealthRecordHandler {
             HealthConnectorLogger.error(
                 tag: tag,
                 operation: operation,
-                message: "Handler operation failed for \(Self.supportedType.rawValue)",
+                message: "Handler operation failed for \(Self.dataType.rawValue)",
                 context: context,
                 exception: error
             )
@@ -99,13 +99,13 @@ extension HealthRecordHandler {
                 tag: tag,
                 operation: operation,
                 message:
-                "Handler operation failed for \(Self.supportedType.rawValue): \(error.localizedDescription)",
+                "Handler operation failed for \(Self.dataType.rawValue): \(error.localizedDescription)",
                 context: context,
                 exception: error as NSError
             )
 
             throw HealthConnectorError.unknown(
-                message: "Unexpected error during \(operation) for \(Self.supportedType.rawValue)",
+                message: "Unexpected error during \(operation) for \(Self.dataType.rawValue)",
                 cause: nil,
                 context: ["details": error.localizedDescription]
             )
