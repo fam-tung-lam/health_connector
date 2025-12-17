@@ -52,7 +52,7 @@ struct HealthConnectorPermissionService: Taggable {
     func buildReadTypes(from permissions: [HealthDataPermissionDto]) throws -> Set<HKObjectType> {
         let types = try permissions
             .filter { $0.accessType == .read }
-            .flatMap { try $0.toHealthKitObjectTypes() }
+            .flatMap { try $0.toHealthKit() }
 
         return Set(types)
     }
@@ -61,7 +61,7 @@ struct HealthConnectorPermissionService: Taggable {
     func buildWriteTypes(from permissions: [HealthDataPermissionDto]) throws -> Set<HKSampleType> {
         let types = try permissions
             .filter { $0.accessType == .write }
-            .flatMap { try $0.toHealthKitObjectTypes() }
+            .flatMap { try $0.toHealthKit() }
             .compactMap { $0 as? HKSampleType } // Write requires HKSampleType specifically
 
         return Set(types)
@@ -71,7 +71,7 @@ struct HealthConnectorPermissionService: Taggable {
     private func buildPermissionResult(
         for permission: HealthDataPermissionDto
     ) throws -> HealthDataPermissionRequestResultDto {
-        let objectTypes = try permission.toHealthKitObjectTypes()
+        let objectTypes = try permission.toHealthKit()
         var status: PermissionStatusDto = .unknown
 
         // Only check status for Write permissions (Read is always hidden by HealthKit)
