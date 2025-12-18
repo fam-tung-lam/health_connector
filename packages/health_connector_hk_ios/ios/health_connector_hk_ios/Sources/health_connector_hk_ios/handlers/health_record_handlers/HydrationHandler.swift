@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for hydration data (interval quantity type)
 final class HydrationHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = HydrationRecordDto
     typealias SampleType = HKQuantitySample

@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for oxygen saturation data (instant quantity type)
 final class OxygenSaturationHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = OxygenSaturationRecordDto
     typealias SampleType = HKQuantitySample

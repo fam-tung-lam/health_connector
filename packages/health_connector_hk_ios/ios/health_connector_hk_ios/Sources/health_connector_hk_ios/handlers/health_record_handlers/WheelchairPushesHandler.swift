@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for wheelchair pushes data
 final class WheelchairPushesHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = WheelchairPushesRecordDto
     typealias SampleType = HKQuantitySample

@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for floors climbed data (interval quantity type)
 final class FloorsClimbedHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = FloorsClimbedRecordDto
     typealias SampleType = HKQuantitySample

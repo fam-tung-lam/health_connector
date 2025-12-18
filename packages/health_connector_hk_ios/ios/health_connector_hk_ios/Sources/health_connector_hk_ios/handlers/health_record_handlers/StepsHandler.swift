@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for step count data (interval quantity type)
 final class StepsHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = StepRecordDto
     typealias SampleType = HKQuantitySample

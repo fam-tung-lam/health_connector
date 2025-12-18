@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for respiratory rate data (instant quantity type)
 final class RespiratoryRateHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = RespiratoryRateRecordDto
     typealias SampleType = HKQuantitySample

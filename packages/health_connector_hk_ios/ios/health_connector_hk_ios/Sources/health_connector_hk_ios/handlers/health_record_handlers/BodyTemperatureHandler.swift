@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for body temperature data (instant quantity type)
 final class BodyTemperatureHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = BodyTemperatureRecordDto
     typealias SampleType = HKQuantitySample

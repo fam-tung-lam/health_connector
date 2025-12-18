@@ -3,7 +3,6 @@ import HealthKit
 
 /// Handler for sleep stage data (category sample type)
 final class SleepStageHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,

@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for body weight measurements (instantaneous quantity type)
 final class WeightHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = WeightRecordDto
     typealias SampleType = HKQuantitySample

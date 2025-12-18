@@ -95,12 +95,11 @@ struct NutrientHandler {
 }
 
 final class EnergyNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = EnergyNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -134,12 +133,11 @@ final class EnergyNutrientHandler: @unchecked Sendable,
 }
 
 final class CaffeineNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = CaffeineNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -173,12 +171,11 @@ final class CaffeineNutrientHandler: @unchecked Sendable,
 }
 
 final class ProteinNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = ProteinNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -212,12 +209,11 @@ final class ProteinNutrientHandler: @unchecked Sendable,
 }
 
 final class TotalCarbohydrateNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = TotalCarbohydrateNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -251,12 +247,11 @@ final class TotalCarbohydrateNutrientHandler: @unchecked Sendable,
 }
 
 final class TotalFatNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = TotalFatNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -287,12 +282,11 @@ final class TotalFatNutrientHandler: @unchecked Sendable,
 }
 
 final class SaturatedFatNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = SaturatedFatNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -323,12 +317,11 @@ final class SaturatedFatNutrientHandler: @unchecked Sendable,
 }
 
 final class MonounsaturatedFatNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = MonounsaturatedFatNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -359,12 +352,11 @@ final class MonounsaturatedFatNutrientHandler: @unchecked Sendable,
 }
 
 final class PolyunsaturatedFatNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = PolyunsaturatedFatNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -395,12 +387,11 @@ final class PolyunsaturatedFatNutrientHandler: @unchecked Sendable,
 }
 
 final class CholesterolNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = CholesterolNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -434,12 +425,11 @@ final class CholesterolNutrientHandler: @unchecked Sendable,
 }
 
 final class DietaryFiberNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = DietaryFiberNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -473,12 +463,11 @@ final class DietaryFiberNutrientHandler: @unchecked Sendable,
 }
 
 final class SugarNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = SugarNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -512,12 +501,11 @@ final class SugarNutrientHandler: @unchecked Sendable,
 }
 
 final class VitaminANutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = VitaminANutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -551,12 +539,11 @@ final class VitaminANutrientHandler: @unchecked Sendable,
 }
 
 final class VitaminB6NutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = VitaminB6NutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -590,12 +577,11 @@ final class VitaminB6NutrientHandler: @unchecked Sendable,
 }
 
 final class VitaminB12NutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = VitaminB12NutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -629,12 +615,11 @@ final class VitaminB12NutrientHandler: @unchecked Sendable,
 }
 
 final class VitaminCNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = VitaminCNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -668,12 +653,11 @@ final class VitaminCNutrientHandler: @unchecked Sendable,
 }
 
 final class VitaminDNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = VitaminDNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -707,12 +691,11 @@ final class VitaminDNutrientHandler: @unchecked Sendable,
 }
 
 final class VitaminENutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = VitaminENutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -746,12 +729,11 @@ final class VitaminENutrientHandler: @unchecked Sendable,
 }
 
 final class VitaminKNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = VitaminKNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -785,12 +767,11 @@ final class VitaminKNutrientHandler: @unchecked Sendable,
 }
 
 final class ThiaminNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = ThiaminNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -824,12 +805,11 @@ final class ThiaminNutrientHandler: @unchecked Sendable,
 }
 
 final class RiboflavinNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = RiboflavinNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -863,12 +843,11 @@ final class RiboflavinNutrientHandler: @unchecked Sendable,
 }
 
 final class NiacinNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = NiacinNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -902,12 +881,11 @@ final class NiacinNutrientHandler: @unchecked Sendable,
 }
 
 final class FolateNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = FolateNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -941,12 +919,11 @@ final class FolateNutrientHandler: @unchecked Sendable,
 }
 
 final class BiotinNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = BiotinNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -980,12 +957,11 @@ final class BiotinNutrientHandler: @unchecked Sendable,
 }
 
 final class PantothenicAcidNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = PantothenicAcidNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -1019,12 +995,11 @@ final class PantothenicAcidNutrientHandler: @unchecked Sendable,
 }
 
 final class CalciumNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = CalciumNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -1058,12 +1033,11 @@ final class CalciumNutrientHandler: @unchecked Sendable,
 }
 
 final class IronNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = IronNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -1097,12 +1071,11 @@ final class IronNutrientHandler: @unchecked Sendable,
 }
 
 final class MagnesiumNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = MagnesiumNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -1136,12 +1109,11 @@ final class MagnesiumNutrientHandler: @unchecked Sendable,
 }
 
 final class ManganeseNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = ManganeseNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -1175,12 +1147,11 @@ final class ManganeseNutrientHandler: @unchecked Sendable,
 }
 
 final class PhosphorusNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = PhosphorusNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -1214,12 +1185,11 @@ final class PhosphorusNutrientHandler: @unchecked Sendable,
 }
 
 final class PotassiumNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = PotassiumNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -1253,12 +1223,11 @@ final class PotassiumNutrientHandler: @unchecked Sendable,
 }
 
 final class SeleniumNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = SeleniumNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -1292,12 +1261,11 @@ final class SeleniumNutrientHandler: @unchecked Sendable,
 }
 
 final class SodiumNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = SodiumNutrientRecordDto
     typealias SampleType = HKQuantitySample
@@ -1331,12 +1299,11 @@ final class SodiumNutrientHandler: @unchecked Sendable,
 }
 
 final class ZincNutrientHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = ZincNutrientRecordDto
     typealias SampleType = HKQuantitySample

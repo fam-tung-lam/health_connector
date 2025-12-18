@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for body fat percentage data (instant quantity type)
 final class BodyFatPercentageHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = BodyFatPercentageRecordDto
     typealias SampleType = HKQuantitySample

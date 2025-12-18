@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for lean body mass data (instant quantity type)
 final class LeanBodyMassHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = LeanBodyMassRecordDto
     typealias SampleType = HKQuantitySample

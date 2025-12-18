@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for VO2 Max data (instant quantity type)
 final class Vo2MaxHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = Vo2MaxRecordDto
     typealias SampleType = HKQuantitySample

@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for active calories burned data (interval quantity type)
 final class ActiveCaloriesBurnedHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = ActiveCaloriesBurnedRecordDto
     typealias SampleType = HKQuantitySample

@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for diastolic blood pressure (instant quantity type)
 final class DiastolicBloodPressureHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = DiastolicBloodPressureRecordDto
     typealias SampleType = HKQuantitySample

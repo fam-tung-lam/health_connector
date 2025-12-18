@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for distance data (interval quantity type)
 final class DistanceHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = DistanceRecordDto
     typealias SampleType = HKQuantitySample

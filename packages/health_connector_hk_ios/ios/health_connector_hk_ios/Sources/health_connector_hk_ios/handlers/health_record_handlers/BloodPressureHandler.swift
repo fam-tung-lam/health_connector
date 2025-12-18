@@ -3,7 +3,6 @@ import HealthKit
 
 /// Handler for composite blood pressure samples (correlation type)
 final class BloodPressureHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,

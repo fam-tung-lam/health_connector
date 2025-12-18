@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for blood glucose data (instant quantity type)
 final class BloodGlucoseHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = BloodGlucoseRecordDto
     typealias SampleType = HKQuantitySample

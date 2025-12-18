@@ -531,7 +531,7 @@ actor HealthConnectorClient: Taggable {
             }
 
             // Fall back to standard aggregation (for quantity types)
-            guard let handler = baseHandler as? AggregatableHealthRecordHandler else {
+            guard let handler = baseHandler as? HealthKitAggregatableHealthRecordHandler else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Aggregation not supported for data type: \(request.dataType)"
                 )

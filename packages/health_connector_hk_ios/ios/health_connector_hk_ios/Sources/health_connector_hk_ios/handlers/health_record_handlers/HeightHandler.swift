@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for height measurements (instantaneous quantity type)
 final class HeightHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = HeightRecordDto
     typealias SampleType = HKQuantitySample

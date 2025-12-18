@@ -3,12 +3,11 @@ import HealthKit
 
 /// Handler for resting heart rate data (instant quantity type)
 final class RestingHeartRateHandler: @unchecked Sendable,
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    AggregatableHealthRecordHandler
+    HealthKitAggregatableHealthRecordHandler
 {
     typealias RecordDto = RestingHeartRateRecordDto
     typealias SampleType = HKQuantitySample
