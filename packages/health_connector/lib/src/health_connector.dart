@@ -28,8 +28,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         requireEndTimeAfterStartTime,
         sinceV1_0_0,
         PlatformSpecificBehaviors,
-        supportedOnHealthConnect,
-        ExperimentalOn;
+        supportedOnHealthConnect;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
 import 'package:health_connector_hk_ios/health_connector_hk_ios.dart'
@@ -1173,66 +1172,123 @@ final class HealthConnector {
     }
   }
 
-  /// Updates an existing health record on the platform.
+  /// Updates an existing health record.
   ///
-  /// Modifies an existing health record with new values. The record must have
-  /// a valid existing ID (not [HealthRecordId.none]).
+  /// ## Platform Differences
+  ///
+  /// - **Android Health Connect**: ✅ Full support
+  /// - **iOS HealthKit**: ❌ Not supported
+  ///
+  /// ## Why HealthKit Doesn't Support Updates
+  ///
+  /// HealthKit uses an **immutable data model** where health samples represent
+  /// point-in-time observations that cannot be modified after creation.
+  ///
+  /// ## How to Achieve Update Functionality on iOS
+  ///
+  /// This SDK **intentionally does not provide automatic delete-then-create
+  /// logic**. Developers who need update functionality must explicitly use the
+  /// SDK's delete and create APIs. This design ensures full awareness and
+  /// responsibility for data modification operations.
+  ///
+  /// ### Option 1: Explicit Delete-Then-Create
+  ///
+  /// **You must explicitly call both operations**:
+  ///
+  /// ```dart
+  /// // 1. EXPLICITLY delete the existing record
+  /// //    You are responsible for this destructive operation
+  /// await connector.deleteRecordsByIds(
+  ///   dataType: HealthDataType.steps,
+  ///   recordIds: [existingRecord.id],
+  /// );
+  ///
+  /// // 2. EXPLICITLY create a new record with updated values
+  /// //    This creates a new record, not an update
+  /// final updatedRecord = StepsRecord(
+  ///   id: HealthRecordId.none, // Must be none for new records
+  ///   startTime: existingRecord.startTime,
+  ///   endTime: existingRecord.endTime,
+  ///   count: Numeric(newStepCount), // Updated value
+  ///   metadata: existingRecord.metadata,
+  /// );
+  ///
+  /// final newId = await connector.writeRecord(updatedRecord);
+  /// ```
+  ///
+  /// > [!CAUTION]
+  /// > The delete operation is permanent and cannot be undone. You are
+  /// > responsible for understanding the implications of deleting health data.
+  ///
+  /// ### Option 2: Track Versions with Custom Metadata
+  ///
+  /// Use custom metadata to link different "versions" of the same logical
+  /// record. **You must still explicitly delete and create**:
+  ///
+  /// ```dart
+  /// // Original record with custom metadata
+  /// final original = StepsRecord(
+  ///   id: HealthRecordId.none,
+  ///   // ... other fields
+  ///   metadata: Metadata.manualEntry(
+  ///     device: Device.fromType(DeviceType.phone),
+  ///     customMetadata: {
+  ///       'logicalRecordId': 'my-workout-123',
+  ///       'version': '1',
+  ///     },
+  ///   ),
+  /// );
+  /// await connector.writeRecord(original);
+  ///
+  /// // To "update": delete old, create new with same logicalRecordId
+  /// await connector.deleteRecordsByIds(
+  ///   dataType: HealthDataType.steps,
+  ///   recordIds: [original.id],
+  /// );
+  ///
+  /// final updated = StepsRecord(
+  ///   id: HealthRecordId.none,
+  ///   // ... updated fields
+  ///   metadata: Metadata.manualEntry(
+  ///     device: Device.fromType(DeviceType.phone),
+  ///     customMetadata: {
+  ///       'logicalRecordId': 'my-workout-123', // Same logical ID
+  ///       'version': '2', // Incremented version
+  ///     },
+  ///   ),
+  /// );
+  /// await connector.writeRecord(updated);
+  /// ```
   ///
   /// ## Parameters
   ///
-  /// - [record]: The health record to update (must have a valid existing ID)
+  /// - [record]: The health record to update. Must have a valid existing
+  ///   [HealthRecordId] (not [HealthRecordId.none]).
   ///
   /// ## Returns
   ///
-  /// The [HealthRecordId] of the updated record.
+  /// The [HealthRecordId] of the updated record (same as input on Health
+  /// Connect).
   ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.unsupportedOperation] on iOS HealthKit
+  /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if the record ID is
   ///   [HealthRecordId.none] or invalid
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
-  ///   if write/delete permission has not been granted
+  ///   if write permission has not been granted
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if attempting to update a record not created by this app
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   if an unexpected error occurs
   ///
-  /// ## Example
+  /// ## See Also
   ///
-  /// ```dart
-  /// // Read an existing record
-  /// final recordId = HealthRecordId('existing-record-id');
-  /// final request = HealthDataType.steps.readRecord(recordId);
-  /// final existingRecord = await connector.readRecord(request);
-  ///
-  /// if (existingRecord != null) {
-  ///   // Create updated record with modified values
-  ///   final updatedRecord = StepsRecord(
-  ///     id: existingRecord.id, // Preserve the original ID
-  ///     startTime: existingRecord.startTime,
-  ///     endTime: existingRecord.endTime,
-  ///     count: Numeric(existingRecord.count.value + 100), // Update step count
-  ///     metadata: existingRecord.metadata,
-  ///   );
-  ///
-  ///   final newRecordId = await connector.updateRecord(updatedRecord);
-  ///   print('Record updated. New ID: ${newRecordId.value}');
-  /// }
-  /// ```
-  @PlatformSpecificBehaviors({
-    HealthPlatform.appleHealth:
-        'Uses immutable data model. The plugin implemented as '
-        '`delete-then-insert`, so returns a new UUID different from input ID.',
-    HealthPlatform.healthConnect:
-        'Provides native update API. '
-        'Record ID is preserved during update operation.',
-  })
-  @ExperimentalOn({
-    HealthPlatform.appleHealth:
-        'The plugin implemented deletion operation as `delete-then-insert`, '
-        'so returns a new UUID different from input ID.',
-  })
+  /// - [deleteRecordsByIds] for deleting specific records
+  /// - [writeRecord] for creating new records
+  @supportedOnHealthConnect
   Future<HealthRecordId> updateRecord<R extends HealthRecord>(R record) async {
     HealthConnectorLogger.debug(
       tag,

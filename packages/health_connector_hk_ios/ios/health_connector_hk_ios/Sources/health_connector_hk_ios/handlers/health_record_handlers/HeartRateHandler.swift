@@ -5,7 +5,6 @@ import HealthKit
 final class HeartRateHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {

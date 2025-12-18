@@ -1,29 +1,4 @@
-import 'package:health_connector_core/src/annotations/annotations.dart'
-    show internalUse, sinceV1_0_0;
-import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart'
-    show HealthConnectorException;
-import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart'
-    show HealthDataType;
-import 'package:health_connector_core/src/models/health_platform.dart'
-    show HealthPlatformStatus;
-import 'package:health_connector_core/src/models/health_records/health_record.dart'
-    show HealthRecord, HealthRecordId;
-import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
-    show MeasurementUnit;
-import 'package:health_connector_core/src/models/permissions/permission.dart'
-    show Permission;
-import 'package:health_connector_core/src/models/requests/aggregate_request.dart'
-    show AggregateRequest;
-import 'package:health_connector_core/src/models/requests/read_record_request.dart'
-    show ReadRecordRequest;
-import 'package:health_connector_core/src/models/requests/read_records_request.dart'
-    show ReadRecordsRequest;
-import 'package:health_connector_core/src/models/responses/aggregate_response.dart'
-    show AggregateResponse;
-import 'package:health_connector_core/src/models/responses/permission_request_result.dart'
-    show PermissionRequestResult;
-import 'package:health_connector_core/src/models/responses/read_records_response.dart'
-    show ReadRecordsResponse;
+import 'package:health_connector_core/health_connector_core.dart';
 
 /// Platform client interface for interacting with native health platforms.
 ///
@@ -179,10 +154,6 @@ abstract interface class HealthConnectorPlatformClient {
 
   /// Updates a single health record on the platform.
   ///
-  /// Modifies an existing health record identified by its ID. The record
-  /// must have been previously written to the platform and have a valid
-  /// platform-assigned ID.
-  ///
   /// ## Parameters
   ///
   /// - [record]: The health record to update. Must have a valid existing
@@ -194,12 +165,15 @@ abstract interface class HealthConnectorPlatformClient {
   ///
   /// ## Throws
   ///
+  /// - [HealthConnectorErrorCode.unsupportedOperation] on iOS because HealthKit
+  ///   uses an immutable data model
   /// - [HealthConnectorException] if:
   ///   - The platform request fails
   ///   - The record ID is invalid or doesn't exist
   ///   - The record data is invalid
   ///   - Required permissions are not granted
   ///   - The data type is not supported for updating
+  @supportedOnHealthConnect
   Future<HealthRecordId> updateRecord<R extends HealthRecord>(R record);
 
   /// Performs an aggregation query over health records.

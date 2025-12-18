@@ -163,20 +163,6 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         }
     }
 
-    /// Updates a single health record using delete-then-insert pattern.
-    ///
-    /// - Parameters:
-    ///   - request: Contains the data type and the typed record to update
-    ///   - completion: Called with a `Result` containing the update record response
-    public func updateRecord(
-        request: UpdateRecordRequestDto,
-        completion: @escaping (Result<UpdateRecordResponseDto, Error>) -> Void
-    ) {
-        process(operation: "updateRecord", completion: completion) {
-            try await self.healthClient.updateRecord(request: request)
-        }
-    }
-
     /// Performs an aggregation query on health records.
     ///
     /// - Parameters:

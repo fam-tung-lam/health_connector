@@ -5,7 +5,6 @@ import HealthKit
 final class OxygenSaturationHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {

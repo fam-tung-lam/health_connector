@@ -225,7 +225,7 @@ melos:
       steps:
         - melos exec --scope="health_connector_hc_android" -- dart run pigeon --input pigeons/health_connector_hc_android_api.dart
         - melos exec --scope="health_connector_hk_ios" -- dart run pigeon --input pigeons/health_connector_hk_ios_api.dart
-        - cd packages/health_connector_hk_ios && python3 scripts/add_public_keyword_to_swift_code.py ios/health_connector_hk_ios/Sources/health_connector_hk_ios/pigeon/HealthConnectorPlatformApi.g.swift
+        - cd packages/health_connector_hk_ios && python3 scripts/add_public_keyword_to_swift_code.py ios/health_connector_hk_ios/Sources/health_connector_hk_ios/pigeon/HealthConnectorHKIOSApi.g.swift
 
     # Clean
     clean:

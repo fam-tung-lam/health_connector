@@ -5,7 +5,6 @@ import HealthKit
 final class WheelchairPushesHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {

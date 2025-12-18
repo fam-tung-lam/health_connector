@@ -5,7 +5,6 @@ import HealthKit
 final class SleepStageHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     CustomAggregatableHealthRecordHandler
 {

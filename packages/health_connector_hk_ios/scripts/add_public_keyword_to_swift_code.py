@@ -57,7 +57,7 @@ def main():
     """Main function to process the Swift Pigeon file."""
     if len(sys.argv) != 2:
         print("Usage: python3 add_public_to_swift_pigeon.py <path_to_swift_file>")
-        print("Example: python3 add_public_to_swift_pigeon.py ios/health_connector/Sources/health_connector/data/pigeon/HealthConnectorPlatformApi.g.swift")
+        print("Example: python3 add_public_to_swift_pigeon.py ios/health_connector/Sources/health_connector/data/pigeon/HealthConnectorHKIOSApi.g.swift")
         sys.exit(1)
 
     file_path = Path(sys.argv[1])
