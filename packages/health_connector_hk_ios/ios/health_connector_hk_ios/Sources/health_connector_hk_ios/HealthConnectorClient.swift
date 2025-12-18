@@ -3,12 +3,19 @@ import HealthKit
 
 /// Internal client wrapper for the HealthKit SDK.
 ///
+/// This actor provides a thin orchestration layer that validates requests and
+/// delegates all business logic to specialized handler instances.
+//
+// The client is responsible for:
+/// - Validating input parameters (time ranges, record IDs, etc.)
+/// - Looking up appropriate handlers from the registry
+/// - Delegating operations to handlers
+/// - Wrapping results in response DTOs
+/// - Logging high-level operation results
+///
 /// **Thread Safety**: This actor provides compiler-enforced serial access to HealthKit operations.
 /// All methods are automatically isolated and safe to call from any concurrency context.
 actor HealthConnectorClient: Taggable {
-    /// The underlying HealthKit store instance.
-    private let store: HKHealthStore
-
     /// Service for managing HealthKit permissions.
     private let permissionService: HealthConnectorPermissionService
 
@@ -19,11 +26,10 @@ actor HealthConnectorClient: Taggable {
 
     /// Private initializer to prevent external instantiation.
     ///
-    /// - Parameter store: The HealthKit store instance.
+    /// - Parameter store: The HealthKit store instance for dependency injection into services
     ///
     /// **Changed:** Creates handler registry with dependency injection
     private init(store: HKHealthStore) {
-        self.store = store
         permissionService = HealthConnectorPermissionService(store: store)
         handlerRegistry = HealthRecordHandlerRegistry(healthStore: store)
     }
@@ -213,42 +219,7 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            // Parse pageToken if present and adjust startTime for pagination
-            var effectiveStartTime = request.startTime
-            if let pageToken = request.pageToken, !pageToken.isEmpty {
-                if let tokenTimestamp = Int64(pageToken) {
-                    effectiveStartTime = tokenTimestamp + 1
-                    if effectiveStartTime >= request.endTime {
-                        HealthConnectorLogger.warning(
-                            tag: HealthConnectorClient.tag,
-                            operation: "readRecords",
-                            message: "Invalid pageToken: adjusted startTime >= endTime",
-                            context: [
-                                "adjustedStartTime": effectiveStartTime, "endTime": request.endTime,
-                            ]
-                        )
-                        return self.createEmptyResponse()
-                    }
-                    HealthConnectorLogger.debug(
-                        tag: HealthConnectorClient.tag,
-                        operation: "readRecords",
-                        message: "Using pageToken for pagination",
-                        context: [
-                            "originalStartTime": request.startTime,
-                            "adjustedStartTime": effectiveStartTime,
-                        ]
-                    )
-                } else {
-                    HealthConnectorLogger.warning(
-                        tag: HealthConnectorClient.tag,
-                        operation: "readRecords",
-                        message: "Invalid pageToken format, using original startTime",
-                        context: ["pageToken": pageToken]
-                    )
-                }
-            }
-
-            guard let baseHandler = self.handlerRegistry.getHandler(for: request.dataType) else {
+            guard let baseHandler = handlerRegistry.getHandler(for: request.dataType) else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Unsupported data type: \(request.dataType)"
                 )
@@ -260,86 +231,19 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            let startDate = Date(timeIntervalSince1970: TimeInterval(effectiveStartTime) / 1000.0)
-            let endDate = Date(timeIntervalSince1970: TimeInterval(request.endTime) / 1000.0)
-            let timePredicate = HKQuery.predicateForSamples(
-                withStart: startDate,
-                end: endDate,
-                options: .strictStartDate
+            // Delegate to handler
+            let (records, pageToken) = try await handler.readRecords(
+                startTime: request.startTime,
+                endTime: request.endTime,
+                pageToken: request.pageToken,
+                pageSize: Int(request.pageSize),
+                dataOriginPackageNames: request.dataOriginPackageNames
             )
 
-            let sampleType = try type(of: handler).dataType.toHealthKit()
-
-            let predicate: NSPredicate
-            if !request.dataOriginPackageNames.isEmpty {
-                let sources = try await self.querySources(
-                    forSampleType: sampleType,
-                    bundleIdentifiers: request.dataOriginPackageNames
-                )
-                if sources.isEmpty {
-                    HealthConnectorLogger.warning(
-                        tag: HealthConnectorClient.tag,
-                        operation: "readRecords",
-                        message: "No sources found for bundle identifiers",
-                        context: ["bundleIdentifiers": request.dataOriginPackageNames]
-                    )
-                    return self.createEmptyResponse()
-                }
-                let sourcePredicates = sources.map { HKQuery.predicateForObjects(from: $0) }
-                let sourcePredicate = NSCompoundPredicate(
-                    orPredicateWithSubpredicates: sourcePredicates)
-                predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-                    sourcePredicate, timePredicate,
-                ])
-            } else {
-                predicate = timePredicate
-            }
-
-            let responseDto = try await withCheckedThrowingContinuation {
-                (continuation: CheckedContinuation<ReadRecordsResponseDto, Error>) in
-                let query = HKSampleQuery(
-                    sampleType: sampleType,
-                    predicate: predicate,
-                    limit: Int(request.pageSize) + 1,
-                    sortDescriptors: [
-                        NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true),
-                    ]
-                ) { _, samples, error in
-                    if let error {
-                        if let hkError = error as? HKError {
-                            continuation.resume(
-                                throwing: HealthConnectorError.create(from: hkError))
-                        } else {
-                            continuation.resume(
-                                throwing: HealthConnectorError.unknown(
-                                    message:
-                                    "Failed to read records: \(error.localizedDescription)",
-                                    context: ["details": error.localizedDescription]
-                                )
-                            )
-                        }
-                        return
-                    }
-
-                    let samples = samples ?? []
-                    do {
-                        let recordDtos = try samples.map { try $0.toDto() }
-                        let (trimmedRecords, nextPageToken) = try self.applyPagination(
-                            records: recordDtos,
-                            pageSize: request.pageSize,
-                            timestampExtractor: { try $0.extractTimestamp() }
-                        )
-                        continuation.resume(
-                            returning: ReadRecordsResponseDto(
-                                nextPageToken: nextPageToken,
-                                records: trimmedRecords
-                            ))
-                    } catch {
-                        continuation.resume(throwing: error)
-                    }
-                }
-                self.store.execute(query)
-            }
+            let responseDto = ReadRecordsResponseDto(
+                nextPageToken: pageToken,
+                records: records
+            )
 
             HealthConnectorLogger.info(
                 tag: Self.tag,
@@ -350,119 +254,6 @@ actor HealthConnectorClient: Taggable {
 
             return responseDto
         }
-    }
-
-    /// Applies pagination logic to records array.
-    ///
-    /// This helper implements the "over-fetch" pagination strategy:
-    ///
-    /// - **Input**: Records array that may contain `pageSize + 1` items (due to querying one extra)
-    /// - **Output**: Exactly `pageSize` records (or fewer if last page) with optional `nextPageToken`
-    ///
-    /// **Why remove the last record?**
-    ///
-    /// When we query `pageSize + 1` records and receive that many, it means more data exists.
-    /// However, we must return exactly `pageSize` records to the caller. The extra (last) record
-    /// was only used as a "lookahead" indicator. We remove it and generate `nextPageToken` from
-    /// the actual last record being returned, so the next page starts from the correct position.
-    ///
-    /// If we receive `pageSize` or fewer records, all records are returned and no `nextPageToken`
-    /// is generated, indicating this is the last page.
-    ///
-    /// - Parameters:
-    ///   - records: Array of records (may contain pageSize + 1 items as a result of over-fetching)
-    ///   - pageSize: Requested page size (the maximum number of records to return)
-    ///   - timestampExtractor: Closure to extract timestamp from record for pagination token
-    /// - Returns: Tuple of (trimmed records array with at most pageSize items, optional nextPageToken)
-    ///
-    /// **Thread Safety:** This is a pure function that only operates on its parameters,
-    /// so it's safe to mark as nonisolated for use in closures.
-    private nonisolated func applyPagination<T>(
-        records: [T],
-        pageSize: Int64,
-        timestampExtractor: @Sendable (T) throws -> Int64
-    ) throws
-        -> (records: [T], nextPageToken: String?)
-    {
-        var mutableRecords = records
-        let nextPageToken: String?
-
-        if mutableRecords.count > pageSize {
-            // Remove the extra record that was only used to detect if more pages exist.
-            // This ensures we return exactly pageSize records to the caller.
-            mutableRecords.removeLast()
-
-            // Generate nextPageToken from the last record we're actually returning (not the removed one).
-            // We know mutableRecords is not empty because we just removed one element and count > pageSize (> 0)
-            guard let lastRecord = mutableRecords.last else {
-                throw HealthConnectorError.invalidArgument(
-                    message: "Unexpected empty records array after pagination removal"
-                )
-            }
-            nextPageToken = try String(timestampExtractor(lastRecord))
-        } else {
-            // This is the last page: we received pageSize or fewer records, meaning no more data exists.
-            // Return all records as-is and indicate no more pages with nil nextPageToken.
-            nextPageToken = nil
-        }
-
-        return (mutableRecords, nextPageToken)
-    }
-
-    /// Queries HealthKit for sources matching the given bundle identifiers.
-    ///
-    /// This helper method queries a sample of records for a given sample type to
-    /// collect HKSource objects, then filters them by bundle identifier. This is
-    /// necessary because HealthKit doesn't provide a direct API to get sources by
-    /// bundle identifier - sources must be obtained from existing samples.
-    ///
-    /// To improve efficiency, we query a reasonable number of samples (up to 1000)
-    /// to collect unique sources. If all requested bundle identifiers are found
-    /// before reaching the limit, we can return early.
-    ///
-    /// - Parameters:
-    ///   - sampleType: The HealthKit sample type to query sources for
-    ///   - bundleIdentifiers: List of bundle identifiers to filter sources by
-    /// - Returns: Set of HKSource objects matching the bundle identifiers
-    /// - Throws: Errors from HealthKit queries
-    private func querySources(forSampleType: HKSampleType, bundleIdentifiers: [String]) async throws
-        -> Set<HKSource>
-    {
-        try await withCheckedThrowingContinuation {
-            continuation in
-            // Query a sample of records to collect sources
-            // Use a reasonable limit to balance between completeness and performance
-            let query = HKSampleQuery(
-                sampleType: forSampleType,
-                predicate: nil,
-                limit: 1000,
-                sortDescriptors: nil
-            ) {
-                _, samples, error in
-                if let error {
-                    continuation.resume(throwing: error)
-                    return
-                }
-
-                // Extract unique sources that match the bundle identifiers
-                let matchingSources = Set(
-                    (samples ?? []).compactMap(\.sourceRevision.source).filter {
-                        bundleIdentifiers.contains($0.bundleIdentifier)
-                    })
-
-                continuation.resume(returning: matchingSources)
-            }
-
-            self.store.execute(query)
-        }
-    }
-
-    /// Creates an empty response DTO for the given data type.
-    ///
-    /// - Parameter dataType: The data type for the empty response
-    /// - Returns: ReadRecordsResponseDto with empty records list
-    private func createEmptyResponse() -> ReadRecordsResponseDto {
-        ReadRecordsResponseDto(nextPageToken: nil, records: [])
     }
 
     /// Writes a single health record.
@@ -485,57 +276,29 @@ actor HealthConnectorClient: Taggable {
 
             let dataType = try request.record.dataType
 
-            guard let baseHandler = self.handlerRegistry.getHandler(for: dataType) else {
+            guard let baseHandler = handlerRegistry.getHandler(for: dataType) else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Unsupported data type: \(dataType)"
                 )
             }
 
-            guard baseHandler is WritableHealthRecordHandler else {
+            guard let handler = baseHandler as? WritableHealthRecordHandler else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Data type \(dataType) does not support write operations"
                 )
             }
 
-            let sample = try request.record.toHealthKit()
+            // Delegate to handler
+            let recordId = try await handler.writeRecord(request.record)
 
-            return try await withCheckedThrowingContinuation { continuation in
-                self.store.save(sample) { success, error in
-                    if let error {
-                        if let hkError = error as? HKError {
-                            continuation.resume(
-                                throwing: HealthConnectorError.create(from: hkError))
-                        } else {
-                            continuation.resume(
-                                throwing: HealthConnectorError.unknown(
-                                    message:
-                                    "Failed to write record: \(error.localizedDescription)",
-                                    context: ["details": error.localizedDescription]
-                                )
-                            )
-                        }
-                        return
-                    }
+            HealthConnectorLogger.info(
+                tag: Self.tag,
+                operation: "writeRecord",
+                message: "Health Connect record written successfully",
+                context: ["request": request, "assignedRecordId": recordId]
+            )
 
-                    if success {
-                        let recordId = sample.uuid.uuidString
-                        HealthConnectorLogger.info(
-                            tag: HealthConnectorClient.tag,
-                            operation: "writeRecord",
-                            message: "Health Connect record written successfully",
-                            context: ["request": request, "assignedRecordId": recordId]
-                        )
-                        continuation.resume(returning: WriteRecordResponseDto(recordId: recordId))
-                    } else {
-                        continuation.resume(
-                            throwing: HealthConnectorError.unknown(
-                                message: "Failed to write record",
-                                context: ["details": "HealthKit save returned false"]
-                            )
-                        )
-                    }
-                }
-            }
+            return WriteRecordResponseDto(recordId: recordId)
         }
     }
 
@@ -608,15 +371,27 @@ actor HealthConnectorClient: Taggable {
         }
     }
 
-    /// Writes multiple health records atomically.
+    /// Writes multiple health records.
+    ///
+    /// Records are grouped by data type and written via their respective handlers.
+    /// Record IDs are returned in the same order as the input records.
+    ///
+    /// **Non-Atomic Operation**: If an error occurs while writing a group of records,
+    /// previously written groups will remain committed. This is a HealthKit limitation -
+    /// the platform does not provide transaction support for multi-type writes.
+    /// For example, if writing 10 steps records succeeds but 5 weight records fail,
+    /// the steps will remain in HealthKit while an error is thrown.
+    ///
+    /// **Order Preservation**: Despite grouping by type internally, the returned record IDs
+    /// are guaranteed to be in the exact same order as the input records.
     ///
     /// - Parameter request: Contains the list of health records to write
-    /// - Returns: WriteRecordsResponseDto containing the platform-assigned record IDs
+    /// - Returns: WriteRecordsResponseDto containing the platform-assigned record IDs in input order
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if any record data is invalid
     /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs or if partial write fails
     func writeRecords(request: WriteRecordsRequestDto) async throws -> WriteRecordsResponseDto {
         try await process(operation: "writeRecords", context: ["request": request]) {
             HealthConnectorLogger.debug(
@@ -626,65 +401,57 @@ actor HealthConnectorClient: Taggable {
                 context: ["request": request]
             )
 
-            var samples: [HKSample] = []
+            // Create result array (same size as input) to maintain order
+            var recordIds: [String?] = Array(repeating: nil, count: request.records.count)
 
-            for recordDto in request.records {
-                let dataType = try recordDto.dataType
+            // Group records by type with original indices
+            var recordsByType: [HealthDataTypeDto: [(index: Int, record: HealthRecordDto)]] = [:]
+            for (index, record) in request.records.enumerated() {
+                let dataType = try record.dataType
+                recordsByType[dataType, default: []].append((index, record))
+            }
 
-                guard let baseHandler = self.handlerRegistry.getHandler(for: dataType) else {
+            // Write each group and place IDs at correct indices
+            for (dataType, indexedRecords) in recordsByType {
+                guard let baseHandler = handlerRegistry.getHandler(for: dataType) else {
                     throw HealthConnectorError.unsupportedOperation(
                         message: "Unsupported data type: \(dataType)"
                     )
                 }
 
-                guard baseHandler is WritableHealthRecordHandler else {
+                guard let handler = baseHandler as? WritableHealthRecordHandler else {
                     throw HealthConnectorError.unsupportedOperation(
                         message: "Data type \(dataType) does not support write operations"
                     )
                 }
 
-                let sample = try recordDto.toHealthKit()
-                samples.append(sample)
-            }
+                let records = indexedRecords.map(\.record)
+                let groupIds = try await handler.writeRecords(records)
 
-            return try await withCheckedThrowingContinuation { continuation in
-                self.store.save(samples) { success, error in
-                    if let error {
-                        if let hkError = error as? HKError {
-                            continuation.resume(
-                                throwing: HealthConnectorError.create(from: hkError))
-                        } else {
-                            continuation.resume(
-                                throwing: HealthConnectorError.unknown(
-                                    message:
-                                    "Failed to write records: \(error.localizedDescription)",
-                                    context: ["details": error.localizedDescription]
-                                )
-                            )
-                        }
-                        return
-                    }
-
-                    if success {
-                        let recordIds = samples.map(\.uuid.uuidString)
-                        HealthConnectorLogger.info(
-                            tag: HealthConnectorClient.tag,
-                            operation: "writeRecords",
-                            message: "Health Connect records written successfully",
-                            context: ["request": request, "assignedRecordIds": recordIds]
-                        )
-                        continuation.resume(
-                            returning: WriteRecordsResponseDto(recordIds: recordIds))
-                    } else {
-                        continuation.resume(
-                            throwing: HealthConnectorError.unknown(
-                                message: "Failed to write records",
-                                context: ["details": "HealthKit save returned false"]
-                            )
-                        )
-                    }
+                // Place each ID at its original index
+                for (arrayIndex, (originalIndex, _)) in indexedRecords.enumerated() {
+                    recordIds[originalIndex] = groupIds[arrayIndex]
                 }
             }
+
+            // Verify all slots filled
+            guard recordIds.allSatisfy({ $0 != nil }) else {
+                throw HealthConnectorError.unknown(
+                    message: "Some records were not written",
+                    context: ["details": "Not all record IDs were assigned"]
+                )
+            }
+
+            let finalRecordIds = recordIds.compactMap { $0 }
+
+            HealthConnectorLogger.info(
+                tag: Self.tag,
+                operation: "writeRecords",
+                message: "Health Connect records written successfully",
+                context: ["request": request, "assignedRecordIds": finalRecordIds]
+            )
+
+            return WriteRecordsResponseDto(recordIds: finalRecordIds)
         }
     }
 
@@ -706,6 +473,7 @@ actor HealthConnectorClient: Taggable {
                 context: ["request": request]
             )
 
+            // Validate time range
             if request.startTime >= request.endTime {
                 throw HealthConnectorError.invalidArgument(
                     message: "Invalid time range: startTime must be before endTime",
@@ -715,44 +483,45 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            if request.dataType == .sleepStageRecord {
-                return try await self.aggregateSleepStages(request: request)
-            }
-
-            guard let baseHandler = self.handlerRegistry.getHandler(for: request.dataType) else {
+            guard let baseHandler = handlerRegistry.getHandler(for: request.dataType) else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Unsupported data type: \(request.dataType)"
                 )
             }
 
+            // Try custom aggregation first (for category types like sleep)
+            if let customHandler = baseHandler as? CustomAggregatableHealthRecordHandler {
+                let value = try await customHandler.aggregate(
+                    metric: request.aggregationMetric,
+                    startTime: request.startTime,
+                    endTime: request.endTime
+                )
+                let responseDto = AggregateResponseDto(value: value)
+
+                HealthConnectorLogger.info(
+                    tag: Self.tag,
+                    operation: "aggregate",
+                    message: "Health Connect data aggregated successfully",
+                    context: ["request": request, "response": responseDto]
+                )
+
+                return responseDto
+            }
+
+            // Fall back to standard aggregation (for quantity types)
             guard let handler = baseHandler as? AggregatableHealthRecordHandler else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Aggregation not supported for data type: \(request.dataType)"
                 )
             }
 
-            guard let quantityType = try type(of: handler).dataType.toHealthKit() as? HKQuantityType
-            else {
-                throw HealthConnectorError.invalidArgument(
-                    message: "Data type \(request.dataType) is not a quantity type"
-                )
-            }
-
-            let startDate = Date(timeIntervalSince1970: TimeInterval(request.startTime) / 1000.0)
-            let endDate = Date(timeIntervalSince1970: TimeInterval(request.endTime) / 1000.0)
-            let predicate = HKQuery.predicateForSamples(
-                withStart: startDate,
-                end: endDate,
-                options: .strictStartDate
-            )
-
-            let responseDto = try await self.aggregateWithStatisticsQuery(
-                quantityType: quantityType,
-                predicate: predicate,
+            let value = try await handler.aggregate(
                 metric: request.aggregationMetric,
-                dataType: request.dataType,
-                handler: handler
+                startTime: request.startTime,
+                endTime: request.endTime
             )
+
+            let responseDto = AggregateResponseDto(value: value)
 
             HealthConnectorLogger.info(
                 tag: Self.tag,
@@ -763,375 +532,6 @@ actor HealthConnectorClient: Taggable {
 
             return responseDto
         }
-    }
-
-    /// Performs aggregation using HKStatisticsQuery for metrics supported by HealthKit statistics.
-    ///
-    /// - Parameters:
-    ///   - quantityType: The HealthKit quantity type to aggregate
-    ///   - predicate: The time range predicate
-    ///   - metric: The aggregation metric
-    ///   - dataType: The health data type
-    ///   - handler: The quantity handler for this data type
-    /// - Returns: AggregateResponseDto with aggregated result
-    private func extractAggregateResponse(
-        from statistics: HKStatistics,
-        dataType: HealthDataTypeDto,
-        metric: AggregationMetricDto
-    ) -> AggregateResponseDto {
-        switch dataType {
-        case .activeCaloriesBurned:
-            guard let sumQuantity = statistics.sumQuantity() else {
-                return AggregateResponseDto(value: EnergyDto(unit: .kilocalories, value: 0.0))
-            }
-            return AggregateResponseDto(value: sumQuantity.toEnergyDto())
-
-        case .steps:
-            guard let sumQuantity = statistics.sumQuantity() else {
-                return AggregateResponseDto(value: NumericDto(unit: .numeric, value: 0.0))
-            }
-            let stepCount = Int64(sumQuantity.doubleValue(for: .count()))
-            return AggregateResponseDto(value: stepCount.toNumericDto())
-
-        case .weight:
-            let weightQuantity: HKQuantity? =
-                switch metric {
-                case .avg: statistics.averageQuantity()
-                case .min: statistics.minimumQuantity()
-                case .max: statistics.maximumQuantity()
-                default: nil
-                }
-            guard let quantity = weightQuantity else {
-                return AggregateResponseDto(value: MassDto(unit: .kilograms, value: 0.0))
-            }
-            return AggregateResponseDto(value: quantity.toMassDto())
-
-        case .height:
-            let heightQuantity: HKQuantity? =
-                switch metric {
-                case .avg: statistics.averageQuantity()
-                case .min: statistics.minimumQuantity()
-                case .max: statistics.maximumQuantity()
-                default: nil
-                }
-            guard let quantity = heightQuantity else {
-                return AggregateResponseDto(value: LengthDto(unit: .meters, value: 0.0))
-            }
-            return AggregateResponseDto(value: quantity.toLengthDto())
-
-        case .hydration:
-            guard let quantity = statistics.sumQuantity() else {
-                return AggregateResponseDto(value: VolumeDto(unit: .liters, value: 0.0))
-            }
-            return AggregateResponseDto(value: quantity.toVolumeDto())
-
-        case .leanBodyMass:
-            let leanBodyMassQuantity: HKQuantity? =
-                switch metric {
-                case .avg: statistics.averageQuantity()
-                case .min: statistics.minimumQuantity()
-                case .max: statistics.maximumQuantity()
-                default: nil
-                }
-            guard let quantity = leanBodyMassQuantity else {
-                return AggregateResponseDto(value: MassDto(unit: .kilograms, value: 0.0))
-            }
-            return AggregateResponseDto(value: quantity.toMassDto())
-
-        case .distance:
-            guard let sumQuantity = statistics.sumQuantity() else {
-                return AggregateResponseDto(value: LengthDto(unit: .meters, value: 0.0))
-            }
-            return AggregateResponseDto(value: sumQuantity.toLengthDto())
-
-        case .floorsClimbed:
-            guard let sumQuantity = statistics.sumQuantity() else {
-                return AggregateResponseDto(value: NumericDto(unit: .numeric, value: 0.0))
-            }
-            let floorsCount = sumQuantity.doubleValue(for: .count())
-            return AggregateResponseDto(value: NumericDto(unit: .numeric, value: floorsCount))
-
-        case .wheelchairPushes:
-            guard let sumQuantity = statistics.sumQuantity() else {
-                return AggregateResponseDto(value: NumericDto(unit: .numeric, value: 0.0))
-            }
-            let pushesCount = Int64(sumQuantity.doubleValue(for: .count()))
-            return AggregateResponseDto(value: pushesCount.toNumericDto())
-
-        case .heartRateMeasurementRecord:
-            let heartRateQuantity: HKQuantity? =
-                switch metric {
-                case .avg: statistics.averageQuantity()
-                case .min: statistics.minimumQuantity()
-                case .max: statistics.maximumQuantity()
-                default: nil
-                }
-            guard let quantity = heartRateQuantity else {
-                return AggregateResponseDto(value: NumericDto(unit: .numeric, value: 0.0))
-            }
-            let unit = HKUnit.count().unitDivided(by: .minute())
-            let bpmValue = quantity.doubleValue(for: unit)
-            return AggregateResponseDto(value: NumericDto(unit: .numeric, value: bpmValue))
-
-        case .bodyTemperature:
-            let temperatureQuantity: HKQuantity? =
-                switch metric {
-                case .avg: statistics.averageQuantity()
-                case .min: statistics.minimumQuantity()
-                case .max: statistics.maximumQuantity()
-                default: nil
-                }
-            guard let quantity = temperatureQuantity else {
-                return AggregateResponseDto(value: TemperatureDto(unit: .celsius, value: 0.0))
-            }
-            return AggregateResponseDto(value: quantity.toTemperatureDto())
-
-        case .bodyFatPercentage:
-            return AggregateResponseDto(value: PercentageDto(unit: .decimal, value: 0.0))
-
-        case .energyNutrient:
-            guard let sumQuantity = statistics.sumQuantity() else {
-                return AggregateResponseDto(value: EnergyDto(unit: .kilocalories, value: 0.0))
-            }
-            return AggregateResponseDto(value: sumQuantity.toEnergyDto())
-
-        case .caffeine, .protein, .totalCarbohydrate, .totalFat, .saturatedFat,
-             .monounsaturatedFat, .polyunsaturatedFat, .cholesterol, .dietaryFiber, .sugar,
-             .vitaminA, .vitaminB6, .vitaminB12, .vitaminC, .vitaminD, .vitaminE, .vitaminK,
-             .thiamin, .riboflavin, .niacin, .folate, .biotin, .pantothenicAcid,
-             .calcium, .iron, .magnesium, .manganese, .phosphorus, .potassium, .selenium, .sodium,
-             .zinc:
-            guard let sumQuantity = statistics.sumQuantity() else {
-                return AggregateResponseDto(value: MassDto(unit: .grams, value: 0.0))
-            }
-            return AggregateResponseDto(value: sumQuantity.toMassDto())
-
-        case .sleepStageRecord:
-            fatalError(
-                "`HealthDataTypeDto.sleepStageRecord` aggregation must be handled by the `aggregateSleepStages()`."
-            )
-
-        case .nutrition:
-            fatalError("`HealthDataTypeDto.nutrition` records do not support aggregation.")
-
-        case .bloodPressure:
-            fatalError("`HealthDataTypeDto.bloodPressure` records do not support aggregation.")
-
-        case .systolicBloodPressure:
-            let systolicQuantity: HKQuantity? =
-                switch metric {
-                case .avg: statistics.averageQuantity()
-                case .min: statistics.minimumQuantity()
-                case .max: statistics.maximumQuantity()
-                default: nil
-                }
-            guard let quantity = systolicQuantity else {
-                return AggregateResponseDto(
-                    value: PressureDto(unit: .millimetersOfMercury, value: 0.0))
-            }
-            return AggregateResponseDto(value: quantity.toPressureDto())
-
-        case .diastolicBloodPressure:
-            let diastolicQuantity: HKQuantity? =
-                switch metric {
-                case .avg: statistics.averageQuantity()
-                case .min: statistics.minimumQuantity()
-                case .max: statistics.maximumQuantity()
-                default: nil
-                }
-            guard let quantity = diastolicQuantity else {
-                return AggregateResponseDto(
-                    value: PressureDto(unit: .millimetersOfMercury, value: 0.0))
-            }
-            return AggregateResponseDto(value: quantity.toPressureDto())
-
-        default:
-            return AggregateResponseDto(value: NumericDto(unit: .numeric, value: 0.0))
-        }
-    }
-
-    private func aggregateWithStatisticsQuery(
-        quantityType: HKQuantityType,
-        predicate: NSPredicate,
-        metric: AggregationMetricDto,
-        dataType: HealthDataTypeDto,
-        handler: any AggregatableHealthRecordHandler
-    ) async throws -> AggregateResponseDto {
-        // ✅ Call instance method
-        let options = try handler.toStatisticsOptions(metric)
-
-        return try await withCheckedThrowingContinuation {
-            continuation in
-            let query = HKStatisticsQuery(
-                quantityType: quantityType,
-                quantitySamplePredicate: predicate,
-                options: options
-            ) {
-                _, statistics, error in
-                if let error {
-                    if let hkError = error as? HKError {
-                        continuation.resume(
-                            throwing: HealthConnectorError.create(from: hkError))
-                    } else {
-                        continuation.resume(
-                            throwing: HealthConnectorError.unknown(
-                                message:
-                                "Failed to aggregate records: \(error.localizedDescription)",
-                                context: ["details": error.localizedDescription]
-                            )
-                        )
-                    }
-                    return
-                }
-
-                guard let statistics else {
-                    // No data available - create empty numeric value
-                    let emptyNumericDto = NumericDto(unit: .numeric, value: 0.0)
-                    let response = AggregateResponseDto(value: emptyNumericDto)
-                    continuation.resume(returning: response)
-                    return
-                }
-
-                // Extract aggregated value based on data type and metric
-                let response = self.extractAggregateResponse(
-                    from: statistics,
-                    dataType: dataType,
-                    metric: metric
-                )
-
-                continuation.resume(returning: response)
-            }
-
-            self.store.execute(query)
-        }
-    }
-
-    /// Performs aggregation for sleep stage records.
-    ///
-    /// Since category samples don't support HKStatisticsQuery, we query all sleep
-    /// stage records in the time range and calculate the sum of sleep durations manually.
-    ///
-    /// **Supported Metrics:**
-    /// - `.sum` - Total sleep time in seconds across all sleep stages
-    ///
-    /// **Sleep Stage Filtering:**
-    /// Only counts actual sleep stages (excludes awake, inBed, outOfBed states).
-    /// Includes: sleeping, light, deep, rem
-    ///
-    /// - Parameter request: The aggregation request
-    /// - Returns: AggregateResponseDto with total sleep duration in seconds
-    /// - Throws: HealthConnectorError if query fails or metric is unsupported
-    private func aggregateSleepStages(request: AggregateRequestDto) async throws
-        -> AggregateResponseDto
-    {
-        // Validate metric - only sum is supported for sleep stages
-        guard request.aggregationMetric == .sum else {
-            throw HealthConnectorError.invalidArgument(
-                message: "Only sum aggregation is supported for sleep stage records",
-                context: [
-                    "details": "Supported metrics: [sum]. Requested: \(request.aggregationMetric)",
-                ]
-            )
-        }
-
-        // Get the sleep analysis category type
-        guard let categoryType = HKCategoryType.categoryType(forIdentifier: .sleepAnalysis) else {
-            throw HealthConnectorError.unknown(
-                message: "Failed to create sleep analysis category type"
-            )
-        }
-
-        // Create time range predicate
-        let startDate = Date(timeIntervalSince1970: TimeInterval(request.startTime) / 1000.0)
-        let endDate = Date(timeIntervalSince1970: TimeInterval(request.endTime) / 1000.0)
-        let predicate = HKQuery.predicateForSamples(
-            withStart: startDate,
-            end: endDate,
-            options: .strictStartDate
-        )
-
-        // Query all sleep stage samples in the time range
-        let samples = try await withCheckedThrowingContinuation {
-            (continuation: CheckedContinuation<[HKCategorySample], Error>) in
-            let query = HKSampleQuery(
-                sampleType: categoryType,
-                predicate: predicate,
-                limit: HKObjectQueryNoLimit,
-                sortDescriptors: nil
-            ) {
-                _, samples, error in
-                if let error {
-                    if let hkError = error as? HKError {
-                        continuation.resume(
-                            throwing: HealthConnectorError.create(from: hkError))
-                    } else {
-                        continuation.resume(
-                            throwing: HealthConnectorError.unknown(
-                                message:
-                                "Failed to query sleep stages: \(error.localizedDescription)",
-                                context: ["details": error.localizedDescription]
-                            )
-                        )
-                    }
-                    return
-                }
-
-                guard let samples else {
-                    continuation.resume(returning: [])
-                    return
-                }
-
-                // Filter to only category samples
-                let categorySamples = samples.compactMap {
-                    $0 as? HKCategorySample
-                }
-                continuation.resume(returning: categorySamples)
-            }
-
-            self.store.execute(query)
-        }
-
-        // Calculate total sleep duration
-        var totalSleepSeconds: TimeInterval = 0.0
-
-        for sample in samples {
-            // Only count actual sleep stages (exclude awake, inBed, outOfBed)
-            let sleepValue = HKCategoryValueSleepAnalysis(rawValue: sample.value)
-
-            // Define which stages count as "actual sleep"
-            let isActualSleep =
-                switch sleepValue {
-                case .asleep:
-                    // Generic sleep (iOS 15 and earlier)
-                    true
-                case .awake, .inBed:
-                    // Not sleeping
-                    false
-                default:
-                    // For iOS 16+ detailed stages (core/light, deep, REM)
-                    // Check raw values: .core=5, .deep=3, .REM=4
-                    if #available(iOS 16.0, *) {
-                        switch sample.value {
-                        case 3, 4, 5: // deep, REM, core
-                            true
-                        default:
-                            false
-                        }
-                    } else {
-                        false
-                    }
-                }
-
-            if isActualSleep {
-                // Calculate duration for this sleep stage
-                let duration = sample.endDate.timeIntervalSince(sample.startDate)
-                totalSleepSeconds += duration
-            }
-        }
-
-        // Return total sleep time as NumericDto (value in seconds)
-        let numericDto = NumericDto(unit: .numeric, value: totalSleepSeconds)
-        return AggregateResponseDto(value: numericDto)
     }
 
     /// Deletes all records of a data type within a time range.
