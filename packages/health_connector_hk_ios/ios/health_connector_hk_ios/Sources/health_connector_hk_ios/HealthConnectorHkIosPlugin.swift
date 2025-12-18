@@ -5,7 +5,11 @@ import UIKit
 /// Flutter plugin for accessing HealthKit on iOS devices.
 ///
 /// **Thread Safety**: Uses actor-based HealthConnectorClient for compiler-enforced serial access.
+/// Initialization is protected by NSLock to prevent race conditions.
 public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnectorHKIOSApi {
+    /// Lock for thread-safe initialization of `healthClient`.
+    private let initLock = NSLock()
+
     /// Cached instance of the HealthKit client actor.
     private var healthClient: HealthConnectorClient!
 
@@ -37,6 +41,10 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         )
 
         do {
+            // Thread-safe initialization using NSLock
+            initLock.lock()
+            defer { initLock.unlock() }
+
             if healthClient == nil {
                 healthClient = try HealthConnectorClient.getOrCreate()
             }
