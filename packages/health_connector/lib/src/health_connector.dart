@@ -1,13 +1,17 @@
 import 'dart:io' show Platform;
 
+import 'package:health_connector/src/health_connector_impl.dart'
+    show HealthConnectorImpl;
 import 'package:health_connector_core/health_connector_core.dart'
     show
         AggregateRequest,
         AggregateResponse,
         HealthConnectorConfig,
+        HealthPlatformFeaturePermission,
+        PermissionStatus,
+        HealthDataPermission,
         HealthConnectorException,
         HealthConnectorErrorCode,
-        HealthConnectorPlatformClient,
         HealthDataType,
         HealthPlatform,
         HealthPlatformFeature,
@@ -16,25 +20,18 @@ import 'package:health_connector_core/health_connector_core.dart'
         HealthRecord,
         HealthRecordId,
         MeasurementUnit,
-        HealthDataPermission,
-        HealthPlatformFeaturePermission,
         Permission,
-        PermissionStatus,
         PermissionRequestResult,
+        PlatformSpecificBehaviors,
         ReadRecordRequest,
         ReadRecordsRequest,
         ReadRecordsResponse,
-        require,
-        requireEndTimeAfterStartTime,
-        sinceV1_0_0,
-        PlatformSpecificBehaviors,
         supportedOnHealthConnect;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
 import 'package:health_connector_hk_ios/health_connector_hk_ios.dart'
     show HealthConnectorHKClient;
 import 'package:health_connector_logger/health_connector_logger.dart';
-import 'package:meta/meta.dart' show immutable;
 
 /// Main entry point for interacting with platform-specific health APIs.
 ///
@@ -43,16 +40,7 @@ import 'package:meta/meta.dart' show immutable;
 ///
 /// This class uses a factory pattern to create instances. Use
 /// [HealthConnector.create] to obtain an instance.
-@sinceV1_0_0
-@immutable
-final class HealthConnector {
-  const HealthConnector._({
-    required this.config,
-    required HealthPlatform healthPlatform,
-    required HealthConnectorPlatformClient healthPlatformClient,
-  }) : _healthPlatform = healthPlatform,
-       _client = healthPlatformClient;
-
+abstract interface class HealthConnector {
   /// The tag used for logging in static methods.
   static const String _tag = 'HealthConnector';
 
@@ -128,20 +116,13 @@ final class HealthConnector {
           ),
         };
 
-        return HealthConnector._(
+        return HealthConnectorImpl(
           config: config,
           healthPlatform: healthPlatform,
           healthPlatformClient: healthPlatformClient,
         );
     }
   }
-
-  final HealthConnectorConfig config;
-  final HealthPlatform _healthPlatform;
-  final HealthConnectorPlatformClient _client;
-
-  /// The health platform being used by this connector.
-  HealthPlatform get healthPlatform => _healthPlatform;
 
   /// Checks the availability status of the health platform.
   ///
@@ -213,6 +194,12 @@ final class HealthConnector {
     }
   }
 
+  /// The health platform being used by this connector.
+  HealthPlatform get healthPlatform;
+
+  /// The configuration used by this connector.
+  HealthConnectorConfig get config;
+
   /// Requests the specified permissions from the health platform.
   ///
   /// This method triggers the platform's permission request flow and returns
@@ -261,41 +248,7 @@ final class HealthConnector {
   })
   Future<List<PermissionRequestResult>> requestPermissions(
     List<Permission> permissions,
-  ) async {
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'requestPermissions',
-      message: 'Requesting permissions',
-      context: {'permissions': permissions},
-    );
-
-    if (permissions.isEmpty) {
-      return [];
-    }
-
-    try {
-      final results = await _client.requestPermissions(permissions);
-
-      HealthConnectorLogger.info(
-        tag,
-        operation: 'requestPermissions',
-        message: 'Permissions requested successfully',
-        context: {'results': results},
-      );
-
-      return results;
-    } on HealthConnectorException catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'requestPermissions',
-        message: 'Failed to request permissions',
-        exception: e,
-        stackTrace: st,
-      );
-
-      rethrow;
-    }
-  }
+  );
 
   /// Gets all permissions that have been granted to the app.
   ///
@@ -342,52 +295,7 @@ final class HealthConnector {
   /// }
   /// ```
   @supportedOnHealthConnect
-  Future<List<Permission>> getGrantedPermissions() async {
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'getGrantedPermissions',
-      message: 'Getting granted permissions',
-    );
-
-    switch (_healthPlatform) {
-      case HealthPlatform.appleHealth:
-        HealthConnectorLogger.error(
-          tag,
-          operation: 'getGrantedPermissions',
-          message: 'getGrantedPermissions is only available on Health Connect',
-          context: {'current_health_platform': _healthPlatform.name},
-        );
-
-        throw const HealthConnectorException(
-          HealthConnectorErrorCode.unsupportedOperation,
-          'getGrantedPermissions is only available on Health Connect. ',
-        );
-      case HealthPlatform.healthConnect:
-        try {
-          final hcClient = _client as HealthConnectorHCClient;
-          final permissions = await hcClient.getGrantedPermissions();
-
-          HealthConnectorLogger.info(
-            tag,
-            operation: 'getGrantedPermissions',
-            message: 'Granted permissions retrieved',
-            context: {'permissions': permissions},
-          );
-
-          return permissions;
-        } catch (e, st) {
-          HealthConnectorLogger.error(
-            tag,
-            operation: 'getGrantedPermissions',
-            message: 'Failed to get granted permissions',
-            exception: e,
-            stackTrace: st,
-          );
-
-          rethrow;
-        }
-    }
-  }
+  Future<List<Permission>> getGrantedPermissions();
 
   /// Revokes all permissions that have been granted to the app.
   ///
@@ -416,49 +324,7 @@ final class HealthConnector {
   /// }
   /// ```
   @supportedOnHealthConnect
-  Future<void> revokeAllPermissions() async {
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'revokeAllPermissions',
-      message: 'Revoking all permissions',
-    );
-
-    switch (_healthPlatform) {
-      case HealthPlatform.appleHealth:
-        HealthConnectorLogger.error(
-          tag,
-          operation: 'revokeAllPermissions',
-          message: 'revokeAllPermissions is only available on Health Connect',
-          context: {'current_health_platform': _healthPlatform.name},
-        );
-
-        throw const HealthConnectorException(
-          HealthConnectorErrorCode.unsupportedOperation,
-          'revokeAllPermissions is only available on Health Connect. ',
-        );
-      case HealthPlatform.healthConnect:
-        try {
-          final hcClient = _client as HealthConnectorHCClient;
-          await hcClient.revokeAllPermissions();
-
-          HealthConnectorLogger.info(
-            tag,
-            operation: 'revokeAllPermissions',
-            message: 'All permissions revoked successfully',
-          );
-        } catch (e, st) {
-          HealthConnectorLogger.error(
-            tag,
-            operation: 'revokeAllPermissions',
-            message: 'Failed to revoke all permissions',
-            exception: e,
-            stackTrace: st,
-          );
-
-          rethrow;
-        }
-    }
-  }
+  Future<void> revokeAllPermissions();
 
   /// Checks the availability status of a specific platform feature.
   ///
@@ -507,54 +373,7 @@ final class HealthConnector {
   })
   Future<HealthPlatformFeatureStatus> getFeatureStatus(
     HealthPlatformFeature feature,
-  ) async {
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'getFeatureStatus',
-      message: 'Checking feature status',
-      context: {'feature': feature.toString()},
-    );
-
-    switch (_healthPlatform) {
-      case HealthPlatform.appleHealth:
-        HealthConnectorLogger.info(
-          tag,
-          operation: 'getFeatureStatus',
-          message: 'Feature status retrieved',
-          context: {'feature': feature.toString(), 'status': 'available'},
-        );
-
-        return HealthPlatformFeatureStatus.available;
-      case HealthPlatform.healthConnect:
-        try {
-          final hcClient = _client as HealthConnectorHCClient;
-          final status = await hcClient.getFeatureStatus(feature);
-
-          HealthConnectorLogger.info(
-            tag,
-            operation: 'getFeatureStatus',
-            message: 'Feature status retrieved',
-            context: {
-              'feature': feature.toString(),
-              'status': status.name,
-            },
-          );
-
-          return status;
-        } catch (e, st) {
-          HealthConnectorLogger.error(
-            tag,
-            operation: 'getFeatureStatus',
-            message: 'Failed to get feature status',
-            context: {'feature': feature.toString()},
-            exception: e,
-            stackTrace: st,
-          );
-
-          rethrow;
-        }
-    }
-  }
+  );
 
   /// Reads a single health record by ID.
   ///
@@ -589,47 +408,7 @@ final class HealthConnector {
   /// ```
   Future<R?> readRecord<R extends HealthRecord>(
     ReadRecordRequest<R> request,
-  ) async {
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'readRecord',
-      message: 'Reading health record',
-      context: {'request': request},
-    );
-
-    try {
-      final record = await _client.readRecord(request);
-
-      if (record != null) {
-        HealthConnectorLogger.info(
-          tag,
-          operation: 'readRecord',
-          message: 'Health record read successfully',
-          context: {'request': request, 'response': record},
-        );
-      } else {
-        HealthConnectorLogger.info(
-          tag,
-          operation: 'readRecord',
-          message: 'Health record not found',
-          context: {'request': request, 'response': null},
-        );
-      }
-
-      return record;
-    } catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'readRecord',
-        message: 'Failed to read health record',
-        context: {'request': request},
-        exception: e,
-        stackTrace: st,
-      );
-
-      rethrow;
-    }
-  }
+  );
 
   /// Reads multiple health records within a time range.
   ///
@@ -674,38 +453,7 @@ final class HealthConnector {
   /// ```
   Future<ReadRecordsResponse<R>> readRecords<R extends HealthRecord>(
     ReadRecordsRequest<R> request,
-  ) async {
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'readRecords',
-      message: 'Reading health records',
-      context: {'request': request},
-    );
-
-    try {
-      final response = await _client.readRecords(request);
-
-      HealthConnectorLogger.info(
-        tag,
-        operation: 'readRecords',
-        message: 'Health records read successfully',
-        context: {'request': request, 'response': response},
-      );
-
-      return response;
-    } catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'readRecords',
-        message: 'Failed to read health records',
-        context: {'request': request},
-        exception: e,
-        stackTrace: st,
-      );
-
-      rethrow;
-    }
-  }
+  );
 
   /// Writes a single health record to the platform.
   ///
@@ -747,57 +495,7 @@ final class HealthConnector {
   /// final recordId = await connector.writeRecord(record);
   /// print('Record written with ID: $recordId');
   /// ```
-  Future<HealthRecordId> writeRecord<R extends HealthRecord>(R record) async {
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'writeRecord',
-      message: 'Writing health record',
-      context: {'record': record},
-    );
-
-    try {
-      require(
-        record.id == HealthRecordId.none,
-        'Record ID must be HealthRecordId.none for new records. ',
-      );
-
-      final recordId = await _client.writeRecord(record);
-
-      HealthConnectorLogger.info(
-        tag,
-        operation: 'writeRecord',
-        message: 'Health record written successfully',
-        context: {'record': record, 'assignedRecordId': recordId},
-      );
-
-      return recordId;
-    } on ArgumentError catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'writeRecord',
-        message: 'Validation failed',
-        context: {'record': record},
-        exception: e,
-        stackTrace: st,
-      );
-
-      throw HealthConnectorException(
-        HealthConnectorErrorCode.invalidArgument,
-        (e.message as String?) ?? e.toString(),
-      );
-    } catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'writeRecord',
-        message: 'Failed to write health record',
-        context: {'record': record},
-        exception: e,
-        stackTrace: st,
-      );
-
-      rethrow;
-    }
-  }
+  Future<HealthRecordId> writeRecord<R extends HealthRecord>(R record);
 
   /// Writes multiple health records atomically.
   ///
@@ -854,62 +552,7 @@ final class HealthConnector {
   /// ```
   Future<List<HealthRecordId>> writeRecords<R extends HealthRecord>(
     List<R> records,
-  ) async {
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'writeRecords',
-      message: 'Writing health records',
-      context: {'records': records},
-    );
-
-    if (records.isEmpty) {
-      return [];
-    }
-
-    try {
-      if (records.any((record) => record.id == HealthRecordId.none)) {
-        throw ArgumentError(
-          'All records must have `HealthRecordId.none` for new records.',
-        );
-      }
-
-      final recordIds = await _client.writeRecords(records);
-
-      HealthConnectorLogger.info(
-        tag,
-        operation: 'writeRecords',
-        message: 'Health records written successfully',
-        context: {'records': records, 'assignedRecordIds': recordIds},
-      );
-
-      return recordIds;
-    } on ArgumentError catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'writeRecords',
-        message: 'Validation failed',
-        context: {'records': records},
-        exception: e,
-        stackTrace: st,
-      );
-
-      throw HealthConnectorException(
-        HealthConnectorErrorCode.invalidArgument,
-        (e.message as String?) ?? e.toString(),
-      );
-    } on HealthConnectorException catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'writeRecords',
-        message: 'Failed to write health records',
-        context: {'records': records},
-        exception: e,
-        stackTrace: st,
-      );
-
-      rethrow;
-    }
-  }
+  );
 
   /// Performs an aggregation query over health records.
   ///
@@ -948,38 +591,7 @@ final class HealthConnector {
   Future<AggregateResponse<R, U>> aggregate<
     R extends HealthRecord,
     U extends MeasurementUnit
-  >(AggregateRequest<R, U> request) async {
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'aggregate',
-      message: 'Aggregating health data',
-      context: {'request': request},
-    );
-
-    try {
-      final response = await _client.aggregate(request);
-
-      HealthConnectorLogger.info(
-        tag,
-        operation: 'aggregate',
-        message: 'Health data aggregated successfully',
-        context: {'request': request, 'response': response},
-      );
-
-      return response;
-    } catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'aggregate',
-        message: 'Failed to aggregate health data',
-        context: {'request': request},
-        exception: e,
-        stackTrace: st,
-      );
-
-      rethrow;
-    }
-  }
+  >(AggregateRequest<R, U> request);
 
   /// Deletes health records within a time range.
   ///
@@ -1024,48 +636,7 @@ final class HealthConnector {
     required HealthDataType<R, MeasurementUnit> dataType,
     required DateTime startTime,
     required DateTime endTime,
-  }) async {
-    final request = {
-      'dataType': dataType,
-      'startTime': startTime,
-      'endTime': endTime,
-    };
-
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'deleteRecords',
-      message: 'Deleting health records by time range',
-      context: {'request': request},
-    );
-
-    try {
-      requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
-
-      await _client.deleteRecords(
-        dataType: dataType,
-        startTime: startTime,
-        endTime: endTime,
-      );
-
-      HealthConnectorLogger.info(
-        tag,
-        operation: 'deleteRecords',
-        message: 'Health records deleted successfully',
-        context: {'request': request},
-      );
-    } on HealthConnectorException catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'deleteRecords',
-        message: 'Failed to delete health records',
-        context: {'request': request},
-        exception: e,
-        stackTrace: st,
-      );
-
-      rethrow;
-    }
-  }
+  });
 
   /// Deletes specific health records by their IDs.
   ///
@@ -1113,64 +684,7 @@ final class HealthConnector {
   Future<void> deleteRecordsByIds<R extends HealthRecord>({
     required HealthDataType<R, MeasurementUnit> dataType,
     required List<HealthRecordId> recordIds,
-  }) async {
-    final request = {
-      'dataType': dataType,
-      'recordIds': recordIds,
-    };
-
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'deleteRecordsByIds',
-      message: 'Deleting health records by IDs',
-      context: {'request': request},
-    );
-
-    try {
-      if (recordIds.any((id) => id == HealthRecordId.none)) {
-        throw ArgumentError(
-          'All record IDs must not be `HealthRecordId.none`.',
-        );
-      }
-
-      await _client.deleteRecordsByIds(
-        dataType: dataType,
-        recordIds: recordIds,
-      );
-
-      HealthConnectorLogger.info(
-        tag,
-        operation: 'deleteRecordsByIds',
-        message: 'Health records deleted successfully',
-        context: {'request': request},
-      );
-    } on ArgumentError catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'deleteRecordsByIds',
-        message: 'Validation failed',
-        context: {'request': request},
-        exception: e,
-        stackTrace: st,
-      );
-
-      throw HealthConnectorException(
-        HealthConnectorErrorCode.invalidArgument,
-        (e.message as String?) ?? e.toString(),
-      );
-    } on HealthConnectorException catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'deleteRecordsByIds',
-        message: 'Failed to delete health records by IDs',
-        context: {'request': request},
-        exception: e,
-        stackTrace: st,
-      );
-
-      rethrow;
-    }
-  }
+  });
 
   /// Updates an existing health record.
   ///
@@ -1289,55 +803,5 @@ final class HealthConnector {
   /// - [deleteRecordsByIds] for deleting specific records
   /// - [writeRecord] for creating new records
   @supportedOnHealthConnect
-  Future<HealthRecordId> updateRecord<R extends HealthRecord>(R record) async {
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'updateRecord',
-      message: 'Updating health record',
-      context: {'record': record},
-    );
-
-    try {
-      require(
-        record.id != HealthRecordId.none,
-        'Record ID must not be HealthRecordId.none for updates. ',
-      );
-
-      final recordId = await _client.updateRecord(record);
-
-      HealthConnectorLogger.info(
-        tag,
-        operation: 'updateRecord',
-        message: 'Health record updated successfully',
-        context: {'record': record},
-      );
-
-      return recordId;
-    } on ArgumentError catch (e, st) {
-      HealthConnectorLogger.warning(
-        tag,
-        operation: 'updateRecord',
-        message: 'Validation failed',
-        context: {'record': record},
-        exception: e,
-        stackTrace: st,
-      );
-
-      throw HealthConnectorException(
-        HealthConnectorErrorCode.invalidArgument,
-        (e.message as String?) ?? e.toString(),
-      );
-    } on HealthConnectorException catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'updateRecord',
-        message: 'Failed to update health record',
-        context: {'record': record},
-        exception: e,
-        stackTrace: st,
-      );
-
-      rethrow;
-    }
-  }
+  Future<HealthRecordId> updateRecord<R extends HealthRecord>(R record);
 }
