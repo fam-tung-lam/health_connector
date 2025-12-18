@@ -41,6 +41,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 
 /**
@@ -71,11 +73,18 @@ class HealthConnectorHCAndroidPlugin :
     private var activity: ComponentActivity? = null
 
     /**
-     * Cached instance of the Health Connect healthClient.
+     * Cached instance of [HealthConnectorClient].
      * Created lazily on first use and reused for subsequent operations.
      * Cleared when the engine is detached.
      */
-    private lateinit var healthClient: HealthConnectorClient
+    private lateinit var client: HealthConnectorClient
+
+    /**
+     * Mutex to ensure thread-safe initialization of [client].
+     * Prevents race conditions when multiple concurrent calls to [initialize] attempt
+     * to create the client simultaneously.
+     */
+    private val clientInitMutex: Mutex = Mutex()
 
     /**
      * Coroutine scope for executing asynchronous Health Connect operations.
@@ -194,8 +203,10 @@ class HealthConnectorHCAndroidPlugin :
             )
 
             try {
-                if (!::healthClient.isInitialized) {
-                    healthClient = HealthConnectorClient.getOrCreate(context)
+                clientInitMutex.withLock {
+                    if (!::client.isInitialized) {
+                        client = HealthConnectorClient.getOrCreate(context)
+                    }
                 }
 
                 HealthConnectorLogger.setEnabled(config.isLoggerEnabled)
@@ -313,7 +324,7 @@ class HealthConnectorHCAndroidPlugin :
                     return@launch
                 }
 
-                val responseDto = healthClient.requestPermissions(
+                val responseDto = client.requestPermissions(
                     activity = currentActivity,
                     request = request,
                 )
@@ -363,7 +374,7 @@ class HealthConnectorHCAndroidPlugin :
     override fun getGrantedPermissions(callback: (Result<PermissionRequestsResponseDto>) -> Unit) {
         scope.launch {
             try {
-                val responseDto = healthClient.getGrantedPermissions()
+                val responseDto = this@HealthConnectorHCAndroidPlugin.client.getGrantedPermissions()
 
                 complete(callback, Result.success(responseDto))
             } catch (e: HealthConnectorErrorDto) {
@@ -410,7 +421,7 @@ class HealthConnectorHCAndroidPlugin :
     override fun revokeAllPermissions(callback: (Result<Unit>) -> Unit) {
         scope.launch {
             try {
-                healthClient.revokeAllPermissions()
+                this@HealthConnectorHCAndroidPlugin.client.revokeAllPermissions()
 
                 complete(callback, Result.success(Unit))
             } catch (e: HealthConnectorErrorDto) {
@@ -461,7 +472,7 @@ class HealthConnectorHCAndroidPlugin :
     ) {
         scope.launch {
             try {
-                val featureStatusDto = healthClient.getFeatureStatus(context, feature)
+                val featureStatusDto = client.getFeatureStatus(context, feature)
 
                 complete(callback, Result.success(featureStatusDto))
             } catch (e: HealthConnectorErrorDto) {
@@ -514,7 +525,7 @@ class HealthConnectorHCAndroidPlugin :
     ) {
         scope.launch {
             try {
-                val result = healthClient.readRecord(request)
+                val result = this@HealthConnectorHCAndroidPlugin.client.readRecord(request)
 
                 complete(callback, Result.success(result))
             } catch (e: HealthConnectorErrorDto) {
@@ -568,7 +579,7 @@ class HealthConnectorHCAndroidPlugin :
     ) {
         scope.launch {
             try {
-                val result = healthClient.readRecords(request)
+                val result = this@HealthConnectorHCAndroidPlugin.client.readRecords(request)
 
                 complete(callback, Result.success(result))
             } catch (e: HealthConnectorErrorDto) {
@@ -624,7 +635,7 @@ class HealthConnectorHCAndroidPlugin :
     ) {
         scope.launch {
             try {
-                val result = healthClient.writeRecord(request)
+                val result = this@HealthConnectorHCAndroidPlugin.client.writeRecord(request)
 
                 complete(callback, Result.success(result))
             } catch (e: HealthConnectorErrorDto) {
@@ -676,7 +687,7 @@ class HealthConnectorHCAndroidPlugin :
     ) {
         scope.launch {
             try {
-                val result = healthClient.writeRecords(request)
+                val result = this@HealthConnectorHCAndroidPlugin.client.writeRecords(request)
 
                 complete(callback, Result.success(result))
             } catch (e: HealthConnectorErrorDto) {
@@ -729,7 +740,7 @@ class HealthConnectorHCAndroidPlugin :
     ) {
         scope.launch {
             try {
-                val result = healthClient.updateRecord(request)
+                val result = this@HealthConnectorHCAndroidPlugin.client.updateRecord(request)
 
                 complete(callback, Result.success(result))
             } catch (e: HealthConnectorErrorDto) {
@@ -781,7 +792,7 @@ class HealthConnectorHCAndroidPlugin :
     ) {
         scope.launch {
             try {
-                healthClient.deleteRecordsByIds(request)
+                this@HealthConnectorHCAndroidPlugin.client.deleteRecordsByIds(request)
 
                 complete(callback, Result.success(Unit))
             } catch (e: HealthConnectorErrorDto) {
@@ -835,7 +846,7 @@ class HealthConnectorHCAndroidPlugin :
     ) {
         scope.launch {
             try {
-                healthClient.deleteRecordsByTimeRange(request)
+                client.deleteRecordsByTimeRange(request)
 
                 complete(callback, Result.success(Unit))
             } catch (e: HealthConnectorErrorDto) {
@@ -890,7 +901,7 @@ class HealthConnectorHCAndroidPlugin :
     ) {
         scope.launch {
             try {
-                val result = healthClient.aggregate(request)
+                val result = this@HealthConnectorHCAndroidPlugin.client.aggregate(request)
 
                 complete(callback, Result.success(result))
             } catch (e: HealthConnectorErrorDto) {
