@@ -21,7 +21,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         formatTimeRange,
         PermissionListExtension,
         sinceV1_0_0,
-        internalUse;
+        internalUse,
+        HealthConnectorErrorCode;
 import 'package:health_connector_hk_ios/src/mappers/config_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_connector_error_code_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mappers.dart';
@@ -436,48 +437,10 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
 
   @override
   Future<HealthRecordId> updateRecord<R extends HealthRecord>(R record) async {
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'updateRecord',
-
-      message: 'Updating HealthKit record',
-      context: {'record': record},
+    throw const HealthConnectorException(
+      HealthConnectorErrorCode.unsupportedOperation,
+      'updateRecord API is not supported on iOS HealthKit SDK',
     );
-
-    try {
-      final requestDto = record.toUpdateRecordRequestDto();
-
-      final responseDto = await _platformClient.updateRecord(requestDto);
-
-      final updatedRecordId = responseDto.recordId.toDomain();
-
-      HealthConnectorLogger.info(
-        tag,
-        operation: 'updateRecord',
-
-        message: 'HealthKit record updated successfully',
-        context: {'record': record},
-      );
-
-      return updatedRecordId;
-    } on PlatformException catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'updateRecord',
-
-        message: 'Failed to update HealthKit record',
-        context: {'record': record},
-        exception: e,
-        stackTrace: st,
-      );
-
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
-        'Failed to update $record: ${e.message ?? 'Unknown error'}',
-        cause: e,
-        stackTrace: st,
-      );
-    }
   }
 
   @override

@@ -97,7 +97,6 @@ struct NutrientHandler {
 final class EnergyNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -135,7 +134,6 @@ final class EnergyNutrientHandler: @unchecked Sendable,
 final class CaffeineNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -173,7 +171,6 @@ final class CaffeineNutrientHandler: @unchecked Sendable,
 final class ProteinNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -211,7 +208,6 @@ final class ProteinNutrientHandler: @unchecked Sendable,
 final class TotalCarbohydrateNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -249,7 +245,6 @@ final class TotalCarbohydrateNutrientHandler: @unchecked Sendable,
 final class TotalFatNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -284,7 +279,6 @@ final class TotalFatNutrientHandler: @unchecked Sendable,
 final class SaturatedFatNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -319,7 +313,6 @@ final class SaturatedFatNutrientHandler: @unchecked Sendable,
 final class MonounsaturatedFatNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -354,7 +347,6 @@ final class MonounsaturatedFatNutrientHandler: @unchecked Sendable,
 final class PolyunsaturatedFatNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -389,7 +381,6 @@ final class PolyunsaturatedFatNutrientHandler: @unchecked Sendable,
 final class CholesterolNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -427,7 +418,6 @@ final class CholesterolNutrientHandler: @unchecked Sendable,
 final class DietaryFiberNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -465,7 +455,6 @@ final class DietaryFiberNutrientHandler: @unchecked Sendable,
 final class SugarNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -503,7 +492,6 @@ final class SugarNutrientHandler: @unchecked Sendable,
 final class VitaminANutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -541,7 +529,6 @@ final class VitaminANutrientHandler: @unchecked Sendable,
 final class VitaminB6NutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -579,7 +566,6 @@ final class VitaminB6NutrientHandler: @unchecked Sendable,
 final class VitaminB12NutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -617,7 +603,6 @@ final class VitaminB12NutrientHandler: @unchecked Sendable,
 final class VitaminCNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -655,7 +640,6 @@ final class VitaminCNutrientHandler: @unchecked Sendable,
 final class VitaminDNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -693,7 +677,6 @@ final class VitaminDNutrientHandler: @unchecked Sendable,
 final class VitaminENutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -731,7 +714,6 @@ final class VitaminENutrientHandler: @unchecked Sendable,
 final class VitaminKNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -769,7 +751,6 @@ final class VitaminKNutrientHandler: @unchecked Sendable,
 final class ThiaminNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -807,7 +788,6 @@ final class ThiaminNutrientHandler: @unchecked Sendable,
 final class RiboflavinNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -845,7 +825,6 @@ final class RiboflavinNutrientHandler: @unchecked Sendable,
 final class NiacinNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -883,7 +862,6 @@ final class NiacinNutrientHandler: @unchecked Sendable,
 final class FolateNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -921,7 +899,6 @@ final class FolateNutrientHandler: @unchecked Sendable,
 final class BiotinNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -959,7 +936,6 @@ final class BiotinNutrientHandler: @unchecked Sendable,
 final class PantothenicAcidNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -997,7 +973,6 @@ final class PantothenicAcidNutrientHandler: @unchecked Sendable,
 final class CalciumNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -1035,7 +1010,6 @@ final class CalciumNutrientHandler: @unchecked Sendable,
 final class IronNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -1073,7 +1047,6 @@ final class IronNutrientHandler: @unchecked Sendable,
 final class MagnesiumNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -1111,7 +1084,6 @@ final class MagnesiumNutrientHandler: @unchecked Sendable,
 final class ManganeseNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -1149,7 +1121,6 @@ final class ManganeseNutrientHandler: @unchecked Sendable,
 final class PhosphorusNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -1187,7 +1158,6 @@ final class PhosphorusNutrientHandler: @unchecked Sendable,
 final class PotassiumNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -1225,7 +1195,6 @@ final class PotassiumNutrientHandler: @unchecked Sendable,
 final class SeleniumNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -1263,7 +1232,6 @@ final class SeleniumNutrientHandler: @unchecked Sendable,
 final class SodiumNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
@@ -1301,7 +1269,6 @@ final class SodiumNutrientHandler: @unchecked Sendable,
 final class ZincNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {

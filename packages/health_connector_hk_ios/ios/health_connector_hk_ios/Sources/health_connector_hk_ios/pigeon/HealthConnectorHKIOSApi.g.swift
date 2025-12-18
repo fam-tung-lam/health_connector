@@ -144,7 +144,7 @@ func deepHashHealthConnectorHKIOSApi(value: Any?, hasher: inout Hasher) {
     
 
 /// Represents the status of the health platform on the device.
-enum HealthPlatformStatusDto: Int {
+public enum HealthPlatformStatusDto: Int {
   /// The health platform is available and ready to use.
   case available = 0
   /// The health platform is not available on this device.
@@ -152,13 +152,13 @@ enum HealthPlatformStatusDto: Int {
 }
 
 /// Blood glucose unit types supported by the plugin.
-enum BloodGlucoseUnitDto: Int {
+public enum BloodGlucoseUnitDto: Int {
   case milligramsPerDeciliter = 0
   case millimolesPerLiter = 1
 }
 
 /// Energy unit types supported by the plugin.
-enum EnergyUnitDto: Int {
+public enum EnergyUnitDto: Int {
   case calories = 0
   case joules = 1
   case kilocalories = 2
@@ -166,7 +166,7 @@ enum EnergyUnitDto: Int {
 }
 
 /// Length unit types supported by the plugin.
-enum LengthUnitDto: Int {
+public enum LengthUnitDto: Int {
   case feet = 0
   case inches = 1
   case kilometers = 2
@@ -175,7 +175,7 @@ enum LengthUnitDto: Int {
 }
 
 /// Mass unit types supported by the plugin.
-enum MassUnitDto: Int {
+public enum MassUnitDto: Int {
   case grams = 0
   case kilograms = 1
   case ounces = 2
@@ -186,12 +186,12 @@ enum MassUnitDto: Int {
 ///
 /// Numeric values don't have unit conversions, but this enum is provided
 /// for consistency with other unit types.
-enum NumericUnitDto: Int {
+public enum NumericUnitDto: Int {
   case numeric = 0
 }
 
 /// Percentage unit types supported by the plugin.
-enum PercentageUnitDto: Int {
+public enum PercentageUnitDto: Int {
   /// Percentage as a decimal value (0.0 to 1.0).
   case decimal = 0
   /// Percentage as a whole number (0 to 100).
@@ -199,7 +199,7 @@ enum PercentageUnitDto: Int {
 }
 
 /// Represents the type of access requested for health data.
-enum PermissionAccessTypeDto: Int {
+public enum PermissionAccessTypeDto: Int {
   /// Read access to health data.
   case read = 0
   /// Write access to health data.
@@ -207,7 +207,7 @@ enum PermissionAccessTypeDto: Int {
 }
 
 /// Represents the status of a permission.
-enum PermissionStatusDto: Int {
+public enum PermissionStatusDto: Int {
   /// Permission has been explicitly denied by the user.
   case denied = 0
   /// Permission has been explicitly granted by the user.
@@ -217,46 +217,46 @@ enum PermissionStatusDto: Int {
 }
 
 /// Pressure unit types supported by the plugin.
-enum PressureUnitDto: Int {
+public enum PressureUnitDto: Int {
   case millimetersOfMercury = 0
 }
 
 /// Power unit types supported by the plugin.
-enum PowerUnitDto: Int {
+public enum PowerUnitDto: Int {
   case kilowatts = 0
   case watts = 1
 }
 
 /// Temperature unit types supported by the plugin.
-enum TemperatureUnitDto: Int {
+public enum TemperatureUnitDto: Int {
   case celsius = 0
   case fahrenheit = 1
   case kelvin = 2
 }
 
 /// Velocity unit types supported by the plugin.
-enum VelocityUnitDto: Int {
+public enum VelocityUnitDto: Int {
   case kilometersPerHour = 0
   case metersPerSecond = 1
   case milesPerHour = 2
 }
 
 /// Volume unit types supported by the plugin.
-enum VolumeUnitDto: Int {
+public enum VolumeUnitDto: Int {
   case fluidOuncesUs = 0
   case liters = 1
   case milliliters = 2
 }
 
 /// VO2 max unit types supported by the plugin.
-enum Vo2MaxUnitDto: Int {
+public enum Vo2MaxUnitDto: Int {
   case millilitersPerKilogramPerMinute = 0
 }
 
 /// Test type for VO2 max measurement (iOS HealthKit).
 ///
 /// Maps to HKMetadataKeyVO2MaxTestType enum values.
-enum Vo2MaxTestTypeDto: Int {
+public enum Vo2MaxTestTypeDto: Int {
   /// Direct measurement at maximum exercise (gold standard).
   case maxExercise = 0
   /// Estimated from sub-maximal exercise.
@@ -270,7 +270,7 @@ enum Vo2MaxTestTypeDto: Int {
 /// Meal type classification for nutrient records.
 ///
 /// Represents the type of meal associated with a nutrition or nutrient record.
-enum MealTypeDto: Int {
+public enum MealTypeDto: Int {
   /// Unknown or unspecified meal type.
   case unknown = 0
   /// Breakfast meal.
@@ -285,7 +285,7 @@ enum MealTypeDto: Int {
 
 /// Body position during blood pressure measurement.
 /// Note: Not directly supported by HealthKit - included for Android parity.
-enum BodyPositionDto: Int {
+public enum BodyPositionDto: Int {
   /// Unknown body position.
   case unknown = 0
   /// Standing up.
@@ -300,7 +300,7 @@ enum BodyPositionDto: Int {
 
 /// Measurement location for blood pressure reading.
 /// Note: Not directly supported by HealthKit - included for Android parity.
-enum MeasurementLocationDto: Int {
+public enum MeasurementLocationDto: Int {
   /// Unknown location.
   case unknown = 0
   /// Left wrist.
@@ -314,7 +314,7 @@ enum MeasurementLocationDto: Int {
 }
 
 /// Relationship of a blood glucose measurement to a meal.
-enum BloodGlucoseRelationToMealDto: Int {
+public enum BloodGlucoseRelationToMealDto: Int {
   /// Unknown relationship.
   case unknown = 0
   /// General relationship (not specific to a meal).
@@ -328,7 +328,7 @@ enum BloodGlucoseRelationToMealDto: Int {
 }
 
 /// Source of the biological specimen for valid blood glucose measurement.
-enum BloodGlucoseSpecimenSourceDto: Int {
+public enum BloodGlucoseSpecimenSourceDto: Int {
   /// Unknown specimen source.
   case unknown = 0
   /// Interstitial fluid.
@@ -348,7 +348,7 @@ enum BloodGlucoseSpecimenSourceDto: Int {
 /// Represents the type of sleep stage.
 ///
 /// Maps to iOS HKCategoryValueSleepAnalysis values.
-enum SleepStageTypeDto: Int {
+public enum SleepStageTypeDto: Int {
   /// Unknown or unspecified sleep stage.
   case unknown = 0
   /// Awake in bed.
@@ -368,7 +368,7 @@ enum SleepStageTypeDto: Int {
 }
 
 /// Represents a health data type.
-enum HealthDataTypeDto: Int {
+public enum HealthDataTypeDto: Int {
   /// Active calories burned data.
   case activeCaloriesBurned = 0
   /// Distance traveled data.
@@ -482,7 +482,7 @@ enum HealthDataTypeDto: Int {
 }
 
 /// Aggregation metric types for health data queries.
-enum AggregationMetricDto: Int {
+public enum AggregationMetricDto: Int {
   /// Average (mean) value across all data points.
   case avg = 0
   /// Count of data points (records) in the dataset.
@@ -506,7 +506,7 @@ protocol MeasurementUnitDto {
 /// Represents a blood glucose measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct BloodGlucoseDto: MeasurementUnitDto {
+public struct BloodGlucoseDto: MeasurementUnitDto {
   /// The unit in which the value is expressed.
   var unit: BloodGlucoseUnitDto
   /// The numeric value of the blood glucose.
@@ -529,9 +529,9 @@ struct BloodGlucoseDto: MeasurementUnitDto {
       value,
     ]
   }
-  static func == (lhs: BloodGlucoseDto, rhs: BloodGlucoseDto) -> Bool {
+  public static func == (lhs: BloodGlucoseDto, rhs: BloodGlucoseDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -539,7 +539,7 @@ struct BloodGlucoseDto: MeasurementUnitDto {
 /// Represents an energy measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct EnergyDto: MeasurementUnitDto {
+public struct EnergyDto: MeasurementUnitDto {
   /// The unit in which the value is expressed.
   var unit: EnergyUnitDto
   /// The numeric value of the energy.
@@ -562,9 +562,9 @@ struct EnergyDto: MeasurementUnitDto {
       value,
     ]
   }
-  static func == (lhs: EnergyDto, rhs: EnergyDto) -> Bool {
+  public static func == (lhs: EnergyDto, rhs: EnergyDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -572,7 +572,7 @@ struct EnergyDto: MeasurementUnitDto {
 /// Represents a length measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct LengthDto: MeasurementUnitDto {
+public struct LengthDto: MeasurementUnitDto {
   /// The unit in which the value is expressed.
   var unit: LengthUnitDto
   /// The numeric value of the length.
@@ -595,9 +595,9 @@ struct LengthDto: MeasurementUnitDto {
       value,
     ]
   }
-  static func == (lhs: LengthDto, rhs: LengthDto) -> Bool {
+  public static func == (lhs: LengthDto, rhs: LengthDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -605,7 +605,7 @@ struct LengthDto: MeasurementUnitDto {
 /// Represents a mass measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct MassDto: MeasurementUnitDto {
+public struct MassDto: MeasurementUnitDto {
   /// The unit in which the value is expressed.
   var unit: MassUnitDto
   /// The numeric value of the mass.
@@ -628,9 +628,9 @@ struct MassDto: MeasurementUnitDto {
       value,
     ]
   }
-  static func == (lhs: MassDto, rhs: MassDto) -> Bool {
+  public static func == (lhs: MassDto, rhs: MassDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -638,7 +638,7 @@ struct MassDto: MeasurementUnitDto {
 /// Represents a numeric measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct NumericDto: MeasurementUnitDto {
+public struct NumericDto: MeasurementUnitDto {
   /// The unit in which the value is expressed.
   var unit: NumericUnitDto
   /// The numeric value.
@@ -661,9 +661,9 @@ struct NumericDto: MeasurementUnitDto {
       value,
     ]
   }
-  static func == (lhs: NumericDto, rhs: NumericDto) -> Bool {
+  public static func == (lhs: NumericDto, rhs: NumericDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -671,7 +671,7 @@ struct NumericDto: MeasurementUnitDto {
 /// Represents a percentage measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct PercentageDto: MeasurementUnitDto {
+public struct PercentageDto: MeasurementUnitDto {
   /// The unit in which the value is expressed.
   var unit: PercentageUnitDto
   /// The numeric value of the percentage.
@@ -694,9 +694,9 @@ struct PercentageDto: MeasurementUnitDto {
       value,
     ]
   }
-  static func == (lhs: PercentageDto, rhs: PercentageDto) -> Bool {
+  public static func == (lhs: PercentageDto, rhs: PercentageDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -704,7 +704,7 @@ struct PercentageDto: MeasurementUnitDto {
 /// Represents a power measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct PowerDto: MeasurementUnitDto {
+public struct PowerDto: MeasurementUnitDto {
   /// The unit in which the value is expressed.
   var unit: PowerUnitDto
   /// The numeric value of the power.
@@ -727,9 +727,9 @@ struct PowerDto: MeasurementUnitDto {
       value,
     ]
   }
-  static func == (lhs: PowerDto, rhs: PowerDto) -> Bool {
+  public static func == (lhs: PowerDto, rhs: PowerDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -737,7 +737,7 @@ struct PowerDto: MeasurementUnitDto {
 /// Represents a pressure measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct PressureDto: MeasurementUnitDto {
+public struct PressureDto: MeasurementUnitDto {
   /// The unit in which the value is expressed.
   var unit: PressureUnitDto
   /// The numeric value of the pressure.
@@ -760,9 +760,9 @@ struct PressureDto: MeasurementUnitDto {
       value,
     ]
   }
-  static func == (lhs: PressureDto, rhs: PressureDto) -> Bool {
+  public static func == (lhs: PressureDto, rhs: PressureDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -770,7 +770,7 @@ struct PressureDto: MeasurementUnitDto {
 /// Represents a temperature measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct TemperatureDto: MeasurementUnitDto {
+public struct TemperatureDto: MeasurementUnitDto {
   /// The unit in which the value is expressed.
   var unit: TemperatureUnitDto
   /// The numeric value of the temperature.
@@ -793,9 +793,9 @@ struct TemperatureDto: MeasurementUnitDto {
       value,
     ]
   }
-  static func == (lhs: TemperatureDto, rhs: TemperatureDto) -> Bool {
+  public static func == (lhs: TemperatureDto, rhs: TemperatureDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -803,7 +803,7 @@ struct TemperatureDto: MeasurementUnitDto {
 /// Represents a velocity measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct VelocityDto: MeasurementUnitDto {
+public struct VelocityDto: MeasurementUnitDto {
   /// The unit in which the value is expressed.
   var unit: VelocityUnitDto
   /// The numeric value of the velocity.
@@ -826,9 +826,9 @@ struct VelocityDto: MeasurementUnitDto {
       value,
     ]
   }
-  static func == (lhs: VelocityDto, rhs: VelocityDto) -> Bool {
+  public static func == (lhs: VelocityDto, rhs: VelocityDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -836,7 +836,7 @@ struct VelocityDto: MeasurementUnitDto {
 /// Represents a volume measurement for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct VolumeDto: MeasurementUnitDto {
+public struct VolumeDto: MeasurementUnitDto {
   /// The unit in which the value is expressed.
   var unit: VolumeUnitDto
   /// The numeric value of the volume.
@@ -859,9 +859,9 @@ struct VolumeDto: MeasurementUnitDto {
       value,
     ]
   }
-  static func == (lhs: VolumeDto, rhs: VolumeDto) -> Bool {
+  public static func == (lhs: VolumeDto, rhs: VolumeDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -872,7 +872,7 @@ struct VolumeDto: MeasurementUnitDto {
 /// per minute (mL/kg/min).
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct Vo2MaxDto: MeasurementUnitDto {
+public struct Vo2MaxDto: MeasurementUnitDto {
   /// The unit in which the value is expressed.
   var unit: Vo2MaxUnitDto
   /// The numeric value of the VO2 max.
@@ -895,9 +895,9 @@ struct Vo2MaxDto: MeasurementUnitDto {
       value,
     ]
   }
-  static func == (lhs: Vo2MaxDto, rhs: Vo2MaxDto) -> Bool {
+  public static func == (lhs: Vo2MaxDto, rhs: Vo2MaxDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -905,7 +905,7 @@ struct Vo2MaxDto: MeasurementUnitDto {
 /// Represents metadata for a health record.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct MetadataDto: Hashable {
+public struct MetadataDto: Hashable {
   /// A custom identifier assigned by your application.
   ///
   /// Use this for client-side record tracking, deduplication, or correlation.
@@ -985,9 +985,9 @@ struct MetadataDto: Hashable {
       isManualEntry,
     ]
   }
-  static func == (lhs: MetadataDto, rhs: MetadataDto) -> Bool {
+  public static func == (lhs: MetadataDto, rhs: MetadataDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -995,7 +995,7 @@ struct MetadataDto: Hashable {
 /// Represents a permission request for accessing specific health data.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct HealthDataPermissionDto: Hashable {
+public struct HealthDataPermissionDto: Hashable {
   /// The type of access being requested (read or write).
   var accessType: PermissionAccessTypeDto
   /// The type of health data for which permission is requested.
@@ -1018,9 +1018,9 @@ struct HealthDataPermissionDto: Hashable {
       healthDataType,
     ]
   }
-  static func == (lhs: HealthDataPermissionDto, rhs: HealthDataPermissionDto) -> Bool {
+  public static func == (lhs: HealthDataPermissionDto, rhs: HealthDataPermissionDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1036,7 +1036,7 @@ protocol HealthRecordDto {
 /// Represents a resting heart rate record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct RestingHeartRateRecordDto: HealthRecordDto {
+public struct RestingHeartRateRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Measurement time in milliseconds since epoch (UTC).
@@ -1074,9 +1074,9 @@ struct RestingHeartRateRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: RestingHeartRateRecordDto, rhs: RestingHeartRateRecordDto) -> Bool {
+  public static func == (lhs: RestingHeartRateRecordDto, rhs: RestingHeartRateRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1087,7 +1087,7 @@ struct RestingHeartRateRecordDto: HealthRecordDto {
 /// typically measured in mL/kg/min.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct Vo2MaxRecordDto: HealthRecordDto {
+public struct Vo2MaxRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Measurement time in milliseconds since epoch (UTC).
@@ -1132,9 +1132,9 @@ struct Vo2MaxRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: Vo2MaxRecordDto, rhs: Vo2MaxRecordDto) -> Bool {
+  public static func == (lhs: Vo2MaxRecordDto, rhs: Vo2MaxRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1142,7 +1142,7 @@ struct Vo2MaxRecordDto: HealthRecordDto {
 /// Represents a blood glucose record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct BloodGlucoseRecordDto: HealthRecordDto {
+public struct BloodGlucoseRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Measurement time in milliseconds since epoch (UTC).
@@ -1195,15 +1195,15 @@ struct BloodGlucoseRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: BloodGlucoseRecordDto, rhs: BloodGlucoseRecordDto) -> Bool {
+  public static func == (lhs: BloodGlucoseRecordDto, rhs: BloodGlucoseRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
-struct ActiveCaloriesBurnedRecordDto: HealthRecordDto {
+public struct ActiveCaloriesBurnedRecordDto: HealthRecordDto {
   /// Energy (calories) burned during the interval.
   var energy: EnergyDto
   /// End time in milliseconds since epoch (UTC).
@@ -1246,9 +1246,9 @@ struct ActiveCaloriesBurnedRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: ActiveCaloriesBurnedRecordDto, rhs: ActiveCaloriesBurnedRecordDto) -> Bool {
+  public static func == (lhs: ActiveCaloriesBurnedRecordDto, rhs: ActiveCaloriesBurnedRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1256,7 +1256,7 @@ struct ActiveCaloriesBurnedRecordDto: HealthRecordDto {
 /// Represents a distance record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct DistanceRecordDto: HealthRecordDto {
+public struct DistanceRecordDto: HealthRecordDto {
   /// Distance traveled during the interval.
   var distance: LengthDto
   /// End time in milliseconds since epoch (UTC).
@@ -1299,9 +1299,9 @@ struct DistanceRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: DistanceRecordDto, rhs: DistanceRecordDto) -> Bool {
+  public static func == (lhs: DistanceRecordDto, rhs: DistanceRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1309,7 +1309,7 @@ struct DistanceRecordDto: HealthRecordDto {
 /// Represents a floors climbed record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct FloorsClimbedRecordDto: HealthRecordDto {
+public struct FloorsClimbedRecordDto: HealthRecordDto {
   /// Number of floors (flights of stairs) climbed during the interval.
   var floors: NumericDto
   /// End time in milliseconds since epoch (UTC).
@@ -1352,9 +1352,9 @@ struct FloorsClimbedRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: FloorsClimbedRecordDto, rhs: FloorsClimbedRecordDto) -> Bool {
+  public static func == (lhs: FloorsClimbedRecordDto, rhs: FloorsClimbedRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1362,7 +1362,7 @@ struct FloorsClimbedRecordDto: HealthRecordDto {
 /// Represents a wheelchair pushes record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct WheelchairPushesRecordDto: HealthRecordDto {
+public struct WheelchairPushesRecordDto: HealthRecordDto {
   /// Number of wheelchair pushes performed during the interval.
   var pushes: NumericDto
   /// End time in milliseconds since epoch (UTC).
@@ -1405,9 +1405,9 @@ struct WheelchairPushesRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: WheelchairPushesRecordDto, rhs: WheelchairPushesRecordDto) -> Bool {
+  public static func == (lhs: WheelchairPushesRecordDto, rhs: WheelchairPushesRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1415,7 +1415,7 @@ struct WheelchairPushesRecordDto: HealthRecordDto {
 /// Represents a step count record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct StepsRecordDto: HealthRecordDto {
+public struct StepsRecordDto: HealthRecordDto {
   /// Number of steps taken during the interval (must be >= 0).
   var count: NumericDto
   /// End time in milliseconds since epoch (UTC).
@@ -1458,9 +1458,9 @@ struct StepsRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: StepsRecordDto, rhs: StepsRecordDto) -> Bool {
+  public static func == (lhs: StepsRecordDto, rhs: StepsRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1468,7 +1468,7 @@ struct StepsRecordDto: HealthRecordDto {
 /// Represents a weight record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct WeightRecordDto: HealthRecordDto {
+public struct WeightRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Metadata about this record.
@@ -1506,9 +1506,9 @@ struct WeightRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: WeightRecordDto, rhs: WeightRecordDto) -> Bool {
+  public static func == (lhs: WeightRecordDto, rhs: WeightRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1517,7 +1517,7 @@ struct WeightRecordDto: HealthRecordDto {
 /// Maps to HKCorrelationType.bloodPressure.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct BloodPressureRecordDto: HealthRecordDto {
+public struct BloodPressureRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Metadata about this record.
@@ -1571,9 +1571,9 @@ struct BloodPressureRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: BloodPressureRecordDto, rhs: BloodPressureRecordDto) -> Bool {
+  public static func == (lhs: BloodPressureRecordDto, rhs: BloodPressureRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1582,7 +1582,7 @@ struct BloodPressureRecordDto: HealthRecordDto {
 /// Maps to HKQuantityType.bloodPressureSystolic.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct SystolicBloodPressureRecordDto: HealthRecordDto {
+public struct SystolicBloodPressureRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Metadata about this record.
@@ -1620,9 +1620,9 @@ struct SystolicBloodPressureRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: SystolicBloodPressureRecordDto, rhs: SystolicBloodPressureRecordDto) -> Bool {
+  public static func == (lhs: SystolicBloodPressureRecordDto, rhs: SystolicBloodPressureRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1631,7 +1631,7 @@ struct SystolicBloodPressureRecordDto: HealthRecordDto {
 /// Maps to HKQuantityType.bloodPressureDiastolic.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct DiastolicBloodPressureRecordDto: HealthRecordDto {
+public struct DiastolicBloodPressureRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Metadata about this record.
@@ -1669,9 +1669,9 @@ struct DiastolicBloodPressureRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: DiastolicBloodPressureRecordDto, rhs: DiastolicBloodPressureRecordDto) -> Bool {
+  public static func == (lhs: DiastolicBloodPressureRecordDto, rhs: DiastolicBloodPressureRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1679,7 +1679,7 @@ struct DiastolicBloodPressureRecordDto: HealthRecordDto {
 /// DTO for lean body mass health data.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct LeanBodyMassRecordDto: HealthRecordDto {
+public struct LeanBodyMassRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Metadata about this record.
@@ -1717,9 +1717,9 @@ struct LeanBodyMassRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: LeanBodyMassRecordDto, rhs: LeanBodyMassRecordDto) -> Bool {
+  public static func == (lhs: LeanBodyMassRecordDto, rhs: LeanBodyMassRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1727,7 +1727,7 @@ struct LeanBodyMassRecordDto: HealthRecordDto {
 /// DTO for body height health data.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct HeightRecordDto: HealthRecordDto {
+public struct HeightRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Metadata about this record.
@@ -1765,9 +1765,9 @@ struct HeightRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: HeightRecordDto, rhs: HeightRecordDto) -> Bool {
+  public static func == (lhs: HeightRecordDto, rhs: HeightRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1775,7 +1775,7 @@ struct HeightRecordDto: HealthRecordDto {
 /// DTO for body fat percentage health data.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct BodyFatPercentageRecordDto: HealthRecordDto {
+public struct BodyFatPercentageRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Metadata about this record.
@@ -1813,9 +1813,9 @@ struct BodyFatPercentageRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: BodyFatPercentageRecordDto, rhs: BodyFatPercentageRecordDto) -> Bool {
+  public static func == (lhs: BodyFatPercentageRecordDto, rhs: BodyFatPercentageRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1823,7 +1823,7 @@ struct BodyFatPercentageRecordDto: HealthRecordDto {
 /// DTO for body temperature health data.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct BodyTemperatureRecordDto: HealthRecordDto {
+public struct BodyTemperatureRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Metadata about this record.
@@ -1861,9 +1861,9 @@ struct BodyTemperatureRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: BodyTemperatureRecordDto, rhs: BodyTemperatureRecordDto) -> Bool {
+  public static func == (lhs: BodyTemperatureRecordDto, rhs: BodyTemperatureRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1871,7 +1871,7 @@ struct BodyTemperatureRecordDto: HealthRecordDto {
 /// Represents an oxygen saturation record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct OxygenSaturationRecordDto: HealthRecordDto {
+public struct OxygenSaturationRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Measurement time in milliseconds since epoch (UTC).
@@ -1909,9 +1909,9 @@ struct OxygenSaturationRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: OxygenSaturationRecordDto, rhs: OxygenSaturationRecordDto) -> Bool {
+  public static func == (lhs: OxygenSaturationRecordDto, rhs: OxygenSaturationRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1919,7 +1919,7 @@ struct OxygenSaturationRecordDto: HealthRecordDto {
 /// Represents a respiratory rate record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct RespiratoryRateRecordDto: HealthRecordDto {
+public struct RespiratoryRateRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Measurement time in milliseconds since epoch (UTC).
@@ -1957,9 +1957,9 @@ struct RespiratoryRateRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: RespiratoryRateRecordDto, rhs: RespiratoryRateRecordDto) -> Bool {
+  public static func == (lhs: RespiratoryRateRecordDto, rhs: RespiratoryRateRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -1967,7 +1967,7 @@ struct RespiratoryRateRecordDto: HealthRecordDto {
 /// Represents a hydration (water intake) record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct HydrationRecordDto: HealthRecordDto {
+public struct HydrationRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Start time in milliseconds since epoch (UTC).
@@ -2010,9 +2010,9 @@ struct HydrationRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: HydrationRecordDto, rhs: HydrationRecordDto) -> Bool {
+  public static func == (lhs: HydrationRecordDto, rhs: HydrationRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2023,7 +2023,7 @@ struct HydrationRecordDto: HealthRecordDto {
 /// It contains a timestamp and BPM value without ID or metadata.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct HeartRateMeasurementDto: Hashable {
+public struct HeartRateMeasurementDto: Hashable {
   /// Timestamp in milliseconds since epoch (UTC).
   var time: Int64
   /// Heart rate value in beats per minute (BPM).
@@ -2046,9 +2046,9 @@ struct HeartRateMeasurementDto: Hashable {
       beatsPerMinute,
     ]
   }
-  static func == (lhs: HeartRateMeasurementDto, rhs: HeartRateMeasurementDto) -> Bool {
+  public static func == (lhs: HeartRateMeasurementDto, rhs: HeartRateMeasurementDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2056,7 +2056,7 @@ struct HeartRateMeasurementDto: Hashable {
 /// Represents a heart rate measurement record for platform transfer (iOS).
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct HeartRateMeasurementRecordDto: HealthRecordDto {
+public struct HeartRateMeasurementRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Measurement time in milliseconds since epoch (UTC).
@@ -2094,9 +2094,9 @@ struct HeartRateMeasurementRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: HeartRateMeasurementRecordDto, rhs: HeartRateMeasurementRecordDto) -> Bool {
+  public static func == (lhs: HeartRateMeasurementRecordDto, rhs: HeartRateMeasurementRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2108,7 +2108,7 @@ struct HeartRateMeasurementRecordDto: HealthRecordDto {
 /// stage.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct SleepStageRecordDto: HealthRecordDto {
+public struct SleepStageRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Start time in milliseconds since epoch (UTC).
@@ -2156,9 +2156,9 @@ struct SleepStageRecordDto: HealthRecordDto {
       endZoneOffsetSeconds,
     ]
   }
-  static func == (lhs: SleepStageRecordDto, rhs: SleepStageRecordDto) -> Bool {
+  public static func == (lhs: SleepStageRecordDto, rhs: SleepStageRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2170,7 +2170,7 @@ struct SleepStageRecordDto: HealthRecordDto {
 /// - Domain: `EnergyNutrientRecord`
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct EnergyNutrientRecordDto: HealthRecordDto {
+public struct EnergyNutrientRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Metadata about this record.
@@ -2218,9 +2218,9 @@ struct EnergyNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: EnergyNutrientRecordDto, rhs: EnergyNutrientRecordDto) -> Bool {
+  public static func == (lhs: EnergyNutrientRecordDto, rhs: EnergyNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2228,7 +2228,7 @@ struct EnergyNutrientRecordDto: HealthRecordDto {
 /// Represents caffeine nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct CaffeineNutrientRecordDto: HealthRecordDto {
+public struct CaffeineNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2269,9 +2269,9 @@ struct CaffeineNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: CaffeineNutrientRecordDto, rhs: CaffeineNutrientRecordDto) -> Bool {
+  public static func == (lhs: CaffeineNutrientRecordDto, rhs: CaffeineNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2279,7 +2279,7 @@ struct CaffeineNutrientRecordDto: HealthRecordDto {
 /// Represents protein nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct ProteinNutrientRecordDto: HealthRecordDto {
+public struct ProteinNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2320,9 +2320,9 @@ struct ProteinNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: ProteinNutrientRecordDto, rhs: ProteinNutrientRecordDto) -> Bool {
+  public static func == (lhs: ProteinNutrientRecordDto, rhs: ProteinNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2330,7 +2330,7 @@ struct ProteinNutrientRecordDto: HealthRecordDto {
 /// Represents total carbohydrate nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct TotalCarbohydrateNutrientRecordDto: HealthRecordDto {
+public struct TotalCarbohydrateNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2371,9 +2371,9 @@ struct TotalCarbohydrateNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: TotalCarbohydrateNutrientRecordDto, rhs: TotalCarbohydrateNutrientRecordDto) -> Bool {
+  public static func == (lhs: TotalCarbohydrateNutrientRecordDto, rhs: TotalCarbohydrateNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2381,7 +2381,7 @@ struct TotalCarbohydrateNutrientRecordDto: HealthRecordDto {
 /// Represents total fat nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct TotalFatNutrientRecordDto: HealthRecordDto {
+public struct TotalFatNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2422,9 +2422,9 @@ struct TotalFatNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: TotalFatNutrientRecordDto, rhs: TotalFatNutrientRecordDto) -> Bool {
+  public static func == (lhs: TotalFatNutrientRecordDto, rhs: TotalFatNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2432,7 +2432,7 @@ struct TotalFatNutrientRecordDto: HealthRecordDto {
 /// Represents saturated fat nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct SaturatedFatNutrientRecordDto: HealthRecordDto {
+public struct SaturatedFatNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2473,9 +2473,9 @@ struct SaturatedFatNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: SaturatedFatNutrientRecordDto, rhs: SaturatedFatNutrientRecordDto) -> Bool {
+  public static func == (lhs: SaturatedFatNutrientRecordDto, rhs: SaturatedFatNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2483,7 +2483,7 @@ struct SaturatedFatNutrientRecordDto: HealthRecordDto {
 /// Represents monounsaturated fat nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct MonounsaturatedFatNutrientRecordDto: HealthRecordDto {
+public struct MonounsaturatedFatNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2524,9 +2524,9 @@ struct MonounsaturatedFatNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: MonounsaturatedFatNutrientRecordDto, rhs: MonounsaturatedFatNutrientRecordDto) -> Bool {
+  public static func == (lhs: MonounsaturatedFatNutrientRecordDto, rhs: MonounsaturatedFatNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2534,7 +2534,7 @@ struct MonounsaturatedFatNutrientRecordDto: HealthRecordDto {
 /// Represents polyunsaturated fat nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct PolyunsaturatedFatNutrientRecordDto: HealthRecordDto {
+public struct PolyunsaturatedFatNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2575,9 +2575,9 @@ struct PolyunsaturatedFatNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: PolyunsaturatedFatNutrientRecordDto, rhs: PolyunsaturatedFatNutrientRecordDto) -> Bool {
+  public static func == (lhs: PolyunsaturatedFatNutrientRecordDto, rhs: PolyunsaturatedFatNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2585,7 +2585,7 @@ struct PolyunsaturatedFatNutrientRecordDto: HealthRecordDto {
 /// Represents cholesterol nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct CholesterolNutrientRecordDto: HealthRecordDto {
+public struct CholesterolNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2626,9 +2626,9 @@ struct CholesterolNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: CholesterolNutrientRecordDto, rhs: CholesterolNutrientRecordDto) -> Bool {
+  public static func == (lhs: CholesterolNutrientRecordDto, rhs: CholesterolNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2636,7 +2636,7 @@ struct CholesterolNutrientRecordDto: HealthRecordDto {
 /// Represents dietary fiber nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct DietaryFiberNutrientRecordDto: HealthRecordDto {
+public struct DietaryFiberNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2677,9 +2677,9 @@ struct DietaryFiberNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: DietaryFiberNutrientRecordDto, rhs: DietaryFiberNutrientRecordDto) -> Bool {
+  public static func == (lhs: DietaryFiberNutrientRecordDto, rhs: DietaryFiberNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2687,7 +2687,7 @@ struct DietaryFiberNutrientRecordDto: HealthRecordDto {
 /// Represents sugar nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct SugarNutrientRecordDto: HealthRecordDto {
+public struct SugarNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2728,9 +2728,9 @@ struct SugarNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: SugarNutrientRecordDto, rhs: SugarNutrientRecordDto) -> Bool {
+  public static func == (lhs: SugarNutrientRecordDto, rhs: SugarNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2738,7 +2738,7 @@ struct SugarNutrientRecordDto: HealthRecordDto {
 /// Represents vitamin A nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct VitaminANutrientRecordDto: HealthRecordDto {
+public struct VitaminANutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2779,9 +2779,9 @@ struct VitaminANutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: VitaminANutrientRecordDto, rhs: VitaminANutrientRecordDto) -> Bool {
+  public static func == (lhs: VitaminANutrientRecordDto, rhs: VitaminANutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2789,7 +2789,7 @@ struct VitaminANutrientRecordDto: HealthRecordDto {
 /// Represents vitamin B6 nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct VitaminB6NutrientRecordDto: HealthRecordDto {
+public struct VitaminB6NutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2830,9 +2830,9 @@ struct VitaminB6NutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: VitaminB6NutrientRecordDto, rhs: VitaminB6NutrientRecordDto) -> Bool {
+  public static func == (lhs: VitaminB6NutrientRecordDto, rhs: VitaminB6NutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2840,7 +2840,7 @@ struct VitaminB6NutrientRecordDto: HealthRecordDto {
 /// Represents vitamin B12 nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct VitaminB12NutrientRecordDto: HealthRecordDto {
+public struct VitaminB12NutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2881,9 +2881,9 @@ struct VitaminB12NutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: VitaminB12NutrientRecordDto, rhs: VitaminB12NutrientRecordDto) -> Bool {
+  public static func == (lhs: VitaminB12NutrientRecordDto, rhs: VitaminB12NutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2891,7 +2891,7 @@ struct VitaminB12NutrientRecordDto: HealthRecordDto {
 /// Represents vitamin C nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct VitaminCNutrientRecordDto: HealthRecordDto {
+public struct VitaminCNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2932,9 +2932,9 @@ struct VitaminCNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: VitaminCNutrientRecordDto, rhs: VitaminCNutrientRecordDto) -> Bool {
+  public static func == (lhs: VitaminCNutrientRecordDto, rhs: VitaminCNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2942,7 +2942,7 @@ struct VitaminCNutrientRecordDto: HealthRecordDto {
 /// Represents vitamin D nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct VitaminDNutrientRecordDto: HealthRecordDto {
+public struct VitaminDNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -2983,9 +2983,9 @@ struct VitaminDNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: VitaminDNutrientRecordDto, rhs: VitaminDNutrientRecordDto) -> Bool {
+  public static func == (lhs: VitaminDNutrientRecordDto, rhs: VitaminDNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -2993,7 +2993,7 @@ struct VitaminDNutrientRecordDto: HealthRecordDto {
 /// Represents vitamin E nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct VitaminENutrientRecordDto: HealthRecordDto {
+public struct VitaminENutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3034,9 +3034,9 @@ struct VitaminENutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: VitaminENutrientRecordDto, rhs: VitaminENutrientRecordDto) -> Bool {
+  public static func == (lhs: VitaminENutrientRecordDto, rhs: VitaminENutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3044,7 +3044,7 @@ struct VitaminENutrientRecordDto: HealthRecordDto {
 /// Represents vitamin K nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct VitaminKNutrientRecordDto: HealthRecordDto {
+public struct VitaminKNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3085,9 +3085,9 @@ struct VitaminKNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: VitaminKNutrientRecordDto, rhs: VitaminKNutrientRecordDto) -> Bool {
+  public static func == (lhs: VitaminKNutrientRecordDto, rhs: VitaminKNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3095,7 +3095,7 @@ struct VitaminKNutrientRecordDto: HealthRecordDto {
 /// Represents thiamin (vitamin B1) nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct ThiaminNutrientRecordDto: HealthRecordDto {
+public struct ThiaminNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3136,9 +3136,9 @@ struct ThiaminNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: ThiaminNutrientRecordDto, rhs: ThiaminNutrientRecordDto) -> Bool {
+  public static func == (lhs: ThiaminNutrientRecordDto, rhs: ThiaminNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3146,7 +3146,7 @@ struct ThiaminNutrientRecordDto: HealthRecordDto {
 /// Represents riboflavin (vitamin B2) nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct RiboflavinNutrientRecordDto: HealthRecordDto {
+public struct RiboflavinNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3187,9 +3187,9 @@ struct RiboflavinNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: RiboflavinNutrientRecordDto, rhs: RiboflavinNutrientRecordDto) -> Bool {
+  public static func == (lhs: RiboflavinNutrientRecordDto, rhs: RiboflavinNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3197,7 +3197,7 @@ struct RiboflavinNutrientRecordDto: HealthRecordDto {
 /// Represents niacin (vitamin B3) nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct NiacinNutrientRecordDto: HealthRecordDto {
+public struct NiacinNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3238,9 +3238,9 @@ struct NiacinNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: NiacinNutrientRecordDto, rhs: NiacinNutrientRecordDto) -> Bool {
+  public static func == (lhs: NiacinNutrientRecordDto, rhs: NiacinNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3248,7 +3248,7 @@ struct NiacinNutrientRecordDto: HealthRecordDto {
 /// Represents folate (vitamin B9) nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct FolateNutrientRecordDto: HealthRecordDto {
+public struct FolateNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3289,9 +3289,9 @@ struct FolateNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: FolateNutrientRecordDto, rhs: FolateNutrientRecordDto) -> Bool {
+  public static func == (lhs: FolateNutrientRecordDto, rhs: FolateNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3299,7 +3299,7 @@ struct FolateNutrientRecordDto: HealthRecordDto {
 /// Represents biotin (vitamin B7) nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct BiotinNutrientRecordDto: HealthRecordDto {
+public struct BiotinNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3340,9 +3340,9 @@ struct BiotinNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: BiotinNutrientRecordDto, rhs: BiotinNutrientRecordDto) -> Bool {
+  public static func == (lhs: BiotinNutrientRecordDto, rhs: BiotinNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3350,7 +3350,7 @@ struct BiotinNutrientRecordDto: HealthRecordDto {
 /// Represents pantothenic acid (vitamin B5) nutrient data.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct PantothenicAcidNutrientRecordDto: HealthRecordDto {
+public struct PantothenicAcidNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3391,9 +3391,9 @@ struct PantothenicAcidNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: PantothenicAcidNutrientRecordDto, rhs: PantothenicAcidNutrientRecordDto) -> Bool {
+  public static func == (lhs: PantothenicAcidNutrientRecordDto, rhs: PantothenicAcidNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3401,7 +3401,7 @@ struct PantothenicAcidNutrientRecordDto: HealthRecordDto {
 /// Represents calcium nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct CalciumNutrientRecordDto: HealthRecordDto {
+public struct CalciumNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3442,9 +3442,9 @@ struct CalciumNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: CalciumNutrientRecordDto, rhs: CalciumNutrientRecordDto) -> Bool {
+  public static func == (lhs: CalciumNutrientRecordDto, rhs: CalciumNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3452,7 +3452,7 @@ struct CalciumNutrientRecordDto: HealthRecordDto {
 /// Represents iron nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct IronNutrientRecordDto: HealthRecordDto {
+public struct IronNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3493,9 +3493,9 @@ struct IronNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: IronNutrientRecordDto, rhs: IronNutrientRecordDto) -> Bool {
+  public static func == (lhs: IronNutrientRecordDto, rhs: IronNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3503,7 +3503,7 @@ struct IronNutrientRecordDto: HealthRecordDto {
 /// Represents magnesium nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct MagnesiumNutrientRecordDto: HealthRecordDto {
+public struct MagnesiumNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3544,9 +3544,9 @@ struct MagnesiumNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: MagnesiumNutrientRecordDto, rhs: MagnesiumNutrientRecordDto) -> Bool {
+  public static func == (lhs: MagnesiumNutrientRecordDto, rhs: MagnesiumNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3554,7 +3554,7 @@ struct MagnesiumNutrientRecordDto: HealthRecordDto {
 /// Represents manganese nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct ManganeseNutrientRecordDto: HealthRecordDto {
+public struct ManganeseNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3595,9 +3595,9 @@ struct ManganeseNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: ManganeseNutrientRecordDto, rhs: ManganeseNutrientRecordDto) -> Bool {
+  public static func == (lhs: ManganeseNutrientRecordDto, rhs: ManganeseNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3605,7 +3605,7 @@ struct ManganeseNutrientRecordDto: HealthRecordDto {
 /// Represents phosphorus nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct PhosphorusNutrientRecordDto: HealthRecordDto {
+public struct PhosphorusNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3646,9 +3646,9 @@ struct PhosphorusNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: PhosphorusNutrientRecordDto, rhs: PhosphorusNutrientRecordDto) -> Bool {
+  public static func == (lhs: PhosphorusNutrientRecordDto, rhs: PhosphorusNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3656,7 +3656,7 @@ struct PhosphorusNutrientRecordDto: HealthRecordDto {
 /// Represents potassium nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct PotassiumNutrientRecordDto: HealthRecordDto {
+public struct PotassiumNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3697,9 +3697,9 @@ struct PotassiumNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: PotassiumNutrientRecordDto, rhs: PotassiumNutrientRecordDto) -> Bool {
+  public static func == (lhs: PotassiumNutrientRecordDto, rhs: PotassiumNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3707,7 +3707,7 @@ struct PotassiumNutrientRecordDto: HealthRecordDto {
 /// Represents selenium nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct SeleniumNutrientRecordDto: HealthRecordDto {
+public struct SeleniumNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3748,9 +3748,9 @@ struct SeleniumNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: SeleniumNutrientRecordDto, rhs: SeleniumNutrientRecordDto) -> Bool {
+  public static func == (lhs: SeleniumNutrientRecordDto, rhs: SeleniumNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3758,7 +3758,7 @@ struct SeleniumNutrientRecordDto: HealthRecordDto {
 /// Represents sodium nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct SodiumNutrientRecordDto: HealthRecordDto {
+public struct SodiumNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3799,9 +3799,9 @@ struct SodiumNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: SodiumNutrientRecordDto, rhs: SodiumNutrientRecordDto) -> Bool {
+  public static func == (lhs: SodiumNutrientRecordDto, rhs: SodiumNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3809,7 +3809,7 @@ struct SodiumNutrientRecordDto: HealthRecordDto {
 /// Represents zinc nutrient data for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct ZincNutrientRecordDto: HealthRecordDto {
+public struct ZincNutrientRecordDto: HealthRecordDto {
   var id: String? = nil
   var metadata: MetadataDto
   var time: Int64
@@ -3850,9 +3850,9 @@ struct ZincNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  static func == (lhs: ZincNutrientRecordDto, rhs: ZincNutrientRecordDto) -> Bool {
+  public static func == (lhs: ZincNutrientRecordDto, rhs: ZincNutrientRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -3868,7 +3868,7 @@ struct ZincNutrientRecordDto: HealthRecordDto {
 /// HKQuantitySample objects for each nutrient.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct NutritionRecordDto: HealthRecordDto {
+public struct NutritionRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Start time in milliseconds since epoch (UTC).
@@ -4086,9 +4086,9 @@ struct NutritionRecordDto: HealthRecordDto {
       caffeine,
     ]
   }
-  static func == (lhs: NutritionRecordDto, rhs: NutritionRecordDto) -> Bool {
+  public static func == (lhs: NutritionRecordDto, rhs: NutritionRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4096,7 +4096,7 @@ struct NutritionRecordDto: HealthRecordDto {
 /// Represents the result of a health data permission request.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct HealthDataPermissionRequestResultDto: Hashable {
+public struct HealthDataPermissionRequestResultDto: Hashable {
   /// The health data permission that was requested.
   var permission: HealthDataPermissionDto
   /// The status of the permission after the request.
@@ -4119,9 +4119,9 @@ struct HealthDataPermissionRequestResultDto: Hashable {
       status,
     ]
   }
-  static func == (lhs: HealthDataPermissionRequestResultDto, rhs: HealthDataPermissionRequestResultDto) -> Bool {
+  public static func == (lhs: HealthDataPermissionRequestResultDto, rhs: HealthDataPermissionRequestResultDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4129,7 +4129,7 @@ struct HealthDataPermissionRequestResultDto: Hashable {
 /// Represents a permissions request.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct PermissionsRequestDto: Hashable {
+public struct PermissionsRequestDto: Hashable {
   /// List of health data permissions to request.
   var healthDataPermissions: [HealthDataPermissionDto]
 
@@ -4147,9 +4147,9 @@ struct PermissionsRequestDto: Hashable {
       healthDataPermissions
     ]
   }
-  static func == (lhs: PermissionsRequestDto, rhs: PermissionsRequestDto) -> Bool {
+  public static func == (lhs: PermissionsRequestDto, rhs: PermissionsRequestDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4157,7 +4157,7 @@ struct PermissionsRequestDto: Hashable {
 /// Represents the response from a permissions request.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct PermissionsRequestResponseDto: Hashable {
+public struct PermissionsRequestResponseDto: Hashable {
   /// Results for each health data permission that was requested.
   var healthDataPermissionResults: [HealthDataPermissionRequestResultDto]
 
@@ -4175,9 +4175,9 @@ struct PermissionsRequestResponseDto: Hashable {
       healthDataPermissionResults
     ]
   }
-  static func == (lhs: PermissionsRequestResponseDto, rhs: PermissionsRequestResponseDto) -> Bool {
+  public static func == (lhs: PermissionsRequestResponseDto, rhs: PermissionsRequestResponseDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4185,7 +4185,7 @@ struct PermissionsRequestResponseDto: Hashable {
 /// Request to perform aggregation on health records.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct AggregateRequestDto: Hashable {
+public struct AggregateRequestDto: Hashable {
   /// The type of aggregation to perform.
   var aggregationMetric: AggregationMetricDto
   /// The type of health data to aggregate.
@@ -4218,9 +4218,9 @@ struct AggregateRequestDto: Hashable {
       startTime,
     ]
   }
-  static func == (lhs: AggregateRequestDto, rhs: AggregateRequestDto) -> Bool {
+  public static func == (lhs: AggregateRequestDto, rhs: AggregateRequestDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4228,7 +4228,7 @@ struct AggregateRequestDto: Hashable {
 /// Response containing aggregated value.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct AggregateResponseDto: Hashable {
+public struct AggregateResponseDto: Hashable {
   /// Aggregated value.
   var value: MeasurementUnitDto
 
@@ -4246,9 +4246,9 @@ struct AggregateResponseDto: Hashable {
       value
     ]
   }
-  static func == (lhs: AggregateResponseDto, rhs: AggregateResponseDto) -> Bool {
+  public static func == (lhs: AggregateResponseDto, rhs: AggregateResponseDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4256,7 +4256,7 @@ struct AggregateResponseDto: Hashable {
 /// Request to delete specific records by their IDs.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct DeleteRecordsByIdsRequestDto: Hashable {
+public struct DeleteRecordsByIdsRequestDto: Hashable {
   /// The type of health data to delete.
   var dataType: HealthDataTypeDto
   /// List of unique identifiers for records to delete.
@@ -4279,9 +4279,9 @@ struct DeleteRecordsByIdsRequestDto: Hashable {
       recordIds,
     ]
   }
-  static func == (lhs: DeleteRecordsByIdsRequestDto, rhs: DeleteRecordsByIdsRequestDto) -> Bool {
+  public static func == (lhs: DeleteRecordsByIdsRequestDto, rhs: DeleteRecordsByIdsRequestDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4289,7 +4289,7 @@ struct DeleteRecordsByIdsRequestDto: Hashable {
 /// Request to delete records by time range.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct DeleteRecordsByTimeRangeRequestDto: Hashable {
+public struct DeleteRecordsByTimeRangeRequestDto: Hashable {
   /// The type of health data to delete.
   var dataType: HealthDataTypeDto
   /// End of time range in milliseconds since epoch (UTC), exclusive.
@@ -4317,9 +4317,9 @@ struct DeleteRecordsByTimeRangeRequestDto: Hashable {
       startTime,
     ]
   }
-  static func == (lhs: DeleteRecordsByTimeRangeRequestDto, rhs: DeleteRecordsByTimeRangeRequestDto) -> Bool {
+  public static func == (lhs: DeleteRecordsByTimeRangeRequestDto, rhs: DeleteRecordsByTimeRangeRequestDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4327,7 +4327,7 @@ struct DeleteRecordsByTimeRangeRequestDto: Hashable {
 /// Request to read a single health record by ID.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct ReadRecordRequestDto: Hashable {
+public struct ReadRecordRequestDto: Hashable {
   /// The unique identifier of the record to read.
   var recordId: String
   /// The type of health data to read.
@@ -4350,9 +4350,9 @@ struct ReadRecordRequestDto: Hashable {
       dataType,
     ]
   }
-  static func == (lhs: ReadRecordRequestDto, rhs: ReadRecordRequestDto) -> Bool {
+  public static func == (lhs: ReadRecordRequestDto, rhs: ReadRecordRequestDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4360,7 +4360,7 @@ struct ReadRecordRequestDto: Hashable {
 /// Response containing a single health record.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct ReadRecordResponseDto: Hashable {
+public struct ReadRecordResponseDto: Hashable {
   /// The health record that was read.
   var record: HealthRecordDto? = nil
 
@@ -4378,9 +4378,9 @@ struct ReadRecordResponseDto: Hashable {
       record
     ]
   }
-  static func == (lhs: ReadRecordResponseDto, rhs: ReadRecordResponseDto) -> Bool {
+  public static func == (lhs: ReadRecordResponseDto, rhs: ReadRecordResponseDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4388,7 +4388,7 @@ struct ReadRecordResponseDto: Hashable {
 /// Request to read multiple health records within a time range.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct ReadRecordsRequestDto: Hashable {
+public struct ReadRecordsRequestDto: Hashable {
   /// The type of health data to read.
   var dataType: HealthDataTypeDto
   /// Maximum number of records to return per page (1-10,000).
@@ -4433,9 +4433,9 @@ struct ReadRecordsRequestDto: Hashable {
       dataOriginPackageNames,
     ]
   }
-  static func == (lhs: ReadRecordsRequestDto, rhs: ReadRecordsRequestDto) -> Bool {
+  public static func == (lhs: ReadRecordsRequestDto, rhs: ReadRecordsRequestDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4443,7 +4443,7 @@ struct ReadRecordsRequestDto: Hashable {
 /// Response containing paginated health records.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct ReadRecordsResponseDto: Hashable {
+public struct ReadRecordsResponseDto: Hashable {
   /// Token for fetching next page, null if no more pages exist.
   var nextPageToken: String? = nil
   /// List of health records that were read.
@@ -4466,9 +4466,9 @@ struct ReadRecordsResponseDto: Hashable {
       records,
     ]
   }
-  static func == (lhs: ReadRecordsResponseDto, rhs: ReadRecordsResponseDto) -> Bool {
+  public static func == (lhs: ReadRecordsResponseDto, rhs: ReadRecordsResponseDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4476,7 +4476,7 @@ struct ReadRecordsResponseDto: Hashable {
 /// Request to write a single health record.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct WriteRecordRequestDto: Hashable {
+public struct WriteRecordRequestDto: Hashable {
   /// Health record.
   var record: HealthRecordDto
 
@@ -4494,9 +4494,9 @@ struct WriteRecordRequestDto: Hashable {
       record
     ]
   }
-  static func == (lhs: WriteRecordRequestDto, rhs: WriteRecordRequestDto) -> Bool {
+  public static func == (lhs: WriteRecordRequestDto, rhs: WriteRecordRequestDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4504,7 +4504,7 @@ struct WriteRecordRequestDto: Hashable {
 /// Response after writing a single record.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct WriteRecordResponseDto: Hashable {
+public struct WriteRecordResponseDto: Hashable {
   /// Platform-assigned unique identifier for the written record.
   var recordId: String
 
@@ -4522,9 +4522,9 @@ struct WriteRecordResponseDto: Hashable {
       recordId
     ]
   }
-  static func == (lhs: WriteRecordResponseDto, rhs: WriteRecordResponseDto) -> Bool {
+  public static func == (lhs: WriteRecordResponseDto, rhs: WriteRecordResponseDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4532,7 +4532,7 @@ struct WriteRecordResponseDto: Hashable {
 /// Request to write multiple health records atomically.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct WriteRecordsRequestDto: Hashable {
+public struct WriteRecordsRequestDto: Hashable {
   /// Records being written.
   var records: [HealthRecordDto]
 
@@ -4550,9 +4550,9 @@ struct WriteRecordsRequestDto: Hashable {
       records
     ]
   }
-  static func == (lhs: WriteRecordsRequestDto, rhs: WriteRecordsRequestDto) -> Bool {
+  public static func == (lhs: WriteRecordsRequestDto, rhs: WriteRecordsRequestDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4560,7 +4560,7 @@ struct WriteRecordsRequestDto: Hashable {
 /// Response after writing multiple records.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct WriteRecordsResponseDto: Hashable {
+public struct WriteRecordsResponseDto: Hashable {
   /// Platform-assigned unique identifiers for written records.
   var recordIds: [String]
 
@@ -4578,65 +4578,9 @@ struct WriteRecordsResponseDto: Hashable {
       recordIds
     ]
   }
-  static func == (lhs: WriteRecordsResponseDto, rhs: WriteRecordsResponseDto) -> Bool {
+  public static func == (lhs: WriteRecordsResponseDto, rhs: WriteRecordsResponseDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Request to update a single health record.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-struct UpdateRecordRequestDto: Hashable {
-  /// The health record to update.
-  var record: HealthRecordDto
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> UpdateRecordRequestDto? {
-    let record = pigeonVar_list[0] as! HealthRecordDto
-
-    return UpdateRecordRequestDto(
-      record: record
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      record
-    ]
-  }
-  static func == (lhs: UpdateRecordRequestDto, rhs: UpdateRecordRequestDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Response after updating a single record.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-struct UpdateRecordResponseDto: Hashable {
-  /// Platform-assigned unique identifier for the updated record.
-  var recordId: String
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> UpdateRecordResponseDto? {
-    let recordId = pigeonVar_list[0] as! String
-
-    return UpdateRecordResponseDto(
-      recordId: recordId
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      recordId
-    ]
-  }
-  static func == (lhs: UpdateRecordResponseDto, rhs: UpdateRecordResponseDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4647,7 +4591,7 @@ struct UpdateRecordResponseDto: Hashable {
 /// platform code during client initialization.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct HealthConnectorConfigDto: Hashable {
+public struct HealthConnectorConfigDto: Hashable {
   /// Whether logging is enabled for the Health Connector.
   var isLoggerEnabled: Bool
 
@@ -4665,9 +4609,9 @@ struct HealthConnectorConfigDto: Hashable {
       isLoggerEnabled
     ]
   }
-  static func == (lhs: HealthConnectorConfigDto, rhs: HealthConnectorConfigDto) -> Bool {
+  public static func == (lhs: HealthConnectorConfigDto, rhs: HealthConnectorConfigDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
   }
 }
@@ -4990,10 +4934,6 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 237:
       return WriteRecordsResponseDto.fromList(self.readValue() as! [Any?])
     case 238:
-      return UpdateRecordRequestDto.fromList(self.readValue() as! [Any?])
-    case 239:
-      return UpdateRecordResponseDto.fromList(self.readValue() as! [Any?])
-    case 240:
       return HealthConnectorConfigDto.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -5330,14 +5270,8 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? WriteRecordsResponseDto {
       super.writeByte(237)
       super.writeValue(value.toList())
-    } else if let value = value as? UpdateRecordRequestDto {
-      super.writeByte(238)
-      super.writeValue(value.toList())
-    } else if let value = value as? UpdateRecordResponseDto {
-      super.writeByte(239)
-      super.writeValue(value.toList())
     } else if let value = value as? HealthConnectorConfigDto {
-      super.writeByte(240)
+      super.writeByte(238)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -5378,7 +5312,6 @@ protocol HealthConnectorHKIOSApi {
   func readRecords(request: ReadRecordsRequestDto, completion: @escaping (Result<ReadRecordsResponseDto, Error>) -> Void)
   func writeRecord(request: WriteRecordRequestDto, completion: @escaping (Result<WriteRecordResponseDto, Error>) -> Void)
   func writeRecords(request: WriteRecordsRequestDto, completion: @escaping (Result<WriteRecordsResponseDto, Error>) -> Void)
-  func updateRecord(request: UpdateRecordRequestDto, completion: @escaping (Result<UpdateRecordResponseDto, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -5558,23 +5491,6 @@ class HealthConnectorHKIOSApiSetup {
       }
     } else {
       writeRecordsChannel.setMessageHandler(nil)
-    }
-    let updateRecordChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.updateRecord\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      updateRecordChannel.setMessageHandler { message, reply in
-        let args = message as! [Any?]
-        let requestArg = args[0] as! UpdateRecordRequestDto
-        api.updateRecord(request: requestArg) { result in
-          switch result {
-          case .success(let res):
-            reply(wrapResult(res))
-          case .failure(let error):
-            reply(wrapError(error))
-          }
-        }
-      }
-    } else {
-      updateRecordChannel.setMessageHandler(nil)
     }
   }
 }

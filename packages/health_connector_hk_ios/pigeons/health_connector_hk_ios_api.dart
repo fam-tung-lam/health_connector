@@ -2379,22 +2379,6 @@ class WriteRecordsResponseDto {
   final List<String> recordIds;
 }
 
-/// Request to update a single health record.
-class UpdateRecordRequestDto {
-  UpdateRecordRequestDto(this.record);
-
-  /// The health record to update.
-  final HealthRecordDto record;
-}
-
-/// Response after updating a single record.
-class UpdateRecordResponseDto {
-  UpdateRecordResponseDto(this.recordId);
-
-  /// Platform-assigned unique identifier for the updated record.
-  final String recordId;
-}
-
 // endregion
 
 /// Configuration data transfer object for Health Connector.
@@ -2446,7 +2430,4 @@ abstract class HealthConnectorHKIOSApi {
 
   @async
   WriteRecordsResponseDto writeRecords(WriteRecordsRequestDto request);
-
-  @async
-  UpdateRecordResponseDto updateRecord(UpdateRecordRequestDto request);
 }

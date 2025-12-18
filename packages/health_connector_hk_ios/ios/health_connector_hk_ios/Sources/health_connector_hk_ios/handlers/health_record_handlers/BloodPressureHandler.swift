@@ -5,7 +5,6 @@ import HealthKit
 final class BloodPressureHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler
 {
     typealias RecordDto = BloodPressureRecordDto
