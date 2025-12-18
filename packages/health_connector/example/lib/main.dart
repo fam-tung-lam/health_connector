@@ -517,7 +517,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
       final now = DateTime.now();
 
       // Create a step record with sample data
-      final record = StepRecord(
+      final record = StepsRecord(
         startTime: now.subtract(const Duration(hours: 1)),
         endTime: now,
         count: const Numeric(1000),
@@ -566,7 +566,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
 
       // Create multiple step records with sample data
       final records = [
-        StepRecord(
+        StepsRecord(
           startTime: now.subtract(const Duration(hours: 3)),
           endTime: now.subtract(const Duration(hours: 2)),
           count: const Numeric(1500),
@@ -575,7 +575,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
             device: const Device.fromType(DeviceType.watch),
           ),
         ),
-        StepRecord(
+        StepsRecord(
           startTime: now.subtract(const Duration(hours: 2)),
           endTime: now.subtract(const Duration(hours: 1)),
           count: const Numeric(2000),
@@ -584,7 +584,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
             device: const Device.fromType(DeviceType.watch),
           ),
         ),
-        StepRecord(
+        StepsRecord(
           startTime: now.subtract(const Duration(hours: 1)),
           endTime: now,
           count: const Numeric(1800),
@@ -655,7 +655,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
 
       // Get the first record and update it
       final existingRecord = recordsResponse.records.first;
-      final updatedRecord = StepRecord(
+      final updatedRecord = StepsRecord(
         id: existingRecord.id,
         startTime: existingRecord.startTime,
         endTime: existingRecord.endTime,

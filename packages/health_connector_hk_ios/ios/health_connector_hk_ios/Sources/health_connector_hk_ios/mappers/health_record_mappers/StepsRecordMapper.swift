@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-extension StepRecordDto {
+extension StepsRecordDto {
     /// Converts this DTO to a HealthKit sample.
     ///
     /// - Throws: An error if the quantity type cannot be created.
@@ -24,10 +24,10 @@ extension StepRecordDto {
 }
 
 extension HKQuantitySample {
-    /// Converts this HealthKit sample to a `StepRecordDto`.
+    /// Converts this HealthKit sample to a `StepsRecordDto`.
     ///
     /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a step count sample.
-    func toStepRecordDto() throws -> StepRecordDto {
+    func toStepsRecordDto() throws -> StepsRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.stepCount.rawValue else {
             throw HealthConnectorError.invalidArgument(
                 message: "Expected step count quantity type, got \(quantityType.identifier)",
@@ -43,7 +43,7 @@ extension HKQuantitySample {
         let metadataDict = metadata ?? [:]
         let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
 
-        return StepRecordDto(
+        return StepsRecordDto(
             count: count.toNumericDto(),
             endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,

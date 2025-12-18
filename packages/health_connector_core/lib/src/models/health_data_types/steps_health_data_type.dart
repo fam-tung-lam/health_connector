@@ -3,11 +3,11 @@ part of 'health_data_type.dart';
 /// Health data type for step count information.
 @sinceV1_0_0
 @immutable
-final class StepsHealthDataType extends HealthDataType<StepRecord, Numeric>
+final class StepsHealthDataType extends HealthDataType<StepsRecord, Numeric>
     implements
-        ReadableHealthDataType<StepRecord>,
+        ReadableHealthDataType<StepsRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<StepRecord, Numeric> {
+        SumAggregatableHealthDataType<StepsRecord, Numeric> {
   @internal
   const StepsHealthDataType();
 
@@ -42,12 +42,12 @@ final class StepsHealthDataType extends HealthDataType<StepRecord, Numeric>
   );
 
   @override
-  ReadRecordRequest<StepRecord> readRecord(HealthRecordId id) {
+  ReadRecordRequest<StepsRecord> readRecord(HealthRecordId id) {
     return ReadRecordRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<StepRecord> readRecords({
+  ReadRecordsRequest<StepsRecord> readRecords({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
@@ -67,7 +67,7 @@ final class StepsHealthDataType extends HealthDataType<StepRecord, Numeric>
   );
 
   @override
-  AggregateRequest<StepRecord, Numeric> aggregateSum({
+  AggregateRequest<StepsRecord, Numeric> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -9,7 +9,7 @@ final class StepsHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     HealthKitAggregatableHealthRecordHandler
 {
-    typealias RecordDto = StepRecordDto
+    typealias RecordDto = StepsRecordDto
     typealias SampleType = HKQuantitySample
 
     let healthStore: HKHealthStore

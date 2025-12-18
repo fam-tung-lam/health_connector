@@ -1415,7 +1415,7 @@ struct WheelchairPushesRecordDto: HealthRecordDto {
 /// Represents a step count record for platform transfer.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-struct StepRecordDto: HealthRecordDto {
+struct StepsRecordDto: HealthRecordDto {
   /// Number of steps taken during the interval (must be >= 0).
   var count: NumericDto
   /// End time in milliseconds since epoch (UTC).
@@ -1431,7 +1431,7 @@ struct StepRecordDto: HealthRecordDto {
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> StepRecordDto? {
+  static func fromList(_ pigeonVar_list: [Any?]) -> StepsRecordDto? {
     let count = pigeonVar_list[0] as! NumericDto
     let endTime = pigeonVar_list[1] as! Int64
     let id: String? = nilOrValue(pigeonVar_list[2])
@@ -1439,7 +1439,7 @@ struct StepRecordDto: HealthRecordDto {
     let startTime = pigeonVar_list[4] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
 
-    return StepRecordDto(
+    return StepsRecordDto(
       count: count,
       endTime: endTime,
       id: id,
@@ -1458,7 +1458,7 @@ struct StepRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  static func == (lhs: StepRecordDto, rhs: StepRecordDto) -> Bool {
+  static func == (lhs: StepsRecordDto, rhs: StepsRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
   func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
@@ -4862,7 +4862,7 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 173:
       return WheelchairPushesRecordDto.fromList(self.readValue() as! [Any?])
     case 174:
-      return StepRecordDto.fromList(self.readValue() as! [Any?])
+      return StepsRecordDto.fromList(self.readValue() as! [Any?])
     case 175:
       return WeightRecordDto.fromList(self.readValue() as! [Any?])
     case 176:
@@ -5138,7 +5138,7 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? WheelchairPushesRecordDto {
       super.writeByte(173)
       super.writeValue(value.toList())
-    } else if let value = value as? StepRecordDto {
+    } else if let value = value as? StepsRecordDto {
       super.writeByte(174)
       super.writeValue(value.toList())
     } else if let value = value as? WeightRecordDto {

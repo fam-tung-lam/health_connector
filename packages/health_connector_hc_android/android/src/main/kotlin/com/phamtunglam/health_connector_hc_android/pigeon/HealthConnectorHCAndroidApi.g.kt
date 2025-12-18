@@ -1666,7 +1666,7 @@ data class WheelchairPushesRecordDto (
  *
  * Generated class from Pigeon that represents data sent in messages.
  */
-data class StepRecordDto (
+data class StepsRecordDto (
   /** Number of steps taken during the interval (must be >= 0). */
   val count: NumericDto,
   /** End time in milliseconds since epoch (UTC). */
@@ -1684,7 +1684,7 @@ data class StepRecordDto (
 ) : HealthRecordDto()
  {
   companion object {
-    fun fromList(pigeonVar_list: List<Any?>): StepRecordDto {
+    fun fromList(pigeonVar_list: List<Any?>): StepsRecordDto {
       val count = pigeonVar_list[0] as NumericDto
       val endTime = pigeonVar_list[1] as Long
       val id = pigeonVar_list[2] as String?
@@ -1692,7 +1692,7 @@ data class StepRecordDto (
       val startTime = pigeonVar_list[4] as Long
       val endZoneOffsetSeconds = pigeonVar_list[5] as Long?
       val startZoneOffsetSeconds = pigeonVar_list[6] as Long?
-      return StepRecordDto(count, endTime, id, metadata, startTime, endZoneOffsetSeconds, startZoneOffsetSeconds)
+      return StepsRecordDto(count, endTime, id, metadata, startTime, endZoneOffsetSeconds, startZoneOffsetSeconds)
     }
   }
   fun toList(): List<Any?> {
@@ -1707,7 +1707,7 @@ data class StepRecordDto (
     )
   }
   override fun equals(other: Any?): Boolean {
-    if (other !is StepRecordDto) {
+    if (other !is StepsRecordDto) {
       return false
     }
     if (this === other) {
@@ -3573,7 +3573,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       181.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          StepRecordDto.fromList(it)
+          StepsRecordDto.fromList(it)
         }
       }
       182.toByte() -> {
@@ -3959,7 +3959,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(180)
         writeValue(stream, value.toList())
       }
-      is StepRecordDto -> {
+      is StepsRecordDto -> {
         stream.write(181)
         writeValue(stream, value.toList())
       }

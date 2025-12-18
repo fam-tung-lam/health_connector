@@ -71,7 +71,7 @@ part 'resting_heart_rate_record.dart';
 part 'series_health_record.dart';
 part 'sleep_session_record.dart';
 part 'sleep_stage_record.dart';
-part 'step_record.dart';
+part 'steps_record.dart';
 part 'vo2_max_record.dart';
 part 'weight_record.dart';
 part 'wheelchair_pushes_record.dart';
@@ -172,7 +172,7 @@ final class HealthRecordId {
   ///
   /// Example:
   /// ```dart
-  /// final newRecord = StepRecord(
+  /// final newRecord = StepsRecord(
   ///   id: HealthRecordId.none, // Indicates this is a new record
   ///   // ... other fields
   /// );

@@ -93,7 +93,6 @@ import 'package:health_connector/health_connector.dart'
         SeleniumNutrientRecord,
         SodiumNutrientDataType,
         SodiumNutrientRecord,
-        StepRecord,
         StepsHealthDataType,
         SugarNutrientDataType,
         SugarNutrientRecord,
@@ -139,7 +138,8 @@ import 'package:health_connector/health_connector.dart'
         Vo2Max,
         Vo2MaxHealthDataType,
         Vo2MaxRecord,
-        Vo2MaxTestType;
+        Vo2MaxTestType,
+        StepsRecord;
 
 /// Configuration for a health record write form.
 ///
@@ -396,7 +396,7 @@ final class StepsFormConfig extends HealthRecordFormConfig {
     }
     final numericValue = value as Numeric;
 
-    return StepRecord(
+    return StepsRecord(
       startTime: startDateTime,
       endTime: endDateTime,
       count: numericValue,

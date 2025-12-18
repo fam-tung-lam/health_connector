@@ -735,7 +735,7 @@ final class HealthConnector {
   ///
   /// ```dart
   /// // Create and write a step record
-  /// final record = StepRecord(
+  /// final record = StepsRecord(
   ///   id: HealthRecordId.none, // Must be none for new records
   ///   startTime: DateTime.now().subtract(Duration(hours: 1)),
   ///   endTime: DateTime.now(),
@@ -832,7 +832,7 @@ final class HealthConnector {
   /// ```dart
   /// // Create multiple step records
   /// final records = [
-  ///   StepRecord(
+  ///   StepsRecord(
   ///     startTime: DateTime(2024, 1, 1, 9, 0),
   ///     endTime: DateTime(2024, 1, 1, 10, 0),
   ///     count: Numeric(1200),
@@ -840,7 +840,7 @@ final class HealthConnector {
   ///       device: Device.fromType(DeviceType.phone),
   ///     ),
   ///   ),
-  ///   StepRecord(
+  ///   StepsRecord(
   ///     startTime: DateTime(2024, 1, 1, 10, 0),
   ///     endTime: DateTime(2024, 1, 1, 11, 0),
   ///     count: Numeric(1500),
@@ -1208,7 +1208,7 @@ final class HealthConnector {
   ///
   /// if (existingRecord != null) {
   ///   // Create updated record with modified values
-  ///   final updatedRecord = StepRecord(
+  ///   final updatedRecord = StepsRecord(
   ///     id: existingRecord.id, // Preserve the original ID
   ///     startTime: existingRecord.startTime,
   ///     endTime: existingRecord.endTime,

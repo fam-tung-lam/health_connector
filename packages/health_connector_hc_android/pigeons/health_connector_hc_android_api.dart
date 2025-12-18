@@ -842,8 +842,8 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
 }
 
 /// Represents a step count record for platform transfer.
-class StepRecordDto extends HealthRecordDto {
-  StepRecordDto({
+class StepsRecordDto extends HealthRecordDto {
+  StepsRecordDto({
     required this.id,
     required this.startTime,
     required this.endTime,

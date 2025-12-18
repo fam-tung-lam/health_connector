@@ -2,7 +2,7 @@ part of 'health_record.dart';
 
 /// Represents a step count record over a time interval.
 ///
-/// [StepRecord] tracks the number of steps taken during a specific time
+/// [StepsRecord] tracks the number of steps taken during a specific time
 /// period. This is an interval-based record, meaning it has both a start and
 /// end time.
 ///
@@ -12,7 +12,7 @@ part of 'health_record.dart';
 /// - **iOS**: Maps to HealthKit's `HKQuantityType(.stepCount)`
 @sinceV1_0_0
 @immutable
-final class StepRecord extends IntervalHealthRecord {
+final class StepsRecord extends IntervalHealthRecord {
   /// Creates a step count record.
   ///
   /// ## Parameters
@@ -31,7 +31,7 @@ final class StepRecord extends IntervalHealthRecord {
   ///
   /// - [AssertionError] if [count] is negative (in debug/checked mode).
   /// - [ArgumentError] if [endTime] is not after [startTime].
-  StepRecord({
+  StepsRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,
@@ -49,7 +49,7 @@ final class StepRecord extends IntervalHealthRecord {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is StepRecord &&
+      other is StepsRecord &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           startTime == other.startTime &&
@@ -71,7 +71,7 @@ final class StepRecord extends IntervalHealthRecord {
 
   @override
   String toString() =>
-      'StepRecord('
+      'StepsRecord('
       'id: $id, '
       'count: ${count.value}, '
       'time_range: ${formatTimeRange(startTime: startTime, endTime: endTime)}, '

@@ -14,7 +14,7 @@ extension HealthRecordDto {
             record.id
         case let record as FloorsClimbedRecordDto:
             record.id
-        case let record as StepRecordDto:
+        case let record as StepsRecordDto:
             record.id
         case let record as WeightRecordDto:
             record.id
@@ -43,7 +43,7 @@ extension HealthRecordDto {
     var dataType: HealthDataTypeDto {
         get throws {
             switch self {
-            case is StepRecordDto:
+            case is StepsRecordDto:
                 return .steps
             case is WeightRecordDto:
                 return .weight
@@ -173,7 +173,7 @@ extension HealthRecordDto {
     func extractTimestamp() throws -> Int64 {
         switch self {
         // Interval-based DTOs with endTime
-        case let dto as StepRecordDto:
+        case let dto as StepsRecordDto:
             return dto.endTime
         case let dto as ActiveCaloriesBurnedRecordDto:
             return dto.endTime

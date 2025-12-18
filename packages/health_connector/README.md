@@ -199,7 +199,7 @@ var request = HealthDataType.steps.readRecords(
   pageSize: 100, // Request 100 records per page
 );
 
-var allRecords = <StepRecord>[];
+var allRecords = <StepsRecord>[];
 var pageNumber = 1;
 
 print('Starting pagination with pageSize: 100');
@@ -215,7 +215,7 @@ while (true) {
   print('Has nextPageRequest: ${response.nextPageRequest != null}');
   
   // Add records to our collection
-  allRecords.addAll(response.records.cast<StepRecord>());
+  allRecords.addAll(response.records.cast<StepsRecord>());
   print('Total records collected so far: ${allRecords.length}');
   
   // Platform-specific pagination handling
@@ -239,7 +239,7 @@ print('Total pages processed: $pageNumber');
 ##### Write Single Health Record
 
 ```dart
-final stepRecord = StepRecord(
+final stepRecord = StepsRecord(
   id: HealthRecordId.none, // Must be none for new records
   startTime: DateTime.now().subtract(Duration(hours: 1)),
   endTime: DateTime.now(),
@@ -257,7 +257,7 @@ print('Record written with ID: $recordId');
 
 ```dart
 final records = [
-  StepRecord(
+  StepsRecord(
     id: HealthRecordId.none,
     startTime: DateTime.now().subtract(Duration(hours: 2)),
     endTime: DateTime.now().subtract(Duration(hours: 1)),

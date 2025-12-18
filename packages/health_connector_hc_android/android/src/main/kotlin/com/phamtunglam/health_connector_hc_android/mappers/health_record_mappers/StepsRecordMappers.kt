@@ -5,14 +5,14 @@ import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.toLong
 import com.phamtunglam.health_connector_hc_android.mappers.toNumericDto
-import com.phamtunglam.health_connector_hc_android.pigeon.StepRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.StepsRecordDto
 import java.time.Instant
 import java.time.ZoneOffset
 
 /**
- * Converts a Health Connect [StepsRecord] object to a [StepRecordDto].
+ * Converts a Health Connect [StepsRecord] object to a [StepsRecordDto].
  */
-internal fun StepsRecord.toDto(): StepRecordDto = StepRecordDto(
+internal fun StepsRecord.toDto(): StepsRecordDto = StepsRecordDto(
     id = metadata.id,
     startTime = startTime.toEpochMilli(),
     endTime = endTime.toEpochMilli(),
@@ -23,9 +23,9 @@ internal fun StepsRecord.toDto(): StepRecordDto = StepRecordDto(
 )
 
 /**
- * Converts a [StepRecordDto] to a Health Connect [StepsRecord] object.
+ * Converts a [StepsRecordDto] to a Health Connect [StepsRecord] object.
  */
-internal fun StepRecordDto.toHealthConnect(): StepsRecord = StepsRecord(
+internal fun StepsRecordDto.toHealthConnect(): StepsRecord = StepsRecord(
     count = count.toLong(),
     startTime = Instant.ofEpochMilli(startTime),
     endTime = Instant.ofEpochMilli(endTime),

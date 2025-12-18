@@ -60,7 +60,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         SleepSessionRecord,
         SleepStageRecord,
         SodiumNutrientRecord,
-        StepRecord,
+        StepsRecord,
         SugarNutrientRecord,
         SystolicBloodPressureRecord,
         ThiaminNutrientRecord,

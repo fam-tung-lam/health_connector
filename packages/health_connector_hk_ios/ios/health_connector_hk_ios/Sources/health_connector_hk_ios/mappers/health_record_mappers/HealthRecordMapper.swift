@@ -37,7 +37,7 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as RestingHeartRateRecordDto:
             return try dto.toHealthKit()
-        case let dto as StepRecordDto:
+        case let dto as StepsRecordDto:
             return try dto.toHealthKit()
         case let dto as SystolicBloodPressureRecordDto:
             return try dto.toHealthKit()
@@ -144,7 +144,7 @@ extension HKQuantitySample {
     func mapQuantitySampleToDto(for type: HealthDataTypeDto) throws -> HealthRecordDto {
         switch type {
         case .steps:
-            try toStepRecordDto()
+            try toStepsRecordDto()
         case .weight:
             try toWeightRecordDto()
         case .height:

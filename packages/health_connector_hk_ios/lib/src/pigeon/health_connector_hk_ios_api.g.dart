@@ -1782,8 +1782,8 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
 }
 
 /// Represents a step count record for platform transfer.
-class StepRecordDto extends HealthRecordDto {
-  StepRecordDto({
+class StepsRecordDto extends HealthRecordDto {
+  StepsRecordDto({
     required this.count,
     required this.endTime,
     this.id,
@@ -1825,9 +1825,9 @@ class StepRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static StepRecordDto decode(Object result) {
+  static StepsRecordDto decode(Object result) {
     result as List<Object?>;
-    return StepRecordDto(
+    return StepsRecordDto(
       count: result[0]! as NumericDto,
       endTime: result[1]! as int,
       id: result[2] as String?,
@@ -1840,7 +1840,7 @@ class StepRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! StepRecordDto || other.runtimeType != runtimeType) {
+    if (other is! StepsRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -6543,7 +6543,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is WheelchairPushesRecordDto) {
       buffer.putUint8(173);
       writeValue(buffer, value.encode());
-    } else if (value is StepRecordDto) {
+    } else if (value is StepsRecordDto) {
       buffer.putUint8(174);
       writeValue(buffer, value.encode());
     } else if (value is WeightRecordDto) {
@@ -6871,7 +6871,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 173:
         return WheelchairPushesRecordDto.decode(readValue(buffer)!);
       case 174:
-        return StepRecordDto.decode(readValue(buffer)!);
+        return StepsRecordDto.decode(readValue(buffer)!);
       case 175:
         return WeightRecordDto.decode(readValue(buffer)!);
       case 176:

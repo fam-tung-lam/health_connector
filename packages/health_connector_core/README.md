@@ -72,7 +72,7 @@ Three base types model different temporal patterns:
 | Record Type            | Temporal Model           | Use Cases                                        | Concrete Examples                                                                   |
 |------------------------|--------------------------|--------------------------------------------------|-------------------------------------------------------------------------------------|
 | `InstantHealthRecord`  | Single point in time     | Weight, blood pressure, temperature              | `WeightRecord`                                                                      |
-| `IntervalHealthRecord` | Time range (start → end) | Steps, calories burned, distance, floors climbed | `StepRecord`, `ActiveCaloriesBurnedRecord`, `DistanceRecord`, `FloorsClimbedRecord` |
+| `IntervalHealthRecord` | Time range (start → end) | Steps, calories burned, distance, floors climbed | `StepsRecord`, `ActiveCaloriesBurnedRecord`, `DistanceRecord`, `FloorsClimbedRecord` |
 | `SeriesHealthRecord`   | Time-series samples      | Heart rate monitoring, GPS routes                | `HeartRateRecord`                                                                   |
 
 ### Measurement Units

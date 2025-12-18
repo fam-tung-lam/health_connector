@@ -39,7 +39,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.OxygenSaturationRecord
 import com.phamtunglam.health_connector_hc_android.pigeon.RespiratoryRateRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RestingHeartRateRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepSessionRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.StepRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.StepsRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecordDto
@@ -55,7 +55,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is ActiveCaloriesBurnedRecordDto -> HealthDataTypeDto.ACTIVE_CALORIES_BURNED
         is DistanceRecordDto -> HealthDataTypeDto.DISTANCE
         is FloorsClimbedRecordDto -> HealthDataTypeDto.FLOORS_CLIMBED
-        is StepRecordDto -> HealthDataTypeDto.STEPS
+        is StepsRecordDto -> HealthDataTypeDto.STEPS
         is HeightRecordDto -> HealthDataTypeDto.HEIGHT
         is HydrationRecordDto -> HealthDataTypeDto.HYDRATION
         is BodyFatPercentageRecordDto -> HealthDataTypeDto.BODY_FAT_PERCENTAGE
@@ -84,7 +84,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is ActiveCaloriesBurnedRecordDto -> toHealthConnect()
     is DistanceRecordDto -> toHealthConnect()
     is FloorsClimbedRecordDto -> toHealthConnect()
-    is StepRecordDto -> toHealthConnect()
+    is StepsRecordDto -> toHealthConnect()
     is HeightRecordDto -> toHealthConnect()
     is HydrationRecordDto -> toHealthConnect()
     is BodyFatPercentageRecordDto -> toHealthConnect()

@@ -18,7 +18,7 @@ export 'respiratory_rate_record_mappers.dart';
 export 'resting_heart_rate_record_mappers.dart';
 export 'sleep_stage_record_mappers.dart';
 export 'sleep_stage_type_mappers.dart';
-export 'step_record_mappers.dart';
+export 'steps_record_mappers.dart';
 export 'systolic_blood_pressure_record_mappers.dart';
 export 'vo2_max_record_mappers.dart';
 export 'weight_record_mappers.dart';

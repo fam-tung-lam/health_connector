@@ -1,18 +1,18 @@
 import 'package:health_connector_core/health_connector_core.dart'
-    show StepRecord, Numeric, HealthRecordId, sinceV1_0_0;
+    show StepsRecord, Numeric, HealthRecordId, sinceV1_0_0;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
-    show StepRecordDto, NumericDto;
+    show StepsRecordDto, NumericDto;
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [StepRecord] to [StepRecordDto].
+/// Converts [StepsRecord] to [StepsRecordDto].
 @sinceV1_0_0
 @internal
-extension StepRecordToDto on StepRecord {
-  StepRecordDto toDto() {
-    return StepRecordDto(
+extension StepsRecordToDto on StepsRecord {
+  StepsRecordDto toDto() {
+    return StepsRecordDto(
       id: id.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
@@ -24,12 +24,12 @@ extension StepRecordToDto on StepRecord {
   }
 }
 
-/// Converts [StepRecordDto] to [StepRecord].
+/// Converts [StepsRecordDto] to [StepsRecord].
 @sinceV1_0_0
 @internal
-extension StepRecordDtoToDomain on StepRecordDto {
-  StepRecord toDomain() {
-    return StepRecord(
+extension StepsRecordDtoToDomain on StepsRecordDto {
+  StepsRecord toDomain() {
+    return StepsRecord(
       id: id?.toHealthRecordId() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),

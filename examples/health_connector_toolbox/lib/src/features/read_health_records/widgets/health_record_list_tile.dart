@@ -47,7 +47,6 @@ import 'package:health_connector/health_connector.dart'
         SeleniumNutrientRecord,
         SeriesHealthRecord,
         SodiumNutrientRecord,
-        StepRecord,
         SugarNutrientRecord,
         SystolicBloodPressureRecord,
         ThiaminNutrientRecord,
@@ -67,7 +66,8 @@ import 'package:health_connector/health_connector.dart'
         SleepSessionRecord,
         SleepStageRecord,
         SleepStage,
-        SleepStageType;
+        SleepStageType,
+        StepsRecord;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/theme/app_colors.dart'
@@ -1081,7 +1081,7 @@ final class HealthRecordListTile extends StatelessWidget {
     return switch (record) {
       HeartRateSeriesRecord() => _buildSeriesRecord(context, record),
       SleepSessionRecord() => _buildSeriesRecord(context, record),
-      StepRecord() => IntervalHealthRecordTile<StepRecord>(
+      StepsRecord() => IntervalHealthRecordTile<StepsRecord>(
         record: record,
         icon: AppIcons.directionsWalk,
         title: '${record.count.value.toInt()} ${AppTexts.stepsLabel}',

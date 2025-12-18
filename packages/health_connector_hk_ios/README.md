@@ -221,13 +221,13 @@ var request = HealthDataType.steps.readRecords(
   pageSize: 100,
 );
 
-var allRecords = <StepRecord>[];
+var allRecords = <StepsRecord>[];
 var pageNumber = 1;
 
 while (true) {
   final response = await client.readRecords(request);
   
-  allRecords.addAll(response.records.cast<StepRecord>());
+  allRecords.addAll(response.records.cast<StepsRecord>());
   
   if (response.nextPageRequest == null || response.records.isEmpty) {
     break;
@@ -245,7 +245,7 @@ print('Total records fetched: ${allRecords.length}');
 ##### Write Single Health Record
 
 ```dart
-final stepRecord = StepRecord(
+final stepRecord = StepsRecord(
   id: HealthRecordId.none,
   startTime: DateTime.now().subtract(Duration(hours: 1)),
   endTime: DateTime.now(),
@@ -263,7 +263,7 @@ print('Record written with ID: $recordId');
 
 ```dart
 final records = [
-  StepRecord(
+  StepsRecord(
     id: HealthRecordId.none,
     startTime: DateTime.now().subtract(Duration(hours: 2)),
     endTime: DateTime.now().subtract(Duration(hours: 1)),

@@ -38,7 +38,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         SleepSessionRecord,
         SleepStageRecord,
         SodiumNutrientRecord,
-        StepRecord,
+        StepsRecord,
         SugarNutrientRecord,
         SystolicBloodPressureRecord,
         ThiaminNutrientRecord,
@@ -99,7 +99,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         SeleniumNutrientRecordDto,
         SleepStageRecordDto,
         SodiumNutrientRecordDto,
-        StepRecordDto,
+        StepsRecordDto,
         SugarNutrientRecordDto,
         SystolicBloodPressureRecordDto,
         ThiaminNutrientRecordDto,
@@ -133,7 +133,7 @@ extension HealthRecordToDto on HealthRecord {
         return record.toDto();
       case final FloorsClimbedRecord record:
         return record.toDto();
-      case final StepRecord record:
+      case final StepsRecord record:
         return record.toDto();
       case final WeightRecord record:
         return record.toDto();
@@ -262,7 +262,7 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return dto.toDomain();
       case final FloorsClimbedRecordDto dto:
         return dto.toDomain();
-      case final StepRecordDto dto:
+      case final StepsRecordDto dto:
         return dto.toDomain();
       case final WeightRecordDto dto:
         return dto.toDomain();

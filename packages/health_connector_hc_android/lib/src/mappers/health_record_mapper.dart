@@ -16,7 +16,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         NutritionRecord,
         SleepSessionRecord,
         SleepStageRecord,
-        StepRecord,
+        StepsRecord,
         SystolicBloodPressureRecord,
         WeightRecord,
         WheelchairPushesRecord,
@@ -77,7 +77,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         OxygenSaturationRecordDto,
         RestingHeartRateRecordDto,
         SleepSessionRecordDto,
-        StepRecordDto,
+        StepsRecordDto,
         WeightRecordDto,
         WheelchairPushesRecordDto,
         Vo2MaxRecordDto,
@@ -107,7 +107,7 @@ extension HealthRecordToDto on HealthRecord {
         return record.toDto();
       case final BodyTemperatureRecord record:
         return record.toDto();
-      case final StepRecord record:
+      case final StepsRecord record:
         return record.toDto();
       case final WeightRecord record:
         return record.toDto();
@@ -243,7 +243,7 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return dto.toDomain();
       case final BodyTemperatureRecordDto dto:
         return dto.toDomain();
-      case final StepRecordDto dto:
+      case final StepsRecordDto dto:
         return dto.toDomain();
       case final WeightRecordDto dto:
         return dto.toDomain();
