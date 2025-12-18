@@ -7,7 +7,6 @@ import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.units.Pressure
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.handlers.HealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
@@ -23,7 +22,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
  * Handler for composite Blood Pressure health data type.
  */
 internal class BloodPressureHandler(override val client: HealthConnectClient) :
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,

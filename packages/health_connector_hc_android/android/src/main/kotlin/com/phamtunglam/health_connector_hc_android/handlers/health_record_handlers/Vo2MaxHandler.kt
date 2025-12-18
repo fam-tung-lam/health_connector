@@ -3,7 +3,6 @@ package com.phamtunglam.health_connector_hc_android.handlers.health_record_handl
 import androidx.health.connect.client.HealthConnectClient
 import com.phamtunglam.health_connector_hc_android.handlers.CustomAggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.handlers.HealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.mappers.toNumericDto
@@ -20,7 +19,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxRecordDto
  * [CustomAggregatableHealthRecordHandler], requiring only value extraction and result wrapping logic.
  */
 internal class Vo2MaxHandler(override val client: HealthConnectClient) :
-    HealthRecordHandler,
     CustomAggregatableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -36,8 +34,16 @@ internal class Vo2MaxHandler(override val client: HealthConnectClient) :
             AggregationMetricDto.MAX,
         )
 
-    override fun extractValueForAggregation(recordDto: HealthRecordDto): Double? =
-        (recordDto as? Vo2MaxRecordDto)?.vo2Max?.value
+    override fun extractValueForAggregation(recordDto: HealthRecordDto): Double {
+        if (recordDto !is Vo2MaxRecordDto) {
+            throw IllegalArgumentException(
+                "Expected ${Vo2MaxRecordDto::class.simpleName} but received: " +
+                    "${recordDto::class.simpleName}",
+            )
+        }
+
+        return recordDto.vo2Max.value
+    }
 
     override fun wrapAggregationResult(value: Double): MeasurementUnitDto = value.toNumericDto()
 }

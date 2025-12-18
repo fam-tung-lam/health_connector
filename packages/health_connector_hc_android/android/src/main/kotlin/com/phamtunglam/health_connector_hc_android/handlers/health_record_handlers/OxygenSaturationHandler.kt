@@ -32,8 +32,16 @@ internal class OxygenSaturationHandler(override val client: HealthConnectClient)
             AggregationMetricDto.MAX,
         )
 
-    override fun extractValueForAggregation(recordDto: HealthRecordDto): Double? =
-        (recordDto as? OxygenSaturationRecordDto)?.percentage?.value
+    override fun extractValueForAggregation(recordDto: HealthRecordDto): Double {
+        if (recordDto !is OxygenSaturationRecordDto) {
+            throw IllegalArgumentException(
+                "Expected ${OxygenSaturationRecordDto::class.simpleName} but received: " +
+                    "${recordDto::class.simpleName}",
+            )
+        }
+
+        return recordDto.percentage.value
+    }
 
     override fun wrapAggregationResult(value: Double): MeasurementUnitDto = value.toNumericDto()
 }

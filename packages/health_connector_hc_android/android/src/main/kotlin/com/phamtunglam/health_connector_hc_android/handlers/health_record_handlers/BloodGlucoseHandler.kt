@@ -3,7 +3,6 @@ package com.phamtunglam.health_connector_hc_android.handlers.health_record_handl
 import androidx.health.connect.client.HealthConnectClient
 import com.phamtunglam.health_connector_hc_android.handlers.CustomAggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.handlers.HealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
@@ -21,7 +20,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
  * [CustomAggregatableHealthRecordHandler], requiring only value extraction and result wrapping logic.
  */
 internal class BloodGlucoseHandler(override val client: HealthConnectClient) :
-    HealthRecordHandler,
     CustomAggregatableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
@@ -37,8 +35,16 @@ internal class BloodGlucoseHandler(override val client: HealthConnectClient) :
             AggregationMetricDto.MAX,
         )
 
-    override fun extractValueForAggregation(recordDto: HealthRecordDto): Double? =
-        (recordDto as? BloodGlucoseRecordDto)?.bloodGlucose?.value
+    override fun extractValueForAggregation(recordDto: HealthRecordDto): Double {
+        if (recordDto !is BloodGlucoseRecordDto) {
+            throw IllegalArgumentException(
+                "Expected ${BloodGlucoseRecordDto::class.simpleName} but received: " +
+                    "${recordDto::class.simpleName}",
+            )
+        }
+
+        return recordDto.bloodGlucose.value
+    }
 
     override fun wrapAggregationResult(value: Double): MeasurementUnitDto = BloodGlucoseDto(
         BloodGlucoseUnitDto.MILLIGRAMS_PER_DECILITER,

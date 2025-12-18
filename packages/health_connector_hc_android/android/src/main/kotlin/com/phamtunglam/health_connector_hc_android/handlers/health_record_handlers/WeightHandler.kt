@@ -6,7 +6,6 @@ import androidx.health.connect.client.aggregate.AggregationResult
 import androidx.health.connect.client.records.WeightRecord
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.handlers.HealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
@@ -21,7 +20,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
  * Handler for Weight records.
  */
 internal class WeightHandler(override val client: HealthConnectClient) :
-    HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
