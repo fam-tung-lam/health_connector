@@ -6,6 +6,12 @@ import HealthKit
 /// This protocol defines the minimal interface that all handlers must implement.
 /// Conforming types must be `Sendable` to support Swift 6 strict concurrency.
 protocol HealthRecordHandler: AnyObject, Sendable {
+    /// The specific DTO type this handler works with
+    associatedtype RecordDto: HealthRecordDto
+
+    /// The specific HKSample subclass this handler works with
+    associatedtype SampleType: HKSample
+
     /// The HealthKit store for all operations
     var healthStore: HKHealthStore { get }
 

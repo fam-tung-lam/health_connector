@@ -10,6 +10,9 @@ final class HydrationHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = HydrationRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {

@@ -9,6 +9,9 @@ final class BloodPressureHandler: @unchecked Sendable,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler
 {
+    typealias RecordDto = BloodPressureRecordDto
+    typealias SampleType = HKCorrelation
+
     /// The HealthKit store for all operations
     let healthStore: HKHealthStore
 

@@ -10,6 +10,9 @@ final class SleepStageHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     CustomAggregatableHealthRecordHandler
 {
+    typealias RecordDto = SleepStageRecordDto
+    typealias SampleType = HKCategorySample
+
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {

@@ -10,6 +10,9 @@ final class FloorsClimbedHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = FloorsClimbedRecordDto
+    typealias SampleType = HKQuantitySample
+
     /// The HealthKit store for all operations
     let healthStore: HKHealthStore
 

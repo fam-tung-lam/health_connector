@@ -10,6 +10,9 @@ final class LeanBodyMassHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = LeanBodyMassRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {

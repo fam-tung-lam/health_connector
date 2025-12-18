@@ -10,6 +10,9 @@ final class HeartRateHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = HeartRateMeasurementRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {

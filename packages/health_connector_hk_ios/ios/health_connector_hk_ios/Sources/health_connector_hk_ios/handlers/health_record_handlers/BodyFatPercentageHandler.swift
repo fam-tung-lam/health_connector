@@ -10,6 +10,9 @@ final class BodyFatPercentageHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = BodyFatPercentageRecordDto
+    typealias SampleType = HKQuantitySample
+
     /// The HealthKit store for all operations
     let healthStore: HKHealthStore
 

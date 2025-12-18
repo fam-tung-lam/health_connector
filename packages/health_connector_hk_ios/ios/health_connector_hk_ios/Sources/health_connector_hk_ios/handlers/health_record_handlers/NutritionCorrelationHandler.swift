@@ -8,6 +8,9 @@ final class NutritionCorrelationHandler: @unchecked Sendable,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler
 {
+    typealias RecordDto = NutritionRecordDto
+    typealias SampleType = HKCorrelation
+
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {

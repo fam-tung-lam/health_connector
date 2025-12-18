@@ -10,6 +10,9 @@ final class RespiratoryRateHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = RespiratoryRateRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {

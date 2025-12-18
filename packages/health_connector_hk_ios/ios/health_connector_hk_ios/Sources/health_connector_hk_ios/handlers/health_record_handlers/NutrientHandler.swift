@@ -102,6 +102,9 @@ final class EnergyNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = EnergyNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -138,6 +141,9 @@ final class CaffeineNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = CaffeineNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -174,6 +180,9 @@ final class ProteinNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = ProteinNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -210,6 +219,9 @@ final class TotalCarbohydrateNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = TotalCarbohydrateNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -246,6 +258,9 @@ final class TotalFatNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = TotalFatNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -279,6 +294,9 @@ final class SaturatedFatNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = SaturatedFatNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -312,6 +330,9 @@ final class MonounsaturatedFatNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = MonounsaturatedFatNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -345,6 +366,9 @@ final class PolyunsaturatedFatNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = PolyunsaturatedFatNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -378,6 +402,9 @@ final class CholesterolNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = CholesterolNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -414,6 +441,9 @@ final class DietaryFiberNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = DietaryFiberNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -450,6 +480,9 @@ final class SugarNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = SugarNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -486,6 +519,9 @@ final class VitaminANutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = VitaminANutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -522,6 +558,9 @@ final class VitaminB6NutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = VitaminB6NutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -558,6 +597,9 @@ final class VitaminB12NutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = VitaminB12NutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -594,6 +636,9 @@ final class VitaminCNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = VitaminCNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -630,6 +675,9 @@ final class VitaminDNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = VitaminDNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -666,6 +714,9 @@ final class VitaminENutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = VitaminENutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -702,6 +753,9 @@ final class VitaminKNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = VitaminKNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -738,6 +792,9 @@ final class ThiaminNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = ThiaminNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -774,6 +831,9 @@ final class RiboflavinNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = RiboflavinNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -810,6 +870,9 @@ final class NiacinNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = NiacinNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -846,6 +909,9 @@ final class FolateNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = FolateNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -882,6 +948,9 @@ final class BiotinNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = BiotinNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -918,6 +987,9 @@ final class PantothenicAcidNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = PantothenicAcidNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -954,6 +1026,9 @@ final class CalciumNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = CalciumNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -990,6 +1065,9 @@ final class IronNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = IronNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -1026,6 +1104,9 @@ final class MagnesiumNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = MagnesiumNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -1062,6 +1143,9 @@ final class ManganeseNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = ManganeseNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -1098,6 +1182,9 @@ final class PhosphorusNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = PhosphorusNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -1134,6 +1221,9 @@ final class PotassiumNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = PotassiumNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -1170,6 +1260,9 @@ final class SeleniumNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = SeleniumNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -1206,6 +1299,9 @@ final class SodiumNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = SodiumNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 
@@ -1242,6 +1338,9 @@ final class ZincNutrientHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = ZincNutrientRecordDto
+    typealias SampleType = HKQuantitySample
+
     let healthStore: HKHealthStore
     private let handler: NutrientHandler
 

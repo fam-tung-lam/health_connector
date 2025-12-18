@@ -10,6 +10,9 @@ final class BloodGlucoseHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = BloodGlucoseRecordDto
+    typealias SampleType = HKQuantitySample
+
     /// The HealthKit store for all operations
     let healthStore: HKHealthStore
 

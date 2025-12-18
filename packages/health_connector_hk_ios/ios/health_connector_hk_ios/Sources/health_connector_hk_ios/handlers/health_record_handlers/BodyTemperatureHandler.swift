@@ -10,6 +10,9 @@ final class BodyTemperatureHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = BodyTemperatureRecordDto
+    typealias SampleType = HKQuantitySample
+
     /// The HealthKit store for all operations
     let healthStore: HKHealthStore
 

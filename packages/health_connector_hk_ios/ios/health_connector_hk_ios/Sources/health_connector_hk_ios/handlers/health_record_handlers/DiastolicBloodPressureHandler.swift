@@ -10,6 +10,9 @@ final class DiastolicBloodPressureHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableHealthRecordHandler
 {
+    typealias RecordDto = DiastolicBloodPressureRecordDto
+    typealias SampleType = HKQuantitySample
+
     /// The HealthKit store for all operations
     let healthStore: HKHealthStore
 
