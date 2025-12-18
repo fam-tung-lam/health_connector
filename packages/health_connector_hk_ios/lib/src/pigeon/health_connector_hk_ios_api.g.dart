@@ -7011,11 +7011,11 @@ class _PigeonCodec extends StandardMessageCodec {
 }
 
 /// The main API for communicating with the health platform.
-class HealthConnectorPlatformApi {
-  /// Constructor for [HealthConnectorPlatformApi].  The [binaryMessenger] named argument is
+class HealthConnectorHKIOSApi {
+  /// Constructor for [HealthConnectorHKIOSApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  HealthConnectorPlatformApi({
+  HealthConnectorHKIOSApi({
     BinaryMessenger? binaryMessenger,
     String messageChannelSuffix = '',
   }) : pigeonVar_binaryMessenger = binaryMessenger,
@@ -7034,7 +7034,7 @@ class HealthConnectorPlatformApi {
   /// to properly configure the native platform code, including logger settings.
   Future<void> initialize(HealthConnectorConfigDto config) async {
     final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.initialize$pigeonVar_messageChannelSuffix';
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.initialize$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
           pigeonVar_channelName,
@@ -7061,7 +7061,7 @@ class HealthConnectorPlatformApi {
 
   Future<AggregateResponseDto> aggregate(AggregateRequestDto request) async {
     final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.aggregate$pigeonVar_messageChannelSuffix';
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.aggregate$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
           pigeonVar_channelName,
@@ -7093,7 +7093,7 @@ class HealthConnectorPlatformApi {
 
   Future<void> deleteRecordsByIds(DeleteRecordsByIdsRequestDto request) async {
     final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.deleteRecordsByIds$pigeonVar_messageChannelSuffix';
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.deleteRecordsByIds$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
           pigeonVar_channelName,
@@ -7122,7 +7122,7 @@ class HealthConnectorPlatformApi {
     DeleteRecordsByTimeRangeRequestDto request,
   ) async {
     final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.deleteRecordsByTimeRange$pigeonVar_messageChannelSuffix';
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.deleteRecordsByTimeRange$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
           pigeonVar_channelName,
@@ -7149,7 +7149,7 @@ class HealthConnectorPlatformApi {
 
   Future<HealthPlatformStatusDto> getHealthPlatformStatus() async {
     final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.getHealthPlatformStatus$pigeonVar_messageChannelSuffix';
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.getHealthPlatformStatus$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
           pigeonVar_channelName,
@@ -7181,7 +7181,7 @@ class HealthConnectorPlatformApi {
     PermissionsRequestDto request,
   ) async {
     final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.requestPermissions$pigeonVar_messageChannelSuffix';
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.requestPermissions$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
           pigeonVar_channelName,
@@ -7215,7 +7215,7 @@ class HealthConnectorPlatformApi {
     ReadRecordRequestDto request,
   ) async {
     final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.readRecord$pigeonVar_messageChannelSuffix';
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.readRecord$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
           pigeonVar_channelName,
@@ -7244,7 +7244,7 @@ class HealthConnectorPlatformApi {
     ReadRecordsRequestDto request,
   ) async {
     final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.readRecords$pigeonVar_messageChannelSuffix';
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.readRecords$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
           pigeonVar_channelName,
@@ -7278,7 +7278,7 @@ class HealthConnectorPlatformApi {
     WriteRecordRequestDto request,
   ) async {
     final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.writeRecord$pigeonVar_messageChannelSuffix';
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.writeRecord$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
           pigeonVar_channelName,
@@ -7312,7 +7312,7 @@ class HealthConnectorPlatformApi {
     WriteRecordsRequestDto request,
   ) async {
     final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.writeRecords$pigeonVar_messageChannelSuffix';
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.writeRecords$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
           pigeonVar_channelName,
@@ -7346,7 +7346,7 @@ class HealthConnectorPlatformApi {
     UpdateRecordRequestDto request,
   ) async {
     final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorPlatformApi.updateRecord$pigeonVar_messageChannelSuffix';
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.updateRecord$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
           pigeonVar_channelName,

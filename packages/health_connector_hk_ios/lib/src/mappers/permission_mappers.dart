@@ -11,7 +11,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         PermissionRequestResult,
         sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mappers.dart';
-import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show
         PermissionsRequestDto,
         HealthDataPermissionDto,

@@ -15,7 +15,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         Vo2Max,
         MeasurementUnit,
         sinceV1_0_0;
-import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show
         MassDto,
         MassUnitDto,

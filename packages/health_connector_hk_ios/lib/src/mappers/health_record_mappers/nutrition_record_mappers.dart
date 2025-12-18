@@ -43,7 +43,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/meal_type_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers.dart';
-import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show
         BiotinNutrientRecordDto,
         CaffeineNutrientRecordDto,

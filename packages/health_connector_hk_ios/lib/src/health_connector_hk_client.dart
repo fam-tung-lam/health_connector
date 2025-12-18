@@ -30,11 +30,11 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/request_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/response_mappers.dart';
-import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show
         DeleteRecordsByIdsRequestDto,
         DeleteRecordsByTimeRangeRequestDto,
-        HealthConnectorPlatformApi,
+        HealthConnectorHKIOSApi,
         HealthPlatformStatusDto;
 import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart' show immutable;
@@ -50,8 +50,8 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   const HealthConnectorHKClient._();
 
   /// The Pigeon-generated platform API client for native communication.
-  static final HealthConnectorPlatformApi _platformClient =
-      HealthConnectorPlatformApi();
+  static final HealthConnectorHKIOSApi _platformClient =
+      HealthConnectorHKIOSApi();
 
   /// Creates a new [HealthConnectorHKClient] instance with the given config.
   ///

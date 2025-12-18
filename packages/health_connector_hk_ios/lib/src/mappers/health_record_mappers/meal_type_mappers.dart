@@ -1,6 +1,6 @@
 import 'package:health_connector_core/health_connector_core.dart'
     show MealType, sinceV1_1_0;
-import 'package:health_connector_hk_ios/src/pigeon/health_connector_platform_api.g.dart'
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show MealTypeDto;
 import 'package:meta/meta.dart' show internal;
 

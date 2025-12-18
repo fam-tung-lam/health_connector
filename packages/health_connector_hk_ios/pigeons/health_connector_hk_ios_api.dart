@@ -7,10 +7,10 @@ import 'package:pigeon/pigeon.dart';
 /// code from these definitions.
 @ConfigurePigeon(
   PigeonOptions(
-    dartOut: 'lib/src/pigeon/health_connector_platform_api.g.dart',
+    dartOut: 'lib/src/pigeon/health_connector_hk_ios_api.g.dart',
     dartOptions: DartOptions(),
     swiftOut:
-        'ios/health_connector_hk_ios/Sources/health_connector_hk_ios/pigeon/HealthConnectorPlatformApi.g.swift',
+        'ios/health_connector_hk_ios/Sources/health_connector_hk_ios/pigeon/HealthConnectorHKIOSApi.g.swift',
     swiftOptions: SwiftOptions(errorClassName: 'HealthConnectorErrorDto'),
     copyrightHeader: 'pigeons/copyright_header.txt',
   ),
@@ -2410,7 +2410,7 @@ class HealthConnectorConfigDto {
 
 /// The main API for communicating with the health platform.
 @HostApi()
-abstract class HealthConnectorPlatformApi {
+abstract class HealthConnectorHKIOSApi {
   /// Initializes the Health Connector client with the provided configuration.
   ///
   /// This method must be called before any other Health Connector operations

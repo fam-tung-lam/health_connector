@@ -5,7 +5,7 @@ import UIKit
 /// Flutter plugin for accessing HealthKit on iOS devices.
 ///
 /// **Thread Safety**: Uses actor-based HealthConnectorClient for compiler-enforced serial access.
-public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnectorPlatformApi {
+public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnectorHKIOSApi {
     /// Cached instance of the HealthKit client actor.
     private var healthClient: HealthConnectorClient!
 
@@ -14,7 +14,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     /// - Parameter registrar: Provides access to the Flutter engine and binary messenger
     public static func register(with registrar: FlutterPluginRegistrar) {
         let instance = HealthConnectorHkIosPlugin()
-        HealthConnectorPlatformApiSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
+        HealthConnectorHKIOSApiSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
     }
 
     /// Initializes the Health Connector client with the provided configuration.
