@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.metadata.DataOrigin
+import com.phamtunglam.health_connector_hc_android.handlers.CustomAggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.HealthRecordHandlerRegistry
@@ -14,6 +15,7 @@ import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.logger.TAG
 import com.phamtunglam.health_connector_hc_android.mappers.dataType
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.dataType
+import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatusDto
@@ -47,6 +49,7 @@ import java.time.Instant
  * Internal client wrapper for the Android Health Connect SDK.
  */
 internal class HealthConnectorClient private constructor(
+    private val client: HealthConnectClient,
     private val manifestService: HealthConnectorManifestService,
     private val featureService: HealthConnectorFeatureService,
     private val permissionService: HealthConnectorPermissionService,
@@ -76,6 +79,7 @@ internal class HealthConnectorClient private constructor(
                 val recordHandlerRegistry = HealthRecordHandlerRegistry(client)
 
                 return HealthConnectorClient(
+                    client = client,
                     manifestService = manifestService,
                     featureService = featureService,
                     permissionService = permissionService,
@@ -389,9 +393,16 @@ internal class HealthConnectorClient private constructor(
     }
 
     /**
-     * Writes multiple records to Health Connect.
+     * Writes multiple health records atomically.
      *
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support writing
+     * All records are saved in a single Health Connect transaction. Either all records
+     * are saved successfully, or none are saved. This ensures data consistency across
+     * different record types.
+     *
+     * @param request Contains the list of health records to write
+     * @return [WriteRecordsResponseDto] with platform-assigned record IDs in input order
+     *
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if any type is not writable
      * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
@@ -400,34 +411,63 @@ internal class HealthConnectorClient private constructor(
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "write_records",
-            message = "Writing Health Connect records",
-            context = mapOf("request" to request),
+            message = "Writing Health Connect records atomically",
+            context = mapOf(
+                "total_records" to request.records.size,
+                "request" to request,
+            ),
         )
 
         try {
             if (request.records.isEmpty()) {
+                HealthConnectorLogger.debug(
+                    tag = TAG,
+                    operation = "write_records",
+                    message = "No records to write, returning empty response",
+                )
                 return WriteRecordsResponseDto(recordIds = emptyList())
             }
 
-            val firstRecord = request.records.first()
-            val handler = recordHandlerRegistry.getRecordHandler(firstRecord.dataType)
-                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "No handler found for type ${firstRecord.dataType}",
-                )
+            // Validate all records and convert to Health Connect records
+            val records = request.records.mapIndexed { index, dto ->
+                val dataType = dto.dataType
 
-            if (handler !is WritableHealthRecordHandler) {
-                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "Type ${firstRecord.dataType} does not support writing",
-                )
+                val handler = recordHandlerRegistry.getRecordHandler(dataType)
+                    ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                        "Unsupported data type at index $index: $dataType",
+                    )
+
+                if (handler !is WritableHealthRecordHandler) {
+                    throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                        "Data type at index $index does not support write operations: $dataType",
+                    )
+                }
+
+                dto.toHealthConnect()
             }
 
-            val recordIds = handler.writeRecords(request.records)
+            HealthConnectorLogger.debug(
+                tag = TAG,
+                operation = "write_records",
+                message = "All records validated and converted",
+                context = mapOf("record_count" to records.size),
+            )
+
+            val response = client.insertRecords(records)
+
+            HealthConnectorLogger.debug(
+                tag = TAG,
+                operation = "write_records",
+                message = "Atomic insert completed successfully",
+            )
+
+            val recordIds = response.recordIdsList
 
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "write_records",
                 message = "Health Connect records written successfully",
-                context = mapOf("data_type" to firstRecord.dataType, "count" to recordIds.size),
+                context = mapOf("count" to recordIds.size),
             )
 
             return WriteRecordsResponseDto(recordIds = recordIds)
