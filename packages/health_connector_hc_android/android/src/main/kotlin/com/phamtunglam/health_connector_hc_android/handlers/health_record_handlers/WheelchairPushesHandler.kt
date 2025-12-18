@@ -1,9 +1,15 @@
-package com.phamtunglam.health_connector_hc_android.handlers
+package com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers
 
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.aggregate.AggregationResult
-import androidx.health.connect.client.records.SleepSessionRecord
+import androidx.health.connect.client.records.WheelchairPushesRecord
+import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.HealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.mappers.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.mappers.toNumericDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
@@ -12,9 +18,9 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 
 /**
- * Handler for Sleep Session records.
+ * Handler for Wheelchair Pushes records.
  */
-internal class SleepSessionHandler(override val client: HealthConnectClient) :
+internal class WheelchairPushesHandler(override val client: HealthConnectClient) :
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -22,11 +28,11 @@ internal class SleepSessionHandler(override val client: HealthConnectClient) :
     DeletableHealthRecordHandler,
     HealthConnectAggregatableHealthRecordHandler {
 
-    override val dataType = HealthDataTypeDto.SLEEP_SESSION
+    override val dataType = HealthDataTypeDto.WHEELCHAIR_PUSHES
 
     override fun toAggregateMetric(request: AggregateRequestDto): AggregateMetric<*> =
         when (request.aggregationMetric) {
-            AggregationMetricDto.SUM -> SleepSessionRecord.SLEEP_DURATION_TOTAL
+            AggregationMetricDto.SUM -> WheelchairPushesRecord.COUNT_TOTAL
             else -> throw IllegalArgumentException(
                 "Unsupported metric: ${request.aggregationMetric}",
             )
@@ -36,10 +42,10 @@ internal class SleepSessionHandler(override val client: HealthConnectClient) :
         result: AggregationResult,
         metric: AggregateMetric<*>,
     ): MeasurementUnitDto = when (metric) {
-        SleepSessionRecord.SLEEP_DURATION_TOTAL -> {
-            val duration = result[metric]
+        WheelchairPushesRecord.COUNT_TOTAL -> {
+            val count = result[metric]
                 ?: error("Aggregation result for $metric is null")
-            duration.seconds.toNumericDto()
+            count.toNumericDto()
         }
 
         else -> throw IllegalArgumentException("Unsupported metric: $metric")

@@ -1,10 +1,16 @@
-package com.phamtunglam.health_connector_hc_android.handlers
+package com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers
 
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.aggregate.AggregationResult
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.units.Pressure
+import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.HealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto

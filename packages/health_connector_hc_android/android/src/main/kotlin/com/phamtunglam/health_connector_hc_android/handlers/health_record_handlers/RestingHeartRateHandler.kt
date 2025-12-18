@@ -1,9 +1,15 @@
-package com.phamtunglam.health_connector_hc_android.handlers
+package com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers
 
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.aggregate.AggregationResult
-import androidx.health.connect.client.records.FloorsClimbedRecord
+import androidx.health.connect.client.records.RestingHeartRateRecord
+import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.HealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
+import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.mappers.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.mappers.toNumericDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
@@ -12,9 +18,9 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 
 /**
- * Handler for Floors Climbed records.
+ * Handler for Resting Heart Rate records.
  */
-internal class FloorsClimbedHandler(override val client: HealthConnectClient) :
+internal class RestingHeartRateHandler(override val client: HealthConnectClient) :
     HealthRecordHandler,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -22,11 +28,13 @@ internal class FloorsClimbedHandler(override val client: HealthConnectClient) :
     DeletableHealthRecordHandler,
     HealthConnectAggregatableHealthRecordHandler {
 
-    override val dataType = HealthDataTypeDto.FLOORS_CLIMBED
+    override val dataType = HealthDataTypeDto.RESTING_HEART_RATE
 
     override fun toAggregateMetric(request: AggregateRequestDto): AggregateMetric<*> =
         when (request.aggregationMetric) {
-            AggregationMetricDto.SUM -> FloorsClimbedRecord.FLOORS_CLIMBED_TOTAL
+            AggregationMetricDto.AVG -> RestingHeartRateRecord.BPM_AVG
+            AggregationMetricDto.MIN -> RestingHeartRateRecord.BPM_MIN
+            AggregationMetricDto.MAX -> RestingHeartRateRecord.BPM_MAX
             else -> throw IllegalArgumentException(
                 "Unsupported metric: ${request.aggregationMetric}",
             )
@@ -36,10 +44,13 @@ internal class FloorsClimbedHandler(override val client: HealthConnectClient) :
         result: AggregationResult,
         metric: AggregateMetric<*>,
     ): MeasurementUnitDto = when (metric) {
-        FloorsClimbedRecord.FLOORS_CLIMBED_TOTAL -> {
-            val floors = result[metric]
+        RestingHeartRateRecord.BPM_AVG,
+        RestingHeartRateRecord.BPM_MIN,
+        RestingHeartRateRecord.BPM_MAX,
+        -> {
+            val bpm = result[metric]
                 ?: error("Aggregation result for $metric is null")
-            floors.toNumericDto()
+            bpm.toNumericDto()
         }
 
         else -> throw IllegalArgumentException("Unsupported metric: $metric")
