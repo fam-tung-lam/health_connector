@@ -6,77 +6,55 @@ protocol DeletableHealthRecordHandler: HealthRecordHandler {
 }
 
 extension DeletableHealthRecordHandler {
-    /// Deletes records by IDs
+    /// Deletes records by IDs using HealthKit's predicate-based batch deletion.
+    ///
+    /// Uses `HKQuery.predicateForObjects(withUUIDs:)` to delete all matching samples
+    /// in a single HealthKit operation, which is more performant than querying and
+    /// deleting individual samples.
     ///
     /// - Parameters:
     ///   - ids: Array of record UUIDs to delete
     /// - Throws: HealthConnectorError if deletion fails
     func deleteRecords(ids: [String]) async throws {
+        // Fast-check: early return if no IDs provided
+        guard !ids.isEmpty else {
+            return
+        }
+
         try await process(
             operation: "delete_records_by_ids",
             context: ["count": ids.count]
         ) {
-            // Read all records first to get HKSample objects
-            var samplesToDelete: [HKSample] = []
-
+            // Convert string IDs to UUIDs, filtering out invalid ones
+            var validUUIDs: [UUID] = []
             for id in ids {
-                do {
-                    guard let uuid = UUID(uuidString: id) else {
-                        HealthConnectorLogger.warning(
-                            tag: String(describing: type(of: self)),
-                            operation: "delete_records_by_ids",
-                            message: "Invalid UUID, skipping deletion",
-                            context: ["id": id]
-                        )
-                        continue
-                    }
-
-                    let sampleType = try type(of: self).dataType.toHealthKit()
-                    let predicate = HKQuery.predicateForObject(with: uuid)
-
-                    let sample = try await withCheckedThrowingContinuation {
-                        (continuation: CheckedContinuation<HKSample, Error>) in
-                        let query = HKSampleQuery(
-                            sampleType: sampleType,
-                            predicate: predicate,
-                            limit: 1,
-                            sortDescriptors: nil
-                        ) { _, samples, error in
-                            if let error {
-                                continuation.resume(throwing: error)
-                                return
-                            }
-
-                            if let sample = samples?.first {
-                                continuation.resume(returning: sample)
-                            } else {
-                                continuation.resume(
-                                    throwing: HealthConnectorError.invalidArgument(
-                                        message: "Record not found: \(id)"
-                                    )
-                                )
-                            }
-                        }
-                        self.healthStore.execute(query)
-                    }
-
-                    samplesToDelete.append(sample)
-
-                } catch {
-                    // Log but continue with other deletions
-                    HealthConnectorLogger.warning(
+                guard let uuid = UUID(uuidString: id) else {
+                    HealthConnectorLogger.error(
                         tag: String(describing: type(of: self)),
                         operation: "delete_records_by_ids",
-                        message: "Failed to read record for deletion",
+                        message: "Invalid UUID",
                         context: ["id": id]
                     )
-                }
-            }
 
-            // Delete all samples
-            if !samplesToDelete.isEmpty {
-                try await self.healthStore.delete(samplesToDelete)
+                    throw HealthConnectorError.invalidArgument(
+                        message: "Invalid UUID provided for deletion",
+                        context: [
+                            "operation": "delete_records_by_ids",
+                            "id": id,
+                        ]
+                    )
+                }
+                validUUIDs.append(uuid)
             }
+            let uuidSet = Set(validUUIDs)
+
+            let sampleType = try type(of: self).dataType.toHealthKit()
+
+            // Create predicate for all UUIDs - HealthKit will handle finding and deleting them
+            let predicate = HKQuery.predicateForObjects(with: uuidSet)
+
+            // Delete all matching samples in a single operation
+            try await self.healthStore.deleteObjects(of: sampleType, predicate: predicate)
         }
     }
 
