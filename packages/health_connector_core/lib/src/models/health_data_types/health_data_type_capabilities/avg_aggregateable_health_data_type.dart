@@ -18,7 +18,7 @@ abstract interface class AvgAggregatableHealthDataType<
   ///
   /// Returns the mean (average) of all values for this data type within the
   /// specified time range.
-  AggregateRequest<R, U> aggregateAverage({
+  AggregateRequest<R, U> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   });

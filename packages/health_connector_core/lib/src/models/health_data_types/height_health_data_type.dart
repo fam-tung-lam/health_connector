@@ -71,7 +71,7 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
   );
 
   @override
-  AggregateRequest<HeightRecord, Length> aggregateAverage({
+  AggregateRequest<HeightRecord, Length> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -66,7 +66,7 @@ final class OxygenSaturationHealthDataType
   }
 
   @override
-  AggregateRequest<OxygenSaturationRecord, Percentage> aggregateAverage({
+  AggregateRequest<OxygenSaturationRecord, Percentage> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {

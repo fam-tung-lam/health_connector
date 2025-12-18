@@ -75,7 +75,7 @@ final class RestingHeartRateHealthDataType
   );
 
   @override
-  AggregateRequest<RestingHeartRateRecord, Numeric> aggregateAverage({
+  AggregateRequest<RestingHeartRateRecord, Numeric> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {

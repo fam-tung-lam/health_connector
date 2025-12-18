@@ -66,7 +66,7 @@ final class RespiratoryRateHealthDataType
   }
 
   @override
-  AggregateRequest<RespiratoryRateRecord, RespiratoryRate> aggregateAverage({
+  AggregateRequest<RespiratoryRateRecord, RespiratoryRate> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {

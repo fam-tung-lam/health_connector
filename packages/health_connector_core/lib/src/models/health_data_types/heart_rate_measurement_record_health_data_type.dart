@@ -82,7 +82,7 @@ final class HeartRateMeasurementRecordHealthDataType
   );
 
   @override
-  AggregateRequest<HeartRateMeasurementRecord, Numeric> aggregateAverage({
+  AggregateRequest<HeartRateMeasurementRecord, Numeric> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {

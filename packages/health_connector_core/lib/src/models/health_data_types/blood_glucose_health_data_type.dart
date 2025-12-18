@@ -66,7 +66,7 @@ final class BloodGlucoseHealthDataType
   ];
 
   @override
-  AggregateRequest<BloodGlucoseRecord, BloodGlucose> aggregateAverage({
+  AggregateRequest<BloodGlucoseRecord, BloodGlucose> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -301,7 +301,7 @@ class _AggregateHealthDataPageState
           ),
         },
         WeightHealthDataType() => switch (_selectedMetric!) {
-          AggregationMetric.avg => HealthDataType.weight.aggregateAverage(
+          AggregationMetric.avg => HealthDataType.weight.aggregateAvg(
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
@@ -317,7 +317,7 @@ class _AggregateHealthDataPageState
             throw UnsupportedError('Unsupported metric: $_selectedMetric'),
         },
         HeightHealthDataType() => switch (_selectedMetric!) {
-          AggregationMetric.avg => HealthDataType.height.aggregateAverage(
+          AggregationMetric.avg => HealthDataType.height.aggregateAvg(
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
@@ -357,7 +357,7 @@ class _AggregateHealthDataPageState
         },
         SystolicBloodPressureHealthDataType() => switch (_selectedMetric!) {
           AggregationMetric.avg =>
-            HealthDataType.systolicBloodPressure.aggregateAverage(
+            HealthDataType.systolicBloodPressure.aggregateAvg(
               startTime: startDateTime!,
               endTime: endDateTime!,
             ),
@@ -376,7 +376,7 @@ class _AggregateHealthDataPageState
         },
         DiastolicBloodPressureHealthDataType() => switch (_selectedMetric!) {
           AggregationMetric.avg =>
-            HealthDataType.diastolicBloodPressure.aggregateAverage(
+            HealthDataType.diastolicBloodPressure.aggregateAvg(
               startTime: startDateTime!,
               endTime: endDateTime!,
             ),
@@ -463,7 +463,7 @@ class _AggregateHealthDataPageState
         HeartRateMeasurementRecordHealthDataType() =>
           switch (_selectedMetric!) {
             AggregationMetric.avg =>
-              HealthDataType.heartRateMeasurementRecord.aggregateAverage(
+              HealthDataType.heartRateMeasurementRecord.aggregateAvg(
                 startTime: startDateTime!,
                 endTime: endDateTime!,
               ),
@@ -482,7 +482,7 @@ class _AggregateHealthDataPageState
           },
         HeartRateSeriesRecordHealthDataType() => switch (_selectedMetric!) {
           AggregationMetric.avg =>
-            HealthDataType.heartRateSeriesRecord.aggregateAverage(
+            HealthDataType.heartRateSeriesRecord.aggregateAvg(
               startTime: startDateTime!,
               endTime: endDateTime!,
             ),
@@ -500,11 +500,10 @@ class _AggregateHealthDataPageState
             throw UnsupportedError('Unsupported metric: $_selectedMetric'),
         },
         RestingHeartRateHealthDataType() => switch (_selectedMetric!) {
-          AggregationMetric.avg =>
-            HealthDataType.restingHeartRate.aggregateAverage(
-              startTime: startDateTime!,
-              endTime: endDateTime!,
-            ),
+          AggregationMetric.avg => HealthDataType.restingHeartRate.aggregateAvg(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
           AggregationMetric.min => HealthDataType.restingHeartRate.aggregateMin(
             startTime: startDateTime!,
             endTime: endDateTime!,
@@ -544,11 +543,10 @@ class _AggregateHealthDataPageState
           'Nutrition does not support aggregation',
         ),
         OxygenSaturationHealthDataType() => switch (_selectedMetric!) {
-          AggregationMetric.avg =>
-            HealthDataType.oxygenSaturation.aggregateAverage(
-              startTime: startDateTime!,
-              endTime: endDateTime!,
-            ),
+          AggregationMetric.avg => HealthDataType.oxygenSaturation.aggregateAvg(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
           AggregationMetric.min => HealthDataType.oxygenSaturation.aggregateMin(
             startTime: startDateTime!,
             endTime: endDateTime!,
@@ -561,11 +559,10 @@ class _AggregateHealthDataPageState
             throw UnsupportedError('Unsupported metric: $_selectedMetric'),
         },
         RespiratoryRateHealthDataType() => switch (_selectedMetric!) {
-          AggregationMetric.avg =>
-            HealthDataType.respiratoryRate.aggregateAverage(
-              startTime: startDateTime!,
-              endTime: endDateTime!,
-            ),
+          AggregationMetric.avg => HealthDataType.respiratoryRate.aggregateAvg(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
           AggregationMetric.min => HealthDataType.respiratoryRate.aggregateMin(
             startTime: startDateTime!,
             endTime: endDateTime!,
@@ -578,7 +575,7 @@ class _AggregateHealthDataPageState
             throw UnsupportedError('Unsupported metric: $_selectedMetric'),
         },
         Vo2MaxHealthDataType() => switch (_selectedMetric!) {
-          AggregationMetric.avg => HealthDataType.vo2Max.aggregateAverage(
+          AggregationMetric.avg => HealthDataType.vo2Max.aggregateAvg(
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
@@ -594,7 +591,7 @@ class _AggregateHealthDataPageState
             throw UnsupportedError('Unsupported metric: $_selectedMetric'),
         },
         BloodGlucoseHealthDataType() => switch (_selectedMetric!) {
-          AggregationMetric.avg => HealthDataType.bloodGlucose.aggregateAverage(
+          AggregationMetric.avg => HealthDataType.bloodGlucose.aggregateAvg(
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),

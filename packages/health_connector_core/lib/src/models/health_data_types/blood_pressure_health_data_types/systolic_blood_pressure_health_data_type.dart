@@ -81,7 +81,7 @@ final class SystolicBloodPressureHealthDataType
   );
 
   @override
-  AggregateRequest<SystolicBloodPressureRecord, Pressure> aggregateAverage({
+  AggregateRequest<SystolicBloodPressureRecord, Pressure> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {

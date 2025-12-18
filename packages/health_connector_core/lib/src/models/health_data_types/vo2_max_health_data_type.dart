@@ -74,7 +74,7 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Vo2Max>
   );
 
   @override
-  AggregateRequest<Vo2MaxRecord, Vo2Max> aggregateAverage({
+  AggregateRequest<Vo2MaxRecord, Vo2Max> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
