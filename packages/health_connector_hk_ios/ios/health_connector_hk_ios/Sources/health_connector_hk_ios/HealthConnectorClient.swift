@@ -16,6 +16,9 @@ import HealthKit
 /// **Thread Safety**: This actor provides compiler-enforced serial access to HealthKit operations.
 /// All methods are automatically isolated and safe to call from any concurrency context.
 actor HealthConnectorClient: Taggable {
+    /// The HealthKit store for direct atomic operations.
+    private let healthStore: HKHealthStore
+
     /// Service for managing HealthKit permissions.
     private let permissionService: HealthConnectorPermissionService
 
@@ -30,6 +33,7 @@ actor HealthConnectorClient: Taggable {
     ///
     /// **Changed:** Creates handler registry with dependency injection
     private init(store: HKHealthStore) {
+        healthStore = store
         permissionService = HealthConnectorPermissionService(store: store)
         handlerRegistry = HealthRecordHandlerRegistry(healthStore: store)
     }
@@ -371,87 +375,105 @@ actor HealthConnectorClient: Taggable {
         }
     }
 
-    /// Writes multiple health records.
+    /// Writes multiple health records atomically.
     ///
-    /// Records are grouped by data type and written via their respective handlers.
-    /// Record IDs are returned in the same order as the input records.
-    ///
-    /// **Non-Atomic Operation**: If an error occurs while writing a group of records,
-    /// previously written groups will remain committed. This is a HealthKit limitation -
-    /// the platform does not provide transaction support for multi-type writes.
-    /// For example, if writing 10 steps records succeeds but 5 weight records fail,
-    /// the steps will remain in HealthKit while an error is thrown.
-    ///
-    /// **Order Preservation**: Despite grouping by type internally, the returned record IDs
-    /// are guaranteed to be in the exact same order as the input records.
+    /// All records are saved in a single HealthKit transaction. Either all records
+    /// are saved successfully, or none are saved. This ensures data consistency
+    /// across different record types.
     ///
     /// - Parameter request: Contains the list of health records to write
-    /// - Returns: WriteRecordsResponseDto containing the platform-assigned record IDs in input order
+    /// - Returns: WriteRecordsResponseDto with platform-assigned record IDs in input order
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if any record data is invalid
+    /// - Throws: `HealthConnectorError` with code `UNSUPPORTED_OPERATION` if any type is not writable
     /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs or if partial write fails
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func writeRecords(request: WriteRecordsRequestDto) async throws -> WriteRecordsResponseDto {
         try await process(operation: "writeRecords", context: ["request": request]) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
                 operation: "writeRecords",
-                message: "Writing Health Connect records",
-                context: ["request": request]
+                message: "Writing Health Connect records atomically",
+                context: [
+                    "totalRecords": request.records.count,
+                    "request": request,
+                ]
             )
 
-            // Create result array (same size as input) to maintain order
-            var recordIds: [String?] = Array(repeating: nil, count: request.records.count)
+            guard !request.records.isEmpty else {
+                HealthConnectorLogger.debug(
+                    tag: Self.tag,
+                    operation: "writeRecords",
+                    message: "No records to write, returning empty response"
+                )
+                return WriteRecordsResponseDto(recordIds: [])
+            }
 
-            // Group records by type with original indices
-            var recordsByType: [HealthDataTypeDto: [(index: Int, record: HealthRecordDto)]] = [:]
+            // Validate all records and convert to samples
+            var samples: [HKSample] = []
+            samples.reserveCapacity(request.records.count)
+
             for (index, record) in request.records.enumerated() {
                 let dataType = try record.dataType
-                recordsByType[dataType, default: []].append((index, record))
-            }
 
-            // Write each group and place IDs at correct indices
-            for (dataType, indexedRecords) in recordsByType {
+                // Validate: Handler exists for this type
                 guard let baseHandler = handlerRegistry.getHandler(for: dataType) else {
                     throw HealthConnectorError.unsupportedOperation(
-                        message: "Unsupported data type: \(dataType)"
+                        message: "Unsupported data type at index \(index): \(dataType)",
+                        context: [
+                            "index": String(index),
+                            "dataType": String(describing: dataType),
+                        ]
                     )
                 }
 
-                guard let handler = baseHandler as? WritableHealthRecordHandler else {
+                // Validate: Handler supports writes
+                guard baseHandler is WritableHealthRecordHandler else {
                     throw HealthConnectorError.unsupportedOperation(
-                        message: "Data type \(dataType) does not support write operations"
+                        message:
+                        "Data type at index \(index) does not support write operations: \(dataType)",
+                        context: [
+                            "index": String(index),
+                            "dataType": String(describing: dataType),
+                        ]
                     )
                 }
 
-                let records = indexedRecords.map(\.record)
-                let groupIds = try await handler.writeRecords(records)
-
-                // Place each ID at its original index
-                for (arrayIndex, (originalIndex, _)) in indexedRecords.enumerated() {
-                    recordIds[originalIndex] = groupIds[arrayIndex]
-                }
+                let sample = try record.toHealthKit()
+                samples.append(sample)
             }
 
-            // Verify all slots filled
-            guard recordIds.allSatisfy({ $0 != nil }) else {
-                throw HealthConnectorError.unknown(
-                    message: "Some records were not written",
-                    context: ["details": "Not all record IDs were assigned"]
-                )
-            }
+            HealthConnectorLogger.debug(
+                tag: Self.tag,
+                operation: "writeRecords",
+                message: "All records validated and converted to samples",
+                context: [
+                    "sampleCount": samples.count,
+                ]
+            )
 
-            let finalRecordIds = recordIds.compactMap { $0 }
+            try await healthStore.save(samples)
+
+            HealthConnectorLogger.debug(
+                tag: Self.tag,
+                operation: "writeRecords",
+                message: "Atomic save completed successfully"
+            )
+
+            let recordIds = samples.map(\.uuid.uuidString)
 
             HealthConnectorLogger.info(
                 tag: Self.tag,
                 operation: "writeRecords",
                 message: "Health Connect records written successfully",
-                context: ["request": request, "assignedRecordIds": finalRecordIds]
+                context: [
+                    "recordCount": recordIds.count,
+                    "request": request,
+                ]
             )
 
-            return WriteRecordsResponseDto(recordIds: finalRecordIds)
+            return WriteRecordsResponseDto(recordIds: recordIds)
         }
     }
 
