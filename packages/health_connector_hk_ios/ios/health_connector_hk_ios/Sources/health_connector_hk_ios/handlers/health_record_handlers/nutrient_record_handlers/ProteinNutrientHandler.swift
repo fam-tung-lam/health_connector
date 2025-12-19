@@ -5,7 +5,7 @@ final class ProteinNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = ProteinNutrientRecordDto
     typealias SampleType = HKQuantitySample

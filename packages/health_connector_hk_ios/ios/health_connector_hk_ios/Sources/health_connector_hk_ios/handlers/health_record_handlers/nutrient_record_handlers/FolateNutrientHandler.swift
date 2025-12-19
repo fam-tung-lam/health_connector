@@ -5,7 +5,7 @@ final class FolateNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = FolateNutrientRecordDto
     typealias SampleType = HKQuantitySample

@@ -6,7 +6,7 @@ final class HeightHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = HeightRecordDto
     typealias SampleType = HKQuantitySample

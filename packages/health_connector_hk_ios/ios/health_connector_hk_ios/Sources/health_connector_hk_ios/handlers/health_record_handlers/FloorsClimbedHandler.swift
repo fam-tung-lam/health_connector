@@ -6,7 +6,7 @@ final class FloorsClimbedHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = FloorsClimbedRecordDto
     typealias SampleType = HKQuantitySample

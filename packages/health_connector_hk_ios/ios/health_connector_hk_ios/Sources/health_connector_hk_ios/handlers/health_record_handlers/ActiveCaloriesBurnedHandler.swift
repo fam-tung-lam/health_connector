@@ -6,7 +6,7 @@ final class ActiveCaloriesBurnedHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = ActiveCaloriesBurnedRecordDto
     typealias SampleType = HKQuantitySample

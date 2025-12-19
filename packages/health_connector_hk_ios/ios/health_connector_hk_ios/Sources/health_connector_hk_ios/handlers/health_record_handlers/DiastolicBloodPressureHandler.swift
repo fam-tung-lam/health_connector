@@ -6,7 +6,7 @@ final class DiastolicBloodPressureHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = DiastolicBloodPressureRecordDto
     typealias SampleType = HKQuantitySample

@@ -5,7 +5,7 @@ final class VitaminCNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = VitaminCNutrientRecordDto
     typealias SampleType = HKQuantitySample

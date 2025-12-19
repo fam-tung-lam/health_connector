@@ -6,7 +6,7 @@ final class BloodGlucoseHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = BloodGlucoseRecordDto
     typealias SampleType = HKQuantitySample

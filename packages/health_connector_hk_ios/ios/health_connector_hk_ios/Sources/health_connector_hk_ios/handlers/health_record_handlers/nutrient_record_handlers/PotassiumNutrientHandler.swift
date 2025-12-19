@@ -5,7 +5,7 @@ final class PotassiumNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = PotassiumNutrientRecordDto
     typealias SampleType = HKQuantitySample

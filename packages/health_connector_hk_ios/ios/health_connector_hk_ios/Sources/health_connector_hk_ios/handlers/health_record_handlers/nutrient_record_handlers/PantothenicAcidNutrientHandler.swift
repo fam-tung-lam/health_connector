@@ -5,7 +5,7 @@ final class PantothenicAcidNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = PantothenicAcidNutrientRecordDto
     typealias SampleType = HKQuantitySample

@@ -5,7 +5,7 @@ final class EnergyNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = EnergyNutrientRecordDto
     typealias SampleType = HKQuantitySample

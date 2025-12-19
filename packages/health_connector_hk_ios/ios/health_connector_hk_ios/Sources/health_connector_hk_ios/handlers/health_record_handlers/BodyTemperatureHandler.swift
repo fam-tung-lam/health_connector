@@ -6,7 +6,7 @@ final class BodyTemperatureHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = BodyTemperatureRecordDto
     typealias SampleType = HKQuantitySample

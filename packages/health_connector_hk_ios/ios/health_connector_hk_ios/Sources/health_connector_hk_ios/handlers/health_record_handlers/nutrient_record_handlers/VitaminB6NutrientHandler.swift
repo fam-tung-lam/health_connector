@@ -5,7 +5,7 @@ final class VitaminB6NutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = VitaminB6NutrientRecordDto
     typealias SampleType = HKQuantitySample

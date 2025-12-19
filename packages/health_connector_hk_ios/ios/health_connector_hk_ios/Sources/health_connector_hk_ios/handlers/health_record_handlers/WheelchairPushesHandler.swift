@@ -6,7 +6,7 @@ final class WheelchairPushesHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = WheelchairPushesRecordDto
     typealias SampleType = HKQuantitySample
