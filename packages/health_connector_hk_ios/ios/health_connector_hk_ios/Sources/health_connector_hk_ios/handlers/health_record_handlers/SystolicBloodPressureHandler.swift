@@ -10,6 +10,7 @@ final class SystolicBloodPressureHandler: @unchecked Sendable,
 {
     typealias RecordDto = SystolicBloodPressureRecordDto
     typealias SampleType = HKQuantitySample
+    typealias AggregatedResultMeasurementUnitDto = PressureDto
 
     let healthStore: HKHealthStore
 
@@ -21,14 +22,10 @@ final class SystolicBloodPressureHandler: @unchecked Sendable,
 
     static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
 
-    func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        try Self.aggregationMetricConfig.options(for: metric)
-    }
-
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
-    ) throws -> MeasurementUnitDto {
+    ) throws -> PressureDto {
         let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         return quantity.toPressureDto()
     }

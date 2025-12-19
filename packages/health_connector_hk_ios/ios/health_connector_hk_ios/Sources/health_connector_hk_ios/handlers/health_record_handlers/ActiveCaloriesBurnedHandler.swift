@@ -10,6 +10,7 @@ final class ActiveCaloriesBurnedHandler: @unchecked Sendable,
 {
     typealias RecordDto = ActiveCaloriesBurnedRecordDto
     typealias SampleType = HKQuantitySample
+    typealias AggregatedResultMeasurementUnitDto = EnergyDto
 
     /// The HealthKit store for all operations
     let healthStore: HKHealthStore
@@ -22,14 +23,10 @@ final class ActiveCaloriesBurnedHandler: @unchecked Sendable,
 
     static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
-    func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        try Self.aggregationMetricConfig.options(for: metric)
-    }
-
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
-    ) throws -> MeasurementUnitDto {
+    ) throws -> EnergyDto {
         let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         return quantity.toEnergyDto()
     }

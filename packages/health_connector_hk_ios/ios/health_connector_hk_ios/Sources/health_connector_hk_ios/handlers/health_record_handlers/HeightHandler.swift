@@ -10,6 +10,7 @@ final class HeightHandler: @unchecked Sendable,
 {
     typealias RecordDto = HeightRecordDto
     typealias SampleType = HKQuantitySample
+    typealias AggregatedResultMeasurementUnitDto = LengthDto
 
     let healthStore: HKHealthStore
 
@@ -21,14 +22,10 @@ final class HeightHandler: @unchecked Sendable,
 
     static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
 
-    func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        try Self.aggregationMetricConfig.options(for: metric)
-    }
-
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
-    ) throws -> MeasurementUnitDto {
+    ) throws -> LengthDto {
         let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         let meters = quantity.doubleValue(for: .meter())
         return LengthDto(unit: .meters, value: meters)

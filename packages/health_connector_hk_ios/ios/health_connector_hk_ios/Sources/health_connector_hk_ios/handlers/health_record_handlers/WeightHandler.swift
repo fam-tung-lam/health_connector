@@ -10,6 +10,7 @@ final class WeightHandler: @unchecked Sendable,
 {
     typealias RecordDto = WeightRecordDto
     typealias SampleType = HKQuantitySample
+    typealias AggregatedResultMeasurementUnitDto = MassDto
 
     let healthStore: HKHealthStore
 
@@ -21,14 +22,10 @@ final class WeightHandler: @unchecked Sendable,
 
     static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
 
-    func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        try Self.aggregationMetricConfig.options(for: metric)
-    }
-
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
-    ) throws -> MeasurementUnitDto {
+    ) throws -> MassDto {
         let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         let kilograms = quantity.doubleValue(for: .gramUnit(with: .kilo))
         return MassDto(unit: .kilograms, value: kilograms)

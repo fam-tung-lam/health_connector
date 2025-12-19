@@ -9,6 +9,7 @@ final class VitaminCNutrientHandler: @unchecked Sendable,
 {
     typealias RecordDto = VitaminCNutrientRecordDto
     typealias SampleType = HKQuantitySample
+    typealias AggregatedResultMeasurementUnitDto = MassDto
 
     let healthStore: HKHealthStore
 
@@ -20,14 +21,10 @@ final class VitaminCNutrientHandler: @unchecked Sendable,
 
     static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
-    func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        try Self.aggregationMetricConfig.options(for: metric)
-    }
-
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
-    ) throws -> MeasurementUnitDto {
+    ) throws -> MassDto {
         let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         return quantity.toMassDto()
     }
