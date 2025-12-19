@@ -10,6 +10,7 @@ final class BodyTemperatureHandler: @unchecked Sendable,
 {
     typealias RecordDto = BodyTemperatureRecordDto
     typealias SampleType = HKQuantitySample
+    typealias AggregatedResultMeasurementUnitDto = TemperatureDto
 
     /// The HealthKit store for all operations
     let healthStore: HKHealthStore
@@ -22,14 +23,10 @@ final class BodyTemperatureHandler: @unchecked Sendable,
 
     static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
 
-    func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        try Self.aggregationMetricConfig.options(for: metric)
-    }
-
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
-    ) throws -> MeasurementUnitDto {
+    ) throws -> TemperatureDto {
         let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         return quantity.toTemperatureDto()
     }

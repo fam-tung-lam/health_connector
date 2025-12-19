@@ -10,6 +10,7 @@ final class DiastolicBloodPressureHandler: @unchecked Sendable,
 {
     typealias RecordDto = DiastolicBloodPressureRecordDto
     typealias SampleType = HKQuantitySample
+    typealias AggregatedResultMeasurementUnitDto = PressureDto
 
     /// The HealthKit store for all operations
     let healthStore: HKHealthStore
@@ -22,14 +23,10 @@ final class DiastolicBloodPressureHandler: @unchecked Sendable,
 
     static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
 
-    func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        try Self.aggregationMetricConfig.options(for: metric)
-    }
-
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
-    ) throws -> MeasurementUnitDto {
+    ) throws -> PressureDto {
         let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         return quantity.toPressureDto()
     }

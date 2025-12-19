@@ -10,6 +10,7 @@ final class SleepStageHandler: @unchecked Sendable,
 {
     typealias RecordDto = SleepStageRecordDto
     typealias SampleType = HKCategorySample
+    typealias AggregatedResultMeasurementUnitDto = NumericDto
 
     let healthStore: HKHealthStore
 
@@ -43,7 +44,7 @@ extension SleepStageHandler {
         metric: AggregationMetricDto,
         startTime: Int64,
         endTime: Int64
-    ) async throws -> MeasurementUnitDto {
+    ) async throws -> NumericDto {
         try await process(
             operation: "aggregate",
             context: [

@@ -4,7 +4,22 @@ import HealthKit
 /// Base protocol for handlers that support aggregation capabilities.
 ///
 /// This protocol serves as a marker for all aggregation-capable handlers.
+///
+/// ## Implementation Guidance
+/// Conforming types must declare their aggregation result type:
+/// ```swift
+/// final class HeartRateHandler: HealthKitAggregatableHealthRecordHandler {
+///     typealias AggregatedResultMeasurementUnitDto = NumericDto  // Required!
+///
+///     func extractAggregateValue(...) throws -> NumericDto {
+///         // Implementation must return declared type
+///     }
+/// }
+/// ```
 protocol AggregatableHealthRecordHandler: HealthRecordHandler {
+    /// The specific MeasurementUnitDto subtype returned by aggregation
+    associatedtype AggregatedResultMeasurementUnitDto: MeasurementUnitDto
+
     /// Performs aggregation over a time range
     ///
     /// - Parameters:
@@ -17,7 +32,7 @@ protocol AggregatableHealthRecordHandler: HealthRecordHandler {
         metric: AggregationMetricDto,
         startTime: Int64,
         endTime: Int64
-    ) async throws -> MeasurementUnitDto
+    ) async throws -> AggregatedResultMeasurementUnitDto
 }
 
 /// Configuration for HealthKit statistics query behavior and supported metrics.
@@ -30,10 +45,6 @@ protocol AggregatableHealthRecordHandler: HealthRecordHandler {
 /// ```swift
 /// final class HeartRateHandler: HealthKitAggregatableHealthRecordHandler {
 ///     static let aggregationMetricConfig = AggregationMetricConfig.discreteMinMaxAvg
-///
-///     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-///         try Self.aggregationMetricConfig.options(for: metric)
-///     }
 ///
 ///     func extractAggregateValue(
 ///         from stats: HKStatistics,
@@ -236,19 +247,10 @@ protocol HealthKitAggregatableHealthRecordHandler: AggregatableHealthRecordHandl
     /// - `.cumulativeSum` for interval measurements (steps, calories, etc.)
     static var aggregationMetricConfig: AggregationMetricConfig { get }
 
-    /// Convert aggregation metric to HKStatisticsOptions
-    ///
-    /// Default implementation uses `aggregationMetricConfig.options(for:)`
-    ///
-    /// - Parameter metric: The aggregation metric requested
-    /// - Returns: Corresponding HKStatisticsOptions for the query
-    /// - Throws: HealthConnectorError if the metric is not supported
-    func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions
-
     /// Extract aggregated value from HKStatistics
     ///
-    /// Default implementation uses `aggregationMetricConfig.extractQuantity(from:for:)`
-    /// then delegates to handler for unit conversion
+    /// Uses `aggregationMetricConfig.extractQuantity(from:for:)` to get the HKQuantity,
+    /// then delegates to handler for unit conversion to the specific AggregatedResultMeasurementUnitDto type.
     ///
     /// - Parameters:
     ///   - statistics: The HKStatistics result from the query
@@ -258,7 +260,7 @@ protocol HealthKitAggregatableHealthRecordHandler: AggregatableHealthRecordHandl
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
-    ) throws -> MeasurementUnitDto
+    ) throws -> AggregatedResultMeasurementUnitDto
 }
 
 extension HealthKitAggregatableHealthRecordHandler {
@@ -274,7 +276,7 @@ extension HealthKitAggregatableHealthRecordHandler {
         metric: AggregationMetricDto,
         startTime: Int64,
         endTime: Int64
-    ) async throws -> MeasurementUnitDto {
+    ) async throws -> AggregatedResultMeasurementUnitDto {
         try await process(
             operation: "aggregate",
             context: [
@@ -298,7 +300,7 @@ extension HealthKitAggregatableHealthRecordHandler {
                 options: [.strictStartDate, .strictEndDate]
             )
 
-            let options = try toStatisticsOptions(metric)
+            let options = try Self.aggregationMetricConfig.options(for: metric)
 
             return try await withCheckedThrowingContinuation { continuation in
                 let query = HKStatisticsQuery(
@@ -352,5 +354,5 @@ protocol CustomAggregatableHealthRecordHandler: AggregatableHealthRecordHandler 
         metric: AggregationMetricDto,
         startTime: Int64,
         endTime: Int64
-    ) async throws -> MeasurementUnitDto
+    ) async throws -> AggregatedResultMeasurementUnitDto
 }
