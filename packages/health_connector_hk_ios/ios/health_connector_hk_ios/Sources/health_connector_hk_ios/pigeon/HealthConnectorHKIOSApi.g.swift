@@ -485,14 +485,12 @@ public enum HealthDataTypeDto: Int {
 public enum AggregationMetricDto: Int {
   /// Average (mean) value across all data points.
   case avg = 0
-  /// Count of data points (records) in the dataset.
-  case count = 1
   /// Maximum value in the dataset.
-  case max = 2
+  case max = 1
   /// Minimum value in the dataset.
-  case min = 3
+  case min = 2
   /// Sum of all values in the time range.
-  case sum = 4
+  case sum = 3
 }
 
 /// Sealed class for all measurement unit DTOs.

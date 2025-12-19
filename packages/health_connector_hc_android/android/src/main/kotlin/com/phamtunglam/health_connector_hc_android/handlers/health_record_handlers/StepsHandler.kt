@@ -25,7 +25,7 @@ internal class StepsHandler(override val client: HealthConnectClient) :
     override val dataType = HealthDataTypeDto.STEPS
 
     override val aggregateMetricMappings = mapOf(
-        AggregationMetricDto.COUNT to StepsRecord.COUNT_TOTAL,
+        AggregationMetricDto.SUM to StepsRecord.COUNT_TOTAL,
     )
 
     override fun convertAggregatedValue(aggregatedValue: Any): MeasurementUnitDto {

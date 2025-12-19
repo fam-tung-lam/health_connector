@@ -2207,9 +2207,6 @@ enum AggregationMetricDto {
   /// Average (mean) value across all data points.
   avg,
 
-  /// Count of data points (records) in the dataset.
-  count,
-
   /// Maximum value in the dataset.
   max,
 

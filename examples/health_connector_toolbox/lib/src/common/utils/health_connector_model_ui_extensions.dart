@@ -425,7 +425,6 @@ extension AggregationMetricUI on AggregationMetric {
       AggregationMetric.avg => AppTexts.average,
       AggregationMetric.min => AppTexts.minimum,
       AggregationMetric.max => AppTexts.maximum,
-      AggregationMetric.count => AppTexts.count,
     };
   }
 
@@ -436,7 +435,6 @@ extension AggregationMetricUI on AggregationMetric {
       AggregationMetric.avg => AppIcons.avg,
       AggregationMetric.min => AppIcons.min,
       AggregationMetric.max => AppIcons.max,
-      AggregationMetric.count => AppIcons.count,
     };
   }
 }

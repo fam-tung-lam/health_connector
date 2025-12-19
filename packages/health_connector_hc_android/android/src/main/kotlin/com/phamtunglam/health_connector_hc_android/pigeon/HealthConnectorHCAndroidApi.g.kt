@@ -607,14 +607,12 @@ enum class HealthPlatformFeatureStatusDto(val raw: Int) {
 enum class AggregationMetricDto(val raw: Int) {
   /** Average (mean) value across all data points. */
   AVG(0),
-  /** Count of data points (records) in the dataset. */
-  COUNT(1),
   /** Maximum value in the dataset. */
-  MAX(2),
+  MAX(1),
   /** Minimum value in the dataset. */
-  MIN(3),
+  MIN(2),
   /** Sum of all values in the time range. */
-  SUM(4);
+  SUM(3);
 
   companion object {
     fun ofRaw(raw: Int): AggregationMetricDto? {

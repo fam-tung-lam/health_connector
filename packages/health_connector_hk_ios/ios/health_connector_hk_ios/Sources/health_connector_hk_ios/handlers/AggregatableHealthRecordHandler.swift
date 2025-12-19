@@ -21,7 +21,7 @@ protocol AggregatableHealthRecordHandler: HealthRecordHandler {
     /// Aggregates the underlying data for the given date range and metric.
     ///
     /// - Parameters:
-    ///   - metric: The aggregation metric to use (min, max, avg, sum, count)
+    ///   - metric: The aggregation metric to use (min, max, avg, sum)
     ///   - startTime: Start of the data range in UTC
     ///   - endTime: End of the data range in UTC
     /// - Returns: The aggregated result as a measurement DTO
@@ -157,18 +157,13 @@ extension AggregatableQuantityHealthRecordHandler {
     private func statisticsOptions(for metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         switch metric {
         case .min:
-            return .discreteMin
+            .discreteMin
         case .max:
-            return .discreteMax
+            .discreteMax
         case .avg:
-            return .discreteAverage
+            .discreteAverage
         case .sum:
-            return .cumulativeSum
-        case .count:
-            throw HealthConnectorError.invalidArgument(
-                message: "Count aggregation is not supported by HealthKit statistics queries",
-                context: ["metric": String(describing: metric)]
-            )
+            .cumulativeSum
         }
     }
 
@@ -193,8 +188,6 @@ extension AggregatableQuantityHealthRecordHandler {
                 statistics.averageQuantity()
             case .sum:
                 statistics.sumQuantity()
-            case .count:
-                nil // Count not supported through HKStatistics
             }
 
         guard let quantity else {

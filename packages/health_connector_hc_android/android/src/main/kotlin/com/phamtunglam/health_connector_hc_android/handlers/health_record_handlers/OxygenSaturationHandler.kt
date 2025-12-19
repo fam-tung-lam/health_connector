@@ -27,7 +27,6 @@ internal class OxygenSaturationHandler(override val client: HealthConnectClient)
     override val supportedAggregationMetrics: Set<AggregationMetricDto>
         get() = setOf(
             AggregationMetricDto.AVG,
-            AggregationMetricDto.COUNT,
             AggregationMetricDto.MIN,
             AggregationMetricDto.MAX,
         )

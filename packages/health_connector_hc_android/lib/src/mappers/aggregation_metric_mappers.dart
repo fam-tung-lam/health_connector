@@ -18,8 +18,6 @@ extension AggregationMetricDtoMapper on AggregationMetric {
         return AggregationMetricDto.min;
       case AggregationMetric.max:
         return AggregationMetricDto.max;
-      case AggregationMetric.count:
-        return AggregationMetricDto.count;
     }
   }
 }
@@ -37,8 +35,6 @@ extension AggregationMetricDtoToDomain on AggregationMetricDto {
         return AggregationMetric.min;
       case AggregationMetricDto.max:
         return AggregationMetric.max;
-      case AggregationMetricDto.count:
-        return AggregationMetric.count;
     }
   }
 }

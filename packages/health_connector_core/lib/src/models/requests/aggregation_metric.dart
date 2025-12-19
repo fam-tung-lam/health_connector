@@ -27,10 +27,4 @@ enum AggregationMetric {
   ///
   /// Useful for finding the highest recorded value in a time range.
   max,
-
-  /// Count of data points (records) in the dataset.
-  ///
-  /// Returns the number of health records that exist within the specified
-  /// time range, regardless of their values.
-  count,
 }

@@ -293,7 +293,6 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.count ||
           AggregationMetric.avg ||
           AggregationMetric.min ||
           AggregationMetric.max => throw UnsupportedError(
@@ -313,8 +312,9 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.sum || AggregationMetric.count =>
-            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+          AggregationMetric.sum => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
         },
         HeightHealthDataType() => switch (_selectedMetric!) {
           AggregationMetric.avg => HealthDataType.height.aggregateAvg(
@@ -329,8 +329,9 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.sum || AggregationMetric.count =>
-            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+          AggregationMetric.sum => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
         },
         BodyFatPercentageHealthDataType() => throw UnsupportedError(
           'Body fat percentage does not support aggregation',
@@ -352,8 +353,9 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.sum || AggregationMetric.count =>
-            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+          AggregationMetric.sum => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
         },
         SystolicBloodPressureHealthDataType() => switch (_selectedMetric!) {
           AggregationMetric.avg =>
@@ -371,8 +373,9 @@ class _AggregateHealthDataPageState
               startTime: startDateTime!,
               endTime: endDateTime!,
             ),
-          AggregationMetric.sum || AggregationMetric.count =>
-            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+          AggregationMetric.sum => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
         },
         DiastolicBloodPressureHealthDataType() => switch (_selectedMetric!) {
           AggregationMetric.avg =>
@@ -390,8 +393,9 @@ class _AggregateHealthDataPageState
               startTime: startDateTime!,
               endTime: endDateTime!,
             ),
-          AggregationMetric.sum || AggregationMetric.count =>
-            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+          AggregationMetric.sum => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
         },
         BodyTemperatureHealthDataType() => throw UnsupportedError(
           'Body temperature does not support aggregation',
@@ -404,7 +408,6 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.count ||
           AggregationMetric.avg ||
           AggregationMetric.min ||
           AggregationMetric.max => throw UnsupportedError(
@@ -417,7 +420,6 @@ class _AggregateHealthDataPageState
               startTime: startDateTime!,
               endTime: endDateTime!,
             ),
-          AggregationMetric.count ||
           AggregationMetric.avg ||
           AggregationMetric.min ||
           AggregationMetric.max => throw UnsupportedError(
@@ -429,7 +431,6 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.count ||
           AggregationMetric.avg ||
           AggregationMetric.min ||
           AggregationMetric.max => throw UnsupportedError(
@@ -441,7 +442,6 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.count ||
           AggregationMetric.avg ||
           AggregationMetric.min ||
           AggregationMetric.max => throw UnsupportedError(
@@ -453,7 +453,6 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.count ||
           AggregationMetric.avg ||
           AggregationMetric.min ||
           AggregationMetric.max => throw UnsupportedError(
@@ -477,8 +476,9 @@ class _AggregateHealthDataPageState
                 startTime: startDateTime!,
                 endTime: endDateTime!,
               ),
-            AggregationMetric.sum || AggregationMetric.count =>
-              throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+            AggregationMetric.sum => throw UnsupportedError(
+              'Unsupported metric: $_selectedMetric',
+            ),
           },
         HeartRateSeriesRecordHealthDataType() => switch (_selectedMetric!) {
           AggregationMetric.avg =>
@@ -496,8 +496,9 @@ class _AggregateHealthDataPageState
               startTime: startDateTime!,
               endTime: endDateTime!,
             ),
-          AggregationMetric.sum || AggregationMetric.count =>
-            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+          AggregationMetric.sum => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
         },
         RestingHeartRateHealthDataType() => switch (_selectedMetric!) {
           AggregationMetric.avg => HealthDataType.restingHeartRate.aggregateAvg(
@@ -512,15 +513,15 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.sum || AggregationMetric.count =>
-            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+          AggregationMetric.sum => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
         },
         SleepSessionHealthDataType() => switch (_selectedMetric!) {
           AggregationMetric.sum => HealthDataType.sleepSession.aggregateSum(
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.count ||
           AggregationMetric.avg ||
           AggregationMetric.min ||
           AggregationMetric.max => throw UnsupportedError(
@@ -532,7 +533,6 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.count ||
           AggregationMetric.avg ||
           AggregationMetric.min ||
           AggregationMetric.max => throw UnsupportedError(
@@ -555,8 +555,9 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.sum || AggregationMetric.count =>
-            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+          AggregationMetric.sum => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
         },
         RespiratoryRateHealthDataType() => switch (_selectedMetric!) {
           AggregationMetric.avg => HealthDataType.respiratoryRate.aggregateAvg(
@@ -571,8 +572,9 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.sum || AggregationMetric.count =>
-            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+          AggregationMetric.sum => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
         },
         Vo2MaxHealthDataType() => switch (_selectedMetric!) {
           AggregationMetric.avg => HealthDataType.vo2Max.aggregateAvg(
@@ -587,8 +589,9 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.sum || AggregationMetric.count =>
-            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+          AggregationMetric.sum => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
         },
         BloodGlucoseHealthDataType() => switch (_selectedMetric!) {
           AggregationMetric.avg => HealthDataType.bloodGlucose.aggregateAvg(
@@ -603,8 +606,9 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
-          AggregationMetric.sum || AggregationMetric.count =>
-            throw UnsupportedError('Unsupported metric: $_selectedMetric'),
+          AggregationMetric.sum => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
         },
 
         // All nutrient data types follow the same pattern: only sum aggregation

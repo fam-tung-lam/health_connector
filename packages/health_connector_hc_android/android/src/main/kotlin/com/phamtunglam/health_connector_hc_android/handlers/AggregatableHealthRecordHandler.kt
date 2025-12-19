@@ -122,7 +122,7 @@ internal interface CustomAggregatableHealthRecordHandler :
      * 1. Validates the request (time range, supported metrics)
      * 2. Paginates through all records in the time range
      * 3. Accumulates statistics (count, sum, min, max)
-     * 4. Calculates the requested metric (AVG, MIN, MAX, COUNT, or SUM)
+     * 4. Calculates the requested metric (AVG, MIN, MAX, or SUM)
      * 5. Wraps the result in the appropriate format
      *
      * Implementations can override this method if custom aggregation logic is needed,
@@ -156,15 +156,10 @@ internal interface CustomAggregatableHealthRecordHandler :
             endTime = Instant.ofEpochMilli(request.endTime),
         )
 
-        if (aggregationResult.count == 0) {
-            return@process AggregateResponseDto(value = wrapAggregationResult(0.0))
-        }
-
         val resultValue = when (request.aggregationMetric) {
             AggregationMetricDto.AVG -> aggregationResult.avg
             AggregationMetricDto.MIN -> aggregationResult.min
             AggregationMetricDto.MAX -> aggregationResult.max
-            AggregationMetricDto.COUNT -> aggregationResult.count.toDouble()
             AggregationMetricDto.SUM -> aggregationResult.sum
         }
 
@@ -207,7 +202,6 @@ internal interface CustomAggregatableHealthRecordHandler :
 
         return PaginatedAggregationResult(
             avg = if (count > 0) sum / count else 0.0,
-            count = count,
             sum = sum,
             min = if (count > 0) min ?: 0.0 else 0.0,
             max = if (count > 0) max ?: 0.0 else 0.0,
@@ -219,7 +213,6 @@ internal interface CustomAggregatableHealthRecordHandler :
      */
     private data class PaginatedAggregationResult(
         val avg: Double,
-        val count: Int,
         val sum: Double,
         val min: Double,
         val max: Double,
