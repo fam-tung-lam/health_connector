@@ -6,7 +6,7 @@ final class HydrationHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = HydrationRecordDto
     typealias SampleType = HKQuantitySample

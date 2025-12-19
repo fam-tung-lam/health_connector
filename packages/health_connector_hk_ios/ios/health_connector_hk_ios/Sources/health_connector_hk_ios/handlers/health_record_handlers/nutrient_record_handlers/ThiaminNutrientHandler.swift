@@ -5,7 +5,7 @@ final class ThiaminNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = ThiaminNutrientRecordDto
     typealias SampleType = HKQuantitySample

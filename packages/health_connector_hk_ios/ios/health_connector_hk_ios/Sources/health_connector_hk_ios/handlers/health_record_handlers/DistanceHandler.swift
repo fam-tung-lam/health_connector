@@ -6,7 +6,7 @@ final class DistanceHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = DistanceRecordDto
     typealias SampleType = HKQuantitySample

@@ -5,7 +5,7 @@ final class SodiumNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = SodiumNutrientRecordDto
     typealias SampleType = HKQuantitySample

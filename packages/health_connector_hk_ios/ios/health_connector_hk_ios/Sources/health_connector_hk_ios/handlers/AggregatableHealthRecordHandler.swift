@@ -8,7 +8,7 @@ import HealthKit
 /// ## Implementation Guidance
 /// Conforming types must declare their aggregation result type:
 /// ```swift
-/// final class HeartRateHandler: HealthKitAggregatableHealthRecordHandler {
+/// final class HeartRateHandler: AggregatableQuantityHealthRecordHandler {
 ///     typealias AggregatedResultMeasurementUnitDto = NumericDto  // Required!
 ///
 ///     func extractAggregateValue(...) throws -> NumericDto {
@@ -43,13 +43,13 @@ protocol AggregatableHealthRecordHandler: HealthRecordHandler {
 ///
 /// ## Usage
 /// ```swift
-/// final class HeartRateHandler: HealthKitAggregatableHealthRecordHandler {
+/// final class HeartRateHandler: AggregatableQuantityHealthRecordHandler {
 ///     static let aggregationMetricConfig = AggregationMetricConfig.discreteMinMaxAvg
 ///
 ///     func extractAggregateValue(
 ///         from stats: HKStatistics,
 ///         metric: AggregationMetricDto
-///     ) throws -> MeasurementUnitDto {
+///     ) throws -> NumericDto {
 ///         let quantity = try Self.aggregationMetricConfig.extractQuantity(from: stats, for: metric)
 ///         let bpm = quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
 ///         return NumericDto(unit: .numeric, value: bpm)
@@ -72,9 +72,6 @@ enum AggregationMetricConfig {
 
     /// Cumulative type with sum support (most common for interval measurements)
     static let cumulativeSum: Self = .cumulative([.sum])
-
-    /// Discrete type with only average support (special cases)
-    static let discreteAvgOnly: Self = .discrete([.avg])
 
     // MARK: - Public API
 
@@ -239,7 +236,7 @@ enum AggregationMetricConfig {
 ///
 /// Only quantity types support aggregation. Category types, correlations, and
 /// characteristics do NOT implement this capability.
-protocol HealthKitAggregatableHealthRecordHandler: AggregatableHealthRecordHandler {
+protocol AggregatableQuantityHealthRecordHandler: AggregatableHealthRecordHandler {
     /// Statistics configuration defining supported metrics
     ///
     /// This should be set to one of the predefined configurations:
@@ -263,7 +260,7 @@ protocol HealthKitAggregatableHealthRecordHandler: AggregatableHealthRecordHandl
     ) throws -> AggregatedResultMeasurementUnitDto
 }
 
-extension HealthKitAggregatableHealthRecordHandler {
+extension AggregatableQuantityHealthRecordHandler {
     /// Performs aggregation over a time range
     ///
     /// - Parameters:

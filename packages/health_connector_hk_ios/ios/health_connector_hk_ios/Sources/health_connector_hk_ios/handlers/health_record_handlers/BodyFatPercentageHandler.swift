@@ -6,7 +6,7 @@ final class BodyFatPercentageHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = BodyFatPercentageRecordDto
     typealias SampleType = HKQuantitySample

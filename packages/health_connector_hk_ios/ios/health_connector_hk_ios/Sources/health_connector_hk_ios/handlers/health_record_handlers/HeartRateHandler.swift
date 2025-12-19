@@ -6,7 +6,7 @@ final class HeartRateHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = HeartRateMeasurementRecordDto
     typealias SampleType = HKQuantitySample

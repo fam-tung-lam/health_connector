@@ -6,7 +6,7 @@ final class Vo2MaxHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = Vo2MaxRecordDto
     typealias SampleType = HKQuantitySample

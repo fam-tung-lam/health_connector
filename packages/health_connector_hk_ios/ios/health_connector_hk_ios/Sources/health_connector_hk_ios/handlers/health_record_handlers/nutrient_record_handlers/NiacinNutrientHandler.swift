@@ -5,7 +5,7 @@ final class NiacinNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = NiacinNutrientRecordDto
     typealias SampleType = HKQuantitySample

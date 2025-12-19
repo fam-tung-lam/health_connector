@@ -6,7 +6,7 @@ final class OxygenSaturationHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = OxygenSaturationRecordDto
     typealias SampleType = HKQuantitySample

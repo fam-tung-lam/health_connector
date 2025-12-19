@@ -5,7 +5,7 @@ final class CalciumNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = CalciumNutrientRecordDto
     typealias SampleType = HKQuantitySample

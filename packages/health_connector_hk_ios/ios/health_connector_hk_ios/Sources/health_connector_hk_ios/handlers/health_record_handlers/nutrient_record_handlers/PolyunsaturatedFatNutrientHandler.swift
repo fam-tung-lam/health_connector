@@ -5,7 +5,7 @@ final class PolyunsaturatedFatNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = PolyunsaturatedFatNutrientRecordDto
     typealias SampleType = HKQuantitySample

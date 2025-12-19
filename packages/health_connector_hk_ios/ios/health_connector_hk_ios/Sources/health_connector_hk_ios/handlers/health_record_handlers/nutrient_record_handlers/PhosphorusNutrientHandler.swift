@@ -5,7 +5,7 @@ final class PhosphorusNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = PhosphorusNutrientRecordDto
     typealias SampleType = HKQuantitySample

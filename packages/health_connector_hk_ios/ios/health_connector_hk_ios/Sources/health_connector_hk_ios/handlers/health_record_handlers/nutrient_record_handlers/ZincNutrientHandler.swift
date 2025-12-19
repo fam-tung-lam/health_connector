@@ -5,7 +5,7 @@ final class ZincNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = ZincNutrientRecordDto
     typealias SampleType = HKQuantitySample

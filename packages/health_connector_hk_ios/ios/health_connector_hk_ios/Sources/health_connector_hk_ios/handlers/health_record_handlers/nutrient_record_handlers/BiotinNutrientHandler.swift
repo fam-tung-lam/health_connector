@@ -5,7 +5,7 @@ final class BiotinNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = BiotinNutrientRecordDto
     typealias SampleType = HKQuantitySample

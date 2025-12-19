@@ -6,7 +6,7 @@ final class LeanBodyMassHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = LeanBodyMassRecordDto
     typealias SampleType = HKQuantitySample

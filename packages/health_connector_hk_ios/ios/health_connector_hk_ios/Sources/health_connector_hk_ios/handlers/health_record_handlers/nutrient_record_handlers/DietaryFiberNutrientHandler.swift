@@ -5,7 +5,7 @@ final class DietaryFiberNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = DietaryFiberNutrientRecordDto
     typealias SampleType = HKQuantitySample

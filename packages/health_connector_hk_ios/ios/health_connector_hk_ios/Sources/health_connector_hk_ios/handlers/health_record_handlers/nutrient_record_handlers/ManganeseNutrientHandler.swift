@@ -5,7 +5,7 @@ final class ManganeseNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = ManganeseNutrientRecordDto
     typealias SampleType = HKQuantitySample

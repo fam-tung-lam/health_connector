@@ -5,7 +5,7 @@ final class RiboflavinNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = RiboflavinNutrientRecordDto
     typealias SampleType = HKQuantitySample

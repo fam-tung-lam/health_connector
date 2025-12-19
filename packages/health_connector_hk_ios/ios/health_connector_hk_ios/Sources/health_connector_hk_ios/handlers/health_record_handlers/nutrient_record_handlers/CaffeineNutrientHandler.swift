@@ -5,7 +5,7 @@ final class CaffeineNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = CaffeineNutrientRecordDto
     typealias SampleType = HKQuantitySample

@@ -5,7 +5,7 @@ final class SeleniumNutrientHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    HealthKitAggregatableHealthRecordHandler
+    AggregatableQuantityHealthRecordHandler
 {
     typealias RecordDto = SeleniumNutrientRecordDto
     typealias SampleType = HKQuantitySample
