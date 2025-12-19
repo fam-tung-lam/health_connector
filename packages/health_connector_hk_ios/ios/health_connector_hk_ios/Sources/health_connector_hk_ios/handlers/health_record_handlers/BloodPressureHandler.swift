@@ -5,7 +5,7 @@ import HealthKit
 final class BloodPressureHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    CorrelationDeletableHealthRecordHandler
+    DeletableCorrelationHealthRecordHandler
 {
     typealias RecordDto = BloodPressureRecordDto
     typealias SampleType = HKCorrelation

@@ -463,7 +463,13 @@ actor HealthConnectorClient: Taggable {
                 withCapability: DeletableHealthRecordHandler.self
             )
 
-            try await handler.deleteRecords(startTime: request.startTime, endTime: request.endTime)
+            let startTime = Date(timeIntervalSince1970: Double(request.startTime) / 1000.0)
+            let endTime = Date(timeIntervalSince1970: Double(request.endTime) / 1000.0)
+
+            try await handler.deleteRecords(
+                startTime: startTime,
+                endTime: endTime
+            )
 
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
