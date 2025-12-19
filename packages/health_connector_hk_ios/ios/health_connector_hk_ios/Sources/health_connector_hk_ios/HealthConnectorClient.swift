@@ -135,17 +135,10 @@ actor HealthConnectorClient: Taggable {
                 context: ["request": request]
             )
 
-            guard let baseHandler = handlerRegistry.getHandler(for: request.dataType) else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Unsupported data type: \(request.dataType)"
-                )
-            }
-
-            guard let handler = baseHandler as? ReadableHealthRecordHandler else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Data type \(request.dataType) does not support read operations"
-                )
-            }
+            let handler = try handlerRegistry.handler(
+                for: request.dataType,
+                withCapability: ReadableHealthRecordHandler.self
+            )
 
             let recordDto = try await handler.readRecord(id: request.recordId)
             let responseDto = ReadRecordResponseDto(record: recordDto)
@@ -223,29 +216,32 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            guard let baseHandler = handlerRegistry.getHandler(for: request.dataType) else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Unsupported data type: \(request.dataType)"
-                )
-            }
+            let handler = try handlerRegistry.handler(
+                for: request.dataType,
+                withCapability: ReadableHealthRecordHandler.self
+            )
 
-            guard let handler = baseHandler as? ReadableHealthRecordHandler else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Data type \(request.dataType) does not support read operations"
-                )
+            // Convert string page token to PaginationToken
+            let paginationToken: PaginationToken? = if let pageTokenString = request.pageToken {
+                try PaginationToken(fromString: pageTokenString)
+            } else {
+                nil
             }
 
             // Delegate to handler
             let (records, pageToken) = try await handler.readRecords(
                 startTime: request.startTime,
                 endTime: request.endTime,
-                pageToken: request.pageToken,
+                pageToken: paginationToken,
                 pageSize: Int(request.pageSize),
                 dataOriginPackageNames: request.dataOriginPackageNames
             )
 
+            // Convert PaginationToken back to string for response DTO
+            let nextPageTokenString = pageToken?.toString()
+
             let responseDto = ReadRecordsResponseDto(
-                nextPageToken: pageToken,
+                nextPageToken: nextPageTokenString,
                 records: records
             )
 
@@ -280,17 +276,10 @@ actor HealthConnectorClient: Taggable {
 
             let dataType = try request.record.dataType
 
-            guard let baseHandler = handlerRegistry.getHandler(for: dataType) else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Unsupported data type: \(dataType)"
-                )
-            }
-
-            guard let handler = baseHandler as? WritableHealthRecordHandler else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Data type \(dataType) does not support write operations"
-                )
-            }
+            let handler = try handlerRegistry.handler(
+                for: dataType,
+                withCapability: WritableHealthRecordHandler.self
+            )
 
             // Delegate to handler
             let recordId = try await handler.writeRecord(request.record)
@@ -348,28 +337,11 @@ actor HealthConnectorClient: Taggable {
             for (index, record) in request.records.enumerated() {
                 let dataType = try record.dataType
 
-                // Validate: Handler exists for this type
-                guard let baseHandler = handlerRegistry.getHandler(for: dataType) else {
-                    throw HealthConnectorError.unsupportedOperation(
-                        message: "Unsupported data type at index \(index): \(dataType)",
-                        context: [
-                            "index": String(index),
-                            "dataType": String(describing: dataType),
-                        ]
-                    )
-                }
-
-                // Validate: Handler supports writes
-                guard baseHandler is WritableHealthRecordHandler else {
-                    throw HealthConnectorError.unsupportedOperation(
-                        message:
-                        "Data type at index \(index) does not support write operations: \(dataType)",
-                        context: [
-                            "index": String(index),
-                            "dataType": String(describing: dataType),
-                        ]
-                    )
-                }
+                // Validate: Handler exists and supports writes
+                _ = try handlerRegistry.handler(
+                    for: dataType,
+                    withCapability: WritableHealthRecordHandler.self
+                )
 
                 let sample = try record.toHealthKit()
                 samples.append(sample)
@@ -436,14 +408,11 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            guard let baseHandler = handlerRegistry.getHandler(for: request.dataType) else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Unsupported data type: \(request.dataType)"
-                )
-            }
-
             // Try custom aggregation first (for category types like sleep)
-            if let customHandler = baseHandler as? CustomAggregatableHealthRecordHandler {
+            if let customHandler = try? handlerRegistry.handler(
+                for: request.dataType,
+                withCapability: CustomAggregatableHealthRecordHandler.self
+            ) {
                 let value = try await customHandler.aggregate(
                     metric: request.aggregationMetric,
                     startTime: request.startTime,
@@ -462,11 +431,10 @@ actor HealthConnectorClient: Taggable {
             }
 
             // Fall back to standard aggregation (for quantity types)
-            guard let handler = baseHandler as? HealthKitAggregatableHealthRecordHandler else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Aggregation not supported for data type: \(request.dataType)"
-                )
-            }
+            let handler = try handlerRegistry.handler(
+                for: request.dataType,
+                withCapability: HealthKitAggregatableHealthRecordHandler.self
+            )
 
             let value = try await handler.aggregate(
                 metric: request.aggregationMetric,
@@ -514,17 +482,10 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            guard let baseHandler = self.handlerRegistry.getHandler(for: request.dataType) else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Unsupported data type: \(request.dataType)"
-                )
-            }
-
-            guard let handler = baseHandler as? DeletableHealthRecordHandler else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Data type \(request.dataType) does not support delete operations"
-                )
-            }
+            let handler = try handlerRegistry.handler(
+                for: request.dataType,
+                withCapability: DeletableHealthRecordHandler.self
+            )
 
             try await handler.deleteRecords(startTime: request.startTime, endTime: request.endTime)
 
@@ -555,17 +516,10 @@ actor HealthConnectorClient: Taggable {
                 context: ["request": request]
             )
 
-            guard let baseHandler = self.handlerRegistry.getHandler(for: request.dataType) else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Unsupported data type: \(request.dataType)"
-                )
-            }
-
-            guard let handler = baseHandler as? DeletableHealthRecordHandler else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Data type \(request.dataType) does not support delete operations"
-                )
-            }
+            let handler = try handlerRegistry.handler(
+                for: request.dataType,
+                withCapability: DeletableHealthRecordHandler.self
+            )
 
             try await handler.deleteRecords(ids: request.recordIds)
 

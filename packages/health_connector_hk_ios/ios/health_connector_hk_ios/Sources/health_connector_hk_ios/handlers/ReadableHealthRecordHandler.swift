@@ -5,9 +5,77 @@ import HealthKit
 protocol ReadableHealthRecordHandler: HealthRecordHandler {
 }
 
+/// Type-safe wrapper for pagination tokens
+///
+/// Encapsulates timestamp-based pagination logic used by ReadableHealthRecordHandler.
+/// Provides validation and conversion between external string representation and
+/// internal timestamp representation.
+///
+/// ## Usage
+/// ```swift
+/// // Creating from timestamp
+/// let token = PaginationToken(timestamp: 1234567890000)
+///
+/// // Parsing from string
+/// let token = try PaginationToken(fromString: "1234567890000")
+///
+/// // Converting to string for DTOs
+/// let stringToken = token.toString()
+///
+/// // Converting to Date for HealthKit queries
+/// let date = token.toDate()
+/// ```
+struct PaginationToken: Equatable, Sendable {
+    /// The timestamp in milliseconds since epoch
+    let timestamp: Int64
+
+    /// Creates a pagination token from a timestamp
+    ///
+    /// - Parameter timestamp: Milliseconds since epoch
+    init(timestamp: Int64) {
+        self.timestamp = timestamp
+    }
+
+    /// Creates a pagination token from a string representation
+    ///
+    /// - Parameter string: String containing timestamp value
+    /// - Throws: HealthConnectorError.invalidArgument if string is not a valid Int64
+    init(fromString string: String) throws {
+        guard let timestamp = Int64(string) else {
+            throw HealthConnectorError.invalidArgument(
+                message: "Invalid pagination token format",
+                context: ["token": string]
+            )
+        }
+        self.timestamp = timestamp
+    }
+
+    /// Converts to external string representation
+    ///
+    /// - Returns: String representation of the timestamp
+    func toString() -> String {
+        String(timestamp)
+    }
+
+    /// Creates a Date from the token for HealthKit queries
+    ///
+    /// - Returns: Date representation of the timestamp
+    func toDate() -> Date {
+        Date(timeIntervalSince1970: Double(timestamp) / 1000.0)
+    }
+}
+
 extension ReadableHealthRecordHandler {
     /// Default page size for record reading
     static var defaultPageSize: Int { 1000 }
+
+    /// Maximum number of samples to query when discovering HKSource objects
+    ///
+    /// This limit balances completeness vs performance when filtering by data origin.
+    /// HealthKit doesn't provide direct source lookup by bundle ID, so we query
+    /// a sample of records to collect sources. In most cases, 1000 samples is
+    /// sufficient to find all relevant sources.
+    private static var sourceDiscoveryLimit: Int { 1000 }
 
     /// Reads a single record by ID
     ///
@@ -65,7 +133,7 @@ extension ReadableHealthRecordHandler {
     /// - Parameters:
     ///   - startTime: Start of time range (milliseconds since epoch)
     ///   - endTime: End of time range (milliseconds since epoch)
-    ///   - pageToken: Timestamp for pagination (milliseconds since epoch), nil for first page
+    ///   - pageToken: Pagination token for fetching next page, nil for first page
     ///   - pageSize: Maximum number of records to return
     ///   - dataOriginPackageNames: Optional list of bundle identifiers to filter by data source
     /// - Returns: Tuple of (records array, next page token)
@@ -73,10 +141,10 @@ extension ReadableHealthRecordHandler {
     func readRecords(
         startTime: Int64,
         endTime: Int64,
-        pageToken: String? = nil,
+        pageToken: PaginationToken? = nil,
         pageSize: Int = Self.defaultPageSize,
         dataOriginPackageNames: [String] = []
-    ) async throws -> (records: [HealthRecordDto], pageToken: String?) {
+    ) async throws -> (records: [HealthRecordDto], pageToken: PaginationToken?) {
         try await process(
             operation: "read_records",
             context: [
@@ -122,10 +190,8 @@ extension ReadableHealthRecordHandler {
 
             // Build pagination predicate if needed
             let finalPredicate: NSPredicate
-            if let pageTokenString = pageToken,
-               let pageTokenTimestamp = Int64(pageTokenString)
-            {
-                let pageTokenDate = Date(timeIntervalSince1970: Double(pageTokenTimestamp) / 1000.0)
+            if let pageToken {
+                let pageTokenDate = pageToken.toDate()
                 let paginationPredicate = NSPredicate(
                     format: "startDate > %@", pageTokenDate as NSDate
                 )
@@ -174,10 +240,10 @@ extension ReadableHealthRecordHandler {
                         }
 
                         // Determine next page token
-                        let nextPageToken: String?
+                        let nextPageToken: PaginationToken?
                         if hasMorePages, let lastDto = dtos.last {
                             let timestamp = try lastDto.extractTimestamp()
-                            nextPageToken = String(timestamp)
+                            nextPageToken = PaginationToken(timestamp: timestamp)
                         } else {
                             nextPageToken = nil
                         }
@@ -219,7 +285,7 @@ extension ReadableHealthRecordHandler {
             let query = HKSampleQuery(
                 sampleType: sampleType,
                 predicate: nil,
-                limit: 1000,
+                limit: Self.sourceDiscoveryLimit,
                 sortDescriptors: nil
             ) { _, samples, error in
                 if let error {
