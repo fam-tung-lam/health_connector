@@ -228,10 +228,14 @@ actor HealthConnectorClient: Taggable {
                 nil
             }
 
+            // Convert milliseconds since epoch to Date
+            let startTime = Date(timeIntervalSince1970: Double(request.startTime) / 1000.0)
+            let endTime = Date(timeIntervalSince1970: Double(request.endTime) / 1000.0)
+
             // Delegate to handler
             let (records, pageToken) = try await handler.readRecords(
-                startTime: request.startTime,
-                endTime: request.endTime,
+                startTime: startTime,
+                endTime: endTime,
                 pageToken: paginationToken,
                 pageSize: Int(request.pageSize),
                 dataOriginPackageNames: request.dataOriginPackageNames
@@ -412,10 +416,14 @@ actor HealthConnectorClient: Taggable {
                 withCapability: AggregatableHealthRecordHandler.self
             )
 
+            // Convert milliseconds since epoch to Date
+            let startTime = Date(timeIntervalSince1970: Double(request.startTime) / 1000.0)
+            let endTime = Date(timeIntervalSince1970: Double(request.endTime) / 1000.0)
+
             let value = try await handler.aggregate(
                 metric: request.aggregationMetric,
-                startTime: request.startTime,
-                endTime: request.endTime
+                startTime: startTime,
+                endTime: endTime
             )
 
             let responseDto = AggregateResponseDto(value: value)

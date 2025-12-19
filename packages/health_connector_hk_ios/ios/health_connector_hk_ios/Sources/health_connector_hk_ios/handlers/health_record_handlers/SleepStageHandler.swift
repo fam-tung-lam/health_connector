@@ -36,14 +36,14 @@ extension SleepStageHandler {
     ///
     /// - Parameters:
     ///   - metric: The aggregation metric (only .sum supported)
-    ///   - startTime: Start of time range (milliseconds since epoch)
-    ///   - endTime: End of time range (milliseconds since epoch)
+    ///   - startTime: Start of time range
+    ///   - endTime: End of time range
     /// - Returns: NumericDto with total sleep duration in seconds
     /// - Throws: HealthConnectorError if query fails or metric is unsupported
     func aggregate(
         metric: AggregationMetricDto,
-        startTime: Int64,
-        endTime: Int64
+        startTime: Date,
+        endTime: Date
     ) async throws -> NumericDto {
         try await process(
             operation: "aggregate",
@@ -72,11 +72,9 @@ extension SleepStageHandler {
             }
 
             // Create time range predicate
-            let startDate = Date(timeIntervalSince1970: TimeInterval(startTime) / 1000.0)
-            let endDate = Date(timeIntervalSince1970: TimeInterval(endTime) / 1000.0)
             let predicate = HKQuery.predicateForSamples(
-                withStart: startDate,
-                end: endDate,
+                withStart: startTime,
+                end: endTime,
                 options: .strictStartDate
             )
 

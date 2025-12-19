@@ -143,7 +143,7 @@ extension DeletableCorrelationHealthRecordHandler {
                 let query = HKSampleQuery(
                     sampleType: sampleType,
                     predicate: predicate,
-                    limit: HKObjectQueryNoLimit,  // Fetch ALL matching correlations
+                    limit: HKObjectQueryNoLimit, // Fetch ALL matching correlations
                     sortDescriptors: nil
                 ) { _, samples, error in
                     if let error {
@@ -240,7 +240,7 @@ extension DeletableCorrelationHealthRecordHandler {
                 let query = HKSampleQuery(
                     sampleType: sampleType,
                     predicate: predicate,
-                    limit: HKObjectQueryNoLimit,  // Fetch ALL matching correlations
+                    limit: HKObjectQueryNoLimit, // Fetch ALL matching correlations
                     sortDescriptors: nil
                 ) { _, samples, error in
                     if let error {
