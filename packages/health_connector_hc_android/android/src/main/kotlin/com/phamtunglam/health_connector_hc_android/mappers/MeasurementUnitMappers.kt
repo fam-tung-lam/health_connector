@@ -225,22 +225,12 @@ internal fun BloodGlucose.toDto(): BloodGlucoseDto = BloodGlucoseDto(
 internal fun NumericDto.toLong(): Long = value.toLong()
 
 /**
- * Converts a numeric value (Long for step counts) to a [NumericDto].
+ * Converts a numeric value to a [NumericDto].
  *
  * Uses numeric unit for consistency.
  */
-internal fun Long.toNumericDto(): NumericDto = NumericDto(
+internal fun Number.toNumericDto(): NumericDto = NumericDto(
     value = this.toDouble(),
-    unit = NumericUnitDto.NUMERIC,
-)
-
-/**
- * Converts a numeric value (Double for floors climbed) to a [NumericDto].
- *
- * Uses numeric unit for consistency.
- */
-internal fun Double.toNumericDto(): NumericDto = NumericDto(
-    value = this,
     unit = NumericUnitDto.NUMERIC,
 )
 
