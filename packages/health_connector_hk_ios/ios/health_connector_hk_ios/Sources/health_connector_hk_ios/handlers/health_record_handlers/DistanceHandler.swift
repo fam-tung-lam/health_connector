@@ -17,45 +17,19 @@ final class DistanceHandler: @unchecked Sendable,
         self.healthStore = healthStore
     }
 
-    static var dataType: HealthDataTypeDto {
-        .distance
-    }
+    static let dataType: HealthDataTypeDto = .distance
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        switch metric {
-        case .sum:
-            return .cumulativeSum
-        case .avg, .min, .max, .count:
-            throw HealthConnectorError.invalidArgument(
-                message:
-                "Aggregation metric '\(metric)' not supported for distance (cumulative data)",
-                context: ["details": "Only 'sum' is supported"]
-            )
-        }
+        try Self.aggregationMetricConfig.options(for: metric)
     }
 
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
     ) throws -> MeasurementUnitDto {
-        let quantity: HKQuantity? =
-            switch metric {
-            case .sum:
-                statistics.sumQuantity()
-            case .avg, .min, .max, .count:
-                throw HealthConnectorError.invalidArgument(
-                    message: "Aggregation metric '\(metric)' not supported for distance",
-                    context: ["details": "Only 'sum' is supported"]
-                )
-            }
-
-        guard let quantity else {
-            throw HealthConnectorError.invalidArgument(
-                message: "No aggregation result for metric '\(metric)'",
-                context: ["details": "Statistics returned nil for distanceWalkingRunning"]
-            )
-        }
-
+        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         let meters = quantity.doubleValue(for: .meter())
         return LengthDto(unit: .meters, value: meters)
     }

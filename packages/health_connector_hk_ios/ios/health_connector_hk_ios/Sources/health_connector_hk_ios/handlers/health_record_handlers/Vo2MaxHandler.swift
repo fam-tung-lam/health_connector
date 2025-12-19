@@ -17,52 +17,19 @@ final class Vo2MaxHandler: @unchecked Sendable,
         self.healthStore = healthStore
     }
 
-    static var dataType: HealthDataTypeDto {
-        .vo2Max
-    }
+    static let dataType: HealthDataTypeDto = .vo2Max
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        switch metric {
-        case .avg:
-            return .discreteAverage
-        case .min:
-            return .discreteMin
-        case .max:
-            return .discreteMax
-        case .sum, .count:
-            throw HealthConnectorError.invalidArgument(
-                message: "Aggregation metric '\(metric)' not supported for VO2 max (discrete data)",
-                context: ["details": "Supported metrics: avg, min, max"]
-            )
-        }
+        try Self.aggregationMetricConfig.options(for: metric)
     }
 
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
     ) throws -> MeasurementUnitDto {
-        let quantity: HKQuantity? =
-            switch metric {
-            case .avg:
-                statistics.averageQuantity()
-            case .min:
-                statistics.minimumQuantity()
-            case .max:
-                statistics.maximumQuantity()
-            case .sum, .count:
-                throw HealthConnectorError.invalidArgument(
-                    message: "Aggregation metric '\(metric)' not supported for VO2 max",
-                    context: ["details": "Supported metrics: avg, min, max"]
-                )
-            }
-
-        guard let quantity else {
-            throw HealthConnectorError.invalidArgument(
-                message: "No aggregation result for metric '\(metric)'",
-                context: ["details": "Statistics returned nil for vo2Max"]
-            )
-        }
-
+        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         let unit = HKUnit.literUnit(with: .milli)
             .unitDivided(by: HKUnit.gramUnit(with: .kilo).unitMultiplied(by: .minute()))
         let value = quantity.doubleValue(for: unit)

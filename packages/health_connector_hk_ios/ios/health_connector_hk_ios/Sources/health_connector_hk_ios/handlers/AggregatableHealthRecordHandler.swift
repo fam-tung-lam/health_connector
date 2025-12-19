@@ -4,10 +4,224 @@ import HealthKit
 /// Base protocol for handlers that support aggregation capabilities.
 ///
 /// This protocol serves as a marker for all aggregation-capable handlers.
-/// Specific implementations are provided by:
-/// - `HealthKitAggregatableHealthRecordHandler` for HealthKit quantity types
-/// - `CustomAggregatableHealthRecordHandler` for custom aggregation logic
 protocol AggregatableHealthRecordHandler: HealthRecordHandler {
+    /// Performs aggregation over a time range
+    ///
+    /// - Parameters:
+    ///   - metric: The aggregation metric to compute
+    ///   - startTime: Start of time range (milliseconds since epoch)
+    ///   - endTime: End of time range (milliseconds since epoch)
+    /// - Returns: The aggregated measurement value
+    /// - Throws: HealthConnectorError if aggregation fails or metric is unsupported
+    func aggregate(
+        metric: AggregationMetricDto,
+        startTime: Int64,
+        endTime: Int64
+    ) async throws -> MeasurementUnitDto
+}
+
+/// Configuration for HealthKit statistics query behavior and supported metrics.
+///
+/// This enum encapsulates the relationship between aggregation metrics,
+/// HKStatisticsOptions, and statistics extraction methods. It eliminates
+/// repetitive validation logic across handler implementations.
+///
+/// ## Usage
+/// ```swift
+/// final class HeartRateHandler: HealthKitAggregatableHealthRecordHandler {
+///     static let aggregationMetricConfig = AggregationMetricConfig.discreteMinMaxAvg
+///
+///     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
+///         try Self.aggregationMetricConfig.options(for: metric)
+///     }
+///
+///     func extractAggregateValue(
+///         from stats: HKStatistics,
+///         metric: AggregationMetricDto
+///     ) throws -> MeasurementUnitDto {
+///         let quantity = try Self.aggregationMetricConfig.extractQuantity(from: stats, for: metric)
+///         let bpm = quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
+///         return NumericDto(unit: .numeric, value: bpm)
+///     }
+/// }
+/// ```
+enum AggregationMetricConfig {
+    /// Discrete quantity type supporting specified metrics
+    /// Examples: Heart rate, weight, body temperature
+    case discrete(Set<AggregationMetricDto>)
+
+    /// Cumulative quantity type supporting specified metrics
+    /// Examples: Steps, active calories, distance
+    case cumulative(Set<AggregationMetricDto>)
+
+    // MARK: - Common Configurations
+
+    /// Discrete type with min, max, avg support (most common for instantaneous measurements)
+    static let discreteMinMaxAvg: Self = .discrete([.min, .max, .avg])
+
+    /// Cumulative type with sum support (most common for interval measurements)
+    static let cumulativeSum: Self = .cumulative([.sum])
+
+    /// Discrete type with only average support (special cases)
+    static let discreteAvgOnly: Self = .discrete([.avg])
+
+    // MARK: - Public API
+
+    /// Converts an aggregation metric to the appropriate HKStatisticsOptions
+    ///
+    /// - Parameter metric: The requested aggregation metric
+    /// - Returns: The HKStatisticsOptions for the statistics query
+    /// - Throws: HealthConnectorError.invalidArgument if metric not supported
+    func options(for metric: AggregationMetricDto) throws -> HKStatisticsOptions {
+        switch self {
+        case let .discrete(supportedMetrics):
+            guard supportedMetrics.contains(metric) else {
+                throw unsupportedMetricError(
+                    metric: metric,
+                    supportedMetrics: supportedMetrics,
+                    hint: "discrete data"
+                )
+            }
+            return try discreteOption(for: metric)
+
+        case let .cumulative(supportedMetrics):
+            guard supportedMetrics.contains(metric) else {
+                throw unsupportedMetricError(
+                    metric: metric,
+                    supportedMetrics: supportedMetrics,
+                    hint: "cumulative data"
+                )
+            }
+            return try cumulativeOption(for: metric)
+        }
+    }
+
+    /// Extracts the quantity value from statistics for a given metric
+    ///
+    /// - Parameters:
+    ///   - statistics: The HKStatistics result from the query
+    ///   - metric: The requested aggregation metric
+    /// - Returns: The HKQuantity value
+    /// - Throws: HealthConnectorError if metric not supported or quantity is nil
+    func extractQuantity(
+        from statistics: HKStatistics,
+        for metric: AggregationMetricDto
+    ) throws -> HKQuantity {
+        // Validate metric is supported before extracting
+        switch self {
+        case let .discrete(supportedMetrics):
+            guard supportedMetrics.contains(metric) else {
+                throw unsupportedMetricError(
+                    metric: metric,
+                    supportedMetrics: supportedMetrics,
+                    hint: "discrete data"
+                )
+            }
+        case let .cumulative(supportedMetrics):
+            guard supportedMetrics.contains(metric) else {
+                throw unsupportedMetricError(
+                    metric: metric,
+                    supportedMetrics: supportedMetrics,
+                    hint: "cumulative data"
+                )
+            }
+        }
+
+        // Extract quantity based on configuration type
+        let quantity: HKQuantity? = switch self {
+        case .discrete:
+            try extractDiscreteQuantity(from: statistics, metric: metric)
+        case .cumulative:
+            try extractCumulativeQuantity(from: statistics, metric: metric)
+        }
+
+        guard let quantity else {
+            throw HealthConnectorError.invalidArgument(
+                message: "No aggregation result for metric '\(metric.rawValue)'",
+                context: ["details": "Statistics returned nil"]
+            )
+        }
+
+        return quantity
+    }
+
+    // MARK: - Private Helpers
+
+    private func discreteOption(for metric: AggregationMetricDto) throws -> HKStatisticsOptions {
+        switch metric {
+        case .avg:
+            .discreteAverage
+        case .min:
+            .discreteMin
+        case .max:
+            .discreteMax
+        case .sum, .count:
+            // Should never reach here due to guard in options(for:)
+            throw HealthConnectorError.invalidArgument(
+                message: "Metrics 'sum' and 'count' are not supported for discrete data"
+            )
+        }
+    }
+
+    private func cumulativeOption(for metric: AggregationMetricDto) throws -> HKStatisticsOptions {
+        switch metric {
+        case .sum:
+            .cumulativeSum
+        case .avg, .min, .max, .count:
+            // Should never reach here due to guard in options(for:)
+            throw HealthConnectorError.invalidArgument(
+                message: "Only 'sum' is supported for cumulative data"
+            )
+        }
+    }
+
+    private func extractDiscreteQuantity(
+        from statistics: HKStatistics,
+        metric: AggregationMetricDto
+    ) throws -> HKQuantity? {
+        switch metric {
+        case .avg:
+            statistics.averageQuantity()
+        case .min:
+            statistics.minimumQuantity()
+        case .max:
+            statistics.maximumQuantity()
+        case .sum, .count:
+            // Should never reach here due to guard in extractQuantity(from:for:)
+            throw HealthConnectorError.invalidArgument(
+                message: "Metrics 'sum' and 'count' are not supported for discrete data"
+            )
+        }
+    }
+
+    private func extractCumulativeQuantity(
+        from statistics: HKStatistics,
+        metric: AggregationMetricDto
+    ) throws -> HKQuantity? {
+        switch metric {
+        case .sum:
+            statistics.sumQuantity()
+        case .avg, .min, .max, .count:
+            // Should never reach here due to guard in extractQuantity(from:for:)
+            throw HealthConnectorError.invalidArgument(
+                message: "Only 'sum' is supported for cumulative data"
+            )
+        }
+    }
+
+    private func unsupportedMetricError(
+        metric: AggregationMetricDto,
+        supportedMetrics: Set<AggregationMetricDto>,
+        hint: String? = nil
+    ) -> HealthConnectorError {
+        let supported = supportedMetrics.map { String($0.rawValue) }.sorted().joined(separator: ", ")
+        let message =
+            "Aggregation metric '\(metric.rawValue)' not supported\(hint.map { " for \($0)" } ?? "")"
+        return HealthConnectorError.invalidArgument(
+            message: message,
+            context: ["details": "Supported metrics: \(supported)"]
+        )
+    }
 }
 
 /// Capability for handlers that support aggregation using HealthKit statistics (quantity types only).
@@ -15,7 +229,16 @@ protocol AggregatableHealthRecordHandler: HealthRecordHandler {
 /// Only quantity types support aggregation. Category types, correlations, and
 /// characteristics do NOT implement this capability.
 protocol HealthKitAggregatableHealthRecordHandler: AggregatableHealthRecordHandler {
+    /// Statistics configuration defining supported metrics
+    ///
+    /// This should be set to one of the predefined configurations:
+    /// - `.discreteMinMaxAvg` for instantaneous measurements (heart rate, weight, etc.)
+    /// - `.cumulativeSum` for interval measurements (steps, calories, etc.)
+    static var aggregationMetricConfig: AggregationMetricConfig { get }
+
     /// Convert aggregation metric to HKStatisticsOptions
+    ///
+    /// Default implementation uses `aggregationMetricConfig.options(for:)`
     ///
     /// - Parameter metric: The aggregation metric requested
     /// - Returns: Corresponding HKStatisticsOptions for the query
@@ -23,6 +246,9 @@ protocol HealthKitAggregatableHealthRecordHandler: AggregatableHealthRecordHandl
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions
 
     /// Extract aggregated value from HKStatistics
+    ///
+    /// Default implementation uses `aggregationMetricConfig.extractQuantity(from:for:)`
+    /// then delegates to handler for unit conversion
     ///
     /// - Parameters:
     ///   - statistics: The HKStatistics result from the query
