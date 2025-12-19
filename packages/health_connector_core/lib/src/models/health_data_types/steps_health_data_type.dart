@@ -7,7 +7,8 @@ final class StepsHealthDataType extends HealthDataType<StepsRecord, Numeric>
     implements
         ReadableHealthDataType<StepsRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<StepsRecord, Numeric> {
+        SumAggregatableHealthDataType<StepsRecord, Numeric>,
+        DeletableHealthDataType<StepsRecord> {
   @internal
   const StepsHealthDataType();
 
@@ -74,6 +75,28 @@ final class StepsHealthDataType extends HealthDataType<StepsRecord, Numeric>
     return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  DeleteRecordsByIdsRequest<StepsRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<StepsRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
       startTime: startTime,
       endTime: endTime,
     );

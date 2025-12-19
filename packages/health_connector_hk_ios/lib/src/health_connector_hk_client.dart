@@ -6,7 +6,6 @@ import 'package:health_connector_core/health_connector_core.dart'
         HealthConnectorConfig,
         HealthConnectorException,
         HealthConnectorPlatformClient,
-        HealthDataType,
         HealthPlatformFeaturePermission,
         HealthPlatformStatus,
         HealthRecord,
@@ -18,25 +17,20 @@ import 'package:health_connector_core/health_connector_core.dart'
         ReadRecordRequest,
         ReadRecordsRequest,
         ReadRecordsResponse,
-        formatTimeRange,
         PermissionListExtension,
         sinceV1_0_0,
         internalUse,
-        HealthConnectorErrorCode;
+        HealthConnectorErrorCode,
+        DeleteRecordsRequest;
 import 'package:health_connector_hk_ios/src/mappers/config_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_connector_error_code_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_data_type_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/request_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/response_mappers.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
-    show
-        DeleteRecordsByIdsRequestDto,
-        DeleteRecordsByTimeRangeRequestDto,
-        HealthConnectorHKIOSApi,
-        HealthPlatformStatusDto;
+    show HealthConnectorHKIOSApi, HealthPlatformStatusDto;
 import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart' show immutable;
 
@@ -501,32 +495,18 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   }
 
   @override
-  Future<void> deleteRecords<R extends HealthRecord>({
-    required HealthDataType<R, MeasurementUnit> dataType,
-    required DateTime startTime,
-    required DateTime endTime,
-  }) async {
-    final request = {
-      'dataType': dataType,
-      'timeRange': formatTimeRange(startTime: startTime, endTime: endTime),
-    };
-
+  Future<void> deleteRecords<R extends HealthRecord>(
+    DeleteRecordsRequest<R> request,
+  ) async {
     HealthConnectorLogger.debug(
       tag,
       operation: 'deleteRecords',
-
       message: 'Deleting HealthKit records by time range',
       context: {'request': request},
     );
 
     try {
-      final requestDto = DeleteRecordsByTimeRangeRequestDto(
-        dataType: dataType.toDto(),
-        startTime: startTime.millisecondsSinceEpoch,
-        endTime: endTime.millisecondsSinceEpoch,
-      );
-
-      await _platformClient.deleteRecordsByTimeRange(requestDto);
+      await _platformClient.deleteRecords(request.toDto());
 
       HealthConnectorLogger.info(
         tag,
@@ -541,70 +521,6 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         operation: 'deleteRecords',
 
         message: 'Failed to delete HealthKit records',
-        context: {'request': request},
-        exception: e,
-        stackTrace: st,
-      );
-
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
-        'Failed to delete records by $request: ${e.message ?? 'Unknown error'}',
-        cause: e,
-        stackTrace: st,
-      );
-    }
-  }
-
-  @override
-  Future<void> deleteRecordsByIds<R extends HealthRecord>({
-    required HealthDataType<R, MeasurementUnit> dataType,
-    required List<HealthRecordId> recordIds,
-  }) async {
-    final request = {
-      'dataType': dataType,
-      'recordIds': recordIds,
-    };
-
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'deleteRecordsByIds',
-
-      message: 'Deleting HealthKit records by IDs',
-      context: {'request': request},
-    );
-
-    if (recordIds.isEmpty) {
-      HealthConnectorLogger.warning(
-        tag,
-        operation: 'deleteRecordsByIds',
-
-        message: 'No records to delete (empty IDs list)',
-      );
-
-      return;
-    }
-
-    try {
-      final requestDto = DeleteRecordsByIdsRequestDto(
-        dataType: dataType.toDto(),
-        recordIds: recordIds.map((id) => id.toDto()).toList(),
-      );
-
-      await _platformClient.deleteRecordsByIds(requestDto);
-
-      HealthConnectorLogger.info(
-        tag,
-        operation: 'deleteRecordsByIds',
-
-        message: 'HealthKit records deleted successfully',
-        context: {'request': request},
-      );
-    } on PlatformException catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'deleteRecordsByIds',
-
-        message: 'Failed to delete HealthKit records by IDs',
         context: {'request': request},
         exception: e,
         stackTrace: st,

@@ -497,7 +497,7 @@ public enum AggregationMetricDto: Int {
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 /// This protocol should not be extended by any user class outside of the generated file.
-protocol MeasurementUnitDto {
+public protocol MeasurementUnitDto {
 
 }
 
@@ -1027,7 +1027,7 @@ public struct HealthDataPermissionDto: Hashable {
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 /// This protocol should not be extended by any user class outside of the generated file.
-protocol HealthRecordDto {
+public protocol HealthRecordDto {
 
 }
 
@@ -4251,10 +4251,18 @@ public struct AggregateResponseDto: Hashable {
   }
 }
 
+/// Request to delete records.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+/// This protocol should not be extended by any user class outside of the generated file.
+public protocol DeleteRecordsRequestDto {
+
+}
+
 /// Request to delete specific records by their IDs.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-public struct DeleteRecordsByIdsRequestDto: Hashable {
+public struct DeleteRecordsByIdsRequestDto: DeleteRecordsRequestDto {
   /// The type of health data to delete.
   var dataType: HealthDataTypeDto
   /// List of unique identifiers for records to delete.
@@ -4287,7 +4295,7 @@ public struct DeleteRecordsByIdsRequestDto: Hashable {
 /// Request to delete records by time range.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-public struct DeleteRecordsByTimeRangeRequestDto: Hashable {
+public struct DeleteRecordsByTimeRangeRequestDto: DeleteRecordsRequestDto {
   /// The type of health data to delete.
   var dataType: HealthDataTypeDto
   /// End of time range in milliseconds since epoch (UTC), exclusive.
@@ -5302,8 +5310,7 @@ protocol HealthConnectorHKIOSApi {
   /// to properly configure the native platform code, including logger settings.
   func initialize(config: HealthConnectorConfigDto, completion: @escaping (Result<Void, Error>) -> Void)
   func aggregate(request: AggregateRequestDto, completion: @escaping (Result<AggregateResponseDto, Error>) -> Void)
-  func deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto, completion: @escaping (Result<Void, Error>) -> Void)
-  func deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto, completion: @escaping (Result<Void, Error>) -> Void)
+  func deleteRecords(request: DeleteRecordsRequestDto, completion: @escaping (Result<Void, Error>) -> Void)
   func getHealthPlatformStatus(completion: @escaping (Result<HealthPlatformStatusDto, Error>) -> Void)
   func requestPermissions(request: PermissionsRequestDto, completion: @escaping (Result<PermissionsRequestResponseDto, Error>) -> Void)
   func readRecord(request: ReadRecordRequestDto, completion: @escaping (Result<ReadRecordResponseDto?, Error>) -> Void)
@@ -5356,12 +5363,12 @@ class HealthConnectorHKIOSApiSetup {
     } else {
       aggregateChannel.setMessageHandler(nil)
     }
-    let deleteRecordsByIdsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.deleteRecordsByIds\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    let deleteRecordsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.deleteRecords\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
-      deleteRecordsByIdsChannel.setMessageHandler { message, reply in
+      deleteRecordsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
-        let requestArg = args[0] as! DeleteRecordsByIdsRequestDto
-        api.deleteRecordsByIds(request: requestArg) { result in
+        let requestArg = args[0] as! DeleteRecordsRequestDto
+        api.deleteRecords(request: requestArg) { result in
           switch result {
           case .success:
             reply(wrapResult(nil))
@@ -5371,24 +5378,7 @@ class HealthConnectorHKIOSApiSetup {
         }
       }
     } else {
-      deleteRecordsByIdsChannel.setMessageHandler(nil)
-    }
-    let deleteRecordsByTimeRangeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.deleteRecordsByTimeRange\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      deleteRecordsByTimeRangeChannel.setMessageHandler { message, reply in
-        let args = message as! [Any?]
-        let requestArg = args[0] as! DeleteRecordsByTimeRangeRequestDto
-        api.deleteRecordsByTimeRange(request: requestArg) { result in
-          switch result {
-          case .success:
-            reply(wrapResult(nil))
-          case .failure(let error):
-            reply(wrapError(error))
-          }
-        }
-      }
-    } else {
-      deleteRecordsByTimeRangeChannel.setMessageHandler(nil)
+      deleteRecordsChannel.setMessageHandler(nil)
     }
     let getHealthPlatformStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.getHealthPlatformStatus\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {

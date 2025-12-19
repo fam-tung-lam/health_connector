@@ -177,33 +177,25 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         }
     }
 
-    /// Deletes health records by their IDs.
-    ///
-    /// Uses query-then-delete pattern since HealthKit doesn't support direct deletion by UUID.
+    /// Deletes health records based on the request type.
     ///
     /// - Parameters:
-    ///   - request: Contains the data type and list of record IDs to delete
+    ///   - request: The deletion request (either by IDs or time range)
     ///   - completion: Called with a `Result` indicating success or failure
-    public func deleteRecordsByIds(
-        request: DeleteRecordsByIdsRequestDto,
+    func deleteRecords(
+        request: DeleteRecordsRequestDto,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        process(operation: "deleteRecordsByIds", completion: completion) {
-            try await self.healthClient.deleteRecordsByIds(request: request)
-        }
-    }
-
-    /// Deletes health records within a time range.
-    ///
-    /// - Parameters:
-    ///   - request: Contains the data type, start time, and end time
-    ///   - completion: Called with a `Result` indicating success or failure
-    public func deleteRecordsByTimeRange(
-        request: DeleteRecordsByTimeRangeRequestDto,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-        process(operation: "deleteRecordsByTimeRange", completion: completion) {
-            try await self.healthClient.deleteRecordsByTimeRange(request: request)
+        process(operation: "deleteRecords", completion: completion) {
+            if let idsRequest = request as? DeleteRecordsByIdsRequestDto {
+                try await self.healthClient.deleteRecordsByIds(request: idsRequest)
+            } else if let timeRangeRequest = request as? DeleteRecordsByTimeRangeRequestDto {
+                try await self.healthClient.deleteRecordsByTimeRange(request: timeRangeRequest)
+            } else {
+                throw HealthConnectorError.invalidArgument(
+                    message: "Unknown delete request type: \(type(of: request))"
+                )
+            }
         }
     }
 

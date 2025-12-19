@@ -106,10 +106,9 @@ final class ReadHealthRecordsChangeNotifier extends ChangeNotifier {
     });
 
     try {
-      await _healthConnector.deleteRecordsByIds(
-        dataType: dataType,
-        recordIds: [record.id],
-      );
+      final request = HealthDataType.steps.deleteByIds([record.id]);
+
+      await _healthConnector.deleteRecords(request);
 
       notify(() {
         final updatedHealthRecords = _healthRecords

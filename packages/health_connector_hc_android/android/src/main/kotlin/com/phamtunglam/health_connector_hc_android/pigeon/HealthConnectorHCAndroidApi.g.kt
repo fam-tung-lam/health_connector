@@ -2832,6 +2832,13 @@ data class AggregateResponseDto (
 }
 
 /**
+ * Request to delete records.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ * This class should not be extended by any user class outside of the generated file.
+ */
+sealed class DeleteRecordsRequestDto 
+/**
  * Request to delete specific records by their IDs.
  *
  * Generated class from Pigeon that represents data sent in messages.
@@ -2841,7 +2848,7 @@ data class DeleteRecordsByIdsRequestDto (
   val dataType: HealthDataTypeDto,
   /** List of unique identifiers for records to delete. */
   val recordIds: List<String>
-)
+) : DeleteRecordsRequestDto()
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): DeleteRecordsByIdsRequestDto {
@@ -2880,7 +2887,7 @@ data class DeleteRecordsByTimeRangeRequestDto (
   val endTime: Long,
   /** Start of time range in milliseconds since epoch (UTC), inclusive. */
   val startTime: Long
-)
+) : DeleteRecordsRequestDto()
  {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): DeleteRecordsByTimeRangeRequestDto {
@@ -4117,8 +4124,7 @@ interface HealthConnectorHCAndroidApi {
    */
   fun initialize(config: HealthConnectorConfigDto, callback: (Result<Unit>) -> Unit)
   fun aggregate(request: AggregateRequestDto, callback: (Result<AggregateResponseDto>) -> Unit)
-  fun deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto, callback: (Result<Unit>) -> Unit)
-  fun deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto, callback: (Result<Unit>) -> Unit)
+  fun deleteRecords(request: DeleteRecordsRequestDto, callback: (Result<Unit>) -> Unit)
   fun getFeatureStatus(feature: HealthPlatformFeatureDto, callback: (Result<HealthPlatformFeatureStatusDto>) -> Unit)
   fun getHealthPlatformStatus(callback: (Result<HealthPlatformStatusDto>) -> Unit)
   fun requestPermissions(request: PermissionRequestsDto, callback: (Result<PermissionRequestsResponseDto>) -> Unit)
@@ -4180,31 +4186,12 @@ interface HealthConnectorHCAndroidApi {
         }
       }
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.deleteRecordsByIds$separatedMessageChannelSuffix", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.deleteRecords$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val requestArg = args[0] as DeleteRecordsByIdsRequestDto
-            api.deleteRecordsByIds(requestArg) { result: Result<Unit> ->
-              val error = result.exceptionOrNull()
-              if (error != null) {
-                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
-              } else {
-                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapResult(null))
-              }
-            }
-          }
-        } else {
-          channel.setMessageHandler(null)
-        }
-      }
-      run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.deleteRecordsByTimeRange$separatedMessageChannelSuffix", codec)
-        if (api != null) {
-          channel.setMessageHandler { message, reply ->
-            val args = message as List<Any?>
-            val requestArg = args[0] as DeleteRecordsByTimeRangeRequestDto
-            api.deleteRecordsByTimeRange(requestArg) { result: Result<Unit> ->
+            val requestArg = args[0] as DeleteRecordsRequestDto
+            api.deleteRecords(requestArg) { result: Result<Unit> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))

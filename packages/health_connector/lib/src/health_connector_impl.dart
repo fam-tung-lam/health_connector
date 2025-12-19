@@ -3,11 +3,13 @@ import 'package:health_connector_core/health_connector_core.dart'
     show
         AggregateRequest,
         AggregateResponse,
+        DeleteRecordsRequest,
+        DeleteRecordsByIdsRequest,
+        DeleteRecordsInTimeRangeRequest,
         HealthConnectorConfig,
         HealthConnectorException,
         HealthConnectorErrorCode,
         HealthConnectorPlatformClient,
-        HealthDataType,
         HealthPlatform,
         HealthPlatformFeature,
         HealthPlatformFeatureStatus,
@@ -467,17 +469,9 @@ final class HealthConnectorImpl implements HealthConnector {
   }
 
   @override
-  Future<void> deleteRecords<R extends HealthRecord>({
-    required HealthDataType<R, MeasurementUnit> dataType,
-    required DateTime startTime,
-    required DateTime endTime,
-  }) async {
-    final request = {
-      'dataType': dataType,
-      'startTime': startTime,
-      'endTime': endTime,
-    };
-
+  Future<void> deleteRecords<R extends HealthRecord>(
+    DeleteRecordsRequest<R> request,
+  ) async {
     HealthConnectorLogger.debug(
       tag,
       operation: 'deleteRecords',
@@ -486,13 +480,20 @@ final class HealthConnectorImpl implements HealthConnector {
     );
 
     try {
-      requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+      switch (request) {
+        case DeleteRecordsInTimeRangeRequest(
+          :final startTime,
+          :final endTime,
+        ):
+          requireEndTimeAfterStartTime(
+            startTime: startTime,
+            endTime: endTime,
+          );
+        case DeleteRecordsByIdsRequest<R> _:
+          break;
+      }
 
-      await _client.deleteRecords(
-        dataType: dataType,
-        startTime: startTime,
-        endTime: endTime,
-      );
+      await _client.deleteRecords(request);
 
       HealthConnectorLogger.info(
         tag,
@@ -505,69 +506,6 @@ final class HealthConnectorImpl implements HealthConnector {
         tag,
         operation: 'deleteRecords',
         message: 'Failed to delete health records',
-        context: {'request': request},
-        exception: e,
-        stackTrace: st,
-      );
-
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> deleteRecordsByIds<R extends HealthRecord>({
-    required HealthDataType<R, MeasurementUnit> dataType,
-    required List<HealthRecordId> recordIds,
-  }) async {
-    final request = {
-      'dataType': dataType,
-      'recordIds': recordIds,
-    };
-
-    HealthConnectorLogger.debug(
-      tag,
-      operation: 'deleteRecordsByIds',
-      message: 'Deleting health records by IDs',
-      context: {'request': request},
-    );
-
-    try {
-      if (recordIds.any((id) => id == HealthRecordId.none)) {
-        throw ArgumentError(
-          'All record IDs must not be `HealthRecordId.none`.',
-        );
-      }
-
-      await _client.deleteRecordsByIds(
-        dataType: dataType,
-        recordIds: recordIds,
-      );
-
-      HealthConnectorLogger.info(
-        tag,
-        operation: 'deleteRecordsByIds',
-        message: 'Health records deleted successfully',
-        context: {'request': request},
-      );
-    } on ArgumentError catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'deleteRecordsByIds',
-        message: 'Validation failed',
-        context: {'request': request},
-        exception: e,
-        stackTrace: st,
-      );
-
-      throw HealthConnectorException(
-        HealthConnectorErrorCode.invalidArgument,
-        (e.message as String?) ?? e.toString(),
-      );
-    } on HealthConnectorException catch (e, st) {
-      HealthConnectorLogger.error(
-        tag,
-        operation: 'deleteRecordsByIds',
-        message: 'Failed to delete health records by IDs',
         context: {'request': request},
         exception: e,
         stackTrace: st,

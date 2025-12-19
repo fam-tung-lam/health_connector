@@ -6,13 +6,13 @@ import 'package:health_connector_core/health_connector_core.dart'
     show
         AggregateRequest,
         AggregateResponse,
+        DeleteRecordsRequest,
         HealthConnectorConfig,
         HealthPlatformFeaturePermission,
         PermissionStatus,
         HealthDataPermission,
         HealthConnectorException,
         HealthConnectorErrorCode,
-        HealthDataType,
         HealthPlatform,
         HealthPlatformFeature,
         HealthPlatformFeatureStatus,
@@ -26,7 +26,10 @@ import 'package:health_connector_core/health_connector_core.dart'
         ReadRecordRequest,
         ReadRecordsRequest,
         ReadRecordsResponse,
-        supportedOnHealthConnect;
+        supportedOnHealthConnect,
+        sinceV2_0_0,
+        DeleteRecordsInTimeRangeRequest,
+        DeleteRecordsByIdsRequest;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
 import 'package:health_connector_hk_ios/health_connector_hk_ios.dart'
@@ -593,11 +596,11 @@ abstract interface class HealthConnector {
     U extends MeasurementUnit
   >(AggregateRequest<R, U> request);
 
-  /// Deletes health records within a time range.
+  /// Deletes health records based on the provided request.
   ///
-  /// Removes all records of the specified [dataType] that fall within the
-  /// time range from [startTime] to [endTime] (inclusive). This operation
-  /// is permanent and cannot be undone.
+  /// This unified deletion method accepts either [DeleteRecordsByIdsRequest]
+  /// or [DeleteRecordsInTimeRangeRequest] to delete specific records or
+  /// records within a time range.
   ///
   /// ## Data Ownership Restriction
   ///
@@ -607,84 +610,52 @@ abstract interface class HealthConnector {
   ///
   /// ## Parameters
   ///
-  /// - [dataType]: The type of health records to delete
-  /// - [startTime]: The start of the time range (inclusive)
-  /// - [endTime]: The end of the time range (inclusive)
+  /// - [request]: A deletion request
+  ///
+  /// ## Returns
+  ///
+  /// A [Future] that completes when the deletion operation finishes.
+  /// This operation is permanent and cannot be undone.
   ///
   /// ## Throws
-  /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.invalidArgument] if
-  ///   [endTime] before [startTime]
+  ///
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if delete/write permission has not been granted
+  /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.invalidArgument] if
+  ///   the request contains invalid data (e.g., empty record IDs list,
+  ///   invalid time range)
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if attempting to delete records not created by this app
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   if an unexpected error occurs
   ///
-  /// ## Example
+  /// ## Example - Delete by IDs
   ///
   /// ```dart
-  /// // Delete all step records from the last 7 days
-  /// await connector.deleteRecords(
-  ///   dataType: HealthDataType.steps,
+  /// // Create deletion request using the capability interface
+  /// final request = HealthDataType.steps.deleteByIds([id1, id2, id3]);
+  ///
+  /// // Delete the records
+  /// await connector.deleteRecords(request);
+  /// ```
+  ///
+  /// ## Example - Delete by Time Range
+  ///
+  /// ```dart
+  /// // Create deletion request for a time range
+  /// final request = HealthDataType.steps.deleteInTimeRange(
   ///   startTime: DateTime.now().subtract(Duration(days: 7)),
   ///   endTime: DateTime.now(),
   /// );
+  ///
+  /// // Delete all records in the time range
+  /// await connector.deleteRecords(request);
   /// ```
-  Future<void> deleteRecords<R extends HealthRecord>({
-    required HealthDataType<R, MeasurementUnit> dataType,
-    required DateTime startTime,
-    required DateTime endTime,
-  });
-
-  /// Deletes specific health records by their IDs.
-  ///
-  /// Removes the health records identified by [recordIds] from the platform's
-  /// health data store. This operation is permanent and cannot be undone.
-  ///
-  /// ## Data Ownership Restriction
-  ///
-  /// Apps can only delete health records that they created.
-  /// Attempting to delete records created by other apps, manually entered by
-  /// users, or system-generated will fail with a security error.
-  ///
-  /// ## Parameters
-  ///
-  /// - [dataType]: The type of health records to delete
-  /// - [recordIds]: List of record IDs to delete
-  ///
-  /// ## Throws
-  ///
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
-  ///   if delete/write permission has not been granted
-  /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.invalidArgument] if
-  ///   any record ID is [HealthRecordId.none]
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
-  ///   if attempting to delete records not created by this app
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
-  ///   if an unexpected error occurs
-  ///
-  /// ## Example
-  ///
-  /// ```dart
-  /// // Read records and delete specific ones
-  /// final response = await connector.readRecords(request);
-  /// final idsToDelete = response.records
-  ///     .where((record) => shouldDelete(record))
-  ///     .map((record) => record.id)
-  ///     .toList();
-  ///
-  /// await connector.deleteRecordsByIds(
-  ///   dataType: HealthDataType.steps,
-  ///   recordIds: idsToDelete,
-  /// );
-  /// ```
-  Future<void> deleteRecordsByIds<R extends HealthRecord>({
-    required HealthDataType<R, MeasurementUnit> dataType,
-    required List<HealthRecordId> recordIds,
-  });
+  @sinceV2_0_0
+  Future<void> deleteRecords<R extends HealthRecord>(
+    DeleteRecordsRequest<R> request,
+  );
 
   /// Updates an existing health record.
   ///
@@ -795,11 +766,12 @@ abstract interface class HealthConnector {
   ///
   /// ## See Also
   ///
-  /// - [deleteRecordsByIds] for deleting specific records
+  /// - [deleteRecords] for deleting specific records
   /// - [writeRecord] for creating new records
   @supportedOnHealthConnect
   Future<void> updateRecord<R extends HealthRecord>(R record);
 
+  @sinceV2_0_0
   @supportedOnHealthConnect
   Future<void> updateRecords<R extends HealthRecord>(List<R> records);
 }

@@ -5,6 +5,7 @@ Script to add 'public' keyword to Swift Pigeon generated code.
 This script adds the 'public' keyword to:
 - All enum declarations
 - All struct declarations
+- All protocol declarations
 - All struct 'static func ==' methods
 - All struct 'func hash' methods
 """
@@ -16,7 +17,7 @@ from pathlib import Path
 
 def add_public_keyword_to_swift_code(content: str) -> str:
     """
-    Add 'public' keyword to enums, structs, and their methods.
+    Add 'public' keyword to enums, structs, protocols, and their methods.
 
     Args:
         content: The Swift file content
@@ -37,6 +38,12 @@ def add_public_keyword_to_swift_code(content: str) -> str:
         # Match: struct SomeName: Protocol {
         elif re.match(r'^struct \w+', line):
             line = 'public ' + line
+
+        # Add public to protocol declarations (except HealthConnectorHKIOSApi)
+        # Match: protocol SomeName {
+        elif re.match(r'^protocol \w+', line):
+            if not re.match(r'^protocol HealthConnectorHKIOSApi\b', line):
+                line = 'public ' + line
 
         # Add public to static func == in structs
         # Match:   static func == (lhs: Type, rhs: Type) -> Bool {

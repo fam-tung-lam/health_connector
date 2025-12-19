@@ -3454,8 +3454,11 @@ class AggregateResponseDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
+/// Request to delete records.
+sealed class DeleteRecordsRequestDto {}
+
 /// Request to delete specific records by their IDs.
-class DeleteRecordsByIdsRequestDto {
+class DeleteRecordsByIdsRequestDto extends DeleteRecordsRequestDto {
   DeleteRecordsByIdsRequestDto({
     required this.dataType,
     required this.recordIds,
@@ -3505,7 +3508,7 @@ class DeleteRecordsByIdsRequestDto {
 }
 
 /// Request to delete records by time range.
-class DeleteRecordsByTimeRangeRequestDto {
+class DeleteRecordsByTimeRangeRequestDto extends DeleteRecordsRequestDto {
   DeleteRecordsByTimeRangeRequestDto({
     required this.dataType,
     required this.endTime,
@@ -4660,38 +4663,9 @@ class HealthConnectorHCAndroidApi {
     }
   }
 
-  Future<void> deleteRecordsByIds(DeleteRecordsByIdsRequestDto request) async {
+  Future<void> deleteRecords(DeleteRecordsRequestDto request) async {
     final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.deleteRecordsByIds$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
-    );
-    final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_sendFuture as List<Object?>?;
-    if (pigeonVar_replyList == null) {
-      throw _createConnectionError(pigeonVar_channelName);
-    } else if (pigeonVar_replyList.length > 1) {
-      throw PlatformException(
-        code: pigeonVar_replyList[0]! as String,
-        message: pigeonVar_replyList[1] as String?,
-        details: pigeonVar_replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
-
-  Future<void> deleteRecordsByTimeRange(
-    DeleteRecordsByTimeRangeRequestDto request,
-  ) async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.deleteRecordsByTimeRange$pigeonVar_messageChannelSuffix';
+        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.deleteRecords$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
           pigeonVar_channelName,

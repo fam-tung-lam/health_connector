@@ -216,49 +216,7 @@ abstract interface class HealthConnectorPlatformClient {
     AggregateRequest<R, U> request,
   );
 
-  /// Deletes records within a time range via platform client.
-  ///
-  /// Removes all health records of the specified type that fall within the
-  /// given time range. This operation is permanent and cannot be undone.
-  ///
-  /// ## Parameters
-  ///
-  /// - [dataType]: The type of health records to delete
-  /// - [startTime]: Inclusive start of the time range
-  /// - [endTime]: Exclusive end of the time range
-  ///
-  /// ## Throws
-  ///
-  /// - [HealthConnectorException] if:
-  ///   - The platform request fails
-  ///   - Required permissions are not granted
-  ///   - The time range is invalid
-  Future<void> deleteRecords<R extends HealthRecord>({
-    required HealthDataType<R, MeasurementUnit> dataType,
-    required DateTime startTime,
-    required DateTime endTime,
-  });
-
-  /// Deletes specific records by IDs via platform client.
-  ///
-  /// Removes specific health records identified by their IDs. This operation
-  /// is permanent and cannot be undone. Only records that were created by
-  /// this app can typically be deleted.
-  ///
-  /// ## Parameters
-  ///
-  /// - [dataType]: The type of health records to delete
-  /// - [recordIds]: The list of record IDs to delete
-  ///
-  /// ## Throws
-  ///
-  /// - [HealthConnectorException] if:
-  ///   - The platform request fails
-  ///   - Required permissions are not granted
-  ///   - One or more record IDs are invalid or don't exist
-  ///   - The app doesn't have permission to delete the specified records
-  Future<void> deleteRecordsByIds<R extends HealthRecord>({
-    required HealthDataType<R, MeasurementUnit> dataType,
-    required List<HealthRecordId> recordIds,
-  });
+  Future<void> deleteRecords<R extends HealthRecord>(
+    DeleteRecordsRequest<R> request,
+  );
 }

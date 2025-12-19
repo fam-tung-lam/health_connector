@@ -13,6 +13,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorConfigDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
@@ -829,30 +830,32 @@ class HealthConnectorHCAndroidPlugin :
     }
 
     /**
-     * Deletes specific health records by their IDs.
+     * Deletes health records based on the request type.
      *
-     * @param request Contains the data type and list of record IDs to delete
+     * @param request The deletion request (either by IDs or time range)
      * @param callback Called with a [Result] indicating success or failure
      */
-    @Throws(HealthConnectorErrorDto::class)
-    override fun deleteRecordsByIds(
-        request: DeleteRecordsByIdsRequestDto,
+    override fun deleteRecords(
+        request: DeleteRecordsRequestDto,
         callback: (Result<Unit>) -> Unit,
     ) {
         scope.launch {
             try {
-                this@HealthConnectorHCAndroidPlugin.client.deleteRecordsByIds(request)
+                when (request) {
+                    is DeleteRecordsByIdsRequestDto -> client.deleteRecordsByIds(request)
+                    is DeleteRecordsByTimeRangeRequestDto -> client.deleteRecordsByTimeRange(
+                        request,
+                    )
+                }
 
                 complete(callback, Result.success(Unit))
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "delete_records_by_ids",
-
-                    message = "Failed to delete Health Connect records by IDs",
+                    operation = "delete_records",
+                    message = "Failed to delete Health Connect records",
                     context = mapOf(
-                        "data_type" to request.dataType.toString(),
-                        "record_ids_count" to request.recordIds.size,
+                        "request_type" to request.javaClass.simpleName,
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),
@@ -865,64 +868,9 @@ class HealthConnectorHCAndroidPlugin :
             } catch (e: Exception) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "delete_records_by_ids",
+                    operation = "delete_records",
                     message = "Unexpected error escaped from handler",
-                    context = mapOf("request" to request),
-                    exception = e,
-                )
-                complete(
-                    callback,
-                    Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
-                    ),
-                )
-            }
-        }
-    }
-
-    /**
-     * Deletes all records of a data type within a time range.
-     *
-     * @param request Contains the data type and time range (start and end timestamps) for deletion
-     * @param callback Called with a [Result] indicating success or failure
-     */
-    @Throws(HealthConnectorErrorDto::class)
-    override fun deleteRecordsByTimeRange(
-        request: DeleteRecordsByTimeRangeRequestDto,
-        callback: (Result<Unit>) -> Unit,
-    ) {
-        scope.launch {
-            try {
-                client.deleteRecordsByTimeRange(request)
-
-                complete(callback, Result.success(Unit))
-            } catch (e: HealthConnectorErrorDto) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "delete_records_by_time_range",
-
-                    message = "Failed to delete Health Connect records by time range",
-                    context = mapOf(
-                        "data_type" to request.dataType.toString(),
-                        "start_time" to request.startTime,
-                        "end_time" to request.endTime,
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                complete(callback, Result.failure(e))
-            } catch (e: kotlinx.coroutines.CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "delete_records_by_time_range",
-                    message = "Unexpected error escaped from handler",
-                    context = mapOf("request" to request),
+                    context = mapOf("request" to request.toString()),
                     exception = e,
                 )
                 complete(

@@ -100,6 +100,8 @@ import 'package:health_connector_core/src/models/requests/aggregate_request.dart
         CommonAggregateRequest;
 import 'package:health_connector_core/src/models/requests/aggregation_metric.dart'
     show AggregationMetric;
+import 'package:health_connector_core/src/models/requests/delete_records_request.dart'
+    show DeleteRecordsByIdsRequest, DeleteRecordsInTimeRangeRequest;
 import 'package:health_connector_core/src/models/requests/read_record_request.dart'
     show ReadRecordRequest;
 import 'package:health_connector_core/src/models/requests/read_records_request.dart'

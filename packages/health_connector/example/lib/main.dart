@@ -747,12 +747,12 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
 
     try {
       final now = DateTime.now();
-
-      await _connector!.deleteRecords(
-        dataType: HealthDataType.steps,
+      final request = HealthDataType.steps.deleteInTimeRange(
         startTime: now.subtract(const Duration(hours: 1)),
         endTime: now,
       );
+
+      await _connector!.deleteRecords(request);
 
       if (!mounted) {
         return;
@@ -774,7 +774,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
     }
   }
 
-  /// Demonstrates [HealthConnector.deleteRecordsByIds] method.
+  /// Demonstrates [HealthConnector.deleteRecords] method.
   ///
   /// Deletes specific health records by their IDs. First, we read some
   /// records to get their IDs, then delete those specific records.
@@ -809,11 +809,9 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
 
       // Get IDs of the records to delete
       final recordIds = response.records.map((r) => r.id).toList();
+      final request = HealthDataType.steps.deleteByIds(recordIds);
 
-      await _connector!.deleteRecordsByIds(
-        dataType: HealthDataType.steps,
-        recordIds: recordIds,
-      );
+      await _connector!.deleteRecords(request);
 
       if (!mounted) {
         return;

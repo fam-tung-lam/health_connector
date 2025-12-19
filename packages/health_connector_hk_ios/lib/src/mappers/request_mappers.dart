@@ -1,11 +1,15 @@
 import 'package:health_connector_core/health_connector_core.dart'
     show
         AggregateRequest,
+        DeleteRecordsRequest,
+        DeleteRecordsByIdsRequest,
+        DeleteRecordsInTimeRangeRequest,
         HealthRecord,
         MeasurementUnit,
         ReadRecordRequest,
         ReadRecordsRequest,
-        sinceV1_0_0;
+        sinceV1_0_0,
+        sinceV2_0_0;
 import 'package:health_connector_hk_ios/src/mappers/'
     'aggregation_metric_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mappers.dart';
@@ -13,11 +17,14 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show
+        AggregateRequestDto,
+        DeleteRecordsByIdsRequestDto,
+        DeleteRecordsByTimeRangeRequestDto,
         ReadRecordRequestDto,
         ReadRecordsRequestDto,
-        AggregateRequestDto,
         WriteRecordRequestDto,
-        WriteRecordsRequestDto;
+        WriteRecordsRequestDto,
+        DeleteRecordsRequestDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [ReadRecordRequest] to [ReadRecordRequestDto].
@@ -87,5 +94,31 @@ extension HealthRecordListToWriteRequestDto on List<HealthRecord> {
     return WriteRecordsRequestDto(
       records: map((record) => record.toDto()).toList(),
     );
+  }
+}
+
+/// Converts [DeleteRecordsRequest] to the appropriate delete request DTO.
+@sinceV2_0_0
+@internal
+extension DeleteRecordsRequestDtoMapper<R extends HealthRecord>
+    on DeleteRecordsRequest<R> {
+  DeleteRecordsRequestDto toDto() {
+    return switch (this) {
+      DeleteRecordsByIdsRequest(:final dataType, :final recordIds) =>
+        DeleteRecordsByIdsRequestDto(
+          dataType: dataType.toDto(),
+          recordIds: recordIds.map((id) => id.toDto()).toList(),
+        ),
+      DeleteRecordsInTimeRangeRequest(
+        :final dataType,
+        :final startTime,
+        :final endTime,
+      ) =>
+        DeleteRecordsByTimeRangeRequestDto(
+          dataType: dataType.toDto(),
+          startTime: startTime.millisecondsSinceEpoch,
+          endTime: endTime.millisecondsSinceEpoch,
+        ),
+    };
   }
 }

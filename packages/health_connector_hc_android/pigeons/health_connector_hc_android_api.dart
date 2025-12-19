@@ -1537,8 +1537,11 @@ class AggregateResponseDto {
   final MeasurementUnitDto value;
 }
 
+/// Request to delete records.
+sealed class DeleteRecordsRequestDto {}
+
 /// Request to delete specific records by their IDs.
-class DeleteRecordsByIdsRequestDto {
+class DeleteRecordsByIdsRequestDto extends DeleteRecordsRequestDto {
   DeleteRecordsByIdsRequestDto({
     required this.dataType,
     required this.recordIds,
@@ -1552,7 +1555,7 @@ class DeleteRecordsByIdsRequestDto {
 }
 
 /// Request to delete records by time range.
-class DeleteRecordsByTimeRangeRequestDto {
+class DeleteRecordsByTimeRangeRequestDto extends DeleteRecordsRequestDto {
   DeleteRecordsByTimeRangeRequestDto({
     required this.dataType,
     required this.startTime,
@@ -1709,10 +1712,7 @@ abstract class HealthConnectorHCAndroidApi {
   AggregateResponseDto aggregate(AggregateRequestDto request);
 
   @async
-  void deleteRecordsByIds(DeleteRecordsByIdsRequestDto request);
-
-  @async
-  void deleteRecordsByTimeRange(DeleteRecordsByTimeRangeRequestDto request);
+  void deleteRecords(DeleteRecordsRequestDto request);
 
   @async
   HealthPlatformFeatureStatusDto getFeatureStatus(
