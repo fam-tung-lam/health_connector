@@ -27,7 +27,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordResponseDto
+import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsRequestDto
@@ -731,18 +731,15 @@ class HealthConnectorHCAndroidPlugin :
      * Updates a single health record.
      *
      * @param request Contains the data type and the typed record to update
-     * @param callback Called with a [Result] containing the update record response
+     * @param callback Called with a [Result] indicating success or failure
      */
     @Throws(HealthConnectorErrorDto::class)
-    override fun updateRecord(
-        request: UpdateRecordRequestDto,
-        callback: (Result<UpdateRecordResponseDto>) -> Unit,
-    ) {
+    override fun updateRecord(request: UpdateRecordRequestDto, callback: (Result<Unit>) -> Unit) {
         scope.launch {
             try {
-                val result = this@HealthConnectorHCAndroidPlugin.client.updateRecord(request)
+                this@HealthConnectorHCAndroidPlugin.client.updateRecord(request)
 
-                complete(callback, Result.success(result))
+                complete(callback, Result.success(Unit))
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -763,6 +760,58 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "update_record",
+                    message = "Unexpected error escaped from handler",
+                    context = mapOf("request" to request),
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
+            }
+        }
+    }
+
+    /**
+     * Updates multiple health records atomically.
+     *
+     * @param request Contains the list of typed records to update
+     * @param callback Called with a [Result] indicating success or failure
+     */
+    @Throws(HealthConnectorErrorDto::class)
+    override fun updateRecords(
+        request: UpdateRecordsRequestDto,
+        callback: (Result<Unit>) -> Unit,
+    ) {
+        scope.launch {
+            try {
+                this@HealthConnectorHCAndroidPlugin.client.updateRecords(request)
+
+                complete(callback, Result.success(Unit))
+            } catch (e: HealthConnectorErrorDto) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "update_records",
+                    message = "Failed to update Health Connect records",
+                    context = mapOf(
+                        "records_count" to request.records.size,
+                        "error_code" to e.code,
+                        "error_message" to (e.message ?: "Unknown error"),
+                    ),
+                    exception = e,
+                )
+
+                complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "update_records",
                     message = "Unexpected error escaped from handler",
                     context = mapOf("request" to request),
                     exception = e,

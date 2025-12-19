@@ -578,10 +578,10 @@ final class HealthConnectorImpl implements HealthConnector {
   }
 
   @override
-  Future<HealthRecordId> updateRecord<R extends HealthRecord>(R record) async {
+  Future<void> updateRecord<R extends HealthRecord>(R record) async {
     HealthConnectorLogger.debug(
       tag,
-      operation: 'updateRecord',
+      operation: 'update_record',
       message: 'Updating health record',
       context: {'record': record},
     );
@@ -592,20 +592,18 @@ final class HealthConnectorImpl implements HealthConnector {
         'Record ID must not be HealthRecordId.none for updates. ',
       );
 
-      final recordId = await _client.updateRecord(record);
+      await _client.updateRecord(record);
 
       HealthConnectorLogger.info(
         tag,
-        operation: 'updateRecord',
+        operation: 'update_record',
         message: 'Health record updated successfully',
         context: {'record': record},
       );
-
-      return recordId;
     } on ArgumentError catch (e, st) {
       HealthConnectorLogger.warning(
         tag,
-        operation: 'updateRecord',
+        operation: 'update_record',
         message: 'Validation failed',
         context: {'record': record},
         exception: e,
@@ -619,9 +617,60 @@ final class HealthConnectorImpl implements HealthConnector {
     } on HealthConnectorException catch (e, st) {
       HealthConnectorLogger.error(
         tag,
-        operation: 'updateRecord',
+        operation: 'update_record',
         message: 'Failed to update health record',
         context: {'record': record},
+        exception: e,
+        stackTrace: st,
+      );
+
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> updateRecords<R extends HealthRecord>(List<R> records) async {
+    HealthConnectorLogger.debug(
+      tag,
+      operation: 'update_records',
+      message: 'Updating health records',
+      context: {'records': records},
+    );
+
+    try {
+      require(
+        records.every((record) => record.id != HealthRecordId.none),
+        'Record IDs must not be HealthRecordId.none for updates. ',
+      );
+
+      await _client.updateRecords(records);
+
+      HealthConnectorLogger.info(
+        tag,
+        operation: 'update_records',
+        message: 'Health records updated successfully',
+        context: {'records': records},
+      );
+    } on ArgumentError catch (e, st) {
+      HealthConnectorLogger.warning(
+        tag,
+        operation: 'update_records',
+        message: 'Validation failed',
+        context: {'records': records},
+        exception: e,
+        stackTrace: st,
+      );
+
+      throw HealthConnectorException(
+        HealthConnectorErrorCode.invalidArgument,
+        (e.message as String?) ?? e.toString(),
+      );
+    } on HealthConnectorException catch (e, st) {
+      HealthConnectorLogger.error(
+        tag,
+        operation: 'update_records',
+        message: 'Failed to update health records',
+        context: {'records': records},
         exception: e,
         stackTrace: st,
       );

@@ -3991,18 +3991,18 @@ class UpdateRecordRequestDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Response after updating a single record.
-class UpdateRecordResponseDto {
-  UpdateRecordResponseDto({
-    required this.recordId,
+/// Request to update multiple health records atomically.
+class UpdateRecordsRequestDto {
+  UpdateRecordsRequestDto({
+    required this.records,
   });
 
-  /// Platform-assigned unique identifier for the updated record.
-  String recordId;
+  /// Records being updated.
+  List<HealthRecordDto> records;
 
   List<Object?> _toList() {
     return <Object?>[
-      recordId,
+      records,
     ];
   }
 
@@ -4010,17 +4010,17 @@ class UpdateRecordResponseDto {
     return _toList();
   }
 
-  static UpdateRecordResponseDto decode(Object result) {
+  static UpdateRecordsRequestDto decode(Object result) {
     result as List<Object?>;
-    return UpdateRecordResponseDto(
-      recordId: result[0]! as String,
+    return UpdateRecordsRequestDto(
+      records: (result[0] as List<Object?>?)!.cast<HealthRecordDto>(),
     );
   }
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! UpdateRecordResponseDto || other.runtimeType != runtimeType) {
+    if (other is! UpdateRecordsRequestDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -4343,7 +4343,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is UpdateRecordRequestDto) {
       buffer.putUint8(213);
       writeValue(buffer, value.encode());
-    } else if (value is UpdateRecordResponseDto) {
+    } else if (value is UpdateRecordsRequestDto) {
       buffer.putUint8(214);
       writeValue(buffer, value.encode());
     } else if (value is HealthConnectorConfigDto) {
@@ -4570,7 +4570,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 213:
         return UpdateRecordRequestDto.decode(readValue(buffer)!);
       case 214:
-        return UpdateRecordResponseDto.decode(readValue(buffer)!);
+        return UpdateRecordsRequestDto.decode(readValue(buffer)!);
       case 215:
         return HealthConnectorConfigDto.decode(readValue(buffer)!);
       default:
@@ -5000,9 +5000,7 @@ class HealthConnectorHCAndroidApi {
     }
   }
 
-  Future<UpdateRecordResponseDto> updateRecord(
-    UpdateRecordRequestDto request,
-  ) async {
+  Future<void> updateRecord(UpdateRecordRequestDto request) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.updateRecord$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
@@ -5024,13 +5022,35 @@ class HealthConnectorHCAndroidApi {
         message: pigeonVar_replyList[1] as String?,
         details: pigeonVar_replyList[2],
       );
-    } else if (pigeonVar_replyList[0] == null) {
+    } else {
+      return;
+    }
+  }
+
+  Future<void> updateRecords(UpdateRecordsRequestDto request) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.updateRecords$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[request],
+    );
+    final List<Object?>? pigeonVar_replyList =
+        await pigeonVar_sendFuture as List<Object?>?;
+    if (pigeonVar_replyList == null) {
+      throw _createConnectionError(pigeonVar_channelName);
+    } else if (pigeonVar_replyList.length > 1) {
       throw PlatformException(
-        code: 'null-error',
-        message: 'Host platform returned null value for non-null return value.',
+        code: pigeonVar_replyList[0]! as String,
+        message: pigeonVar_replyList[1] as String?,
+        details: pigeonVar_replyList[2],
       );
     } else {
-      return (pigeonVar_replyList[0] as UpdateRecordResponseDto?)!;
+      return;
     }
   }
 }

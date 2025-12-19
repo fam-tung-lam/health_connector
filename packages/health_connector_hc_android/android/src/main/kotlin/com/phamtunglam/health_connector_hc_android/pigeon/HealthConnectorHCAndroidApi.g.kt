@@ -3239,28 +3239,28 @@ data class UpdateRecordRequestDto (
 }
 
 /**
- * Response after updating a single record.
+ * Request to update multiple health records atomically.
  *
  * Generated class from Pigeon that represents data sent in messages.
  */
-data class UpdateRecordResponseDto (
-  /** Platform-assigned unique identifier for the updated record. */
-  val recordId: String
+data class UpdateRecordsRequestDto (
+  /** Records being updated. */
+  val records: List<HealthRecordDto>
 )
  {
   companion object {
-    fun fromList(pigeonVar_list: List<Any?>): UpdateRecordResponseDto {
-      val recordId = pigeonVar_list[0] as String
-      return UpdateRecordResponseDto(recordId)
+    fun fromList(pigeonVar_list: List<Any?>): UpdateRecordsRequestDto {
+      val records = pigeonVar_list[0] as List<HealthRecordDto>
+      return UpdateRecordsRequestDto(records)
     }
   }
   fun toList(): List<Any?> {
     return listOf(
-      recordId,
+      records,
     )
   }
   override fun equals(other: Any?): Boolean {
-    if (other !is UpdateRecordResponseDto) {
+    if (other !is UpdateRecordsRequestDto) {
       return false
     }
     if (this === other) {
@@ -3736,7 +3736,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       214.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          UpdateRecordResponseDto.fromList(it)
+          UpdateRecordsRequestDto.fromList(it)
         }
       }
       215.toByte() -> {
@@ -4089,7 +4089,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(213)
         writeValue(stream, value.toList())
       }
-      is UpdateRecordResponseDto -> {
+      is UpdateRecordsRequestDto -> {
         stream.write(214)
         writeValue(stream, value.toList())
       }
@@ -4128,7 +4128,8 @@ interface HealthConnectorHCAndroidApi {
   fun readRecords(request: ReadRecordsRequestDto, callback: (Result<ReadRecordsResponseDto>) -> Unit)
   fun writeRecord(request: WriteRecordRequestDto, callback: (Result<WriteRecordResponseDto>) -> Unit)
   fun writeRecords(request: WriteRecordsRequestDto, callback: (Result<WriteRecordsResponseDto>) -> Unit)
-  fun updateRecord(request: UpdateRecordRequestDto, callback: (Result<UpdateRecordResponseDto>) -> Unit)
+  fun updateRecord(request: UpdateRecordRequestDto, callback: (Result<Unit>) -> Unit)
+  fun updateRecords(request: UpdateRecordsRequestDto, callback: (Result<Unit>) -> Unit)
 
   companion object {
     /** The codec used by HealthConnectorHCAndroidApi. */
@@ -4395,13 +4396,31 @@ interface HealthConnectorHCAndroidApi {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
             val requestArg = args[0] as UpdateRecordRequestDto
-            api.updateRecord(requestArg) { result: Result<UpdateRecordResponseDto> ->
+            api.updateRecord(requestArg) { result: Result<Unit> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
               } else {
-                val data = result.getOrNull()
-                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapResult(data))
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapResult(null))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.updateRecords$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val requestArg = args[0] as UpdateRecordsRequestDto
+            api.updateRecords(requestArg) { result: Result<Unit> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
+              } else {
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapResult(null))
               }
             }
           }

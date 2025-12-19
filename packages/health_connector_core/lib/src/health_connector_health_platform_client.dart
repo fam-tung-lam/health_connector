@@ -159,22 +159,34 @@ abstract interface class HealthConnectorPlatformClient {
   /// - [record]: The health record to update. Must have a valid existing
   ///   [HealthRecordId] (not [HealthRecordId.none]).
   ///
-  /// ## Returns
+  /// ## Throws
   ///
-  /// The [HealthRecordId] of the updated record (same as the input ID).
+  /// - [HealthConnectorErrorCode.unsupportedOperation] on iOS because HealthKit
+  ///   uses an immutable data model
+  /// - [HealthConnectorException] with other error codes if:
+  ///   - The platform request fails
+  ///   - The record ID is invalid or doesn't exist
+  ///   - Required permissions are not granted
+  @supportedOnHealthConnect
+  Future<void> updateRecord<R extends HealthRecord>(R record);
+
+  /// Updates multiple health records on the platform.
+  ///
+  /// ## Parameters
+  ///
+  /// - [records]: The health records to update. Must have a valid existing
+  ///   [HealthRecordId] (not [HealthRecordId.none]).
   ///
   /// ## Throws
   ///
   /// - [HealthConnectorErrorCode.unsupportedOperation] on iOS because HealthKit
   ///   uses an immutable data model
-  /// - [HealthConnectorException] if:
+  /// - [HealthConnectorException] with other error codes if:
   ///   - The platform request fails
   ///   - The record ID is invalid or doesn't exist
-  ///   - The record data is invalid
   ///   - Required permissions are not granted
-  ///   - The data type is not supported for updating
   @supportedOnHealthConnect
-  Future<HealthRecordId> updateRecord<R extends HealthRecord>(R record);
+  Future<void> updateRecords<R extends HealthRecord>(List<R> records);
 
   /// Performs an aggregation query over health records.
   ///

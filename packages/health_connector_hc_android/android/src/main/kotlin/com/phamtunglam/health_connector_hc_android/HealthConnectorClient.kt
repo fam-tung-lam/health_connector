@@ -35,7 +35,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordResponseDto
+import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsRequestDto
@@ -480,7 +480,6 @@ internal class HealthConnectorClient private constructor(
      * Updates a single health record.
      *
      * @param request Contains the data type and the typed record to update
-     * @return UpdateRecordResponseDto containing the updated record ID (same as input)
      *
      * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support updates
      * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if record ID is invalid
@@ -488,7 +487,7 @@ internal class HealthConnectorClient private constructor(
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
-    suspend fun updateRecord(request: UpdateRecordRequestDto): UpdateRecordResponseDto {
+    suspend fun updateRecord(request: UpdateRecordRequestDto) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "update_record",
@@ -508,16 +507,88 @@ internal class HealthConnectorClient private constructor(
                 )
             }
 
-            val recordId = handler.updateRecord(request.record)
+            handler.updateRecord(request.record)
 
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "update_record",
                 message = "Health Connect record updated successfully",
-                context = mapOf("data_type" to request.record.dataType, "record_id" to recordId),
+                context = mapOf("data_type" to request.record.dataType),
+            )
+        } catch (e: HealthConnectorErrorDto) {
+            throw e
+        }
+    }
+
+    /**
+     * Updates multiple health records atomically.
+     *
+     * All records are updated in a single Health Connect transaction. Either all records
+     * are updated successfully, or none are updated. This ensures data consistency across
+     * different record types.
+     *
+     * @param request Contains the list of health records to update (all must have valid IDs)
+     *
+     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if any type is not updatable
+     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if any record ID is invalid
+     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     */
+    @Throws(HealthConnectorErrorDto::class)
+    suspend fun updateRecords(request: UpdateRecordsRequestDto) {
+        HealthConnectorLogger.debug(
+            tag = TAG,
+            operation = "update_records",
+            message = "Updating Health Connect records atomically",
+            context = mapOf(
+                "total_records" to request.records.size,
+                "request" to request,
+            ),
+        )
+
+        try {
+            if (request.records.isEmpty()) {
+                HealthConnectorLogger.debug(
+                    tag = TAG,
+                    operation = "update_records",
+                    message = "No records to update, returning",
+                )
+                return
+            }
+
+            val firstRecordDto = request.records.first()
+            val handler = recordHandlerRegistry.getRecordHandler(firstRecordDto.dataType)
+                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "No handler found for type ${firstRecordDto.dataType}",
+                )
+
+            if (handler !is UpdatableHealthRecordHandler) {
+                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                    "Type ${firstRecordDto.dataType} does not support updates",
+                )
+            }
+
+            HealthConnectorLogger.debug(
+                tag = TAG,
+                operation = "update_records",
+                message = "All records validated and converted",
+                context = mapOf("record_count" to request.records.size),
             )
 
-            return UpdateRecordResponseDto(recordId = recordId)
+            handler.updateRecords(request.records)
+
+            HealthConnectorLogger.debug(
+                tag = TAG,
+                operation = "update_records",
+                message = "Atomic update completed successfully",
+            )
+
+            HealthConnectorLogger.info(
+                tag = TAG,
+                operation = "update_records",
+                message = "Health Connect records updated successfully",
+                context = mapOf("count" to request.records.size),
+            )
         } catch (e: HealthConnectorErrorDto) {
             throw e
         }
@@ -647,7 +718,9 @@ internal class HealthConnectorClient private constructor(
 
             val responseDto = when (handler) {
                 is HealthConnectAggregatableHealthRecordHandler -> handler.aggregate(request)
+
                 is CustomAggregatableHealthRecordHandler -> handler.aggregate(request)
+
                 else -> throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
                     "Type ${request.dataType} does not support aggregation",
                 )

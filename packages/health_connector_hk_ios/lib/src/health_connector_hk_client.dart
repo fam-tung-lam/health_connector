@@ -444,6 +444,14 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   }
 
   @override
+  Future<void> updateRecords<R extends HealthRecord>(List<R> records) {
+    throw const HealthConnectorException(
+      HealthConnectorErrorCode.unsupportedOperation,
+      'updateRecords API is not supported on iOS HealthKit SDK',
+    );
+  }
+
+  @override
   Future<AggregateResponse<R, U>> aggregate<
     R extends HealthRecord,
     U extends MeasurementUnit

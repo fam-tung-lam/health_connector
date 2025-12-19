@@ -779,11 +779,6 @@ abstract interface class HealthConnector {
   /// - [record]: The health record to update. Must have a valid existing
   ///   [HealthRecordId] (not [HealthRecordId.none]).
   ///
-  /// ## Returns
-  ///
-  /// The [HealthRecordId] of the updated record (same as input on Health
-  /// Connect).
-  ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
@@ -803,5 +798,8 @@ abstract interface class HealthConnector {
   /// - [deleteRecordsByIds] for deleting specific records
   /// - [writeRecord] for creating new records
   @supportedOnHealthConnect
-  Future<HealthRecordId> updateRecord<R extends HealthRecord>(R record);
+  Future<void> updateRecord<R extends HealthRecord>(R record);
+
+  @supportedOnHealthConnect
+  Future<void> updateRecords<R extends HealthRecord>(List<R> records);
 }

@@ -555,13 +555,13 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
         metadata: existingRecord.metadata,
       );
 
-      final updatedRecordId = await _client.updateRecord(updatedRecord);
+      await _client.updateRecord(updatedRecord);
 
       if (!mounted) {
         return;
       }
       _showSuccess(
-        'Successfully updated record with ID: ${updatedRecordId.value}',
+        'Successfully updated record with ID: ${updatedRecord.id.value}',
       );
     } on HealthConnectorException catch (e) {
       if (!mounted) {

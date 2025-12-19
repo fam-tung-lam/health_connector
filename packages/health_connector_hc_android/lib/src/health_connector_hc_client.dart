@@ -637,10 +637,10 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
   }
 
   @override
-  Future<HealthRecordId> updateRecord<R extends HealthRecord>(R record) async {
+  Future<void> updateRecord<R extends HealthRecord>(R record) async {
     HealthConnectorLogger.debug(
       tag,
-      operation: 'updateRecord',
+      operation: 'update_record',
 
       message: 'Updating Health Connect record',
       context: {'record': record},
@@ -649,23 +649,19 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     try {
       final requestDto = record.toUpdateRecordRequestDto();
 
-      final responseDto = await _platformClient.updateRecord(requestDto);
-
-      final updatedRecordId = responseDto.recordId.toHealthRecordId();
+      await _platformClient.updateRecord(requestDto);
 
       HealthConnectorLogger.info(
         tag,
-        operation: 'updateRecord',
+        operation: 'update_record',
 
         message: 'Health Connect record updated successfully',
         context: {'record': record},
       );
-
-      return updatedRecordId;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
         tag,
-        operation: 'updateRecord',
+        operation: 'update_record',
 
         message: 'Failed to update Health Connect record',
         context: {'record': record},
@@ -676,6 +672,43 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       throw HealthConnectorException(
         e.code.toHealthConnectorErrorCode(),
         'Failed to update $record: ${e.message ?? 'Unknown error'}',
+        cause: e,
+        stackTrace: st,
+      );
+    }
+  }
+
+  @override
+  Future<void> updateRecords<R extends HealthRecord>(List<R> records) async {
+    HealthConnectorLogger.debug(
+      tag,
+      operation: 'update_records',
+
+      message: 'Updating health records',
+      context: {'records': records},
+    );
+
+    try {
+      HealthConnectorLogger.info(
+        tag,
+        operation: 'update_records',
+        message: 'Health records updated successfully',
+        context: {'records': records},
+      );
+    } on PlatformException catch (e, st) {
+      HealthConnectorLogger.error(
+        tag,
+        operation: 'update_records',
+
+        message: 'Failed to update health records',
+        context: {'records': records},
+        exception: e,
+        stackTrace: st,
+      );
+
+      throw HealthConnectorException(
+        e.code.toHealthConnectorErrorCode(),
+        'Failed to update $records: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
       );

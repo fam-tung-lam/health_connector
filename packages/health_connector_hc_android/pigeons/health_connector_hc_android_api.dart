@@ -1674,12 +1674,12 @@ class UpdateRecordRequestDto {
   final HealthRecordDto record;
 }
 
-/// Response after updating a single record.
-class UpdateRecordResponseDto {
-  UpdateRecordResponseDto(this.recordId);
+/// Request to update multiple health records atomically.
+class UpdateRecordsRequestDto {
+  UpdateRecordsRequestDto(this.records);
 
-  /// Platform-assigned unique identifier for the updated record.
-  final String recordId;
+  /// Records being updated.
+  final List<HealthRecordDto> records;
 }
 
 // endregion
@@ -1746,5 +1746,8 @@ abstract class HealthConnectorHCAndroidApi {
   WriteRecordsResponseDto writeRecords(WriteRecordsRequestDto request);
 
   @async
-  UpdateRecordResponseDto updateRecord(UpdateRecordRequestDto request);
+  void updateRecord(UpdateRecordRequestDto request);
+
+  @async
+  void updateRecords(UpdateRecordsRequestDto request);
 }
