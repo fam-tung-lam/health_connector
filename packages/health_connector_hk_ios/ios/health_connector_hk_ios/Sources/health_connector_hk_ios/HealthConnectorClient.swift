@@ -398,7 +398,6 @@ actor HealthConnectorClient: Taggable {
                 context: ["request": request]
             )
 
-            // Validate time range
             if request.startTime >= request.endTime {
                 throw HealthConnectorError.invalidArgument(
                     message: "Invalid time range: startTime must be before endTime",
@@ -408,32 +407,9 @@ actor HealthConnectorClient: Taggable {
                 )
             }
 
-            // Try custom aggregation first (for category types like sleep)
-            if let customHandler = try? handlerRegistry.handler(
-                for: request.dataType,
-                withCapability: CustomAggregatableHealthRecordHandler.self
-            ) {
-                let value = try await customHandler.aggregate(
-                    metric: request.aggregationMetric,
-                    startTime: request.startTime,
-                    endTime: request.endTime
-                )
-                let responseDto = AggregateResponseDto(value: value)
-
-                HealthConnectorLogger.info(
-                    tag: Self.tag,
-                    operation: "aggregate",
-                    message: "Health Connect data aggregated successfully",
-                    context: ["request": request, "response": responseDto]
-                )
-
-                return responseDto
-            }
-
-            // Fall back to standard aggregation (for quantity types)
             let handler = try handlerRegistry.handler(
                 for: request.dataType,
-                withCapability: HealthKitAggregatableHealthRecordHandler.self
+                withCapability: AggregatableHealthRecordHandler.self
             )
 
             let value = try await handler.aggregate(

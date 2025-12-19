@@ -6,7 +6,7 @@ final class SleepStageHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
-    CustomAggregatableHealthRecordHandler
+    AggregatableHealthRecordHandler
 {
     typealias RecordDto = SleepStageRecordDto
     typealias SampleType = HKCategorySample
