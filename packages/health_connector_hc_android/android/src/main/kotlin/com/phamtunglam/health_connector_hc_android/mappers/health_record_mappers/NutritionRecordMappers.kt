@@ -68,7 +68,7 @@ internal fun NutritionRecordDto.toHealthConnect(): NutritionRecord {
             sodium = sodium?.toHealthConnect(),
             zinc = zinc?.toHealthConnect(),
             caffeine = caffeine?.toHealthConnect(),
-            metadata = metadata.toHealthConnect(),
+            metadata = metadata.toHealthConnect(id),
         )
 
         else -> throw IllegalArgumentException(

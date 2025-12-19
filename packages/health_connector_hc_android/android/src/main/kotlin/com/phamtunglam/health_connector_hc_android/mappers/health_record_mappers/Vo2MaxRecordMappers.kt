@@ -32,7 +32,7 @@ internal fun Vo2MaxRecordDto.toHealthConnect(): Vo2MaxRecord = Vo2MaxRecord(
     vo2MillilitersPerMinuteKilogram = vo2Max.value,
     time = Instant.ofEpochMilli(time),
     zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect(),
+    metadata = metadata.toHealthConnect(id),
     measurementMethod = measurementMethod.toVo2MaxMeasurementMethodInt(),
 )
 

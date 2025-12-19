@@ -86,7 +86,7 @@ internal fun BloodGlucoseRecord.toDto(): BloodGlucoseRecordDto = BloodGlucoseRec
 internal fun BloodGlucoseRecordDto.toHealthConnect(): BloodGlucoseRecord = BloodGlucoseRecord(
     time = Instant.ofEpochMilli(time),
     zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect(),
+    metadata = metadata.toHealthConnect(id),
     level = bloodGlucose.toHealthConnect(),
     relationToMeal = relationToMeal?.toHealthConnect()
         ?: BloodGlucoseRecord.RELATION_TO_MEAL_UNKNOWN,

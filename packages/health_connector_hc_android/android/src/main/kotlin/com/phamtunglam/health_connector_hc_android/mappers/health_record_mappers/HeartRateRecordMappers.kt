@@ -42,5 +42,5 @@ internal fun HeartRateSeriesRecordDto.toHealthConnect(): HeartRateRecord = Heart
     endTime = Instant.ofEpochMilli(endTime),
     startZoneOffset = startZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
     endZoneOffset = endZoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect(),
+    metadata = metadata.toHealthConnect(id),
 )

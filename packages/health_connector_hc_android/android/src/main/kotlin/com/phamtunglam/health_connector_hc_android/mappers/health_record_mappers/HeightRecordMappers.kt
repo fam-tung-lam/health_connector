@@ -25,5 +25,5 @@ internal fun HeightRecordDto.toHealthConnect(): HeightRecord = HeightRecord(
     height = height.toHealthConnect(),
     time = Instant.ofEpochMilli(time),
     zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect(),
+    metadata = metadata.toHealthConnect(id),
 )

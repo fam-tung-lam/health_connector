@@ -84,5 +84,5 @@ internal fun BloodPressureRecordDto.toHealthConnect(): BloodPressureRecord = Blo
     diastolic = diastolic.toHealthConnect(),
     bodyPosition = bodyPosition.toHealthConnect(),
     measurementLocation = measurementLocation.toHealthConnect(),
-    metadata = metadata.toHealthConnect(),
+    metadata = metadata.toHealthConnect(id),
 )

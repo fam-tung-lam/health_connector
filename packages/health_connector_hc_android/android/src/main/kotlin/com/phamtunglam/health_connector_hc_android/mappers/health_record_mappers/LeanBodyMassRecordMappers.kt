@@ -25,5 +25,5 @@ internal fun LeanBodyMassRecordDto.toHealthConnect(): LeanBodyMassRecord = LeanB
     mass = mass.toHealthConnect(),
     time = Instant.ofEpochMilli(time),
     zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-    metadata = metadata.toHealthConnect(),
+    metadata = metadata.toHealthConnect(id),
 )

@@ -26,5 +26,5 @@ internal fun OxygenSaturationRecordDto.toHealthConnect(): OxygenSaturationRecord
         percentage = percentage.toHealthConnect(),
         time = Instant.ofEpochMilli(time),
         zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-        metadata = metadata.toHealthConnect(),
+        metadata = metadata.toHealthConnect(id),
     )

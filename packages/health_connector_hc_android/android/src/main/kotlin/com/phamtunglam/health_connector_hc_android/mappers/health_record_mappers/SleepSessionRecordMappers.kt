@@ -74,5 +74,5 @@ internal fun SleepSessionRecordDto.toHealthConnect(): SleepSessionRecord = Sleep
     title = title,
     notes = notes,
     stages = stages.map { it.toHealthConnect() },
-    metadata = metadata.toHealthConnect(),
+    metadata = metadata.toHealthConnect(id),
 )

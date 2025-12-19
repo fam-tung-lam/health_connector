@@ -27,5 +27,5 @@ internal fun RespiratoryRateRecordDto.toHealthConnect(): RespiratoryRateRecord =
         rate = rate.value,
         time = Instant.ofEpochMilli(time),
         zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-        metadata = metadata.toHealthConnect(),
+        metadata = metadata.toHealthConnect(id),
     )

@@ -31,5 +31,5 @@ internal fun RestingHeartRateRecordDto.toHealthConnect(): RestingHeartRateRecord
         beatsPerMinute = beatsPerMinute.value.toLong(),
         time = Instant.ofEpochMilli(time),
         zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
-        metadata = metadata.toHealthConnect(),
+        metadata = metadata.toHealthConnect(id),
     )
