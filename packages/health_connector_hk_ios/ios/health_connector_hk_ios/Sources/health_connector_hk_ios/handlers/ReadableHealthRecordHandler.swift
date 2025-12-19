@@ -131,16 +131,16 @@ extension ReadableHealthRecordHandler {
     /// Reads multiple records within a time range with pagination
     ///
     /// - Parameters:
-    ///   - startTime: Start of time range (milliseconds since epoch)
-    ///   - endTime: End of time range (milliseconds since epoch)
+    ///   - startTime: Start of time range
+    ///   - endTime: End of time range
     ///   - pageToken: Pagination token for fetching next page, nil for first page
     ///   - pageSize: Maximum number of records to return
     ///   - dataOriginPackageNames: Optional list of bundle identifiers to filter by data source
     /// - Returns: Tuple of (records array, next page token)
     /// - Throws: HealthConnectorError if read fails
     func readRecords(
-        startTime: Int64,
-        endTime: Int64,
+        startTime: Date,
+        endTime: Date,
         pageToken: PaginationToken? = nil,
         pageSize: Int = Self.defaultPageSize,
         dataOriginPackageNames: [String] = []
@@ -155,14 +155,10 @@ extension ReadableHealthRecordHandler {
         ) {
             let sampleType = try Self.dataType.toHealthKit()
 
-            // Convert timestamps
-            let startDate = Date(timeIntervalSince1970: Double(startTime) / 1000.0)
-            let endDate = Date(timeIntervalSince1970: Double(endTime) / 1000.0)
-
             // Build time range predicate
             let timePredicate = HKQuery.predicateForSamples(
-                withStart: startDate,
-                end: endDate,
+                withStart: startTime,
+                end: endTime,
                 options: .strictStartDate
             )
 

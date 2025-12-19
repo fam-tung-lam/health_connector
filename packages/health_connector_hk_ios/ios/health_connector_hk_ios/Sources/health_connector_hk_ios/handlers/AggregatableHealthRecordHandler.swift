@@ -24,14 +24,14 @@ protocol AggregatableHealthRecordHandler: HealthRecordHandler {
     ///
     /// - Parameters:
     ///   - metric: The aggregation metric to compute
-    ///   - startTime: Start of time range (milliseconds since epoch)
-    ///   - endTime: End of time range (milliseconds since epoch)
+    ///   - startTime: Start of time range
+    ///   - endTime: End of time range
     /// - Returns: The aggregated measurement value
     /// - Throws: HealthConnectorError if aggregation fails or metric is unsupported
     func aggregate(
         metric: AggregationMetricDto,
-        startTime: Int64,
-        endTime: Int64
+        startTime: Date,
+        endTime: Date
     ) async throws -> AggregatedResultMeasurementUnitDto
 }
 
@@ -265,14 +265,14 @@ extension AggregatableQuantityHealthRecordHandler {
     ///
     /// - Parameters:
     ///   - metric: The aggregation metric to compute
-    ///   - startTime: Start of time range (milliseconds since epoch)
-    ///   - endTime: End of time range (milliseconds since epoch)
+    ///   - startTime: Start of time range
+    ///   - endTime: End of time range
     /// - Returns: The aggregated measurement value
     /// - Throws: HealthConnectorError if aggregation fails
     func aggregate(
         metric: AggregationMetricDto,
-        startTime: Int64,
-        endTime: Int64
+        startTime: Date,
+        endTime: Date
     ) async throws -> AggregatedResultMeasurementUnitDto {
         try await process(
             operation: "aggregate",
@@ -288,12 +288,9 @@ extension AggregatableQuantityHealthRecordHandler {
                 )
             }
 
-            let startDate = Date(timeIntervalSince1970: Double(startTime) / 1000.0)
-            let endDate = Date(timeIntervalSince1970: Double(endTime) / 1000.0)
-
             let predicate = HKQuery.predicateForSamples(
-                withStart: startDate,
-                end: endDate,
+                withStart: startTime,
+                end: endTime,
                 options: [.strictStartDate, .strictEndDate]
             )
 
