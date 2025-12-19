@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-/// Handler for height measurements (instantaneous quantity type)
+/// Handler for height measurements (instant quantity type)
 final class HeightHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -20,13 +20,9 @@ final class HeightHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .height
 
-    static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func extractAggregateValue(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> LengthDto {
-        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
+    func convertQuantity(_ quantity: HKQuantity) throws -> LengthDto {
         let meters = quantity.doubleValue(for: .meter())
         return LengthDto(unit: .meters, value: meters)
     }

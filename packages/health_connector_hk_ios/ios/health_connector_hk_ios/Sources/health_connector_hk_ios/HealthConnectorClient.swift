@@ -222,11 +222,12 @@ actor HealthConnectorClient: Taggable {
             )
 
             // Convert string page token to PaginationToken
-            let paginationToken: PaginationToken? = if let pageTokenString = request.pageToken {
-                try PaginationToken(fromString: pageTokenString)
-            } else {
-                nil
-            }
+            let paginationToken: PaginationToken? =
+                if let pageTokenString = request.pageToken {
+                    try PaginationToken(fromString: pageTokenString)
+                } else {
+                    nil
+                }
 
             // Convert milliseconds since epoch to Date
             let startTime = Date(millisecondsSince1970: request.startTime)

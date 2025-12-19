@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-/// Handler for diastolic blood pressure (instant quantity type)
+/// Handler for diastolic blood pressure data (discrete quantity type)
 final class DiastolicBloodPressureHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -12,7 +12,6 @@ final class DiastolicBloodPressureHandler: @unchecked Sendable,
     typealias SampleType = HKQuantitySample
     typealias AggregatedResultMeasurementUnitDto = PressureDto
 
-    /// The HealthKit store for all operations
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -21,13 +20,9 @@ final class DiastolicBloodPressureHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .diastolicBloodPressure
 
-    static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func extractAggregateValue(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> PressureDto {
-        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
-        return quantity.toPressureDto()
+    func convertQuantity(_ quantity: HKQuantity) throws -> PressureDto {
+        quantity.toPressureDto()
     }
 }

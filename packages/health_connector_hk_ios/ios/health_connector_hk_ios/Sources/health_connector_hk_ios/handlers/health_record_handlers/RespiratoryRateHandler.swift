@@ -20,14 +20,10 @@ final class RespiratoryRateHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .respiratoryRate
 
-    static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func extractAggregateValue(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> NumericDto {
-        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
-        let unit = HKUnit.count().unitDivided(by: .minute())
-        return NumericDto(unit: .numeric, value: quantity.doubleValue(for: unit))
+    func convertQuantity(_ quantity: HKQuantity) throws -> NumericDto {
+        let rpm = quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
+        return NumericDto(unit: .numeric, value: rpm)
     }
 }

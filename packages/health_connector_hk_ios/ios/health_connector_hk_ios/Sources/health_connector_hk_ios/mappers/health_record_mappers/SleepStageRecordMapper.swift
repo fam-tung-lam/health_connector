@@ -1,16 +1,6 @@
 import Foundation
 import HealthKit
 
-/// iOS 16+ sleep stage raw values.
-///
-/// HealthKit introduced detailed sleep stages in iOS 16 with specific raw values.
-/// These constants provide type-safe access to those values.
-private enum iOS16SleepStage: Int {
-    case deep = 3
-    case rem = 4
-    case light = 5 // HealthKit calls this "core" sleep
-}
-
 extension HKCategorySample {
     /// Convert HKCategorySample to SleepStageRecordDto
     ///

@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-/// Handler for VO2 Max data (instant quantity type)
+/// Handler for VO2 max measurements (instant quantity type)
 final class Vo2MaxHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -10,7 +10,7 @@ final class Vo2MaxHandler: @unchecked Sendable,
 {
     typealias RecordDto = Vo2MaxRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = Vo2MaxDto
+    typealias AggregatedResultMeasurementUnitDto = NumericDto
 
     let healthStore: HKHealthStore
 
@@ -20,16 +20,13 @@ final class Vo2MaxHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .vo2Max
 
-    static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func extractAggregateValue(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> Vo2MaxDto {
-        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
-        let unit = HKUnit.literUnit(with: .milli)
-            .unitDivided(by: HKUnit.gramUnit(with: .kilo).unitMultiplied(by: .minute()))
-        let value = quantity.doubleValue(for: unit)
-        return Vo2MaxDto(unit: .millilitersPerKilogramPerMinute, value: value)
+    func convertQuantity(_ quantity: HKQuantity) throws -> NumericDto {
+        // VO2 max is measured in mL/(kg·min)
+        let vo2Max = quantity.doubleValue(
+            for: HKUnit.literUnit(with: .milli).unitDivided(by: .gramUnit(with: .kilo).unitMultiplied(by: .minute()))
+        )
+        return NumericDto(unit: .numeric, value: vo2Max)
     }
 }

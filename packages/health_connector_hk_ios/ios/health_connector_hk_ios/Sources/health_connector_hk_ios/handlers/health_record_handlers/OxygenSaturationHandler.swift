@@ -20,13 +20,9 @@ final class OxygenSaturationHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .oxygenSaturation
 
-    static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func extractAggregateValue(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> PercentageDto {
-        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
-        return quantity.toPercentageDto()
+    func convertQuantity(_ quantity: HKQuantity) throws -> PercentageDto {
+        quantity.toPercentageDto()
     }
 }

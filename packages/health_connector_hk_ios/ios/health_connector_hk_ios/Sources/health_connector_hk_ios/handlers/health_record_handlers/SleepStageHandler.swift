@@ -19,6 +19,8 @@ final class SleepStageHandler: @unchecked Sendable,
     }
 
     static let dataType: HealthDataTypeDto = .sleepStageRecord
+
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 }
 
 extension SleepStageHandler {
@@ -53,100 +55,48 @@ extension SleepStageHandler {
                 "end_time": endTime,
             ]
         ) {
-            // Validate metric - only sum is supported for sleep stages
-            guard metric == .sum else {
-                throw HealthConnectorError.invalidArgument(
-                    message: "Only sum aggregation is supported for sleep stage records",
-                    context: [
-                        "details": "Supported metrics: [sum]. Requested: \(metric)",
-                    ]
-                )
-            }
+            try validateAggregationMetric(metric)
 
-            // Get the sleep analysis category type
-            guard let categoryType = HKCategoryType.categoryType(forIdentifier: .sleepAnalysis)
-            else {
-                throw HealthConnectorError.unknown(
-                    message: "Failed to create sleep analysis category type"
-                )
-            }
+            let samples = try await readAllRecords(startTime: startTime, endTime: endTime)
 
-            // Create time range predicate
-            let predicate = HKQuery.predicateForSamples(
-                withStart: startTime,
-                end: endTime,
-                options: .strictStartDate
-            )
+            let totalSleepSeconds =
+                samples
+                    .filter(isActualSleepStage)
+                    .reduce(0) { $0 + $1.endDate.timeIntervalSince($1.startDate) }
 
-            // Query all sleep stage samples in the time range
-            let samples = try await withCheckedThrowingContinuation {
-                (continuation: CheckedContinuation<[HKCategorySample], Error>) in
-                let query = HKSampleQuery(
-                    sampleType: categoryType,
-                    predicate: predicate,
-                    limit: HKObjectQueryNoLimit,
-                    sortDescriptors: nil
-                ) { _, samples, error in
-                    if let error {
-                        continuation.resume(throwing: error)
-                        return
-                    }
-
-                    guard let samples else {
-                        continuation.resume(returning: [])
-                        return
-                    }
-
-                    // Filter to only category samples
-                    let categorySamples = samples.compactMap {
-                        $0 as? HKCategorySample
-                    }
-                    continuation.resume(returning: categorySamples)
-                }
-
-                self.healthStore.execute(query)
-            }
-
-            // Calculate total sleep duration
-            var totalSleepSeconds: TimeInterval = 0.0
-
-            for sample in samples {
-                // Only count actual sleep stages (exclude awake, inBed, outOfBed)
-                let sleepValue = HKCategoryValueSleepAnalysis(rawValue: sample.value)
-
-                // Define which stages count as "actual sleep"
-                let isActualSleep =
-                    switch sleepValue {
-                    case .asleep:
-                        // Generic sleep (iOS 15 and earlier)
-                        true
-                    case .awake, .inBed:
-                        // Not sleeping
-                        false
-                    default:
-                        // For iOS 16+ detailed stages (core/light, deep, REM)
-                        // Check raw values: .core=5, .deep=3, .REM=4
-                        if #available(iOS 16.0, *) {
-                            switch sample.value {
-                            case 3, 4, 5: // deep, REM, core
-                                true
-                            default:
-                                false
-                            }
-                        } else {
-                            false
-                        }
-                    }
-
-                if isActualSleep {
-                    // Calculate duration for this sleep stage
-                    let duration = sample.endDate.timeIntervalSince(sample.startDate)
-                    totalSleepSeconds += duration
-                }
-            }
-
-            // Return total sleep time as NumericDto (value in seconds)
             return NumericDto(unit: .numeric, value: totalSleepSeconds)
+        }
+    }
+
+    /// Determines if a sleep sample represents actual sleep time.
+    ///
+    /// - Parameter sample: The sleep analysis category sample
+    /// - Returns: `true` if the sample represents actual sleep, `false` otherwise
+    ///
+    /// **Excluded:** awake, inBed states
+    /// **Included:** asleep (iOS 15-), deep/REM/light stages (iOS 16+)
+    private func isActualSleepStage(_ sample: HKCategorySample) -> Bool {
+        let sleepValue = HKCategoryValueSleepAnalysis(rawValue: sample.value)
+
+        switch sleepValue {
+        case .asleep:
+            // Generic sleep state (pre-iOS 16)
+            return true
+
+        case .awake, .inBed:
+            // Not sleeping
+            return false
+
+        default:
+            // iOS 16+ detailed sleep stages
+            if #available(iOS 16.0, *) {
+                return [
+                    iOS16SleepStage.deep.rawValue,
+                    iOS16SleepStage.rem.rawValue,
+                    iOS16SleepStage.light.rawValue,
+                ].contains(sample.value)
+            }
+            return false
         }
     }
 }
