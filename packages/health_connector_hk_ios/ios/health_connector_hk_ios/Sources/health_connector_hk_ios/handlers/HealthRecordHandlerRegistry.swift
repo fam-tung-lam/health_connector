@@ -3,15 +3,12 @@ import HealthKit
 
 /// Central registry mapping `HealthDataTypeDto` to type handlers
 ///
-/// This registry provides type-safe dispatch from `HealthDataTypeDto` to the appropriate handler.
-/// Handlers are registered once at initialization and retrieved throughout the app lifecycle.
-///
-/// Uses `NSLock` to protect the handler dictionary for thread-safe concurrent access.
+/// Uses `NSLock` to protect the handler dictionary for thread-safe concurrent initialization.
 /// NSLock is used instead of Mutex for iOS 15+ compatibility (Mutex requires iOS 18+).
 /// Marked @unchecked Sendable because NSLock-based synchronization ensures thread safety manually.
 final class HealthRecordHandlerRegistry: @unchecked Sendable {
-    /// Lock for thread-safe access to handlers
-    private let lock = NSLock()
+    /// Lock for thread-safe registry initialization
+    private let initLock = NSLock()
 
     /// Storage for registered handler instances
     ///
@@ -29,31 +26,48 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
     /// - Parameter healthStore: The HKHealthStore to inject into all handlers
     init(healthStore: HKHealthStore) {
         self.healthStore = healthStore
-        // Register all handlers (within lock for thread safety)
-        lock.lock()
-        defer { lock.unlock() }
+
+        // Register all handlers (within initLock for thread safety)
+        initLock.lock()
+        defer { initLock.unlock() }
+
         registerAllHandlers()
     }
 
-    /// Register a handler instance (called during init only)
+    /// Gets a handler with a specific capability (type-safe retrieval)
     ///
-    /// - Parameter handler: The handler instance to register
+    /// - Parameters:
+    ///   - type: The HealthDataTypeDto to look up
+    ///   - capability: The protocol type the handler must conform to
+    /// - Returns: The handler instance conforming to the capability
+    /// - Throws: HealthConnectorError.unsupportedOperation if handler not found or lacks capability
     ///
-    /// **Note:** Must be called within lock
-    private func register(_ handler: any HealthRecordHandler) {
-        handlers[type(of: handler).dataType] = handler
-    }
+    /// ## Example
+    /// ```swift
+    /// let handler = try registry.handler(for: .steps, withCapability: ReadableHealthRecordHandler.self)
+    /// ```
+    func handler<T>(
+        for type: HealthDataTypeDto,
+        withCapability capability: T.Type
+    ) throws -> T {
+        guard let baseHandler = handlers[type] else {
+            throw HealthConnectorError.unsupportedOperation(
+                message: "Unsupported data type: \(type.rawValue)",
+                context: ["dataType": type.rawValue]
+            )
+        }
 
-    /// Get handler for a specific health data type
-    ///
-    /// Thread-safe: Protected by NSLock
-    ///
-    /// - Parameter type: The HealthDataTypeDto to look up
-    /// - Returns: The handler instance, or nil if not registered
-    func getHandler(for type: HealthDataTypeDto) -> (any HealthRecordHandler)? {
-        lock.lock()
-        defer { lock.unlock() }
-        return handlers[type]
+        guard let handler = baseHandler as? T else {
+            throw HealthConnectorError.unsupportedOperation(
+                message: "Data type \(type.rawValue) does not support \(String(describing: capability))",
+                context: [
+                    "dataType": type.rawValue,
+                    "capability": String(describing: capability),
+                ]
+            )
+        }
+
+        return handler
     }
 
     /// Register all type handlers
@@ -61,7 +75,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
     /// This method is called once during initialization.
     /// Add new handlers here as they are implemented.
     ///
-    /// **Note:** Must be called within lock
+    /// **Note:** Must be called within initLock
     private func registerAllHandlers() {
         register(StepsHandler(healthStore: healthStore))
         register(ActiveCaloriesBurnedHandler(healthStore: healthStore))
@@ -115,9 +129,17 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(Vo2MaxHandler(healthStore: healthStore))
         register(BloodGlucoseHandler(healthStore: healthStore))
         register(NutritionCorrelationHandler(healthStore: healthStore))
-
         register(BloodPressureHandler(healthStore: healthStore))
         register(SystolicBloodPressureHandler(healthStore: healthStore))
         register(DiastolicBloodPressureHandler(healthStore: healthStore))
+    }
+
+    /// Register a handler instance (called during init only)
+    ///
+    /// - Parameter handler: The handler instance to register
+    ///
+    /// **Note:** Must be called within initLock
+    private func register(_ handler: any HealthRecordHandler) {
+        handlers[type(of: handler).dataType] = handler
     }
 }
