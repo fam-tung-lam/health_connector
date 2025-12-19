@@ -20,13 +20,9 @@ final class HeartRateHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .heartRateMeasurementRecord
 
-    static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func extractAggregateValue(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> NumericDto {
-        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
+    func convertQuantity(_ quantity: HKQuantity) throws -> NumericDto {
         let bpm = quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
         return NumericDto(unit: .numeric, value: bpm)
     }

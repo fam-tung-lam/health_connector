@@ -12,7 +12,6 @@ final class BodyFatPercentageHandler: @unchecked Sendable,
     typealias SampleType = HKQuantitySample
     typealias AggregatedResultMeasurementUnitDto = PercentageDto
 
-    /// The HealthKit store for all operations
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -21,13 +20,9 @@ final class BodyFatPercentageHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .bodyFatPercentage
 
-    static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func extractAggregateValue(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> PercentageDto {
-        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
-        return quantity.toPercentageDto()
+    func convertQuantity(_ quantity: HKQuantity) throws -> PercentageDto {
+        quantity.toPercentageDto()
     }
 }

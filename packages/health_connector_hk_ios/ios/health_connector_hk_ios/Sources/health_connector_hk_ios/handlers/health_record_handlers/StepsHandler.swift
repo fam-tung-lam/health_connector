@@ -20,13 +20,9 @@ final class StepsHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .steps
 
-    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 
-    func extractAggregateValue(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> NumericDto {
-        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
+    func convertQuantity(_ quantity: HKQuantity) throws -> NumericDto {
         let count = quantity.doubleValue(for: .count())
         return NumericDto(unit: .numeric, value: count)
     }

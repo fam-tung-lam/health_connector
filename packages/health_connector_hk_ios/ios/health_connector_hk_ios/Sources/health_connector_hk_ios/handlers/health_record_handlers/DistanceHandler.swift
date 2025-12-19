@@ -20,13 +20,9 @@ final class DistanceHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .distance
 
-    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 
-    func extractAggregateValue(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> LengthDto {
-        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
+    func convertQuantity(_ quantity: HKQuantity) throws -> LengthDto {
         let meters = quantity.doubleValue(for: .meter())
         return LengthDto(unit: .meters, value: meters)
     }

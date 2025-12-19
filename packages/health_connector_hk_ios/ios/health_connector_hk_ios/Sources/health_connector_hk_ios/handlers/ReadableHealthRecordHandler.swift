@@ -77,6 +77,53 @@ extension ReadableHealthRecordHandler {
     /// sufficient to find all relevant sources.
     private static var sourceDiscoveryLimit: Int { 1000 }
 
+    /// Fetches all samples within a time range (no pagination)
+    ///
+    /// This method is useful for custom aggregations that need to process all samples
+    /// in a time range without pagination constraints.
+    ///
+    /// - Parameters:
+    ///   - startTime: Start of time range
+    ///   - endTime: End of time range
+    /// - Returns: Array of samples matching the time range
+    /// - Throws: HealthConnectorError if query fails
+    func readAllRecords(
+        startTime: Date,
+        endTime: Date
+    ) async throws -> [SampleType] {
+        let sampleType = try Self.dataType.toHealthKit()
+        let predicate = HKQuery.predicateForSamples(
+            withStart: startTime,
+            end: endTime,
+            options: .strictStartDate
+        )
+
+        return try await withCheckedThrowingContinuation { continuation in
+            let query = HKSampleQuery(
+                sampleType: sampleType,
+                predicate: predicate,
+                limit: HKObjectQueryNoLimit,
+                sortDescriptors: nil
+            ) { _, samples, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+
+                guard let samples else {
+                    continuation.resume(returning: [])
+                    return
+                }
+
+                // Cast to expected sample type
+                let typedSamples = samples.compactMap { $0 as? SampleType }
+                continuation.resume(returning: typedSamples)
+            }
+
+            self.healthStore.execute(query)
+        }
+    }
+
     /// Reads a single record by ID
     ///
     /// - Parameters:

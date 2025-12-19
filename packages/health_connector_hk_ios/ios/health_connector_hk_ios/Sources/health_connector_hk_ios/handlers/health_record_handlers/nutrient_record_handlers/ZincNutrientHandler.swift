@@ -19,13 +19,9 @@ final class ZincNutrientHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .zinc
 
-    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 
-    func extractAggregateValue(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> MassDto {
-        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
-        return quantity.toMassDto()
+    func convertQuantity(_ quantity: HKQuantity) throws -> MassDto {
+        quantity.toMassDto()
     }
 }

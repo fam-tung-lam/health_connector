@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-/// Handler for hydration data (interval quantity type)
+/// Handler for hydration/water intake data (interval quantity type)
 final class HydrationHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
@@ -20,13 +20,9 @@ final class HydrationHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .hydration
 
-    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 
-    func extractAggregateValue(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> VolumeDto {
-        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
+    func convertQuantity(_ quantity: HKQuantity) throws -> VolumeDto {
         let liters = quantity.doubleValue(for: .liter())
         return VolumeDto(unit: .liters, value: liters)
     }

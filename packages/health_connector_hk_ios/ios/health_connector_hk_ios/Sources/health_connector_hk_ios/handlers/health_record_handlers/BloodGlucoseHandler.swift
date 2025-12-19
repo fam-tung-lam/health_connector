@@ -12,7 +12,6 @@ final class BloodGlucoseHandler: @unchecked Sendable,
     typealias SampleType = HKQuantitySample
     typealias AggregatedResultMeasurementUnitDto = BloodGlucoseDto
 
-    /// The HealthKit store for all operations
     let healthStore: HKHealthStore
 
     init(healthStore: HKHealthStore) {
@@ -21,13 +20,9 @@ final class BloodGlucoseHandler: @unchecked Sendable,
 
     static let dataType: HealthDataTypeDto = .bloodGlucose
 
-    static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
+    static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func extractAggregateValue(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> BloodGlucoseDto {
-        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
-        return quantity.toBloodGlucoseDto()
+    func convertQuantity(_ quantity: HKQuantity) throws -> BloodGlucoseDto {
+        quantity.toBloodGlucoseDto()
     }
 }

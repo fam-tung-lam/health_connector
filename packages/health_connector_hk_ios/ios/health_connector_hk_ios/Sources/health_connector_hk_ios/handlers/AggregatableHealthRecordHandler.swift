@@ -1,33 +1,31 @@
 import Foundation
 import HealthKit
 
-/// Base protocol for handlers that support aggregation capabilities.
+// MARK: - Aggregatable Health Record Handler
+
+/// Protocol for health record handlers that support data aggregation.
 ///
-/// This protocol serves as a marker for all aggregation-capable handlers.
-///
-/// ## Implementation Guidance
-/// Conforming types must declare their aggregation result type:
-/// ```swift
-/// final class HeartRateHandler: AggregatableQuantityHealthRecordHandler {
-///     typealias AggregatedResultMeasurementUnitDto = NumericDto  // Required!
-///
-///     func extractAggregateValue(...) throws -> NumericDto {
-///         // Implementation must return declared type
-///     }
-/// }
-/// ```
+/// Requirements:
+/// - Handler must provide a sample type (via `ReadableHealthRecordHandler`)
+/// - Handler must support HealthKit statistics queries
 protocol AggregatableHealthRecordHandler: HealthRecordHandler {
-    /// The specific MeasurementUnitDto subtype returned by aggregation
+    /// The type of measurement unit DTO returned by aggregation
     associatedtype AggregatedResultMeasurementUnitDto: MeasurementUnitDto
 
-    /// Performs aggregation over a time range
+    /// The aggregation metrics supported by this handler.
+    ///
+    /// For discrete (instantaneous) types: typically `.min`, `.max`, `.avg`
+    /// For cumulative (interval) types: typically `.sum`
+    static var supportedAggregationMetrics: Set<AggregationMetricDto> { get }
+
+    /// Aggregates the underlying data for the given date range and metric.
     ///
     /// - Parameters:
-    ///   - metric: The aggregation metric to compute
-    ///   - startTime: Start of time range
-    ///   - endTime: End of time range
-    /// - Returns: The aggregated measurement value
-    /// - Throws: HealthConnectorError if aggregation fails or metric is unsupported
+    ///   - metric: The aggregation metric to use (min, max, avg, sum, count)
+    ///   - startTime: Start of the data range in UTC
+    ///   - endTime: End of the data range in UTC
+    /// - Returns: The aggregated result as a measurement DTO
+    /// - Throws: `HealthConnectorError` for validation, permissions, or query failures
     func aggregate(
         metric: AggregationMetricDto,
         startTime: Date,
@@ -35,297 +33,180 @@ protocol AggregatableHealthRecordHandler: HealthRecordHandler {
     ) async throws -> AggregatedResultMeasurementUnitDto
 }
 
-/// Configuration for HealthKit statistics query behavior and supported metrics.
-///
-/// This enum encapsulates the relationship between aggregation metrics,
-/// HKStatisticsOptions, and statistics extraction methods. It eliminates
-/// repetitive validation logic across handler implementations.
-///
-/// ## Usage
-/// ```swift
-/// final class HeartRateHandler: AggregatableQuantityHealthRecordHandler {
-///     static let aggregationMetricConfig = AggregationMetricConfig.discreteMinMaxAvg
-///
-///     func extractAggregateValue(
-///         from stats: HKStatistics,
-///         metric: AggregationMetricDto
-///     ) throws -> NumericDto {
-///         let quantity = try Self.aggregationMetricConfig.extractQuantity(from: stats, for: metric)
-///         let bpm = quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
-///         return NumericDto(unit: .numeric, value: bpm)
-///     }
-/// }
-/// ```
-enum AggregationMetricConfig {
-    /// Discrete quantity type supporting specified metrics
-    /// Examples: Heart rate, weight, body temperature
-    case discrete(Set<AggregationMetricDto>)
+// MARK: - Aggregatable Health Record Handler Helpers
 
-    /// Cumulative quantity type supporting specified metrics
-    /// Examples: Steps, active calories, distance
-    case cumulative(Set<AggregationMetricDto>)
-
-    // MARK: - Common Configurations
-
-    /// Discrete type with min, max, avg support (most common for instantaneous measurements)
-    static let discreteMinMaxAvg: Self = .discrete([.min, .max, .avg])
-
-    /// Cumulative type with sum support (most common for interval measurements)
-    static let cumulativeSum: Self = .cumulative([.sum])
-
-    // MARK: - Public API
-
-    /// Converts an aggregation metric to the appropriate HKStatisticsOptions
+extension AggregatableHealthRecordHandler {
+    /// Validates that the requested aggregation metric is supported
     ///
-    /// - Parameter metric: The requested aggregation metric
-    /// - Returns: The HKStatisticsOptions for the statistics query
-    /// - Throws: HealthConnectorError.invalidArgument if metric not supported
-    func options(for metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        switch self {
-        case let .discrete(supportedMetrics):
-            guard supportedMetrics.contains(metric) else {
-                throw unsupportedMetricError(
-                    metric: metric,
-                    supportedMetrics: supportedMetrics,
-                    hint: "discrete data"
-                )
-            }
-            return try discreteOption(for: metric)
+    /// - Parameter metric: The metric to validate
+    /// - Throws: HealthConnectorError.invalidArgument if metric is unsupported
+    func validateAggregationMetric(_ metric: AggregationMetricDto) throws {
+        guard Self.supportedAggregationMetrics.contains(metric) else {
+            let supported = Self.supportedAggregationMetrics
+                .map { String(describing: $0) }
+                .sorted()
+                .joined(separator: ", ")
 
-        case let .cumulative(supportedMetrics):
-            guard supportedMetrics.contains(metric) else {
-                throw unsupportedMetricError(
-                    metric: metric,
-                    supportedMetrics: supportedMetrics,
-                    hint: "cumulative data"
-                )
-            }
-            return try cumulativeOption(for: metric)
-        }
-    }
-
-    /// Extracts the quantity value from statistics for a given metric
-    ///
-    /// - Parameters:
-    ///   - statistics: The HKStatistics result from the query
-    ///   - metric: The requested aggregation metric
-    /// - Returns: The HKQuantity value
-    /// - Throws: HealthConnectorError if metric not supported or quantity is nil
-    func extractQuantity(
-        from statistics: HKStatistics,
-        for metric: AggregationMetricDto
-    ) throws -> HKQuantity {
-        // Validate metric is supported before extracting
-        switch self {
-        case let .discrete(supportedMetrics):
-            guard supportedMetrics.contains(metric) else {
-                throw unsupportedMetricError(
-                    metric: metric,
-                    supportedMetrics: supportedMetrics,
-                    hint: "discrete data"
-                )
-            }
-        case let .cumulative(supportedMetrics):
-            guard supportedMetrics.contains(metric) else {
-                throw unsupportedMetricError(
-                    metric: metric,
-                    supportedMetrics: supportedMetrics,
-                    hint: "cumulative data"
-                )
-            }
-        }
-
-        // Extract quantity based on configuration type
-        let quantity: HKQuantity? = switch self {
-        case .discrete:
-            try extractDiscreteQuantity(from: statistics, metric: metric)
-        case .cumulative:
-            try extractCumulativeQuantity(from: statistics, metric: metric)
-        }
-
-        guard let quantity else {
             throw HealthConnectorError.invalidArgument(
-                message: "No aggregation result for metric '\(metric.rawValue)'",
-                context: ["details": "Statistics returned nil"]
+                message: "Aggregation metric '\(metric)' not supported by \(Self.dataType)",
+                context: ["supported_metrics": supported]
             )
         }
-
-        return quantity
-    }
-
-    // MARK: - Private Helpers
-
-    private func discreteOption(for metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        switch metric {
-        case .avg:
-            .discreteAverage
-        case .min:
-            .discreteMin
-        case .max:
-            .discreteMax
-        case .sum, .count:
-            // Should never reach here due to guard in options(for:)
-            throw HealthConnectorError.invalidArgument(
-                message: "Metrics 'sum' and 'count' are not supported for discrete data"
-            )
-        }
-    }
-
-    private func cumulativeOption(for metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        switch metric {
-        case .sum:
-            .cumulativeSum
-        case .avg, .min, .max, .count:
-            // Should never reach here due to guard in options(for:)
-            throw HealthConnectorError.invalidArgument(
-                message: "Only 'sum' is supported for cumulative data"
-            )
-        }
-    }
-
-    private func extractDiscreteQuantity(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> HKQuantity? {
-        switch metric {
-        case .avg:
-            statistics.averageQuantity()
-        case .min:
-            statistics.minimumQuantity()
-        case .max:
-            statistics.maximumQuantity()
-        case .sum, .count:
-            // Should never reach here due to guard in extractQuantity(from:for:)
-            throw HealthConnectorError.invalidArgument(
-                message: "Metrics 'sum' and 'count' are not supported for discrete data"
-            )
-        }
-    }
-
-    private func extractCumulativeQuantity(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> HKQuantity? {
-        switch metric {
-        case .sum:
-            statistics.sumQuantity()
-        case .avg, .min, .max, .count:
-            // Should never reach here due to guard in extractQuantity(from:for:)
-            throw HealthConnectorError.invalidArgument(
-                message: "Only 'sum' is supported for cumulative data"
-            )
-        }
-    }
-
-    private func unsupportedMetricError(
-        metric: AggregationMetricDto,
-        supportedMetrics: Set<AggregationMetricDto>,
-        hint: String? = nil
-    ) -> HealthConnectorError {
-        let supported = supportedMetrics.map { String($0.rawValue) }.sorted().joined(separator: ", ")
-        let message =
-            "Aggregation metric '\(metric.rawValue)' not supported\(hint.map { " for \($0)" } ?? "")"
-        return HealthConnectorError.invalidArgument(
-            message: message,
-            context: ["details": "Supported metrics: \(supported)"]
-        )
     }
 }
 
-/// Capability for handlers that support aggregation using HealthKit statistics (quantity types only).
-///
-/// Only quantity types support aggregation. Category types, correlations, and
-/// characteristics do NOT implement this capability.
-protocol AggregatableQuantityHealthRecordHandler: AggregatableHealthRecordHandler {
-    /// Statistics configuration defining supported metrics
-    ///
-    /// This should be set to one of the predefined configurations:
-    /// - `.discreteMinMaxAvg` for instantaneous measurements (heart rate, weight, etc.)
-    /// - `.cumulativeSum` for interval measurements (steps, calories, etc.)
-    static var aggregationMetricConfig: AggregationMetricConfig { get }
+// MARK: - Aggregatable Quantity Health Record Handler
 
-    /// Extract aggregated value from HKStatistics
+/// Protocol for quantity-based health record handlers that support aggregation.
+///
+/// This protocol provides a default implementation of `aggregate()` that:
+/// 1. Validates the requested metric against `supportedAggregationMetrics`
+/// 2. Constructs and executes a HealthKit statistics query
+/// 3. Extracts the appropriate quantity based on the metric
+/// 4. Delegates conversion to the handler's `convertQuantity()` method
+protocol AggregatableQuantityHealthRecordHandler: AggregatableHealthRecordHandler,
+    ReadableHealthRecordHandler
+    where SampleType == HKQuantitySample
+{
+    /// Converts an HKQuantity to the handler's aggregated result DTO type.
     ///
-    /// Uses `aggregationMetricConfig.extractQuantity(from:for:)` to get the HKQuantity,
-    /// then delegates to handler for unit conversion to the specific AggregatedResultMeasurementUnitDto type.
+    /// This is the only conversion method handlers need to implement.
+    /// The base protocol handles metric validation and quantity extraction.
     ///
-    /// - Parameters:
-    ///   - statistics: The HKStatistics result from the query
-    ///   - metric: The aggregation metric requested
-    /// - Returns: The measurement unit DTO (MassDto, LengthDto, NumericDto, etc.)
-    /// - Throws: HealthConnectorError if metric is unsupported or result is null
-    func extractAggregateValue(
-        from statistics: HKStatistics,
-        metric: AggregationMetricDto
-    ) throws -> AggregatedResultMeasurementUnitDto
+    /// - Parameter quantity: The HealthKit quantity to convert
+    /// - Returns: The converted measurement DTO
+    /// - Throws: If conversion fails
+    func convertQuantity(_ quantity: HKQuantity) throws -> AggregatedResultMeasurementUnitDto
 }
+
+// MARK: - Default Aggregate Implementation
 
 extension AggregatableQuantityHealthRecordHandler {
-    /// Performs aggregation over a time range
-    ///
-    /// - Parameters:
-    ///   - metric: The aggregation metric to compute
-    ///   - startTime: Start of time range
-    ///   - endTime: End of time range
-    /// - Returns: The aggregated measurement value
-    /// - Throws: HealthConnectorError if aggregation fails
     func aggregate(
         metric: AggregationMetricDto,
         startTime: Date,
         endTime: Date
     ) async throws -> AggregatedResultMeasurementUnitDto {
-        try await process(
-            operation: "aggregate",
-            context: [
-                "metric": metric.rawValue,
-                "start_time": startTime,
-                "end_time": endTime,
-            ]
-        ) {
-            guard let quantityType = try Self.dataType.toHealthKit() as? HKQuantityType else {
-                throw HealthConnectorError.unsupportedOperation(
-                    message: "Aggregation only supported for quantity types"
-                )
-            }
+        // Validate the requested metric is supported
+        try validateAggregationMetric(metric)
 
-            let predicate = HKQuery.predicateForSamples(
-                withStart: startTime,
-                end: endTime,
-                options: [.strictStartDate, .strictEndDate]
+        // Get the HKStatisticsOptions for this metric
+        let options = try statisticsOptions(for: metric)
+
+        // Lookup the HKQuantityType for this handler
+        guard let quantityType = try Self.dataType.toHealthKit() as? HKQuantityType else {
+            throw HealthConnectorError.unsupportedOperation(
+                message: "Data type \(Self.dataType) does not support quantity-based aggregation",
+                context: ["data_type": String(describing: Self.dataType)]
             )
-
-            let options = try Self.aggregationMetricConfig.options(for: metric)
-
-            return try await withCheckedThrowingContinuation { continuation in
-                let query = HKStatisticsQuery(
-                    quantityType: quantityType,
-                    quantitySamplePredicate: predicate,
-                    options: options
-                ) { _, statistics, error in
-                    if let error {
-                        continuation.resume(throwing: error)
-                        return
-                    }
-
-                    guard let statistics else {
-                        continuation.resume(
-                            throwing: HealthConnectorError.invalidArgument(
-                                message: "No statistics returned for aggregation"
-                            )
-                        )
-                        return
-                    }
-
-                    do {
-                        let value = try self.extractAggregateValue(from: statistics, metric: metric)
-                        continuation.resume(returning: value)
-                    } catch {
-                        continuation.resume(throwing: error)
-                    }
-                }
-
-                self.healthStore.execute(query)
-            }
         }
+
+        // Construct the predicate
+        let predicate = HKQuery.predicateForSamples(
+            withStart: startTime,
+            end: endTime,
+            options: [.strictStartDate, .strictEndDate]
+        )
+
+        // Execute the statistics query using async/await wrapper
+        let statistics: HKStatistics = try await withCheckedThrowingContinuation { continuation in
+            let query = HKStatisticsQuery(
+                quantityType: quantityType,
+                quantitySamplePredicate: predicate,
+                options: options
+            ) { _, statistics, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                } else if let statistics {
+                    continuation.resume(returning: statistics)
+                } else {
+                    continuation.resume(
+                        throwing: HealthConnectorError.unknown(
+                            message:
+                            "No aggregation data available for \(Self.dataType) in the specified time range",
+                            context: [
+                                "data_type": String(describing: Self.dataType),
+                                "metric": String(describing: metric),
+                                "start_time": String(describing: startTime),
+                                "end_time": String(describing: endTime),
+                            ]
+                        )
+                    )
+                }
+            }
+
+            healthStore.execute(query)
+        }
+
+        // Extract the quantity for the requested metric
+        let quantity = try extractQuantity(from: statistics, for: metric)
+
+        // Convert to the handler's DTO type
+        return try convertQuantity(quantity)
+    }
+}
+
+// MARK: - Private Helper Methods
+
+extension AggregatableQuantityHealthRecordHandler {
+    /// Returns the appropriate HKStatisticsOptions for the given aggregation metric.
+    ///
+    /// - Parameter metric: The aggregation metric
+    /// - Returns: The corresponding HKStatisticsOptions
+    /// - Throws: `HealthConnectorError.invalidArgument` for unsupported metrics
+    private func statisticsOptions(for metric: AggregationMetricDto) throws -> HKStatisticsOptions {
+        switch metric {
+        case .min:
+            return .discreteMin
+        case .max:
+            return .discreteMax
+        case .avg:
+            return .discreteAverage
+        case .sum:
+            return .cumulativeSum
+        case .count:
+            throw HealthConnectorError.invalidArgument(
+                message: "Count aggregation is not supported by HealthKit statistics queries",
+                context: ["metric": String(describing: metric)]
+            )
+        }
+    }
+
+    /// Extracts the appropriate HKQuantity from statistics based on the metric.
+    ///
+    /// - Parameters:
+    ///   - statistics: The HKStatistics result from the query
+    ///   - metric: The aggregation metric being requested
+    /// - Returns: The extracted HKQuantity
+    /// - Throws: `HealthConnectorError.unknown` if the quantity is nil
+    private func extractQuantity(
+        from statistics: HKStatistics,
+        for metric: AggregationMetricDto
+    ) throws -> HKQuantity {
+        let quantity: HKQuantity? =
+            switch metric {
+            case .min:
+                statistics.minimumQuantity()
+            case .max:
+                statistics.maximumQuantity()
+            case .avg:
+                statistics.averageQuantity()
+            case .sum:
+                statistics.sumQuantity()
+            case .count:
+                nil // Count not supported through HKStatistics
+            }
+
+        guard let quantity else {
+            throw HealthConnectorError.unknown(
+                message: "No quantity data available for metric '\(metric)' on \(Self.dataType)",
+                context: [
+                    "data_type": String(describing: Self.dataType),
+                    "metric": String(describing: metric),
+                ]
+            )
+        }
+
+        return quantity
     }
 }
