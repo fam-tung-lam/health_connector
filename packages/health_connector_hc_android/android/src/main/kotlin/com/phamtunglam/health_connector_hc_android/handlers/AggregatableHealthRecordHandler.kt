@@ -3,7 +3,6 @@ package com.phamtunglam.health_connector_hc_android.handlers
 import android.os.RemoteException
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregateMetric
-import androidx.health.connect.client.aggregate.AggregationResult
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.phamtunglam.health_connector_hc_android.mappers.aggregationMetric
@@ -12,6 +11,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.startTime
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import java.io.IOException
@@ -30,36 +30,12 @@ internal interface AggregatableHealthRecordHandler : HealthRecordHandler {
 internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHealthRecordHandler {
 
     /**
-     * Converts a platform aggregation request to a Health Connect metric.
-     *
-     * Validates that the requested [request] metric is compatible with the health data type.
-     * For example, steps only supports [AggregationMetricDto.SUM], while weight supports AVG, MIN, and MAX.
-     *
-     * @param request The aggregation request containing the metric type to map.
-     * @return The native Health Connect [AggregateMetric].
-     * @throws IllegalArgumentException If the [request] contains a metric type that is
-     *         incompatible with this specific health data type.
+     * Maps aggregation metrics to their Health Connect SDK equivalents.
      */
-    @Throws(IllegalArgumentException::class)
-    fun toAggregateMetric(request: AggregateRequestDto): AggregateMetric<*>
+    val aggregateMetricMappings: Map<AggregationMetricDto, AggregateMetric<*>>
 
-    /**
-     * Extracts aggregation result from Health Connect and converts to platform DTO.
-     *
-     * This method retrieves the aggregated value for a specific metric from the Health Connect
-     * AggregationResult and wraps it in the appropriate measurement unit DTO.
-     *
-     * @param result The aggregation result from Health Connect SDK
-     * @param metric The specific metric to extract from the result
-     * @return The measurement unit DTO containing the aggregated value
-     * @throws IllegalArgumentException if the metric is not recognized/supported
-     * @throws IllegalStateException if the aggregation result is unexpectedly null
-     */
-    @Throws(IllegalArgumentException::class, IllegalStateException::class)
-    fun extractAggregateValue(
-        result: AggregationResult,
-        metric: AggregateMetric<*>,
-    ): MeasurementUnitDto
+    @Throws(IllegalArgumentException::class)
+    fun convertAggregatedValue(aggregatedValue: Any): MeasurementUnitDto
 
     /**
      * Performs aggregation using native Health Connect SDK.
@@ -83,7 +59,11 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
             "Invalid time range: startTime must be before endTime"
         }
 
-        val metric = toAggregateMetric(request)
+        val metric = aggregateMetricMappings[request.aggregationMetric]
+            ?: throw IllegalArgumentException(
+                "Unsupported metric: ${request.aggregationMetric}. " +
+                    "Supported: ${aggregateMetricMappings.keys}",
+            )
         val aggregateRequest = AggregateRequest(
             metrics = setOf(metric),
             timeRangeFilter = TimeRangeFilter.between(
@@ -93,10 +73,9 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
         )
 
         val result = client.aggregate(aggregateRequest)
+        val aggregatedValue = result[metric] ?: error("Aggregation result for $metric is null")
 
-        val valueDto = extractAggregateValue(result, metric)
-
-        AggregateResponseDto(value = valueDto)
+        AggregateResponseDto(value = convertAggregatedValue(aggregatedValue))
     }
 }
 
@@ -104,12 +83,7 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
  * Capability for handlers that support custom manual aggregation logic.
  *
  * Use this when Health Connect native aggregation is not available.
- * This interface provides a default paginated aggregation implementation that eliminates
- * code duplication across handlers.
- *
- * The paginated aggregation handles large datasets efficiently by:
- * - Paginating through records in chunks ([ReadableHealthRecordHandler.DEFAULT_PAGE_SIZE] records per page)
- * - Accumulating statistics (count, sum, min, max) without loading all data into memory
+ * This interface provides a default paginated aggregation implementation.
  *
  * @see extractValueForAggregation
  * @see wrapAggregationResult
@@ -126,11 +100,8 @@ internal interface CustomAggregatableHealthRecordHandler :
     /**
      * Extract the numeric value from a specific DTO type for aggregation.
      *
-     * This method should perform type checking and value extraction specific
-     * to the handler's data type.
-     *
      * @param recordDto The health record DTO to extract a value from
-     * @return The numeric value if the DTO is of the expected type, null otherwise
+     * @return The numeric value if the DTO is of the expected type, throws error otherwise
      * @throws IllegalArgumentException if the [recordDto] is invalid type
      */
     @Throws(IllegalArgumentException::class)
@@ -139,28 +110,8 @@ internal interface CustomAggregatableHealthRecordHandler :
     /**
      * Wrap the aggregated numeric result into the appropriate response format.
      *
-     * Different data types may require different wrapping:
-     * - Simple numeric types use toNumericDto()
-     * - Complex types with units use specific DTO constructors
-     *
      * @param value The aggregated numeric value (AVG, MIN, or MAX)
      * @return The measurement unit DTO appropriate for this data type
-     *
-     * Example implementations:
-     * ```
-     * // For simple numeric types (Oxygen Saturation, Respiratory Rate, VO2 Max):
-     * override fun wrapAggregationResult(value: Double): MeasurementUnitDto {
-     *     return value.toNumericDto()
-     * }
-     *
-     * // For types with units (Blood Glucose):
-     * override fun wrapAggregationResult(value: Double): MeasurementUnitDto {
-     *     return BloodGlucoseDto(
-     *         BloodGlucoseUnitDto.MILLIGRAMS_PER_DECILITER,
-     *         value,
-     *     )
-     * }
-     * ```
      */
     fun wrapAggregationResult(value: Double): MeasurementUnitDto
 
@@ -174,27 +125,16 @@ internal interface CustomAggregatableHealthRecordHandler :
      * 4. Calculates the requested metric (AVG, MIN, MAX, COUNT, or SUM)
      * 5. Wraps the result in the appropriate format
      *
-     * Supported metrics:
-     * - AVG: Average of all values
-     * - MIN: Minimum value
-     * - MAX: Maximum value
-     * - COUNT: Number of records with valid extractable values
-     * - SUM: Sum of all values
-     *
      * Implementations can override this method if custom aggregation logic is needed,
      * but in most cases, only [extractValueForAggregation] and [wrapAggregationResult]
      * need to be implemented.
      *
      * @param request The aggregation request containing data type, metric, and time range
      * @return The aggregation response with the computed value
-     * @throws IllegalArgumentException if [startTime] > [endTime]
-     * @throws Exception that can be thrown by [HealthConnectClient.readRecords]
+     * @throws HealthConnectorErrorDto with appropriate error code
      */
     @Throws(
-        IllegalArgumentException::class,
-        RemoteException::class,
-        SecurityException::class,
-        IOException::class,
+        HealthConnectorErrorDto::class,
     )
     override suspend fun aggregate(request: AggregateRequestDto): AggregateResponseDto = process(
         "custom_aggregate",
@@ -244,8 +184,8 @@ internal interface CustomAggregatableHealthRecordHandler :
         var pageToken: String? = null
         var count = 0
         var sum = 0.0
-        var min = Double.MAX_VALUE
-        var max = Double.MIN_VALUE
+        var min: Double? = null
+        var max: Double? = null
 
         do {
             val (records, nextToken) = readRecords(
@@ -258,19 +198,19 @@ internal interface CustomAggregatableHealthRecordHandler :
                 val value = extractValueForAggregation(recordDto)
                 sum += value
                 count++
-                if (value < min) min = value
-                if (value > max) max = value
+                min = if (min == null) value else minOf(min, value)
+                max = if (max == null) value else maxOf(max, value)
             }
 
             pageToken = nextToken
         } while (!pageToken.isNullOrEmpty())
 
         return PaginatedAggregationResult(
-            avg = sum / count,
+            avg = if (count > 0) sum / count else 0.0,
             count = count,
             sum = sum,
-            min = if (count > 0) min else 0.0,
-            max = if (count > 0) max else 0.0,
+            min = if (count > 0) min ?: 0.0 else 0.0,
+            max = if (count > 0) max ?: 0.0 else 0.0,
         )
     }
 

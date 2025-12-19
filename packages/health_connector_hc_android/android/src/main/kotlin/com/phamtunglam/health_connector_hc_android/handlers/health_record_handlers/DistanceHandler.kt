@@ -1,17 +1,14 @@
 package com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers
 
 import androidx.health.connect.client.HealthConnectClient
-import androidx.health.connect.client.aggregate.AggregateMetric
-import androidx.health.connect.client.aggregate.AggregationResult
 import androidx.health.connect.client.records.DistanceRecord
+import androidx.health.connect.client.units.Length
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.mappers.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.mappers.toDto
-import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
@@ -28,24 +25,15 @@ internal class DistanceHandler(override val client: HealthConnectClient) :
 
     override val dataType = HealthDataTypeDto.DISTANCE
 
-    override fun toAggregateMetric(request: AggregateRequestDto): AggregateMetric<*> =
-        when (request.aggregationMetric) {
-            AggregationMetricDto.SUM -> DistanceRecord.DISTANCE_TOTAL
-            else -> throw IllegalArgumentException(
-                "Unsupported metric: ${request.aggregationMetric}",
+    override val aggregateMetricMappings = mapOf(
+        AggregationMetricDto.SUM to DistanceRecord.DISTANCE_TOTAL,
+    )
+
+    override fun convertAggregatedValue(aggregatedValue: Any): MeasurementUnitDto {
+        val length = aggregatedValue as? Length
+            ?: throw IllegalArgumentException(
+                "Aggregated value is not Length type: ${aggregatedValue::class.simpleName}",
             )
-        }
-
-    override fun extractAggregateValue(
-        result: AggregationResult,
-        metric: AggregateMetric<*>,
-    ): MeasurementUnitDto = when (metric) {
-        DistanceRecord.DISTANCE_TOTAL -> {
-            val length = result[metric]
-                ?: error("Aggregation result for $metric is null")
-            length.toDto()
-        }
-
-        else -> throw IllegalArgumentException("Unsupported metric: $metric")
+        return length.toDto()
     }
 }
