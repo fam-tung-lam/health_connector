@@ -229,8 +229,8 @@ actor HealthConnectorClient: Taggable {
             }
 
             // Convert milliseconds since epoch to Date
-            let startTime = Date(timeIntervalSince1970: Double(request.startTime) / 1000.0)
-            let endTime = Date(timeIntervalSince1970: Double(request.endTime) / 1000.0)
+            let startTime = Date(millisecondsSince1970: request.startTime)
+            let endTime = Date(millisecondsSince1970: request.endTime)
 
             // Delegate to handler
             let (records, pageToken) = try await handler.readRecords(
@@ -417,8 +417,8 @@ actor HealthConnectorClient: Taggable {
             )
 
             // Convert milliseconds since epoch to Date
-            let startTime = Date(timeIntervalSince1970: Double(request.startTime) / 1000.0)
-            let endTime = Date(timeIntervalSince1970: Double(request.endTime) / 1000.0)
+            let startTime = Date(millisecondsSince1970: request.startTime)
+            let endTime = Date(millisecondsSince1970: request.endTime)
 
             let value = try await handler.aggregate(
                 metric: request.aggregationMetric,
@@ -471,8 +471,9 @@ actor HealthConnectorClient: Taggable {
                 withCapability: DeletableHealthRecordHandler.self
             )
 
-            let startTime = Date(timeIntervalSince1970: Double(request.startTime) / 1000.0)
-            let endTime = Date(timeIntervalSince1970: Double(request.endTime) / 1000.0)
+            // Convert milliseconds since epoch to Date
+            let startTime = Date(millisecondsSince1970: request.startTime)
+            let endTime = Date(millisecondsSince1970: request.endTime)
 
             try await handler.deleteRecords(
                 startTime: startTime,
