@@ -17,9 +17,7 @@ final class SleepStageHandler: @unchecked Sendable,
         self.healthStore = healthStore
     }
 
-    static var dataType: HealthDataTypeDto {
-        .sleepStageRecord
-    }
+    static let dataType: HealthDataTypeDto = .sleepStageRecord
 }
 
 extension SleepStageHandler {

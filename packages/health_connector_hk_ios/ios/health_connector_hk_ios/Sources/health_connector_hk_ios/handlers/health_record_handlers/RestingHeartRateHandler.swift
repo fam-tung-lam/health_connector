@@ -17,53 +17,19 @@ final class RestingHeartRateHandler: @unchecked Sendable,
         self.healthStore = healthStore
     }
 
-    static var dataType: HealthDataTypeDto {
-        .restingHeartRate
-    }
+    static let dataType: HealthDataTypeDto = .restingHeartRate
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        switch metric {
-        case .avg:
-            return .discreteAverage
-        case .min:
-            return .discreteMin
-        case .max:
-            return .discreteMax
-        case .sum, .count:
-            throw HealthConnectorError.invalidArgument(
-                message:
-                "Aggregation metric '\(metric)' not supported for resting heart rate (discrete data)",
-                context: ["details": "Supported metrics: avg, min, max"]
-            )
-        }
+        try Self.aggregationMetricConfig.options(for: metric)
     }
 
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
     ) throws -> MeasurementUnitDto {
-        let quantity: HKQuantity? =
-            switch metric {
-            case .avg:
-                statistics.averageQuantity()
-            case .min:
-                statistics.minimumQuantity()
-            case .max:
-                statistics.maximumQuantity()
-            case .sum, .count:
-                throw HealthConnectorError.invalidArgument(
-                    message: "Aggregation metric '\(metric)' not supported for resting heart rate",
-                    context: ["details": "Supported metrics: avg, min, max"]
-                )
-            }
-
-        guard let quantity else {
-            throw HealthConnectorError.invalidArgument(
-                message: "No aggregation result for metric '\(metric)'",
-                context: ["details": "Statistics returned nil for restingHeartRate"]
-            )
-        }
-
+        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         let beatsPerMinute = quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
         return NumericDto(unit: .numeric, value: beatsPerMinute)
     }

@@ -17,53 +17,19 @@ final class LeanBodyMassHandler: @unchecked Sendable,
         self.healthStore = healthStore
     }
 
-    static var dataType: HealthDataTypeDto {
-        .leanBodyMass
-    }
+    static let dataType: HealthDataTypeDto = .leanBodyMass
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        switch metric {
-        case .avg:
-            return .discreteAverage
-        case .min:
-            return .discreteMin
-        case .max:
-            return .discreteMax
-        case .sum, .count:
-            throw HealthConnectorError.invalidArgument(
-                message:
-                "Aggregation metric '\(metric)' not supported for lean body mass (discrete data)",
-                context: ["details": "Supported metrics: avg, min, max"]
-            )
-        }
+        try Self.aggregationMetricConfig.options(for: metric)
     }
 
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
     ) throws -> MeasurementUnitDto {
-        let quantity: HKQuantity? =
-            switch metric {
-            case .avg:
-                statistics.averageQuantity()
-            case .min:
-                statistics.minimumQuantity()
-            case .max:
-                statistics.maximumQuantity()
-            case .sum, .count:
-                throw HealthConnectorError.invalidArgument(
-                    message: "Aggregation metric '\(metric)' not supported for lean body mass",
-                    context: ["details": "Supported metrics: avg, min, max"]
-                )
-            }
-
-        guard let quantity else {
-            throw HealthConnectorError.invalidArgument(
-                message: "No aggregation result for metric '\(metric)'",
-                context: ["details": "Statistics returned nil for leanBodyMass"]
-            )
-        }
-
+        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         let kilograms = quantity.doubleValue(for: .gramUnit(with: .kilo))
         return MassDto(unit: .kilograms, value: kilograms)
     }

@@ -49,42 +49,17 @@ struct NutrientHandler {
         )
     }
 
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
+
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        switch metric {
-        case .sum:
-            return .cumulativeSum
-        case .avg, .min, .max, .count:
-            throw HealthConnectorError.invalidArgument(
-                message:
-                "Aggregation metric '\(metric)' not supported for nutrients (cumulative data)",
-                context: ["details": "Only 'sum' is supported"]
-            )
-        }
+        try Self.aggregationMetricConfig.options(for: metric)
     }
 
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
     ) throws -> MeasurementUnitDto {
-        let quantity: HKQuantity? =
-            switch metric {
-            case .sum:
-                statistics.sumQuantity()
-            case .avg, .min, .max, .count:
-                throw HealthConnectorError.invalidArgument(
-                    message: "Aggregation metric '\(metric)' not supported for nutrients",
-                    context: ["details": "Only 'sum' is supported"]
-                )
-            }
-
-        guard let quantity else {
-            throw HealthConnectorError.invalidArgument(
-                message: "No aggregation result for metric '\(metric)'",
-                context: [
-                    "details": "Statistics returned nil for \(quantityTypeIdentifier.rawValue)",
-                ]
-            )
-        }
+        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
 
         if nutrientType == .energyNutrient {
             return quantity.toEnergyDto()
@@ -115,9 +90,9 @@ final class EnergyNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .energyNutrient
-    }
+    static let dataType: HealthDataTypeDto = .energyNutrient
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -152,9 +127,9 @@ final class CaffeineNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .caffeine
-    }
+    static let dataType: HealthDataTypeDto = .caffeine
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -189,9 +164,9 @@ final class ProteinNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .protein
-    }
+    static let dataType: HealthDataTypeDto = .protein
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -226,9 +201,9 @@ final class TotalCarbohydrateNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .totalCarbohydrate
-    }
+    static let dataType: HealthDataTypeDto = .totalCarbohydrate
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -263,7 +238,9 @@ final class TotalFatNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto { .totalFat }
+    static let dataType: HealthDataTypeDto = .totalFat
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -297,7 +274,9 @@ final class SaturatedFatNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto { .saturatedFat }
+    static let dataType: HealthDataTypeDto = .saturatedFat
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -331,7 +310,9 @@ final class MonounsaturatedFatNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto { .monounsaturatedFat }
+    static let dataType: HealthDataTypeDto = .monounsaturatedFat
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -365,7 +346,9 @@ final class PolyunsaturatedFatNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto { .polyunsaturatedFat }
+    static let dataType: HealthDataTypeDto = .polyunsaturatedFat
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -399,9 +382,9 @@ final class CholesterolNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .cholesterol
-    }
+    static let dataType: HealthDataTypeDto = .cholesterol
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -436,9 +419,9 @@ final class DietaryFiberNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .dietaryFiber
-    }
+    static let dataType: HealthDataTypeDto = .dietaryFiber
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -473,9 +456,9 @@ final class SugarNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .sugar
-    }
+    static let dataType: HealthDataTypeDto = .sugar
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -510,9 +493,9 @@ final class VitaminANutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .vitaminA
-    }
+    static let dataType: HealthDataTypeDto = .vitaminA
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -547,9 +530,9 @@ final class VitaminB6NutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .vitaminB6
-    }
+    static let dataType: HealthDataTypeDto = .vitaminB6
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -584,9 +567,9 @@ final class VitaminB12NutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .vitaminB12
-    }
+    static let dataType: HealthDataTypeDto = .vitaminB12
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -621,9 +604,9 @@ final class VitaminCNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .vitaminC
-    }
+    static let dataType: HealthDataTypeDto = .vitaminC
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -658,9 +641,9 @@ final class VitaminDNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .vitaminD
-    }
+    static let dataType: HealthDataTypeDto = .vitaminD
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -695,9 +678,9 @@ final class VitaminENutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .vitaminE
-    }
+    static let dataType: HealthDataTypeDto = .vitaminE
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -732,9 +715,9 @@ final class VitaminKNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .vitaminK
-    }
+    static let dataType: HealthDataTypeDto = .vitaminK
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -769,9 +752,9 @@ final class ThiaminNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .thiamin
-    }
+    static let dataType: HealthDataTypeDto = .thiamin
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -806,9 +789,9 @@ final class RiboflavinNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .riboflavin
-    }
+    static let dataType: HealthDataTypeDto = .riboflavin
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -843,9 +826,9 @@ final class NiacinNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .niacin
-    }
+    static let dataType: HealthDataTypeDto = .niacin
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -880,9 +863,9 @@ final class FolateNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .folate
-    }
+    static let dataType: HealthDataTypeDto = .folate
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -917,9 +900,9 @@ final class BiotinNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .biotin
-    }
+    static let dataType: HealthDataTypeDto = .biotin
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -954,9 +937,9 @@ final class PantothenicAcidNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .pantothenicAcid
-    }
+    static let dataType: HealthDataTypeDto = .pantothenicAcid
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -991,9 +974,9 @@ final class CalciumNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .calcium
-    }
+    static let dataType: HealthDataTypeDto = .calcium
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -1028,9 +1011,9 @@ final class IronNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .iron
-    }
+    static let dataType: HealthDataTypeDto = .iron
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -1065,9 +1048,9 @@ final class MagnesiumNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .magnesium
-    }
+    static let dataType: HealthDataTypeDto = .magnesium
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -1102,9 +1085,9 @@ final class ManganeseNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .manganese
-    }
+    static let dataType: HealthDataTypeDto = .manganese
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -1139,9 +1122,9 @@ final class PhosphorusNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .phosphorus
-    }
+    static let dataType: HealthDataTypeDto = .phosphorus
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -1176,9 +1159,9 @@ final class PotassiumNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .potassium
-    }
+    static let dataType: HealthDataTypeDto = .potassium
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -1213,9 +1196,9 @@ final class SeleniumNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .selenium
-    }
+    static let dataType: HealthDataTypeDto = .selenium
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -1250,9 +1233,9 @@ final class SodiumNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .sodium
-    }
+    static let dataType: HealthDataTypeDto = .sodium
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)
@@ -1287,9 +1270,9 @@ final class ZincNutrientHandler: @unchecked Sendable,
         )
     }
 
-    static var dataType: HealthDataTypeDto {
-        .zinc
-    }
+    static let dataType: HealthDataTypeDto = .zinc
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
         try handler.toStatisticsOptions(metric)

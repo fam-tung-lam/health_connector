@@ -17,45 +17,19 @@ final class WheelchairPushesHandler: @unchecked Sendable,
         self.healthStore = healthStore
     }
 
-    static var dataType: HealthDataTypeDto {
-        .wheelchairPushes
-    }
+    static let dataType: HealthDataTypeDto = .wheelchairPushes
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        switch metric {
-        case .sum:
-            return .cumulativeSum
-        case .avg, .min, .max, .count:
-            throw HealthConnectorError.invalidArgument(
-                message:
-                "Aggregation metric '\(metric)' not supported for wheelchair pushes (cumulative data)",
-                context: ["details": "Only 'sum' is supported"]
-            )
-        }
+        try Self.aggregationMetricConfig.options(for: metric)
     }
 
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
     ) throws -> MeasurementUnitDto {
-        let quantity: HKQuantity? =
-            switch metric {
-            case .sum:
-                statistics.sumQuantity()
-            case .avg, .min, .max, .count:
-                throw HealthConnectorError.invalidArgument(
-                    message: "Aggregation metric '\(metric)' not supported for wheelchair pushes",
-                    context: ["details": "Only 'sum' is supported"]
-                )
-            }
-
-        guard let quantity else {
-            throw HealthConnectorError.invalidArgument(
-                message: "No aggregation result for metric '\(metric)'",
-                context: ["details": "Statistics returned nil for pushCount"]
-            )
-        }
-
+        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         let count = quantity.doubleValue(for: .count())
         return NumericDto(unit: .numeric, value: count)
     }

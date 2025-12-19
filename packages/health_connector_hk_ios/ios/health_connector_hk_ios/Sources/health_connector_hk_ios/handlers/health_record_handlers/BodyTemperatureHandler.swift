@@ -18,48 +18,19 @@ final class BodyTemperatureHandler: @unchecked Sendable,
         self.healthStore = healthStore
     }
 
-    static var dataType: HealthDataTypeDto {
-        .bodyTemperature
-    }
+    static let dataType: HealthDataTypeDto = .bodyTemperature
+
+    static let aggregationMetricConfig: AggregationMetricConfig = .discreteMinMaxAvg
 
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        switch metric {
-        case .avg:
-            return .discreteAverage
-        case .min:
-            return .discreteMin
-        case .max:
-            return .discreteMax
-        default:
-            throw HealthConnectorError.invalidArgument(
-                message: "Aggregation metric '\(metric)' not supported for Body Temperature",
-                context: ["details": "Only avg, min, max are supported"]
-            )
-        }
+        try Self.aggregationMetricConfig.options(for: metric)
     }
 
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
     ) throws -> MeasurementUnitDto {
-        let quantity: HKQuantity? =
-            switch metric {
-            case .avg:
-                statistics.averageQuantity()
-            case .min:
-                statistics.minimumQuantity()
-            case .max:
-                statistics.maximumQuantity()
-            default:
-                nil
-            }
-
-        guard let quantity else {
-            throw HealthConnectorError.invalidArgument(
-                message: "No aggregation result for metric '\(metric)'",
-                context: ["details": "Statistics returned nil"]
-            )
-        }
+        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         return quantity.toTemperatureDto()
     }
 }

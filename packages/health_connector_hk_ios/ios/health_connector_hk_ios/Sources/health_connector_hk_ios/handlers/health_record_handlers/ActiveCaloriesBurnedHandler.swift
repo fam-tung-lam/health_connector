@@ -18,47 +18,19 @@ final class ActiveCaloriesBurnedHandler: @unchecked Sendable,
         self.healthStore = healthStore
     }
 
-    static var dataType: HealthDataTypeDto {
-        .activeCaloriesBurned
-    }
+    static let dataType: HealthDataTypeDto = .activeCaloriesBurned
 
-    /// Convert aggregation metric to HKStatisticsOptions
+    static let aggregationMetricConfig: AggregationMetricConfig = .cumulativeSum
+
     func toStatisticsOptions(_ metric: AggregationMetricDto) throws -> HKStatisticsOptions {
-        switch metric {
-        case .sum:
-            return .cumulativeSum
-        case .avg, .min, .max, .count:
-            throw HealthConnectorError.invalidArgument(
-                message:
-                "Aggregation metric '\(metric)' not supported for active calories (cumulative data)",
-                context: ["details": "Only 'sum' is supported"]
-            )
-        }
+        try Self.aggregationMetricConfig.options(for: metric)
     }
 
-    /// Extract aggregated value from HKStatistics
     func extractAggregateValue(
         from statistics: HKStatistics,
         metric: AggregationMetricDto
     ) throws -> MeasurementUnitDto {
-        let quantity: HKQuantity? =
-            switch metric {
-            case .sum:
-                statistics.sumQuantity()
-            case .avg, .min, .max, .count:
-                throw HealthConnectorError.invalidArgument(
-                    message: "Aggregation metric '\(metric)' not supported for active calories",
-                    context: ["details": "Only 'sum' is supported"]
-                )
-            }
-
-        guard let quantity else {
-            throw HealthConnectorError.invalidArgument(
-                message: "No aggregation result for metric '\(metric)'",
-                context: ["details": "Statistics returned nil for activeEnergyBurned"]
-            )
-        }
-
+        let quantity = try Self.aggregationMetricConfig.extractQuantity(from: statistics, for: metric)
         return quantity.toEnergyDto()
     }
 }
