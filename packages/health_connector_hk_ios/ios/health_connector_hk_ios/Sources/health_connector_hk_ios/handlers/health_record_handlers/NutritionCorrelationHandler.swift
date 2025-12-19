@@ -5,7 +5,7 @@ import HealthKit
 final class NutritionCorrelationHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
-    CorrelationDeletableHealthRecordHandler
+    DeletableCorrelationHealthRecordHandler
 {
     typealias RecordDto = NutritionRecordDto
     typealias SampleType = HKCorrelation
