@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart' hide Velocity;
+import 'package:flutter/material.dart' hide Interval, Velocity;
 import 'package:health_connector/health_connector.dart'
     show
         BloodGlucose,
         Energy,
+        TimeDuration,
         Length,
         Mass,
         MeasurementUnit,
@@ -344,6 +345,32 @@ final class MeasurementUnitDisplay extends StatelessWidget {
               color: Theme.of(context).primaryColor,
             ),
       ),
+      TimeDuration(:final inSeconds, :final inMinutes, :final inHours) =>
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${inHours.toStringAsFixed(2)} hours',
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '${inMinutes.toStringAsFixed(2)} minutes',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
+            ),
+            Text(
+              '${inSeconds.toStringAsFixed(0)} seconds',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
+            ),
+          ],
+        ),
       Percentage(:final asWhole, :final asDecimal) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

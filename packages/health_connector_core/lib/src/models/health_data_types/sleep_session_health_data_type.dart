@@ -10,11 +10,11 @@ part of 'health_data_type.dart';
 @supportedOnHealthConnect
 @immutable
 final class SleepSessionHealthDataType
-    extends HealthDataType<SleepSessionRecord, Numeric>
+    extends HealthDataType<SleepSessionRecord, TimeDuration>
     implements
         ReadableHealthDataType<SleepSessionRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<SleepSessionRecord, Numeric> {
+        SumAggregatableHealthDataType<SleepSessionRecord, TimeDuration> {
   @internal
   const SleepSessionHealthDataType();
 
@@ -79,7 +79,7 @@ final class SleepSessionHealthDataType
   );
 
   @override
-  AggregateRequest<SleepSessionRecord, Numeric> aggregateSum({
+  AggregateRequest<SleepSessionRecord, TimeDuration> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

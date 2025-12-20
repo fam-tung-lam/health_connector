@@ -34,6 +34,9 @@ enum BloodGlucoseUnitDto { milligramsPerDeciliter, millimolesPerLiter }
 /// Energy unit types supported by the plugin.
 enum EnergyUnitDto { calories, joules, kilocalories, kilojoules }
 
+/// Interval unit types supported by the plugin.
+enum TimeDurationUnitDto { seconds, minutes, hours }
+
 /// Length unit types supported by the plugin.
 enum LengthUnitDto { feet, inches, kilometers, meters, miles }
 
@@ -130,6 +133,17 @@ class EnergyDto extends MeasurementUnitDto {
   final EnergyUnitDto unit;
 
   /// The numeric value of the energy.
+  final double value;
+}
+
+/// Represents an interval (time duration) measurement for platform transfer.
+class TimeDurationDto extends MeasurementUnitDto {
+  TimeDurationDto({required this.value, required this.unit});
+
+  /// The unit in which the value is expressed.
+  final TimeDurationUnitDto unit;
+
+  /// The numeric value of the interval.
   final double value;
 }
 

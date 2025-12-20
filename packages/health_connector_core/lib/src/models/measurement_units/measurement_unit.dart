@@ -8,6 +8,7 @@ import 'package:meta/meta.dart' show immutable;
 
 part 'blood_glucose.dart';
 part 'energy.dart';
+part 'time_duration.dart';
 part 'length.dart';
 part 'mass.dart';
 part 'numeric.dart';

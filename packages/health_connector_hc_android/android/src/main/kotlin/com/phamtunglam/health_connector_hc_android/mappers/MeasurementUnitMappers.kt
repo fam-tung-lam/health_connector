@@ -28,10 +28,17 @@ import com.phamtunglam.health_connector_hc_android.pigeon.PressureDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PressureUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.TemperatureDto
 import com.phamtunglam.health_connector_hc_android.pigeon.TemperatureUnitDto
+import com.phamtunglam.health_connector_hc_android.pigeon.TimeDurationDto
+import com.phamtunglam.health_connector_hc_android.pigeon.TimeDurationUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.VelocityDto
 import com.phamtunglam.health_connector_hc_android.pigeon.VelocityUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.VolumeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.VolumeUnitDto
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.DurationUnit
 
 /**
  * Kelvin to Celsius conversion constant.
@@ -260,4 +267,23 @@ internal fun Percentage.toDto(): PercentageDto = PercentageDto(
 internal fun Double.toTemperatureDto(): TemperatureDto = TemperatureDto(
     value = this,
     unit = TemperatureUnitDto.CELSIUS,
+)
+
+/**
+ * Converts a [TimeDurationDto] to a Kotlin [Duration] object.
+ */
+internal fun TimeDurationDto.toDuration(): Duration = when (unit) {
+    TimeDurationUnitDto.SECONDS -> value.seconds
+    TimeDurationUnitDto.MINUTES -> value.minutes
+    TimeDurationUnitDto.HOURS -> value.hours
+}
+
+/**
+ * Converts a Kotlin [Duration] to a [TimeDurationDto].
+ *
+ * Uses seconds as the transfer unit for consistency.
+ */
+internal fun Duration.toDto(): TimeDurationDto = TimeDurationDto(
+    value = toDouble(DurationUnit.SECONDS),
+    unit = TimeDurationUnitDto.SECONDS,
 )
