@@ -5,19 +5,14 @@ import 'package:health_connector_core/src/utils/collection.dart';
 import 'package:meta/meta.dart' show immutable, internal, sealed;
 
 /// Base sealed class for all delete records requests.
-///
-/// This class uses the sealed class pattern to ensure type-safe handling
-/// of different deletion strategies:
-/// - [DeleteRecordsByIdsRequest] - Delete specific records by their IDs
-/// - [DeleteRecordsInTimeRangeRequest] - Delete all records within a time range
 @sinceV2_0_0
 @internalUse
 @sealed
 sealed class DeleteRecordsRequest<R extends HealthRecord> extends Request {
-  const DeleteRecordsRequest._();
+  const DeleteRecordsRequest({required this.dataType});
 
   /// The type of health data to delete.
-  HealthDataType<R, MeasurementUnit> get dataType;
+  final HealthDataType<R, MeasurementUnit> dataType;
 }
 
 /// Request to delete specific health records by their IDs.
@@ -82,12 +77,9 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
   }
 
   const DeleteRecordsByIdsRequest._({
-    required this.dataType,
+    required super.dataType,
     required this.recordIds,
-  }) : super._();
-
-  @override
-  final HealthDataType<R, MeasurementUnit> dataType;
+  });
 
   /// List of unique record identifiers to delete.
   ///
@@ -170,13 +162,10 @@ final class DeleteRecordsInTimeRangeRequest<R extends HealthRecord>
   }
 
   const DeleteRecordsInTimeRangeRequest._({
-    required this.dataType,
+    required super.dataType,
     required this.startTime,
     required this.endTime,
-  }) : super._();
-
-  @override
-  final HealthDataType<R, MeasurementUnit> dataType;
+  });
 
   /// Inclusive start of the time range.
   ///

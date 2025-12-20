@@ -53,17 +53,17 @@ final class ProteinNutrientDataType
   );
 
   @override
-  ReadRecordRequest<ProteinNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<ProteinNutrientRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<ProteinNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<ProteinNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -138,19 +138,20 @@ final class TotalCarbohydrateNutrientDataType
   );
 
   @override
-  ReadRecordRequest<TotalCarbohydrateNutrientRecord> readRecord(
+  ReadRecordByIdRequest<TotalCarbohydrateNutrientRecord> readById(
     HealthRecordId id,
   ) {
-    return ReadRecordRequest(dataType: this, id: id);
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<TotalCarbohydrateNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<TotalCarbohydrateNutrientRecord>
+  readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -225,17 +226,17 @@ final class TotalFatNutrientDataType
   );
 
   @override
-  ReadRecordRequest<TotalFatNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<TotalFatNutrientRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<TotalFatNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<TotalFatNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -310,17 +311,19 @@ final class SaturatedFatNutrientDataType
   );
 
   @override
-  ReadRecordRequest<SaturatedFatNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<SaturatedFatNutrientRecord> readById(
+    HealthRecordId id,
+  ) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<SaturatedFatNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<SaturatedFatNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -395,19 +398,20 @@ final class MonounsaturatedFatNutrientDataType
   );
 
   @override
-  ReadRecordRequest<MonounsaturatedFatNutrientRecord> readRecord(
+  ReadRecordByIdRequest<MonounsaturatedFatNutrientRecord> readById(
     HealthRecordId id,
   ) {
-    return ReadRecordRequest(dataType: this, id: id);
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<MonounsaturatedFatNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<MonounsaturatedFatNutrientRecord>
+  readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -482,19 +486,20 @@ final class PolyunsaturatedFatNutrientDataType
   );
 
   @override
-  ReadRecordRequest<PolyunsaturatedFatNutrientRecord> readRecord(
+  ReadRecordByIdRequest<PolyunsaturatedFatNutrientRecord> readById(
     HealthRecordId id,
   ) {
-    return ReadRecordRequest(dataType: this, id: id);
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<PolyunsaturatedFatNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<PolyunsaturatedFatNutrientRecord>
+  readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -569,17 +574,19 @@ final class CholesterolNutrientDataType
   );
 
   @override
-  ReadRecordRequest<CholesterolNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<CholesterolNutrientRecord> readById(
+    HealthRecordId id,
+  ) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<CholesterolNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<CholesterolNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -654,17 +661,19 @@ final class DietaryFiberNutrientDataType
   );
 
   @override
-  ReadRecordRequest<DietaryFiberNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<DietaryFiberNutrientRecord> readById(
+    HealthRecordId id,
+  ) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<DietaryFiberNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<DietaryFiberNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -739,17 +748,17 @@ final class SugarNutrientDataType
   );
 
   @override
-  ReadRecordRequest<SugarNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<SugarNutrientRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<SugarNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<SugarNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,

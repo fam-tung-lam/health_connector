@@ -43,17 +43,19 @@ final class ActiveCaloriesBurnedHealthDataType
   );
 
   @override
-  ReadRecordRequest<ActiveCaloriesBurnedRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<ActiveCaloriesBurnedRecord> readById(
+    HealthRecordId id,
+  ) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<ActiveCaloriesBurnedRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<ActiveCaloriesBurnedRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,

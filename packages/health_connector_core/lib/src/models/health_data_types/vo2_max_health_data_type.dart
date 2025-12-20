@@ -49,17 +49,17 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Vo2Max>
   );
 
   @override
-  ReadRecordRequest<Vo2MaxRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<Vo2MaxRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<Vo2MaxRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<Vo2MaxRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,

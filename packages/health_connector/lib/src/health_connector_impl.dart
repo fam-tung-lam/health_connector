@@ -18,9 +18,9 @@ import 'package:health_connector_core/health_connector_core.dart'
         MeasurementUnit,
         Permission,
         PermissionRequestResult,
-        ReadRecordRequest,
-        ReadRecordsRequest,
-        ReadRecordsResponse,
+        ReadRecordByIdRequest,
+        ReadRecordsInTimeRangeRequest,
+        ReadRecordsInTimeRangeResponse,
         require,
         requireEndTimeAfterStartTime,
         sinceV1_0_0,
@@ -239,7 +239,7 @@ final class HealthConnectorImpl implements HealthConnector {
 
   @override
   Future<R?> readRecord<R extends HealthRecord>(
-    ReadRecordRequest<R> request,
+    ReadRecordByIdRequest<R> request,
   ) async {
     HealthConnectorLogger.debug(
       tag,
@@ -283,8 +283,8 @@ final class HealthConnectorImpl implements HealthConnector {
   }
 
   @override
-  Future<ReadRecordsResponse<R>> readRecords<R extends HealthRecord>(
-    ReadRecordsRequest<R> request,
+  Future<ReadRecordsInTimeRangeResponse<R>> readRecords<R extends HealthRecord>(
+    ReadRecordsInTimeRangeRequest<R> request,
   ) async {
     HealthConnectorLogger.debug(
       tag,

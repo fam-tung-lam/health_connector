@@ -2,9 +2,9 @@ import 'package:health_connector_core/health_connector_core.dart'
     show
         HealthDataType,
         HealthRecord,
-        ReadRecordsRequest,
+        ReadRecordsInTimeRangeRequest,
         AggregateResponse,
-        ReadRecordsResponse,
+        ReadRecordsInTimeRangeResponse,
         MeasurementUnit,
         sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mapper.dart';
@@ -13,12 +13,12 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
     show AggregateResponseDto, ReadRecordsResponseDto;
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [ReadRecordsResponseDto] to [ReadRecordsResponse].
+/// Converts [ReadRecordsResponseDto] to [ReadRecordsInTimeRangeResponse].
 @sinceV1_0_0
 @internal
 extension ReadRecordsResponseDtoToDomain on ReadRecordsResponseDto {
-  ReadRecordsResponse<R> toDomain<R extends HealthRecord>(
-    ReadRecordsRequest<R> originalRequest,
+  ReadRecordsInTimeRangeResponse<R> toDomain<R extends HealthRecord>(
+    ReadRecordsInTimeRangeRequest<R> originalRequest,
   ) {
     // Convert all records from DTOs to domain objects
     final records = this.records
@@ -31,7 +31,7 @@ extension ReadRecordsResponseDtoToDomain on ReadRecordsResponseDto {
         ? originalRequest.copyWith(pageToken: nextPageToken)
         : null;
 
-    return ReadRecordsResponse(
+    return ReadRecordsInTimeRangeResponse(
       records: records,
       nextPageRequest: nextPageRequest,
     );

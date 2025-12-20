@@ -6,8 +6,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         DeleteRecordsInTimeRangeRequest,
         HealthRecord,
         MeasurementUnit,
-        ReadRecordRequest,
-        ReadRecordsRequest,
+        ReadRecordByIdRequest,
+        ReadRecordsInTimeRangeRequest,
         CommonAggregateRequest,
         BloodPressureAggregateRequest,
         BloodGlucoseHealthDataType,
@@ -90,11 +90,11 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         DeleteRecordsRequestDto;
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [ReadRecordRequest] to [ReadRecordRequestDto].
+/// Converts [ReadRecordByIdRequest] to [ReadRecordRequestDto].
 @sinceV1_0_0
 @internal
 extension ReadRecordRequestDtoMapper<R extends HealthRecord>
-    on ReadRecordRequest<R> {
+    on ReadRecordByIdRequest<R> {
   ReadRecordRequestDto toDto() {
     return ReadRecordRequestDto(
       recordId: id.toDto(),
@@ -103,11 +103,11 @@ extension ReadRecordRequestDtoMapper<R extends HealthRecord>
   }
 }
 
-/// Converts [ReadRecordsRequest] to [ReadRecordsRequestDto].
+/// Converts [ReadRecordsInTimeRangeRequest] to [ReadRecordsRequestDto].
 @sinceV1_0_0
 @internal
 extension ReadRecordsRequestDtoMapper<R extends HealthRecord>
-    on ReadRecordsRequest<R> {
+    on ReadRecordsInTimeRangeRequest<R> {
   ReadRecordsRequestDto toDto() {
     return ReadRecordsRequestDto(
       dataType: dataType.toDto(),

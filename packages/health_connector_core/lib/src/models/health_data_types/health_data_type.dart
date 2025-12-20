@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core.dart'
-    show Permission, sinceV1_4_0;
+    show Permission, ReadRecordByIdRequest, sinceV1_4_0;
 import 'package:health_connector_core/src/annotations/annotations.dart'
     show
         sinceV1_0_0,
@@ -102,10 +102,8 @@ import 'package:health_connector_core/src/models/requests/aggregation_metric.dar
     show AggregationMetric;
 import 'package:health_connector_core/src/models/requests/delete_records_request.dart'
     show DeleteRecordsByIdsRequest, DeleteRecordsInTimeRangeRequest;
-import 'package:health_connector_core/src/models/requests/read_record_request.dart'
-    show ReadRecordRequest;
 import 'package:health_connector_core/src/models/requests/read_records_request.dart'
-    show ReadRecordsRequest;
+    show ReadRecordsInTimeRangeRequest;
 import 'package:meta/meta.dart' show immutable, internal;
 
 part 'active_calories_burned_health_data_type.dart';

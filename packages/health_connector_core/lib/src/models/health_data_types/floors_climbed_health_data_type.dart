@@ -43,17 +43,17 @@ final class FloorsClimbedHealthDataType
   );
 
   @override
-  ReadRecordRequest<FloorsClimbedRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<FloorsClimbedRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<FloorsClimbedRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<FloorsClimbedRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,

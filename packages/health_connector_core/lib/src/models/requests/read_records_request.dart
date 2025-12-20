@@ -1,11 +1,11 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_0_0;
+    show sinceV1_0_0, sinceV2_0_0, internalUse;
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
     show HealthConnectorConfigConstants;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart'
     show HealthDataType;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
-    show HealthRecord;
+    show HealthRecord, HealthRecordId;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show MeasurementUnit;
 import 'package:health_connector_core/src/models/metadata/metadata.dart'
@@ -13,7 +13,7 @@ import 'package:health_connector_core/src/models/metadata/metadata.dart'
 import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
 import 'package:health_connector_core/src/models/responses/read_records_response.dart'
-    show ReadRecordsResponse;
+    show ReadRecordsInTimeRangeResponse;
 import 'package:health_connector_core/src/utils/collection.dart';
 import 'package:health_connector_core/src/utils/datetime.dart'
     show formatTimeRange;
@@ -21,10 +21,82 @@ import 'package:health_connector_core/src/utils/validation.dart'
     show requireEndTimeAfterStartTime, require;
 import 'package:meta/meta.dart' show immutable, internal;
 
+/// Base sealed class for all health records read requests.
+@sinceV2_0_0
+@internalUse
+@immutable
+sealed class ReadRecordsRequest<R extends HealthRecord> extends Request {
+  const ReadRecordsRequest({required this.dataType});
+
+  /// The type of health data to Read.
+  final HealthDataType<R, MeasurementUnit> dataType;
+}
+
+/// Request to read a single health record by its ID.
+@sinceV1_0_0
+@internalUse
+@immutable
+final class ReadRecordByIdRequest<R extends HealthRecord>
+    extends ReadRecordsRequest {
+  /// Creates a request to read a health record by its ID.
+  ///
+  /// ## Parameters
+  ///
+  /// - [dataType]: The type of health data to read
+  /// - [id]: The unique identifier of the record to read
+  ///
+  /// ## Throws
+  /// - [ArgumentError] if [id] is [HealthRecordId.none]
+  @internal
+  factory ReadRecordByIdRequest({
+    required HealthDataType<R, MeasurementUnit> dataType,
+    required HealthRecordId id,
+  }) {
+    require(
+      id != HealthRecordId.none,
+      'Record ID cannot be HealthRecordId.none',
+    );
+
+    return ReadRecordByIdRequest._(dataType: dataType, id: id);
+  }
+
+  const ReadRecordByIdRequest._({
+    required super.dataType,
+    required this.id,
+  });
+
+  /// The unique identifier of the record to read.
+  ///
+  /// This ID should come from a previous write operation or from reading
+  /// a list of records. IDs are platform-assigned and cannot be manually
+  /// created.
+  final HealthRecordId id;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ReadRecordByIdRequest<R> &&
+          runtimeType == other.runtimeType &&
+          dataType == other.dataType &&
+          id == other.id;
+
+  @override
+  int get hashCode => dataType.hashCode ^ id.hashCode;
+
+  @override
+  String toString() =>
+      'ReadRecordRequest('
+      'dataType: $dataType, '
+      'id: $id'
+      ')';
+}
+
 /// Request to read multiple health records within a time range.
 @sinceV1_0_0
+@internalUse
 @immutable
-final class ReadRecordsRequest<R extends HealthRecord> extends Request {
+final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
+    extends ReadRecordsRequest {
   /// Creates a request to read health records within a time range.
   ///
   /// ## Parameters
@@ -42,7 +114,7 @@ final class ReadRecordsRequest<R extends HealthRecord> extends Request {
   ///   - or [pageSize] is not between 1 and
   ///     [HealthConnectorConfigConstants.maxPageSize]
   @internal
-  factory ReadRecordsRequest({
+  factory ReadRecordsInTimeRangeRequest({
     required HealthDataType<R, MeasurementUnit> dataType,
     required DateTime startTime,
     required DateTime endTime,
@@ -58,7 +130,7 @@ final class ReadRecordsRequest<R extends HealthRecord> extends Request {
       'Got pageSize=$pageSize',
     );
 
-    return ReadRecordsRequest._(
+    return ReadRecordsInTimeRangeRequest._(
       dataType: dataType,
       startTime: startTime,
       endTime: endTime,
@@ -68,8 +140,8 @@ final class ReadRecordsRequest<R extends HealthRecord> extends Request {
     );
   }
 
-  const ReadRecordsRequest._({
-    required this.dataType,
+  const ReadRecordsInTimeRangeRequest._({
+    required super.dataType,
     required this.startTime,
     required this.endTime,
     required this.pageSize,
@@ -97,11 +169,6 @@ final class ReadRecordsRequest<R extends HealthRecord> extends Request {
   /// ```
   final List<DataOrigin> dataOrigins;
 
-  /// The type of health data to read.
-  ///
-  /// This determines which platform API to use and how to deserialize records.
-  final HealthDataType<R, MeasurementUnit> dataType;
-
   /// Inclusive start of the time range.
   ///
   /// Records with timestamps >= this value are included.
@@ -120,14 +187,14 @@ final class ReadRecordsRequest<R extends HealthRecord> extends Request {
 
   /// Opaque pagination token.
   ///
-  /// This token is provided by [ReadRecordsResponse.nextPageRequest] and
-  /// should not be manually created. It's used internally by the platform
+  /// This token is provided by [ReadRecordsInTimeRangeResponse.nextPageRequest]
+  /// and should not be manually created. It's used internally by the platform
   /// to fetch the next page of results.
   final String? pageToken;
 
   /// Creates a copy of this request with a new page token.
-  ReadRecordsRequest<R> copyWith({String? pageToken}) {
-    return ReadRecordsRequest._(
+  ReadRecordsInTimeRangeRequest<R> copyWith({String? pageToken}) {
+    return ReadRecordsInTimeRangeRequest._(
       dataType: dataType,
       startTime: startTime,
       endTime: endTime,
@@ -140,7 +207,7 @@ final class ReadRecordsRequest<R extends HealthRecord> extends Request {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ReadRecordsRequest<R> &&
+      other is ReadRecordsInTimeRangeRequest<R> &&
           runtimeType == other.runtimeType &&
           dataType == other.dataType &&
           startTime == other.startTime &&

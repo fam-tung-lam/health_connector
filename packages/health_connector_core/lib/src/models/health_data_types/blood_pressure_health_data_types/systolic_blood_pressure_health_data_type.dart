@@ -56,17 +56,19 @@ final class SystolicBloodPressureHealthDataType
   );
 
   @override
-  ReadRecordRequest<SystolicBloodPressureRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<SystolicBloodPressureRecord> readById(
+    HealthRecordId id,
+  ) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<SystolicBloodPressureRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<SystolicBloodPressureRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,

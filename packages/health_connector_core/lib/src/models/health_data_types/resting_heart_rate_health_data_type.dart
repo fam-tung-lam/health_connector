@@ -50,17 +50,17 @@ final class RestingHeartRateHealthDataType
   );
 
   @override
-  ReadRecordRequest<RestingHeartRateRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<RestingHeartRateRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<RestingHeartRateRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<RestingHeartRateRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,

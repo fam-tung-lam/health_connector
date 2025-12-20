@@ -6,7 +6,7 @@ import 'package:health_connector/health_connector.dart'
         HealthDataType,
         HealthRecord,
         MeasurementUnit,
-        ReadRecordsRequest,
+        ReadRecordsInTimeRangeRequest,
         HealthConnector;
 
 /// Manages state and operations for reading health records.
@@ -20,7 +20,7 @@ final class ReadHealthRecordsChangeNotifier extends ChangeNotifier {
   ReadHealthRecordsChangeNotifier(this._healthConnector);
 
   bool _isLoading = false;
-  ReadRecordsRequest? _nextPageRequest;
+  ReadRecordsInTimeRangeRequest? _nextPageRequest;
   UnmodifiableListView<HealthRecord> _healthRecords = UnmodifiableListView([]);
   bool _hasQueriedRecords = false;
 
@@ -28,7 +28,7 @@ final class ReadHealthRecordsChangeNotifier extends ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-  ReadRecordsRequest? get nextPageRequest => _nextPageRequest;
+  ReadRecordsInTimeRangeRequest? get nextPageRequest => _nextPageRequest;
 
   bool get hasQueriedRecords => _hasQueriedRecords;
 
@@ -37,7 +37,7 @@ final class ReadHealthRecordsChangeNotifier extends ChangeNotifier {
   /// Resets the current records list and loads the first page of results.
   /// Updates [healthRecords], [nextPageRequest], and [hasQueriedRecords].
   /// Exceptions are propagated to the caller for handling.
-  Future<void> readHealthRecords(ReadRecordsRequest request) async {
+  Future<void> readHealthRecords(ReadRecordsInTimeRangeRequest request) async {
     notify(() {
       _isLoading = true;
       _healthRecords = UnmodifiableListView([]);

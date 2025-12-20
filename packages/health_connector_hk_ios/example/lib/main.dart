@@ -208,7 +208,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
     try {
       // First, read some records to get an actual record ID
       final now = DateTime.now();
-      final readRecordsRequest = HealthDataType.steps.readRecords(
+      final readRecordsRequest = HealthDataType.steps.readInTimeRange(
         startTime: now.subtract(const Duration(days: 7)),
         endTime: now,
         pageSize: 1,
@@ -229,7 +229,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
 
       // Read the first record by ID
       final recordId = recordsResponse.records.first.id;
-      final readRecordRequest = HealthDataType.steps.readRecord(recordId);
+      final readRecordRequest = HealthDataType.steps.readById(recordId);
       final record = await _client.readRecord(readRecordRequest);
 
       if (!mounted) {
@@ -268,7 +268,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
 
     try {
       final now = DateTime.now();
-      final request = HealthDataType.steps.readRecords(
+      final request = HealthDataType.steps.readInTimeRange(
         startTime: now.subtract(const Duration(days: 7)),
         endTime: now,
         pageSize: 10,
@@ -419,7 +419,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
     try {
       // First, read some records to get an actual record ID
       final now = DateTime.now();
-      final readRecordsRequest = HealthDataType.steps.readRecords(
+      final readRecordsRequest = HealthDataType.steps.readInTimeRange(
         startTime: now.subtract(const Duration(days: 7)),
         endTime: now,
         pageSize: 1,
@@ -561,7 +561,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
     try {
       // First, read some records to get IDs
       final now = DateTime.now();
-      final readRequest = HealthDataType.steps.readRecords(
+      final readRequest = HealthDataType.steps.readInTimeRange(
         startTime: now.subtract(const Duration(days: 7)),
         endTime: now,
         pageSize: 5,

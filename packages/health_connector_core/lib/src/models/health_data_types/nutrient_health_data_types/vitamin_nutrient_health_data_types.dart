@@ -40,17 +40,17 @@ final class VitaminANutrientDataType
   );
 
   @override
-  ReadRecordRequest<VitaminANutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<VitaminANutrientRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<VitaminANutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<VitaminANutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -112,17 +112,17 @@ final class VitaminB6NutrientDataType
   );
 
   @override
-  ReadRecordRequest<VitaminB6NutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<VitaminB6NutrientRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<VitaminB6NutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<VitaminB6NutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -184,17 +184,19 @@ final class VitaminB12NutrientDataType
   );
 
   @override
-  ReadRecordRequest<VitaminB12NutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<VitaminB12NutrientRecord> readById(
+    HealthRecordId id,
+  ) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<VitaminB12NutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<VitaminB12NutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -256,17 +258,17 @@ final class VitaminCNutrientDataType
   );
 
   @override
-  ReadRecordRequest<VitaminCNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<VitaminCNutrientRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<VitaminCNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<VitaminCNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -328,17 +330,17 @@ final class VitaminDNutrientDataType
   );
 
   @override
-  ReadRecordRequest<VitaminDNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<VitaminDNutrientRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<VitaminDNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<VitaminDNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -400,17 +402,17 @@ final class VitaminENutrientDataType
   );
 
   @override
-  ReadRecordRequest<VitaminENutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<VitaminENutrientRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<VitaminENutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<VitaminENutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -472,17 +474,17 @@ final class VitaminKNutrientDataType
   );
 
   @override
-  ReadRecordRequest<VitaminKNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<VitaminKNutrientRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<VitaminKNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<VitaminKNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -544,17 +546,17 @@ final class ThiaminNutrientDataType
   );
 
   @override
-  ReadRecordRequest<ThiaminNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<ThiaminNutrientRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<ThiaminNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<ThiaminNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -616,17 +618,19 @@ final class RiboflavinNutrientDataType
   );
 
   @override
-  ReadRecordRequest<RiboflavinNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<RiboflavinNutrientRecord> readById(
+    HealthRecordId id,
+  ) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<RiboflavinNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<RiboflavinNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -688,17 +692,17 @@ final class NiacinNutrientDataType
   );
 
   @override
-  ReadRecordRequest<NiacinNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<NiacinNutrientRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<NiacinNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<NiacinNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -760,17 +764,17 @@ final class FolateNutrientDataType
   );
 
   @override
-  ReadRecordRequest<FolateNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<FolateNutrientRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<FolateNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<FolateNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -832,17 +836,17 @@ final class BiotinNutrientDataType
   );
 
   @override
-  ReadRecordRequest<BiotinNutrientRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<BiotinNutrientRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<BiotinNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<BiotinNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,
@@ -904,19 +908,19 @@ final class PantothenicAcidNutrientDataType
   );
 
   @override
-  ReadRecordRequest<PantothenicAcidNutrientRecord> readRecord(
+  ReadRecordByIdRequest<PantothenicAcidNutrientRecord> readById(
     HealthRecordId id,
   ) {
-    return ReadRecordRequest(dataType: this, id: id);
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<PantothenicAcidNutrientRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<PantothenicAcidNutrientRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,

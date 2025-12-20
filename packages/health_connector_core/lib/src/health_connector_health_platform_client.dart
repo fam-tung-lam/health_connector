@@ -75,7 +75,9 @@ abstract interface class HealthConnectorPlatformClient {
   ///
   /// - [HealthConnectorException] if the platform request fails
   ///   or returns invalid data
-  Future<R?> readRecord<R extends HealthRecord>(ReadRecordRequest<R> request);
+  Future<R?> readRecord<R extends HealthRecord>(
+    ReadRecordByIdRequest<R> request,
+  );
 
   /// Reads multiple health records within a time range.
   ///
@@ -89,15 +91,15 @@ abstract interface class HealthConnectorPlatformClient {
   ///
   /// ## Returns
   ///
-  /// A [ReadRecordsResponse] containing the records in the current page
-  /// and an optional request for fetching the next page.
+  /// A [ReadRecordsInTimeRangeResponse] containing the records in the current
+  /// page and an optional request for fetching the next page.
   ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] if the platform request fails
   ///   or returns invalid data
-  Future<ReadRecordsResponse<R>> readRecords<R extends HealthRecord>(
-    ReadRecordsRequest<R> request,
+  Future<ReadRecordsInTimeRangeResponse<R>> readRecords<R extends HealthRecord>(
+    ReadRecordsInTimeRangeRequest<R> request,
   );
 
   /// Writes a single health record to the platform.

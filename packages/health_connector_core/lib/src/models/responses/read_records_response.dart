@@ -1,19 +1,31 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_0_0;
+    show sinceV2_0_0, internalUse;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show HealthRecord;
 import 'package:health_connector_core/src/models/requests/read_records_request.dart'
-    show ReadRecordsRequest;
+    show ReadRecordsInTimeRangeRequest;
 import 'package:health_connector_core/src/models/responses/response.dart'
     show Response;
 import 'package:health_connector_core/src/utils/collection.dart';
 import 'package:meta/meta.dart' show immutable;
 
-/// Response from reading multiple health records.
-@sinceV1_0_0
+/// Base sealed class for all health records read responses.
+@sinceV2_0_0
+@internalUse
 @immutable
-final class ReadRecordsResponse<R extends HealthRecord> extends Response {
-  const ReadRecordsResponse({required this.records, this.nextPageRequest});
+sealed class ReadRecordsResponse<R extends HealthRecord> extends Response {
+  const ReadRecordsResponse();
+}
+
+/// Response from reading multiple health records.
+@sinceV2_0_0
+@immutable
+final class ReadRecordsInTimeRangeResponse<R extends HealthRecord>
+    extends ReadRecordsResponse {
+  const ReadRecordsInTimeRangeResponse({
+    required this.records,
+    this.nextPageRequest,
+  });
 
   /// The list of health records in this page.
   ///
@@ -34,7 +46,7 @@ final class ReadRecordsResponse<R extends HealthRecord> extends Response {
   ///   final nextPage = await connector.readRecords(response.nextPageRequest!);
   /// }
   /// ```
-  final ReadRecordsRequest<R>? nextPageRequest;
+  final ReadRecordsInTimeRangeRequest<R>? nextPageRequest;
 
   /// Returns true if there are more pages of records to fetch.
   ///
@@ -53,7 +65,7 @@ final class ReadRecordsResponse<R extends HealthRecord> extends Response {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ReadRecordsResponse<R> &&
+      other is ReadRecordsInTimeRangeResponse<R> &&
           runtimeType == other.runtimeType &&
           records.equals(other.records) &&
           nextPageRequest == other.nextPageRequest;
@@ -63,7 +75,7 @@ final class ReadRecordsResponse<R extends HealthRecord> extends Response {
 
   @override
   String toString() =>
-      'ReadRecordsResponse<$R>('
+      'ReadRecordsInTimeRangeResponse<$R>('
       'records: $records, '
       'hasMorePages: $hasMorePages'
       ')';

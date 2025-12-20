@@ -40,17 +40,17 @@ final class BodyTemperatureHealthDataType
   );
 
   @override
-  ReadRecordRequest<BodyTemperatureRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<BodyTemperatureRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<BodyTemperatureRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<BodyTemperatureRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,

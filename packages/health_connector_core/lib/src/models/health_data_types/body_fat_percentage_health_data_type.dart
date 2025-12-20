@@ -43,17 +43,17 @@ final class BodyFatPercentageHealthDataType
   );
 
   @override
-  ReadRecordRequest<BodyFatPercentageRecord> readRecord(HealthRecordId id) {
-    return ReadRecordRequest(dataType: this, id: id);
+  ReadRecordByIdRequest<BodyFatPercentageRecord> readById(HealthRecordId id) {
+    return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsRequest<BodyFatPercentageRecord> readRecords({
+  ReadRecordsInTimeRangeRequest<BodyFatPercentageRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
   }) {
-    return ReadRecordsRequest(
+    return ReadRecordsInTimeRangeRequest(
       dataType: this,
       startTime: startTime,
       endTime: endTime,

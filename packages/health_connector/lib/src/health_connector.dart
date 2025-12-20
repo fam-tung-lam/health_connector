@@ -23,9 +23,9 @@ import 'package:health_connector_core/health_connector_core.dart'
         Permission,
         PermissionRequestResult,
         PlatformSpecificBehaviors,
-        ReadRecordRequest,
-        ReadRecordsRequest,
-        ReadRecordsResponse,
+        ReadRecordByIdRequest,
+        ReadRecordsInTimeRangeRequest,
+        ReadRecordsInTimeRangeResponse,
         supportedOnHealthConnect,
         sinceV2_0_0,
         DeleteRecordsInTimeRangeRequest,
@@ -410,7 +410,7 @@ abstract interface class HealthConnector {
   /// }
   /// ```
   Future<R?> readRecord<R extends HealthRecord>(
-    ReadRecordRequest<R> request,
+    ReadRecordByIdRequest<R> request,
   );
 
   /// Reads multiple health records within a time range.
@@ -425,7 +425,7 @@ abstract interface class HealthConnector {
   ///
   /// ## Returns
   ///
-  /// A [ReadRecordsResponse] containing:
+  /// A [ReadRecordsInTimeRangeResponse] containing:
   /// - List of records found in the time range (up to pageSize records)
   /// - Records are ordered by start time in ascending order (oldest first)
   /// - Next page request if more records are available
@@ -439,7 +439,8 @@ abstract interface class HealthConnector {
   ///
   /// ## Example - With Pagination
   ///
-  /// Use [ReadRecordsResponse.hasMorePages] to check if additional pages exist:
+  /// Use [ReadRecordsInTimeRangeResponse.hasMorePages] to check
+  /// if additional pages exist:
   ///
   /// ```dart
   /// var response = await connector.readRecords(request);
@@ -454,8 +455,8 @@ abstract interface class HealthConnector {
   ///   response = await connector.readRecords(response.nextPageRequest);
   /// }
   /// ```
-  Future<ReadRecordsResponse<R>> readRecords<R extends HealthRecord>(
-    ReadRecordsRequest<R> request,
+  Future<ReadRecordsInTimeRangeResponse<R>> readRecords<R extends HealthRecord>(
+    ReadRecordsInTimeRangeRequest<R> request,
   );
 
   /// Writes a single health record to the platform.

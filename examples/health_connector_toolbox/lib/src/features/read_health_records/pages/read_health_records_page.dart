@@ -130,311 +130,319 @@ class _ReadHealthRecordsPageState
 
     try {
       final request = switch (_selectedDataType!) {
-        StepsHealthDataType() => HealthDataType.steps.readRecords(
+        StepsHealthDataType() => HealthDataType.steps.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        WeightHealthDataType() => HealthDataType.weight.readRecords(
+        WeightHealthDataType() => HealthDataType.weight.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        HeightHealthDataType() => HealthDataType.height.readRecords(
+        HeightHealthDataType() => HealthDataType.height.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
         BodyFatPercentageHealthDataType() =>
-          HealthDataType.bodyFatPercentage.readRecords(
+          HealthDataType.bodyFatPercentage.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
         BodyTemperatureHealthDataType() =>
-          HealthDataType.bodyTemperature.readRecords(
+          HealthDataType.bodyTemperature.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
-        LeanBodyMassHealthDataType() => HealthDataType.leanBodyMass.readRecords(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        DistanceHealthDataType() => HealthDataType.distance.readRecords(
+        LeanBodyMassHealthDataType() =>
+          HealthDataType.leanBodyMass.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        DistanceHealthDataType() => HealthDataType.distance.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
         ActiveCaloriesBurnedHealthDataType() =>
-          HealthDataType.activeCaloriesBurned.readRecords(
+          HealthDataType.activeCaloriesBurned.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
         FloorsClimbedHealthDataType() =>
-          HealthDataType.floorsClimbed.readRecords(
+          HealthDataType.floorsClimbed.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
         WheelchairPushesHealthDataType() =>
-          HealthDataType.wheelchairPushes.readRecords(
+          HealthDataType.wheelchairPushes.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
-        HydrationHealthDataType() => HealthDataType.hydration.readRecords(
+        HydrationHealthDataType() => HealthDataType.hydration.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
         HeartRateMeasurementRecordHealthDataType() =>
-          HealthDataType.heartRateMeasurementRecord.readRecords(
+          HealthDataType.heartRateMeasurementRecord.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
         HeartRateSeriesRecordHealthDataType() =>
-          HealthDataType.heartRateSeriesRecord.readRecords(
+          HealthDataType.heartRateSeriesRecord.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
         RestingHeartRateHealthDataType() =>
-          HealthDataType.restingHeartRate.readRecords(
+          HealthDataType.restingHeartRate.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
-        SleepSessionHealthDataType() => HealthDataType.sleepSession.readRecords(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
+        SleepSessionHealthDataType() =>
+          HealthDataType.sleepSession.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
         SleepStageHealthDataType() =>
-          HealthDataType.sleepStageRecord.readRecords(
+          HealthDataType.sleepStageRecord.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
-        EnergyNutrientDataType() => HealthDataType.energyNutrient.readRecords(
+        EnergyNutrientDataType() =>
+          HealthDataType.energyNutrient.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        CaffeineNutrientDataType() => HealthDataType.caffeine.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        CaffeineNutrientDataType() => HealthDataType.caffeine.readRecords(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        ProteinNutrientDataType() => HealthDataType.protein.readRecords(
+        ProteinNutrientDataType() => HealthDataType.protein.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
         TotalCarbohydrateNutrientDataType() =>
-          HealthDataType.totalCarbohydrate.readRecords(
+          HealthDataType.totalCarbohydrate.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
-        TotalFatNutrientDataType() => HealthDataType.totalFat.readRecords(
+        TotalFatNutrientDataType() => HealthDataType.totalFat.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
         SaturatedFatNutrientDataType() =>
-          HealthDataType.saturatedFat.readRecords(
+          HealthDataType.saturatedFat.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
         MonounsaturatedFatNutrientDataType() =>
-          HealthDataType.monounsaturatedFat.readRecords(
+          HealthDataType.monounsaturatedFat.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
         PolyunsaturatedFatNutrientDataType() =>
-          HealthDataType.polyunsaturatedFat.readRecords(
+          HealthDataType.polyunsaturatedFat.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
         BloodPressureHealthDataType() =>
-          HealthDataType.bloodPressure.readRecords(
+          HealthDataType.bloodPressure.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
         SystolicBloodPressureHealthDataType() =>
-          HealthDataType.systolicBloodPressure.readRecords(
+          HealthDataType.systolicBloodPressure.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
         DiastolicBloodPressureHealthDataType() =>
-          HealthDataType.diastolicBloodPressure.readRecords(
+          HealthDataType.diastolicBloodPressure.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
-        CholesterolNutrientDataType() => HealthDataType.cholesterol.readRecords(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
+        CholesterolNutrientDataType() =>
+          HealthDataType.cholesterol.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
         DietaryFiberNutrientDataType() =>
-          HealthDataType.dietaryFiber.readRecords(
+          HealthDataType.dietaryFiber.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
-        SugarNutrientDataType() => HealthDataType.sugar.readRecords(
+        SugarNutrientDataType() => HealthDataType.sugar.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        CalciumNutrientDataType() => HealthDataType.calcium.readRecords(
+        CalciumNutrientDataType() => HealthDataType.calcium.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        IronNutrientDataType() => HealthDataType.iron.readRecords(
+        IronNutrientDataType() => HealthDataType.iron.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        MagnesiumNutrientDataType() => HealthDataType.magnesium.readRecords(
+        MagnesiumNutrientDataType() => HealthDataType.magnesium.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        ManganeseNutrientDataType() => HealthDataType.manganese.readRecords(
+        ManganeseNutrientDataType() => HealthDataType.manganese.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        PhosphorusNutrientDataType() => HealthDataType.phosphorus.readRecords(
+        PhosphorusNutrientDataType() =>
+          HealthDataType.phosphorus.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        PotassiumNutrientDataType() => HealthDataType.potassium.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        PotassiumNutrientDataType() => HealthDataType.potassium.readRecords(
+        SeleniumNutrientDataType() => HealthDataType.selenium.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        SeleniumNutrientDataType() => HealthDataType.selenium.readRecords(
+        SodiumNutrientDataType() => HealthDataType.sodium.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        SodiumNutrientDataType() => HealthDataType.sodium.readRecords(
+        ZincNutrientDataType() => HealthDataType.zinc.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        ZincNutrientDataType() => HealthDataType.zinc.readRecords(
+        VitaminANutrientDataType() => HealthDataType.vitaminA.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        VitaminANutrientDataType() => HealthDataType.vitaminA.readRecords(
+        VitaminB6NutrientDataType() => HealthDataType.vitaminB6.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        VitaminB6NutrientDataType() => HealthDataType.vitaminB6.readRecords(
+        VitaminB12NutrientDataType() =>
+          HealthDataType.vitaminB12.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        VitaminCNutrientDataType() => HealthDataType.vitaminC.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        VitaminB12NutrientDataType() => HealthDataType.vitaminB12.readRecords(
+        VitaminDNutrientDataType() => HealthDataType.vitaminD.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        VitaminCNutrientDataType() => HealthDataType.vitaminC.readRecords(
+        VitaminENutrientDataType() => HealthDataType.vitaminE.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        VitaminDNutrientDataType() => HealthDataType.vitaminD.readRecords(
+        VitaminKNutrientDataType() => HealthDataType.vitaminK.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        VitaminENutrientDataType() => HealthDataType.vitaminE.readRecords(
+        ThiaminNutrientDataType() => HealthDataType.thiamin.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        VitaminKNutrientDataType() => HealthDataType.vitaminK.readRecords(
+        RiboflavinNutrientDataType() =>
+          HealthDataType.riboflavin.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        NiacinNutrientDataType() => HealthDataType.niacin.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        ThiaminNutrientDataType() => HealthDataType.thiamin.readRecords(
+        FolateNutrientDataType() => HealthDataType.folate.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        RiboflavinNutrientDataType() => HealthDataType.riboflavin.readRecords(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        NiacinNutrientDataType() => HealthDataType.niacin.readRecords(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        FolateNutrientDataType() => HealthDataType.folate.readRecords(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        BiotinNutrientDataType() => HealthDataType.biotin.readRecords(
+        BiotinNutrientDataType() => HealthDataType.biotin.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
         PantothenicAcidNutrientDataType() =>
-          HealthDataType.pantothenicAcid.readRecords(
+          HealthDataType.pantothenicAcid.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
-        NutritionHealthDataType() => HealthDataType.nutrition.readRecords(
+        NutritionHealthDataType() => HealthDataType.nutrition.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
         OxygenSaturationHealthDataType() =>
-          HealthDataType.oxygenSaturation.readRecords(
+          HealthDataType.oxygenSaturation.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
         RespiratoryRateHealthDataType() =>
-          HealthDataType.respiratoryRate.readRecords(
+          HealthDataType.respiratoryRate.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,
           ),
-        Vo2MaxHealthDataType() => HealthDataType.vo2Max.readRecords(
+        Vo2MaxHealthDataType() => HealthDataType.vo2Max.readInTimeRange(
           startTime: startDateTime!,
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
-        BloodGlucoseHealthDataType() => HealthDataType.bloodGlucose.readRecords(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
+        BloodGlucoseHealthDataType() =>
+          HealthDataType.bloodGlucose.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
       };
 
       await notifier.readHealthRecords(request);

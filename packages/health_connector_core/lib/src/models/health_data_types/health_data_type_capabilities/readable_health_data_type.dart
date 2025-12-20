@@ -6,10 +6,8 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
     show HealthRecord, HealthRecordId;
 import 'package:health_connector_core/src/models/permissions/permission.dart'
     show HealthDataPermission;
-import 'package:health_connector_core/src/models/requests/read_record_request.dart'
-    show ReadRecordRequest;
 import 'package:health_connector_core/src/models/requests/read_records_request.dart'
-    show ReadRecordsRequest;
+    show ReadRecordsInTimeRangeRequest, ReadRecordByIdRequest;
 import 'package:meta/meta.dart' show internal;
 
 /// Interface that adds read permission capability to a health data type.
@@ -20,10 +18,10 @@ abstract interface class ReadableHealthDataType<R extends HealthRecord> {
   HealthDataPermission get readPermission;
 
   /// Creates a request to read a single health record by ID.
-  ReadRecordRequest<R> readRecord(HealthRecordId id);
+  ReadRecordByIdRequest<R> readById(HealthRecordId id);
 
   /// Creates a request to read multiple health records within a time range.
-  ReadRecordsRequest<R> readRecords({
+  ReadRecordsInTimeRangeRequest<R> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,

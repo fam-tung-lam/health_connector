@@ -14,9 +14,9 @@ import 'package:health_connector_core/health_connector_core.dart'
         Permission,
         PermissionRequestResult,
         PermissionStatus,
-        ReadRecordRequest,
-        ReadRecordsRequest,
-        ReadRecordsResponse,
+        ReadRecordByIdRequest,
+        ReadRecordsInTimeRangeRequest,
+        ReadRecordsInTimeRangeResponse,
         PermissionListExtension,
         sinceV1_0_0,
         internalUse,
@@ -220,7 +220,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
 
   @override
   Future<R?> readRecord<R extends HealthRecord>(
-    ReadRecordRequest<R> request,
+    ReadRecordByIdRequest<R> request,
   ) async {
     HealthConnectorLogger.debug(
       tag,
@@ -275,8 +275,8 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   }
 
   @override
-  Future<ReadRecordsResponse<R>> readRecords<R extends HealthRecord>(
-    ReadRecordsRequest<R> request,
+  Future<ReadRecordsInTimeRangeResponse<R>> readRecords<R extends HealthRecord>(
+    ReadRecordsInTimeRangeRequest<R> request,
   ) async {
     HealthConnectorLogger.debug(
       tag,
