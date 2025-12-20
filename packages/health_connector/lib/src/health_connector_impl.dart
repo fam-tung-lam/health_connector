@@ -1,4 +1,5 @@
-import 'package:health_connector/health_connector.dart' show HealthConnector;
+import 'package:health_connector/health_connector.dart'
+    show HealthConnector, sinceV2_0_0;
 import 'package:health_connector_core/health_connector_core.dart'
     show
         AggregateRequest,
@@ -23,14 +24,13 @@ import 'package:health_connector_core/health_connector_core.dart'
         ReadRecordsInTimeRangeRequest,
         ReadRecordsInTimeRangeResponse,
         require,
-        sinceV1_0_0,
         supportedOnHealthConnect;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
 import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart' show immutable;
 
-@sinceV1_0_0
+@sinceV2_0_0
 @immutable
 final class HealthConnectorImpl implements HealthConnector {
   const HealthConnectorImpl({

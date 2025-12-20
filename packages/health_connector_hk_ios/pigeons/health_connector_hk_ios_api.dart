@@ -2384,11 +2384,6 @@ abstract class HealthConnectorHKIOSApi {
     PermissionsRequestDto request,
   );
 
-  /// Gets the current permission status for a specific permission.
-  ///
-  /// Note: Due to HealthKit privacy restrictions, read permissions will
-  /// always return PermissionStatus.unknown. Only write permissions can
-  /// return definitive granted or denied status.
   @async
   PermissionStatusDto getPermissionStatus(HealthDataPermissionDto permission);
 

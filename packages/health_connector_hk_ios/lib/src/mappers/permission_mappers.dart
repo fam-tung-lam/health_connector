@@ -9,7 +9,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         NutritionHealthDataType,
         PermissionStatus,
         PermissionRequestResult,
-        sinceV1_0_0;
+        sinceV1_0_0,
+        sinceV2_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mappers.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show
@@ -115,17 +116,12 @@ extension PermissionsListToDto on List<HealthDataPermission> {
           );
     }
 
-    return [
-      HealthDataPermissionDto(
-        healthDataType: permission.dataType.toDto(),
-        accessType: permission.accessType.toDto(),
-      ),
-    ];
+    return [permission.toDto()];
   }
 }
 
 /// Converts a single [HealthDataPermission] to [HealthDataPermissionDto].
-@sinceV1_0_0
+@sinceV2_0_0
 @internal
 extension HealthDataPermissionToDto on HealthDataPermission {
   HealthDataPermissionDto toDto() {

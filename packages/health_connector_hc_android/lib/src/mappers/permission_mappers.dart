@@ -6,7 +6,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         HealthPlatformFeaturePermission,
         PermissionStatus,
         PermissionRequestResult,
-        sinceV1_0_0;
+        sinceV1_0_0,
+        sinceV2_0_0;
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/'
     'health_platform_feature_mappers.dart';
@@ -29,27 +30,16 @@ import 'package:meta/meta.dart' show internal;
 extension PermissionsListToDto on List<Permission> {
   /// Converts a list of [Permission] objects to a [PermissionRequestsDto].
   PermissionRequestsDto toDto() {
-    final permissionRequests = map((permission) {
-      return switch (permission) {
-        final HealthDataPermission p => HealthDataPermissionRequestDto(
-          healthDataType: p.dataType.toDto(),
-          accessType: p.accessType == HealthDataPermissionAccessType.read
-              ? PermissionAccessTypeDto.read
-              : PermissionAccessTypeDto.write,
-        ),
-        final HealthPlatformFeaturePermission p =>
-          HealthPlatformFeaturePermissionRequest(
-            feature: p.feature.toDto(),
-          ),
-      };
-    }).toList();
+    final permissionRequests = map(
+      (permission) => permission.toDto(),
+    ).toList();
 
     return PermissionRequestsDto(permissionRequests: permissionRequests);
   }
 }
 
 /// Converts a single [Permission] to [PermissionRequestDto].
-@sinceV1_0_0
+@sinceV2_0_0
 @internal
 extension PermissionToDto on Permission {
   PermissionRequestDto toDto() {

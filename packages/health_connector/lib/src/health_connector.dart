@@ -29,7 +29,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         supportedOnHealthConnect,
         sinceV2_0_0,
         DeleteRecordsInTimeRangeRequest,
-        DeleteRecordsByIdsRequest;
+        DeleteRecordsByIdsRequest,
+        sinceV1_0_0;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
 import 'package:health_connector_hk_ios/health_connector_hk_ios.dart'
@@ -40,6 +41,7 @@ import 'package:health_connector_logger/health_connector_logger.dart';
 ///
 /// This class uses a factory pattern to create instances. Use
 /// [HealthConnector.create] to obtain an instance.
+@sinceV1_0_0
 abstract interface class HealthConnector {
   /// The tag used for logging in static methods.
   static const String _tag = 'HealthConnector';
@@ -297,6 +299,7 @@ abstract interface class HealthConnector {
   /// - [requestPermissions] - Request permissions from the user
   /// - [getGrantedPermissions] - Get all currently granted permissions
   /// - [PermissionStatus] - Enum defining possible permission states
+  @sinceV2_0_0
   @PlatformSpecificBehaviors({
     HealthPlatform.appleHealth:
         'Read permissions always return `PermissionStatus.unknown` due to '

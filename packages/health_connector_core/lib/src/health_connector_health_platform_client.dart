@@ -16,6 +16,7 @@ import 'package:health_connector_core/health_connector_core.dart';
 @internalUse
 abstract interface class HealthConnectorPlatformClient {
   /// The configuration used by this client.
+  @sinceV2_0_0
   HealthConnectorConfig get config;
 
   /// Requests permissions from the native platform.
@@ -45,29 +46,6 @@ abstract interface class HealthConnectorPlatformClient {
 
   /// Gets the current permission status for a specific permission.
   ///
-  /// This method allows checking the authorization status of a permission
-  /// without requesting it from the user.
-  ///
-  /// ## Platform Differences
-  ///
-  /// ### iOS (HealthKit)
-  ///
-  /// - **Read permissions**: Always returns [PermissionStatus.unknown] due to
-  ///   HealthKit's privacy restrictions. HealthKit does not allow apps to
-  ///   determine whether read permission has been granted or denied.
-  /// - **Write permissions**: Returns actual authorization status
-  ///   ([PermissionStatus.granted] or [PermissionStatus.denied]).
-  /// - **Feature permissions**: Returns [PermissionStatus.granted] since
-  ///   feature permissions are Android-only.
-  ///
-  /// ### Android (Health Connect)
-  ///
-  /// - Checks if the permission is in the granted permissions set
-  /// - Returns [PermissionStatus.granted] if permission is granted
-  /// - Returns [PermissionStatus.denied] if permission is not granted
-  /// - Note: Cannot distinguish between "never requested" and "explicitly
-  ///   denied" - both return [PermissionStatus.denied]
-  ///
   /// ## Parameters
   ///
   /// - [permission]: The permission to check status for
@@ -79,6 +57,7 @@ abstract interface class HealthConnectorPlatformClient {
   /// ## Throws
   ///
   /// - [HealthConnectorException] if an error occurs while checking status
+  @sinceV2_0_0
   Future<PermissionStatus> getPermissionStatus(Permission permission);
 
   /// Reads a single health record by ID.
@@ -265,6 +244,7 @@ abstract interface class HealthConnectorPlatformClient {
   ///   if attempting to delete records not created by this app
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   if an unexpected error occurs
+  @sinceV2_0_0
   Future<void> deleteRecords<R extends HealthRecord>(
     DeleteRecordsRequest<R> request,
   );
