@@ -628,9 +628,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     );
 
     try {
-      final requestDto = record.toUpdateRecordRequestDto();
-
-      await _platformClient.updateRecord(requestDto);
+      await _platformClient.updateRecord(record.toDto());
 
       HealthConnectorLogger.info(
         tag,

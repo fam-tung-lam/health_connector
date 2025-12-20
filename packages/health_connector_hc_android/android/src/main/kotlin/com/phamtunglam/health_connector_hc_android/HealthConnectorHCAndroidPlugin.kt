@@ -21,14 +21,13 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorHCAndro
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsRequestDto
@@ -382,7 +381,6 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "get_granted_permissions",
-
                     message = "Failed to get granted Health Connect permissions",
                     context = mapOf(
                         "error_code" to e.code,
@@ -429,7 +427,6 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "revoke_all_permissions",
-
                     message = "Failed to revoke all Health Connect permissions",
                     context = mapOf(
                         "error_code" to e.code,
@@ -480,7 +477,6 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "get_feature_status",
-
                     message = "Failed to get Health Connect feature status",
                     context = mapOf(
                         "feature" to feature.toString(),
@@ -533,7 +529,6 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "read_record",
-
                     message = "Failed to read Health Connect record",
                     context = mapOf(
                         "data_type" to request.dataType.toString(),
@@ -587,7 +582,6 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "read_records",
-
                     message = "Failed to read Health Connect records",
                     context = mapOf(
                         "data_type" to request.dataType.toString(),
@@ -643,7 +637,6 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "write_record",
-
                     message = "Failed to write Health Connect record",
                     context = mapOf(
                         "error_code" to e.code,
@@ -695,7 +688,6 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "write_records",
-
                     message = "Failed to write Health Connect records",
                     context = mapOf(
                         "records_count" to request.records.size,
@@ -731,21 +723,20 @@ class HealthConnectorHCAndroidPlugin :
     /**
      * Updates a single health record.
      *
-     * @param request Contains the data type and the typed record to update
+     * @param record The record to update
      * @param callback Called with a [Result] indicating success or failure
      */
     @Throws(HealthConnectorErrorDto::class)
-    override fun updateRecord(request: UpdateRecordRequestDto, callback: (Result<Unit>) -> Unit) {
+    override fun updateRecord(record: HealthRecordDto, callback: (Result<Unit>) -> Unit) {
         scope.launch {
             try {
-                this@HealthConnectorHCAndroidPlugin.client.updateRecord(request)
+                this@HealthConnectorHCAndroidPlugin.client.updateRecord(record)
 
                 complete(callback, Result.success(Unit))
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "update_record",
-
                     message = "Failed to update Health Connect record",
                     context = mapOf(
                         "error_code" to e.code,
@@ -762,7 +753,7 @@ class HealthConnectorHCAndroidPlugin :
                     tag = TAG,
                     operation = "update_record",
                     message = "Unexpected error escaped from handler",
-                    context = mapOf("request" to request),
+                    context = mapOf("record" to record),
                     exception = e,
                 )
                 complete(
@@ -780,17 +771,14 @@ class HealthConnectorHCAndroidPlugin :
     /**
      * Updates multiple health records atomically.
      *
-     * @param request Contains the list of typed records to update
+     * @param records The list of records to update
      * @param callback Called with a [Result] indicating success or failure
      */
     @Throws(HealthConnectorErrorDto::class)
-    override fun updateRecords(
-        request: UpdateRecordsRequestDto,
-        callback: (Result<Unit>) -> Unit,
-    ) {
+    override fun updateRecords(records: List<HealthRecordDto>, callback: (Result<Unit>) -> Unit) {
         scope.launch {
             try {
-                this@HealthConnectorHCAndroidPlugin.client.updateRecords(request)
+                this@HealthConnectorHCAndroidPlugin.client.updateRecords(records)
 
                 complete(callback, Result.success(Unit))
             } catch (e: HealthConnectorErrorDto) {
@@ -799,7 +787,7 @@ class HealthConnectorHCAndroidPlugin :
                     operation = "update_records",
                     message = "Failed to update Health Connect records",
                     context = mapOf(
-                        "records_count" to request.records.size,
+                        "records_count" to records.size,
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),
@@ -814,7 +802,7 @@ class HealthConnectorHCAndroidPlugin :
                     tag = TAG,
                     operation = "update_records",
                     message = "Unexpected error escaped from handler",
-                    context = mapOf("request" to request),
+                    context = mapOf("records" to records),
                     exception = e,
                 )
                 complete(
@@ -905,7 +893,6 @@ class HealthConnectorHCAndroidPlugin :
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "aggregate",
-
                     message = "Failed to aggregate Health Connect data",
                     context = mapOf(
                         "data_type" to request.dataType.toString(),

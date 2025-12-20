@@ -3951,92 +3951,6 @@ class WriteRecordsResponseDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Request to update a single health record.
-class UpdateRecordRequestDto {
-  UpdateRecordRequestDto({
-    required this.record,
-  });
-
-  /// The health record to update.
-  HealthRecordDto record;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      record,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static UpdateRecordRequestDto decode(Object result) {
-    result as List<Object?>;
-    return UpdateRecordRequestDto(
-      record: result[0]! as HealthRecordDto,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! UpdateRecordRequestDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Request to update multiple health records atomically.
-class UpdateRecordsRequestDto {
-  UpdateRecordsRequestDto({
-    required this.records,
-  });
-
-  /// Records being updated.
-  List<HealthRecordDto> records;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      records,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static UpdateRecordsRequestDto decode(Object result) {
-    result as List<Object?>;
-    return UpdateRecordsRequestDto(
-      records: (result[0] as List<Object?>?)!.cast<HealthRecordDto>(),
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! UpdateRecordsRequestDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
 /// Configuration data transfer object for Health Connector.
 ///
 /// Contains configuration settings that are passed from Dart to native
@@ -4343,14 +4257,8 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is WriteRecordsResponseDto) {
       buffer.putUint8(212);
       writeValue(buffer, value.encode());
-    } else if (value is UpdateRecordRequestDto) {
-      buffer.putUint8(213);
-      writeValue(buffer, value.encode());
-    } else if (value is UpdateRecordsRequestDto) {
-      buffer.putUint8(214);
-      writeValue(buffer, value.encode());
     } else if (value is HealthConnectorConfigDto) {
-      buffer.putUint8(215);
+      buffer.putUint8(213);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -4571,10 +4479,6 @@ class _PigeonCodec extends StandardMessageCodec {
       case 212:
         return WriteRecordsResponseDto.decode(readValue(buffer)!);
       case 213:
-        return UpdateRecordRequestDto.decode(readValue(buffer)!);
-      case 214:
-        return UpdateRecordsRequestDto.decode(readValue(buffer)!);
-      case 215:
         return HealthConnectorConfigDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -4974,7 +4878,7 @@ class HealthConnectorHCAndroidApi {
     }
   }
 
-  Future<void> updateRecord(UpdateRecordRequestDto request) async {
+  Future<void> updateRecord(HealthRecordDto record) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.updateRecord$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
@@ -4984,7 +4888,7 @@ class HealthConnectorHCAndroidApi {
           binaryMessenger: pigeonVar_binaryMessenger,
         );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
+      <Object?>[record],
     );
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -5001,7 +4905,7 @@ class HealthConnectorHCAndroidApi {
     }
   }
 
-  Future<void> updateRecords(UpdateRecordsRequestDto request) async {
+  Future<void> updateRecords(List<HealthRecordDto> records) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.updateRecords$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
@@ -5011,7 +4915,7 @@ class HealthConnectorHCAndroidApi {
           binaryMessenger: pigeonVar_binaryMessenger,
         );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
+      <Object?>[records],
     );
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;

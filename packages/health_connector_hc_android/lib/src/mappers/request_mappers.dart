@@ -82,7 +82,6 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         ReadRecordRequestDto,
         ReadRecordsRequestDto,
         WriteRecordRequestDto,
-        UpdateRecordRequestDto,
         WriteRecordsRequestDto,
         CommonAggregateRequestDto,
         BloodPressureAggregateRequestDto,
@@ -224,15 +223,6 @@ extension AggregateRequestDtoMapper<
 extension HealthRecordToWriteRequestDto on HealthRecord {
   WriteRecordRequestDto toWriteRecordRequestDto() {
     return WriteRecordRequestDto(record: toDto());
-  }
-}
-
-/// Converts [HealthRecord] to [UpdateRecordRequestDto].
-@sinceV1_0_0
-@internal
-extension HealthRecordToUpdateRequestDto on HealthRecord {
-  UpdateRecordRequestDto toUpdateRecordRequestDto() {
-    return UpdateRecordRequestDto(record: toDto());
   }
 }
 

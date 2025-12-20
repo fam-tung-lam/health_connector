@@ -15,6 +15,7 @@ import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.logger.TAG
 import com.phamtunglam.health_connector_hc_android.mappers.dataType
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.dataType
+import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.id
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
@@ -28,14 +29,13 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDt
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.UpdateRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsRequestDto
@@ -479,7 +479,7 @@ internal class HealthConnectorClient private constructor(
     /**
      * Updates a single health record.
      *
-     * @param request Contains the data type and the typed record to update
+     * @param record The record to update
      *
      * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support updates
      * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if record ID is invalid
@@ -487,33 +487,33 @@ internal class HealthConnectorClient private constructor(
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
-    suspend fun updateRecord(request: UpdateRecordRequestDto) {
+    suspend fun updateRecord(record: HealthRecordDto) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "update_record",
             message = "Updating Health Connect record",
-            context = mapOf("request" to request),
+            context = mapOf("record" to record),
         )
 
         try {
-            val handler = recordHandlerRegistry.getRecordHandler(request.record.dataType)
+            val handler = recordHandlerRegistry.getRecordHandler(record.dataType)
                 ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "No handler found for type ${request.record.dataType}",
+                    "No handler found for type ${record.dataType}",
                 )
 
             if (handler !is UpdatableHealthRecordHandler) {
                 throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "Type ${request.record.dataType} does not support updates",
+                    "Type ${record.dataType} does not support updates",
                 )
             }
 
-            handler.updateRecord(request.record)
+            handler.updateRecord(record)
 
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "update_record",
                 message = "Health Connect record updated successfully",
-                context = mapOf("data_type" to request.record.dataType),
+                context = mapOf("data_type" to record.dataType),
             )
         } catch (e: HealthConnectorErrorDto) {
             throw e
@@ -524,10 +524,9 @@ internal class HealthConnectorClient private constructor(
      * Updates multiple health records atomically.
      *
      * All records are updated in a single Health Connect transaction. Either all records
-     * are updated successfully, or none are updated. This ensures data consistency across
-     * different record types.
+     * are updated successfully, or none are updated.
      *
-     * @param request Contains the list of health records to update (all must have valid IDs)
+     * @param records The list of health records to update (all must have valid IDs)
      *
      * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if any type is not updatable
      * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if any record ID is invalid
@@ -535,19 +534,19 @@ internal class HealthConnectorClient private constructor(
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
-    suspend fun updateRecords(request: UpdateRecordsRequestDto) {
+    suspend fun updateRecords(records: List<HealthRecordDto>) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "update_records",
             message = "Updating Health Connect records atomically",
             context = mapOf(
-                "total_records" to request.records.size,
-                "request" to request,
+                "total_records" to records.size,
+                "records" to records,
             ),
         )
 
         try {
-            if (request.records.isEmpty()) {
+            if (records.isEmpty()) {
                 HealthConnectorLogger.debug(
                     tag = TAG,
                     operation = "update_records",
@@ -556,38 +555,35 @@ internal class HealthConnectorClient private constructor(
                 return
             }
 
-            val firstRecordDto = request.records.first()
-            val handler = recordHandlerRegistry.getRecordHandler(firstRecordDto.dataType)
-                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "No handler found for type ${firstRecordDto.dataType}",
-                )
-
-            if (handler !is UpdatableHealthRecordHandler) {
-                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "Type ${firstRecordDto.dataType} does not support updates",
-                )
+            val invalidRecords = records.filter { record -> record.id.isNullOrEmpty() }
+            require(invalidRecords.isEmpty()) {
+                "All records must have IDs for update operations. " +
+                    "Found ${invalidRecords.size} record(s) without IDs."
             }
 
-            HealthConnectorLogger.debug(
-                tag = TAG,
-                operation = "update_records",
-                message = "All records validated and converted",
-                context = mapOf("record_count" to request.records.size),
-            )
+            // Validate all record data types support the update operation.
+            val dataTypes = records.map { record -> record.dataType }
+            dataTypes.forEach { dataType ->
+                val handler = recordHandlerRegistry.getRecordHandler(dataType)
+                    ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                        "No handler found for type $dataType",
+                    )
 
-            handler.updateRecords(request.records)
+                if (handler !is UpdatableHealthRecordHandler) {
+                    throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
+                        "Type $dataType does not support updates",
+                    )
+                }
+            }
 
-            HealthConnectorLogger.debug(
-                tag = TAG,
-                operation = "update_records",
-                message = "Atomic update completed successfully",
-            )
+            val records = records.map { record -> record.toHealthConnect() }
+            client.updateRecords(records)
 
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "update_records",
                 message = "Health Connect records updated successfully",
-                context = mapOf("count" to request.records.size),
+                context = mapOf("count" to records.size),
             )
         } catch (e: HealthConnectorErrorDto) {
             throw e
