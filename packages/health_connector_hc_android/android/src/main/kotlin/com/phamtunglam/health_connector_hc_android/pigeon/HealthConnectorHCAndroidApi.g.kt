@@ -2799,39 +2799,6 @@ data class BloodPressureAggregateRequestDto (
 }
 
 /**
- * Response containing aggregated value.
- *
- * Generated class from Pigeon that represents data sent in messages.
- */
-data class AggregateResponseDto (
-  /** Aggregated value. */
-  val value: MeasurementUnitDto
-)
- {
-  companion object {
-    fun fromList(pigeonVar_list: List<Any?>): AggregateResponseDto {
-      val value = pigeonVar_list[0] as MeasurementUnitDto
-      return AggregateResponseDto(value)
-    }
-  }
-  fun toList(): List<Any?> {
-    return listOf(
-      value,
-    )
-  }
-  override fun equals(other: Any?): Boolean {
-    if (other !is AggregateResponseDto) {
-      return false
-    }
-    if (this === other) {
-      return true
-    }
-    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
-
-  override fun hashCode(): Int = toList().hashCode()
-}
-
-/**
  * Request to delete records.
  *
  * Generated class from Pigeon that represents data sent in messages.
@@ -2943,39 +2910,6 @@ data class ReadRecordRequestDto (
   }
   override fun equals(other: Any?): Boolean {
     if (other !is ReadRecordRequestDto) {
-      return false
-    }
-    if (this === other) {
-      return true
-    }
-    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
-
-  override fun hashCode(): Int = toList().hashCode()
-}
-
-/**
- * Response containing a single health record.
- *
- * Generated class from Pigeon that represents data sent in messages.
- */
-data class ReadRecordResponseDto (
-  /** The health record that was read. */
-  val record: HealthRecordDto? = null
-)
- {
-  companion object {
-    fun fromList(pigeonVar_list: List<Any?>): ReadRecordResponseDto {
-      val record = pigeonVar_list[0] as HealthRecordDto?
-      return ReadRecordResponseDto(record)
-    }
-  }
-  fun toList(): List<Any?> {
-    return listOf(
-      record,
-    )
-  }
-  override fun equals(other: Any?): Boolean {
-    if (other !is ReadRecordResponseDto) {
       return false
     }
     if (this === other) {
@@ -3485,40 +3419,30 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       202.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          AggregateResponseDto.fromList(it)
+          DeleteRecordsByIdsRequestDto.fromList(it)
         }
       }
       203.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByIdsRequestDto.fromList(it)
+          DeleteRecordsByTimeRangeRequestDto.fromList(it)
         }
       }
       204.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByTimeRangeRequestDto.fromList(it)
+          ReadRecordRequestDto.fromList(it)
         }
       }
       205.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordRequestDto.fromList(it)
+          ReadRecordsRequestDto.fromList(it)
         }
       }
       206.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordResponseDto.fromList(it)
-        }
-      }
-      207.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsRequestDto.fromList(it)
-        }
-      }
-      208.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
           ReadRecordsResponseDto.fromList(it)
         }
       }
-      209.toByte() -> {
+      207.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
           HealthConnectorConfigDto.fromList(it)
         }
@@ -3820,36 +3744,28 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(201)
         writeValue(stream, value.toList())
       }
-      is AggregateResponseDto -> {
+      is DeleteRecordsByIdsRequestDto -> {
         stream.write(202)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByIdsRequestDto -> {
+      is DeleteRecordsByTimeRangeRequestDto -> {
         stream.write(203)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByTimeRangeRequestDto -> {
+      is ReadRecordRequestDto -> {
         stream.write(204)
         writeValue(stream, value.toList())
       }
-      is ReadRecordRequestDto -> {
+      is ReadRecordsRequestDto -> {
         stream.write(205)
         writeValue(stream, value.toList())
       }
-      is ReadRecordResponseDto -> {
+      is ReadRecordsResponseDto -> {
         stream.write(206)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsRequestDto -> {
-        stream.write(207)
-        writeValue(stream, value.toList())
-      }
-      is ReadRecordsResponseDto -> {
-        stream.write(208)
-        writeValue(stream, value.toList())
-      }
       is HealthConnectorConfigDto -> {
-        stream.write(209)
+        stream.write(207)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)
@@ -3871,20 +3787,15 @@ interface HealthConnectorHCAndroidApi {
    * to properly configure the native platform code, including logger settings.
    */
   fun initialize(config: HealthConnectorConfigDto, callback: (Result<Unit>) -> Unit)
-  fun aggregate(request: AggregateRequestDto, callback: (Result<AggregateResponseDto>) -> Unit)
+  fun aggregate(request: AggregateRequestDto, callback: (Result<MeasurementUnitDto>) -> Unit)
   fun deleteRecords(request: DeleteRecordsRequestDto, callback: (Result<Unit>) -> Unit)
   fun getFeatureStatus(feature: HealthPlatformFeatureDto, callback: (Result<HealthPlatformFeatureStatusDto>) -> Unit)
   fun getHealthPlatformStatus(callback: (Result<HealthPlatformStatusDto>) -> Unit)
   fun requestPermissions(request: PermissionRequestsDto, callback: (Result<PermissionRequestsResponseDto>) -> Unit)
   fun getGrantedPermissions(callback: (Result<PermissionRequestsResponseDto>) -> Unit)
   fun revokeAllPermissions(callback: (Result<Unit>) -> Unit)
-  /**
-   * Gets the current permission status for a specific permission.
-   *
-   * Checks whether the permission is in the granted permissions set.
-   */
   fun getPermissionStatus(permission: PermissionRequestDto, callback: (Result<PermissionStatusDto>) -> Unit)
-  fun readRecord(request: ReadRecordRequestDto, callback: (Result<ReadRecordResponseDto?>) -> Unit)
+  fun readRecord(request: ReadRecordRequestDto, callback: (Result<HealthRecordDto?>) -> Unit)
   fun readRecords(request: ReadRecordsRequestDto, callback: (Result<ReadRecordsResponseDto>) -> Unit)
   fun writeRecord(record: HealthRecordDto, callback: (Result<String>) -> Unit)
   fun writeRecords(records: List<HealthRecordDto>, callback: (Result<List<String>>) -> Unit)
@@ -3925,7 +3836,7 @@ interface HealthConnectorHCAndroidApi {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
             val requestArg = args[0] as AggregateRequestDto
-            api.aggregate(requestArg) { result: Result<AggregateResponseDto> ->
+            api.aggregate(requestArg) { result: Result<MeasurementUnitDto> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
@@ -4077,7 +3988,7 @@ interface HealthConnectorHCAndroidApi {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
             val requestArg = args[0] as ReadRecordRequestDto
-            api.readRecord(requestArg) { result: Result<ReadRecordResponseDto?> ->
+            api.readRecord(requestArg) { result: Result<HealthRecordDto?> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))

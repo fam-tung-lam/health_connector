@@ -2,7 +2,6 @@ import 'package:flutter/services.dart' show PlatformException;
 import 'package:health_connector_core/health_connector_core.dart'
     show
         AggregateRequest,
-        AggregateResponse,
         HealthConnectorConfig,
         HealthConnectorException,
         HealthConnectorPlatformClient,
@@ -30,6 +29,7 @@ import 'package:health_connector_hc_android/src/mappers/health_connector_error_c
 import 'package:health_connector_hc_android/src/mappers/health_platform_feature_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/permission_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/request_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/response_mappers.dart';
@@ -479,27 +479,23 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       final requestDto = request.toDto();
 
       final responseDto = await _platformClient.readRecord(requestDto);
+      final record = responseDto?.toDomain() as R?;
 
-      if (responseDto == null) {
+      if (record == null) {
         HealthConnectorLogger.info(
           tag,
           operation: 'readRecord',
-
           message: 'Health Connect record not found',
           context: {'request': request, 'response': null},
         );
-
-        return null; // Record not found
+      } else {
+        HealthConnectorLogger.info(
+          tag,
+          operation: 'readRecord',
+          message: 'Health Connect record read successfully',
+          context: {'request': request, 'response': record},
+        );
       }
-
-      final record = responseDto.record?.toDomain() as R?;
-
-      HealthConnectorLogger.info(
-        tag,
-        operation: 'readRecord',
-        message: 'Health Connect record read successfully',
-        context: {'request': request, 'response': record},
-      );
 
       return record;
     } on PlatformException catch (e, st) {
@@ -740,10 +736,9 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
   }
 
   @override
-  Future<AggregateResponse<R, U>> aggregate<
-    R extends HealthRecord,
-    U extends MeasurementUnit
-  >(AggregateRequest<R, U> request) async {
+  Future<U> aggregate<R extends HealthRecord, U extends MeasurementUnit>(
+    AggregateRequest<R, U> request,
+  ) async {
     HealthConnectorLogger.debug(
       tag,
       operation: 'aggregate',
@@ -755,18 +750,18 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     try {
       final requestDto = request.toDto();
 
-      final responseDto = await _platformClient.aggregate(requestDto);
+      final aggregatedValueDto = await _platformClient.aggregate(requestDto);
 
-      final response = responseDto.toDomain<R, U>(request.dataType);
+      final aggregatedValue = aggregatedValueDto.toDomain() as U;
 
       HealthConnectorLogger.info(
         tag,
         operation: 'aggregate',
         message: 'Health Connect data aggregated successfully',
-        context: {'request': request, 'response': response},
+        context: {'request': request, 'aggregated_value': aggregatedValue},
       );
 
-      return response;
+      return aggregatedValue;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
         tag,

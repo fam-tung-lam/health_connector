@@ -458,7 +458,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
         return;
       }
       _showSuccess(
-        'Total steps in last 7 days: ${response.value.value}',
+        'Total steps in last 7 days: ${response.value}',
       );
     } on HealthConnectorException catch (e) {
       if (!mounted) {

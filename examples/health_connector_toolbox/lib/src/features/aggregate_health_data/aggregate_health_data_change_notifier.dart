@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:health_connector/health_connector.dart'
-    show AggregateRequest, AggregateResponse, MeasurementUnit, HealthConnector;
+    show AggregateRequest, MeasurementUnit, HealthConnector;
 
 /// Manages state and operations for aggregating health data.
 ///
@@ -12,28 +12,26 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
   AggregateHealthDataChangeNotifier(this._healthConnector);
 
   bool _isLoading = false;
-  AggregateResponse? _aggregateResponse;
+  MeasurementUnit? _aggregationResult;
 
-  AggregateResponse? get aggregateResponse => _aggregateResponse;
-
-  MeasurementUnit? get aggregationResult => _aggregateResponse?.value;
+  MeasurementUnit? get aggregationResult => _aggregationResult;
 
   bool get isLoading => _isLoading;
 
   /// Aggregates health data based on the provided request.
   ///
-  /// Updates [aggregateResponse] with the aggregation result on success.
+  /// Updates [aggregationResult] with the aggregation result on success.
   /// Exceptions are propagated to the caller for handling.
   Future<void> aggregateHealthData(AggregateRequest request) async {
     notify(() {
       _isLoading = true;
-      _aggregateResponse = null;
+      _aggregationResult = null;
     });
 
     try {
       final response = await _healthConnector.aggregate(request);
       notify(() {
-        _aggregateResponse = response;
+        _aggregationResult = response;
       });
     } finally {
       notify(() {
@@ -45,7 +43,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
   /// Clears the aggregation results.
   void clearResults() {
     notify(() {
-      _aggregateResponse = null;
+      _aggregationResult = null;
     });
   }
 

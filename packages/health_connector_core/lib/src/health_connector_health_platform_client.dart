@@ -207,8 +207,7 @@ abstract interface class HealthConnectorPlatformClient {
   ///
   /// ## Returns
   ///
-  /// An [AggregateResponse] containing the aggregated value in the
-  /// appropriate measurement unit.
+  /// An the aggregated value in the appropriate measurement unit.
   ///
   /// ## Throws
   ///
@@ -217,8 +216,7 @@ abstract interface class HealthConnectorPlatformClient {
   ///   - The aggregation metric is not supported by the data type
   ///   - Required permissions are not granted
   ///   - The time range is invalid
-  Future<AggregateResponse<R, U>>
-  aggregate<R extends HealthRecord, U extends MeasurementUnit>(
+  Future<U> aggregate<R extends HealthRecord, U extends MeasurementUnit>(
     AggregateRequest<R, U> request,
   );
 

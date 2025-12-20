@@ -21,7 +21,6 @@ import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.AggregateResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
@@ -30,12 +29,12 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureD
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorFeatureService
@@ -286,14 +285,14 @@ internal class HealthConnectorClient private constructor(
      * Reads a single health record by ID.
      *
      * @param request Contains the data type and record ID to read
-     * @return ReadRecordResponseDto with the appropriate typed field populated, or null if not found
+     * @return HealthRecordDto or null if not found
      *
      * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support reading
      * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
-    suspend fun readRecord(request: ReadRecordRequestDto): ReadRecordResponseDto {
+    suspend fun readRecord(request: ReadRecordRequestDto): HealthRecordDto? {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "read_record",
@@ -322,7 +321,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("data_type" to request.dataType, "record_id" to request.recordId),
             )
 
-            return ReadRecordResponseDto(record = dto)
+            return dto
         } catch (e: HealthConnectorErrorDto) {
             throw e
         }
@@ -724,7 +723,7 @@ internal class HealthConnectorClient private constructor(
      * Performs an aggregation query on health records.
      *
      * @param request Contains data type, aggregation metric, and time range
-     * @return AggregateResponseDto with aggregated value and data point count
+     * @return MeasurementUnitDto with the aggregated value
      *
      * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support aggregation
      * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if time range or metric is invalid
@@ -732,7 +731,7 @@ internal class HealthConnectorClient private constructor(
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
-    suspend fun aggregate(request: AggregateRequestDto): AggregateResponseDto {
+    suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "aggregate",

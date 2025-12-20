@@ -4223,34 +4223,6 @@ public struct AggregateRequestDto: Hashable {
   }
 }
 
-/// Response containing aggregated value.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct AggregateResponseDto: Hashable {
-  /// Aggregated value.
-  var value: MeasurementUnitDto
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> AggregateResponseDto? {
-    let value = pigeonVar_list[0] as! MeasurementUnitDto
-
-    return AggregateResponseDto(
-      value: value
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      value
-    ]
-  }
-  public static func == (lhs: AggregateResponseDto, rhs: AggregateResponseDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
 /// Request to delete records.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -4357,34 +4329,6 @@ public struct ReadRecordRequestDto: Hashable {
     ]
   }
   public static func == (lhs: ReadRecordRequestDto, rhs: ReadRecordRequestDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Response containing a single health record.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct ReadRecordResponseDto: Hashable {
-  /// The health record that was read.
-  var record: HealthRecordDto? = nil
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> ReadRecordResponseDto? {
-    let record: HealthRecordDto? = nilOrValue(pigeonVar_list[0])
-
-    return ReadRecordResponseDto(
-      record: record
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      record
-    ]
-  }
-  public static func == (lhs: ReadRecordResponseDto, rhs: ReadRecordResponseDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
   public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
@@ -4806,20 +4750,16 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 226:
       return AggregateRequestDto.fromList(self.readValue() as! [Any?])
     case 227:
-      return AggregateResponseDto.fromList(self.readValue() as! [Any?])
-    case 228:
       return DeleteRecordsByIdsRequestDto.fromList(self.readValue() as! [Any?])
-    case 229:
+    case 228:
       return DeleteRecordsByTimeRangeRequestDto.fromList(self.readValue() as! [Any?])
-    case 230:
+    case 229:
       return ReadRecordRequestDto.fromList(self.readValue() as! [Any?])
-    case 231:
-      return ReadRecordResponseDto.fromList(self.readValue() as! [Any?])
-    case 232:
+    case 230:
       return ReadRecordsRequestDto.fromList(self.readValue() as! [Any?])
-    case 233:
+    case 231:
       return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
-    case 234:
+    case 232:
       return HealthConnectorConfigDto.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -5123,29 +5063,23 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? AggregateRequestDto {
       super.writeByte(226)
       super.writeValue(value.toList())
-    } else if let value = value as? AggregateResponseDto {
+    } else if let value = value as? DeleteRecordsByIdsRequestDto {
       super.writeByte(227)
       super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByIdsRequestDto {
+    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
       super.writeByte(228)
       super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
+    } else if let value = value as? ReadRecordRequestDto {
       super.writeByte(229)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordRequestDto {
+    } else if let value = value as? ReadRecordsRequestDto {
       super.writeByte(230)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordResponseDto {
+    } else if let value = value as? ReadRecordsResponseDto {
       super.writeByte(231)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordsRequestDto {
-      super.writeByte(232)
-      super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordsResponseDto {
-      super.writeByte(233)
-      super.writeValue(value.toList())
     } else if let value = value as? HealthConnectorConfigDto {
-      super.writeByte(234)
+      super.writeByte(232)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -5172,22 +5106,13 @@ class HealthConnectorHKIOSApiPigeonCodec: FlutterStandardMessageCodec, @unchecke
 ///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol HealthConnectorHKIOSApi {
-  /// Initializes the Health Connector client with the provided configuration.
-  ///
-  /// This method must be called before any other Health Connector operations
-  /// to properly configure the native platform code, including logger settings.
   func initialize(config: HealthConnectorConfigDto, completion: @escaping (Result<Void, Error>) -> Void)
-  func aggregate(request: AggregateRequestDto, completion: @escaping (Result<AggregateResponseDto, Error>) -> Void)
+  func aggregate(request: AggregateRequestDto, completion: @escaping (Result<MeasurementUnitDto, Error>) -> Void)
   func deleteRecords(request: DeleteRecordsRequestDto, completion: @escaping (Result<Void, Error>) -> Void)
   func getHealthPlatformStatus(completion: @escaping (Result<HealthPlatformStatusDto, Error>) -> Void)
   func requestPermissions(request: PermissionsRequestDto, completion: @escaping (Result<PermissionsRequestResponseDto, Error>) -> Void)
-  /// Gets the current permission status for a specific permission.
-  ///
-  /// Note: Due to HealthKit privacy restrictions, read permissions will
-  /// always return PermissionStatus.unknown. Only write permissions can
-  /// return definitive granted or denied status.
   func getPermissionStatus(permission: HealthDataPermissionDto, completion: @escaping (Result<PermissionStatusDto, Error>) -> Void)
-  func readRecord(request: ReadRecordRequestDto, completion: @escaping (Result<ReadRecordResponseDto?, Error>) -> Void)
+  func readRecord(request: ReadRecordRequestDto, completion: @escaping (Result<HealthRecordDto?, Error>) -> Void)
   func readRecords(request: ReadRecordsRequestDto, completion: @escaping (Result<ReadRecordsResponseDto, Error>) -> Void)
   func writeRecord(record: HealthRecordDto, completion: @escaping (Result<String, Error>) -> Void)
   func writeRecords(records: [HealthRecordDto], completion: @escaping (Result<[String], Error>) -> Void)
@@ -5199,10 +5124,6 @@ class HealthConnectorHKIOSApiSetup {
   /// Sets up an instance of `HealthConnectorHKIOSApi` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: HealthConnectorHKIOSApi?, messageChannelSuffix: String = "") {
     let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
-    /// Initializes the Health Connector client with the provided configuration.
-    ///
-    /// This method must be called before any other Health Connector operations
-    /// to properly configure the native platform code, including logger settings.
     let initializeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.initialize\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       initializeChannel.setMessageHandler { message, reply in
@@ -5286,11 +5207,6 @@ class HealthConnectorHKIOSApiSetup {
     } else {
       requestPermissionsChannel.setMessageHandler(nil)
     }
-    /// Gets the current permission status for a specific permission.
-    ///
-    /// Note: Due to HealthKit privacy restrictions, read permissions will
-    /// always return PermissionStatus.unknown. Only write permissions can
-    /// return definitive granted or denied status.
     let getPermissionStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.getPermissionStatus\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       getPermissionStatusChannel.setMessageHandler { message, reply in

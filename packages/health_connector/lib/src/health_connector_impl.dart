@@ -3,7 +3,6 @@ import 'package:health_connector/health_connector.dart'
 import 'package:health_connector_core/health_connector_core.dart'
     show
         AggregateRequest,
-        AggregateResponse,
         DeleteRecordsRequest,
         DeleteRecordsByIdsRequest,
         DeleteRecordsInTimeRangeRequest,
@@ -466,10 +465,9 @@ final class HealthConnectorImpl implements HealthConnector {
   }
 
   @override
-  Future<AggregateResponse<R, U>> aggregate<
-    R extends HealthRecord,
-    U extends MeasurementUnit
-  >(AggregateRequest<R, U> request) async {
+  Future<U> aggregate<R extends HealthRecord, U extends MeasurementUnit>(
+    AggregateRequest<R, U> request,
+  ) async {
     HealthConnectorLogger.debug(
       tag,
       operation: 'aggregate',
@@ -478,16 +476,16 @@ final class HealthConnectorImpl implements HealthConnector {
     );
 
     try {
-      final response = await _client.aggregate(request);
+      final aggregatedValue = await _client.aggregate(request);
 
       HealthConnectorLogger.info(
         tag,
         operation: 'aggregate',
         message: 'Health data aggregated successfully',
-        context: {'request': request, 'response': response},
+        context: {'request': request, 'aggregated_value': aggregatedValue},
       );
 
-      return response;
+      return aggregatedValue;
     } catch (e, st) {
       HealthConnectorLogger.error(
         tag,

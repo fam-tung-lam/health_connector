@@ -3,7 +3,6 @@ import 'package:health_connector/health_connector.dart'
     show
         ActiveCaloriesBurnedHealthDataType,
         AggregateRequest,
-        AggregateResponse,
         AggregationMetric,
         BodyFatPercentageHealthDataType,
         BloodGlucoseHealthDataType,
@@ -850,15 +849,15 @@ class _AggregateHealthDataPageState
                     ),
                     Selector<
                       AggregateHealthDataChangeNotifier,
-                      AggregateResponse?
+                      MeasurementUnit?
                     >(
-                      selector: (_, notifier) => notifier.aggregateResponse,
-                      builder: (context, aggregateResponse, _) {
-                        if (aggregateResponse != null &&
+                      selector: (_, notifier) => notifier.aggregationResult,
+                      builder: (context, aggregationResult, _) {
+                        if (aggregationResult != null &&
                             _selectedMetric != null) {
                           return AggregateResultCard(
                             metric: _selectedMetric!.displayName,
-                            value: aggregateResponse.value,
+                            value: aggregationResult,
                             startDateTime: startDateTime,
                             endDateTime: endDateTime,
                           );

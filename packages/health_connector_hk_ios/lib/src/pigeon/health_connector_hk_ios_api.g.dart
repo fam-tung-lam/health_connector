@@ -5728,49 +5728,6 @@ class AggregateRequestDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Response containing aggregated value.
-class AggregateResponseDto {
-  AggregateResponseDto({
-    required this.value,
-  });
-
-  /// Aggregated value.
-  MeasurementUnitDto value;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      value,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static AggregateResponseDto decode(Object result) {
-    result as List<Object?>;
-    return AggregateResponseDto(
-      value: result[0]! as MeasurementUnitDto,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! AggregateResponseDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
 /// Request to delete records.
 sealed class DeleteRecordsRequestDto {}
 
@@ -5916,49 +5873,6 @@ class ReadRecordRequestDto {
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
     if (other is! ReadRecordRequestDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Response containing a single health record.
-class ReadRecordResponseDto {
-  ReadRecordResponseDto({
-    this.record,
-  });
-
-  /// The health record that was read.
-  HealthRecordDto? record;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      record,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static ReadRecordResponseDto decode(Object result) {
-    result as List<Object?>;
-    return ReadRecordResponseDto(
-      record: result[0] as HealthRecordDto?,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! ReadRecordResponseDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -6444,29 +6358,23 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is AggregateRequestDto) {
       buffer.putUint8(226);
       writeValue(buffer, value.encode());
-    } else if (value is AggregateResponseDto) {
+    } else if (value is DeleteRecordsByIdsRequestDto) {
       buffer.putUint8(227);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByIdsRequestDto) {
+    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
       buffer.putUint8(228);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
+    } else if (value is ReadRecordRequestDto) {
       buffer.putUint8(229);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordRequestDto) {
+    } else if (value is ReadRecordsRequestDto) {
       buffer.putUint8(230);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordResponseDto) {
+    } else if (value is ReadRecordsResponseDto) {
       buffer.putUint8(231);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsRequestDto) {
-      buffer.putUint8(232);
-      writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsResponseDto) {
-      buffer.putUint8(233);
-      writeValue(buffer, value.encode());
     } else if (value is HealthConnectorConfigDto) {
-      buffer.putUint8(234);
+      buffer.putUint8(232);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -6701,20 +6609,16 @@ class _PigeonCodec extends StandardMessageCodec {
       case 226:
         return AggregateRequestDto.decode(readValue(buffer)!);
       case 227:
-        return AggregateResponseDto.decode(readValue(buffer)!);
-      case 228:
         return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
-      case 229:
+      case 228:
         return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
-      case 230:
+      case 229:
         return ReadRecordRequestDto.decode(readValue(buffer)!);
-      case 231:
-        return ReadRecordResponseDto.decode(readValue(buffer)!);
-      case 232:
+      case 230:
         return ReadRecordsRequestDto.decode(readValue(buffer)!);
-      case 233:
+      case 231:
         return ReadRecordsResponseDto.decode(readValue(buffer)!);
-      case 234:
+      case 232:
         return HealthConnectorConfigDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -6740,10 +6644,6 @@ class HealthConnectorHKIOSApi {
 
   final String pigeonVar_messageChannelSuffix;
 
-  /// Initializes the Health Connector client with the provided configuration.
-  ///
-  /// This method must be called before any other Health Connector operations
-  /// to properly configure the native platform code, including logger settings.
   Future<void> initialize(HealthConnectorConfigDto config) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.initialize$pigeonVar_messageChannelSuffix';
@@ -6771,7 +6671,7 @@ class HealthConnectorHKIOSApi {
     }
   }
 
-  Future<AggregateResponseDto> aggregate(AggregateRequestDto request) async {
+  Future<MeasurementUnitDto> aggregate(AggregateRequestDto request) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.aggregate$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
@@ -6799,7 +6699,7 @@ class HealthConnectorHKIOSApi {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
-      return (pigeonVar_replyList[0] as AggregateResponseDto?)!;
+      return (pigeonVar_replyList[0] as MeasurementUnitDto?)!;
     }
   }
 
@@ -6894,11 +6794,6 @@ class HealthConnectorHKIOSApi {
     }
   }
 
-  /// Gets the current permission status for a specific permission.
-  ///
-  /// Note: Due to HealthKit privacy restrictions, read permissions will
-  /// always return PermissionStatus.unknown. Only write permissions can
-  /// return definitive granted or denied status.
   Future<PermissionStatusDto> getPermissionStatus(
     HealthDataPermissionDto permission,
   ) async {
@@ -6933,9 +6828,7 @@ class HealthConnectorHKIOSApi {
     }
   }
 
-  Future<ReadRecordResponseDto?> readRecord(
-    ReadRecordRequestDto request,
-  ) async {
+  Future<HealthRecordDto?> readRecord(ReadRecordRequestDto request) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.readRecord$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
@@ -6958,7 +6851,7 @@ class HealthConnectorHKIOSApi {
         details: pigeonVar_replyList[2],
       );
     } else {
-      return (pigeonVar_replyList[0] as ReadRecordResponseDto?);
+      return (pigeonVar_replyList[0] as HealthRecordDto?);
     }
   }
 

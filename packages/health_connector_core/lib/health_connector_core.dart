@@ -40,7 +40,6 @@ export 'src/models/requests/aggregation_metric.dart';
 export 'src/models/requests/delete_records_request.dart';
 export 'src/models/requests/read_records_request.dart';
 // Models - Responses
-export 'src/models/responses/aggregate_response.dart';
 export 'src/models/responses/permission_request_result.dart';
 export 'src/models/responses/read_records_response.dart';
 // Utils

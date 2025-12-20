@@ -646,13 +646,13 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
         endTime: now,
       );
 
-      final response = await _connector!.aggregate(request);
+      final aggregationResult = await _connector!.aggregate(request);
 
       if (!mounted) {
         return;
       }
       _showSuccess(
-        'Total steps in last 7 days: ${response.value.value}',
+        'Total steps in last 7 days: ${aggregationResult.value}',
       );
     } on HealthConnectorException catch (e) {
       if (!mounted) {

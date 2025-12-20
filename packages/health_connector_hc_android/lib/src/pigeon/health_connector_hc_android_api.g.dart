@@ -3411,49 +3411,6 @@ class BloodPressureAggregateRequestDto extends AggregateRequestDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Response containing aggregated value.
-class AggregateResponseDto {
-  AggregateResponseDto({
-    required this.value,
-  });
-
-  /// Aggregated value.
-  MeasurementUnitDto value;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      value,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static AggregateResponseDto decode(Object result) {
-    result as List<Object?>;
-    return AggregateResponseDto(
-      value: result[0]! as MeasurementUnitDto,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! AggregateResponseDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
 /// Request to delete records.
 sealed class DeleteRecordsRequestDto {}
 
@@ -3599,49 +3556,6 @@ class ReadRecordRequestDto {
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
     if (other is! ReadRecordRequestDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Response containing a single health record.
-class ReadRecordResponseDto {
-  ReadRecordResponseDto({
-    this.record,
-  });
-
-  /// The health record that was read.
-  HealthRecordDto? record;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      record,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static ReadRecordResponseDto decode(Object result) {
-    result as List<Object?>;
-    return ReadRecordResponseDto(
-      record: result[0] as HealthRecordDto?,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! ReadRecordResponseDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -4052,29 +3966,23 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is BloodPressureAggregateRequestDto) {
       buffer.putUint8(201);
       writeValue(buffer, value.encode());
-    } else if (value is AggregateResponseDto) {
+    } else if (value is DeleteRecordsByIdsRequestDto) {
       buffer.putUint8(202);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByIdsRequestDto) {
+    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
       buffer.putUint8(203);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
+    } else if (value is ReadRecordRequestDto) {
       buffer.putUint8(204);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordRequestDto) {
+    } else if (value is ReadRecordsRequestDto) {
       buffer.putUint8(205);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordResponseDto) {
+    } else if (value is ReadRecordsResponseDto) {
       buffer.putUint8(206);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsRequestDto) {
-      buffer.putUint8(207);
-      writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsResponseDto) {
-      buffer.putUint8(208);
-      writeValue(buffer, value.encode());
     } else if (value is HealthConnectorConfigDto) {
-      buffer.putUint8(209);
+      buffer.putUint8(207);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -4273,20 +4181,16 @@ class _PigeonCodec extends StandardMessageCodec {
       case 201:
         return BloodPressureAggregateRequestDto.decode(readValue(buffer)!);
       case 202:
-        return AggregateResponseDto.decode(readValue(buffer)!);
-      case 203:
         return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
-      case 204:
+      case 203:
         return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
-      case 205:
+      case 204:
         return ReadRecordRequestDto.decode(readValue(buffer)!);
-      case 206:
-        return ReadRecordResponseDto.decode(readValue(buffer)!);
-      case 207:
+      case 205:
         return ReadRecordsRequestDto.decode(readValue(buffer)!);
-      case 208:
+      case 206:
         return ReadRecordsResponseDto.decode(readValue(buffer)!);
-      case 209:
+      case 207:
         return HealthConnectorConfigDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -4343,7 +4247,7 @@ class HealthConnectorHCAndroidApi {
     }
   }
 
-  Future<AggregateResponseDto> aggregate(AggregateRequestDto request) async {
+  Future<MeasurementUnitDto> aggregate(AggregateRequestDto request) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.aggregate$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
@@ -4371,7 +4275,7 @@ class HealthConnectorHCAndroidApi {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
-      return (pigeonVar_replyList[0] as AggregateResponseDto?)!;
+      return (pigeonVar_replyList[0] as MeasurementUnitDto?)!;
     }
   }
 
@@ -4555,9 +4459,6 @@ class HealthConnectorHCAndroidApi {
     }
   }
 
-  /// Gets the current permission status for a specific permission.
-  ///
-  /// Checks whether the permission is in the granted permissions set.
   Future<PermissionStatusDto> getPermissionStatus(
     PermissionRequestDto permission,
   ) async {
@@ -4592,9 +4493,7 @@ class HealthConnectorHCAndroidApi {
     }
   }
 
-  Future<ReadRecordResponseDto?> readRecord(
-    ReadRecordRequestDto request,
-  ) async {
+  Future<HealthRecordDto?> readRecord(ReadRecordRequestDto request) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.readRecord$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
@@ -4617,7 +4516,7 @@ class HealthConnectorHCAndroidApi {
         details: pigeonVar_replyList[2],
       );
     } else {
-      return (pigeonVar_replyList[0] as ReadRecordResponseDto?);
+      return (pigeonVar_replyList[0] as HealthRecordDto?);
     }
   }
 

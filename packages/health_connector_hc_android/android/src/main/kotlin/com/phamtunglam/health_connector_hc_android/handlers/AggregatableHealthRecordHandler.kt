@@ -9,7 +9,6 @@ import com.phamtunglam.health_connector_hc_android.mappers.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.mappers.endTime
 import com.phamtunglam.health_connector_hc_android.mappers.startTime
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.AggregateResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
@@ -21,7 +20,7 @@ import java.time.Instant
  * Capability for handlers that support aggregation operations.
  */
 internal interface AggregatableHealthRecordHandler : HealthRecordHandler {
-    suspend fun aggregate(request: AggregateRequestDto): AggregateResponseDto
+    suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto
 }
 
 /**
@@ -51,7 +50,7 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
         SecurityException::class,
         IOException::class,
     )
-    override suspend fun aggregate(request: AggregateRequestDto): AggregateResponseDto = process(
+    override suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto = process(
         operation = "aggregate",
         context = mapOf("request" to request),
     ) {
@@ -75,7 +74,7 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
         val result = client.aggregate(aggregateRequest)
         val aggregatedValue = result[metric] ?: error("Aggregation result for $metric is null")
 
-        AggregateResponseDto(value = convertAggregatedValue(aggregatedValue))
+        convertAggregatedValue(aggregatedValue)
     }
 }
 
@@ -136,7 +135,7 @@ internal interface CustomAggregatableHealthRecordHandler :
     @Throws(
         HealthConnectorErrorDto::class,
     )
-    override suspend fun aggregate(request: AggregateRequestDto): AggregateResponseDto = process(
+    override suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto = process(
         "custom_aggregate",
         context = mapOf("request" to request),
     ) {
@@ -163,7 +162,7 @@ internal interface CustomAggregatableHealthRecordHandler :
             AggregationMetricDto.SUM -> aggregationResult.sum
         }
 
-        AggregateResponseDto(value = wrapAggregationResult(resultValue))
+        wrapAggregationResult(resultValue)
     }
 
     /**

@@ -146,13 +146,13 @@ actor HealthConnectorClient: Taggable {
     /// Reads a single health record by ID.
     ///
     /// - Parameter request: Contains the data type and record ID to read
-    /// - Returns: ReadRecordResponseDto with the record populated, or nil if not found
+    /// - Returns: HealthRecordDto or nil if not found
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if the record ID format is invalid
     /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
-    func readRecord(request: ReadRecordRequestDto) async throws -> ReadRecordResponseDto? {
+    func readRecord(request: ReadRecordRequestDto) async throws -> HealthRecordDto? {
         try await process(operation: "readRecord", context: ["request": request]) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
@@ -167,16 +167,15 @@ actor HealthConnectorClient: Taggable {
             )
 
             let recordDto = try await handler.readRecord(id: request.recordId)
-            let responseDto = ReadRecordResponseDto(record: recordDto)
 
             HealthConnectorLogger.info(
                 tag: Self.tag,
                 operation: "readRecord",
                 message: "Health Connect record read successfully",
-                context: ["request": request, "response": responseDto]
+                context: ["request": request, "record": recordDto as Any]
             )
 
-            return responseDto
+            return recordDto
         }
     }
 
@@ -412,13 +411,13 @@ actor HealthConnectorClient: Taggable {
     /// Performs an aggregation query on health records.
     ///
     /// - Parameter request: Contains data type, aggregation metric, and time range
-    /// - Returns: AggregateResponseDto with aggregated value and data point count
+    /// - Returns: MeasurementUnitDto with the aggregated value
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if time range or metric is invalid
     /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
-    func aggregate(request: AggregateRequestDto) async throws -> AggregateResponseDto {
+    func aggregate(request: AggregateRequestDto) async throws -> MeasurementUnitDto {
         try await process(operation: "aggregate", context: ["request": request]) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
@@ -451,16 +450,14 @@ actor HealthConnectorClient: Taggable {
                 endTime: endTime
             )
 
-            let responseDto = AggregateResponseDto(value: value)
-
             HealthConnectorLogger.info(
                 tag: Self.tag,
                 operation: "aggregate",
                 message: "Health Connect data aggregated successfully",
-                context: ["request": request, "response": responseDto]
+                context: ["request": request, "value": value]
             )
 
-            return responseDto
+            return value
         }
     }
 

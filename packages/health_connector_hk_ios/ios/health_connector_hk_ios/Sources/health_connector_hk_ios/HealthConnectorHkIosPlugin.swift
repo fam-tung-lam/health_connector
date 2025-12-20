@@ -127,10 +127,10 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ///
     /// - Parameters:
     ///   - request: Contains the data type and record ID to read
-    ///   - completion: Called with a `Result` containing the read record response or nil if not found
+    ///   - completion: Called with a `Result` containing the health record or nil if not found
     public func readRecord(
         request: ReadRecordRequestDto,
-        completion: @escaping (Result<ReadRecordResponseDto?, Error>) -> Void
+        completion: @escaping (Result<HealthRecordDto?, Error>) -> Void
     ) {
         process(operation: "readRecord", completion: completion) {
             try await self.healthClient.readRecord(request: request)
@@ -183,10 +183,10 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ///
     /// - Parameters:
     ///   - request: Contains data type, aggregation metric, and time range
-    ///   - completion: Called with a `Result` containing the aggregation response
+    ///   - completion: Called with a `Result` containing the aggregated measurement unit
     public func aggregate(
         request: AggregateRequestDto,
-        completion: @escaping (Result<AggregateResponseDto, Error>) -> Void
+        completion: @escaping (Result<MeasurementUnitDto, Error>) -> Void
     ) {
         process(operation: "aggregate", completion: completion) {
             try await self.healthClient.aggregate(request: request)

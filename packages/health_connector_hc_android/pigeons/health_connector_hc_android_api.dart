@@ -1529,14 +1529,6 @@ class BloodPressureAggregateRequestDto extends AggregateRequestDto {
   final int startTime;
 }
 
-/// Response containing aggregated value.
-class AggregateResponseDto {
-  AggregateResponseDto(this.value);
-
-  /// Aggregated value.
-  final MeasurementUnitDto value;
-}
-
 /// Request to delete records.
 sealed class DeleteRecordsRequestDto {}
 
@@ -1581,14 +1573,6 @@ class ReadRecordRequestDto {
 
   /// The type of health data to read.
   final HealthDataTypeDto dataType;
-}
-
-/// Response containing a single health record.
-class ReadRecordResponseDto {
-  ReadRecordResponseDto(this.record);
-
-  /// The health record that was read.
-  final HealthRecordDto? record;
 }
 
 /// Request to read multiple health records within a time range.
@@ -1661,7 +1645,7 @@ abstract class HealthConnectorHCAndroidApi {
   void initialize(HealthConnectorConfigDto config);
 
   @async
-  AggregateResponseDto aggregate(AggregateRequestDto request);
+  MeasurementUnitDto aggregate(AggregateRequestDto request);
 
   @async
   void deleteRecords(DeleteRecordsRequestDto request);
@@ -1689,7 +1673,7 @@ abstract class HealthConnectorHCAndroidApi {
   PermissionStatusDto getPermissionStatus(PermissionRequestDto permission);
 
   @async
-  ReadRecordResponseDto? readRecord(ReadRecordRequestDto request);
+  HealthRecordDto? readRecord(ReadRecordRequestDto request);
 
   @async
   ReadRecordsResponseDto readRecords(ReadRecordsRequestDto request);

@@ -5,7 +5,6 @@ import 'package:health_connector/src/health_connector_impl.dart'
 import 'package:health_connector_core/health_connector_core.dart'
     show
         AggregateRequest,
-        AggregateResponse,
         DeleteRecordsRequest,
         HealthConnectorConfig,
         HealthPlatformFeaturePermission,
@@ -581,8 +580,7 @@ abstract interface class HealthConnector {
   ///
   /// ## Returns
   ///
-  /// An [AggregateResponse] containing the aggregated value of type `V`
-  /// (a [MeasurementUnit] subclass)
+  /// An the aggregated value in the appropriate measurement unit.
   ///
   /// ## Throws
   ///
@@ -603,10 +601,9 @@ abstract interface class HealthConnector {
   ///
   /// print('Total steps: ${response.value.value}'); // response.value is Numeric
   /// ```
-  Future<AggregateResponse<R, U>> aggregate<
-    R extends HealthRecord,
-    U extends MeasurementUnit
-  >(AggregateRequest<R, U> request);
+  Future<U> aggregate<R extends HealthRecord, U extends MeasurementUnit>(
+    AggregateRequest<R, U> request,
+  );
 
   /// Deletes health records based on the provided request.
   ///
