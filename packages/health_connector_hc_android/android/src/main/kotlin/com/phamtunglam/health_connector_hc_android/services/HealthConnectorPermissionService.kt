@@ -123,6 +123,36 @@ internal class HealthConnectorPermissionService(
     }
 
     /**
+     * Gets the current status of a specific permission.
+     *
+     * @param request The permission to check.
+     * @return [PermissionStatusDto.GRANTED] if the permission is granted, [PermissionStatusDto.DENIED] otherwise.
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.REMOTE_ERROR] for
+     *         any IPC transportation and disk I/O issues.
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE]
+     *         if service is not available.
+     */
+    @Throws(HealthConnectorErrorDto::class)
+    suspend fun getPermissionStatus(request: PermissionRequestDto): PermissionStatusDto {
+        try {
+            val permissionString = request.toHealthConnect()
+            val grantedPermissions = permissionClient.getGrantedPermissions()
+
+            return if (grantedPermissions.contains(permissionString)) {
+                PermissionStatusDto.GRANTED
+            } else {
+                PermissionStatusDto.DENIED
+            }
+        } catch (e: RemoteException) {
+            throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
+        } catch (e: IOException) {
+            throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
+        } catch (e: IllegalStateException) {
+            throw HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE.toError(e.message)
+        }
+    }
+
+    /**
      * Retrieves the list of permissions currently granted to this application by the user.
      *
      * @return A [PermissionRequestsResponseDto] containing all granted permissions.

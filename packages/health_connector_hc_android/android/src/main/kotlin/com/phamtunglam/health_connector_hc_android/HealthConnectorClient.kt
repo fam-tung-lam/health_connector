@@ -179,6 +179,42 @@ internal class HealthConnectorClient private constructor(
     }
 
     /**
+     * Gets the status of a specific permission.
+     *
+     * @param request The permission to check
+     * @return [PermissionStatusDto.GRANTED] if granted, [PermissionStatusDto.DENIED] otherwise
+     *
+     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     */
+    @Throws(HealthConnectorErrorDto::class)
+    suspend fun getPermissionStatus(request: PermissionRequestDto): PermissionStatusDto {
+        HealthConnectorLogger.debug(
+            tag = TAG,
+            operation = "get_permission_status",
+            message = "Checking Health Connect permission status",
+            context = mapOf("permission" to request.toString()),
+        )
+
+        try {
+            val status = permissionService.getPermissionStatus(request)
+
+            HealthConnectorLogger.info(
+                tag = TAG,
+                operation = "get_permission_status",
+                message = "Permission status retrieved",
+                context = mapOf(
+                    "permission" to request.toString(),
+                    "status" to status,
+                ),
+            )
+
+            return status
+        } catch (e: HealthConnectorErrorDto) {
+            throw e
+        }
+    }
+
+    /**
      * Gets the status of a specific feature on the current platform.
      *
      * @param context The Android application context

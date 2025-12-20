@@ -6,6 +6,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         HealthConnectorConfig,
         HealthConnectorException,
         HealthConnectorPlatformClient,
+        HealthDataPermission,
         HealthPlatformFeaturePermission,
         HealthPlatformStatus,
         HealthRecord,
@@ -216,6 +217,65 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     );
 
     return results;
+  }
+
+  @override
+  Future<PermissionStatus> getPermissionStatus(Permission permission) async {
+    HealthConnectorLogger.debug(
+      tag,
+      operation: 'getPermissionStatus',
+      message: 'Getting permission status',
+      context: {'permission': permission},
+    );
+
+    // Handle feature permissions - automatically granted on iOS
+    if (permission is HealthPlatformFeaturePermission) {
+      HealthConnectorLogger.info(
+        tag,
+        operation: 'getPermissionStatus',
+        message: 'Feature permission status - automatically granted on iOS',
+        context: {'permission': permission},
+      );
+      return PermissionStatus.granted;
+    }
+
+    // Cast to HealthDataPermission
+    final healthDataPermission = permission as HealthDataPermission;
+
+    try {
+      final permissionDto = healthDataPermission.toDto();
+
+      final statusDto = await _platformClient.getPermissionStatus(
+        permissionDto,
+      );
+
+      final status = statusDto.toDomain();
+
+      HealthConnectorLogger.info(
+        tag,
+        operation: 'getPermissionStatus',
+        message: 'Permission status retrieved',
+        context: {'permission': permission, 'status': status.name},
+      );
+
+      return status;
+    } on PlatformException catch (e, st) {
+      HealthConnectorLogger.error(
+        tag,
+        operation: 'getPermissionStatus',
+        message: 'Failed to get permission status',
+        context: {'permission': permission},
+        exception: e,
+        stackTrace: st,
+      );
+
+      throw HealthConnectorException(
+        e.code.toHealthConnectorErrorCode(),
+        'Failed to get permission status: ${e.message ?? 'Unknown error'}',
+        cause: e,
+        stackTrace: st,
+      );
+    }
   }
 
   @override

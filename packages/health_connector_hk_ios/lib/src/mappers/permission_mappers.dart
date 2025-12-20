@@ -124,6 +124,18 @@ extension PermissionsListToDto on List<HealthDataPermission> {
   }
 }
 
+/// Converts a single [HealthDataPermission] to [HealthDataPermissionDto].
+@sinceV1_0_0
+@internal
+extension HealthDataPermissionToDto on HealthDataPermission {
+  HealthDataPermissionDto toDto() {
+    return HealthDataPermissionDto(
+      healthDataType: dataType.toDto(),
+      accessType: accessType.toDto(),
+    );
+  }
+}
+
 /// Converts [PermissionsRequestResponseDto] to [List<PermissionRequestResult>].
 @sinceV1_0_0
 @internal

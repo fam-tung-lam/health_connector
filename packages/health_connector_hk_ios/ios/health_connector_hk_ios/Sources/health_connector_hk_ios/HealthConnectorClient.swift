@@ -117,6 +117,32 @@ actor HealthConnectorClient: Taggable {
         return try await permissionService.requestAuthorization(for: healthDataPermissions)
     }
 
+    /// Gets the current permission status for a specific permission.
+    ///
+    /// - Parameter permission: The health data permission to check
+    /// - Returns: PermissionStatusDto with the current status
+    ///
+    /// - Note: Read permissions always return `.unknown` due to HealthKit privacy restrictions.
+    ///         Only write permissions can return `.granted` or `.denied`.
+    ///
+    /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if invalid permission is provided
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
+    func getPermissionStatus(permission: HealthDataPermissionDto) async throws
+        -> PermissionStatusDto
+    {
+        HealthConnectorLogger.debug(
+            tag: HealthConnectorClient.tag,
+            operation: "getPermissionStatus",
+            message: "Getting HealthKit permission status via permission service",
+            context: [
+                "permission": permission,
+            ]
+        )
+
+        // Delegate to permission service
+        return try await permissionService.getPermissionStatus(for: permission)
+    }
+
     /// Reads a single health record by ID.
     ///
     /// - Parameter request: Contains the data type and record ID to read

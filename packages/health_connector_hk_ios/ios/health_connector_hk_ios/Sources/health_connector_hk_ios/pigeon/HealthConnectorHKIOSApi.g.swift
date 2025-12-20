@@ -5181,6 +5181,12 @@ protocol HealthConnectorHKIOSApi {
   func deleteRecords(request: DeleteRecordsRequestDto, completion: @escaping (Result<Void, Error>) -> Void)
   func getHealthPlatformStatus(completion: @escaping (Result<HealthPlatformStatusDto, Error>) -> Void)
   func requestPermissions(request: PermissionsRequestDto, completion: @escaping (Result<PermissionsRequestResponseDto, Error>) -> Void)
+  /// Gets the current permission status for a specific permission.
+  ///
+  /// Note: Due to HealthKit privacy restrictions, read permissions will
+  /// always return PermissionStatus.unknown. Only write permissions can
+  /// return definitive granted or denied status.
+  func getPermissionStatus(permission: HealthDataPermissionDto, completion: @escaping (Result<PermissionStatusDto, Error>) -> Void)
   func readRecord(request: ReadRecordRequestDto, completion: @escaping (Result<ReadRecordResponseDto?, Error>) -> Void)
   func readRecords(request: ReadRecordsRequestDto, completion: @escaping (Result<ReadRecordsResponseDto, Error>) -> Void)
   func writeRecord(record: HealthRecordDto, completion: @escaping (Result<String, Error>) -> Void)
@@ -5279,6 +5285,28 @@ class HealthConnectorHKIOSApiSetup {
       }
     } else {
       requestPermissionsChannel.setMessageHandler(nil)
+    }
+    /// Gets the current permission status for a specific permission.
+    ///
+    /// Note: Due to HealthKit privacy restrictions, read permissions will
+    /// always return PermissionStatus.unknown. Only write permissions can
+    /// return definitive granted or denied status.
+    let getPermissionStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.getPermissionStatus\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getPermissionStatusChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let permissionArg = args[0] as! HealthDataPermissionDto
+        api.getPermissionStatus(permission: permissionArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      getPermissionStatusChannel.setMessageHandler(nil)
     }
     let readRecordChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.readRecord\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {

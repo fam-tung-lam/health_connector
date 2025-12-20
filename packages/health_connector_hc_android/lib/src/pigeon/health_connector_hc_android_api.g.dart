@@ -4555,6 +4555,43 @@ class HealthConnectorHCAndroidApi {
     }
   }
 
+  /// Gets the current permission status for a specific permission.
+  ///
+  /// Checks whether the permission is in the granted permissions set.
+  Future<PermissionStatusDto> getPermissionStatus(
+    PermissionRequestDto permission,
+  ) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getPermissionStatus$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[permission],
+    );
+    final List<Object?>? pigeonVar_replyList =
+        await pigeonVar_sendFuture as List<Object?>?;
+    if (pigeonVar_replyList == null) {
+      throw _createConnectionError(pigeonVar_channelName);
+    } else if (pigeonVar_replyList.length > 1) {
+      throw PlatformException(
+        code: pigeonVar_replyList[0]! as String,
+        message: pigeonVar_replyList[1] as String?,
+        details: pigeonVar_replyList[2],
+      );
+    } else if (pigeonVar_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (pigeonVar_replyList[0] as PermissionStatusDto?)!;
+    }
+  }
+
   Future<ReadRecordResponseDto?> readRecord(
     ReadRecordRequestDto request,
   ) async {

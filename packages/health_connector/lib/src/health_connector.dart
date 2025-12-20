@@ -38,9 +38,6 @@ import 'package:health_connector_logger/health_connector_logger.dart';
 
 /// Main entry point for interacting with platform-specific health APIs.
 ///
-/// [HealthConnector] provides a unified interface for accessing health data
-/// across different health platforms.
-///
 /// This class uses a factory pattern to create instances. Use
 /// [HealthConnector.create] to obtain an instance.
 abstract interface class HealthConnector {
@@ -57,10 +54,10 @@ abstract interface class HealthConnector {
   ///
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.healthProviderUnavailable]
-  ///   if Health platform is unavailable on this device.
+  ///   if health provider is unavailable on this device.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.healthProviderNotInstalledOrUpdateRequired]
-  ///   if Health platform installation or update is required.
+  ///   if Health Connect provider installation or update is required.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   if an unexpected error occurs
   ///
@@ -299,6 +296,87 @@ abstract interface class HealthConnector {
   /// ```
   @supportedOnHealthConnect
   Future<List<Permission>> getGrantedPermissions();
+
+  /// Gets the current permission status for a specific permission.
+  ///
+  /// This method allows you to check whether a permission has been granted,
+  /// denied, or is in an unknown state without requesting it.
+  ///
+  /// ## Platform Differences
+  ///
+  /// ### iOS (HealthKit)
+  ///
+  /// **Read Permissions**: Due to HealthKit's privacy protections, read
+  /// permissions will **always** return [PermissionStatus.unknown]. This is
+  /// a platform limitation - HealthKit does not allow apps to determine
+  /// whether read access has been granted or denied.
+  ///
+  /// **Write Permissions**: Can return definitive [PermissionStatus.granted]
+  /// or [PermissionStatus.denied] status.
+  ///
+  /// **Feature Permissions**: Since feature permissions are Android-only, they
+  /// will return [PermissionStatus.granted] on iOS.
+  ///
+  /// ### Android (Health Connect)
+  ///
+  /// All permissions (both data and feature permissions) return definitive
+  /// status:
+  /// - [PermissionStatus.granted] if the permission has been granted
+  /// - [PermissionStatus.denied] if the permission has not been granted
+  ///
+  /// Note: Health Connect does not distinguish between "never requested" and
+  /// "explicitly denied" - both cases will return [PermissionStatus.denied].
+  ///
+  /// ## Parameters
+  ///
+  /// - [permission]: The permission to check. Can be either:
+  ///   - [HealthDataPermission] for health data access
+  ///   - [HealthPlatformFeaturePermission] for platform features (Android-only)
+  ///
+  /// ## Returns
+  ///
+  /// The current [PermissionStatus] of the specified permission
+  ///
+  /// ## Throws
+  ///
+  /// - [HealthConnectorException] if an error occurs while checking status
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// // Check status of a read permission
+  /// final stepsReadPermission = HealthDataPermission(
+  ///   dataType: HealthDataTypes.steps,
+  ///   accessType: HealthDataPermissionAccessType.read,
+  /// );
+  ///
+  /// final status = await connector.getPermissionStatus(stepsReadPermission);
+  ///
+  /// switch (status) {
+  ///   case PermissionStatus.granted:
+  ///     print('Permission granted');
+  ///   case PermissionStatus.denied:
+  ///     print('Permission denied');
+  ///   case PermissionStatus.unknown:
+  ///     print('Cannot determine (iOS read permission)');
+  /// }
+  /// ```
+  ///
+  /// ## See Also
+  ///
+  /// - [requestPermissions] - Request permissions from the user
+  /// - [getGrantedPermissions] - Get all currently granted permissions
+  /// - [PermissionStatus] - Enum defining possible permission states
+  @PlatformSpecificBehaviors({
+    HealthPlatform.appleHealth:
+        'Read permissions always return `PermissionStatus.unknown` due to '
+        'privacy. '
+        'Feature permissions always return `PermissionStatus.granted`. '
+        'Write permissions return actual status.',
+    HealthPlatform.healthConnect:
+        'Returns actual permission status for all permission types.',
+  })
+  Future<PermissionStatus> getPermissionStatus(Permission permission);
 
   /// Revokes all permissions that have been granted to the app.
   ///

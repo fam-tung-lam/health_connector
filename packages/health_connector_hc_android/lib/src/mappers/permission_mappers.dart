@@ -19,7 +19,8 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         PermissionRequestsResponseDto,
         HealthDataPermissionRequestResultDto,
         HealthPlatformFeaturePermissionRequestResultDto,
-        PermissionStatusDto;
+        PermissionStatusDto,
+        PermissionRequestDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [List<Permission>] to [PermissionRequestsDto].
@@ -44,6 +45,26 @@ extension PermissionsListToDto on List<Permission> {
     }).toList();
 
     return PermissionRequestsDto(permissionRequests: permissionRequests);
+  }
+}
+
+/// Converts a single [Permission] to [PermissionRequestDto].
+@sinceV1_0_0
+@internal
+extension PermissionToDto on Permission {
+  PermissionRequestDto toDto() {
+    return switch (this) {
+      final HealthDataPermission p => HealthDataPermissionRequestDto(
+        healthDataType: p.dataType.toDto(),
+        accessType: p.accessType == HealthDataPermissionAccessType.read
+            ? PermissionAccessTypeDto.read
+            : PermissionAccessTypeDto.write,
+      ),
+      final HealthPlatformFeaturePermission p =>
+        HealthPlatformFeaturePermissionRequest(
+          feature: p.feature.toDto(),
+        ),
+    };
   }
 }
 

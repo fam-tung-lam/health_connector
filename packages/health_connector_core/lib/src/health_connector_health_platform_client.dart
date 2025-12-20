@@ -56,6 +56,44 @@ abstract interface class HealthConnectorPlatformClient {
     List<Permission> permissions,
   );
 
+  /// Gets the current permission status for a specific permission.
+  ///
+  /// This method allows checking the authorization status of a permission
+  /// without requesting it from the user.
+  ///
+  /// ## Platform Differences
+  ///
+  /// ### iOS (HealthKit)
+  ///
+  /// - **Read permissions**: Always returns [PermissionStatus.unknown] due to
+  ///   HealthKit's privacy restrictions. HealthKit does not allow apps to
+  ///   determine whether read permission has been granted or denied.
+  /// - **Write permissions**: Returns actual authorization status
+  ///   ([PermissionStatus.granted] or [PermissionStatus.denied]).
+  /// - **Feature permissions**: Returns [PermissionStatus.granted] since
+  ///   feature permissions are Android-only.
+  ///
+  /// ### Android (Health Connect)
+  ///
+  /// - Checks if the permission is in the granted permissions set
+  /// - Returns [PermissionStatus.granted] if permission is granted
+  /// - Returns [PermissionStatus.denied] if permission is not granted
+  /// - Note: Cannot distinguish between "never requested" and "explicitly
+  ///   denied" - both return [PermissionStatus.denied]
+  ///
+  /// ## Parameters
+  ///
+  /// - [permission]: The permission to check status for
+  ///
+  /// ## Returns
+  ///
+  /// The current [PermissionStatus] of the specified permission
+  ///
+  /// ## Throws
+  ///
+  /// - [HealthConnectorException] if an error occurs while checking status
+  Future<PermissionStatus> getPermissionStatus(Permission permission);
+
   /// Reads a single health record by ID.
   ///
   /// Fetches a specific health record from the platform using its unique

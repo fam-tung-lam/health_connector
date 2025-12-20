@@ -1685,6 +1685,12 @@ abstract class HealthConnectorHCAndroidApi {
   @async
   void revokeAllPermissions();
 
+  /// Gets the current permission status for a specific permission.
+  ///
+  /// Checks whether the permission is in the granted permissions set.
+  @async
+  PermissionStatusDto getPermissionStatus(PermissionRequestDto permission);
+
   @async
   ReadRecordResponseDto? readRecord(ReadRecordRequestDto request);
 

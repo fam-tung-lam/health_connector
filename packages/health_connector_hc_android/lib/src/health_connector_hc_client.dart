@@ -304,6 +304,51 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     }
   }
 
+  @override
+  Future<PermissionStatus> getPermissionStatus(Permission permission) async {
+    HealthConnectorLogger.debug(
+      tag,
+      operation: 'getPermissionStatus',
+      message: 'Getting permission status',
+      context: {'permission': permission},
+    );
+
+    try {
+      final permissionDto = permission.toDto();
+
+      final statusDto = await _platformClient.getPermissionStatus(
+        permissionDto,
+      );
+
+      final status = statusDto.toDomain();
+
+      HealthConnectorLogger.info(
+        tag,
+        operation: 'getPermissionStatus',
+        message: 'Permission status retrieved',
+        context: {'permission': permission, 'status': status.name},
+      );
+
+      return status;
+    } on PlatformException catch (e, st) {
+      HealthConnectorLogger.error(
+        tag,
+        operation: 'getPermissionStatus',
+        message: 'Failed to get permission status',
+        context: {'permission': permission},
+        exception: e,
+        stackTrace: st,
+      );
+
+      throw HealthConnectorException(
+        e.code.toHealthConnectorErrorCode(),
+        'Failed to get permission status: ${e.message ?? 'Unknown error'}',
+        cause: e,
+        stackTrace: st,
+      );
+    }
+  }
+
   /// Revokes all permissions that have been granted to the app.
   ///
   /// Removes all health data permissions that were previously granted.

@@ -3878,6 +3878,12 @@ interface HealthConnectorHCAndroidApi {
   fun requestPermissions(request: PermissionRequestsDto, callback: (Result<PermissionRequestsResponseDto>) -> Unit)
   fun getGrantedPermissions(callback: (Result<PermissionRequestsResponseDto>) -> Unit)
   fun revokeAllPermissions(callback: (Result<Unit>) -> Unit)
+  /**
+   * Gets the current permission status for a specific permission.
+   *
+   * Checks whether the permission is in the granted permissions set.
+   */
+  fun getPermissionStatus(permission: PermissionRequestDto, callback: (Result<PermissionStatusDto>) -> Unit)
   fun readRecord(request: ReadRecordRequestDto, callback: (Result<ReadRecordResponseDto?>) -> Unit)
   fun readRecords(request: ReadRecordsRequestDto, callback: (Result<ReadRecordsResponseDto>) -> Unit)
   fun writeRecord(record: HealthRecordDto, callback: (Result<String>) -> Unit)
@@ -4038,6 +4044,26 @@ interface HealthConnectorHCAndroidApi {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
               } else {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapResult(null))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getPermissionStatus$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val permissionArg = args[0] as PermissionRequestDto
+            api.getPermissionStatus(permissionArg) { result: Result<PermissionStatusDto> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapResult(data))
               }
             }
           }

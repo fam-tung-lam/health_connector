@@ -18,6 +18,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         MeasurementUnit,
         Permission,
         PermissionRequestResult,
+        PermissionStatus,
         ReadRecordByIdRequest,
         ReadRecordsInTimeRangeRequest,
         ReadRecordsInTimeRangeResponse,
@@ -135,6 +136,40 @@ final class HealthConnectorImpl implements HealthConnector {
 
           rethrow;
         }
+    }
+  }
+
+  @override
+  Future<PermissionStatus> getPermissionStatus(Permission permission) async {
+    HealthConnectorLogger.debug(
+      tag,
+      operation: 'getPermissionStatus',
+      message: 'Getting permission status',
+      context: {'permission': permission},
+    );
+
+    try {
+      final status = await _client.getPermissionStatus(permission);
+
+      HealthConnectorLogger.info(
+        tag,
+        operation: 'getPermissionStatus',
+        message: 'Permission status retrieved',
+        context: {'permission': permission, 'status': status.name},
+      );
+
+      return status;
+    } catch (e, st) {
+      HealthConnectorLogger.error(
+        tag,
+        operation: 'getPermissionStatus',
+        message: 'Failed to get permission status',
+        context: {'permission': permission},
+        exception: e,
+        stackTrace: st,
+      );
+
+      rethrow;
     }
   }
 

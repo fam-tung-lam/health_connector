@@ -107,6 +107,22 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         }
     }
 
+    /// Gets the current permission status for a specific permission.
+    ///
+    /// - Parameters:
+    ///   - permission: The health data permission to check
+    ///   - completion: Called with a `Result` containing the permission status
+    ///
+    /// - Note: Read permissions always return `.unknown` due to HealthKit privacy restrictions
+    public func getPermissionStatus(
+        permission: HealthDataPermissionDto,
+        completion: @escaping (Result<PermissionStatusDto, Error>) -> Void
+    ) {
+        process(operation: "getPermissionStatus", completion: completion) {
+            try await self.healthClient.getPermissionStatus(permission: permission)
+        }
+    }
+
     /// Reads a single health record by ID.
     ///
     /// - Parameters:

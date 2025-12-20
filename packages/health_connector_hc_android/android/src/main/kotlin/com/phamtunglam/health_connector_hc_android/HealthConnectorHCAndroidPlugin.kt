@@ -362,6 +362,58 @@ class HealthConnectorHCAndroidPlugin :
     }
 
     /**
+     * Gets the current permission status for a specific permission.
+     *
+     * @param request The permission to check
+     * @param callback Called with a [Result] containing the permission status
+     */
+    @Throws(HealthConnectorErrorDto::class)
+    override fun getPermissionStatus(
+        request: PermissionRequestDto,
+        callback: (Result<PermissionStatusDto>) -> Unit,
+    ) {
+        scope.launch {
+            try {
+                val statusDto = client.getPermissionStatus(request)
+
+                complete(callback, Result.success(statusDto))
+            } catch (e: HealthConnectorErrorDto) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "get_permission_status",
+                    message = "Failed to get permission status",
+                    context = mapOf(
+                        "permission" to request.toString(),
+                        "error_code" to e.code,
+                        "error_message" to (e.message ?: "Unknown error"),
+                    ),
+                    exception = e,
+                )
+
+                complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "get_permission_status",
+                    message = "Unexpected error while getting permission status",
+                    context = mapOf("permission" to request),
+                    exception = e,
+                )
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Unexpected error: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
+            }
+        }
+    }
+
+    /**
      * Gets all permissions that have been granted to the app.
      *
      * @param callback Called with a [Result] containing the permission response
