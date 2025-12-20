@@ -43,7 +43,7 @@ import 'package:meta/meta.dart' show immutable;
 @internalUse
 @immutable
 final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
-  const HealthConnectorHKClient._();
+  static const _tag = 'HealthConnectorHKClient';
 
   /// The Pigeon-generated platform API client for native communication.
   static final HealthConnectorHKIOSApi _platformClient =
@@ -65,13 +65,27 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     HealthConnectorConfig config = const HealthConnectorConfig(),
   ]) async {
     await _platformClient.initialize(config.toDto());
-    return const HealthConnectorHKClient._();
+
+    return HealthConnectorHKClient._(config);
   }
 
-  @override
-  Future<HealthPlatformStatus> getHealthPlatformStatus() async {
+  /// Queries the native platform to determine health platform availability.
+  ///
+  /// Returns the current status of the health platform on the device,
+  /// indicating whether it's available, installed, or requires an update.
+  ///
+  /// ## Returns
+  ///
+  /// A [HealthPlatformStatus] indicating the availability state of the
+  /// health platform.
+  ///
+  /// ## Throws
+  ///
+  /// - [HealthConnectorException] if the platform request fails
+  ///   or returns invalid data
+  static Future<HealthPlatformStatus> getHealthPlatformStatus() async {
     HealthConnectorLogger.debug(
-      tag,
+      _tag,
       operation: 'getHealthPlatformStatus',
       message: 'Checking HealthKit platform status',
     );
@@ -86,7 +100,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       };
 
       HealthConnectorLogger.info(
-        tag,
+        _tag,
         operation: 'getHealthPlatformStatus',
         message: 'HealthKit platform status retrieved',
         context: {
@@ -97,7 +111,7 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       return status;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
-        tag,
+        _tag,
         operation: 'getHealthPlatformStatus',
         message: 'Failed to get HealthKit platform status',
         exception: e,
@@ -113,6 +127,13 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       );
     }
   }
+
+  const HealthConnectorHKClient._(this._config);
+
+  final HealthConnectorConfig _config;
+
+  @override
+  HealthConnectorConfig get config => _config;
 
   /// iOS-specific implementation that auto-grants feature permissions.
   ///

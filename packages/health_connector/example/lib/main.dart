@@ -58,26 +58,6 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
     });
 
     try {
-      // Check platform status first
-      final status = await HealthConnector.getHealthPlatformStatus();
-
-      final statusMessage = switch (status) {
-        HealthPlatformStatus.available => 'Health platform is available',
-        HealthPlatformStatus.unavailable =>
-          'Health platform is unavailable on this device',
-        HealthPlatformStatus.installationOrUpdateRequired =>
-          'Health platform installation or update is required',
-      };
-
-      if (status != HealthPlatformStatus.available) {
-        if (!mounted) {
-          return;
-        }
-        _showError(statusMessage);
-        return;
-      }
-
-      // Create connector instance
       final connector = await HealthConnector.create();
 
       if (!mounted) {
@@ -134,49 +114,6 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
   /// Shows an info message.
   void _showInfo(String message) {
     _showSnackBar(message, Colors.blue);
-  }
-
-  /// Demonstrates [HealthConnector.getHealthPlatformStatus] method.
-  ///
-  /// Checks if the health platform is available, unavailable, or requires
-  /// installation/update on the device.
-  Future<void> _getHealthPlatformStatus() async {
-    if (_connector == null) {
-      _showError('Connector not initialized');
-      return;
-    }
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      final status = await HealthConnector.getHealthPlatformStatus();
-
-      final statusMessage = switch (status) {
-        HealthPlatformStatus.available => 'Health platform is available',
-        HealthPlatformStatus.unavailable =>
-          'Health platform is unavailable on this device',
-        HealthPlatformStatus.installationOrUpdateRequired =>
-          'Health platform installation or update is required',
-      };
-
-      if (!mounted) {
-        return;
-      }
-      _showSuccess(statusMessage);
-    } on HealthConnectorException catch (e) {
-      if (!mounted) {
-        return;
-      }
-      _showError('Failed to get platform status: ${e.message}');
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    }
   }
 
   /// Demonstrates [HealthConnector.requestPermissions] method.
@@ -857,19 +794,6 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Platform Status
-                  ElevatedButton.icon(
-                    onPressed: _isLoading || _connector == null
-                        ? null
-                        : _getHealthPlatformStatus,
-                    icon: const Icon(Icons.info),
-                    label: const Text('Get Platform Status'),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(16.0),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-
                   // Permissions
                   ElevatedButton.icon(
                     onPressed: _isLoading || _connector == null

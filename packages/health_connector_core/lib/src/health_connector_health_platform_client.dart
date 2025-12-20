@@ -15,21 +15,8 @@ import 'package:health_connector_core/health_connector_core.dart';
 @sinceV1_0_0
 @internalUse
 abstract interface class HealthConnectorPlatformClient {
-  /// Queries the native platform to determine health platform availability.
-  ///
-  /// Returns the current status of the health platform on the device,
-  /// indicating whether it's available, installed, or requires an update.
-  ///
-  /// ## Returns
-  ///
-  /// A [HealthPlatformStatus] indicating the availability state of the
-  /// health platform.
-  ///
-  /// ## Throws
-  ///
-  /// - [HealthConnectorException] if the platform request fails
-  ///   or returns invalid data
-  Future<HealthPlatformStatus> getHealthPlatformStatus();
+  /// The configuration used by this client.
+  HealthConnectorConfig get config;
 
   /// Requests permissions from the native platform.
   ///

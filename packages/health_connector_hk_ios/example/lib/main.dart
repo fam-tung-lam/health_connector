@@ -49,11 +49,12 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
   }
 
   Future<void> _initClient() async {
+    setState(() {
+      _isPageLoading = true;
+    });
+
     try {
       _client = await HealthConnectorHKClient.create();
-      if (mounted) {
-        await _getHealthPlatformStatus();
-      }
     } on HealthConnectorException catch (e) {
       if (!mounted) {
         return;
@@ -96,44 +97,6 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
   /// Shows an info message.
   void _showInfo(String message) {
     _showSnackBar(message, Colors.blue);
-  }
-
-  /// Demonstrates [HealthConnectorHKClient.getHealthPlatformStatus] method.
-  ///
-  /// Checks if HealthKit is available, unavailable, or requires
-  /// installation/update on the device.
-  Future<void> _getHealthPlatformStatus() async {
-    setState(() {
-      _isPageLoading = true;
-    });
-
-    try {
-      final status = await _client.getHealthPlatformStatus();
-
-      final statusMessage = switch (status) {
-        HealthPlatformStatus.available => 'HealthKit is available',
-        HealthPlatformStatus.unavailable =>
-          'HealthKit is unavailable on this device',
-        HealthPlatformStatus.installationOrUpdateRequired =>
-          'HealthKit installation or update is required',
-      };
-
-      if (!mounted) {
-        return;
-      }
-      _showSuccess(statusMessage);
-    } on HealthConnectorException catch (e) {
-      if (!mounted) {
-        return;
-      }
-      _showError('Failed to get platform status: ${e.message}');
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isPageLoading = false;
-        });
-      }
-    }
   }
 
   /// Demonstrates [HealthConnectorHKClient.requestPermissions] method.

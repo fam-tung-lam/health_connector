@@ -46,7 +46,7 @@ import 'package:meta/meta.dart' show immutable;
 @internalUse
 @immutable
 final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
-  const HealthConnectorHCClient._();
+  static const _tag = 'HealthConnectorHKClient';
 
   /// The Pigeon-generated platform API client for native communication.
   static final HealthConnectorHCAndroidApi _platformClient =
@@ -69,7 +69,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthConnectorConfig config = const HealthConnectorConfig(),
   ]) async {
     await _platformClient.initialize(config.toDto());
-    return const HealthConnectorHCClient._();
+
+    return HealthConnectorHCClient._(config);
   }
 
   /// All nutrient health data types that share the same permission as
@@ -114,10 +115,9 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthDataType.pantothenicAcid,
   ];
 
-  @override
-  Future<HealthPlatformStatus> getHealthPlatformStatus() async {
+  static Future<HealthPlatformStatus> getHealthPlatformStatus() async {
     HealthConnectorLogger.debug(
-      tag,
+      _tag,
       operation: 'getHealthPlatformStatus',
       message: 'Checking Health Connect platform status',
     );
@@ -134,7 +134,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       };
 
       HealthConnectorLogger.info(
-        tag,
+        _tag,
         operation: 'getHealthPlatformStatus',
         message: 'Health Connect platform status retrieved',
         context: {
@@ -145,7 +145,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       return status;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
-        tag,
+        _tag,
         operation: 'getHealthPlatformStatus',
         message: 'Failed to get Health Connect platform status',
         exception: e,
@@ -161,6 +161,13 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       );
     }
   }
+
+  const HealthConnectorHCClient._(this._config);
+
+  final HealthConnectorConfig _config;
+
+  @override
+  HealthConnectorConfig get config => _config;
 
   @override
   Future<List<PermissionRequestResult>> requestPermissions(
