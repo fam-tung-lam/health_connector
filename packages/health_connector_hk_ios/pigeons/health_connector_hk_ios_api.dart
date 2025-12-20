@@ -2347,38 +2347,6 @@ class ReadRecordsResponseDto {
   final List<HealthRecordDto> records;
 }
 
-/// Request to write a single health record.
-class WriteRecordRequestDto {
-  WriteRecordRequestDto(this.record);
-
-  /// Health record.
-  final HealthRecordDto record;
-}
-
-/// Response after writing a single record.
-class WriteRecordResponseDto {
-  WriteRecordResponseDto(this.recordId);
-
-  /// Platform-assigned unique identifier for the written record.
-  final String recordId;
-}
-
-/// Request to write multiple health records atomically.
-class WriteRecordsRequestDto {
-  WriteRecordsRequestDto(this.records);
-
-  /// Records being written.
-  final List<HealthRecordDto> records;
-}
-
-/// Response after writing multiple records.
-class WriteRecordsResponseDto {
-  WriteRecordsResponseDto(this.recordIds);
-
-  /// Platform-assigned unique identifiers for written records.
-  final List<String> recordIds;
-}
-
 // endregion
 
 /// Configuration data transfer object for Health Connector.
@@ -2423,8 +2391,8 @@ abstract class HealthConnectorHKIOSApi {
   ReadRecordsResponseDto readRecords(ReadRecordsRequestDto request);
 
   @async
-  WriteRecordResponseDto writeRecord(WriteRecordRequestDto request);
+  String writeRecord(HealthRecordDto record);
 
   @async
-  WriteRecordsResponseDto writeRecords(WriteRecordsRequestDto request);
+  List<String> writeRecords(List<HealthRecordDto> records);
 }

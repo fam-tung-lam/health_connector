@@ -13,7 +13,6 @@ import 'package:health_connector_core/health_connector_core.dart'
 import 'package:health_connector_hk_ios/src/mappers/'
     'aggregation_metric_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show
@@ -22,8 +21,6 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         DeleteRecordsByTimeRangeRequestDto,
         ReadRecordRequestDto,
         ReadRecordsRequestDto,
-        WriteRecordRequestDto,
-        WriteRecordsRequestDto,
         DeleteRecordsRequestDto;
 import 'package:meta/meta.dart' show internal;
 
@@ -73,26 +70,6 @@ extension AggregateRequestDtoMapper<
       aggregationMetric: aggregationMetric.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
-    );
-  }
-}
-
-/// Converts [HealthRecord] to [WriteRecordRequestDto].
-@sinceV1_0_0
-@internal
-extension HealthRecordToWriteRequestDto on HealthRecord {
-  WriteRecordRequestDto toWriteRecordRequestDto() {
-    return WriteRecordRequestDto(record: toDto());
-  }
-}
-
-/// Converts list of domain [HealthRecord] to [WriteRecordsRequestDto].
-@sinceV1_0_0
-@internal
-extension HealthRecordListToWriteRequestDto on List<HealthRecord> {
-  WriteRecordsRequestDto toWriteRecordsRequestDto() {
-    return WriteRecordsRequestDto(
-      records: map((record) => record.toDto()).toList(),
     );
   }
 }

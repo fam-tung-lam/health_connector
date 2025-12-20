@@ -263,23 +263,23 @@ actor HealthConnectorClient: Taggable {
 
     /// Writes a single health record.
     ///
-    /// - Parameter request: Contains the health record to write
-    /// - Returns: WriteRecordResponseDto containing the platform-assigned record ID
+    /// - Parameter record: The health record to write
+    /// - Returns: The platform-assigned record ID
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if record data is invalid
     /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
-    func writeRecord(request: WriteRecordRequestDto) async throws -> WriteRecordResponseDto {
-        try await process(operation: "writeRecord", context: ["request": request]) {
+    func writeRecord(record: HealthRecordDto) async throws -> String {
+        try await process(operation: "writeRecord", context: ["record": record]) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
                 operation: "writeRecord",
                 message: "Writing Health Connect record",
-                context: ["request": request]
+                context: ["record": record]
             )
 
-            let dataType = try request.record.dataType
+            let dataType = try record.dataType
 
             let handler = try handlerRegistry.handler(
                 for: dataType,
@@ -287,16 +287,16 @@ actor HealthConnectorClient: Taggable {
             )
 
             // Delegate to handler
-            let recordId = try await handler.writeRecord(request.record)
+            let recordId = try await handler.writeRecord(record)
 
             HealthConnectorLogger.info(
                 tag: Self.tag,
                 operation: "writeRecord",
                 message: "Health Connect record written successfully",
-                context: ["request": request, "assignedRecordId": recordId]
+                context: ["record": record, "assignedRecordId": recordId]
             )
 
-            return WriteRecordResponseDto(recordId: recordId)
+            return recordId
         }
     }
 
@@ -306,40 +306,39 @@ actor HealthConnectorClient: Taggable {
     /// are saved successfully, or none are saved. This ensures data consistency
     /// across different record types.
     ///
-    /// - Parameter request: Contains the list of health records to write
-    /// - Returns: WriteRecordsResponseDto with platform-assigned record IDs in input order
+    /// - Parameter records: The list of health records to write
+    /// - Returns: Platform-assigned record IDs in input order
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if any record data is invalid
     /// - Throws: `HealthConnectorError` with code `UNSUPPORTED_OPERATION` if any type is not writable
     /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
-    func writeRecords(request: WriteRecordsRequestDto) async throws -> WriteRecordsResponseDto {
-        try await process(operation: "writeRecords", context: ["request": request]) {
+    func writeRecords(records: [HealthRecordDto]) async throws -> [String] {
+        try await process(operation: "writeRecords", context: ["totalRecords": records.count]) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
                 operation: "writeRecords",
                 message: "Writing Health Connect records atomically",
                 context: [
-                    "totalRecords": request.records.count,
-                    "request": request,
+                    "totalRecords": records.count,
                 ]
             )
 
-            guard !request.records.isEmpty else {
+            guard !records.isEmpty else {
                 HealthConnectorLogger.debug(
                     tag: Self.tag,
                     operation: "writeRecords",
                     message: "No records to write, returning empty response"
                 )
-                return WriteRecordsResponseDto(recordIds: [])
+                return []
             }
 
             // Validate all records and convert to samples
             var samples: [HKSample] = []
-            samples.reserveCapacity(request.records.count)
+            samples.reserveCapacity(records.count)
 
-            for (index, record) in request.records.enumerated() {
+            for (index, record) in records.enumerated() {
                 let dataType = try record.dataType
 
                 // Validate: Handler exists and supports writes
@@ -377,11 +376,10 @@ actor HealthConnectorClient: Taggable {
                 message: "Health Connect records written successfully",
                 context: [
                     "recordCount": recordIds.count,
-                    "request": request,
                 ]
             )
 
-            return WriteRecordsResponseDto(recordIds: recordIds)
+            return recordIds
         }
     }
 

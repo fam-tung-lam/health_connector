@@ -4479,118 +4479,6 @@ public struct ReadRecordsResponseDto: Hashable {
   }
 }
 
-/// Request to write a single health record.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct WriteRecordRequestDto: Hashable {
-  /// Health record.
-  var record: HealthRecordDto
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> WriteRecordRequestDto? {
-    let record = pigeonVar_list[0] as! HealthRecordDto
-
-    return WriteRecordRequestDto(
-      record: record
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      record
-    ]
-  }
-  public static func == (lhs: WriteRecordRequestDto, rhs: WriteRecordRequestDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Response after writing a single record.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct WriteRecordResponseDto: Hashable {
-  /// Platform-assigned unique identifier for the written record.
-  var recordId: String
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> WriteRecordResponseDto? {
-    let recordId = pigeonVar_list[0] as! String
-
-    return WriteRecordResponseDto(
-      recordId: recordId
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      recordId
-    ]
-  }
-  public static func == (lhs: WriteRecordResponseDto, rhs: WriteRecordResponseDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Request to write multiple health records atomically.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct WriteRecordsRequestDto: Hashable {
-  /// Records being written.
-  var records: [HealthRecordDto]
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> WriteRecordsRequestDto? {
-    let records = pigeonVar_list[0] as! [HealthRecordDto]
-
-    return WriteRecordsRequestDto(
-      records: records
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      records
-    ]
-  }
-  public static func == (lhs: WriteRecordsRequestDto, rhs: WriteRecordsRequestDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Response after writing multiple records.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct WriteRecordsResponseDto: Hashable {
-  /// Platform-assigned unique identifiers for written records.
-  var recordIds: [String]
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> WriteRecordsResponseDto? {
-    let recordIds = pigeonVar_list[0] as! [String]
-
-    return WriteRecordsResponseDto(
-      recordIds: recordIds
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      recordIds
-    ]
-  }
-  public static func == (lhs: WriteRecordsResponseDto, rhs: WriteRecordsResponseDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
 /// Configuration data transfer object for Health Connector.
 ///
 /// Contains configuration settings that are passed from Dart to native
@@ -4932,14 +4820,6 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 233:
       return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
     case 234:
-      return WriteRecordRequestDto.fromList(self.readValue() as! [Any?])
-    case 235:
-      return WriteRecordResponseDto.fromList(self.readValue() as! [Any?])
-    case 236:
-      return WriteRecordsRequestDto.fromList(self.readValue() as! [Any?])
-    case 237:
-      return WriteRecordsResponseDto.fromList(self.readValue() as! [Any?])
-    case 238:
       return HealthConnectorConfigDto.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -5264,20 +5144,8 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? ReadRecordsResponseDto {
       super.writeByte(233)
       super.writeValue(value.toList())
-    } else if let value = value as? WriteRecordRequestDto {
-      super.writeByte(234)
-      super.writeValue(value.toList())
-    } else if let value = value as? WriteRecordResponseDto {
-      super.writeByte(235)
-      super.writeValue(value.toList())
-    } else if let value = value as? WriteRecordsRequestDto {
-      super.writeByte(236)
-      super.writeValue(value.toList())
-    } else if let value = value as? WriteRecordsResponseDto {
-      super.writeByte(237)
-      super.writeValue(value.toList())
     } else if let value = value as? HealthConnectorConfigDto {
-      super.writeByte(238)
+      super.writeByte(234)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -5315,8 +5183,8 @@ protocol HealthConnectorHKIOSApi {
   func requestPermissions(request: PermissionsRequestDto, completion: @escaping (Result<PermissionsRequestResponseDto, Error>) -> Void)
   func readRecord(request: ReadRecordRequestDto, completion: @escaping (Result<ReadRecordResponseDto?, Error>) -> Void)
   func readRecords(request: ReadRecordsRequestDto, completion: @escaping (Result<ReadRecordsResponseDto, Error>) -> Void)
-  func writeRecord(request: WriteRecordRequestDto, completion: @escaping (Result<WriteRecordResponseDto, Error>) -> Void)
-  func writeRecords(request: WriteRecordsRequestDto, completion: @escaping (Result<WriteRecordsResponseDto, Error>) -> Void)
+  func writeRecord(record: HealthRecordDto, completion: @escaping (Result<String, Error>) -> Void)
+  func writeRecords(records: [HealthRecordDto], completion: @escaping (Result<[String], Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -5450,8 +5318,8 @@ class HealthConnectorHKIOSApiSetup {
     if let api = api {
       writeRecordChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
-        let requestArg = args[0] as! WriteRecordRequestDto
-        api.writeRecord(request: requestArg) { result in
+        let recordArg = args[0] as! HealthRecordDto
+        api.writeRecord(record: recordArg) { result in
           switch result {
           case .success(let res):
             reply(wrapResult(res))
@@ -5467,8 +5335,8 @@ class HealthConnectorHKIOSApiSetup {
     if let api = api {
       writeRecordsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
-        let requestArg = args[0] as! WriteRecordsRequestDto
-        api.writeRecords(request: requestArg) { result in
+        let recordsArg = args[0] as! [HealthRecordDto]
+        api.writeRecords(records: recordsArg) { result in
           switch result {
           case .success(let res):
             reply(wrapResult(res))
