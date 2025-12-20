@@ -81,6 +81,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
     show
         BloodGlucose,
         Energy,
+        TimeDuration,
         Length,
         Mass,
         MeasurementUnit,

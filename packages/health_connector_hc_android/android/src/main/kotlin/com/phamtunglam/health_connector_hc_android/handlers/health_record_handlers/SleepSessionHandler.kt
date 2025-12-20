@@ -7,7 +7,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggrega
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.mappers.toNumericDto
+import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
@@ -33,6 +33,6 @@ internal class SleepSessionHandler(override val client: HealthConnectClient) :
             ?: throw IllegalArgumentException(
                 "Aggregated value is not Duration: ${aggregatedValue::class.simpleName}",
             )
-        return duration.seconds.toNumericDto()
+        return duration.toDto()
     }
 }

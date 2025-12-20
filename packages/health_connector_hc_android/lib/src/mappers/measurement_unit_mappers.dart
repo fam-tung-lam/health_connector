@@ -2,6 +2,7 @@ import 'package:health_connector_core/health_connector_core.dart'
     show
         Mass,
         Energy,
+        TimeDuration,
         Length,
         Temperature,
         Pressure,
@@ -20,6 +21,8 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         MassDto,
         MassUnitDto,
         EnergyDto,
+        TimeDurationDto,
+        TimeDurationUnitDto,
         LengthDto,
         TemperatureDto,
         PressureDto,
@@ -58,6 +61,12 @@ extension MeasurementUnitToDto on MeasurementUnit {
         return EnergyDto(
           value: unit.inKilocalories,
           unit: EnergyUnitDto.kilocalories,
+        );
+      case final TimeDuration unit:
+        // Uses seconds as the transfer unit for consistency.
+        return TimeDurationDto(
+          value: unit.inSeconds,
+          unit: TimeDurationUnitDto.seconds,
         );
       case final Length unit:
         // Uses meters as the transfer unit for consistency.
@@ -145,6 +154,15 @@ extension MeasurementUnitDtoToDomain on MeasurementUnitDto {
             return Energy.calories(dto.value);
           case EnergyUnitDto.joules:
             return Energy.joules(dto.value);
+        }
+      case final TimeDurationDto dto:
+        switch (dto.unit) {
+          case TimeDurationUnitDto.seconds:
+            return TimeDuration.seconds(dto.value);
+          case TimeDurationUnitDto.minutes:
+            return TimeDuration.minutes(dto.value);
+          case TimeDurationUnitDto.hours:
+            return TimeDuration.hours(dto.value);
         }
       case final LengthDto dto:
         switch (dto.unit) {

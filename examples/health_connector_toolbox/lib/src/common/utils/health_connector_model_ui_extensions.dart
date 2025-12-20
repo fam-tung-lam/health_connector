@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' hide Velocity;
+import 'package:flutter/material.dart' hide Interval, Velocity;
 import 'package:health_connector/health_connector.dart'
     show
         AggregationMetric,
@@ -12,6 +12,7 @@ import 'package:health_connector/health_connector.dart'
         HealthPlatformFeatureReadHealthDataInBackground,
         HealthPlatformFeatureStatus,
         Energy,
+        TimeDuration,
         Length,
         Mass,
         MeasurementUnit,
@@ -446,6 +447,7 @@ extension MeasurementUnitUI on MeasurementUnit {
     return switch (this) {
       Mass _ => AppTexts.mass,
       Numeric _ => AppTexts.numeric,
+      TimeDuration _ => 'Interval',
       Percentage _ => AppTexts.percentage,
       Length _ => AppTexts.length,
       Energy _ => AppTexts.energy,
@@ -465,6 +467,7 @@ extension MeasurementUnitUI on MeasurementUnit {
     return switch (this) {
       Mass _ => AppIcons.mass,
       Numeric _ => AppIcons.numeric,
+      TimeDuration _ => Icons.access_time,
       Percentage _ => AppIcons.percent,
       Length _ => AppIcons.length,
       Energy _ => AppIcons.energy,

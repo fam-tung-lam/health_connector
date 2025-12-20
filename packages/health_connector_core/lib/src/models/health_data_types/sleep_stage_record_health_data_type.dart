@@ -11,11 +11,11 @@ part of 'health_data_type.dart';
 @availableOnAppleHealth
 @immutable
 final class SleepStageHealthDataType
-    extends HealthDataType<SleepStageRecord, Numeric>
+    extends HealthDataType<SleepStageRecord, TimeDuration>
     implements
         ReadableHealthDataType<SleepStageRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<SleepStageRecord, Numeric> {
+        SumAggregatableHealthDataType<SleepStageRecord, TimeDuration> {
   @internal
   const SleepStageHealthDataType();
 
@@ -98,7 +98,7 @@ final class SleepStageHealthDataType
   /// - Total Sleep Time:
   ///   - 30 min + 2.5 hrs + 2.75 hrs + 1.5 hrs = 7.25 hours (26,100 seconds)
   @override
-  AggregateRequest<SleepStageRecord, Numeric> aggregateSum({
+  AggregateRequest<SleepStageRecord, TimeDuration> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

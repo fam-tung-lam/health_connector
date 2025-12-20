@@ -10,7 +10,7 @@ final class SleepStageHandler: @unchecked Sendable,
 {
     typealias RecordDto = SleepStageRecordDto
     typealias SampleType = HKCategorySample
-    typealias AggregatedResultMeasurementUnitDto = NumericDto
+    typealias AggregatedResultMeasurementUnitDto = TimeDurationDto
 
     let healthStore: HKHealthStore
 
@@ -40,13 +40,13 @@ extension SleepStageHandler {
     ///   - metric: The aggregation metric (only .sum supported)
     ///   - startTime: Start of time range
     ///   - endTime: End of time range
-    /// - Returns: NumericDto with total sleep duration in seconds
+    /// - Returns: TimeDurationDto with total sleep duration in seconds
     /// - Throws: HealthConnectorError if query fails or metric is unsupported
     func aggregate(
         metric: AggregationMetricDto,
         startTime: Date,
         endTime: Date
-    ) async throws -> NumericDto {
+    ) async throws -> TimeDurationDto {
         try await process(
             operation: "aggregate",
             context: [
@@ -64,7 +64,7 @@ extension SleepStageHandler {
                     .filter(isActualSleepStage)
                     .reduce(0) { $0 + $1.endDate.timeIntervalSince($1.startDate) }
 
-            return NumericDto(unit: .numeric, value: totalSleepSeconds)
+            return totalSleepSeconds.toIntervalDto()
         }
     }
 
