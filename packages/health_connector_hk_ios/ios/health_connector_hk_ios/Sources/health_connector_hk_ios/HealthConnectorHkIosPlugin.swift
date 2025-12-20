@@ -151,31 +151,31 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         }
     }
 
-    /// Writes a single health record.
+    /// Write a single health record.
     ///
     /// - Parameters:
-    ///   - request: Contains the data type and the typed record to write
-    ///   - completion: Called with a `Result` containing the write record response
+    ///   - record: The health record to write.
+    ///   - completion: Called with a `Result` containing the ID of the written record.
     public func writeRecord(
-        request: WriteRecordRequestDto,
-        completion: @escaping (Result<WriteRecordResponseDto, Error>) -> Void
+        record: HealthRecordDto,
+        completion: @escaping (Result<String, Error>) -> Void
     ) {
         process(operation: "writeRecord", completion: completion) {
-            try await self.healthClient.writeRecord(request: request)
+            try await self.healthClient.writeRecord(record: record)
         }
     }
 
     /// Writes multiple health records atomically.
     ///
     /// - Parameters:
-    ///   - request: Contains the data types and the list of typed records to write
-    ///   - completion: Called with a `Result` containing the write records response
+    ///   - records: The list of health records to write.
+    ///   - completion: Called with a `Result` containing the IDs of the written records.
     public func writeRecords(
-        request: WriteRecordsRequestDto,
-        completion: @escaping (Result<WriteRecordsResponseDto, Error>) -> Void
+        records: [HealthRecordDto],
+        completion: @escaping (Result<[String], Error>) -> Void
     ) {
         process(operation: "writeRecords", completion: completion) {
-            try await self.healthClient.writeRecords(request: request)
+            try await self.healthClient.writeRecords(records: records)
         }
     }
 

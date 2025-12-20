@@ -1,6 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.services
 
 import android.content.ActivityNotFoundException
+import android.health.connect.HealthConnectException
 import android.os.RemoteException
 import androidx.activity.ComponentActivity
 import androidx.health.connect.client.PermissionController
@@ -13,6 +14,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRe
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeaturePermissionRequest
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeaturePermissionRequestResultDto
+import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsResponseDto
@@ -135,20 +137,16 @@ internal class HealthConnectorPermissionService(
     @Throws(HealthConnectorErrorDto::class)
     suspend fun getPermissionStatus(request: PermissionRequestDto): PermissionStatusDto {
         try {
-            val permissionString = request.toHealthConnect()
-            val grantedPermissions = permissionClient.getGrantedPermissions()
+            val grantedPermissions = getGrantedPermissionStrings()
 
+            val permissionString = request.toHealthConnect()
             return if (grantedPermissions.contains(permissionString)) {
                 PermissionStatusDto.GRANTED
             } else {
                 PermissionStatusDto.DENIED
             }
-        } catch (e: RemoteException) {
-            throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
-        } catch (e: IOException) {
-            throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
-        } catch (e: IllegalStateException) {
-            throw HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE.toError(e.message)
+        } catch (e: HealthConnectException) {
+            throw e
         }
     }
 
@@ -164,19 +162,15 @@ internal class HealthConnectorPermissionService(
     @Throws(HealthConnectorErrorDto::class)
     suspend fun getGrantedPermissions(): PermissionRequestsResponseDto {
         try {
-            val grantedPermissionStrings = permissionClient.getGrantedPermissions()
+            val grantedPermissionStrings = getGrantedPermissionStrings()
 
             val grantedPermissions = grantedPermissionStrings.map { permissionString ->
                 permissionString.toPermissionRequestResultDto()
             }
 
             return PermissionRequestsResponseDto(grantedPermissions)
-        } catch (e: RemoteException) {
-            throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
-        } catch (e: IOException) {
-            throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
-        } catch (e: IllegalStateException) {
-            throw HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE.toError(e.message)
+        } catch (e: HealthConnectException) {
+            throw e
         }
     }
 
@@ -192,6 +186,27 @@ internal class HealthConnectorPermissionService(
     suspend fun revokeAllPermissions() {
         try {
             permissionClient.revokeAllPermissions()
+        } catch (e: RemoteException) {
+            throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
+        } catch (e: IOException) {
+            throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
+        } catch (e: IllegalStateException) {
+            throw HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE.toError(e.message)
+        }
+    }
+
+    /**
+     * Retrieves the list of permission strings granted to this application by the user.
+     *
+     * @return A [Set<String>] containing all granted permissions.
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.REMOTE_ERROR] for
+     *         any IPC transportation and disk I/O issues.
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE]
+     *         if service is not available.
+     */
+    private suspend fun getGrantedPermissionStrings(): Set<String> {
+        try {
+            return permissionClient.getGrantedPermissions()
         } catch (e: RemoteException) {
             throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
         } catch (e: IOException) {
