@@ -624,8 +624,7 @@ abstract interface class HealthConnector {
   ///   if delete/write permission has not been granted
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if
-  ///   the request contains invalid data (e.g., empty record IDs list,
-  ///   invalid time range)
+  ///   the request contains invalid data
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   if attempting to delete records not created by this app
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
@@ -654,6 +653,16 @@ abstract interface class HealthConnector {
   /// await connector.deleteRecords(request);
   /// ```
   @sinceV2_0_0
+  @PlatformSpecificBehaviors({
+    HealthPlatform.healthConnect:
+        'Health Connect SDK only supports atomic deletion within a single'
+        ' health record type. '
+        'Due to this reason `DeleteRecordsRequest` contains `HealthDataType`.',
+    HealthPlatform.appleHealth:
+        'While HealthKit SDK can delete multiple record types atomically, '
+        'this API requires specifying a single data type to maintain '
+        'cross-platform consistency with  Health Connect.',
+  })
   Future<void> deleteRecords<R extends HealthRecord>(
     DeleteRecordsRequest<R> request,
   );
@@ -663,88 +672,7 @@ abstract interface class HealthConnector {
   /// ## Platform Differences
   ///
   /// - **Android Health Connect**: ✅ Full support
-  /// - **iOS HealthKit**: ❌ Not supported
-  ///
-  /// ## Why HealthKit Doesn't Support Updates
-  ///
-  /// HealthKit uses an **immutable data model** where health samples represent
-  /// point-in-time observations that cannot be modified after creation.
-  ///
-  /// ## How to Achieve Update Functionality on iOS
-  ///
-  /// This SDK **intentionally does not provide automatic delete-then-create
-  /// logic**. Developers who need update functionality must explicitly use the
-  /// SDK's delete and create APIs. This design ensures full awareness and
-  /// responsibility for data modification operations.
-  ///
-  /// ### Option 1: Explicit Delete-Then-Create
-  ///
-  /// **You must explicitly call both operations**:
-  ///
-  /// ```dart
-  /// // 1. EXPLICITLY delete the existing record
-  /// //    You are responsible for this destructive operation
-  /// await connector.deleteRecordsByIds(
-  ///   dataType: HealthDataType.steps,
-  ///   recordIds: [existingRecord.id],
-  /// );
-  ///
-  /// // 2. EXPLICITLY create a new record with updated values
-  /// //    This creates a new record, not an update
-  /// final updatedRecord = StepsRecord(
-  ///   id: HealthRecordId.none, // Must be none for new records
-  ///   startTime: existingRecord.startTime,
-  ///   endTime: existingRecord.endTime,
-  ///   count: Numeric(newStepCount), // Updated value
-  ///   metadata: existingRecord.metadata,
-  /// );
-  ///
-  /// final newId = await connector.writeRecord(updatedRecord);
-  /// ```
-  ///
-  /// > [!CAUTION]
-  /// > The delete operation is permanent and cannot be undone. You are
-  /// > responsible for understanding the implications of deleting health data.
-  ///
-  /// ### Option 2: Track Versions with Custom Metadata
-  ///
-  /// Use custom metadata to link different "versions" of the same logical
-  /// record. **You must still explicitly delete and create**:
-  ///
-  /// ```dart
-  /// // Original record with custom metadata
-  /// final original = StepsRecord(
-  ///   id: HealthRecordId.none,
-  ///   // ... other fields
-  ///   metadata: Metadata.manualEntry(
-  ///     device: Device.fromType(DeviceType.phone),
-  ///     customMetadata: {
-  ///       'logicalRecordId': 'my-workout-123',
-  ///       'version': '1',
-  ///     },
-  ///   ),
-  /// );
-  /// await connector.writeRecord(original);
-  ///
-  /// // To "update": delete old, create new with same logicalRecordId
-  /// await connector.deleteRecordsByIds(
-  ///   dataType: HealthDataType.steps,
-  ///   recordIds: [original.id],
-  /// );
-  ///
-  /// final updated = StepsRecord(
-  ///   id: HealthRecordId.none,
-  ///   // ... updated fields
-  ///   metadata: Metadata.manualEntry(
-  ///     device: Device.fromType(DeviceType.phone),
-  ///     customMetadata: {
-  ///       'logicalRecordId': 'my-workout-123', // Same logical ID
-  ///       'version': '2', // Incremented version
-  ///     },
-  ///   ),
-  /// );
-  /// await connector.writeRecord(updated);
-  /// ```
+  /// - **iOS HealthKit**: ❌ Not supported (see [updateRecords] for details)
   ///
   /// ## Parameters
   ///
@@ -772,6 +700,93 @@ abstract interface class HealthConnector {
   @supportedOnHealthConnect
   Future<void> updateRecord<R extends HealthRecord>(R record);
 
+  /// Updates multiple existing health records in a single batch operation.
+  ///
+  /// ## Platform Differences
+  ///
+  /// - **Android Health Connect**: ✅ Full support with atomic batch operations
+  /// - **iOS HealthKit**: ❌ Not supported
+  ///
+  /// ## Why HealthKit Doesn't Support Updates
+  ///
+  /// HealthKit uses an **immutable data model** where health samples represent
+  /// point-in-time observations that cannot be modified after creation.
+  ///
+  /// ## How to Achieve Batch Update Functionality on iOS
+  ///
+  /// For iOS, you must explicitly use delete and create operations. See
+  /// [updateRecord] for detailed workarounds and patterns.
+  ///
+  /// **Quick example for batch operations on iOS**:
+  ///
+  /// ```dart
+  /// // 1. Delete existing records
+  /// await connector.deleteRecords(
+  ///   HealthDataType.steps.deleteByIds(
+  ///     recordIds: existingRecords.map((r) => r.id).toList(),
+  ///   ),
+  /// );
+  ///
+  /// // 2. Create new records with updated values
+  /// final updatedRecords = existingRecords.map((record) => StepsRecord(
+  ///   id: HealthRecordId.none,
+  ///   startTime: record.startTime,
+  ///   endTime: record.endTime,
+  ///   count: Numeric(newStepCount),
+  ///   metadata: record.metadata,
+  /// )).toList();
+  ///
+  /// await connector.writeRecords(updatedRecords);
+  /// ```
+  ///
+  /// ## Example - Batch Update on Android
+  ///
+  /// ```dart
+  /// // Read existing records
+  /// final request = HealthDataType.steps.readByIds(
+  ///   recordIds: [id1, id2, id3],
+  /// );
+  /// final records = await connector.readRecords(request);
+  ///
+  /// // Modify the records
+  /// final updatedRecords = records.map((record) {
+  ///   if (record is StepsRecord) {
+  ///     return record.copyWith(
+  ///       count: Numeric(record.count.value + 1000),
+  ///     );
+  ///   }
+  ///   return record;
+  /// }).toList();
+  ///
+  /// // Update all records atomically
+  /// await connector.updateRecords(updatedRecords);
+  /// ```
+  ///
+  /// ## Parameters
+  ///
+  /// - [records]: The list of health records to update. All records must:
+  ///   - Be of the same type
+  ///   - Have valid existing [HealthRecordId] (not [HealthRecordId.none])
+  ///   - Exist in the health data store
+  ///
+  /// ## Throws
+  ///
+  /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.unsupportedOperation] on iOS HealthKit
+  /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.invalidArgument] if any record ID is
+  ///   [HealthRecordId.none] or invalid
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
+  ///   if write permission has not been granted
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
+  ///   if attempting to update records not created by this app
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  ///   if an unexpected error occurs
+  ///
+  /// ## See Also
+  ///
+  /// - [deleteRecords] for deleting multiple records
+  /// - [writeRecords] for creating multiple new records
   @sinceV2_0_0
   @supportedOnHealthConnect
   Future<void> updateRecords<R extends HealthRecord>(List<R> records);

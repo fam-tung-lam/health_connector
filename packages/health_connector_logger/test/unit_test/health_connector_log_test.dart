@@ -39,7 +39,6 @@ void main() {
         operation: 'failedOp',
         dateTime: testDateTime,
         structuredMessage: testStructuredMessage,
-
         message: 'Operation failed',
         context: context,
         exception: exception,
@@ -150,7 +149,6 @@ void main() {
         operation: 'warnOp',
         dateTime: testDateTime,
         structuredMessage: testStructuredMessage,
-
         message: 'Warning message',
         context: const {'count': 5},
       );

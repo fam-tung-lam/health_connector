@@ -22,7 +22,6 @@ import 'package:health_connector_core/health_connector_core.dart'
         ReadRecordsInTimeRangeRequest,
         ReadRecordsInTimeRangeResponse,
         require,
-        requireEndTimeAfterStartTime,
         sinceV1_0_0,
         supportedOnHealthConnect;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
@@ -481,16 +480,12 @@ final class HealthConnectorImpl implements HealthConnector {
 
     try {
       switch (request) {
-        case DeleteRecordsInTimeRangeRequest(
-          :final startTime,
-          :final endTime,
-        ):
-          requireEndTimeAfterStartTime(
-            startTime: startTime,
-            endTime: endTime,
-          );
-        case DeleteRecordsByIdsRequest<R> _:
+        case DeleteRecordsInTimeRangeRequest<R> _:
           break;
+        case final DeleteRecordsByIdsRequest<R> request:
+          if (request.recordIds.isEmpty) {
+            return;
+          }
       }
 
       await _client.deleteRecords(request);

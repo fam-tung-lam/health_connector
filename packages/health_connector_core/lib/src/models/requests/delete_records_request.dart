@@ -50,7 +50,6 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
   /// - [recordIds]: List of unique record identifiers to delete
   ///
   /// ## Throws
-  /// - [ArgumentError] if [recordIds] is empty
   /// - [ArgumentError] if any record ID is [HealthRecordId.none]
   @internal
   factory DeleteRecordsByIdsRequest({
@@ -58,17 +57,10 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
     required List<HealthRecordId> recordIds,
   }) {
     require(
-      recordIds.isNotEmpty,
-      'recordIds cannot be empty. Provide at least one record ID to delete.',
+      recordIds.any((id) => id != HealthRecordId.none),
+      'Record ID to delete cannot be HealthRecordId.none. '
+      'Found invalid ID in `recordIds` list.',
     );
-
-    for (final id in recordIds) {
-      require(
-        id != HealthRecordId.none,
-        'Record ID cannot be HealthRecordId.none. '
-        'Found invalid ID in recordIds list.',
-      );
-    }
 
     return DeleteRecordsByIdsRequest._(
       dataType: dataType,

@@ -257,7 +257,6 @@ void main() {
       HealthConnectorLogger.info(
         'API',
         operation: 'readRecords',
-
         message: 'Successfully read 42 records',
         context: {'count': 42, 'duration': '123ms'},
       );
@@ -315,7 +314,6 @@ void main() {
       HealthConnectorLogger.error(
         'ERROR_TAG',
         operation: 'failedOperation',
-
         message: 'Operation failed with error',
         context: {'attempt': 3, 'maxRetries': 5},
         exception: exception,

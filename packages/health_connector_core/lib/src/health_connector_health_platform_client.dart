@@ -218,6 +218,28 @@ abstract interface class HealthConnectorPlatformClient {
     AggregateRequest<R, U> request,
   );
 
+  /// Deletes health records based on the provided request.
+  ///
+  /// ## Parameters
+  ///
+  /// - [request]: A deletion request
+  ///
+  /// ## Returns
+  ///
+  /// A [Future] that completes when the deletion operation finishes.
+  /// This operation is permanent and cannot be undone.
+  ///
+  /// ## Throws
+  ///
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
+  ///   if delete/write permission has not been granted
+  /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.invalidArgument] if the request contains
+  ///   invalid data
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
+  ///   if attempting to delete records not created by this app
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  ///   if an unexpected error occurs
   Future<void> deleteRecords<R extends HealthRecord>(
     DeleteRecordsRequest<R> request,
   );
