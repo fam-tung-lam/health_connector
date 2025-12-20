@@ -28,7 +28,7 @@ extension BodyFatPercentageRecordToDto on BodyFatPercentageRecord {
 extension BodyFatPercentageRecordDtoToDomain on BodyFatPercentageRecordDto {
   BodyFatPercentageRecord toDomain() {
     return BodyFatPercentageRecord(
-      id: id?.toHealthRecordId() ?? HealthRecordId.none,
+      id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),

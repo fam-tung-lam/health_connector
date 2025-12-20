@@ -3779,178 +3779,6 @@ class ReadRecordsResponseDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Request to write a single health record.
-class WriteRecordRequestDto {
-  WriteRecordRequestDto({
-    required this.record,
-  });
-
-  /// Health record.
-  HealthRecordDto record;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      record,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static WriteRecordRequestDto decode(Object result) {
-    result as List<Object?>;
-    return WriteRecordRequestDto(
-      record: result[0]! as HealthRecordDto,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! WriteRecordRequestDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Response after writing a single record.
-class WriteRecordResponseDto {
-  WriteRecordResponseDto({
-    required this.recordId,
-  });
-
-  /// Platform-assigned unique identifier for the written record.
-  String recordId;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      recordId,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static WriteRecordResponseDto decode(Object result) {
-    result as List<Object?>;
-    return WriteRecordResponseDto(
-      recordId: result[0]! as String,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! WriteRecordResponseDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Request to write multiple health records atomically.
-class WriteRecordsRequestDto {
-  WriteRecordsRequestDto({
-    required this.records,
-  });
-
-  /// Records being written.
-  List<HealthRecordDto> records;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      records,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static WriteRecordsRequestDto decode(Object result) {
-    result as List<Object?>;
-    return WriteRecordsRequestDto(
-      records: (result[0] as List<Object?>?)!.cast<HealthRecordDto>(),
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! WriteRecordsRequestDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
-/// Response after writing multiple records.
-class WriteRecordsResponseDto {
-  WriteRecordsResponseDto({
-    required this.recordIds,
-  });
-
-  /// Platform-assigned unique identifiers for written records.
-  List<String> recordIds;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      recordIds,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static WriteRecordsResponseDto decode(Object result) {
-    result as List<Object?>;
-    return WriteRecordsResponseDto(
-      recordIds: (result[0] as List<Object?>?)!.cast<String>(),
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! WriteRecordsResponseDto || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
 /// Configuration data transfer object for Health Connector.
 ///
 /// Contains configuration settings that are passed from Dart to native
@@ -4245,20 +4073,8 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is ReadRecordsResponseDto) {
       buffer.putUint8(208);
       writeValue(buffer, value.encode());
-    } else if (value is WriteRecordRequestDto) {
-      buffer.putUint8(209);
-      writeValue(buffer, value.encode());
-    } else if (value is WriteRecordResponseDto) {
-      buffer.putUint8(210);
-      writeValue(buffer, value.encode());
-    } else if (value is WriteRecordsRequestDto) {
-      buffer.putUint8(211);
-      writeValue(buffer, value.encode());
-    } else if (value is WriteRecordsResponseDto) {
-      buffer.putUint8(212);
-      writeValue(buffer, value.encode());
     } else if (value is HealthConnectorConfigDto) {
-      buffer.putUint8(213);
+      buffer.putUint8(209);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -4471,14 +4287,6 @@ class _PigeonCodec extends StandardMessageCodec {
       case 208:
         return ReadRecordsResponseDto.decode(readValue(buffer)!);
       case 209:
-        return WriteRecordRequestDto.decode(readValue(buffer)!);
-      case 210:
-        return WriteRecordResponseDto.decode(readValue(buffer)!);
-      case 211:
-        return WriteRecordsRequestDto.decode(readValue(buffer)!);
-      case 212:
-        return WriteRecordsResponseDto.decode(readValue(buffer)!);
-      case 213:
         return HealthConnectorConfigDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -4810,9 +4618,7 @@ class HealthConnectorHCAndroidApi {
     }
   }
 
-  Future<WriteRecordResponseDto> writeRecord(
-    WriteRecordRequestDto request,
-  ) async {
+  Future<String> writeRecord(HealthRecordDto record) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.writeRecord$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
@@ -4822,7 +4628,7 @@ class HealthConnectorHCAndroidApi {
           binaryMessenger: pigeonVar_binaryMessenger,
         );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
+      <Object?>[record],
     );
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -4840,13 +4646,11 @@ class HealthConnectorHCAndroidApi {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
-      return (pigeonVar_replyList[0] as WriteRecordResponseDto?)!;
+      return (pigeonVar_replyList[0] as String?)!;
     }
   }
 
-  Future<WriteRecordsResponseDto> writeRecords(
-    WriteRecordsRequestDto request,
-  ) async {
+  Future<List<String>> writeRecords(List<HealthRecordDto> records) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.writeRecords$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
@@ -4856,7 +4660,7 @@ class HealthConnectorHCAndroidApi {
           binaryMessenger: pigeonVar_binaryMessenger,
         );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[request],
+      <Object?>[records],
     );
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -4874,7 +4678,7 @@ class HealthConnectorHCAndroidApi {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
-      return (pigeonVar_replyList[0] as WriteRecordsResponseDto?)!;
+      return (pigeonVar_replyList[0] as List<Object?>?)!.cast<String>();
     }
   }
 

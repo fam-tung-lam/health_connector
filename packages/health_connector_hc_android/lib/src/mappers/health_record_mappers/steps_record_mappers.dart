@@ -30,7 +30,7 @@ extension StepsRecordToDto on StepsRecord {
 extension StepsRecordDtoToDomain on StepsRecordDto {
   StepsRecord toDomain() {
     return StepsRecord(
-      id: id?.toHealthRecordId() ?? HealthRecordId.none,
+      id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,

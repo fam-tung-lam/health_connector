@@ -519,31 +519,29 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
   Future<HealthRecordId> writeRecord<R extends HealthRecord>(R record) async {
     HealthConnectorLogger.debug(
       tag,
-      operation: 'writeRecord',
+      operation: 'write_record',
 
       message: 'Writing Health Connect record',
       context: {'record': record},
     );
 
     try {
-      final requestDto = record.toWriteRecordRequestDto();
+      final idString = await _platformClient.writeRecord(record.toDto());
 
-      final responseDto = await _platformClient.writeRecord(requestDto);
-
-      final assignedRecordId = responseDto.recordId.toHealthRecordId();
+      final recordId = idString.toDomain();
 
       HealthConnectorLogger.info(
         tag,
-        operation: 'writeRecord',
+        operation: 'write_record',
         message: 'Health Connect record written successfully',
-        context: {'record': record, 'assignedRecordId': assignedRecordId},
+        context: {'record': record, 'record_id': recordId},
       );
 
-      return assignedRecordId;
+      return recordId;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
         tag,
-        operation: 'writeRecord',
+        operation: 'write_record',
         message: 'Failed to write Health Connect record',
         context: {'record': record},
         exception: e,
@@ -565,7 +563,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
   ) async {
     HealthConnectorLogger.debug(
       tag,
-      operation: 'writeRecords',
+      operation: 'write_records',
 
       message: 'Writing Health Connect records',
       context: {'records': records},
@@ -574,7 +572,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     if (records.isEmpty) {
       HealthConnectorLogger.warning(
         tag,
-        operation: 'writeRecords',
+        operation: 'write_records',
         message: 'No records to write (empty list)',
       );
 
@@ -582,26 +580,24 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     }
 
     try {
-      final requestDto = records.toWriteRecordsRequestDto();
+      final recordDtos = records.map((record) => record.toDto()).toList();
 
-      final responseDto = await _platformClient.writeRecords(requestDto);
+      final idStrings = await _platformClient.writeRecords(recordDtos);
 
-      final recordIds = responseDto.recordIds
-          .map((id) => id.toHealthRecordId())
-          .toList();
+      final recordIds = idStrings.map((id) => id.toDomain()).toList();
 
       HealthConnectorLogger.info(
         tag,
-        operation: 'writeRecords',
+        operation: 'write_records',
         message: 'Health Connect records written successfully',
-        context: {'records': records, 'assignedRecordIds': recordIds},
+        context: {'records': records, 'record_ids': recordIds},
       );
 
       return recordIds;
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
         tag,
-        operation: 'writeRecords',
+        operation: 'write_records',
         message: 'Failed to write Health Connect records',
         context: {'records': records},
         exception: e,

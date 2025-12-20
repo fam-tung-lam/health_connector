@@ -28,7 +28,7 @@ extension BodyTemperatureRecordToDto on BodyTemperatureRecord {
 extension BodyTemperatureRecordDtoToDomain on BodyTemperatureRecordDto {
   BodyTemperatureRecord toDomain() {
     return BodyTemperatureRecord(
-      id: id?.toHealthRecordId() ?? HealthRecordId.none,
+      id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),

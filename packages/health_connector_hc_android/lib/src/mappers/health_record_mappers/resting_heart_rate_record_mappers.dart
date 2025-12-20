@@ -13,7 +13,7 @@ import 'package:meta/meta.dart' show internal;
 extension RestingHeartRateRecordDtoToDomain on RestingHeartRateRecordDto {
   RestingHeartRateRecord toDomain() {
     return RestingHeartRateRecord(
-      id: id?.toHealthRecordId() ?? HealthRecordId.none,
+      id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),

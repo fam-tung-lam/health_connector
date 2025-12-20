@@ -30,7 +30,7 @@ extension DistanceRecordToDto on DistanceRecord {
 extension DistanceRecordDtoToDomain on DistanceRecordDto {
   DistanceRecord toDomain() {
     return DistanceRecord(
-      id: id?.toHealthRecordId() ?? HealthRecordId.none,
+      id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,

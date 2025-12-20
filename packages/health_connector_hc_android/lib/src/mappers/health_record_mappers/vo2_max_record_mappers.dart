@@ -12,7 +12,7 @@ import 'package:meta/meta.dart' show internal;
 extension Vo2MaxRecordDtoToDomain on Vo2MaxRecordDto {
   Vo2MaxRecord toDomain() {
     return Vo2MaxRecord(
-      id: id?.toHealthRecordId() ?? HealthRecordId.none,
+      id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),

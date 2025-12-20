@@ -30,7 +30,7 @@ extension FloorsClimbedRecordToDto on FloorsClimbedRecord {
 extension FloorsClimbedRecordDtoToDomain on FloorsClimbedRecordDto {
   FloorsClimbedRecord toDomain() {
     return FloorsClimbedRecord(
-      id: id?.toHealthRecordId() ?? HealthRecordId.none,
+      id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,

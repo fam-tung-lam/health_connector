@@ -36,10 +36,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsResponseDto
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorFeatureService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorManifestService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorPermissionService
@@ -349,44 +345,44 @@ internal class HealthConnectorClient private constructor(
     /**
      * Writes a single health record.
      *
-     * @param request Contains the data type and the typed record to write
-     * @return WriteRecordResponseDto containing the platform-assigned record ID
+     * @param record The record to write
+     * @return The platform-assigned record ID
      *
      * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support writing
      * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
-    suspend fun writeRecord(request: WriteRecordRequestDto): WriteRecordResponseDto {
+    suspend fun writeRecord(record: HealthRecordDto): String {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "write_record",
             message = "Writing Health Connect record",
-            context = mapOf("request" to request),
+            context = mapOf("record" to record),
         )
 
         try {
-            val handler = recordHandlerRegistry.getRecordHandler(request.record.dataType)
+            val handler = recordHandlerRegistry.getRecordHandler(record.dataType)
                 ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "No handler found for type ${request.record.dataType}",
+                    "No handler found for type ${record.dataType}",
                 )
 
             if (handler !is WritableHealthRecordHandler) {
                 throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "Type ${request.record.dataType} does not support writing",
+                    "Type ${record.dataType} does not support writing",
                 )
             }
 
-            val recordId = handler.writeRecord(request.record)
+            val recordId = handler.writeRecord(record)
 
             HealthConnectorLogger.info(
                 tag = TAG,
                 operation = "write_record",
                 message = "Health Connect record written successfully",
-                context = mapOf("data_type" to request.record.dataType, "record_id" to recordId),
+                context = mapOf("data_type" to record.dataType, "record_id" to recordId),
             )
 
-            return WriteRecordResponseDto(recordId = recordId)
+            return recordId
         } catch (e: HealthConnectorErrorDto) {
             throw e
         }
@@ -399,51 +395,48 @@ internal class HealthConnectorClient private constructor(
      * are saved successfully, or none are saved. This ensures data consistency across
      * different record types.
      *
-     * @param request Contains the list of health records to write
-     * @return [WriteRecordsResponseDto] with platform-assigned record IDs in input order
+     * @param records The list of records to write
+     * @return The record IDs in input order
      *
      * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if any type is not writable
      * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
-    suspend fun writeRecords(request: WriteRecordsRequestDto): WriteRecordsResponseDto {
+    suspend fun writeRecords(records: List<HealthRecordDto>): List<String> {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "write_records",
             message = "Writing Health Connect records atomically",
             context = mapOf(
-                "total_records" to request.records.size,
-                "request" to request,
+                "total_records" to records.size,
+                "records" to records,
             ),
         )
 
         try {
-            if (request.records.isEmpty()) {
+            if (records.isEmpty()) {
                 HealthConnectorLogger.debug(
                     tag = TAG,
                     operation = "write_records",
                     message = "No records to write, returning empty response",
                 )
-                return WriteRecordsResponseDto(recordIds = emptyList())
+                return emptyList()
             }
 
-            // Validate all records and convert to Health Connect records
-            val records = request.records.mapIndexed { index, dto ->
-                val dataType = dto.dataType
-
+            // Validate all records support the write operation
+            val dataTypes = records.map { record -> record.dataType }
+            dataTypes.forEach { dataType ->
                 val handler = recordHandlerRegistry.getRecordHandler(dataType)
                     ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                        "Unsupported data type at index $index: $dataType",
+                        "Unsupported data type: $dataType",
                     )
 
                 if (handler !is WritableHealthRecordHandler) {
                     throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                        "Data type at index $index does not support write operations: $dataType",
+                        "Data type does not support the write operation: $dataType",
                     )
                 }
-
-                dto.toHealthConnect()
             }
 
             HealthConnectorLogger.debug(
@@ -453,7 +446,9 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("record_count" to records.size),
             )
 
-            val response = client.insertRecords(records)
+            val response = client.insertRecords(
+                records.map { record -> record.toHealthConnect() },
+            )
 
             HealthConnectorLogger.debug(
                 tag = TAG,
@@ -470,7 +465,7 @@ internal class HealthConnectorClient private constructor(
                 context = mapOf("count" to recordIds.size),
             )
 
-            return WriteRecordsResponseDto(recordIds = recordIds)
+            return recordIds
         } catch (e: HealthConnectorErrorDto) {
             throw e
         }
@@ -576,8 +571,9 @@ internal class HealthConnectorClient private constructor(
                 }
             }
 
-            val records = records.map { record -> record.toHealthConnect() }
-            client.updateRecords(records)
+            client.updateRecords(
+                records.map { record -> record.toHealthConnect() },
+            )
 
             HealthConnectorLogger.info(
                 tag = TAG,

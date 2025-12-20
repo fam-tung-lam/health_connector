@@ -32,7 +32,7 @@ extension SleepSessionRecordToDto on SleepSessionRecord {
 extension SleepSessionRecordDtoToDomain on SleepSessionRecordDto {
   SleepSessionRecord toDomain() {
     return SleepSessionRecord(
-      id: id?.toHealthRecordId() ?? HealthRecordId.none,
+      id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,

@@ -71,7 +71,7 @@ extension NutritionRecordToDto on NutritionRecord {
 @internal
 extension NutritionRecordDtoToDomain on NutritionRecordDto {
   HealthRecord toDomain() {
-    final id = this.id?.toHealthRecordId() ?? HealthRecordId.none;
+    final id = this.id?.toDomain() ?? HealthRecordId.none;
     final time = DateTime.fromMillisecondsSinceEpoch(startTime);
     final zoneOffsetSeconds = startZoneOffsetSeconds;
     final metadata = this.metadata.toDomain();

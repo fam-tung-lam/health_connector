@@ -28,10 +28,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.WriteRecordsResponseDto
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -620,19 +616,16 @@ class HealthConnectorHCAndroidPlugin :
     /**
      * Writes a single health record.
      *
-     * @param request Contains the data type and the typed record to write
-     * @param callback Called with a [Result] containing the write record response
+     * @param record The record to write
+     * @param callback Called with a [Result] containing the new record ID
      */
     @Throws(HealthConnectorErrorDto::class)
-    override fun writeRecord(
-        request: WriteRecordRequestDto,
-        callback: (Result<WriteRecordResponseDto>) -> Unit,
-    ) {
+    override fun writeRecord(record: HealthRecordDto, callback: (Result<String>) -> Unit) {
         scope.launch {
             try {
-                val result = this@HealthConnectorHCAndroidPlugin.client.writeRecord(request)
+                val id = this@HealthConnectorHCAndroidPlugin.client.writeRecord(record)
 
-                complete(callback, Result.success(result))
+                complete(callback, Result.success(id))
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -653,7 +646,7 @@ class HealthConnectorHCAndroidPlugin :
                     tag = TAG,
                     operation = "write_record",
                     message = "Unexpected error escaped from handler",
-                    context = mapOf("request" to request),
+                    context = mapOf("record" to record),
                     exception = e,
                 )
                 complete(
@@ -671,26 +664,26 @@ class HealthConnectorHCAndroidPlugin :
     /**
      * Writes multiple health records atomically.
      *
-     * @param request Contains the data type and the list of typed records to write
-     * @param callback Called with a [Result] containing the write records response
+     * @param records The list of records to write
+     * @param callback Called with a [Result] containing the list of IDs
      */
     @Throws(HealthConnectorErrorDto::class)
     override fun writeRecords(
-        request: WriteRecordsRequestDto,
-        callback: (Result<WriteRecordsResponseDto>) -> Unit,
+        records: List<HealthRecordDto>,
+        callback: (Result<List<String>>) -> Unit,
     ) {
         scope.launch {
             try {
-                val result = this@HealthConnectorHCAndroidPlugin.client.writeRecords(request)
+                val ids = this@HealthConnectorHCAndroidPlugin.client.writeRecords(records)
 
-                complete(callback, Result.success(result))
+                complete(callback, Result.success(ids))
             } catch (e: HealthConnectorErrorDto) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "write_records",
                     message = "Failed to write Health Connect records",
                     context = mapOf(
-                        "records_count" to request.records.size,
+                        "records_count" to records.size,
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),
@@ -705,7 +698,7 @@ class HealthConnectorHCAndroidPlugin :
                     tag = TAG,
                     operation = "write_records",
                     message = "Unexpected error escaped from handler",
-                    context = mapOf("request" to request),
+                    context = mapOf("records" to records),
                     exception = e,
                 )
                 complete(

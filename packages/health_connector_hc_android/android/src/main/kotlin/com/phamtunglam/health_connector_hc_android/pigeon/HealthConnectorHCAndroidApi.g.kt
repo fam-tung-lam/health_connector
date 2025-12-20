@@ -3081,138 +3081,6 @@ data class ReadRecordsResponseDto (
 }
 
 /**
- * Request to write a single health record.
- *
- * Generated class from Pigeon that represents data sent in messages.
- */
-data class WriteRecordRequestDto (
-  /** Health record. */
-  val record: HealthRecordDto
-)
- {
-  companion object {
-    fun fromList(pigeonVar_list: List<Any?>): WriteRecordRequestDto {
-      val record = pigeonVar_list[0] as HealthRecordDto
-      return WriteRecordRequestDto(record)
-    }
-  }
-  fun toList(): List<Any?> {
-    return listOf(
-      record,
-    )
-  }
-  override fun equals(other: Any?): Boolean {
-    if (other !is WriteRecordRequestDto) {
-      return false
-    }
-    if (this === other) {
-      return true
-    }
-    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
-
-  override fun hashCode(): Int = toList().hashCode()
-}
-
-/**
- * Response after writing a single record.
- *
- * Generated class from Pigeon that represents data sent in messages.
- */
-data class WriteRecordResponseDto (
-  /** Platform-assigned unique identifier for the written record. */
-  val recordId: String
-)
- {
-  companion object {
-    fun fromList(pigeonVar_list: List<Any?>): WriteRecordResponseDto {
-      val recordId = pigeonVar_list[0] as String
-      return WriteRecordResponseDto(recordId)
-    }
-  }
-  fun toList(): List<Any?> {
-    return listOf(
-      recordId,
-    )
-  }
-  override fun equals(other: Any?): Boolean {
-    if (other !is WriteRecordResponseDto) {
-      return false
-    }
-    if (this === other) {
-      return true
-    }
-    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
-
-  override fun hashCode(): Int = toList().hashCode()
-}
-
-/**
- * Request to write multiple health records atomically.
- *
- * Generated class from Pigeon that represents data sent in messages.
- */
-data class WriteRecordsRequestDto (
-  /** Records being written. */
-  val records: List<HealthRecordDto>
-)
- {
-  companion object {
-    fun fromList(pigeonVar_list: List<Any?>): WriteRecordsRequestDto {
-      val records = pigeonVar_list[0] as List<HealthRecordDto>
-      return WriteRecordsRequestDto(records)
-    }
-  }
-  fun toList(): List<Any?> {
-    return listOf(
-      records,
-    )
-  }
-  override fun equals(other: Any?): Boolean {
-    if (other !is WriteRecordsRequestDto) {
-      return false
-    }
-    if (this === other) {
-      return true
-    }
-    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
-
-  override fun hashCode(): Int = toList().hashCode()
-}
-
-/**
- * Response after writing multiple records.
- *
- * Generated class from Pigeon that represents data sent in messages.
- */
-data class WriteRecordsResponseDto (
-  /** Platform-assigned unique identifiers for written records. */
-  val recordIds: List<String>
-)
- {
-  companion object {
-    fun fromList(pigeonVar_list: List<Any?>): WriteRecordsResponseDto {
-      val recordIds = pigeonVar_list[0] as List<String>
-      return WriteRecordsResponseDto(recordIds)
-    }
-  }
-  fun toList(): List<Any?> {
-    return listOf(
-      recordIds,
-    )
-  }
-  override fun equals(other: Any?): Boolean {
-    if (other !is WriteRecordsResponseDto) {
-      return false
-    }
-    if (this === other) {
-      return true
-    }
-    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
-
-  override fun hashCode(): Int = toList().hashCode()
-}
-
-/**
  * Configuration data transfer object for Health Connector.
  *
  * Contains configuration settings that are passed from Dart to native
@@ -3652,26 +3520,6 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       209.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          WriteRecordRequestDto.fromList(it)
-        }
-      }
-      210.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
-          WriteRecordResponseDto.fromList(it)
-        }
-      }
-      211.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
-          WriteRecordsRequestDto.fromList(it)
-        }
-      }
-      212.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
-          WriteRecordsResponseDto.fromList(it)
-        }
-      }
-      213.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
           HealthConnectorConfigDto.fromList(it)
         }
       }
@@ -4000,24 +3848,8 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(208)
         writeValue(stream, value.toList())
       }
-      is WriteRecordRequestDto -> {
-        stream.write(209)
-        writeValue(stream, value.toList())
-      }
-      is WriteRecordResponseDto -> {
-        stream.write(210)
-        writeValue(stream, value.toList())
-      }
-      is WriteRecordsRequestDto -> {
-        stream.write(211)
-        writeValue(stream, value.toList())
-      }
-      is WriteRecordsResponseDto -> {
-        stream.write(212)
-        writeValue(stream, value.toList())
-      }
       is HealthConnectorConfigDto -> {
-        stream.write(213)
+        stream.write(209)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)
@@ -4048,8 +3880,8 @@ interface HealthConnectorHCAndroidApi {
   fun revokeAllPermissions(callback: (Result<Unit>) -> Unit)
   fun readRecord(request: ReadRecordRequestDto, callback: (Result<ReadRecordResponseDto?>) -> Unit)
   fun readRecords(request: ReadRecordsRequestDto, callback: (Result<ReadRecordsResponseDto>) -> Unit)
-  fun writeRecord(request: WriteRecordRequestDto, callback: (Result<WriteRecordResponseDto>) -> Unit)
-  fun writeRecords(request: WriteRecordsRequestDto, callback: (Result<WriteRecordsResponseDto>) -> Unit)
+  fun writeRecord(record: HealthRecordDto, callback: (Result<String>) -> Unit)
+  fun writeRecords(records: List<HealthRecordDto>, callback: (Result<List<String>>) -> Unit)
   fun updateRecord(record: HealthRecordDto, callback: (Result<Unit>) -> Unit)
   fun updateRecords(records: List<HealthRecordDto>, callback: (Result<Unit>) -> Unit)
 
@@ -4258,8 +4090,8 @@ interface HealthConnectorHCAndroidApi {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val requestArg = args[0] as WriteRecordRequestDto
-            api.writeRecord(requestArg) { result: Result<WriteRecordResponseDto> ->
+            val recordArg = args[0] as HealthRecordDto
+            api.writeRecord(recordArg) { result: Result<String> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
@@ -4278,8 +4110,8 @@ interface HealthConnectorHCAndroidApi {
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
-            val requestArg = args[0] as WriteRecordsRequestDto
-            api.writeRecords(requestArg) { result: Result<WriteRecordsResponseDto> ->
+            val recordsArg = args[0] as List<HealthRecordDto>
+            api.writeRecords(recordsArg) { result: Result<List<String>> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))

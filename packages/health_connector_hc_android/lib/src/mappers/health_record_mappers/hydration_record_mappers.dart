@@ -30,7 +30,7 @@ extension HydrationRecordToDto on HydrationRecord {
 extension HydrationRecordDtoToDomain on HydrationRecordDto {
   HydrationRecord toDomain() {
     return HydrationRecord(
-      id: id?.toHealthRecordId() ?? HealthRecordId.none,
+      id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,

@@ -30,7 +30,7 @@ extension WheelchairPushesRecordToDto on WheelchairPushesRecord {
 extension WheelchairPushesRecordDtoToDomain on WheelchairPushesRecordDto {
   WheelchairPushesRecord toDomain() {
     return WheelchairPushesRecord(
-      id: id?.toHealthRecordId() ?? HealthRecordId.none,
+      id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,

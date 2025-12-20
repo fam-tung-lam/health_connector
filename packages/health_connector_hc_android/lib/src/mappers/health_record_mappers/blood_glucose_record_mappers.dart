@@ -43,7 +43,7 @@ extension BloodGlucoseRecordToDto on BloodGlucoseRecord {
 extension BloodGlucoseRecordDtoToDomain on BloodGlucoseRecordDto {
   BloodGlucoseRecord toDomain() {
     return BloodGlucoseRecord(
-      id: id?.toHealthRecordId() ?? HealthRecordId.none,
+      id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),

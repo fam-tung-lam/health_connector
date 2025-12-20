@@ -13,7 +13,7 @@ extension HealthRecordIdToString on HealthRecordId {
 @sinceV1_0_0
 @internal
 extension StringToHealthRecordId on String {
-  HealthRecordId toHealthRecordId() {
+  HealthRecordId toDomain() {
     if (this == HealthRecordId.none.value) {
       return HealthRecordId.none;
     }

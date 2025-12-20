@@ -30,7 +30,7 @@ extension HeartRateSeriesRecordToDto on HeartRateSeriesRecord {
 extension HeartRateSeriesRecordDtoToDomain on HeartRateSeriesRecordDto {
   HeartRateSeriesRecord toDomain() {
     return HeartRateSeriesRecord(
-      id: id?.toHealthRecordId() ?? HealthRecordId.none,
+      id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
       startZoneOffsetSeconds: startZoneOffsetSeconds,
