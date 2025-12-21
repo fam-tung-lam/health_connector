@@ -60,8 +60,5 @@ final class BodyTemperatureRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'body_temperature_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

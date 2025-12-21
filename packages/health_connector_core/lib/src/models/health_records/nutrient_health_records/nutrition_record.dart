@@ -93,8 +93,6 @@ final class NutritionRecord extends IntervalHealthRecord {
   // Other
   final Mass? caffeine;
 
-  @override
-  String get name => 'nutrition';
 
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [

@@ -16,8 +16,7 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
   @override
   String get identifier => 'height';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>

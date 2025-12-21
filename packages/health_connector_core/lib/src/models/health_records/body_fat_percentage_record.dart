@@ -77,8 +77,5 @@ final class BodyFatPercentageRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'body_fat_percentage_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

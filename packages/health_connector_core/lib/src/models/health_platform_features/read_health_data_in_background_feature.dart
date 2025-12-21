@@ -6,9 +6,6 @@ part of 'health_platform_feature.dart';
 final class HealthPlatformFeatureReadHealthDataInBackground
     extends HealthPlatformFeature {
   @override
-  String get name => 'read_health_data_in_background';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is HealthPlatformFeatureReadHealthDataInBackground &&
@@ -16,7 +13,4 @@ final class HealthPlatformFeatureReadHealthDataInBackground
 
   @override
   int get hashCode => runtimeType.hashCode;
-
-  @override
-  String toString() => 'feature_$name';
 }

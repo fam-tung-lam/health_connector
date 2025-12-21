@@ -14,7 +14,4 @@ import 'package:meta/meta.dart' show immutable, internal;
 abstract interface class HealthPlatformData {
   /// The list of health platforms that support this data.
   List<HealthPlatform> get supportedHealthPlatforms;
-
-  /// The name of this data type, used for logging purposes.
-  String get name;
 }

@@ -23,8 +23,7 @@ final class HeartRateSeriesRecordHealthDataType
   @override
   String get identifier => 'heart_rate_series_record';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>

@@ -55,9 +55,6 @@ final class DiastolicBloodPressureRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'diastolic_blood_pressure_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
   ];

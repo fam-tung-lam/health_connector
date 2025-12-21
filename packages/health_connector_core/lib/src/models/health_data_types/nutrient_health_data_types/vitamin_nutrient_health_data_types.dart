@@ -25,8 +25,7 @@ final class VitaminANutrientDataType
   @override
   String get identifier => 'vitamin_a';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -91,8 +90,7 @@ final class VitaminB6NutrientDataType
   @override
   String get identifier => 'vitamin_b6';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -157,8 +155,7 @@ final class VitaminB12NutrientDataType
   @override
   String get identifier => 'vitamin_b12';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -225,8 +222,7 @@ final class VitaminCNutrientDataType
   @override
   String get identifier => 'vitamin_c';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -291,8 +287,7 @@ final class VitaminDNutrientDataType
   @override
   String get identifier => 'vitamin_d';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -357,8 +352,7 @@ final class VitaminENutrientDataType
   @override
   String get identifier => 'vitamin_e';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -423,8 +417,7 @@ final class VitaminKNutrientDataType
   @override
   String get identifier => 'vitamin_k';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -489,8 +482,7 @@ final class ThiaminNutrientDataType
   @override
   String get identifier => 'thiamin';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -555,8 +547,7 @@ final class RiboflavinNutrientDataType
   @override
   String get identifier => 'riboflavin';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -623,8 +614,7 @@ final class NiacinNutrientDataType
   @override
   String get identifier => 'niacin';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -689,8 +679,7 @@ final class FolateNutrientDataType
   @override
   String get identifier => 'folate';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -755,8 +744,7 @@ final class BiotinNutrientDataType
   @override
   String get identifier => 'biotin';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -821,8 +809,7 @@ final class PantothenicAcidNutrientDataType
   @override
   String get identifier => 'pantothenic_acid';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

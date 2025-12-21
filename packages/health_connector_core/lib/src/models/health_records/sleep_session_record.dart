@@ -77,9 +77,6 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStage> {
   }
 
   @override
-  String get name => 'sleep_session_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.healthConnect,
   ];

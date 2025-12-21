@@ -77,8 +77,5 @@ final class DistanceRecord extends IntervalHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'distance_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

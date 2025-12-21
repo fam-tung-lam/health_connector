@@ -15,8 +15,7 @@ final class StepsHealthDataType extends HealthDataType<StepsRecord, Number>
   @override
   String get identifier => 'steps';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>

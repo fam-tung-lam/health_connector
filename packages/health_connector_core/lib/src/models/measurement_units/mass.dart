@@ -151,8 +151,5 @@ final class Mass extends MeasurementUnit implements Comparable<Mass> {
   int compareTo(Mass other) => _kilograms.compareTo(other._kilograms);
 
   @override
-  String get name => 'mass';
-
-  @override
   String toString() => '${_kilograms.toStringAsFixed(3)} kg';
 }

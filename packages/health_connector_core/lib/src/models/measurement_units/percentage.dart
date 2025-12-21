@@ -114,8 +114,5 @@ final class Percentage extends MeasurementUnit
   int compareTo(Percentage other) => _value.compareTo(other._value);
 
   @override
-  String get name => 'percentage';
-
-  @override
   String toString() => '${asWhole.toStringAsFixed(1)}%';
 }

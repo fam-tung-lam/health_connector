@@ -51,9 +51,6 @@ final class CalciumNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'calcium_nutrient_record';
 }
 
 /// Health record for iron intake.
@@ -90,9 +87,6 @@ final class IronNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'iron_nutrient_record';
 }
 
 /// Health record for magnesium intake.
@@ -129,9 +123,6 @@ final class MagnesiumNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'magnesium_nutrient_record';
 }
 
 /// Health record for manganese intake.
@@ -168,9 +159,6 @@ final class ManganeseNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'manganese_nutrient_record';
 }
 
 /// Health record for phosphorus intake.
@@ -207,9 +195,6 @@ final class PhosphorusNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'phosphorus_nutrient_record';
 }
 
 /// Health record for potassium intake.
@@ -246,9 +231,6 @@ final class PotassiumNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'potassium_nutrient_record';
 }
 
 /// Health record for selenium intake.
@@ -285,9 +267,6 @@ final class SeleniumNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'selenium_nutrient_record';
 }
 
 /// Health record for sodium intake.
@@ -324,9 +303,6 @@ final class SodiumNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'sodium_nutrient_record';
 }
 
 /// Health record for zinc intake.
@@ -363,7 +339,4 @@ final class ZincNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'zinc_nutrient_record';
 }

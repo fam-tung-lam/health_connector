@@ -15,8 +15,7 @@ final class ActiveCaloriesBurnedHealthDataType
   @override
   String get identifier => 'active_calories_burned';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>

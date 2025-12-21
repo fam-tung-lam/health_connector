@@ -70,8 +70,5 @@ final class StepsRecord extends IntervalHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'step_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

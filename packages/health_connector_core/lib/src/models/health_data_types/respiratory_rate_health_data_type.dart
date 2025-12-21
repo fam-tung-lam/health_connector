@@ -17,8 +17,7 @@ final class RespiratoryRateHealthDataType
   @override
   String get identifier => 'respiratory_rate';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>

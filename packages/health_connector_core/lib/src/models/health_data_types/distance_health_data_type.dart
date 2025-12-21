@@ -15,8 +15,7 @@ final class DistanceHealthDataType
   @override
   String get identifier => 'distance';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>

@@ -25,8 +25,7 @@ final class ProteinNutrientDataType
   @override
   String get identifier => 'protein';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>
@@ -104,8 +103,7 @@ final class TotalCarbohydrateNutrientDataType
   @override
   String get identifier => 'total_carbohydrate';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>
@@ -186,8 +184,7 @@ final class TotalFatNutrientDataType
   @override
   String get identifier => 'total_fat';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>
@@ -265,8 +262,7 @@ final class SaturatedFatNutrientDataType
   @override
   String get identifier => 'saturated_fat';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>
@@ -346,8 +342,7 @@ final class MonounsaturatedFatNutrientDataType
   @override
   String get identifier => 'monounsaturated_fat';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>
@@ -428,8 +423,7 @@ final class PolyunsaturatedFatNutrientDataType
   @override
   String get identifier => 'polyunsaturated_fat';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>
@@ -510,8 +504,7 @@ final class CholesterolNutrientDataType
   @override
   String get identifier => 'cholesterol';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>
@@ -591,8 +584,7 @@ final class DietaryFiberNutrientDataType
   @override
   String get identifier => 'dietary_fiber';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>
@@ -672,8 +664,7 @@ final class SugarNutrientDataType
   @override
   String get identifier => 'sugar';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>

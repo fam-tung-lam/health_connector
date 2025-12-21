@@ -64,8 +64,7 @@ final class HydrationHealthDataType
   @override
   String get identifier => 'hydration';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>

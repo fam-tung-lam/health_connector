@@ -78,8 +78,5 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'floors_climbed_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

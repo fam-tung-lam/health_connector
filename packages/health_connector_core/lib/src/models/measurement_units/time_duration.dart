@@ -154,8 +154,5 @@ final class TimeDuration extends MeasurementUnit
   int compareTo(TimeDuration other) => _seconds.compareTo(other._seconds);
 
   @override
-  String get name => 'duration';
-
-  @override
   String toString() => '${_seconds.toStringAsFixed(3)} s';
 }

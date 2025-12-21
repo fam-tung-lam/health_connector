@@ -78,8 +78,5 @@ final class ActiveCaloriesBurnedRecord extends IntervalHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'active_calories_burned_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

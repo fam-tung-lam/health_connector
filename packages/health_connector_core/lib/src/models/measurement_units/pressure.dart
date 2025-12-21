@@ -92,8 +92,5 @@ final class Pressure extends MeasurementUnit implements Comparable<Pressure> {
       _millimetersOfMercury.compareTo(other._millimetersOfMercury);
 
   @override
-  String get name => 'pressure';
-
-  @override
   String toString() => '${_millimetersOfMercury.toStringAsFixed(1)} mmHg';
 }

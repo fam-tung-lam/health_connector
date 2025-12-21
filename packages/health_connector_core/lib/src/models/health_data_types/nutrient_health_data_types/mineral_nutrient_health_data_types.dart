@@ -35,8 +35,7 @@ final class CalciumNutrientDataType
   @override
   String get identifier => 'calcium';
 
-  @override
-  String get name => identifier;
+
 
   @override
   String toString() => 'calcium_health_data_type';
@@ -104,8 +103,7 @@ final class IronNutrientDataType
   @override
   String get identifier => 'iron';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -170,8 +168,7 @@ final class MagnesiumNutrientDataType
   @override
   String get identifier => 'magnesium';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -236,8 +233,7 @@ final class ManganeseNutrientDataType
   @override
   String get identifier => 'manganese';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -302,8 +298,7 @@ final class PhosphorusNutrientDataType
   @override
   String get identifier => 'phosphorus';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -370,8 +365,7 @@ final class PotassiumNutrientDataType
   @override
   String get identifier => 'potassium';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -436,8 +430,7 @@ final class SeleniumNutrientDataType
   @override
   String get identifier => 'selenium';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -502,8 +495,7 @@ final class SodiumNutrientDataType
   @override
   String get identifier => 'sodium';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -568,8 +560,7 @@ final class ZincNutrientDataType
   @override
   String get identifier => 'zinc';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

@@ -51,9 +51,6 @@ final class ProteinNutrientRecord extends MacronutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'protein_nutrient_record';
 }
 
 /// Health record for total carbohydrate intake.
@@ -90,9 +87,6 @@ final class TotalCarbohydrateNutrientRecord extends MacronutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'total_carbohydrate_nutrient_record';
 }
 
 /// Health record for total fat intake.
@@ -129,9 +123,6 @@ final class TotalFatNutrientRecord extends MacronutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'total_fat_nutrient_record';
 }
 
 /// Health record for saturated fat intake.
@@ -168,9 +159,6 @@ final class SaturatedFatNutrientRecord extends MacronutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'saturated_fat_nutrient_record';
 }
 
 /// Health record for monounsaturated fat intake.
@@ -207,9 +195,6 @@ final class MonounsaturatedFatNutrientRecord extends MacronutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'monounsaturated_fat_nutrient_record';
 }
 
 /// Health record for polyunsaturated fat intake.
@@ -246,9 +231,6 @@ final class PolyunsaturatedFatNutrientRecord extends MacronutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'polyunsaturated_fat_nutrient_record';
 }
 
 /// Health record for cholesterol intake.
@@ -285,9 +267,6 @@ final class CholesterolNutrientRecord extends MacronutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'cholesterol_nutrient_record';
 }
 
 /// Health record for dietary fiber intake.
@@ -324,9 +303,6 @@ final class DietaryFiberNutrientRecord extends MacronutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'dietary_fiber_nutrient_record';
 }
 
 /// Health record for sugar intake.
@@ -363,7 +339,4 @@ final class SugarNutrientRecord extends MacronutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'sugar_nutrient_record';
 }

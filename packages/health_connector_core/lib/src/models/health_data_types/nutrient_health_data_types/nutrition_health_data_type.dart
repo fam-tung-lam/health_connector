@@ -13,8 +13,7 @@ final class NutritionHealthDataType
   @override
   String get identifier => 'nutrition';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];

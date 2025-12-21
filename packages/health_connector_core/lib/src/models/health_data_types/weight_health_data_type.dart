@@ -16,8 +16,7 @@ final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
   @override
   String get identifier => 'weight';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>

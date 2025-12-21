@@ -14,8 +14,7 @@ final class BodyTemperatureHealthDataType
   @override
   String get identifier => 'bodyTemperature';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>

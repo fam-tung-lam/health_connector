@@ -60,8 +60,5 @@ final class LeanBodyMassRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'lean_body_mass_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

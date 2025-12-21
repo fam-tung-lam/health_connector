@@ -88,9 +88,6 @@ final class HeartRateSeriesRecord
   }
 
   @override
-  String get name => 'heart_rate_series_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.healthConnect,
   ];

@@ -77,8 +77,5 @@ final class Power extends MeasurementUnit implements Comparable<Power> {
   int compareTo(Power other) => _watts.compareTo(other._watts);
 
   @override
-  String get name => 'power';
-
-  @override
   String toString() => '${_watts.toStringAsFixed(1)} W';
 }

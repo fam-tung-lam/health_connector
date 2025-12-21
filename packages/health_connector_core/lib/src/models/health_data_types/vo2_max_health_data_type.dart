@@ -19,8 +19,7 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Number>
   @override
   String get identifier => 'vo2_max';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>

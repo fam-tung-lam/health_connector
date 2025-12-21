@@ -70,9 +70,6 @@ final class SleepStageRecord extends IntervalHealthRecord {
   }
 
   @override
-  String get name => 'sleep_stage_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
   ];

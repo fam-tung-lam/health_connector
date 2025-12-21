@@ -22,8 +22,7 @@ final class SleepStageHealthDataType
   @override
   String get identifier => 'sleep_stage';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [

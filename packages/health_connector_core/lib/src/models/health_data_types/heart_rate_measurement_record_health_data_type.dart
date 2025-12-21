@@ -22,8 +22,7 @@ final class HeartRateMeasurementRecordHealthDataType
   @override
   String get identifier => 'heart_rate_measurement_record';
 
-  @override
-  String get name => identifier;
+
 
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [

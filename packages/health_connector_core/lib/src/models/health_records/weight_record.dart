@@ -59,8 +59,5 @@ final class WeightRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'weight_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

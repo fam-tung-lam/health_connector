@@ -39,10 +39,6 @@ final class Number extends MeasurementUnit implements Comparable<Number> {
 
   @override
   int compareTo(Number other) => value.compareTo(other.value);
-
-  @override
-  String get name => 'number';
-
   @override
   String toString() => value.toString();
 }

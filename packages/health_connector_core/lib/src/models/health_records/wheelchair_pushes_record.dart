@@ -78,8 +78,5 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'wheelchair_pushes_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

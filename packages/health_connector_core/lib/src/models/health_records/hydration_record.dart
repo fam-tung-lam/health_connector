@@ -76,8 +76,5 @@ final class HydrationRecord extends IntervalHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'hydration_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

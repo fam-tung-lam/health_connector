@@ -79,9 +79,6 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
       mealType.hashCode ^
       specimenSource.hashCode ^
       metadata.hashCode;
-
-  @override
-  String get name => 'blood_glucose_record';
 }
 
 /// Represents the type of meal associated with the measurement.

@@ -28,8 +28,5 @@ final class RespiratoryRateRecord extends InstantHealthRecord {
   int get hashCode => Object.hash(super.hashCode, breathsPerMin);
 
   @override
-  String get name => 'respiratory_rate_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

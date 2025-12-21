@@ -97,8 +97,5 @@ final class HeightRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'height_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

@@ -114,8 +114,5 @@ final class Volume extends MeasurementUnit implements Comparable<Volume> {
   int compareTo(Volume other) => _liters.compareTo(other._liters);
 
   @override
-  String get name => 'volume';
-
-  @override
   String toString() => '${_liters.toStringAsFixed(3)} L';
 }

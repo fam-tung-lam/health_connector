@@ -27,11 +27,4 @@ final class PermissionRequestResult extends Response {
   /// This indicates whether the permission was granted, denied, or if the
   /// status is unknown (common for read permissions on iOS).
   final PermissionStatus status;
-
-  @override
-  String toString() =>
-      'PermissionResult('
-      'permission: ${permission.name}, '
-      'status: ${status.name}'
-      ')';
 }

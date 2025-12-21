@@ -33,8 +33,7 @@ final class EnergyNutrientDataType
   @override
   String get identifier => 'energy_nutrient';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>
@@ -112,8 +111,7 @@ final class CaffeineNutrientDataType
   @override
   String get identifier => 'caffeine';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>

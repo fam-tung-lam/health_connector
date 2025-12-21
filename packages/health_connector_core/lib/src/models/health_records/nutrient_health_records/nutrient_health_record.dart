@@ -59,9 +59,6 @@ final class EnergyNutrientRecord extends NutrientHealthRecord<Energy> {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'energy_nutrient_record';
 }
 
 @sinceV1_1_0
@@ -97,7 +94,4 @@ final class CaffeineNutrientRecord extends NutrientHealthRecord<Mass> {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'caffeine_nutrient_record';
 }

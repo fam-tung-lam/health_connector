@@ -51,9 +51,6 @@ final class VitaminANutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'vitamin_a_nutrient_record';
 }
 
 /// Health record for vitamin B6 intake.
@@ -90,9 +87,6 @@ final class VitaminB6NutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'vitamin_b6_nutrient_record';
 }
 
 /// Health record for vitamin B12 intake.
@@ -129,9 +123,6 @@ final class VitaminB12NutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'vitamin_b12_nutrient_record';
 }
 
 /// Health record for vitamin C intake.
@@ -168,9 +159,6 @@ final class VitaminCNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'vitamin_c_nutrient_record';
 }
 
 /// Health record for vitamin D intake.
@@ -207,9 +195,6 @@ final class VitaminDNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'vitamin_d_nutrient_record';
 }
 
 /// Health record for vitamin E intake.
@@ -246,9 +231,6 @@ final class VitaminENutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'vitamin_e_nutrient_record';
 }
 
 /// Health record for vitamin K intake.
@@ -285,9 +267,6 @@ final class VitaminKNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'vitamin_k_nutrient_record';
 }
 
 /// Health record for thiamin (vitamin B1) intake.
@@ -324,9 +303,6 @@ final class ThiaminNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'thiamin_nutrient_record';
 }
 
 /// Health record for riboflavin (vitamin B2) intake.
@@ -363,9 +339,6 @@ final class RiboflavinNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'riboflavin_nutrient_record';
 }
 
 /// Health record for niacin (vitamin B3) intake.
@@ -402,9 +375,6 @@ final class NiacinNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'niacin_nutrient_record';
 }
 
 /// Health record for folate (vitamin B9) intake.
@@ -441,9 +411,6 @@ final class FolateNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'folate_nutrient_record';
 }
 
 /// Health record for biotin (vitamin B7) intake.
@@ -480,9 +447,6 @@ final class BiotinNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'biotin_nutrient_record';
 }
 
 /// Health record for pantothenic acid (vitamin B5) intake.
@@ -519,7 +483,4 @@ final class PantothenicAcidNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  @override
-  String get name => 'pantothenic_acid_nutrient_record';
 }

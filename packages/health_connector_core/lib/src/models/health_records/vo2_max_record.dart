@@ -75,9 +75,6 @@ final class Vo2MaxRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'vo2_max_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }
 

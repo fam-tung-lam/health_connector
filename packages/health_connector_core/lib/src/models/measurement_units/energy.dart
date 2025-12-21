@@ -157,8 +157,5 @@ final class Energy extends MeasurementUnit implements Comparable<Energy> {
   int compareTo(Energy other) => _kilocalories.compareTo(other._kilocalories);
 
   @override
-  String get name => 'energy';
-
-  @override
   String toString() => '${_kilocalories.toStringAsFixed(3)} kcal';
 }

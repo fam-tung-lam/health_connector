@@ -59,8 +59,5 @@ final class RestingHeartRateRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String get name => 'resting_heart_rate_record';
-
-  @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

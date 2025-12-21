@@ -15,8 +15,7 @@ final class WheelchairPushesHealthDataType
   @override
   String get identifier => 'wheelchair_pushes';
 
-  @override
-  String get name => identifier;
+
 
   @override
   bool operator ==(Object other) =>
