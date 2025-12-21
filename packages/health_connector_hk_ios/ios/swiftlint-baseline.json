@@ -1,1607 +1,1277 @@
 [
   {
-    "text": "class HealthConnectorClient {",
     "violation": {
-      "severity": "error",
-      "ruleDescription": "Type bodies should not span too many lines",
+      "ruleDescription": "A doc comment should be attached to a declaration",
+      "severity": "warning",
+      "ruleName": "Orphaned Doc Comment",
       "location": {
-        "line": 7,
-        "character": 1,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift",
+        "line": 4,
+        "character": 1
+      },
+      "ruleIdentifier": "orphaned_doc_comment",
+      "reason": "A doc comment should be attached to a declaration"
+    },
+    "text": "\/\/\/ Internal client wrapper for the HealthKit SDK."
+  },
+  {
+    "violation": {
+      "ruleDescription": "Type bodies should not span too many lines",
+      "severity": "warning",
+      "ruleName": "Type Body Length",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift",
+        "line": 18,
+        "character": 1
       },
       "ruleIdentifier": "type_body_length",
-      "ruleName": "Type Body Length",
-      "reason": "Class body should span 500 lines or less excluding comments and whitespace: currently spans 1474 lines"
-    }
+      "reason": "Actor body should span 300 lines or less excluding comments and whitespace: currently spans 340 lines"
+    },
+    "text": "actor HealthConnectorClient: Taggable {"
   },
   {
-    "text": "    func requestPermissions(healthDataPermissions: [HealthDataPermissionDto]) async throws",
     "violation": {
-      "severity": "warning",
-      "ruleDescription": "Function bodies should not span too many lines",
-      "location": {
-        "line": 138,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "function_body_length",
-      "ruleName": "Function Body Length",
-      "reason": "Function body should span 100 lines or less excluding comments and whitespace: currently spans 104 lines"
-    }
-  },
-  {
-    "text": "    {",
-    "violation": {
-      "severity": "warning",
       "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
       "location": {
-        "line": 140,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift",
+        "line": 106,
+        "character": 5
       },
       "ruleIdentifier": "opening_brace",
-      "ruleName": "Opening Brace Spacing",
       "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
-    }
+    },
+    "text": "    {"
   },
   {
-    "text": "            let results = try healthDataPermissions.map {",
     "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
       "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
+      "ruleName": "Opening Brace Spacing",
       "location": {
-        "line": 173,
-        "character": 57,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift",
+        "line": 132,
+        "character": 5
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "    {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Closure bodies should not span too many lines",
+      "severity": "warning",
+      "ruleName": "Closure Body Length",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift",
+        "line": 226,
+        "character": 84
       },
       "ruleIdentifier": "closure_body_length",
+      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 45 lines"
+    },
+    "text": "        try await process(operation: \"readRecords\", context: [\"request\": request]) {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Closure bodies should not span too many lines",
+      "severity": "error",
       "ruleName": "Closure Body Length",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift",
+        "line": 343,
+        "character": 96
+      },
+      "ruleIdentifier": "closure_body_length",
+      "reason": "Closure body should span 50 lines or less excluding comments and whitespace: currently spans 51 lines"
+    },
+    "text": "        try await process(operation: \"writeRecords\", context: [\"totalRecords\": records.count]) {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Closure bodies should not span too many lines",
+      "severity": "warning",
+      "ruleName": "Closure Body Length",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift",
+        "line": 421,
+        "character": 82
+      },
+      "ruleIdentifier": "closure_body_length",
       "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 32 lines"
-    }
+    },
+    "text": "        try await process(operation: \"aggregate\", context: [\"request\": request]) {"
   },
   {
-    "text": "                permissionDto -> HealthDataPermissionRequestResultDto in",
     "violation": {
+      "ruleDescription": "Files should not span too many lines.",
       "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
+      "ruleName": "File Length",
       "location": {
-        "line": 174,
-        "character": 17,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift",
+        "line": 597,
+        "character": 1
       },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
+      "ruleIdentifier": "file_length",
+      "reason": "File should contain 500 lines or less: currently contains 597"
+    },
+    "text": "}"
   },
   {
-    "text": "    func readRecord(request: ReadRecordRequestDto) async throws -> ReadRecordResponseDto? {",
     "violation": {
+      "ruleDescription": "Implicitly unwrapped optionals should be avoided when possible",
       "severity": "warning",
-      "ruleDescription": "Function bodies should not span too many lines",
+      "ruleName": "Implicitly Unwrapped Optional",
       "location": {
-        "line": 275,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorHkIosPlugin.swift",
+        "line": 14,
+        "character": 31
       },
-      "ruleIdentifier": "function_body_length",
-      "ruleName": "Function Body Length",
-      "reason": "Function body should span 100 lines or less excluding comments and whitespace: currently spans 106 lines"
-    }
+      "ruleIdentifier": "implicitly_unwrapped_optional",
+      "reason": "Implicitly unwrapped optionals should be avoided when possible"
+    },
+    "text": "    private var healthClient: HealthConnectorClient!"
   },
   {
-    "text": "                (continuation: CheckedContinuation<ReadRecordResponseDto?, Error>) in",
     "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 314,
-        "character": 18,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 321,
-        "character": 21,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 321,
-        "character": 24,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 321,
-        "character": 33,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "    func readRecords(request: ReadRecordsRequestDto) async throws -> ReadRecordsResponseDto {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Complexity of function bodies should be limited.",
-      "location": {
-        "line": 438,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "cyclomatic_complexity",
-      "ruleName": "Cyclomatic Complexity",
-      "reason": "Function should have complexity 10 or less; currently complexity is 13"
-    }
-  },
-  {
-    "text": "    func readRecords(request: ReadRecordsRequestDto) async throws -> ReadRecordsResponseDto {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Function bodies should not span too many lines",
-      "location": {
-        "line": 438,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "function_body_length",
-      "ruleName": "Function Body Length",
-      "reason": "Function body should span 100 lines or less excluding comments and whitespace: currently spans 182 lines"
-    }
-  },
-  {
-    "text": "                    source in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 549,
-        "character": 21,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "            let responseDto = try await withCheckedThrowingContinuation {",
-    "violation": {
-      "severity": "warning",
       "ruleDescription": "Closure bodies should not span too many lines",
+      "severity": "warning",
+      "ruleName": "Closure Body Length",
       "location": {
-        "line": 564,
-        "character": 73,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorHkIosPlugin.swift",
+        "line": 232,
+        "character": 14
       },
       "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 43 lines"
-    }
-  },
-  {
-    "text": "                (continuation: CheckedContinuation<ReadRecordsResponseDto, Error>) in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 565,
-        "character": 18,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                ) {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 580,
-        "character": 19,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 34 lines"
-    }
-  },
-  {
-    "text": "                    _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 581,
-        "character": 21,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 581,
-        "character": 24,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 581,
-        "character": 33,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "    {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
-      "location": {
-        "line": 701,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "opening_brace",
-      "ruleName": "Opening Brace Spacing",
-      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
-    }
-  },
-  {
-    "text": "            continuation in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 747,
-        "character": 13,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 756,
-        "character": 17,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 756,
-        "character": 20,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 756,
-        "character": 29,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "            return try await withCheckedThrowingContinuation {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 821,
-        "character": 62,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 39 lines"
-    }
-  },
-  {
-    "text": "                continuation in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 822,
-        "character": 17,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                store.save(sample) {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 823,
-        "character": 36,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 36 lines"
-    }
-  },
-  {
-    "text": "                    success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 824,
-        "character": 21,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 824,
-        "character": 30,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "    func updateRecord(request: UpdateRecordRequestDto) async throws -> UpdateRecordResponseDto {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Complexity of function bodies should be limited.",
-      "location": {
-        "line": 915,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "cyclomatic_complexity",
-      "ruleName": "Cyclomatic Complexity",
-      "reason": "Function should have complexity 10 or less; currently complexity is 15"
-    }
-  },
-  {
-    "text": "    func updateRecord(request: UpdateRecordRequestDto) async throws -> UpdateRecordResponseDto {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Function bodies should not span too many lines",
-      "location": {
-        "line": 915,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "function_body_length",
-      "ruleName": "Function Body Length",
-      "reason": "Function body should span 100 lines or less excluding comments and whitespace: currently spans 169 lines"
-    }
-  },
-  {
-    "text": "            let existingSample: HKSample = try await withCheckedThrowingContinuation {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 958,
-        "character": 86,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 34 lines"
-    }
-  },
-  {
-    "text": "                continuation in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 959,
-        "character": 17,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 967,
-        "character": 21,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 967,
-        "character": 24,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 967,
-        "character": 33,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                (continuation: CheckedContinuation<Void, Error>) in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1004,
-        "character": 18,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1006,
-        "character": 21,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1006,
-        "character": 30,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "            let newRecordId = try await withCheckedThrowingContinuation {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 1036,
-        "character": 73,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 37 lines"
-    }
-  },
-  {
-    "text": "                (continuation: CheckedContinuation<String, Error>) in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1037,
-        "character": 18,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                store.save(newSample) {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 1038,
-        "character": 39,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 34 lines"
-    }
-  },
-  {
-    "text": "                    success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1039,
-        "character": 21,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1039,
-        "character": 30,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "            return try await withCheckedThrowingContinuation {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 1154,
-        "character": 62,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 39 lines"
-    }
-  },
-  {
-    "text": "                continuation in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1155,
-        "character": 17,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                store.save(samples) {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 1156,
-        "character": 37,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 36 lines"
-    }
-  },
-  {
-    "text": "                    success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1157,
-        "character": 21,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1157,
-        "character": 30,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "    private func extractAggregateResponse(",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Complexity of function bodies should be limited.",
-      "location": {
-        "line": 1353,
-        "character": 13,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "cyclomatic_complexity",
-      "ruleName": "Cyclomatic Complexity",
-      "reason": "Function should have complexity 10 or less; currently complexity is 15"
-    }
-  },
-  {
-    "text": "    private func extractAggregateResponse(",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Function bodies should not span too many lines",
-      "location": {
-        "line": 1353,
-        "character": 13,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "function_body_length",
-      "ruleName": "Function Body Length",
-      "reason": "Function body should span 100 lines or less excluding comments and whitespace: currently spans 140 lines"
-    }
-  },
-  {
-    "text": "        return try await withCheckedThrowingContinuation {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 1529,
-        "character": 58,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 34 lines"
-    }
-  },
-  {
-    "text": "            continuation in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1530,
-        "character": 13,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                _, statistics, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1536,
-        "character": 17,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                _, statistics, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1536,
-        "character": 20,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                _, statistics, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1536,
-        "character": 32,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "        let samples = try await withCheckedThrowingContinuation {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 1616,
-        "character": 65,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
       "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 31 lines"
-    }
+    },
+    "text": "        Task {"
   },
   {
-    "text": "            (continuation: CheckedContinuation<[HKCategorySample], Error>) in",
     "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1617,
-        "character": 14,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1624,
-        "character": 17,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1624,
-        "character": 20,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1624,
-        "character": 29,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "            try await withCheckedThrowingContinuation {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 1746,
-        "character": 55,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 36 lines"
-    }
-  },
-  {
-    "text": "                (continuation: CheckedContinuation<Void, Error>) in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1747,
-        "character": 18,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                store.deleteObjects(of: sampleType, predicate: predicate) {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 1748,
-        "character": 75,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 33 lines"
-    }
-  },
-  {
-    "text": "                    success, _, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1749,
-        "character": 21,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    success, _, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1749,
-        "character": 30,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    success, _, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1749,
-        "character": 33,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "    func deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) async throws {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Complexity of function bodies should be limited.",
-      "location": {
-        "line": 1829,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "cyclomatic_complexity",
-      "ruleName": "Cyclomatic Complexity",
-      "reason": "Function should have complexity 10 or less; currently complexity is 12"
-    }
-  },
-  {
-    "text": "    func deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) async throws {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Function bodies should not span too many lines",
-      "location": {
-        "line": 1829,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "function_body_length",
-      "ruleName": "Function Body Length",
-      "reason": "Function body should span 100 lines or less excluding comments and whitespace: currently spans 134 lines"
-    }
-  },
-  {
-    "text": "                (continuation: CheckedContinuation<[HKSample], Error>) in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1862,
-        "character": 18,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1871,
-        "character": 21,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1871,
-        "character": 24,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    _, samples, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1871,
-        "character": 33,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                try await withCheckedThrowingContinuation {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 1899,
-        "character": 59,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 36 lines"
-    }
-  },
-  {
-    "text": "                    (continuation: CheckedContinuation<Void, Error>) in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1900,
-        "character": 22,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                    store.delete(samples) {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 1901,
-        "character": 43,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 33 lines"
-    }
-  },
-  {
-    "text": "                        success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1902,
-        "character": 25,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                        success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 1902,
-        "character": 34,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "}",
-    "violation": {
-      "severity": "error",
-      "ruleDescription": "Files should not span too many lines.",
-      "location": {
-        "line": 1978,
-        "character": 1,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorClient.swift"
-      },
-      "ruleIdentifier": "file_length",
-      "ruleName": "File Length",
-      "reason": "File should contain 1200 lines or less: currently contains 1978"
-    }
-  },
-  {
-    "text": "public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnectorPlatformApi {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Type bodies should not span too many lines",
-      "location": {
-        "line": 8,
-        "character": 8,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorHkIosPlugin.swift"
-      },
-      "ruleIdentifier": "type_body_length",
-      "ruleName": "Type Body Length",
-      "reason": "Class body should span 300 lines or less excluding comments and whitespace: currently spans 409 lines"
-    }
-  },
-  {
-    "text": "        Task {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 53,
-        "character": 14,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorHkIosPlugin.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 40 lines"
-    }
-  },
-  {
-    "text": "        Task {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 113,
-        "character": 14,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorHkIosPlugin.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 36 lines"
-    }
-  },
-  {
-    "text": "        Task {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 167,
-        "character": 14,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorHkIosPlugin.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 36 lines"
-    }
-  },
-  {
-    "text": "        Task {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 221,
-        "character": 14,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorHkIosPlugin.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 36 lines"
-    }
-  },
-  {
-    "text": "        Task {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 275,
-        "character": 14,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorHkIosPlugin.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 36 lines"
-    }
-  },
-  {
-    "text": "        Task {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 329,
-        "character": 14,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorHkIosPlugin.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 36 lines"
-    }
-  },
-  {
-    "text": "        Task {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 383,
-        "character": 14,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorHkIosPlugin.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 36 lines"
-    }
-  },
-  {
-    "text": "        Task {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 439,
-        "character": 14,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorHkIosPlugin.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 36 lines"
-    }
-  },
-  {
-    "text": "        Task {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure bodies should not span too many lines",
-      "location": {
-        "line": 493,
-        "character": 14,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorHkIosPlugin.swift"
-      },
-      "ruleIdentifier": "closure_body_length",
-      "ruleName": "Closure Body Length",
-      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 36 lines"
-    }
-  },
-  {
-    "text": "}",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Files should not span too many lines.",
-      "location": {
-        "line": 575,
-        "character": 1,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/HealthConnectorHkIosPlugin.swift"
-      },
-      "ruleIdentifier": "file_length",
-      "ruleName": "File Length",
-      "reason": "File should contain 500 lines or less: currently contains 575"
-    }
-  },
-  {
-    "text": "            (continuation: CheckedContinuation<Void, Error>) in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 68,
-        "character": 14,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/BloodPressureHandler.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 70,
-        "character": 17,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/BloodPressureHandler.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 70,
-        "character": 26,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/BloodPressureHandler.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "}",
-    "violation": {
-      "severity": "error",
-      "ruleDescription": "Files should not span too many lines.",
-      "location": {
-        "line": 1487,
-        "character": 1,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/NutrientHandler.swift"
-      },
-      "ruleIdentifier": "file_length",
-      "ruleName": "File Length",
-      "reason": "File should contain 1200 lines or less: currently contains 1487"
-    }
-  },
-  {
-    "text": "            (continuation: CheckedContinuation<Void, Error>) in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 56,
-        "character": 14,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/NutritionCorrelationHandler.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 58,
-        "character": 17,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/NutritionCorrelationHandler.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "                success, error in",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Closure parameters should be on the same line as opening brace",
-      "location": {
-        "line": 58,
-        "character": 26,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/NutritionCorrelationHandler.swift"
-      },
-      "ruleIdentifier": "closure_parameter_position",
-      "ruleName": "Closure Parameter Position",
-      "reason": "Closure parameters should be on the same line as opening brace"
-    }
-  },
-  {
-    "text": "    func toHealthKitStatisticsOptions(dataType: HealthDataTypeDto) throws -> HKStatisticsOptions {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Function bodies should not span too many lines",
-      "location": {
-        "line": 22,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/AggregationMetricMappers.swift"
-      },
-      "ruleIdentifier": "function_body_length",
-      "ruleName": "Function Body Length",
-      "reason": "Function body should span 100 lines or less excluding comments and whitespace: currently spans 194 lines"
-    }
-  },
-  {
-    "text": "    func validateForDataType(_ dataType: HealthDataTypeDto) throws {",
-    "violation": {
-      "severity": "error",
-      "ruleDescription": "Function bodies should not span too many lines",
-      "location": {
-        "line": 280,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/AggregationMetricMappers.swift"
-      },
-      "ruleIdentifier": "function_body_length",
-      "ruleName": "Function Body Length",
-      "reason": "Function body should span 200 lines or less excluding comments and whitespace: currently spans 202 lines"
-    }
-  },
-  {
-    "text": "}",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Files should not span too many lines.",
-      "location": {
-        "line": 510,
-        "character": 1,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/AggregationMetricMappers.swift"
-      },
-      "ruleIdentifier": "file_length",
-      "ruleName": "File Length",
-      "reason": "File should contain 500 lines or less: currently contains 510"
-    }
-  },
-  {
-    "text": "    func toHealthKitSampleType() throws -> HKSampleType {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Function bodies should not span too many lines",
-      "location": {
-        "line": 144,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/HealthDataTypeMappers.swift"
-      },
-      "ruleIdentifier": "function_body_length",
-      "ruleName": "Function Body Length",
-      "reason": "Function body should span 100 lines or less excluding comments and whitespace: currently spans 110 lines"
-    }
-  },
-  {
-    "text": "    func toHealthKitObjectTypes() throws -> [HKObjectType] {",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Function bodies should not span too many lines",
-      "location": {
-        "line": 21,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/PermissionMappers.swift"
-      },
-      "ruleIdentifier": "function_body_length",
-      "ruleName": "Function Body Length",
-      "reason": "Function body should span 100 lines or less excluding comments and whitespace: currently spans 148 lines"
-    }
-  },
-  {
-    "text": "    func toNutrientDto(for nutrientType: HealthDataTypeDto) -> HealthRecordDto? {",
-    "violation": {
-      "severity": "error",
-      "ruleDescription": "Complexity of function bodies should be limited.",
-      "location": {
-        "line": 63,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/health_record_mappers\/NutrientRecordMappers.swift"
-      },
-      "ruleIdentifier": "cyclomatic_complexity",
-      "ruleName": "Cyclomatic Complexity",
-      "reason": "Function should have complexity 10 or less; currently complexity is 33"
-    }
-  },
-  {
-    "text": "    func toNutrientDto(for nutrientType: HealthDataTypeDto) -> HealthRecordDto? {",
-    "violation": {
-      "severity": "error",
-      "ruleDescription": "Function bodies should not span too many lines",
-      "location": {
-        "line": 63,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/health_record_mappers\/NutrientRecordMappers.swift"
-      },
-      "ruleIdentifier": "function_body_length",
-      "ruleName": "Function Body Length",
-      "reason": "Function body should span 200 lines or less excluding comments and whitespace: currently spans 443 lines"
-    }
-  },
-  {
-    "text": "    func toHealthKitNutrientSample(",
-    "violation": {
-      "severity": "error",
-      "ruleDescription": "Function bodies should not span too many lines",
-      "location": {
-        "line": 557,
-        "character": 5,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/health_record_mappers\/NutrientRecordMappers.swift"
-      },
-      "ruleIdentifier": "function_body_length",
-      "ruleName": "Function Body Length",
-      "reason": "Function body should span 200 lines or less excluding comments and whitespace: currently spans 270 lines"
-    }
-  },
-  {
-    "text": "}",
-    "violation": {
-      "severity": "warning",
-      "ruleDescription": "Files should not span too many lines.",
-      "location": {
-        "line": 952,
-        "character": 1,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/health_record_mappers\/NutrientRecordMappers.swift"
-      },
-      "ruleIdentifier": "file_length",
-      "ruleName": "File Length",
-      "reason": "File should contain 500 lines or less: currently contains 952"
-    }
-  },
-  {
-    "text": "        {",
-    "violation": {
-      "severity": "warning",
       "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
       "location": {
-        "line": 26,
-        "character": 9,
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/health_record_mappers\/SleepStageRecordMappers.swift"
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/AggregatableHealthRecordHandler.swift",
+        "line": 70,
+        "character": 1
       },
       "ruleIdentifier": "opening_brace",
-      "ruleName": "Opening Brace Spacing",
       "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
-    }
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Closure bodies should not span too many lines",
+      "severity": "error",
+      "ruleName": "Closure Body Length",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/DeletableHealthRecordHandler.swift",
+        "line": 133,
+        "character": 11
+      },
+      "ruleIdentifier": "closure_body_length",
+      "reason": "Closure body should span 50 lines or less excluding comments and whitespace: currently spans 59 lines"
+    },
+    "text": "        ) {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Closure parameters should be on the same line as opening brace",
+      "severity": "warning",
+      "ruleName": "Closure Parameter Position",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/DeletableHealthRecordHandler.swift",
+        "line": 142,
+        "character": 18
+      },
+      "ruleIdentifier": "closure_parameter_position",
+      "reason": "Closure parameters should be on the same line as opening brace"
+    },
+    "text": "                (continuation: CheckedContinuation<[HKCorrelation], Error>) in"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Closure parameters should be on the same line as opening brace",
+      "severity": "warning",
+      "ruleName": "Closure Parameter Position",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/DeletableHealthRecordHandler.swift",
+        "line": 192,
+        "character": 18
+      },
+      "ruleIdentifier": "closure_parameter_position",
+      "reason": "Closure parameters should be on the same line as opening brace"
+    },
+    "text": "                (continuation: CheckedContinuation<Void, Error>) in"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Closure bodies should not span too many lines",
+      "severity": "warning",
+      "ruleName": "Closure Body Length",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/DeletableHealthRecordHandler.swift",
+        "line": 229,
+        "character": 11
+      },
+      "ruleIdentifier": "closure_body_length",
+      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 48 lines"
+    },
+    "text": "        ) {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Closure parameters should be on the same line as opening brace",
+      "severity": "warning",
+      "ruleName": "Closure Parameter Position",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/DeletableHealthRecordHandler.swift",
+        "line": 239,
+        "character": 18
+      },
+      "ruleIdentifier": "closure_parameter_position",
+      "reason": "Closure parameters should be on the same line as opening brace"
+    },
+    "text": "                (continuation: CheckedContinuation<[HKCorrelation], Error>) in"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Closure parameters should be on the same line as opening brace",
+      "severity": "warning",
+      "ruleName": "Closure Parameter Position",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/DeletableHealthRecordHandler.swift",
+        "line": 273,
+        "character": 18
+      },
+      "ruleIdentifier": "closure_parameter_position",
+      "reason": "Closure parameters should be on the same line as opening brace"
+    },
+    "text": "                (continuation: CheckedContinuation<Void, Error>) in"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Closure bodies should not span too many lines",
+      "severity": "warning",
+      "ruleName": "Closure Body Length",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/ReadableHealthRecordHandler.swift",
+        "line": 134,
+        "character": 74
+      },
+      "ruleIdentifier": "closure_body_length",
+      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 35 lines"
+    },
+    "text": "        try await process(operation: \"read_record\", context: [\"id\": id]) {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Closure bodies should not span too many lines",
+      "severity": "error",
+      "ruleName": "Closure Body Length",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/ReadableHealthRecordHandler.swift",
+        "line": 202,
+        "character": 11
+      },
+      "ruleIdentifier": "closure_body_length",
+      "reason": "Closure body should span 50 lines or less excluding comments and whitespace: currently spans 78 lines"
+    },
+    "text": "        ) {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Closure bodies should not span too many lines",
+      "severity": "warning",
+      "ruleName": "Closure Body Length",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/ReadableHealthRecordHandler.swift",
+        "line": 257,
+        "character": 62
+      },
+      "ruleIdentifier": "closure_body_length",
+      "reason": "Closure body should span 30 lines or less excluding comments and whitespace: currently spans 34 lines"
+    },
+    "text": "            return try await withCheckedThrowingContinuation { continuation in"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/ActiveCaloriesBurnedHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/BloodGlucoseHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/BloodPressureHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/BodyFatPercentageHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/BodyTemperatureHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/DiastolicBloodPressureHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/DistanceHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/FloorsClimbedHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/HeartRateHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/HeightHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/HydrationHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/LeanBodyMassHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/OxygenSaturationHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/RespiratoryRateHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/RestingHeartRateHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/SleepStageHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/StepsHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/SystolicBloodPressureHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/Vo2MaxHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/WeightHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/WheelchairPushesHandler.swift",
+        "line": 10,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/BiotinNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/CaffeineNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/CalciumNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/CholesterolNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryFiberNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/EnergyNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/FolateNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/IronNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/MagnesiumNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/ManganeseNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/MonounsaturatedFatNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/NiacinNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/NutritionHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/PantothenicAcidNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/PhosphorusNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/PolyunsaturatedFatNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/PotassiumNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/ProteinNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/RiboflavinNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/SaturatedFatNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/SeleniumNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/SodiumNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/SugarNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/ThiaminNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/TotalCarbohydrateNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/TotalFatNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminANutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminB12NutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminB6NutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminCNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminDNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminENutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminKNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/ZincNutrientHandler.swift",
+        "line": 9,
+        "character": 1
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "{"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Function bodies should not span too many lines",
+      "severity": "warning",
+      "ruleName": "Function Body Length",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/HealthDataTypeMapper.swift",
+        "line": 9,
+        "character": 5
+      },
+      "ruleIdentifier": "function_body_length",
+      "reason": "Function body should span 100 lines or less excluding comments and whitespace: currently spans 112 lines"
+    },
+    "text": "    func toHealthKit() throws -> HKSampleType {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/health_record_mappers\/BloodGlucoseRecordMapper.swift",
+        "line": 82,
+        "character": 9
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "        {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/health_record_mappers\/BloodGlucoseRecordMapper.swift",
+        "line": 92,
+        "character": 17
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "                {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/health_record_mappers\/BloodPressureRecordMapper.swift",
+        "line": 30,
+        "character": 13
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "            {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/health_record_mappers\/BloodPressureRecordMapper.swift",
+        "line": 34,
+        "character": 13
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "            {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/health_record_mappers\/SleepStageRecordMapper.swift",
+        "line": 58,
+        "character": 9
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "        {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Function bodies should not span too many lines",
+      "severity": "warning",
+      "ruleName": "Function Body Length",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/health_record_mappers\/nutrition_record_mappers\/NutritionRecordMapper.swift",
+        "line": 104,
+        "character": 5
+      },
+      "ruleIdentifier": "function_body_length",
+      "reason": "Function body should span 100 lines or less excluding comments and whitespace: currently spans 129 lines"
+    },
+    "text": "    func toHealthKitCorrelation() throws -> HKCorrelation {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "The correct positioning of braces that introduce a block of code or member list is highly controversial. No matter which style is preferred, consistency is key. Apart from different tastes, the positioning of braces can also have a significant impact on the readability of the code, especially for visually impaired developers. This rule ensures that braces are preceded by a single space and on the same line as the declaration. Comments between the declaration and the opening brace are respected. Check out the `contrasted_opening_brace` rule for a different style.",
+      "severity": "warning",
+      "ruleName": "Opening Brace Spacing",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/mappers\/health_record_mappers\/nutrition_record_mappers\/NutritionRecordMapper.swift",
+        "line": 245,
+        "character": 5
+      },
+      "ruleIdentifier": "opening_brace",
+      "reason": "Opening braces should be preceded by a single space and on the same line as the declaration"
+    },
+    "text": "    {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Function bodies should not span too many lines",
+      "severity": "warning",
+      "ruleName": "Function Body Length",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/utils\/HealthConnectorDtoExtensions.swift",
+        "line": 173,
+        "character": 5
+      },
+      "ruleIdentifier": "function_body_length",
+      "reason": "Function body should span 100 lines or less excluding comments and whitespace: currently spans 116 lines"
+    },
+    "text": "    func extractTimestamp() throws -> Int64 {"
+  },
+  {
+    "violation": {
+      "ruleDescription": "Type name should only contain alphanumeric characters, start with an uppercase character and span between 3 and 40 characters in length.\nPrivate types may start with an underscore.",
+      "severity": "error",
+      "ruleName": "Type Name",
+      "location": {
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/utils\/HealthKitExtensions.swift",
+        "line": 215,
+        "character": 6
+      },
+      "ruleIdentifier": "type_name",
+      "reason": "Type name 'iOS16SleepStage' should start with an uppercase character"
+    },
+    "text": "enum iOS16SleepStage: Int {"
   }
 ]
