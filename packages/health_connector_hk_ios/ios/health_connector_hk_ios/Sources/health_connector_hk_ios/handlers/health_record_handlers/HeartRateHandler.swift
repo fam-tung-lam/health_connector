@@ -10,7 +10,7 @@ final class HeartRateHandler: @unchecked Sendable,
 {
     typealias RecordDto = HeartRateMeasurementRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = NumericDto
+    typealias AggregatedResultMeasurementUnitDto = NumberDto
 
     let healthStore: HKHealthStore
 
@@ -22,8 +22,8 @@ final class HeartRateHandler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> NumericDto {
+    func convertQuantity(_ quantity: HKQuantity) throws -> NumberDto {
         let bpm = quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
-        return NumericDto(unit: .numeric, value: bpm)
+        return NumberDto(value: bpm)
     }
 }

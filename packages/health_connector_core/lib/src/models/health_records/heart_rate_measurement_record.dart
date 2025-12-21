@@ -15,7 +15,7 @@ part of 'health_record.dart';
 ///   time: DateTime.now(),
 ///   measurement: HeartRateMeasurement(
 ///     time: DateTime.now(),
-///     beatsPerMinute: Numeric(72),
+///     beatsPerMinute: Frequency.perMinute(72),
 ///   ),
 ///   metadata: Metadata.automaticallyRecorded(
 ///     dataOrigin: DataOrigin(packageName: 'com.apple.health'),
@@ -61,7 +61,7 @@ final class HeartRateMeasurementRecord extends InstantHealthRecord {
   /// The heart rate value in beats per minute (BPM).
   ///
   /// Convenience getter that returns the BPM from the measurement.
-  Numeric get beatsPerMinute => measurement.beatsPerMinute;
+  Number get beatsPerMinute => measurement.beatsPerMinute;
 
   @override
   bool operator ==(Object other) =>
@@ -82,7 +82,7 @@ final class HeartRateMeasurementRecord extends InstantHealthRecord {
         'time: $time, '
         'beatsPerMinute: ${beatsPerMinute.value} BPM, '
         'metadata: $metadata'
-        ')';
+        ');';
   }
 
   @override

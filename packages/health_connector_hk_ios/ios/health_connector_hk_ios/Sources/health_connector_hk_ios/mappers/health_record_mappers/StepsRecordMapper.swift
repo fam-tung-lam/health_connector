@@ -8,7 +8,7 @@ extension StepsRecordDto {
     func toHealthKit() throws -> HKSample {
         let type = try HKQuantityType.make(from: .stepCount)
 
-        let quantity = HKQuantity(unit: .count(), doubleValue: count.value)
+        let quantity = HKQuantity(unit: .count(), doubleValue: count.toDouble())
         let startDate = Date(millisecondsSince1970: startTime)
         let endDate = Date(millisecondsSince1970: endTime)
 
@@ -44,7 +44,7 @@ extension HKQuantitySample {
         let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
 
         return StepsRecordDto(
-            count: count.toNumericDto(),
+            count: count.toNumberDto(),
             endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,
             metadata: metadataDict.toMetadataDto(

@@ -457,7 +457,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
       final record = StepsRecord(
         startTime: now.subtract(const Duration(hours: 1)),
         endTime: now,
-        count: const Numeric(1000),
+        count: const Number(1000),
         metadata: Metadata.automaticallyRecorded(
           dataOrigin: const DataOrigin('com.example.health_connector'),
           device: const Device.fromType(DeviceType.phone),
@@ -506,7 +506,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
         StepsRecord(
           startTime: now.subtract(const Duration(hours: 3)),
           endTime: now.subtract(const Duration(hours: 2)),
-          count: const Numeric(1500),
+          count: const Number(1500),
           metadata: Metadata.automaticallyRecorded(
             dataOrigin: const DataOrigin('com.example.health_connector'),
             device: const Device.fromType(DeviceType.watch),
@@ -515,7 +515,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
         StepsRecord(
           startTime: now.subtract(const Duration(hours: 2)),
           endTime: now.subtract(const Duration(hours: 1)),
-          count: const Numeric(2000),
+          count: const Number(2000),
           metadata: Metadata.automaticallyRecorded(
             dataOrigin: const DataOrigin('com.example.health_connector'),
             device: const Device.fromType(DeviceType.watch),
@@ -524,7 +524,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
         StepsRecord(
           startTime: now.subtract(const Duration(hours: 1)),
           endTime: now,
-          count: const Numeric(1800),
+          count: const Number(1800),
           metadata: Metadata.automaticallyRecorded(
             dataOrigin: const DataOrigin('com.example.health_connector'),
             device: const Device.fromType(DeviceType.phone),
@@ -596,7 +596,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
         id: existingRecord.id,
         startTime: existingRecord.startTime,
         endTime: existingRecord.endTime,
-        count: Numeric(existingRecord.count.value + 100),
+        count: Number(existingRecord.count.value + 100),
         // Add 100 steps
         metadata: existingRecord.metadata,
       );

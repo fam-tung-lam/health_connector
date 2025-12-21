@@ -3,10 +3,9 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 import androidx.health.connect.client.records.Vo2MaxRecord
 import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxDto
+import com.phamtunglam.health_connector_hc_android.pigeon.NumberDto
 import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxMeasurementMethodDto
 import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxUnitDto
 import java.time.Instant
 import java.time.ZoneOffset
 
@@ -18,9 +17,8 @@ internal fun Vo2MaxRecord.toDto(): Vo2MaxRecordDto = Vo2MaxRecordDto(
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    vo2Max = Vo2MaxDto(
+    mLPerKgPerMin = NumberDto(
         value = vo2MillilitersPerMinuteKilogram,
-        unit = Vo2MaxUnitDto.MILLILITERS_PER_KILOGRAM_PER_MINUTE,
     ),
     measurementMethod = measurementMethod.toVo2MaxMeasurementMethodDto(),
 )
@@ -29,7 +27,7 @@ internal fun Vo2MaxRecord.toDto(): Vo2MaxRecordDto = Vo2MaxRecordDto(
  * Converts a [Vo2MaxRecordDto] to a Health Connect [Vo2MaxRecord].
  */
 internal fun Vo2MaxRecordDto.toHealthConnect(): Vo2MaxRecord = Vo2MaxRecord(
-    vo2MillilitersPerMinuteKilogram = vo2Max.value,
+    vo2MillilitersPerMinuteKilogram = mLPerKgPerMin.value,
     time = Instant.ofEpochMilli(time),
     zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
     metadata = metadata.toHealthConnect(id),

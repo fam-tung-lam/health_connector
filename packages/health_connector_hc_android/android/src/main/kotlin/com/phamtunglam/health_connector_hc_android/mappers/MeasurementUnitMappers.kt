@@ -18,8 +18,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.LengthDto
 import com.phamtunglam.health_connector_hc_android.pigeon.LengthUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MassDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MassUnitDto
-import com.phamtunglam.health_connector_hc_android.pigeon.NumericDto
-import com.phamtunglam.health_connector_hc_android.pigeon.NumericUnitDto
+import com.phamtunglam.health_connector_hc_android.pigeon.NumberDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PercentageDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PercentageUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PowerDto
@@ -227,19 +226,9 @@ internal fun BloodGlucose.toDto(): BloodGlucoseDto = BloodGlucoseDto(
 )
 
 /**
- * Converts a [NumericDto] to a numeric value (Long for step counts).
+ * Converts a numeric value to a [NumberDto].
  */
-internal fun NumericDto.toLong(): Long = value.toLong()
-
-/**
- * Converts a numeric value to a [NumericDto].
- *
- * Uses numeric unit for consistency.
- */
-internal fun Number.toNumericDto(): NumericDto = NumericDto(
-    value = this.toDouble(),
-    unit = NumericUnitDto.NUMERIC,
-)
+internal fun Number.toNumberDto(): NumberDto = NumberDto(value = this.toDouble())
 
 /**
  * Converts a [PercentageDto] to a Health Connect [Percentage] object.

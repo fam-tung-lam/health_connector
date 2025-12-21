@@ -8,7 +8,7 @@ import 'package:health_connector_core/src/models/exceptions/health_connector_exc
 /// These codes help identify the specific type of error that occurred.
 @sinceV1_0_0
 enum HealthConnectorErrorCode {
-  /// The health provider needs to be installed or updated.
+  /// The health platform needs to be installed or updated.
   ///
   /// **Platform:** Android only (iOS Apple Health is pre-installed)
   ///
@@ -23,7 +23,7 @@ enum HealthConnectorErrorCode {
     'HEALTH_PROVIDER_NOT_INSTALLED_OR_UPDATE_REQUIRED',
   ),
 
-  /// The health provider is unavailable on this device.
+  /// The health platform is unavailable on this device.
   ///
   /// **Causes:**
   /// - Device does not support health API (Android < SDK 28, unsupported iPad).

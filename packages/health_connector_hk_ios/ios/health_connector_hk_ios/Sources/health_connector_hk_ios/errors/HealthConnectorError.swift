@@ -6,9 +6,9 @@ import Foundation
 /// This is safe because Error instances are effectively immutable once created
 /// and are passed through structured concurrency contexts.
 enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchecked Sendable {
-    /// Indicates that the underlying health data provider is not available on the device.
+    /// Indicates that the underlying health service is not available on the device.
     /// - Parameters:
-    ///   - message: A description of why the provider is unavailable.
+    ///   - message: A description of why the health service is unavailable.
     ///   - cause: The underlying error, if any.
     case healthProviderUnavailable(message: String, cause: Error? = nil)
 

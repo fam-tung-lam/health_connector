@@ -56,6 +56,6 @@ enum HealthPlatformFeatureStatus {
   /// This status indicates that either:
   /// - The platform version doesn't support this feature
   /// - The device doesn't have the required capabilities
-  /// - The feature hasn't been enabled by the platform provider
+  /// - The feature hasn't been enabled by the health platform
   unavailable,
 }

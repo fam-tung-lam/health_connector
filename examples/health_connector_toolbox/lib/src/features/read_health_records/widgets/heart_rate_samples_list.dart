@@ -65,7 +65,7 @@ final class HeartRateSamplesList extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${sample.beatsPerMinute.value.toInt()} '
+                  '${sample.beatsPerMinute.value} '
                   '${AppTexts.heartRateLabel}',
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,

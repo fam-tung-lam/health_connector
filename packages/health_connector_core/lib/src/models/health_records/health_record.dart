@@ -24,16 +24,14 @@ import 'package:health_connector_core/src/models/health_records/sleep_stage_type
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show
         BloodGlucose,
+        Number,
         Energy,
         Length,
         Mass,
         MeasurementUnit,
-        Numeric,
         Percentage,
         Pressure,
-        RespiratoryRate,
         Temperature,
-        Vo2Max,
         Volume;
 import 'package:health_connector_core/src/models/metadata/metadata.dart'
     show Metadata;

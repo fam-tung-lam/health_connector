@@ -78,7 +78,7 @@ import 'package:health_connector/health_connector.dart'
         SleepStageHealthDataType,
         SleepStage,
         SleepStageType,
-        Vo2Max,
+        Number,
         Vo2MaxHealthDataType,
         Vo2MaxTestType;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
@@ -214,7 +214,7 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
   BloodGlucoseSpecimenSource _bgSpecimenSource =
       BloodGlucoseSpecimenSource.unknown;
 
-  // State for Vo2Max
+  // State for Number
   Vo2MaxTestType? _vo2MaxTestType;
 
   // Use different state mixins based on whether duration is needed
@@ -511,7 +511,7 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
         Vo2MaxHealthDataType() =>
           (_config as Vo2MaxFormConfig).buildVo2MaxRecord(
             time: startDateTime!,
-            vo2Max: _value! as Vo2Max,
+            vo2Max: _value! as Number,
             testType: _vo2MaxTestType!,
             metadata: metadata,
           ),

@@ -7,10 +7,9 @@ extension Vo2MaxRecordDto {
     /// - Throws: An error if the quantity type cannot be created.
     func toHealthKit() throws -> HKSample {
         let type = try HKQuantityType.make(from: .vo2Max)
-
         let unit = HKUnit.literUnit(with: .milli)
             .unitDivided(by: HKUnit.gramUnit(with: .kilo).unitMultiplied(by: .minute()))
-        let quantity = HKQuantity(unit: unit, doubleValue: vo2Max.value)
+        let quantity = HKQuantity(unit: unit, doubleValue: mLPerKgPerMin.value)
         let date = Date(millisecondsSince1970: time)
 
         var metadataDict = metadata.toHealthKitMetadata() ?? [:]
@@ -47,7 +46,6 @@ extension HKQuantitySample {
 
         let metadataDict = metadata ?? [:]
         let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
-
         let unit = HKUnit.literUnit(with: .milli)
             .unitDivided(by: HKUnit.gramUnit(with: .kilo).unitMultiplied(by: .minute()))
         let value = quantity.doubleValue(for: unit)
@@ -64,7 +62,7 @@ extension HKQuantitySample {
                 source: sourceRevision.source,
                 device: device
             ),
-            vo2Max: Vo2MaxDto(unit: .millilitersPerKilogramPerMinute, value: value),
+            mLPerKgPerMin: NumberDto(value: value),
             testType: testTypeDto,
             zoneOffsetSeconds: zoneOffset
         )

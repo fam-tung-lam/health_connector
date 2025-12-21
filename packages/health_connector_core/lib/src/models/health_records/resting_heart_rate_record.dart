@@ -37,10 +37,7 @@ final class RestingHeartRateRecord extends InstantHealthRecord {
   });
 
   /// The resting heart rate measurement in beats per minute.
-  ///
-  /// This uses the [Numeric] unit class which represents a dimensionless
-  /// count value.
-  final Numeric beatsPerMinute;
+  final Number beatsPerMinute;
 
   @override
   bool operator ==(Object other) =>
@@ -65,9 +62,9 @@ final class RestingHeartRateRecord extends InstantHealthRecord {
   String toString() =>
       'RestingHeartRateRecord('
       'id: $id, '
-      'beatsPerMinute: ${beatsPerMinute.value.toInt()} BPM, '
+      'beatsPerMinute: ${beatsPerMinute.value} BPM, '
       'time: $time'
-      ')';
+      ');';
 
   @override
   String get name => 'resting_heart_rate_record';

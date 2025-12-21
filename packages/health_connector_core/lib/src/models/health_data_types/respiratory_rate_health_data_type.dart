@@ -4,13 +4,13 @@ part of 'health_data_type.dart';
 @sinceV1_3_0
 @immutable
 final class RespiratoryRateHealthDataType
-    extends HealthDataType<RespiratoryRateRecord, RespiratoryRate>
+    extends HealthDataType<RespiratoryRateRecord, Number>
     implements
         ReadableHealthDataType<RespiratoryRateRecord>,
         WriteableHealthDataType,
-        AvgAggregatableHealthDataType<RespiratoryRateRecord, RespiratoryRate>,
-        MinAggregatableHealthDataType<RespiratoryRateRecord, RespiratoryRate>,
-        MaxAggregatableHealthDataType<RespiratoryRateRecord, RespiratoryRate> {
+        AvgAggregatableHealthDataType<RespiratoryRateRecord, Number>,
+        MinAggregatableHealthDataType<RespiratoryRateRecord, Number>,
+        MaxAggregatableHealthDataType<RespiratoryRateRecord, Number> {
   @internal
   const RespiratoryRateHealthDataType();
 
@@ -66,7 +66,7 @@ final class RespiratoryRateHealthDataType
   }
 
   @override
-  AggregateRequest<RespiratoryRateRecord, RespiratoryRate> aggregateAvg({
+  AggregateRequest<RespiratoryRateRecord, Number> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -79,7 +79,7 @@ final class RespiratoryRateHealthDataType
   }
 
   @override
-  AggregateRequest<RespiratoryRateRecord, RespiratoryRate> aggregateMin({
+  AggregateRequest<RespiratoryRateRecord, Number> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -92,7 +92,7 @@ final class RespiratoryRateHealthDataType
   }
 
   @override
-  AggregateRequest<RespiratoryRateRecord, RespiratoryRate> aggregateMax({
+  AggregateRequest<RespiratoryRateRecord, Number> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

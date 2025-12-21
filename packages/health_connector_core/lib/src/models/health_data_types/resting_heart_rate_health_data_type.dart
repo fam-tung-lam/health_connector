@@ -7,13 +7,13 @@ part of 'health_data_type.dart';
 @sinceV1_3_0
 @immutable
 final class RestingHeartRateHealthDataType
-    extends HealthDataType<RestingHeartRateRecord, Numeric>
+    extends HealthDataType<RestingHeartRateRecord, Number>
     implements
         ReadableHealthDataType<RestingHeartRateRecord>,
         WriteableHealthDataType,
-        AvgAggregatableHealthDataType<RestingHeartRateRecord, Numeric>,
-        MinAggregatableHealthDataType<RestingHeartRateRecord, Numeric>,
-        MaxAggregatableHealthDataType<RestingHeartRateRecord, Numeric> {
+        AvgAggregatableHealthDataType<RestingHeartRateRecord, Number>,
+        MinAggregatableHealthDataType<RestingHeartRateRecord, Number>,
+        MaxAggregatableHealthDataType<RestingHeartRateRecord, Number> {
   @internal
   const RestingHeartRateHealthDataType();
 
@@ -75,7 +75,7 @@ final class RestingHeartRateHealthDataType
   );
 
   @override
-  AggregateRequest<RestingHeartRateRecord, Numeric> aggregateAvg({
+  AggregateRequest<RestingHeartRateRecord, Number> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -88,7 +88,7 @@ final class RestingHeartRateHealthDataType
   }
 
   @override
-  AggregateRequest<RestingHeartRateRecord, Numeric> aggregateMin({
+  AggregateRequest<RestingHeartRateRecord, Number> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -101,7 +101,7 @@ final class RestingHeartRateHealthDataType
   }
 
   @override
-  AggregateRequest<RestingHeartRateRecord, Numeric> aggregateMax({
+  AggregateRequest<RestingHeartRateRecord, Number> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

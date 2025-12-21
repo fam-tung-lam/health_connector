@@ -1,5 +1,5 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_0_0, sinceV1_3_0;
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/models/health_platform.dart'
     show HealthPlatform;
 import 'package:health_connector_core/src/models/health_platform_data.dart'
@@ -11,14 +11,12 @@ part 'energy.dart';
 part 'time_duration.dart';
 part 'length.dart';
 part 'mass.dart';
-part 'numeric.dart';
+part 'number.dart';
 part 'percentage.dart';
 part 'power.dart';
 part 'pressure.dart';
-part 'respiratory_rate.dart';
 part 'temperature.dart';
 part 'velocity.dart';
-part 'vo2_max.dart';
 part 'volume.dart';
 
 /// Base abstract class for all measurement units in the health connector.

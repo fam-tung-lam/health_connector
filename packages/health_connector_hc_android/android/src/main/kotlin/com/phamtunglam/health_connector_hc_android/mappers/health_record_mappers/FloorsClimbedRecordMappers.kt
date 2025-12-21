@@ -3,7 +3,7 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 import androidx.health.connect.client.records.FloorsClimbedRecord
 import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.mappers.toNumericDto
+import com.phamtunglam.health_connector_hc_android.mappers.toNumberDto
 import com.phamtunglam.health_connector_hc_android.pigeon.FloorsClimbedRecordDto
 import java.time.Instant
 import java.time.ZoneOffset
@@ -18,7 +18,7 @@ internal fun FloorsClimbedRecord.toDto(): FloorsClimbedRecordDto = FloorsClimbed
     startZoneOffsetSeconds = startZoneOffset?.totalSeconds?.toLong(),
     endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    floors = floors.toNumericDto(),
+    floors = floors.toNumberDto(),
 )
 
 /**

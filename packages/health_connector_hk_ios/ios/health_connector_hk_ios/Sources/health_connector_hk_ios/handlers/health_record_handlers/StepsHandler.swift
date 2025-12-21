@@ -10,7 +10,7 @@ final class StepsHandler: @unchecked Sendable,
 {
     typealias RecordDto = StepsRecordDto
     typealias SampleType = HKQuantitySample
-    typealias AggregatedResultMeasurementUnitDto = NumericDto
+    typealias AggregatedResultMeasurementUnitDto = NumberDto
 
     let healthStore: HKHealthStore
 
@@ -22,8 +22,8 @@ final class StepsHandler: @unchecked Sendable,
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 
-    func convertQuantity(_ quantity: HKQuantity) throws -> NumericDto {
+    func convertQuantity(_ quantity: HKQuantity) throws -> NumberDto {
         let count = quantity.doubleValue(for: .count())
-        return NumericDto(unit: .numeric, value: count)
+        return NumberDto(value: count)
     }
 }

@@ -39,12 +39,12 @@ final class StepsRecord extends IntervalHealthRecord {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  }) : assert(count.value >= 0, 'count.value must be non-negative');
+  }) : assert(count.value >= 0, 'count.count must be non-negative');
 
   /// The number of steps taken during the interval.
   ///
   /// Must be non-negative (>= 0).
-  final Numeric count;
+  final Number count;
 
   @override
   bool operator ==(Object other) =>
@@ -76,7 +76,7 @@ final class StepsRecord extends IntervalHealthRecord {
       'count: ${count.value}, '
       'time_range: ${formatTimeRange(startTime: startTime, endTime: endTime)}, '
       'duration: $duration'
-      ')';
+      ');';
 
   @override
   String get name => 'step_record';

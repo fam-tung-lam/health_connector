@@ -18,15 +18,15 @@ part of 'health_record.dart';
 ///   samples: [
 ///     HeartRateMeasurement(
 ///       time: DateTime.now().subtract(Duration(minutes: 10)),
-///       beatsPerMinute: Numeric(65),
+///       beatsPerMinute: Count.perMinute(65),
 ///     ),
 ///     HeartRateMeasurement(
 ///       time: DateTime.now().subtract(Duration(minutes: 5)),
-///       beatsPerMinute: Numeric(120),
+///       beatsPerMinute: Count.perMinute(120),
 ///     ),
 ///     HeartRateMeasurement(
 ///       time: DateTime.now(),
-///       beatsPerMinute: Numeric(80),
+///       beatsPerMinute: Count.perMinute(80),
 ///     ),
 ///   ],
 ///   metadata: Metadata.automaticallyRecorded(
@@ -50,9 +50,9 @@ final class HeartRateSeriesRecord
   });
 
   /// The average heart rate across all samples.
-  Numeric get averageBpm {
+  Number get averageBpm {
     if (samples.isEmpty) {
-      return Numeric.zero;
+      return Number.zero;
     }
     if (samples.length == 1) {
       return samples.first.beatsPerMinute;
@@ -62,13 +62,15 @@ final class HeartRateSeriesRecord
       0,
       (sum, sample) => sum + sample.beatsPerMinute.value,
     );
-    return Numeric(total / samples.length);
+    final averageBpmPerMin = (total / samples.length).toInt();
+
+    return Number(averageBpmPerMin);
   }
 
   /// The minimum heart rate value among all samples.
-  Numeric get minBpm {
+  Number get minBpm {
     if (samples.isEmpty) {
-      return Numeric.zero;
+      return Number.zero;
     }
     return samples
         .map((s) => s.beatsPerMinute)
@@ -76,9 +78,9 @@ final class HeartRateSeriesRecord
   }
 
   /// The maximum heart rate value among all samples.
-  Numeric get maxBpm {
+  Number get maxBpm {
     if (samples.isEmpty) {
-      return Numeric.zero;
+      return Number.zero;
     }
     return samples
         .map((s) => s.beatsPerMinute)

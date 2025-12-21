@@ -4,11 +4,11 @@ part of 'health_data_type.dart';
 @sinceV1_0_0
 @immutable
 final class WheelchairPushesHealthDataType
-    extends HealthDataType<WheelchairPushesRecord, Numeric>
+    extends HealthDataType<WheelchairPushesRecord, Number>
     implements
         ReadableHealthDataType<WheelchairPushesRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<WheelchairPushesRecord, Numeric> {
+        SumAggregatableHealthDataType<WheelchairPushesRecord, Number> {
   @internal
   const WheelchairPushesHealthDataType();
 
@@ -68,7 +68,7 @@ final class WheelchairPushesHealthDataType
   );
 
   @override
-  AggregateRequest<WheelchairPushesRecord, Numeric> aggregateSum({
+  AggregateRequest<WheelchairPushesRecord, Number> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

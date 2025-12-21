@@ -6,13 +6,13 @@ part of 'health_data_type.dart';
 /// incremental exercise and is a key indicator of cardiorespiratory fitness.
 @sinceV1_3_0
 @immutable
-final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Vo2Max>
+final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Number>
     implements
         ReadableHealthDataType<Vo2MaxRecord>,
         WriteableHealthDataType,
-        AvgAggregatableHealthDataType<Vo2MaxRecord, Vo2Max>,
-        MinAggregatableHealthDataType<Vo2MaxRecord, Vo2Max>,
-        MaxAggregatableHealthDataType<Vo2MaxRecord, Vo2Max> {
+        AvgAggregatableHealthDataType<Vo2MaxRecord, Number>,
+        MinAggregatableHealthDataType<Vo2MaxRecord, Number>,
+        MaxAggregatableHealthDataType<Vo2MaxRecord, Number> {
   @internal
   const Vo2MaxHealthDataType();
 
@@ -74,7 +74,7 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Vo2Max>
   );
 
   @override
-  AggregateRequest<Vo2MaxRecord, Vo2Max> aggregateAvg({
+  AggregateRequest<Vo2MaxRecord, Number> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -87,7 +87,7 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Vo2Max>
   }
 
   @override
-  AggregateRequest<Vo2MaxRecord, Vo2Max> aggregateMin({
+  AggregateRequest<Vo2MaxRecord, Number> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -100,7 +100,7 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Vo2Max>
   }
 
   @override
-  AggregateRequest<Vo2MaxRecord, Vo2Max> aggregateMax({
+  AggregateRequest<Vo2MaxRecord, Number> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {

@@ -54,10 +54,10 @@ abstract interface class HealthConnector {
   ///
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.healthProviderUnavailable]
-  ///   if health provider is unavailable on this device.
+  ///   if health platform is unavailable on this device.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.healthProviderNotInstalledOrUpdateRequired]
-  ///   if Health Connect provider installation or update is required.
+  ///   if Health Connect app installation or update is required.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   if an unexpected error occurs
   static Future<HealthConnector> create([

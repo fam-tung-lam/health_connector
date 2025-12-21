@@ -1,8 +1,8 @@
 import 'package:health_connector_core/health_connector_core.dart'
-    show HeartRateMeasurement, Numeric, sinceV1_0_0;
+    show HeartRateMeasurement, sinceV1_0_0, Number;
 import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
-    show HeartRateMeasurementDto, NumericDto;
+    show HeartRateMeasurementDto, NumberDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [HeartRateMeasurement] to [HeartRateMeasurementDto].
@@ -12,7 +12,7 @@ extension HeartRateMeasurementDomainToDto on HeartRateMeasurement {
   HeartRateMeasurementDto toDto() {
     return HeartRateMeasurementDto(
       time: time.millisecondsSinceEpoch,
-      beatsPerMinute: beatsPerMinute.toDto() as NumericDto,
+      beatsPerMinute: beatsPerMinute.toDto() as NumberDto,
     );
   }
 }
@@ -24,7 +24,7 @@ extension HeartRateMeasurementDtoToDomain on HeartRateMeasurementDto {
   HeartRateMeasurement toDomain() {
     return HeartRateMeasurement(
       time: DateTime.fromMillisecondsSinceEpoch(time),
-      beatsPerMinute: beatsPerMinute.toDomain() as Numeric,
+      beatsPerMinute: beatsPerMinute.toDomain() as Number,
     );
   }
 }

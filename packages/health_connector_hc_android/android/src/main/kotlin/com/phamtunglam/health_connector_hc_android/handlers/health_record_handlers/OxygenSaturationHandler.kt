@@ -4,7 +4,7 @@ import androidx.health.connect.client.HealthConnectClient
 import com.phamtunglam.health_connector_hc_android.handlers.CustomAggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.mappers.toNumericDto
+import com.phamtunglam.health_connector_hc_android.mappers.toNumberDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
@@ -42,5 +42,5 @@ internal class OxygenSaturationHandler(override val client: HealthConnectClient)
         return recordDto.percentage.value
     }
 
-    override fun wrapAggregationResult(value: Double): MeasurementUnitDto = value.toNumericDto()
+    override fun wrapAggregationResult(value: Double): MeasurementUnitDto = value.toNumberDto()
 }

@@ -292,7 +292,7 @@ internal class HealthConnectorClient private constructor(
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
-    suspend fun readRecord(request: ReadRecordRequestDto): HealthRecordDto? {
+    suspend fun readRecord(request: ReadRecordRequestDto): HealthRecordDto {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "read_record",

@@ -1,5 +1,95 @@
 part of 'health_record.dart';
 
+/// Represents a VO₂ max (maximal oxygen uptake) measurement at a specific
+/// point in time.
+///
+/// VO₂ max is the maximum rate of oxygen consumption measured during
+/// incremental exercise. It is a key indicator of cardiorespiratory fitness
+/// and endurance capacity.
+///
+/// This is a point-in-time (instant) record with a single timestamp.
+///
+/// ## Platform Mapping
+///
+/// - **Android**: Maps to Health Connect's `Vo2MaxRecord`
+/// - **iOS**: Maps to HealthKit's `HKQuantityType(.vo2Max)`
+///
+/// ## Measurement Unit
+///
+/// VO₂ max is expressed in milliliters of oxygen per kilogram of body weight
+/// per minute (mL/kg/min).
+@sinceV1_3_0
+@immutable
+final class Vo2MaxRecord extends InstantHealthRecord {
+  /// Creates a VO₂ max record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [id]: The unique identifier for this record.
+  /// - [time]: The timestamp when the VO₂ max was measured.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [mLPerKgPerMin]: The VO₂ max measurement in mL/kg/min.
+  /// - [testType]: Optional test type or measurement method used.
+  const Vo2MaxRecord({
+    required super.time,
+    required super.metadata,
+    required this.mLPerKgPerMin,
+    this.testType,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+  });
+
+  /// The VO₂ max measurement in mL/kg/min.
+  final Number mLPerKgPerMin;
+
+  /// The test type or measurement method used to determine this VO₂ max value.
+  ///
+  /// This provides context about how the measurement was obtained:
+  /// - Direct measurement (metabolic cart)
+  /// - Field tests (Cooper, Rockport, beep test)
+  /// - Prediction algorithms (heart rate ratio, step test)
+  ///
+  /// May be `null` if the measurement method is unknown.
+  final Vo2MaxTestType? testType;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Vo2MaxRecord &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          time == other.time &&
+          zoneOffsetSeconds == other.zoneOffsetSeconds &&
+          mLPerKgPerMin == other.mLPerKgPerMin &&
+          testType == other.testType &&
+          metadata == other.metadata;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      time.hashCode ^
+      (zoneOffsetSeconds?.hashCode ?? 0) ^
+      mLPerKgPerMin.hashCode ^
+      (testType?.hashCode ?? 0) ^
+      metadata.hashCode;
+
+  @override
+  String toString() =>
+      'Vo2MaxRecord('
+      'id: $id, '
+      'vo2Max: ${mLPerKgPerMin.value.toStringAsFixed(1)} mL/kg/min, '
+      'testType: ${testType?.name ?? "unknown"}, '
+      'time: $time'
+      ')';
+
+  @override
+  String get name => 'vo2_max_record';
+
+  @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+}
+
 /// Represents the test type or measurement method used to determine VO₂ max.
 ///
 /// This enum provides a cross-platform abstraction for:
@@ -60,94 +150,4 @@ enum Vo2MaxTestType {
   /// Used when the specific method is unknown or not covered by
   /// the standard options (e.g., device-specific algorithms).
   other,
-}
-
-/// Represents a VO₂ max (maximal oxygen uptake) measurement at a specific
-/// point in time.
-///
-/// VO₂ max is the maximum rate of oxygen consumption measured during
-/// incremental exercise. It is a key indicator of cardiorespiratory fitness
-/// and endurance capacity.
-///
-/// This is a point-in-time (instant) record with a single timestamp.
-///
-/// ## Platform Mapping
-///
-/// - **Android**: Maps to Health Connect's `Vo2MaxRecord`
-/// - **iOS**: Maps to HealthKit's `HKQuantityType(.vo2Max)`
-///
-/// ## Measurement Unit
-///
-/// VO₂ max is expressed in milliliters of oxygen per kilogram of body weight
-/// per minute (mL/kg/min).
-@sinceV1_3_0
-@immutable
-final class Vo2MaxRecord extends InstantHealthRecord {
-  /// Creates a VO₂ max record.
-  ///
-  /// ## Parameters
-  ///
-  /// - [id]: The unique identifier for this record.
-  /// - [time]: The timestamp when the VO₂ max was measured.
-  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
-  /// - [metadata]: Metadata about the origin and recording method.
-  /// - [vo2Max]: The VO₂ max measurement in mL/kg/min.
-  /// - [testType]: Optional test type or measurement method used.
-  const Vo2MaxRecord({
-    required super.time,
-    required super.metadata,
-    required this.vo2Max,
-    this.testType,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-  });
-
-  /// The VO₂ max measurement in mL/kg/min.
-  final Vo2Max vo2Max;
-
-  /// The test type or measurement method used to determine this VO₂ max value.
-  ///
-  /// This provides context about how the measurement was obtained:
-  /// - Direct measurement (metabolic cart)
-  /// - Field tests (Cooper, Rockport, beep test)
-  /// - Prediction algorithms (heart rate ratio, step test)
-  ///
-  /// May be `null` if the measurement method is unknown.
-  final Vo2MaxTestType? testType;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Vo2MaxRecord &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          time == other.time &&
-          zoneOffsetSeconds == other.zoneOffsetSeconds &&
-          vo2Max == other.vo2Max &&
-          testType == other.testType &&
-          metadata == other.metadata;
-
-  @override
-  int get hashCode =>
-      id.hashCode ^
-      time.hashCode ^
-      (zoneOffsetSeconds?.hashCode ?? 0) ^
-      vo2Max.hashCode ^
-      (testType?.hashCode ?? 0) ^
-      metadata.hashCode;
-
-  @override
-  String toString() =>
-      'Vo2MaxRecord('
-      'id: $id, '
-      'vo2Max: ${vo2Max.value.toStringAsFixed(1)} mL/kg/min, '
-      'testType: ${testType?.name ?? "unknown"}, '
-      'time: $time'
-      ')';
-
-  @override
-  String get name => 'vo2_max_record';
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }
