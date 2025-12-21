@@ -17,8 +17,6 @@ final class RespiratoryRateHealthDataType
   @override
   String get identifier => 'respiratory_rate';
 
-
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

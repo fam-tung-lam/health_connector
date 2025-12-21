@@ -15,8 +15,6 @@ final class DistanceHealthDataType
   @override
   String get identifier => 'distance';
 
-
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

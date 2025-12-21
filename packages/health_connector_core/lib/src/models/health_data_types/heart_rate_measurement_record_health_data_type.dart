@@ -22,8 +22,6 @@ final class HeartRateMeasurementRecordHealthDataType
   @override
   String get identifier => 'heart_rate_measurement_record';
 
-
-
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,

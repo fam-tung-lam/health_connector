@@ -15,8 +15,6 @@ final class FloorsClimbedHealthDataType
   @override
   String get identifier => 'floors_climbed';
 
-
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

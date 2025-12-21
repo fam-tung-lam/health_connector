@@ -22,8 +22,6 @@ final class SleepStageHealthDataType
   @override
   String get identifier => 'sleep_stage';
 
-
-
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,

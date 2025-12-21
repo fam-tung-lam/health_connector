@@ -17,8 +17,6 @@ final class OxygenSaturationHealthDataType
   @override
   String get identifier => 'oxygen_saturation';
 
-
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

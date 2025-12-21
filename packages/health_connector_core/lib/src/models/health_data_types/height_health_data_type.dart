@@ -16,8 +16,6 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
   @override
   String get identifier => 'height';
 
-
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

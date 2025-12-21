@@ -4,7 +4,6 @@ import 'package:health_connector_core/health_connector_core.dart'
         CaffeineNutrientRecord,
         CalciumNutrientRecord,
         CholesterolNutrientRecord,
-        DietaryFiberNutrientRecord,
         EnergyNutrientRecord,
         FolateNutrientRecord,
         HealthRecordId,
@@ -36,7 +35,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         VitaminENutrientRecord,
         VitaminKNutrientRecord,
         ZincNutrientRecord,
-        sinceV1_1_0;
+        sinceV1_1_0,
+        DietaryFiberNutrientRecord;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/meal_type_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';

@@ -14,8 +14,6 @@ final class LeanBodyMassHealthDataType
   @override
   String get identifier => 'lean_body_mass';
 
-
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

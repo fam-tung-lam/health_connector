@@ -25,7 +25,7 @@ export 'src/models/health_records/blood_pressure_records/blood_pressure_measurem
 export 'src/models/health_records/health_record.dart'
     hide MacronutrientRecord, MineralNutrientRecord, VitaminNutrientRecord;
 export 'src/models/health_records/heart_rate_measurement.dart';
-export 'src/models/health_records/sleep_stage_type.dart';
+export 'src/models/health_records/sleep_records/sleep_stage_type.dart';
 // Models - Measurement Units
 export 'src/models/measurement_units/measurement_unit.dart';
 // Models - Metadata

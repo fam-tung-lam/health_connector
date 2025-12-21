@@ -19,7 +19,7 @@ import 'package:health_connector_core/src/models/health_records/blood_pressure_r
     show BloodPressureMeasurementLocation;
 import 'package:health_connector_core/src/models/health_records/heart_rate_measurement.dart'
     show HeartRateMeasurement;
-import 'package:health_connector_core/src/models/health_records/sleep_stage_type.dart'
+import 'package:health_connector_core/src/models/health_records/sleep_records/sleep_stage_type.dart'
     show SleepStageType;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show
@@ -36,7 +36,6 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
 import 'package:health_connector_core/src/models/metadata/metadata.dart'
     show Metadata;
 import 'package:health_connector_core/src/utils/collection.dart';
-
 import 'package:health_connector_core/src/utils/validation.dart' show require;
 import 'package:meta/meta.dart' show immutable, internal;
 
@@ -56,18 +55,54 @@ part 'hydration_record.dart';
 part 'instant_health_record.dart';
 part 'interval_health_record.dart';
 part 'lean_body_mass_record.dart';
-part 'nutrient_health_records/macronutrient_health_records.dart';
-part 'nutrient_health_records/meal_type.dart';
-part 'nutrient_health_records/mineral_nutrient_health_records.dart';
-part 'nutrient_health_records/nutrient_health_record.dart';
-part 'nutrient_health_records/nutrition_record.dart';
-part 'nutrient_health_records/vitamin_nutrient_health_records.dart';
+// Vitamin nutrient records
+part 'nutrition_records/biotin_nutrient_record.dart';
+part 'nutrition_records/caffeine_nutrient_record.dart';
+// Mineral nutrient records
+part 'nutrition_records/calcium_nutrient_record.dart';
+// Macronutrient records
+part 'nutrition_records/cholesterol_nutrient_record.dart';
+part 'nutrition_records/dietary_fiber_nutrient_record.dart';
+part 'nutrition_records/energy_nutrient_record.dart';
+part 'nutrition_records/folate_nutrient_record.dart';
+part 'nutrition_records/iron_nutrient_record.dart';
+part 'nutrition_records/macronutrient_record.dart';
+part 'nutrition_records/magnesium_nutrient_record.dart';
+part 'nutrition_records/manganese_nutrient_record.dart';
+part 'nutrition_records/meal_type.dart';
+part 'nutrition_records/mineral_nutrient_records.dart';
+part 'nutrition_records/monounsaturated_fat_nutrient_record.dart';
+part 'nutrition_records/niacin_nutrient_record.dart';
+part 'nutrition_records/nutrient_record.dart';
+part 'nutrition_records/nutrition_record.dart';
+part 'nutrition_records/pantothenic_acid_nutrient_record.dart';
+part 'nutrition_records/phosphorus_nutrient_record.dart';
+part 'nutrition_records/polyunsaturated_fat_nutrient_record.dart';
+part 'nutrition_records/potassium_nutrient_record.dart';
+part 'nutrition_records/protein_nutrient_record.dart';
+part 'nutrition_records/riboflavin_nutrient_record.dart';
+part 'nutrition_records/saturated_fat_nutrient_record.dart';
+part 'nutrition_records/selenium_nutrient_record.dart';
+part 'nutrition_records/sodium_nutrient_record.dart';
+part 'nutrition_records/sugar_nutrient_record.dart';
+part 'nutrition_records/thiamin_nutrient_record.dart';
+part 'nutrition_records/total_carbohydrate_nutrient_record.dart';
+part 'nutrition_records/total_fat_nutrient_record.dart';
+part 'nutrition_records/vitamin_a_nutrient_record.dart';
+part 'nutrition_records/vitamin_b12_nutrient_record.dart';
+part 'nutrition_records/vitamin_b6_nutrient_record.dart';
+part 'nutrition_records/vitamin_c_nutrient_record.dart';
+part 'nutrition_records/vitamin_d_nutrient_record.dart';
+part 'nutrition_records/vitamin_e_nutrient_record.dart';
+part 'nutrition_records/vitamin_k_nutrient_record.dart';
+part 'nutrition_records/vitamin_nutrient_record.dart';
+part 'nutrition_records/zinc_nutrient_record.dart';
 part 'oxygen_saturation_record.dart';
 part 'respiratory_rate_record.dart';
 part 'resting_heart_rate_record.dart';
 part 'series_health_record.dart';
-part 'sleep_session_record.dart';
-part 'sleep_stage_record.dart';
+part 'sleep_records/sleep_session_record.dart';
+part 'sleep_records/sleep_stage_record.dart';
 part 'steps_record.dart';
 part 'vo2_max_record.dart';
 part 'weight_record.dart';

@@ -14,8 +14,6 @@ final class BodyTemperatureHealthDataType
   @override
   String get identifier => 'bodyTemperature';
 
-
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

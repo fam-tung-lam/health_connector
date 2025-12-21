@@ -21,8 +21,6 @@ final class BloodGlucoseHealthDataType
   @override
   String get identifier => 'blood_glucose';
 
-
-
   @override
   List<Permission> get permissions => [readPermission, writePermission];
 

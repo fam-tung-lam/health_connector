@@ -21,8 +21,6 @@ final class SleepSessionHealthDataType
   @override
   String get identifier => 'sleep_session';
 
-
-
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.healthConnect,

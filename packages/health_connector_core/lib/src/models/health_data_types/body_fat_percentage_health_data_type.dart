@@ -17,8 +17,6 @@ final class BodyFatPercentageHealthDataType
   @override
   String get identifier => 'body_fat_percentage';
 
-
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

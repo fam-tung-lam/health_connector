@@ -21,8 +21,6 @@ final class DiastolicBloodPressureHealthDataType
   @override
   String get identifier => 'diastolic_blood_pressure';
 
-
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
