@@ -52,10 +52,7 @@ final class HeartRateSeriesRecordHealthDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<HeartRateSeriesRecord> readById(HealthRecordId id) {
@@ -77,10 +74,7 @@ final class HeartRateSeriesRecordHealthDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<HeartRateSeriesRecord, Number> aggregateAvg({

@@ -32,12 +32,4 @@ final class HeartRateMeasurement {
 
   @override
   int get hashCode => time.hashCode ^ beatsPerMinute.hashCode;
-
-  @override
-  String toString() {
-    return 'HeartRateMeasurement('
-        'time: $time, '
-        'beatsPerMinute: ${beatsPerMinute.value} BPM '
-        ')';
-  }
 }

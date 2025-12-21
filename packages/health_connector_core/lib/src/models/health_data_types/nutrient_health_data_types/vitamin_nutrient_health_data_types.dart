@@ -34,10 +34,7 @@ final class VitaminANutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<VitaminANutrientRecord> readById(HealthRecordId id) {
@@ -59,10 +56,7 @@ final class VitaminANutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<VitaminANutrientRecord, Mass> aggregateSum({
@@ -106,10 +100,7 @@ final class VitaminB6NutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<VitaminB6NutrientRecord> readById(HealthRecordId id) {
@@ -131,10 +122,7 @@ final class VitaminB6NutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<VitaminB6NutrientRecord, Mass> aggregateSum({
@@ -178,10 +166,7 @@ final class VitaminB12NutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<VitaminB12NutrientRecord> readById(
@@ -205,10 +190,7 @@ final class VitaminB12NutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<VitaminB12NutrientRecord, Mass> aggregateSum({
@@ -252,10 +234,7 @@ final class VitaminCNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<VitaminCNutrientRecord> readById(HealthRecordId id) {
@@ -277,10 +256,7 @@ final class VitaminCNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<VitaminCNutrientRecord, Mass> aggregateSum({
@@ -324,10 +300,7 @@ final class VitaminDNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<VitaminDNutrientRecord> readById(HealthRecordId id) {
@@ -349,10 +322,7 @@ final class VitaminDNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<VitaminDNutrientRecord, Mass> aggregateSum({
@@ -396,10 +366,7 @@ final class VitaminENutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<VitaminENutrientRecord> readById(HealthRecordId id) {
@@ -421,10 +388,7 @@ final class VitaminENutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<VitaminENutrientRecord, Mass> aggregateSum({
@@ -468,10 +432,7 @@ final class VitaminKNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<VitaminKNutrientRecord> readById(HealthRecordId id) {
@@ -493,10 +454,7 @@ final class VitaminKNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<VitaminKNutrientRecord, Mass> aggregateSum({
@@ -540,10 +498,7 @@ final class ThiaminNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<ThiaminNutrientRecord> readById(HealthRecordId id) {
@@ -565,10 +520,7 @@ final class ThiaminNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<ThiaminNutrientRecord, Mass> aggregateSum({
@@ -612,10 +564,7 @@ final class RiboflavinNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<RiboflavinNutrientRecord> readById(
@@ -639,10 +588,7 @@ final class RiboflavinNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<RiboflavinNutrientRecord, Mass> aggregateSum({
@@ -686,10 +632,7 @@ final class NiacinNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<NiacinNutrientRecord> readById(HealthRecordId id) {
@@ -711,10 +654,7 @@ final class NiacinNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<NiacinNutrientRecord, Mass> aggregateSum({
@@ -758,10 +698,7 @@ final class FolateNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<FolateNutrientRecord> readById(HealthRecordId id) {
@@ -783,10 +720,7 @@ final class FolateNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<FolateNutrientRecord, Mass> aggregateSum({
@@ -830,10 +764,7 @@ final class BiotinNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<BiotinNutrientRecord> readById(HealthRecordId id) {
@@ -855,10 +786,7 @@ final class BiotinNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<BiotinNutrientRecord, Mass> aggregateSum({
@@ -902,10 +830,7 @@ final class PantothenicAcidNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<PantothenicAcidNutrientRecord> readById(
@@ -929,10 +854,7 @@ final class PantothenicAcidNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<PantothenicAcidNutrientRecord, Mass> aggregateSum({

@@ -55,10 +55,7 @@ final class EnergyNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<EnergyNutrientRecord> readById(HealthRecordId id) {
@@ -80,10 +77,7 @@ final class EnergyNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<EnergyNutrientRecord, Energy> aggregateSum({
@@ -140,10 +134,7 @@ final class CaffeineNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<CaffeineNutrientRecord> readById(HealthRecordId id) {
@@ -165,10 +156,7 @@ final class CaffeineNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<CaffeineNutrientRecord, Mass> aggregateSum({

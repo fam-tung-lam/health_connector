@@ -37,10 +37,7 @@ final class BodyFatPercentageHealthDataType
   List<AggregationMetric> get supportedAggregationMetrics => [];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<BodyFatPercentageRecord> readById(HealthRecordId id) {
@@ -62,10 +59,7 @@ final class BodyFatPercentageHealthDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];

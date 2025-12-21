@@ -43,10 +43,7 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Number>
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<Vo2MaxRecord> readById(HealthRecordId id) {
@@ -68,10 +65,7 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Number>
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<Vo2MaxRecord, Number> aggregateAvg({

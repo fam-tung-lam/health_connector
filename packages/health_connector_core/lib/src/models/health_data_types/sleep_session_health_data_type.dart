@@ -48,10 +48,7 @@ final class SleepSessionHealthDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<SleepSessionRecord> readById(HealthRecordId id) {
@@ -73,10 +70,7 @@ final class SleepSessionHealthDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<SleepSessionRecord, TimeDuration> aggregateSum({

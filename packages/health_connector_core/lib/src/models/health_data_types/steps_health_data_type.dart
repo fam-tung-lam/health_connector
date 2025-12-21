@@ -37,10 +37,7 @@ final class StepsHealthDataType extends HealthDataType<StepsRecord, Number>
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<StepsRecord> readById(HealthRecordId id) {
@@ -62,10 +59,7 @@ final class StepsHealthDataType extends HealthDataType<StepsRecord, Number>
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<StepsRecord, Number> aggregateSum({

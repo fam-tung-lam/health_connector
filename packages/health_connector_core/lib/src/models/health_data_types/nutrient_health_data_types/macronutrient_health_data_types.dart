@@ -47,10 +47,7 @@ final class ProteinNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<ProteinNutrientRecord> readById(HealthRecordId id) {
@@ -72,10 +69,7 @@ final class ProteinNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<ProteinNutrientRecord, Mass> aggregateSum({
@@ -132,10 +126,7 @@ final class TotalCarbohydrateNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<TotalCarbohydrateNutrientRecord> readById(
@@ -160,10 +151,7 @@ final class TotalCarbohydrateNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<TotalCarbohydrateNutrientRecord, Mass> aggregateSum({
@@ -220,10 +208,7 @@ final class TotalFatNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<TotalFatNutrientRecord> readById(HealthRecordId id) {
@@ -245,10 +230,7 @@ final class TotalFatNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<TotalFatNutrientRecord, Mass> aggregateSum({
@@ -305,10 +287,7 @@ final class SaturatedFatNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<SaturatedFatNutrientRecord> readById(
@@ -332,10 +311,7 @@ final class SaturatedFatNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<SaturatedFatNutrientRecord, Mass> aggregateSum({
@@ -392,10 +368,7 @@ final class MonounsaturatedFatNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<MonounsaturatedFatNutrientRecord> readById(
@@ -420,10 +393,7 @@ final class MonounsaturatedFatNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<MonounsaturatedFatNutrientRecord, Mass> aggregateSum({
@@ -480,10 +450,7 @@ final class PolyunsaturatedFatNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<PolyunsaturatedFatNutrientRecord> readById(
@@ -508,10 +475,7 @@ final class PolyunsaturatedFatNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<PolyunsaturatedFatNutrientRecord, Mass> aggregateSum({
@@ -568,10 +532,7 @@ final class CholesterolNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<CholesterolNutrientRecord> readById(
@@ -595,10 +556,7 @@ final class CholesterolNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<CholesterolNutrientRecord, Mass> aggregateSum({
@@ -655,10 +613,7 @@ final class DietaryFiberNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<DietaryFiberNutrientRecord> readById(
@@ -682,10 +637,7 @@ final class DietaryFiberNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<DietaryFiberNutrientRecord, Mass> aggregateSum({
@@ -742,10 +694,7 @@ final class SugarNutrientDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<SugarNutrientRecord> readById(HealthRecordId id) {
@@ -767,10 +716,7 @@ final class SugarNutrientDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<SugarNutrientRecord, Mass> aggregateSum({

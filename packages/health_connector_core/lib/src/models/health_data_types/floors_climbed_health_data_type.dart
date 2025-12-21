@@ -32,15 +32,18 @@ final class FloorsClimbedHealthDataType
   String toString() => 'floors_climbed_data_type';
 
   @override
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
+
+  @override
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
+
+  @override
+  List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];
-
-  @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
 
   @override
   ReadRecordByIdRequest<FloorsClimbedRecord> readById(HealthRecordId id) {
@@ -62,12 +65,6 @@ final class FloorsClimbedHealthDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
-
-  @override
   AggregateRequest<FloorsClimbedRecord, Number> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
@@ -79,7 +76,4 @@ final class FloorsClimbedHealthDataType
       endTime: endTime,
     );
   }
-
-  @override
-  List<Permission> get permissions => [readPermission, writePermission];
 }

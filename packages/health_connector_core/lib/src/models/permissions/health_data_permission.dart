@@ -10,6 +10,7 @@ final class HealthDataPermission extends Permission {
     required this.accessType,
   });
 
+  @sinceV2_0_0
   factory HealthDataPermission.read(
     HealthDataType<HealthRecord, MeasurementUnit> dataType,
   ) {
@@ -19,6 +20,7 @@ final class HealthDataPermission extends Permission {
     );
   }
 
+  @sinceV2_0_0
   factory HealthDataPermission.write(
     HealthDataType<HealthRecord, MeasurementUnit> dataType,
   ) {

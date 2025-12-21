@@ -91,7 +91,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
         Temperature,
         Volume;
 import 'package:health_connector_core/src/models/permissions/permission.dart'
-    show HealthDataPermission, HealthDataPermissionAccessType;
+    show HealthDataPermission;
 import 'package:health_connector_core/src/models/requests/aggregate_request.dart'
     show
         AggregateRequest,

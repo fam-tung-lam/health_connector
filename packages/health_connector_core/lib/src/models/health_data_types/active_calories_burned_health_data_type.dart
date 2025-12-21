@@ -37,10 +37,7 @@ final class ActiveCaloriesBurnedHealthDataType
   ];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<ActiveCaloriesBurnedRecord> readById(
@@ -64,10 +61,7 @@ final class ActiveCaloriesBurnedHealthDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   AggregateRequest<ActiveCaloriesBurnedRecord, Energy> aggregateSum({

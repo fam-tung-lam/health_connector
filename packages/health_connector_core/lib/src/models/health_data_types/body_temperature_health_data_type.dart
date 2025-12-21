@@ -34,10 +34,7 @@ final class BodyTemperatureHealthDataType
   List<AggregationMetric> get supportedAggregationMetrics => [];
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<BodyTemperatureRecord> readById(HealthRecordId id) {
@@ -59,10 +56,7 @@ final class BodyTemperatureHealthDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];

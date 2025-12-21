@@ -38,10 +38,7 @@ final class BloodPressureHealthDataType
   String toString() => 'blood_pressure_data_type';
 
   @override
-  HealthDataPermission get readPermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.read,
-  );
+  HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
   ReadRecordByIdRequest<BloodPressureRecord> readById(HealthRecordId id) {
@@ -63,10 +60,7 @@ final class BloodPressureHealthDataType
   }
 
   @override
-  HealthDataPermission get writePermission => HealthDataPermission(
-    dataType: this,
-    accessType: HealthDataPermissionAccessType.write,
-  );
+  HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
