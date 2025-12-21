@@ -43,12 +43,6 @@ enum LengthUnitDto { feet, inches, kilometers, meters, miles }
 /// Mass unit types supported by the plugin.
 enum MassUnitDto { grams, kilograms, ounces, pounds }
 
-/// Numeric unit types supported by the plugin.
-///
-/// Numeric values don't have unit conversions, but this enum is provided
-/// for consistency with other unit types.
-enum NumericUnitDto { numeric }
-
 /// Percentage unit types supported by the plugin.
 enum PercentageUnitDto {
   /// Percentage as a decimal value (0.0 to 1.0).
@@ -93,9 +87,6 @@ enum VelocityUnitDto { kilometersPerHour, metersPerSecond, milesPerHour }
 
 /// Volume unit types supported by the plugin.
 enum VolumeUnitDto { fluidOuncesUs, liters, milliliters }
-
-/// VO2 max unit types supported by the plugin.
-enum Vo2MaxUnitDto { millilitersPerKilogramPerMinute }
 
 /// Test type for VO2 max measurement (iOS HealthKit).
 ///
@@ -169,14 +160,11 @@ class MassDto extends MeasurementUnitDto {
   final double value;
 }
 
-/// Represents a numeric measurement for platform transfer.
-class NumericDto extends MeasurementUnitDto {
-  NumericDto({required this.value, required this.unit});
+/// Represents a number for platform transfer.
+class NumberDto extends MeasurementUnitDto {
+  NumberDto(this.value);
 
-  /// The unit in which the value is expressed.
-  final NumericUnitDto unit;
-
-  /// The numeric value.
+  /// The number value.
   final double value;
 }
 
@@ -243,20 +231,6 @@ class VolumeDto extends MeasurementUnitDto {
   final VolumeUnitDto unit;
 
   /// The numeric value of the volume.
-  final double value;
-}
-
-/// Represents a VO2 max measurement for platform transfer.
-///
-/// VO2 max is measured in milliliters of oxygen per kilogram of body weight
-/// per minute (mL/kg/min).
-class Vo2MaxDto extends MeasurementUnitDto {
-  Vo2MaxDto({required this.value, required this.unit});
-
-  /// The unit in which the value is expressed.
-  final Vo2MaxUnitDto unit;
-
-  /// The numeric value of the VO2 max.
   final double value;
 }
 
@@ -667,7 +641,7 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// Resting heart rate in beats per minute.
-  final NumericDto beatsPerMinute;
+  final NumberDto beatsPerMinute;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -682,7 +656,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.vo2Max,
+    required this.mLPerKgPerMin,
     this.testType,
     this.zoneOffsetSeconds,
   });
@@ -697,7 +671,7 @@ class Vo2MaxRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// The VO2 max value in mL/kg/min.
-  final Vo2MaxDto vo2Max;
+  final NumberDto mLPerKgPerMin;
 
   /// The test type used to determine VO2 max.
   ///
@@ -817,7 +791,7 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
   });
 
   /// Number of floors (flights of stairs) climbed during the interval.
-  final NumericDto floors;
+  final NumberDto floors;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
@@ -847,7 +821,7 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
   });
 
   /// Number of wheelchair pushes performed during the interval.
-  final NumericDto pushes;
+  final NumberDto pushes;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
@@ -877,7 +851,7 @@ class StepsRecordDto extends HealthRecordDto {
   });
 
   /// Number of steps taken during the interval (must be >= 0).
-  final NumericDto count;
+  final NumberDto count;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;
@@ -1151,7 +1125,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.rate,
+    required this.breathsPerMin,
     this.zoneOffsetSeconds,
   });
 
@@ -1165,7 +1139,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// Respiratory rate in breaths per minute.
-  final NumericDto rate;
+  final NumberDto breathsPerMin;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1215,7 +1189,7 @@ class HeartRateMeasurementDto {
   final int time;
 
   /// Heart rate value in beats per minute (BPM).
-  final NumericDto beatsPerMinute;
+  final NumberDto beatsPerMinute;
 }
 
 /// Represents a heart rate measurement record for platform transfer (iOS).

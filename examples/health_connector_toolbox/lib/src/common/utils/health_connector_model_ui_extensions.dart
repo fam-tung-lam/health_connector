@@ -16,7 +16,7 @@ import 'package:health_connector/health_connector.dart'
         Length,
         Mass,
         MeasurementUnit,
-        Numeric,
+        Number,
         Percentage,
         PermissionStatus,
         RecordingMethod,
@@ -79,15 +79,10 @@ import 'package:health_connector/health_connector.dart'
         Pressure,
         Temperature,
         Velocity,
-        Volume;
+        Volume,
+        RespiratoryRateHealthDataType;
 import 'package:health_connector/health_connector.dart'
-    show
-        RespiratoryRate,
-        RespiratoryRateHealthDataType,
-        Vo2Max,
-        Vo2MaxHealthDataType,
-        BloodGlucoseHealthDataType;
-
+    show Number, Vo2MaxHealthDataType, BloodGlucoseHealthDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -446,7 +441,7 @@ extension MeasurementUnitUI on MeasurementUnit {
   String get displayName {
     return switch (this) {
       Mass _ => AppTexts.mass,
-      Numeric _ => AppTexts.numeric,
+      Number _ => AppTexts.numeric,
       TimeDuration _ => 'Interval',
       Percentage _ => AppTexts.percentage,
       Length _ => AppTexts.length,
@@ -457,8 +452,6 @@ extension MeasurementUnitUI on MeasurementUnit {
       Temperature _ => AppTexts.temperature,
       Velocity _ => AppTexts.velocity,
       Volume _ => AppTexts.volume,
-      RespiratoryRate _ => AppTexts.respiratoryRate,
-      Vo2Max _ => AppTexts.vo2Max,
     };
   }
 
@@ -466,7 +459,7 @@ extension MeasurementUnitUI on MeasurementUnit {
   IconData get icon {
     return switch (this) {
       Mass _ => AppIcons.mass,
-      Numeric _ => AppIcons.numeric,
+      Number _ => AppIcons.numeric,
       TimeDuration _ => Icons.access_time,
       Percentage _ => AppIcons.percent,
       Length _ => AppIcons.length,
@@ -477,8 +470,6 @@ extension MeasurementUnitUI on MeasurementUnit {
       Temperature _ => AppIcons.temperature,
       Velocity _ => AppIcons.velocity,
       Volume _ => AppIcons.volume,
-      RespiratoryRate _ => AppIcons.air,
-      Vo2Max _ => AppIcons.vo2Max,
     };
   }
 }

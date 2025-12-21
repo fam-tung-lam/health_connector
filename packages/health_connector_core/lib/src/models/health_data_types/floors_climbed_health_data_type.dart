@@ -4,11 +4,11 @@ part of 'health_data_type.dart';
 @sinceV1_0_0
 @immutable
 final class FloorsClimbedHealthDataType
-    extends HealthDataType<FloorsClimbedRecord, Numeric>
+    extends HealthDataType<FloorsClimbedRecord, Number>
     implements
         ReadableHealthDataType<FloorsClimbedRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<FloorsClimbedRecord, Numeric> {
+        SumAggregatableHealthDataType<FloorsClimbedRecord, Number> {
   @internal
   const FloorsClimbedHealthDataType();
 
@@ -68,7 +68,7 @@ final class FloorsClimbedHealthDataType
   );
 
   @override
-  AggregateRequest<FloorsClimbedRecord, Numeric> aggregateSum({
+  AggregateRequest<FloorsClimbedRecord, Number> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {

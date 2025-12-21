@@ -52,7 +52,7 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
   });
 
   /// The number of floors (flights of stairs) climbed during the interval.
-  final Numeric floors;
+  final Number floors;
 
   @override
   bool operator ==(Object other) =>

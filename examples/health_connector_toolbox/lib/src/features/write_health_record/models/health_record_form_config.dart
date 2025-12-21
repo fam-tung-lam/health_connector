@@ -67,7 +67,6 @@ import 'package:health_connector/health_connector.dart'
         PolyunsaturatedFatNutrientRecord,
         NiacinNutrientDataType,
         NiacinNutrientRecord,
-        Numeric,
         NutritionHealthDataType,
         NutritionRecord,
         PantothenicAcidNutrientDataType,
@@ -132,10 +131,9 @@ import 'package:health_connector/health_connector.dart'
         SleepStageRecord,
         SleepStageHealthDataType,
         SleepStageType,
-        RespiratoryRate,
         RespiratoryRateRecord,
         RespiratoryRateHealthDataType,
-        Vo2Max,
+        Number,
         Vo2MaxHealthDataType,
         Vo2MaxRecord,
         Vo2MaxTestType,
@@ -394,12 +392,12 @@ final class StepsFormConfig extends HealthRecordFormConfig {
     if (endDateTime == null) {
       throw ArgumentError('endDateTime is required for step records');
     }
-    final numericValue = value as Numeric;
+    final count = value as Number;
 
     return StepsRecord(
       startTime: startDateTime,
       endTime: endDateTime,
-      count: numericValue,
+      count: count,
       metadata: metadata,
     );
   }
@@ -535,11 +533,11 @@ final class RespiratoryRateFormConfig extends HealthRecordFormConfig {
     required Metadata metadata,
     DateTime? endDateTime,
   }) {
-    final rateValue = value as RespiratoryRate;
+    final breathsPerMin = value as Number;
 
     return RespiratoryRateRecord(
       time: startDateTime,
-      rate: rateValue,
+      breathsPerMin: breathsPerMin,
       metadata: metadata,
     );
   }
@@ -785,12 +783,12 @@ final class FloorsClimbedFormConfig extends HealthRecordFormConfig {
         'endDateTime is required for floors climbed records',
       );
     }
-    final numericValue = value as Numeric;
+    final count = value as Number;
 
     return FloorsClimbedRecord(
       startTime: startDateTime,
       endTime: endDateTime,
-      floors: numericValue,
+      floors: count,
       metadata: metadata,
     );
   }
@@ -820,12 +818,12 @@ final class WheelchairPushesFormConfig extends HealthRecordFormConfig {
         'endDateTime is required for wheelchair pushes records',
       );
     }
-    final numericValue = value as Numeric;
+    final count = value as Number;
 
     return WheelchairPushesRecord(
       startTime: startDateTime,
       endTime: endDateTime,
-      pushes: numericValue,
+      pushes: count,
       metadata: metadata,
     );
   }
@@ -1820,14 +1818,14 @@ final class HeartRateMeasurementRecordFormConfig
     required Metadata metadata,
     DateTime? endDateTime,
   }) {
-    final numericValue = value as Numeric;
+    final beatsPerMinute = value as Number;
 
     return HeartRateMeasurementRecord(
       id: HealthRecordId.none,
       metadata: metadata,
       measurement: HeartRateMeasurement(
         time: startDateTime,
-        beatsPerMinute: numericValue,
+        beatsPerMinute: beatsPerMinute,
       ),
     );
   }
@@ -1906,11 +1904,11 @@ final class RestingHeartRateFormConfig extends HealthRecordFormConfig {
     required Metadata metadata,
     DateTime? endDateTime,
   }) {
-    final numericValue = value as Numeric;
+    final beatsPerMinute = value as Number;
 
     return RestingHeartRateRecord(
       time: startDateTime,
-      beatsPerMinute: numericValue,
+      beatsPerMinute: beatsPerMinute,
       metadata: metadata,
     );
   }
@@ -1938,13 +1936,13 @@ final class Vo2MaxFormConfig extends HealthRecordFormConfig {
 
   HealthRecord buildVo2MaxRecord({
     required DateTime time,
-    required Vo2Max vo2Max,
+    required Number vo2Max,
     required Vo2MaxTestType testType,
     required Metadata metadata,
   }) {
     return Vo2MaxRecord(
       time: time,
-      vo2Max: vo2Max,
+      mLPerKgPerMin: vo2Max,
       testType: testType,
       metadata: metadata,
     );

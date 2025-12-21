@@ -7,7 +7,7 @@ extension RespiratoryRateRecordDto {
         let type = try HKQuantityType.make(from: .respiratoryRate)
 
         let unit = HKUnit.count().unitDivided(by: .minute())
-        let quantity = HKQuantity(unit: unit, doubleValue: rate.value)
+        let quantity = HKQuantity(unit: unit, doubleValue: Double(breathsPerMin.value))
         let date = Date(millisecondsSince1970: time)
 
         return HKQuantitySample(
@@ -47,7 +47,7 @@ extension HKQuantitySample {
                 source: sourceRevision.source,
                 device: device
             ),
-            rate: NumericDto(unit: .numeric, value: quantity.doubleValue(for: unit)),
+            breathsPerMin: NumberDto(value: quantity.doubleValue(for: unit)),
             zoneOffsetSeconds: zoneOffset
         )
     }

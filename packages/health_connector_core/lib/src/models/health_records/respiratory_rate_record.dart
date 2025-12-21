@@ -3,35 +3,34 @@ part of 'health_record.dart';
 /// A health record representing the user's respiratory rate.
 ///
 /// Respiratory rate is the number of breaths a person takes per minute.
-///
-/// This record is an [InstantHealthRecord], representing a measurement at
-/// a single point in time.
 @sinceV1_3_0
 @immutable
 final class RespiratoryRateRecord extends InstantHealthRecord {
   const RespiratoryRateRecord({
     required super.time,
-    required this.rate,
+    required this.breathsPerMin,
     required super.metadata,
     super.id,
     super.zoneOffsetSeconds,
   });
 
-  /// The respiratory rate measurement.
-  final RespiratoryRate rate;
+  /// The number of breaths per minute.
+  final Number breathsPerMin;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is RespiratoryRateRecord && super == other && rate == other.rate;
+      other is RespiratoryRateRecord &&
+          super == other &&
+          breathsPerMin == other.breathsPerMin;
 
   @override
-  int get hashCode => Object.hash(super.hashCode, rate);
+  int get hashCode => Object.hash(super.hashCode, breathsPerMin);
 
   @override
   String toString() {
     return 'RespiratoryRateRecord { ${super.toString()}, '
-        'rate: $rate }';
+        'breathsPerMin: $breathsPerMin }';
   }
 
   @override

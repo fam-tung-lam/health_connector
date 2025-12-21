@@ -10,10 +10,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         Volume,
         Power,
         BloodGlucose,
-        Numeric,
+        Number,
         Percentage,
-        RespiratoryRate,
-        Vo2Max,
         MeasurementUnit,
         sinceV1_0_0;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
@@ -30,7 +28,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         VolumeDto,
         PowerDto,
         BloodGlucoseDto,
-        NumericDto,
+        NumberDto,
         PercentageDto,
         MeasurementUnitDto,
         EnergyUnitDto,
@@ -41,10 +39,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         VolumeUnitDto,
         PowerUnitDto,
         BloodGlucoseUnitDto,
-        NumericUnitDto,
-        PercentageUnitDto,
-        Vo2MaxDto,
-        Vo2MaxUnitDto;
+        PercentageUnitDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [MeasurementUnit] to [MeasurementUnitDto].
@@ -101,27 +96,15 @@ extension MeasurementUnitToDto on MeasurementUnit {
           value: unit.inMillimolesPerLiter,
           unit: BloodGlucoseUnitDto.millimolesPerLiter,
         );
-      case final Numeric unit:
-        return NumericDto(
+      case final Number unit:
+        return NumberDto(
           value: unit.value.toDouble(),
-          unit: NumericUnitDto.numeric,
         );
       case final Percentage unit:
         // Uses decimal as the transfer unit for consistency.
         return PercentageDto(
           value: unit.asDecimal,
           unit: PercentageUnitDto.decimal,
-        );
-      case final RespiratoryRate unit:
-        return NumericDto(
-          value: unit.breathsPerMinute,
-          unit: NumericUnitDto.numeric,
-        );
-      case final Vo2Max unit:
-        // Uses milliliters per kilogram per minute as the transfer unit.
-        return Vo2MaxDto(
-          value: unit.value,
-          unit: Vo2MaxUnitDto.millilitersPerKilogramPerMinute,
         );
     }
   }
@@ -223,19 +206,14 @@ extension MeasurementUnitDtoToDomain on MeasurementUnitDto {
           case BloodGlucoseUnitDto.milligramsPerDeciliter:
             return BloodGlucose.milligramsPerDeciliter(dto.value);
         }
-      case final NumericDto dto:
-        return Numeric(dto.value);
+      case final NumberDto dto:
+        return Number(dto.value);
       case final PercentageDto dto:
         switch (dto.unit) {
           case PercentageUnitDto.decimal:
             return Percentage.fromDecimal(dto.value);
           case PercentageUnitDto.whole:
             return Percentage.fromWhole(dto.value);
-        }
-      case final Vo2MaxDto dto:
-        switch (dto.unit) {
-          case Vo2MaxUnitDto.millilitersPerKilogramPerMinute:
-            return Vo2Max.millilitersPerKilogramPerMinute(dto.value);
         }
     }
   }

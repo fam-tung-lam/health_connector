@@ -11,6 +11,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
+import kotlin.time.Duration
 
 /**
  * Handler for Sleep Session records.
@@ -29,7 +30,7 @@ internal class SleepSessionHandler(override val client: HealthConnectClient) :
     )
 
     override fun convertAggregatedValue(aggregatedValue: Any): MeasurementUnitDto {
-        val duration = aggregatedValue as? java.time.Duration
+        val duration = aggregatedValue as? Duration
             ?: throw IllegalArgumentException(
                 "Aggregated value is not Duration: ${aggregatedValue::class.simpleName}",
             )

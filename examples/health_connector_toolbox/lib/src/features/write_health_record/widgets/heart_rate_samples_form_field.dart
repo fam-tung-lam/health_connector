@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector.dart'
-    show HeartRateMeasurement, Numeric;
+    show HeartRateMeasurement, Number;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/widgets/date_time_picker_row.dart';
@@ -90,7 +90,7 @@ class _HeartRateSamplesFormFieldState extends State<HeartRateSamplesFormField> {
       validSamples.add(
         HeartRateMeasurement(
           time: entry.time,
-          beatsPerMinute: Numeric(entry.bpm),
+          beatsPerMinute: Number(entry.bpm.toInt()),
         ),
       );
     }
@@ -173,7 +173,7 @@ class _HeartRateSamplesFormFieldState extends State<HeartRateSamplesFormField> {
           .map(
             (e) => HeartRateMeasurement(
               time: e.time,
-              beatsPerMinute: Numeric(e.bpm),
+              beatsPerMinute: Number(e.bpm.toInt()),
             ),
           )
           .toList(),

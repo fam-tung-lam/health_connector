@@ -80,17 +80,15 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show
         BloodGlucose,
+        Number,
         Energy,
         TimeDuration,
         Length,
         Mass,
         MeasurementUnit,
-        Numeric,
         Percentage,
         Pressure,
-        RespiratoryRate,
         Temperature,
-        Vo2Max,
         Volume;
 import 'package:health_connector_core/src/models/permissions/permission.dart'
     show HealthDataPermission, HealthDataPermissionAccessType;
@@ -142,7 +140,7 @@ part 'wheelchair_pushes_health_data_type.dart';
 /// ## Type Parameters
 ///
 /// - `R`: The [HealthRecord] type associated with this data type
-/// - `U`: The unit type for aggregations (e.g., [Numeric], [Mass], [Energy])
+/// - `U`: The unit type for aggregations (e.g. [Mass], [Energy])
 ///
 /// ## Capability Model Design
 ///

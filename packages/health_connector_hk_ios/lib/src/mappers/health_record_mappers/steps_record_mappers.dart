@@ -1,10 +1,10 @@
 import 'package:health_connector_core/health_connector_core.dart'
-    show StepsRecord, Numeric, HealthRecordId, sinceV1_0_0;
+    show StepsRecord, HealthRecordId, sinceV1_0_0, Number;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
-    show StepsRecordDto, NumericDto;
+    show StepsRecordDto, NumberDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [StepsRecord] to [StepsRecordDto].
@@ -19,7 +19,7 @@ extension StepsRecordToDto on StepsRecord {
       zoneOffsetSeconds: startZoneOffsetSeconds,
 
       metadata: metadata.toDto(),
-      count: count.toDto() as NumericDto,
+      count: count.toDto() as NumberDto,
     );
   }
 }
@@ -36,7 +36,7 @@ extension StepsRecordDtoToDomain on StepsRecordDto {
       startZoneOffsetSeconds: zoneOffsetSeconds,
       endZoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      count: count.toDomain() as Numeric,
+      count: count.toDomain() as Number,
     );
   }
 }

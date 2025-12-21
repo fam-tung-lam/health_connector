@@ -9,7 +9,7 @@ extension RestingHeartRateRecordDto {
         let type = try HKQuantityType.make(from: .restingHeartRate)
 
         let bpmUnit = HKUnit.count().unitDivided(by: .minute())
-        let quantity = HKQuantity(unit: bpmUnit, doubleValue: beatsPerMinute.value)
+        let quantity = HKQuantity(unit: bpmUnit, doubleValue: beatsPerMinute.toDouble())
         let date = Date(millisecondsSince1970: time)
 
         return HKQuantitySample(
@@ -30,7 +30,8 @@ extension HKQuantitySample {
     func toRestingHeartRateRecordDto() throws -> RestingHeartRateRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.restingHeartRate.rawValue else {
             throw HealthConnectorError.invalidArgument(
-                message: "Expected resting heart rate quantity type, got \(quantityType.identifier)",
+                message:
+                "Expected resting heart rate quantity type, got \(quantityType.identifier)",
                 context: [
                     "expected": HKQuantityTypeIdentifier.restingHeartRate.rawValue,
                     "actual": quantityType.identifier,
@@ -51,7 +52,7 @@ extension HKQuantitySample {
                 source: sourceRevision.source,
                 device: device
             ),
-            beatsPerMinute: NumericDto(unit: .numeric, value: beatsPerMinute),
+            beatsPerMinute: NumberDto(value: beatsPerMinute),
             zoneOffsetSeconds: zoneOffset
         )
     }

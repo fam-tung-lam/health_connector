@@ -10,7 +10,7 @@ extension HeartRateMeasurementRecordDto {
 
         // Heart rate is measured in beats per minute (count/minute)
         let unit = HKUnit.count().unitDivided(by: .minute())
-        let quantity = HKQuantity(unit: unit, doubleValue: measurement.beatsPerMinute.value)
+        let quantity = HKQuantity(unit: unit, doubleValue: measurement.beatsPerMinute.toDouble())
         let date = Date(millisecondsSince1970: measurement.time)
 
         return HKQuantitySample(
@@ -45,7 +45,7 @@ extension HKQuantitySample {
 
         let measurement = HeartRateMeasurementDto(
             time: startDate.millisecondsSince1970,
-            beatsPerMinute: NumericDto(unit: NumericUnitDto.numeric, value: bpmValue)
+            beatsPerMinute: NumberDto(value: bpmValue)
         )
 
         let metadataDict = metadata ?? [:]

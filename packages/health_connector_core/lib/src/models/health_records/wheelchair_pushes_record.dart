@@ -52,7 +52,7 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
   });
 
   /// The number of wheelchair pushes performed during the interval.
-  final Numeric pushes;
+  final Number pushes;
 
   @override
   bool operator ==(Object other) =>

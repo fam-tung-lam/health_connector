@@ -20,7 +20,7 @@ final class HeartRateMeasurement {
   final DateTime time;
 
   /// The heart rate value in beats per minute (BPM).
-  final Numeric beatsPerMinute;
+  final Number beatsPerMinute;
 
   @override
   bool operator ==(Object other) =>

@@ -217,7 +217,7 @@ final class HealthRecordListTile extends StatelessWidget {
       Vo2MaxRecord() => InstantHealthRecordTile<Vo2MaxRecord>(
         record: record,
         icon: AppIcons.vo2Max,
-        title: '${record.vo2Max.value.toStringAsFixed(1)} mL/kg/min',
+        title: '${record.mLPerKgPerMin.value.toStringAsFixed(1)} mL/kg/min',
         subtitleBuilder: (r, ctx) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -236,7 +236,7 @@ final class HealthRecordListTile extends StatelessWidget {
         ),
         detailRowsBuilder: (r, ctx) => [
           const HealthRecordDetailRow(label: AppTexts.value, value: ''),
-          MeasurementUnitDisplay(unit: r.vo2Max),
+          MeasurementUnitDisplay(unit: r.mLPerKgPerMin),
           HealthRecordDetailRow(
             label: AppTexts.vo2MaxTestType,
             value: r.testType?.name ?? AppTexts.unknown,
@@ -444,7 +444,7 @@ final class HealthRecordListTile extends StatelessWidget {
           record: record,
           icon: AppIcons.favorite,
           title:
-              '${record.beatsPerMinute.value.toInt()} '
+              '${record.beatsPerMinute.value} '
               '${AppTexts.heartRateLabel}',
           subtitleBuilder: (r, ctx) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -465,7 +465,7 @@ final class HealthRecordListTile extends StatelessWidget {
           detailRowsBuilder: (r, ctx) => [
             HealthRecordDetailRow(
               label: AppTexts.heartRateBpm,
-              value: r.beatsPerMinute.value.toInt().toString(),
+              value: r.beatsPerMinute.value.toString(),
             ),
           ],
           onDelete: onDelete,
@@ -475,7 +475,7 @@ final class HealthRecordListTile extends StatelessWidget {
           record: record,
           icon: AppIcons.favorite,
           title:
-              '${record.beatsPerMinute.value.toInt()} '
+              '${record.beatsPerMinute.value} '
               '${AppTexts.heartRateLabel}',
           subtitleBuilder: (r, ctx) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -496,7 +496,7 @@ final class HealthRecordListTile extends StatelessWidget {
           detailRowsBuilder: (r, ctx) => [
             HealthRecordDetailRow(
               label: AppTexts.restingHeartRateValue,
-              value: r.beatsPerMinute.value.toInt().toString(),
+              value: r.beatsPerMinute.value.toString(),
             ),
           ],
           onDelete: onDelete,
@@ -1084,7 +1084,7 @@ final class HealthRecordListTile extends StatelessWidget {
       StepsRecord() => IntervalHealthRecordTile<StepsRecord>(
         record: record,
         icon: AppIcons.directionsWalk,
-        title: '${record.count.value.toInt()} ${AppTexts.stepsLabel}',
+        title: '${record.count.value} ${AppTexts.stepsLabel}',
         subtitleBuilder: (r, ctx) {
           final duration = r.duration;
           return Column(
@@ -1202,7 +1202,7 @@ final class HealthRecordListTile extends StatelessWidget {
       FloorsClimbedRecord() => IntervalHealthRecordTile<FloorsClimbedRecord>(
         record: record,
         icon: AppIcons.stairs,
-        title: '${record.floors.value.toInt()} ${AppTexts.floorsClimbedLabel}',
+        title: '${record.floors.value} ${AppTexts.floorsClimbedLabel}',
         subtitleBuilder: (r, ctx) {
           final duration = r.duration;
           return Column(
@@ -1241,7 +1241,7 @@ final class HealthRecordListTile extends StatelessWidget {
           record: record,
           icon: AppIcons.accessible,
           title:
-              '${record.pushes.value.toInt()} '
+              '${record.pushes.value} '
               '${AppTexts.wheelchairPushesLabel}',
           subtitleBuilder: (r, ctx) {
             final duration = r.duration;
@@ -1702,7 +1702,7 @@ final class HealthRecordListTile extends StatelessWidget {
       record: record,
       icon: AppIcons.favorite,
       title:
-          '${record.averageBpm.value.toInt()} ${AppTexts.heartRateLabel} '
+          '${record.averageBpm.value} ${AppTexts.heartRateLabel} '
           '(${record.samplesCount} ${AppTexts.heartRateSamples.toLowerCase()})',
       subtitleBuilder: (r, ctx) {
         final duration = r.duration;
@@ -1729,9 +1729,9 @@ final class HealthRecordListTile extends StatelessWidget {
             if (r.samples.isNotEmpty) ...[
               const SizedBox(height: 4),
               Text(
-                '${AppTexts.averageBpm}: ${r.averageBpm.value.toInt()}, '
-                '${AppTexts.minBpm}: ${r.minBpm.value.toInt()}, '
-                '${AppTexts.maxBpm}: ${r.maxBpm.value.toInt()}',
+                '${AppTexts.averageBpm}: ${r.averageBpm.value}, '
+                '${AppTexts.minBpm}: ${r.minBpm.value}, '
+                '${AppTexts.maxBpm}: ${r.maxBpm.value}',
                 style: const TextStyle(
                   fontSize: 12,
                   color: theme.AppColors.grey600,
@@ -1744,15 +1744,15 @@ final class HealthRecordListTile extends StatelessWidget {
       detailRowsBuilder: (r, ctx) => [
         HealthRecordDetailRow(
           label: AppTexts.averageBpm,
-          value: r.averageBpm.value.toInt().toString(),
+          value: r.averageBpm.value.toString(),
         ),
         HealthRecordDetailRow(
           label: AppTexts.minBpm,
-          value: r.minBpm.value.toInt().toString(),
+          value: r.minBpm.value.toString(),
         ),
         HealthRecordDetailRow(
           label: AppTexts.maxBpm,
-          value: r.maxBpm.value.toInt().toString(),
+          value: r.maxBpm.value.toString(),
         ),
       ],
       samplesBuilder: (samples, ctx) => HeartRateSamplesList(
@@ -1920,7 +1920,7 @@ final class HealthRecordListTile extends StatelessWidget {
     return InstantHealthRecordTile<RespiratoryRateRecord>(
       record: record,
       icon: AppIcons.air,
-      title: '${record.rate.breathsPerMinute} ${AppTexts.breathsPerMinute}',
+      title: '${record.breathsPerMin.value} ${AppTexts.breathsPerMinute}',
       subtitleBuilder: (r, ctx) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -1941,7 +1941,7 @@ final class HealthRecordListTile extends StatelessWidget {
         HealthRecordDetailRow(
           label: AppTexts.value,
           value:
-              '${r.rate.breathsPerMinute.toStringAsFixed(1)} '
+              '${r.breathsPerMin.value.toStringAsFixed(1)} '
               '${AppTexts.breathsPerMinute}',
         ),
       ],

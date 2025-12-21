@@ -25,7 +25,7 @@ enum HealthPlatformStatus {
   unavailable,
 
   /// Health platform APIs are currently unavailable because
-  /// the provider is either not installed or needs to be updated.
+  /// Health Connect app is either not installed or needs to be updated.
   ///
   /// Note: Android only.
   installationOrUpdateRequired,

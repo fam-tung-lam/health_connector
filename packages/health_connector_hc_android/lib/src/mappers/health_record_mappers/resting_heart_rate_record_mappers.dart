@@ -1,10 +1,10 @@
 import 'package:health_connector_core/health_connector_core.dart'
-    show HealthRecordId, Numeric, RestingHeartRateRecord, sinceV1_3_0;
+    show HealthRecordId, RestingHeartRateRecord, sinceV1_3_0, Number;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
-    show NumericDto, RestingHeartRateRecordDto;
+    show RestingHeartRateRecordDto, NumberDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [RestingHeartRateRecordDto] to [RestingHeartRateRecord].
@@ -17,7 +17,7 @@ extension RestingHeartRateRecordDtoToDomain on RestingHeartRateRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      beatsPerMinute: beatsPerMinute.toDomain() as Numeric,
+      beatsPerMinute: beatsPerMinute.toDomain() as Number,
     );
   }
 }
@@ -32,7 +32,7 @@ extension RestingHeartRateRecordToDto on RestingHeartRateRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      beatsPerMinute: beatsPerMinute.toDto() as NumericDto,
+      beatsPerMinute: beatsPerMinute.toDto() as NumberDto,
     );
   }
 }

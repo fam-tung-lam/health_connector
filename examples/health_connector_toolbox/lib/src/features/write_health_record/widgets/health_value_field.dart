@@ -30,7 +30,7 @@ import 'package:health_connector/health_connector.dart'
         MeasurementUnit,
         MonounsaturatedFatNutrientDataType,
         NiacinNutrientDataType,
-        Numeric,
+        Number,
         NutritionHealthDataType,
         PantothenicAcidNutrientDataType,
         Percentage,
@@ -65,11 +65,9 @@ import 'package:health_connector/health_connector.dart'
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
         OxygenSaturationHealthDataType,
-        RespiratoryRate,
         RespiratoryRateHealthDataType,
         BloodGlucose,
         BloodGlucoseHealthDataType,
-        Vo2Max,
         Vo2MaxHealthDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
@@ -78,7 +76,7 @@ import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 /// the health data type.
 ///
 /// This widget handles the data-type-specific input requirements:
-/// - Integer input for step count (Numeric)
+/// - Integer input for step count (Count)
 /// - Decimal input for weight (Mass in kg)
 /// - Decimal input for distance (Length in meters)
 @immutable
@@ -95,7 +93,7 @@ final class HealthValueField extends StatefulWidget {
 
   /// Callback when the value changes.
   ///
-  /// Provides a [MeasurementUnit] object (e.g., [Numeric], [Mass]) or null
+  /// Provides a [MeasurementUnit] object (e.g., [Number], [Mass]) or null
   /// if the input is invalid or empty.
   final ValueChanged<MeasurementUnit?> onChanged;
 
@@ -128,7 +126,7 @@ class _HealthValueFieldState extends State<HealthValueField> {
         _value = null;
       } else {
         _value = switch (widget.dataType) {
-          StepsHealthDataType() => _parseNumeric(value),
+          StepsHealthDataType() => _parseCount(value),
           WeightHealthDataType() => _parseMass(value),
           HeightHealthDataType() => _parseLength(value),
           BodyFatPercentageHealthDataType() => _parseBodyFatPercentage(value),
@@ -141,11 +139,11 @@ class _HealthValueFieldState extends State<HealthValueField> {
           DiastolicBloodPressureHealthDataType() => _parsePressure(value),
           DistanceHealthDataType() => _parseLength(value),
           ActiveCaloriesBurnedHealthDataType() => _parseEnergy(value),
-          FloorsClimbedHealthDataType() => _parseNumeric(value),
-          WheelchairPushesHealthDataType() => _parseNumeric(value),
+          FloorsClimbedHealthDataType() => _parseCount(value),
+          WheelchairPushesHealthDataType() => _parseCount(value),
           HydrationHealthDataType() => _parseVolume(value),
           OxygenSaturationHealthDataType() => _parseBodyFatPercentage(value),
-          HeartRateMeasurementRecordHealthDataType() => _parseNumeric(value),
+          HeartRateMeasurementRecordHealthDataType() => _parseCount(value),
           HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
             'HeartRateSeriesRecordHealthDataType '
             'should use HeartRateSamplesFormField',
@@ -156,8 +154,8 @@ class _HealthValueFieldState extends State<HealthValueField> {
           SleepStageHealthDataType() => throw UnsupportedError(
             'SleepStageHealthDataType requires custom form handling',
           ),
-          RestingHeartRateHealthDataType() => _parseNumeric(value),
-          RespiratoryRateHealthDataType() => _parseRespiratoryRate(value),
+          RestingHeartRateHealthDataType() => _parseCount(value),
+          RespiratoryRateHealthDataType() => _parseCount(value),
           Vo2MaxHealthDataType() => _parseVo2Max(value),
           BloodGlucoseHealthDataType() => _parseBloodGlucose(value),
 
@@ -203,10 +201,10 @@ class _HealthValueFieldState extends State<HealthValueField> {
     widget.onChanged(_value);
   }
 
-  Numeric? _parseNumeric(String value) {
+  Number? _parseCount(String value) {
     final count = int.tryParse(value);
     if (count != null && count >= 0) {
-      return Numeric(count);
+      return Number(count);
     }
     return null;
   }
@@ -278,18 +276,10 @@ class _HealthValueFieldState extends State<HealthValueField> {
     return null;
   }
 
-  RespiratoryRate? _parseRespiratoryRate(String value) {
-    final rateValue = double.tryParse(value);
-    if (rateValue != null && rateValue >= 0) {
-      return RespiratoryRate(breathsPerMinute: rateValue);
-    }
-    return null;
-  }
-
-  Vo2Max? _parseVo2Max(String value) {
+  Number? _parseVo2Max(String value) {
     final val = double.tryParse(value);
     if (val != null && val >= 0) {
-      return Vo2Max.millilitersPerKilogramPerMinute(val);
+      return Number(val);
     }
     return null;
   }
