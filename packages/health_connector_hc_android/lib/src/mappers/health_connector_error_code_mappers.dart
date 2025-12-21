@@ -38,8 +38,8 @@ extension HealthConnectorErrorCodeDtoToDomain on HealthConnectorErrorCodeDto {
 /// Converts [PlatformException.code] string to [HealthConnectorErrorCode].
 @sinceV1_0_0
 @internal
-extension StringToHealthConnectorErrorCode on String {
-  HealthConnectorErrorCode toHealthConnectorErrorCode() {
+extension StringToErrorCode on String {
+  HealthConnectorErrorCode toErrorCode() {
     try {
       return HealthConnectorErrorCode.values.firstWhere(
         (errorCode) => this == errorCode.code,

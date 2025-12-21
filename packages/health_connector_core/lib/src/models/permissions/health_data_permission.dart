@@ -10,6 +10,24 @@ final class HealthDataPermission extends Permission {
     required this.accessType,
   });
 
+  factory HealthDataPermission.read(
+    HealthDataType<HealthRecord, MeasurementUnit> dataType,
+  ) {
+    return HealthDataPermission(
+      dataType: dataType,
+      accessType: HealthDataPermissionAccessType.read,
+    );
+  }
+
+  factory HealthDataPermission.write(
+    HealthDataType<HealthRecord, MeasurementUnit> dataType,
+  ) {
+    return HealthDataPermission(
+      dataType: dataType,
+      accessType: HealthDataPermissionAccessType.write,
+    );
+  }
+
   /// The specific type of health data (e.g., steps, heart rate, etc.) for
   /// which permission is requested.
   final HealthDataType<HealthRecord, MeasurementUnit> dataType;

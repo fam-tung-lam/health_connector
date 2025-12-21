@@ -20,8 +20,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         PermissionListExtension,
         sinceV1_0_0,
         internalUse,
-        HealthConnectorErrorCode,
-        DeleteRecordsRequest;
+        DeleteRecordsRequest,
+        UnsupportedOperationException;
 import 'package:health_connector_hk_ios/src/mappers/config_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_connector_error_code_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
@@ -117,8 +117,8 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to get health platform status: '
         '${e.message ?? 'Unknown error'}',
         cause: e,
@@ -197,8 +197,8 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
           stackTrace: st,
         );
 
-        throw HealthConnectorException(
-          e.code.toHealthConnectorErrorCode(),
+        throw HealthConnectorException.fromCode(
+          e.code.toErrorCode(),
           'Failed to request permissions: ${e.message ?? 'Unknown error'}',
           cause: e,
           stackTrace: st,
@@ -289,8 +289,8 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to get permission status: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -343,8 +343,8 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to process $request: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -389,8 +389,8 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to process $request: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -431,8 +431,8 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to write $record: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -487,8 +487,8 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to write $records: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -498,16 +498,14 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
 
   @override
   Future<HealthRecordId> updateRecord<R extends HealthRecord>(R record) async {
-    throw const HealthConnectorException(
-      HealthConnectorErrorCode.unsupportedOperation,
+    throw const UnsupportedOperationException(
       'updateRecord API is not supported on iOS HealthKit SDK',
     );
   }
 
   @override
   Future<void> updateRecords<R extends HealthRecord>(List<R> records) {
-    throw const HealthConnectorException(
-      HealthConnectorErrorCode.unsupportedOperation,
+    throw const UnsupportedOperationException(
       'updateRecords API is not supported on iOS HealthKit SDK',
     );
   }
@@ -549,8 +547,8 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to process $request: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -588,8 +586,8 @@ final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to delete records by $request: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
