@@ -1,5 +1,5 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show availableOnAppleHealth, availableOnHealthConnect, sinceV1_0_0;
+    show sinceV1_0_0;
 import 'package:meta/meta.dart' show immutable;
 
 part 'data_origin.dart';

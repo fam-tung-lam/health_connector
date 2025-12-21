@@ -2,7 +2,6 @@ import 'package:health_connector_core/health_connector_core.dart'
     show sinceV1_1_0, sinceV1_4_0;
 import 'package:health_connector_core/src/annotations/annotations.dart'
     show
-        PlatformSpecificBehaviors,
         sinceV1_0_0,
         sinceV1_2_0,
         sinceV1_3_0,

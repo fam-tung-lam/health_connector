@@ -7,12 +7,9 @@ import 'package:meta/meta.dart' show immutable;
 part 'read_health_data_history_feature.dart';
 part 'read_health_data_in_background_feature.dart';
 
-/// Represents a feature available in health platforms.
-///
 /// Features are capabilities or functionalities provided by health platforms
 /// that may or may not be available on a given device or platform version.
 @sinceV1_0_0
-@availableOnHealthConnect
 sealed class HealthPlatformFeature implements HealthPlatformData {
   /// Returns the permission associated with this feature.
   HealthPlatformFeaturePermission get permission =>
@@ -42,7 +39,6 @@ sealed class HealthPlatformFeature implements HealthPlatformData {
 
 /// Represents the availability status of a platform feature.
 @sinceV1_0_0
-@availableOnHealthConnect
 enum HealthPlatformFeatureStatus {
   /// The feature is available and can be used on this device/platform.
   ///

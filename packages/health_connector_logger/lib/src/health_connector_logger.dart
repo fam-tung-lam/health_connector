@@ -1,5 +1,7 @@
 import 'dart:async' show Stream, StreamController;
-import 'dart:developer' show log;import 'package:health_connector_logger/src/health_connector_log.dart';
+import 'dart:developer' show log;
+
+import 'package:health_connector_logger/src/health_connector_log.dart';
 import 'package:meta/meta.dart' show internal, visibleForTesting;
 
 /// A singleton logger that wraps the `log` function from `dart:developer`.

@@ -21,7 +21,6 @@ import 'package:health_connector_core/health_connector_core.dart'
         MeasurementUnit,
         Permission,
         PermissionRequestResult,
-        PlatformSpecificBehaviors,
         ReadRecordByIdRequest,
         ReadRecordsInTimeRangeRequest,
         ReadRecordsInTimeRangeResponse,
@@ -31,7 +30,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         DeleteRecordsByIdsRequest,
         HealthProviderUnavailableException,
         HealthProviderNotInstalledOrUpdateRequiredException,
-        sinceV1_0_0;
+        sinceV1_0_0,
+        HealthDataType;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
 import 'package:health_connector_hk_ios/health_connector_hk_ios.dart'
@@ -133,8 +133,18 @@ abstract interface class HealthConnector {
 
   /// Requests the specified permissions from the health platform.
   ///
-  /// This method triggers the platform's permission request flow and returns
-  /// the results for each requested permission.
+  /// ## Platform Differences
+  ///
+  /// ### iOS (HealthKit)
+  ///
+  /// - Read permissions always return [PermissionStatus.unknown] for privacy.
+  /// - Feature permissions always return [PermissionStatus.granted], as
+  ///   features are available by default.
+  /// - Write permissions return actual status.
+  ///
+  /// ### Android (Health Connect)
+  ///
+  /// - Returns actual permission status for all permission types.
   ///
   /// ## Throws
   ///
@@ -169,14 +179,6 @@ abstract interface class HealthConnector {
   ///
   /// - [HealthDataPermission] and [HealthPlatformFeaturePermission]
   /// - [HealthConnector.getFeatureStatus]
-  @PlatformSpecificBehaviors({
-    HealthPlatform.appleHealth:
-        'Read permissions always return `PermissionStatus.unknown` for '
-        'privacy. Feature permissions always return '
-        '`PermissionStatus.granted`. Write permissions return actual status.',
-    HealthPlatform.healthConnect:
-        'Returns actual permission status for all permission types.',
-  })
   Future<List<PermissionRequestResult>> requestPermissions(
     List<Permission> permissions,
   );
@@ -237,26 +239,14 @@ abstract interface class HealthConnector {
   ///
   /// ### iOS (HealthKit)
   ///
-  /// **Read Permissions**: Due to HealthKit's privacy protections, read
-  /// permissions will **always** return [PermissionStatus.unknown]. This is
-  /// a platform limitation - HealthKit does not allow apps to determine
-  /// whether read access has been granted or denied.
-  ///
-  /// **Write Permissions**: Can return definitive [PermissionStatus.granted]
-  /// or [PermissionStatus.denied] status.
-  ///
-  /// **Feature Permissions**: Since feature permissions are Android-only, they
-  /// will return [PermissionStatus.granted] on iOS.
+  /// - Read permissions always return [PermissionStatus.unknown] for privacy.
+  /// - Feature permissions always return [PermissionStatus.granted], as
+  ///   features are available by default.
+  /// - Write permissions return actual status.
   ///
   /// ### Android (Health Connect)
   ///
-  /// All permissions (both data and feature permissions) return definitive
-  /// status:
-  /// - [PermissionStatus.granted] if the permission has been granted
-  /// - [PermissionStatus.denied] if the permission has not been granted
-  ///
-  /// Note: Health Connect does not distinguish between "never requested" and
-  /// "explicitly denied" - both cases will return [PermissionStatus.denied].
+  /// - Returns actual permission status for all permission types.
   ///
   /// ## Parameters
   ///
@@ -299,15 +289,6 @@ abstract interface class HealthConnector {
   /// - [getGrantedPermissions] - Get all currently granted permissions
   /// - [PermissionStatus] - Enum defining possible permission states
   @sinceV2_0_0
-  @PlatformSpecificBehaviors({
-    HealthPlatform.appleHealth:
-        'Read permissions always return `PermissionStatus.unknown` due to '
-        'privacy. '
-        'Feature permissions always return `PermissionStatus.granted`. '
-        'Write permissions return actual status.',
-    HealthPlatform.healthConnect:
-        'Returns actual permission status for all permission types.',
-  })
   Future<PermissionStatus> getPermissionStatus(Permission permission);
 
   /// Revokes all permissions that have been granted to the app.
@@ -376,14 +357,18 @@ abstract interface class HealthConnector {
   ///   // Feature not available, disable background reading functionality
   /// }
   /// ```
-  @PlatformSpecificBehaviors({
-    HealthPlatform.appleHealth:
-        'All features are available by default. Always returns '
-        '`HealthPlatformFeatureStatus.available`.',
-    HealthPlatform.healthConnect:
-        'Feature availability depends on Android and Health Connect SDK. '
-        'Some features require specific Android versions or system updates.',
-  })
+  ///
+  /// ## Platform Differences
+  ///
+  /// ### iOS (HealthKit)
+  ///
+  /// - Always returns [HealthPlatformFeatureStatus.available], as all features
+  ///   are available by default.
+  ///
+  /// ### Android (Health Connect)
+  ///
+  /// - Feature availability depends on Android and Health Connect SDK.
+  ///   For example, some features require specific version.
   Future<HealthPlatformFeatureStatus> getFeatureStatus(
     HealthPlatformFeature feature,
   );
@@ -611,6 +596,16 @@ abstract interface class HealthConnector {
   /// or [DeleteRecordsInTimeRangeRequest] to delete specific records or
   /// records within a time range.
   ///
+  /// ## Platform Differences
+  ///
+  /// Health Connect SDK only supports atomic deletion within a single health
+  /// record type. Due to this reason [DeleteRecordsRequest] contains
+  /// [HealthDataType].
+  ///
+  /// While HealthKit SDK can delete multiple record types
+  /// atomically, [deleteRecords] requires specifying a single data type to
+  /// **maintain cross-platform consistency with Health Connect**.
+  ///
   /// ## Data Ownership Restriction
   ///
   /// Apps can only delete health records that they created.
@@ -661,16 +656,6 @@ abstract interface class HealthConnector {
   /// await connector.deleteRecords(request);
   /// ```
   @sinceV2_0_0
-  @PlatformSpecificBehaviors({
-    HealthPlatform.healthConnect:
-        'Health Connect SDK only supports atomic deletion within a single'
-        ' health record type. '
-        'Due to this reason `DeleteRecordsRequest` contains `HealthDataType`.',
-    HealthPlatform.appleHealth:
-        'While HealthKit SDK can delete multiple record types atomically, '
-        'this API requires specifying a single data type to maintain '
-        'cross-platform consistency with  Health Connect.',
-  })
   Future<void> deleteRecords<R extends HealthRecord>(
     DeleteRecordsRequest<R> request,
   );

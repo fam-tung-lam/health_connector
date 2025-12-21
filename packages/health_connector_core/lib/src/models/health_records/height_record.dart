@@ -11,15 +11,6 @@ part of 'health_record.dart';
 /// - **iOS**: Maps to HealthKit's `HKQuantityType(.height)`
 ///
 @sinceV1_0_0
-@PlatformSpecificBehaviors({
-  HealthPlatform.healthConnect:
-      'The height value must be greater than 0 meters and at most 3 meters. '
-      'Health Connect SDK enforces this validation and throws '
-      '`IllegalArgumentException` if the height is outside the valid range.',
-  HealthPlatform.appleHealth:
-      'HealthKit does not enforce the max height validation constraint. '
-      'Only the > 0 meters is performed to prevent invalid data.',
-})
 @immutable
 final class HeightRecord extends InstantHealthRecord {
   /// Creates a body height record.
@@ -31,8 +22,6 @@ final class HeightRecord extends InstantHealthRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [height]: The body height measurement. Must be greater than 0 meters.
-  ///   Platform-specific maximum constraints may apply (see
-  ///   [PlatformSpecificBehaviors] annotation).
   ///
   /// ## Throws
   ///
@@ -44,13 +33,6 @@ final class HeightRecord extends InstantHealthRecord {
     HealthRecordId id = HealthRecordId.none,
     int? zoneOffsetSeconds,
   }) {
-    final heightInMeters = height.inMeters;
-    require(
-      heightInMeters > 0,
-      'height must be greater than 0 meters, '
-      'currently $heightInMeters meters.',
-    );
-
     return HeightRecord._(
       time: time,
       metadata: metadata,

@@ -6,8 +6,10 @@ part of 'permission.dart';
 /// permission checking and requesting for feature-dependent functionality.
 /// While features represent capabilities, feature permissions represent the
 /// authorization to use those capabilities.
+///
+/// **Platform:** Android only (Health Connect). On iOS feature permissions are
+/// always granted.
 @sinceV1_0_0
-@availableOnHealthConnect
 @immutable
 final class HealthPlatformFeaturePermission extends Permission {
   /// Creates a permission for the specified [feature].

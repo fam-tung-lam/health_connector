@@ -66,7 +66,9 @@ final class Device {
       udiDeviceIdentifier = null;
 
   /// The type of device (watch, phone, scale, etc.).
-  @availableOnHealthConnect
+  ///
+  /// **Platform:** Android only (Health Connect).
+  /// On iOS [type] is always [DeviceType.unknown].
   final DeviceType type;
 
   /// The name of the device.
@@ -82,7 +84,6 @@ final class Device {
   /// used as the device name when writing to HealthKit and Health Connect SDKs.
   ///
   /// May be `null` if device name information is unavailable.
-  @availableOnAppleHealth
   final String? name;
 
   /// The manufacturer or brand of the device.
@@ -108,7 +109,6 @@ final class Device {
   /// - **Android (Health Connect):** Not supported
   ///
   /// May be `null` if hardware version information is unavailable.
-  @availableOnAppleHealth
   final String? hardwareVersion;
 
   /// The firmware version of the device.
@@ -120,7 +120,6 @@ final class Device {
   /// - **Android (Health Connect):** Not supported
   ///
   /// May be `null` if firmware version information is unavailable.
-  @availableOnAppleHealth
   final String? firmwareVersion;
 
   /// The software version of the device.
@@ -132,7 +131,6 @@ final class Device {
   /// - **Android (Health Connect):** Not supported
   ///
   /// May be `null` if software version information is unavailable.
-  @availableOnAppleHealth
   final String? softwareVersion;
 
   /// A local identifier for the device.
@@ -145,7 +143,6 @@ final class Device {
   /// - **Android (Health Connect):** Not supported
   ///
   /// May be `null` if local identifier information is unavailable.
-  @availableOnAppleHealth
   final String? localIdentifier;
 
   /// The UDI (Unique Device Identifier) for the device.
@@ -158,7 +155,6 @@ final class Device {
   /// - **Android (Health Connect):** Not supported
   ///
   /// May be `null` if UDI information is unavailable.
-  @availableOnAppleHealth
   final String? udiDeviceIdentifier;
 
   @override
@@ -244,7 +240,6 @@ final class Device {
 ///   - Common patterns: "watch" → watch, "phone"/"iphone" → phone, "scale" → scale, etc.
 ///   - If no pattern matches, defaults to [unknown]
 @sinceV1_0_0
-@availableOnHealthConnect
 enum DeviceType {
   /// Device type is unknown or cannot be determined.
   ///

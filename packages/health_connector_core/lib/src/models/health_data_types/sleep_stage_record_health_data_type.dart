@@ -8,7 +8,6 @@ part of 'health_data_type.dart';
 /// A complete night's sleep consists of multiple records. Each record has
 /// its own UUID.
 @sinceV1_0_0
-@availableOnAppleHealth
 @immutable
 final class SleepStageHealthDataType
     extends HealthDataType<SleepStageRecord, TimeDuration>
