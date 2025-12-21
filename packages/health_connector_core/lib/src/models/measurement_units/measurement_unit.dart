@@ -1,14 +1,9 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
     show sinceV1_0_0;
-import 'package:health_connector_core/src/models/health_platform.dart'
-    show HealthPlatform;
-import 'package:health_connector_core/src/models/health_platform_data.dart'
-    show HealthPlatformData;
 import 'package:meta/meta.dart' show immutable;
 
 part 'blood_glucose.dart';
 part 'energy.dart';
-part 'time_duration.dart';
 part 'length.dart';
 part 'mass.dart';
 part 'number.dart';
@@ -16,6 +11,7 @@ part 'percentage.dart';
 part 'power.dart';
 part 'pressure.dart';
 part 'temperature.dart';
+part 'time_duration.dart';
 part 'velocity.dart';
 part 'volume.dart';
 
@@ -41,9 +37,6 @@ part 'volume.dart';
 ///   interoperability between Android and iOS health platforms
 @sinceV1_0_0
 @immutable
-sealed class MeasurementUnit implements HealthPlatformData {
+sealed class MeasurementUnit {
   const MeasurementUnit();
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }
