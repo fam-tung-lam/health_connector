@@ -151,8 +151,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to get health platform status: '
         '${e.message ?? 'Unknown error'}',
         cause: e,
@@ -233,8 +233,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to request permissions: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -300,8 +300,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to get granted permissions from platform: '
         '${e.message ?? 'Unknown error'}',
         cause: e,
@@ -346,8 +346,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to get permission status: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -389,8 +389,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to revoke all permissions from platform: '
         '${e.message ?? 'Unknown error'}',
         cause: e,
@@ -452,8 +452,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to get feature status for $feature: '
         '${e.message ?? 'Unknown error'}',
         cause: e,
@@ -507,8 +507,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to process $request: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -553,8 +553,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to process $request: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -595,8 +595,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to write $record: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -651,8 +651,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to write $records: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -689,8 +689,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to update $record: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -725,8 +725,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to update $records: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -771,8 +771,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to process $request: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
@@ -810,8 +810,8 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        e.code.toHealthConnectorErrorCode(),
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
         'Failed to delete records by $request: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,

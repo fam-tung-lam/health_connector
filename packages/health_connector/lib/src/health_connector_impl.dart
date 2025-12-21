@@ -8,7 +8,6 @@ import 'package:health_connector_core/health_connector_core.dart'
         DeleteRecordsInTimeRangeRequest,
         HealthConnectorConfig,
         HealthConnectorException,
-        HealthConnectorErrorCode,
         HealthConnectorPlatformClient,
         HealthPlatform,
         HealthPlatformFeature,
@@ -23,7 +22,9 @@ import 'package:health_connector_core/health_connector_core.dart'
         ReadRecordsInTimeRangeRequest,
         ReadRecordsInTimeRangeResponse,
         require,
-        supportedOnHealthConnect;
+        supportedOnHealthConnect,
+        UnsupportedOperationException,
+        InvalidArgumentException;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
 import 'package:health_connector_logger/health_connector_logger.dart';
@@ -107,8 +108,7 @@ final class HealthConnectorImpl implements HealthConnector {
           context: {'current_health_platform': _healthPlatform.name},
         );
 
-        throw const HealthConnectorException(
-          HealthConnectorErrorCode.unsupportedOperation,
+        throw const UnsupportedOperationException(
           'getGrantedPermissions is only available on Health Connect. ',
         );
       case HealthPlatform.healthConnect:
@@ -190,8 +190,7 @@ final class HealthConnectorImpl implements HealthConnector {
           context: {'current_health_platform': _healthPlatform.name},
         );
 
-        throw const HealthConnectorException(
-          HealthConnectorErrorCode.unsupportedOperation,
+        throw const UnsupportedOperationException(
           'revokeAllPermissions is only available on Health Connect. ',
         );
       case HealthPlatform.healthConnect:
@@ -386,8 +385,7 @@ final class HealthConnectorImpl implements HealthConnector {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        HealthConnectorErrorCode.invalidArgument,
+      throw InvalidArgumentException(
         (e.message as String?) ?? e.toString(),
       );
     } catch (e, st) {
@@ -446,8 +444,7 @@ final class HealthConnectorImpl implements HealthConnector {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        HealthConnectorErrorCode.invalidArgument,
+      throw InvalidArgumentException(
         (e.message as String?) ?? e.toString(),
       );
     } on HealthConnectorException catch (e, st) {
@@ -576,8 +573,7 @@ final class HealthConnectorImpl implements HealthConnector {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        HealthConnectorErrorCode.invalidArgument,
+      throw InvalidArgumentException(
         (e.message as String?) ?? e.toString(),
       );
     } on HealthConnectorException catch (e, st) {
@@ -627,8 +623,7 @@ final class HealthConnectorImpl implements HealthConnector {
         stackTrace: st,
       );
 
-      throw HealthConnectorException(
-        HealthConnectorErrorCode.invalidArgument,
+      throw InvalidArgumentException(
         (e.message as String?) ?? e.toString(),
       );
     } on HealthConnectorException catch (e, st) {

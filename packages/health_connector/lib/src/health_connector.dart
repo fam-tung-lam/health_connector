@@ -29,6 +29,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         sinceV2_0_0,
         DeleteRecordsInTimeRangeRequest,
         DeleteRecordsByIdsRequest,
+        HealthProviderUnavailableException,
+        HealthProviderNotInstalledOrUpdateRequiredException,
         sinceV1_0_0;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
@@ -84,8 +86,7 @@ abstract interface class HealthConnector {
           context: {'platform': healthPlatform.name},
         );
 
-        throw HealthConnectorException(
-          HealthConnectorErrorCode.healthProviderUnavailable,
+        throw HealthProviderUnavailableException(
           '$healthPlatform is not available.',
         );
       case HealthPlatformStatus.installationOrUpdateRequired:
@@ -96,8 +97,7 @@ abstract interface class HealthConnector {
           context: {'platform': healthPlatform.name},
         );
 
-        throw HealthConnectorException(
-          HealthConnectorErrorCode.healthProviderNotInstalledOrUpdateRequired,
+        throw HealthProviderNotInstalledOrUpdateRequiredException(
           '$healthPlatform needs installation or update.',
         );
       case HealthPlatformStatus.available:
