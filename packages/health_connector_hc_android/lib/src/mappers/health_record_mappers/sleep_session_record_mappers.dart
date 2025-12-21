@@ -2,7 +2,7 @@ import 'package:health_connector_core/health_connector_core.dart'
     show SleepSessionRecord, HealthRecordId, sinceV1_0_0;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sleep_stage_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/metadata_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show SleepSessionRecordDto;
 import 'package:meta/meta.dart' show internal;

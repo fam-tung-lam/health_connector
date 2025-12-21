@@ -1,7 +1,7 @@
 import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/metadata_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:meta/meta.dart' show internal;
 
@@ -15,7 +15,7 @@ extension Vo2MaxRecordDtoToDomain on Vo2MaxRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      mLPerKgPerMin: mLPerKgPerMin.toDomain() as Number,
+      mLPerKgPerMin: mLPerKgPerMin.toDomain(),
       testType: testType?.toDomain(),
     );
   }
@@ -31,7 +31,7 @@ extension Vo2MaxRecordToDto on Vo2MaxRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      mLPerKgPerMin: mLPerKgPerMin.toDto() as NumberDto,
+      mLPerKgPerMin: mLPerKgPerMin.toDto(),
       testType: testType?.toDto(),
     );
   }

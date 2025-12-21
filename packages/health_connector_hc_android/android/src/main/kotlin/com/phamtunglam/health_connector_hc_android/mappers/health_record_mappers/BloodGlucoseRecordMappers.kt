@@ -2,8 +2,10 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 
 import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.MealType
-import com.phamtunglam.health_connector_hc_android.mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
+import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
+import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRelationToMealDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseSpecimenSourceDto

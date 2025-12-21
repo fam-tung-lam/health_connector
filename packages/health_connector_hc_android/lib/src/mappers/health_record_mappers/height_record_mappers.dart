@@ -1,10 +1,10 @@
 import 'package:health_connector_core/health_connector_core.dart'
-    show HeightRecord, Length, HealthRecordId, sinceV1_0_0;
+    show HeightRecord, HealthRecordId, sinceV1_0_0;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/metadata_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
-    show HeightRecordDto, LengthDto;
+    show HeightRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [HeightRecord] to [HeightRecordDto].
@@ -17,7 +17,7 @@ extension HeightRecordToDto on HeightRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      height: height.toDto() as LengthDto,
+      height: height.toDto(),
     );
   }
 }
@@ -32,7 +32,7 @@ extension HeightRecordDtoToDomain on HeightRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      height: height.toDomain() as Length,
+      height: height.toDomain(),
     );
   }
 }

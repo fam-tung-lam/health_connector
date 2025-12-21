@@ -5,14 +5,12 @@ import 'package:health_connector_core/health_connector_core.dart'
         CalciumNutrientRecord,
         CholesterolNutrientRecord,
         DietaryFiberNutrientRecord,
-        Energy,
         EnergyNutrientRecord,
         FolateNutrientRecord,
         HealthRecordId,
         IronNutrientRecord,
         MagnesiumNutrientRecord,
         ManganeseNutrientRecord,
-        Mass,
         MealType,
         MonounsaturatedFatNutrientRecord,
         NiacinNutrientRecord,
@@ -41,8 +39,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         sinceV1_1_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/meal_type_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/metadata_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show
         BiotinNutrientRecordDto,
@@ -50,13 +48,11 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         CalciumNutrientRecordDto,
         CholesterolNutrientRecordDto,
         DietaryFiberNutrientRecordDto,
-        EnergyDto,
         EnergyNutrientRecordDto,
         FolateNutrientRecordDto,
         IronNutrientRecordDto,
         MagnesiumNutrientRecordDto,
         ManganeseNutrientRecordDto,
-        MassDto,
         MonounsaturatedFatNutrientRecordDto,
         NiacinNutrientRecordDto,
         NutritionRecordDto,
@@ -98,43 +94,43 @@ extension NutritionRecordToDto on NutritionRecord {
       foodName: foodName,
       mealType: mealType.toDto(),
       // Energy
-      energy: energy?.toDto() as EnergyDto?,
+      energy: energy?.toDto(),
       // Macronutrients
-      protein: protein?.toDto() as MassDto?,
-      totalCarbohydrate: totalCarbohydrate?.toDto() as MassDto?,
-      totalFat: totalFat?.toDto() as MassDto?,
-      saturatedFat: saturatedFat?.toDto() as MassDto?,
-      monounsaturatedFat: monounsaturatedFat?.toDto() as MassDto?,
-      polyunsaturatedFat: polyunsaturatedFat?.toDto() as MassDto?,
-      cholesterol: cholesterol?.toDto() as MassDto?,
-      dietaryFiber: dietaryFiber?.toDto() as MassDto?,
-      sugar: sugar?.toDto() as MassDto?,
+      protein: protein?.toDto(),
+      totalCarbohydrate: totalCarbohydrate?.toDto(),
+      totalFat: totalFat?.toDto(),
+      saturatedFat: saturatedFat?.toDto(),
+      monounsaturatedFat: monounsaturatedFat?.toDto(),
+      polyunsaturatedFat: polyunsaturatedFat?.toDto(),
+      cholesterol: cholesterol?.toDto(),
+      dietaryFiber: dietaryFiber?.toDto(),
+      sugar: sugar?.toDto(),
       // Vitamins
-      vitaminA: vitaminA?.toDto() as MassDto?,
-      vitaminB6: vitaminB6?.toDto() as MassDto?,
-      vitaminB12: vitaminB12?.toDto() as MassDto?,
-      vitaminC: vitaminC?.toDto() as MassDto?,
-      vitaminD: vitaminD?.toDto() as MassDto?,
-      vitaminE: vitaminE?.toDto() as MassDto?,
-      vitaminK: vitaminK?.toDto() as MassDto?,
-      thiamin: thiamin?.toDto() as MassDto?,
-      riboflavin: riboflavin?.toDto() as MassDto?,
-      niacin: niacin?.toDto() as MassDto?,
-      folate: folate?.toDto() as MassDto?,
-      biotin: biotin?.toDto() as MassDto?,
-      pantothenicAcid: pantothenicAcid?.toDto() as MassDto?,
+      vitaminA: vitaminA?.toDto(),
+      vitaminB6: vitaminB6?.toDto(),
+      vitaminB12: vitaminB12?.toDto(),
+      vitaminC: vitaminC?.toDto(),
+      vitaminD: vitaminD?.toDto(),
+      vitaminE: vitaminE?.toDto(),
+      vitaminK: vitaminK?.toDto(),
+      thiamin: thiamin?.toDto(),
+      riboflavin: riboflavin?.toDto(),
+      niacin: niacin?.toDto(),
+      folate: folate?.toDto(),
+      biotin: biotin?.toDto(),
+      pantothenicAcid: pantothenicAcid?.toDto(),
       // Minerals
-      calcium: calcium?.toDto() as MassDto?,
-      iron: iron?.toDto() as MassDto?,
-      magnesium: magnesium?.toDto() as MassDto?,
-      manganese: manganese?.toDto() as MassDto?,
-      phosphorus: phosphorus?.toDto() as MassDto?,
-      potassium: potassium?.toDto() as MassDto?,
-      selenium: selenium?.toDto() as MassDto?,
-      sodium: sodium?.toDto() as MassDto?,
-      zinc: zinc?.toDto() as MassDto?,
+      calcium: calcium?.toDto(),
+      iron: iron?.toDto(),
+      magnesium: magnesium?.toDto(),
+      manganese: manganese?.toDto(),
+      phosphorus: phosphorus?.toDto(),
+      potassium: potassium?.toDto(),
+      selenium: selenium?.toDto(),
+      sodium: sodium?.toDto(),
+      zinc: zinc?.toDto(),
       // Other
-      caffeine: caffeine?.toDto() as MassDto?,
+      caffeine: caffeine?.toDto(),
     );
   }
 }
@@ -149,7 +145,7 @@ extension EnergyNutrientRecordToDto on EnergyNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as EnergyDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -166,7 +162,7 @@ extension CaffeineNutrientRecordToDto on CaffeineNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -183,7 +179,7 @@ extension ProteinNutrientRecordToDto on ProteinNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -202,7 +198,7 @@ extension TotalCarbohydrateNutrientRecordToDto
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -219,7 +215,7 @@ extension TotalFatNutrientRecordToDto on TotalFatNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -236,7 +232,7 @@ extension SaturatedFatNutrientRecordToDto on SaturatedFatNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -255,7 +251,7 @@ extension MonounsaturatedFatNutrientRecordToDto
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -274,7 +270,7 @@ extension PolyunsaturatedFatNutrientRecordToDto
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -291,7 +287,7 @@ extension CholesterolNutrientRecordToDto on CholesterolNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -308,7 +304,7 @@ extension DietaryFiberNutrientRecordToDto on DietaryFiberNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -325,7 +321,7 @@ extension SugarNutrientRecordToDto on SugarNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -342,7 +338,7 @@ extension VitaminANutrientRecordToDto on VitaminANutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -359,7 +355,7 @@ extension VitaminB6NutrientRecordToDto on VitaminB6NutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -376,7 +372,7 @@ extension VitaminB12NutrientRecordToDto on VitaminB12NutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -393,7 +389,7 @@ extension VitaminCNutrientRecordToDto on VitaminCNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -410,7 +406,7 @@ extension VitaminDNutrientRecordToDto on VitaminDNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -427,7 +423,7 @@ extension VitaminENutrientRecordToDto on VitaminENutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -444,7 +440,7 @@ extension VitaminKNutrientRecordToDto on VitaminKNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -461,7 +457,7 @@ extension ThiaminNutrientRecordToDto on ThiaminNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -478,7 +474,7 @@ extension RiboflavinNutrientRecordToDto on RiboflavinNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -495,7 +491,7 @@ extension NiacinNutrientRecordToDto on NiacinNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -512,7 +508,7 @@ extension FolateNutrientRecordToDto on FolateNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -529,7 +525,7 @@ extension BiotinNutrientRecordToDto on BiotinNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -547,7 +543,7 @@ extension PantothenicAcidNutrientRecordToDto on PantothenicAcidNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -564,7 +560,7 @@ extension CalciumNutrientRecordToDto on CalciumNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -581,7 +577,7 @@ extension IronNutrientRecordToDto on IronNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -598,7 +594,7 @@ extension MagnesiumNutrientRecordToDto on MagnesiumNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -615,7 +611,7 @@ extension ManganeseNutrientRecordToDto on ManganeseNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -632,7 +628,7 @@ extension PhosphorusNutrientRecordToDto on PhosphorusNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -649,7 +645,7 @@ extension PotassiumNutrientRecordToDto on PotassiumNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -666,7 +662,7 @@ extension SeleniumNutrientRecordToDto on SeleniumNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -683,7 +679,7 @@ extension SodiumNutrientRecordToDto on SodiumNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -700,7 +696,7 @@ extension ZincNutrientRecordToDto on ZincNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto() as MassDto,
+      value: value.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -722,43 +718,43 @@ extension NutritionRecordDtoToDomain on NutritionRecordDto {
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
       // Energy
-      energy: energy?.toDomain() as Energy?,
+      energy: energy?.toDomain(),
       // Macronutrients
-      protein: protein?.toDomain() as Mass?,
-      totalCarbohydrate: totalCarbohydrate?.toDomain() as Mass?,
-      totalFat: totalFat?.toDomain() as Mass?,
-      saturatedFat: saturatedFat?.toDomain() as Mass?,
-      monounsaturatedFat: monounsaturatedFat?.toDomain() as Mass?,
-      polyunsaturatedFat: polyunsaturatedFat?.toDomain() as Mass?,
-      cholesterol: cholesterol?.toDomain() as Mass?,
-      dietaryFiber: dietaryFiber?.toDomain() as Mass?,
-      sugar: sugar?.toDomain() as Mass?,
+      protein: protein?.toDomain(),
+      totalCarbohydrate: totalCarbohydrate?.toDomain(),
+      totalFat: totalFat?.toDomain(),
+      saturatedFat: saturatedFat?.toDomain(),
+      monounsaturatedFat: monounsaturatedFat?.toDomain(),
+      polyunsaturatedFat: polyunsaturatedFat?.toDomain(),
+      cholesterol: cholesterol?.toDomain(),
+      dietaryFiber: dietaryFiber?.toDomain(),
+      sugar: sugar?.toDomain(),
       // Vitamins
-      vitaminA: vitaminA?.toDomain() as Mass?,
-      vitaminB6: vitaminB6?.toDomain() as Mass?,
-      vitaminB12: vitaminB12?.toDomain() as Mass?,
-      vitaminC: vitaminC?.toDomain() as Mass?,
-      vitaminD: vitaminD?.toDomain() as Mass?,
-      vitaminE: vitaminE?.toDomain() as Mass?,
-      vitaminK: vitaminK?.toDomain() as Mass?,
-      thiamin: thiamin?.toDomain() as Mass?,
-      riboflavin: riboflavin?.toDomain() as Mass?,
-      niacin: niacin?.toDomain() as Mass?,
-      folate: folate?.toDomain() as Mass?,
-      biotin: biotin?.toDomain() as Mass?,
-      pantothenicAcid: pantothenicAcid?.toDomain() as Mass?,
+      vitaminA: vitaminA?.toDomain(),
+      vitaminB6: vitaminB6?.toDomain(),
+      vitaminB12: vitaminB12?.toDomain(),
+      vitaminC: vitaminC?.toDomain(),
+      vitaminD: vitaminD?.toDomain(),
+      vitaminE: vitaminE?.toDomain(),
+      vitaminK: vitaminK?.toDomain(),
+      thiamin: thiamin?.toDomain(),
+      riboflavin: riboflavin?.toDomain(),
+      niacin: niacin?.toDomain(),
+      folate: folate?.toDomain(),
+      biotin: biotin?.toDomain(),
+      pantothenicAcid: pantothenicAcid?.toDomain(),
       // Minerals
-      calcium: calcium?.toDomain() as Mass?,
-      iron: iron?.toDomain() as Mass?,
-      magnesium: magnesium?.toDomain() as Mass?,
-      manganese: manganese?.toDomain() as Mass?,
-      phosphorus: phosphorus?.toDomain() as Mass?,
-      potassium: potassium?.toDomain() as Mass?,
-      selenium: selenium?.toDomain() as Mass?,
-      sodium: sodium?.toDomain() as Mass?,
-      zinc: zinc?.toDomain() as Mass?,
+      calcium: calcium?.toDomain(),
+      iron: iron?.toDomain(),
+      magnesium: magnesium?.toDomain(),
+      manganese: manganese?.toDomain(),
+      phosphorus: phosphorus?.toDomain(),
+      potassium: potassium?.toDomain(),
+      selenium: selenium?.toDomain(),
+      sodium: sodium?.toDomain(),
+      zinc: zinc?.toDomain(),
       // Other
-      caffeine: caffeine?.toDomain() as Mass?,
+      caffeine: caffeine?.toDomain(),
     );
   }
 }
@@ -773,7 +769,7 @@ extension EnergyNutrientRecordDtoToDomain on EnergyNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Energy,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -790,7 +786,7 @@ extension CaffeineNutrientRecordDtoToDomain on CaffeineNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -807,7 +803,7 @@ extension ProteinNutrientRecordDtoToDomain on ProteinNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -826,7 +822,7 @@ extension TotalCarbohydrateNutrientRecordDtoToDomain
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -843,7 +839,7 @@ extension TotalFatNutrientRecordDtoToDomain on TotalFatNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -861,7 +857,7 @@ extension SaturatedFatNutrientRecordDtoToDomain
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -880,7 +876,7 @@ extension MonounsaturatedFatNutrientRecordDtoToDomain
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -899,7 +895,7 @@ extension PolyunsaturatedFatNutrientRecordDtoToDomain
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -916,7 +912,7 @@ extension CholesterolNutrientRecordDtoToDomain on CholesterolNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -934,7 +930,7 @@ extension DietaryFiberNutrientRecordDtoToDomain
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -951,7 +947,7 @@ extension SugarNutrientRecordDtoToDomain on SugarNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -968,7 +964,7 @@ extension VitaminANutrientRecordDtoToDomain on VitaminANutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -985,7 +981,7 @@ extension VitaminB6NutrientRecordDtoToDomain on VitaminB6NutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1002,7 +998,7 @@ extension VitaminB12NutrientRecordDtoToDomain on VitaminB12NutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1019,7 +1015,7 @@ extension VitaminCNutrientRecordDtoToDomain on VitaminCNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1036,7 +1032,7 @@ extension VitaminDNutrientRecordDtoToDomain on VitaminDNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1053,7 +1049,7 @@ extension VitaminENutrientRecordDtoToDomain on VitaminENutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1070,7 +1066,7 @@ extension VitaminKNutrientRecordDtoToDomain on VitaminKNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1087,7 +1083,7 @@ extension ThiaminNutrientRecordDtoToDomain on ThiaminNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1104,7 +1100,7 @@ extension RiboflavinNutrientRecordDtoToDomain on RiboflavinNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1121,7 +1117,7 @@ extension NiacinNutrientRecordDtoToDomain on NiacinNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1138,7 +1134,7 @@ extension FolateNutrientRecordDtoToDomain on FolateNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1155,7 +1151,7 @@ extension BiotinNutrientRecordDtoToDomain on BiotinNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1174,7 +1170,7 @@ extension PantothenicAcidNutrientRecordDtoToDomain
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1191,7 +1187,7 @@ extension CalciumNutrientRecordDtoToDomain on CalciumNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1208,7 +1204,7 @@ extension IronNutrientRecordDtoToDomain on IronNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1225,7 +1221,7 @@ extension MagnesiumNutrientRecordDtoToDomain on MagnesiumNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1242,7 +1238,7 @@ extension ManganeseNutrientRecordDtoToDomain on ManganeseNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1259,7 +1255,7 @@ extension PhosphorusNutrientRecordDtoToDomain on PhosphorusNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1276,7 +1272,7 @@ extension PotassiumNutrientRecordDtoToDomain on PotassiumNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1293,7 +1289,7 @@ extension SeleniumNutrientRecordDtoToDomain on SeleniumNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1310,7 +1306,7 @@ extension SodiumNutrientRecordDtoToDomain on SodiumNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );
@@ -1327,7 +1323,7 @@ extension ZincNutrientRecordDtoToDomain on ZincNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain() as Mass,
+      value: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );

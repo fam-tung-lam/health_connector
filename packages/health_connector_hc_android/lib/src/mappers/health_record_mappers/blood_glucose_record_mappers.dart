@@ -1,19 +1,17 @@
 import 'package:health_connector_core/health_connector_core.dart'
     show
         BloodGlucoseRecord,
-        BloodGlucose,
         BloodGlucoseRelationToMeal,
         BloodGlucoseSpecimenSource,
         BloodGlucoseMealType,
         HealthRecordId,
         sinceV1_4_0;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/metadata_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show
         BloodGlucoseRecordDto,
-        BloodGlucoseDto,
         BloodGlucoseRelationToMealDto,
         BloodGlucoseSpecimenSourceDto,
         MealTypeDto;
@@ -29,7 +27,7 @@ extension BloodGlucoseRecordToDto on BloodGlucoseRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      bloodGlucose: bloodGlucose.toDto() as BloodGlucoseDto,
+      bloodGlucose: bloodGlucose.toDto(),
       relationToMeal: relationToMeal.toDto(),
       specimenSource: specimenSource.toDto(),
       mealType: mealType.toDto(),
@@ -47,7 +45,7 @@ extension BloodGlucoseRecordDtoToDomain on BloodGlucoseRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      bloodGlucose: bloodGlucose.toDomain() as BloodGlucose,
+      bloodGlucose: bloodGlucose.toDomain(),
       relationToMeal:
           relationToMeal?.toDomain() ?? BloodGlucoseRelationToMeal.unknown,
       specimenSource:

@@ -1,20 +1,15 @@
 import 'package:health_connector_core/health_connector_core.dart'
     show
         BloodPressureRecord,
-        Pressure,
         HealthRecordId,
         BloodPressureMeasurementLocation,
         BloodPressureBodyPosition,
         sinceV1_2_0;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/metadata_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
-    show
-        BloodPressureRecordDto,
-        PressureDto,
-        MeasurementLocationDto,
-        BodyPositionDto;
+    show BloodPressureRecordDto, MeasurementLocationDto, BodyPositionDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [BloodPressureRecord] to [BloodPressureRecordDto].
@@ -27,8 +22,8 @@ extension BloodPressureRecordToDto on BloodPressureRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      systolic: systolic.toDto() as PressureDto,
-      diastolic: diastolic.toDto() as PressureDto,
+      systolic: systolic.toDto(),
+      diastolic: diastolic.toDto(),
       bodyPosition: bodyPosition.toDto(),
       measurementLocation: measurementLocation.toDto(),
     );
@@ -45,8 +40,8 @@ extension BloodPressureRecordDtoToDomain on BloodPressureRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      systolic: systolic.toDomain() as Pressure,
-      diastolic: diastolic.toDomain() as Pressure,
+      systolic: systolic.toDomain(),
+      diastolic: diastolic.toDomain(),
       bodyPosition: bodyPosition.toDomain(),
       measurementLocation: measurementLocation.toDomain(),
     );

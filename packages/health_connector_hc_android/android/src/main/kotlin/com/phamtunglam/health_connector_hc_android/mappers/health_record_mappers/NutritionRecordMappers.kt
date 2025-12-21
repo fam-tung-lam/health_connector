@@ -1,18 +1,14 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.NutritionRecord
-import com.phamtunglam.health_connector_hc_android.mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
+import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
+import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.NutritionRecordDto
 import java.time.Instant
 import java.time.ZoneOffset
-
-/**
- * Duration in milliseconds to add to start time for instant nutrition records.
- * This creates a small time interval for individual nutrient records.
- */
-private const val INSTANT_RECORD_DURATION_MS = 100L
 
 /**
  * Converts a [NutritionRecordDto] to a Health Connect [NutritionRecord] object.

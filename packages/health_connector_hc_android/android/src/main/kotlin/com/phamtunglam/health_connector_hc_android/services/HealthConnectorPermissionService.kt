@@ -5,9 +5,9 @@ import android.health.connect.HealthConnectException
 import android.os.RemoteException
 import androidx.activity.ComponentActivity
 import androidx.health.connect.client.PermissionController
+import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.mappers.toError
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.mappers.toPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestDto

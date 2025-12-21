@@ -2,9 +2,9 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 
 import androidx.health.connect.client.records.BodyTemperatureRecord
 import androidx.health.connect.client.units.Temperature
-import com.phamtunglam.health_connector_hc_android.mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.mappers.toTemperatureDto
+import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toTemperatureDto
+import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
+import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyTemperatureRecordDto
 import java.time.Instant
 import java.time.ZoneOffset

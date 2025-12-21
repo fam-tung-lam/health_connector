@@ -2,7 +2,7 @@ import 'package:health_connector_core/health_connector_core.dart'
     show SleepStageRecord, HealthRecordId, sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sleep_stage_type_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/metadata_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show SleepStageRecordDto;
 import 'package:meta/meta.dart' show internal;

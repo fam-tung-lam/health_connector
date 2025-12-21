@@ -1,8 +1,10 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.HydrationRecord
-import com.phamtunglam.health_connector_hc_android.mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
+import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
+import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
 import java.time.Instant
 import java.time.ZoneOffset
