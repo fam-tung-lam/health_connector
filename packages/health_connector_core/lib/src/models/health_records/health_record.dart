@@ -36,8 +36,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
 import 'package:health_connector_core/src/models/metadata/metadata.dart'
     show Metadata;
 import 'package:health_connector_core/src/utils/collection.dart';
-import 'package:health_connector_core/src/utils/datetime.dart'
-    show formatTimeRange;
+
 import 'package:health_connector_core/src/utils/validation.dart' show require;
 import 'package:meta/meta.dart' show immutable, internal;
 
@@ -121,10 +120,6 @@ sealed class HealthRecord implements HealthPlatformData {
   /// Returns a hash code for this health record.
   @override
   int get hashCode;
-
-  /// Returns a string representation of this health record.
-  @override
-  String toString();
 }
 
 /// A type-safe identifier for health records.
@@ -192,7 +187,4 @@ final class HealthRecordId {
 
   @override
   int get hashCode => value.hashCode;
-
-  @override
-  String toString() => value;
 }

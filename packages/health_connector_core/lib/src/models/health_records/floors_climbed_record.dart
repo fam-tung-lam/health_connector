@@ -78,15 +78,6 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'FloorsClimbedRecord('
-      'id: $id, '
-      'floors: ${floors.value}, '
-      'time_range: ${formatTimeRange(startTime: startTime, endTime: endTime)}, '
-      'duration: $duration'
-      ')';
-
-  @override
   String get name => 'floors_climbed_record';
 
   @override

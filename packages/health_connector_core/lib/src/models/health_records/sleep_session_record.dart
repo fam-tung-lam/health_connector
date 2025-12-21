@@ -110,18 +110,6 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStage> {
       title.hashCode ^
       notes.hashCode ^
       Object.hashAll(samples);
-
-  @override
-  String toString() {
-    return 'SleepSessionRecord('
-        'id: $id, '
-        'startTime: $startTime, '
-        'endTime: $endTime, '
-        'title: $title, '
-        'samples: ${samples.length} stages, '
-        'metadata: $metadata'
-        ')';
-  }
 }
 
 /// Represents a single sleep stage period with time range.
@@ -159,14 +147,4 @@ final class SleepStage {
   @override
   int get hashCode =>
       startTime.hashCode ^ endTime.hashCode ^ stageType.hashCode;
-
-  @override
-  String toString() {
-    return 'SleepStage('
-        'startTime: $startTime, '
-        'endTime: $endTime, '
-        'stageType: $stageType, '
-        'duration: $duration'
-        ')';
-  }
 }

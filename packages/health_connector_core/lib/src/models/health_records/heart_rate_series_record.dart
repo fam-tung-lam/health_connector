@@ -132,16 +132,4 @@ final class HeartRateSeriesRecord
       startZoneOffsetSeconds.hashCode ^
       endZoneOffsetSeconds.hashCode ^
       Object.hashAll(samples);
-
-  @override
-  String toString() {
-    return 'HeartRateSeriesRecord('
-        'id: $id, '
-        'startTime: $startTime, '
-        'endTime: $endTime, '
-        'samples: ${samples.length}, '
-        'avgBpm: ${averageBpm.value}, '
-        'metadata: $metadata'
-        ')';
-  }
 }

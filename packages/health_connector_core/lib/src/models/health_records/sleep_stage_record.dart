@@ -99,16 +99,4 @@ final class SleepStageRecord extends IntervalHealthRecord {
       startZoneOffsetSeconds.hashCode ^
       endZoneOffsetSeconds.hashCode ^
       stageType.hashCode;
-
-  @override
-  String toString() {
-    return 'SleepStageRecord('
-        'id: $id, '
-        'startTime: $startTime, '
-        'endTime: $endTime, '
-        'stageType: $stageType, '
-        'duration: $duration, '
-        'metadata: $metadata'
-        ')';
-  }
 }

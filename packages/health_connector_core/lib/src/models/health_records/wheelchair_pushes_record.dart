@@ -78,15 +78,6 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'WheelchairPushesRecord('
-      'id: $id, '
-      'pushes: ${pushes.value}, '
-      'time_range: ${formatTimeRange(startTime: startTime, endTime: endTime)}, '
-      'duration: $duration'
-      ')';
-
-  @override
   String get name => 'wheelchair_pushes_record';
 
   @override

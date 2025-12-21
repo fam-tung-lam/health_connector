@@ -81,17 +81,6 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'BloodGlucoseRecord('
-      'id: $id, '
-      'bloodGlucose: $bloodGlucose, '
-      'relationToMeal: $relationToMeal, '
-      'mealType: $mealType, '
-      'specimenSource: $specimenSource, '
-      'time: $time'
-      ')';
-
-  @override
   String get name => 'blood_glucose_record';
 }
 

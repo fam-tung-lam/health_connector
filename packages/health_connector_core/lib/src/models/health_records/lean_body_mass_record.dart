@@ -60,14 +60,6 @@ final class LeanBodyMassRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'LeanBodyMassRecord('
-      'id: $id, '
-      'mass: $mass, '
-      'time: $time'
-      ')';
-
-  @override
   String get name => 'lean_body_mass_record';
 
   @override

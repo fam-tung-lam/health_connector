@@ -77,14 +77,6 @@ final class BodyFatPercentageRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'BodyFatPercentageRecord('
-      'id: $id, '
-      'percentage: ${percentage.asWhole}%, '
-      'time: $time'
-      ')';
-
-  @override
   String get name => 'body_fat_percentage_record';
 
   @override

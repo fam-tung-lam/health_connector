@@ -76,16 +76,6 @@ final class HeartRateMeasurementRecord extends InstantHealthRecord {
   int get hashCode => id.hashCode ^ metadata.hashCode ^ measurement.hashCode;
 
   @override
-  String toString() {
-    return 'HeartRateMeasurementRecord('
-        'id: $id, '
-        'time: $time, '
-        'beatsPerMinute: ${beatsPerMinute.value} BPM, '
-        'metadata: $metadata'
-        ');';
-  }
-
-  @override
   String get name => 'heart_rate_measurement_record';
 
   @override

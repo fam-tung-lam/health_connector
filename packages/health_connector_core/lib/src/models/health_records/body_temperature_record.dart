@@ -60,14 +60,6 @@ final class BodyTemperatureRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'BodyTemperatureRecord('
-      'id: $id, '
-      'temperature: $temperature, '
-      'time: $time'
-      ')';
-
-  @override
   String get name => 'body_temperature_record';
 
   @override

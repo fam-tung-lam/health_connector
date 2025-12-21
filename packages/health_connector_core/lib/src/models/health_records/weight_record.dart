@@ -59,14 +59,6 @@ final class WeightRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'WeightRecord('
-      'id: $id, '
-      'weight: $weight, '
-      'time: $time'
-      ')';
-
-  @override
   String get name => 'weight_record';
 
   @override

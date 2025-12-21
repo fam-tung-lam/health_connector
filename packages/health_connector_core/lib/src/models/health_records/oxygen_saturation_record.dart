@@ -32,12 +32,6 @@ final class OxygenSaturationRecord extends InstantHealthRecord {
   int get hashCode => Object.hash(super.hashCode, percentage);
 
   @override
-  String toString() {
-    return 'OxygenSaturationRecord { ${super.toString()}, '
-        'percentage: $percentage }';
-  }
-
-  @override
   String get name => 'oxygen_saturation_record';
 
   @override

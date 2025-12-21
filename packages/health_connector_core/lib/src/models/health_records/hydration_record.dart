@@ -76,15 +76,6 @@ final class HydrationRecord extends IntervalHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'HydrationRecord('
-      'id: $id, '
-      'volume: ${volume.inLiters} L, '
-      'time_range: ${formatTimeRange(startTime: startTime, endTime: endTime)}, '
-      'duration: $duration'
-      ')';
-
-  @override
   String get name => 'hydration_record';
 
   @override

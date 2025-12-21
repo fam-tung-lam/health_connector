@@ -70,15 +70,6 @@ final class StepsRecord extends IntervalHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'StepsRecord('
-      'id: $id, '
-      'count: ${count.value}, '
-      'time_range: ${formatTimeRange(startTime: startTime, endTime: endTime)}, '
-      'duration: $duration'
-      ');';
-
-  @override
   String get name => 'step_record';
 
   @override

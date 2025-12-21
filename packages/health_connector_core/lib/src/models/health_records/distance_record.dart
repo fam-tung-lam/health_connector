@@ -77,15 +77,6 @@ final class DistanceRecord extends IntervalHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'DistanceRecord('
-      'id: $id, '
-      'distance: ${distance.inMeters}m, '
-      'time_range: ${formatTimeRange(startTime: startTime, endTime: endTime)}, '
-      'duration: $duration'
-      ')';
-
-  @override
   String get name => 'distance_record';
 
   @override

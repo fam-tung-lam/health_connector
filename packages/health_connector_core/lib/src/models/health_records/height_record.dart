@@ -97,14 +97,6 @@ final class HeightRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'HeightRecord('
-      'id: $id, '
-      'height: $height, '
-      'time: $time'
-      ')';
-
-  @override
   String get name => 'height_record';
 
   @override

@@ -28,12 +28,6 @@ final class RespiratoryRateRecord extends InstantHealthRecord {
   int get hashCode => Object.hash(super.hashCode, breathsPerMin);
 
   @override
-  String toString() {
-    return 'RespiratoryRateRecord { ${super.toString()}, '
-        'breathsPerMin: $breathsPerMin }';
-  }
-
-  @override
   String get name => 'respiratory_rate_record';
 
   @override

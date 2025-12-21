@@ -75,15 +75,6 @@ final class Vo2MaxRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'Vo2MaxRecord('
-      'id: $id, '
-      'vo2Max: ${mLPerKgPerMin.value.toStringAsFixed(1)} mL/kg/min, '
-      'testType: ${testType?.name ?? "unknown"}, '
-      'time: $time'
-      ')';
-
-  @override
   String get name => 'vo2_max_record';
 
   @override

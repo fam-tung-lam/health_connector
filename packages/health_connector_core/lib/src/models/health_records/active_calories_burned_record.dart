@@ -78,15 +78,6 @@ final class ActiveCaloriesBurnedRecord extends IntervalHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'ActiveCaloriesBurnedRecord('
-      'id: $id, '
-      'energy: ${energy.inKilocalories} kcal, '
-      'time_range: ${formatTimeRange(startTime: startTime, endTime: endTime)}, '
-      'duration: $duration'
-      ')';
-
-  @override
   String get name => 'active_calories_burned_record';
 
   @override

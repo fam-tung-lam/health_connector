@@ -55,14 +55,6 @@ final class DiastolicBloodPressureRecord extends InstantHealthRecord {
       metadata.hashCode;
 
   @override
-  String toString() =>
-      'DiastolicBloodPressureRecord('
-      'id: $id, '
-      'pressure: $pressure, '
-      'time: $time'
-      ')';
-
-  @override
   String get name => 'diastolic_blood_pressure_record';
 
   @override
