@@ -24,12 +24,11 @@ import 'package:health_connector_core/health_connector_core.dart'
         DeleteRecordsRequest;
 import 'package:health_connector_hk_ios/src/mappers/config_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_connector_error_code_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/permission_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/request_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/response_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/permission_mappers/permission_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/request_and_response_mappers/request_and_response_mappers.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show HealthConnectorHKIOSApi, HealthPlatformStatusDto;
 import 'package:health_connector_logger/health_connector_logger.dart';

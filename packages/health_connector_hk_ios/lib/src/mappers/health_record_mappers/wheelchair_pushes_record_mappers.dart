@@ -1,10 +1,10 @@
 import 'package:health_connector_core/health_connector_core.dart'
-    show WheelchairPushesRecord, HealthRecordId, sinceV1_0_0, Number;
+    show WheelchairPushesRecord, HealthRecordId, sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/metadata_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
-    show WheelchairPushesRecordDto, NumberDto;
+    show WheelchairPushesRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [WheelchairPushesRecord] to [WheelchairPushesRecordDto].
@@ -19,7 +19,7 @@ extension WheelchairPushesRecordToDto on WheelchairPushesRecord {
       zoneOffsetSeconds: startZoneOffsetSeconds,
 
       metadata: metadata.toDto(),
-      pushes: pushes.toDto() as NumberDto,
+      pushes: pushes.toDto(),
     );
   }
 }
@@ -36,7 +36,7 @@ extension WheelchairPushesRecordDtoToDomain on WheelchairPushesRecordDto {
       startZoneOffsetSeconds: zoneOffsetSeconds,
       endZoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      pushes: pushes.toDomain() as Number,
+      pushes: pushes.toDomain(),
     );
   }
 }

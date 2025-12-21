@@ -27,12 +27,11 @@ import 'package:health_connector_core/health_connector_core.dart'
 import 'package:health_connector_hc_android/src/mappers/config_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_connector_error_code_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_platform_feature_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/permission_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/request_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/response_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/permission_mappers/permission_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/request_and_response_mappers.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show HealthConnectorHCAndroidApi, HealthPlatformStatusDto;
 import 'package:health_connector_logger/health_connector_logger.dart';

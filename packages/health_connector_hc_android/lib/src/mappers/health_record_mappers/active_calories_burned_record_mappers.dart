@@ -1,10 +1,10 @@
 import 'package:health_connector_core/health_connector_core.dart'
-    show ActiveCaloriesBurnedRecord, Energy, HealthRecordId, sinceV1_0_0;
+    show ActiveCaloriesBurnedRecord, HealthRecordId, sinceV1_0_0;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/metadata_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
-    show ActiveCaloriesBurnedRecordDto, EnergyDto;
+    show ActiveCaloriesBurnedRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [ActiveCaloriesBurnedRecord] to [ActiveCaloriesBurnedRecordDto].
@@ -19,7 +19,7 @@ extension ActiveCaloriesBurnedRecordToDto on ActiveCaloriesBurnedRecord {
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDto(),
-      energy: energy.toDto() as EnergyDto,
+      energy: energy.toDto(),
     );
   }
 }
@@ -37,7 +37,7 @@ extension ActiveCaloriesBurnedRecordDtoToDomain
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      energy: energy.toDomain() as Energy,
+      energy: energy.toDomain(),
     );
   }
 }

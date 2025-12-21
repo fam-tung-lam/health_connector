@@ -1,9 +1,9 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.RestingHeartRateRecord
-import com.phamtunglam.health_connector_hc_android.mappers.toDto
-import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.pigeon.NumberDto
+import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toNumberDto
+import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
+import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.RestingHeartRateRecordDto
 import java.time.Instant
 import java.time.ZoneOffset
@@ -16,9 +16,7 @@ internal fun RestingHeartRateRecord.toDto(): RestingHeartRateRecordDto = Resting
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    beatsPerMinute = NumberDto(
-        value = beatsPerMinute.toDouble(),
-    ),
+    beatsPerMinute = beatsPerMinute.toNumberDto(),
 )
 
 /**

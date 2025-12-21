@@ -1,10 +1,10 @@
 import 'package:health_connector_core/health_connector_core.dart'
-    show SystolicBloodPressureRecord, Pressure, HealthRecordId, sinceV1_2_0;
+    show SystolicBloodPressureRecord, HealthRecordId, sinceV1_2_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/metadata_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
-    show SystolicBloodPressureRecordDto, PressureDto;
+    show SystolicBloodPressureRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [SystolicBloodPressureRecord] to [SystolicBloodPressureRecordDto].
@@ -17,7 +17,7 @@ extension SystolicBloodPressureRecordToDto on SystolicBloodPressureRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      pressure: pressure.toDto() as PressureDto,
+      pressure: pressure.toDto(),
     );
   }
 }
@@ -33,7 +33,7 @@ extension SystolicBloodPressureRecordDtoToDomain
       time: DateTime.fromMillisecondsSinceEpoch(time),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      pressure: pressure.toDomain() as Pressure,
+      pressure: pressure.toDomain(),
     );
   }
 }
