@@ -1,0 +1,110 @@
+part of '../health_record.dart';
+
+/// Represents a speed measurement over a time interval.
+///
+/// Android Health Connect's SpeedRecord is a series record containing multiple
+/// speed measurements measured at different points in time during the interval.
+///
+/// ## Platform Mapping
+/// - **Android (Health Connect)**: `SpeedRecord`
+///
+/// ## iOS Alternative
+/// For iOS, use the activity-specific speed records:
+/// - [WalkingSpeedRecord]
+/// - [RunningSpeedRecord]
+/// - [StairAscentSpeedRecord]
+/// - [StairDescentSpeedRecord]
+///
+/// ## Example
+/// ```dart
+/// final record = SpeedRecord(
+///   startTime: DateTime.now().subtract(Duration(minutes: 30)),
+///   endTime: DateTime.now(),
+///   samples: [
+///     SpeedSample(
+///       time: DateTime.now().subtract(Duration(minutes: 15)),
+///       speed: Velocity.metersPerSecond(2.5),
+///     ),
+///     SpeedSample(
+///       time: DateTime.now(),
+///       speed: Velocity.metersPerSecond(3.0),
+///     ),
+///   ],
+///   metadata: Metadata.automaticallyRecorded(...),
+/// );
+/// await healthConnector.writeRecord(record);
+/// ```
+@sinceV2_0_0
+@supportedOnHealthConnect
+@immutable
+final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedMeasurement> {
+  /// Creates a speed record with samples.
+  const SpeedSeriesRecord({
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required super.samples,
+    super.id = HealthRecordId.none,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
+
+  @override
+  List<HealthPlatform> get supportedHealthPlatforms => [
+    HealthPlatform.healthConnect,
+  ];
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SpeedSeriesRecord &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          startTime == other.startTime &&
+          endTime == other.endTime &&
+          startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
+          endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
+          samples.equals(other.samples) &&
+          metadata == other.metadata;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      startTime.hashCode ^
+      endTime.hashCode ^
+      (startZoneOffsetSeconds?.hashCode ?? 0) ^
+      (endZoneOffsetSeconds?.hashCode ?? 0) ^
+      Object.hashAll(samples) ^
+      metadata.hashCode;
+}
+
+/// A single speed measurement within a [SpeedSeriesRecord].
+///
+/// Represents a speed measurement at a specific point in time.
+@sinceV2_0_0
+@supportedOnHealthConnect
+@immutable
+final class SpeedMeasurement {
+  /// Creates a speed measurement.
+  const SpeedMeasurement({
+    required this.time,
+    required this.speed,
+  });
+
+  /// The time at which the speed was measured.
+  final DateTime time;
+
+  /// The speed measurement value.
+  final Velocity speed;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SpeedMeasurement &&
+          runtimeType == other.runtimeType &&
+          time == other.time &&
+          speed == other.speed;
+
+  @override
+  int get hashCode => time.hashCode ^ speed.hashCode;
+}

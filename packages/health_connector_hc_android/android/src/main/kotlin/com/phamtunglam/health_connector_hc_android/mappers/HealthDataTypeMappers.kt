@@ -17,6 +17,7 @@ import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.RespiratoryRateRecord
 import androidx.health.connect.client.records.RestingHeartRateRecord
 import androidx.health.connect.client.records.SleepSessionRecord
+import androidx.health.connect.client.records.SpeedRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.Vo2MaxRecord
 import androidx.health.connect.client.records.WeightRecord
@@ -51,4 +52,5 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
     HealthDataTypeDto.RESPIRATORY_RATE -> RespiratoryRateRecord::class
     HealthDataTypeDto.VO2MAX -> Vo2MaxRecord::class
     HealthDataTypeDto.NUTRITION -> NutritionRecord::class
+    HealthDataTypeDto.SPEED_SERIES -> SpeedRecord::class
 }

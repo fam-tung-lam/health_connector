@@ -90,7 +90,13 @@ import 'package:health_connector/health_connector.dart'
         SkatingSportsDistanceDataType,
         SwimmingDistanceDataType,
         WheelchairDistanceDataType,
-        WalkingRunningDistanceDataType;
+        WalkingRunningDistanceDataType,
+        SpeedSeriesDataType,
+        WalkingSpeedDataType,
+        RunningSpeedDataType,
+        StairAscentSpeedDataType,
+        StairDescentSpeedDataType,
+        SpeedMeasurement;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/show_snack_bar.dart';
 import 'package:health_connector_toolbox/src/common/widgets/date_time_picker_row.dart';
@@ -105,6 +111,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/models
         SleepSessionRecordFormConfig,
         SleepStageRecordFormConfig,
         BloodGlucoseFormConfig,
+        SpeedRecordFormConfig,
         Vo2MaxFormConfig;
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/blood_glucose_meal_type_dropdown_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/blood_glucose_relation_to_meal_dropdown_field.dart';
@@ -118,6 +125,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/nutrition_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/sleep_stage_type_dropdown_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/sleep_stages_form_field.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/speed_samples_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/write_health_record_change_notifier.dart';
 import 'package:provider/provider.dart' show Provider;
 
@@ -160,6 +168,9 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
 
   // State for heart rate series samples (Android)
   List<HeartRateMeasurement>? _heartRateSamples;
+
+  // State for speed series samples (Android)
+  List<SpeedMeasurement>? _speedSamples;
 
   // State for sleep stages (Android SleepSessionRecord)
   List<SleepStage>? _sleepStages;
@@ -379,6 +390,10 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
       if (_heartRateSamples == null || _heartRateSamples!.isEmpty) {
         return;
       }
+    } else if (widget.dataType is SpeedSeriesDataType) {
+      if (_speedSamples == null || _speedSamples!.isEmpty) {
+        return;
+      }
     } else if (widget.dataType is SleepSessionHealthDataType) {
       if (_sleepStages == null || _sleepStages!.isEmpty) {
         return;
@@ -446,6 +461,13 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
             startDateTime: startDateTime!,
             endDateTime: endDateTime!,
             samples: _heartRateSamples!,
+            metadata: metadata,
+          ),
+        SpeedSeriesDataType() =>
+          (_config as SpeedRecordFormConfig).buildRecordWithSamples(
+            startDateTime: startDateTime!,
+            endDateTime: endDateTime!,
+            samples: _speedSamples!,
             metadata: metadata,
           ),
         SleepSessionHealthDataType() =>
@@ -695,6 +717,11 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
         Vo2MaxHealthDataType() => AppTexts.writePermissionDeniedVo2Max,
         BloodGlucoseHealthDataType() =>
           AppTexts.writePermissionDeniedBloodGlucose,
+        SpeedSeriesDataType() ||
+        WalkingSpeedDataType() ||
+        RunningSpeedDataType() ||
+        StairAscentSpeedDataType() ||
+        StairDescentSpeedDataType() => 'Write permission denied for speed data',
       };
     }
     return e.message;
@@ -789,6 +816,11 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
               RespiratoryRateHealthDataType() => AppTexts.insertRespiratoryRate,
               Vo2MaxHealthDataType() => AppTexts.insertVo2Max,
               BloodGlucoseHealthDataType() => AppTexts.insertBloodGlucose,
+              SpeedSeriesDataType() ||
+              WalkingSpeedDataType() ||
+              RunningSpeedDataType() ||
+              StairAscentSpeedDataType() ||
+              StairDescentSpeedDataType() => AppTexts.speed,
             },
           ),
         ),
@@ -832,6 +864,16 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
                     onChanged: (stages) {
                       setState(() {
                         _sleepStages = stages;
+                      });
+                    },
+                  )
+                else if (widget.dataType is SpeedSeriesDataType)
+                  SpeedSamplesFormField(
+                    startDateTime: startDateTime,
+                    endDateTime: endDateTime,
+                    onChanged: (samples) {
+                      setState(() {
+                        _speedSamples = samples;
                       });
                     },
                   )

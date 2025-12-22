@@ -76,6 +76,11 @@ import 'package:health_connector/health_connector.dart'
         BiotinNutrientDataType,
         PantothenicAcidNutrientDataType,
         Vo2MaxHealthDataType,
+        SpeedSeriesDataType,
+        WalkingSpeedDataType,
+        RunningSpeedDataType,
+        StairAscentSpeedDataType,
+        StairDescentSpeedDataType,
         HealthPlatform;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
@@ -775,6 +780,56 @@ class _AggregateHealthDataPageState
           _selectedMetric!,
           startDateTime!,
           endDateTime!,
+        ),
+        WalkingSpeedDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg => HealthDataType.walkingSpeed.aggregateAvg(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.sum ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        RunningSpeedDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg => HealthDataType.runningSpeed.aggregateAvg(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.sum ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        StairAscentSpeedDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg => HealthDataType.stairAscentSpeed.aggregateAvg(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.sum ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        StairDescentSpeedDataType() => switch (_selectedMetric!) {
+          AggregationMetric.avg =>
+            HealthDataType.stairDescentSpeed.aggregateAvg(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.sum ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        // SpeedHealthDataType is Android-only and doesn't support aggregation
+        // as it's a series record with samples, not individual measurements
+        SpeedSeriesDataType() => throw UnsupportedError(
+          'Speed series data type does not support aggregation',
         ),
       };
 

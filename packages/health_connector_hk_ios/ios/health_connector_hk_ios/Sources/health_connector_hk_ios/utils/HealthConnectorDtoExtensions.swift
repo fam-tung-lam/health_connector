@@ -34,6 +34,8 @@ extension HealthRecordDto {
             record.id
         case let record as SleepStageRecordDto:
             record.id
+        case let record as SpeedActivityRecordDto:
+            record.id
         default:
             nil
         }
@@ -67,6 +69,13 @@ extension HealthRecordDto {
                 case .crossCountrySkiing: .crossCountrySkiingDistance
                 case .skatingSports: .skatingSportsDistance
                 case .sixMinuteWalkTest: .sixMinuteWalkTestDistance
+                }
+            case let record as SpeedActivityRecordDto:
+                return switch record.activityType {
+                case .walking: .walkingSpeed
+                case .running: .runningSpeed
+                case .stairAscent: .stairAscentSpeed
+                case .stairDescent: .stairDescentSpeed
                 }
             case is FloorsClimbedRecordDto:
                 return .floorsClimbed
@@ -228,6 +237,8 @@ extension HealthRecordDto {
         case let dto as SystolicBloodPressureRecordDto:
             return dto.time
         case let dto as DiastolicBloodPressureRecordDto:
+            return dto.time
+        case let dto as SpeedActivityRecordDto:
             return dto.time
         case let dto as EnergyNutrientRecordDto:
             return dto.time

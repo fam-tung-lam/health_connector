@@ -2,7 +2,7 @@ part of '../health_record.dart';
 
 /// Represents skating sports distance over a time interval.
 ///
-/// Includes ice skating, roller skating, inline skating, and similar activities.
+/// Includes ice skating, roller skating, and similar activities.
 ///
 /// ## Platform Mapping
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceSkatingSports`

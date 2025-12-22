@@ -2,8 +2,8 @@ part of '../health_record.dart';
 
 /// Base class for activity-specific distance records.
 ///
-/// This sealed class represents distance measurements for specific activity types
-/// exclusively for iOS/HealthKit. Each subclass maps to a specific
+/// This sealed class represents distance measurements for specific activity
+/// types exclusively for iOS/HealthKit. Each subclass maps to a specific
 /// `HKQuantityTypeIdentifier` in HealthKit.
 ///
 /// ## Platform Availability

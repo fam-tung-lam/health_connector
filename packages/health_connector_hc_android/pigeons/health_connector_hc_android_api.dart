@@ -541,6 +541,9 @@ enum HealthDataTypeDto {
 
   /// Blood glucose data.
   bloodGlucose,
+
+  /// Speed data.
+  speedSeries,
 }
 
 /// Represents a blood glucose record for platform transfer.
@@ -1108,6 +1111,54 @@ class HeartRateSeriesRecordDto extends HealthRecordDto {
 
   /// List of heart rate measurements within this time interval.
   final List<HeartRateMeasurementDto> samples;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a single speed measurement within a [SpeedSeriesRecordDto].
+class SpeedMeasurementDto {
+  SpeedMeasurementDto({
+    required this.time,
+    required this.speed,
+  });
+
+  /// Timestamp in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Speed measurement.
+  final VelocityDto speed;
+}
+
+/// Represents a speed series record for platform transfer.
+class SpeedSeriesRecordDto extends HealthRecordDto {
+  SpeedSeriesRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.samples,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// List of speed measurements within this time interval.
+  final List<SpeedMeasurementDto> samples;
 
   /// Timezone offset in seconds for start time (optional).
   final int? startZoneOffsetSeconds;

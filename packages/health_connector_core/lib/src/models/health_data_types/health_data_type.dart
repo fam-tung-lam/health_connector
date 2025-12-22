@@ -87,7 +87,13 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         WheelchairDistanceRecord,
         WheelchairPushesRecord,
         ZincNutrientRecord,
-        WalkingRunningDistanceRecord;
+        WalkingRunningDistanceRecord,
+        SpeedSeriesRecord,
+        SpeedActivityRecord,
+        WalkingSpeedRecord,
+        RunningSpeedRecord,
+        StairAscentSpeedRecord,
+        StairDescentSpeedRecord;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show
         BloodGlucose,
@@ -100,6 +106,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
         Percentage,
         Pressure,
         Temperature,
+        Velocity,
         Volume;
 import 'package:health_connector_core/src/models/permissions/permission.dart'
     show HealthDataPermission;
@@ -188,6 +195,12 @@ part 'steps_health_data_type.dart';
 part 'vo2_max_health_data_type.dart';
 part 'weight_health_data_type.dart';
 part 'wheelchair_pushes_health_data_type.dart';
+part 'speed_data_types/speed_activity_data_type.dart';
+part 'speed_data_types/speed_series_data_type.dart';
+part 'speed_data_types/walking_speed_data_type.dart';
+part 'speed_data_types/running_speed_data_type.dart';
+part 'speed_data_types/stair_ascent_speed_data_type.dart';
+part 'speed_data_types/stair_descent_speed_data_type.dart';
 
 /// [HealthDataType] represents different kinds of health and fitness data
 /// that can be read from or written to health platforms.
@@ -322,6 +335,34 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV2_0_0
   @supportedOnAppleHealth
   static const walkingRunningDistance = WalkingRunningDistanceDataType();
+
+  /// Speed data type (Android Health Connect only).
+  ///
+  /// Represents speed measurements as a series of samples over a time interval.
+  /// For iOS, use the activity-specific speed types.
+  @sinceV2_0_0
+  @supportedOnHealthConnect
+  static const speedSeries = SpeedSeriesDataType();
+
+  /// Walking speed data type (iOS only).
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const walkingSpeed = WalkingSpeedDataType();
+
+  /// Running speed data type (iOS only).
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const runningSpeed = RunningSpeedDataType();
+
+  /// Stair ascent speed data type (iOS only).
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const stairAscentSpeed = StairAscentSpeedDataType();
+
+  /// Stair descent speed data type (iOS only).
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const stairDescentSpeed = StairDescentSpeedDataType();
 
   /// Step count data type.
   ///
@@ -806,5 +847,11 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     swimmingDistance,
     wheelchairDistance,
     walkingRunningDistance,
+    // Speed data types
+    speedSeries,
+    walkingSpeed,
+    runningSpeed,
+    stairAscentSpeed,
+    stairDescentSpeed,
   ];
 }

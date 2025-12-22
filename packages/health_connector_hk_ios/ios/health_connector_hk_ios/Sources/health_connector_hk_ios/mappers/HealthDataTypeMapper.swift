@@ -169,6 +169,42 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .sixMinuteWalkTestDistance)
         case .distance:
             try HKQuantityType.make(from: .distanceWalkingRunning)
+        case .walkingSpeed:
+            if #available(iOS 16.0, *) {
+                try HKQuantityType.make(from: .walkingSpeed)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Walking speed is only supported on iOS 16.0 and later",
+                    context: ["dataType": "walkingSpeed", "minimumIOSVersion": "16.0"]
+                )
+            }
+        case .runningSpeed:
+            if #available(iOS 16.0, *) {
+                try HKQuantityType.make(from: .runningSpeed)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Running speed is only supported on iOS 16.0 and later",
+                    context: ["dataType": "runningSpeed", "minimumIOSVersion": "16.0"]
+                )
+            }
+        case .stairAscentSpeed:
+            if #available(iOS 16.0, *) {
+                try HKQuantityType.make(from: .stairAscentSpeed)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Stair ascent speed is only supported on iOS 16.0 and later",
+                    context: ["dataType": "stairAscentSpeed", "minimumIOSVersion": "16.0"]
+                )
+            }
+        case .stairDescentSpeed:
+            if #available(iOS 16.0, *) {
+                try HKQuantityType.make(from: .stairDescentSpeed)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Stair descent speed is only supported on iOS 16.0 and later",
+                    context: ["dataType": "stairDescentSpeed", "minimumIOSVersion": "16.0"]
+                )
+            }
         }
     }
 }

@@ -32,6 +32,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
         Percentage,
         Pressure,
         Temperature,
+        Velocity,
         Volume;
 import 'package:health_connector_core/src/models/metadata/metadata.dart'
     show Metadata;
@@ -118,6 +119,12 @@ part 'steps_record.dart';
 part 'vo2_max_record.dart';
 part 'weight_record.dart';
 part 'wheelchair_pushes_record.dart';
+part 'speed_records/speed_series_record.dart';
+part 'speed_records/speed_activity_record.dart';
+part 'speed_records/walking_speed_record.dart';
+part 'speed_records/running_speed_record.dart';
+part 'speed_records/stair_ascent_speed_record.dart';
+part 'speed_records/stair_descent_speed_record.dart';
 
 /// Base class for all health records.
 ///

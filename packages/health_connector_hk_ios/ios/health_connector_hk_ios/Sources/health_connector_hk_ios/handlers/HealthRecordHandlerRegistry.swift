@@ -143,6 +143,11 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(CrossCountrySkiingDistanceHandler(healthStore: healthStore))
         register(SkatingSportsDistanceHandler(healthStore: healthStore))
         register(SixMinuteWalkTestDistanceHandler(healthStore: healthStore))
+        // Speed activity handlers (iOS only)
+        register(WalkingSpeedHandler(healthStore: healthStore))
+        register(RunningSpeedHandler(healthStore: healthStore))
+        register(StairAscentSpeedHandler(healthStore: healthStore))
+        register(StairDescentSpeedHandler(healthStore: healthStore))
     }
 
     /// Register a handler instance (called during init only)

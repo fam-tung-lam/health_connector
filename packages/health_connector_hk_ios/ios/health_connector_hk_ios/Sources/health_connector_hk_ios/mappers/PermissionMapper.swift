@@ -79,7 +79,11 @@ extension HealthDataPermissionDto {
              .oxygenSaturation,
              .respiratoryRate,
              .vo2Max,
-             .bloodGlucose:
+             .bloodGlucose,
+             .walkingSpeed,
+             .runningSpeed,
+             .stairAscentSpeed,
+             .stairDescentSpeed:
             try [healthDataType.toHealthKit()]
         // For correlation types HealthKit requires requesting permissions for
         // the individual quantity types, not the correlation type itself

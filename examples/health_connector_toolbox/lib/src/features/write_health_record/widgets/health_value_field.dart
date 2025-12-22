@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Velocity;
 import 'package:health_connector/health_connector.dart'
     show
         ActiveCaloriesBurnedHealthDataType,
@@ -78,7 +78,13 @@ import 'package:health_connector/health_connector.dart'
         RespiratoryRateHealthDataType,
         BloodGlucose,
         BloodGlucoseHealthDataType,
-        Vo2MaxHealthDataType;
+        Vo2MaxHealthDataType,
+        SpeedSeriesDataType,
+        Velocity,
+        WalkingSpeedDataType,
+        RunningSpeedDataType,
+        StairAscentSpeedDataType,
+        StairDescentSpeedDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -215,6 +221,14 @@ class _HealthValueFieldState extends State<HealthValueField> {
           NutritionHealthDataType() => throw UnsupportedError(
             'NutritionHealthDataType requires NutritionFormField',
           ),
+          SpeedSeriesDataType() => throw UnsupportedError(
+            'SpeedHealthDataType requires samples. '
+            'Use HeartRateSamplesFormField pattern',
+          ),
+          WalkingSpeedDataType() ||
+          RunningSpeedDataType() ||
+          StairAscentSpeedDataType() ||
+          StairDescentSpeedDataType() => _parseVelocity(value),
         };
       }
     });
@@ -312,6 +326,14 @@ class _HealthValueFieldState extends State<HealthValueField> {
     return null;
   }
 
+  Velocity? _parseVelocity(String value) {
+    final speedValue = double.tryParse(value);
+    if (speedValue != null && speedValue > 0) {
+      return Velocity.metersPerSecond(speedValue);
+    }
+    return null;
+  }
+
   String? _validate(String? value) {
     if (value == null || value.isEmpty) {
       return switch (widget.dataType) {
@@ -405,6 +427,13 @@ class _HealthValueFieldState extends State<HealthValueField> {
         NutritionHealthDataType() => throw UnsupportedError(
           'NutritionHealthDataType requires NutritionFormField',
         ),
+        SpeedSeriesDataType() => throw UnsupportedError(
+          'SpeedHealthDataType requires samples',
+        ),
+        WalkingSpeedDataType() ||
+        RunningSpeedDataType() ||
+        StairAscentSpeedDataType() ||
+        StairDescentSpeedDataType() => 'Please enter speed value',
       };
     }
 
@@ -488,6 +517,13 @@ class _HealthValueFieldState extends State<HealthValueField> {
       NutritionHealthDataType() => throw UnsupportedError(
         'NutritionHealthDataType requires NutritionFormField',
       ),
+      SpeedSeriesDataType() => throw UnsupportedError(
+        'SpeedHealthDataType requires samples',
+      ),
+      WalkingSpeedDataType() ||
+      RunningSpeedDataType() ||
+      StairAscentSpeedDataType() ||
+      StairDescentSpeedDataType() => double.tryParse(value),
     };
 
     if (parsed == null) {
@@ -657,6 +693,11 @@ class _HealthValueFieldState extends State<HealthValueField> {
       NutritionHealthDataType() => throw UnsupportedError(
         'NutritionHealthDataType requires NutritionFormField',
       ),
+      SpeedSeriesDataType() => null, // Series record, no validation
+      WalkingSpeedDataType() ||
+      RunningSpeedDataType() ||
+      StairAscentSpeedDataType() ||
+      StairDescentSpeedDataType() => null,
     };
 
     if (validationError != null) {
@@ -755,6 +796,13 @@ class _HealthValueFieldState extends State<HealthValueField> {
         ),
         Vo2MaxHealthDataType() => AppTexts.pleaseEnterVo2Max,
         BloodGlucoseHealthDataType() => AppTexts.pleaseEnterBloodGlucose,
+        SpeedSeriesDataType() => throw UnsupportedError(
+          'SpeedHealthDataType requires samples',
+        ),
+        WalkingSpeedDataType() ||
+        RunningSpeedDataType() ||
+        StairAscentSpeedDataType() ||
+        StairDescentSpeedDataType() => 'Please enter speed value',
       };
     }
 
@@ -1461,6 +1509,24 @@ class _HealthValueFieldState extends State<HealthValueField> {
           labelText: AppTexts.vo2MaxValue,
           border: OutlineInputBorder(),
           prefixIcon: Icon(AppIcons.vo2Max),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      SpeedSeriesDataType() => throw UnsupportedError(
+        'SpeedHealthDataType requires samples. '
+        'Use HeartRateSamplesFormField pattern',
+      ),
+      WalkingSpeedDataType() ||
+      RunningSpeedDataType() ||
+      StairAscentSpeedDataType() ||
+      StairDescentSpeedDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: 'Speed (m/s)',
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.speed),
         ),
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
         onChanged: _onChanged,

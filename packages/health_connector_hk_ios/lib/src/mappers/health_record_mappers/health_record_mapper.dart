@@ -59,6 +59,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         RespiratoryRateRecord,
         BloodGlucoseRecord,
         Vo2MaxRecord,
+        SpeedActivityRecord,
+        SpeedSeriesRecord,
         sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/active_calories_burned_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose_record_mappers.dart';
@@ -77,6 +79,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/oxygen
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/respiratory_rate_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/resting_heart_rate_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sleep_stage_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/speed_activity_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/steps_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/systolic_blood_pressure_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/vo2_max_record_mappers.dart';
@@ -139,7 +142,8 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         OxygenSaturationRecordDto,
         RespiratoryRateRecordDto,
         BloodGlucoseRecordDto,
-        Vo2MaxRecordDto;
+        Vo2MaxRecordDto,
+        SpeedActivityRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// ## ⚠️ CRITICAL: Infinite Recursion Prevention
@@ -319,6 +323,13 @@ extension HealthRecordToDto on HealthRecord {
           '$DistanceRecord is not supported on iOS HealthKit. '
           'Use $DistanceActivityRecord instead.',
         );
+      case final SpeedActivityRecord record:
+        return SpeedActivityRecordToDto(record).toDto();
+      case SpeedSeriesRecord():
+        throw UnsupportedError(
+          '$SpeedSeriesRecord is not supported on iOS HealthKit. '
+          'Use $SpeedActivityRecord instead.',
+        );
     }
   }
 }
@@ -439,6 +450,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return BloodGlucoseRecordDtoToDomain(dto).toDomain();
       case final DistanceActivityRecordDto dto:
         return DistanceActivityRecordDtoToDomain(dto).toDomain();
+      case final SpeedActivityRecordDto dto:
+        return SpeedActivityRecordDtoToDomain(dto).toDomain();
     }
   }
 }
