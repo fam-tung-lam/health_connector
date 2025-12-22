@@ -25,6 +25,27 @@ final class RiboflavinNutrientRecord extends VitaminNutrientRecord {
     );
   }
 
+  /// Creates a copy with the given fields replaced with the new values.
+  RiboflavinNutrientRecord copyWith({
+    Mass? value,
+    DateTime? time,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+    String? foodName,
+    MealType? mealType,
+  }) {
+    return RiboflavinNutrientRecord._(
+      value: value ?? this.value,
+      time: time ?? this.time,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+      foodName: foodName ?? this.foodName,
+      mealType: mealType ?? this.mealType,
+    );
+  }
+
   const RiboflavinNutrientRecord._({
     required super.value,
     required super.time,

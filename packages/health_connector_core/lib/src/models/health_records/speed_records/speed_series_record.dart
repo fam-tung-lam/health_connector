@@ -49,6 +49,28 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedMeasurement> {
     super.endZoneOffsetSeconds,
   });
 
+  /// Creates a copy with the given fields replaced with the new values.
+  SpeedSeriesRecord copyWith({
+    DateTime? startTime,
+    DateTime? endTime,
+    Metadata? metadata,
+    List<SpeedMeasurement>? samples,
+    HealthRecordId? id,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return SpeedSeriesRecord(
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      metadata: metadata ?? this.metadata,
+      samples: samples ?? this.samples,
+      id: id ?? this.id,
+      startZoneOffsetSeconds:
+          startZoneOffsetSeconds ?? this.startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds ?? this.endZoneOffsetSeconds,
+    );
+  }
+
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.healthConnect,

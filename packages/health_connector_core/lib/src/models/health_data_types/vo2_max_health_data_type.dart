@@ -17,20 +17,12 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Number>
   const Vo2MaxHealthDataType();
 
   @override
-  String get identifier => 'vo2_max';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Vo2MaxHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is Vo2MaxHealthDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'vo2_max_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

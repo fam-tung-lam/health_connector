@@ -14,20 +14,12 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
   const HeightHealthDataType();
 
   @override
-  String get identifier => 'height';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HeightHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is HeightHealthDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'height_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

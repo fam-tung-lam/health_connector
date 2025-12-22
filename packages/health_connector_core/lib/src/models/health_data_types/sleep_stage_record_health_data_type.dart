@@ -19,25 +19,12 @@ final class SleepStageHealthDataType
   const SleepStageHealthDataType();
 
   @override
-  String get identifier => 'sleep_stage';
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
-  ];
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SleepStageHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is SleepStageHealthDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'sleep_stage_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

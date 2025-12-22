@@ -13,20 +13,12 @@ final class FloorsClimbedHealthDataType
   const FloorsClimbedHealthDataType();
 
   @override
-  String get identifier => 'floors_climbed';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FloorsClimbedHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is FloorsClimbedHealthDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'floors_climbed_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   HealthDataPermission get readPermission => HealthDataPermission.read(this);

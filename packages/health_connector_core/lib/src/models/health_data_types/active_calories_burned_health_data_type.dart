@@ -13,20 +13,13 @@ final class ActiveCaloriesBurnedHealthDataType
   const ActiveCaloriesBurnedHealthDataType();
 
   @override
-  String get identifier => 'active_calories_burned';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is ActiveCaloriesBurnedHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+          runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'active_calories_burned_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

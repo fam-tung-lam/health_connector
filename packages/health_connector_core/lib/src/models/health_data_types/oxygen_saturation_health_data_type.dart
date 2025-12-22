@@ -15,20 +15,13 @@ final class OxygenSaturationHealthDataType
   const OxygenSaturationHealthDataType();
 
   @override
-  String get identifier => 'oxygen_saturation';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is OxygenSaturationHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+          runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'oxygen_saturation_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

@@ -18,17 +18,13 @@ final class CrossCountrySkiingDistanceDataType
   const CrossCountrySkiingDistanceDataType();
 
   @override
-  String get identifier => 'crossCountrySkiingDistance';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is CrossCountrySkiingDistanceDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+          runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
+  int get hashCode => runtimeType.hashCode;
 
   @override
   ReadRecordByIdRequest<CrossCountrySkiingDistanceRecord> readById(

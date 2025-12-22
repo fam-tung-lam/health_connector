@@ -24,6 +24,27 @@ final class EnergyNutrientRecord extends NutrientRecord<Energy> {
     );
   }
 
+  /// Creates a copy with the given fields replaced with the new values.
+  EnergyNutrientRecord copyWith({
+    Energy? value,
+    DateTime? time,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+    String? foodName,
+    MealType? mealType,
+  }) {
+    return EnergyNutrientRecord._(
+      value: value ?? this.value,
+      time: time ?? this.time,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+      foodName: foodName ?? this.foodName,
+      mealType: mealType ?? this.mealType,
+    );
+  }
+
   const EnergyNutrientRecord._({
     required super.value,
     required super.time,

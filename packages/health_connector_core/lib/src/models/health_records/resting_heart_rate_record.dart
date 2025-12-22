@@ -39,6 +39,23 @@ final class RestingHeartRateRecord extends InstantHealthRecord {
   /// The resting heart rate measurement in beats per minute.
   final Number beatsPerMinute;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  RestingHeartRateRecord copyWith({
+    DateTime? time,
+    Metadata? metadata,
+    Number? beatsPerMinute,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+  }) {
+    return RestingHeartRateRecord(
+      time: time ?? this.time,
+      metadata: metadata ?? this.metadata,
+      beatsPerMinute: beatsPerMinute ?? this.beatsPerMinute,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

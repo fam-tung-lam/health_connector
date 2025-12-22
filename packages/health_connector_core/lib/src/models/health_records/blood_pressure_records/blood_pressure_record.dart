@@ -64,6 +64,29 @@ final class BloodPressureRecord extends InstantHealthRecord {
   /// On iOS, this will always be [BloodPressureMeasurementLocation.unknown].
   final BloodPressureMeasurementLocation measurementLocation;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  BloodPressureRecord copyWith({
+    DateTime? time,
+    Pressure? systolic,
+    Pressure? diastolic,
+    BloodPressureBodyPosition? bodyPosition,
+    BloodPressureMeasurementLocation? measurementLocation,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+  }) {
+    return BloodPressureRecord(
+      time: time ?? this.time,
+      systolic: systolic ?? this.systolic,
+      diastolic: diastolic ?? this.diastolic,
+      bodyPosition: bodyPosition ?? this.bodyPosition,
+      measurementLocation: measurementLocation ?? this.measurementLocation,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

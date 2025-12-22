@@ -14,9 +14,6 @@ final class BiotinNutrientDataType
   const BiotinNutrientDataType();
 
   @override
-  String get identifier => 'biotin';
-
-  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

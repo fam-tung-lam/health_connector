@@ -14,9 +14,6 @@ final class ZincNutrientDataType
   const ZincNutrientDataType();
 
   @override
-  String get identifier => 'zinc';
-
-  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

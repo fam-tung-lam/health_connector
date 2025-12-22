@@ -14,9 +14,6 @@ final class PotassiumNutrientDataType
   const PotassiumNutrientDataType();
 
   @override
-  String get identifier => 'potassium';
-
-  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

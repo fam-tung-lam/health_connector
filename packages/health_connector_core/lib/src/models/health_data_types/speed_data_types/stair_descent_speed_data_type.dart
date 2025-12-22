@@ -16,17 +16,12 @@ final class StairDescentSpeedDataType
   const StairDescentSpeedDataType();
 
   @override
-  String get identifier => 'stairDescentSpeed';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is StairDescentSpeedDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is StairDescentSpeedDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
+  int get hashCode => runtimeType.hashCode;
 
   @override
   ReadRecordByIdRequest<StairDescentSpeedRecord> readById(HealthRecordId id) {

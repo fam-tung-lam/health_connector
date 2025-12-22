@@ -72,11 +72,4 @@ final class ReadRecordsInTimeRangeResponse<R extends HealthRecord>
 
   @override
   int get hashCode => Object.hash(Object.hashAll(records), nextPageRequest);
-
-  @override
-  String toString() =>
-      'ReadRecordsInTimeRangeResponse<$R>('
-      'records: $records, '
-      'hasMorePages: $hasMorePages'
-      ')';
 }

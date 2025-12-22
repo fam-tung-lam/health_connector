@@ -14,9 +14,6 @@ final class ManganeseNutrientDataType
   const ManganeseNutrientDataType();
 
   @override
-  String get identifier => 'manganese';
-
-  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

@@ -21,6 +21,23 @@ final class OxygenSaturationRecord extends InstantHealthRecord {
   /// The oxygen saturation percentage (0.0 - 1.0).
   final Percentage percentage;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  OxygenSaturationRecord copyWith({
+    DateTime? time,
+    Percentage? percentage,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+  }) {
+    return OxygenSaturationRecord(
+      time: time ?? this.time,
+      percentage: percentage ?? this.percentage,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

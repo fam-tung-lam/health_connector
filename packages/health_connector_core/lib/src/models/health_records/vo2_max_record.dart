@@ -53,6 +53,25 @@ final class Vo2MaxRecord extends InstantHealthRecord {
   /// May be `null` if the measurement method is unknown.
   final Vo2MaxTestType? testType;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  Vo2MaxRecord copyWith({
+    DateTime? time,
+    Number? mLPerKgPerMin,
+    Vo2MaxTestType? testType,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+  }) {
+    return Vo2MaxRecord(
+      time: time ?? this.time,
+      mLPerKgPerMin: mLPerKgPerMin ?? this.mLPerKgPerMin,
+      testType: testType ?? this.testType,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

@@ -14,9 +14,6 @@ final class RiboflavinNutrientDataType
   const RiboflavinNutrientDataType();
 
   @override
-  String get identifier => 'riboflavin';
-
-  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

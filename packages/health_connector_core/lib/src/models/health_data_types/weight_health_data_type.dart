@@ -14,20 +14,12 @@ final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
   const WeightHealthDataType();
 
   @override
-  String get identifier => 'weight';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WeightHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is WeightHealthDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'weight_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

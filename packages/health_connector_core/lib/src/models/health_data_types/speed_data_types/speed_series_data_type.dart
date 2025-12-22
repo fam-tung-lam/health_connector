@@ -35,17 +35,12 @@ final class SpeedSeriesDataType
   ];
 
   @override
-  String get identifier => 'speed';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SpeedSeriesDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is SpeedSeriesDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

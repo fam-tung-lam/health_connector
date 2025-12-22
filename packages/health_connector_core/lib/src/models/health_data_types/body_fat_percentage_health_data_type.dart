@@ -15,20 +15,13 @@ final class BodyFatPercentageHealthDataType
   const BodyFatPercentageHealthDataType();
 
   @override
-  String get identifier => 'body_fat_percentage';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is BodyFatPercentageHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+          runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'body_fat_percentage_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [];

@@ -16,17 +16,12 @@ final class RunningSpeedDataType
   const RunningSpeedDataType();
 
   @override
-  String get identifier => 'runningSpeed';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is RunningSpeedDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is RunningSpeedDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
+  int get hashCode => runtimeType.hashCode;
 
   @override
   ReadRecordByIdRequest<RunningSpeedRecord> readById(HealthRecordId id) {

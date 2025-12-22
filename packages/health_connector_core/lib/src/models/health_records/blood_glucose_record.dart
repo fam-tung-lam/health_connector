@@ -49,6 +49,29 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
   /// The source of the biological specimen.
   final BloodGlucoseSpecimenSource specimenSource;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  BloodGlucoseRecord copyWith({
+    DateTime? time,
+    BloodGlucose? bloodGlucose,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+    BloodGlucoseRelationToMeal? relationToMeal,
+    BloodGlucoseMealType? mealType,
+    BloodGlucoseSpecimenSource? specimenSource,
+  }) {
+    return BloodGlucoseRecord(
+      time: time ?? this.time,
+      bloodGlucose: bloodGlucose ?? this.bloodGlucose,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+      relationToMeal: relationToMeal ?? this.relationToMeal,
+      mealType: mealType ?? this.mealType,
+      specimenSource: specimenSource ?? this.specimenSource,
+    );
+  }
+
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.healthConnect,

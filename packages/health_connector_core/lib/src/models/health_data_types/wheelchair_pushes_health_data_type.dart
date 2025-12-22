@@ -13,20 +13,13 @@ final class WheelchairPushesHealthDataType
   const WheelchairPushesHealthDataType();
 
   @override
-  String get identifier => 'wheelchair_pushes';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is WheelchairPushesHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+          runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'wheelchair_pushes_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

@@ -13,20 +13,12 @@ final class StepsHealthDataType extends HealthDataType<StepsRecord, Number>
   const StepsHealthDataType();
 
   @override
-  String get identifier => 'steps';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is StepsHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is StepsHealthDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'steps_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

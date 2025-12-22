@@ -13,17 +13,12 @@ final class SwimmingDistanceDataType
   const SwimmingDistanceDataType();
 
   @override
-  String get identifier => 'swimmingDistance';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SwimmingDistanceDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is SwimmingDistanceDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
+  int get hashCode => runtimeType.hashCode;
 
   @override
   ReadRecordByIdRequest<SwimmingDistanceRecord> readById(HealthRecordId id) {

@@ -12,20 +12,13 @@ final class BodyTemperatureHealthDataType
   const BodyTemperatureHealthDataType();
 
   @override
-  String get identifier => 'bodyTemperature';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is BodyTemperatureHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+          runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'body_temperature_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [];

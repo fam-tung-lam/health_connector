@@ -13,17 +13,12 @@ final class WheelchairDistanceDataType
   const WheelchairDistanceDataType();
 
   @override
-  String get identifier => 'wheelchairDistance';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WheelchairDistanceDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is WheelchairDistanceDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
+  int get hashCode => runtimeType.hashCode;
 
   @override
   ReadRecordByIdRequest<WheelchairDistanceRecord> readById(HealthRecordId id) {

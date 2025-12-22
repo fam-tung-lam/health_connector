@@ -19,20 +19,12 @@ final class BloodPressureHealthDataType
   const BloodPressureHealthDataType();
 
   @override
-  String get identifier => 'blood_pressure';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is BloodPressureHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is BloodPressureHealthDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'blood_pressure_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   HealthDataPermission get readPermission => HealthDataPermission.read(this);

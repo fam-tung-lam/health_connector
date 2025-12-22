@@ -76,6 +76,32 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStage> {
         .fold(Duration.zero, (total, stage) => total + stage.duration);
   }
 
+  /// Creates a copy with the given fields replaced with the new values.
+  SleepSessionRecord copyWith({
+    HealthRecordId? id,
+    Metadata? metadata,
+    DateTime? startTime,
+    DateTime? endTime,
+    List<SleepStage>? samples,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+    String? title,
+    String? notes,
+  }) {
+    return SleepSessionRecord(
+      id: id ?? this.id,
+      metadata: metadata ?? this.metadata,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      samples: samples ?? this.samples,
+      startZoneOffsetSeconds:
+          startZoneOffsetSeconds ?? this.startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds ?? this.endZoneOffsetSeconds,
+      title: title ?? this.title,
+      notes: notes ?? this.notes,
+    );
+  }
+
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.healthConnect,

@@ -14,9 +14,6 @@ final class SeleniumNutrientDataType
   const SeleniumNutrientDataType();
 
   @override
-  String get identifier => 'selenium';
-
-  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

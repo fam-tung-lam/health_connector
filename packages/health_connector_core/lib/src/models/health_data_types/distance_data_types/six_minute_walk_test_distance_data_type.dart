@@ -16,17 +16,13 @@ final class SixMinuteWalkTestDistanceDataType
   const SixMinuteWalkTestDistanceDataType();
 
   @override
-  String get identifier => 'sixMinuteWalkTestDistance';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SixMinuteWalkTestDistanceDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+          runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
+  int get hashCode => runtimeType.hashCode;
 
   @override
   ReadRecordByIdRequest<SixMinuteWalkTestDistanceRecord> readById(

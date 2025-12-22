@@ -40,6 +40,23 @@ final class BodyTemperatureRecord extends InstantHealthRecord {
   /// (Celsius, Fahrenheit, Kelvin).
   final Temperature temperature;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  BodyTemperatureRecord copyWith({
+    DateTime? time,
+    Temperature? temperature,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+  }) {
+    return BodyTemperatureRecord(
+      time: time ?? this.time,
+      temperature: temperature ?? this.temperature,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

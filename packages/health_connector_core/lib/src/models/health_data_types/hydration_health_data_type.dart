@@ -62,20 +62,12 @@ final class HydrationHealthDataType
   const HydrationHealthDataType();
 
   @override
-  String get identifier => 'hydration';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HydrationHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is HydrationHealthDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'hydration_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

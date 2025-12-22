@@ -13,17 +13,12 @@ final class CyclingDistanceDataType
   const CyclingDistanceDataType();
 
   @override
-  String get identifier => 'cyclingDistance';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CyclingDistanceDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is CyclingDistanceDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
+  int get hashCode => runtimeType.hashCode;
 
   @override
   ReadRecordByIdRequest<CyclingDistanceRecord> readById(HealthRecordId id) {

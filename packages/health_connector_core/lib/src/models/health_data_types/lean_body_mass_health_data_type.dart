@@ -12,20 +12,12 @@ final class LeanBodyMassHealthDataType
   const LeanBodyMassHealthDataType();
 
   @override
-  String get identifier => 'lean_body_mass';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is LeanBodyMassHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is LeanBodyMassHealthDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'lean_body_mass_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [];

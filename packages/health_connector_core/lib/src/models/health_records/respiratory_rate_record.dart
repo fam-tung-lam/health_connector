@@ -17,6 +17,23 @@ final class RespiratoryRateRecord extends InstantHealthRecord {
   /// The number of breaths per minute.
   final Number breathsPerMin;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  RespiratoryRateRecord copyWith({
+    DateTime? time,
+    Number? breathsPerMin,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+  }) {
+    return RespiratoryRateRecord(
+      time: time ?? this.time,
+      breathsPerMin: breathsPerMin ?? this.breathsPerMin,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

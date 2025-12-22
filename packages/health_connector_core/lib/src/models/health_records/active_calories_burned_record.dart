@@ -54,6 +54,28 @@ final class ActiveCaloriesBurnedRecord extends IntervalHealthRecord {
   /// The energy (calories) burned during the interval.
   final Energy energy;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  ActiveCaloriesBurnedRecord copyWith({
+    DateTime? startTime,
+    DateTime? endTime,
+    Energy? energy,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return ActiveCaloriesBurnedRecord(
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      energy: energy ?? this.energy,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      startZoneOffsetSeconds:
+          startZoneOffsetSeconds ?? this.startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds ?? this.endZoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

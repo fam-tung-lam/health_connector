@@ -15,20 +15,13 @@ final class RespiratoryRateHealthDataType
   const RespiratoryRateHealthDataType();
 
   @override
-  String get identifier => 'respiratory_rate';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is RespiratoryRateHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+          runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'respiratory_rate_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

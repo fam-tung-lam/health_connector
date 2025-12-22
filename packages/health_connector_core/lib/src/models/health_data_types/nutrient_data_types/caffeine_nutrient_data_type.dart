@@ -14,20 +14,12 @@ final class CaffeineNutrientDataType
   const CaffeineNutrientDataType();
 
   @override
-  String get identifier => 'caffeine';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CaffeineNutrientDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is CaffeineNutrientDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'caffeine_nutrient_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

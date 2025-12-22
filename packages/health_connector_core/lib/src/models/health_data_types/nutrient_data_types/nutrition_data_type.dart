@@ -11,9 +11,6 @@ final class NutritionHealthDataType
   const NutritionHealthDataType();
 
   @override
-  String get identifier => 'nutrition';
-
-  @override
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override

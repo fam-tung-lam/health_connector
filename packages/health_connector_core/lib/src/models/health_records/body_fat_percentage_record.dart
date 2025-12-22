@@ -57,6 +57,23 @@ final class BodyFatPercentageRecord extends InstantHealthRecord {
   /// To display in UI, use: `percentage.asWhole`
   final Percentage percentage;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  BodyFatPercentageRecord copyWith({
+    DateTime? time,
+    Percentage? percentage,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+  }) {
+    return BodyFatPercentageRecord(
+      time: time ?? this.time,
+      percentage: percentage ?? this.percentage,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

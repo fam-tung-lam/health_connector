@@ -39,6 +39,23 @@ final class WeightRecord extends InstantHealthRecord {
   /// (kilograms, grams, pounds, ounces).
   final Mass weight;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  WeightRecord copyWith({
+    DateTime? time,
+    Mass? weight,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+  }) {
+    return WeightRecord(
+      time: time ?? this.time,
+      weight: weight ?? this.weight,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

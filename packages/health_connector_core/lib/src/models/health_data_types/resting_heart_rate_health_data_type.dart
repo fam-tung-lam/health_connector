@@ -18,20 +18,13 @@ final class RestingHeartRateHealthDataType
   const RestingHeartRateHealthDataType();
 
   @override
-  String get identifier => 'resting_heart_rate';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is RestingHeartRateHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+          runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'resting_heart_rate_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

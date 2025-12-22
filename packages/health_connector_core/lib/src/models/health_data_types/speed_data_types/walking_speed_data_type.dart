@@ -16,17 +16,12 @@ final class WalkingSpeedDataType
   const WalkingSpeedDataType();
 
   @override
-  String get identifier => 'walkingSpeed';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WalkingSpeedDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is WalkingSpeedDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
+  int get hashCode => runtimeType.hashCode;
 
   @override
   ReadRecordByIdRequest<WalkingSpeedRecord> readById(HealthRecordId id) {

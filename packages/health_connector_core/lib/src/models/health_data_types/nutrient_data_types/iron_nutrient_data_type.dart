@@ -14,9 +14,6 @@ final class IronNutrientDataType
   const IronNutrientDataType();
 
   @override
-  String get identifier => 'iron';
-
-  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

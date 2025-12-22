@@ -264,12 +264,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @override
   List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 
-  /// The unique identifier for this data type.
-  ///
-  /// This identifier is used for platform communication, serialization,
-  /// and distinguishing between different health data types.
-  String get identifier;
-
   /// The list of aggregation metrics that support this health record.
   List<AggregationMetric> get supportedAggregationMetrics => [];
 

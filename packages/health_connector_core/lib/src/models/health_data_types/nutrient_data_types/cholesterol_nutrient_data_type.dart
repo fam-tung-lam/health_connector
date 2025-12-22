@@ -14,20 +14,12 @@ final class CholesterolNutrientDataType
   const CholesterolNutrientDataType();
 
   @override
-  String get identifier => 'cholesterol';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CholesterolNutrientDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is CholesterolNutrientDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'cholesterol_health_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

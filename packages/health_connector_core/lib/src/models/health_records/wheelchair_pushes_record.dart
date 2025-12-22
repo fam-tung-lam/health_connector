@@ -54,6 +54,28 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
   /// The number of wheelchair pushes performed during the interval.
   final Number pushes;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  WheelchairPushesRecord copyWith({
+    DateTime? startTime,
+    DateTime? endTime,
+    Number? pushes,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return WheelchairPushesRecord(
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      pushes: pushes ?? this.pushes,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      startZoneOffsetSeconds:
+          startZoneOffsetSeconds ?? this.startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds ?? this.endZoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

@@ -14,20 +14,12 @@ final class TotalFatNutrientDataType
   const TotalFatNutrientDataType();
 
   @override
-  String get identifier => 'total_fat';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TotalFatNutrientDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is TotalFatNutrientDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'total_fat_health_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

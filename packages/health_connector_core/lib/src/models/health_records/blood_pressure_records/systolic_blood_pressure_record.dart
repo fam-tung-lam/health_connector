@@ -35,6 +35,23 @@ final class SystolicBloodPressureRecord extends InstantHealthRecord {
   /// Normal values are typically around 120 mmHg.
   final Pressure pressure;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  SystolicBloodPressureRecord copyWith({
+    DateTime? time,
+    Pressure? pressure,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+  }) {
+    return SystolicBloodPressureRecord(
+      time: time ?? this.time,
+      pressure: pressure ?? this.pressure,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

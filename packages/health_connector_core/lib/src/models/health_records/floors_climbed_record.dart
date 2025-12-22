@@ -54,6 +54,28 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
   /// The number of floors (flights of stairs) climbed during the interval.
   final Number floors;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  FloorsClimbedRecord copyWith({
+    DateTime? startTime,
+    DateTime? endTime,
+    Number? floors,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return FloorsClimbedRecord(
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      floors: floors ?? this.floors,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      startZoneOffsetSeconds:
+          startZoneOffsetSeconds ?? this.startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds ?? this.endZoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

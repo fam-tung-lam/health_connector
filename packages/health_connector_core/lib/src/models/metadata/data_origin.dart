@@ -38,7 +38,4 @@ final class DataOrigin {
 
   @override
   int get hashCode => packageName.hashCode;
-
-  @override
-  String toString() => packageName;
 }

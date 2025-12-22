@@ -1,6 +1,3 @@
-// Copyright 2024 Google LLC. All rights reserved.
-// Copyright 2024 Pham Tung Lam. All rights reserved.
-
 import 'package:health_connector_core/health_connector_core.dart'
     show
         HealthRecordId,

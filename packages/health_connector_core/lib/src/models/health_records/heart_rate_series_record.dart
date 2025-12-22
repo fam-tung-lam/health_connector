@@ -87,6 +87,28 @@ final class HeartRateSeriesRecord
         .reduce((a, b) => (a.value > b.value) ? a : b);
   }
 
+  /// Creates a copy with the given fields replaced with the new values.
+  HeartRateSeriesRecord copyWith({
+    HealthRecordId? id,
+    Metadata? metadata,
+    DateTime? startTime,
+    DateTime? endTime,
+    List<HeartRateMeasurement>? samples,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return HeartRateSeriesRecord(
+      id: id ?? this.id,
+      metadata: metadata ?? this.metadata,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      samples: samples ?? this.samples,
+      startZoneOffsetSeconds:
+          startZoneOffsetSeconds ?? this.startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds ?? this.endZoneOffsetSeconds,
+    );
+  }
+
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.healthConnect,

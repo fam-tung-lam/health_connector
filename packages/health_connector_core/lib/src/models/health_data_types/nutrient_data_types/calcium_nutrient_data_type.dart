@@ -14,12 +14,6 @@ final class CalciumNutrientDataType
   const CalciumNutrientDataType();
 
   @override
-  String get identifier => 'calcium';
-
-  @override
-  String toString() => 'calcium_health_data_type';
-
-  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

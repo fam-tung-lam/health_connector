@@ -59,6 +59,23 @@ final class HeightRecord extends InstantHealthRecord {
   /// (meters, kilometers, miles, feet, yards).
   final Length height;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  HeightRecord copyWith({
+    DateTime? time,
+    Metadata? metadata,
+    Length? height,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+  }) {
+    return HeightRecord(
+      time: time ?? this.time,
+      metadata: metadata ?? this.metadata,
+      height: height ?? this.height,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

@@ -14,20 +14,12 @@ final class DietaryFiberNutrientDataType
   const DietaryFiberNutrientDataType();
 
   @override
-  String get identifier => 'dietary_fiber';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DietaryFiberNutrientDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is DietaryFiberNutrientDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'dietary_fiber_health_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

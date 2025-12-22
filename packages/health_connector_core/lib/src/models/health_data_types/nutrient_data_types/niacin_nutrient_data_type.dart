@@ -14,9 +14,6 @@ final class NiacinNutrientDataType
   const NiacinNutrientDataType();
 
   @override
-  String get identifier => 'niacin';
-
-  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

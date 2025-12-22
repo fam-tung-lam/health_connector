@@ -89,13 +89,6 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
 
   @override
   int get hashCode => dataType.hashCode ^ recordIds.hashCode;
-
-  @override
-  String toString() =>
-      'DeleteRecordsByIdsRequest('
-      'dataType: $dataType, '
-      'recordIds: $recordIds'
-      ')';
 }
 
 /// Request to delete all health records within a time range.
@@ -180,11 +173,4 @@ final class DeleteRecordsInTimeRangeRequest<R extends HealthRecord>
 
   @override
   int get hashCode => dataType.hashCode ^ startTime.hashCode ^ endTime.hashCode;
-
-  @override
-  String toString() =>
-      'DeleteRecordsInTimeRangeRequest('
-      'dataType: $dataType, '
-      'time_range: ${formatTimeRange(startTime: startTime, endTime: endTime)}'
-      ')';
 }

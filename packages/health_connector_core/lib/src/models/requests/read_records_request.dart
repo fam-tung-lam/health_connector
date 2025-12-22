@@ -15,8 +15,6 @@ import 'package:health_connector_core/src/models/requests/request.dart'
 import 'package:health_connector_core/src/models/responses/read_records_response.dart'
     show ReadRecordsInTimeRangeResponse;
 import 'package:health_connector_core/src/utils/collection.dart';
-import 'package:health_connector_core/src/utils/datetime.dart'
-    show formatTimeRange;
 import 'package:health_connector_core/src/utils/validation.dart'
     show requireEndTimeAfterStartTime, require;
 import 'package:meta/meta.dart' show immutable, internal;
@@ -82,13 +80,6 @@ final class ReadRecordByIdRequest<R extends HealthRecord>
 
   @override
   int get hashCode => dataType.hashCode ^ id.hashCode;
-
-  @override
-  String toString() =>
-      'ReadRecordRequest('
-      'dataType: $dataType, '
-      'id: $id'
-      ')';
 }
 
 /// Request to read multiple health records within a time range.
@@ -224,14 +215,4 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
       pageSize.hashCode ^
       (pageToken?.hashCode ?? 0) ^
       dataOrigins.hashCode;
-
-  @override
-  String toString() =>
-      'ReadRecordsRequest('
-      'dataType: $dataType, '
-      'time_range: ${formatTimeRange(startTime: startTime, endTime: endTime)}, '
-      'pageSize: $pageSize, '
-      'pageToken: ${pageToken ?? "none"}, '
-      'dataOrigins: $dataOrigins'
-      ')';
 }

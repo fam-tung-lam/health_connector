@@ -19,17 +19,12 @@ final class DistanceHealthDataType
   ];
 
   @override
-  String get identifier => 'distance';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DistanceHealthDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is DistanceHealthDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

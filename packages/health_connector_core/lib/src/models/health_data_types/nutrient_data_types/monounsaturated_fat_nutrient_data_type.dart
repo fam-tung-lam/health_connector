@@ -14,20 +14,13 @@ final class MonounsaturatedFatNutrientDataType
   const MonounsaturatedFatNutrientDataType();
 
   @override
-  String get identifier => 'monounsaturated_fat';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is MonounsaturatedFatNutrientDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+          runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'monounsaturated_fat_health_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

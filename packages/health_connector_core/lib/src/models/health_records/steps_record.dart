@@ -46,6 +46,28 @@ final class StepsRecord extends IntervalHealthRecord {
   /// Must be non-negative (>= 0).
   final Number count;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  StepsRecord copyWith({
+    DateTime? startTime,
+    DateTime? endTime,
+    Number? count,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return StepsRecord(
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      count: count ?? this.count,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      startZoneOffsetSeconds:
+          startZoneOffsetSeconds ?? this.startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds ?? this.endZoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

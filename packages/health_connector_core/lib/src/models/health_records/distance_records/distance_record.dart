@@ -54,6 +54,28 @@ final class DistanceRecord extends IntervalHealthRecord {
   /// The distance measurement value.
   final Length distance;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  DistanceRecord copyWith({
+    DateTime? startTime,
+    DateTime? endTime,
+    Length? distance,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return DistanceRecord(
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      distance: distance ?? this.distance,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      startZoneOffsetSeconds:
+          startZoneOffsetSeconds ?? this.startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds ?? this.endZoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

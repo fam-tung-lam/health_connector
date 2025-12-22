@@ -40,6 +40,23 @@ final class LeanBodyMassRecord extends InstantHealthRecord {
   /// (kilograms, grams, pounds, ounces).
   final Mass mass;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  LeanBodyMassRecord copyWith({
+    DateTime? time,
+    Metadata? metadata,
+    Mass? mass,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+  }) {
+    return LeanBodyMassRecord(
+      time: time ?? this.time,
+      metadata: metadata ?? this.metadata,
+      mass: mass ?? this.mass,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

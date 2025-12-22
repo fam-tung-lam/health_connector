@@ -11,10 +11,8 @@ sealed class MineralNutrientDataType<R extends HealthRecord>
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CalciumNutrientDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is MineralNutrientDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
+  int get hashCode => runtimeType.hashCode;
 }

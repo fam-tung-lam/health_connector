@@ -14,20 +14,12 @@ final class EnergyNutrientDataType
   const EnergyNutrientDataType();
 
   @override
-  String get identifier => 'energy_nutrient';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is EnergyNutrientDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is EnergyNutrientDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'energy_nutrient_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

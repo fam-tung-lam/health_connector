@@ -14,9 +14,6 @@ final class FolateNutrientDataType
   const FolateNutrientDataType();
 
   @override
-  String get identifier => 'folate';
-
-  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

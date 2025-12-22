@@ -27,6 +27,23 @@ final class WalkingSpeedRecord extends SpeedActivityRecord {
     super.zoneOffsetSeconds,
   });
 
+  /// Creates a copy with the given fields replaced with the new values.
+  WalkingSpeedRecord copyWith({
+    DateTime? time,
+    Velocity? speed,
+    Metadata? metadata,
+    HealthRecordId? id,
+    int? zoneOffsetSeconds,
+  }) {
+    return WalkingSpeedRecord(
+      time: time ?? this.time,
+      speed: speed ?? this.speed,
+      metadata: metadata ?? this.metadata,
+      id: id ?? this.id,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

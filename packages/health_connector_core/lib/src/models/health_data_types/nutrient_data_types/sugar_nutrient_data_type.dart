@@ -14,20 +14,12 @@ final class SugarNutrientDataType
   const SugarNutrientDataType();
 
   @override
-  String get identifier => 'sugar';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SugarNutrientDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is SugarNutrientDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'sugar_health_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

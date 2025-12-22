@@ -13,17 +13,13 @@ final class WalkingRunningDistanceDataType
   const WalkingRunningDistanceDataType();
 
   @override
-  String get identifier => 'walking_running_distance';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is WalkingRunningDistanceDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+          runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
+  int get hashCode => runtimeType.hashCode;
 
   @override
   ReadRecordByIdRequest<WalkingRunningDistanceRecord> readById(

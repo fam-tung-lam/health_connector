@@ -63,6 +63,21 @@ final class HeartRateMeasurementRecord extends InstantHealthRecord {
   /// Convenience getter that returns the BPM from the measurement.
   Number get beatsPerMinute => measurement.beatsPerMinute;
 
+  /// Creates a copy with the given fields replaced with the new values.
+  HeartRateMeasurementRecord copyWith({
+    HealthRecordId? id,
+    Metadata? metadata,
+    HeartRateMeasurement? measurement,
+    int? zoneOffsetSeconds,
+  }) {
+    return HeartRateMeasurementRecord(
+      id: id ?? this.id,
+      metadata: metadata ?? this.metadata,
+      measurement: measurement ?? this.measurement,
+      zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

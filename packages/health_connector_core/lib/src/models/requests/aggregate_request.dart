@@ -11,7 +11,6 @@ import 'package:health_connector_core/src/models/requests/aggregation_metric.dar
     show AggregationMetric;
 import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
-import 'package:health_connector_core/src/utils/datetime.dart';
 import 'package:health_connector_core/src/utils/validation.dart'
     show requireEndTimeAfterStartTime;
 import 'package:meta/meta.dart' show immutable;
@@ -76,14 +75,6 @@ sealed class AggregateRequest<R extends HealthRecord, U extends MeasurementUnit>
       aggregationMetric.hashCode ^
       startTime.hashCode ^
       endTime.hashCode;
-
-  @override
-  String toString() =>
-      'AggregateRequest('
-      'dataType: $dataType, '
-      'aggregationMetric: ${aggregationMetric.name}, '
-      'time_range: ${formatTimeRange(startTime: startTime, endTime: endTime)}'
-      ')';
 }
 
 /// Common aggregate request for standard health data types.
@@ -123,14 +114,6 @@ final class CommonAggregateRequest<
     );
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
   }
-
-  @override
-  String toString() =>
-      'CommonAggregateRequest('
-      'dataType: $dataType, '
-      'aggregationMetric: ${aggregationMetric.name}, '
-      'time_range: ${formatTimeRange(startTime: startTime, endTime: endTime)}'
-      ')';
 }
 
 /// Request to perform an aggregation query on blood pressure health records.
@@ -168,12 +151,4 @@ final class BloodPressureAggregateRequest
       'Must be one of: $_bloodPressureHealthDataTypes.',
     );
   }
-
-  @override
-  String toString() =>
-      'BloodPressureAggregateRequest('
-      'dataType: $dataType, '
-      'aggregationMetric: ${aggregationMetric.name}, '
-      'time_range: ${formatTimeRange(startTime: startTime, endTime: endTime)}'
-      ')';
 }

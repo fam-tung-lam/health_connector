@@ -14,20 +14,12 @@ final class ProteinNutrientDataType
   const ProteinNutrientDataType();
 
   @override
-  String get identifier => 'protein';
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ProteinNutrientDataType &&
-          runtimeType == other.runtimeType &&
-          identifier == other.identifier;
+      other is ProteinNutrientDataType && runtimeType == other.runtimeType;
 
   @override
-  int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'protein_health_data_type';
+  int get hashCode => runtimeType.hashCode;
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
