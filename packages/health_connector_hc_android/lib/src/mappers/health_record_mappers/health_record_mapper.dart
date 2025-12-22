@@ -59,6 +59,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         Vo2MaxRecord,
         BloodGlucoseRecord,
         RespiratoryRateRecord,
+        SpeedSeriesRecord,
+        SpeedActivityRecord,
         sinceV1_0_0;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/active_calories_burned_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_glucose_record_mappers.dart';
@@ -76,6 +78,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/ox
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/respiratory_rate_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/resting_heart_rate_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sleep_session_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/speed_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/steps_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/vo2_max_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/weight_record_mappers.dart';
@@ -102,7 +105,8 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         WheelchairPushesRecordDto,
         Vo2MaxRecordDto,
         BloodGlucoseRecordDto,
-        RespiratoryRateRecordDto;
+        RespiratoryRateRecordDto,
+        SpeedSeriesRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// ## ⚠️ CRITICAL: Infinite Recursion Prevention
@@ -387,6 +391,13 @@ extension HealthRecordToDto on HealthRecord {
           '$DistanceActivityRecord and its subclasses are iOS-only '
           'and not supported on Android Health Connect.',
         );
+      case final SpeedSeriesRecord record:
+        return SpeedSeriesRecordToDto(record).toDto();
+      case final SpeedActivityRecord _:
+        throw UnsupportedError(
+          '$SpeedActivityRecord and its subclasses are iOS-only '
+          'and not supported on Android Health Connect.',
+        );
     }
   }
 }
@@ -437,6 +448,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return Vo2MaxRecordDtoToDomain(dto).toDomain();
       case final BloodGlucoseRecordDto dto:
         return BloodGlucoseRecordDtoToDomain(dto).toDomain();
+      case final SpeedSeriesRecordDto dto:
+        return SpeedSeriesRecordDtoToDomain(dto).toDomain();
     }
   }
 }

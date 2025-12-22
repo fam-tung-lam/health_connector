@@ -491,6 +491,27 @@ enum SleepStageTypeDto {
   inBed,
 }
 
+/// Represents the type of speed-based activity.
+///
+/// Maps to different iOS HKQuantityTypeIdentifier values.
+enum SpeedActivityTypeDto {
+  /// Walking speed.
+  /// Maps to HKQuantityTypeIdentifier.walkingSpeed.
+  walking,
+
+  /// Running speed.
+  /// Maps to HKQuantityTypeIdentifier.runningSpeed.
+  running,
+
+  /// Stair ascent speed.
+  /// Maps to HKQuantityTypeIdentifier.stairAscentSpeed.
+  stairAscent,
+
+  /// Stair descent speed.
+  /// Maps to HKQuantityTypeIdentifier.stairDescentSpeed.
+  stairDescent,
+}
+
 /// Sealed class for all health record DTOs.
 sealed class HealthRecordDto {}
 
@@ -564,6 +585,19 @@ enum HealthDataTypeDto {
 
   /// Sleep stage record data (iOS).
   sleepStageRecord,
+
+  // SPEED TYPES (4)
+  /// Walking speed data.
+  walkingSpeed,
+
+  /// Running speed data.
+  runningSpeed,
+
+  /// Stair ascent speed data.
+  stairAscentSpeed,
+
+  /// Stair descent speed data.
+  stairDescentSpeed,
 
   // NUTRIENT TYPES - Energy & Other (2)
   /// Energy nutrient data (calories consumed).
@@ -853,6 +887,39 @@ class DistanceActivityRecordDto extends HealthRecordDto {
 
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
+
+  /// Timezone offset in seconds (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// Represents a speed activity record for platform transfer.
+///
+/// Speed activity records are instant records (single point in time)
+/// representing speed measurements for specific activity types.
+class SpeedActivityRecordDto extends HealthRecordDto {
+  SpeedActivityRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.speed,
+    required this.activityType,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Speed measurement.
+  final VelocityDto speed;
+
+  /// The type of speed activity.
+  final SpeedActivityTypeDto activityType;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
 
   /// Timezone offset in seconds (optional).
   final int? zoneOffsetSeconds;

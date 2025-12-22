@@ -157,6 +157,18 @@ import 'package:health_connector/health_connector.dart'
         WheelchairDistanceRecord,
         WalkingRunningDistanceDataType,
         WalkingRunningDistanceRecord,
+        SpeedSeriesDataType,
+        SpeedSeriesRecord,
+        SpeedMeasurement,
+        WalkingSpeedDataType,
+        RunningSpeedDataType,
+        StairAscentSpeedDataType,
+        StairDescentSpeedDataType,
+        WalkingSpeedRecord,
+        RunningSpeedRecord,
+        StairAscentSpeedRecord,
+        StairDescentSpeedRecord,
+        Velocity,
         StepsRecord;
 
 /// Configuration for a health record write form.
@@ -274,6 +286,11 @@ sealed class HealthRecordFormConfig {
       RespiratoryRateHealthDataType() => const RespiratoryRateFormConfig(),
       Vo2MaxHealthDataType() => const Vo2MaxFormConfig(),
       BloodGlucoseHealthDataType() => const BloodGlucoseFormConfig(),
+      SpeedSeriesDataType() => const SpeedRecordFormConfig(),
+      WalkingSpeedDataType() => const WalkingSpeedFormConfig(),
+      RunningSpeedDataType() => const RunningSpeedFormConfig(),
+      StairAscentSpeedDataType() => const StairAscentSpeedFormConfig(),
+      StairDescentSpeedDataType() => const StairDescentSpeedFormConfig(),
     };
   }
 }
@@ -2222,6 +2239,168 @@ final class HeartRateSeriesRecordFormConfig extends HealthRecordFormConfig {
       startTime: startDateTime,
       endTime: endDateTime,
       samples: samples,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for speed records (Android Health Connect).
+///
+/// Speed record is a series-based record that requires:
+/// - Start time
+/// - End time
+/// - List of speed measurements with time and speed values
+final class SpeedRecordFormConfig extends HealthRecordFormConfig {
+  const SpeedRecordFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    // This method signature doesn't support samples list.
+    // The actual implementation will be handled in the write form page.
+    throw UnsupportedError(
+      'SpeedRecordFormConfig.buildRecord() should not be called directly. '
+      'Use buildRecordWithSamples() instead.',
+    );
+  }
+
+  /// Builds a [SpeedSeriesRecord] from the provided form values with samples.
+  ///
+  /// ## Parameters
+  ///
+  /// - [startDateTime]: The start date/time for the record
+  /// - [endDateTime]: The end date/time (required)
+  /// - [samples]: The list of speed measurements
+  /// - [metadata]: The metadata for the record
+  ///
+  /// ## Returns
+  ///
+  /// A [SpeedSeriesRecord] instance ready to be written.
+  SpeedSeriesRecord buildRecordWithSamples({
+    required DateTime startDateTime,
+    required DateTime endDateTime,
+    required List<SpeedMeasurement> samples,
+    required Metadata metadata,
+  }) {
+    return SpeedSeriesRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      samples: samples,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for walking speed records (iOS).
+///
+/// Walking speed is an instant-based record that requires:
+/// - Time (single timestamp)
+/// - Speed value (velocity in m/s)
+final class WalkingSpeedFormConfig extends HealthRecordFormConfig {
+  const WalkingSpeedFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    final velocity = value as Velocity;
+    return WalkingSpeedRecord(
+      time: startDateTime,
+      speed: velocity,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for running speed records (iOS).
+///
+/// Running speed is an instant-based record that requires:
+/// - Time (single timestamp)
+/// - Speed value (velocity in m/s)
+final class RunningSpeedFormConfig extends HealthRecordFormConfig {
+  const RunningSpeedFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    final velocity = value as Velocity;
+    return RunningSpeedRecord(
+      time: startDateTime,
+      speed: velocity,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for stair ascent speed records (iOS).
+///
+/// Stair ascent speed is an instant-based record that requires:
+/// - Time (single timestamp)
+/// - Speed value (velocity in m/s)
+final class StairAscentSpeedFormConfig extends HealthRecordFormConfig {
+  const StairAscentSpeedFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    final velocity = value as Velocity;
+    return StairAscentSpeedRecord(
+      time: startDateTime,
+      speed: velocity,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for stair descent speed records (iOS).
+///
+/// Stair descent speed is an instant-based record that requires:
+/// - Time (single timestamp)
+/// - Speed value (velocity in m/s)
+final class StairDescentSpeedFormConfig extends HealthRecordFormConfig {
+  const StairDescentSpeedFormConfig();
+
+  @override
+  bool get needsDuration => false;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    final velocity = value as Velocity;
+    return StairDescentSpeedRecord(
+      time: startDateTime,
+      speed: velocity,
       metadata: metadata,
     );
   }

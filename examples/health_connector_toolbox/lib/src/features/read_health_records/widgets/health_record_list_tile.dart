@@ -68,7 +68,14 @@ import 'package:health_connector/health_connector.dart'
         SleepStageRecord,
         SleepStage,
         SleepStageType,
-        StepsRecord;
+        StepsRecord,
+        WalkingSpeedRecord,
+        RunningSpeedRecord,
+        StairAscentSpeedRecord,
+        StairDescentSpeedRecord,
+        SpeedActivityRecord,
+        SpeedSeriesRecord,
+        SpeedMeasurement;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/theme/app_colors.dart'
@@ -81,6 +88,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/interval_health_record_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/series_health_record_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/sleep_stages_list.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/speed_samples_list.dart';
 
 /// Metadata for nutrient record types.
 ///
@@ -201,6 +209,7 @@ final class HealthRecordListTile extends StatelessWidget {
       SeriesHealthRecord() => _buildSeriesRecord(
         context,
         record as SeriesHealthRecord,
+        onDelete,
       ),
       IntervalHealthRecord() => _buildIntervalRecord(
         context,
@@ -665,6 +674,10 @@ final class HealthRecordListTile extends StatelessWidget {
         _massNutrientMetadata[PantothenicAcidNutrientRecord]!,
         onDelete,
       ),
+      WalkingSpeedRecord() => _buildSpeedActivityRecord(record, onDelete),
+      RunningSpeedRecord() => _buildSpeedActivityRecord(record, onDelete),
+      StairAscentSpeedRecord() => _buildSpeedActivityRecord(record, onDelete),
+      StairDescentSpeedRecord() => _buildSpeedActivityRecord(record, onDelete),
     };
   }
 
@@ -1117,7 +1130,7 @@ final class HealthRecordListTile extends StatelessWidget {
         ),
         MeasurementUnitDisplay(unit: r.distance),
       ],
-      onDelete: () => onDelete(),
+      onDelete: onDelete,
     );
   }
 
@@ -1126,8 +1139,9 @@ final class HealthRecordListTile extends StatelessWidget {
     IntervalHealthRecord record,
   ) {
     return switch (record) {
-      HeartRateSeriesRecord() => _buildSeriesRecord(context, record),
-      SleepSessionRecord() => _buildSeriesRecord(context, record),
+      HeartRateSeriesRecord() => _buildSeriesRecord(context, record, onDelete),
+      SleepSessionRecord() => _buildSeriesRecord(context, record, onDelete),
+      SpeedSeriesRecord() => _buildSeriesRecord(context, record, onDelete),
       StepsRecord() => IntervalHealthRecordTile<StepsRecord>(
         record: record,
         icon: AppIcons.directionsWalk,
@@ -1598,6 +1612,7 @@ final class HealthRecordListTile extends StatelessWidget {
   Widget _buildSeriesRecord(
     BuildContext context,
     SeriesHealthRecord<dynamic> record,
+    VoidCallback onDelete,
   ) {
     return switch (record) {
       HeartRateSeriesRecord() => _buildHeartRateSeriesRecord(
@@ -1607,6 +1622,11 @@ final class HealthRecordListTile extends StatelessWidget {
       SleepSessionRecord() => _buildSleepSessionRecord(
         context,
         record,
+      ),
+      SpeedSeriesRecord() => _buildSpeedRecord(
+        context,
+        record,
+        onDelete,
       ),
     };
   }
@@ -1991,6 +2011,117 @@ final class HealthRecordListTile extends StatelessWidget {
           value:
               '${r.breathsPerMin.value.toStringAsFixed(1)} '
               '${AppTexts.breathsPerMinute}',
+        ),
+      ],
+      onDelete: onDelete,
+    );
+  }
+
+  Widget _buildSpeedActivityRecord(
+    SpeedActivityRecord record,
+    VoidCallback onDelete,
+  ) {
+    // Get the speed type name from the record type
+    final typeName = switch (record) {
+      WalkingSpeedRecord() => AppTexts.walkingSpeed,
+      RunningSpeedRecord() => AppTexts.runningSpeed,
+      StairAscentSpeedRecord() => AppTexts.stairAscentSpeed,
+      StairDescentSpeedRecord() => AppTexts.stairDescentSpeed,
+    };
+
+    return InstantHealthRecordTile<SpeedActivityRecord>(
+      record: record,
+      icon: AppIcons.speed,
+      title:
+          '$typeName: ${record.speed.inMetersPerSecond.toStringAsFixed(2)} m/s',
+      subtitleBuilder: (r, ctx) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 4),
+          Text(
+            '${AppTexts.time}: ${DateFormatUtils.formatDateTime(r.time)}',
+          ),
+          Text(
+            '${AppTexts.recording}: ${r.metadata.recordingMethod.name}',
+            style: const TextStyle(
+              fontSize: 12,
+              color: theme.AppColors.grey600,
+            ),
+          ),
+        ],
+      ),
+      detailRowsBuilder: (r, ctx) => [
+        const HealthRecordDetailRow(label: AppTexts.value, value: ''),
+        MeasurementUnitDisplay(unit: r.speed),
+      ],
+      onDelete: onDelete,
+    );
+  }
+
+  Widget _buildSpeedRecord(
+    BuildContext context,
+    SpeedSeriesRecord record,
+    VoidCallback onDelete,
+  ) {
+    final duration = record.duration;
+    final avgSpeed = record.samples.isNotEmpty
+        ? record.samples
+                  .map((s) => s.speed.inMetersPerSecond)
+                  .reduce((a, b) => a + b) /
+              record.samples.length
+        : 0.0;
+
+    return SeriesHealthRecordTile<SpeedSeriesRecord, SpeedMeasurement>(
+      record: record,
+      icon: AppIcons.speed,
+      title:
+          '${AppTexts.speed}: ${avgSpeed.toStringAsFixed(2)} m/s avg '
+          '(${record.samples.length} samples)',
+      subtitleBuilder: (r, ctx) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 4),
+            Text(
+              '${AppTexts.startLabel} '
+              '${DateFormatUtils.formatDateTime(r.startTime)}',
+            ),
+            Text(
+              '${AppTexts.endLabel} '
+              '${DateFormatUtils.formatDateTime(r.endTime)}',
+            ),
+            Text(
+              '${AppTexts.duration} ${duration.inHours}h '
+              '${duration.inMinutes.remainder(60)}m',
+              style: const TextStyle(
+                fontSize: 12,
+                color: theme.AppColors.grey600,
+              ),
+            ),
+            if (record.samples.isNotEmpty) ...[
+              const SizedBox(height: 4),
+              Text(
+                '${AppTexts.averageSpeed}: ${avgSpeed.toStringAsFixed(2)} m/s',
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: theme.AppColors.grey600,
+                ),
+              ),
+            ],
+          ],
+        );
+      },
+      samplesBuilder: (samples, ctx) => SpeedSamplesList(
+        samples: samples,
+      ),
+      detailRowsBuilder: (r, ctx) => [
+        HealthRecordDetailRow(
+          label: AppTexts.averageSpeed,
+          value: '${avgSpeed.toStringAsFixed(2)} m/s',
+        ),
+        HealthRecordDetailRow(
+          label: AppTexts.samplesCount,
+          value: r.samples.length.toString(),
         ),
       ],
       onDelete: onDelete,

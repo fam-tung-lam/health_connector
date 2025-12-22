@@ -70,7 +70,12 @@ import 'package:health_connector_core/health_connector_core.dart'
         DiastolicBloodPressureHealthDataType,
         Vo2MaxHealthDataType,
         sinceV1_0_0,
-        BloodGlucoseHealthDataType;
+        BloodGlucoseHealthDataType,
+        SpeedSeriesDataType,
+        WalkingSpeedDataType,
+        RunningSpeedDataType,
+        StairAscentSpeedDataType,
+        StairDescentSpeedDataType;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show HealthDataTypeDto;
 import 'package:meta/meta.dart' show internal;
@@ -211,6 +216,14 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.skatingSportsDistance;
       case HealthDataTypeDto.sixMinuteWalkTestDistance:
         return HealthDataType.sixMinuteWalkTestDistance;
+      case HealthDataTypeDto.walkingSpeed:
+        return HealthDataType.walkingSpeed;
+      case HealthDataTypeDto.runningSpeed:
+        return HealthDataType.runningSpeed;
+      case HealthDataTypeDto.stairAscentSpeed:
+        return HealthDataType.stairAscentSpeed;
+      case HealthDataTypeDto.stairDescentSpeed:
+        return HealthDataType.stairDescentSpeed;
     }
   }
 }
@@ -365,6 +378,20 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.sixMinuteWalkTestDistance;
       case WalkingRunningDistanceDataType _:
         return HealthDataTypeDto.distance;
+      // Speed activity types (iOS only)
+      case WalkingSpeedDataType _:
+        return HealthDataTypeDto.walkingSpeed;
+      case RunningSpeedDataType _:
+        return HealthDataTypeDto.runningSpeed;
+      case StairAscentSpeedDataType _:
+        return HealthDataTypeDto.stairAscentSpeed;
+      case StairDescentSpeedDataType _:
+        return HealthDataTypeDto.stairDescentSpeed;
+      case SpeedSeriesDataType _:
+        throw UnsupportedError(
+          '$SpeedSeriesDataType is not supported on iOS. '
+          'Use WalkingSpeedDataType, RunningSpeedDataType, etc. instead.',
+        );
     }
   }
 }

@@ -882,4 +882,18 @@ abstract final class AppTexts {
   static const String fieldOptionalHelper = 'Enter value in';
   static const String fieldOptional = '(optional)';
   static const String breathsPerMinute = 'breaths/min';
+
+  // ==========================================================================
+  // Speed Data Types
+  // ==========================================================================
+  static const String speed = 'Speed';
+  static const String speedDescription =
+      'Speed measurement over a time interval';
+  static const String walkingSpeed = 'Walking Speed';
+  static const String runningSpeed = 'Running Speed';
+  static const String stairAscentSpeed = 'Stair Ascent Speed';
+  static const String stairDescentSpeed = 'Stair Descent Speed';
+  static const String averageSpeed = 'Average Speed';
+  static const String samplesCount = 'Samples Count';
+  static const String speedSamples = 'Speed Samples';
 }

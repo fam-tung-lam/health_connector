@@ -90,7 +90,12 @@ import 'package:health_connector/health_connector.dart'
         Temperature,
         Velocity,
         Volume,
-        RespiratoryRateHealthDataType;
+        RespiratoryRateHealthDataType,
+        SpeedSeriesDataType,
+        WalkingSpeedDataType,
+        RunningSpeedDataType,
+        StairAscentSpeedDataType,
+        StairDescentSpeedDataType;
 import 'package:health_connector/health_connector.dart'
     show Number, Vo2MaxHealthDataType, BloodGlucoseHealthDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
@@ -233,6 +238,11 @@ extension HealthDataTypeUI on HealthDataType {
       RespiratoryRateHealthDataType _ => AppTexts.respiratoryRate,
       Vo2MaxHealthDataType _ => AppTexts.vo2Max,
       BloodGlucoseHealthDataType _ => AppTexts.bloodGlucoseText,
+      SpeedSeriesDataType _ => AppTexts.speed,
+      WalkingSpeedDataType _ => AppTexts.walkingSpeed,
+      RunningSpeedDataType _ => AppTexts.runningSpeed,
+      StairAscentSpeedDataType _ => AppTexts.stairAscentSpeed,
+      StairDescentSpeedDataType _ => AppTexts.stairDescentSpeed,
     };
   }
 
@@ -318,6 +328,11 @@ extension HealthDataTypeUI on HealthDataType {
       RespiratoryRateHealthDataType _ => AppTexts.respiratoryRateDescription,
       Vo2MaxHealthDataType _ => AppTexts.vo2MaxDescription,
       BloodGlucoseHealthDataType _ => AppTexts.bloodGlucoseDescription,
+      SpeedSeriesDataType _ => AppTexts.speedDescription,
+      WalkingSpeedDataType _ => AppTexts.speedDescription,
+      RunningSpeedDataType _ => AppTexts.speedDescription,
+      StairAscentSpeedDataType _ => AppTexts.speedDescription,
+      StairDescentSpeedDataType _ => AppTexts.speedDescription,
     };
   }
 
@@ -394,6 +409,11 @@ extension HealthDataTypeUI on HealthDataType {
       RespiratoryRateHealthDataType _ => AppIcons.air,
       Vo2MaxHealthDataType _ => AppIcons.vo2Max,
       BloodGlucoseHealthDataType _ => AppIcons.bloodGlucose,
+      SpeedSeriesDataType _ => AppIcons.speed,
+      WalkingSpeedDataType _ => AppIcons.speed,
+      RunningSpeedDataType _ => AppIcons.speed,
+      StairAscentSpeedDataType _ => AppIcons.speed,
+      StairDescentSpeedDataType _ => AppIcons.speed,
     };
   }
 }

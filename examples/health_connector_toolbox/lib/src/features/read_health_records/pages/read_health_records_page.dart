@@ -72,7 +72,12 @@ import 'package:health_connector/health_connector.dart'
         RestingHeartRateHealthDataType,
         SleepStageHealthDataType,
         Vo2MaxHealthDataType,
-        BloodGlucoseHealthDataType;
+        BloodGlucoseHealthDataType,
+        SpeedSeriesDataType,
+        WalkingSpeedDataType,
+        RunningSpeedDataType,
+        StairAscentSpeedDataType,
+        StairDescentSpeedDataType;
 import 'package:health_connector/health_connector.dart' show HealthPlatform;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
@@ -509,6 +514,33 @@ class _ReadHealthRecordsPageState
         ),
         BloodGlucoseHealthDataType() =>
           HealthDataType.bloodGlucose.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        SpeedSeriesDataType() => HealthDataType.speedSeries.readInTimeRange(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        WalkingSpeedDataType() => HealthDataType.walkingSpeed.readInTimeRange(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        RunningSpeedDataType() => HealthDataType.runningSpeed.readInTimeRange(
+          startTime: startDateTime!,
+          endTime: endDateTime!,
+          pageSize: _pageSize,
+        ),
+        StairAscentSpeedDataType() =>
+          HealthDataType.stairAscentSpeed.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        StairDescentSpeedDataType() =>
+          HealthDataType.stairDescentSpeed.readInTimeRange(
             startTime: startDateTime!,
             endTime: endDateTime!,
             pageSize: _pageSize,

@@ -53,6 +53,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as SleepStageRecordDto:
             return try dto.toHealthKit()
+        case let dto as SpeedActivityRecordDto:
+            return try dto.toHealthKit()
         default:
             throw HealthConnectorError.unsupportedOperation(
                 message:
@@ -201,6 +203,15 @@ extension HKQuantitySample {
             try toDistanceActivityRecordDto(distanceActivityType: .skatingSports)
         case .sixMinuteWalkTestDistance:
             try toDistanceActivityRecordDto(distanceActivityType: .sixMinuteWalkTest)
+        // Speed activity types
+        case .walkingSpeed:
+            try toSpeedActivityRecordDto(speedActivityType: .walking)
+        case .runningSpeed:
+            try toSpeedActivityRecordDto(speedActivityType: .running)
+        case .stairAscentSpeed:
+            try toSpeedActivityRecordDto(speedActivityType: .stairAscent)
+        case .stairDescentSpeed:
+            try toSpeedActivityRecordDto(speedActivityType: .stairDescent)
         default:
             throw HealthConnectorError.invalidArgument(
                 message: "Unsupported health data type for HKQuantitySample",

@@ -70,6 +70,11 @@ import 'package:health_connector_core/health_connector_core.dart'
         BloodPressureHealthDataType,
         SystolicBloodPressureHealthDataType,
         DiastolicBloodPressureHealthDataType,
+        SpeedSeriesDataType,
+        WalkingSpeedDataType,
+        RunningSpeedDataType,
+        StairAscentSpeedDataType,
+        StairDescentSpeedDataType,
         sinceV1_0_0;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show HealthDataTypeDto;
@@ -122,6 +127,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.vo2Max;
       case HealthDataTypeDto.bloodGlucose:
         return HealthDataType.bloodGlucose;
+      case HealthDataTypeDto.speedSeries:
+        return HealthDataType.speedSeries;
     }
   }
 }
@@ -242,6 +249,17 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       case WalkingRunningDistanceDataType _:
         throw UnsupportedError(
           '$this is an iOS-only distance activity data type '
+          'and is not supported on Android Health Connect.',
+        );
+      case SpeedSeriesDataType _:
+        return HealthDataTypeDto.speedSeries;
+      // Speed activity types (iOS only)
+      case WalkingSpeedDataType _:
+      case RunningSpeedDataType _:
+      case StairAscentSpeedDataType _:
+      case StairDescentSpeedDataType _:
+        throw UnsupportedError(
+          '$this is an iOS-only speed activity data type '
           'and is not supported on Android Health Connect.',
         );
     }

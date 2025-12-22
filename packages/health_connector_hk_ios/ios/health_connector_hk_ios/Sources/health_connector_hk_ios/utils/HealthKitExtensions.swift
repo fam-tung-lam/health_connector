@@ -152,6 +152,36 @@ extension HKSample {
             case HKCorrelationTypeIdentifier.food.rawValue:
                 return .nutrition
             default:
+                if #available(iOS 16.0, *) {
+                    switch identifier {
+                    case HKQuantityTypeIdentifier.walkingSpeed.rawValue:
+                        return .walkingSpeed
+                    case HKQuantityTypeIdentifier.runningSpeed.rawValue:
+                        return .runningSpeed
+                    case HKQuantityTypeIdentifier.stairAscentSpeed.rawValue:
+                        return .stairAscentSpeed
+                    case HKQuantityTypeIdentifier.stairDescentSpeed.rawValue:
+                        return .stairDescentSpeed
+                    default:
+                        break
+                    }
+                }
+
+                if #available(iOS 18.0, *) {
+                    switch identifier {
+                    case HKQuantityTypeIdentifier.distanceRowing.rawValue:
+                        return .rowingDistance
+                    case HKQuantityTypeIdentifier.distancePaddleSports.rawValue:
+                        return .paddleSportsDistance
+                    case HKQuantityTypeIdentifier.distanceCrossCountrySkiing.rawValue:
+                        return .crossCountrySkiingDistance
+                    case HKQuantityTypeIdentifier.distanceSkatingSports.rawValue:
+                        return .skatingSportsDistance
+                    default:
+                        break
+                    }
+                }
+
                 throw HealthConnectorError.invalidArgument(
                     message: "Unrecognized HealthKit identifier: \(identifier)",
                     context: ["identifier": identifier]

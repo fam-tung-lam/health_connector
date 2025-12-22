@@ -72,7 +72,12 @@ import 'package:health_connector_core/health_connector_core.dart'
         PantothenicAcidNutrientDataType,
         Vo2MaxHealthDataType,
         sinceV1_0_0,
-        WalkingRunningDistanceDataType;
+        WalkingRunningDistanceDataType,
+        SpeedSeriesDataType,
+        WalkingSpeedDataType,
+        RunningSpeedDataType,
+        StairAscentSpeedDataType,
+        StairDescentSpeedDataType;
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/aggregation_metric_mappers.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
@@ -181,6 +186,11 @@ extension AggregateRequestDtoMapper<
           case RespiratoryRateHealthDataType _:
           case Vo2MaxHealthDataType _:
           case BloodGlucoseHealthDataType _:
+          case SpeedSeriesDataType _:
+          case WalkingSpeedDataType _:
+          case RunningSpeedDataType _:
+          case StairAscentSpeedDataType _:
+          case StairDescentSpeedDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',
             );
