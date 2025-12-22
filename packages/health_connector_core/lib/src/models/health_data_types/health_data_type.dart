@@ -7,7 +7,8 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
         supportedOnAppleHealth,
         sinceV1_1_0,
         sinceV1_2_0,
-        sinceV1_3_0;
+        sinceV1_3_0,
+        sinceV2_0_0;
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
     show HealthConnectorConfigConstants;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';
@@ -26,9 +27,13 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         CaffeineNutrientRecord,
         CalciumNutrientRecord,
         CholesterolNutrientRecord,
+        CrossCountrySkiingDistanceRecord,
+        CyclingDistanceRecord,
         DiastolicBloodPressureRecord,
         DietaryFiberNutrientRecord,
+        DistanceActivityRecord,
         DistanceRecord,
+        DownhillSnowSportsDistanceRecord,
         EnergyNutrientRecord,
         FloorsClimbedRecord,
         FolateNutrientRecord,
@@ -46,6 +51,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         NiacinNutrientRecord,
         NutritionRecord,
         OxygenSaturationRecord,
+        PaddleSportsDistanceRecord,
         PantothenicAcidNutrientRecord,
         PhosphorusNutrientRecord,
         PolyunsaturatedFatNutrientRecord,
@@ -54,13 +60,17 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         RespiratoryRateRecord,
         RestingHeartRateRecord,
         RiboflavinNutrientRecord,
+        RowingDistanceRecord,
         SaturatedFatNutrientRecord,
         SeleniumNutrientRecord,
+        SixMinuteWalkTestDistanceRecord,
+        SkatingSportsDistanceRecord,
         SleepSessionRecord,
         SleepStageRecord,
         SodiumNutrientRecord,
         StepsRecord,
         SugarNutrientRecord,
+        SwimmingDistanceRecord,
         SystolicBloodPressureRecord,
         ThiaminNutrientRecord,
         TotalCarbohydrateNutrientRecord,
@@ -74,8 +84,10 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         VitaminKNutrientRecord,
         Vo2MaxRecord,
         WeightRecord,
+        WheelchairDistanceRecord,
         WheelchairPushesRecord,
-        ZincNutrientRecord;
+        ZincNutrientRecord,
+        WalkingRunningDistanceRecord;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show
         BloodGlucose,
@@ -111,7 +123,18 @@ part 'blood_pressure_health_data_types/diastolic_blood_pressure_health_data_type
 part 'blood_pressure_health_data_types/systolic_blood_pressure_health_data_type.dart';
 part 'body_fat_percentage_health_data_type.dart';
 part 'body_temperature_health_data_type.dart';
-part 'distance_health_data_type.dart';
+part 'distance_data_types/cross_country_skiing_distance_data_type.dart';
+part 'distance_data_types/cycling_distance_data_type.dart';
+part 'distance_data_types/distance_activity_data_type.dart';
+part 'distance_data_types/distance_data_type.dart';
+part 'distance_data_types/downhill_snow_sports_distance_data_type.dart';
+part 'distance_data_types/paddle_sports_distance_data_type.dart';
+part 'distance_data_types/rowing_distance_data_type.dart';
+part 'distance_data_types/six_minute_walk_test_distance_data_type.dart';
+part 'distance_data_types/skating_sports_distance_data_type.dart';
+part 'distance_data_types/swimming_distance_data_type.dart';
+part 'distance_data_types/walking_running_distance_data_type.dart';
+part 'distance_data_types/wheelchair_distance_data_type.dart';
 part 'floors_climbed_health_data_type.dart';
 part 'heart_rate_measurement_record_health_data_type.dart';
 part 'heart_rate_series_record_health_data_type.dart';
@@ -245,7 +268,60 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Represents the distance traveled during activities such as walking,
   /// running, or cycling. Supports both reading existing distance data
   /// and writing new distance measurements.
+  @supportedOnHealthConnect
   static const distance = DistanceHealthDataType();
+
+  /// Cycling distance data type.
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const cyclingDistance = CyclingDistanceDataType();
+
+  /// Swimming distance data type.
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const swimmingDistance = SwimmingDistanceDataType();
+
+  /// Wheelchair distance data type.
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const wheelchairDistance = WheelchairDistanceDataType();
+
+  /// Downhill snow sports distance data type.
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const downhillSnowSportsDistance =
+      DownhillSnowSportsDistanceDataType();
+
+  /// Rowing distance data type (iOS 18+).
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const rowingDistance = RowingDistanceDataType();
+
+  /// Paddle sports distance data type (iOS 18+).
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const paddleSportsDistance = PaddleSportsDistanceDataType();
+
+  /// Cross-country skiing distance data type (iOS 18+).
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const crossCountrySkiingDistance =
+      CrossCountrySkiingDistanceDataType();
+
+  /// Skating sports distance data type (iOS 18+).
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const skatingSportsDistance = SkatingSportsDistanceDataType();
+
+  /// Six-minute walk test distance data type.
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const sixMinuteWalkTestDistance = SixMinuteWalkTestDistanceDataType();
+
+  /// Walking running distance data type.
+  @sinceV2_0_0
+  @supportedOnAppleHealth
+  static const walkingRunningDistance = WalkingRunningDistanceDataType();
 
   /// Step count data type.
   ///
@@ -671,9 +747,12 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     caffeine,
     calcium,
     cholesterol,
+    crossCountrySkiingDistance,
+    cyclingDistance,
     diastolicBloodPressure,
     dietaryFiber,
     distance,
+    downhillSnowSportsDistance,
     energyNutrient,
     floorsClimbed,
     folate,
@@ -719,5 +798,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     weight,
     wheelchairPushes,
     zinc,
+    // iOS-only distance activity types
+    paddleSportsDistance,
+    rowingDistance,
+    sixMinuteWalkTestDistance,
+    skatingSportsDistance,
+    swimmingDistance,
+    wheelchairDistance,
+    walkingRunningDistance,
   ];
 }

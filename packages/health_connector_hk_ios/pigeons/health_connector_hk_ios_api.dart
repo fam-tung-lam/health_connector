@@ -417,6 +417,51 @@ class HealthDataPermissionDto {
 
 // region Health Records
 
+/// Represents the type of distance-based activity.
+///
+/// Maps to different iOS HKQuantityTypeIdentifier values.
+enum DistanceActivityTypeDto {
+  /// Walking or running distance.
+  /// Maps to HKQuantityTypeIdentifier.distanceWalkingRunning.
+  walkingRunning,
+
+  /// Cycling distance.
+  /// Maps to HKQuantityTypeIdentifier.distanceCycling.
+  cycling,
+
+  /// Swimming distance.
+  /// Maps to HKQuantityTypeIdentifier.distanceSwimming.
+  swimming,
+
+  /// Wheelchair distance.
+  /// Maps to HKQuantityTypeIdentifier.distanceWheelchair.
+  wheelchair,
+
+  /// Downhill snow sports distance.
+  /// Maps to HKQuantityTypeIdentifier.distanceDownhillSnowSports.
+  downhillSnowSports,
+
+  /// Rowing distance.
+  /// Maps to HKQuantityTypeIdentifier.distanceRowing (iOS 18+).
+  rowing,
+
+  /// Paddle sports distance.
+  /// Maps to HKQuantityTypeIdentifier.distancePaddleSports (iOS 18+).
+  paddleSports,
+
+  /// Cross-country skiing distance.
+  /// Maps to HKQuantityTypeIdentifier.distanceCrossCountrySkiing (iOS 18+).
+  crossCountrySkiing,
+
+  /// Skating sports distance.
+  /// Maps to HKQuantityTypeIdentifier.distanceSkatingSports (iOS 18+).
+  skatingSports,
+
+  /// Six-minute walk test distance.
+  /// Maps to HKQuantityTypeIdentifier.sixMinuteWalkTestDistance.
+  sixMinuteWalkTest,
+}
+
 /// Represents the type of sleep stage.
 ///
 /// Maps to iOS HKCategoryValueSleepAnalysis values.
@@ -454,8 +499,38 @@ enum HealthDataTypeDto {
   /// Active calories burned data.
   activeCaloriesBurned,
 
-  /// Distance traveled data.
+  /// Distance traveled data (generic).
   distance,
+
+  /// Cycling distance.
+  cyclingDistance,
+
+  /// Swimming distance.
+  swimmingDistance,
+
+  /// Wheelchair distance.
+  wheelchairDistance,
+
+  /// Walking or running distance.
+  walkingRunningDistance,
+
+  /// Downhill snow sports distance.
+  downhillSnowSportsDistance,
+
+  /// Rowing distance (iOS 18+).
+  rowingDistance,
+
+  /// Paddle sports distance (iOS 18+).
+  paddleSportsDistance,
+
+  /// Cross-country skiing distance (iOS 18+).
+  crossCountrySkiingDistance,
+
+  /// Skating sports distance (iOS 18+).
+  skatingSportsDistance,
+
+  /// Six-minute walk test distance.
+  sixMinuteWalkTestDistance,
 
   /// Floors climbed data.
   floorsClimbed,
@@ -749,19 +824,23 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 }
 
-/// Represents a distance record for platform transfer.
-class DistanceRecordDto extends HealthRecordDto {
-  DistanceRecordDto({
+/// Represents a distance activity record for platform transfer.
+class DistanceActivityRecordDto extends HealthRecordDto {
+  DistanceActivityRecordDto({
     required this.id,
     required this.startTime,
     required this.endTime,
     required this.metadata,
     required this.distance,
+    required this.activityType,
     this.zoneOffsetSeconds,
   });
 
   /// Distance traveled during the interval.
   final LengthDto distance;
+
+  /// The type of distance activity.
+  final DistanceActivityTypeDto activityType;
 
   /// End time in milliseconds since epoch (UTC).
   final int endTime;

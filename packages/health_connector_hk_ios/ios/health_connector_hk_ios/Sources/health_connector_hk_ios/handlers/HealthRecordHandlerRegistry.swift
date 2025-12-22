@@ -59,7 +59,8 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
 
         guard let handler = baseHandler as? T else {
             throw HealthConnectorError.unsupportedOperation(
-                message: "Data type \(type.rawValue) does not support \(String(describing: capability))",
+                message:
+                "Data type \(type.rawValue) does not support \(String(describing: capability))",
                 context: [
                     "dataType": type.rawValue,
                     "capability": String(describing: capability),
@@ -79,7 +80,6 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
     private func registerAllHandlers() {
         register(StepsHandler(healthStore: healthStore))
         register(ActiveCaloriesBurnedHandler(healthStore: healthStore))
-        register(DistanceHandler(healthStore: healthStore))
         register(FloorsClimbedHandler(healthStore: healthStore))
         register(WheelchairPushesHandler(healthStore: healthStore))
         register(HydrationHandler(healthStore: healthStore))
@@ -132,6 +132,17 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(BloodPressureHandler(healthStore: healthStore))
         register(SystolicBloodPressureHandler(healthStore: healthStore))
         register(DiastolicBloodPressureHandler(healthStore: healthStore))
+        // Distance activity handlers (iOS only)
+        register(CyclingDistanceHandler(healthStore: healthStore))
+        register(SwimmingDistanceHandler(healthStore: healthStore))
+        register(WheelchairDistanceHandler(healthStore: healthStore))
+        register(WalkingRunningDistanceHandler(healthStore: healthStore))
+        register(DownhillSnowSportsDistanceHandler(healthStore: healthStore))
+        register(RowingDistanceHandler(healthStore: healthStore))
+        register(PaddleSportsDistanceHandler(healthStore: healthStore))
+        register(CrossCountrySkiingDistanceHandler(healthStore: healthStore))
+        register(SkatingSportsDistanceHandler(healthStore: healthStore))
+        register(SixMinuteWalkTestDistanceHandler(healthStore: healthStore))
     }
 
     /// Register a handler instance (called during init only)

@@ -19,7 +19,7 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as DiastolicBloodPressureRecordDto:
             return try dto.toHealthKit()
-        case let dto as DistanceRecordDto:
+        case let dto as DistanceActivityRecordDto:
             return try dto.toHealthKit()
         case let dto as FloorsClimbedRecordDto:
             return try dto.toHealthKit()
@@ -55,7 +55,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         default:
             throw HealthConnectorError.unsupportedOperation(
-                message: "HealthRecordDto type '\(type(of: self))' does not have a HealthKit mapping implementation",
+                message:
+                "HealthRecordDto type '\(type(of: self))' does not have a HealthKit mapping implementation",
                 context: [
                     "dtoType": String(describing: type(of: self)),
                     "availableTypes": "See mapper files in health_record_mappers/",
@@ -155,8 +156,6 @@ extension HKQuantitySample {
             try toBodyFatPercentageRecordDto()
         case .bodyTemperature:
             try toBodyTemperatureRecordDto()
-        case .distance:
-            try toDistanceRecordDto()
         case .floorsClimbed:
             try toFloorsClimbedRecordDto()
         case .heartRateMeasurementRecord:
@@ -181,6 +180,27 @@ extension HKQuantitySample {
             try toSystolicBloodPressureRecordDto()
         case .diastolicBloodPressure:
             try toDiastolicBloodPressureRecordDto()
+        // Distance activity types
+        case .cyclingDistance:
+            try toDistanceActivityRecordDto(distanceActivityType: .cycling)
+        case .swimmingDistance:
+            try toDistanceActivityRecordDto(distanceActivityType: .swimming)
+        case .wheelchairDistance:
+            try toDistanceActivityRecordDto(distanceActivityType: .wheelchair)
+        case .walkingRunningDistance:
+            try toDistanceActivityRecordDto(distanceActivityType: .walkingRunning)
+        case .downhillSnowSportsDistance:
+            try toDistanceActivityRecordDto(distanceActivityType: .downhillSnowSports)
+        case .rowingDistance:
+            try toDistanceActivityRecordDto(distanceActivityType: .rowing)
+        case .paddleSportsDistance:
+            try toDistanceActivityRecordDto(distanceActivityType: .paddleSports)
+        case .crossCountrySkiingDistance:
+            try toDistanceActivityRecordDto(distanceActivityType: .crossCountrySkiing)
+        case .skatingSportsDistance:
+            try toDistanceActivityRecordDto(distanceActivityType: .skatingSports)
+        case .sixMinuteWalkTestDistance:
+            try toDistanceActivityRecordDto(distanceActivityType: .sixMinuteWalkTest)
         default:
             throw HealthConnectorError.invalidArgument(
                 message: "Unsupported health data type for HKQuantitySample",

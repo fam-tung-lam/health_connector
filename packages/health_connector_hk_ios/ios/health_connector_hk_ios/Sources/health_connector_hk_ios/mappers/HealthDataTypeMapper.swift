@@ -28,8 +28,6 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .stepCount)
         case .activeCaloriesBurned:
             try HKQuantityType.make(from: .activeEnergyBurned)
-        case .distance:
-            try HKQuantityType.make(from: .distanceWalkingRunning)
         case .floorsClimbed:
             try HKQuantityType.make(from: .flightsClimbed)
         case .wheelchairPushes:
@@ -118,6 +116,59 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .dietaryZinc)
         case .bloodGlucose:
             try HKQuantityType.make(from: .bloodGlucose)
+        case .cyclingDistance:
+            try HKQuantityType.make(from: .distanceCycling)
+        case .swimmingDistance:
+            try HKQuantityType.make(from: .distanceSwimming)
+        case .wheelchairDistance:
+            try HKQuantityType.make(from: .distanceWheelchair)
+        case .walkingRunningDistance:
+            try HKQuantityType.make(from: .distanceWalkingRunning)
+        case .downhillSnowSportsDistance:
+            try HKQuantityType.make(from: .distanceDownhillSnowSports)
+        case .rowingDistance:
+            if #available(iOS 18.0, *) {
+                try HKQuantityType.make(from: .distanceRowing)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Rowing distance is only supported on iOS 18.0 and later",
+                    context: ["dataType": "rowingDistance", "minimumIOSVersion": "18.0"]
+                )
+            }
+        case .paddleSportsDistance:
+            if #available(iOS 18.0, *) {
+                try HKQuantityType.make(from: .distancePaddleSports)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Paddle sports distance is only supported on iOS 18.0 and later",
+                    context: ["dataType": "paddleSportsDistance", "minimumIOSVersion": "18.0"]
+                )
+            }
+        case .crossCountrySkiingDistance:
+            if #available(iOS 18.0, *) {
+                try HKQuantityType.make(from: .distanceCrossCountrySkiing)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message:
+                    "Cross-country skiing distance is only supported on iOS 18.0 and later",
+                    context: [
+                        "dataType": "crossCountrySkiingDistance", "minimumIOSVersion": "18.0",
+                    ]
+                )
+            }
+        case .skatingSportsDistance:
+            if #available(iOS 18.0, *) {
+                try HKQuantityType.make(from: .distanceSkatingSports)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Skating sports distance is only supported on iOS 18.0 and later",
+                    context: ["dataType": "skatingSportsDistance", "minimumIOSVersion": "18.0"]
+                )
+            }
+        case .sixMinuteWalkTestDistance:
+            try HKQuantityType.make(from: .sixMinuteWalkTestDistance)
+        case .distance:
+            try HKQuantityType.make(from: .distanceWalkingRunning)
         }
     }
 }
