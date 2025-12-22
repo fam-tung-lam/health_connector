@@ -132,6 +132,21 @@ final class BloodPressureAggregateRequest
     HealthDataType.systolicBloodPressure,
   ];
 
+  /// Creates a blood pressure aggregation request.
+  ///
+  /// ## Parameters
+  ///
+  /// - [dataType]: The blood pressure data type to aggregate (must be either
+  ///   systolic or diastolic blood pressure)
+  /// - [aggregationMetric]: The type of aggregation to perform
+  /// - [startTime]: Inclusive start of the time range
+  /// - [endTime]: Exclusive end of the time range
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [dataType] is not a valid blood pressure type
+  /// - [ArgumentError] if [endTime] is before [startTime]
+  /// - [ArgumentError] if [dataType] does not support [aggregationMetric]
   BloodPressureAggregateRequest({
     required super.dataType,
     required super.aggregationMetric,

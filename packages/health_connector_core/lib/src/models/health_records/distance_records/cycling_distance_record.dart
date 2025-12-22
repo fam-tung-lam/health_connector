@@ -3,9 +3,11 @@ part of '../health_record.dart';
 /// Represents cycling distance over a time interval.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceCycling`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = CyclingDistanceRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 2)),

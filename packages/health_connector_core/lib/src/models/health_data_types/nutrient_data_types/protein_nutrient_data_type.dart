@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for protein intake.
+/// Protein nutrient data type.
+///
+/// Tracks dietary protein intake, a macronutrient essential for muscle growth,
+/// repair, and overall body function.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (grams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryProtein)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query protein intake records
+/// - ✅ Writeable: Write protein intake records
+/// - ✅ Aggregatable: Sum total protein intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class ProteinNutrientDataType
         ReadableHealthDataType<ProteinNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<ProteinNutrientRecord, Mass> {
+  /// Creates a protein nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const ProteinNutrientDataType();
 

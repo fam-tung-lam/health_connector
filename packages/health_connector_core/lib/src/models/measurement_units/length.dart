@@ -105,24 +105,66 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
   final double _meters;
 
   /// Returns the length in meters.
+  ///
+  /// Example:
+  /// ```dart
+  /// final length = Length.kilometers(1.5);
+  /// print(length.inMeters); // 1500.0
+  /// ```
   double get inMeters => _meters;
 
   /// Returns the length in kilometers.
+  ///
+  /// Example:
+  /// ```dart
+  /// final length = Length.meters(1500);
+  /// print(length.inKilometers); // 1.5
+  /// ```
   double get inKilometers => _meters / _metersPerKilometer;
 
   /// Returns the length in centimeters.
+  ///
+  /// Example:
+  /// ```dart
+  /// final length = Length.meters(1.5);
+  /// print(length.inCentimeters); // 150.0
+  /// ```
   double get inCentimeters => _meters * _centimetersPerMeter;
 
   /// Returns the length in millimeters.
+  ///
+  /// Example:
+  /// ```dart
+  /// final length = Length.meters(0.05);
+  /// print(length.inMillimeters); // 50.0
+  /// ```
   double get inMillimeters => _meters * _metersPerKilometer;
 
   /// Returns the length in miles.
+  ///
+  /// Example:
+  /// ```dart
+  /// final length = Length.meters(1609.34);
+  /// print(length.inMiles); // ~1.0
+  /// ```
   double get inMiles => _meters / _metersPerMile;
 
   /// Returns the length in feet.
+  ///
+  /// Example:
+  /// ```dart
+  /// final length = Length.meters(1);
+  /// print(length.inFeet); // ~3.28
+  /// ```
   double get inFeet => _meters / _metersPerFoot;
 
   /// Returns the length in inches.
+  ///
+  /// Example:
+  /// ```dart
+  /// final length = Length.feet(1);
+  /// print(length.inInches); // 12.0
+  /// ```
   double get inInches => _meters / _metersPerInch;
 
   /// Adds two lengths together.

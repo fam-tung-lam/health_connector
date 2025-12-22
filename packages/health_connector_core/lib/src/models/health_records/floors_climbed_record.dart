@@ -7,12 +7,12 @@ part of 'health_record.dart';
 /// of approximately 3 meters (10 feet).
 ///
 /// ## Platform Mapping
-/// - **Android (Health Connect)**:
-///   `androidx.health.connect.client.records.FloorsClimbedRecord`
-/// - **iOS (HealthKit)**:
-///   `HKQuantityTypeIdentifier.flightsClimbed`
+///
+/// - **Android (Health Connect)**: `FloorsClimbedRecord`
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.flightsClimbed`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = FloorsClimbedRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 1)),

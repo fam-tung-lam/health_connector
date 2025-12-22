@@ -132,9 +132,8 @@ part 'speed_records/stair_descent_speed_record.dart';
 ///
 /// **Android Health Connect SDK**
 ///
-/// - The health record hierarchy design (HealthRecord → Interval/Instant/Series →
-///   Specific Records) is inspired by the organizational structure of
-///   the Android Health Connect SDK
+/// - The base health record hierarchy design is inspired by the organizational
+///   structure of the Android Health Connect SDK
 /// - **Source**: https://developer.android.com/jetpack/androidx/releases/health-connect
 /// - **Documentation**: https://developer.android.com/health-and-fitness/guides/health-connect
 ///
@@ -142,7 +141,8 @@ part 'speed_records/stair_descent_speed_record.dart';
 ///
 /// - All code in this file is an **original Dart implementation** written
 ///   specifically for Flutter
-/// - No source code has been copied from Health Connect SDK (written in Kotlin/Java)
+/// - No source code has been copied from Health Connect SDK (written in
+///   Kotlin/Java)
 /// - The design follows functional organizational patterns that are
 ///   industry-standard for health data categorization
 /// - This is a **cross-platform abstraction layer** designed for

@@ -1,9 +1,25 @@
 part of 'health_data_type.dart';
 
-/// Health data type for body fat percentage information.
+/// Body fat percentage data type.
 ///
-/// Represents the percentage of body fat as a decimal value (0-1).
+/// Represents the percentage of body weight that is fat tissue, used for
+/// tracking body composition and fitness progress.
+///
+/// ## Measurement Unit
+///
+/// Values are measured as [Percentage] (decimal from 0-1).
 /// For example, 0.25 represents 25% body fat.
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `BodyFatRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.bodyFatPercentage)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query body fat percentage records
+/// - ✅ Writeable: Write body fat percentage records
+/// - ❌ Not aggregatable
 @sinceV1_0_0
 @immutable
 final class BodyFatPercentageHealthDataType
@@ -11,6 +27,10 @@ final class BodyFatPercentageHealthDataType
     implements
         ReadableHealthDataType<BodyFatPercentageRecord>,
         WriteableHealthDataType {
+  /// Creates a body fat percentage data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const BodyFatPercentageHealthDataType();
 

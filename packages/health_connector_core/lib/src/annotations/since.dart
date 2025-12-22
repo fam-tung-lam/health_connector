@@ -28,9 +28,20 @@ final class Since {
   final String version;
 }
 
+/// Marks APIs added in version 1.0.0 of the SDK.
 const sinceV1_0_0 = Since('1.0.0');
+
+/// Marks APIs added in version 1.1.0 of the SDK.
 const sinceV1_1_0 = Since('1.1.0');
+
+/// Marks APIs added in version 1.2.0 of the SDK.
 const sinceV1_2_0 = Since('1.2.0');
+
+/// Marks APIs added in version 1.3.0 of the SDK.
 const sinceV1_3_0 = Since('1.3.0');
+
+/// Marks APIs added in version 1.4.0 of the SDK.
 const sinceV1_4_0 = Since('1.4.0');
+
+/// Marks APIs added in version 2.0.0 of the SDK.
 const sinceV2_0_0 = Since('2.0.0');

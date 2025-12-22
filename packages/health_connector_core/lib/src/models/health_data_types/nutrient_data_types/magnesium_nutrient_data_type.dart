@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for magnesium intake.
+/// Magnesium nutrient data type.
+///
+/// Tracks dietary magnesium intake, a essential mineral supporting muscle and
+/// nerve function.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryMagnesium)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query magnesium intake records
+/// - ✅ Writeable: Write magnesium intake records
+/// - ✅ Aggregatable: Sum total magnesium intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class MagnesiumNutrientDataType
         ReadableHealthDataType<MagnesiumNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<MagnesiumNutrientRecord, Mass> {
+  /// Creates a magnesium nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const MagnesiumNutrientDataType();
 

@@ -3,9 +3,11 @@ part of '../health_record.dart';
 /// Represents a stair ascent speed measurement at a specific point in time.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.stairAscentSpeed`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = StairAscentSpeedRecord(
 ///   time: DateTime.now(),

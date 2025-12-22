@@ -1,10 +1,47 @@
 part of '../health_record.dart';
 
-/// Health record for vitamin B6 intake.
+/// Represents a vitamin B6 measurement from food at a specific point in time.
+///
+/// [VitaminB6NutrientRecord] captures the vitamin B6 content consumed from
+/// food.
+/// This is an iOS-specific record for tracking individual vitamin B6 intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryVitaminB6`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.vitaminB6] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = VitaminB6NutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.milligrams(0.4),
+///   foodName: 'Banana',
+///   mealType: MealType.snack,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class VitaminB6NutrientRecord extends VitaminNutrientRecord {
+  /// Creates a vitamin B6 nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The vitamin B6 measurement.
+  /// - [time]: The timestamp when the vitamin B6 was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this vitamin B6.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory VitaminB6NutrientRecord({
     required Mass value,
     required DateTime time,

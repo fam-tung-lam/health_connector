@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for dietary fiber intake.
+/// Dietary fiber nutrient data type.
+///
+/// Tracks dietary dietary fiber intake, a indigestible carbohydrate important
+/// for digestive health.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (grams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryFiber)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query dietary fiber intake records
+/// - ✅ Writeable: Write dietary fiber intake records
+/// - ✅ Aggregatable: Sum total dietary fiber intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class DietaryFiberNutrientDataType
         ReadableHealthDataType<DietaryFiberNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<DietaryFiberNutrientRecord, Mass> {
+  /// Creates a dietary fiber nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const DietaryFiberNutrientDataType();
 

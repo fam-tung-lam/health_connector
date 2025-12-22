@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for vitamin k intake.
+/// Vitamin K nutrient data type.
+///
+/// Tracks dietary vitamin k intake, a fat-soluble vitamin necessary for blood
+/// clotting and bone health.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (micrograms typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryVitaminK)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query vitamin k intake records
+/// - ✅ Writeable: Write vitamin k intake records
+/// - ✅ Aggregatable: Sum total vitamin k intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class VitaminKNutrientDataType
         ReadableHealthDataType<VitaminKNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<VitaminKNutrientRecord, Mass> {
+  /// Creates a vitamin k nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const VitaminKNutrientDataType();
 

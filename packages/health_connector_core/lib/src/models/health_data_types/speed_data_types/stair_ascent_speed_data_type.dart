@@ -1,17 +1,40 @@
 part of '../health_data_type.dart';
 
-/// Health data type for stair ascent speed.
+/// Stair ascent speed data type.
+///
+/// Tracks vertical speed while climbing stairs.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Velocity] units (meters/second typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.stairAscentSpeed)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query stair ascent speed records
+/// - ✅ Writeable: Write stair ascent speed records
+/// - ✅ Aggregatable: Calculate average stair ascent speed
+/// - ✅ Deletable: Delete records by IDs or time range
 ///
 /// Represents the speed at which a user ascends stairs, typically measured in
 /// meters per second.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.stairAscentSpeed`
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable
 final class StairAscentSpeedDataType
     extends SpeedActivityHealthDataType<StairAscentSpeedRecord> {
+  /// Creates a stair ascent speed data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const StairAscentSpeedDataType();
 

@@ -24,9 +24,10 @@ import 'package:meta/meta.dart' show immutable, internal;
 @internalUse
 @immutable
 sealed class ReadRecordsRequest<R extends HealthRecord> extends Request {
+  /// Creates a base read records request.
   const ReadRecordsRequest({required this.dataType});
 
-  /// The type of health data to Read.
+  /// The type of health data to read.
   final HealthDataType<R, MeasurementUnit> dataType;
 }
 

@@ -1,6 +1,24 @@
 part of 'health_data_type.dart';
 
-/// Health data type for body temperature information.
+/// Body temperature data type.
+///
+/// Represents body temperature measurements, typically used for monitoring
+/// health status, fever detection, and reproductive health tracking.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Temperature] units (Celsius, Fahrenheit, Kelvin).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `BodyTemperatureRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.bodyTemperature)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query body temperature records
+/// - ✅ Writeable: Write body temperature records
+/// - ❌ Not aggregatable
 @sinceV1_0_0
 @immutable
 final class BodyTemperatureHealthDataType
@@ -8,6 +26,10 @@ final class BodyTemperatureHealthDataType
     implements
         ReadableHealthDataType<BodyTemperatureRecord>,
         WriteableHealthDataType {
+  /// Creates a body temperature data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const BodyTemperatureHealthDataType();
 

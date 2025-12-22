@@ -11,13 +11,26 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android**: Maps to Health Connect's `Vo2MaxRecord`
-/// - **iOS**: Maps to HealthKit's `HKQuantityType(.vo2Max)`
+/// - **Android (Health Connect)**: `Vo2MaxRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.vo2Max)`
 ///
 /// ## Measurement Unit
 ///
 /// VO₂ max is expressed in milliliters of oxygen per kilogram of body weight
 /// per minute (mL/kg/min).
+///
+/// ## Example
+///
+/// ```dart
+/// final record = Vo2MaxRecord(
+///   time: DateTime.now(),
+///   mLPerKgPerMin: Number(45.2),
+///   testType: Vo2MaxTestType.cooperTest,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_3_0
 @immutable
 final class Vo2MaxRecord extends InstantHealthRecord {
@@ -100,8 +113,8 @@ final class Vo2MaxRecord extends InstantHealthRecord {
 /// Represents the test type or measurement method used to determine VO₂ max.
 ///
 /// This enum provides a cross-platform abstraction for:
-/// - **Android**: `Vo2MaxMeasurementMethod` constants
-/// - **iOS**: `HKMetadataKeyVO2MaxTestType` enum
+/// - **Android (Health Connect)**: `Vo2MaxMeasurementMethod` constants
+/// - **iOS (HealthKit)**: `HKMetadataKeyVO2MaxTestType` enum
 ///
 /// ## Platform Mapping
 ///

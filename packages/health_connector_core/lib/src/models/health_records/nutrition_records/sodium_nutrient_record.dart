@@ -1,10 +1,46 @@
 part of '../health_record.dart';
 
-/// Health record for sodium intake.
+/// Represents a sodium measurement from food at a specific point in time.
+///
+/// [SodiumNutrientRecord] captures the sodium content consumed from food.
+/// This is an iOS-specific record for tracking individual sodium intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietarySodium`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.sodium] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = SodiumNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.milligrams(700),
+///   foodName: 'Soup',
+///   mealType: MealType.lunch,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class SodiumNutrientRecord extends MineralNutrientRecord {
+  /// Creates a sodium nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The sodium measurement.
+  /// - [time]: The timestamp when the sodium was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this sodium.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory SodiumNutrientRecord({
     required Mass value,
     required DateTime time,

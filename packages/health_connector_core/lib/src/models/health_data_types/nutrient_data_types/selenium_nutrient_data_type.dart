@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for selenium intake.
+/// Selenium nutrient data type.
+///
+/// Tracks dietary selenium intake, a trace mineral and antioxidant supporting
+/// thyroid function.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (micrograms typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietarySelenium)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query selenium intake records
+/// - ✅ Writeable: Write selenium intake records
+/// - ✅ Aggregatable: Sum total selenium intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class SeleniumNutrientDataType
         ReadableHealthDataType<SeleniumNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<SeleniumNutrientRecord, Mass> {
+  /// Creates a selenium nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const SeleniumNutrientDataType();
 

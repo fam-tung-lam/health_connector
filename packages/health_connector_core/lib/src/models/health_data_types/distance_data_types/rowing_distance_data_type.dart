@@ -1,19 +1,39 @@
 part of '../health_data_type.dart';
 
-/// Health data type for rowing distance.
+/// Rowing distance data type.
+///
+/// Tracks distance traveled while rowing.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Length] units (meters typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.distanceRowing)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query rowing distance records
+/// - ✅ Writeable: Write rowing distance records
+/// - ✅ Aggregatable: Sum total rowing distance
+/// - ✅ Deletable: Delete records by IDs or time range
 ///
 /// Includes both water rowing and rowing machine workouts.
 ///
 /// ## Platform Mapping
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceRowing`
 ///
-/// ## iOS Version Requirement
-/// **Requires iOS 18.0+**
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceRowing`
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable
 final class RowingDistanceDataType
     extends DistanceActivityHealthDataType<RowingDistanceRecord> {
+  /// Creates a rowing distance data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const RowingDistanceDataType();
 

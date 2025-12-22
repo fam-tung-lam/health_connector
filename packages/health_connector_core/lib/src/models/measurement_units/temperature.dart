@@ -67,11 +67,23 @@ final class Temperature extends MeasurementUnit
   final double _celsius;
 
   /// Returns the temperature in Celsius.
+  ///
+  /// Example:
+  /// ```dart
+  /// final temp = Temperature.fahrenheit(98.6);
+  /// print(temp.inCelsius); // 37.0
+  /// ```
   double get inCelsius => _celsius;
 
   /// Returns the temperature in Fahrenheit.
   ///
   /// Formula: °F = °C × 9/5 + 32
+  ///
+  /// Example:
+  /// ```dart
+  /// final temp = Temperature.celsius(37.0);
+  /// print(temp.inFahrenheit); // 98.6
+  /// ```
   double get inFahrenheit =>
       _celsius *
           _fahrenheitConversionDenominator /
@@ -81,6 +93,12 @@ final class Temperature extends MeasurementUnit
   /// Returns the temperature in Kelvin.
   ///
   /// Formula: K = °C + 273.15
+  ///
+  /// Example:
+  /// ```dart
+  /// final temp = Temperature.celsius(0);
+  /// print(temp.inKelvin); // 273.15
+  /// ```
   double get inKelvin => _celsius + _kelvinOffset;
 
   /// Adds two temperature differences together.

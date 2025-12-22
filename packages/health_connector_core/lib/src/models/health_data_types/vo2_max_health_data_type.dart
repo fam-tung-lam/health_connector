@@ -1,9 +1,27 @@
 part of 'health_data_type.dart';
 
-/// Health data type for VO₂ max (maximal oxygen uptake) measurements.
+/// VO₂ max data type.
 ///
-/// VO₂ max is the maximum rate of oxygen consumption measured during
-/// incremental exercise and is a key indicator of cardiorespiratory fitness.
+/// Represents the maximal oxygen uptake, the maximum rate of oxygen consumption
+/// measured during incremental exercise. VO₂ max is considered the gold
+/// standard
+/// for measuring cardiorespiratory fitness and aerobic endurance.
+///
+/// ## Measurement Unit
+///
+/// Values are measured as [Number] (mL/kg/min - milliliters of oxygen per
+/// kilogram of body weight per minute).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `Vo2MaxRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.vo2Max)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query VO₂ max records
+/// - ✅ Writeable: Write VO₂ max records
+/// - ✅ Aggregatable: Calculate avg, min, max VO₂ max
 @sinceV1_3_0
 @immutable
 final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Number>
@@ -13,6 +31,10 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Number>
         AvgAggregatableHealthDataType<Vo2MaxRecord, Number>,
         MinAggregatableHealthDataType<Vo2MaxRecord, Number>,
         MaxAggregatableHealthDataType<Vo2MaxRecord, Number> {
+  /// Creates a VO₂ max data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const Vo2MaxHealthDataType();
 

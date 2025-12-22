@@ -6,13 +6,11 @@ part of '../health_record.dart';
 /// paddle-based water sports.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distancePaddleSports`
 ///
-/// ## iOS Version Requirement
-/// **Requires iOS 18.0+**. On older iOS versions, this will fall back to
-/// `distanceWalkingRunning`.
-///
 /// ## Example
+///
 /// ```dart
 /// final record = PaddleSportsDistanceRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 2)),

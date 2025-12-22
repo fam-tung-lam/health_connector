@@ -40,8 +40,63 @@ import 'package:health_connector_logger/health_connector_logger.dart';
 
 /// Main entry point for interacting with platform-specific health APIs.
 ///
-/// This class uses a factory pattern to create instances. Use
-/// [HealthConnector.create] to obtain an instance.
+/// Provides a unified interface for accessing health and fitness data across
+/// iOS (HealthKit) and Android (Health Connect). This class handles permission
+/// management, data reading/writing, aggregations, and record operations.
+///
+/// ## Platform Support
+///
+/// - **iOS**: Uses HealthKit for all health data operations
+/// - **Android**: Uses Health Connect SDK
+///
+/// ## Getting Started
+///
+/// Create a [HealthConnector] instance using [HealthConnector.create]:
+///
+/// ```dart
+/// // Create connector with default configuration
+/// final connector = await HealthConnector.create();
+///
+/// // Request permissions
+/// final permissions = [
+///   HealthDataType.steps.readPermission,
+///   HealthDataType.heartRate.readPermission,
+/// ];
+/// final results = await connector.requestPermissions(permissions);
+///
+/// // Read health data
+/// final request = HealthDataType.steps.readInTimeRange(
+///   startTime: DateTime.now().subtract(Duration(days: 7)),
+///   endTime: DateTime.now(),
+/// );
+/// final response = await connector.readRecords(request);
+///
+/// for (final record in response.records) {
+///   print('Steps: ${record.count.value}');
+/// }
+/// ```
+///
+/// ## Core Capabilities
+///
+/// - **Permission Management**: Request, check, and revoke health data access
+/// - **Data Reading**: Query individual records or time ranges with pagination
+/// - **Data Writing**: Store single or multiple health records atomically
+/// - **Aggregations**: Compute sums, averages, min/max over time ranges
+/// - **Record Updates**: Modify existing records (Android only)
+/// - **Data Deletion**: Remove records by ID or time range
+///
+/// ## Key Types
+///
+/// - [HealthDataType]: Enumeration of supported health metrics
+/// - [HealthRecord]: Base class for all health data records
+/// - [Permission]: Base class for data and feature permissions
+/// - [HealthConnectorConfig]: Configuration options for the connector
+///
+/// ## See Also
+///
+/// - [HealthDataType] for available data types and their capabilities
+/// - [HealthConnectorConfig] for configuration options
+/// - [HealthRecord] for working with health data records
 @sinceV1_0_0
 abstract interface class HealthConnector {
   /// The tag used for logging in static methods.
@@ -50,18 +105,42 @@ abstract interface class HealthConnector {
   /// Creates a new [HealthConnector] instance.
   ///
   /// This factory ensures that the instance is properly configured for the
-  /// current platform.
+  /// current platform (iOS HealthKit or Android Health Connect).
+  /// The factory automatically detects the platform and verifies health
+  /// service availability before creating the instance.
+  ///
+  /// ## Parameters
+  ///
+  /// - [config]: Optional configuration for customizing connector behavior such
+  ///   as logger enablement. If not provided, default configuration is used.
+  ///
+  /// ## Returns
+  ///
+  /// - A [Future] that completes with the configured [HealthConnector]
+  ///   instance.
   ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.healthProviderUnavailable]
-  ///   if health platform is unavailable on this device.
+  ///   when the health platform is unavailable on this device.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.healthProviderNotInstalledOrUpdateRequired]
-  ///   if Health Connect app installation or update is required.
+  ///   when Health Connect app installation or update is required.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
-  ///   if an unexpected error occurs
+  ///   when an unexpected error occurs.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// // Create with default configuration
+  /// final connector = await HealthConnector.create();
+  ///
+  /// // Create with custom configuration
+  /// final connectorWithLogging = await HealthConnector.create(
+  ///   HealthConnectorConfig(isLoggerEnabled: true),
+  /// );
+  /// ```
   static Future<HealthConnector> create([
     HealthConnectorConfig config = const HealthConnectorConfig(),
   ]) async {
@@ -126,9 +205,16 @@ abstract interface class HealthConnector {
   }
 
   /// The health platform being used by this connector.
+  ///
+  /// This value is determined during connector creation and remains constant
+  /// for the lifetime of the instance.
   HealthPlatform get healthPlatform;
 
   /// The configuration used by this connector.
+  ///
+  /// Contains settings such as logger enablement and other connector
+  /// behavior options. See [HealthConnectorConfig] for available
+  /// configuration options.
   HealthConnectorConfig get config;
 
   /// Requests the specified permissions from the health platform.
@@ -138,21 +224,32 @@ abstract interface class HealthConnector {
   /// ### iOS (HealthKit)
   ///
   /// - Read permissions always return [PermissionStatus.unknown] for privacy.
+  /// - Write permissions return actual status.
   /// - Feature permissions always return [PermissionStatus.granted], as
   ///   features are available by default.
-  /// - Write permissions return actual status.
   ///
   /// ### Android (Health Connect)
   ///
   /// - Returns actual permission status for all permission types.
   ///
+  /// ## Parameters
+  ///
+  /// - [permissions]: List of permissions to request from the user. Can include
+  ///   [HealthDataPermission] for data access and
+  ///   [HealthPlatformFeaturePermission] for platform features.
+  ///
+  /// ## Returns
+  ///
+  /// - A list of [PermissionRequestResult] objects containing the status
+  ///   for each requested permission.
+  ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.invalidConfiguration] if
-  ///    required permissions are missing from platform configuration
+  ///   [HealthConnectorErrorCode.invalidConfiguration] when
+  ///   required permissions are missing from the configuration.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
-  ///   if unexpected error occurs
+  ///   when an unexpected error occurs.
   ///
   /// ## Example
   ///
@@ -175,7 +272,7 @@ abstract interface class HealthConnector {
   /// }
   /// ```
   ///
-  /// ## See
+  /// ## See Also
   ///
   /// - [HealthDataPermission] and [HealthPlatformFeaturePermission]
   /// - [HealthConnector.getFeatureStatus]
@@ -185,22 +282,21 @@ abstract interface class HealthConnector {
 
   /// Gets all permissions that have been granted to the app.
   ///
-  /// Returns a list of all currently granted permissions.
-  /// Only permissions with [PermissionStatus.granted] status are returned.
-  /// This includes both health data permissions and feature permissions.
+  /// Currently supported on Android (Health Connect) only.
   ///
   /// ## Returns
   ///
-  /// A list of [Permission] objects that have been granted.
-  /// The list may be empty if no permissions have been granted.
+  /// - A list of [Permission] objects that have been granted.
+  ///   This includes both health data permissions and feature permissions.
+  ///   The list may be empty if no permissions have been granted.
   ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.unsupportedOperation] if
-  ///   this API is not supported on the current platform
+  ///   this API is not supported on the current platform.
   /// - [HealthConnectorException] if the platform request fails or
-  ///   returns invalid data
+  ///   returns invalid data.
   ///
   /// ## Example
   ///
@@ -232,9 +328,6 @@ abstract interface class HealthConnector {
 
   /// Gets the current permission status for a specific permission.
   ///
-  /// This method allows you to check whether a permission has been granted,
-  /// denied, or is in an unknown state without requesting it.
-  ///
   /// ## Platform Differences
   ///
   /// ### iOS (HealthKit)
@@ -251,16 +344,16 @@ abstract interface class HealthConnector {
   /// ## Parameters
   ///
   /// - [permission]: The permission to check. Can be either:
-  ///   - [HealthDataPermission] for health data access
-  ///   - [HealthPlatformFeaturePermission] for platform features (Android-only)
+  /// - [HealthDataPermission] for health data access
+  /// - [HealthPlatformFeaturePermission] for platform features (Android-only)
   ///
   /// ## Returns
   ///
-  /// The current [PermissionStatus] of the specified permission
+  /// - The current [PermissionStatus] of the specified permission.
   ///
   /// ## Throws
   ///
-  /// - [HealthConnectorException] if an error occurs while checking status
+  /// - [HealthConnectorException] when an error occurs while checking status.
   ///
   /// ## Example
   ///
@@ -297,8 +390,8 @@ abstract interface class HealthConnector {
   ///
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.unsupportedOperation] if this API is
-  ///   not supported on the current platform
-  /// - [HealthConnectorException] if the platform request fails
+  ///   not supported on the current platform.
+  /// - [HealthConnectorException] if the platform request fails.
   ///
   /// ## Example
   ///
@@ -322,31 +415,43 @@ abstract interface class HealthConnector {
 
   /// Checks the availability status of a specific platform feature.
   ///
+  /// ## Platform Differences
+  ///
+  /// ### iOS (HealthKit)
+  ///
+  /// - Always returns [HealthPlatformFeatureStatus.available], as
+  ///   all features are available by default.
+  ///
+  /// ### Android (Health Connect)
+  ///
+  /// - Feature availability depends on Android and Health Connect SDK.
+  ///   For example, some features require specific version.
+  ///
   /// ## Parameters
   ///
   /// - [feature]: The platform feature to check availability for
   ///
   /// ## Returns
   ///
-  /// - [HealthPlatformFeatureStatus.available] if the feature is
-  ///   supported on this device
-  /// - [HealthPlatformFeatureStatus.unavailable] if the feature is
-  ///   not supported
+  /// - [HealthPlatformFeatureStatus.available] when
+  ///   the feature is supported on this device.
+  /// - [HealthPlatformFeatureStatus.unavailable] when
+  ///   the feature is not supported.
   ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.invalidConfiguration] if
-  ///   required feature permissions are missing from platform configuration
-  /// - [HealthConnectorException] if unable to query feature status
+  ///   [HealthConnectorErrorCode.invalidConfiguration] when
+  ///   required feature permissions are missing from the configuration.
+  /// - [HealthConnectorException] when unable to query feature status.
   ///
   /// ## Example
   ///
   /// ```dart
   /// final connector = await HealthConnector.create();
   /// final status = await connector.getFeatureStatus(
-  ///                 HealthPlatformFeature.readHealthDataInBackground,
-  ///               );
+  ///                         HealthPlatformFeature.readHealthDataInBackground,
+  ///                       );
   ///
   /// if (status == HealthPlatformFeatureStatus.available) {
   ///   // Feature is supported, safe to request permissions
@@ -357,18 +462,6 @@ abstract interface class HealthConnector {
   ///   // Feature not available, disable background reading functionality
   /// }
   /// ```
-  ///
-  /// ## Platform Differences
-  ///
-  /// ### iOS (HealthKit)
-  ///
-  /// - Always returns [HealthPlatformFeatureStatus.available], as all features
-  ///   are available by default.
-  ///
-  /// ### Android (Health Connect)
-  ///
-  /// - Feature availability depends on Android and Health Connect SDK.
-  ///   For example, some features require specific version.
   Future<HealthPlatformFeatureStatus> getFeatureStatus(
     HealthPlatformFeature feature,
   );
@@ -381,15 +474,15 @@ abstract interface class HealthConnector {
   ///
   /// ## Returns
   ///
-  /// The [HealthRecord] if found, or `null` if no record exists with the
+  /// - [HealthRecord] if found, or `null` if no record exists with the
   /// specified ID.
   ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
-  ///   if read permission has not been granted
+  ///   when read permission has not been granted.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
-  ///   if an unexpected error occurs
+  ///   when an unexpected error occurs.
   ///
   /// ## Example
   ///
@@ -408,8 +501,6 @@ abstract interface class HealthConnector {
     ReadRecordByIdRequest<R> request,
   );
 
-  /// Reads multiple health records within a time range.
-  ///
   /// Queries health records of a specific type within the specified time range.
   /// Results are paginated to handle large datasets efficiently.
   ///
@@ -420,22 +511,22 @@ abstract interface class HealthConnector {
   ///
   /// ## Returns
   ///
-  /// A [ReadRecordsInTimeRangeResponse] containing:
-  /// - List of records found in the time range (up to pageSize records)
-  /// - Records are ordered by start time in ascending order (oldest first)
-  /// - Next page request if more records are available
+  /// - A [ReadRecordsInTimeRangeResponse] containing:
+  ///   - The list of records found in the time range (up to pageSize records)
+  ///   - The records, ordered by start time in ascending order (oldest first)
+  ///   - The next page request if more records are available
   ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
-  ///   if read permission has not been granted
+  ///   when read permission has not been granted.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
-  ///   if an unexpected error occurs
+  ///   when an unexpected error occurs.
   ///
   /// ## Example - With Pagination
   ///
   /// Use [ReadRecordsInTimeRangeResponse.hasMorePages] to check
-  /// if additional pages exist:
+  /// when additional pages exist:
   ///
   /// ```dart
   /// var response = await connector.readRecords(request);
@@ -456,26 +547,25 @@ abstract interface class HealthConnector {
 
   /// Writes a single health record to the platform.
   ///
-  /// The record must be new (id = [HealthRecordId.none]). The platform will
-  /// assign a unique ID to the record.
-  ///
   /// ## Parameters
   ///
-  /// - [record]: The health record to write
+  /// - [record]: The health record to write. Must have [HealthRecordId.none]
+  ///   as its ID.
   ///
   /// ## Returns
   ///
-  /// The [HealthRecordId] assigned by the platform to the newly written record.
+  /// - The [HealthRecordId] assigned by the platform to the newly written
+  ///   record.
   ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
-  ///   if write permission has not been granted
+  ///   when write permission has not been granted.
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.invalidArgument] if the record ID is not
-  ///   [HealthRecordId.none]
+  ///   [HealthConnectorErrorCode.invalidArgument] when the record ID is not
+  ///   [HealthRecordId.none].
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
-  ///   if an unexpected error occurs
+  ///   when an unexpected error occurs.
   ///
   /// ## Example
   ///
@@ -501,27 +591,26 @@ abstract interface class HealthConnector {
   /// Stores multiple new health records in a single atomic transaction.
   /// Either all records are written successfully, or none are written.
   ///
-  /// All records must be new (id = [HealthRecordId.none]).
-  ///
   /// ## Parameters
   ///
-  /// - [records]: List of health records to write
+  /// - [records]: List of health records to write. All records must have
+  ///   [HealthRecordId.none] as their ID.
   ///
   /// ## Returns
   ///
-  /// A list of [HealthRecordId]s assigned by the platform, in the same order
-  /// as the input records.
+  /// - A list of [HealthRecordId]s assigned by the platform, in the same order
+  ///   as the input records.
   ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.notAuthorized] if write permission has not
-  ///   been granted
+  ///   been granted.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if any record ID is not
-  ///   [HealthRecordId.none]
+  ///   [HealthRecordId.none].
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
-  ///   if an unexpected error occurs (no records will be written)
+  ///   when an unexpected error occurs (no records will be written).
   ///
   /// ## Example
   ///
@@ -553,26 +642,24 @@ abstract interface class HealthConnector {
     List<R> records,
   );
 
-  /// Performs an aggregation query over health records.
-  ///
   /// Computes an aggregated value (sum, average, minimum, or maximum) over
   /// all records of a specific type within the specified time range.
   ///
   /// ## Parameters
   ///
   /// - [request]: The aggregation request containing data type, metric,
-  ///   and time range
+  ///   and time range.
   ///
   /// ## Returns
   ///
-  /// An the aggregated value in the appropriate measurement unit.
+  /// - The aggregated value in the appropriate measurement unit.
   ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
-  ///   if read permission has not been granted
+  ///   when read permission has not been granted.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
-  ///   if an unexpected error occurs
+  ///   when an unexpected error occurs.
   ///
   /// ## Example
   ///
@@ -603,7 +690,7 @@ abstract interface class HealthConnector {
   /// [HealthDataType].
   ///
   /// While HealthKit SDK can delete multiple record types
-  /// atomically, [deleteRecords] requires specifying a single data type to
+  /// atomically, this method requires specifying a single data type to
   /// **maintain cross-platform consistency with Health Connect**.
   ///
   /// ## Data Ownership Restriction
@@ -614,24 +701,19 @@ abstract interface class HealthConnector {
   ///
   /// ## Parameters
   ///
-  /// - [request]: A deletion request
-  ///
-  /// ## Returns
-  ///
-  /// A [Future] that completes when the deletion operation finishes.
-  /// This operation is permanent and cannot be undone.
+  /// - [request]: A deletion request specifying either record IDs or
+  ///   a time range.
   ///
   /// ## Throws
   ///
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
-  ///   if delete/write permission has not been granted
+  ///   when delete/write permission has not been granted or when attempting to
+  ///   delete records not created by this app.
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.invalidArgument] if
-  ///   the request contains invalid data
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
-  ///   if attempting to delete records not created by this app
+  ///   [HealthConnectorErrorCode.invalidArgument] when
+  ///   the request contains invalid data.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
-  ///   if an unexpected error occurs
+  ///   when an unexpected error occurs.
   ///
   /// ## Example - Delete by IDs
   ///
@@ -664,8 +746,8 @@ abstract interface class HealthConnector {
   ///
   /// ## Platform Differences
   ///
-  /// - **Android Health Connect**: ✅ Full support
-  /// - **iOS HealthKit**: ❌ Not supported (see [updateRecords] for details)
+  /// - **Android (Health Connect)**: ✅ Full support
+  /// - **iOS (HealthKit)**: ❌ Not supported (see [updateRecords] for details)
   ///
   /// ## Parameters
   ///
@@ -675,16 +757,34 @@ abstract interface class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.unsupportedOperation] on iOS HealthKit
+  ///   [HealthConnectorErrorCode.unsupportedOperation] on iOS HealthKit.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if the record ID is
-  ///   [HealthRecordId.none] or invalid
+  ///   [HealthRecordId.none] or invalid.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
-  ///   if write permission has not been granted
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
-  ///   if attempting to update a record not created by this app
+  ///   when write permission has not been granted or when attempting to
+  ///   update a record not created by this app.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
-  ///   if an unexpected error occurs
+  ///   when an unexpected error occurs.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// // Read the existing record
+  /// final recordId = HealthRecordId('existing-record-id');
+  /// final request = HealthDataType.steps.readRecord(recordId);
+  /// final existingRecord = await connector.readRecord(request);
+  ///
+  /// if (existingRecord != null && existingRecord is StepsRecord) {
+  ///   // Modify the record
+  ///   final updatedRecord = existingRecord.copyWith(
+  ///     count: Numeric(existingRecord.count.value + 500),
+  ///   );
+  ///
+  ///   // Update the record (Android only)
+  ///   await connector.updateRecord(updatedRecord);
+  /// }
+  /// ```
   ///
   /// ## See Also
   ///
@@ -697,20 +797,17 @@ abstract interface class HealthConnector {
   ///
   /// ## Platform Differences
   ///
-  /// - **Android Health Connect**: ✅ Full support with atomic batch operations
-  /// - **iOS HealthKit**: ❌ Not supported
+  /// - **Android (Health Connect)**: ✅ Full support
+  /// - **iOS (HealthKit)**: ❌ Not supported
   ///
-  /// ## Why HealthKit Doesn't Support Updates
+  /// ### Why HealthKit Doesn't Support Updates
   ///
   /// HealthKit uses an **immutable data model** where health samples represent
   /// point-in-time observations that cannot be modified after creation.
   ///
-  /// ## How to Achieve Batch Update Functionality on iOS
+  /// ## How to Achieve Batch Update Functionality on iOS (HealthKit)
   ///
-  /// For iOS, you must explicitly use delete and create operations. See
-  /// [updateRecord] for detailed workarounds and patterns.
-  ///
-  /// **Quick example for batch operations on iOS**:
+  /// For iOS, you must explicitly use delete and create operations.
   ///
   /// ```dart
   /// // 1. Delete existing records
@@ -765,16 +862,15 @@ abstract interface class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.unsupportedOperation] on iOS HealthKit
+  ///   [HealthConnectorErrorCode.unsupportedOperation] on iOS HealthKit.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if any record ID is
-  ///   [HealthRecordId.none] or invalid
+  ///   [HealthRecordId.none] or invalid.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
-  ///   if write permission has not been granted
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
-  ///   if attempting to update records not created by this app
+  ///   when write permission has not been granted or when attempting to update
+  ///   records not created by this app.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
-  ///   if an unexpected error occurs
+  ///   when an unexpected error occurs.
   ///
   /// ## See Also
   ///

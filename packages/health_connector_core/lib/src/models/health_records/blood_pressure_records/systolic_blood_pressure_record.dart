@@ -8,6 +8,27 @@ part of '../health_record.dart';
 /// values independently.
 ///
 /// For combined blood pressure readings, see [BloodPressureRecord].
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityType(.bloodPressureSystolic)`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. It is not available
+/// > on Android Health Connect, which only supports combined blood pressure
+/// > readings via [BloodPressureRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = SystolicBloodPressureRecord(
+///   time: DateTime.now(),
+///   pressure: Pressure.millimetersOfMercury(120),
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_2_0
 @supportedOnAppleHealth
 @immutable

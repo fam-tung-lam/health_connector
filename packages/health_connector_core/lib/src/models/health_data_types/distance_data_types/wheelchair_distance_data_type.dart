@@ -1,14 +1,33 @@
 part of '../health_data_type.dart';
 
-/// Health data type for wheelchair distance.
+/// Wheelchair distance data type.
+///
+/// Tracks distance traveled while using a wheelchair.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Length] units (meters typically).
 ///
 /// ## Platform Mapping
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceWheelchair`
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.distanceWheelchair)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query wheelchair distance records
+/// - ✅ Writeable: Write wheelchair distance records
+/// - ✅ Aggregatable: Sum total wheelchair distance
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable
 final class WheelchairDistanceDataType
     extends DistanceActivityHealthDataType<WheelchairDistanceRecord> {
+  /// Creates a wheelchair distance data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const WheelchairDistanceDataType();
 

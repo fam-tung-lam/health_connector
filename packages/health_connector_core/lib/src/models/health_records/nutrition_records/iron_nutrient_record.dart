@@ -1,10 +1,46 @@
 part of '../health_record.dart';
 
-/// Health record for iron intake.
+/// Represents an iron measurement from food at a specific point in time.
+///
+/// [IronNutrientRecord] captures the iron content consumed from food.
+/// This is an iOS-specific record for tracking individual iron intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryIron`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.iron] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = IronNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.milligrams(2.7),
+///   foodName: 'Spinach',
+///   mealType: MealType.lunch,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class IronNutrientRecord extends MineralNutrientRecord {
+  /// Creates an iron nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The iron measurement.
+  /// - [time]: The timestamp when the iron was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this iron.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory IronNutrientRecord({
     required Mass value,
     required DateTime time,

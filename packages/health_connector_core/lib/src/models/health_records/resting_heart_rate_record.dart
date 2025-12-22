@@ -9,8 +9,20 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android**: Maps to Health Connect's `RestingHeartRateRecord`
-/// - **iOS**: Maps to HealthKit's `HKQuantityType(.restingHeartRate)`
+/// - **Android (Health Connect)**: `RestingHeartRateRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.restingHeartRate)`
+///
+/// ## Example
+///
+/// ```dart
+/// final record = RestingHeartRateRecord(
+///   time: DateTime.now(),
+///   beatsPerMinute: Number(60),
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_3_0
 @immutable
 final class RestingHeartRateRecord extends InstantHealthRecord {

@@ -1,19 +1,39 @@
 part of '../health_data_type.dart';
 
-/// Health data type for skating sports distance.
+/// Skating sports distance data type.
+///
+/// Tracks distance traveled while ice skating or roller skating.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Length] units (meters typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.distanceSkatingSports)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query skating sports distance records
+/// - ✅ Writeable: Write skating sports distance records
+/// - ✅ Aggregatable: Sum total skating sports distance
+/// - ✅ Deletable: Delete records by IDs or time range
 ///
 /// Includes ice skating, roller skating, inline skating, etc.
 ///
 /// ## Platform Mapping
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceSkatingSports`
 ///
-/// ## iOS Version Requirement
-/// **Requires iOS 18.0+**
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceSkatingSports`
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable
 final class SkatingSportsDistanceDataType
     extends DistanceActivityHealthDataType<SkatingSportsDistanceRecord> {
+  /// Creates a skating sports distance data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const SkatingSportsDistanceDataType();
 

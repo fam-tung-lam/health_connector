@@ -5,13 +5,11 @@ part of '../health_record.dart';
 /// Includes both water rowing and rowing machine workouts.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceRowing`
 ///
-/// ## iOS Version Requirement
-/// **Requires iOS 18.0+**. On older iOS versions, this will fall back to
-/// `distanceWalkingRunning`.
-///
 /// ## Example
+///
 /// ```dart
 /// final record = RowingDistanceRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 1)),

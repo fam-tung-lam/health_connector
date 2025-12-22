@@ -22,6 +22,7 @@ sealed class ReadRecordsResponse<R extends HealthRecord> extends Response {
 @immutable
 final class ReadRecordsInTimeRangeResponse<R extends HealthRecord>
     extends ReadRecordsResponse {
+  /// Creates a read records response.
   const ReadRecordsInTimeRangeResponse({
     required this.records,
     this.nextPageRequest,

@@ -40,9 +40,21 @@ final class Power extends MeasurementUnit implements Comparable<Power> {
   final double _watts;
 
   /// Returns the power in watts.
+  ///
+  /// Example:
+  /// ```dart
+  /// final power = Power.kilowatts(0.25);
+  /// print(power.inWatts); // 250.0
+  /// ```
   double get inWatts => _watts;
 
   /// Returns the power in kilowatts.
+  ///
+  /// Example:
+  /// ```dart
+  /// final power = Power.watts(250);
+  /// print(power.inKilowatts); // 0.25
+  /// ```
   double get inKilowatts => _watts / _wattsPerKilowatt;
 
   /// Adds two power values together.

@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for manganese intake.
+/// Manganese nutrient data type.
+///
+/// Tracks dietary manganese intake, a trace mineral important for bone
+/// formation and metabolism.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryManganese)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query manganese intake records
+/// - ✅ Writeable: Write manganese intake records
+/// - ✅ Aggregatable: Sum total manganese intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class ManganeseNutrientDataType
         ReadableHealthDataType<ManganeseNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<ManganeseNutrientRecord, Mass> {
+  /// Creates a manganese nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const ManganeseNutrientDataType();
 

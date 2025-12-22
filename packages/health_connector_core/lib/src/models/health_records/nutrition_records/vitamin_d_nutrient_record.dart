@@ -1,10 +1,46 @@
 part of '../health_record.dart';
 
-/// Health record for vitamin D intake.
+/// Represents a vitamin D measurement from food at a specific point in time.
+///
+/// [VitaminDNutrientRecord] captures the vitamin D content consumed from food.
+/// This is an iOS-specific record for tracking individual vitamin D intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryVitaminD`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.vitaminD] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = VitaminDNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.micrograms(2.5),
+///   foodName: 'Fortified Milk',
+///   mealType: MealType.breakfast,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class VitaminDNutrientRecord extends VitaminNutrientRecord {
+  /// Creates a vitamin D nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The vitamin D measurement.
+  /// - [time]: The timestamp when the vitamin D was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this vitamin D.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory VitaminDNutrientRecord({
     required Mass value,
     required DateTime time,

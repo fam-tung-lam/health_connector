@@ -1,6 +1,24 @@
 part of 'health_data_type.dart';
 
-/// Health data type for body weight information.
+/// Body weight data type.
+///
+/// Represents body weight measurements, typically used for tracking body
+/// composition changes, fitness progress, and health monitoring.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (kilograms, pounds, etc.).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `WeightRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.bodyMass)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query weight records
+/// - ✅ Writeable: Write weight records
+/// - ✅ Aggregatable: Calculate avg, min, max weight
 @sinceV1_0_0
 @immutable
 final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
@@ -10,6 +28,10 @@ final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
         AvgAggregatableHealthDataType<WeightRecord, Mass>,
         MinAggregatableHealthDataType<WeightRecord, Mass>,
         MaxAggregatableHealthDataType<WeightRecord, Mass> {
+  /// Creates a weight data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const WeightHealthDataType();
 

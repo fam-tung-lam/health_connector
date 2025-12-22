@@ -1,10 +1,49 @@
 part of '../health_record.dart';
 
-/// Health record for pantothenic acid (vitamin B5) intake.
+/// Represents a pantothenic acid (vitamin B5) measurement from food at a
+/// specific point in time.
+///
+/// [PantothenicAcidNutrientRecord] captures the pantothenic acid content
+/// consumed from food.
+/// This is an iOS-specific record for tracking individual pantothenic acid
+/// intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryPantothenicAcid`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.pantothenicAcid] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = PantothenicAcidNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.milligrams(1),
+///   food Name: 'Avocado',
+///   mealType: MealType.snack,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class PantothenicAcidNutrientRecord extends VitaminNutrientRecord {
+  /// Creates a pantothenic acid nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The pantothenic acid measurement.
+  /// - [time]: The timestamp when the pantothenic acid was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this pantothenic acid.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory PantothenicAcidNutrientRecord({
     required Mass value,
     required DateTime time,

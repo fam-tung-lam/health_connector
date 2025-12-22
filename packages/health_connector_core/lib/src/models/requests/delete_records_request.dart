@@ -9,6 +9,7 @@ import 'package:meta/meta.dart' show immutable, internal, sealed;
 @internalUse
 @sealed
 sealed class DeleteRecordsRequest<R extends HealthRecord> extends Request {
+  /// Creates a base delete records request.
   const DeleteRecordsRequest({required this.dataType});
 
   /// The type of health data to delete.

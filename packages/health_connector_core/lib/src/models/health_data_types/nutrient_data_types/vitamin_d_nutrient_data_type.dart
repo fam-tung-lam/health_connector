@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for vitamin d intake.
+/// Vitamin D nutrient data type.
+///
+/// Tracks dietary vitamin d intake, a fat-soluble vitamin crucial for bone
+/// health and calcium absorption.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (micrograms typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryVitaminD)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query vitamin d intake records
+/// - ✅ Writeable: Write vitamin d intake records
+/// - ✅ Aggregatable: Sum total vitamin d intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class VitaminDNutrientDataType
         ReadableHealthDataType<VitaminDNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<VitaminDNutrientRecord, Mass> {
+  /// Creates a vitamin d nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const VitaminDNutrientDataType();
 

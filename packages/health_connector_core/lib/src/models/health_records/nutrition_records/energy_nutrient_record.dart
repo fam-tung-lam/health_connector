@@ -1,9 +1,47 @@
 part of '../health_record.dart';
 
+/// Represents an energy (calorie) measurement from food at a specific point in
+/// time.
+///
+/// [EnergyNutrientRecord] captures the energy content (calories) consumed from
+/// food. This is an iOS-specific record for tracking individual energy intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryEnergyConsumed`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.energy] field.
+///
+/// ## Example
+///
+/// ```dart
+/// final record = EnergyNutrientRecord(
+///   time: DateTime.now(),
+///   value: Energy.kilocalories(250),
+///   foodName: 'Apple',
+///   mealType: MealType.snack,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class EnergyNutrientRecord extends NutrientRecord<Energy> {
+  /// Creates an energy nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The energy (calorie) measurement.
+  /// - [time]: The timestamp when the energy was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this energy.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory EnergyNutrientRecord({
     required Energy value,
     required DateTime time,

@@ -6,9 +6,11 @@ part of '../health_record.dart';
 /// six minutes, commonly used to evaluate functional exercise capacity.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = SixMinuteWalkTestDistanceRecord(
 ///   startTime: DateTime.now().subtract(Duration(minutes: 6)),

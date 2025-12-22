@@ -1,6 +1,24 @@
 part of 'health_data_type.dart';
 
-/// Health data type for wheelchair pushes information.
+/// Wheelchair pushes data type.
+///
+/// Tracks the number of wheelchair pushes, used for monitoring mobility
+/// and activity for wheelchair users.
+///
+/// ## Measurement Unit
+///
+/// Values are measured as [Number] (count of pushes).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `WheelchairPushesRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.pushCount)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query wheelchair pushes records
+/// - ✅ Writeable: Write wheelchair pushes records
+/// - ✅ Aggregatable: Sum total wheelchair pushes
 @sinceV1_0_0
 @immutable
 final class WheelchairPushesHealthDataType
@@ -9,6 +27,10 @@ final class WheelchairPushesHealthDataType
         ReadableHealthDataType<WheelchairPushesRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<WheelchairPushesRecord, Number> {
+  /// Creates a wheelchair pushes data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const WheelchairPushesHealthDataType();
 

@@ -231,13 +231,15 @@ final class Device {
 ///
 /// ### Android (Health Connect)
 /// - All device types are supported
-/// - See: https://developer.android.com/reference/android/health/connect/client/records/metadata/Device
+/// - See: https://developer.android.com/reference/android/health/connect/client
+/// /records/metadata/Device
 ///
 /// ### iOS (HealthKit)
 /// - Device type is not directly supported by HealthKit
 /// - The plugin infers device type from device name or
 ///   model string values using heuristics:
-///   - Common patterns: "watch" → watch, "phone"/"iphone" → phone, "scale" → scale, etc.
+/// - Common patterns: "watch" → watch, "phone"/"iphone" → phone, "scale" →
+/// scale, etc.
 ///   - If no pattern matches, defaults to [unknown]
 @sinceV1_0_0
 enum DeviceType {

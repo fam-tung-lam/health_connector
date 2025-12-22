@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for vitamin e intake.
+/// Vitamin E nutrient data type.
+///
+/// Tracks dietary vitamin e intake, a fat-soluble vitamin and antioxidant
+/// protecting cells from damage.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryVitaminE)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query vitamin e intake records
+/// - ✅ Writeable: Write vitamin e intake records
+/// - ✅ Aggregatable: Sum total vitamin e intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class VitaminENutrientDataType
         ReadableHealthDataType<VitaminENutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<VitaminENutrientRecord, Mass> {
+  /// Creates a vitamin e nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const VitaminENutrientDataType();
 

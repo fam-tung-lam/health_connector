@@ -10,6 +10,7 @@ final class HealthDataPermission extends Permission {
     required this.accessType,
   });
 
+  /// Creates a read permission for the specified health data type.
   @sinceV2_0_0
   factory HealthDataPermission.read(
     HealthDataType<HealthRecord, MeasurementUnit> dataType,
@@ -20,6 +21,7 @@ final class HealthDataPermission extends Permission {
     );
   }
 
+  /// Creates a write permission for the specified health data type.
   @sinceV2_0_0
   factory HealthDataPermission.write(
     HealthDataType<HealthRecord, MeasurementUnit> dataType,

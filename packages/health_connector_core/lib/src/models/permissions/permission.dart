@@ -15,6 +15,7 @@ part 'health_platform_feature_permission.dart';
 /// Base interface for all permission types in the health client.
 @sinceV1_0_0
 sealed class Permission implements HealthPlatformData {
+  /// Creates a base permission.
   const Permission();
 }
 

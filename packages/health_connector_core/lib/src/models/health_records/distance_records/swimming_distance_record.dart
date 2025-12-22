@@ -3,9 +3,11 @@ part of '../health_record.dart';
 /// Represents swimming distance over a time interval.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceSwimming`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = SwimmingDistanceRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 1)),

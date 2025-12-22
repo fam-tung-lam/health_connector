@@ -1,6 +1,26 @@
 part of 'health_data_type.dart';
 
-/// Health data type for step count information.
+/// Step count data type.
+///
+/// Tracks the number of steps taken, typically measured by pedometers,
+/// fitness trackers, and smartphones. One of the most commonly tracked
+/// health metrics for daily activity monitoring.
+///
+/// ## Measurement Unit
+///
+/// Values are measured as [Number] (count of steps).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `StepsRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.stepCount)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query step count records
+/// - ✅ Writeable: Write step count records
+/// - ✅ Aggregatable: Sum total steps
+/// - ✅ Deletable: Delete step records by IDs or time range
 @sinceV1_0_0
 @immutable
 final class StepsHealthDataType extends HealthDataType<StepsRecord, Number>
@@ -9,6 +29,10 @@ final class StepsHealthDataType extends HealthDataType<StepsRecord, Number>
         WriteableHealthDataType,
         SumAggregatableHealthDataType<StepsRecord, Number>,
         DeletableHealthDataType<StepsRecord> {
+  /// Creates a steps data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const StepsHealthDataType();
 

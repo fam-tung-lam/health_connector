@@ -1,11 +1,31 @@
 part of 'health_data_type.dart';
 
-/// Health data type for iOS heart rate measurement records.
+/// Heart rate measurement data type.
 ///
-/// **Platform:** iOS only (HealthKit)
+/// Represents individual heart rate measurements in beats per minute (BPM).
+/// Each measurement is a discrete reading typically taken at a specific point
+/// in time.
 ///
-/// Heart rate measurement records on iOS are individual measurements. Each
-/// record has its own UUID.
+/// ## Measurement Unit
+///
+/// Values are measured as [Number] (beats per minute).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.heartRate)`
+/// - **Android (Health Connect)**: Use [HeartRateSeriesRecordHealthDataType]
+/// instead
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query heart rate measurements
+/// - ✅ Writeable: Write heart rate measurements
+/// - ✅ Aggregatable: Calculate avg, min, max heart rate
+///
+/// ## Platform Notes
+///
+/// On iOS, heart rate data is stored as individual measurement samples. Each
+/// record has its own UUID and can be queried independently.
 @sinceV1_0_0
 @immutable
 final class HeartRateMeasurementRecordHealthDataType
@@ -16,6 +36,10 @@ final class HeartRateMeasurementRecordHealthDataType
         AvgAggregatableHealthDataType<HeartRateMeasurementRecord, Number>,
         MinAggregatableHealthDataType<HeartRateMeasurementRecord, Number>,
         MaxAggregatableHealthDataType<HeartRateMeasurementRecord, Number> {
+  /// Creates a heart rate measurement data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const HeartRateMeasurementRecordHealthDataType();
 

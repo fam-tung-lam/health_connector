@@ -1,6 +1,25 @@
 part of 'health_data_type.dart';
 
-/// Health data type for body height information.
+/// Body height data type.
+///
+/// Represents body height measurements, typically used for tracking growth
+/// in children, calculating BMI, and monitoring overall health metrics.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Length] units (meters, centimeters, feet, inches,
+/// etc.).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `HeightRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.height)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query height records
+/// - ✅ Writeable: Write height records
+/// - ✅ Aggregatable: Calculate avg, min, max height
 @sinceV1_0_0
 @immutable
 final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
@@ -10,6 +29,10 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
         AvgAggregatableHealthDataType<HeightRecord, Length>,
         MinAggregatableHealthDataType<HeightRecord, Length>,
         MaxAggregatableHealthDataType<HeightRecord, Length> {
+  /// Creates a height data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const HeightHealthDataType();
 

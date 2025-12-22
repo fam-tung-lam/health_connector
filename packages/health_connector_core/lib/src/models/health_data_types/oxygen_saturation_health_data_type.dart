@@ -11,6 +11,10 @@ final class OxygenSaturationHealthDataType
         AvgAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,
         MinAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,
         MaxAggregatableHealthDataType<OxygenSaturationRecord, Percentage> {
+  /// Creates an oxygen saturation data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const OxygenSaturationHealthDataType();
 

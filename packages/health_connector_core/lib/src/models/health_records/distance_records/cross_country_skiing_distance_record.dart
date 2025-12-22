@@ -5,13 +5,11 @@ part of '../health_record.dart';
 /// Specifically for nordic skiing and cross-country ski touring.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceCrossCountrySkiing`
 ///
-/// ## iOS Version Requirement
-/// **Requires iOS 18.0+**. On older iOS versions, this will fall back to
-/// `distanceWalkingRunning`.
-///
 /// ## Example
+///
 /// ```dart
 /// final record = CrossCountrySkiingDistanceRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 3)),

@@ -30,7 +30,8 @@ part 'volume.dart';
 ///
 /// - All code in this file is an **original Dart implementation** written
 ///   specifically for Flutter
-/// - No source code has been copied from Health Connect SDK (written in Kotlin/Java)
+/// - No source code has been copied from Health Connect SDK (written in
+///   Kotlin/Java)
 /// - The design follows functional organizational patterns that are
 ///   industry-standard for health data categorization
 /// - This is a **cross-platform abstraction layer** designed for

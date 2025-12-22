@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for polyunsaturated fat intake.
+/// Polyunsaturated fat nutrient data type.
+///
+/// Tracks dietary polyunsaturated fat intake, a healthy fat including omega-3
+/// and omega-6 fatty acids.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (grams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryFatPolyunsaturated)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query polyunsaturated fat intake records
+/// - ✅ Writeable: Write polyunsaturated fat intake records
+/// - ✅ Aggregatable: Sum total polyunsaturated fat intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class PolyunsaturatedFatNutrientDataType
         ReadableHealthDataType<PolyunsaturatedFatNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<PolyunsaturatedFatNutrientRecord, Mass> {
+  /// Creates a polyunsaturated fat nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const PolyunsaturatedFatNutrientDataType();
 

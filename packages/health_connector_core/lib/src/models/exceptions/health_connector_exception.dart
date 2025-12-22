@@ -12,14 +12,18 @@ import 'package:meta/meta.dart' show immutable;
 ///
 /// Example:
 /// ```dart
-/// throw NotAuthorizedException('User denied permissions');
-///
-/// // With cause and stack trace
-/// throw RemoteErrorException(
-///   'Failed to sync data',
-///   cause: originalError,
-///   stackTrace: originalStackTrace,
-/// );
+/// try {
+///   await HealthConnector.requestPermissions([...]);
+/// } on HealthProviderNotInstalledOrUpdateRequiredException {
+///   // Prompt user to install Health Connect (Android only)
+/// } on NotAuthorizedException {
+///   // Handle permission denial
+/// } on HealthConnectorException catch (e) {
+///   // Handle generic health connector errors
+///   print('Error: ${e.message}, Code: ${e.code}');
+/// } catch (e) {
+///   // Handle other unknown errors
+/// }
 /// ```
 @sinceV1_0_0
 @immutable

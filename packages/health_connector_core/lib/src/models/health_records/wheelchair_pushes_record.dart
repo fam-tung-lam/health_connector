@@ -7,12 +7,12 @@ part of 'health_record.dart';
 /// used to move a wheelchair forward.
 ///
 /// ## Platform Mapping
-/// - **Android (Health Connect)**:
-///   `androidx.health.connect.client.records.WheelchairPushesRecord`
-/// - **iOS (HealthKit)**:
-///   `HKQuantityTypeIdentifier.pushCount`
+///
+/// - **Android (Health Connect)**: `WheelchairPushesRecord`
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.pushCount`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = WheelchairPushesRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 1)),

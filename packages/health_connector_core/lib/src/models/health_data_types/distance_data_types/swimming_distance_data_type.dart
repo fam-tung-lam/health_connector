@@ -1,14 +1,35 @@
 part of '../health_data_type.dart';
 
-/// Health data type for swimming distance.
+/// Swimming distance data type.
+///
+/// Tracks distance traveled while swimming, measured during swimming
+/// activities.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Length] units (meters, kilometers, miles, etc.).
 ///
 /// ## Platform Mapping
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceSwimming`
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.distanceSwimming)`
+/// - **Android (Health Connect)**: Not directly supported (use general distance
+/// records)
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query swimming distance records
+/// - ✅ Writeable: Write swimming distance records
+/// - ✅ Aggregatable: Sum total swimming distance
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable
 final class SwimmingDistanceDataType
     extends DistanceActivityHealthDataType<SwimmingDistanceRecord> {
+  /// Creates a swimming distance data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const SwimmingDistanceDataType();
 

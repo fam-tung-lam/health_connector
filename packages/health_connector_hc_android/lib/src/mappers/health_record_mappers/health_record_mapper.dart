@@ -145,8 +145,7 @@ import 'package:meta/meta.dart' show internal;
 ///
 /// 1. Create a new mapper file with the extension (e.g., `FooRecordToDto`)
 /// 2. Import the mapper file at the top of this file
-/// 3. Add a case using **explicit extension invocation**:
-///    ```dart
+/// 3. Add a case using **explicit extension invocation**:  ```dart
 ///    case final FooRecord record:
 ///      return FooRecordToDto(record).toDto();
 ///    ```

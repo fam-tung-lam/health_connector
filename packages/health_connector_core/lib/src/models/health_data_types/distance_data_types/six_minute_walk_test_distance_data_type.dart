@@ -1,17 +1,40 @@
 part of '../health_data_type.dart';
 
-/// Health data type for six-minute walk test distance.
+/// Six-minute walk test distance data type.
+///
+/// Tracks distance traveled during a standard six-minute walk test.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Length] units (meters typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.sixMinuteWalkTestDistance)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query six-minute walk test distance records
+/// - ✅ Writeable: Write six-minute walk test distance records
+/// - ✅ Aggregatable: Sum total six-minute walk test distance
+/// - ✅ Deletable: Delete records by IDs or time range
 ///
 /// A standardized medical assessment measuring the distance walked in
 /// six minutes, commonly used to evaluate functional exercise capacity.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable
 final class SixMinuteWalkTestDistanceDataType
     extends DistanceActivityHealthDataType<SixMinuteWalkTestDistanceRecord> {
+  /// Creates a six-minute walk test distance data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const SixMinuteWalkTestDistanceDataType();
 

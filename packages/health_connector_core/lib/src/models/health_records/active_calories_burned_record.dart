@@ -7,12 +7,12 @@ part of 'health_record.dart';
 /// through exercise and movement, excluding basal metabolic rate.
 ///
 /// ## Platform Mapping
-/// - **Android (Health Connect)**:
-///   `androidx.health.connect.client.records.ActiveCaloriesBurnedRecord`
-/// - **iOS (HealthKit)**:
-///   `HKQuantityTypeIdentifier.activeEnergyBurned`
+///
+/// - **Android (Health Connect)**: `ActiveCaloriesBurnedRecord`
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.activeEnergyBurned`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = ActiveCaloriesBurnedRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 1)),

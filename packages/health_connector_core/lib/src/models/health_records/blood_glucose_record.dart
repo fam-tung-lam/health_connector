@@ -8,8 +8,23 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android**: Maps to Health Connect's `BloodGlucoseRecord`
-/// - **iOS**: Maps to HealthKit's `HKQuantityType(.bloodGlucose)`
+/// - **Android (Health Connect)**: `BloodGlucoseRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.bloodGlucose)`
+///
+/// ## Example
+///
+/// ```dart
+/// final record = BloodGlucoseRecord(
+///   time: DateTime.now(),
+///   bloodGlucose: BloodGlucose.millimolesPerLiter(5.5),
+///   relationToMeal: BloodGlucoseRelationToMeal.fasting,
+///   mealType: BloodGlucoseMealType.breakfast,
+///   specimenSource: BloodGlucoseSpecimenSource.capillaryBlood,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_4_0
 @immutable
 final class BloodGlucoseRecord extends InstantHealthRecord {

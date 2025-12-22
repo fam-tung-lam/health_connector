@@ -1,6 +1,24 @@
 part of 'health_data_type.dart';
 
-/// Health data type for lean body mass information.
+/// Lean body mass data type.
+///
+/// Represents the weight of body tissue excluding fat, including muscle, bone,
+/// organs, and water. Used for tracking body composition and fitness progress.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (kilograms, pounds, etc.).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `LeanBodyMassRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.leanBodyMass)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query lean body mass records
+/// - ✅ Writeable: Write lean body mass records
+/// - ❌ Not aggregatable
 @sinceV1_0_0
 @immutable
 final class LeanBodyMassHealthDataType
@@ -8,6 +26,10 @@ final class LeanBodyMassHealthDataType
     implements
         ReadableHealthDataType<LeanBodyMassRecord>,
         WriteableHealthDataType {
+  /// Creates a lean body mass data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const LeanBodyMassHealthDataType();
 

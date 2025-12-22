@@ -11,6 +11,10 @@ final class RespiratoryRateHealthDataType
         AvgAggregatableHealthDataType<RespiratoryRateRecord, Number>,
         MinAggregatableHealthDataType<RespiratoryRateRecord, Number>,
         MaxAggregatableHealthDataType<RespiratoryRateRecord, Number> {
+  /// Creates a respiratory rate data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const RespiratoryRateHealthDataType();
 

@@ -9,6 +9,7 @@ part of 'health_record.dart';
 /// `.heartRate` type.
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = HeartRateMeasurementRecord(
 ///   id: HealthRecordId('ABC-123'),
@@ -26,6 +27,7 @@ part of 'health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class HeartRateMeasurementRecord extends InstantHealthRecord {
+  /// Creates a heart rate measurement record.
   factory HeartRateMeasurementRecord({
     required HealthRecordId id,
     required Metadata metadata,

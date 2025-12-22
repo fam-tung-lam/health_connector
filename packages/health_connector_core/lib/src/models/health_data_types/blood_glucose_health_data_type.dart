@@ -2,10 +2,25 @@ part of 'health_data_type.dart';
 
 /// Blood glucose data type.
 ///
-/// Represents the concentration of glucose in the blood.
-/// Supports both reading existing blood glucose data and writing new
-/// measurements.
-/// Supports AVG, MIN, MAX aggregation.
+/// Represents the concentration of glucose in the blood, commonly measured
+/// for diabetes management and metabolic health tracking. Blood glucose records
+/// include context such as meal relation, specimen source, and measurement
+/// type.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [BloodGlucose] units (mg/dL or mmol/L).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `BloodGlucoseRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.bloodGlucose)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query blood glucose records
+/// - ✅ Writeable: Write blood glucose records
+/// - ✅ Aggregatable: Calculate avg, min, max blood glucose
 @sinceV1_4_0
 @immutable
 final class BloodGlucoseHealthDataType
@@ -16,6 +31,10 @@ final class BloodGlucoseHealthDataType
         AvgAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
         MinAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
         MaxAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose> {
+  /// Creates a blood glucose data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   const BloodGlucoseHealthDataType();
 
   @override

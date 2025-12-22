@@ -6,6 +6,7 @@ part of '../health_record.dart';
 /// speed measurements measured at different points in time during the interval.
 ///
 /// ## Platform Mapping
+///
 /// - **Android (Health Connect)**: `SpeedRecord`
 ///
 /// ## iOS Alternative
@@ -16,6 +17,7 @@ part of '../health_record.dart';
 /// - [StairDescentSpeedRecord]
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = SpeedRecord(
 ///   startTime: DateTime.now().subtract(Duration(minutes: 30)),
@@ -39,6 +41,20 @@ part of '../health_record.dart';
 @immutable
 final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedMeasurement> {
   /// Creates a speed record with samples.
+  ///
+  /// ## Parameters
+  ///
+  /// - [id]: The unique identifier for this record.
+  /// - [startTime]: The start of the time interval (inclusive).
+  /// - [endTime]: The end of the time interval (exclusive).
+  /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
+  /// - [endZoneOffsetSeconds]: Optional timezone offset for end time.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [samples]: The list contains timestamped speed measurements.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
   const SpeedSeriesRecord({
     required super.startTime,
     required super.endTime,
@@ -108,6 +124,9 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedMeasurement> {
 @immutable
 final class SpeedMeasurement {
   /// Creates a speed measurement.
+  ///
+  /// The [time] parameter specifies when the measurement was taken. The [speed]
+  /// parameter indicates the velocity.
   const SpeedMeasurement({
     required this.time,
     required this.speed,

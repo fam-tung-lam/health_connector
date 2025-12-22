@@ -3,9 +3,11 @@ part of '../health_record.dart';
 /// Represents wheelchair distance over a time interval.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceWheelchair`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = WheelchairDistanceRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 1)),

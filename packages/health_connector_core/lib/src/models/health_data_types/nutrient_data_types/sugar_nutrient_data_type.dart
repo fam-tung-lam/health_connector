@@ -1,6 +1,23 @@
 part of '../health_data_type.dart';
 
-/// Health data type for sugar intake.
+/// Sugar nutrient data type.
+///
+/// Tracks dietary sugar intake, a simple carbohydrate providing quick energy.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (grams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietarySugar)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query sugar intake records
+/// - ✅ Writeable: Write sugar intake records
+/// - ✅ Aggregatable: Sum total sugar intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +27,10 @@ final class SugarNutrientDataType
         ReadableHealthDataType<SugarNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<SugarNutrientRecord, Mass> {
+  /// Creates a sugar nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const SugarNutrientDataType();
 

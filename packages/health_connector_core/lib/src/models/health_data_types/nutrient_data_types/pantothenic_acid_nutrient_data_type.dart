@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for pantothenic acid intake.
+/// Pantothenic Acid (Vitamin B5) nutrient data type.
+///
+/// Tracks dietary pantothenic acid (vitamin b5) intake, a water-soluble vitamin
+/// essential for synthesizing coenzyme A.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryPantothenicAcid)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query pantothenic acid (vitamin b5) intake records
+/// - ✅ Writeable: Write pantothenic acid (vitamin b5) intake records
+/// - ✅ Aggregatable: Sum total pantothenic acid (vitamin b5) intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class PantothenicAcidNutrientDataType
         ReadableHealthDataType<PantothenicAcidNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<PantothenicAcidNutrientRecord, Mass> {
+  /// Creates a pantothenic acid (vitamin b5) nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const PantothenicAcidNutrientDataType();
 

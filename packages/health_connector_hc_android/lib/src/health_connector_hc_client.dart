@@ -114,6 +114,16 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     HealthDataType.pantothenicAcid,
   ];
 
+  /// Gets the current status of the Health Connect platform.
+  ///
+  /// ## Returns
+  ///
+  /// - The current [HealthPlatformStatus] indicating whether Health Connect is
+  ///   available, unavailable, or requires installation/update.
+  ///
+  /// ## Throws
+  ///
+  /// - [HealthConnectorException] if the platform request fails.
   static Future<HealthPlatformStatus> getHealthPlatformStatus() async {
     HealthConnectorLogger.debug(
       _tag,

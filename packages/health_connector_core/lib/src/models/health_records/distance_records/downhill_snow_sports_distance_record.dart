@@ -5,9 +5,11 @@ part of '../health_record.dart';
 /// Includes skiing, snowboarding, and other downhill winter sports.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceDownhillSnowSports`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = DownhillSnowSportsDistanceRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 4)),

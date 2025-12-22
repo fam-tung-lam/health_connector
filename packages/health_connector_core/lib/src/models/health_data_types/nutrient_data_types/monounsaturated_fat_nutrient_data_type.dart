@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for monounsaturated fat intake.
+/// Monounsaturated fat nutrient data type.
+///
+/// Tracks dietary monounsaturated fat intake, a healthy fat beneficial for
+/// heart health.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (grams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryFatMonounsaturated)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query monounsaturated fat intake records
+/// - ✅ Writeable: Write monounsaturated fat intake records
+/// - ✅ Aggregatable: Sum total monounsaturated fat intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class MonounsaturatedFatNutrientDataType
         ReadableHealthDataType<MonounsaturatedFatNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<MonounsaturatedFatNutrientRecord, Mass> {
+  /// Creates a monounsaturated fat nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const MonounsaturatedFatNutrientDataType();
 

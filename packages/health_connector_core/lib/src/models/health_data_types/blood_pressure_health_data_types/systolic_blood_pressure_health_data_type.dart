@@ -1,9 +1,30 @@
 part of '../health_data_type.dart';
 
-/// Health data type for systolic blood pressure measurements.
+/// Systolic blood pressure data type.
 ///
-/// This data type represents the systolic (upper) blood pressure value only.
-/// Supports AVG, MIN, MAX aggregation.
+/// Represents the systolic (upper) blood pressure value, measured during
+/// the contraction phase of the heart cycle. This is an iOS-specific data type.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Pressure] units (mmHg, kPa, etc.).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: Not supported (use
+/// [BloodPressureHealthDataType])
+/// - **iOS (HealthKit)**: `HKQuantityType(.bloodPressureSystolic)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query systolic blood pressure records
+/// - ✅ Writeable: Write systolic blood pressure records
+/// - ✅ Aggregatable: Calculate avg, min, max systolic pressure
+///
+/// > [!NOTE]
+/// > This data type is only supported on iOS/HealthKit. For Android,
+/// > use [BloodPressureHealthDataType] which includes both systolic and
+/// diastolic values.
 @sinceV1_2_0
 @supportedOnAppleHealth
 @immutable
@@ -15,6 +36,10 @@ final class SystolicBloodPressureHealthDataType
         AvgAggregatableHealthDataType<SystolicBloodPressureRecord, Pressure>,
         MinAggregatableHealthDataType<SystolicBloodPressureRecord, Pressure>,
         MaxAggregatableHealthDataType<SystolicBloodPressureRecord, Pressure> {
+  /// Creates a systolic blood pressure data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const SystolicBloodPressureHealthDataType();
 

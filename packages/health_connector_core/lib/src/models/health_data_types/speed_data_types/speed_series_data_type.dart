@@ -6,6 +6,7 @@ part of '../health_data_type.dart';
 /// speed measurements captured as a series of samples over a time interval.
 ///
 /// ## Platform Mapping
+///
 /// - **Android (Health Connect)**: `SpeedRecord`
 ///
 /// ## iOS Alternative
@@ -26,6 +27,10 @@ final class SpeedSeriesDataType
         AvgAggregatableHealthDataType<SpeedSeriesRecord, Velocity>,
         MinAggregatableHealthDataType<SpeedSeriesRecord, Velocity>,
         MaxAggregatableHealthDataType<SpeedSeriesRecord, Velocity> {
+  /// Creates a speed series data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const SpeedSeriesDataType();
 

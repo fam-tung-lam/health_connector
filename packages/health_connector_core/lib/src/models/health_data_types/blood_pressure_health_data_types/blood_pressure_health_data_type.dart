@@ -1,13 +1,31 @@
 part of '../health_data_type.dart';
 
-/// Health data type for composite blood pressure measurements.
+/// Composite blood pressure data type.
 ///
-/// This data type represents a complete blood pressure reading with both
-/// systolic and diastolic values.
+/// Represents a complete blood pressure reading with both systolic and
+/// diastolic values in a single measurement. Blood press records include
+/// measurement context (body position, measurement location).
 ///
-/// For individual systolic or diastolic measurements, see:
-/// - [SystolicBloodPressureHealthDataType]
-/// - and [DiastolicBloodPressureHealthDataType].
+/// ## Measurement Unit
+///
+/// Values are measured in [Pressure] units (mmHg typically).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `BloodPressureRecord`
+/// - **iOS (HealthKit)**: `HKCorrelationType(.bloodPressure)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query blood pressure records
+/// - ✅ Writeable: Write blood pressure records
+/// - ✅ Aggregatable: Calculate avg, min, max blood pressure
+///
+/// ## Related Types
+///
+/// For individual component measurements, see:
+/// - [SystolicBloodPressureHealthDataType] - Systolic pressure only
+/// - [DiastolicBloodPressureHealthDataType] - Diastolic pressure only
 @sinceV1_2_0
 @immutable
 final class BloodPressureHealthDataType
@@ -15,6 +33,10 @@ final class BloodPressureHealthDataType
     implements
         ReadableHealthDataType<BloodPressureRecord>,
         WriteableHealthDataType {
+  /// Creates a blood pressure data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const BloodPressureHealthDataType();
 
@@ -61,6 +83,7 @@ final class BloodPressureHealthDataType
     AggregationMetric.max,
   ];
 
+  /// Creates a request to calculate average blood pressure.
   BloodPressureAggregateRequest aggregateAverage({
     required HealthDataType<HealthRecord, Pressure> bloodPressureType,
     required DateTime startTime,
@@ -74,6 +97,7 @@ final class BloodPressureHealthDataType
     );
   }
 
+  /// Creates a request to find minimum blood pressure.
   BloodPressureAggregateRequest aggregateMin({
     required HealthDataType<HealthRecord, Pressure> bloodPressureType,
     required DateTime startTime,
@@ -87,6 +111,7 @@ final class BloodPressureHealthDataType
     );
   }
 
+  /// Creates a request to find maximum blood pressure.
   BloodPressureAggregateRequest aggregateMax({
     required HealthDataType<HealthRecord, Pressure> bloodPressureType,
     required DateTime startTime,

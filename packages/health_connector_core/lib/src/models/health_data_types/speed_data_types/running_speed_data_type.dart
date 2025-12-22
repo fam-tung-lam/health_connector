@@ -1,17 +1,34 @@
 part of '../health_data_type.dart';
 
-/// Health data type for running speed.
+/// Running speed data type.
 ///
-/// Represents the speed at which a user runs, typically measured in
-/// meters per second.
+/// Tracks the speed at which a user runs, useful for monitoring running
+/// performance, pace improvements, and training intensity.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Velocity] units (meters/second, km/hour, etc.).
 ///
 /// ## Platform Mapping
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.runningSpeed`
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.runningSpeed)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query running speed records
+/// - ✅ Writeable: Write running speed records
+/// - ✅ Aggregatable: Calculate average running speed
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable
 final class RunningSpeedDataType
     extends SpeedActivityHealthDataType<RunningSpeedRecord> {
+  ///Creates a running speed data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const RunningSpeedDataType();
 

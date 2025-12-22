@@ -1,11 +1,29 @@
 part of 'health_data_type.dart';
 
-/// Health data type for Android sleep sessions.
+/// Sleep session data type.
 ///
-/// **Platform:** Android only (Health Connect)
+/// Represents sleep sessions on Android Health Connect. Sleep sessions are
+/// container records that encompass all sleep stages within a single session,
+/// with one ID for the entire session.
 ///
-/// Sleep sessions on Android are container records with embedded sleep stages.
-/// Each session has a single ID that encompasses all stages.
+/// ## Measurement Unit
+///
+/// Duration is measured in [TimeDuration] (seconds, minutes, hours).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `SleepSessionRecord`
+/// - **iOS (HealthKit)**: Not supported (use [SleepStageHealthDataType])
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query sleep session records
+/// - ✅ Writeable: Write sleep session records
+/// - ✅ Aggregatable: Sum total sleep duration
+///
+/// > [!NOTE]
+/// > This data type is only supported on Android Health Connect. For iOS,
+/// > use [SleepStageHealthDataType] instead.
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable
@@ -15,6 +33,10 @@ final class SleepSessionHealthDataType
         ReadableHealthDataType<SleepSessionRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<SleepSessionRecord, TimeDuration> {
+  /// Creates a sleep session data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const SleepSessionHealthDataType();
 

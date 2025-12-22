@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for riboflavin intake.
+/// Riboflavin (Vitamin B2) nutrient data type.
+///
+/// Tracks dietary riboflavin (vitamin b2) intake, a water-soluble vitamin
+/// supporting cellular function and energy production.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryRiboflavin)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query riboflavin (vitamin b2) intake records
+/// - ✅ Writeable: Write riboflavin (vitamin b2) intake records
+/// - ✅ Aggregatable: Sum total riboflavin (vitamin b2) intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class RiboflavinNutrientDataType
         ReadableHealthDataType<RiboflavinNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<RiboflavinNutrientRecord, Mass> {
+  /// Creates a riboflavin (vitamin b2) nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const RiboflavinNutrientDataType();
 

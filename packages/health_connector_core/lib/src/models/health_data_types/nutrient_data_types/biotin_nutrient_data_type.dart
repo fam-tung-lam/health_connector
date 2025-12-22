@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for biotin intake.
+/// Biotin (Vitamin B7) nutrient data type.
+///
+/// Tracks dietary biotin (vitamin b7) intake, a water-soluble vitamin
+/// supporting hair, skin, and nail health.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (micrograms typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryBiotin)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query biotin (vitamin b7) intake records
+/// - ✅ Writeable: Write biotin (vitamin b7) intake records
+/// - ✅ Aggregatable: Sum total biotin (vitamin b7) intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class BiotinNutrientDataType
         ReadableHealthDataType<BiotinNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<BiotinNutrientRecord, Mass> {
+  /// Creates a biotin (vitamin b7) nutrient data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const BiotinNutrientDataType();
 

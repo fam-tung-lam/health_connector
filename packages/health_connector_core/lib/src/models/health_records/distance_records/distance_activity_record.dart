@@ -11,7 +11,8 @@ part of '../health_record.dart';
 /// **These records are ONLY supported on iOS/HealthKit.** They are marked with
 /// `@supportedOnAppleHealth` and will not compile when targeting Android.
 ///
-/// For cross-platform distance tracking (walking/running), use [DistanceRecord].
+/// For cross-platform distance tracking (walking/running), use
+/// [DistanceRecord].
 ///
 /// ## Subclasses
 ///

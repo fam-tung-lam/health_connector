@@ -1,10 +1,47 @@
 part of '../health_record.dart';
 
-/// Health record for cholesterol intake.
+/// Represents a cholesterol measurement from food at a specific point in time.
+///
+/// [CholesterolNutrientRecord] captures the cholesterol content consumed from
+/// food.
+/// This is an iOS-specific record for tracking individual cholesterol intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryCholesterol`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.cholesterol] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = CholesterolNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.milligrams(186),
+///   foodName: 'Egg',
+///   mealType: MealType.breakfast,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class CholesterolNutrientRecord extends MacronutrientRecord {
+  /// Creates a cholesterol nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The cholesterol measurement.
+  /// - [time]: The timestamp when the cholesterol was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this cholesterol.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory CholesterolNutrientRecord({
     required Mass value,
     required DateTime time,

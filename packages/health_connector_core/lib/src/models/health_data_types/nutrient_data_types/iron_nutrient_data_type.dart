@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for iron intake.
+/// Iron nutrient data type.
+///
+/// Tracks dietary iron intake, a essential mineral for oxygen transport in
+/// blood via hemoglobin.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryIron)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query iron intake records
+/// - ✅ Writeable: Write iron intake records
+/// - ✅ Aggregatable: Sum total iron intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class IronNutrientDataType
         ReadableHealthDataType<IronNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<IronNutrientRecord, Mass> {
+  /// Creates a iron nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const IronNutrientDataType();
 

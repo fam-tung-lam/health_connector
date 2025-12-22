@@ -1,10 +1,46 @@
 part of '../health_record.dart';
 
-/// Health record for vitamin C intake.
+/// Represents a vitamin C measurement from food at a specific point in time.
+///
+/// [VitaminCNutrientRecord] captures the vitamin C content consumed from food.
+/// This is an iOS-specific record for tracking individual vitamin C intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryVitaminC`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.vitaminC] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = VitaminCNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.milligrams(70),
+///   foodName: 'Orange',
+///   mealType: MealType.snack,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class VitaminCNutrientRecord extends VitaminNutrientRecord {
+  /// Creates a vitamin C nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The vitamin C measurement.
+  /// - [time]: The timestamp when the vitamin C was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this vitamin C.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory VitaminCNutrientRecord({
     required Mass value,
     required DateTime time,

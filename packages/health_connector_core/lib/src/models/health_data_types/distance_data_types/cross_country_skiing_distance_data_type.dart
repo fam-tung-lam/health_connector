@@ -1,19 +1,39 @@
 part of '../health_data_type.dart';
 
-/// Health data type for cross-country skiing distance.
+/// Cross-country skiing distance data type.
+///
+/// Tracks distance traveled while cross-country skiing.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Length] units (meters typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.distanceCrossCountrySkiing)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query cross-country skiing distance records
+/// - ✅ Writeable: Write cross-country skiing distance records
+/// - ✅ Aggregatable: Sum total cross-country skiing distance
+/// - ✅ Deletable: Delete records by IDs or time range
 ///
 /// Specifically for nordic skiing and cross-country ski touring.
 ///
 /// ## Platform Mapping
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceCrossCountrySkiing`
 ///
-/// ## iOS Version Requirement
-/// **Requires iOS 18.0+**
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceCrossCountrySkiing`
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable
 final class CrossCountrySkiingDistanceDataType
     extends DistanceActivityHealthDataType<CrossCountrySkiingDistanceRecord> {
+  /// Creates a cross-country skiing distance data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const CrossCountrySkiingDistanceDataType();
 

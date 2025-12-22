@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for caffeine intake.
+/// Caffeine nutrient data type.
+///
+/// Tracks dietary caffeine intake, a stimulant compound affecting the central
+/// nervous system, found in coffee and tea.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryCaffeine)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query caffeine intake records
+/// - ✅ Writeable: Write caffeine intake records
+/// - ✅ Aggregatable: Sum total caffeine intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class CaffeineNutrientDataType
         ReadableHealthDataType<CaffeineNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<CaffeineNutrientRecord, Mass> {
+  /// Creates a caffeine nutrient data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const CaffeineNutrientDataType();
 

@@ -8,11 +8,11 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**:
-///   `androidx.health.connect.client.records.BodyFatRecord`
+/// - **Android (Health Connect)**: `BodyFatRecord`
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.bodyFatPercentage`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = BodyFatPercentageRecord(
 ///   id: HealthRecordId.none,
@@ -53,8 +53,6 @@ final class BodyFatPercentageRecord extends InstantHealthRecord {
   /// - 0.0 = 0% body fat
   /// - 0.25 = 25% body fat
   /// - 1.0 = 100% body fat
-  ///
-  /// To display in UI, use: `percentage.asWhole`
   final Percentage percentage;
 
   /// Creates a copy with the given fields replaced with the new values.

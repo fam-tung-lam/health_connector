@@ -13,5 +13,9 @@ import 'package:meta/meta.dart' show immutable, internal;
 @immutable
 abstract interface class HealthPlatformData {
   /// The list of health platforms that support this data.
+  ///
+  /// This property allows runtime checking of platform support before
+  /// attempting operations. If a platform is not in this list,
+  /// using this data on that platform may result in errors or be undefined.
   List<HealthPlatform> get supportedHealthPlatforms;
 }

@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for phosphorus intake.
+/// Phosphorus nutrient data type.
+///
+/// Tracks dietary phosphorus intake, a essential mineral vital for bones,
+/// teeth, and energy production.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryPhosphorus)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query phosphorus intake records
+/// - ✅ Writeable: Write phosphorus intake records
+/// - ✅ Aggregatable: Sum total phosphorus intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class PhosphorusNutrientDataType
         ReadableHealthDataType<PhosphorusNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<PhosphorusNutrientRecord, Mass> {
+  /// Creates a phosphorus nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const PhosphorusNutrientDataType();
 

@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for total fat intake.
+/// Total fat nutrient data type.
+///
+/// Tracks dietary total fat intake, a essential for energy storage, hormone
+/// production, and nutrient absorption.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (grams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryFatTotal)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query total fat intake records
+/// - ✅ Writeable: Write total fat intake records
+/// - ✅ Aggregatable: Sum total total fat intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class TotalFatNutrientDataType
         ReadableHealthDataType<TotalFatNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<TotalFatNutrientRecord, Mass> {
+  /// Creates a total fat nutrient data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const TotalFatNutrientDataType();
 

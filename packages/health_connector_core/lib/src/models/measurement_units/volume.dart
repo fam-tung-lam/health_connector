@@ -71,15 +71,39 @@ final class Volume extends MeasurementUnit implements Comparable<Volume> {
   final double _liters;
 
   /// Returns the volume in liters.
+  ///
+  /// Example:
+  /// ```dart
+  /// final volume = Volume.milliliters(1500);
+  /// print(volume.inLiters); // 1.5
+  /// ```
   double get inLiters => _liters;
 
   /// Returns the volume in milliliters.
+  ///
+  /// Example:
+  /// ```dart
+  /// final volume = Volume.liters(1.5);
+  /// print(volume.inMilliliters); // 1500.0
+  /// ```
   double get inMilliliters => _liters * _millilitersPerLiter;
 
   /// Returns the volume in US fluid ounces.
+  ///
+  /// Example:
+  /// ```dart
+  /// final volume = Volume.liters(2.0);
+  /// print(volume.inFluidOuncesUs); // ~67.6
+  /// ```
   double get inFluidOuncesUs => _liters / _litersPerUsFluidOunce;
 
   /// Returns the volume in Imperial fluid ounces.
+  ///
+  /// Example:
+  /// ```dart
+  /// final volume = Volume.liters(2.0);
+  /// print(volume.inFluidOuncesImp); // ~70.4
+  /// ```
   double get inFluidOuncesImp => _liters / _litersPerImpFluidOunce;
 
   /// Adds two volumes together.

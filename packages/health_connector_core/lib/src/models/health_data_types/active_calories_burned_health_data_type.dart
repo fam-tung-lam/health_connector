@@ -1,6 +1,25 @@
 part of 'health_data_type.dart';
 
-/// Health data type for active calories burned information.
+/// Active calories burned data type.
+///
+/// Tracks calories burned through physical activity and exercise,
+/// excluding basal metabolic rate (BMR). Active calories represent energy
+/// expended beyond resting metabolism.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Energy] units (kilocalories, kilojoules, etc.).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `ActiveCaloriesBurnedRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.activeEnergyBurned)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query active calorie records
+/// - ✅ Writeable: Write active calorie records
+/// - ✅ Aggregatable: Sum total active calories
 @sinceV1_0_0
 @immutable
 final class ActiveCaloriesBurnedHealthDataType
@@ -9,6 +28,10 @@ final class ActiveCaloriesBurnedHealthDataType
         ReadableHealthDataType<ActiveCaloriesBurnedRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<ActiveCaloriesBurnedRecord, Energy> {
+  /// Creates an active calories burned data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const ActiveCaloriesBurnedHealthDataType();
 

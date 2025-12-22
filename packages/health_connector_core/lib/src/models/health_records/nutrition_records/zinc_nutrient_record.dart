@@ -1,10 +1,46 @@
 part of '../health_record.dart';
 
-/// Health record for zinc intake.
+/// Represents a zinc measurement from food at a specific point in time.
+///
+/// [ZincNutrientRecord] captures the zinc content consumed from food.
+/// This is an iOS-specific record for tracking individual zinc intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryZinc`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.zinc] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = ZincNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.milligrams(5),
+///   foodName: 'Beef',
+///   mealType: MealType.dinner,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class ZincNutrientRecord extends MineralNutrientRecord {
+  /// Creates a zinc nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The zinc measurement.
+  /// - [time]: The timestamp when the zinc was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this zinc.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory ZincNutrientRecord({
     required Mass value,
     required DateTime time,

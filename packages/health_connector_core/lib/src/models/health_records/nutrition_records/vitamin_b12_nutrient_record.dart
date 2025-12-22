@@ -1,10 +1,47 @@
 part of '../health_record.dart';
 
-/// Health record for vitamin B12 intake.
+/// Represents a vitamin B12 measurement from food at a specific point in time.
+///
+/// [VitaminB12NutrientRecord] captures the vitamin B12 content consumed from
+/// food.
+/// This is an iOS-specific record for tracking individual vitamin B12 intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryVitaminB12`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.vitaminB12] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = VitaminB12NutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.micrograms(4.8),
+///   foodName: 'Salmon',
+///   mealType: MealType.dinner,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class VitaminB12NutrientRecord extends VitaminNutrientRecord {
+  /// Creates a vitamin B12 nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The vitamin B12 measurement.
+  /// - [time]: The timestamp when the vitamin B12 was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this vitamin B12.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory VitaminB12NutrientRecord({
     required Mass value,
     required DateTime time,

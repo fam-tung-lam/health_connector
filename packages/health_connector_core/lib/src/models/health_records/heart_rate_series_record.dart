@@ -10,6 +10,7 @@ part of 'health_record.dart';
 /// continuous monitoring during exercise or medical tracking.
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = HeartRateSeriesRecord(
 ///   id: HealthRecordId.none,
@@ -39,6 +40,7 @@ part of 'health_record.dart';
 @immutable
 final class HeartRateSeriesRecord
     extends SeriesHealthRecord<HeartRateMeasurement> {
+  /// Creates a heart rate series record.
   const HeartRateSeriesRecord({
     required super.id,
     required super.metadata,

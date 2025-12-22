@@ -1,19 +1,33 @@
 part of '../health_data_type.dart';
 
-/// Health data type for paddle sports distance.
+/// Paddle sports distance data type.
 ///
-/// Includes kayaking, canoeing, stand-up paddleboarding, etc.
+/// Tracks distance traveled using a paddle (rowing, canoeing, etc.).
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Length] units (meters typically).
 ///
 /// ## Platform Mapping
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distancePaddleSports`
 ///
-/// ## iOS Version Requirement
-/// **Requires iOS 18.0+**
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.distancePaddleSports)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query paddle sports distance records
+/// - ✅ Writeable: Write paddle sports distance records
+/// - ✅ Aggregatable: Sum total paddle sports distance
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable
 final class PaddleSportsDistanceDataType
     extends DistanceActivityHealthDataType<PaddleSportsDistanceRecord> {
+  /// Creates a paddle sports distance data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const PaddleSportsDistanceDataType();
 

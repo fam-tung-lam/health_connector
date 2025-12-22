@@ -1,14 +1,34 @@
 part of '../health_data_type.dart';
 
-/// Health data type for cycling distance.
+/// Cycling distance data type.
+///
+/// Tracks distance traveled while cycling, measured during cycling activities.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Length] units (meters, kilometers, miles, etc.).
 ///
 /// ## Platform Mapping
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceCycling`
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.distanceCycling)`
+/// - **Android (Health Connect)**: Not directly supported (use general distance
+/// records)
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query cycling distance records
+/// - ✅ Writeable: Write cycling distance records
+/// - ✅ Aggregatable: Sum total cycling distance
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable
 final class CyclingDistanceDataType
     extends DistanceActivityHealthDataType<CyclingDistanceRecord> {
+  /// Creates a cycling distance data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const CyclingDistanceDataType();
 

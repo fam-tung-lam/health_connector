@@ -1,6 +1,29 @@
 part of '../health_data_type.dart';
 
-/// Health data type for distance information.
+/// Distance data type.
+///
+/// Represents generic distance measurements on Android Health Connect.
+/// Tracks distance covered during any activity.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Length] units (meters, kilometers, miles, etc.).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `DistanceRecord`
+/// - **iOS (HealthKit)**: Not supported (use activity-specific types like
+/// [CyclingDistanceDataType])
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query distance records
+/// - ✅ Writeable: Write distance records
+/// - ✅ Aggregatable: Sum total distance
+///
+/// > [!NOTE]
+/// > This data type is only supported on Android Health Connect. For iOS,
+/// > use activity-specific distance types.
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable
@@ -10,6 +33,10 @@ final class DistanceHealthDataType
         ReadableHealthDataType<DistanceRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<DistanceRecord, Length> {
+  /// Creates a distance data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const DistanceHealthDataType();
 

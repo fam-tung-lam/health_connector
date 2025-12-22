@@ -1,10 +1,50 @@
 part of '../health_record.dart';
 
-/// Health record for monounsaturated fat intake.
+/// Represents a monounsaturated fat measurement from food at a specific point
+/// in time.
+///
+/// [MonounsaturatedFatNutrientRecord] captures the monounsaturated fat content
+/// consumed from food.
+/// This is an iOS-specific record for tracking individual monounsaturated fat
+/// intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryFatMonounsaturated`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.monounsaturatedFat] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = MonounsaturatedFatNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.grams(10),
+///   foodName: 'Olive Oil',
+///   mealType: MealType.lunch,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class MonounsaturatedFatNutrientRecord extends MacronutrientRecord {
+  /// Creates a monounsaturated fat nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The monounsaturated fat measurement.
+  /// - [time]: The timestamp when the monounsaturated fat was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this monounsaturated
+  /// fat.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory MonounsaturatedFatNutrientRecord({
     required Mass value,
     required DateTime time,

@@ -1,6 +1,25 @@
 part of 'health_data_type.dart';
 
-/// Health data type for floors climbed information.
+/// Floors climbed data type.
+///
+/// Tracks the number of floors (flights of stairs) climbed, typically measured
+/// by devices with barometric altimeters. One floor is approximately 10 feet
+/// (3 meters) of elevation gain.
+///
+/// ## Measurement Unit
+///
+/// Values are measured as [Number] (count of floors).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `FloorsClimbedRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.flightsClimbed)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query floors climbed records
+/// - ✅ Writeable: Write floors climbed records
+/// - ✅ Aggregatable: Sum total floors climbed
 @sinceV1_0_0
 @immutable
 final class FloorsClimbedHealthDataType
@@ -9,6 +28,10 @@ final class FloorsClimbedHealthDataType
         ReadableHealthDataType<FloorsClimbedRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<FloorsClimbedRecord, Number> {
+  /// Creates a floors climbed data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const FloorsClimbedHealthDataType();
 

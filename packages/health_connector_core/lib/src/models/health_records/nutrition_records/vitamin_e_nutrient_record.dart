@@ -1,10 +1,46 @@
 part of '../health_record.dart';
 
-/// Health record for vitamin E intake.
+/// Represents a vitamin E measurement from food at a specific point in time.
+///
+/// [VitaminENutrientRecord] captures the vitamin E content consumed from food.
+/// This is an iOS-specific record for tracking individual vitamin E intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryVitaminE`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.vitaminE] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = VitaminENutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.milligrams(7.3),
+///   foodName: 'Almonds',
+///   mealType: MealType.snack,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class VitaminENutrientRecord extends VitaminNutrientRecord {
+  /// Creates a vitamin E nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The vitamin E measurement.
+  /// - [time]: The timestamp when the vitamin E was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this vitamin E.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory VitaminENutrientRecord({
     required Mass value,
     required DateTime time,

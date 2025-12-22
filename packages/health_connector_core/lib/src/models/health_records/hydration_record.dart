@@ -5,11 +5,12 @@ part of 'health_record.dart';
 /// Tracks the volume of water consumed during a specific time period.
 ///
 /// ## Platform Mapping
-/// - **Android (Health Connect)**:
-///   `androidx.health.connect.client.records.HydrationRecord`
+///
+/// - **Android (Health Connect)**: `HydrationRecord`
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryWater`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = HydrationRecord(
 ///   id: HealthRecordId.none,

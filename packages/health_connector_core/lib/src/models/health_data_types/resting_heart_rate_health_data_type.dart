@@ -14,6 +14,10 @@ final class RestingHeartRateHealthDataType
         AvgAggregatableHealthDataType<RestingHeartRateRecord, Number>,
         MinAggregatableHealthDataType<RestingHeartRateRecord, Number>,
         MaxAggregatableHealthDataType<RestingHeartRateRecord, Number> {
+  /// Creates a resting heart rate data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const RestingHeartRateHealthDataType();
 

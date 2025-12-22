@@ -3,9 +3,11 @@ part of '../health_record.dart';
 /// Represents walking/running distance over a time interval.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.walkingRunning`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = WalkingRunningDistanceRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 1)),

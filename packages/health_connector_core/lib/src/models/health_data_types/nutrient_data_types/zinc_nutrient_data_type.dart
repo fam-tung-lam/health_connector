@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for zinc intake.
+/// Zinc nutrient data type.
+///
+/// Tracks dietary zinc intake, a essential mineral supporting immune function
+/// and wound healing.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryZinc)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query zinc intake records
+/// - ✅ Writeable: Write zinc intake records
+/// - ✅ Aggregatable: Sum total zinc intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class ZincNutrientDataType
         ReadableHealthDataType<ZincNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<ZincNutrientRecord, Mass> {
+  /// Creates a zinc nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const ZincNutrientDataType();
 

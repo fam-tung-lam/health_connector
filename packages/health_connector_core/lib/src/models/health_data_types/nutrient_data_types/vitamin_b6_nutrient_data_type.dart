@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for vitamin b6 intake.
+/// Vitamin B6 (Pyridoxine) nutrient data type.
+///
+/// Tracks dietary vitamin b6 (pyridoxine) intake, a water-soluble vitamin
+/// important for protein metabolism and cognitive development.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryVitaminB6)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query vitamin b6 (pyridoxine) intake records
+/// - ✅ Writeable: Write vitamin b6 (pyridoxine) intake records
+/// - ✅ Aggregatable: Sum total vitamin b6 (pyridoxine) intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class VitaminB6NutrientDataType
         ReadableHealthDataType<VitaminB6NutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<VitaminB6NutrientRecord, Mass> {
+  /// Creates a vitamin b6 (pyridoxine) nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const VitaminB6NutrientDataType();
 

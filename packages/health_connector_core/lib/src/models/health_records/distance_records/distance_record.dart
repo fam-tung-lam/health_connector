@@ -6,12 +6,12 @@ part of '../health_record.dart';
 /// typically from activities like walking, running, cycling, or other movement.
 ///
 /// ## Platform Mapping
-/// - **Android (Health Connect)**:
-///   `androidx.health.connect.client.records.DistanceRecord`
-/// - **iOS (HealthKit)**:
-///   `HKQuantityTypeIdentifier.distanceWalkingRunning`
+///
+/// - **Android (Health Connect)**: `DistanceRecord`
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceWalkingRunning`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = DistanceRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 1)),
@@ -30,13 +30,13 @@ final class DistanceRecord extends IntervalHealthRecord {
   ///
   /// ## Parameters
   ///
+  /// - [id]: The unique identifier for this record.
   /// - [startTime]: The start of the time interval (inclusive).
   /// - [endTime]: The end of the time interval (exclusive).
-  /// - [distance]: The distance traveled during the interval.
-  /// - [metadata]: Metadata about the origin and recording method.
-  /// - [id]: The unique identifier for this record.
   /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
   /// - [endZoneOffsetSeconds]: Optional timezone offset for end time.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [distance]: The total distance traveled.
   ///
   /// ## Throws
   ///

@@ -1,16 +1,45 @@
 part of 'health_record.dart';
 
-/// A health record representing the user's respiratory rate.
+/// Represents a respiratory rate measurement at a specific point in time.
 ///
-/// Respiratory rate is the number of breaths a person takes per minute.
+/// [RespiratoryRateRecord] captures the number of breaths taken per minute.
+/// Respiratory rate is a vital sign that indicates respiratory function and
+/// overall health status. This is a point-in-time record with a single
+/// timestamp.
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `RespiratoryRateRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.respiratoryRate)`
+///
+/// ## Example
+///
+/// ```dart
+/// final record = RespiratoryRateRecord(
+///   time: DateTime.now(),
+///   breathsPerMin: Number(16),
+///   metadata: Metadata.automaticallyRecorded(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_3_0
 @immutable
 final class RespiratoryRateRecord extends InstantHealthRecord {
+  /// Creates a respiratory rate record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [time]: The timestamp when the respiratory rate was measured.
+  /// - [breathsPerMin]: The number of breaths per minute.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   const RespiratoryRateRecord({
     required super.time,
     required this.breathsPerMin,
     required super.metadata,
-    super.id,
+    super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   });
 

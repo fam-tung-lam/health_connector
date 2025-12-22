@@ -11,6 +11,7 @@ import 'package:meta/meta.dart';
 /// the record that contains the measurement.
 @immutable
 final class HeartRateMeasurement {
+  /// Creates a heart rate measurement.
   const HeartRateMeasurement({
     required this.time,
     required this.beatsPerMinute,

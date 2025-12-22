@@ -1,12 +1,31 @@
 part of 'health_data_type.dart';
 
-/// Health data type for iOS sleep stage records.
+/// Sleep stage data type.
 ///
-/// **Platform:** iOS only (HealthKit)
+/// Represents individual sleep stage records on iOS HealthKit. Each sleep stage
+/// (light, deep, REM, awake) is recorded as a separate record with its own
+/// UUID.
+/// A complete night's sleep consists of multiple records.
 ///
-/// Sleep stage records on iOS are individual measurements, one per sleep stage.
-/// A complete night's sleep consists of multiple records. Each record has
-/// its own UUID.
+/// ## Measurement Unit
+///
+/// Duration is measured in [TimeDuration] (seconds, minutes, hours).
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: Not supported (use
+/// [SleepSessionHealthDataType])
+/// - **iOS (HealthKit)**: `HKCategoryType(.sleepAnalysis)`
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query sleep stage records
+/// - ✅ Writeable: Write sleep stage records
+/// - ✅ Aggregatable: Sum total sleep duration (excluding awake stages)
+///
+/// > [!NOTE]
+/// > This data type is only supported on iOS HealthKit. For Android,
+/// > use [SleepSessionHealthDataType] instead.
 @sinceV1_0_0
 @immutable
 final class SleepStageHealthDataType
@@ -15,6 +34,10 @@ final class SleepStageHealthDataType
         ReadableHealthDataType<SleepStageRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<SleepStageRecord, TimeDuration> {
+  /// Creates a sleep stage data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const SleepStageHealthDataType();
 

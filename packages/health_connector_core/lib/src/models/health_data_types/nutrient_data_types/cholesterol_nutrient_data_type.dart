@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for cholesterol intake.
+/// Cholesterol nutrient data type.
+///
+/// Tracks dietary cholesterol intake, a lipid needed for cell membranes and
+/// hormone production.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryCholesterol)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query cholesterol intake records
+/// - ✅ Writeable: Write cholesterol intake records
+/// - ✅ Aggregatable: Sum total cholesterol intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class CholesterolNutrientDataType
         ReadableHealthDataType<CholesterolNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<CholesterolNutrientRecord, Mass> {
+  /// Creates a cholesterol nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const CholesterolNutrientDataType();
 

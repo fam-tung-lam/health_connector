@@ -8,15 +8,27 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android**: Maps to Health Connect's `StepsRecord`
-/// - **iOS**: Maps to HealthKit's `HKQuantityType(.stepCount)`
+/// - **Android (Health Connect)**: `StepsRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.stepCount)`
+///
+/// ## Example
+///
+/// ```dart
+/// final record = StepsRecord(
+///   startTime: DateTime.now().subtract(Duration(hours: 1)),
+///   endTime: DateTime.now(),
+///   count: Number(1500),
+///   metadata: Metadata.automaticallyRecorded(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_0_0
 @immutable
 final class StepsRecord extends IntervalHealthRecord {
   /// Creates a step count record.
   ///
   /// ## Parameters
-  ///
   ///
   /// - [id]: The unique identifier for this record.
   /// - [startTime]: The start of the time interval (inclusive).
@@ -27,7 +39,6 @@ final class StepsRecord extends IntervalHealthRecord {
   /// - [count]: The number of steps (must be >= 0).
   ///
   /// ## Throws
-  ///
   ///
   /// - [AssertionError] if [count] is negative (in debug/checked mode).
   /// - [ArgumentError] if [endTime] is not after [startTime].

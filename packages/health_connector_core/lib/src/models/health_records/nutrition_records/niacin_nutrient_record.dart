@@ -1,10 +1,47 @@
 part of '../health_record.dart';
 
-/// Health record for niacin (vitamin B3) intake.
+/// Represents a niacin (vitamin B3) measurement from food at a specific point
+/// in time.
+///
+/// [NiacinNutrientRecord] captures the niacin content consumed from food.
+/// This is an iOS-specific record for tracking individual niacin intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryNiacin`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.niacin] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = NiacinNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.milligrams(10),
+///   foodName: 'Chicken Breast',
+///   mealType: MealType.lunch,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class NiacinNutrientRecord extends VitaminNutrientRecord {
+  /// Creates a niacin nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The niacin measurement.
+  /// - [time]: The timestamp when the niacin was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this niacin.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory NiacinNutrientRecord({
     required Mass value,
     required DateTime time,

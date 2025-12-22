@@ -7,8 +7,20 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android**: Maps to Health Connect's `BodyTemperatureRecord`
-/// - **iOS**: Maps to HealthKit's `HKQuantityTypeIdentifier.bodyTemperature`
+/// - **Android (Health Connect)**: `BodyTemperatureRecord`
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.bodyTemperature`
+///
+/// ## Example
+///
+/// ```dart
+/// final record = BodyTemperatureRecord(
+///   time: DateTime.now(),
+///   temperature: Temperature.celsius(36.5),
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_0_0
 @immutable
 final class BodyTemperatureRecord extends InstantHealthRecord {

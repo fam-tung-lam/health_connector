@@ -15,6 +15,7 @@ part of 'health_data_type.dart';
 /// - ✅ Aggregate: Sum (total intake)
 ///
 /// ## Example
+///
 /// ```dart
 /// // Request permissions
 /// final permissions = [
@@ -58,6 +59,10 @@ final class HydrationHealthDataType
         ReadableHealthDataType<HydrationRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<HydrationRecord, Volume> {
+  /// Creates a hydration data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const HydrationHealthDataType();
 

@@ -50,6 +50,12 @@ final class BloodGlucose extends MeasurementUnit
   /// Returns the blood glucose in millimoles per liter.
   ///
   /// This is the standard unit used in most countries.
+  ///
+  /// Example:
+  /// ```dart
+  /// final glucose = BloodGlucose.milligramsPerDeciliter(99);
+  /// print(glucose.inMillimolesPerLiter); // ~5.5
+  /// ```
   double get inMillimolesPerLiter => _millimolesPerLiter;
 
   /// Returns the blood glucose in milligrams per deciliter.
@@ -57,6 +63,12 @@ final class BloodGlucose extends MeasurementUnit
   /// This unit is primarily used in the United States.
   ///
   /// Conversion: mg/dL = mmol/L × 18.0182
+  ///
+  /// Example:
+  /// ```dart
+  /// final glucose = BloodGlucose.millimolesPerLiter(5.5);
+  /// print(glucose.inMilligramsPerDeciliter); // ~99.1
+  /// ```
   double get inMilligramsPerDeciliter =>
       _millimolesPerLiter * _mmolToMgdlConversionFactor;
 

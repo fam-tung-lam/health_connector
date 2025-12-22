@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for saturated fat intake.
+/// Saturated fat nutrient data type.
+///
+/// Tracks dietary saturated fat intake, a type of fat that should be limited
+/// for cardiovascular health.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (grams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryFatSaturated)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query saturated fat intake records
+/// - ✅ Writeable: Write saturated fat intake records
+/// - ✅ Aggregatable: Sum total saturated fat intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class SaturatedFatNutrientDataType
         ReadableHealthDataType<SaturatedFatNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<SaturatedFatNutrientRecord, Mass> {
+  /// Creates a saturated fat nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const SaturatedFatNutrientDataType();
 

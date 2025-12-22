@@ -11,9 +11,24 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android**: Maps to Health Connect's `BloodPressureRecord`
-/// - **iOS**: Maps to HealthKit's `HKCorrelationType(.bloodPressure)`
+/// - **Android (Health Connect)**: `BloodPressureRecord`
+/// - **iOS (HealthKit)**: `HKCorrelationType(.bloodPressure)`
 ///   correlation
+///
+/// ## Example
+///
+/// ```dart
+/// final record = BloodPressureRecord(
+///   time: DateTime.now(),
+///   systolic: Pressure.millimetersOfMercury(120),
+///   diastolic: Pressure.millimetersOfMercury(80),
+///   bodyPosition: BloodPressureBodyPosition.sitting,
+///   measurementLocation: BloodPressureMeasurementLocation.leftUpperArm,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_2_0
 @immutable
 final class BloodPressureRecord extends InstantHealthRecord {

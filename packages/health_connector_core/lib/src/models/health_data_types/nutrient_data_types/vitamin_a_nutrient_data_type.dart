@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for vitamin a intake.
+/// Vitamin A nutrient data type.
+///
+/// Tracks dietary vitamin a intake, a fat-soluble vitamin essential for vision,
+/// immune function, and cell growth.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (micrograms typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryVitaminA)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query vitamin a intake records
+/// - ✅ Writeable: Write vitamin a intake records
+/// - ✅ Aggregatable: Sum total vitamin a intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class VitaminANutrientDataType
         ReadableHealthDataType<VitaminANutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<VitaminANutrientRecord, Mass> {
+  /// Creates a vitamin a nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const VitaminANutrientDataType();
 

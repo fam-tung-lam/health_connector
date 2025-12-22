@@ -16,7 +16,7 @@ final class DataOrigin {
   ///
   /// This uniquely identifies the application that wrote the data.
   ///
-  /// ## Platform Specifics
+  /// ## Platform Differences
   ///
   /// ### Android (Health Connect)
   /// - Package name: Automatically set by Health Connect from

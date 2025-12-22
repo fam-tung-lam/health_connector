@@ -13,6 +13,7 @@ enum HealthPlatform {
 
   const HealthPlatform(this.os);
 
+  /// The operating system this health platform runs on.
   final OperatingSystem os;
 }
 

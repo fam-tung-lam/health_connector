@@ -10,6 +10,7 @@ part of '../health_record.dart';
 /// This maps directly to iOS's `HKCategorySample` with `.sleepAnalysis` type.
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = SleepStageRecord(
 ///   id: HealthRecordId('ABC-123'),
@@ -29,6 +30,13 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class SleepStageRecord extends IntervalHealthRecord {
+  /// Creates a sleep stage record.
+  ///
+  /// The [startTime] and [endTime] define the period of the sleep stage.
+  /// The [stageType] specifies the type of sleep (e.g., light, deep).
+  ///
+  /// Use [metadata] to describe the data source. Timezone offsets can be
+  /// provided via [startZoneOffsetSeconds] and [endZoneOffsetSeconds].
   const SleepStageRecord({
     required super.id,
     required super.metadata,

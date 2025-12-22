@@ -4,7 +4,8 @@ part of 'health_record.dart';
 ///
 /// ### iOS (HealthKit) Note
 ///
-/// On iOS/HealthKit, this value will always be the same as [endZoneOffsetSeconds]
+/// On iOS/HealthKit, this value will always be the same as
+/// [endZoneOffsetSeconds]
 /// because HealthKit only provides one metadata key (`HKMetadataKeyTimeZone`)
 /// to store timezone info. This means that even if an interval spans a
 /// timezone change, both values will reflect the same timezone offset.

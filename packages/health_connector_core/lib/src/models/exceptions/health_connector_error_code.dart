@@ -1,7 +1,6 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
     show sinceV1_0_0, sinceV2_0_0;
-import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart'
-    show HealthConnectorException;
+import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart';
 
 /// Error codes for [HealthConnectorException].
 ///
@@ -19,6 +18,8 @@ enum HealthConnectorErrorCode {
   /// **Action:**
   /// - Prompt the user to install or update Health Connect from the Play Store.
   /// - Provide a direct link.
+  ///
+  /// Throws [HealthProviderNotInstalledOrUpdateRequiredException].
   healthProviderNotInstalledOrUpdateRequired(
     'HEALTH_PROVIDER_NOT_INSTALLED_OR_UPDATE_REQUIRED',
   ),
@@ -34,6 +35,8 @@ enum HealthConnectorErrorCode {
   /// **Action:**
   /// - Inform the user that health features are not available on their device.
   /// - Gracefully disable health-related functionality.
+  ///
+  /// Throws [HealthProviderUnavailableException].
   healthProviderUnavailable('HEALTH_PROVIDER_UNAVAILABLE'),
 
   /// Attempted to use an API not supported by the current platform or version.
@@ -45,6 +48,8 @@ enum HealthConnectorErrorCode {
   /// **Action:**
   /// - Check platform/version before calling the API.
   /// - This error should not occur in production if properly guarded.
+  ///
+  /// Throws [UnsupportedOperationException].
   unsupportedOperation('UNSUPPORTED_OPERATION'),
 
   /// Missing or invalid app configuration.
@@ -58,6 +63,8 @@ enum HealthConnectorErrorCode {
   /// **Action:**
   /// - Check build logs and fix the app configuration.
   /// - This error should not occur in production if properly configured.
+  ///
+  /// Throws [InvalidConfigurationException].
   invalidConfiguration('INVALID_CONFIGURATION'),
 
   /// Invalid argument provided to the API.
@@ -70,6 +77,8 @@ enum HealthConnectorErrorCode {
   /// **Action:**
   /// - Validate inputs before calling the plugin.
   /// - Refresh local record ID cache before delete/update operations.
+  ///
+  /// Throws [InvalidArgumentException].
   invalidArgument('INVALID_ARGUMENT'),
 
   /// Access to health data was denied or not yet authorized.
@@ -84,6 +93,8 @@ enum HealthConnectorErrorCode {
   /// - If denied: Explain why the feature needs access and
   ///   guide user to settings.
   /// - Respect user choice; avoid repeated prompting.
+  ///
+  /// Throws [NotAuthorizedException].
   notAuthorized('NOT_AUTHORIZED'),
 
   /// A transient I/O or communication error occurred.
@@ -97,6 +108,8 @@ enum HealthConnectorErrorCode {
   /// **Action:**
   /// - Retry with exponential backoff (e.g., 1s → 2s → 4s, max 30s).
   /// - These issues typically resolve quickly without user intervention.
+  ///
+  /// Throws [RemoteErrorException].
   remoteError('REMOTE_ERROR'),
 
   /// User cancelled the operation.
@@ -109,6 +122,8 @@ enum HealthConnectorErrorCode {
   /// - Respect the user's choice; do not immediately re-prompt.
   /// - Continue app flow without health features if appropriate.
   /// - This is not an error condition requiring user notification.
+  ///
+  /// Throws [UserCancelledException].
   @sinceV2_0_0
   userCancelled('USER_CANCELLED'),
 
@@ -123,6 +138,8 @@ enum HealthConnectorErrorCode {
   /// - Log the full error details for investigation.
   /// - Show a generic "Something went wrong" message to the user.
   /// - Report to crash analytics.
+  ///
+  /// Throws [UnknownException].
   unknown('UNKNOWN');
 
   const HealthConnectorErrorCode(this.code);

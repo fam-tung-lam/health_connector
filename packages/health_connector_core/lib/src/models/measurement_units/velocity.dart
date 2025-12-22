@@ -58,12 +58,30 @@ final class Velocity extends MeasurementUnit implements Comparable<Velocity> {
   final double _metersPerSecond;
 
   /// Returns the velocity in meters per second.
+  ///
+  /// Example:
+  /// ```dart
+  /// final velocity = Velocity.kilometersPerHour(10);
+  /// print(velocity.inMetersPerSecond); // ~2.78
+  /// ```
   double get inMetersPerSecond => _metersPerSecond;
 
   /// Returns the velocity in kilometers per hour.
+  ///
+  /// Example:
+  /// ```dart
+  /// final velocity = Velocity.metersPerSecond(2.78);
+  /// print(velocity.inKilometersPerHour); // ~10.0
+  /// ```
   double get inKilometersPerHour => _metersPerSecond * _kmhToMsConversionFactor;
 
   /// Returns the velocity in miles per hour.
+  ///
+  /// Example:
+  /// ```dart
+  /// final velocity = Velocity.metersPerSecond(2.78);
+  /// print(velocity.inMilesPerHour); // ~6.21
+  /// ```
   double get inMilesPerHour => _metersPerSecond / _metersPerSecondPerMph;
 
   /// Adds two velocities together.

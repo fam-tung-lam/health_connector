@@ -1,13 +1,72 @@
 part of '../health_record.dart';
 
+/// Represents a comprehensive nutrition record over a time interval.
+///
+/// [NutritionRecord] captures detailed nutritional information for food
+/// consumed
+/// during a specific time period. This record can track energy (calories),
+/// macronutrients (protein, carbohydrates, fats), vitamins, minerals, and other
+/// nutritional components.
+///
+/// ## Platform Mapping
+///
+/// - **Android (Health Connect)**: `NutritionRecord`
+/// - **iOS (HealthKit)**: Multiple `HKQuantityType` correlations for individual
+///   nutrients
+///
+/// ## Example
+///
+/// ```dart
+/// final record = NutritionRecord(
+///   startTime: DateTime.now().subtract(Duration(minutes: 30)),
+///   endTime: DateTime.now(),
+///   foodName: 'Chicken Breast with Rice',
+///   mealType: MealType.lunch,
+///   energy: Energy.kilocalories(450),
+///   protein: Mass.grams(35),
+///   totalCarbohydrate: Mass.grams(50),
+///   totalFat: Mass.grams(10),
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @immutable
 final class NutritionRecord extends IntervalHealthRecord {
+  /// Creates a nutrition record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [startTime]: The start of the eating interval (inclusive).
+  /// - [endTime]: The end of the eating interval (exclusive).
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
+  /// - [endZoneOffsetSeconds]: Optional timezone offset for end time.
+  /// - [foodName]: Optional name/description of the food consumed.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
+  /// - [energy]: Energy (calories) consumed.
+  /// - [protein]: Protein content.
+  /// - [totalCarbohydrate]: Total carbohydrate content.
+  /// - [totalFat]: Total fat content.
+  /// - [saturatedFat]: Saturated fat content.
+  /// - [monounsaturatedFat]: Monounsaturated fat content.
+  /// - [polyunsaturatedFat]: Polyunsaturated fat content.
+  /// - [cholesterol]: Cholesterol content.
+  /// - [dietaryFiber]: Dietary fiber content.
+  /// - [sugar]: Sugar content.
+  /// - [vitaminA] through [caffeine]: Various vitamin, mineral, and other
+  ///   nutrient contents.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
   const NutritionRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,
-    super.id,
+    super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
     this.foodName,
@@ -47,50 +106,109 @@ final class NutritionRecord extends IntervalHealthRecord {
     this.caffeine,
   });
 
+  /// Optional name or description of the food consumed.
   final String? foodName;
+
+  /// The type of meal (breakfast, lunch, dinner, snack, or unknown).
   final MealType mealType;
 
-  // Energy
+  /// Energy (calories) consumed.
   final Energy? energy;
 
-  // Macronutrients
+  /// Protein content in grams.
   final Mass? protein;
+
+  /// Total carbohydrate content in grams.
   final Mass? totalCarbohydrate;
+
+  /// Total fat content in grams.
   final Mass? totalFat;
+
+  /// Saturated fat content in grams.
   final Mass? saturatedFat;
+
+  /// Monounsaturated fat content in grams.
   final Mass? monounsaturatedFat;
+
+  /// Polyunsaturated fat content in grams.
   final Mass? polyunsaturatedFat;
+
+  /// Cholesterol content in milligrams.
   final Mass? cholesterol;
+
+  /// Dietary fiber content in grams.
   final Mass? dietaryFiber;
+
+  /// Sugar content in grams.
   final Mass? sugar;
 
-  // Vitamins
+  /// Vitamin A content.
   final Mass? vitaminA;
+
+  /// Vitamin B6 content.
   final Mass? vitaminB6;
+
+  /// Vitamin B12 content.
   final Mass? vitaminB12;
+
+  /// Vitamin C content.
   final Mass? vitaminC;
+
+  /// Vitamin D content.
   final Mass? vitaminD;
+
+  /// Vitamin E content.
   final Mass? vitaminE;
+
+  /// Vitamin K content.
   final Mass? vitaminK;
+
+  /// Thiamin (Vitamin B1) content.
   final Mass? thiamin;
+
+  /// Riboflavin (Vitamin B2) content.
   final Mass? riboflavin;
+
+  /// Niacin (Vitamin B3) content.
   final Mass? niacin;
+
+  /// Folate (Vitamin B9) content.
   final Mass? folate;
+
+  /// Biotin (Vitamin B7) content.
   final Mass? biotin;
+
+  /// Pantothenic acid (Vitamin B5) content.
   final Mass? pantothenicAcid;
 
-  // Minerals
+  /// Calcium content.
   final Mass? calcium;
+
+  /// Iron content.
   final Mass? iron;
+
+  /// Magnesium content.
   final Mass? magnesium;
+
+  /// Manganese content.
   final Mass? manganese;
+
+  /// Phosphorus content.
   final Mass? phosphorus;
+
+  /// Potassium content.
   final Mass? potassium;
+
+  /// Selenium content.
   final Mass? selenium;
+
+  /// Sodium content.
   final Mass? sodium;
+
+  /// Zinc content.
   final Mass? zinc;
 
-  // Other
+  /// Caffeine content.
   final Mass? caffeine;
 
   /// Creates a copy with the given fields replaced with the new values.

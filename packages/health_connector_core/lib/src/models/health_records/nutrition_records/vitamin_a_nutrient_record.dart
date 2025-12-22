@@ -1,10 +1,46 @@
 part of '../health_record.dart';
 
-/// Health record for vitamin A intake.
+/// Represents a vitamin A measurement from food at a specific point in time.
+///
+/// [VitaminANutrientRecord] captures the vitamin A content consumed from food.
+/// This is an iOS-specific record for tracking individual vitamin A intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryVitaminA`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.vitaminA] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = VitaminANutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.micrograms(835),
+///   foodName: 'Carrot',
+///   mealType: MealType.snack,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class VitaminANutrientRecord extends VitaminNutrientRecord {
+  /// Creates a vitamin A nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The vitamin A measurement.
+  /// - [time]: The timestamp when the vitamin A was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this vitamin A.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory VitaminANutrientRecord({
     required Mass value,
     required DateTime time,

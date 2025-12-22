@@ -7,8 +7,20 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android**: Maps to Health Connect's `WeightRecord`
-/// - **iOS**: Maps to HealthKit's `HKQuantityType(.bodyMass)`
+/// - **Android (Health Connect)**: `WeightRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.bodyMass)`
+///
+/// ## Example
+///
+/// ```dart
+/// final record = WeightRecord(
+///   time: DateTime.now(),
+///   weight: Mass.kilograms(72.5),
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_0_0
 @immutable
 final class WeightRecord extends InstantHealthRecord {

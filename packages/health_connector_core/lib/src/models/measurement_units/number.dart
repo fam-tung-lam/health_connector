@@ -7,6 +7,7 @@ part of 'measurement_unit.dart';
 @sinceV1_0_0
 @immutable
 final class Number extends MeasurementUnit implements Comparable<Number> {
+  /// Creates a number with the given value.
   const Number(this.value);
 
   /// The numeric value.
@@ -15,16 +16,22 @@ final class Number extends MeasurementUnit implements Comparable<Number> {
   /// A numeric value of zero.
   static const Number zero = Number(0);
 
+  /// Adds this number to [other].
   Number operator +(Number other) => Number(value + other.value);
 
+  /// Subtracts [other] from this number.
   Number operator -(Number other) => Number(value - other.value);
 
+  /// Returns true if this number is greater than [other].
   bool operator >(Number other) => value > other.value;
 
+  /// Returns true if this number is less than [other].
   bool operator <(Number other) => value < other.value;
 
+  /// Returns true if this number is greater than or equal to [other].
   bool operator >=(Number other) => value >= other.value;
 
+  /// Returns true if this number is less than or equal to [other].
   bool operator <=(Number other) => value <= other.value;
 
   @override

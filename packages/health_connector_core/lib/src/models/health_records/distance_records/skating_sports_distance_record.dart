@@ -5,13 +5,11 @@ part of '../health_record.dart';
 /// Includes ice skating, roller skating, and similar activities.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceSkatingSports`
 ///
-/// ## iOS Version Requirement
-/// **Requires iOS 18.0+**. On older iOS versions, this will fall back to
-/// `distanceWalkingRunning`.
-///
 /// ## Example
+///
 /// ```dart
 /// final record = SkatingSportsDistanceRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 1)),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:health_connector/health_connector.dart'
     show HealthConnector, sinceV2_0_0;
 import 'package:health_connector_core/health_connector_core.dart'
@@ -28,9 +29,9 @@ import 'package:health_connector_core/health_connector_core.dart'
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
 import 'package:health_connector_logger/health_connector_logger.dart';
-import 'package:meta/meta.dart' show immutable;
 
 @sinceV2_0_0
+@internal
 @immutable
 final class HealthConnectorImpl implements HealthConnector {
   const HealthConnectorImpl({

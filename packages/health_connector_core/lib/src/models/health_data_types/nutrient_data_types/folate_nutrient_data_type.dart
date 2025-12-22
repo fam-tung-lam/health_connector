@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for folate intake.
+/// Folate (Vitamin B9) nutrient data type.
+///
+/// Tracks dietary folate (vitamin b9) intake, a water-soluble vitamin vital for
+/// DNA synthesis and cell division.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (micrograms typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryFolate)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query folate (vitamin b9) intake records
+/// - ✅ Writeable: Write folate (vitamin b9) intake records
+/// - ✅ Aggregatable: Sum total folate (vitamin b9) intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class FolateNutrientDataType
         ReadableHealthDataType<FolateNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<FolateNutrientRecord, Mass> {
+  /// Creates a folate (vitamin b9) nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const FolateNutrientDataType();
 

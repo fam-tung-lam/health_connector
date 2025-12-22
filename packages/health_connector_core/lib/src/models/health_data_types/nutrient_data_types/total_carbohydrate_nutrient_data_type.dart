@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for total carbohydrate intake.
+/// Total carbohydrate nutrient data type.
+///
+/// Tracks dietary total carbohydrate intake, a primary energy source for the
+/// body.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (grams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryTotalCarbs)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query total carbohydrate intake records
+/// - ✅ Writeable: Write total carbohydrate intake records
+/// - ✅ Aggregatable: Sum total total carbohydrate intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class TotalCarbohydrateNutrientDataType
         ReadableHealthDataType<TotalCarbohydrateNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<TotalCarbohydrateNutrientRecord, Mass> {
+  /// Creates a total carbohydrate nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const TotalCarbohydrateNutrientDataType();
 

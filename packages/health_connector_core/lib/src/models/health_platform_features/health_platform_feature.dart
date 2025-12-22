@@ -20,13 +20,15 @@ sealed class HealthPlatformFeature implements HealthPlatformData {
 
   /// Historical health data reading capability.
   ///
-  /// Allows reading historical health data.
+  /// See [HealthPlatformFeatureReadHealthDataHistory] for details on
+  /// platform support and usage.
   static final readHealthDataHistory =
       HealthPlatformFeatureReadHealthDataHistory();
 
   /// Background health data reading capability.
   ///
-  /// Allows reading health data in the background.
+  /// See [HealthPlatformFeatureReadHealthDataInBackground] for details on
+  /// platform support and usage.
   static final readHealthDataInBackground =
       HealthPlatformFeatureReadHealthDataInBackground();
 

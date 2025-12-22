@@ -1,10 +1,46 @@
 part of '../health_record.dart';
 
-/// Health record for magnesium intake.
+/// Represents a magnesium measurement from food at a specific point in time.
+///
+/// [MagnesiumNutrientRecord] captures the magnesium content consumed from food.
+/// This is an iOS-specific record for tracking individual magnesium intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryMagnesium`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.magnesium] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = MagnesiumNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.milligrams(80),
+///   foodName: 'Almonds',
+///   mealType: MealType.snack,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class MagnesiumNutrientRecord extends MineralNutrientRecord {
+  /// Creates a magnesium nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The magnesium measurement.
+  /// - [time]: The timestamp when the magnesium was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this magnesium.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory MagnesiumNutrientRecord({
     required Mass value,
     required DateTime time,

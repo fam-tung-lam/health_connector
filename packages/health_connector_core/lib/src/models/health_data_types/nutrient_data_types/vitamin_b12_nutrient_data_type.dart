@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for vitamin b12 intake.
+/// Vitamin B12 (Cobalamin) nutrient data type.
+///
+/// Tracks dietary vitamin b12 (cobalamin) intake, a water-soluble vitamin
+/// essential for red blood cell formation and neurological function.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (micrograms typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryVitaminB12)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query vitamin b12 (cobalamin) intake records
+/// - ✅ Writeable: Write vitamin b12 (cobalamin) intake records
+/// - ✅ Aggregatable: Sum total vitamin b12 (cobalamin) intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class VitaminB12NutrientDataType
         ReadableHealthDataType<VitaminB12NutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<VitaminB12NutrientRecord, Mass> {
+  /// Creates a vitamin b12 (cobalamin) nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const VitaminB12NutrientDataType();
 

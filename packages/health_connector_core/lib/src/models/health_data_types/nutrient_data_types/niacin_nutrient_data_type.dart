@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for niacin intake.
+/// Niacin (Vitamin B3) nutrient data type.
+///
+/// Tracks dietary niacin (vitamin b3) intake, a water-soluble vitamin
+/// supporting metabolism and DNA repair.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryNiacin)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query niacin (vitamin b3) intake records
+/// - ✅ Writeable: Write niacin (vitamin b3) intake records
+/// - ✅ Aggregatable: Sum total niacin (vitamin b3) intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class NiacinNutrientDataType
         ReadableHealthDataType<NiacinNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<NiacinNutrientRecord, Mass> {
+  /// Creates a niacin (vitamin b3) nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const NiacinNutrientDataType();
 

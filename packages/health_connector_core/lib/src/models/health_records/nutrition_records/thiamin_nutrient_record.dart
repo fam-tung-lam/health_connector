@@ -1,10 +1,47 @@
 part of '../health_record.dart';
 
-/// Health record for thiamin (vitamin B1) intake.
+/// Represents a thiamin (vitamin B1) measurement from food at a specific point
+/// in time.
+///
+/// [ThiaminNutrientRecord] captures the thiamin content consumed from food.
+/// This is an iOS-specific record for tracking individual thiamin intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryThiamin`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.thiamin] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = ThiaminNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.milligrams(0.1),
+///   foodName: 'Whole Wheat Bread',
+///   mealType: MealType.breakfast,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class ThiaminNutrientRecord extends VitaminNutrientRecord {
+  /// Creates a thiamin nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The thiamin measurement.
+  /// - [time]: The timestamp when the thiamin was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this thiamin.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory ThiaminNutrientRecord({
     required Mass value,
     required DateTime time,

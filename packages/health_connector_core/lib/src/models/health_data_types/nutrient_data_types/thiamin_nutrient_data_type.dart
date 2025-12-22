@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for thiamin intake.
+/// Thiamin (Vitamin B1) nutrient data type.
+///
+/// Tracks dietary thiamin (vitamin b1) intake, a water-soluble vitamin that
+/// helps convert nutrients into energy.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryThiamin)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query thiamin (vitamin b1) intake records
+/// - ✅ Writeable: Write thiamin (vitamin b1) intake records
+/// - ✅ Aggregatable: Sum total thiamin (vitamin b1) intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class ThiaminNutrientDataType
         ReadableHealthDataType<ThiaminNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<ThiaminNutrientRecord, Mass> {
+  /// Creates a thiamin (vitamin b1) nutrient data type.
+  ///
+  ///This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const ThiaminNutrientDataType();
 

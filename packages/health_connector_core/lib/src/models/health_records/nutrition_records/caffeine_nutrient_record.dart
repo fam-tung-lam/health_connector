@@ -1,9 +1,46 @@
 part of '../health_record.dart';
 
+/// Represents a caffeine measurement from food at a specific point in time.
+///
+/// [CaffeineNutrientRecord] captures the caffeine content consumed from food.
+/// This is an iOS-specific record for tracking individual caffeine intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryCaffeine`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.caffeine] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = CaffeineNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.milligrams(95),
+///   foodName: 'Coffee',
+///   mealType: MealType.breakfast,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class CaffeineNutrientRecord extends NutrientRecord<Mass> {
+  /// Creates a caffeine nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The caffeine measurement.
+  /// - [time]: The timestamp when the caffeine was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this caffeine.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory CaffeineNutrientRecord({
     required Mass value,
     required DateTime time,

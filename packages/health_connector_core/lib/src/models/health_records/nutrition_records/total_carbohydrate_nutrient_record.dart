@@ -1,10 +1,50 @@
 part of '../health_record.dart';
 
-/// Health record for total carbohydrate intake.
+/// Represents a total carbohydrate measurement from food at a specific point in
+/// time.
+///
+/// [TotalCarbohydrateNutrientRecord] captures the total carbohydrate content
+/// consumed from food.
+/// This is an iOS-specific record for tracking individual total carbohydrate
+/// intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryCarbohydrates`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.totalCarbohydrate] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = TotalCarbohydrateNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.grams(45),
+///   foodName: 'Brown Rice',
+///   mealType: MealType.dinner,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class TotalCarbohydrateNutrientRecord extends MacronutrientRecord {
+  /// Creates a total carbohydrate nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The total carbohydrate measurement.
+  /// - [time]: The timestamp when the total carbohydrate was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this total
+  /// carbohydrate.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory TotalCarbohydrateNutrientRecord({
     required Mass value,
     required DateTime time,

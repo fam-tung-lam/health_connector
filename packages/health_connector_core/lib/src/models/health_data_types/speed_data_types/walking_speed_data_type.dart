@@ -1,17 +1,34 @@
 part of '../health_data_type.dart';
 
-/// Health data type for walking speed.
+/// Walking speed data type.
 ///
-/// Represents the speed at which a user walks, typically measured in
-/// meters per second.
+/// Tracks the speed at which a user walks, useful for monitoring mobility,
+/// gait speed, and functional fitness.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Velocity] units (meters/second, km/hour, etc.).
 ///
 /// ## Platform Mapping
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.walkingSpeed`
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.walkingSpeed)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query walking speed records
+/// - ✅ Writeable: Write walking speed records
+/// - ✅ Aggregatable: Calculate average walking speed
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable
 final class WalkingSpeedDataType
     extends SpeedActivityHealthDataType<WalkingSpeedRecord> {
+  /// Creates a walking speed data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const WalkingSpeedDataType();
 

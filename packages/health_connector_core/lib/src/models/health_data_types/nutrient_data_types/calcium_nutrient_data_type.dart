@@ -1,6 +1,24 @@
 part of '../health_data_type.dart';
 
-/// Health data type for calcium intake.
+/// Calcium nutrient data type.
+///
+/// Tracks dietary calcium intake, a mineral essential for bone health,
+/// muscle function, and nerve transmission.
+///
+/// ## Measurement Unit
+///
+/// Values are measured in [Mass] units (milligrams typically).
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit) Only**: `HKQuantityType(.dietaryCalcium)`
+/// - **Android (Health Connect)**: Not directly supported
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query calcium intake records
+/// - ✅ Writeable: Write calcium intake records
+/// - ✅ Aggregatable: Sum total calcium intake
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -10,6 +28,10 @@ final class CalciumNutrientDataType
         ReadableHealthDataType<CalciumNutrientRecord>,
         WriteableHealthDataType,
         SumAggregatableHealthDataType<CalciumNutrientRecord, Mass> {
+  /// Creates a calcium nutrient data type.
+  ///
+  /// This is a constant constructor used internally. To reference this data
+  /// type, use the singleton instance from [HealthDataType].
   @internal
   const CalciumNutrientDataType();
 

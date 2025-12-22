@@ -3,11 +3,11 @@ import 'package:health_connector_core/src/annotations/meta_targets.dart'
 import 'package:meta/meta.dart' show immutable;
 
 /// Marks APIs intended only for cross-package communication and implementation
-/// details within the `health_connector` plugin ecosystem.
+/// details within the Health Connector SDK ecosystem.
 ///
 /// **Application developers should not use or depend on APIs marked with
-/// [internalUse]**, as these are not considered part of the public API surface.
-/// Rely only on documented public APIs from the main plugin package.
+/// [internalUse]**, as these are not considered part of the public API surface
+/// and can be changed without notice.
 ///
 /// ### Example
 /// ```

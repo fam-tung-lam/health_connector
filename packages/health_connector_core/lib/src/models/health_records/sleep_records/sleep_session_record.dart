@@ -8,6 +8,7 @@ part of '../health_record.dart';
 /// This maps directly to Android's `SleepSessionRecord` with embedded stages.
 ///
 /// ## Example
+///
 /// ```dart
 /// final session = SleepSessionRecord(
 ///   id: HealthRecordId.none,
@@ -36,6 +37,14 @@ part of '../health_record.dart';
 @supportedOnHealthConnect
 @immutable
 final class SleepSessionRecord extends SeriesHealthRecord<SleepStage> {
+  /// Creates a sleep session record.
+  ///
+  /// The session spans from [startTime] to [endTime] and contains a list of
+  /// [samples] (sleep stages).
+  ///
+  /// Optional [title] and [notes] can be provided. Use [metadata] to describe
+  /// the data source. Timezone offsets can be provided via
+  /// [startZoneOffsetSeconds] and [endZoneOffsetSeconds].
   const SleepSessionRecord({
     required super.id,
     required super.metadata,
@@ -140,6 +149,9 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStage> {
 @supportedOnHealthConnect
 @immutable
 final class SleepStage {
+  /// Creates a sleep stage.
+  ///
+  /// The stage is defined by [startTime], [endTime], and the [stageType].
   const SleepStage({
     required this.startTime,
     required this.endTime,

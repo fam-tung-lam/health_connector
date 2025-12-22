@@ -8,8 +8,20 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android**: Maps to Health Connect's `LeanBodyMassRecord`
-/// - **iOS**: Maps to HealthKit's `HKQuantityType(.leanBodyMass)`
+/// - **Android (Health Connect)**: `LeanBodyMassRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.leanBodyMass)`
+///
+/// ## Example
+///
+/// ```dart
+/// final record = LeanBodyMassRecord(
+///   time: DateTime.now(),
+///   mass: Mass.kilograms(60.0),
+///   metadata: Metadata.automaticallyRecorded(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_0_0
 @immutable
 final class LeanBodyMassRecord extends InstantHealthRecord {

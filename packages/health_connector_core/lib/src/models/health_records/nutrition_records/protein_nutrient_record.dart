@@ -1,10 +1,46 @@
 part of '../health_record.dart';
 
-/// Health record for protein intake.
+/// Represents a protein measurement from food at a specific point in time.
+///
+/// [ProteinNutrientRecord] captures the protein content consumed from food.
+/// This is an iOS-specific record for tracking individual protein intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryProtein`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.protein] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = ProteinNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.grams(30),
+///   foodName: 'Grilled Chicken',
+///   mealType: MealType.lunch,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class ProteinNutrientRecord extends MacronutrientRecord {
+  /// Creates a protein nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The protein measurement.
+  /// - [time]: The timestamp when the protein was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this protein.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory ProteinNutrientRecord({
     required Mass value,
     required DateTime time,

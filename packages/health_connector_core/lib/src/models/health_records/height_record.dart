@@ -7,9 +7,20 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android**: Maps to Health Connect's `HeightRecord`
-/// - **iOS**: Maps to HealthKit's `HKQuantityType(.height)`
+/// - **Android (Health Connect)**: `HeightRecord`
+/// - **iOS (HealthKit)**: `HKQuantityType(.height)`
 ///
+/// ## Example
+///
+/// ```dart
+/// final record = HeightRecord(
+///   time: DateTime.now(),
+///   height: Length.centimeters(175),
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_0_0
 @immutable
 final class HeightRecord extends InstantHealthRecord {

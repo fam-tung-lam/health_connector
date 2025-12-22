@@ -1,8 +1,10 @@
 /// Represents the different types of sleep stages.
 ///
 /// ## Platform Mapping
-/// - **Android**: Maps to `SleepSessionRecord.Stage.StageType` constants
-/// - **iOS**: Maps to `HKCategoryValueSleepAnalysis` enum values
+///
+/// - **Android (Health Connect)**: Maps to `SleepSessionRecord.Stage.StageType`
+/// constants
+/// - **iOS (HealthKit)**: Maps to `HKCategoryValueSleepAnalysis` enum values
 enum SleepStageType {
   /// Unknown sleep stage (fallback).
   unknown,

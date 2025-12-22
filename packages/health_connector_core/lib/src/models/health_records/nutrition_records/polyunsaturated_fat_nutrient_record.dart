@@ -1,10 +1,50 @@
 part of '../health_record.dart';
 
-/// Health record for polyunsaturated fat intake.
+/// Represents a polyunsaturated fat measurement from food at a specific point
+/// in time.
+///
+/// [PolyunsaturatedFatNutrientRecord] captures the polyunsaturated fat content
+/// consumed from food.
+/// This is an iOS-specific record for tracking individual polyunsaturated fat
+/// intake.
+///
+/// ## Platform Mapping
+///
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryFatPolyunsaturated`
+///
+/// > [!NOTE]
+/// > This record type is only supported on iOS/HealthKit. For Android,
+/// > use the [NutritionRecord.polyunsaturatedFat] field in [NutritionRecord].
+///
+/// ## Example
+///
+/// ```dart
+/// final record = PolyunsaturatedFatNutrientRecord(
+///   time: DateTime.now(),
+///   value: Mass.grams(8),
+///   foodName: 'Salmon',
+///   mealType: MealType.dinner,
+///   metadata: Metadata.manualEntry(
+///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///   ),
+/// );
+/// ```
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class PolyunsaturatedFatNutrientRecord extends MacronutrientRecord {
+  /// Creates a polyunsaturated fat nutrient record.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The polyunsaturated fat measurement.
+  /// - [time]: The timestamp when the polyunsaturated fat was consumed.
+  /// - [metadata]: Metadata about the origin and recording method.
+  /// - [id]: The unique identifier for this record.
+  /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
+  /// - [foodName]: Optional name of the food containing this polyunsaturated
+  /// fat.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory PolyunsaturatedFatNutrientRecord({
     required Mass value,
     required DateTime time,

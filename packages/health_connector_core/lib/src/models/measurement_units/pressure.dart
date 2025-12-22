@@ -47,9 +47,21 @@ final class Pressure extends MeasurementUnit implements Comparable<Pressure> {
   /// Returns the pressure in millimeters of mercury.
   ///
   /// This is the standard unit for blood pressure.
+  ///
+  /// Example:
+  /// ```dart
+  /// final pressure = Pressure.pascals(15998.7);
+  /// print(pressure.inMillimetersOfMercury); // ~120.0
+  /// ```
   double get inMillimetersOfMercury => _millimetersOfMercury;
 
   /// Returns the pressure in pascals.
+  ///
+  /// Example:
+  /// ```dart
+  /// final pressure = Pressure.millimetersOfMercury(120);
+  /// print(pressure.inPascals); // ~15998.7
+  /// ```
   double get inPascals => _millimetersOfMercury * _pascalsPerMmHg;
 
   /// Adds two pressure values together.

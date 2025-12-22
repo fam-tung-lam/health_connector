@@ -3,9 +3,11 @@ part of '../health_record.dart';
 /// Represents a running speed measurement at a specific point in time.
 ///
 /// ## Platform Mapping
+///
 /// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.runningSpeed`
 ///
 /// ## Example
+///
 /// ```dart
 /// final record = RunningSpeedRecord(
 ///   time: DateTime.now(),
