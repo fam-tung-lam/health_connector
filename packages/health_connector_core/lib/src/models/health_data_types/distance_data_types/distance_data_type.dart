@@ -1,7 +1,8 @@
-part of 'health_data_type.dart';
+part of '../health_data_type.dart';
 
 /// Health data type for distance information.
 @sinceV1_0_0
+@supportedOnHealthConnect
 @immutable
 final class DistanceHealthDataType
     extends HealthDataType<DistanceRecord, Length>
@@ -11,6 +12,11 @@ final class DistanceHealthDataType
         SumAggregatableHealthDataType<DistanceRecord, Length> {
   @internal
   const DistanceHealthDataType();
+
+  @override
+  List<HealthPlatform> get supportedHealthPlatforms => [
+    HealthPlatform.healthConnect,
+  ];
 
   @override
   String get identifier => 'distance';
@@ -24,9 +30,6 @@ final class DistanceHealthDataType
 
   @override
   int get hashCode => identifier.hashCode;
-
-  @override
-  String toString() => 'distance_data_type';
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

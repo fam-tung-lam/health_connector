@@ -3,7 +3,10 @@ import 'package:health_connector_core/health_connector_core.dart'
         ActiveCaloriesBurnedHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
+        CrossCountrySkiingDistanceDataType,
+        CyclingDistanceDataType,
         DistanceHealthDataType,
+        DownhillSnowSportsDistanceDataType,
         FloorsClimbedHealthDataType,
         HealthDataType,
         HealthRecord,
@@ -15,9 +18,16 @@ import 'package:health_connector_core/health_connector_core.dart'
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
         MeasurementUnit,
+        PaddleSportsDistanceDataType,
+        RowingDistanceDataType,
+        SixMinuteWalkTestDistanceDataType,
+        SkatingSportsDistanceDataType,
         StepsHealthDataType,
+        SwimmingDistanceDataType,
         WeightHealthDataType,
+        WheelchairDistanceDataType,
         WheelchairPushesHealthDataType,
+        WalkingRunningDistanceDataType,
         PolyunsaturatedFatNutrientDataType,
         NutritionHealthDataType,
         EnergyNutrientDataType,
@@ -101,7 +111,6 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.energyNutrient;
       case HealthDataTypeDto.caffeine:
         return HealthDataType.caffeine;
-
       case HealthDataTypeDto.protein:
         return HealthDataType.protein;
       case HealthDataTypeDto.totalCarbohydrate:
@@ -120,7 +129,6 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.dietaryFiber;
       case HealthDataTypeDto.sugar:
         return HealthDataType.sugar;
-
       case HealthDataTypeDto.vitaminA:
         return HealthDataType.vitaminA;
       case HealthDataTypeDto.vitaminB6:
@@ -147,7 +155,6 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.biotin;
       case HealthDataTypeDto.pantothenicAcid:
         return HealthDataType.pantothenicAcid;
-
       case HealthDataTypeDto.calcium:
         return HealthDataType.calcium;
       case HealthDataTypeDto.iron:
@@ -184,6 +191,26 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.bloodGlucose;
       case HealthDataTypeDto.vo2Max:
         return HealthDataType.vo2Max;
+      case HealthDataTypeDto.cyclingDistance:
+        return HealthDataType.cyclingDistance;
+      case HealthDataTypeDto.swimmingDistance:
+        return HealthDataType.swimmingDistance;
+      case HealthDataTypeDto.wheelchairDistance:
+        return HealthDataType.wheelchairDistance;
+      case HealthDataTypeDto.walkingRunningDistance:
+        return HealthDataType.walkingRunningDistance;
+      case HealthDataTypeDto.downhillSnowSportsDistance:
+        return HealthDataType.downhillSnowSportsDistance;
+      case HealthDataTypeDto.rowingDistance:
+        return HealthDataType.rowingDistance;
+      case HealthDataTypeDto.paddleSportsDistance:
+        return HealthDataType.paddleSportsDistance;
+      case HealthDataTypeDto.crossCountrySkiingDistance:
+        return HealthDataType.crossCountrySkiingDistance;
+      case HealthDataTypeDto.skatingSportsDistance:
+        return HealthDataType.skatingSportsDistance;
+      case HealthDataTypeDto.sixMinuteWalkTestDistance:
+        return HealthDataType.sixMinuteWalkTestDistance;
     }
   }
 }
@@ -317,6 +344,27 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.vo2Max;
       case BloodGlucoseHealthDataType _:
         return HealthDataTypeDto.bloodGlucose;
+      // Distance activity types (iOS only)
+      case CyclingDistanceDataType _:
+        return HealthDataTypeDto.cyclingDistance;
+      case SwimmingDistanceDataType _:
+        return HealthDataTypeDto.swimmingDistance;
+      case WheelchairDistanceDataType _:
+        return HealthDataTypeDto.wheelchairDistance;
+      case DownhillSnowSportsDistanceDataType _:
+        return HealthDataTypeDto.downhillSnowSportsDistance;
+      case RowingDistanceDataType _:
+        return HealthDataTypeDto.rowingDistance;
+      case PaddleSportsDistanceDataType _:
+        return HealthDataTypeDto.paddleSportsDistance;
+      case CrossCountrySkiingDistanceDataType _:
+        return HealthDataTypeDto.crossCountrySkiingDistance;
+      case SkatingSportsDistanceDataType _:
+        return HealthDataTypeDto.skatingSportsDistance;
+      case SixMinuteWalkTestDistanceDataType _:
+        return HealthDataTypeDto.sixMinuteWalkTestDistance;
+      case WalkingRunningDistanceDataType _:
+        return HealthDataTypeDto.distance;
     }
   }
 }

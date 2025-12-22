@@ -1,4 +1,4 @@
-part of 'health_record.dart';
+part of '../health_record.dart';
 
 /// Represents a distance measurement over a time interval.
 ///
@@ -23,6 +23,7 @@ part of 'health_record.dart';
 /// );
 /// ```
 @sinceV1_0_0
+@supportedOnHealthConnect
 @immutable
 final class DistanceRecord extends IntervalHealthRecord {
   /// Creates a distance record.
@@ -77,5 +78,7 @@ final class DistanceRecord extends IntervalHealthRecord {
       metadata.hashCode;
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+  List<HealthPlatform> get supportedHealthPlatforms => [
+    HealthPlatform.healthConnect,
+  ];
 }

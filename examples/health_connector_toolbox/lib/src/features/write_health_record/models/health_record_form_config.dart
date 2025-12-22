@@ -137,6 +137,26 @@ import 'package:health_connector/health_connector.dart'
         Vo2MaxHealthDataType,
         Vo2MaxRecord,
         Vo2MaxTestType,
+        CrossCountrySkiingDistanceDataType,
+        CrossCountrySkiingDistanceRecord,
+        CyclingDistanceDataType,
+        CyclingDistanceRecord,
+        DownhillSnowSportsDistanceDataType,
+        DownhillSnowSportsDistanceRecord,
+        PaddleSportsDistanceDataType,
+        PaddleSportsDistanceRecord,
+        RowingDistanceDataType,
+        RowingDistanceRecord,
+        SixMinuteWalkTestDistanceDataType,
+        SixMinuteWalkTestDistanceRecord,
+        SkatingSportsDistanceDataType,
+        SkatingSportsDistanceRecord,
+        SwimmingDistanceDataType,
+        SwimmingDistanceRecord,
+        WheelchairDistanceDataType,
+        WheelchairDistanceRecord,
+        WalkingRunningDistanceDataType,
+        WalkingRunningDistanceRecord,
         StepsRecord;
 
 /// Configuration for a health record write form.
@@ -186,6 +206,21 @@ sealed class HealthRecordFormConfig {
       DiastolicBloodPressureHealthDataType() =>
         const DiastolicBloodPressureFormConfig(),
       DistanceHealthDataType() => const DistanceFormConfig(),
+      CrossCountrySkiingDistanceDataType() =>
+        const CrossCountrySkiingDistanceFormConfig(),
+      CyclingDistanceDataType() => const CyclingDistanceFormConfig(),
+      DownhillSnowSportsDistanceDataType() =>
+        const DownhillSnowSportsDistanceFormConfig(),
+      PaddleSportsDistanceDataType() => const PaddleSportsDistanceFormConfig(),
+      RowingDistanceDataType() => const RowingDistanceFormConfig(),
+      SixMinuteWalkTestDistanceDataType() =>
+        const SixMinuteWalkTestDistanceFormConfig(),
+      SkatingSportsDistanceDataType() =>
+        const SkatingSportsDistanceFormConfig(),
+      SwimmingDistanceDataType() => const SwimmingDistanceFormConfig(),
+      WheelchairDistanceDataType() => const WheelchairDistanceFormConfig(),
+      WalkingRunningDistanceDataType() =>
+        const WalkingRunningDistanceFormConfig(),
       ActiveCaloriesBurnedHealthDataType() =>
         const ActiveCaloriesBurnedFormConfig(),
       FloorsClimbedHealthDataType() => const FloorsClimbedFormConfig(),
@@ -716,6 +751,308 @@ final class DistanceFormConfig extends HealthRecordFormConfig {
     final lengthValue = value as Length;
 
     return DistanceRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      distance: lengthValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for CrossCountrySkiingDistance records.
+final class CrossCountrySkiingDistanceFormConfig
+    extends HealthRecordFormConfig {
+  const CrossCountrySkiingDistanceFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    if (endDateTime == null) {
+      throw ArgumentError(
+        'endDateTime is required for CrossCountrySkiingDistance records',
+      );
+    }
+    final lengthValue = value as Length;
+
+    return CrossCountrySkiingDistanceRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      distance: lengthValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for CyclingDistance records.
+final class CyclingDistanceFormConfig extends HealthRecordFormConfig {
+  const CyclingDistanceFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    if (endDateTime == null) {
+      throw ArgumentError(
+        'endDateTime is required for CyclingDistance records',
+      );
+    }
+    final lengthValue = value as Length;
+
+    return CyclingDistanceRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      distance: lengthValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for DownhillSnowSportsDistance records.
+final class DownhillSnowSportsDistanceFormConfig
+    extends HealthRecordFormConfig {
+  const DownhillSnowSportsDistanceFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    if (endDateTime == null) {
+      throw ArgumentError(
+        'endDateTime is required for DownhillSnowSportsDistance records',
+      );
+    }
+    final lengthValue = value as Length;
+
+    return DownhillSnowSportsDistanceRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      distance: lengthValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for PaddleSportsDistance records.
+final class PaddleSportsDistanceFormConfig extends HealthRecordFormConfig {
+  const PaddleSportsDistanceFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    if (endDateTime == null) {
+      throw ArgumentError(
+        'endDateTime is required for PaddleSportsDistance records',
+      );
+    }
+    final lengthValue = value as Length;
+
+    return PaddleSportsDistanceRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      distance: lengthValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for RowingDistance records.
+final class RowingDistanceFormConfig extends HealthRecordFormConfig {
+  const RowingDistanceFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    if (endDateTime == null) {
+      throw ArgumentError(
+        'endDateTime is required for RowingDistance records',
+      );
+    }
+    final lengthValue = value as Length;
+
+    return RowingDistanceRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      distance: lengthValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for SixMinuteWalkTestDistance records.
+final class SixMinuteWalkTestDistanceFormConfig extends HealthRecordFormConfig {
+  const SixMinuteWalkTestDistanceFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    if (endDateTime == null) {
+      throw ArgumentError(
+        'endDateTime is required for SixMinuteWalkTestDistance records',
+      );
+    }
+    final lengthValue = value as Length;
+
+    return SixMinuteWalkTestDistanceRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      distance: lengthValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for SkatingSportsDistance records.
+final class SkatingSportsDistanceFormConfig extends HealthRecordFormConfig {
+  const SkatingSportsDistanceFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    if (endDateTime == null) {
+      throw ArgumentError(
+        'endDateTime is required for SkatingSportsDistance records',
+      );
+    }
+    final lengthValue = value as Length;
+
+    return SkatingSportsDistanceRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      distance: lengthValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for SwimmingDistance records.
+final class SwimmingDistanceFormConfig extends HealthRecordFormConfig {
+  const SwimmingDistanceFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    if (endDateTime == null) {
+      throw ArgumentError(
+        'endDateTime is required for SwimmingDistance records',
+      );
+    }
+    final lengthValue = value as Length;
+
+    return SwimmingDistanceRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      distance: lengthValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for WheelchairDistance records.
+final class WheelchairDistanceFormConfig extends HealthRecordFormConfig {
+  const WheelchairDistanceFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    if (endDateTime == null) {
+      throw ArgumentError(
+        'endDateTime is required for WheelchairDistance records',
+      );
+    }
+    final lengthValue = value as Length;
+
+    return WheelchairDistanceRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      distance: lengthValue,
+      metadata: metadata,
+    );
+  }
+}
+
+/// Configuration for WalkingRunningDistance records.
+final class WalkingRunningDistanceFormConfig extends HealthRecordFormConfig {
+  const WalkingRunningDistanceFormConfig();
+
+  @override
+  bool get needsDuration => true;
+
+  @override
+  HealthRecord buildRecord({
+    required DateTime startDateTime,
+    required MeasurementUnit value,
+    required Metadata metadata,
+    DateTime? endDateTime,
+  }) {
+    if (endDateTime == null) {
+      throw ArgumentError(
+        'endDateTime is required for WalkingRunningDistance records',
+      );
+    }
+    final lengthValue = value as Length;
+
+    return WalkingRunningDistanceRecord(
       startTime: startDateTime,
       endTime: endDateTime,
       distance: lengthValue,

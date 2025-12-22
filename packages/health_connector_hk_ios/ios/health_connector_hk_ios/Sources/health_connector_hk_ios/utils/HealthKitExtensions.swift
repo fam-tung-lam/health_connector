@@ -131,6 +131,18 @@ extension HKSample {
                 return .sodium
             case HKQuantityTypeIdentifier.dietaryZinc.rawValue:
                 return .zinc
+            case HKQuantityTypeIdentifier.distanceCycling.rawValue:
+                return .cyclingDistance
+            case HKQuantityTypeIdentifier.distanceSwimming.rawValue:
+                return .swimmingDistance
+            case HKQuantityTypeIdentifier.distanceWheelchair.rawValue:
+                return .wheelchairDistance
+            case HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue:
+                return .walkingRunningDistance
+            case HKQuantityTypeIdentifier.distanceDownhillSnowSports.rawValue:
+                return .downhillSnowSportsDistance
+            case HKQuantityTypeIdentifier.sixMinuteWalkTestDistance.rawValue:
+                return .sixMinuteWalkTestDistance
             // Category types
             case HKCategoryTypeIdentifier.sleepAnalysis.rawValue:
                 return .sleepStageRecord
@@ -200,7 +212,8 @@ extension HKCategoryValueSleepAnalysis {
             throw HealthConnectorError.invalidArgument(
                 message: "Invalid sleep analysis raw value: \(rawValue)",
                 context: [
-                    "details": "This sleep stage value may not be supported on the current iOS version",
+                    "details":
+                        "This sleep stage value may not be supported on the current iOS version",
                 ]
             )
         }

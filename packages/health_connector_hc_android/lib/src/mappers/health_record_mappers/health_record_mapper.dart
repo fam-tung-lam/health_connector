@@ -5,6 +5,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         BodyFatPercentageRecord,
         BodyTemperatureRecord,
         DiastolicBloodPressureRecord,
+        DistanceActivityRecord,
         DistanceRecord,
         FloorsClimbedRecord,
         HealthRecord,
@@ -380,6 +381,11 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$DiastolicBloodPressureRecord is not supported on '
           'Health Connect. Use $BloodPressureRecord instead.',
+        );
+      case final DistanceActivityRecord _:
+        throw UnsupportedError(
+          '$DistanceActivityRecord and its subclasses are iOS-only '
+          'and not supported on Android Health Connect.',
         );
     }
   }

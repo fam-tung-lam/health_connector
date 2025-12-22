@@ -5,6 +5,7 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
         sinceV1_0_0,
         sinceV1_2_0,
         sinceV1_3_0,
+        sinceV2_0_0,
         supportedOnAppleHealth,
         supportedOnHealthConnect;
 import 'package:health_connector_core/src/annotations/internal_use.dart';
@@ -45,7 +46,18 @@ part 'blood_pressure_records/diastolic_blood_pressure_record.dart';
 part 'blood_pressure_records/systolic_blood_pressure_record.dart';
 part 'body_fat_percentage_record.dart';
 part 'body_temperature_record.dart';
-part 'distance_record.dart';
+part 'distance_records/cross_country_skiing_distance_record.dart';
+part 'distance_records/cycling_distance_record.dart';
+part 'distance_records/distance_activity_record.dart';
+part 'distance_records/distance_record.dart';
+part 'distance_records/downhill_snow_sports_distance_record.dart';
+part 'distance_records/paddle_sports_distance_record.dart';
+part 'distance_records/rowing_distance_record.dart';
+part 'distance_records/six_minute_walk_test_distance_record.dart';
+part 'distance_records/skating_sports_distance_record.dart';
+part 'distance_records/swimming_distance_record.dart';
+part 'distance_records/walking_running_distance_record.dart';
+part 'distance_records/wheelchair_distance_record.dart';
 part 'floors_climbed_record.dart';
 part 'heart_rate_measurement_record.dart';
 part 'heart_rate_series_record.dart';

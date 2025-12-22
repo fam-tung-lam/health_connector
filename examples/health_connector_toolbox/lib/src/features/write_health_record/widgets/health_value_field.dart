@@ -12,6 +12,16 @@ import 'package:health_connector/health_connector.dart'
         DietaryFiberNutrientDataType,
         DiastolicBloodPressureHealthDataType,
         DistanceHealthDataType,
+        CrossCountrySkiingDistanceDataType,
+        CyclingDistanceDataType,
+        DownhillSnowSportsDistanceDataType,
+        PaddleSportsDistanceDataType,
+        RowingDistanceDataType,
+        SixMinuteWalkTestDistanceDataType,
+        SkatingSportsDistanceDataType,
+        SwimmingDistanceDataType,
+        WheelchairDistanceDataType,
+        WalkingRunningDistanceDataType,
         Energy,
         EnergyNutrientDataType,
         FloorsClimbedHealthDataType,
@@ -138,6 +148,16 @@ class _HealthValueFieldState extends State<HealthValueField> {
           SystolicBloodPressureHealthDataType() => _parsePressure(value),
           DiastolicBloodPressureHealthDataType() => _parsePressure(value),
           DistanceHealthDataType() => _parseLength(value),
+          CrossCountrySkiingDistanceDataType() => _parseLength(value),
+          CyclingDistanceDataType() => _parseLength(value),
+          DownhillSnowSportsDistanceDataType() => _parseLength(value),
+          PaddleSportsDistanceDataType() => _parseLength(value),
+          RowingDistanceDataType() => _parseLength(value),
+          SixMinuteWalkTestDistanceDataType() => _parseLength(value),
+          SkatingSportsDistanceDataType() => _parseLength(value),
+          SwimmingDistanceDataType() => _parseLength(value),
+          WheelchairDistanceDataType() => _parseLength(value),
+          WalkingRunningDistanceDataType() => _parseLength(value),
           ActiveCaloriesBurnedHealthDataType() => _parseEnergy(value),
           FloorsClimbedHealthDataType() => _parseCount(value),
           WheelchairPushesHealthDataType() => _parseCount(value),
@@ -310,6 +330,16 @@ class _HealthValueFieldState extends State<HealthValueField> {
         DiastolicBloodPressureHealthDataType() =>
           AppTexts.pleaseEnterDiastolicBloodPressure,
         DistanceHealthDataType() => AppTexts.pleaseEnterDistance,
+        CrossCountrySkiingDistanceDataType() => AppTexts.pleaseEnterDistance,
+        CyclingDistanceDataType() => AppTexts.pleaseEnterDistance,
+        DownhillSnowSportsDistanceDataType() => AppTexts.pleaseEnterDistance,
+        PaddleSportsDistanceDataType() => AppTexts.pleaseEnterDistance,
+        RowingDistanceDataType() => AppTexts.pleaseEnterDistance,
+        SixMinuteWalkTestDistanceDataType() => AppTexts.pleaseEnterDistance,
+        SkatingSportsDistanceDataType() => AppTexts.pleaseEnterDistance,
+        SwimmingDistanceDataType() => AppTexts.pleaseEnterDistance,
+        WheelchairDistanceDataType() => AppTexts.pleaseEnterDistance,
+        WalkingRunningDistanceDataType() => AppTexts.pleaseEnterDistance,
         ActiveCaloriesBurnedHealthDataType() =>
           AppTexts.pleaseEnterActiveCaloriesBurned,
         FloorsClimbedHealthDataType() => AppTexts.pleaseEnterFloorsClimbed,
@@ -391,6 +421,16 @@ class _HealthValueFieldState extends State<HealthValueField> {
       SystolicBloodPressureHealthDataType() => double.tryParse(value),
       DiastolicBloodPressureHealthDataType() => double.tryParse(value),
       DistanceHealthDataType() => double.tryParse(value),
+      CrossCountrySkiingDistanceDataType() => double.tryParse(value),
+      CyclingDistanceDataType() => double.tryParse(value),
+      DownhillSnowSportsDistanceDataType() => double.tryParse(value),
+      PaddleSportsDistanceDataType() => double.tryParse(value),
+      RowingDistanceDataType() => double.tryParse(value),
+      SixMinuteWalkTestDistanceDataType() => double.tryParse(value),
+      SkatingSportsDistanceDataType() => double.tryParse(value),
+      SwimmingDistanceDataType() => double.tryParse(value),
+      WheelchairDistanceDataType() => double.tryParse(value),
+      WalkingRunningDistanceDataType() => double.tryParse(value),
       ActiveCaloriesBurnedHealthDataType() => double.tryParse(value),
       FloorsClimbedHealthDataType() => int.tryParse(value),
       WheelchairPushesHealthDataType() => int.tryParse(value),
@@ -504,6 +544,26 @@ class _HealthValueFieldState extends State<HealthValueField> {
             : null;
       }(),
       DistanceHealthDataType() =>
+        (parsed as double) <= 0 ? AppTexts.distanceMustBeGreaterThanZero : null,
+      CrossCountrySkiingDistanceDataType() =>
+        (parsed as double) <= 0 ? AppTexts.distanceMustBeGreaterThanZero : null,
+      CyclingDistanceDataType() =>
+        (parsed as double) <= 0 ? AppTexts.distanceMustBeGreaterThanZero : null,
+      DownhillSnowSportsDistanceDataType() =>
+        (parsed as double) <= 0 ? AppTexts.distanceMustBeGreaterThanZero : null,
+      PaddleSportsDistanceDataType() =>
+        (parsed as double) <= 0 ? AppTexts.distanceMustBeGreaterThanZero : null,
+      RowingDistanceDataType() =>
+        (parsed as double) <= 0 ? AppTexts.distanceMustBeGreaterThanZero : null,
+      SixMinuteWalkTestDistanceDataType() =>
+        (parsed as double) <= 0 ? AppTexts.distanceMustBeGreaterThanZero : null,
+      SkatingSportsDistanceDataType() =>
+        (parsed as double) <= 0 ? AppTexts.distanceMustBeGreaterThanZero : null,
+      SwimmingDistanceDataType() =>
+        (parsed as double) <= 0 ? AppTexts.distanceMustBeGreaterThanZero : null,
+      WheelchairDistanceDataType() =>
+        (parsed as double) <= 0 ? AppTexts.distanceMustBeGreaterThanZero : null,
+      WalkingRunningDistanceDataType() =>
         (parsed as double) <= 0 ? AppTexts.distanceMustBeGreaterThanZero : null,
       ActiveCaloriesBurnedHealthDataType() =>
         (parsed as double) <= 0
@@ -620,6 +680,16 @@ class _HealthValueFieldState extends State<HealthValueField> {
         DiastolicBloodPressureHealthDataType() =>
           AppTexts.pleaseEnterDiastolicBloodPressure,
         DistanceHealthDataType() => AppTexts.pleaseEnterDistance,
+        CrossCountrySkiingDistanceDataType() => AppTexts.pleaseEnterDistance,
+        CyclingDistanceDataType() => AppTexts.pleaseEnterDistance,
+        DownhillSnowSportsDistanceDataType() => AppTexts.pleaseEnterDistance,
+        PaddleSportsDistanceDataType() => AppTexts.pleaseEnterDistance,
+        RowingDistanceDataType() => AppTexts.pleaseEnterDistance,
+        SixMinuteWalkTestDistanceDataType() => AppTexts.pleaseEnterDistance,
+        SkatingSportsDistanceDataType() => AppTexts.pleaseEnterDistance,
+        SwimmingDistanceDataType() => AppTexts.pleaseEnterDistance,
+        WheelchairDistanceDataType() => AppTexts.pleaseEnterDistance,
+        WalkingRunningDistanceDataType() => AppTexts.pleaseEnterDistance,
         ActiveCaloriesBurnedHealthDataType() =>
           AppTexts.pleaseEnterActiveCaloriesBurned,
         FloorsClimbedHealthDataType() => AppTexts.pleaseEnterFloorsClimbed,
@@ -812,6 +882,116 @@ class _HealthValueFieldState extends State<HealthValueField> {
         validator: _validate,
       ),
       DistanceHealthDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.distanceValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.straighten),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      CrossCountrySkiingDistanceDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.distanceValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.straighten),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      CyclingDistanceDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.distanceValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.straighten),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      DownhillSnowSportsDistanceDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.distanceValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.straighten),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      PaddleSportsDistanceDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.distanceValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.straighten),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      RowingDistanceDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.distanceValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.straighten),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      SixMinuteWalkTestDistanceDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.distanceValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.straighten),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      SkatingSportsDistanceDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.distanceValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.straighten),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      SwimmingDistanceDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.distanceValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.straighten),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      WheelchairDistanceDataType() => TextFormField(
+        controller: _controller,
+        decoration: const InputDecoration(
+          labelText: AppTexts.distanceValue,
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(AppIcons.straighten),
+        ),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        onChanged: _onChanged,
+        validator: _validate,
+      ),
+      WalkingRunningDistanceDataType() => TextFormField(
         controller: _controller,
         decoration: const InputDecoration(
           labelText: AppTexts.distanceValue,

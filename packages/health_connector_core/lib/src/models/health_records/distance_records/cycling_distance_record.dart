@@ -1,0 +1,55 @@
+part of '../health_record.dart';
+
+/// Represents cycling distance over a time interval.
+///
+/// ## Platform Mapping
+/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceCycling`
+///
+/// ## Example
+/// ```dart
+/// final record = CyclingDistanceRecord(
+///   startTime: DateTime.now().subtract(Duration(hours: 2)),
+///   endTime: DateTime.now(),
+///   distance: Length.kilometers(25),
+///   metadata: Metadata.automaticallyRecorded(...),
+/// );
+/// await healthConnector.writeRecord(record);
+/// ```
+@sinceV2_0_0
+@supportedOnAppleHealth
+@immutable
+final class CyclingDistanceRecord extends DistanceActivityRecord {
+  /// Creates a cycling distance record.
+  const CyclingDistanceRecord({
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required super.distance,
+    super.id,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CyclingDistanceRecord &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          startTime == other.startTime &&
+          endTime == other.endTime &&
+          startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
+          endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
+          distance == other.distance &&
+          metadata == other.metadata;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      startTime.hashCode ^
+      endTime.hashCode ^
+      (startZoneOffsetSeconds?.hashCode ?? 0) ^
+      (endZoneOffsetSeconds?.hashCode ?? 0) ^
+      distance.hashCode ^
+      metadata.hashCode;
+}

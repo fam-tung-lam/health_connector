@@ -10,6 +10,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         CholesterolNutrientRecord,
         DietaryFiberNutrientRecord,
         DiastolicBloodPressureRecord,
+        DistanceActivityRecord,
         DistanceRecord,
         EnergyNutrientRecord,
         FloorsClimbedRecord,
@@ -65,7 +66,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_fat_percentage_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_temperature_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/diastolic_blood_pressure_record_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/distance_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/distance_activity_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/floors_climbed_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate_measurement_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/height_record_mappers.dart';
@@ -93,7 +94,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         CholesterolNutrientRecordDto,
         DiastolicBloodPressureRecordDto,
         DietaryFiberNutrientRecordDto,
-        DistanceRecordDto,
+        DistanceActivityRecordDto,
         EnergyNutrientRecordDto,
         FloorsClimbedRecordDto,
         FolateNutrientRecordDto,
@@ -195,8 +196,6 @@ extension HealthRecordToDto on HealthRecord {
     switch (this) {
       case final ActiveCaloriesBurnedRecord record:
         return ActiveCaloriesBurnedRecordToDto(record).toDto();
-      case final DistanceRecord record:
-        return DistanceRecordToDto(record).toDto();
       case final FloorsClimbedRecord record:
         return FloorsClimbedRecordToDto(record).toDto();
       case final StepsRecord record:
@@ -299,6 +298,12 @@ extension HealthRecordToDto on HealthRecord {
         return DiastolicBloodPressureRecordToDto(record).toDto();
       case final RestingHeartRateRecord record:
         return RestingHeartRateRecordToDto(record).toDto();
+      case final Vo2MaxRecord record:
+        return Vo2MaxRecordToDto(record).toDto();
+      case final BloodGlucoseRecord record:
+        return BloodGlucoseRecordToDto(record).toDto();
+      case final DistanceActivityRecord record:
+        return DistanceActivityRecordToDto(record).toDto();
       case final HeartRateSeriesRecord _:
         throw UnsupportedError(
           '$HeartRateSeriesRecord is not supported on iOS HealthKit. '
@@ -309,10 +314,11 @@ extension HealthRecordToDto on HealthRecord {
           '$SleepSessionRecord is not supported on iOS HealthKit. '
           'Use $SleepStageRecord instead.',
         );
-      case final Vo2MaxRecord record:
-        return Vo2MaxRecordToDto(record).toDto();
-      case final BloodGlucoseRecord record:
-        return BloodGlucoseRecordToDto(record).toDto();
+      case DistanceRecord():
+        throw UnsupportedError(
+          '$DistanceRecord is not supported on iOS HealthKit. '
+          'Use $DistanceActivityRecord instead.',
+        );
     }
   }
 }
@@ -325,8 +331,6 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
     switch (this) {
       case final ActiveCaloriesBurnedRecordDto dto:
         return ActiveCaloriesBurnedRecordDtoToDomain(dto).toDomain();
-      case final DistanceRecordDto dto:
-        return DistanceRecordDtoToDomain(dto).toDomain();
       case final FloorsClimbedRecordDto dto:
         return FloorsClimbedRecordDtoToDomain(dto).toDomain();
       case final StepsRecordDto dto:
@@ -433,6 +437,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return Vo2MaxRecordDtoToDomain(dto).toDomain();
       case final BloodGlucoseRecordDto dto:
         return BloodGlucoseRecordDtoToDomain(dto).toDomain();
+      case final DistanceActivityRecordDto dto:
+        return DistanceActivityRecordDtoToDomain(dto).toDomain();
     }
   }
 }

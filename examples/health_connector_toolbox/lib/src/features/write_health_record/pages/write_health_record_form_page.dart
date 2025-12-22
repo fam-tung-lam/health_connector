@@ -80,7 +80,17 @@ import 'package:health_connector/health_connector.dart'
         SleepStageType,
         Number,
         Vo2MaxHealthDataType,
-        Vo2MaxTestType;
+        Vo2MaxTestType,
+        CrossCountrySkiingDistanceDataType,
+        CyclingDistanceDataType,
+        DownhillSnowSportsDistanceDataType,
+        PaddleSportsDistanceDataType,
+        RowingDistanceDataType,
+        SixMinuteWalkTestDistanceDataType,
+        SkatingSportsDistanceDataType,
+        SwimmingDistanceDataType,
+        WheelchairDistanceDataType,
+        WalkingRunningDistanceDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/show_snack_bar.dart';
 import 'package:health_connector_toolbox/src/common/widgets/date_time_picker_row.dart';
@@ -600,6 +610,22 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
         DiastolicBloodPressureHealthDataType() =>
           AppTexts.writePermissionDeniedDiastolicBloodPressure,
         DistanceHealthDataType() => AppTexts.writePermissionDeniedDistance,
+        CrossCountrySkiingDistanceDataType() =>
+          AppTexts.writePermissionDeniedDistance,
+        CyclingDistanceDataType() => AppTexts.writePermissionDeniedDistance,
+        DownhillSnowSportsDistanceDataType() =>
+          AppTexts.writePermissionDeniedDistance,
+        PaddleSportsDistanceDataType() =>
+          AppTexts.writePermissionDeniedDistance,
+        RowingDistanceDataType() => AppTexts.writePermissionDeniedDistance,
+        SixMinuteWalkTestDistanceDataType() =>
+          AppTexts.writePermissionDeniedDistance,
+        SkatingSportsDistanceDataType() =>
+          AppTexts.writePermissionDeniedDistance,
+        SwimmingDistanceDataType() => AppTexts.writePermissionDeniedDistance,
+        WheelchairDistanceDataType() => AppTexts.writePermissionDeniedDistance,
+        WalkingRunningDistanceDataType() =>
+          AppTexts.writePermissionDeniedDistance,
         ActiveCaloriesBurnedHealthDataType() =>
           AppTexts.writePermissionDeniedActiveCaloriesBurned,
         FloorsClimbedHealthDataType() =>
@@ -696,6 +722,16 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage> {
               DiastolicBloodPressureHealthDataType() =>
                 AppTexts.insertDiastolicBloodPressure,
               DistanceHealthDataType() => AppTexts.insertDistance,
+              CrossCountrySkiingDistanceDataType() => AppTexts.insertDistance,
+              CyclingDistanceDataType() => AppTexts.insertDistance,
+              DownhillSnowSportsDistanceDataType() => AppTexts.insertDistance,
+              PaddleSportsDistanceDataType() => AppTexts.insertDistance,
+              RowingDistanceDataType() => AppTexts.insertDistance,
+              SixMinuteWalkTestDistanceDataType() => AppTexts.insertDistance,
+              SkatingSportsDistanceDataType() => AppTexts.insertDistance,
+              SwimmingDistanceDataType() => AppTexts.insertDistance,
+              WheelchairDistanceDataType() => AppTexts.insertDistance,
+              WalkingRunningDistanceDataType() => AppTexts.insertDistance,
               ActiveCaloriesBurnedHealthDataType() =>
                 AppTexts.insertActiveCaloriesBurned,
               FloorsClimbedHealthDataType() => AppTexts.insertFloorsClimbed,

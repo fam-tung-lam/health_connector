@@ -14,6 +14,7 @@ import 'package:health_connector/health_connector.dart'
         CholesterolNutrientRecord,
         DiastolicBloodPressureRecord,
         DietaryFiberNutrientRecord,
+        DistanceActivityRecord,
         DistanceRecord,
         EnergyNutrientRecord,
         FloorsClimbedRecord,
@@ -1074,6 +1075,52 @@ final class HealthRecordListTile extends StatelessWidget {
     );
   }
 
+  Widget _buildDistanceActivityRecord(
+    BuildContext context,
+    DistanceActivityRecord record,
+  ) {
+    return IntervalHealthRecordTile<DistanceActivityRecord>(
+      record: record,
+      icon: AppIcons.straighten,
+      title:
+          '${record.distance.inMeters.toStringAsFixed(2)} m '
+          '(${record.distance.inKilometers.toStringAsFixed(2)} km)',
+      subtitleBuilder: (r, ctx) {
+        final duration = r.duration;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 4),
+            Text(
+              '${AppTexts.startLabel} '
+              '${DateFormatUtils.formatDateTime(r.startTime)}',
+            ),
+            Text(
+              '${AppTexts.endLabel} '
+              '${DateFormatUtils.formatDateTime(r.endTime)}',
+            ),
+            Text(
+              '${AppTexts.duration} ${duration.inHours}h '
+              '${duration.inMinutes.remainder(60)}m',
+              style: const TextStyle(
+                fontSize: 12,
+                color: theme.AppColors.grey600,
+              ),
+            ),
+          ],
+        );
+      },
+      detailRowsBuilder: (r, ctx) => [
+        const HealthRecordDetailRow(
+          label: AppTexts.value,
+          value: '',
+        ),
+        MeasurementUnitDisplay(unit: r.distance),
+      ],
+      onDelete: () => onDelete(),
+    );
+  }
+
   Widget _buildIntervalRecord(
     BuildContext context,
     IntervalHealthRecord record,
@@ -1158,6 +1205,7 @@ final class HealthRecordListTile extends StatelessWidget {
         ],
         onDelete: onDelete,
       ),
+      DistanceActivityRecord() => _buildDistanceActivityRecord(context, record),
       ActiveCaloriesBurnedRecord() =>
         IntervalHealthRecordTile<ActiveCaloriesBurnedRecord>(
           record: record,

@@ -12,7 +12,10 @@ import 'package:health_connector_core/health_connector_core.dart'
         ActiveCaloriesBurnedHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
+        CrossCountrySkiingDistanceDataType,
+        CyclingDistanceDataType,
         DistanceHealthDataType,
+        DownhillSnowSportsDistanceDataType,
         FloorsClimbedHealthDataType,
         HeartRateMeasurementRecordHealthDataType,
         HeartRateSeriesRecordHealthDataType,
@@ -26,6 +29,12 @@ import 'package:health_connector_core/health_connector_core.dart'
         StepsHealthDataType,
         WeightHealthDataType,
         WheelchairPushesHealthDataType,
+        PaddleSportsDistanceDataType,
+        RowingDistanceDataType,
+        SixMinuteWalkTestDistanceDataType,
+        SkatingSportsDistanceDataType,
+        SwimmingDistanceDataType,
+        WheelchairDistanceDataType,
         EnergyNutrientDataType,
         CaffeineNutrientDataType,
         ProteinNutrientDataType,
@@ -62,7 +71,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         BiotinNutrientDataType,
         PantothenicAcidNutrientDataType,
         Vo2MaxHealthDataType,
-        sinceV1_0_0;
+        sinceV1_0_0,
+        WalkingRunningDistanceDataType;
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/aggregation_metric_mappers.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
@@ -111,6 +121,16 @@ extension AggregateRequestDtoMapper<
           case BodyFatPercentageHealthDataType _:
           case BodyTemperatureHealthDataType _:
           case DistanceHealthDataType _:
+          case CrossCountrySkiingDistanceDataType _:
+          case CyclingDistanceDataType _:
+          case DownhillSnowSportsDistanceDataType _:
+          case PaddleSportsDistanceDataType _:
+          case RowingDistanceDataType _:
+          case SixMinuteWalkTestDistanceDataType _:
+          case SkatingSportsDistanceDataType _:
+          case SwimmingDistanceDataType _:
+          case WheelchairDistanceDataType _:
+          case WalkingRunningDistanceDataType _:
           case FloorsClimbedHealthDataType _:
           case HeartRateMeasurementRecordHealthDataType _:
           case HeartRateSeriesRecordHealthDataType _:

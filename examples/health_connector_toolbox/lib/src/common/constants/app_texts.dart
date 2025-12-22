@@ -264,6 +264,20 @@ abstract final class AppTexts {
   static const String dataTypePermissions = 'Data Type Permissions';
   static const String featurePermissions = 'Feature Permissions';
   static const String feature = 'Feature';
+  static const String interval = 'Interval';
+  static const String crossCountrySkiingDistance =
+      'Cross Country Skiing Distance';
+  static const String cyclingDistance = 'Cycling Distance';
+  static const String downhillSnowSportsDistance =
+      'Downhill Snow Sports Distance';
+  static const String paddleSportsDistance = 'Paddle Sports Distance';
+  static const String rowingDistance = 'Rowing Distance';
+  static const String sixMinuteWalkTestDistance =
+      'Six Minute Walk Test Distance';
+  static const String skatingSportsDistance = 'Skating Sports Distance';
+  static const String swimmingDistance = 'Swimming Distance';
+  static const String wheelchairDistance = 'Wheelchair Distance';
+  static const String walkingRunningDistance = 'Walking Running Distance';
   static const String readHealthDataInBackground =
       'Read Health Data in Background';
   static const String readHealthDataHistory = 'Read Health Data History';

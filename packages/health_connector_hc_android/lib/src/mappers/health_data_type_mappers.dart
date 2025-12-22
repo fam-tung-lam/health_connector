@@ -8,8 +8,11 @@ import 'package:health_connector_core/health_connector_core.dart'
         CaffeineNutrientDataType,
         CalciumNutrientDataType,
         CholesterolNutrientDataType,
+        CrossCountrySkiingDistanceDataType,
+        CyclingDistanceDataType,
         DietaryFiberNutrientDataType,
         DistanceHealthDataType,
+        DownhillSnowSportsDistanceDataType,
         EnergyNutrientDataType,
         FloorsClimbedHealthDataType,
         FolateNutrientDataType,
@@ -28,6 +31,7 @@ import 'package:health_connector_core/health_connector_core.dart'
         NiacinNutrientDataType,
         NutritionHealthDataType,
         OxygenSaturationHealthDataType,
+        PaddleSportsDistanceDataType,
         PantothenicAcidNutrientDataType,
         PhosphorusNutrientDataType,
         PolyunsaturatedFatNutrientDataType,
@@ -35,14 +39,18 @@ import 'package:health_connector_core/health_connector_core.dart'
         ProteinNutrientDataType,
         RiboflavinNutrientDataType,
         RestingHeartRateHealthDataType,
+        RespiratoryRateHealthDataType,
+        RowingDistanceDataType,
         SaturatedFatNutrientDataType,
         SeleniumNutrientDataType,
-        RespiratoryRateHealthDataType,
+        SixMinuteWalkTestDistanceDataType,
+        SkatingSportsDistanceDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
         SodiumNutrientDataType,
         StepsHealthDataType,
         SugarNutrientDataType,
+        SwimmingDistanceDataType,
         ThiaminNutrientDataType,
         TotalCarbohydrateNutrientDataType,
         TotalFatNutrientDataType,
@@ -55,6 +63,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         VitaminKNutrientDataType,
         Vo2MaxHealthDataType,
         WeightHealthDataType,
+        WheelchairDistanceDataType,
+        WalkingRunningDistanceDataType,
         WheelchairPushesHealthDataType,
         ZincNutrientDataType,
         BloodPressureHealthDataType,
@@ -218,6 +228,21 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         throw UnsupportedError(
           '$DiastolicBloodPressureHealthDataType is not supported on '
           'Health Connect. Use $BloodPressureHealthDataType instead.',
+        );
+      // Distance activity data types (iOS only)
+      case CyclingDistanceDataType _:
+      case SwimmingDistanceDataType _:
+      case WheelchairDistanceDataType _:
+      case DownhillSnowSportsDistanceDataType _:
+      case RowingDistanceDataType _:
+      case PaddleSportsDistanceDataType _:
+      case CrossCountrySkiingDistanceDataType _:
+      case SkatingSportsDistanceDataType _:
+      case SixMinuteWalkTestDistanceDataType _:
+      case WalkingRunningDistanceDataType _:
+        throw UnsupportedError(
+          '$this is an iOS-only distance activity data type '
+          'and is not supported on Android Health Connect.',
         );
     }
   }

@@ -12,6 +12,16 @@ import 'package:health_connector/health_connector.dart'
         DietaryFiberNutrientDataType,
         DiastolicBloodPressureHealthDataType,
         DistanceHealthDataType,
+        CrossCountrySkiingDistanceDataType,
+        CyclingDistanceDataType,
+        DownhillSnowSportsDistanceDataType,
+        PaddleSportsDistanceDataType,
+        RowingDistanceDataType,
+        SixMinuteWalkTestDistanceDataType,
+        SkatingSportsDistanceDataType,
+        SwimmingDistanceDataType,
+        WheelchairDistanceDataType,
+        WalkingRunningDistanceDataType,
         EnergyNutrientDataType,
         FloorsClimbedHealthDataType,
         FolateNutrientDataType,
@@ -168,6 +178,66 @@ class _ReadHealthRecordsPageState
           endTime: endDateTime!,
           pageSize: _pageSize,
         ),
+        CrossCountrySkiingDistanceDataType() =>
+          HealthDataType.crossCountrySkiingDistance.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        CyclingDistanceDataType() =>
+          HealthDataType.cyclingDistance.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        DownhillSnowSportsDistanceDataType() =>
+          HealthDataType.downhillSnowSportsDistance.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        PaddleSportsDistanceDataType() =>
+          HealthDataType.paddleSportsDistance.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        RowingDistanceDataType() =>
+          HealthDataType.rowingDistance.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        SixMinuteWalkTestDistanceDataType() =>
+          HealthDataType.sixMinuteWalkTestDistance.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        SkatingSportsDistanceDataType() =>
+          HealthDataType.skatingSportsDistance.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        SwimmingDistanceDataType() =>
+          HealthDataType.swimmingDistance.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        WheelchairDistanceDataType() =>
+          HealthDataType.wheelchairDistance.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
+        WalkingRunningDistanceDataType() =>
+          HealthDataType.walkingRunningDistance.readInTimeRange(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+            pageSize: _pageSize,
+          ),
         ActiveCaloriesBurnedHealthDataType() =>
           HealthDataType.activeCaloriesBurned.readInTimeRange(
             startTime: startDateTime!,

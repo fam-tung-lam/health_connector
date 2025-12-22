@@ -11,6 +11,16 @@ import 'package:health_connector/health_connector.dart'
         BodyTemperatureHealthDataType,
         DiastolicBloodPressureHealthDataType,
         DistanceHealthDataType,
+        CrossCountrySkiingDistanceDataType,
+        CyclingDistanceDataType,
+        DownhillSnowSportsDistanceDataType,
+        PaddleSportsDistanceDataType,
+        RowingDistanceDataType,
+        SixMinuteWalkTestDistanceDataType,
+        SkatingSportsDistanceDataType,
+        SwimmingDistanceDataType,
+        WheelchairDistanceDataType,
+        WalkingRunningDistanceDataType,
         FloorsClimbedHealthDataType,
         HealthConnectorErrorCode,
         HealthConnectorException,
@@ -407,6 +417,123 @@ class _AggregateHealthDataPageState
             startTime: startDateTime!,
             endTime: endDateTime!,
           ),
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        CrossCountrySkiingDistanceDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum =>
+            HealthDataType.crossCountrySkiingDistance.aggregateSum(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        CyclingDistanceDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum => HealthDataType.cyclingDistance.aggregateSum(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        DownhillSnowSportsDistanceDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum =>
+            HealthDataType.downhillSnowSportsDistance.aggregateSum(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        PaddleSportsDistanceDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum =>
+            HealthDataType.paddleSportsDistance.aggregateSum(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        RowingDistanceDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum => HealthDataType.rowingDistance.aggregateSum(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        SixMinuteWalkTestDistanceDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum =>
+            HealthDataType.sixMinuteWalkTestDistance.aggregateSum(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        SkatingSportsDistanceDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum =>
+            HealthDataType.skatingSportsDistance.aggregateSum(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        SwimmingDistanceDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum => HealthDataType.swimmingDistance.aggregateSum(
+            startTime: startDateTime!,
+            endTime: endDateTime!,
+          ),
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        WheelchairDistanceDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum =>
+            HealthDataType.wheelchairDistance.aggregateSum(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
+          AggregationMetric.avg ||
+          AggregationMetric.min ||
+          AggregationMetric.max => throw UnsupportedError(
+            'Unsupported metric: $_selectedMetric',
+          ),
+        },
+        WalkingRunningDistanceDataType() => switch (_selectedMetric!) {
+          AggregationMetric.sum =>
+            HealthDataType.walkingRunningDistance.aggregateSum(
+              startTime: startDateTime!,
+              endTime: endDateTime!,
+            ),
           AggregationMetric.avg ||
           AggregationMetric.min ||
           AggregationMetric.max => throw UnsupportedError(
