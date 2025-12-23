@@ -75,11 +75,8 @@ aggregate health metrics across iOS HealthKit and Android Health Connect.
 
 | Platform    | Minimum Version | Notes                       |
 |-------------|-----------------|-----------------------------|
-| **Flutter** | ≥3.3.0          |                             |
-| **Dart**    | ≥3.9.2          |                             |
 | **Android** | API 26+         | Requires Health Connect app |
 | **iOS**     | ≥15.0           |                             |
-| **Xcode**   | ≥14.0           |                             |
 
 ---
 
