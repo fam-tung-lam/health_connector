@@ -193,16 +193,16 @@ part 'respiratory_rate_health_data_type.dart';
 part 'resting_heart_rate_health_data_type.dart';
 part 'sleep_session_health_data_type.dart';
 part 'sleep_stage_record_health_data_type.dart';
+part 'speed_data_types/running_speed_data_type.dart';
+part 'speed_data_types/speed_activity_data_type.dart';
+part 'speed_data_types/speed_series_data_type.dart';
+part 'speed_data_types/stair_ascent_speed_data_type.dart';
+part 'speed_data_types/stair_descent_speed_data_type.dart';
+part 'speed_data_types/walking_speed_data_type.dart';
 part 'steps_health_data_type.dart';
 part 'vo2_max_health_data_type.dart';
 part 'weight_health_data_type.dart';
 part 'wheelchair_pushes_health_data_type.dart';
-part 'speed_data_types/speed_activity_data_type.dart';
-part 'speed_data_types/speed_series_data_type.dart';
-part 'speed_data_types/walking_speed_data_type.dart';
-part 'speed_data_types/running_speed_data_type.dart';
-part 'speed_data_types/stair_ascent_speed_data_type.dart';
-part 'speed_data_types/stair_descent_speed_data_type.dart';
 
 /// [HealthDataType] represents different kinds of health and fitness data
 /// that can be read from or written to health platforms.
@@ -773,10 +773,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   static const pantothenicAcid = PantothenicAcidNutrientDataType();
 
   /// Returns a list of all available health data types.
-  ///
-  /// This list contains all data types currently supported by the plugin.
-  /// As new data types are added, they will automatically appear in this list.
-  static const List<HealthDataType<HealthRecord, MeasurementUnit>> values = [
+  static const values = <HealthDataType<HealthRecord, MeasurementUnit>>[
     activeCaloriesBurned,
     biotin,
     bloodGlucose,
@@ -786,12 +783,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     caffeine,
     calcium,
     cholesterol,
-    crossCountrySkiingDistance,
-    cyclingDistance,
     diastolicBloodPressure,
     dietaryFiber,
-    distance,
-    downhillSnowSportsDistance,
     energyNutrient,
     floorsClimbed,
     folate,
@@ -837,7 +830,11 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     weight,
     wheelchairPushes,
     zinc,
-    // iOS-only distance activity types
+
+    // Distance activity types
+    distance,
+    crossCountrySkiingDistance,
+    downhillSnowSportsDistance,
     paddleSportsDistance,
     rowingDistance,
     sixMinuteWalkTestDistance,
@@ -845,11 +842,68 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     swimmingDistance,
     wheelchairDistance,
     walkingRunningDistance,
+
     // Speed data types
     speedSeries,
     walkingSpeed,
     runningSpeed,
     stairAscentSpeed,
     stairDescentSpeed,
+  ];
+
+  /// Returns a list of all available health data types for
+  /// [HealthPlatform.healthConnect].
+  static final healthConnectDataTypes = values.where(
+    (type) => type.supportedHealthPlatforms.contains(
+      HealthPlatform.healthConnect,
+    ),
+  );
+
+  /// Returns a list of all available health data types for
+  /// [HealthPlatform.appleHealth].
+  static final appleHealthDataTypes = values.where(
+    (type) => type.supportedHealthPlatforms.contains(
+      HealthPlatform.appleHealth,
+    ),
+  );
+
+  /// Set of all nutrient data types (excluding [HealthDataType.nutrition]).
+  ///
+  /// These represent individual nutrients like vitamins, minerals, and
+  /// macronutrients that can be tracked separately.
+  static final nutrientTypes = <HealthDataType<HealthRecord, MeasurementUnit>>[
+    HealthDataType.energyNutrient,
+    HealthDataType.caffeine,
+    HealthDataType.protein,
+    HealthDataType.totalCarbohydrate,
+    HealthDataType.totalFat,
+    HealthDataType.saturatedFat,
+    HealthDataType.monounsaturatedFat,
+    HealthDataType.polyunsaturatedFat,
+    HealthDataType.cholesterol,
+    HealthDataType.dietaryFiber,
+    HealthDataType.sugar,
+    HealthDataType.calcium,
+    HealthDataType.iron,
+    HealthDataType.magnesium,
+    HealthDataType.manganese,
+    HealthDataType.phosphorus,
+    HealthDataType.potassium,
+    HealthDataType.selenium,
+    HealthDataType.sodium,
+    HealthDataType.zinc,
+    HealthDataType.vitaminA,
+    HealthDataType.vitaminB6,
+    HealthDataType.vitaminB12,
+    HealthDataType.vitaminC,
+    HealthDataType.vitaminD,
+    HealthDataType.vitaminE,
+    HealthDataType.vitaminK,
+    HealthDataType.thiamin,
+    HealthDataType.riboflavin,
+    HealthDataType.niacin,
+    HealthDataType.folate,
+    HealthDataType.biotin,
+    HealthDataType.pantothenicAcid,
   ];
 }

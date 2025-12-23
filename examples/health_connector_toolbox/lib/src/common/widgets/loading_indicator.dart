@@ -21,9 +21,11 @@ final class LoadingIndicator extends StatelessWidget {
         children: [
           CircularProgressIndicator(color: color),
           if (message != null) ...[
-            const SizedBox(height: 16),
+            const SizedBox(height: 16.0),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 32.0,
+              ),
               child: Text(
                 message!,
                 style: Theme.of(

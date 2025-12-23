@@ -7,12 +7,15 @@ import 'package:flutter/material.dart';
 abstract final class AppIcons {
   // Navigation & Actions
   static const IconData refresh = Icons.refresh;
-  static const IconData addCircleOutline = Icons.add_circle_outline;
   static const IconData chevronRight = Icons.chevron_right;
   static const IconData settings = Icons.settings;
+  static const IconData search = Icons.search;
+  static const IconData close = Icons.close;
+  static const IconData cancel = Icons.cancel;
+  static const IconData save = Icons.save;
+  static const IconData time = Icons.access_time;
 
   // Health & Data
-  static const IconData healthAndSafety = Icons.health_and_safety;
   static const IconData directionsWalk = Icons.directions_walk;
   static const IconData monitorWeight = Icons.monitor_weight;
   static const IconData height = Icons.height;
@@ -26,19 +29,17 @@ abstract final class AppIcons {
   static const IconData favorite = Icons.favorite;
   static const IconData bedtime = Icons.bedtime;
   static const IconData air = Icons.air;
-
   static const IconData fastfood = Icons.fastfood;
   static const IconData bloodPressure = Icons.compress;
   static const IconData vo2Max = Icons.directions_run;
 
   // Permissions & Security
   static const IconData lockOutline = Icons.lock_outline;
-  static const IconData checkCircle = Icons.check_circle;
-  static const IconData cancel = Icons.cancel;
   static const IconData helpOutline = Icons.help_outline;
   static const IconData infoOutline = Icons.info_outline;
 
   // Status & Feedback
+  static const IconData error = Icons.error;
   static const IconData errorOutline = Icons.error_outline;
   static const IconData inbox = Icons.inbox;
   static const IconData expandMore = Icons.expand_more;
@@ -71,7 +72,6 @@ abstract final class AppIcons {
   static const IconData avg = Icons.trending_up;
   static const IconData min = Icons.trending_down;
   static const IconData max = Icons.trending_up;
-  static const IconData count = Icons.numbers;
 
   // Measurement Units
   static const IconData mass = Icons.scale;
@@ -91,9 +91,30 @@ abstract final class AppIcons {
   static const IconData android = Icons.android;
 
   // Example App Home Page - API Actions
-  static const IconData removeCircle = Icons.remove_circle;
-  static const IconData info = Icons.info;
   static const IconData add = Icons.add;
   static const IconData delete = Icons.delete;
-  static const IconData deleteSweep = Icons.delete_sweep;
+
+  // Home Page
+  static const IconData checkCircle = Icons.check_circle;
+  static const IconData dashboard = Icons.dashboard;
+  static const IconData home = Icons.home;
+  static const IconData arrowForward = Icons.arrow_forward;
+  static const IconData nightlight = Icons.nightlight;
+  static const IconData waterDrop = Icons.water_drop;
+
+  // Permissions Page
+  static const IconData checkCircleOutline = Icons.check_circle_outline;
+  static const IconData cancelOutlined = Icons.cancel_outlined;
+  static const IconData helpCircleOutline = Icons.help_outline;
+  static const IconData showChart = Icons.show_chart;
+  static const IconData checklist = Icons.checklist_rtl;
+
+  // Aggregate Page
+  static const IconData trendingUp = Icons.trending_up;
+  static const IconData trendingDown = Icons.trending_down;
+  static const IconData analytics = Icons.analytics_outlined;
+
+  // Read Records Page
+  static const IconData displaySettings = Icons.settings_outlined;
+  static const IconData clipboard = Icons.assignment_outlined;
 }

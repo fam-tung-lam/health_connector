@@ -3,7 +3,7 @@ import 'package:health_connector/health_connector.dart'
     show HealthDataType, HealthRecord, MeasurementUnit;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
-import 'package:health_connector_toolbox/src/common/utils/health_connector_model_ui_extensions.dart';
+import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
 
 /// A reusable dropdown field for selecting a health data type.
 @immutable
@@ -17,22 +17,12 @@ final class HealthDataTypeDropdownField extends StatelessWidget {
     this.items,
   });
 
-  /// The initially selected value.
   final HealthDataType<HealthRecord, MeasurementUnit>? initialValue;
-
-  /// Called when the user selects a value.
   final ValueChanged<HealthDataType<HealthRecord, MeasurementUnit>?> onChanged;
-
-  /// Validator for the dropdown.
   final FormFieldValidator<HealthDataType<HealthRecord, MeasurementUnit>>?
   validator;
-
-  /// Optional filter function to determine which items to show.
   final bool Function(HealthDataType<HealthRecord, MeasurementUnit>)?
   itemsFilter;
-
-  /// Optional list of items to display. If not provided, all
-  /// HealthDataType.values are used.
   final List<HealthDataType<HealthRecord, MeasurementUnit>>? items;
 
   @override

@@ -1,0 +1,289 @@
+import 'package:health_connector/health_connector.dart';
+
+abstract class MeasurementUnitValueParser {
+  /// Parse string input to MeasurementUnit based on the data type.
+  ///
+  /// Throws [ArgumentError] if the value is empty.
+  /// Throws [FormatException] if the value cannot be parsed or is invalid.
+  static MeasurementUnit parseValue({
+    required String value,
+    required HealthDataType forDataType,
+  }) {
+    if (value.isEmpty) {
+      throw ArgumentError('Value cannot be empty.');
+    }
+
+    return switch (forDataType) {
+      // Integer count types
+      StepsHealthDataType() ||
+      FloorsClimbedHealthDataType() ||
+      WheelchairPushesHealthDataType() ||
+      HeartRateMeasurementRecordHealthDataType() ||
+      RestingHeartRateHealthDataType() => _parseIntegerCount(value),
+
+      // Mass types (kilograms)
+      WeightHealthDataType() ||
+      LeanBodyMassHealthDataType() => _parseMassKilograms(value),
+
+      // Mass types (grams for nutrients)
+      CaffeineNutrientDataType() ||
+      ProteinNutrientDataType() ||
+      TotalCarbohydrateNutrientDataType() ||
+      TotalFatNutrientDataType() ||
+      SaturatedFatNutrientDataType() ||
+      MonounsaturatedFatNutrientDataType() ||
+      PolyunsaturatedFatNutrientDataType() ||
+      CholesterolNutrientDataType() ||
+      DietaryFiberNutrientDataType() ||
+      SugarNutrientDataType() ||
+      CalciumNutrientDataType() ||
+      IronNutrientDataType() ||
+      MagnesiumNutrientDataType() ||
+      ManganeseNutrientDataType() ||
+      PhosphorusNutrientDataType() ||
+      PotassiumNutrientDataType() ||
+      SeleniumNutrientDataType() ||
+      SodiumNutrientDataType() ||
+      ZincNutrientDataType() ||
+      VitaminANutrientDataType() ||
+      VitaminB6NutrientDataType() ||
+      VitaminB12NutrientDataType() ||
+      VitaminCNutrientDataType() ||
+      VitaminDNutrientDataType() ||
+      VitaminENutrientDataType() ||
+      VitaminKNutrientDataType() ||
+      ThiaminNutrientDataType() ||
+      RiboflavinNutrientDataType() ||
+      NiacinNutrientDataType() ||
+      FolateNutrientDataType() ||
+      BiotinNutrientDataType() ||
+      PantothenicAcidNutrientDataType() => _parseMassGrams(value),
+
+      // Percentage types
+      BodyFatPercentageHealthDataType() ||
+      OxygenSaturationHealthDataType() => _parsePercentage(value),
+
+      // Temperature
+      BodyTemperatureHealthDataType() => _parseTemperature(value),
+
+      // Distance/Length
+      HeightHealthDataType() ||
+      DistanceHealthDataType() ||
+      CrossCountrySkiingDistanceDataType() ||
+      CyclingDistanceDataType() ||
+      DownhillSnowSportsDistanceDataType() ||
+      PaddleSportsDistanceDataType() ||
+      RowingDistanceDataType() ||
+      SixMinuteWalkTestDistanceDataType() ||
+      SkatingSportsDistanceDataType() ||
+      SwimmingDistanceDataType() ||
+      WheelchairDistanceDataType() ||
+      WalkingRunningDistanceDataType() => _parseLength(value),
+
+      // Blood Glucose
+      BloodGlucoseHealthDataType() => _parseBloodGlucose(value),
+
+      // Pressure
+      SystolicBloodPressureHealthDataType() ||
+      DiastolicBloodPressureHealthDataType() => _parsePressure(value),
+
+      // Energy
+      ActiveCaloriesBurnedHealthDataType() ||
+      EnergyNutrientDataType() => _parseEnergy(value),
+
+      // Velocity/Speed
+      WalkingSpeedDataType() ||
+      RunningSpeedDataType() ||
+      StairAscentSpeedDataType() ||
+      StairDescentSpeedDataType() => _parseVelocity(value),
+
+      // Respiratory Rate
+      RespiratoryRateHealthDataType() => _parseRespiratoryRate(value),
+
+      // VO2 Max
+      Vo2MaxHealthDataType() => _parseVo2Max(value),
+
+      // Volume
+      HydrationHealthDataType() => _parseVolume(value),
+
+      // Complex/composite types that cannot be parsed from a single string value
+      BloodPressureHealthDataType() => throw UnsupportedError(
+        'BloodPressure requires systolic and diastolic values, '
+        'cannot be parsed from a single string input.',
+      ),
+      HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
+        'HeartRateSeries is a time series data type, '
+        'cannot be parsed from a single string input.',
+      ),
+      NutritionHealthDataType() => throw UnsupportedError(
+        'Nutrition requires multiple nutrient values, '
+        'cannot be parsed from a single string input.',
+      ),
+      SleepSessionHealthDataType() => throw UnsupportedError(
+        'SleepSession is a complex type with stages and times, '
+        'cannot be parsed from a single string input.',
+      ),
+      SleepStageHealthDataType() => throw UnsupportedError(
+        'SleepStage is part of SleepSession, '
+        'cannot be parsed from a single string input.',
+      ),
+      SpeedSeriesDataType() => throw UnsupportedError(
+        'SpeedSeries is a time series data type, '
+        'cannot be parsed from a single string input.',
+      ),
+    };
+  }
+
+  /// Parse integer count value (steps, floors climbed, etc.).
+  static Number _parseIntegerCount(String value) {
+    final count = int.tryParse(value);
+    if (count == null) {
+      throw const FormatException('Invalid integer value');
+    }
+    if (count < 0) {
+      throw const FormatException('Count must be non-negative');
+    }
+    return Number(count);
+  }
+
+  /// Parse mass value in kilograms (weight, lean body mass).
+  static Mass _parseMassKilograms(String value) {
+    final mass = double.tryParse(value);
+    if (mass == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (mass <= 0) {
+      throw const FormatException('Mass must be positive');
+    }
+    return Mass.kilograms(mass);
+  }
+
+  /// Parse mass value in grams (nutrients).
+  static Mass _parseMassGrams(String value) {
+    final mass = double.tryParse(value);
+    if (mass == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (mass <= 0) {
+      throw const FormatException('Mass must be positive');
+    }
+    return Mass.grams(mass);
+  }
+
+  /// Parse percentage value (body fat, oxygen saturation).
+  static Percentage _parsePercentage(String value) {
+    final pct = double.tryParse(value);
+    if (pct == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (pct < 0 || pct > 100) {
+      throw const FormatException('Percentage must be between 0 and 100');
+    }
+    return Percentage.fromWhole(pct);
+  }
+
+  /// Parse temperature value in celsius.
+  static Temperature _parseTemperature(String value) {
+    final temp = double.tryParse(value);
+    if (temp == null) {
+      throw const FormatException('Invalid temperature value');
+    }
+    return Temperature.celsius(temp);
+  }
+
+  /// Parse length/distance value in meters.
+  static Length _parseLength(String value) {
+    final distance = double.tryParse(value);
+    if (distance == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (distance <= 0) {
+      throw const FormatException('Distance must be positive');
+    }
+    return Length.meters(distance);
+  }
+
+  /// Parse blood glucose value in mg/dL.
+  static BloodGlucose _parseBloodGlucose(String value) {
+    final glucose = double.tryParse(value);
+    if (glucose == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (glucose <= 0) {
+      throw const FormatException('Blood glucose must be positive');
+    }
+    return BloodGlucose.milligramsPerDeciliter(glucose);
+  }
+
+  /// Parse pressure value in mmHg.
+  static Pressure _parsePressure(String value) {
+    final pressure = double.tryParse(value);
+    if (pressure == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (pressure <= 0) {
+      throw const FormatException('Pressure must be positive');
+    }
+    return Pressure.millimetersOfMercury(pressure);
+  }
+
+  /// Parse energy value in kilocalories.
+  static Energy _parseEnergy(String value) {
+    final energy = double.tryParse(value);
+    if (energy == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (energy <= 0) {
+      throw const FormatException('Energy must be positive');
+    }
+    return Energy.kilocalories(energy);
+  }
+
+  /// Parse velocity/speed value in m/s.
+  static Velocity _parseVelocity(String value) {
+    final speed = double.tryParse(value);
+    if (speed == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (speed <= 0) {
+      throw const FormatException('Speed must be positive');
+    }
+    return Velocity.metersPerSecond(speed);
+  }
+
+  /// Parse respiratory rate value.
+  static Number _parseRespiratoryRate(String value) {
+    final rate = double.tryParse(value);
+    if (rate == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (rate <= 0) {
+      throw const FormatException('Respiratory rate must be positive');
+    }
+    return Number(rate.toInt());
+  }
+
+  /// Parse VO2 max value.
+  static Number _parseVo2Max(String value) {
+    final vo2 = double.tryParse(value);
+    if (vo2 == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (vo2 <= 0) {
+      throw const FormatException('VO2 max must be positive');
+    }
+    return Number(vo2.toInt());
+  }
+
+  /// Parse volume value in liters.
+  static Volume _parseVolume(String value) {
+    final volume = double.tryParse(value);
+    if (volume == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (volume <= 0) {
+      throw const FormatException('Volume must be positive');
+    }
+    return Volume.liters(volume);
+  }
+}

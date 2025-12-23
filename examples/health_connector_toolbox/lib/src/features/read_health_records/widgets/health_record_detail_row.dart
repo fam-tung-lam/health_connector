@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
-import 'package:health_connector_toolbox/src/common/theme/app_colors.dart'
-    as theme;
 
 /// A reusable widget for displaying a single health record detail field row.
 ///
 /// Shows a label on the left and value on the right with appropriate styling.
-/// Null values are displayed in gray italic text as "null".
 @immutable
 final class HealthRecordDetailRow extends StatelessWidget {
   const HealthRecordDetailRow({
@@ -29,9 +26,9 @@ final class HealthRecordDetailRow extends StatelessWidget {
             width: 140,
             child: Text(
               '$label:',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
-                color: theme.AppColors.grey600,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -42,8 +39,8 @@ final class HealthRecordDetailRow extends StatelessWidget {
               style: TextStyle(
                 fontSize: 12,
                 color: value == null
-                    ? theme.AppColors.grey400
-                    : theme.AppColors.grey600,
+                    ? Theme.of(context).colorScheme.outline
+                    : Theme.of(context).colorScheme.onSurfaceVariant,
                 fontStyle: value == null ? FontStyle.italic : FontStyle.normal,
               ),
             ),

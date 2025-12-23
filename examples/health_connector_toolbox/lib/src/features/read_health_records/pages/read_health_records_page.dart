@@ -1,95 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:health_connector/health_connector.dart'
-    show
-        ActiveCaloriesBurnedHealthDataType,
-        BiotinNutrientDataType,
-        BloodPressureHealthDataType,
-        BodyFatPercentageHealthDataType,
-        BodyTemperatureHealthDataType,
-        CaffeineNutrientDataType,
-        CalciumNutrientDataType,
-        CholesterolNutrientDataType,
-        DietaryFiberNutrientDataType,
-        DiastolicBloodPressureHealthDataType,
-        DistanceHealthDataType,
-        CrossCountrySkiingDistanceDataType,
-        CyclingDistanceDataType,
-        DownhillSnowSportsDistanceDataType,
-        PaddleSportsDistanceDataType,
-        RowingDistanceDataType,
-        SixMinuteWalkTestDistanceDataType,
-        SkatingSportsDistanceDataType,
-        SwimmingDistanceDataType,
-        WheelchairDistanceDataType,
-        WalkingRunningDistanceDataType,
-        EnergyNutrientDataType,
-        FloorsClimbedHealthDataType,
-        FolateNutrientDataType,
-        HealthConnectorErrorCode,
-        HealthConnectorException,
-        HealthDataType,
-        HealthRecord,
-        HeartRateMeasurementRecordHealthDataType,
-        HeartRateSeriesRecordHealthDataType,
-        HeightHealthDataType,
-        HydrationHealthDataType,
-        IronNutrientDataType,
-        LeanBodyMassHealthDataType,
-        MagnesiumNutrientDataType,
-        ManganeseNutrientDataType,
-        MeasurementUnit,
-        MonounsaturatedFatNutrientDataType,
-        NiacinNutrientDataType,
-        PolyunsaturatedFatNutrientDataType,
-        NutritionHealthDataType,
-        PantothenicAcidNutrientDataType,
-        OxygenSaturationHealthDataType,
-        PhosphorusNutrientDataType,
-        PotassiumNutrientDataType,
-        ProteinNutrientDataType,
-        RiboflavinNutrientDataType,
-        RespiratoryRateHealthDataType,
-        SaturatedFatNutrientDataType,
-        SeleniumNutrientDataType,
-        SodiumNutrientDataType,
-        StepsHealthDataType,
-        SugarNutrientDataType,
-        SystolicBloodPressureHealthDataType,
-        ThiaminNutrientDataType,
-        TotalCarbohydrateNutrientDataType,
-        TotalFatNutrientDataType,
-        VitaminANutrientDataType,
-        VitaminB12NutrientDataType,
-        VitaminB6NutrientDataType,
-        VitaminCNutrientDataType,
-        VitaminDNutrientDataType,
-        VitaminENutrientDataType,
-        VitaminKNutrientDataType,
-        WeightHealthDataType,
-        WheelchairPushesHealthDataType,
-        ZincNutrientDataType,
-        SleepSessionHealthDataType,
-        RestingHeartRateHealthDataType,
-        SleepStageHealthDataType,
-        Vo2MaxHealthDataType,
-        BloodGlucoseHealthDataType,
-        SpeedSeriesDataType,
-        WalkingSpeedDataType,
-        RunningSpeedDataType,
-        StairAscentSpeedDataType,
-        StairDescentSpeedDataType;
-import 'package:health_connector/health_connector.dart' show HealthPlatform;
+import 'package:health_connector/health_connector.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
-import 'package:health_connector_toolbox/src/common/pages/date_time_range_page_state.dart';
-import 'package:health_connector_toolbox/src/common/theme/app_colors.dart'
-    as theme;
-import 'package:health_connector_toolbox/src/common/utils/show_snack_bar.dart';
-import 'package:health_connector_toolbox/src/common/widgets/date_time_range_picker_rows.dart';
+import 'package:health_connector_toolbox/src/common/utils/mixins/date_time_range_picker_page_state_mixin.dart';
+import 'package:health_connector_toolbox/src/common/utils/mixins/process_operation_with_error_handler_page_state_mixin.dart';
+import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dart';
+import 'package:health_connector_toolbox/src/common/widgets/buttons/elevated_gradient_button.dart';
+import 'package:health_connector_toolbox/src/common/widgets/date_range_presets.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
+import 'package:health_connector_toolbox/src/common/widgets/pickers/date_time_range_picker_column.dart';
+import 'package:health_connector_toolbox/src/features/permissions/pages/permissions_page.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/read_health_records_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_data_type_dropdown_field.dart';
-import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/read_health_record_results_section.dart';
 import 'package:provider/provider.dart' show Provider, Selector;
 
 /// Page for reading and displaying health records.
@@ -106,8 +29,10 @@ final class ReadHealthRecordsPage extends StatefulWidget {
   State<ReadHealthRecordsPage> createState() => _ReadHealthRecordsPageState();
 }
 
-class _ReadHealthRecordsPageState
-    extends DateTimeRangePageState<ReadHealthRecordsPage> {
+class _ReadHealthRecordsPageState extends State<ReadHealthRecordsPage>
+    with
+        DateTimeRangePickerPageStateMixin<ReadHealthRecordsPage>,
+        ProcessOperationWithErrorHandlerPageStateMixin<ReadHealthRecordsPage> {
   final _formKey = GlobalKey<FormState>();
   final _pageSizeController = TextEditingController();
   HealthDataType<HealthRecord, MeasurementUnit>? _selectedDataType;
@@ -133,6 +58,7 @@ class _ReadHealthRecordsPageState
     super.dispose();
   }
 
+  /// Reads health records based on the selected data type and time range.
   Future<void> _readRecords() async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -143,431 +69,14 @@ class _ReadHealthRecordsPageState
       listen: false,
     );
 
-    try {
-      final request = switch (_selectedDataType!) {
-        StepsHealthDataType() => HealthDataType.steps.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        WeightHealthDataType() => HealthDataType.weight.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        HeightHealthDataType() => HealthDataType.height.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        BodyFatPercentageHealthDataType() =>
-          HealthDataType.bodyFatPercentage.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        BodyTemperatureHealthDataType() =>
-          HealthDataType.bodyTemperature.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        LeanBodyMassHealthDataType() =>
-          HealthDataType.leanBodyMass.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        DistanceHealthDataType() => HealthDataType.distance.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        CrossCountrySkiingDistanceDataType() =>
-          HealthDataType.crossCountrySkiingDistance.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        CyclingDistanceDataType() =>
-          HealthDataType.cyclingDistance.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        DownhillSnowSportsDistanceDataType() =>
-          HealthDataType.downhillSnowSportsDistance.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        PaddleSportsDistanceDataType() =>
-          HealthDataType.paddleSportsDistance.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        RowingDistanceDataType() =>
-          HealthDataType.rowingDistance.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        SixMinuteWalkTestDistanceDataType() =>
-          HealthDataType.sixMinuteWalkTestDistance.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        SkatingSportsDistanceDataType() =>
-          HealthDataType.skatingSportsDistance.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        SwimmingDistanceDataType() =>
-          HealthDataType.swimmingDistance.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        WheelchairDistanceDataType() =>
-          HealthDataType.wheelchairDistance.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        WalkingRunningDistanceDataType() =>
-          HealthDataType.walkingRunningDistance.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        ActiveCaloriesBurnedHealthDataType() =>
-          HealthDataType.activeCaloriesBurned.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        FloorsClimbedHealthDataType() =>
-          HealthDataType.floorsClimbed.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        WheelchairPushesHealthDataType() =>
-          HealthDataType.wheelchairPushes.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        HydrationHealthDataType() => HealthDataType.hydration.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        HeartRateMeasurementRecordHealthDataType() =>
-          HealthDataType.heartRateMeasurementRecord.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        HeartRateSeriesRecordHealthDataType() =>
-          HealthDataType.heartRateSeriesRecord.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        RestingHeartRateHealthDataType() =>
-          HealthDataType.restingHeartRate.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        SleepSessionHealthDataType() =>
-          HealthDataType.sleepSession.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        SleepStageHealthDataType() =>
-          HealthDataType.sleepStageRecord.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        EnergyNutrientDataType() =>
-          HealthDataType.energyNutrient.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        CaffeineNutrientDataType() => HealthDataType.caffeine.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        ProteinNutrientDataType() => HealthDataType.protein.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        TotalCarbohydrateNutrientDataType() =>
-          HealthDataType.totalCarbohydrate.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        TotalFatNutrientDataType() => HealthDataType.totalFat.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        SaturatedFatNutrientDataType() =>
-          HealthDataType.saturatedFat.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        MonounsaturatedFatNutrientDataType() =>
-          HealthDataType.monounsaturatedFat.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        PolyunsaturatedFatNutrientDataType() =>
-          HealthDataType.polyunsaturatedFat.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        BloodPressureHealthDataType() =>
-          HealthDataType.bloodPressure.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        SystolicBloodPressureHealthDataType() =>
-          HealthDataType.systolicBloodPressure.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        DiastolicBloodPressureHealthDataType() =>
-          HealthDataType.diastolicBloodPressure.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        CholesterolNutrientDataType() =>
-          HealthDataType.cholesterol.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        DietaryFiberNutrientDataType() =>
-          HealthDataType.dietaryFiber.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        SugarNutrientDataType() => HealthDataType.sugar.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        CalciumNutrientDataType() => HealthDataType.calcium.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        IronNutrientDataType() => HealthDataType.iron.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        MagnesiumNutrientDataType() => HealthDataType.magnesium.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        ManganeseNutrientDataType() => HealthDataType.manganese.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        PhosphorusNutrientDataType() =>
-          HealthDataType.phosphorus.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        PotassiumNutrientDataType() => HealthDataType.potassium.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        SeleniumNutrientDataType() => HealthDataType.selenium.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        SodiumNutrientDataType() => HealthDataType.sodium.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        ZincNutrientDataType() => HealthDataType.zinc.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        VitaminANutrientDataType() => HealthDataType.vitaminA.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        VitaminB6NutrientDataType() => HealthDataType.vitaminB6.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        VitaminB12NutrientDataType() =>
-          HealthDataType.vitaminB12.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        VitaminCNutrientDataType() => HealthDataType.vitaminC.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        VitaminDNutrientDataType() => HealthDataType.vitaminD.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        VitaminENutrientDataType() => HealthDataType.vitaminE.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        VitaminKNutrientDataType() => HealthDataType.vitaminK.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        ThiaminNutrientDataType() => HealthDataType.thiamin.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        RiboflavinNutrientDataType() =>
-          HealthDataType.riboflavin.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        NiacinNutrientDataType() => HealthDataType.niacin.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        FolateNutrientDataType() => HealthDataType.folate.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        BiotinNutrientDataType() => HealthDataType.biotin.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        PantothenicAcidNutrientDataType() =>
-          HealthDataType.pantothenicAcid.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        NutritionHealthDataType() => HealthDataType.nutrition.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        OxygenSaturationHealthDataType() =>
-          HealthDataType.oxygenSaturation.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        RespiratoryRateHealthDataType() =>
-          HealthDataType.respiratoryRate.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        Vo2MaxHealthDataType() => HealthDataType.vo2Max.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        BloodGlucoseHealthDataType() =>
-          HealthDataType.bloodGlucose.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        SpeedSeriesDataType() => HealthDataType.speedSeries.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        WalkingSpeedDataType() => HealthDataType.walkingSpeed.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        RunningSpeedDataType() => HealthDataType.runningSpeed.readInTimeRange(
-          startTime: startDateTime!,
-          endTime: endDateTime!,
-          pageSize: _pageSize,
-        ),
-        StairAscentSpeedDataType() =>
-          HealthDataType.stairAscentSpeed.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-        StairDescentSpeedDataType() =>
-          HealthDataType.stairDescentSpeed.readInTimeRange(
-            startTime: startDateTime!,
-            endTime: endDateTime!,
-            pageSize: _pageSize,
-          ),
-      };
-
-      await notifier.readHealthRecords(request);
-    } on HealthConnectorException catch (e) {
-      if (!mounted) {
-        return;
-      }
-
-      final message = e.code == HealthConnectorErrorCode.unsupportedOperation
-          ? AppTexts.readPermissionDenied
-          : e.message;
-      showAppSnackBar(context, SnackBarType.error, message);
-    } on Exception catch (e) {
-      if (!mounted) {
-        return;
-      }
-
-      showAppSnackBar(
-        context,
-        SnackBarType.error,
-        '${AppTexts.errorPrefixColon} $e',
+    await process(() async {
+      await notifier.readHealthRecords(
+        dataType: _selectedDataType!,
+        startTime: startDateTime!,
+        endTime: endDateTime!,
+        pageSize: _pageSize,
       );
-    }
+    });
   }
 
   Future<void> _loadNextPage() async {
@@ -580,38 +89,20 @@ class _ReadHealthRecordsPageState
       return;
     }
 
-    try {
-      await notifier.loadNextPage();
-    } on HealthConnectorException catch (e) {
-      if (!mounted) {
-        return;
-      }
-
-      showAppSnackBar(
-        context,
-        SnackBarType.error,
-        '${AppTexts.failedToLoadNextPage} ${e.message}',
-      );
-    } on Exception catch (e) {
-      if (!mounted) {
-        return;
-      }
-
-      showAppSnackBar(
-        context,
-        SnackBarType.error,
-        '${AppTexts.errorPrefixColon} $e',
-      );
-    }
+    await process(notifier.loadNextPage);
   }
 
   Future<void> _deleteRecord(HealthRecord record) async {
+    if (!mounted) {
+      return;
+    }
+
     final notifier = Provider.of<ReadHealthRecordsChangeNotifier>(
       context,
       listen: false,
     );
 
-    try {
+    await process(() async {
       await notifier.deleteRecord(record, _selectedDataType!);
 
       if (!mounted) {
@@ -623,26 +114,84 @@ class _ReadHealthRecordsPageState
         SnackBarType.success,
         AppTexts.recordDeletedSuccessfully,
       );
-    } on HealthConnectorException catch (e) {
-      if (!mounted) {
-        return;
-      }
+    });
+  }
 
-      final message = e.code == HealthConnectorErrorCode.unsupportedOperation
-          ? AppTexts.readPermissionDenied
-          : e.message;
-      showAppSnackBar(context, SnackBarType.error, message);
-    } on Exception catch (e) {
-      if (!mounted) {
-        return;
-      }
-
-      showAppSnackBar(
-        context,
-        SnackBarType.error,
-        '${AppTexts.errorPrefixColon} $e',
-      );
+  /// Handles refresh action.
+  Future<void> _onRefresh() async {
+    if (_formKey.currentState!.validate()) {
+      await _readRecords();
     }
+  }
+
+  /// Handles data type selection changes.
+  void _onDataTypeChanged(
+    HealthDataType<HealthRecord, MeasurementUnit>? value,
+  ) {
+    setState(() {
+      _selectedDataType = value;
+      final notifier = Provider.of<ReadHealthRecordsChangeNotifier>(
+        context,
+        listen: false,
+      );
+      notifier.reset();
+    });
+  }
+
+  /// Validates the selected data type.
+  String? _validateDataType(
+    HealthDataType<HealthRecord, MeasurementUnit>? value,
+  ) {
+    if (value == null) {
+      return AppTexts.pleaseSelectDataType;
+    }
+    return null;
+  }
+
+  /// Handles date range preset selection.
+  void _onPresetSelected(
+    DateTime startDate,
+    TimeOfDay startTime,
+    DateTime endDate,
+    TimeOfDay endTime,
+  ) {
+    setStartDate(startDate);
+    setStartTime(startTime);
+    setEndDate(endDate);
+    setEndTime(endTime);
+  }
+
+  /// Validates the page size field.
+  String? _validatePageSize(String? value) {
+    if (value == null || value.isEmpty) {
+      return null; // Optional field
+    }
+    final pageSize = int.tryParse(value);
+    if (pageSize == null) {
+      return AppTexts.pleaseEnterValidNumber;
+    }
+    if (pageSize < 1 || pageSize > 10000) {
+      return AppTexts.pageSizeMustBeBetween1And10000;
+    }
+    return null;
+  }
+
+  /// Navigates to the permissions page.
+  void _navigateToPermissions() {
+    Navigator.push(
+      context,
+      MaterialPageRoute<Widget>(
+        builder: (_) => Provider<HealthConnector>.value(
+          value: Provider.of<HealthConnector>(
+            context,
+            listen: false,
+          ),
+          child: PermissionsPage(
+            healthPlatform: widget.healthPlatform,
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -652,174 +201,79 @@ class _ReadHealthRecordsPageState
       builder: (context, isLoading, _) {
         return LoadingOverlay(
           isLoading: isLoading,
-          message: AppTexts.readRecords,
           child: Scaffold(
             appBar: AppBar(title: const Text(AppTexts.readHealthRecords)),
-            body: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    HealthDataTypeDropdownField(
-                      initialValue: _selectedDataType,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedDataType = value;
-                          final notifier =
-                              Provider.of<ReadHealthRecordsChangeNotifier>(
-                                context,
-                                listen: false,
-                              );
-                          notifier.reset();
-                        });
-                      },
-                      validator: (value) {
-                        if (value == null) {
-                          return AppTexts.pleaseSelectDataType;
-                        }
-                        return null;
-                      },
-                      items: HealthDataType.values
-                          .where(
-                            (type) => type.supportedHealthPlatforms.contains(
-                              widget.healthPlatform,
-                            ),
-                          )
-                          .toList(),
-                    ),
-                    const SizedBox(height: 16),
-                    DateTimeRangePickerRows(
-                      startDate: startDate,
-                      startTime: startTime,
-                      endDate: endDate,
-                      endTime: endTime,
-                      onStartDateChanged: setStartDate,
-                      onStartTimeChanged: setStartTime,
-                      onEndDateChanged: setEndDate,
-                      onEndTimeChanged: setEndTime,
-                    ),
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      controller: _pageSizeController,
-                      decoration: const InputDecoration(
-                        labelText: AppTexts.pageSize,
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(AppIcons.list),
-                      ),
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return null; // Optional field
-                        }
-                        final pageSize = int.tryParse(value);
-                        if (pageSize == null) {
-                          return AppTexts.pleaseEnterValidNumber;
-                        }
-                        if (pageSize < 1 || pageSize > 10000) {
-                          return AppTexts.pageSizeMustBeBetween1And10000;
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: isLoading ? null : _readRecords,
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(16.0),
-                      ),
-                      child: const Text(AppTexts.readRecords),
-                    ),
-                    Selector<ReadHealthRecordsChangeNotifier, bool>(
-                      selector: (_, notifier) => notifier.hasQueriedRecords,
-                      builder: (context, hasQueriedRecords, _) {
-                        if (!hasQueriedRecords) {
-                          return const SizedBox.shrink();
-                        }
-
-                        final notifier =
-                            Provider.of<ReadHealthRecordsChangeNotifier>(
-                              context,
-                            );
-                        return Column(
+            body: Column(
+              children: [
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: _onRefresh,
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      padding: const EdgeInsets.all(20.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            const SizedBox(height: 24),
-                            Container(
-                              padding: const EdgeInsets.all(16.0),
-                              decoration: BoxDecoration(
-                                color: Theme.of(
-                                  context,
-                                ).primaryColor.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '${AppTexts.foundRecords} '
-                                    '${notifier.healthRecords.length} '
-                                    '${AppTexts.records}',
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.titleMedium,
-                                  ),
-                                  if (notifier.nextPageRequest != null)
-                                    Text(
-                                      AppTexts.moreAvailable,
-                                      style: TextStyle(
-                                        color: Theme.of(context).primaryColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                ],
-                              ),
+                            HealthDataTypeDropdownField(
+                              initialValue: _selectedDataType,
+                              onChanged: _onDataTypeChanged,
+                              validator: _validateDataType,
+                              items: HealthDataType.values
+                                  .where(
+                                    (type) =>
+                                        type.supportedHealthPlatforms.contains(
+                                          widget.healthPlatform,
+                                        ),
+                                  )
+                                  .toList(),
                             ),
                             const SizedBox(height: 16),
-                            if (notifier.healthRecords.isEmpty)
-                              const Padding(
-                                padding: EdgeInsets.all(32.0),
-                                child: Column(
-                                  children: [
-                                    Icon(
-                                      AppIcons.inbox,
-                                      size: 64,
-                                      color: theme.AppColors.grey400,
-                                    ),
-                                    SizedBox(height: 16),
-                                    Text(
-                                      AppTexts.noRecordsFound,
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: theme.AppColors.grey600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            else
-                              ...notifier.healthRecords.map(
-                                (record) => HealthRecordListTile(
-                                  record: record,
-                                  onDelete: () => _deleteRecord(record),
-                                ),
+                            DateRangePresets(
+                              onPresetSelected: _onPresetSelected,
+                            ),
+                            const SizedBox(height: 12),
+                            DateTimeRangePickerColumn(
+                              startDate: startDate,
+                              startTime: startTime,
+                              endDate: endDate,
+                              endTime: endTime,
+                              onStartDateChanged: setStartDate,
+                              onStartTimeChanged: setStartTime,
+                              onEndDateChanged: setEndDate,
+                              onEndTimeChanged: setEndTime,
+                            ),
+                            const SizedBox(height: 16),
+                            TextFormField(
+                              controller: _pageSizeController,
+                              decoration: const InputDecoration(
+                                labelText: AppTexts.pageSize,
+                                border: OutlineInputBorder(),
+                                prefixIcon: Icon(AppIcons.list),
                               ),
-                            if (notifier.nextPageRequest != null) ...[
-                              const SizedBox(height: 16),
-                              ElevatedButton(
-                                onPressed: isLoading ? null : _loadNextPage,
-                                child: const Text(AppTexts.loadMore),
-                              ),
-                            ],
+                              keyboardType: TextInputType.number,
+                              validator: _validatePageSize,
+                            ),
+                            const SizedBox(height: 16),
+                            ReadHealthRecordResultsSection(
+                              healthPlatform: widget.healthPlatform,
+                              onCheckPermissions: _navigateToPermissions,
+                              onDeleteRecord: _deleteRecord,
+                              onLoadNextPage: _loadNextPage,
+                              isLoading: isLoading,
+                            ),
                           ],
-                        );
-                      },
+                        ),
+                      ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                ElevatedGradientButton(
+                  onPressed: isLoading ? null : _readRecords,
+                  label: AppTexts.read.toUpperCase(),
+                ),
+              ],
             ),
           ),
         );

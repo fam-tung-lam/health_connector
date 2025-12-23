@@ -15,12 +15,15 @@ final class HealthConnectorToolboxApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => HomeChangeNotifier()..init(),
-      child: MaterialApp(
-        title: AppTexts.healthConnectorToolbox,
-        theme: appThemeData,
-        home: const HomePage(),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: ChangeNotifierProvider(
+        create: (_) => HomeChangeNotifier()..init(),
+        child: MaterialApp(
+          title: AppTexts.healthConnectorToolbox,
+          theme: appThemeData,
+          home: const HomePage(),
+        ),
       ),
     );
   }

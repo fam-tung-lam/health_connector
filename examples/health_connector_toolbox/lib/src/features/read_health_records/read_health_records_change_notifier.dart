@@ -3,6 +3,8 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:health_connector/health_connector.dart'
     show
+        DataOrigin,
+        DeleteRecordsRequest,
         HealthDataType,
         HealthRecord,
         MeasurementUnit,
@@ -32,12 +34,19 @@ final class ReadHealthRecordsChangeNotifier extends ChangeNotifier {
 
   bool get hasQueriedRecords => _hasQueriedRecords;
 
-  /// Reads health records based on the provided request.
+  /// Reads health records based on the provided parameters.
   ///
   /// Resets the current records list and loads the first page of results.
   /// Updates [healthRecords], [nextPageRequest], and [hasQueriedRecords].
   /// Exceptions are propagated to the caller for handling.
-  Future<void> readHealthRecords(ReadRecordsInTimeRangeRequest request) async {
+  Future<void> readHealthRecords<R extends HealthRecord>({
+    required HealthDataType<R, MeasurementUnit> dataType,
+    required DateTime startTime,
+    required DateTime endTime,
+    int pageSize = 100,
+    String? pageToken,
+    List<DataOrigin> dataOrigins = const [],
+  }) async {
     notify(() {
       _isLoading = true;
       _healthRecords = UnmodifiableListView([]);
@@ -46,6 +55,19 @@ final class ReadHealthRecordsChangeNotifier extends ChangeNotifier {
     });
 
     try {
+      // Create the request internally using dynamic dispatch since
+      // readInTimeRange is not available on the base HealthDataType interface
+      // but is supported by all concrete health data type implementations.
+      final request =
+          (dataType as dynamic).readInTimeRange(
+                startTime: startTime,
+                endTime: endTime,
+                pageSize: pageSize,
+                pageToken: pageToken,
+                dataOrigins: dataOrigins,
+              )
+              as ReadRecordsInTimeRangeRequest;
+
       final response = await _healthConnector.readRecords(request);
 
       notify(() {
@@ -106,7 +128,12 @@ final class ReadHealthRecordsChangeNotifier extends ChangeNotifier {
     });
 
     try {
-      final request = HealthDataType.steps.deleteByIds([record.id]);
+      // Note: Using dynamic cast because not all HealthDataTypes implement
+      // DeletableHealthDataType. The caller is responsible for ensuring the
+      // dataType passed supports deletion.
+      final request =
+          (dataType as dynamic).deleteByIds([record.id])
+              as DeleteRecordsRequest<HealthRecord>;
 
       await _healthConnector.deleteRecords(request);
 

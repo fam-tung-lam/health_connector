@@ -14,7 +14,7 @@ import 'package:health_connector/health_connector.dart'
         Temperature,
         Velocity,
         Volume;
-import 'package:health_connector_toolbox/src/common/theme/app_colors.dart';
+import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
 /// A reusable widget for displaying measurement units with all available
 /// unit conversions.
@@ -33,47 +33,23 @@ final class MeasurementUnitDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return switch (unit) {
-      Mass(
+    switch (unit) {
+      case Mass(
         :final inKilograms,
         :final inGrams,
         :final inPounds,
         :final inOunces,
-      ) =>
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${inKilograms.toStringAsFixed(2)} kg',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inGrams.toStringAsFixed(2)} g',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inPounds.toStringAsFixed(2)} lbs',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inOunces.toStringAsFixed(2)} oz',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
+      ):
+        return _UnitDisplay(
+          primaryValue:
+              '${inKilograms.toStringAsFixed(2)} ${AppTexts.kilogram}',
+          secondaryValues: [
+            '${inGrams.toStringAsFixed(2)} ${AppTexts.gram}',
+            '${inPounds.toStringAsFixed(2)} ${AppTexts.pound}',
+            '${inOunces.toStringAsFixed(2)} ${AppTexts.ounce}',
           ],
-        ),
-      Length(
+        );
+      case Length(
         :final inMeters,
         :final inKilometers,
         :final inCentimeters,
@@ -81,313 +57,173 @@ final class MeasurementUnitDisplay extends StatelessWidget {
         :final inMiles,
         :final inFeet,
         :final inInches,
-      ) =>
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${inMeters.toStringAsFixed(2)} m',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inKilometers.toStringAsFixed(4)} km',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inCentimeters.toStringAsFixed(2)} cm',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inMillimeters.toStringAsFixed(2)} mm',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inMiles.toStringAsFixed(4)} mi',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inFeet.toStringAsFixed(2)} ft',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inInches.toStringAsFixed(2)} in',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
+      ):
+        return _UnitDisplay(
+          primaryValue: '${inMeters.toStringAsFixed(2)} ${AppTexts.meter}',
+          secondaryValues: [
+            '${inKilometers.toStringAsFixed(4)} ${AppTexts.kilometer}',
+            '${inCentimeters.toStringAsFixed(2)} ${AppTexts.centimeter}',
+            '${inMillimeters.toStringAsFixed(2)} ${AppTexts.millimeter}',
+            '${inMiles.toStringAsFixed(4)} ${AppTexts.mile}',
+            '${inFeet.toStringAsFixed(2)} ${AppTexts.foot}',
+            '${inInches.toStringAsFixed(2)} ${AppTexts.inch}',
           ],
-        ),
-      Energy(
+        );
+      case Energy(
         :final inKilocalories,
         :final inCalories,
         :final inKilojoules,
         :final inJoules,
-      ) =>
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${inKilocalories.toStringAsFixed(2)} kcal',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inCalories.toStringAsFixed(2)} cal',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inKilojoules.toStringAsFixed(2)} kJ',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inJoules.toStringAsFixed(2)} J',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
+      ):
+        return _UnitDisplay(
+          primaryValue:
+              '${inKilocalories.toStringAsFixed(2)} ${AppTexts.kilocalories}',
+          secondaryValues: [
+            '${inCalories.toStringAsFixed(2)} ${AppTexts.calories}',
+            '${inKilojoules.toStringAsFixed(2)} ${AppTexts.kilojoule}',
+            '${inJoules.toStringAsFixed(2)} ${AppTexts.joule}',
           ],
-        ),
-      Volume(
+        );
+      case Volume(
         :final inLiters,
         :final inMilliliters,
         :final inFluidOuncesUs,
         :final inFluidOuncesImp,
-      ) =>
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${inLiters.toStringAsFixed(2)} L',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inMilliliters.toStringAsFixed(2)} mL',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inFluidOuncesUs.toStringAsFixed(2)} fl oz (US)',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inFluidOuncesImp.toStringAsFixed(2)} fl oz (Imp)',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
+      ):
+        return _UnitDisplay(
+          primaryValue: '${inLiters.toStringAsFixed(2)} ${AppTexts.liter}',
+          secondaryValues: [
+            '${inMilliliters.toStringAsFixed(2)} ${AppTexts.milliliter}',
+            '${inFluidOuncesUs.toStringAsFixed(2)} ${AppTexts.fluidOunceUS}',
+            '${inFluidOuncesImp.toStringAsFixed(2)} ${AppTexts.fluidOunceImp}',
           ],
-        ),
-      Temperature(:final inCelsius, :final inFahrenheit, :final inKelvin) =>
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${inCelsius.toStringAsFixed(2)} °C',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inFahrenheit.toStringAsFixed(2)} °F',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inKelvin.toStringAsFixed(2)} K',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
+        );
+      case Temperature(:final inCelsius, :final inFahrenheit, :final inKelvin):
+        return _UnitDisplay(
+          primaryValue: '${inCelsius.toStringAsFixed(2)} ${AppTexts.celsius}',
+          secondaryValues: [
+            '${inFahrenheit.toStringAsFixed(2)} ${AppTexts.fahrenheit}',
+            '${inKelvin.toStringAsFixed(2)} ${AppTexts.kelvin}',
           ],
-        ),
-      Pressure(:final inMillimetersOfMercury, :final inPascals) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '${inMillimetersOfMercury.toStringAsFixed(1)} mmHg',
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            '${inPascals.toStringAsFixed(1)} Pa',
-            style: Theme.of(
-              context,
-            ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-          ),
-        ],
-      ),
-      BloodGlucose(
+        );
+      case Pressure(:final inMillimetersOfMercury, :final inPascals):
+        return _UnitDisplay(
+          primaryValue:
+              '${inMillimetersOfMercury.toStringAsFixed(1)} '
+              '${AppTexts.millimetersOfMercury}',
+          secondaryValues: [
+            '${inPascals.toStringAsFixed(1)} ${AppTexts.pascal}',
+          ],
+        );
+      case BloodGlucose(
         :final inMillimolesPerLiter,
         :final inMilligramsPerDeciliter,
-      ) =>
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${inMillimolesPerLiter.toStringAsFixed(2)} mmol/L',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inMilligramsPerDeciliter.toStringAsFixed(2)} mg/dL',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
+      ):
+        final milligramsText =
+            '${inMilligramsPerDeciliter.toStringAsFixed(2)} '
+            '${AppTexts.milligramsPerDeciliter}';
+        return _UnitDisplay(
+          primaryValue:
+              '${inMillimolesPerLiter.toStringAsFixed(2)} '
+              '${AppTexts.millimolesPerLiter}',
+          secondaryValues: [
+            milligramsText,
           ],
-        ),
-      Power(:final inWatts, :final inKilowatts) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '${inWatts.toStringAsFixed(1)} W',
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            '${inKilowatts.toStringAsFixed(4)} kW',
-            style: Theme.of(
-              context,
-            ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-          ),
-        ],
-      ),
-      Velocity(
+        );
+      case Power(:final inWatts, :final inKilowatts):
+        return _UnitDisplay(
+          primaryValue: '${inWatts.toStringAsFixed(1)} ${AppTexts.watt}',
+          secondaryValues: [
+            '${inKilowatts.toStringAsFixed(4)} ${AppTexts.kilowatt}',
+          ],
+        );
+      case Velocity(
         :final inMetersPerSecond,
         :final inKilometersPerHour,
         :final inMilesPerHour,
-      ) =>
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      ):
+        final kilometersText =
+            '${inKilometersPerHour.toStringAsFixed(2)} '
+            '${AppTexts.kilometersPerHour}';
+        return _UnitDisplay(
+          primaryValue:
+              '${inMetersPerSecond.toStringAsFixed(2)} '
+              '${AppTexts.metersPerSecond}',
+          secondaryValues: [
+            kilometersText,
+            '${inMilesPerHour.toStringAsFixed(2)} ${AppTexts.milesPerHour}',
+          ],
+        );
+      case Number(value: final count):
+        return Text(
+          count.toStringAsFixed(0),
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).primaryColor,
+          ),
+        );
+      case TimeDuration(:final inSeconds, :final inMinutes, :final inHours):
+        return _UnitDisplay(
+          primaryValue: '${inHours.toStringAsFixed(2)} ${AppTexts.hours}',
+          secondaryValues: [
+            '${inMinutes.toStringAsFixed(2)} ${AppTexts.minutes}',
+            '${inSeconds.toStringAsFixed(0)} ${AppTexts.secondsFull}',
+          ],
+        );
+      case Percentage(:final asWhole, :final asDecimal):
+        return _UnitDisplay(
+          primaryValue: '${asWhole.toStringAsFixed(2)}${AppTexts.percent}',
+          secondaryValues: [
+            '${asDecimal.toStringAsFixed(4)} ${AppTexts.decimal}',
+          ],
+        );
+    }
+  }
+}
+
+/// Helper widget for displaying a measurement unit with primary and
+/// secondary values.
+///
+/// Displays the primary value in bold with primary color, and secondary values
+/// in grey text below it with consistent spacing.
+class _UnitDisplay extends StatelessWidget {
+  const _UnitDisplay({
+    required this.primaryValue,
+    required this.secondaryValues,
+  });
+
+  /// Primary measurement value to display (e.g., "5.00 kg").
+  final String primaryValue;
+
+  /// List of secondary values to display below the primary value.
+  final List<String> secondaryValues;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Primary value
+        Text(
+          primaryValue,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+        // Secondary values
+        ...secondaryValues.expand(
+          (value) => [
+            const SizedBox(height: 4.0),
             Text(
-              '${inMetersPerSecond.toStringAsFixed(2)} m/s',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
+              value,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inKilometersPerHour.toStringAsFixed(2)} km/h',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inMilesPerHour.toStringAsFixed(2)} mph',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
             ),
           ],
         ),
-      Number(value: final count) => Text(
-        count.toStringAsFixed(0),
-        style:
-            Theme.of(
-              context,
-            ).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).primaryColor,
-            ),
-      ),
-      TimeDuration(:final inSeconds, :final inMinutes, :final inHours) =>
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${inHours.toStringAsFixed(2)} hours',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              '${inMinutes.toStringAsFixed(2)} minutes',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-            Text(
-              '${inSeconds.toStringAsFixed(0)} seconds',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-            ),
-          ],
-        ),
-      Percentage(:final asWhole, :final asDecimal) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '${asWhole.toStringAsFixed(2)}%',
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            '${asDecimal.toStringAsFixed(4)} (decimal)',
-            style: Theme.of(
-              context,
-            ).textTheme.bodyLarge?.copyWith(color: AppColors.grey600),
-          ),
-        ],
-      ),
-    };
+      ],
+    );
   }
 }

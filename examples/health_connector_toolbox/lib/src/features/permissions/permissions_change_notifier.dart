@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:developer' show log;
 
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:health_connector/health_connector.dart'
@@ -9,6 +10,26 @@ import 'package:health_connector/health_connector.dart'
         Permission,
         PermissionStatus,
         HealthConnector;
+
+/// Loading state for permission operations.
+sealed class PermissionLoadingState {
+  const PermissionLoadingState();
+}
+
+/// No operations in progress.
+final class Idle extends PermissionLoadingState {
+  const Idle();
+}
+
+/// Loading feature statuses on page initialization.
+final class LoadingPage extends PermissionLoadingState {
+  const LoadingPage();
+}
+
+/// Loading during permission request operation.
+final class LoadingRequest extends PermissionLoadingState {
+  const LoadingRequest();
+}
 
 /// Manages permission-related state and operations for the permissions page.
 ///
@@ -22,32 +43,40 @@ final class PermissionsChangeNotifier extends ChangeNotifier {
     loadFeatureStatuses();
   }
 
-  bool _isLoading = false;
-  bool _isPageLoading = false;
+  PermissionLoadingState _loadingState = const Idle();
   UnmodifiableListView<Permission> _grantedPermissions = UnmodifiableListView(
     [],
   );
   final Set<Permission> _selectedPermissions = {};
   Map<Permission, PermissionStatus> _permissionResults = {};
   Map<HealthPlatformFeature, HealthPlatformFeatureStatus> _featureStatuses = {};
-  Exception? _error;
   String? _errorMessage;
 
-  bool get isLoading => _isLoading;
+  /// Current loading state.
+  PermissionLoadingState get loadingState => _loadingState;
 
-  bool get isPageLoading => _isPageLoading;
+  /// Whether any operation is currently loading.
+  bool get isLoading =>
+      _loadingState is LoadingRequest || _loadingState is LoadingPage;
 
+  /// Whether the page is loading (feature statuses).
+  bool get isPageLoading => _loadingState is LoadingPage;
+
+  /// List of currently granted permissions.
   List<Permission> get grantedPermissions => _grantedPermissions;
 
+  /// Set of permissions selected for batch request.
   Set<Permission> get selectedPermissions => _selectedPermissions;
 
-  Map<Permission, PermissionStatus> get permissionResults => _permissionResults;
+  /// Unmodifiable view of permission results.
+  UnmodifiableMapView<Permission, PermissionStatus> get permissionResults =>
+      UnmodifiableMapView(_permissionResults);
 
-  Map<HealthPlatformFeature, HealthPlatformFeatureStatus> get featureStatuses =>
-      _featureStatuses;
+  /// Unmodifiable view of feature statuses.
+  UnmodifiableMapView<HealthPlatformFeature, HealthPlatformFeatureStatus>
+  get featureStatuses => UnmodifiableMapView(_featureStatuses);
 
-  Exception? get error => _error;
-
+  /// Current error message, if any.
   String? get errorMessage => _errorMessage;
 
   /// Checks if a permission is in the selected set.
@@ -60,7 +89,7 @@ final class PermissionsChangeNotifier extends ChangeNotifier {
     Permission permission, {
     required bool isSelected,
   }) {
-    notify(() {
+    _executeAndNotify(() {
       if (isSelected) {
         _selectedPermissions.add(permission);
       } else {
@@ -77,32 +106,42 @@ final class PermissionsChangeNotifier extends ChangeNotifier {
   /// Loads the availability status of health platform features.
   ///
   /// Updates [featureStatuses] with the current status of all available
-  /// health platform features.
+  /// health platform features. Uses parallel loading for improved performance.
   Future<void> loadFeatureStatuses() async {
-    notify(() {
-      _isPageLoading = true;
+    log('Loading feature statuses');
+    _executeAndNotify(() {
+      _loadingState = const LoadingPage();
       _errorMessage = null;
     });
 
     try {
-      final statuses = <HealthPlatformFeature, HealthPlatformFeatureStatus>{};
-      for (final feature in HealthPlatformFeature.values) {
-        statuses[feature] = await _healthConnector.getFeatureStatus(feature);
-      }
+      // Load all feature statuses in parallel for better performance
+      final featureStatusFutures = HealthPlatformFeature.values.map(
+        (feature) async => MapEntry(
+          feature,
+          await _healthConnector.getFeatureStatus(feature),
+        ),
+      );
 
-      notify(() {
+      final statuses = Map.fromEntries(await Future.wait(featureStatusFutures));
+
+      _executeAndNotify(() {
         _featureStatuses = statuses;
-        _isPageLoading = false;
+        _loadingState = const Idle();
       });
-    } on HealthConnectorException catch (e) {
-      notify(() {
+
+      log('Loaded ${statuses.length} feature statuses');
+    } on HealthConnectorException catch (e, stackTrace) {
+      log('Failed to load feature statuses', error: e, stackTrace: stackTrace);
+      _executeAndNotify(() {
         _errorMessage = 'Failed to load feature statuses: ${e.message}';
-        _isPageLoading = false;
+        _loadingState = const Idle();
       });
-    } on Exception catch (e) {
-      notify(() {
+    } on Exception catch (e, stackTrace) {
+      log('Error loading feature statuses', error: e, stackTrace: stackTrace);
+      _executeAndNotify(() {
         _errorMessage = 'Error: $e';
-        _isPageLoading = false;
+        _loadingState = const Idle();
       });
     }
   }
@@ -116,29 +155,37 @@ final class PermissionsChangeNotifier extends ChangeNotifier {
       return;
     }
 
-    notify(() {
-      _isLoading = true;
+    log('Requesting ${permissions.length} permissions');
+    _executeAndNotify(() {
+      _loadingState = const LoadingRequest();
+      _errorMessage = null;
     });
 
     try {
       final results = await _healthConnector.requestPermissions(permissions);
+      log('Received ${results.length} permission results');
 
       final resultsMap = <Permission, PermissionStatus>{};
       for (final result in results) {
         resultsMap[result.permission] = result.status;
       }
 
-      notify(() {
+      _executeAndNotify(() {
         _permissionResults = {..._permissionResults, ...resultsMap};
         _selectedPermissions.clear();
+        _loadingState = const Idle();
       });
-    } on HealthConnectorException catch (e) {
-      _error = e;
-    } on Exception catch (e) {
-      _error = Exception('Error: $e');
-    } finally {
-      notify(() {
-        _isLoading = false;
+    } on HealthConnectorException catch (e, stackTrace) {
+      log('Failed to request permissions', error: e, stackTrace: stackTrace);
+      _executeAndNotify(() {
+        _errorMessage = 'Failed to request permissions: ${e.message}';
+        _loadingState = const Idle();
+      });
+    } on Exception catch (e, stackTrace) {
+      log('Error requesting permissions', error: e, stackTrace: stackTrace);
+      _executeAndNotify(() {
+        _errorMessage = 'Error: $e';
+        _loadingState = const Idle();
       });
     }
   }
@@ -147,22 +194,39 @@ final class PermissionsChangeNotifier extends ChangeNotifier {
   ///
   /// Updates [grantedPermissions] with the list of granted permissions.
   Future<void> getGrantedPermissions() async {
-    notify(() {
-      _isLoading = true;
+    log('Getting granted permissions');
+    _executeAndNotify(() {
+      _loadingState = const LoadingRequest();
+      _errorMessage = null;
     });
 
     try {
       final grantedPermissions = await _healthConnector.getGrantedPermissions();
-      notify(() {
+      log('Retrieved ${grantedPermissions.length} granted permissions');
+
+      _executeAndNotify(() {
         _grantedPermissions = UnmodifiableListView(grantedPermissions);
+        _loadingState = const Idle();
       });
-    } on HealthConnectorException catch (e) {
-      _error = e;
-    } on Exception catch (e) {
-      _error = Exception('Error: $e');
-    } finally {
-      notify(() {
-        _isLoading = false;
+    } on HealthConnectorException catch (e, stackTrace) {
+      log(
+        'Failed to get granted permissions',
+        error: e,
+        stackTrace: stackTrace,
+      );
+      _executeAndNotify(() {
+        _errorMessage = 'Failed to get granted permissions: ${e.message}';
+        _loadingState = const Idle();
+      });
+    } on Exception catch (e, stackTrace) {
+      log(
+        'Error getting granted permissions',
+        error: e,
+        stackTrace: stackTrace,
+      );
+      _executeAndNotify(() {
+        _errorMessage = 'Error: $e';
+        _loadingState = const Idle();
       });
     }
   }
@@ -171,28 +235,41 @@ final class PermissionsChangeNotifier extends ChangeNotifier {
   ///
   /// Clears [grantedPermissions] on success.
   Future<void> revokeAllPermissions() async {
-    notify(() {
-      _isLoading = true;
+    log('Revoking all permissions');
+    _executeAndNotify(() {
+      _loadingState = const LoadingRequest();
+      _errorMessage = null;
     });
 
     try {
       await _healthConnector.revokeAllPermissions();
-      notify(() {
+      log('Successfully revoked all permissions');
+
+      _executeAndNotify(() {
         _grantedPermissions = UnmodifiableListView([]);
+        _loadingState = const Idle();
       });
-    } on HealthConnectorException catch (e) {
-      _error = e;
-    } on Exception catch (e) {
-      _error = Exception('Error: $e');
-    } finally {
-      notify(() {
-        _isLoading = false;
+    } on HealthConnectorException catch (e, stackTrace) {
+      log('Failed to revoke permissions', error: e, stackTrace: stackTrace);
+      _executeAndNotify(() {
+        _errorMessage = 'Failed to revoke permissions: ${e.message}';
+        _loadingState = const Idle();
+      });
+    } on Exception catch (e, stackTrace) {
+      log('Error revoking permissions', error: e, stackTrace: stackTrace);
+      _executeAndNotify(() {
+        _errorMessage = 'Error: $e';
+        _loadingState = const Idle();
       });
     }
   }
 
-  void notify(void Function() fn) {
-    fn();
+  /// Executes an action and notifies listeners.
+  ///
+  /// This helper ensures state updates are always followed by listener
+  /// notification, maintaining consistency across the notifier.
+  void _executeAndNotify(void Function() action) {
+    action();
     notifyListeners();
   }
 }

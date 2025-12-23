@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector.dart' show Metadata;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
-import 'package:health_connector_toolbox/src/common/theme/app_colors.dart';
-import 'package:health_connector_toolbox/src/common/utils/date_format_utils.dart';
+
+import 'package:health_connector_toolbox/src/common/utils/date_formatter.dart';
 
 /// A reusable widget for displaying health record metadata information.
 ///
@@ -22,11 +22,6 @@ final class HealthRecordMetadataInfo extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          AppTexts.metadata,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
-        const SizedBox(height: 8),
         _MetadataInfoRow(
           label: AppTexts.dataOrigin,
           value: metadata.dataOrigin.packageName,
@@ -38,8 +33,8 @@ final class HealthRecordMetadataInfo extends StatelessWidget {
         _MetadataInfoRow(
           label: AppTexts.lastModified,
           value: metadata.lastModifiedTime != null
-              ? DateFormatUtils.formatDateTime(metadata.lastModifiedTime)
-              : AppTexts.nullValue,
+              ? DateFormatter.formatDateTime(metadata.lastModifiedTime)
+              : AppTexts.notAvailable,
         ),
         _MetadataInfoRow(
           label: AppTexts.clientRecordId,
@@ -49,12 +44,6 @@ final class HealthRecordMetadataInfo extends StatelessWidget {
           label: AppTexts.clientRecordVersion,
           value: metadata.clientRecordVersion,
         ),
-        const SizedBox(height: 8),
-        const Text(
-          AppTexts.deviceLabel,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
-        const SizedBox(height: 8),
         if (device != null) ...[
           _MetadataInfoRow(label: AppTexts.type, value: device.type.name),
           _MetadataInfoRow(label: AppTexts.name, value: device.name),
@@ -112,19 +101,21 @@ final class _MetadataInfoRow extends StatelessWidget {
             width: 140,
             child: Text(
               '$label:',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
-                color: AppColors.grey600,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
           Expanded(
             child: Text(
-              value?.toString() ?? AppTexts.nullValue,
+              value?.toString() ?? AppTexts.notAvailable,
               style: TextStyle(
                 fontSize: 12,
-                color: value == null ? AppColors.grey400 : AppColors.grey600,
+                color: value == null
+                    ? Theme.of(context).colorScheme.outline
+                    : Theme.of(context).colorScheme.onSurfaceVariant,
                 fontStyle: value == null ? FontStyle.italic : FontStyle.normal,
               ),
             ),

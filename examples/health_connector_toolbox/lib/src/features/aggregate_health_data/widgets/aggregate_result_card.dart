@@ -1,26 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:health_connector/health_connector.dart' show MeasurementUnit;
+import 'package:health_connector/health_connector.dart'
+    show AggregationMetric, MeasurementUnit;
+import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
-import 'package:health_connector_toolbox/src/common/theme/app_colors.dart';
+import 'package:health_connector_toolbox/src/common/utils/date_formatter.dart';
 import 'package:health_connector_toolbox/src/common/widgets/measurement_unit_display.dart';
+import 'package:health_connector_toolbox/src/features/aggregate_health_data/widgets/aggregate_info_row.dart';
 
 /// A reusable card widget for displaying aggregation results with metric,
 /// value type, value, and time range information.
+///
+/// Features modern Material Design 3 styling with gradient backgrounds,
+/// color-coded metric badges, and prominent value display.
 @immutable
 final class AggregateResultCard extends StatelessWidget {
   const AggregateResultCard({
     required this.metric,
     required this.value,
+    required this.aggregationMetric,
     super.key,
     this.endDateTime,
     this.startDateTime,
   });
 
-  /// The aggregation metric name (e.g., 'SUM', 'AVG', 'MIN', 'MAX').
+  /// The aggregation metric name (e.g., 'Sum', 'Average', 'Minimum').
   final String metric;
 
+  /// The aggregation metric enum for color coding.
+  final AggregationMetric aggregationMetric;
+
   /// The aggregated value to display.
-  final dynamic value;
+  final MeasurementUnit value;
 
   /// Optional start date and time for the aggregation period.
   final DateTime? startDateTime;
@@ -28,117 +38,95 @@ final class AggregateResultCard extends StatelessWidget {
   /// Optional end date and time for the aggregation period.
   final DateTime? endDateTime;
 
-  String _formatDateTime(DateTime dateTime) {
-    return '${dateTime.year}-'
-        '${dateTime.month.toString().padLeft(2, '0')}-'
-        '${dateTime.day.toString().padLeft(2, '0')} '
-        '${dateTime.hour.toString().padLeft(2, '0')}:'
-        '${dateTime.minute.toString().padLeft(2, '0')}';
-  }
-
-  Widget _buildValueDisplay(BuildContext context, dynamic value) {
-    if (value is MeasurementUnit) {
-      return MeasurementUnitDisplay(unit: value);
-    }
-
-    // Fallback for any other type
-    return Text(
-      value.toString(),
-      style:
-          Theme.of(
-            context,
-          ).textTheme.headlineMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: Theme.of(context).primaryColor,
-          ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Card(
-      margin: const EdgeInsets.all(16.0),
-      elevation: 4,
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
+      margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 12),
+      elevation: 2,
+      shadowColor: colorScheme.primary.withValues(alpha: 0.1),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          gradient: LinearGradient(
+            colors: [
+              colorScheme.primaryContainer.withValues(alpha: 0.3),
+              colorScheme.surfaceContainerHighest.withValues(alpha: 0.05),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              AppTexts.aggregationResult,
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppTexts.metric,
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppColors.grey600,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        metric,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ],
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+              decoration: BoxDecoration(
+                color: colorScheme.surface,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: colorScheme.shadow.withValues(alpha: 0.08),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
                   ),
+                ],
+              ),
+              child: Center(
+                child: MeasurementUnitDisplay(
+                  unit: value,
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppTexts.valueType,
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppColors.grey600,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        value.runtimeType.toString(),
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.5,
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                children: [
+                  AggregateInfoRow(
+                    icon: AppIcons.infoOutline,
+                    label: AppTexts.valueType,
+                    value: value.runtimeType.toString(),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            const Divider(color: AppColors.grey300),
-            const SizedBox(height: 24),
-            Text(
-              AppTexts.value,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: AppColors.grey600),
-            ),
-            const SizedBox(height: 8),
-            _buildValueDisplay(context, value),
-            if (startDateTime != null && endDateTime != null) ...[
-              const SizedBox(height: 24),
-              const Divider(color: AppColors.grey300),
-              const SizedBox(height: 16),
-              Text(
-                AppTexts.timeRange,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodySmall?.copyWith(color: AppColors.grey600),
+                  const SizedBox(height: 12),
+                  AggregateInfoRow(
+                    icon: AppIcons.infoOutline,
+                    label: AppTexts.aggregationMetric,
+                    value: aggregationMetric.name,
+                  ),
+                  if (startDateTime != null && endDateTime != null) ...[
+                    const SizedBox(height: 12),
+                    AggregateInfoRow(
+                      icon: AppIcons.time,
+                      label: AppTexts.startTime,
+                      value: DateFormatter.formatDateTime(startDateTime),
+                    ),
+                    const SizedBox(height: 12),
+                    AggregateInfoRow(
+                      icon: AppIcons.time,
+                      label: AppTexts.endTime,
+                      value: DateFormatter.formatDateTime(endDateTime),
+                    ),
+                  ],
+                ],
               ),
-              const SizedBox(height: 4),
-              Text(
-                '${_formatDateTime(startDateTime!)} - '
-                '${_formatDateTime(endDateTime!)}',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ],
+            ),
           ],
         ),
       ),
