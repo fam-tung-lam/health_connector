@@ -141,6 +141,10 @@ abstract interface class HealthConnector {
   ///   HealthConnectorConfig(isLoggerEnabled: true),
   /// );
   /// ```
+  ///
+  /// ## See Also
+  ///
+  /// - [getHealthPlatformStatus]
   static Future<HealthConnector> create([
     HealthConnectorConfig config = const HealthConnectorConfig(),
   ]) async {
@@ -150,12 +154,7 @@ abstract interface class HealthConnector {
         ? HealthPlatform.appleHealth
         : HealthPlatform.healthConnect;
 
-    final status = await switch (healthPlatform) {
-      HealthPlatform.appleHealth =>
-        HealthConnectorHKClient.getHealthPlatformStatus(),
-      HealthPlatform.healthConnect =>
-        HealthConnectorHCClient.getHealthPlatformStatus(),
-    };
+    final status = await getHealthPlatformStatus();
     switch (status) {
       case HealthPlatformStatus.unavailable:
         HealthConnectorLogger.error(
@@ -201,6 +200,76 @@ abstract interface class HealthConnector {
           healthPlatform: healthPlatform,
           healthPlatformClient: healthPlatformClient,
         );
+    }
+  }
+
+  /// Checks the availability status of the health platform.
+  ///
+  /// This static method can be called before creating a [HealthConnector]
+  /// instance to verify that the health platform is ready to use.
+  ///
+  /// ## Returns
+  ///
+  /// - [HealthPlatformStatus.available] - Platform is ready to use
+  /// - [HealthPlatformStatus.installationOrUpdateRequired] - Health platform
+  ///   needs installation or update
+  /// - [HealthPlatformStatus.unavailable] - Platform is not available
+  ///
+  /// ## Throws
+  ///
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  ///   if an unexpected error occurs
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final status = await HealthConnector.getHealthPlatformStatus();
+  /// switch (status) {
+  ///   case HealthPlatformStatus.available:
+  ///     final connector = await HealthConnector.create();
+  ///     // Proceed with health data operations
+  ///   case HealthPlatformStatus.installationOrUpdateRequired:
+  ///     // Show dialog prompting user to install/update health platform
+  ///   case HealthPlatformStatus.unavailable:
+  ///     // Health platform not supported on this device
+  /// }
+  /// ```
+  static Future<HealthPlatformStatus> getHealthPlatformStatus() async {
+    HealthConnectorLogger.debug(
+      _tag,
+      operation: 'get_health_platform_status',
+      message: 'Checking health platform status',
+    );
+
+    try {
+      final healthPlatform = Platform.isIOS
+          ? HealthPlatform.appleHealth
+          : HealthPlatform.healthConnect;
+      final status = await switch (healthPlatform) {
+        HealthPlatform.appleHealth =>
+            HealthConnectorHKClient.getHealthPlatformStatus(),
+        HealthPlatform.healthConnect =>
+            HealthConnectorHCClient.getHealthPlatformStatus(),
+      };
+
+      HealthConnectorLogger.info(
+        _tag,
+        operation: 'get_health_platform_status',
+        message: 'Health platform status retrieved',
+        context: {'status': status.name},
+      );
+
+      return status;
+    } catch (e, st) {
+      HealthConnectorLogger.error(
+        _tag,
+        operation: 'get_health_platform_status',
+        message: 'Failed to get health platform status',
+        exception: e,
+        stackTrace: st,
+      );
+
+      rethrow;
     }
   }
 
