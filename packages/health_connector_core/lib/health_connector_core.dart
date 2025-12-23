@@ -115,6 +115,7 @@ export 'src/models/health_data_types/health_data_type.dart'
         NutrientHealthDataType,
         VitaminNutrientDataType,
         MacronutrientDataType;
+export 'src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';
 // Models - Health Platform
 export 'src/models/health_platform.dart';
 // Models - Health Platform Features

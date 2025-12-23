@@ -1,10 +1,9 @@
-import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV2_0_0;
+import 'package:health_connector_core/src/annotations/internal_use.dart';
+import 'package:health_connector_core/src/annotations/since.dart';
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show HealthRecord, HealthRecordId;
 import 'package:health_connector_core/src/models/requests/delete_records_request.dart'
     show DeleteRecordsByIdsRequest, DeleteRecordsInTimeRangeRequest;
-import 'package:meta/meta.dart' show internal;
 
 /// Interface that adds deletion capability to a health data type.
 ///
@@ -32,7 +31,7 @@ import 'package:meta/meta.dart' show internal;
 /// await connector.deleteRecords(request2);
 /// ```
 @sinceV2_0_0
-@internal
+@internalUse
 abstract interface class DeletableHealthDataType<R extends HealthRecord> {
   /// Creates a request to delete specific records by their IDs.
   ///

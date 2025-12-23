@@ -1,12 +1,11 @@
-import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_0_0;
+import 'package:health_connector_core/src/annotations/internal_use.dart';
+import 'package:health_connector_core/src/annotations/since.dart';
 import 'package:health_connector_core/src/models/permissions/permission.dart'
     show HealthDataPermission;
-import 'package:meta/meta.dart' show internal;
 
 /// Interface that adds write permission capability to a health data type.
 @sinceV1_0_0
-@internal
+@internalUse
 abstract interface class WriteableHealthDataType {
   /// The write permission for this health data type.
   HealthDataPermission get writePermission;
