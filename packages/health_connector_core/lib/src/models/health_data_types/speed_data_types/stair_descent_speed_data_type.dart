@@ -26,6 +26,8 @@ part of '../health_data_type.dart';
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit**: `HKQuantityTypeIdentifier.stairDescentSpeed`
+///
+/// {@category Health Data Types}
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable

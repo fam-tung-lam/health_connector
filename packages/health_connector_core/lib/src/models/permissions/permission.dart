@@ -13,6 +13,8 @@ part 'health_data_permission.dart';
 part 'health_platform_feature_permission.dart';
 
 /// Base interface for all permission types in the health client.
+///
+/// {@category Permissions}
 @sinceV1_0_0
 sealed class Permission implements HealthPlatformData {
   /// Creates a base permission.
@@ -20,6 +22,8 @@ sealed class Permission implements HealthPlatformData {
 }
 
 /// Represents the permission status.
+///
+/// {@category Permissions}
 @sinceV1_0_0
 enum PermissionStatus {
   /// Permission has been explicitly granted by the user.

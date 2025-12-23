@@ -25,6 +25,8 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// {@category Health Records}
 @sinceV1_3_0
 @immutable
 final class OxygenSaturationRecord extends InstantHealthRecord {

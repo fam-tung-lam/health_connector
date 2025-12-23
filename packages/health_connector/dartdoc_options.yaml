@@ -1,0 +1,52 @@
+dartdoc:
+  # Category organization for sidebar navigation
+  categories:
+    "Getting Started":
+      markdown: doc/topics/getting_started.md
+    "Core API":
+      markdown: doc/topics/core_api.md
+    "Request-Response Pattern":
+      markdown: doc/topics/request_and_responses.md
+    "Health Data Types":
+      markdown: doc/topics/health_data_types.md
+    "Health Records":
+      markdown: doc/topics/health_records.md
+    "Measurements & Units":
+      markdown: doc/topics/measurement_units.md
+    "Permissions":
+      markdown: doc/topics/permissions.md
+    "Platform Interface":
+      markdown: doc/topics/platform_interface.md
+    "Exceptions":
+      markdown: doc/topics/exceptions.md
+
+  categoryOrder:
+    - "Getting Started"
+    - "Core API"
+    - "Request-Response Pattern"
+    - "Health Data Types"
+    - "Health Records"
+    - "Measurement Units"
+    - "Permissions"
+    - "Platform Interface"
+    - "Exceptions"
+
+  # Hide internal implementation files
+  nodoc:
+    - "lib/src/**"
+
+  # Hide categories with no documented members
+  showUndocumentedCategories: false
+
+  # GitHub source linking
+  linkToSource:
+    root: "."
+    uriTemplate: "https://github.com/fam-tung-lam/health_connector/blob/main/packages/health_connector/%f%#L%l%"
+
+  # Quality control - treat these as errors
+  errors:
+    - unresolved-doc-reference
+    - broken-link
+
+  warnings:
+    - tool-error

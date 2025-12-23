@@ -35,6 +35,8 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// {@category Health Records}
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable

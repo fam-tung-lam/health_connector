@@ -20,6 +20,8 @@ part of '../health_data_type.dart';
 /// - ✅ Writeable: Write pantothenic acid (vitamin b5) intake records
 /// - ✅ Aggregatable: Sum total pantothenic acid (vitamin b5) intake
 /// - ✅ Deletable: Delete records by IDs or time range
+///
+/// {@category Health Data Types}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable

@@ -20,6 +20,8 @@ part of '../health_data_type.dart';
 /// - ✅ Writeable: Write walking speed records
 /// - ✅ Aggregatable: Calculate average walking speed
 /// - ✅ Deletable: Delete records by IDs or time range
+///
+/// {@category Health Data Types}
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable

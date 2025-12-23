@@ -21,6 +21,8 @@ part of 'health_data_type.dart';
 /// - ✅ Writeable: Write step count records
 /// - ✅ Aggregatable: Sum total steps
 /// - ✅ Deletable: Delete step records by IDs or time range
+///
+/// {@category Health Data Types}
 @sinceV1_0_0
 @immutable
 final class StepsHealthDataType extends HealthDataType<StepsRecord, Number>

@@ -20,6 +20,8 @@ part of 'health_data_type.dart';
 /// - ✅ Writeable: Write body temperature records
 /// - ✅ Deletable: Delete records by IDs or time range
 /// - ❌ Not aggregatable
+///
+/// {@category Health Data Types}
 @sinceV1_0_0
 @immutable
 final class BodyTemperatureHealthDataType

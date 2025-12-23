@@ -29,6 +29,8 @@ part of '../health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// {@category Health Records}
 @sinceV1_2_0
 @immutable
 final class BloodPressureRecord extends InstantHealthRecord {

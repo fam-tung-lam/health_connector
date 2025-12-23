@@ -97,6 +97,8 @@ import 'package:health_connector_logger/health_connector_logger.dart';
 /// - [HealthDataType] for available data types and their capabilities
 /// - [HealthConnectorConfig] for configuration options
 /// - [HealthRecord] for working with health data records
+///
+/// {@category Core API}
 @sinceV1_0_0
 abstract interface class HealthConnector {
   /// The tag used for logging in static methods.

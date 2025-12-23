@@ -14,6 +14,8 @@ part of '../health_record.dart';
 /// > [!NOTE]
 /// > Individual nutrient records are iOS-only. Android Health Connect uses the
 /// > combined [NutritionRecord] instead.
+///
+/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @internalUse

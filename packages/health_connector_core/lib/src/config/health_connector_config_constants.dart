@@ -1,9 +1,10 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_0_0, internalUse;
+    show sinceV1_0_0;
+import 'package:meta/meta.dart';
 
 /// Constants used throughout the Health Connector plugin.
 @sinceV1_0_0
-@internalUse
+@internal
 abstract final class HealthConnectorConfigConstants {
   const HealthConnectorConfigConstants._();
 

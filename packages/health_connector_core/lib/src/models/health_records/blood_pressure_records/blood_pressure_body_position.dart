@@ -2,6 +2,8 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
     show sinceV1_2_0;
 
 /// Represents the body position during a blood pressure measurement.
+///
+/// {@category Health Records}
 @sinceV1_2_0
 enum BloodPressureBodyPosition {
   /// Unknown body position (default).

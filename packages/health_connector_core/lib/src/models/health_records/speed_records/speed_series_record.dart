@@ -36,6 +36,8 @@ part of '../health_record.dart';
 /// );
 /// await healthConnector.writeRecord(record);
 /// ```
+///
+/// {@category Health Records}
 @sinceV2_0_0
 @supportedOnHealthConnect
 @immutable
@@ -119,6 +121,8 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedMeasurement> {
 /// A single speed measurement within a [SpeedSeriesRecord].
 ///
 /// Represents a speed measurement at a specific point in time.
+///
+/// {@category Health Records}
 @sinceV2_0_0
 @supportedOnHealthConnect
 @immutable

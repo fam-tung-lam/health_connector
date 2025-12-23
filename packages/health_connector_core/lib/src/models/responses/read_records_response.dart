@@ -1,5 +1,5 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV2_0_0, internalUse;
+    show sinceV2_0_0;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show HealthRecord;
 import 'package:health_connector_core/src/models/requests/read_records_request.dart'
@@ -7,17 +7,19 @@ import 'package:health_connector_core/src/models/requests/read_records_request.d
 import 'package:health_connector_core/src/models/responses/response.dart'
     show Response;
 import 'package:health_connector_core/src/utils/collection.dart';
-import 'package:meta/meta.dart' show immutable;
+import 'package:meta/meta.dart' show immutable, internal;
 
 /// Base sealed class for all health records read responses.
 @sinceV2_0_0
-@internalUse
+@internal
 @immutable
 sealed class ReadRecordsResponse<R extends HealthRecord> extends Response {
   const ReadRecordsResponse();
 }
 
 /// Response from reading multiple health records.
+///
+/// {@category Request-Response Pattern}
 @sinceV2_0_0
 @immutable
 final class ReadRecordsInTimeRangeResponse<R extends HealthRecord>

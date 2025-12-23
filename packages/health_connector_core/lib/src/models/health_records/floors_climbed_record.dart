@@ -23,6 +23,8 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class FloorsClimbedRecord extends IntervalHealthRecord {

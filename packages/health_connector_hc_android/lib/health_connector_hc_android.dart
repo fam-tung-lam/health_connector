@@ -1,4 +1,4 @@
-///@docImport 'package:health_connector_core/health_connector_core.dart';
+/// @docImport 'package:health_connector_core/health_connector_core.dart';
 ///
 /// Android Health Connect implementation for health_connector.
 ///

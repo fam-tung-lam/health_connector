@@ -27,6 +27,8 @@ part of 'health_data_type.dart';
 /// > [!NOTE]
 /// > This data type is only supported on iOS HealthKit. For Android,
 /// > use [SleepSessionHealthDataType] instead.
+///
+/// {@category Health Data Types}
 @sinceV1_0_0
 @immutable
 final class SleepStageHealthDataType

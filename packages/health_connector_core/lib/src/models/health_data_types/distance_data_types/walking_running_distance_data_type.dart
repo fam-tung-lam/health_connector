@@ -21,6 +21,8 @@ part of '../health_data_type.dart';
 /// - ✅ Writeable: Write walking/running distance records
 /// - ✅ Aggregatable: Sum total walking/running distance
 /// - ✅ Deletable: Delete records by IDs or time range
+///
+/// {@category Health Data Types}
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable

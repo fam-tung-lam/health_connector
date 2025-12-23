@@ -20,6 +20,8 @@ part of 'health_data_type.dart';
 /// - ✅ Writeable: Write weight records
 /// - ✅ Aggregatable: Calculate avg, min, max weight
 /// - ✅ Deletable: Delete records by IDs or time range
+///
+/// {@category Health Data Types}
 @sinceV1_0_0
 @immutable
 final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>

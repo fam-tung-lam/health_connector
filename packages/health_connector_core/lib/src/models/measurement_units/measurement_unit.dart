@@ -36,6 +36,8 @@ part 'volume.dart';
 ///   industry-standard for health data categorization
 /// - This is a **cross-platform abstraction layer** designed for
 ///   interoperability between Android and iOS health platforms
+///
+/// {@category Measurement Units}
 @sinceV1_0_0
 @immutable
 sealed class MeasurementUnit {

@@ -23,6 +23,8 @@ part of 'health_data_type.dart';
 /// - ✅ Writeable: Write VO₂ max records
 /// - ✅ Aggregatable: Calculate avg, min, max VO₂ max
 /// - ✅ Deletable: Delete records by IDs or time range
+///
+/// {@category Health Data Types}
 @sinceV1_3_0
 @immutable
 final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Number>

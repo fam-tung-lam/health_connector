@@ -1,0 +1,17 @@
+dartdoc:
+  # Hide internal implementation files
+  nodoc:
+    - "lib/src/**"
+
+  # GitHub source linking
+  linkToSource:
+    root: "."
+    uriTemplate: "https://github.com/fam-tung-lam/health_connector/blob/main/packages/health_connector_logger/%f%#L%l%"
+
+  # Quality control
+  errors:
+    - unresolved-doc-reference
+    - broken-link
+
+  warnings:
+    - tool-error

@@ -19,6 +19,8 @@ part of '../health_data_type.dart';
 /// - ✅ Writeable: Write paddle sports distance records
 /// - ✅ Aggregatable: Sum total paddle sports distance
 /// - ✅ Deletable: Delete records by IDs or time range
+///
+/// {@category Health Data Types}
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable

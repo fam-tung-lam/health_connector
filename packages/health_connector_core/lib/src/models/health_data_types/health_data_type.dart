@@ -255,6 +255,8 @@ part 'speed_data_types/stair_descent_speed_data_type.dart';
 /// However, this is acceptable because:
 /// - The implementations are straightforward (mostly creating request objects)
 /// - It eliminates the switch-case exhaustiveness problem
+///
+/// {@category Health Data Types}
 @sinceV1_0_0
 @immutable
 sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>

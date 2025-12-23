@@ -10,6 +10,8 @@ part of 'measurement_unit.dart';
 /// - 0.0 = 0%
 /// - 0.25 = 25%
 /// - 1.0 = 100%
+///
+/// {@category Measurement Units}
 @sinceV1_0_0
 @immutable
 final class Percentage extends MeasurementUnit

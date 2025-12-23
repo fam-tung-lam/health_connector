@@ -20,6 +20,8 @@ part of 'health_data_type.dart';
 /// - ✅ Writeable: Write wheelchair pushes records
 /// - ✅ Aggregatable: Sum total wheelchair pushes
 /// - ✅ Deletable: Delete records by IDs or time range
+///
+/// {@category Health Data Types}
 @sinceV1_0_0
 @immutable
 final class WheelchairPushesHealthDataType

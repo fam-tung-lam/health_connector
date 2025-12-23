@@ -21,6 +21,8 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query nutrition records
 /// - ✅ Writeable: Write nutrition records
 /// - ❌ Not aggregatable (use individual nutrient data types for aggregation)
+///
+/// {@category Health Data Types}
 @sinceV1_1_0
 @immutable
 final class NutritionHealthDataType

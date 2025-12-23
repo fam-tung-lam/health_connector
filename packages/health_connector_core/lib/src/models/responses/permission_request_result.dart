@@ -7,6 +7,8 @@ import 'package:health_connector_core/src/models/responses/response.dart'
 import 'package:meta/meta.dart' show immutable;
 
 /// Represents the result of a single permission request.
+///
+/// {@category Request-Response Pattern}
 @sinceV1_0_0
 @immutable
 final class PermissionRequestResult extends Response {

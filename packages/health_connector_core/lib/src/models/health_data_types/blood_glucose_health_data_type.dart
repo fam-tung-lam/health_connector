@@ -22,6 +22,8 @@ part of 'health_data_type.dart';
 /// - ✅ Writeable: Write blood glucose records
 /// - ✅ Aggregatable: Calculate avg, min, max blood glucose
 /// - ✅ Deletable: Delete records by IDs or time range
+///
+/// {@category Health Data Types}
 @sinceV1_4_0
 @immutable
 final class BloodGlucoseHealthDataType

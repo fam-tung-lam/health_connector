@@ -103,7 +103,6 @@ library;
 export 'src/annotations/annotations.dart';
 // Config
 export 'src/config/health_connector_config.dart' show HealthConnectorConfig;
-export 'src/config/health_connector_config_constants.dart';
 // Core client interface
 export 'src/health_connector_health_platform_client.dart';
 // Models - Exceptions
@@ -131,8 +130,6 @@ export 'src/models/health_records/sleep_records/sleep_stage_type.dart';
 export 'src/models/measurement_units/measurement_unit.dart';
 // Models - Metadata
 export 'src/models/metadata/metadata.dart';
-// Models - Operating System
-export 'src/models/operating_system.dart';
 // Models - Permissions
 export 'src/models/permissions/permission.dart';
 // Models - Requests
@@ -142,7 +139,8 @@ export 'src/models/requests/delete_records_request.dart';
 export 'src/models/requests/read_records_request.dart';
 // Models - Responses
 export 'src/models/responses/permission_request_result.dart';
-export 'src/models/responses/read_records_response.dart';
+export 'src/models/responses/read_records_response.dart'
+    hide ReadRecordsResponse;
 // Utils
 export 'src/utils/datetime.dart';
 export 'src/utils/validation.dart';

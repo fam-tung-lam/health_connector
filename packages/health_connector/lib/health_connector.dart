@@ -32,7 +32,7 @@
 ///   ```
 ///
 /// **Android Health Connect**:
-/// - Minimum SDK: 28 (Android 9.0+)
+/// - Minimum SDK: 26 (Android 8.0+)
 /// - Add permissions to `AndroidManifest.xml`
 /// - Declare health data types in Play Console
 ///

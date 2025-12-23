@@ -25,6 +25,8 @@ part of 'health_data_type.dart';
 /// > [!NOTE]
 /// > This data type is only supported on Android Health Connect. For iOS,
 /// > use [SleepStageHealthDataType] instead.
+///
+/// {@category Health Data Types}
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable

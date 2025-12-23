@@ -20,6 +20,8 @@ part of '../health_record.dart';
 /// - [RunningSpeedRecord] - Running speed
 /// - [StairAscentSpeedRecord] - Stair ascent speed
 /// - [StairDescentSpeedRecord] - Stair descent speed
+///
+/// {@category Health Records}
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable

@@ -5,6 +5,8 @@ import 'package:health_connector_core/src/models/exceptions/health_connector_exc
 /// Error codes for [HealthConnectorException].
 ///
 /// These codes help identify the specific type of error that occurred.
+///
+/// {@category Exceptions}
 @sinceV1_0_0
 enum HealthConnectorErrorCode {
   /// The health platform needs to be installed or updated.

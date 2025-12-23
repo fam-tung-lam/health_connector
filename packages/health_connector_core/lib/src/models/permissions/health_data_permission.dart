@@ -1,6 +1,8 @@
 part of 'permission.dart';
 
 /// Represents a permission request for accessing specific health data.
+///
+/// {@category Permissions}
 @sinceV1_0_0
 @immutable
 final class HealthDataPermission extends Permission {
@@ -56,6 +58,8 @@ final class HealthDataPermission extends Permission {
 }
 
 /// Defines the type of access being requested for a permission.
+///
+/// {@category Permissions}
 @sinceV1_0_0
 enum HealthDataPermissionAccessType {
   /// Permission to read data from a health platform.

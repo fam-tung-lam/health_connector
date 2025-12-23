@@ -4,6 +4,8 @@ part of 'measurement_unit.dart';
 ///
 /// Mass is used for body weight, body composition measurements, and
 /// other mass-related health data.
+///
+/// {@category Measurement Units}
 @sinceV1_0_0
 @immutable
 final class Mass extends MeasurementUnit implements Comparable<Mass> {

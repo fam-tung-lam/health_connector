@@ -26,6 +26,8 @@ part of '../health_data_type.dart';
 /// > This data type is only supported on iOS/HealthKit. For Android,
 /// > use [BloodPressureHealthDataType] which includes both systolic and
 /// diastolic values.
+///
+/// {@category Health Data Types}
 @sinceV1_2_0
 @supportedOnAppleHealth
 @immutable

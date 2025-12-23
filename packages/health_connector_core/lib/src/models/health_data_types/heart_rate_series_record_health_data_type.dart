@@ -13,6 +13,8 @@ part of 'health_data_type.dart';
 /// - ✅ Writeable: Write heart rate series
 /// - ✅ Aggregatable: Calculate avg, min, max heart rate
 /// - ✅ Deletable: Delete records by IDs or time range
+///
+/// {@category Health Data Types}
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable

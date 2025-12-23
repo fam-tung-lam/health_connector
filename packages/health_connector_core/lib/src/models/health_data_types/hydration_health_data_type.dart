@@ -52,6 +52,8 @@ part of 'health_data_type.dart';
 /// final aggResponse = await connector.aggregate(aggRequest);
 /// print('Total water intake: ${aggResponse.value?.inLiters} L');
 /// ```
+///
+/// {@category Health Data Types}
 @sinceV1_0_0
 @immutable
 final class HydrationHealthDataType

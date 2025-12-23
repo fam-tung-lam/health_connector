@@ -2,12 +2,11 @@ import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
 import 'package:health_connector_core/src/utils/collection.dart';
-import 'package:meta/meta.dart' show immutable, internal, sealed;
+import 'package:meta/meta.dart' show immutable, internal;
 
 /// Base sealed class for all delete records requests.
 @sinceV2_0_0
 @internalUse
-@sealed
 sealed class DeleteRecordsRequest<R extends HealthRecord> extends Request {
   /// Creates a base delete records request.
   const DeleteRecordsRequest({required this.dataType});

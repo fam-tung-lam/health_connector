@@ -4,6 +4,8 @@ part of 'measurement_unit.dart';
 ///
 /// TimeDuration is used for duration measurements like sleep time,
 /// exercise duration, and other time-based health data.
+///
+/// {@category Measurement Units}
 @sinceV1_0_0
 @immutable
 final class TimeDuration extends MeasurementUnit

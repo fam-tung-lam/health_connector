@@ -9,6 +9,8 @@ import 'package:meta/meta.dart';
 ///
 /// Note: This class does not have an ID or metadata. Those are properties of
 /// the record that contains the measurement.
+///
+/// {@category Health Records}
 @immutable
 final class HeartRateMeasurement {
   /// Creates a heart rate measurement.

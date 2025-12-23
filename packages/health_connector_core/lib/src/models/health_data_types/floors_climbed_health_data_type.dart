@@ -21,6 +21,8 @@ part of 'health_data_type.dart';
 /// - ✅ Writeable: Write floors climbed records
 /// - ✅ Aggregatable: Sum total floors climbed
 /// - ✅ Deletable: Delete records by IDs or time range
+///
+/// {@category Health Data Types}
 @sinceV1_0_0
 @immutable
 final class FloorsClimbedHealthDataType

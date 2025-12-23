@@ -27,6 +27,8 @@ part of 'health_data_type.dart';
 ///
 /// On iOS, heart rate data is stored as individual measurement samples. Each
 /// record has its own UUID and can be queried independently.
+///
+/// {@category Health Data Types}
 @sinceV1_0_0
 @immutable
 final class HeartRateMeasurementRecordHealthDataType

@@ -25,6 +25,8 @@ import 'package:meta/meta.dart' show immutable;
 ///   // Handle other unknown errors
 /// }
 /// ```
+///
+/// {@category Exceptions}
 @sinceV1_0_0
 @immutable
 sealed class HealthConnectorException implements Exception {
@@ -156,6 +158,8 @@ sealed class HealthConnectorException implements Exception {
 /// **Action:**
 /// - Prompt the user to install or update Health Connect from the Play Store.
 /// - Provide a direct link.
+///
+/// {@category Exceptions}
 @sinceV2_0_0
 @immutable
 final class HealthPlatformNotInstalledOrUpdateRequiredException
@@ -184,6 +188,8 @@ final class HealthPlatformNotInstalledOrUpdateRequiredException
 /// **Action:**
 /// - Inform the user that health features are not available on their device.
 /// - Gracefully disable health-related functionality.
+///
+/// {@category Exceptions}
 @sinceV2_0_0
 @immutable
 final class HealthPlatformUnavailableException
@@ -211,6 +217,8 @@ final class HealthPlatformUnavailableException
 /// **Action:**
 /// - Check platform/version before calling the API.
 /// - This error should not occur in production if properly guarded.
+///
+/// {@category Exceptions}
 @sinceV2_0_0
 @immutable
 final class UnsupportedOperationException extends HealthConnectorException {
@@ -238,6 +246,8 @@ final class UnsupportedOperationException extends HealthConnectorException {
 /// **Action:**
 /// - Check build logs and fix the app configuration.
 /// - This error should not occur in production if properly configured.
+///
+/// {@category Exceptions}
 @sinceV2_0_0
 @immutable
 final class InvalidConfigurationException extends HealthConnectorException {
@@ -264,6 +274,8 @@ final class InvalidConfigurationException extends HealthConnectorException {
 /// **Action:**
 /// - Validate inputs before calling the plugin.
 /// - Refresh local record ID cache before delete/update operations.
+///
+/// {@category Exceptions}
 @sinceV2_0_0
 @immutable
 final class InvalidArgumentException extends HealthConnectorException {
@@ -293,6 +305,8 @@ final class InvalidArgumentException extends HealthConnectorException {
 /// - If denied: Explain why the feature needs access and guide user to
 ///   settings.
 /// - Respect user choice; avoid repeated prompting.
+///
+/// {@category Exceptions}
 @sinceV2_0_0
 @immutable
 final class NotAuthorizedException extends HealthConnectorException {
@@ -320,6 +334,8 @@ final class NotAuthorizedException extends HealthConnectorException {
 /// **Action:**
 /// - Retry with exponential backoff (e.g., 1s → 2s → 4s, max 30s).
 /// - These issues typically resolve quickly without user intervention.
+///
+/// {@category Exceptions}
 @sinceV2_0_0
 @immutable
 final class RemoteErrorException extends HealthConnectorException {
@@ -347,6 +363,8 @@ final class RemoteErrorException extends HealthConnectorException {
 /// - Log the full error details for investigation.
 /// - Show a generic "Something went wrong" message to the user.
 /// - Report to crash analytics.
+///
+/// {@category Exceptions}
 @sinceV2_0_0
 @immutable
 final class UnknownException extends HealthConnectorException {

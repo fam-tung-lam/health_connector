@@ -4,6 +4,8 @@ part of 'measurement_unit.dart';
 ///
 /// Temperature is used for body temperature and other
 /// temperature-related health data.
+///
+/// {@category Measurement Units}
 @sinceV1_0_0
 @immutable
 final class Temperature extends MeasurementUnit

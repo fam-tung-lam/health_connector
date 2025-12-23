@@ -12,7 +12,9 @@ part of 'health_record.dart';
 /// ### iOS HealthKit
 /// - Maps to HKQuantitySample or HKCategorySample
 /// - Start and end dates are the same (point-in-time)
-/// - Timezone information less explicit (uses device timezone)
+/// ```
+///
+/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 sealed class InstantHealthRecord extends HealthRecord {

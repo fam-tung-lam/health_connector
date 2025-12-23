@@ -3,6 +3,8 @@ part of 'measurement_unit.dart';
 /// Represents a pressure measurement with automatic unit conversion.
 ///
 /// Pressure is primarily used for blood pressure measurements.
+///
+/// {@category Measurement Units}
 @sinceV1_0_0
 @immutable
 final class Pressure extends MeasurementUnit implements Comparable<Pressure> {

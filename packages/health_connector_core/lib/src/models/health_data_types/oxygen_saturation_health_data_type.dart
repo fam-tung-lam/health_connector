@@ -8,6 +8,8 @@ part of 'health_data_type.dart';
 /// - ✅ Writeable: Write oxygen saturation records
 /// - ✅ Aggregatable: Calculate avg, min, max oxygen saturation
 /// - ✅ Deletable: Delete records by IDs or time range
+///
+/// {@category Health Data Types}
 @sinceV1_3_0
 @immutable
 final class OxygenSaturationHealthDataType

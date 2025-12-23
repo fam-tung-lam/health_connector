@@ -33,6 +33,8 @@ part of '../health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// {@category Health Records}
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable
@@ -145,6 +147,8 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStage> {
 }
 
 /// Represents a single sleep stage period with time range.
+///
+/// {@category Health Records}
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable

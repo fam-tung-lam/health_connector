@@ -25,6 +25,8 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// {@category Health Records}
 @sinceV1_4_0
 @immutable
 final class BloodGlucoseRecord extends InstantHealthRecord {
@@ -120,6 +122,8 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
 }
 
 /// Represents the type of meal associated with the measurement.
+///
+/// {@category Health Records}
 @sinceV1_4_0
 enum BloodGlucoseMealType {
   /// Meal type unknown or unspecified.
@@ -139,6 +143,8 @@ enum BloodGlucoseMealType {
 }
 
 /// Represents the relationship of a blood glucose measurement to a meal.
+///
+/// {@category Health Records}
 @sinceV1_4_0
 enum BloodGlucoseRelationToMeal {
   /// Relationship is unknown or not specified.
@@ -158,6 +164,8 @@ enum BloodGlucoseRelationToMeal {
 }
 
 /// Represents the source of the biological specimen used for the measurement.
+///
+/// {@category Health Records}
 @sinceV1_4_0
 enum BloodGlucoseSpecimenSource {
   /// Source unknown or unspecified.

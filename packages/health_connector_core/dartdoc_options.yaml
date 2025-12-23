@@ -1,0 +1,20 @@
+dartdoc:
+  # Hide internal implementation and generated files
+  nodoc:
+    - "lib/src/pigeon/**"
+
+  # Hide categories with no documented members
+  showUndocumentedCategories: false
+
+  # GitHub source linking
+  linkToSource:
+    root: "."
+    uriTemplate: "https://github.com/fam-tung-lam/health_connector/blob/main/packages/health_connector_core/%f%#L%l%"
+
+  # Quality control - treat these as errors
+  errors:
+    - unresolved-doc-reference
+    - broken-link
+
+  warnings:
+    - tool-error

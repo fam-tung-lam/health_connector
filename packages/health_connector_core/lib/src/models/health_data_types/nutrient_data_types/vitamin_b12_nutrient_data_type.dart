@@ -20,6 +20,8 @@ part of '../health_data_type.dart';
 /// - ✅ Writeable: Write vitamin b12 (cobalamin) intake records
 /// - ✅ Aggregatable: Sum total vitamin b12 (cobalamin) intake
 /// - ✅ Deletable: Delete records by IDs or time range
+///
+/// {@category Health Data Types}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable

@@ -27,6 +27,8 @@ part of '../health_data_type.dart';
 /// For individual component measurements, see:
 /// - [SystolicBloodPressureHealthDataType] - Systolic pressure only
 /// - [DiastolicBloodPressureHealthDataType] - Diastolic pressure only
+///
+/// {@category Health Data Types}
 @sinceV1_2_0
 @immutable
 final class BloodPressureHealthDataType

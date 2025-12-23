@@ -9,6 +9,8 @@ part of 'permission.dart';
 ///
 /// **Platform:** Android Health Connect Only (Android Health Connect).
 /// On iOS feature permissions are always granted.
+///
+/// {@category Permissions}
 @sinceV1_0_0
 @immutable
 final class HealthPlatformFeaturePermission extends Permission {

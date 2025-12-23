@@ -9,6 +9,8 @@ part of 'health_record.dart';
 /// because HealthKit only provides one metadata key (`HKMetadataKeyTimeZone`)
 /// to store timezone info. This means that even if an interval spans a
 /// timezone change, both values will reflect the same timezone offset.
+///
+/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 sealed class IntervalHealthRecord extends HealthRecord {

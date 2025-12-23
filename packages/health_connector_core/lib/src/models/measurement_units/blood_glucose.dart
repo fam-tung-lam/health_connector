@@ -3,6 +3,8 @@ part of 'measurement_unit.dart';
 /// Represents a blood glucose measurement with automatic unit conversion.
 ///
 /// Blood glucose is used for diabetes management and glucose monitoring.
+///
+/// {@category Measurement Units}
 @sinceV1_0_0
 @immutable
 final class BloodGlucose extends MeasurementUnit
