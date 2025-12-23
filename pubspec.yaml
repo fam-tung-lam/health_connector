@@ -262,39 +262,7 @@ melos:
       packageFilters:
         dirExists: lib
 
-    # Documentation
-    doc:
-      description: Generate API documentation for all packages
-      run: dart doc .
-      exec:
-        concurrency: 1
-        failFast: false
-      packageFilters:
-        dirExists: lib
-        private: false
-
-    doc:validate:
-      description: Validate documentation links
-      run: dart doc . --validate-links
-      exec:
-        concurrency: 5
-        failFast: true
-      packageFilters:
-        dirExists: lib
-        private: false
-
-    doc:core:
-      description: Generate and serve docs for health_connector_core
-      run: |
-        dart doc .
-        echo "Serving docs at http://localhost:8000"
-        cd doc/api && python3 -m http.server 8000
-      exec:
-        concurrency: 1
-      packageFilters:
-        scope: "health_connector_core"
-
-    doc:main:
+    doc:generate:
       description: Generate and serve docs for health_connector (main package)
       run: |
         dart doc .
@@ -304,6 +272,16 @@ melos:
         concurrency: 1
       packageFilters:
         scope: "health_connector"
+
+    doc:validate:
+      description: Validate documentation links
+      run: dart doc . --validate-links
+      exec:
+        concurrency: 2
+        failFast: true
+      packageFilters:
+        dirExists: lib
+        private: false
 
     doc:ci:
       description: CI documentation validation (outputs to temp, validates links)

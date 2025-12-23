@@ -6,6 +6,8 @@ import 'package:meta/meta.dart' show internal;
 ///
 /// This file provides extension methods for common collection operations,
 /// such as list comparison.
+///
+/// @nodoc
 @sinceV1_0_0
 @internal
 extension ListEquality<T> on List<T> {

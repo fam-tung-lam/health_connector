@@ -12,6 +12,8 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
 ///
 /// A string in the format:
 /// `'${startTime.toIso8601String()} to ${endTime.toIso8601String()}'`
+///
+/// @nodoc
 @sinceV1_0_0
 @internalUse
 String formatTimeRange({

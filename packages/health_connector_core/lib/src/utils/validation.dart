@@ -11,6 +11,8 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
 /// ## Throws
 ///
 /// - [ArgumentError] if [condition] is false, using [message]
+///
+/// @nodoc
 @sinceV1_0_0
 @internalUse
 void require(
@@ -33,6 +35,8 @@ void require(
 /// ## Throws
 ///
 /// - [ArgumentError] if [endTime] is not strictly after [startTime].
+///
+/// @nodoc
 @sinceV1_0_0
 @internalUse
 void requireEndTimeAfterStartTime({
