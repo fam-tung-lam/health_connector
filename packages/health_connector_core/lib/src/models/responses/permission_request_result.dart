@@ -25,6 +25,6 @@ final class PermissionRequestResult extends Response {
   /// The status of the permission after the request.
   ///
   /// This indicates whether the permission was granted, denied, or if the
-  /// status is unknown (common for read permissions on iOS).
+  /// status is unknown (common for read permissions on iOS HealthKit).
   final PermissionStatus status;
 }

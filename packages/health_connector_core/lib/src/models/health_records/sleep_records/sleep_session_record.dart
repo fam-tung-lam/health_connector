@@ -2,7 +2,7 @@ part of '../health_record.dart';
 
 /// Represents a complete sleep session (Android Health Connect).
 ///
-/// **Platform:** Android only
+/// **Platform:** Android Health Connect Only
 ///
 /// A sleep session is a container with a time range and multiple sleep stages.
 /// This maps directly to Android's `SleepSessionRecord` with embedded stages.

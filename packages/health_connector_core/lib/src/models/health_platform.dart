@@ -5,7 +5,7 @@ import 'package:health_connector_core/src/models/operating_system.dart';
 /// Represents the available health platform APIs.
 @sinceV1_0_0
 enum HealthPlatform {
-  /// Apple Health (HealthKit) on iOS.
+  /// iOS HealthKit on iOS.
   appleHealth(OperatingSystem.iOS),
 
   /// Health Connect on Android.
@@ -28,7 +28,7 @@ enum HealthPlatformStatus {
   /// Health platform APIs are currently unavailable because
   /// Health Connect app is either not installed or needs to be updated.
   ///
-  /// Note: Android only.
+  /// Note: Android Health Connect Only.
   installationOrUpdateRequired,
 
   /// Health platform is available and functional on the device.

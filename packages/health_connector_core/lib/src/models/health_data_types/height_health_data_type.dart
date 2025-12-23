@@ -12,8 +12,8 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `HeightRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.height)`
+/// - **Android Health Connect**: `HeightRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.height)`
 ///
 /// ## Capabilities
 ///

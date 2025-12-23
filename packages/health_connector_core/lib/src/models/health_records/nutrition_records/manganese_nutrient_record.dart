@@ -7,7 +7,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryManganese`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.dietaryManganese`
 ///
 /// > [!NOTE]
 /// > This record type is only supported on iOS/HealthKit. For Android,

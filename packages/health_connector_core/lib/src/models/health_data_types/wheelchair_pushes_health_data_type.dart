@@ -11,8 +11,8 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `WheelchairPushesRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.pushCount)`
+/// - **Android Health Connect**: `WheelchairPushesRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.pushCount)`
 ///
 /// ## Capabilities
 ///

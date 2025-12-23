@@ -9,8 +9,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `RestingHeartRateRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.restingHeartRate)`
+/// - **Android Health Connect**: `RestingHeartRateRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.restingHeartRate)`
 ///
 /// ## Example
 ///

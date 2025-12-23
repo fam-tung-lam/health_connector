@@ -11,8 +11,8 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `BodyTemperatureRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.bodyTemperature)`
+/// - **Android Health Connect**: `BodyTemperatureRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.bodyTemperature)`
 ///
 /// ## Capabilities
 ///

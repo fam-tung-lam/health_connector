@@ -434,10 +434,10 @@ enum HealthDataTypeDto {
   /// Hydration (water intake) data.
   hydration,
 
-  /// Heart rate measurement record data (iOS).
+  /// Heart rate measurement record data (iOS HealthKit).
   heartRateMeasurementRecord,
 
-  /// Sleep stage record data (iOS).
+  /// Sleep stage record data (iOS HealthKit).
   sleepStageRecord,
 
   /// Walking speed data.
@@ -2123,10 +2123,10 @@ class BloodPressureRecordDto extends HealthRecordDto {
   /// Diastolic blood pressure measurement.
   PressureDto diastolic;
 
-  /// Body position during measurement (Android only, always unknown on iOS).
+  /// Body position during measurement (Android Health Connect Only, always unknown on iOS HealthKit).
   BodyPositionDto bodyPosition;
 
-  /// Location where measurement was taken (Android only, always unknown on
+  /// Location where measurement was taken (Android Health Connect Only, always unknown on
   /// iOS).
   MeasurementLocationDto measurementLocation;
 
@@ -2850,7 +2850,7 @@ class HeartRateMeasurementDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents a heart rate measurement record for platform transfer (iOS).
+/// Represents a heart rate measurement record for platform transfer (iOS HealthKit).
 class HeartRateMeasurementRecordDto extends HealthRecordDto {
   HeartRateMeasurementRecordDto({
     this.id,
@@ -2918,7 +2918,7 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents a sleep stage record for platform transfer (iOS).
+/// Represents a sleep stage record for platform transfer (iOS HealthKit).
 ///
 /// Sleep data in HealthKit uses HKCategorySample with categoryType
 /// .sleepAnalysis. Each record represents a single continuous period in one

@@ -69,4 +69,4 @@
     - Lean body mass
     - Hydration
     - Heart rate
-    - Sleep stage (iOS) and session (Android)
+    - Sleep stage (iOS HealthKit) and session (Android Health Connect)

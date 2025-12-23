@@ -10,7 +10,8 @@ part of '../health_data_type.dart';
 /// **These data types are ONLY supported on iOS/HealthKit.** They are marked
 /// with `@supportedOnAppleHealth` and will not compile when targeting Android.
 ///
-/// For cross-platform speed tracking, use [SpeedSeriesDataType] (Android only).
+/// For cross-platform speed tracking, use [SpeedSeriesDataType] that is only
+/// available on Android Health Connect.
 ///
 /// ## Subclasses
 ///

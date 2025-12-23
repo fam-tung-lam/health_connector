@@ -4,8 +4,8 @@ import 'package:meta/meta.dart';
 /// Represents a single heart rate measurement at a specific point in time.
 ///
 /// This is a platform-agnostic value class used as a building block for both
-/// heart rate series records (Android) and heart rate measurement records
-/// (iOS).
+/// heart rate series records (Android Health Connect) and heart rate
+/// measurement records (iOS HealthKit).
 ///
 /// Note: This class does not have an ID or metadata. Those are properties of
 /// the record that contains the measurement.

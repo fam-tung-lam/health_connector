@@ -12,8 +12,8 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `SleepSessionRecord`
-/// - **iOS (HealthKit)**: Not supported (use [SleepStageHealthDataType])
+/// - **Android Health Connect**: `SleepSessionRecord`
+/// - **iOS HealthKit**: Not supported (use [SleepStageHealthDataType])
 ///
 /// ## Capabilities
 ///

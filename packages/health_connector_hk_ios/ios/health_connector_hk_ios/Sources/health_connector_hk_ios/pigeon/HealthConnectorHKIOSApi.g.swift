@@ -459,9 +459,9 @@ public enum HealthDataTypeDto: Int {
   case wheelchairPushes = 19
   /// Hydration (water intake) data.
   case hydration = 20
-  /// Heart rate measurement record data (iOS).
+  /// Heart rate measurement record data (iOS HealthKit).
   case heartRateMeasurementRecord = 21
-  /// Sleep stage record data (iOS).
+  /// Sleep stage record data (iOS HealthKit).
   case sleepStageRecord = 22
   /// Walking speed data.
   case walkingSpeed = 23
@@ -1655,9 +1655,9 @@ public struct BloodPressureRecordDto: HealthRecordDto {
   var systolic: PressureDto
   /// Diastolic blood pressure measurement.
   var diastolic: PressureDto
-  /// Body position during measurement (Android only, always unknown on iOS).
+  /// Body position during measurement (Android Health Connect Only, always unknown on iOS HealthKit).
   var bodyPosition: BodyPositionDto
-  /// Location where measurement was taken (Android only, always unknown on
+  /// Location where measurement was taken (Android Health Connect Only, always unknown on
   /// iOS).
   var measurementLocation: MeasurementLocationDto
   /// Timezone offset in seconds for measurement time (optional).
@@ -2180,7 +2180,7 @@ public struct HeartRateMeasurementDto: Hashable {
   }
 }
 
-/// Represents a heart rate measurement record for platform transfer (iOS).
+/// Represents a heart rate measurement record for platform transfer (iOS HealthKit).
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct HeartRateMeasurementRecordDto: HealthRecordDto {
@@ -2228,7 +2228,7 @@ public struct HeartRateMeasurementRecordDto: HealthRecordDto {
   }
 }
 
-/// Represents a sleep stage record for platform transfer (iOS).
+/// Represents a sleep stage record for platform transfer (iOS HealthKit).
 ///
 /// Sleep data in HealthKit uses HKCategorySample with categoryType
 /// .sleepAnalysis. Each record represents a single continuous period in one

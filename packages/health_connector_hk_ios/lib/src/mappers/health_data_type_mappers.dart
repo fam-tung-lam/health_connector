@@ -357,7 +357,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.vo2Max;
       case BloodGlucoseHealthDataType _:
         return HealthDataTypeDto.bloodGlucose;
-      // Distance activity types (iOS only)
+      // Distance activity types (iOS HealthKit only)
       case CyclingDistanceDataType _:
         return HealthDataTypeDto.cyclingDistance;
       case SwimmingDistanceDataType _:
@@ -378,7 +378,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.sixMinuteWalkTestDistance;
       case WalkingRunningDistanceDataType _:
         return HealthDataTypeDto.distance;
-      // Speed activity types (iOS only)
+      // Speed activity types (iOS HealthKit only)
       case WalkingSpeedDataType _:
         return HealthDataTypeDto.walkingSpeed;
       case RunningSpeedDataType _:

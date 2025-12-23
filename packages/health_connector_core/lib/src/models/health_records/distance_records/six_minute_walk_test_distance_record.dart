@@ -7,7 +7,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`
 ///
 /// ## Example
 ///

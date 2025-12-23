@@ -102,8 +102,8 @@ final class Metadata {
 
   /// The application that wrote this health record.
   ///
-  /// Identifies the source application using its package name (Android) or
-  /// bundle identifier (iOS).
+  /// Identifies the source application using its package name
+  /// (Android Health Connect) or bundle identifier (iOS HealthKit).
   final DataOrigin dataOrigin;
 
   /// The timestamp when this record was last modified on the platform.

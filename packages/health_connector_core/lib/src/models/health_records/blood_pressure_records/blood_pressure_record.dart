@@ -11,8 +11,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `BloodPressureRecord`
-/// - **iOS (HealthKit)**: `HKCorrelationType(.bloodPressure)`
+/// - **Android Health Connect**: `BloodPressureRecord`
+/// - **iOS HealthKit**: `HKCorrelationType(.bloodPressure)`
 ///   correlation
 ///
 /// ## Example
@@ -69,13 +69,13 @@ final class BloodPressureRecord extends InstantHealthRecord {
 
   /// The body position during the blood pressure measurement.
   ///
-  /// This field is only supported on Android (Health Connect).
+  /// This field is only supported on Android Health Connect.
   /// On iOS, this will always be [BloodPressureBodyPosition.unknown].
   final BloodPressureBodyPosition bodyPosition;
 
   /// The location on the body where the measurement was taken.
   ///
-  /// This field is only supported on Android (Health Connect).
+  /// This field is only supported on Android Health Connect.
   /// On iOS, this will always be [BloodPressureMeasurementLocation.unknown].
   final BloodPressureMeasurementLocation measurementLocation;
 

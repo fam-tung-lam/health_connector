@@ -4,13 +4,13 @@ part of 'health_record.dart';
 ///
 /// ## Platform Behavior
 ///
-/// ### Android (Health Connect)
+/// ### Android Health Connect
 /// - Native support for series records
 /// - Maps to `SeriesRecord` subclasses
 /// - Samples stored as part of the record
 /// - Efficient bulk storage and retrieval
 ///
-/// ### iOS (HealthKit)
+/// ### iOS HealthKit
 /// - Series represented via `HKQuantitySeries` or multiple `HKQuantitySample`
 /// - Less direct support compared to Android
 /// - May require aggregation of individual samples

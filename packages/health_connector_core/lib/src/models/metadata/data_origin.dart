@@ -12,18 +12,19 @@ final class DataOrigin {
   /// ```
   const DataOrigin(this.packageName);
 
-  /// The application's package name (Android) or bundle identifier (iOS).
+  /// The application's package name (Android Health Connect) or bundle
+  /// identifier (iOS HealthKit).
   ///
   /// This uniquely identifies the application that wrote the data.
   ///
   /// ## Platform Differences
   ///
-  /// ### Android (Health Connect)
+  /// ### Android Health Connect
   /// - Package name: Automatically set by Health Connect from
   ///   AndroidManifest.xml app's package name
   /// - See: https://developer.android.com/reference/android/health/connect/client/records/metadata/DataOrigin
   ///
-  /// ### iOS (HealthKit)
+  /// ### iOS HealthKit
   /// - Package name: Maps to `HKSource.bundleIdentifier` from Info.plist
   /// - See: https://developer.apple.com/documentation/healthkit/hksource
   /// - See: https://developer.apple.com/documentation/healthkit/hksourcerevision

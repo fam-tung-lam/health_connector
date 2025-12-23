@@ -8,8 +8,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `ActiveCaloriesBurnedRecord`
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.activeEnergyBurned`
+/// - **Android Health Connect**: `ActiveCaloriesBurnedRecord`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.activeEnergyBurned`
 ///
 /// ## Example
 ///

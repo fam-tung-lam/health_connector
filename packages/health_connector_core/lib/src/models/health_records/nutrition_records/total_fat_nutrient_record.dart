@@ -7,7 +7,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryFatTotal`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.dietaryFatTotal`
 ///
 /// > [!NOTE]
 /// > This record type is only supported on iOS/HealthKit. For Android,

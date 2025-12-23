@@ -11,8 +11,8 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `DistanceRecord`
-/// - **iOS (HealthKit)**: Not supported (use activity-specific types like
+/// - **Android Health Connect**: `DistanceRecord`
+/// - **iOS HealthKit**: Not supported (use activity-specific types like
 /// [CyclingDistanceDataType])
 ///
 /// ## Capabilities

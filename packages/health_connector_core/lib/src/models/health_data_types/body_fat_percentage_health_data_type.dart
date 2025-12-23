@@ -12,8 +12,8 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `BodyFatRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.bodyFatPercentage)`
+/// - **Android Health Connect**: `BodyFatRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.bodyFatPercentage)`
 ///
 /// ## Capabilities
 ///

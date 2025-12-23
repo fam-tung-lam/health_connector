@@ -9,7 +9,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit)**: Various `HKQuantityTypeIdentifier` nutrient types
+/// - **iOS HealthKit**: Various `HKQuantityTypeIdentifier` nutrient types
 ///
 /// > [!NOTE]
 /// > Individual nutrient records are iOS-only. Android Health Connect uses the

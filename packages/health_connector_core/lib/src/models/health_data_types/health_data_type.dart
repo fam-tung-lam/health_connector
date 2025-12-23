@@ -338,22 +338,22 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnHealthConnect
   static const speedSeries = SpeedSeriesDataType();
 
-  /// Walking speed data type (iOS only).
+  /// Walking speed data type (iOS HealthKit only).
   @sinceV2_0_0
   @supportedOnAppleHealth
   static const walkingSpeed = WalkingSpeedDataType();
 
-  /// Running speed data type (iOS only).
+  /// Running speed data type (iOS HealthKit only).
   @sinceV2_0_0
   @supportedOnAppleHealth
   static const runningSpeed = RunningSpeedDataType();
 
-  /// Stair ascent speed data type (iOS only).
+  /// Stair ascent speed data type (iOS HealthKit only).
   @sinceV2_0_0
   @supportedOnAppleHealth
   static const stairAscentSpeed = StairAscentSpeedDataType();
 
-  /// Stair descent speed data type (iOS only).
+  /// Stair descent speed data type (iOS HealthKit only).
   @sinceV2_0_0
   @supportedOnAppleHealth
   static const stairDescentSpeed = StairDescentSpeedDataType();

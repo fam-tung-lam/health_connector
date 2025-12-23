@@ -8,8 +8,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `BloodGlucoseRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.bloodGlucose)`
+/// - **Android Health Connect**: `BloodGlucoseRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.bloodGlucose)`
 ///
 /// ## Example
 ///

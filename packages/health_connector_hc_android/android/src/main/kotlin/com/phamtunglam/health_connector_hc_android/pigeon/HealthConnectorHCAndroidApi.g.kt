@@ -95,9 +95,9 @@ class HealthConnectorErrorDto (
 /** Error codes that native platforms can use when throwing error. */
 enum class HealthConnectorErrorCodeDto(val raw: Int) {
   /** Health Connect installation or update is required. */
-  HEALTH_PROVIDER_NOT_INSTALLED_OR_UPDATE_REQUIRED(0),
+  HEALTH_PLATFORM_NOT_INSTALLED_OR_UPDATE_REQUIRED(0),
   /** Health platform is unavailable on this device. */
-  HEALTH_PROVIDER_UNAVAILABLE(1),
+  HEALTH_PLATFORM_UNAVAILABLE(1),
   /** Invalid platform configuration detected. */
   INVALID_CONFIGURATION(2),
   /** Invalid argument or input validation error. */

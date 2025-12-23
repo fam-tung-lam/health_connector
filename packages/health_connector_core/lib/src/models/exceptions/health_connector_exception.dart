@@ -15,7 +15,7 @@ import 'package:meta/meta.dart' show immutable;
 /// try {
 ///   await HealthConnector.requestPermissions([...]);
 /// } on HealthPlatformNotInstalledOrUpdateRequiredException {
-///   // Prompt user to install Health Connect (Android only)
+///   // Prompt user to install Health Connect (Android Health Connect Only)
 /// } on NotAuthorizedException {
 ///   // Handle permission denial
 /// } on HealthConnectorException catch (e) {
@@ -146,7 +146,8 @@ sealed class HealthConnectorException implements Exception {
 
 /// Exception thrown when the health platform needs to be installed or updated.
 ///
-/// **Platform:** Android only (iOS Apple Health is pre-installed)
+/// **Platform:** Android Health Connect Only. On iOS Apple Health is
+/// pre-installed.
 ///
 /// **Causes:**
 /// - Health Connect app is not installed.
@@ -314,7 +315,7 @@ final class NotAuthorizedException extends HealthConnectorException {
 /// - Temporary disk I/O failure.
 /// - Inter-process communication (IPC) interrupted.
 /// - Background service temporarily unreachable.
-/// - Too many read/write operations in a short time window (Android only).
+/// - Too many read/write operations in a short time window (Android Health Connect Only).
 ///
 /// **Action:**
 /// - Retry with exponential backoff (e.g., 1s → 2s → 4s, max 30s).

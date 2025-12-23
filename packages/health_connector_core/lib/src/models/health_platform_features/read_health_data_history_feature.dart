@@ -8,10 +8,10 @@ part of 'health_platform_feature.dart';
 ///
 /// ## Platform Ecosystems
 ///
-/// - **Android (Health Connect)**: Requires the `READ_HEALTH_DATA_HISTORY`
+/// - **Android Health Connect**: Requires the `READ_HEALTH_DATA_HISTORY`
 ///   permission. This is a sensitive permission that may require additional
 ///   justification during Google Play Store review.
-/// - **iOS (HealthKit)**: implicit capability, but users can restrict the
+/// - **iOS HealthKit**: implicit capability, but users can restrict the
 ///   read scope in system settings.
 ///
 /// ## Permission

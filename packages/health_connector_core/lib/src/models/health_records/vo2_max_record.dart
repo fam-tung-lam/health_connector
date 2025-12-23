@@ -11,8 +11,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `Vo2MaxRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.vo2Max)`
+/// - **Android Health Connect**: `Vo2MaxRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.vo2Max)`
 ///
 /// ## Measurement Unit
 ///
@@ -113,8 +113,8 @@ final class Vo2MaxRecord extends InstantHealthRecord {
 /// Represents the test type or measurement method used to determine VO₂ max.
 ///
 /// This enum provides a cross-platform abstraction for:
-/// - **Android (Health Connect)**: `Vo2MaxMeasurementMethod` constants
-/// - **iOS (HealthKit)**: `HKMetadataKeyVO2MaxTestType` enum
+/// - **Android Health Connect**: `Vo2MaxMeasurementMethod` constants
+/// - **iOS HealthKit**: `HKMetadataKeyVO2MaxTestType` enum
 ///
 /// ## Platform Mapping
 ///

@@ -10,8 +10,8 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit) Only**: `HKQuantityType(.sixMinuteWalkTestDistance)`
-/// - **Android (Health Connect)**: Not directly supported
+/// - **iOS HealthKit Only**: `HKQuantityType(.sixMinuteWalkTestDistance)`
+/// - **Android Health Connect**: Not directly supported
 ///
 /// ## Capabilities
 ///
@@ -25,7 +25,7 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable

@@ -11,8 +11,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `OxygenSaturationRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.oxygenSaturation)`
+/// - **Android Health Connect**: `OxygenSaturationRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.oxygenSaturation)`
 ///
 /// ## Example
 ///

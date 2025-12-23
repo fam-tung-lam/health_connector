@@ -12,8 +12,8 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `FloorsClimbedRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.flightsClimbed)`
+/// - **Android Health Connect**: `FloorsClimbedRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.flightsClimbed)`
 ///
 /// ## Capabilities
 ///

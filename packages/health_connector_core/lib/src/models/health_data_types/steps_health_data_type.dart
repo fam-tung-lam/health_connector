@@ -12,8 +12,8 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `StepsRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.stepCount)`
+/// - **Android Health Connect**: `StepsRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.stepCount)`
 ///
 /// ## Capabilities
 ///

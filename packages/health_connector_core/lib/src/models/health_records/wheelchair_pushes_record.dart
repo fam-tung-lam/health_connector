@@ -8,8 +8,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `WheelchairPushesRecord`
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.pushCount`
+/// - **Android Health Connect**: `WheelchairPushesRecord`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.pushCount`
 ///
 /// ## Example
 ///

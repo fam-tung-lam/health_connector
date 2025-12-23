@@ -48,7 +48,7 @@ const supportedOnHealthConnect = SupportedOn([
   HealthPlatform.healthConnect,
 ]);
 
-/// Convenience annotation for APIs supported only on Apple Health (HealthKit).
+/// Convenience annotation for APIs supported only on iOS HealthKit.
 const supportedOnAppleHealth = SupportedOn([
   HealthPlatform.appleHealth,
 ]);

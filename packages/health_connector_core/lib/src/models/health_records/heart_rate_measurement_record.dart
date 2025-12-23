@@ -2,7 +2,7 @@ part of 'health_record.dart';
 
 /// Represents a single heart rate measurement (iOS HealthKit).
 ///
-/// **Platform:** iOS only
+/// **Platform:** iOS HealthKit only
 ///
 /// Each heart rate measurement record represents one BPM measurement at a
 /// specific time. This maps directly to iOS's `HKQuantitySample` with

@@ -10,7 +10,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryCarbohydrates`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.dietaryCarbohydrates`
 ///
 /// > [!NOTE]
 /// > This record type is only supported on iOS/HealthKit. For Android,

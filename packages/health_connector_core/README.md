@@ -113,7 +113,7 @@ Three base types model different temporal patterns:
 | Error Code                     | Meaning                            | When Thrown                            |
 |--------------------------------|------------------------------------|----------------------------------------|
 | `healthPlatformUnavailable`    | Platform not supported             | Health Connect/HealthKit unavailable   |
-| `installationOrUpdateRequired` | Platform needs installation/update | Health Connect not installed (Android) |
+| `installationOrUpdateRequired` | Platform needs installation/update | Health Connect not installed (Android Health Connect) |
 | `securityError`                | Permission denied                  | Missing or denied permissions          |
 | `invalidArgument`              | Invalid parameter                  | Bad input values                       |
 | `unsupportedHealthPlatformApi` | API not available on platform      | Using Android-only API on iOS          |

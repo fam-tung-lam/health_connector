@@ -7,8 +7,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `BodyTemperatureRecord`
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.bodyTemperature`
+/// - **Android Health Connect**: `BodyTemperatureRecord`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.bodyTemperature`
 ///
 /// ## Example
 ///

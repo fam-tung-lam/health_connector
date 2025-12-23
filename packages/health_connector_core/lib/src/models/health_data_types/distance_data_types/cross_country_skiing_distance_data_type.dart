@@ -10,8 +10,8 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit) Only**: `HKQuantityType(.distanceCrossCountrySkiing)`
-/// - **Android (Health Connect)**: Not directly supported
+/// - **iOS HealthKit Only**: `HKQuantityType(.distanceCrossCountrySkiing)`
+/// - **Android Health Connect**: Not directly supported
 ///
 /// ## Capabilities
 ///
@@ -24,7 +24,7 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceCrossCountrySkiing`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.distanceCrossCountrySkiing`
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable

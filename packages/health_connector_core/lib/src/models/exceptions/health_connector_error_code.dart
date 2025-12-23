@@ -9,7 +9,8 @@ import 'package:health_connector_core/src/models/exceptions/health_connector_exc
 enum HealthConnectorErrorCode {
   /// The health platform needs to be installed or updated.
   ///
-  /// **Platform:** Android only (iOS Apple Health is pre-installed)
+  /// **Platform:** Android Health Connect Only. On iOS Apple Health is
+  /// pre-installed.
   ///
   /// **Causes:**
   /// - Health Connect app is not installed.
@@ -103,7 +104,7 @@ enum HealthConnectorErrorCode {
   /// - Temporary disk I/O failure.
   /// - Inter-process communication (IPC) interrupted.
   /// - Background service temporarily unreachable.
-  /// - Too many read/write operations in a short time window (Android only).
+  /// - Too many read/write operations in a short time window (Android Health Connect Only).
   ///
   /// **Action:**
   /// - Retry with exponential backoff (e.g., 1s → 2s → 4s, max 30s).

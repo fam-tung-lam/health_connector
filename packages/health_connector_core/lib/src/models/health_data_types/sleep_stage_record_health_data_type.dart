@@ -13,9 +13,9 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: Not supported (use
+/// - **Android Health Connect**: Not supported (use
 /// [SleepSessionHealthDataType])
-/// - **iOS (HealthKit)**: `HKCategoryType(.sleepAnalysis)`
+/// - **iOS HealthKit**: `HKCategoryType(.sleepAnalysis)`
 ///
 /// ## Capabilities
 ///

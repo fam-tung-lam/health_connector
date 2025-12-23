@@ -7,7 +7,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietarySelenium`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.dietarySelenium`
 ///
 /// > [!NOTE]
 /// > This record type is only supported on iOS/HealthKit. For Android,

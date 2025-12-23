@@ -8,8 +8,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `BodyFatRecord`
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.bodyFatPercentage`
+/// - **Android Health Connect**: `BodyFatRecord`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.bodyFatPercentage`
 ///
 /// ## Example
 ///

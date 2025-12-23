@@ -41,7 +41,7 @@ import 'package:health_connector_logger/health_connector_logger.dart';
 /// Main entry point for interacting with platform-specific health APIs.
 ///
 /// Provides a unified interface for accessing health and fitness data across
-/// iOS (HealthKit) and Android (Health Connect). This class handles permission
+/// iOS HealthKit and Android Health Connect. This class handles permission
 /// management, data reading/writing, aggregations, and record operations.
 ///
 /// ## Platform Support
@@ -82,7 +82,7 @@ import 'package:health_connector_logger/health_connector_logger.dart';
 /// - **Data Reading**: Query individual records or time ranges with pagination
 /// - **Data Writing**: Store single or multiple health records atomically
 /// - **Aggregations**: Compute sums, averages, min/max over time ranges
-/// - **Record Updates**: Modify existing records (Android only)
+/// - **Record Updates**: Modify existing records (Android Health Connect Only)
 /// - **Data Deletion**: Remove records by ID or time range
 ///
 /// ## Key Types
@@ -290,14 +290,14 @@ abstract interface class HealthConnector {
   ///
   /// ## Platform Differences
   ///
-  /// ### iOS (HealthKit)
+  /// ### iOS HealthKit
   ///
   /// - Read permissions always return [PermissionStatus.unknown] for privacy.
   /// - Write permissions return actual status.
   /// - Feature permissions always return [PermissionStatus.granted], as
   ///   features are available by default.
   ///
-  /// ### Android (Health Connect)
+  /// ### Android Health Connect
   ///
   /// - Returns actual permission status for all permission types.
   ///
@@ -351,7 +351,7 @@ abstract interface class HealthConnector {
 
   /// Gets all permissions that have been granted to the app.
   ///
-  /// Currently supported on Android (Health Connect) only.
+  /// Currently supported on Android Health Connect only.
   ///
   /// ## Returns
   ///
@@ -399,14 +399,14 @@ abstract interface class HealthConnector {
   ///
   /// ## Platform Differences
   ///
-  /// ### iOS (HealthKit)
+  /// ### iOS HealthKit
   ///
   /// - Read permissions always return [PermissionStatus.unknown] for privacy.
   /// - Feature permissions always return [PermissionStatus.granted], as
   ///   features are available by default.
   /// - Write permissions return actual status.
   ///
-  /// ### Android (Health Connect)
+  /// ### Android Health Connect
   ///
   /// - Returns actual permission status for all permission types.
   ///
@@ -486,12 +486,12 @@ abstract interface class HealthConnector {
   ///
   /// ## Platform Differences
   ///
-  /// ### iOS (HealthKit)
+  /// ### iOS HealthKit
   ///
   /// - Always returns [HealthPlatformFeatureStatus.available], as
   ///   all features are available by default.
   ///
-  /// ### Android (Health Connect)
+  /// ### Android Health Connect
   ///
   /// - Feature availability depends on Android and Health Connect SDK.
   ///   For example, some features require specific version.
@@ -815,8 +815,8 @@ abstract interface class HealthConnector {
   ///
   /// ## Platform Differences
   ///
-  /// - **Android (Health Connect)**: ✅ Full support
-  /// - **iOS (HealthKit)**: ❌ Not supported (see [updateRecords] for details)
+  /// - **Android Health Connect**: ✅ Full support
+  /// - **iOS HealthKit**: ❌ Not supported (see [updateRecords] for details)
   ///
   /// ## Parameters
   ///
@@ -850,7 +850,7 @@ abstract interface class HealthConnector {
   ///     count: Numeric(existingRecord.count.value + 500),
   ///   );
   ///
-  ///   // Update the record (Android only)
+  ///   // Update the record (Android Health Connect Only)
   ///   await connector.updateRecord(updatedRecord);
   /// }
   /// ```
@@ -866,15 +866,15 @@ abstract interface class HealthConnector {
   ///
   /// ## Platform Differences
   ///
-  /// - **Android (Health Connect)**: ✅ Full support
-  /// - **iOS (HealthKit)**: ❌ Not supported
+  /// - **Android Health Connect**: ✅ Full support
+  /// - **iOS HealthKit**: ❌ Not supported
   ///
   /// ### Why HealthKit Doesn't Support Updates
   ///
   /// HealthKit uses an **immutable data model** where health samples represent
   /// point-in-time observations that cannot be modified after creation.
   ///
-  /// ## How to Achieve Batch Update Functionality on iOS (HealthKit)
+  /// ## How to Achieve Batch Update Functionality on iOS HealthKit
   ///
   /// For iOS, you must explicitly use delete and create operations.
   ///

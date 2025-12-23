@@ -2,7 +2,7 @@ part of '../health_record.dart';
 
 /// Represents a single sleep stage measurement.
 ///
-/// **Platform:** iOS only
+/// **Platform:** iOS HealthKit only
 ///
 /// A complete night's sleep consists of multiple records, one for each stage
 /// transition.

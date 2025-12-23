@@ -12,8 +12,8 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `NutritionRecord`
-/// - **iOS (HealthKit)**: `HKCorrelationType(.food)` or individual nutrient
+/// - **Android Health Connect**: `NutritionRecord`
+/// - **iOS HealthKit**: `HKCorrelationType(.food)` or individual nutrient
 /// types
 ///
 /// ## Capabilities

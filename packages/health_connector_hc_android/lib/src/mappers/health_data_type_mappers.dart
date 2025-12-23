@@ -236,7 +236,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$DiastolicBloodPressureHealthDataType is not supported on '
           'Health Connect. Use $BloodPressureHealthDataType instead.',
         );
-      // Distance activity data types (iOS only)
+      // Distance activity data types (iOS HealthKit only)
       case CyclingDistanceDataType _:
       case SwimmingDistanceDataType _:
       case WheelchairDistanceDataType _:
@@ -253,7 +253,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         );
       case SpeedSeriesDataType _:
         return HealthDataTypeDto.speedSeries;
-      // Speed activity types (iOS only)
+      // Speed activity types (iOS HealthKit only)
       case WalkingSpeedDataType _:
       case RunningSpeedDataType _:
       case StairAscentSpeedDataType _:

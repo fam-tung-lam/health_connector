@@ -11,9 +11,9 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: Not supported (use
+/// - **Android Health Connect**: Not supported (use
 /// [BloodPressureHealthDataType])
-/// - **iOS (HealthKit)**: `HKQuantityType(.bloodPressureDiastolic)`
+/// - **iOS HealthKit**: `HKQuantityType(.bloodPressureDiastolic)`
 ///
 /// ## Capabilities
 ///

@@ -14,8 +14,8 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `Vo2MaxRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.vo2Max)`
+/// - **Android Health Connect**: `Vo2MaxRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.vo2Max)`
 ///
 /// ## Capabilities
 ///

@@ -2,9 +2,9 @@
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: Maps to `SleepSessionRecord.Stage.StageType`
+/// - **Android Health Connect**: Maps to `SleepSessionRecord.Stage.StageType`
 /// constants
-/// - **iOS (HealthKit)**: Maps to `HKCategoryValueSleepAnalysis` enum values
+/// - **iOS HealthKit**: Maps to `HKCategoryValueSleepAnalysis` enum values
 enum SleepStageType {
   /// Unknown sleep stage (fallback).
   unknown,
@@ -18,7 +18,7 @@ enum SleepStageType {
   /// Out of bed during the sleep period.
   outOfBed,
 
-  /// Light sleep (also called "core" sleep on iOS).
+  /// Light sleep (also called "core" sleep on iOS HealthKit).
   light,
 
   /// Deep sleep.

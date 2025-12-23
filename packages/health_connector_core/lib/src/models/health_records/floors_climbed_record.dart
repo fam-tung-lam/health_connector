@@ -8,8 +8,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `FloorsClimbedRecord`
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.flightsClimbed`
+/// - **Android Health Connect**: `FloorsClimbedRecord`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.flightsClimbed`
 ///
 /// ## Example
 ///

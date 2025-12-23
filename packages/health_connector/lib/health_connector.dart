@@ -21,7 +21,7 @@
 ///
 /// ### 2. Platform Setup
 ///
-/// **iOS (HealthKit)**:
+/// **iOS HealthKit**:
 /// - Add HealthKit capability in Xcode
 /// - Add usage descriptions to `Info.plist`:
 ///   ```xml
@@ -31,7 +31,7 @@
 ///   <string>We need access to write your health data</string>
 ///   ```
 ///
-/// **Android (Health Connect)**:
+/// **Android Health Connect**:
 /// - Minimum SDK: 28 (Android 9.0+)
 /// - Add permissions to `AndroidManifest.xml`
 /// - Declare health data types in Play Console
@@ -102,13 +102,13 @@
 ///
 /// ## Platform Coverage
 ///
-/// ### iOS (HealthKit)
+/// ### iOS HealthKit
 /// - Minimum: iOS 15.0
 /// - All data types supported
 /// - Read/write permissions
 /// - Automatic background sync
 ///
-/// ### Android (Health Connect)
+/// ### Android Health Connect
 /// - Minimum: API 26
 /// - All data types supported
 /// - Granular permissions

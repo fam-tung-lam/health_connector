@@ -12,8 +12,8 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `ActiveCaloriesBurnedRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.activeEnergyBurned)`
+/// - **Android Health Connect**: `ActiveCaloriesBurnedRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.activeEnergyBurned)`
 ///
 /// ## Capabilities
 ///

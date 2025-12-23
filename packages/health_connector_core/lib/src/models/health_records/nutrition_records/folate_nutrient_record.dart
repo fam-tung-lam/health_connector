@@ -8,7 +8,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.dietaryFolate`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.dietaryFolate`
 ///
 /// > [!NOTE]
 /// > This record type is only supported on iOS/HealthKit. For Android,

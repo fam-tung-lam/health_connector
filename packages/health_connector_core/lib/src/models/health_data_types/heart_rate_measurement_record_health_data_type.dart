@@ -12,8 +12,8 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit) Only**: `HKQuantityType(.heartRate)`
-/// - **Android (Health Connect)**: Use [HeartRateSeriesRecordHealthDataType]
+/// - **iOS HealthKit Only**: `HKQuantityType(.heartRate)`
+/// - **Android Health Connect**: Use [HeartRateSeriesRecordHealthDataType]
 /// instead
 ///
 /// ## Capabilities

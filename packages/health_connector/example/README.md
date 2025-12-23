@@ -1,7 +1,7 @@
 # Example
 
-Example app demonstrating the unified `HealthConnector` API that works across both Android (Health
-Connect) and iOS (HealthKit).
+Example app demonstrating the unified `HealthConnector` API that works across both 
+Android Health Connect and iOS HealthKit.
 
 ## What It Demonstrates
 

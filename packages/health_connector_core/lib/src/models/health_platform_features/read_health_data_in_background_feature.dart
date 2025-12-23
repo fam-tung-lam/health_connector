@@ -8,11 +8,11 @@ part of 'health_platform_feature.dart';
 ///
 /// ## Platform Ecosystems
 ///
-/// - **Android (Health Connect)**:
+/// - **Android Health Connect**:
 ///   - Requires the `READ_HEALTH_DATA_IN_BACKGROUND` permission.
 ///   - This is a sensitive permission that requires additional justification
 ///     during Google Play Store review.
-/// - **iOS (HealthKit)**:
+/// - **iOS HealthKit**:
 ///   - Supported via `HKObserverQuery` and Background Delivery.
 ///   - Requires enabling the "HealthKit" and "Background Modes" capabilities.
 ///

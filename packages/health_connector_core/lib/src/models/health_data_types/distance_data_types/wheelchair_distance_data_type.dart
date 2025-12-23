@@ -10,8 +10,8 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit) Only**: `HKQuantityType(.distanceWheelchair)`
-/// - **Android (Health Connect)**: Not directly supported
+/// - **iOS HealthKit Only**: `HKQuantityType(.distanceWheelchair)`
+/// - **Android Health Connect**: Not directly supported
 ///
 /// ## Capabilities
 ///

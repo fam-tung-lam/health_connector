@@ -12,8 +12,8 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `BloodPressureRecord`
-/// - **iOS (HealthKit)**: `HKCorrelationType(.bloodPressure)`
+/// - **Android Health Connect**: `BloodPressureRecord`
+/// - **iOS HealthKit**: `HKCorrelationType(.bloodPressure)`
 ///
 /// ## Capabilities
 ///

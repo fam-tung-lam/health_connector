@@ -2,7 +2,7 @@ part of 'health_record.dart';
 
 /// A health record that spans a duration of time.
 ///
-/// ### iOS (HealthKit) Note
+/// ### iOS HealthKit Note
 ///
 /// On iOS/HealthKit, this value will always be the same as
 /// [endZoneOffsetSeconds]

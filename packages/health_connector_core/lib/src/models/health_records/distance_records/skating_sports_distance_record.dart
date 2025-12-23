@@ -6,7 +6,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.distanceSkatingSports`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.distanceSkatingSports`
 ///
 /// ## Example
 ///

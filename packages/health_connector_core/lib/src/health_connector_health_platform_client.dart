@@ -3,7 +3,7 @@ import 'package:health_connector_core/health_connector_core.dart';
 /// Platform client interface for interacting with native health platforms.
 ///
 /// This interface defines the contract for platform-specific implementations
-/// that communicate with Health Connect (Android) or HealthKit (iOS) to read,
+/// that communicate with Android Health Connect or iOS HealthKit to read,
 /// write, and manage health data.
 ///
 /// Implementations of this interface handle:

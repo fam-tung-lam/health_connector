@@ -2,7 +2,7 @@ part of 'health_data_type.dart';
 
 /// Health data type for Android heart rate series records.
 ///
-/// **Platform:** Android only (Health Connect)
+/// **Platform:** Android Health Connect Only (Android Health Connect)
 ///
 /// Heart rate series records on Android are container records with embedded
 /// BPM samples. Each record has a single ID that encompasses all measurements.

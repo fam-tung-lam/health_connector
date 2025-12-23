@@ -4,7 +4,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit)**: `HKQuantityTypeIdentifier.stairAscentSpeed`
+/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.stairAscentSpeed`
 ///
 /// ## Example
 ///

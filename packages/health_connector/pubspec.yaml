@@ -1,6 +1,6 @@
 name: health_connector
 resolution: workspace
-description: A Flutter plugin to access health data from Health Connect (Android) and HealthKit (iOS)
+description: A Flutter plugin to access health data from Android Health Connect and iOS HealthKit
 version: 1.4.0
 homepage: https://github.com/fam-tung-lam/health_connector
 repository: https://github.com/fam-tung-lam/health_connector/tree/main/packages/health_connector

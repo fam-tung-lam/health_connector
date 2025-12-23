@@ -4,12 +4,12 @@ part of 'health_record.dart';
 ///
 /// ## Time Representation
 ///
-/// ### Android (Health Connect)
+/// ### Android Health Connect
 /// - Single timestamp stored as "time"
 /// - Timezone offset supported and preserved
 /// - Instant records map to `InstantRecord` subclasses
 ///
-/// ### iOS (HealthKit)
+/// ### iOS HealthKit
 /// - Maps to HKQuantitySample or HKCategorySample
 /// - Start and end dates are the same (point-in-time)
 /// - Timezone information less explicit (uses device timezone)
@@ -49,8 +49,8 @@ sealed class InstantHealthRecord extends HealthRecord {
   /// - Null if timezone information is not available
   ///
   /// **Platform differences:**
-  /// - **Android (Health Connect):** Timezone offset fully supported
-  /// - **iOS (HealthKit):** Timezone information less explicit, typically uses
+  /// - **Android Health Connect:** Timezone offset fully supported
+  /// - **iOS HealthKit:** Timezone information less explicit, typically uses
   ///   device timezone
   final int? zoneOffsetSeconds;
 }

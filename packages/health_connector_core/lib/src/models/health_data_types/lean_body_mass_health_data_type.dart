@@ -11,8 +11,8 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `LeanBodyMassRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.leanBodyMass)`
+/// - **Android Health Connect**: `LeanBodyMassRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.leanBodyMass)`
 ///
 /// ## Capabilities
 ///

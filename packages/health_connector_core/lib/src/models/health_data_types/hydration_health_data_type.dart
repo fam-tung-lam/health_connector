@@ -6,8 +6,8 @@ part of 'health_data_type.dart';
 /// hydration levels and maintain healthy fluid intake.
 ///
 /// ## Platform Support
-/// - ✅ Android (Health Connect): Fully supported via `HydrationRecord`
-/// - ✅ iOS (HealthKit): Fully supported via `dietaryWater`
+/// - ✅ Android Health Connect: Fully supported via `HydrationRecord`
+/// - ✅ iOS HealthKit: Fully supported via `dietaryWater`
 ///
 /// ## Capabilities
 /// - ✅ Read: Query historical hydration records

@@ -11,8 +11,8 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android (Health Connect)**: `WeightRecord`
-/// - **iOS (HealthKit)**: `HKQuantityType(.bodyMass)`
+/// - **Android Health Connect**: `WeightRecord`
+/// - **iOS HealthKit**: `HKQuantityType(.bodyMass)`
 ///
 /// ## Capabilities
 ///

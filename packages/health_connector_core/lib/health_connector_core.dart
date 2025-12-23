@@ -3,8 +3,8 @@
 /// Core abstractions and models for cross-platform health data integration.
 ///
 /// This library provides platform-agnostic interfaces and data types for
-/// interacting with native health APIs across iOS (HealthKit) and Android
-/// (Health Connect). It defines the foundational contracts that
+/// interacting with native health APIs across iOS HealthKit and Android
+/// (Android Health Connect). It defines the foundational contracts that
 /// platform-specific implementations must fulfill.
 ///
 /// ## Core Concepts
@@ -90,8 +90,8 @@
 ///
 /// ## Platform Support
 ///
-/// - **iOS (HealthKit)**: Requires iOS 15.0+
-/// - **Android (Health Connect)**: Requires Android API 26+
+/// - **iOS HealthKit**: Requires iOS 15.0+
+/// - **Android Health Connect**: Requires Android API 26+
 ///
 /// See also:
 /// - `health_connector` - Main SDK entry point

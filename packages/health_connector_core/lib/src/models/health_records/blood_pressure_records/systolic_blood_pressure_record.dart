@@ -11,7 +11,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit)**: `HKQuantityType(.bloodPressureSystolic)`
+/// - **iOS HealthKit**: `HKQuantityType(.bloodPressureSystolic)`
 ///
 /// > [!NOTE]
 /// > This record type is only supported on iOS/HealthKit. It is not available

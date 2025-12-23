@@ -11,8 +11,8 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS (HealthKit) Only**: `HKQuantityType(.distanceSwimming)`
-/// - **Android (Health Connect)**: Not directly supported (use general distance
+/// - **iOS HealthKit Only**: `HKQuantityType(.distanceSwimming)`
+/// - **Android Health Connect**: Not directly supported (use general distance
 /// records)
 ///
 /// ## Capabilities
