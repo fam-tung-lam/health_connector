@@ -632,7 +632,7 @@ abstract interface class HealthConnector {
   ///   when write permission has not been granted.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] when the record ID is not
-  ///   [HealthRecordId.none].
+  ///   [HealthRecordId.none] or the record is not supported by the platform.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   when an unexpected error occurs.
   ///
@@ -677,7 +677,7 @@ abstract interface class HealthConnector {
   ///   been granted.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if any record ID is not
-  ///   [HealthRecordId.none].
+  ///   [HealthRecordId.none] or some records are not supported by the platform.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   when an unexpected error occurs (no records will be written).
   ///
@@ -829,7 +829,7 @@ abstract interface class HealthConnector {
   ///   [HealthConnectorErrorCode.unsupportedOperation] on iOS HealthKit.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if the record ID is
-  ///   [HealthRecordId.none] or invalid.
+  ///   [HealthRecordId.none] or the record is not supported by the platform.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   when write permission has not been granted or when attempting to
   ///   update a record not created by this app.
@@ -934,7 +934,7 @@ abstract interface class HealthConnector {
   ///   [HealthConnectorErrorCode.unsupportedOperation] on iOS HealthKit.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if any record ID is
-  ///   [HealthRecordId.none] or invalid.
+  ///   [HealthRecordId.none] or some record are not supported by the platform.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
   ///   when write permission has not been granted or when attempting to update
   ///   records not created by this app.

@@ -365,6 +365,10 @@ final class HealthConnectorImpl implements HealthConnector {
         record.id == HealthRecordId.none,
         'Record ID must be HealthRecordId.none for new records. ',
       );
+      require(
+        record.supportedHealthPlatforms.contains(healthPlatform),
+        '${record.runtimeType} is not supported on $healthPlatform.',
+      );
 
       final recordId = await _client.writeRecord(record);
 
@@ -419,11 +423,18 @@ final class HealthConnectorImpl implements HealthConnector {
     }
 
     try {
-      if (records.any((record) => record.id == HealthRecordId.none)) {
-        throw ArgumentError(
-          'All records must have `HealthRecordId.none` for new records.',
-        );
-      }
+      require(
+        records.every(
+          (record) => record.supportedHealthPlatforms.contains(
+            healthPlatform,
+          ),
+        ),
+        'Records are not supported on $healthPlatform.',
+      );
+      require(
+        records.every((record) => record.id == HealthRecordId.none),
+        'All records must have `HealthRecordId.none` for new records.',
+      );
 
       final recordIds = await _client.writeRecords(records);
 
@@ -551,6 +562,16 @@ final class HealthConnectorImpl implements HealthConnector {
     );
 
     try {
+      if (healthPlatform == HealthPlatform.appleHealth) {
+        throw const UnsupportedOperationException(
+          'updateRecord API is not supported on iOS HealthKit SDK',
+        );
+      }
+
+      require(
+        record.supportedHealthPlatforms.contains(healthPlatform),
+        'Record is not supported on $healthPlatform.',
+      );
       require(
         record.id != HealthRecordId.none,
         'Record ID must not be HealthRecordId.none for updates. ',
@@ -601,6 +622,20 @@ final class HealthConnectorImpl implements HealthConnector {
     );
 
     try {
+      if (healthPlatform == HealthPlatform.appleHealth) {
+        throw const UnsupportedOperationException(
+          'updateRecord API is not supported on iOS HealthKit SDK',
+        );
+      }
+
+      require(
+        records.every(
+          (record) => record.supportedHealthPlatforms.contains(
+            healthPlatform,
+          ),
+        ),
+        'Records are not supported on $healthPlatform.',
+      );
       require(
         records.every((record) => record.id != HealthRecordId.none),
         'Record IDs must not be HealthRecordId.none for updates. ',
