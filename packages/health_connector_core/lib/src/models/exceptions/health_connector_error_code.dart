@@ -1,5 +1,5 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_0_0, sinceV2_0_0;
+    show sinceV1_0_0;
 import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart';
 
 /// Error codes for [HealthConnectorException].
@@ -19,8 +19,8 @@ enum HealthConnectorErrorCode {
   /// - Prompt the user to install or update Health Connect from the Play Store.
   /// - Provide a direct link.
   ///
-  /// Throws [HealthProviderNotInstalledOrUpdateRequiredException].
-  healthProviderNotInstalledOrUpdateRequired(
+  /// Throws [HealthPlatformNotInstalledOrUpdateRequiredException].
+  healthPlatformNotInstalledOrUpdateRequired(
     'HEALTH_PROVIDER_NOT_INSTALLED_OR_UPDATE_REQUIRED',
   ),
 
@@ -36,8 +36,8 @@ enum HealthConnectorErrorCode {
   /// - Inform the user that health features are not available on their device.
   /// - Gracefully disable health-related functionality.
   ///
-  /// Throws [HealthProviderUnavailableException].
-  healthProviderUnavailable('HEALTH_PROVIDER_UNAVAILABLE'),
+  /// Throws [HealthPlatformUnavailableException].
+  healthPlatformUnavailable('HEALTH_PROVIDER_UNAVAILABLE'),
 
   /// Attempted to use an API not supported by the current platform or version.
   ///
@@ -111,21 +111,6 @@ enum HealthConnectorErrorCode {
   ///
   /// Throws [RemoteErrorException].
   remoteError('REMOTE_ERROR'),
-
-  /// User cancelled the operation.
-  ///
-  /// **Causes:**
-  /// - User dismissed the permission dialog without making a choice.
-  /// - User cancelled an in-progress action.
-  ///
-  /// **Action:**
-  /// - Respect the user's choice; do not immediately re-prompt.
-  /// - Continue app flow without health features if appropriate.
-  /// - This is not an error condition requiring user notification.
-  ///
-  /// Throws [UserCancelledException].
-  @sinceV2_0_0
-  userCancelled('USER_CANCELLED'),
 
   /// An unknown or unexpected error occurred.
   ///

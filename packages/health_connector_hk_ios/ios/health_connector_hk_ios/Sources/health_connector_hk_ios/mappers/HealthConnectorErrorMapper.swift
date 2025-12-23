@@ -83,10 +83,10 @@ extension HealthConnectorError {
     /// | `.errorAuthorizationDenied` | `.notAuthorized` |
     /// | `.errorAuthorizationNotDetermined` | `.notAuthorized` |
     /// | `.errorInvalidArgument` | `.invalidArgument` |
-    /// | `.errorHealthDataUnavailable` | `.healthProviderUnavailable` |
-    /// | `.errorDatabaseInaccessible` | `.healthProviderUnavailable` |
-    /// | `.errorHealthDataRestricted` | `.healthProviderUnavailable` |
-    /// | `.errorUserCanceled` | `.userCancelled` |
+    /// | `.errorHealthDataUnavailable` | `.healthPlatformUnavailable` |
+    /// | `.errorDatabaseInaccessible` | `.healthPlatformUnavailable` |
+    /// | `.errorHealthDataRestricted` | `.healthPlatformUnavailable` |
+    /// | `.errorUserCanceled` | `.notAuthorized` |
     /// | All others | `.unknown` (with cause) |
     ///
     /// - Parameter error: The HKError to convert
@@ -129,7 +129,7 @@ extension HealthConnectorError {
             )
 
         case .errorHealthDataUnavailable, .errorDatabaseInaccessible, .errorHealthDataRestricted:
-            return .healthProviderUnavailable(
+            return .healthPlatformUnavailable(
                 message: error.localizedDescription,
                 cause: error
             )

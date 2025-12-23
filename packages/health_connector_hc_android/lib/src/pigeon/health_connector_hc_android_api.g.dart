@@ -50,10 +50,10 @@ bool _deepEquals(Object? a, Object? b) {
 /// Error codes that native platforms can use when throwing error.
 enum HealthConnectorErrorCodeDto {
   /// Health Connect installation or update is required.
-  healthProviderNotInstalledOrUpdateRequired,
+  healthPlatformNotInstalledOrUpdateRequired,
 
   /// Health platform is unavailable on this device.
-  healthProviderUnavailable,
+  healthPlatformUnavailable,
 
   /// Invalid platform configuration detected.
   invalidConfiguration,
@@ -73,9 +73,6 @@ enum HealthConnectorErrorCodeDto {
 
   /// A transient I/O or communication error occurred.
   remoteError,
-
-  /// User cancelled the operation.
-  userCancelled,
 }
 
 /// Represents the status of the health platform on the device.

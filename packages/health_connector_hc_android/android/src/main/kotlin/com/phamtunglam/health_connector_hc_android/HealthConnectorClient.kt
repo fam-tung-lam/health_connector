@@ -91,7 +91,7 @@ internal class HealthConnectorClient private constructor(
                     exception = e,
                 )
                 throw HealthConnectorErrorCodeDto
-                    .HEALTH_PROVIDER_NOT_INSTALLED_OR_UPDATE_REQUIRED.toError(
+                    .HEALTH_PLATFORM_NOT_INSTALLED_OR_UPDATE_REQUIRED.toError(
                         e.message,
                     )
             } catch (e: IllegalStateException) {
@@ -101,7 +101,7 @@ internal class HealthConnectorClient private constructor(
                     message = "Failed to create Health Connect client due to service not available",
                     exception = e,
                 )
-                throw HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE.toError(
+                throw HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE.toError(
                     e.message,
                 )
             }

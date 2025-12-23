@@ -131,7 +131,7 @@ internal class HealthConnectorPermissionService(
      * @return [PermissionStatusDto.GRANTED] if the permission is granted, [PermissionStatusDto.DENIED] otherwise.
      * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.REMOTE_ERROR] for
      *         any IPC transportation and disk I/O issues.
-     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE]
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE]
      *         if service is not available.
      */
     @Throws(HealthConnectorErrorDto::class)
@@ -156,7 +156,7 @@ internal class HealthConnectorPermissionService(
      * @return A [PermissionRequestsResponseDto] containing all granted permissions.
      * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.REMOTE_ERROR] for
      *         any IPC transportation and disk I/O issues.
-     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE]
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE]
      *         if service is not available.
      */
     @Throws(HealthConnectorErrorDto::class)
@@ -179,7 +179,7 @@ internal class HealthConnectorPermissionService(
      *
      * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.REMOTE_ERROR] for
      *         any IPC transportation and disk I/O issues.
-     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE]
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE]
      *         if service is not available.
      */
     @Throws(HealthConnectorErrorDto::class)
@@ -191,7 +191,7 @@ internal class HealthConnectorPermissionService(
         } catch (e: IOException) {
             throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
         } catch (e: IllegalStateException) {
-            throw HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE.toError(e.message)
+            throw HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE.toError(e.message)
         }
     }
 
@@ -201,7 +201,7 @@ internal class HealthConnectorPermissionService(
      * @return A [Set<String>] containing all granted permissions.
      * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.REMOTE_ERROR] for
      *         any IPC transportation and disk I/O issues.
-     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE]
+     * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE]
      *         if service is not available.
      */
     private suspend fun getGrantedPermissionStrings(): Set<String> {
@@ -212,7 +212,7 @@ internal class HealthConnectorPermissionService(
         } catch (e: IOException) {
             throw HealthConnectorErrorCodeDto.REMOTE_ERROR.toError(e.message)
         } catch (e: IllegalStateException) {
-            throw HealthConnectorErrorCodeDto.HEALTH_PROVIDER_UNAVAILABLE.toError(e.message)
+            throw HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE.toError(e.message)
         }
     }
 }

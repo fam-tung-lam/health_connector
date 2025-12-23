@@ -10,7 +10,7 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchec
     /// - Parameters:
     ///   - message: A description of why the health service is unavailable.
     ///   - cause: The underlying error, if any.
-    case healthProviderUnavailable(message: String, cause: Error? = nil)
+    case healthPlatformUnavailable(message: String, cause: Error? = nil)
 
     /// Represents a configuration error, such as a missing Info.plist key.
     /// - Parameters:
@@ -51,20 +51,20 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchec
     /// A unique, machine-readable string code for the error.
     var code: String {
         switch self {
-        case .healthProviderUnavailable: "HEALTH_PROVIDER_UNAVAILABLE"
+        case .healthPlatformUnavailable: "HEALTH_PROVIDER_UNAVAILABLE"
         case .invalidConfiguration: "INVALID_CONFIGURATION"
         case .invalidArgument: "INVALID_ARGUMENT"
         case .unsupportedOperation: "UNSUPPORTED_OPERATION"
         case .unknown: "UNKNOWN_ERROR"
         case .notAuthorized: "NOT_AUTHORIZED"
-        case .userCancelled: "USER_CANCELLED"
+        case .userCancelled: "NOT_AUTHORIZED"
         }
     }
 
     /// The primary, human-readable description of the error.
     var message: String {
         switch self {
-        case let .healthProviderUnavailable(msg, _),
+        case let .healthPlatformUnavailable(msg, _),
              let .invalidConfiguration(msg, _),
              let .invalidArgument(msg, _),
              let .unsupportedOperation(msg, _),
@@ -78,7 +78,7 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchec
     /// The underlying `Error` that caused this error, if any.
     var error: Error? {
         switch self {
-        case let .healthProviderUnavailable(_, cause),
+        case let .healthPlatformUnavailable(_, cause),
              let .unknown(_, cause, _):
             cause
         default:

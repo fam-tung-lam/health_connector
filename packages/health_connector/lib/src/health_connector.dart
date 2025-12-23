@@ -28,8 +28,8 @@ import 'package:health_connector_core/health_connector_core.dart'
         sinceV2_0_0,
         DeleteRecordsInTimeRangeRequest,
         DeleteRecordsByIdsRequest,
-        HealthProviderUnavailableException,
-        HealthProviderNotInstalledOrUpdateRequiredException,
+        HealthPlatformUnavailableException,
+        HealthPlatformNotInstalledOrUpdateRequiredException,
         sinceV1_0_0,
         HealthDataType;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
@@ -122,10 +122,10 @@ abstract interface class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.healthProviderUnavailable]
+  ///   [HealthConnectorErrorCode.healthPlatformUnavailable]
   ///   when the health platform is unavailable on this device.
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.healthProviderNotInstalledOrUpdateRequired]
+  ///   [HealthConnectorErrorCode.healthPlatformNotInstalledOrUpdateRequired]
   ///   when Health Connect app installation or update is required.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
   ///   when an unexpected error occurs.
@@ -164,7 +164,7 @@ abstract interface class HealthConnector {
           context: {'platform': healthPlatform.name},
         );
 
-        throw HealthProviderUnavailableException(
+        throw HealthPlatformUnavailableException(
           '$healthPlatform is not available.',
         );
       case HealthPlatformStatus.installationOrUpdateRequired:
@@ -175,7 +175,7 @@ abstract interface class HealthConnector {
           context: {'platform': healthPlatform.name},
         );
 
-        throw HealthProviderNotInstalledOrUpdateRequiredException(
+        throw HealthPlatformNotInstalledOrUpdateRequiredException(
           '$healthPlatform needs installation or update.',
         );
       case HealthPlatformStatus.available:
@@ -247,9 +247,9 @@ abstract interface class HealthConnector {
           : HealthPlatform.healthConnect;
       final status = await switch (healthPlatform) {
         HealthPlatform.appleHealth =>
-            HealthConnectorHKClient.getHealthPlatformStatus(),
+          HealthConnectorHKClient.getHealthPlatformStatus(),
         HealthPlatform.healthConnect =>
-            HealthConnectorHCClient.getHealthPlatformStatus(),
+          HealthConnectorHCClient.getHealthPlatformStatus(),
       };
 
       HealthConnectorLogger.info(

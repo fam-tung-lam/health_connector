@@ -53,7 +53,7 @@ actor HealthConnectorClient: Taggable {
                 operation: "getOrCreate",
                 message: "HealthKit is not available on this device"
             )
-            throw HealthConnectorError.healthProviderUnavailable(
+            throw HealthConnectorError.healthPlatformUnavailable(
                 message: "HealthKit is not available on this device"
             )
         }

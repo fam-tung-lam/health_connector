@@ -112,9 +112,7 @@ enum class HealthConnectorErrorCodeDto(val raw: Int) {
   /** Security/permission error occurred. */
   NOT_AUTHORIZED(6),
   /** A transient I/O or communication error occurred. */
-  REMOTE_ERROR(7),
-  /** User cancelled the operation. */
-  USER_CANCELLED(8);
+  REMOTE_ERROR(7);
 
   companion object {
     fun ofRaw(raw: Int): HealthConnectorErrorCodeDto? {

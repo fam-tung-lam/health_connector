@@ -14,7 +14,7 @@ import 'package:meta/meta.dart' show immutable;
 /// ```dart
 /// try {
 ///   await HealthConnector.requestPermissions([...]);
-/// } on HealthProviderNotInstalledOrUpdateRequiredException {
+/// } on HealthPlatformNotInstalledOrUpdateRequiredException {
 ///   // Prompt user to install Health Connect (Android only)
 /// } on NotAuthorizedException {
 ///   // Handle permission denial
@@ -51,14 +51,14 @@ sealed class HealthConnectorException implements Exception {
     StackTrace? stackTrace,
   }) {
     switch (code) {
-      case HealthConnectorErrorCode.healthProviderNotInstalledOrUpdateRequired:
-        return HealthProviderNotInstalledOrUpdateRequiredException(
+      case HealthConnectorErrorCode.healthPlatformNotInstalledOrUpdateRequired:
+        return HealthPlatformNotInstalledOrUpdateRequiredException(
           message,
           cause: cause,
           stackTrace: stackTrace,
         );
-      case HealthConnectorErrorCode.healthProviderUnavailable:
-        return HealthProviderUnavailableException(
+      case HealthConnectorErrorCode.healthPlatformUnavailable:
+        return HealthPlatformUnavailableException(
           message,
           cause: cause,
           stackTrace: stackTrace,
@@ -89,12 +89,6 @@ sealed class HealthConnectorException implements Exception {
         );
       case HealthConnectorErrorCode.remoteError:
         return RemoteErrorException(
-          message,
-          cause: cause,
-          stackTrace: stackTrace,
-        );
-      case HealthConnectorErrorCode.userCancelled:
-        return UserCancelledException(
           message,
           cause: cause,
           stackTrace: stackTrace,
@@ -163,15 +157,15 @@ sealed class HealthConnectorException implements Exception {
 /// - Provide a direct link.
 @sinceV2_0_0
 @immutable
-final class HealthProviderNotInstalledOrUpdateRequiredException
+final class HealthPlatformNotInstalledOrUpdateRequiredException
     extends HealthConnectorException {
-  /// Creates a [HealthProviderNotInstalledOrUpdateRequiredException].
-  const HealthProviderNotInstalledOrUpdateRequiredException(
+  /// Creates a [HealthPlatformNotInstalledOrUpdateRequiredException].
+  const HealthPlatformNotInstalledOrUpdateRequiredException(
     String message, {
     Object? cause,
     StackTrace? stackTrace,
   }) : super(
-         HealthConnectorErrorCode.healthProviderNotInstalledOrUpdateRequired,
+         HealthConnectorErrorCode.healthPlatformNotInstalledOrUpdateRequired,
          message,
          cause: cause,
          stackTrace: stackTrace,
@@ -191,15 +185,15 @@ final class HealthProviderNotInstalledOrUpdateRequiredException
 /// - Gracefully disable health-related functionality.
 @sinceV2_0_0
 @immutable
-final class HealthProviderUnavailableException
+final class HealthPlatformUnavailableException
     extends HealthConnectorException {
-  /// Creates a [HealthProviderUnavailableException].
-  const HealthProviderUnavailableException(
+  /// Creates a [HealthPlatformUnavailableException].
+  const HealthPlatformUnavailableException(
     String message, {
     Object? cause,
     StackTrace? stackTrace,
   }) : super(
-         HealthConnectorErrorCode.healthProviderUnavailable,
+         HealthConnectorErrorCode.healthPlatformUnavailable,
          message,
          cause: cause,
          stackTrace: stackTrace,
@@ -335,32 +329,6 @@ final class RemoteErrorException extends HealthConnectorException {
     StackTrace? stackTrace,
   }) : super(
          HealthConnectorErrorCode.remoteError,
-         message,
-         cause: cause,
-         stackTrace: stackTrace,
-       );
-}
-
-/// Exception thrown when the user cancelled the operation.
-///
-/// **Causes:**
-/// - User dismissed the permission dialog without making a choice.
-/// - User cancelled an in-progress action.
-///
-/// **Action:**
-/// - Respect the user's choice; do not immediately re-prompt.
-/// - Continue app flow without health features if appropriate.
-/// - This is not an error condition requiring user notification.
-@sinceV2_0_0
-@immutable
-final class UserCancelledException extends HealthConnectorException {
-  /// Creates a [UserCancelledException].
-  const UserCancelledException(
-    String message, {
-    Object? cause,
-    StackTrace? stackTrace,
-  }) : super(
-         HealthConnectorErrorCode.userCancelled,
          message,
          cause: cause,
          stackTrace: stackTrace,

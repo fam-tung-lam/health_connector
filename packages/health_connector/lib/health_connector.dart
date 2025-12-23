@@ -119,7 +119,7 @@
 /// All SDK methods throw [HealthConnectorException] with specific error codes:
 /// - [NotAuthorizedException] - Permission denied
 /// - [InvalidArgumentException] - Invalid parameters
-/// - [HealthProviderUnavailableException] - Platform not available
+/// - [HealthPlatformUnavailableException] - Platform not available
 /// - [UnsupportedOperationException] - Feature not supported on platform
 ///
 /// See [HealthConnectorException] for the complete error hierarchy.
