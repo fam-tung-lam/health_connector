@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query protein intake records
 /// - ✅ Writeable: Write protein intake records
 /// - ✅ Aggregatable: Sum total protein intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class ProteinNutrientDataType
     implements
         ReadableHealthDataType<ProteinNutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<ProteinNutrientRecord, Mass> {
+        SumAggregatableHealthDataType<ProteinNutrientRecord, Mass>,
+        DeletableHealthDataType<ProteinNutrientRecord> {
   /// Creates a protein nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -88,4 +90,26 @@ final class ProteinNutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<ProteinNutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<ProteinNutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

@@ -18,6 +18,7 @@ part of 'health_data_type.dart';
 ///
 /// - ✅ Readable: Query body temperature records
 /// - ✅ Writeable: Write body temperature records
+/// - ✅ Deletable: Delete records by IDs or time range
 /// - ❌ Not aggregatable
 @sinceV1_0_0
 @immutable
@@ -25,7 +26,8 @@ final class BodyTemperatureHealthDataType
     extends HealthDataType<BodyTemperatureRecord, Temperature>
     implements
         ReadableHealthDataType<BodyTemperatureRecord>,
-        WriteableHealthDataType {
+        WriteableHealthDataType,
+        DeletableHealthDataType<BodyTemperatureRecord> {
   /// Creates a body temperature data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -72,4 +74,26 @@ final class BodyTemperatureHealthDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<BodyTemperatureRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<BodyTemperatureRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

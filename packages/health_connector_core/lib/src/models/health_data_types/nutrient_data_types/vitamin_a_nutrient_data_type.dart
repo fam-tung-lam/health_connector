@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query vitamin a intake records
 /// - ✅ Writeable: Write vitamin a intake records
 /// - ✅ Aggregatable: Sum total vitamin a intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class VitaminANutrientDataType
     implements
         ReadableHealthDataType<VitaminANutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<VitaminANutrientRecord, Mass> {
+        SumAggregatableHealthDataType<VitaminANutrientRecord, Mass>,
+        DeletableHealthDataType<VitaminANutrientRecord> {
   /// Creates a vitamin a nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -80,4 +82,26 @@ final class VitaminANutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<VitaminANutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<VitaminANutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

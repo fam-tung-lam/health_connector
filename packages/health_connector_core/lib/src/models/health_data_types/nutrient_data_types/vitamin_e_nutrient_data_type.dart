@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query vitamin e intake records
 /// - ✅ Writeable: Write vitamin e intake records
 /// - ✅ Aggregatable: Sum total vitamin e intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class VitaminENutrientDataType
     implements
         ReadableHealthDataType<VitaminENutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<VitaminENutrientRecord, Mass> {
+        SumAggregatableHealthDataType<VitaminENutrientRecord, Mass>,
+        DeletableHealthDataType<VitaminENutrientRecord> {
   /// Creates a vitamin e nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -80,4 +82,26 @@ final class VitaminENutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<VitaminENutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<VitaminENutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

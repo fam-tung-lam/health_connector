@@ -1,6 +1,13 @@
 part of 'health_data_type.dart';
 
 /// Oxygen saturation data type.
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query oxygen saturation records
+/// - ✅ Writeable: Write oxygen saturation records
+/// - ✅ Aggregatable: Calculate avg, min, max oxygen saturation
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_3_0
 @immutable
 final class OxygenSaturationHealthDataType
@@ -10,7 +17,8 @@ final class OxygenSaturationHealthDataType
         WriteableHealthDataType,
         AvgAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,
         MinAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,
-        MaxAggregatableHealthDataType<OxygenSaturationRecord, Percentage> {
+        MaxAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,
+        DeletableHealthDataType<OxygenSaturationRecord> {
   /// Creates an oxygen saturation data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -100,4 +108,26 @@ final class OxygenSaturationHealthDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<OxygenSaturationRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<OxygenSaturationRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

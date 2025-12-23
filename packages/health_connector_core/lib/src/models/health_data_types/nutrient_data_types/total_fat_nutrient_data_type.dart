@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query total fat intake records
 /// - ✅ Writeable: Write total fat intake records
 /// - ✅ Aggregatable: Sum total total fat intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class TotalFatNutrientDataType
     implements
         ReadableHealthDataType<TotalFatNutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<TotalFatNutrientRecord, Mass> {
+        SumAggregatableHealthDataType<TotalFatNutrientRecord, Mass>,
+        DeletableHealthDataType<TotalFatNutrientRecord> {
   /// Creates a total fat nutrient data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -88,4 +90,26 @@ final class TotalFatNutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<TotalFatNutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<TotalFatNutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

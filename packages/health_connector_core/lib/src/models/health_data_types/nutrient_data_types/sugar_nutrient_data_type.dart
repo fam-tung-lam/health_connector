@@ -18,6 +18,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query sugar intake records
 /// - ✅ Writeable: Write sugar intake records
 /// - ✅ Aggregatable: Sum total sugar intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -26,7 +27,8 @@ final class SugarNutrientDataType
     implements
         ReadableHealthDataType<SugarNutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<SugarNutrientRecord, Mass> {
+        SumAggregatableHealthDataType<SugarNutrientRecord, Mass>,
+        DeletableHealthDataType<SugarNutrientRecord> {
   /// Creates a sugar nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -87,4 +89,26 @@ final class SugarNutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<SugarNutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<SugarNutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

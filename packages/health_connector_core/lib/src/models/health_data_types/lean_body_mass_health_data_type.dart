@@ -18,6 +18,7 @@ part of 'health_data_type.dart';
 ///
 /// - ✅ Readable: Query lean body mass records
 /// - ✅ Writeable: Write lean body mass records
+/// - ✅ Deletable: Delete records by IDs or time range
 /// - ❌ Not aggregatable
 @sinceV1_0_0
 @immutable
@@ -25,7 +26,8 @@ final class LeanBodyMassHealthDataType
     extends HealthDataType<LeanBodyMassRecord, Mass>
     implements
         ReadableHealthDataType<LeanBodyMassRecord>,
-        WriteableHealthDataType {
+        WriteableHealthDataType,
+        DeletableHealthDataType<LeanBodyMassRecord> {
   /// Creates a lean body mass data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -71,4 +73,26 @@ final class LeanBodyMassHealthDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<LeanBodyMassRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<LeanBodyMassRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

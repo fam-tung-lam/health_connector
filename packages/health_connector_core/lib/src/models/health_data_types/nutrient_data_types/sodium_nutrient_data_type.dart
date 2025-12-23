@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query sodium intake records
 /// - ✅ Writeable: Write sodium intake records
 /// - ✅ Aggregatable: Sum total sodium intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class SodiumNutrientDataType
     implements
         ReadableHealthDataType<SodiumNutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<SodiumNutrientRecord, Mass> {
+        SumAggregatableHealthDataType<SodiumNutrientRecord, Mass>,
+        DeletableHealthDataType<SodiumNutrientRecord> {
   /// Creates a sodium nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -80,4 +82,26 @@ final class SodiumNutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<SodiumNutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<SodiumNutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

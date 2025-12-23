@@ -19,6 +19,7 @@ part of 'health_data_type.dart';
 /// - ✅ Readable: Query weight records
 /// - ✅ Writeable: Write weight records
 /// - ✅ Aggregatable: Calculate avg, min, max weight
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_0_0
 @immutable
 final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
@@ -27,7 +28,8 @@ final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
         WriteableHealthDataType,
         AvgAggregatableHealthDataType<WeightRecord, Mass>,
         MinAggregatableHealthDataType<WeightRecord, Mass>,
-        MaxAggregatableHealthDataType<WeightRecord, Mass> {
+        MaxAggregatableHealthDataType<WeightRecord, Mass>,
+        DeletableHealthDataType<WeightRecord> {
   /// Creates a weight data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -116,4 +118,26 @@ final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<WeightRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<WeightRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

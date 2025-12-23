@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query dietary fiber intake records
 /// - ✅ Writeable: Write dietary fiber intake records
 /// - ✅ Aggregatable: Sum total dietary fiber intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class DietaryFiberNutrientDataType
     implements
         ReadableHealthDataType<DietaryFiberNutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<DietaryFiberNutrientRecord, Mass> {
+        SumAggregatableHealthDataType<DietaryFiberNutrientRecord, Mass>,
+        DeletableHealthDataType<DietaryFiberNutrientRecord> {
   /// Creates a dietary fiber nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -90,4 +92,27 @@ final class DietaryFiberNutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<DietaryFiberNutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<DietaryFiberNutrientRecord>
+  deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

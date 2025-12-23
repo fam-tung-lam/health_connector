@@ -1,6 +1,13 @@
 part of 'health_data_type.dart';
 
 /// Respiratory rate data type.
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query respiratory rate records
+/// - ✅ Writeable: Write respiratory rate records
+/// - ✅ Aggregatable: Calculate avg, min, max respiratory rate
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_3_0
 @immutable
 final class RespiratoryRateHealthDataType
@@ -10,7 +17,8 @@ final class RespiratoryRateHealthDataType
         WriteableHealthDataType,
         AvgAggregatableHealthDataType<RespiratoryRateRecord, Number>,
         MinAggregatableHealthDataType<RespiratoryRateRecord, Number>,
-        MaxAggregatableHealthDataType<RespiratoryRateRecord, Number> {
+        MaxAggregatableHealthDataType<RespiratoryRateRecord, Number>,
+        DeletableHealthDataType<RespiratoryRateRecord> {
   /// Creates a respiratory rate data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -100,4 +108,26 @@ final class RespiratoryRateHealthDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<RespiratoryRateRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<RespiratoryRateRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

@@ -20,6 +20,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query systolic blood pressure records
 /// - ✅ Writeable: Write systolic blood pressure records
 /// - ✅ Aggregatable: Calculate avg, min, max systolic pressure
+/// - ✅ Deletable: Delete records by IDs or time range
 ///
 /// > [!NOTE]
 /// > This data type is only supported on iOS/HealthKit. For Android,
@@ -35,7 +36,8 @@ final class SystolicBloodPressureHealthDataType
         WriteableHealthDataType,
         AvgAggregatableHealthDataType<SystolicBloodPressureRecord, Pressure>,
         MinAggregatableHealthDataType<SystolicBloodPressureRecord, Pressure>,
-        MaxAggregatableHealthDataType<SystolicBloodPressureRecord, Pressure> {
+        MaxAggregatableHealthDataType<SystolicBloodPressureRecord, Pressure>,
+        DeletableHealthDataType<SystolicBloodPressureRecord> {
   /// Creates a systolic blood pressure data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -132,4 +134,27 @@ final class SystolicBloodPressureHealthDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<SystolicBloodPressureRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<SystolicBloodPressureRecord>
+  deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

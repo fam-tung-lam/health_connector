@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query zinc intake records
 /// - ✅ Writeable: Write zinc intake records
 /// - ✅ Aggregatable: Sum total zinc intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class ZincNutrientDataType
     implements
         ReadableHealthDataType<ZincNutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<ZincNutrientRecord, Mass> {
+        SumAggregatableHealthDataType<ZincNutrientRecord, Mass>,
+        DeletableHealthDataType<ZincNutrientRecord> {
   /// Creates a zinc nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -80,4 +82,26 @@ final class ZincNutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<ZincNutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<ZincNutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

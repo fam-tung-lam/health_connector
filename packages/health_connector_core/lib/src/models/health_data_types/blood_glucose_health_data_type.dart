@@ -21,6 +21,7 @@ part of 'health_data_type.dart';
 /// - ✅ Readable: Query blood glucose records
 /// - ✅ Writeable: Write blood glucose records
 /// - ✅ Aggregatable: Calculate avg, min, max blood glucose
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_4_0
 @immutable
 final class BloodGlucoseHealthDataType
@@ -30,7 +31,8 @@ final class BloodGlucoseHealthDataType
         WriteableHealthDataType,
         AvgAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
         MinAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
-        MaxAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose> {
+        MaxAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
+        DeletableHealthDataType<BloodGlucoseRecord> {
   /// Creates a blood glucose data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -106,6 +108,28 @@ final class BloodGlucoseHealthDataType
     return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.min,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  DeleteRecordsByIdsRequest<BloodGlucoseRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<BloodGlucoseRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
       startTime: startTime,
       endTime: endTime,
     );

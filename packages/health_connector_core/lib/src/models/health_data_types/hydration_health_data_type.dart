@@ -13,6 +13,7 @@ part of 'health_data_type.dart';
 /// - ✅ Read: Query historical hydration records
 /// - ✅ Write: Create new hydration records
 /// - ✅ Aggregate: Sum (total intake)
+/// - ✅ Deletable: Delete records by IDs or time range
 ///
 /// ## Example
 ///
@@ -58,7 +59,8 @@ final class HydrationHealthDataType
     implements
         ReadableHealthDataType<HydrationRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<HydrationRecord, Volume> {
+        SumAggregatableHealthDataType<HydrationRecord, Volume>,
+        DeletableHealthDataType<HydrationRecord> {
   /// Creates a hydration data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -119,4 +121,26 @@ final class HydrationHealthDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<HydrationRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<HydrationRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

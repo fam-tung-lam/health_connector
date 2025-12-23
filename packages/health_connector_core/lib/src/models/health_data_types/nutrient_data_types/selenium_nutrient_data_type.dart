@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query selenium intake records
 /// - ✅ Writeable: Write selenium intake records
 /// - ✅ Aggregatable: Sum total selenium intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class SeleniumNutrientDataType
     implements
         ReadableHealthDataType<SeleniumNutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<SeleniumNutrientRecord, Mass> {
+        SumAggregatableHealthDataType<SeleniumNutrientRecord, Mass>,
+        DeletableHealthDataType<SeleniumNutrientRecord> {
   /// Creates a selenium nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -80,4 +82,26 @@ final class SeleniumNutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<SeleniumNutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<SeleniumNutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

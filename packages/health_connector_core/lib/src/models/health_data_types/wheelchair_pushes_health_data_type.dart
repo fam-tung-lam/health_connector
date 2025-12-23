@@ -19,6 +19,7 @@ part of 'health_data_type.dart';
 /// - ✅ Readable: Query wheelchair pushes records
 /// - ✅ Writeable: Write wheelchair pushes records
 /// - ✅ Aggregatable: Sum total wheelchair pushes
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_0_0
 @immutable
 final class WheelchairPushesHealthDataType
@@ -26,7 +27,8 @@ final class WheelchairPushesHealthDataType
     implements
         ReadableHealthDataType<WheelchairPushesRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<WheelchairPushesRecord, Number> {
+        SumAggregatableHealthDataType<WheelchairPushesRecord, Number>,
+        DeletableHealthDataType<WheelchairPushesRecord> {
   /// Creates a wheelchair pushes data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -88,4 +90,26 @@ final class WheelchairPushesHealthDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<WheelchairPushesRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<WheelchairPushesRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

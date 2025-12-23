@@ -22,6 +22,7 @@ part of 'health_data_type.dart';
 /// - ✅ Readable: Query sleep stage records
 /// - ✅ Writeable: Write sleep stage records
 /// - ✅ Aggregatable: Sum total sleep duration (excluding awake stages)
+/// - ✅ Deletable: Delete records by IDs or time range
 ///
 /// > [!NOTE]
 /// > This data type is only supported on iOS HealthKit. For Android,
@@ -33,7 +34,8 @@ final class SleepStageHealthDataType
     implements
         ReadableHealthDataType<SleepStageRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<SleepStageRecord, TimeDuration> {
+        SumAggregatableHealthDataType<SleepStageRecord, TimeDuration>,
+        DeletableHealthDataType<SleepStageRecord> {
   /// Creates a sleep stage data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -112,4 +114,26 @@ final class SleepStageHealthDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<SleepStageRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<SleepStageRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

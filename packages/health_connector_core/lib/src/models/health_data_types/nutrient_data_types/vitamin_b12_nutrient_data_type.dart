@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query vitamin b12 (cobalamin) intake records
 /// - ✅ Writeable: Write vitamin b12 (cobalamin) intake records
 /// - ✅ Aggregatable: Sum total vitamin b12 (cobalamin) intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class VitaminB12NutrientDataType
     implements
         ReadableHealthDataType<VitaminB12NutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<VitaminB12NutrientRecord, Mass> {
+        SumAggregatableHealthDataType<VitaminB12NutrientRecord, Mass>,
+        DeletableHealthDataType<VitaminB12NutrientRecord> {
   /// Creates a vitamin b12 (cobalamin) nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -82,4 +84,26 @@ final class VitaminB12NutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<VitaminB12NutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<VitaminB12NutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

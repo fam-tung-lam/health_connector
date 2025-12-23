@@ -22,6 +22,7 @@ part of 'health_data_type.dart';
 /// - ✅ Readable: Query VO₂ max records
 /// - ✅ Writeable: Write VO₂ max records
 /// - ✅ Aggregatable: Calculate avg, min, max VO₂ max
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_3_0
 @immutable
 final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Number>
@@ -30,7 +31,8 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Number>
         WriteableHealthDataType,
         AvgAggregatableHealthDataType<Vo2MaxRecord, Number>,
         MinAggregatableHealthDataType<Vo2MaxRecord, Number>,
-        MaxAggregatableHealthDataType<Vo2MaxRecord, Number> {
+        MaxAggregatableHealthDataType<Vo2MaxRecord, Number>,
+        DeletableHealthDataType<Vo2MaxRecord> {
   /// Creates a VO₂ max data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -119,4 +121,26 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Number>
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<Vo2MaxRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<Vo2MaxRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

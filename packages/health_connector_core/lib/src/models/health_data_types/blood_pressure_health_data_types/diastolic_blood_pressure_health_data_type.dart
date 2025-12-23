@@ -20,6 +20,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query diastolic blood pressure records
 /// - ✅ Writeable: Write diastolic blood pressure records
 /// - ✅ Aggregatable: Calculate avg, min, max diastolic pressure
+/// - ✅ Deletable: Delete records by IDs or time range
 ///
 /// > [!NOTE]
 /// > This data type is only supported on iOS/HealthKit. For Android,
@@ -35,7 +36,8 @@ final class DiastolicBloodPressureHealthDataType
         WriteableHealthDataType,
         AvgAggregatableHealthDataType<DiastolicBloodPressureRecord, Pressure>,
         MinAggregatableHealthDataType<DiastolicBloodPressureRecord, Pressure>,
-        MaxAggregatableHealthDataType<DiastolicBloodPressureRecord, Pressure> {
+        MaxAggregatableHealthDataType<DiastolicBloodPressureRecord, Pressure>,
+        DeletableHealthDataType<DiastolicBloodPressureRecord> {
   /// Creates a diastolic blood pressure data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -132,4 +134,27 @@ final class DiastolicBloodPressureHealthDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<DiastolicBloodPressureRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<DiastolicBloodPressureRecord>
+  deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

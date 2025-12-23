@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query manganese intake records
 /// - ✅ Writeable: Write manganese intake records
 /// - ✅ Aggregatable: Sum total manganese intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class ManganeseNutrientDataType
     implements
         ReadableHealthDataType<ManganeseNutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<ManganeseNutrientRecord, Mass> {
+        SumAggregatableHealthDataType<ManganeseNutrientRecord, Mass>,
+        DeletableHealthDataType<ManganeseNutrientRecord> {
   /// Creates a manganese nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -80,4 +82,26 @@ final class ManganeseNutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<ManganeseNutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<ManganeseNutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

@@ -21,6 +21,7 @@ part of 'health_data_type.dart';
 /// - ✅ Readable: Query heart rate measurements
 /// - ✅ Writeable: Write heart rate measurements
 /// - ✅ Aggregatable: Calculate avg, min, max heart rate
+/// - ✅ Deletable: Delete records by IDs or time range
 ///
 /// ## Platform Notes
 ///
@@ -35,7 +36,8 @@ final class HeartRateMeasurementRecordHealthDataType
         WriteableHealthDataType,
         AvgAggregatableHealthDataType<HeartRateMeasurementRecord, Number>,
         MinAggregatableHealthDataType<HeartRateMeasurementRecord, Number>,
-        MaxAggregatableHealthDataType<HeartRateMeasurementRecord, Number> {
+        MaxAggregatableHealthDataType<HeartRateMeasurementRecord, Number>,
+        DeletableHealthDataType<HeartRateMeasurementRecord> {
   /// Creates a heart rate measurement data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -132,4 +134,27 @@ final class HeartRateMeasurementRecordHealthDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<HeartRateMeasurementRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<HeartRateMeasurementRecord>
+  deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

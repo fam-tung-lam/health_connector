@@ -20,6 +20,7 @@ part of 'health_data_type.dart';
 /// - ✅ Readable: Query floors climbed records
 /// - ✅ Writeable: Write floors climbed records
 /// - ✅ Aggregatable: Sum total floors climbed
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_0_0
 @immutable
 final class FloorsClimbedHealthDataType
@@ -27,7 +28,8 @@ final class FloorsClimbedHealthDataType
     implements
         ReadableHealthDataType<FloorsClimbedRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<FloorsClimbedRecord, Number> {
+        SumAggregatableHealthDataType<FloorsClimbedRecord, Number>,
+        DeletableHealthDataType<FloorsClimbedRecord> {
   /// Creates a floors climbed data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -84,6 +86,28 @@ final class FloorsClimbedHealthDataType
     return CommonAggregateRequest(
       dataType: this,
       aggregationMetric: AggregationMetric.sum,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  DeleteRecordsByIdsRequest<FloorsClimbedRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<FloorsClimbedRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
       startTime: startTime,
       endTime: endTime,
     );

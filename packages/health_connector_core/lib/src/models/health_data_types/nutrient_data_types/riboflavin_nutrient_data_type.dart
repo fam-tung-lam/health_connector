@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query riboflavin (vitamin b2) intake records
 /// - ✅ Writeable: Write riboflavin (vitamin b2) intake records
 /// - ✅ Aggregatable: Sum total riboflavin (vitamin b2) intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class RiboflavinNutrientDataType
     implements
         ReadableHealthDataType<RiboflavinNutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<RiboflavinNutrientRecord, Mass> {
+        SumAggregatableHealthDataType<RiboflavinNutrientRecord, Mass>,
+        DeletableHealthDataType<RiboflavinNutrientRecord> {
   /// Creates a riboflavin (vitamin b2) nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -82,4 +84,26 @@ final class RiboflavinNutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<RiboflavinNutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<RiboflavinNutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

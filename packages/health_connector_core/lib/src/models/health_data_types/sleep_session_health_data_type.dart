@@ -20,6 +20,7 @@ part of 'health_data_type.dart';
 /// - ✅ Readable: Query sleep session records
 /// - ✅ Writeable: Write sleep session records
 /// - ✅ Aggregatable: Sum total sleep duration
+/// - ✅ Deletable: Delete records by IDs or time range
 ///
 /// > [!NOTE]
 /// > This data type is only supported on Android Health Connect. For iOS,
@@ -32,7 +33,8 @@ final class SleepSessionHealthDataType
     implements
         ReadableHealthDataType<SleepSessionRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<SleepSessionRecord, TimeDuration> {
+        SumAggregatableHealthDataType<SleepSessionRecord, TimeDuration>,
+        DeletableHealthDataType<SleepSessionRecord> {
   /// Creates a sleep session data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -93,4 +95,26 @@ final class SleepSessionHealthDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<SleepSessionRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<SleepSessionRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

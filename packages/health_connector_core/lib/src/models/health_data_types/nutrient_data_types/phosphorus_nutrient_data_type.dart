@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query phosphorus intake records
 /// - ✅ Writeable: Write phosphorus intake records
 /// - ✅ Aggregatable: Sum total phosphorus intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class PhosphorusNutrientDataType
     implements
         ReadableHealthDataType<PhosphorusNutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<PhosphorusNutrientRecord, Mass> {
+        SumAggregatableHealthDataType<PhosphorusNutrientRecord, Mass>,
+        DeletableHealthDataType<PhosphorusNutrientRecord> {
   /// Creates a phosphorus nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -82,4 +84,26 @@ final class PhosphorusNutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<PhosphorusNutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<PhosphorusNutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

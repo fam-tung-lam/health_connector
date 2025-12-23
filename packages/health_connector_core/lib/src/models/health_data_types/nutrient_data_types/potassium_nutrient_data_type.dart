@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query potassium intake records
 /// - ✅ Writeable: Write potassium intake records
 /// - ✅ Aggregatable: Sum total potassium intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class PotassiumNutrientDataType
     implements
         ReadableHealthDataType<PotassiumNutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<PotassiumNutrientRecord, Mass> {
+        SumAggregatableHealthDataType<PotassiumNutrientRecord, Mass>,
+        DeletableHealthDataType<PotassiumNutrientRecord> {
   /// Creates a potassium nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -80,4 +82,26 @@ final class PotassiumNutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<PotassiumNutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<PotassiumNutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

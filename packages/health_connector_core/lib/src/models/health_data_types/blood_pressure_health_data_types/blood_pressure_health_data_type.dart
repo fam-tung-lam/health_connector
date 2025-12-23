@@ -20,6 +20,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query blood pressure records
 /// - ✅ Writeable: Write blood pressure records
 /// - ✅ Aggregatable: Calculate avg, min, max blood pressure
+/// - ✅ Deletable: Delete records by IDs or time range
 ///
 /// ## Related Types
 ///
@@ -32,7 +33,8 @@ final class BloodPressureHealthDataType
     extends HealthDataType<BloodPressureRecord, Pressure>
     implements
         ReadableHealthDataType<BloodPressureRecord>,
-        WriteableHealthDataType {
+        WriteableHealthDataType,
+        DeletableHealthDataType<BloodPressureRecord> {
   /// Creates a blood pressure data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -120,6 +122,28 @@ final class BloodPressureHealthDataType
     return BloodPressureAggregateRequest(
       dataType: bloodPressureType,
       aggregationMetric: AggregationMetric.max,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
+
+  @override
+  DeleteRecordsByIdsRequest<BloodPressureRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<BloodPressureRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
       startTime: startTime,
       endTime: endTime,
     );

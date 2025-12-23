@@ -4,6 +4,13 @@ part of 'health_data_type.dart';
 ///
 /// Resting heart rate represents the heart rate while at complete rest,
 /// typically measured first thing in the morning before getting out of bed.
+///
+/// ## Capabilities
+///
+/// - ✅ Readable: Query resting heart rate records
+/// - ✅ Writeable: Write resting heart rate records
+/// - ✅ Aggregatable: Calculate avg, min, max resting heart rate
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_3_0
 @immutable
 final class RestingHeartRateHealthDataType
@@ -13,7 +20,8 @@ final class RestingHeartRateHealthDataType
         WriteableHealthDataType,
         AvgAggregatableHealthDataType<RestingHeartRateRecord, Number>,
         MinAggregatableHealthDataType<RestingHeartRateRecord, Number>,
-        MaxAggregatableHealthDataType<RestingHeartRateRecord, Number> {
+        MaxAggregatableHealthDataType<RestingHeartRateRecord, Number>,
+        DeletableHealthDataType<RestingHeartRateRecord> {
   /// Creates a resting heart rate data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -103,4 +111,26 @@ final class RestingHeartRateHealthDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<RestingHeartRateRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<RestingHeartRateRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

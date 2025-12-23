@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query cholesterol intake records
 /// - ✅ Writeable: Write cholesterol intake records
 /// - ✅ Aggregatable: Sum total cholesterol intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class CholesterolNutrientDataType
     implements
         ReadableHealthDataType<CholesterolNutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<CholesterolNutrientRecord, Mass> {
+        SumAggregatableHealthDataType<CholesterolNutrientRecord, Mass>,
+        DeletableHealthDataType<CholesterolNutrientRecord> {
   /// Creates a cholesterol nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -90,4 +92,26 @@ final class CholesterolNutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<CholesterolNutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<CholesterolNutrientRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

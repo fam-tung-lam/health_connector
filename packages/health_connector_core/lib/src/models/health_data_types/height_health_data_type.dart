@@ -20,6 +20,7 @@ part of 'health_data_type.dart';
 /// - ✅ Readable: Query height records
 /// - ✅ Writeable: Write height records
 /// - ✅ Aggregatable: Calculate avg, min, max height
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_0_0
 @immutable
 final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
@@ -28,7 +29,8 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
         WriteableHealthDataType,
         AvgAggregatableHealthDataType<HeightRecord, Length>,
         MinAggregatableHealthDataType<HeightRecord, Length>,
-        MaxAggregatableHealthDataType<HeightRecord, Length> {
+        MaxAggregatableHealthDataType<HeightRecord, Length>,
+        DeletableHealthDataType<HeightRecord> {
   /// Creates a height data type.
   ///
   /// This is a constant constructor used internally. To reference this data
@@ -117,4 +119,26 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<HeightRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<HeightRecord> deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }

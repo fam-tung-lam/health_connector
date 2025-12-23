@@ -19,6 +19,7 @@ part of '../health_data_type.dart';
 /// - ✅ Readable: Query monounsaturated fat intake records
 /// - ✅ Writeable: Write monounsaturated fat intake records
 /// - ✅ Aggregatable: Sum total monounsaturated fat intake
+/// - ✅ Deletable: Delete records by IDs or time range
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
@@ -27,7 +28,8 @@ final class MonounsaturatedFatNutrientDataType
     implements
         ReadableHealthDataType<MonounsaturatedFatNutrientRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<MonounsaturatedFatNutrientRecord, Mass> {
+        SumAggregatableHealthDataType<MonounsaturatedFatNutrientRecord, Mass>,
+        DeletableHealthDataType<MonounsaturatedFatNutrientRecord> {
   /// Creates a monounsaturated fat nutrient data type.
   ///
   ///This is a constant constructor used internally. To reference this data
@@ -92,4 +94,27 @@ final class MonounsaturatedFatNutrientDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  DeleteRecordsByIdsRequest<MonounsaturatedFatNutrientRecord> deleteByIds(
+    List<HealthRecordId> recordIds,
+  ) {
+    return DeleteRecordsByIdsRequest(
+      dataType: this,
+      recordIds: recordIds,
+    );
+  }
+
+  @override
+  DeleteRecordsInTimeRangeRequest<MonounsaturatedFatNutrientRecord>
+  deleteInTimeRange({
+    required DateTime startTime,
+    required DateTime endTime,
+  }) {
+    return DeleteRecordsInTimeRangeRequest(
+      dataType: this,
+      startTime: startTime,
+      endTime: endTime,
+    );
+  }
 }
