@@ -1,4 +1,5 @@
-import 'package:health_connector_core/health_connector_core.dart' show Pressure;
+import 'package:health_connector_core/health_connector_core_internal.dart'
+    show Pressure;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show PressureDto, PressureUnitDto;
 import 'package:meta/meta.dart' show internal;

@@ -1,4 +1,5 @@
-import 'package:health_connector_core/health_connector_core.dart' show Mass;
+import 'package:health_connector_core/health_connector_core_internal.dart'
+    show Mass;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show MassDto, MassUnitDto;
 import 'package:meta/meta.dart' show internal;

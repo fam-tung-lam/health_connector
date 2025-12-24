@@ -1,4 +1,3 @@
-import 'package:health_connector_core/health_connector_core.dart' show require;
 import 'package:health_connector_core/src/annotations/annotations.dart'
     show sinceV1_0_0, sinceV1_2_0, internalUse, supportedOnHealthConnect;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart'
@@ -12,7 +11,7 @@ import 'package:health_connector_core/src/models/requests/aggregation_metric.dar
 import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
 import 'package:health_connector_core/src/utils/validation.dart'
-    show requireEndTimeAfterStartTime;
+    show requireEndTimeAfterStartTime, require;
 import 'package:meta/meta.dart' show immutable;
 
 /// Request to perform an aggregation query on health records.

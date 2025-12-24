@@ -1,4 +1,5 @@
-import 'package:health_connector_core/health_connector_core.dart' show Velocity;
+import 'package:health_connector_core/health_connector_core_internal.dart'
+    show Velocity;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show VelocityDto, VelocityUnitDto;
 import 'package:meta/meta.dart' show internal;

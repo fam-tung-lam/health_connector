@@ -1,4 +1,5 @@
-import 'package:health_connector_core/health_connector_core.dart' show Length;
+import 'package:health_connector_core/health_connector_core_internal.dart'
+    show Length;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show LengthDto, LengthUnitDto;
 import 'package:meta/meta.dart' show internal;

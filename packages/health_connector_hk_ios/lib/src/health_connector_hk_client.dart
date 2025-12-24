@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart' show PlatformException;
-import 'package:health_connector_core/health_connector_core.dart'
+import 'package:health_connector_core/health_connector_core_internal.dart'
     show
         AggregateRequest,
         HealthConnectorConfig,

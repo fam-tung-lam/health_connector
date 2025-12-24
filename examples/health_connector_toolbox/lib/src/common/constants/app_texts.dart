@@ -1,5 +1,3 @@
-import 'package:health_connector/health_connector.dart';
-
 /// Centralized collection of all text strings used throughout the application.
 ///
 /// This class provides a single source of truth for all UI text, making it
@@ -545,7 +543,7 @@ abstract final class AppTexts {
   static const String moreAvailable = 'More available';
   static const String noRecordsFound = 'No records found';
   static const String pageSize =
-      'Page Size (1-${HealthConnectorConfigConstants.maxPageSize})';
+      'Page Size (1-10000)';
 
   // ==========================================================================
   // Health Record Detail Fields

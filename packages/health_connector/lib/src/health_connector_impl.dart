@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:health_connector/health_connector.dart'
     show HealthConnector, sinceV2_0_0;
-import 'package:health_connector_core/health_connector_core.dart'
+import 'package:health_connector_core/health_connector_core_internal.dart'
     show
         AggregateRequest,
         DeleteRecordsRequest,

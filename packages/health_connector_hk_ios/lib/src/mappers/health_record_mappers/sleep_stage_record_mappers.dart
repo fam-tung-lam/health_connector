@@ -1,4 +1,4 @@
-import 'package:health_connector_core/health_connector_core.dart'
+import 'package:health_connector_core/health_connector_core_internal.dart'
     show SleepStageRecord, HealthRecordId, sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sleep_stage_type_mappers.dart';

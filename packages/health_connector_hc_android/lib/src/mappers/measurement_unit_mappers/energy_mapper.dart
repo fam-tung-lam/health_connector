@@ -1,4 +1,5 @@
-import 'package:health_connector_core/health_connector_core.dart' show Energy;
+import 'package:health_connector_core/health_connector_core_internal.dart'
+    show Energy;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show EnergyDto, EnergyUnitDto;
 import 'package:meta/meta.dart' show internal;

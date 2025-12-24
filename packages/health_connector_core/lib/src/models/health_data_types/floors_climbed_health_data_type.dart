@@ -70,13 +70,17 @@ final class FloorsClimbedHealthDataType
   ReadRecordsInTimeRangeRequest<FloorsClimbedRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
+    List<DataOrigin> dataOrigins = const [],
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
+    String? pageToken,
   }) {
     return ReadRecordsInTimeRangeRequest(
       dataType: this,
+      dataOrigins: dataOrigins,
       startTime: startTime,
       endTime: endTime,
       pageSize: pageSize,
+      pageToken: pageToken,
     );
   }
 

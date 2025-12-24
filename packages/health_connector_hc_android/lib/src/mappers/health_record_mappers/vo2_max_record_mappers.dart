@@ -1,4 +1,4 @@
-import 'package:health_connector_core/health_connector_core.dart'
+import 'package:health_connector_core/health_connector_core_internal.dart'
     show HealthRecordId, Number, Vo2MaxRecord, Vo2MaxTestType, sinceV1_3_0;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';

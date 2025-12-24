@@ -1,4 +1,4 @@
-import 'package:health_connector_core/health_connector_core.dart'
+import 'package:health_connector_core/health_connector_core_internal.dart'
     show TimeDuration;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show TimeDurationDto, TimeDurationUnitDto;

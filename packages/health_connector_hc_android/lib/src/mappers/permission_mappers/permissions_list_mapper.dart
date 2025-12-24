@@ -1,4 +1,4 @@
-import 'package:health_connector_core/health_connector_core.dart'
+import 'package:health_connector_core/health_connector_core_internal.dart'
     show Permission, sinceV1_0_0;
 import 'package:health_connector_hc_android/src/mappers/permission_mappers/permission_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'

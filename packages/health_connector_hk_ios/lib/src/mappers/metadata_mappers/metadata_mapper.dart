@@ -1,4 +1,4 @@
-import 'package:health_connector_core/health_connector_core.dart'
+import 'package:health_connector_core/health_connector_core_internal.dart'
     show DeviceType, Device, DataOrigin, Metadata, sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/recording_method_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'

@@ -1,3 +1,5 @@
+/// @docImport 'package:health_connector_core/health_connector_core_internal.dart';
+///
 /// Android Health Connect implementation for health_connector.
 ///
 /// This library provides the Android-specific implementation of the
@@ -77,6 +79,6 @@
 /// - [Health Connect Documentation](https://developer.android.com/health-and-fitness/guides/health-connect)
 library;
 
-import 'package:health_connector_core/health_connector_core.dart';
+import 'package:health_connector_core/health_connector_core_internal.dart';
 
 export 'src/health_connector_hc_client.dart';

@@ -1,4 +1,4 @@
-import 'package:health_connector_core/health_connector_core.dart'
+import 'package:health_connector_core/health_connector_core_internal.dart'
     show HealthDataPermission, sinceV2_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers/health_data_permission_access_type_mapper.dart';

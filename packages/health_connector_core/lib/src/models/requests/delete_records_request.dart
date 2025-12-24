@@ -2,6 +2,8 @@ import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
 import 'package:health_connector_core/src/utils/collection.dart';
+import 'package:health_connector_core/src/utils/validation.dart'
+    show require, requireEndTimeAfterStartTime;
 import 'package:meta/meta.dart' show immutable, internal;
 
 /// Base sealed class for all delete records requests.

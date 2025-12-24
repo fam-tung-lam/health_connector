@@ -1,4 +1,5 @@
-import 'package:health_connector_core/health_connector_core.dart' show Volume;
+import 'package:health_connector_core/health_connector_core_internal.dart'
+    show Volume;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show VolumeDto, VolumeUnitDto;
 import 'package:meta/meta.dart' show internal;

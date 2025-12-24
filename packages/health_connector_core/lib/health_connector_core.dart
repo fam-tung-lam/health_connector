@@ -1,4 +1,5 @@
 /// @docImport 'package:health_connector_core/health_connector_core.dart';
+/// @docImport 'package:health_connector_core/health_connector_core_internal.dart';
 ///
 /// Core abstractions and models for cross-platform health data integration.
 ///
@@ -103,8 +104,6 @@ library;
 export 'src/annotations/annotations.dart';
 // Config
 export 'src/config/health_connector_config.dart' show HealthConnectorConfig;
-// Core client interface
-export 'src/health_connector_health_platform_client.dart';
 // Models - Exceptions
 export 'src/models/exceptions/health_connector_error_code.dart';
 export 'src/models/exceptions/health_connector_exception.dart';
@@ -115,7 +114,6 @@ export 'src/models/health_data_types/health_data_type.dart'
         NutrientHealthDataType,
         VitaminNutrientDataType,
         MacronutrientDataType;
-export 'src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';
 // Models - Health Platform
 export 'src/models/health_platform.dart';
 // Models - Health Platform Features
@@ -142,6 +140,3 @@ export 'src/models/requests/read_records_request.dart';
 export 'src/models/responses/permission_request_result.dart';
 export 'src/models/responses/read_records_response.dart'
     hide ReadRecordsResponse;
-// Utils
-export 'src/utils/datetime.dart';
-export 'src/utils/validation.dart';

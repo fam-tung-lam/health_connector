@@ -4,6 +4,8 @@ import 'package:health_connector_core/src/config/health_connector_config_constan
     show HealthConnectorConfigConstants;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show HealthRecord, HealthRecordId;
+import 'package:health_connector_core/src/models/metadata/metadata.dart'
+    show DataOrigin;
 import 'package:health_connector_core/src/models/permissions/permission.dart'
     show HealthDataPermission;
 import 'package:health_connector_core/src/models/requests/read_records_request.dart'
@@ -24,5 +26,7 @@ abstract interface class ReadableHealthDataType<R extends HealthRecord> {
     required DateTime startTime,
     required DateTime endTime,
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
+    String? pageToken,
+    List<DataOrigin> dataOrigins = const [],
   });
 }

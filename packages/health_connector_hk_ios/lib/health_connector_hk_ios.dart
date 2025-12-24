@@ -1,3 +1,5 @@
+/// @docImport 'package:health_connector_core/health_connector_core_internal.dart';
+///
 /// iOS HealthKit implementation for health_connector.
 ///
 /// This library provides the iOS-specific implementation of the
@@ -54,6 +56,6 @@
 /// - [Apple HealthKit Documentation](https://developer.apple.com/documentation/healthkit)
 library;
 
-import 'package:health_connector_core/health_connector_core.dart';
+import 'package:health_connector_core/health_connector_core_internal.dart';
 
 export 'src/health_connector_hk_client.dart';

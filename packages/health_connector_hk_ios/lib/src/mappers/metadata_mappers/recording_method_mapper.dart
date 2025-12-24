@@ -1,4 +1,4 @@
-import 'package:health_connector_core/health_connector_core.dart'
+import 'package:health_connector_core/health_connector_core_internal.dart'
     show RecordingMethod, sinceV1_0_0;
 import 'package:meta/meta.dart' show internal;
 

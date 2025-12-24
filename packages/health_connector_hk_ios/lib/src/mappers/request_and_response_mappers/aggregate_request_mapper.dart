@@ -1,4 +1,4 @@
-import 'package:health_connector_core/health_connector_core.dart'
+import 'package:health_connector_core/health_connector_core_internal.dart'
     show AggregateRequest, HealthRecord, MeasurementUnit, sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/aggregation_metric_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mappers.dart';
