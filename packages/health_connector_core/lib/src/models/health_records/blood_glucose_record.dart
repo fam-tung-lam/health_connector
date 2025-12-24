@@ -90,12 +90,6 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
   }
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.healthConnect,
-    HealthPlatform.appleHealth,
-  ];
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is BloodGlucoseRecord &&

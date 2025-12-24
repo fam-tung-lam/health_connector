@@ -93,9 +93,4 @@ final class HeartRateMeasurementRecord extends InstantHealthRecord {
 
   @override
   int get hashCode => id.hashCode ^ metadata.hashCode ^ measurement.hashCode;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
-  ];
 }

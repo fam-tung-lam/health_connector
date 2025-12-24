@@ -107,7 +107,4 @@ final class HeightRecord extends InstantHealthRecord {
       (zoneOffsetSeconds?.hashCode ?? 0) ^
       height.hashCode ^
       metadata.hashCode;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

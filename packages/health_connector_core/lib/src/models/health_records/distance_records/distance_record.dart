@@ -100,9 +100,4 @@ final class DistanceRecord extends IntervalHealthRecord {
       (endZoneOffsetSeconds?.hashCode ?? 0) ^
       distance.hashCode ^
       metadata.hashCode;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.healthConnect,
-  ];
 }

@@ -89,7 +89,4 @@ final class BodyTemperatureRecord extends InstantHealthRecord {
       (zoneOffsetSeconds?.hashCode ?? 0) ^
       temperature.hashCode ^
       metadata.hashCode;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

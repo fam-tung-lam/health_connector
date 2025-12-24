@@ -44,9 +44,4 @@ sealed class DistanceActivityRecord extends IntervalHealthRecord {
 
   /// The distance measurement value.
   final Length distance;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
-  ];
 }

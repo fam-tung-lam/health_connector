@@ -92,7 +92,4 @@ final class BodyFatPercentageRecord extends InstantHealthRecord {
       (zoneOffsetSeconds?.hashCode ?? 0) ^
       percentage.hashCode ^
       metadata.hashCode;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

@@ -100,7 +100,4 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
       (endZoneOffsetSeconds?.hashCode ?? 0) ^
       pushes.hashCode ^
       metadata.hashCode;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

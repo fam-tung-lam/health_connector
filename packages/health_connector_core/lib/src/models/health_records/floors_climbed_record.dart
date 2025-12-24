@@ -100,7 +100,4 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
       (endZoneOffsetSeconds?.hashCode ?? 0) ^
       floors.hashCode ^
       metadata.hashCode;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

@@ -114,11 +114,6 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStage> {
   }
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.healthConnect,
-  ];
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SleepSessionRecord &&

@@ -89,7 +89,4 @@ final class LeanBodyMassRecord extends InstantHealthRecord {
       (zoneOffsetSeconds?.hashCode ?? 0) ^
       mass.hashCode ^
       metadata.hashCode;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

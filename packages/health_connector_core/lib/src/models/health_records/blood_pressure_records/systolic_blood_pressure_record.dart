@@ -93,9 +93,4 @@ final class SystolicBloodPressureRecord extends InstantHealthRecord {
       (zoneOffsetSeconds?.hashCode ?? 0) ^
       pressure.hashCode ^
       metadata.hashCode;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
-  ];
 }

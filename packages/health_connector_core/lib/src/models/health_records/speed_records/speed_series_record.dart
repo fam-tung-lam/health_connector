@@ -90,11 +90,6 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedMeasurement> {
   }
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.healthConnect,
-  ];
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SpeedSeriesRecord &&

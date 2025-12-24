@@ -128,10 +128,4 @@ final class BloodPressureRecord extends InstantHealthRecord {
       bodyPosition.hashCode ^
       measurementLocation.hashCode ^
       metadata.hashCode;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
-    HealthPlatform.healthConnect,
-  ];
 }

@@ -37,6 +37,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
 import 'package:health_connector_core/src/models/metadata/metadata.dart'
     show Metadata;
 import 'package:health_connector_core/src/utils/collection.dart';
+import 'package:health_connector_core/src/utils/health_record_data_type_extension.dart';
 import 'package:health_connector_core/src/utils/validation.dart' show require;
 import 'package:meta/meta.dart' show immutable, internal;
 
@@ -115,16 +116,16 @@ part 'resting_heart_rate_record.dart';
 part 'series_health_record.dart';
 part 'sleep_records/sleep_session_record.dart';
 part 'sleep_records/sleep_stage_record.dart';
+part 'speed_records/running_speed_record.dart';
+part 'speed_records/speed_activity_record.dart';
+part 'speed_records/speed_series_record.dart';
+part 'speed_records/stair_ascent_speed_record.dart';
+part 'speed_records/stair_descent_speed_record.dart';
+part 'speed_records/walking_speed_record.dart';
 part 'steps_record.dart';
 part 'vo2_max_record.dart';
 part 'weight_record.dart';
 part 'wheelchair_pushes_record.dart';
-part 'speed_records/speed_series_record.dart';
-part 'speed_records/speed_activity_record.dart';
-part 'speed_records/walking_speed_record.dart';
-part 'speed_records/running_speed_record.dart';
-part 'speed_records/stair_ascent_speed_record.dart';
-part 'speed_records/stair_descent_speed_record.dart';
 
 /// Base class for all health records.
 ///
@@ -175,6 +176,10 @@ sealed class HealthRecord implements HealthPlatformData {
   /// Returns a hash code for this health record.
   @override
   int get hashCode;
+
+  @override
+  List<HealthPlatform> get supportedHealthPlatforms =>
+      dataType.supportedHealthPlatforms;
 }
 
 /// A type-safe identifier for health records.

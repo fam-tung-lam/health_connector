@@ -106,11 +106,6 @@ final class SleepStageRecord extends IntervalHealthRecord {
   }
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
-  ];
-
-  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SleepStageRecord &&

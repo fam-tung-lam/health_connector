@@ -51,9 +51,4 @@ sealed class NutrientRecord<U extends MeasurementUnit>
 
   /// The type of meal during which this nutrient was consumed.
   final MealType mealType;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
-  ];
 }

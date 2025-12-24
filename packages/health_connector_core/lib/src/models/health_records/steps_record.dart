@@ -103,7 +103,4 @@ final class StepsRecord extends IntervalHealthRecord {
       (endZoneOffsetSeconds?.hashCode ?? 0) ^
       count.hashCode ^
       metadata.hashCode;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

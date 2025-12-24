@@ -302,10 +302,4 @@ final class NutritionRecord extends IntervalHealthRecord {
       caffeine: caffeine ?? this.caffeine,
     );
   }
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
-    HealthPlatform.healthConnect,
-  ];
 }

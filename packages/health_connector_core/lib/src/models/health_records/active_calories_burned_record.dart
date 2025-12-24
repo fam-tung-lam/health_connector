@@ -100,7 +100,4 @@ final class ActiveCaloriesBurnedRecord extends IntervalHealthRecord {
       (endZoneOffsetSeconds?.hashCode ?? 0) ^
       energy.hashCode ^
       metadata.hashCode;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

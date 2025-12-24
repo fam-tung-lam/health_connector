@@ -107,9 +107,6 @@ final class Vo2MaxRecord extends InstantHealthRecord {
       mLPerKgPerMin.hashCode ^
       (testType?.hashCode ?? 0) ^
       metadata.hashCode;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }
 
 /// Represents the test type or measurement method used to determine VO₂ max.

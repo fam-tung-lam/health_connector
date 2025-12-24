@@ -76,7 +76,4 @@ final class OxygenSaturationRecord extends InstantHealthRecord {
 
   @override
   int get hashCode => Object.hash(super.hashCode, percentage);
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
 }

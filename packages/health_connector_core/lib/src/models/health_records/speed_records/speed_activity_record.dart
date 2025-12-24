@@ -37,9 +37,4 @@ sealed class SpeedActivityRecord extends InstantHealthRecord {
 
   /// The speed measurement value.
   final Velocity speed;
-
-  @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.appleHealth,
-  ];
 }
