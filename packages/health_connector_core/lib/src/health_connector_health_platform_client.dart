@@ -12,8 +12,6 @@ import 'package:health_connector_core/health_connector_core.dart';
 /// - Aggregating health data
 /// - Deleting health records
 /// - Querying platform capabilities and features
-///
-/// {@category Platform Interface}
 @sinceV1_0_0
 @internalUse
 abstract interface class HealthConnectorPlatformClient {

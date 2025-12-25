@@ -19,7 +19,7 @@ sealed class ReadRecordsResponse<R extends HealthRecord> extends Response {
 
 /// Response from reading multiple health records.
 ///
-/// {@category Request-Response Pattern}
+/// {@category Core API}
 @sinceV2_0_0
 @immutable
 final class ReadRecordsInTimeRangeResponse<R extends HealthRecord>

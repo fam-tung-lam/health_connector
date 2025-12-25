@@ -262,12 +262,21 @@ melos:
       packageFilters:
         dirExists: lib
 
-    doc:generate:
-      description: Generate and serve docs for health_connector (main package)
+    doc:
+      description: Generate and serve docs for health_connector
       run: |
-        dart doc .
+        melos doc:generate
         echo "Serving docs at http://localhost:8000"
         cd doc/api && python3 -m http.server 8000
+      exec:
+        concurrency: 1
+      packageFilters:
+        scope: "health_connector"
+
+    doc:generate:
+      description: Generate docs for health_connector
+      run: |
+        dart doc .
       exec:
         concurrency: 1
       packageFilters:

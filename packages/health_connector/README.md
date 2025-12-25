@@ -9,24 +9,7 @@
 </p>
 
 **Unified, type-safe health data access for Flutter** — a single API to read, write, delete, and
-aggregate health metrics across iOS HealthKit and Android Health Connect.
-
-<div align="center">
-  <table>
-    <tr>
-      <th>Permission Request</th>
-      <th>Read Data</th>
-      <th>Write Data</th>
-      <th>Aggregate Data</th>
-    </tr>
-    <tr>
-      <td><img alt="Permission Request Demo" src="../../doc/assets/ios_permission_request.gif" width="600"/></td>
-      <td><img alt="Read Data Demo" src="../../doc/assets/ios_read_health_data.gif" width="600"/></td>
-      <td><img alt="Write Data Demo" src="../../doc/assets/android_write_health_data.gif" width="600"/></td>
-      <td><img alt="Aggregate Data Demo" src="../../doc/assets/ios_aggregate_health_data.gif" width="600"/></td>
-    </tr>
-  </table>
-</div>
+aggregate health metrics across **iOS HealthKit** and **Android Health Connect**.
 
 ---
 
@@ -37,7 +20,7 @@ aggregate health metrics across iOS HealthKit and Android Health Connect.
 - [🎯 Requirements](#-requirements)
 - [📦 Installation](#-installation)
 - [⚡ Quick Start](#-quick-start)
-- [🔍 Exploring the SDK](#-exploring-the-sdk-features-with-health-connector-toolbox)
+- [🔍 Exploring SDK using Health Connector Toolbox](#-exploring-the-sdk-features-with-health-connector-toolbox)
 - [📚 Core Concepts](#-core-concepts)
 
 ### Features
@@ -252,13 +235,31 @@ Future<void> quickStart() async {
 
 ## 🔍 Exploring the SDK Features with Health Connector Toolbox
 
-> **Note:** The toolbox is intended as a **demonstration and testing tool** only.
-> It is **not recommended** as a reference for building production applications.
+
+<div align="center">
+  <table>
+    <tr>
+      <th>Permission Request</th>
+      <th>Read Data</th>
+      <th>Write Data</th>
+      <th>Aggregate Data</th>
+    </tr>
+    <tr>
+      <td><img alt="Permission Request Demo" src="../../doc/assets/ios_permission_request.gif" width="600"/></td>
+      <td><img alt="Read Data Demo" src="../../doc/assets/ios_read_health_data.gif" width="600"/></td>
+      <td><img alt="Write Data Demo" src="../../doc/assets/android_write_health_data.gif" width="600"/></td>
+      <td><img alt="Aggregate Data Demo" src="../../doc/assets/ios_aggregate_health_data.gif" width="600"/></td>
+    </tr>
+  </table>
+</div>
 
 To explore the SDK's capabilities hands-on, you can use the **Health Connector Toolbox** example app
 included in the repository.
-The toolbox app was created to showcase the SDK's **core features** and is used internally for
+The toolbox app was created to showcase the SDK's **features** and is used internally for
 **manual testing purposes**.
+
+> **Note:** The toolbox is intended as a **demonstration and testing tool** only.
+> It is **not recommended** as a reference for building production applications.
 
 #### What the Toolbox Offers
 
@@ -301,12 +302,12 @@ flutter run
 │                      health_connector                       │
 │                (Unified cross-platform API)                 │
 └─────────────────────────────────────────────────────────────┘
-          │                                       │
-          ▼                                       ▼
-┌───────────────────────────┐     ┌────────────────────────────┐
-│  health_connector_hk_ios  │     │ health_connector_hc_android│
-│      (Apple HealthKit)    │     │    (Android Health Connect)        │
-└───────────────────────────┘     └────────────────────────────┘
+            │                                  │
+            ▼                                  ▼
+┌─────────────────────────┐     ┌─────────────────────────────┐
+│ health_connector_hk_ios │     │ health_connector_hc_android │
+│     (Apple HealthKit)   │     │    (Android Health Connect) │
+└─────────────────────────┘     └─────────────────────────────┘
 ```
 
 ### Key Types

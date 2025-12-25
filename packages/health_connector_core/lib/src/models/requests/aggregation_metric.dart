@@ -6,7 +6,7 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
 /// Each aggregation type computes a different metric over a set of health
 /// records within a specified time range.
 ///
-/// {@category Request-Response Pattern}
+/// {@category Core API}
 @sinceV1_0_0
 enum AggregationMetric {
   /// Sum of all values in the time range.
