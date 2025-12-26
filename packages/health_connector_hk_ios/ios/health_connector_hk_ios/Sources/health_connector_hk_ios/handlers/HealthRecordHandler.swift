@@ -35,6 +35,16 @@ protocol HealthRecordHandler: AnyObject, Sendable {
         context: [String: Any]?,
         block: () async throws -> T
     ) async throws -> T
+
+    /// Returns the HealthKit object type for this handler.
+    ///
+    /// This method allows handlers to customize which HealthKit type they use.
+    /// Most handlers can use the default implementation which calls the type mapper,
+    /// but some types (like exercise sessions) need to override this.
+    ///
+    /// - Returns: The corresponding HKObjectType
+    /// - Throws: HealthConnectorError if type cannot be determined
+    func healthKitType() throws -> HKObjectType
 }
 
 /// Default implementation of the `process()` error handling wrapper.
@@ -113,5 +123,10 @@ extension HealthRecordHandler {
                 context: ["details": error.localizedDescription]
             )
         }
+    }
+
+    /// Default implementation uses the type mapper
+    func healthKitType() throws -> HKObjectType {
+        try Self.dataType.toHealthKit()
     }
 }

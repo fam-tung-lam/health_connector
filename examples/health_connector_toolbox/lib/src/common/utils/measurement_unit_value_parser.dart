@@ -131,6 +131,10 @@ abstract class MeasurementUnitValueParser {
         'SpeedSeries is a time series data type, '
         'cannot be parsed from a single string input.',
       ),
+      ExerciseSessionHealthDataType() => throw UnsupportedError(
+        'ExerciseSession is a complex type with exercise type and times, '
+        'cannot be parsed from a single string input.',
+      ),
     };
   }
 

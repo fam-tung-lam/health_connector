@@ -43,7 +43,7 @@ enum RecordingMethod {
   /// This indicates intentional data capture for a specific purpose.
   ///
   /// **Common use cases:**
-  /// - User starts a workout on their watch
+  /// - User starts a exercise session on their watch
   /// - User begins tracking a specific exercise session
   /// - User starts a meditation or breathing session
   activelyRecorded,

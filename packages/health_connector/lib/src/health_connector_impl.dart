@@ -25,7 +25,9 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         require,
         supportedOnHealthConnect,
         UnsupportedOperationException,
-        InvalidArgumentException;
+        InvalidArgumentException,
+        ExerciseSessionRecord,
+        ExerciseTypeExtension;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
 import 'package:health_connector_logger/health_connector_logger.dart';
@@ -365,10 +367,7 @@ final class HealthConnectorImpl implements HealthConnector {
         record.id == HealthRecordId.none,
         'Record ID must be HealthRecordId.none for new records. ',
       );
-      require(
-        record.supportedHealthPlatforms.contains(healthPlatform),
-        '${record.runtimeType} is not supported on $healthPlatform.',
-      );
+      _validateRecordSupport(record);
 
       final recordId = await _client.writeRecord(record);
 
@@ -423,14 +422,7 @@ final class HealthConnectorImpl implements HealthConnector {
     }
 
     try {
-      require(
-        records.every(
-          (record) => record.supportedHealthPlatforms.contains(
-            healthPlatform,
-          ),
-        ),
-        'Records are not supported on $healthPlatform.',
-      );
+      records.forEach(_validateRecordSupport);
       require(
         records.every((record) => record.id == HealthRecordId.none),
         'All records must have `HealthRecordId.none` for new records.',
@@ -567,11 +559,7 @@ final class HealthConnectorImpl implements HealthConnector {
           'updateRecord API is not supported on iOS HealthKit SDK',
         );
       }
-
-      require(
-        record.supportedHealthPlatforms.contains(healthPlatform),
-        'Record is not supported on $healthPlatform.',
-      );
+      _validateRecordSupport(record);
       require(
         record.id != HealthRecordId.none,
         'Record ID must not be HealthRecordId.none for updates. ',
@@ -627,15 +615,7 @@ final class HealthConnectorImpl implements HealthConnector {
           'updateRecord API is not supported on iOS HealthKit SDK',
         );
       }
-
-      require(
-        records.every(
-          (record) => record.supportedHealthPlatforms.contains(
-            healthPlatform,
-          ),
-        ),
-        'Records are not supported on $healthPlatform.',
-      );
+      records.forEach(_validateRecordSupport);
       require(
         records.every((record) => record.id != HealthRecordId.none),
         'Record IDs must not be HealthRecordId.none for updates. ',
@@ -673,6 +653,21 @@ final class HealthConnectorImpl implements HealthConnector {
       );
 
       rethrow;
+    }
+  }
+
+  void _validateRecordSupport(HealthRecord record) {
+    require(
+      record.supportedHealthPlatforms.contains(healthPlatform),
+      '${record.runtimeType} is not supported on $healthPlatform.',
+    );
+
+    if (record is ExerciseSessionRecord) {
+      if (!record.exerciseType.isSupportedOnPlatform(healthPlatform)) {
+        throw UnsupportedError(
+          '${record.exerciseType} is not supported on $healthPlatform.',
+        );
+      }
     }
   }
 }

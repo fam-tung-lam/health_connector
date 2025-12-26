@@ -20,7 +20,7 @@ part of '../health_data_type.dart';
 /// - ✅ Aggregatable: Sum total rowing distance
 /// - ✅ Deletable: Delete records by IDs or time range
 ///
-/// Includes both water rowing and rowing machine workouts.
+/// Includes both water rowing and rowing machine exercises.
 ///
 /// ## Platform Mapping
 ///

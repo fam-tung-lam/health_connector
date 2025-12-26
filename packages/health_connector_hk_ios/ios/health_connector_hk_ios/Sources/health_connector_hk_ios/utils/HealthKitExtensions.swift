@@ -18,6 +18,10 @@ extension HKSample {
                 identifier = categorySample.categoryType.identifier
             } else if let correlation = self as? HKCorrelation {
                 identifier = correlation.correlationType.identifier
+            } else if self is HKWorkout {
+                // HKWorkout doesn't have a type identifier like other samples
+                // Return exerciseSession directly
+                return .exerciseSession
             } else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Unsupported HKSample type: \(type(of: self))",

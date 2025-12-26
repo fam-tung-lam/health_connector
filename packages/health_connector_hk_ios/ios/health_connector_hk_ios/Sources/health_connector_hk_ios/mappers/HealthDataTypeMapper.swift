@@ -205,6 +205,11 @@ extension HealthDataTypeDto {
                     context: ["dataType": "stairDescentSpeed", "minimumIOSVersion": "16.0"]
                 )
             }
+        case .exerciseSession:
+            throw HealthConnectorError.unsupportedOperation(
+                message: "Exercise session is an interval type, not convertible to HKSampleType",
+                context: [:]
+            )
         }
     }
 }

@@ -18,8 +18,6 @@ The main SDK interface for health data operations across iOS HealthKit and Andro
     - [Deleting Health Records](#deleting-health-records)
     - [Aggregating Health Data](#aggregating-health-data)
 
----
-
 ## HealthConnector
 
 The `HealthConnector` class is the central entry point for all health data operations. It provides a
@@ -91,8 +89,6 @@ switch (status) {
 | **iOS HealthKit**          | ✅         | Always returns `HealthPlatformStatus.available`        |
 | **Android Health Connect** | ✅         | Returns actual status; may require installation/update |
 
----
-
 
 ## Request-Response Pattern
 
@@ -151,8 +147,6 @@ final recordId = await connector.writeRecord(stepsRecord);
 // Updating (Android Health Connect Only): Direct record → void
 await connector.updateRecord(updatedRecord);
 ```
-
----
 
 ## Type Safety and Generics
 
@@ -225,8 +219,6 @@ final totalCalories = await connector.aggregate(
 print('Total calories: ${totalCalories.inKilocalories} kcal'); // totalCalories is Energy
 ```
 
----
-
 ## Core Operations
 
 ### Feature Management
@@ -260,8 +252,6 @@ if (status == HealthPlatformFeatureStatus.available) {
 
 - `HealthPlatformFeature.readHealthDataInBackground` — Read health data in background
 - `HealthPlatformFeature.readHealthDataHistory` — Access health data older than 30 days
-
----
 
 ### Permission Management
 
@@ -368,8 +358,6 @@ try {
 
 - `UnsupportedOperationException` — When called on iOS HealthKit
 
----
-
 ### Reading Health Records
 
 #### Read Single Record by ID
@@ -456,8 +444,6 @@ while (true) {
 
 print('Total records: ${allRecords.length}');
 ```
-
----
 
 ### Writing Health Records
 
@@ -548,8 +534,6 @@ order
 - All record `id` values must be `HealthRecordId.none`
 - All records must be supported on the current platform
 - All records must pass individual validation rules
-
----
 
 ### Updating Health Records (Android Health Connect Only)
 
@@ -657,8 +641,6 @@ final newId = await connector.writeRecord(newRecord);
 // Note: newId will be different from the original ID
 ```
 
----
-
 ### Deleting Health Records
 
 Delete operations remove health records from the platform's health data store.
@@ -707,8 +689,6 @@ await connector.deleteRecords(
 
 - `NotAuthorizedException` — Write permission not granted for this data type
 - `InvalidArgumentException` — Invalid time range (e.g., `startTime > endTime`)
-
----
 
 ### Aggregating Health Data
 

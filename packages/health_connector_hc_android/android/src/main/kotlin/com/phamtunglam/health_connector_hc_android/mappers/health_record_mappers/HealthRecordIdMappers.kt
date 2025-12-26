@@ -6,6 +6,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyFatPercentageRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyTemperatureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DistanceRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.FloorsClimbedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSeriesRecordDto
@@ -63,4 +64,7 @@ internal val HealthRecordDto.id: String?
 
         // Unified nutrition record
         is NutritionRecordDto -> id
+
+        // Exercise session record
+        is ExerciseSessionRecordDto -> id
     }

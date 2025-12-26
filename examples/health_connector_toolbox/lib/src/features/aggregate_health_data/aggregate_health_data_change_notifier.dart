@@ -36,6 +36,7 @@ import 'package:health_connector/health_connector.dart'
         RestingHeartRateHealthDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
+        ExerciseSessionHealthDataType,
         OxygenSaturationHealthDataType,
         RespiratoryRateHealthDataType,
         Vo2MaxHealthDataType,
@@ -485,6 +486,13 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
       StairDescentSpeedDataType() => _buildAvg(
         () => HealthDataType.stairDescentSpeed.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
+      ExerciseSessionHealthDataType() => _buildSum(
+        () => HealthDataType.exerciseSession.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),

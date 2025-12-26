@@ -35,6 +35,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         DistanceRecord,
         DownhillSnowSportsDistanceRecord,
         EnergyNutrientRecord,
+        ExerciseSessionRecord,
         FloorsClimbedRecord,
         FolateNutrientRecord,
         HealthRecord,
@@ -144,6 +145,7 @@ part 'distance_data_types/skating_sports_distance_data_type.dart';
 part 'distance_data_types/swimming_distance_data_type.dart';
 part 'distance_data_types/walking_running_distance_data_type.dart';
 part 'distance_data_types/wheelchair_distance_data_type.dart';
+part 'exercise_session_health_data_type.dart';
 part 'floors_climbed_health_data_type.dart';
 part 'heart_rate_measurement_record_health_data_type.dart';
 part 'heart_rate_series_record_health_data_type.dart';
@@ -431,6 +433,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// and movement, excluding basal metabolic rate. Supports both reading
   /// existing active calories data and writing new measurements.
   static const activeCaloriesBurned = ActiveCaloriesBurnedHealthDataType();
+
+  /// Exercise session data type.
+  ///
+  /// Represents exercise sessions with exercise type, duration, and notes.
+  /// Supports reading, writing, sum aggregation, and deletion.
+  @sinceV2_0_0
+  static const exerciseSession = ExerciseSessionHealthDataType();
 
   /// Floors climbed data type.
   ///
@@ -786,6 +795,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     diastolicBloodPressure,
     dietaryFiber,
     energyNutrient,
+    exerciseSession,
     floorsClimbed,
     folate,
     heartRateMeasurementRecord,

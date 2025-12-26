@@ -348,8 +348,6 @@ Now that you have the basics working, explore specific SDK features:
 
 **Solution**: Test on a physical iPhone or iPod Touch running iOS 15.0 or later.
 
----
-
 ### Android: "Health Connect app is not installed"
 
 **Cause**: The Health Connect app is not installed on the device.
@@ -358,8 +356,6 @@ Now that you have the basics working, explore specific SDK features:
 
 - Guide users to install Health Connect from the Play Store
 - Use `HealthConnector.getHealthPlatformStatus()` to detect this and show appropriate UI
-
----
 
 ### iOS: Read permissions always return `PermissionStatus.unknown`
 
@@ -372,8 +368,6 @@ health data.
 - Handle `NotAuthorizedException` if permission is actually denied
 - See the [Permissions](permissions.md) guide for handling iOS read permissions
 
----
-
 ### Android: "Permission denied" even after granting permissions
 
 **Cause**: You may not have declared the permission in `AndroidManifest.xml`.
@@ -383,8 +377,6 @@ health data.
 - Verify that you've added the permission declaration for the specific data type
 - Check both read and write permissions if you need both
 - Rebuild the app after adding manifest permissions
-
----
 
 ### "Historical data older than 30 days is not available" (Android only)
 
@@ -407,8 +399,6 @@ health data.
      HealthPlatformFeature.readHealthDataHistory.permission,
    ]);
    ```
-
----
 
 ### Platform-specific features throw `UnsupportedOperationException`
 

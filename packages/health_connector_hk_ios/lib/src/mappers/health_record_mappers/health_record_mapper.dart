@@ -61,6 +61,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         Vo2MaxRecord,
         SpeedActivityRecord,
         SpeedSeriesRecord,
+        ExerciseSessionRecord,
         sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/active_calories_burned_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose_record_mappers.dart';
@@ -69,6 +70,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_f
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_temperature_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/diastolic_blood_pressure_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/distance_activity_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise_session_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/floors_climbed_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate_measurement_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/height_record_mappers.dart';
@@ -143,7 +145,8 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         RespiratoryRateRecordDto,
         BloodGlucoseRecordDto,
         Vo2MaxRecordDto,
-        SpeedActivityRecordDto;
+        SpeedActivityRecordDto,
+        ExerciseSessionRecordDto;
 import 'package:meta/meta.dart' show internal;
 
 /// ## ⚠️ CRITICAL: Infinite Recursion Prevention
@@ -329,6 +332,10 @@ extension HealthRecordToDto on HealthRecord {
           '$SpeedSeriesRecord is not supported on iOS HealthKit. '
           'Use $SpeedActivityRecord instead.',
         );
+      case ExerciseSessionRecord():
+        return ExerciseSessionRecordToDto(
+          this as ExerciseSessionRecord,
+        ).toDto();
     }
   }
 }
@@ -451,6 +458,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return DistanceActivityRecordDtoToDomain(dto).toDomain();
       case final SpeedActivityRecordDto dto:
         return SpeedActivityRecordDtoToDomain(dto).toDomain();
+      case final ExerciseSessionRecordDto dto:
+        return ExerciseSessionRecordDtoToDomain(dto).toDomain();
     }
   }
 }

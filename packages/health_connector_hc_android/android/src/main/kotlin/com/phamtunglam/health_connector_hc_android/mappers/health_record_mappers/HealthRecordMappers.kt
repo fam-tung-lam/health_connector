@@ -6,6 +6,7 @@ import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
 import androidx.health.connect.client.records.DistanceRecord
+import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.FloorsClimbedRecord
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
@@ -28,6 +29,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyFatPercentageRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyTemperatureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DistanceRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.FloorsClimbedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
@@ -75,6 +77,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is Vo2MaxRecordDto -> HealthDataTypeDto.VO2MAX
         is BloodPressureRecordDto -> HealthDataTypeDto.BLOOD_PRESSURE
         is BloodGlucoseRecordDto -> HealthDataTypeDto.BLOOD_GLUCOSE
+        is ExerciseSessionRecordDto -> HealthDataTypeDto.EXERCISE_SESSION
     }
 
 /**
@@ -105,6 +108,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is Vo2MaxRecordDto -> toHealthConnect()
     is BloodPressureRecordDto -> toHealthConnect()
     is BloodGlucoseRecordDto -> toHealthConnect()
+    is ExerciseSessionRecordDto -> toHealthConnect()
 }
 
 /**
@@ -141,5 +145,6 @@ internal fun Record.toDto(): HealthRecordDto = when (this) {
     is Vo2MaxRecord -> toDto()
     is BloodPressureRecord -> toDto()
     is BloodGlucoseRecord -> toDto()
+    is ExerciseSessionRecord -> toDto()
     else -> throw IllegalArgumentException("Unsupported record type: ${this::class.simpleName}")
 }

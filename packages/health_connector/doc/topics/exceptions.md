@@ -75,8 +75,6 @@ try {
 }
 ```
 
----
-
 ### InvalidConfigurationException
 
 **Description**: The app configuration is missing or invalid.
@@ -112,8 +110,6 @@ try {
 }
 ```
 
----
-
 ### UnsupportedOperationException
 
 **Description**: An API not supported by the current platform or version is used.
@@ -143,8 +139,6 @@ try {
   }
 }
 ```
-
----
 
 ### InvalidArgumentException
 
@@ -185,8 +179,6 @@ Future<void> readRecords(DateTime start, DateTime end) async {
 }
 ```
 
----
-
 ### HealthPlatformUnavailableException
 
 **Description**: The health platform is unavailable on this device.
@@ -222,8 +214,6 @@ if (status == HealthPlatformStatus.unavailable) {
   );
 }
 ```
-
----
 
 ### HealthPlatformNotInstalledOrUpdateRequiredException
 
@@ -267,8 +257,6 @@ if (status == HealthPlatformStatus.installationOrUpdateRequired) {
 }
 ```
 
----
-
 ### RemoteErrorException
 
 **Description**: A transient I/O or communication error occurred.
@@ -310,8 +298,6 @@ Future<void> writeRecordWithRetry(HealthRecord record) async {
   }
 }
 ```
-
----
 
 ### UnknownException
 

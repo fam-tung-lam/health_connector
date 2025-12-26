@@ -2,7 +2,7 @@ part of '../health_record.dart';
 
 /// Represents rowing distance over a time interval.
 ///
-/// Includes both water rowing and rowing machine workouts.
+/// Includes both water rowing and rowing machine exercises.
 ///
 /// ## Platform Mapping
 ///

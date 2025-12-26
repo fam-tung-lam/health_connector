@@ -32,6 +32,7 @@ import 'package:health_connector/health_connector.dart'
         RestingHeartRateHealthDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
+        ExerciseSessionHealthDataType,
         OxygenSaturationHealthDataType,
         NutritionHealthDataType,
         EnergyNutrientDataType,
@@ -157,6 +158,7 @@ extension HealthDataTypeUI on HealthDataType {
       RunningSpeedDataType _ => AppTexts.runningSpeed,
       StairAscentSpeedDataType _ => AppTexts.stairAscentSpeed,
       StairDescentSpeedDataType _ => AppTexts.stairDescentSpeed,
+      ExerciseSessionHealthDataType _ => AppTexts.exerciseSession,
     };
   }
 
@@ -247,6 +249,7 @@ extension HealthDataTypeUI on HealthDataType {
       RunningSpeedDataType _ => AppTexts.speedDescription,
       StairAscentSpeedDataType _ => AppTexts.speedDescription,
       StairDescentSpeedDataType _ => AppTexts.speedDescription,
+      ExerciseSessionHealthDataType _ => 'Period of physical activity',
     };
   }
 
@@ -328,6 +331,7 @@ extension HealthDataTypeUI on HealthDataType {
       RunningSpeedDataType _ => AppIcons.speed,
       StairAscentSpeedDataType _ => AppIcons.speed,
       StairDescentSpeedDataType _ => AppIcons.speed,
+      ExerciseSessionHealthDataType _ => AppIcons.fitnessCenter,
     };
   }
 }

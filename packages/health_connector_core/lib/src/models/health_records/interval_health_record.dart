@@ -29,7 +29,7 @@ sealed class IntervalHealthRecord extends HealthRecord {
   /// This is when the measurement or activity began.
   ///
   /// For activities like steps or distance, this is when the tracking period
-  /// started. For exercise sessions, this is when the workout began.
+  /// started. For exercise sessions, this is when the exercise session began.
   final DateTime startTime;
 
   /// The end time of the interval.
