@@ -2,6 +2,7 @@ import 'package:flutter/services.dart' show PlatformException;
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show
         AggregateRequest,
+        DeleteRecordsRequest,
         HealthConnectorConfig,
         HealthConnectorException,
         HealthConnectorPlatformClient,
@@ -21,9 +22,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ReadRecordsInTimeRangeRequest,
         ReadRecordsInTimeRangeResponse,
         PermissionListExtension,
-        sinceV1_0_0,
         internalUse,
-        DeleteRecordsRequest;
+        sinceV1_0_0;
 import 'package:health_connector_hc_android/src/mappers/config_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_connector_error_code_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_platform_feature_mappers.dart';
@@ -411,8 +411,7 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
 
   /// Queries the native platform to determine feature availability.
   ///
-  /// Checks whether a specific platform feature (e.g., exercise routes,
-  /// workout goals) is available and enabled on the device.
+  /// Checks whether a platform feature is available and enabled on the device.
   ///
   /// ## Parameters
   ///

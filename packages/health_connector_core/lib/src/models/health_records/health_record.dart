@@ -1,44 +1,8 @@
-import 'package:health_connector_core/health_connector_core.dart'
-    show sinceV1_1_0, sinceV1_4_0;
-import 'package:health_connector_core/src/annotations/annotations.dart'
-    show
-        sinceV1_0_0,
-        sinceV1_2_0,
-        sinceV1_3_0,
-        sinceV2_0_0,
-        supportedOnAppleHealth,
-        supportedOnHealthConnect;
-import 'package:health_connector_core/src/annotations/internal_use.dart';
-import 'package:health_connector_core/src/models/health_platform.dart'
-    show HealthPlatform;
+import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_core/src/models/health_platform_data.dart'
     show HealthPlatformData;
-import 'package:health_connector_core/src/models/health_records/blood_pressure_records/blood_pressure_body_position.dart'
-    show BloodPressureBodyPosition;
-import 'package:health_connector_core/src/models/health_records/blood_pressure_records/blood_pressure_measurement_location.dart'
-    show BloodPressureMeasurementLocation;
-import 'package:health_connector_core/src/models/health_records/heart_rate_measurement.dart'
-    show HeartRateMeasurement;
-import 'package:health_connector_core/src/models/health_records/sleep_records/sleep_stage_type.dart'
-    show SleepStageType;
-import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
-    show
-        BloodGlucose,
-        Number,
-        Energy,
-        Length,
-        Mass,
-        MeasurementUnit,
-        Percentage,
-        Pressure,
-        Temperature,
-        Velocity,
-        Volume;
-import 'package:health_connector_core/src/models/metadata/metadata.dart'
-    show Metadata;
 import 'package:health_connector_core/src/utils/collection.dart';
 import 'package:health_connector_core/src/utils/health_record_data_type_extension.dart';
-import 'package:health_connector_core/src/utils/validation.dart' show require;
 import 'package:meta/meta.dart' show immutable, internal;
 
 part 'active_calories_burned_record.dart';
@@ -60,6 +24,8 @@ part 'distance_records/skating_sports_distance_record.dart';
 part 'distance_records/swimming_distance_record.dart';
 part 'distance_records/walking_running_distance_record.dart';
 part 'distance_records/wheelchair_distance_record.dart';
+part 'exercise_records/exercise_session_record.dart';
+part 'exercise_records/exercise_type.dart';
 part 'floors_climbed_record.dart';
 part 'heart_rate_measurement_record.dart';
 part 'heart_rate_series_record.dart';

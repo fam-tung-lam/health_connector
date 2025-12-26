@@ -55,6 +55,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as SpeedActivityRecordDto:
             return try dto.toHealthKit()
+        case let dto as ExerciseSessionRecordDto:
+            return try dto.toHealthKit()
         default:
             throw HealthConnectorError.unsupportedOperation(
                 message:
@@ -78,6 +80,8 @@ extension HKSample {
             return try correlation.mapCorrelationSampleToDto(for: dataType)
         } else if let quantitySample = self as? HKQuantitySample {
             return try quantitySample.mapQuantitySampleToDto(for: dataType)
+        } else if let workout = self as? HKWorkout {
+            return workout.toExerciseSessionRecordDto()
         }
 
         throw HealthConnectorError.invalidArgument(

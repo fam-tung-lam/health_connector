@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:health_connector/health_connector.dart'
     show Device, DeviceType, RecordingMethod, HealthPlatform;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
@@ -101,6 +102,14 @@ class _MetadataFormFieldGroupState extends State<MetadataFormFieldGroup> {
     _udiDeviceIdentifierController = TextEditingController(
       text: widget.initialDevice?.udiDeviceIdentifier,
     );
+
+    // Schedule device update after the first frame to notify parent
+    // of initial device state without causing setState during build
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _updateDevice();
+      }
+    });
   }
 
   @override

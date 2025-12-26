@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide Velocity;
 import 'package:health_connector/health_connector.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
+import 'package:health_connector_toolbox/src/common/utils/extensions/exercise_type_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/meal_type_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/sleep_stage_type_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/mixins/process_operation_with_error_handler_page_state_mixin.dart';
@@ -58,6 +59,8 @@ extension HealthDataTypeFormExtension on HealthDataType {
     // Sleep types (interval)
     SleepStageHealthDataType() ||
     SleepSessionHealthDataType() ||
+    // Exercise types (interval)
+    ExerciseSessionHealthDataType() ||
     // Speed types (interval - series records)
     SpeedSeriesDataType() ||
     // Vitals types (interval - series records)
@@ -521,6 +524,7 @@ final class HealthRecordBuilder {
       SpeedSeriesDataType() ||
       SleepStageHealthDataType() ||
       SleepSessionHealthDataType() ||
+      ExerciseSessionHealthDataType() ||
       NutritionHealthDataType() ||
       BloodPressureHealthDataType() ||
       Vo2MaxHealthDataType() ||
@@ -1037,6 +1041,25 @@ final class HealthRecordBuilder {
     _ => false,
   };
 
+  /// Builds an [ExerciseSessionRecord] from form data.
+  static ExerciseSessionRecord buildExerciseSession({
+    required DateTime startDateTime,
+    required DateTime endDateTime,
+    required ExerciseType exerciseType,
+    required Metadata metadata,
+    String? title,
+    String? notes,
+  }) {
+    return ExerciseSessionRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      exerciseType: exerciseType,
+      metadata: metadata,
+      title: title,
+      notes: notes,
+    );
+  }
+
   // endregion
 }
 
@@ -1117,6 +1140,11 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
 
   // State for Number
   Vo2MaxTestType? _vo2MaxTestType;
+
+  // State for exercise session
+  ExerciseType? _exerciseType;
+  String? _exerciseTitle;
+  String? _exerciseNotes;
 
   // Use different state mixins based on whether duration is needed
   DateTime? _startDate;
@@ -1298,6 +1326,10 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
       if (_value == null) {
         return;
       }
+    } else if (widget.dataType is ExerciseSessionHealthDataType) {
+      if (_exerciseType == null) {
+        return;
+      }
     } else if (HealthRecordBuilder.isNutrientType(widget.dataType)) {
       // Nutrient records need a value
       if (_value == null) {
@@ -1425,6 +1457,15 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
           mealType: _bgMealType,
           specimenSource: _bgSpecimenSource,
         ),
+        ExerciseSessionHealthDataType() =>
+          HealthRecordBuilder.buildExerciseSession(
+            startDateTime: startDateTime!,
+            endDateTime: endDateTime!,
+            exerciseType: _exerciseType!,
+            metadata: metadata,
+            title: _exerciseTitle?.isEmpty ?? true ? null : _exerciseTitle,
+            notes: _exerciseNotes?.isEmpty ?? true ? null : _exerciseNotes,
+          ),
         _ =>
           HealthRecordBuilder.isNutrientType(widget.dataType)
               ? HealthRecordBuilder.buildNutrientWithFoodInfo(
@@ -1593,6 +1634,31 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
     });
   }
 
+  void _onExerciseTypeChanged(ExerciseType? type) {
+    setState(() {
+      _exerciseType = type;
+    });
+  }
+
+  String? _validateExerciseType(ExerciseType? value) {
+    if (value == null) {
+      return AppTexts.getPleaseSelectText(AppTexts.exerciseType);
+    }
+    return null;
+  }
+
+  void _onExerciseTitleChanged(String value) {
+    setState(() {
+      _exerciseTitle = value.isEmpty ? null : value;
+    });
+  }
+
+  void _onExerciseNotesChanged(String value) {
+    setState(() {
+      _exerciseNotes = value.isEmpty ? null : value;
+    });
+  }
+
   void _onRecordingMethodChanged(RecordingMethod? method) {
     setState(() {
       _recordingMethod = method ?? RecordingMethod.unknown;
@@ -1617,6 +1683,17 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
       return AppTexts.pleaseSelectDeviceType;
     }
     return null;
+  }
+
+  /// Returns all exercise types supported on the current platform.
+  ///
+  /// This method filters the exercise types based on the current health
+  /// platform to show only types that are valid for that platform.
+  List<ExerciseType> _getExerciseTypesForPlatform() {
+    return switch (_notifier.healthPlatform) {
+      HealthPlatform.appleHealth => ExerciseTypeExtension.appleHealthTypes,
+      HealthPlatform.healthConnect => ExerciseTypeExtension.healthConnectTypes,
+    };
   }
 
   @override
@@ -1739,6 +1816,39 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
                               .toList(),
                           onChanged: _onVo2MaxTestTypeChanged,
                           validator: _validateVo2MaxTestType,
+                        ),
+                      ] else if (widget.dataType
+                          is ExerciseSessionHealthDataType) ...[
+                        EnumDropdownFormField<ExerciseType>(
+                          labelText: AppTexts.exerciseType,
+                          values: _getExerciseTypesForPlatform(),
+                          value: _exerciseType,
+                          onChanged: _onExerciseTypeChanged,
+                          validator: _validateExerciseType,
+                          displayNameBuilder: (type) => type.displayName,
+                          prefixIcon: AppIcons.fitnessCenter,
+                          hint: AppTexts.pleaseSelect,
+                        ),
+                        const SizedBox(height: 16),
+                        TextFormField(
+                          initialValue: _exerciseTitle,
+                          decoration: const InputDecoration(
+                            labelText: AppTexts.exerciseTitleOptional,
+                            border: OutlineInputBorder(),
+                            helperText: AppTexts.exerciseTitleHelper,
+                          ),
+                          onChanged: _onExerciseTitleChanged,
+                        ),
+                        const SizedBox(height: 16),
+                        TextFormField(
+                          initialValue: _exerciseNotes,
+                          decoration: const InputDecoration(
+                            labelText: AppTexts.exerciseNotesOptional,
+                            border: OutlineInputBorder(),
+                            helperText: AppTexts.exerciseNotesHelper,
+                          ),
+                          onChanged: _onExerciseNotesChanged,
+                          maxLines: 3,
                         ),
                       ] else ...[
                         HealthRecordValueFormField(

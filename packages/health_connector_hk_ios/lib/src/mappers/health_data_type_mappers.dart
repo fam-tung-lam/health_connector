@@ -75,7 +75,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         WalkingSpeedDataType,
         RunningSpeedDataType,
         StairAscentSpeedDataType,
-        StairDescentSpeedDataType;
+        StairDescentSpeedDataType,
+        ExerciseSessionHealthDataType;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show HealthDataTypeDto;
 import 'package:meta/meta.dart' show internal;
@@ -224,6 +225,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.stairAscentSpeed;
       case HealthDataTypeDto.stairDescentSpeed:
         return HealthDataType.stairDescentSpeed;
+      case HealthDataTypeDto.exerciseSession:
+        return HealthDataType.exerciseSession;
     }
   }
 }
@@ -392,6 +395,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$SpeedSeriesDataType is not supported on iOS. '
           'Use WalkingSpeedDataType, RunningSpeedDataType, etc. instead.',
         );
+      case ExerciseSessionHealthDataType():
+        return HealthDataTypeDto.exerciseSession;
     }
   }
 }

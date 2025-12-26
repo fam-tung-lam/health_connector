@@ -91,7 +91,12 @@ extension ReadableHealthRecordHandler {
         startTime: Date,
         endTime: Date
     ) async throws -> [SampleType] {
-        let sampleType = try Self.dataType.toHealthKit()
+        let sampleType = try healthKitType()
+        guard let sampleType = sampleType as? HKSampleType else {
+            throw HealthConnectorError.unsupportedOperation(
+                message: "Health data type does not support querying as HKSampleType"
+            )
+        }
         let predicate = HKQuery.predicateForSamples(
             withStart: startTime,
             end: endTime,
@@ -138,7 +143,12 @@ extension ReadableHealthRecordHandler {
                 )
             }
 
-            let sampleType = try Self.dataType.toHealthKit()
+            let sampleType = try healthKitType()
+            guard let sampleType = sampleType as? HKSampleType else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Health data type does not support querying as HKSampleType"
+                )
+            }
             let predicate = HKQuery.predicateForObject(with: uuid)
 
             return try await withCheckedThrowingContinuation { continuation in
@@ -200,7 +210,12 @@ extension ReadableHealthRecordHandler {
                 "page_size": pageSize,
             ]
         ) {
-            let sampleType = try Self.dataType.toHealthKit()
+            let sampleType = try healthKitType()
+            guard let sampleType = sampleType as? HKSampleType else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Health data type does not support querying as HKSampleType"
+                )
+            }
 
             // Build time range predicate
             let timePredicate = HKQuery.predicateForSamples(

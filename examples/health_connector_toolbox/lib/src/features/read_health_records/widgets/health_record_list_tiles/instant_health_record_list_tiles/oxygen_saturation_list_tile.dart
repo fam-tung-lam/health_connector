@@ -25,8 +25,7 @@ final class OxygenSaturationTile extends StatelessWidget {
         time: r.time,
         recordingMethod: r.metadata.recordingMethod.name,
       ),
-      detailRowsBuilder: (r, ctx) => [
-      ],
+      detailRowsBuilder: (r, ctx) => [],
       onDelete: onDelete,
     );
   }

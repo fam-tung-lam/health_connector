@@ -345,6 +345,75 @@ New speed metrics supported on both platforms:
 - `RunningSpeedDataType`
 - `WalkingSpeedDataType`
 
+### 5. Exercise Session & Workout Support
+
+**NEW in v2.0.0**
+
+Track workouts and exercise sessions with comprehensive exercise type support:
+
+```dart
+// Write an exercise session
+final exerciseSession = ExerciseSessionRecord(
+  id: HealthRecordId.none,
+  startTime: DateTime.now().subtract(Duration(hours: 1)),
+  endTime: DateTime.now(),
+  exerciseType: ExerciseType.running,
+  title: 'Morning Run',
+  notes: '5K run in the park',
+  metadata: Metadata.automaticallyRecorded(
+    device: Device.fromType(DeviceType.phone),
+  ),
+);
+
+await connector.writeRecord(exerciseSession);
+
+// Read exercise sessions
+final request = HealthDataType.exerciseSession.readInTimeRange(
+  startTime: DateTime.now().subtract(Duration(days: 7)),
+  endTime: DateTime.now(),
+);
+final response = await connector.readRecords(request);
+
+// Aggregate total exercise duration
+final totalDuration = await connector.aggregate(
+  HealthDataType.exerciseSession.aggregateSum(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+  ),
+);
+```
+
+#### Exercise Type Support
+
+v2.0.0 includes **100+ exercise types** across both platforms:
+
+- **~50 cross-platform types**: running, walking, cycling, swimming, basketball, tennis, yoga, HIIT, and more
+- **iOS-only types** (annotated with `@supportedOnAppleHealth`):
+  - Swimming (generic), kickboxing, pickleball, cross-country skiing, tai chi, etc.
+- **Android-only types** (annotated with `@supportedOnHealthConnect`):
+  - Running treadmill, cycling stationary, weightlifting, ice hockey, guided breathing, etc.
+
+**Platform-Specific Validation**:
+
+```dart
+// Check if an exercise type is supported on the current platform
+final isSupported = ExerciseType.running.isSupportedOnPlatform(
+  HealthPlatform.appleHealth,
+);
+
+// Get all supported types for a platform
+final iosTypes = ExerciseType.appleHealthTypes;
+final androidTypes = ExerciseType.healthConnectTypes;
+
+// Get platform-exclusive types
+final iosOnlyTypes = ExerciseType.other.getExerciseTypesForPlatform(
+  HealthPlatform.appleHealth,
+);
+```
+
+> [!WARNING]
+> Attempting to use a platform-specific exercise type on an unsupported platform will throw `UnsupportedOperationException`.
+
 ---
 
 **Happy migrating! 🚀**

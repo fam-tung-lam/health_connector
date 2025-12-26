@@ -62,6 +62,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       BodyFatPercentageRecord() => HealthDataType.bodyFatPercentage,
       BodyTemperatureRecord() => HealthDataType.bodyTemperature,
       ActiveCaloriesBurnedRecord() => HealthDataType.activeCaloriesBurned,
+      ExerciseSessionRecord() => HealthDataType.exerciseSession,
       FloorsClimbedRecord() => HealthDataType.floorsClimbed,
       WheelchairPushesRecord() => HealthDataType.wheelchairPushes,
       LeanBodyMassRecord() => HealthDataType.leanBodyMass,

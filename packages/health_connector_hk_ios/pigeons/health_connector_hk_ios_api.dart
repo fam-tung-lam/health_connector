@@ -512,6 +512,121 @@ enum SpeedActivityTypeDto {
   stairDescent,
 }
 
+/// Exercise type classification for exercise sessions.
+///
+/// Maps to iOS HealthKit HKWorkoutActivityType.
+/// Some types are iOS-specific and may not have equivalent Health Connect
+/// types.
+enum ExerciseTypeDto {
+  /// Other or unclassified exercise type.
+  other,
+
+  /// Cardio & Walking/Running
+  running,
+  walking,
+  cycling,
+  hiking,
+  handCycling,
+  trackAndField,
+
+  /// Water Sports
+  swimming,
+  surfing,
+  waterPolo,
+  rowing,
+  sailing,
+  paddling,
+  diving,
+  waterFitness,
+  waterSports,
+
+  /// Strength Training
+  strengthTraining,
+
+  /// Team Sports
+  basketball,
+  soccer,
+  americanFootball,
+  frisbeeDisc,
+  australianFootball,
+  baseball,
+  softball,
+  volleyball,
+  rugby,
+  cricket,
+  handball,
+  hockey,
+  lacrosse,
+  discSports,
+
+  /// Racquet Sports
+  tennis,
+  tableTennis,
+  badminton,
+  squash,
+  racquetball,
+  pickleball,
+
+  /// Winter Sports
+  snowboarding,
+  skating,
+  crossCountrySkiing,
+  curling,
+  downhillSkiing,
+  snowSports,
+
+  /// Martial Arts & Combat Sports
+  boxing,
+  kickboxing,
+  martialArts,
+  wrestling,
+  fencing,
+  taiChi,
+
+  /// Dance & Gymnastics
+  gymnastics,
+  barre,
+  cardioDance,
+  socialDance,
+
+  /// Fitness & Conditioning
+  yoga,
+  pilates,
+  highIntensityIntervalTraining,
+  elliptical,
+  stairClimbing,
+  crossTraining,
+  jumpRope,
+  stepTraining,
+  fitnessGaming,
+  coreTraining,
+  flexibility,
+  cooldown,
+  mixedCardio,
+  mindAndBody,
+  preparationAndRecovery,
+
+  /// Golf & Precision Sports
+  golf,
+  archery,
+  bowling,
+
+  /// Outdoor & Adventure
+  climbing,
+  equestrianSports,
+  fishing,
+  hunting,
+  play,
+
+  /// Wheelchair Activities
+  wheelchairWalkPace,
+  wheelchairRunPace,
+
+  /// Multisport
+  transition,
+  swimBikeRun,
+}
+
 /// Sealed class for all health record DTOs.
 sealed class HealthRecordDto {}
 
@@ -728,6 +843,9 @@ enum HealthDataTypeDto {
 
   /// Blood glucose data.
   bloodGlucose,
+
+  /// Exercise session data.
+  exerciseSession,
 }
 
 /// Represents a resting heart rate record for platform transfer.
@@ -827,6 +945,50 @@ class BloodGlucoseRecordDto extends HealthRecordDto {
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
+}
+
+/// Represents an exercise session record for platform transfer.
+///
+/// Maps to iOS HealthKit HKWorkout.
+class ExerciseSessionRecordDto extends HealthRecordDto {
+  ExerciseSessionRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.exerciseType,
+    this.title,
+    this.notes,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Type of exercise performed.
+  final ExerciseTypeDto exerciseType;
+
+  /// Optional title for the exercise session.
+  final String? title;
+
+  /// Optional notes about the exercise session.
+  final String? notes;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
 }
 
 class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
@@ -2294,7 +2456,6 @@ class NutritionRecordDto extends HealthRecordDto {
   /// Sodium amount.
   final MassDto? sodium;
 
-  /// Zinc amount.
   final MassDto? zinc;
 
   // Other

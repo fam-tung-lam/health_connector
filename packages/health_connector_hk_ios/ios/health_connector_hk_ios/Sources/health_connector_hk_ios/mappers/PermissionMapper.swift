@@ -85,6 +85,9 @@ extension HealthDataPermissionDto {
              .stairAscentSpeed,
              .stairDescentSpeed:
             try [healthDataType.toHealthKit()]
+        // Exercise sessions use HKWorkoutType, not HKQuantityType
+        case .exerciseSession:
+            [HKObjectType.workoutType()]
         // For correlation types HealthKit requires requesting permissions for
         // the individual quantity types, not the correlation type itself
         case .nutrition:

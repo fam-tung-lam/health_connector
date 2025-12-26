@@ -201,9 +201,7 @@ final class PermissionListTile extends StatelessWidget {
     final theme = Theme.of(context);
 
     final status = permissionStatus;
-    final statusText = status == null
-        ? AppTexts.notRequestedStatus
-        : status.displayName;
+    final statusText = status == null ? AppTexts.unknown : status.displayName;
 
     final badgeColor = isGranted
         ? statusColors.success

@@ -78,6 +78,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         RunningSpeedDataType,
         StairAscentSpeedDataType,
         StairDescentSpeedDataType;
+import 'package:health_connector_core/health_connector_core_internal.dart'
+    show ExerciseSessionHealthDataType;
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/aggregation_metric_mappers.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
@@ -136,6 +138,7 @@ extension AggregateRequestDtoMapper<
           case SwimmingDistanceDataType _:
           case WheelchairDistanceDataType _:
           case WalkingRunningDistanceDataType _:
+          case ExerciseSessionHealthDataType _:
           case FloorsClimbedHealthDataType _:
           case HeartRateMeasurementRecordHealthDataType _:
           case HeartRateSeriesRecordHealthDataType _:

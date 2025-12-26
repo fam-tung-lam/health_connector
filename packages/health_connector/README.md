@@ -235,7 +235,6 @@ Future<void> quickStart() async {
 
 ## 🔍 Exploring the SDK Features with Health Connector Toolbox
 
-
 <div align="center">
   <table>
     <tr>
@@ -1166,6 +1165,61 @@ No. Apps can only delete records they created. This is a platform security restr
 |--------------------|------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------|-------------|
 | Sleep Session      | Complete sleep session with sleep stages | [SleepSessionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SleepSessionRecord) | ❌                                                                                                                                    | `SleepSessionHealthDataType<SleepSessionRecord, Duration>`   | -           |
 | Sleep Stage Record | Individual sleep stage measurement       | ❌                                                                                                                              | [HKCategoryTypeIdentifier.sleepAnalysis](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sleepanalysis) | `SleepStageRecordHealthDataType<SleepStageRecord, Duration>` | -           |
+
+### 🏋️ Exercise & Workouts
+
+| Data Type        | Description                                           | Android Health Connect                                                                                                                     | iOS HealthKit                                                                                                | SDK Data Type                                                        | Aggregation |
+|------------------|-------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|-------------|
+| Exercise Session | Complete workout session with exercise type and stats | [ExerciseSessionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSessionRecord)       | [HKWorkout](https://developer.apple.com/documentation/healthkit/hkworkout)                                   | `ExerciseSessionHealthDataType<ExerciseSessionRecord, Duration>`     | Duration    |
+
+#### Supported Exercise Types
+
+The SDK supports **100+ exercise types** across both platforms, including:
+
+**Cross-Platform Types** (~50 types supported on both iOS and Android):
+
+- **Cardio**: running, walking, cycling, hiking, swimming
+- **Strength**: strength training, calisthenics, weightlifting  
+- **Team Sports**: basketball, soccer, tennis, volleyball, baseball, rugby
+- **Racquet Sports**: tennis, badminton, squash, table tennis
+- **Winter Sports**: snowboarding, skating
+- **Fitness**: yoga, pilates, HIIT, elliptical
+- **Water Sports**: surfing, water polo, rowing, sailing, paddling, diving
+- **And many more**: golf, climbing, boxing, martial arts, gymnastics, fencing
+
+**iOS-Only Types** (annotated with `@supportedOnAppleHealth`):
+
+- `swimming` (generic), `waterFitness`, `waterSports`
+- `kickboxing`, `wrestling`, `taiChi`  
+- `handCycling`, `trackAndField`
+- `crossCountrySkiing`, `downhillSkiing`, `snowSports`, `curling`
+- `pickleball`, `lacrosse`, `hockey`, `discSports`
+- `archery`, `bowling`, `fishing`, `hunting`, `equestrianSports`
+- `barre`, `cardioDance`, `socialDance`, `coreTraining`
+- `crossTraining`, `jumpRope`, `fitnessGaming`, `mixedCardio`
+- `stepTraining`, `mindAndBody`, `preparationAndRecovery`, `cooldown`
+- `wheelchairWalkPace`, `wheelchairRunPace`
+- `transition`, `swimBikeRun`, `play`
+
+**Android-Only Types** (annotated with `@supportedOnHealthConnect`):
+
+- `runningTreadmill`, `cyclingStationary`
+- `swimmingOpenWater`, `swimmingPool`
+- `weightlifting`, `calisthenics`
+- `iceHockey`, `rollerHockey`
+- `skiing`, `snowshoeing`
+- `dancing`, `exerciseClass`, `bootCamp`
+- `guidedBreathing`, `paragliding`, `wheelchair`
+
+> [!IMPORTANT]
+> Attempting to use a platform-specific exercise type on an unsupported platform will result in `UnsupportedOperationException`.
+
+**Platform Mapping Details**:
+
+- **Android Health Connect**: Maps to `ExerciseSessionRecord.EXERCISE_TYPE_*` constants
+- **iOS HealthKit**: Maps to `HKWorkoutActivityType` enum values
+
+For complete exercise type documentation and platform mappings, see the [`ExerciseType` enum documentation](https://github.com/fam-tung-lam/health_connector/blob/main/packages/health_connector_core/lib/src/models/health_records/exercise_records/exercise_type.dart).
 
 ### 🍎 Nutrition
 

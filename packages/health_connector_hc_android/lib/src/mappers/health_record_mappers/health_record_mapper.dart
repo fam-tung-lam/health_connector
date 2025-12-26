@@ -7,6 +7,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         DiastolicBloodPressureRecord,
         DistanceActivityRecord,
         DistanceRecord,
+        ExerciseSessionRecord,
         FloorsClimbedRecord,
         HealthRecord,
         HeartRateMeasurementRecord,
@@ -68,6 +69,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/bl
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_fat_percentage_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_temperature_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/distance_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/exercise_session_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/floors_climbed_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/heart_rate_series_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/height_record_mappers.dart';
@@ -105,6 +107,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         WheelchairPushesRecordDto,
         Vo2MaxRecordDto,
         BloodGlucoseRecordDto,
+        ExerciseSessionRecordDto,
         RespiratoryRateRecordDto,
         SpeedSeriesRecordDto;
 import 'package:meta/meta.dart' show internal;
@@ -186,6 +189,8 @@ extension HealthRecordToDto on HealthRecord {
         return HeartRateSeriesRecordToDto(record).toDto();
       case final SleepSessionRecord record:
         return SleepSessionRecordToDto(record).toDto();
+      case final ExerciseSessionRecord record:
+        return ExerciseSessionRecordToDto(record).toDto();
       case final NutritionRecord record:
         return NutritionRecordToDto(record).toDto();
       case final RestingHeartRateRecord record:
@@ -433,6 +438,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return HeartRateSeriesRecordDtoToDomain(dto).toDomain();
       case final SleepSessionRecordDto dto:
         return SleepSessionRecordDtoToDomain(dto).toDomain();
+      case final ExerciseSessionRecordDto dto:
+        return ExerciseSessionRecordFromDto(dto).fromDto();
       case final NutritionRecordDto dto:
         return NutritionRecordDtoToDomain(dto).toDomain();
       case final RestingHeartRateRecordDto dto:

@@ -372,6 +372,100 @@ enum BloodGlucoseSpecimenSourceDto {
   wholeBlood,
 }
 
+/// Exercise type classification for exercise sessions.
+///
+/// Maps to Android Health Connect ExerciseSessionRecord exercise types
+/// and iOS HealthKit HKWorkoutActivityType.
+/// Some types are iOS-only and will be rejected on Android Health Connect.
+enum ExerciseTypeDto {
+  /// Other or unclassified exercise type.
+  other,
+
+  /// Cardio & Walking/Running
+  running,
+  runningTreadmill,
+  walking,
+  cycling,
+  cyclingStationary,
+  hiking,
+
+  /// Water Sports
+  swimmingOpenWater,
+  swimmingPool,
+  surfing,
+  waterPolo,
+  rowing,
+  sailing,
+  paddling,
+  diving,
+
+  /// Strength Training
+  strengthTraining,
+  weightlifting,
+  calisthenics,
+
+  /// Team Sports
+  basketball,
+  soccer,
+  americanFootball,
+  frisbeeDisc,
+  australianFootball,
+  baseball,
+  softball,
+  volleyball,
+  rugby,
+  cricket,
+  handball,
+  iceHockey,
+  rollerHockey,
+  hockey,
+
+  /// Racquet Sports
+  tennis,
+  tableTennis,
+  badminton,
+  squash,
+  racquetball,
+
+  /// Winter Sports
+  skiing,
+  snowboarding,
+  snowshoeing,
+  skating,
+
+  /// Martial Arts & Combat Sports
+  boxing,
+  kickboxing,
+  martialArts,
+  wrestling,
+  fencing,
+
+  /// Dance & Gymnastics
+  dancing,
+  gymnastics,
+
+  /// Fitness & Conditioning
+  yoga,
+  pilates,
+  highIntensityIntervalTraining,
+  elliptical,
+  exerciseClass,
+  bootCamp,
+  guidedBreathing,
+  stairClimbing,
+  flexibility,
+
+  /// Golf & Precision Sports
+  golf,
+
+  /// Outdoor & Adventure
+  paragliding,
+  climbing,
+
+  /// Wheelchair Activities
+  wheelchair,
+}
+
 // endregion
 
 // region Metadata
@@ -483,6 +577,9 @@ enum HealthDataTypeDto {
 
   /// Floors climbed data.
   floorsClimbed,
+
+  /// Exercise session data.
+  exerciseSession,
 
   /// Step count data.
   steps,
@@ -1218,6 +1315,48 @@ class SleepSessionRecordDto extends HealthRecordDto {
   final String? title;
   final String? notes;
   final List<SleepStageDto> stages;
+}
+
+/// Represents an exercise session record for platform transfer.
+class ExerciseSessionRecordDto extends HealthRecordDto {
+  ExerciseSessionRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.startTime,
+    required this.endTime,
+    required this.exerciseType,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+    this.title,
+    this.notes,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+
+  /// Type of exercise performed.
+  final ExerciseTypeDto exerciseType;
+
+  /// Optional title for the exercise session.
+  final String? title;
+
+  /// Optional notes about the exercise session.
+  final String? notes;
 }
 
 /// Represents unified nutrition record.

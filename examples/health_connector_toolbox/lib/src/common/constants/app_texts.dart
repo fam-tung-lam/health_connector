@@ -41,7 +41,6 @@ abstract final class AppTexts {
   static const String permissionSummary = 'Permission Summary';
   static const String total = 'Total';
   static const String of = 'of';
-  static const String notRequestedStatus = 'Not Requested';
 
   // endregion
 
@@ -153,6 +152,7 @@ abstract final class AppTexts {
       RunningSpeedDataType() ||
       StairAscentSpeedDataType() ||
       StairDescentSpeedDataType() => speed,
+      ExerciseSessionHealthDataType() => exerciseSession,
     };
   }
 
@@ -243,6 +243,7 @@ abstract final class AppTexts {
   static const String metric = 'Metric';
   static const String type = 'Type';
   static const String name = 'Name';
+  static const String notes = 'Notes';
   static const String count = 'Count';
   static const String duration = 'Duration';
   static const String durationHHMM = '$duration (HH:MM)';
@@ -261,7 +262,6 @@ abstract final class AppTexts {
   static const String denied = 'denied';
   static const String available = 'Available';
   static const String unavailable = 'Unavailable';
-  static const String notRequested = 'Not requested';
   static const String notAvailable = 'N/A';
   static const String noDataTypesFound = 'No data types found';
 
@@ -833,6 +833,131 @@ abstract final class AppTexts {
   static const String nutritionCategory = 'Nutrition';
   static const String sleepCategory = 'Sleep';
   static const String otherCategory = 'Other';
+
+  // endregion
+
+  // region Exercise Session
+  static const String exerciseSession = 'Exercise Session';
+  static const String exerciseType = 'Exercise Type';
+  static const String exerciseTitleOptional = 'Title (optional)';
+  static const String exerciseTitleHelper = 'Optional title for the exercise';
+  static const String exerciseNotesOptional = 'Notes (optional)';
+  static const String exerciseNotesHelper = 'Optional notes about the exercise';
+
+  // Exercise Types - Common (Android + iOS)
+  static const String exerciseRunning = 'Running';
+  static const String exerciseWalking = 'Walking';
+  static const String exerciseCycling = 'Cycling';
+  static const String exerciseHiking = 'Hiking';
+  static const String exerciseSwimming = 'Swimming';
+  static const String exerciseSurfing = 'Surfing';
+  static const String exerciseWaterPolo = 'Water Polo';
+  static const String exerciseRowing = 'Rowing';
+  static const String exerciseSailing = 'Sailing';
+  static const String exercisePaddling = 'Paddling';
+  static const String exerciseStrengthTraining = 'Strength Training';
+  static const String exerciseTraditionalStrengthTraining =
+      'Traditional Strength Training';
+  static const String exerciseFunctionalStrengthTraining =
+      'Functional Strength Training';
+  static const String exerciseCalisthenics = 'Calisthenics';
+  static const String exerciseBasketball = 'Basketball';
+  static const String exerciseSoccer = 'Soccer';
+  static const String exerciseAmericanFootball = 'American Football';
+  static const String exerciseAustralianFootball = 'Australian Football';
+  static const String exerciseBaseball = 'Baseball';
+  static const String exerciseSoftball = 'Softball';
+  static const String exerciseVolleyball = 'Volleyball';
+  static const String exerciseRugby = 'Rugby';
+  static const String exerciseCricket = 'Cricket';
+  static const String exerciseHandball = 'Handball';
+  static const String exerciseIceHockey = 'Ice Hockey';
+  static const String exerciseTennis = 'Tennis';
+  static const String exerciseTableTennis = 'Table Tennis';
+  static const String exerciseBadminton = 'Badminton';
+  static const String exerciseSquash = 'Squash';
+  static const String exerciseRacquetball = 'Racquetball';
+  static const String exerciseSkiing = 'Skiing';
+  static const String exerciseSnowboarding = 'Snowboarding';
+  static const String exerciseIceSkating = 'Ice Skating';
+  static const String exerciseSkating = 'Skating';
+  static const String exerciseBoxing = 'Boxing';
+  static const String exerciseMartialArts = 'Martial Arts';
+  static const String exerciseWrestling = 'Wrestling';
+  static const String exerciseFencing = 'Fencing';
+  static const String exerciseDancing = 'Dancing';
+  static const String exerciseGymnastics = 'Gymnastics';
+  static const String exerciseYoga = 'Yoga';
+  static const String exercisePilates = 'Pilates';
+  static const String exerciseHIIT = 'High-Intensity Interval Training';
+  static const String exerciseElliptical = 'Elliptical';
+  static const String exerciseStairClimbing = 'Stair Climbing';
+  static const String exerciseGolf = 'Golf';
+  static const String exerciseRockClimbing = 'Rock Climbing';
+  static const String exerciseWheelchair = 'Wheelchair';
+
+  // Exercise Types - iOS only
+  static const String exercisePickleball = 'Pickleball';
+  static const String exerciseDiscSports = 'Disc Sports';
+  static const String exerciseFitnessGaming = 'Fitness Gaming';
+  static const String exerciseBarre = 'Barre';
+  static const String exerciseTaiChi = 'Tai Chi';
+  static const String exerciseMixedCardio = 'Mixed Cardio';
+  static const String exerciseHandCycling = 'Hand Cycling';
+  static const String exerciseCooldown = 'Cooldown';
+  static const String exerciseFlexibility = 'Flexibility';
+  static const String exerciseArchery = 'Archery';
+  static const String exerciseBowling = 'Bowling';
+  static const String exerciseCurling = 'Curling';
+  static const String exerciseEquestrianSports = 'Equestrian Sports';
+  static const String exerciseFishing = 'Fishing';
+  static const String exerciseHunting = 'Hunting';
+  static const String exerciseLacrosse = 'Lacrosse';
+  static const String exerciseMindAndBody = 'Mind and Body';
+  static const String exercisePlay = 'Play';
+  static const String exercisePreparationAndRecovery =
+      'Preparation and Recovery';
+  static const String exerciseStairs = 'Stairs';
+  static const String exerciseStepTraining = 'Step Training';
+  static const String exerciseTrackAndField = 'Track and Field';
+  static const String exerciseTransition = 'Transition';
+  static const String exerciseUnderwaterDiving = 'Underwater Diving';
+  static const String exerciseCrossCountrySkiing = 'Cross-Country Skiing';
+  static const String exerciseDownhillSkiing = 'Downhill Skiing';
+  static const String exerciseSnowSports = 'Snow Sports';
+  static const String exercisePaddleSports = 'Paddle Sports';
+  static const String exerciseCardioDance = 'Cardio Dance';
+  static const String exerciseSocialDance = 'Social Dance';
+  static const String exerciseCoreTraining = 'Core Training';
+
+  // Health Connect specific or new cross-platform types
+  static const String exerciseOtherWorkout = 'Other Workout';
+  static const String exerciseBikingStationary = 'Stationary Biking';
+  static const String exerciseBootCamp = 'Boot Camp';
+  static const String exerciseExerciseClass = 'Exercise Class';
+  static const String exerciseFrisbeeDisc = 'Frisbee Disc';
+  static const String exerciseGuidedBreathing = 'Guided Breathing';
+  static const String exerciseParagliding = 'Paragliding';
+  static const String exerciseRollerHockey = 'Roller Hockey';
+  static const String exerciseRowingMachine = 'Rowing Machine';
+  static const String exerciseRunningTreadmill = 'Treadmill Running';
+  static const String exerciseScubaDiving = 'Scuba Diving';
+  static const String exerciseSnowshoeing = 'Snowshoeing';
+  static const String exerciseStairClimbingMachine = 'Stair Climbing Machine';
+  static const String exerciseStretching = 'Stretching';
+  static const String exerciseSwimmingOpenWater = 'Open Water Swimming';
+  static const String exerciseSwimmingPool = 'Pool Swimming';
+  static const String exerciseWeightlifting = 'Weightlifting';
+  static const String exerciseWaterFitness = 'Water Fitness';
+  static const String exerciseWaterSports = 'Water Sports';
+  static const String exerciseHockey = 'Hockey';
+  static const String exerciseKickboxing = 'Kickboxing';
+  static const String exerciseJumpRope = 'Jump Rope';
+  static const String exerciseCrossTraining = 'Cross Training';
+  static const String exerciseClimbing = 'Climbing';
+  static const String exerciseSwimBikeRun = 'Multisport';
+  static const String exerciseWheelchairWalkPace = 'Wheelchair Walk Pace';
+  static const String exerciseWheelchairRunPace = 'Wheelchair Run Pace';
 
   // endregion
 }

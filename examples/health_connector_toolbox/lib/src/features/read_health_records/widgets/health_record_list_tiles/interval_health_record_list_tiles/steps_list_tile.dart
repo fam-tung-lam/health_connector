@@ -26,8 +26,7 @@ final class StepsTile extends StatelessWidget {
         endTime: r.endTime,
         recordingMethod: r.metadata.recordingMethod.name,
       ),
-      detailRowsBuilder: (r, ctx) => [
-      ],
+      detailRowsBuilder: (r, ctx) => [],
       onDelete: onDelete,
     );
   }
