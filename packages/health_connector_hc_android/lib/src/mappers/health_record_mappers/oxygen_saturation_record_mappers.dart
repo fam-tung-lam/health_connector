@@ -29,7 +29,7 @@ extension OxygenSaturationRecordDtoToDomain on OxygenSaturationRecordDto {
   OxygenSaturationRecord toDomain() {
     return OxygenSaturationRecord(
       id: HealthRecordId(id ?? HealthRecordId.none.value),
-      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true).toLocal(),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       percentage: percentage.toDomain(),

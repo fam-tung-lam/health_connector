@@ -59,8 +59,8 @@ extension SleepStageDomainToDto on SleepStage {
 extension SleepStageDtoToDomain on SleepStageDto {
   SleepStage toDomain() {
     return SleepStage(
-      startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
-      endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
+      startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
+      endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),
       stageType: stage.toDomain(),
     );
   }

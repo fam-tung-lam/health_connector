@@ -131,7 +131,10 @@ final class SpeedMeasurement {
     required this.speed,
   });
 
-  /// The time at which the speed was measured.
+  /// The time at which the speed was measured, stored as a UTC instant.
+  ///
+  /// To interpret this value in the user's local (civil) time, use the zone
+  /// offset information from the parent [SpeedSeriesRecord].
   final DateTime time;
 
   /// The speed measurement value.

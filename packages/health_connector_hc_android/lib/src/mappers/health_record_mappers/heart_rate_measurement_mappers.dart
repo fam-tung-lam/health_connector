@@ -23,7 +23,7 @@ extension HeartRateMeasurementDtoMapper on HeartRateMeasurement {
 extension HeartRateMeasurementDtoToDomain on HeartRateMeasurementDto {
   HeartRateMeasurement toDomain() {
     return HeartRateMeasurement(
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       beatsPerMinute: beatsPerMinute.toDomain(),
     );
   }

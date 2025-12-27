@@ -12,7 +12,7 @@ extension Vo2MaxRecordDtoToDomain on Vo2MaxRecordDto {
   Vo2MaxRecord toDomain() {
     return Vo2MaxRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       mLPerKgPerMin: mLPerKgPerMin.toDomain(),

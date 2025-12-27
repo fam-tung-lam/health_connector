@@ -29,7 +29,7 @@ extension LeanBodyMassRecordDtoToDomain on LeanBodyMassRecordDto {
   LeanBodyMassRecord toDomain() {
     return LeanBodyMassRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       mass: mass.toDomain(),
