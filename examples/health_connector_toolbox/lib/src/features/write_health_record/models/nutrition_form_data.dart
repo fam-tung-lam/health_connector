@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart' show immutable;
-import 'package:health_connector/health_connector.dart';
+import 'package:health_connector/health_connector_internal.dart';
 
 /// Data class encapsulating all nutrition form values.
 ///

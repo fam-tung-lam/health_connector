@@ -12,15 +12,19 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `BodyFatRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.bodyFatPercentage)`
+/// - **Android Health Connect**: [`BodyFatRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyFatRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bodyFatPercentage`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodyfatpercentage)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query body fat percentage records
-/// - ✅ Writeable: Write body fat percentage records
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query body fat percentage records
+/// - Writeable: Write body fat percentage records
+/// - Deletable: Delete records by IDs or time range
 /// - ❌ Not aggregatable
+///
+/// ## See also
+///
+/// - [BodyFatPercentageRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

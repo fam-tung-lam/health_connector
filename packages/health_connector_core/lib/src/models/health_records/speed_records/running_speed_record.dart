@@ -4,7 +4,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.runningSpeed`
+/// - **Android Health Connect**: Not supported (Use [SpeedSeriesRecord])
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.runningSpeed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/runningspeed)
 ///
 /// ## Example
 ///

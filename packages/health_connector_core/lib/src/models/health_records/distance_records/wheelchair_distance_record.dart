@@ -4,7 +4,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.distanceWheelchair`
+/// - **Android Health Connect**: Not supported (Use [DistanceRecord])
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.distanceWheelchair`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancewheelchair)
 ///
 /// ## Example
 ///

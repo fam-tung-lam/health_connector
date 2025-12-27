@@ -10,15 +10,16 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.distanceSkatingSports)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceSkatingSports`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distanceskatingsports)
+/// - **Android Health Connect**: Not directly supported (use general
+/// [DistanceHealthDataType])
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query skating sports distance records
-/// - ✅ Writeable: Write skating sports distance records
-/// - ✅ Aggregatable: Sum total skating sports distance
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query skating sports distance records
+/// - Writeable: Write skating sports distance records
+/// - Aggregatable: Sum total skating sports distance
+/// - Deletable: Delete records by IDs or time range
 ///
 /// Includes ice skating, roller skating, inline skating, etc.
 ///

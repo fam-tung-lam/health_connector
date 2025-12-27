@@ -12,15 +12,19 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `FloorsClimbedRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.flightsClimbed)`
+/// - **Android Health Connect**: [`FloorsClimbedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/FloorsClimbedRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.flightsClimbed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/flightsclimbed)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query floors climbed records
-/// - ✅ Writeable: Write floors climbed records
-/// - ✅ Aggregatable: Sum total floors climbed
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query floors climbed records
+/// - Writeable: Write floors climbed records
+/// - Aggregatable: Sum total floors climbed
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [FloorsClimbedRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

@@ -12,14 +12,14 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `NutritionRecord`
-/// - **iOS HealthKit**: `HKCorrelationType(.food)` or individual nutrient
+/// - **Android Health Connect**: [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
+/// - **iOS HealthKit**: [`HKCorrelationTypeIdentifier.food`](https://developer.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/food) or individual nutrient
 /// types
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query nutrition records
-/// - ✅ Writeable: Write nutrition records
+/// - Readable: Query nutrition records
+/// - Writeable: Write nutrition records
 /// - ❌ Not aggregatable (use individual nutrient data types for aggregation)
 ///
 /// {@category Health Data Types}

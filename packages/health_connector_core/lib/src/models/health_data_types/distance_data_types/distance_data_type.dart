@@ -11,15 +11,15 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `DistanceRecord`
-/// - **iOS HealthKit**: Not supported (use activity-specific types like
-/// [CyclingDistanceDataType])
+/// - **Android Health Connect**: [`DistanceRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/DistanceRecord)
+/// - **iOS HealthKit**: Not directly supported (use activity-specific types
+/// like [CyclingDistanceDataType])
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query distance records
-/// - ✅ Writeable: Write distance records
-/// - ✅ Aggregatable: Sum total distance
+/// - Readable: Query distance records
+/// - Writeable: Write distance records
+/// - Aggregatable: Sum total distance
 ///
 /// > [!NOTE]
 /// > This data type is only supported on Android Health Connect. For iOS,

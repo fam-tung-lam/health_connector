@@ -10,16 +10,16 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.distanceCycling)`
-/// - **Android Health Connect**: Not directly supported (use general distance
-/// records)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceCycling`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancecycling)
+/// - **Android Health Connect**: Not directly supported (use general
+/// [DistanceHealthDataType])
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query cycling distance records
-/// - ✅ Writeable: Write cycling distance records
-/// - ✅ Aggregatable: Sum total cycling distance
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query cycling distance records
+/// - Writeable: Write cycling distance records
+/// - Aggregatable: Sum total cycling distance
+/// - Deletable: Delete records by IDs or time range
 ///
 /// {@category Health Data Types}
 @sinceV2_0_0

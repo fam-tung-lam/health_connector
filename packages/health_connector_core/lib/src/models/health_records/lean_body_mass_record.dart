@@ -8,8 +8,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `LeanBodyMassRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.leanBodyMass)`
+/// - **Android Health Connect**: [`LeanBodyMassRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/LeanBodyMassRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.leanBodyMass`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/leanbodymass)
 ///
 /// ## Example
 ///
@@ -22,6 +22,10 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [LeanBodyMassHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

@@ -2,6 +2,10 @@ part of '../health_record.dart';
 
 /// Base class for vitamin nutrient health records.
 ///
+/// ## See also
+///
+/// - [VitaminNutrientDataType]
+///
 /// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth

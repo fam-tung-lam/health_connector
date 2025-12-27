@@ -1,12 +1,14 @@
 part of 'health_record.dart';
 
-/// Represents a single heart rate measurement (iOS HealthKit).
-///
-/// **Platform:** iOS HealthKit only
+/// Represents a single heart rate measurement.
 ///
 /// Each heart rate measurement record represents one BPM measurement at a
-/// specific time. This maps directly to iOS's `HKQuantitySample` with
-/// `.heartRate` type.
+/// specific time.
+///
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: Not supported (Use [HeartRateSeriesRecord])
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.heartRate`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartrate)
 ///
 /// ## Example
 ///
@@ -23,6 +25,10 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [HeartRateMeasurementRecordHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

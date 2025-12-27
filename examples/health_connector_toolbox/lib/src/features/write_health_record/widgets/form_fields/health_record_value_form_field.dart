@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_connector/health_connector.dart'
+import 'package:health_connector/health_connector_internal.dart'
     show HealthDataType, MeasurementUnit;
 import 'package:health_connector_toolbox/src/common/utils/extensions/health_data_type_ui_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/measurement_unit_value_parser.dart';

@@ -11,15 +11,19 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `WeightRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.bodyMass)`
+/// - **Android Health Connect**: [`WeightRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/WeightRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bodyMass`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodymass)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query weight records
-/// - ✅ Writeable: Write weight records
-/// - ✅ Aggregatable: Calculate avg, min, max weight
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query weight records
+/// - Writeable: Write weight records
+/// - Aggregatable: Calculate avg, min, max weight
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [WeightRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

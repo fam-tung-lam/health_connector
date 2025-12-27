@@ -11,15 +11,19 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.dietaryVitaminE)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminE`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamine)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query vitamin e intake records
-/// - ✅ Writeable: Write vitamin e intake records
-/// - ✅ Aggregatable: Sum total vitamin e intake
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query vitamin e intake records
+/// - Writeable: Write vitamin e intake records
+/// - Aggregatable: Sum total vitamin e intake
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [VitaminENutrientRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0

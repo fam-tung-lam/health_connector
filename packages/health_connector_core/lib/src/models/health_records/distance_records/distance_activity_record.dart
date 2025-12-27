@@ -29,6 +29,7 @@ part of '../health_record.dart';
 /// {@category Health Records}
 @sinceV2_0_0
 @supportedOnAppleHealth
+@internalUse
 @immutable
 sealed class DistanceActivityRecord extends IntervalHealthRecord {
   /// Creates a distance activity record.

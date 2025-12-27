@@ -11,21 +11,24 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: Not supported (use
-/// [BloodPressureHealthDataType])
-/// - **iOS HealthKit**: `HKQuantityType(.bloodPressureDiastolic)`
+/// - **Android Health Connect**: Part of [`BloodPressureRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodPressureRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bloodPressureDiastolic`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodpressurediastolic)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query diastolic blood pressure records
-/// - ✅ Writeable: Write diastolic blood pressure records
-/// - ✅ Aggregatable: Calculate avg, min, max diastolic pressure
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query diastolic blood pressure records
+/// - Writeable: Write diastolic blood pressure records
+/// - Aggregatable: Calculate avg, min, max diastolic pressure
+/// - Deletable: Delete records by IDs or time range
 ///
 /// > [!NOTE]
 /// > This data type is only supported on iOS/HealthKit. For Android,
 /// > use [BloodPressureHealthDataType] which includes both systolic and
 /// diastolic values.
+///
+/// ## See also
+///
+/// - [DiastolicBloodPressureRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_2_0

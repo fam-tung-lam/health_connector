@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:health_connector/health_connector.dart'
+import 'package:health_connector/health_connector_internal.dart'
     show HealthDataPermission;
 import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
 import 'package:health_connector_toolbox/src/features/permissions/permissions_change_notifier.dart';

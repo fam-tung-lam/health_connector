@@ -5,12 +5,21 @@ part of 'health_data_type.dart';
 /// Resting heart rate represents the heart rate while at complete rest,
 /// typically measured first thing in the morning before getting out of bed.
 ///
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: [`RestingHeartRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RestingHeartRateRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.restingHeartRate`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/restingheartrate)
+///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query resting heart rate records
-/// - ✅ Writeable: Write resting heart rate records
-/// - ✅ Aggregatable: Calculate avg, min, max resting heart rate
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query resting heart rate records
+/// - Writeable: Write resting heart rate records
+/// - Aggregatable: Calculate avg, min, max resting heart rate
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [RestingHeartRateRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_3_0

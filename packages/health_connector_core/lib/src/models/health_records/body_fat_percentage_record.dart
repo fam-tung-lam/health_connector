@@ -8,8 +8,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `BodyFatRecord`
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.bodyFatPercentage`
+/// - **Android Health Connect**: [`BodyFatRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyFatRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bodyFatPercentage`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodyfatpercentage)
 ///
 /// ## Example
 ///
@@ -23,6 +23,10 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [BodyFatPercentageHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

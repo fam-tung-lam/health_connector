@@ -11,8 +11,10 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `Vo2MaxRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.vo2Max)`
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: [`Vo2MaxRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.vo2Max`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/vo2max)
 ///
 /// ## Measurement Unit
 ///
@@ -31,6 +33,10 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [Vo2MaxHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_3_0

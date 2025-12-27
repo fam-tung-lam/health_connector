@@ -24,6 +24,7 @@ part of '../health_record.dart';
 /// {@category Health Records}
 @sinceV2_0_0
 @supportedOnAppleHealth
+@internalUse
 @immutable
 sealed class SpeedActivityRecord extends InstantHealthRecord {
   /// Creates a speed activity record.

@@ -8,8 +8,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `ActiveCaloriesBurnedRecord`
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.activeEnergyBurned`
+/// - **Android Health Connect**: [`ActiveCaloriesBurnedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ActiveCaloriesBurnedRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.activeEnergyBurned`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/activeenergyburned)
 ///
 /// ## Example
 ///
@@ -23,6 +23,10 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [ActiveCaloriesBurnedHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

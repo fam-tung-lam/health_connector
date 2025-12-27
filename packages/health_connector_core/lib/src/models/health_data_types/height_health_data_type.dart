@@ -12,15 +12,19 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `HeightRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.height)`
+/// - **Android Health Connect**: [`HeightRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeightRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.height`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/height)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query height records
-/// - ✅ Writeable: Write height records
-/// - ✅ Aggregatable: Calculate avg, min, max height
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query height records
+/// - Writeable: Write height records
+/// - Aggregatable: Calculate avg, min, max height
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [HeightRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

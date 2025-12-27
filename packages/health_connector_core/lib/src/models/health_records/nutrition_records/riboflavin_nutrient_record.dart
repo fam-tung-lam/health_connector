@@ -9,11 +9,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.dietaryRiboflavin`
-///
-/// > [!NOTE]
-/// > This record type is only supported on iOS/HealthKit. For Android,
-/// > use the [NutritionRecord.riboflavin] field in [NutritionRecord].
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryRiboflavin`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryriboflavin)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
 ///
@@ -28,6 +25,10 @@ part of '../health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [RiboflavinNutrientDataType]
 ///
 /// {@category Health Records}
 @sinceV1_1_0

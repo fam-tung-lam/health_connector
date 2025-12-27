@@ -7,8 +7,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `WeightRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.bodyMass)`
+/// - **Android Health Connect**: [`WeightRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/WeightRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bodyMass`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodymass)
 ///
 /// ## Example
 ///
@@ -21,6 +21,10 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [WeightHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

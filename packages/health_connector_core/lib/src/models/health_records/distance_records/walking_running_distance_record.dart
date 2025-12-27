@@ -4,7 +4,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.walkingRunning`
+/// - **Android Health Connect**: Not supported (Use [DistanceRecord])
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.distanceWalkingRunning`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancewalkingrunning)
 ///
 /// ## Example
 ///

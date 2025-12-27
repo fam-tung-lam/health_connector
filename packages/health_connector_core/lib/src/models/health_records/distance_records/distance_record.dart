@@ -7,8 +7,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `DistanceRecord`
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.distanceWalkingRunning`
+/// - **Android Health Connect**: [`DistanceRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/DistanceRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.distanceWalkingRunning`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancewalkingrunning)
 ///
 /// ## Example
 ///

@@ -1,4 +1,5 @@
-import 'package:health_connector/health_connector.dart' show ExerciseType;
+import 'package:health_connector/health_connector_internal.dart'
+    show ExerciseType;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
 /// Extension providing display names for [ExerciseType] enum values.

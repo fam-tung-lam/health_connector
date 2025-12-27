@@ -10,15 +10,16 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.distanceRowing)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceRowing`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancerowing)
+/// - **Android Health Connect**: Not directly supported (use general
+/// [DistanceHealthDataType])
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query rowing distance records
-/// - ✅ Writeable: Write rowing distance records
-/// - ✅ Aggregatable: Sum total rowing distance
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query rowing distance records
+/// - Writeable: Write rowing distance records
+/// - Aggregatable: Sum total rowing distance
+/// - Deletable: Delete records by IDs or time range
 ///
 /// Includes both water rowing and rowing machine exercises.
 ///

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' hide Interval, Velocity;
-import 'package:health_connector/health_connector.dart'
+import 'package:health_connector/health_connector_internal.dart'
     show
         BloodGlucose,
         Energy,

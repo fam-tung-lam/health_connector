@@ -817,7 +817,7 @@ abstract interface class HealthConnector {
   ///
   /// ## Platform Differences
   ///
-  /// - **Android Health Connect**: ✅ Full support
+  /// - **Android Health Connect**: Full support
   /// - **iOS HealthKit**: ❌ Not supported (see [updateRecords] for details)
   ///
   /// ## Parameters
@@ -868,7 +868,7 @@ abstract interface class HealthConnector {
   ///
   /// ## Platform Differences
   ///
-  /// - **Android Health Connect**: ✅ Full support
+  /// - **Android Health Connect**: Full support
   /// - **iOS HealthKit**: ❌ Not supported
   ///
   /// ### Why HealthKit Doesn't Support Updates

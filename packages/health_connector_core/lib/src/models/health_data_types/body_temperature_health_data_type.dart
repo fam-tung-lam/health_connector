@@ -11,15 +11,19 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `BodyTemperatureRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.bodyTemperature)`
+/// - **Android Health Connect**: [`BodyTemperatureRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyTemperatureRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bodyTemperature`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodytemperature)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query body temperature records
-/// - ✅ Writeable: Write body temperature records
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query body temperature records
+/// - Writeable: Write body temperature records
+/// - Deletable: Delete records by IDs or time range
 /// - ❌ Not aggregatable
+///
+/// ## See also
+///
+/// - [BodyTemperatureRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

@@ -11,15 +11,19 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.dietaryMagnesium)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryMagnesium`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarymagnesium)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query magnesium intake records
-/// - ✅ Writeable: Write magnesium intake records
-/// - ✅ Aggregatable: Sum total magnesium intake
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query magnesium intake records
+/// - Writeable: Write magnesium intake records
+/// - Aggregatable: Sum total magnesium intake
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [MagnesiumNutrientRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0

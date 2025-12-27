@@ -1,4 +1,5 @@
-import 'package:health_connector/health_connector.dart' show SleepStageType;
+import 'package:health_connector/health_connector_internal.dart'
+    show SleepStageType;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
 /// Extension providing display names for [SleepStageType] enum values.

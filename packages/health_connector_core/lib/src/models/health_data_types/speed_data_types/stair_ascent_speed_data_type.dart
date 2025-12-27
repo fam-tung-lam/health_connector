@@ -10,15 +10,16 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.stairAscentSpeed)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.stairAscentSpeed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/stairascentspeed)
+/// - **Android Health Connect**: Not directly supported (use general
+/// [SpeedSeriesDataType])
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query stair ascent speed records
-/// - ✅ Writeable: Write stair ascent speed records
-/// - ✅ Aggregatable: Calculate average stair ascent speed
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query stair ascent speed records
+/// - Writeable: Write stair ascent speed records
+/// - Aggregatable: Calculate average stair ascent speed
+/// - Deletable: Delete records by IDs or time range
 ///
 /// Represents the speed at which a user ascends stairs, typically measured in
 /// meters per second.

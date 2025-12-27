@@ -19,14 +19,18 @@ part of 'health_data_type.dart';
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query sleep stage records
-/// - ✅ Writeable: Write sleep stage records
-/// - ✅ Aggregatable: Sum total sleep duration (excluding awake stages)
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query sleep stage records
+/// - Writeable: Write sleep stage records
+/// - Aggregatable: Sum total sleep duration (excluding awake stages)
+/// - Deletable: Delete records by IDs or time range
 ///
 /// > [!NOTE]
 /// > This data type is only supported on iOS HealthKit. For Android,
 /// > use [SleepSessionHealthDataType] instead.
+///
+/// ## See also
+///
+/// - [SleepStageRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

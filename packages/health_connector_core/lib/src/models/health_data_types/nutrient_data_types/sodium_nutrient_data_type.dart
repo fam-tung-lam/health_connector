@@ -11,15 +11,19 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.dietarySodium)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietarySodium`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarysodium)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query sodium intake records
-/// - ✅ Writeable: Write sodium intake records
-/// - ✅ Aggregatable: Sum total sodium intake
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query sodium intake records
+/// - Writeable: Write sodium intake records
+/// - Aggregatable: Sum total sodium intake
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [SodiumNutrientRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0

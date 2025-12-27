@@ -11,15 +11,19 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.dietaryFiber)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryFiber`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfiber)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query dietary fiber intake records
-/// - ✅ Writeable: Write dietary fiber intake records
-/// - ✅ Aggregatable: Sum total dietary fiber intake
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query dietary fiber intake records
+/// - Writeable: Write dietary fiber intake records
+/// - Aggregatable: Sum total dietary fiber intake
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [DietaryFiberNutrientRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0

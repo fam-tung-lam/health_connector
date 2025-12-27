@@ -2,12 +2,21 @@ part of 'health_data_type.dart';
 
 /// Oxygen saturation data type.
 ///
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: [`OxygenSaturationRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/OxygenSaturationRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.oxygenSaturation`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/oxygensaturation)
+///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query oxygen saturation records
-/// - ✅ Writeable: Write oxygen saturation records
-/// - ✅ Aggregatable: Calculate avg, min, max oxygen saturation
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query oxygen saturation records
+/// - Writeable: Write oxygen saturation records
+/// - Aggregatable: Calculate avg, min, max oxygen saturation
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [OxygenSaturationRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_3_0

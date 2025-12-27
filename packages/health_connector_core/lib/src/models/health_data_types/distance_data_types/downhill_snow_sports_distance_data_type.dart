@@ -10,15 +10,16 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.distanceDownhillSnowSports)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceDownhillSnowSports`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancedownhillsnowsports)
+/// - **Android Health Connect**: Not directly supported (use general
+/// [DistanceHealthDataType])
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query downhill snow sports distance records
-/// - ✅ Writeable: Write downhill snow sports distance records
-/// - ✅ Aggregatable: Sum total downhill snow sports distance
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query downhill snow sports distance records
+/// - Writeable: Write downhill snow sports distance records
+/// - Aggregatable: Sum total downhill snow sports distance
+/// - Deletable: Delete records by IDs or time range
 ///
 /// Includes skiing, snowboarding, and other downhill winter sports.
 ///

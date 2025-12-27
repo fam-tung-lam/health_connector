@@ -8,8 +8,10 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `BloodGlucoseRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.bloodGlucose)`
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: [`BloodGlucoseRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodGlucoseRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bloodGlucose`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodglucose)
 ///
 /// ## Example
 ///
@@ -25,6 +27,10 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [BloodGlucoseHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_4_0

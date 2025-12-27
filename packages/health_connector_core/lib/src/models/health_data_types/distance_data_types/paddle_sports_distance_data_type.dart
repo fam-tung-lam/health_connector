@@ -10,15 +10,16 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.distancePaddleSports)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distancePaddleSports`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancepaddlesports)
+/// - **Android Health Connect**: Not directly supported (use general
+/// [DistanceHealthDataType])
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query paddle sports distance records
-/// - ✅ Writeable: Write paddle sports distance records
-/// - ✅ Aggregatable: Sum total paddle sports distance
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query paddle sports distance records
+/// - Writeable: Write paddle sports distance records
+/// - Aggregatable: Sum total paddle sports distance
+/// - Deletable: Delete records by IDs or time range
 ///
 /// {@category Health Data Types}
 @sinceV2_0_0

@@ -11,15 +11,19 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.dietaryVitaminB6)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminB6`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitaminb6)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query vitamin b6 (pyridoxine) intake records
-/// - ✅ Writeable: Write vitamin b6 (pyridoxine) intake records
-/// - ✅ Aggregatable: Sum total vitamin b6 (pyridoxine) intake
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query vitamin b6 (pyridoxine) intake records
+/// - Writeable: Write vitamin b6 (pyridoxine) intake records
+/// - Aggregatable: Sum total vitamin b6 (pyridoxine) intake
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [VitaminB6NutrientRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0

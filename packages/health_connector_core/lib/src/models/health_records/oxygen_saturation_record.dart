@@ -11,8 +11,10 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `OxygenSaturationRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.oxygenSaturation)`
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: [`OxygenSaturationRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/OxygenSaturationRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.oxygenSaturation`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/oxygensaturation)
 ///
 /// ## Example
 ///
@@ -25,6 +27,10 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [OxygenSaturationHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_3_0

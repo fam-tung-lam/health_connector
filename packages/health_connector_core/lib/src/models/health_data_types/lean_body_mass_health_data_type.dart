@@ -11,15 +11,19 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `LeanBodyMassRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.leanBodyMass)`
+/// - **Android Health Connect**: [`LeanBodyMassRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/LeanBodyMassRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.leanBodyMass`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/leanbodymass)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query lean body mass records
-/// - ✅ Writeable: Write lean body mass records
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query lean body mass records
+/// - Writeable: Write lean body mass records
+/// - Deletable: Delete records by IDs or time range
 /// - ❌ Not aggregatable
+///
+/// ## See also
+///
+/// - [LeanBodyMassRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

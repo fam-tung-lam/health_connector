@@ -92,13 +92,13 @@
 ///
 /// ## Features
 ///
-/// - ✅ **Cross-platform**: Single API for iOS and Android
-/// - ✅ **Type-safe**: Compile-time checks for data types and units
-/// - ✅ **Permission management**: Request and check permissions
-/// - ✅ **Read/Write**: Query and store health data
-/// - ✅ **Aggregation**: Calculate sums, averages, min/max
-/// - ✅ **Pagination**: Efficient large dataset handling
-/// - ✅ **Metadata**: Track data source and recording method
+/// - **Cross-platform**: Single API for iOS and Android
+/// - **Type-safe**: Compile-time checks for data types and units
+/// - **Permission management**: Request and check permissions
+/// - **Read/Write**: Query and store health data
+/// - **Aggregation**: Calculate sums, averages, min/max
+/// - **Pagination**: Efficient large dataset handling
+/// - **Metadata**: Track data source and recording method
 ///
 /// ## Platform Coverage
 ///

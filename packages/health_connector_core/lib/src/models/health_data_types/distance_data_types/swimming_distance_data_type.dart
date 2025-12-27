@@ -11,16 +11,14 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.distanceSwimming)`
-/// - **Android Health Connect**: Not directly supported (use general distance
-/// records)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceSwimming`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distanceswimming)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query swimming distance records
-/// - ✅ Writeable: Write swimming distance records
-/// - ✅ Aggregatable: Sum total swimming distance
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query swimming distance records
+/// - Writeable: Write swimming distance records
+/// - Aggregatable: Sum total swimming distance
+/// - Deletable: Delete records by IDs or time range
 ///
 /// {@category Health Data Types}
 @sinceV2_0_0

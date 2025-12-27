@@ -11,15 +11,19 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.dietarySelenium)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietarySelenium`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryselenium)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query selenium intake records
-/// - ✅ Writeable: Write selenium intake records
-/// - ✅ Aggregatable: Sum total selenium intake
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query selenium intake records
+/// - Writeable: Write selenium intake records
+/// - Aggregatable: Sum total selenium intake
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [SeleniumNutrientRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0

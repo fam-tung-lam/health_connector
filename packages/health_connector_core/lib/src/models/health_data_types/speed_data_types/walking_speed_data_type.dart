@@ -11,15 +11,16 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.walkingSpeed)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.walkingSpeed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingspeed)
+/// - **Android Health Connect**: Not directly supported (use general
+/// [SpeedSeriesDataType])
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query walking speed records
-/// - ✅ Writeable: Write walking speed records
-/// - ✅ Aggregatable: Calculate average walking speed
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query walking speed records
+/// - Writeable: Write walking speed records
+/// - Aggregatable: Calculate average walking speed
+/// - Deletable: Delete records by IDs or time range
 ///
 /// {@category Health Data Types}
 @sinceV2_0_0

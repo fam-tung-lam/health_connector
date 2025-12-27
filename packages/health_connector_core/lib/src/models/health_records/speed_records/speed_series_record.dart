@@ -7,14 +7,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `SpeedRecord`
-///
-/// ## iOS Alternative
-/// For iOS, use the activity-specific speed records:
-/// - [WalkingSpeedRecord]
-/// - [RunningSpeedRecord]
-/// - [StairAscentSpeedRecord]
-/// - [StairDescentSpeedRecord]
+/// - **Android Health Connect**: [`SpeedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SpeedRecord)
+/// - **iOS HealthKit**: Not supported. Use the activity-specific speed records:
+///   - [WalkingSpeedRecord]
+///   - [RunningSpeedRecord]
+///   - [StairAscentSpeedRecord]
+///   - [StairDescentSpeedRecord]
 ///
 /// ## Example
 ///
