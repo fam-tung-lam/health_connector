@@ -52,7 +52,7 @@ extension SpeedActivityRecordDtoToDomain on SpeedActivityRecordDto {
     final timeValue = DateTime.fromMillisecondsSinceEpoch(
       time,
       isUtc: true,
-    ).toLocal();
+    );
 
     return switch (activityType) {
       SpeedActivityTypeDto.walking => WalkingSpeedRecord(

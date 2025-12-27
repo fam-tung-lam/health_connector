@@ -29,7 +29,7 @@ extension WeightRecordDtoToDomain on WeightRecordDto {
   WeightRecord toDomain() {
     return WeightRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       weight: weight.toDomain(),

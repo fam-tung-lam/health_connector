@@ -31,11 +31,11 @@ extension ExerciseSessionRecordFromDto on ExerciseSessionRecordDto {
       startTime: DateTime.fromMillisecondsSinceEpoch(
         startTime,
         isUtc: true,
-      ).toLocal(),
+      ),
       endTime: DateTime.fromMillisecondsSinceEpoch(
         endTime,
         isUtc: true,
-      ).toLocal(),
+      ),
       exerciseType: exerciseType.fromDto(),
       title: title,
       notes: notes,

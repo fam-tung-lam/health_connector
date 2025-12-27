@@ -157,10 +157,16 @@ final class SleepStage {
     required this.stageType,
   });
 
-  /// The start time of this sleep stage.
+  /// The start time of this sleep stage, stored as a UTC instant.
+  ///
+  /// To interpret this value in the user's local (civil) time, use the zone
+  /// offset information from the parent [SleepSessionRecord].
   final DateTime startTime;
 
-  /// The end time of this sleep stage.
+  /// The end time of this sleep stage, stored as a UTC instant.
+  ///
+  /// To interpret this value in the user's local (civil) time, use the zone
+  /// offset information from the parent [SleepSessionRecord].
   final DateTime endTime;
 
   /// The type of sleep stage.

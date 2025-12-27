@@ -29,7 +29,7 @@ extension RestingHeartRateRecordDtoToDomain on RestingHeartRateRecordDto {
   RestingHeartRateRecord toDomain() {
     return RestingHeartRateRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       beatsPerMinute: beatsPerMinute.toDomain(),

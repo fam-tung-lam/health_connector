@@ -29,7 +29,7 @@ extension HeightRecordDtoToDomain on HeightRecordDto {
   HeightRecord toDomain() {
     return HeightRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       height: height.toDomain(),

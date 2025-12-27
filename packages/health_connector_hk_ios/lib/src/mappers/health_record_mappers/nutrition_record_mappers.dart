@@ -710,8 +710,8 @@ extension NutritionRecordDtoToDomain on NutritionRecordDto {
   NutritionRecord toDomain() {
     return NutritionRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
-      endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
+      startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
+      endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
@@ -766,7 +766,7 @@ extension EnergyNutrientRecordDtoToDomain on EnergyNutrientRecordDto {
   EnergyNutrientRecord toDomain() {
     return EnergyNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -783,7 +783,7 @@ extension CaffeineNutrientRecordDtoToDomain on CaffeineNutrientRecordDto {
   CaffeineNutrientRecord toDomain() {
     return CaffeineNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -800,7 +800,7 @@ extension ProteinNutrientRecordDtoToDomain on ProteinNutrientRecordDto {
   ProteinNutrientRecord toDomain() {
     return ProteinNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -819,7 +819,7 @@ extension TotalCarbohydrateNutrientRecordDtoToDomain
   TotalCarbohydrateNutrientRecord toDomain() {
     return TotalCarbohydrateNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -836,7 +836,7 @@ extension TotalFatNutrientRecordDtoToDomain on TotalFatNutrientRecordDto {
   TotalFatNutrientRecord toDomain() {
     return TotalFatNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -854,7 +854,7 @@ extension SaturatedFatNutrientRecordDtoToDomain
   SaturatedFatNutrientRecord toDomain() {
     return SaturatedFatNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -873,7 +873,7 @@ extension MonounsaturatedFatNutrientRecordDtoToDomain
   MonounsaturatedFatNutrientRecord toDomain() {
     return MonounsaturatedFatNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -892,7 +892,7 @@ extension PolyunsaturatedFatNutrientRecordDtoToDomain
   PolyunsaturatedFatNutrientRecord toDomain() {
     return PolyunsaturatedFatNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -909,7 +909,7 @@ extension CholesterolNutrientRecordDtoToDomain on CholesterolNutrientRecordDto {
   CholesterolNutrientRecord toDomain() {
     return CholesterolNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -927,7 +927,7 @@ extension DietaryFiberNutrientRecordDtoToDomain
   DietaryFiberNutrientRecord toDomain() {
     return DietaryFiberNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -944,7 +944,7 @@ extension SugarNutrientRecordDtoToDomain on SugarNutrientRecordDto {
   SugarNutrientRecord toDomain() {
     return SugarNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -961,7 +961,7 @@ extension VitaminANutrientRecordDtoToDomain on VitaminANutrientRecordDto {
   VitaminANutrientRecord toDomain() {
     return VitaminANutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -978,7 +978,7 @@ extension VitaminB6NutrientRecordDtoToDomain on VitaminB6NutrientRecordDto {
   VitaminB6NutrientRecord toDomain() {
     return VitaminB6NutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -995,7 +995,7 @@ extension VitaminB12NutrientRecordDtoToDomain on VitaminB12NutrientRecordDto {
   VitaminB12NutrientRecord toDomain() {
     return VitaminB12NutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1012,7 +1012,7 @@ extension VitaminCNutrientRecordDtoToDomain on VitaminCNutrientRecordDto {
   VitaminCNutrientRecord toDomain() {
     return VitaminCNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1029,7 +1029,7 @@ extension VitaminDNutrientRecordDtoToDomain on VitaminDNutrientRecordDto {
   VitaminDNutrientRecord toDomain() {
     return VitaminDNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1046,7 +1046,7 @@ extension VitaminENutrientRecordDtoToDomain on VitaminENutrientRecordDto {
   VitaminENutrientRecord toDomain() {
     return VitaminENutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1063,7 +1063,7 @@ extension VitaminKNutrientRecordDtoToDomain on VitaminKNutrientRecordDto {
   VitaminKNutrientRecord toDomain() {
     return VitaminKNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1080,7 +1080,7 @@ extension ThiaminNutrientRecordDtoToDomain on ThiaminNutrientRecordDto {
   ThiaminNutrientRecord toDomain() {
     return ThiaminNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1097,7 +1097,7 @@ extension RiboflavinNutrientRecordDtoToDomain on RiboflavinNutrientRecordDto {
   RiboflavinNutrientRecord toDomain() {
     return RiboflavinNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1114,7 +1114,7 @@ extension NiacinNutrientRecordDtoToDomain on NiacinNutrientRecordDto {
   NiacinNutrientRecord toDomain() {
     return NiacinNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1131,7 +1131,7 @@ extension FolateNutrientRecordDtoToDomain on FolateNutrientRecordDto {
   FolateNutrientRecord toDomain() {
     return FolateNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1148,7 +1148,7 @@ extension BiotinNutrientRecordDtoToDomain on BiotinNutrientRecordDto {
   BiotinNutrientRecord toDomain() {
     return BiotinNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1167,7 +1167,7 @@ extension PantothenicAcidNutrientRecordDtoToDomain
   PantothenicAcidNutrientRecord toDomain() {
     return PantothenicAcidNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1184,7 +1184,7 @@ extension CalciumNutrientRecordDtoToDomain on CalciumNutrientRecordDto {
   CalciumNutrientRecord toDomain() {
     return CalciumNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1201,7 +1201,7 @@ extension IronNutrientRecordDtoToDomain on IronNutrientRecordDto {
   IronNutrientRecord toDomain() {
     return IronNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1218,7 +1218,7 @@ extension MagnesiumNutrientRecordDtoToDomain on MagnesiumNutrientRecordDto {
   MagnesiumNutrientRecord toDomain() {
     return MagnesiumNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1235,7 +1235,7 @@ extension ManganeseNutrientRecordDtoToDomain on ManganeseNutrientRecordDto {
   ManganeseNutrientRecord toDomain() {
     return ManganeseNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1252,7 +1252,7 @@ extension PhosphorusNutrientRecordDtoToDomain on PhosphorusNutrientRecordDto {
   PhosphorusNutrientRecord toDomain() {
     return PhosphorusNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1269,7 +1269,7 @@ extension PotassiumNutrientRecordDtoToDomain on PotassiumNutrientRecordDto {
   PotassiumNutrientRecord toDomain() {
     return PotassiumNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1286,7 +1286,7 @@ extension SeleniumNutrientRecordDtoToDomain on SeleniumNutrientRecordDto {
   SeleniumNutrientRecord toDomain() {
     return SeleniumNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1303,7 +1303,7 @@ extension SodiumNutrientRecordDtoToDomain on SodiumNutrientRecordDto {
   SodiumNutrientRecord toDomain() {
     return SodiumNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),
@@ -1320,7 +1320,7 @@ extension ZincNutrientRecordDtoToDomain on ZincNutrientRecordDto {
   ZincNutrientRecord toDomain() {
     return ZincNutrientRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       value: value.toDomain(),

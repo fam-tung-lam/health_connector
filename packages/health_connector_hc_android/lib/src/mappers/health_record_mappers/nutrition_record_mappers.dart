@@ -66,7 +66,6 @@ extension NutritionRecordToDto on NutritionRecord {
 extension NutritionRecordDtoToDomain on NutritionRecordDto {
   HealthRecord toDomain() {
     final id = this.id?.toDomain() ?? HealthRecordId.none;
-    final time = DateTime.fromMillisecondsSinceEpoch(startTime);
     final zoneOffsetSeconds = startZoneOffsetSeconds;
     final metadata = this.metadata.toDomain();
     final foodName = this.foodName;
@@ -76,8 +75,11 @@ extension NutritionRecordDtoToDomain on NutritionRecordDto {
       case HealthDataTypeDto.nutrition:
         return NutritionRecord(
           id: id,
-          startTime: time,
-          endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
+          startTime: DateTime.fromMillisecondsSinceEpoch(
+            startTime,
+            isUtc: true,
+          ),
+          endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),
           startZoneOffsetSeconds: zoneOffsetSeconds,
           endZoneOffsetSeconds: endZoneOffsetSeconds,
           metadata: metadata,

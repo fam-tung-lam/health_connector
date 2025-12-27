@@ -3,12 +3,8 @@ import 'package:meta/meta.dart';
 
 /// Represents a single heart rate measurement at a specific point in time.
 ///
-/// This is a platform-agnostic value class used as a building block for both
-/// heart rate series records (Android Health Connect) and heart rate
-/// measurement records (iOS HealthKit).
-///
-/// Note: This class does not have an ID or metadata. Those are properties of
-/// the record that contains the measurement.
+/// **Note**: This class does not have an ID or metadata. Those are
+/// properties of the record that contains the measurement.
 ///
 /// {@category Health Records}
 @immutable
@@ -19,7 +15,10 @@ final class HeartRateMeasurement {
     required this.beatsPerMinute,
   });
 
-  /// The timestamp when this heart rate measurement was taken.
+  /// The timestamp when this heart rate measurement was taken, stored as a
+  /// UTC instant.
+  ///
+  /// Timezone offset information is provided by the parent record.
   final DateTime time;
 
   /// The heart rate value in beats per minute (BPM).
