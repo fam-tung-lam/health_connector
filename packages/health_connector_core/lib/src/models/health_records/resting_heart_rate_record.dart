@@ -9,8 +9,10 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `RestingHeartRateRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.restingHeartRate)`
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: [`RestingHeartRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RestingHeartRateRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.restingHeartRate`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/restingheartrate)
 ///
 /// ## Example
 ///
@@ -23,6 +25,10 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [RestingHeartRateHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_3_0

@@ -12,21 +12,25 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `BloodPressureRecord`
-/// - **iOS HealthKit**: `HKCorrelationType(.bloodPressure)`
+/// - **Android Health Connect**: [`BloodPressureRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodPressureRecord)
+/// - **iOS HealthKit**: [`HKCorrelationTypeIdentifier.bloodPressure`](https://developer.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/bloodpressure)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query blood pressure records
-/// - ✅ Writeable: Write blood pressure records
-/// - ✅ Aggregatable: Calculate avg, min, max blood pressure
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query blood pressure records
+/// - Writeable: Write blood pressure records
+/// - Aggregatable: Calculate avg, min, max blood pressure
+/// - Deletable: Delete records by IDs or time range
 ///
 /// ## Related Types
 ///
 /// For individual component measurements, see:
 /// - [SystolicBloodPressureHealthDataType] - Systolic pressure only
 /// - [DiastolicBloodPressureHealthDataType] - Diastolic pressure only
+///
+/// ## See also
+///
+/// - [BloodPressureRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_2_0

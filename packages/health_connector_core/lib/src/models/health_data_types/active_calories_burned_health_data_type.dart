@@ -12,15 +12,19 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `ActiveCaloriesBurnedRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.activeEnergyBurned)`
+/// - **Android Health Connect**: [`ActiveCaloriesBurnedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ActiveCaloriesBurnedRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.activeEnergyBurned`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/activeenergyburned)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query active calorie records
-/// - ✅ Writeable: Write active calorie records
-/// - ✅ Aggregatable: Sum total active calories
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query active calorie records
+/// - Writeable: Write active calorie records
+/// - Aggregatable: Sum total active calories
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [ActiveCaloriesBurnedRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

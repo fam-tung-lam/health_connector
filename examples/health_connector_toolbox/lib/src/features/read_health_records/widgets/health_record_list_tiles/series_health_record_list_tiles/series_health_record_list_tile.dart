@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:health_connector/health_connector.dart' show SeriesHealthRecord;
+import 'package:health_connector/health_connector_internal.dart'
+    show SeriesHealthRecord;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_detail_row.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/base_health_record_list_tile.dart';

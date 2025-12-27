@@ -1,11 +1,13 @@
 part of '../health_record.dart';
 
-/// Represents a complete sleep session (Android Health Connect).
-///
-/// **Platform:** Android Health Connect Only
+/// Represents a complete sleep session.
 ///
 /// A sleep session is a container with a time range and multiple sleep stages.
-/// This maps directly to Android's `SleepSessionRecord` with embedded stages.
+///
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: [`SleepSessionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SleepSessionRecord)
+/// - **iOS HealthKit**: Not supported (Use [SleepStageRecord])
 ///
 /// ## Example
 ///
@@ -33,6 +35,10 @@ part of '../health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [SleepSessionHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

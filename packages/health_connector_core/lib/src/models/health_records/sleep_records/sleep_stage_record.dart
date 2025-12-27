@@ -2,12 +2,13 @@ part of '../health_record.dart';
 
 /// Represents a single sleep stage measurement.
 ///
-/// **Platform:** iOS HealthKit only
-///
 /// A complete night's sleep consists of multiple records, one for each stage
 /// transition.
 ///
-/// This maps directly to iOS's `HKCategorySample` with `.sleepAnalysis` type.
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: Not supported (Use [SleepSessionRecord])
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.sleepAnalysis`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sleepanalysis/)
 ///
 /// ## Example
 ///
@@ -26,6 +27,10 @@ part of '../health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [SleepStageHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

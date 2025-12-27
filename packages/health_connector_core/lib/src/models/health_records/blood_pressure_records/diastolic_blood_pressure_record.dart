@@ -30,6 +30,10 @@ part of '../health_record.dart';
 /// );
 /// ```
 ///
+/// ## See also
+///
+/// - [DiastolicBloodPressureHealthDataType]
+///
 /// {@category Health Records}
 @sinceV1_2_0
 @supportedOnAppleHealth

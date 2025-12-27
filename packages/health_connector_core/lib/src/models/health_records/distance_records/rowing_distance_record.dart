@@ -6,7 +6,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.distanceRowing`
+/// - **Android Health Connect**: Not supported (Use [DistanceRecord])
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.distanceRowing`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancerowing)
 ///
 /// ## Example
 ///

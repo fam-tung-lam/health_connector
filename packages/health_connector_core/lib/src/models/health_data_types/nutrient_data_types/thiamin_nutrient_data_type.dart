@@ -11,15 +11,19 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.dietaryThiamin)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryThiamin`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarythiamin)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query thiamin (vitamin b1) intake records
-/// - ✅ Writeable: Write thiamin (vitamin b1) intake records
-/// - ✅ Aggregatable: Sum total thiamin (vitamin b1) intake
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query thiamin (vitamin b1) intake records
+/// - Writeable: Write thiamin (vitamin b1) intake records
+/// - Aggregatable: Sum total thiamin (vitamin b1) intake
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [ThiaminNutrientRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0

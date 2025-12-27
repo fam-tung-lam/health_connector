@@ -6,8 +6,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `HydrationRecord`
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.dietaryWater`
+/// - **Android Health Connect**: [`HydrationRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HydrationRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.dietaryWater`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarywater)
 ///
 /// ## Example
 ///
@@ -22,6 +22,10 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [HydrationHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

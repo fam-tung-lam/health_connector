@@ -9,11 +9,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.dietaryFiber`
-///
-/// > [!NOTE]
-/// > This record type is only supported on iOS/HealthKit. For Android,
-/// > use the [NutritionRecord.dietaryFiber] field in [NutritionRecord].
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryFiber`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryFiber)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
 ///
@@ -28,6 +25,10 @@ part of '../health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [DietaryFiberNutrientDataType]
 ///
 /// {@category Health Records}
 @sinceV1_1_0

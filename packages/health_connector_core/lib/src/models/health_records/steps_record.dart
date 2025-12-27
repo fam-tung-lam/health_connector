@@ -8,8 +8,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `StepsRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.stepCount)`
+/// - **Android Health Connect**: [`StepsRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/StepsRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.stepCount`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/stepcount)
 ///
 /// ## Example
 ///
@@ -23,6 +23,10 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [StepsHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

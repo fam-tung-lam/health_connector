@@ -8,6 +8,7 @@ part of '../health_data_type.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: `SpeedRecord`
+/// - **iOS HealthKit**: Not supported (Use specific speed data types)
 ///
 /// ## iOS Alternative
 /// For iOS, use the activity-specific speed types:

@@ -1,4 +1,4 @@
-import 'package:health_connector/health_connector.dart'
+import 'package:health_connector/health_connector_internal.dart'
     show HealthDataPermission;
 import 'package:health_connector_toolbox/src/common/utils/extensions/health_data_permission_access_type_ui_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/health_data_type_ui_extension.dart';

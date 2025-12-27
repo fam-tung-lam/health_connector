@@ -1,4 +1,4 @@
-import 'package:health_connector/health_connector.dart';
+import 'package:health_connector/health_connector_internal.dart';
 
 abstract class MeasurementUnitValueParser {
   /// Parse string input to MeasurementUnit based on the data type.

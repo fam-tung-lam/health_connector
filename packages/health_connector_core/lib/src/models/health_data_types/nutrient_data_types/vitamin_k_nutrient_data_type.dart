@@ -11,15 +11,19 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.dietaryVitaminK)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminK`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamink)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query vitamin k intake records
-/// - ✅ Writeable: Write vitamin k intake records
-/// - ✅ Aggregatable: Sum total vitamin k intake
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query vitamin k intake records
+/// - Writeable: Write vitamin k intake records
+/// - Aggregatable: Sum total vitamin k intake
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [VitaminKNutrientRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0

@@ -13,15 +13,19 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `BloodGlucoseRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.bloodGlucose)`
+/// - **Android Health Connect**: [`BloodGlucoseRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodGlucoseRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bloodGlucose`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodglucose)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query blood glucose records
-/// - ✅ Writeable: Write blood glucose records
-/// - ✅ Aggregatable: Calculate avg, min, max blood glucose
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query blood glucose records
+/// - Writeable: Write blood glucose records
+/// - Aggregatable: Calculate avg, min, max blood glucose
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [BloodGlucoseRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_4_0

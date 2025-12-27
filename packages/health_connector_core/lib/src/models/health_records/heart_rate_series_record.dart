@@ -1,13 +1,14 @@
 part of 'health_record.dart';
 
-/// Represents a series of heart rate measurements over a time interval
-/// (Android Health Connect).
-///
-/// **Platform:** Android Health Connect Only (Android Health Connect)
+/// Represents a series of heart rate measurements over a time interval.
 ///
 /// A heart rate series record is a container with a time range and multiple
-/// BPM measurements taken during that period. This is commonly used for
-/// continuous monitoring during exercise or medical tracking.
+/// BPM measurements taken during that period.
+///
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: [`HeartRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateRecord)
+/// - **iOS HealthKit**: Not supported (Use [HeartRateMeasurementRecord])
 ///
 /// ## Example
 ///
@@ -35,6 +36,10 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [HeartRateSeriesRecordHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

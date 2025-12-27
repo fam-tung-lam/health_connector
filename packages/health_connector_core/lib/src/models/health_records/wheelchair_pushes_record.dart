@@ -8,8 +8,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `WheelchairPushesRecord`
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.pushCount`
+/// - **Android Health Connect**: [`WheelchairPushesRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/WheelchairPushesRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.pushCount`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/pushcount)
 ///
 /// ## Example
 ///
@@ -23,6 +23,10 @@ part of 'health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [WheelchairPushesHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

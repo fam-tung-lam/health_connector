@@ -10,15 +10,16 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.sixMinuteWalkTestDistance)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/sixminutewalktestdistance)
+/// - **Android Health Connect**: Not directly supported (use general
+/// [DistanceHealthDataType])
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query six-minute walk test distance records
-/// - ✅ Writeable: Write six-minute walk test distance records
-/// - ✅ Aggregatable: Sum total six-minute walk test distance
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query six-minute walk test distance records
+/// - Writeable: Write six-minute walk test distance records
+/// - Aggregatable: Sum total six-minute walk test distance
+/// - Deletable: Delete records by IDs or time range
 ///
 /// A standardized medical assessment measuring the distance walked in
 /// six minutes, commonly used to evaluate functional exercise capacity.

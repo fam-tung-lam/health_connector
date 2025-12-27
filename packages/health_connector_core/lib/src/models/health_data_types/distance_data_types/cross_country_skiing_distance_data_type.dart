@@ -10,15 +10,16 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.distanceCrossCountrySkiing)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceCrossCountrySkiing`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancecrosscountryskiing)
+/// - **Android Health Connect**: Not directly supported (use general
+/// [DistanceHealthDataType])
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query cross-country skiing distance records
-/// - ✅ Writeable: Write cross-country skiing distance records
-/// - ✅ Aggregatable: Sum total cross-country skiing distance
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query cross-country skiing distance records
+/// - Writeable: Write cross-country skiing distance records
+/// - Aggregatable: Sum total cross-country skiing distance
+/// - Deletable: Delete records by IDs or time range
 ///
 /// Specifically for nordic skiing and cross-country ski touring.
 ///

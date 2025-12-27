@@ -7,11 +7,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.dietaryVitaminA`
-///
-/// > [!NOTE]
-/// > This record type is only supported on iOS/HealthKit. For Android,
-/// > use the [NutritionRecord.vitaminA] field in [NutritionRecord].
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminA`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamina)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
 ///
@@ -26,6 +23,10 @@ part of '../health_record.dart';
 ///   ),
 /// );
 /// ```
+///
+/// ## See also
+///
+/// - [VitaminANutrientDataType]
 ///
 /// {@category Health Records}
 @sinceV1_1_0

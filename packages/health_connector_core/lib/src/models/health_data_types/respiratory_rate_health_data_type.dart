@@ -2,12 +2,21 @@ part of 'health_data_type.dart';
 
 /// Respiratory rate data type.
 ///
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: [`RespiratoryRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RespiratoryRateRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.respiratoryRate`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/respiratoryrate)
+///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query respiratory rate records
-/// - ✅ Writeable: Write respiratory rate records
-/// - ✅ Aggregatable: Calculate avg, min, max respiratory rate
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query respiratory rate records
+/// - Writeable: Write respiratory rate records
+/// - Aggregatable: Calculate avg, min, max respiratory rate
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [RespiratoryRateRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_3_0

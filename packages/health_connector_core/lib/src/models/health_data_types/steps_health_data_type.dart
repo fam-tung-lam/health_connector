@@ -12,15 +12,19 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `StepsRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.stepCount)`
+/// - **Android Health Connect**: [`StepsRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/StepsRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.stepCount`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/stepcount)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query step count records
-/// - ✅ Writeable: Write step count records
-/// - ✅ Aggregatable: Sum total steps
-/// - ✅ Deletable: Delete step records by IDs or time range
+/// - Readable: Query step count records
+/// - Writeable: Write step count records
+/// - Aggregatable: Sum total steps
+/// - Deletable: Delete step records by IDs or time range
+///
+/// ## See also
+///
+/// - [StepsRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

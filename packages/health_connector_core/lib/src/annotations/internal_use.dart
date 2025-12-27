@@ -17,7 +17,7 @@ import 'package:meta/meta.dart' show immutable;
 /// // ❌ Not intended: Do not instantiate AggregateRequest in apps
 /// final request = AggregateRequest();
 ///
-/// // ✅ Intended: Use the documented approach instead
+/// // Intended: Use the documented approach instead
 /// final sumAggregateRequest = HealthDataType.steps.aggregateSum(
 ///   startTime: DateTime.now().startOfDay,
 ///   endTime: DateTime.now(),

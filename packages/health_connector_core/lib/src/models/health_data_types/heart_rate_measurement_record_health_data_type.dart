@@ -12,21 +12,25 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.heartRate)`
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.heartRate`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartrate)
 /// - **Android Health Connect**: Use [HeartRateSeriesRecordHealthDataType]
 /// instead
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query heart rate measurements
-/// - ✅ Writeable: Write heart rate measurements
-/// - ✅ Aggregatable: Calculate avg, min, max heart rate
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query heart rate measurements
+/// - Writeable: Write heart rate measurements
+/// - Aggregatable: Calculate avg, min, max heart rate
+/// - Deletable: Delete records by IDs or time range
 ///
 /// ## Platform Notes
 ///
 /// On iOS, heart rate data is stored as individual measurement samples. Each
 /// record has its own UUID and can be queried independently.
+///
+/// ## See also
+///
+/// - [HeartRateMeasurementRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

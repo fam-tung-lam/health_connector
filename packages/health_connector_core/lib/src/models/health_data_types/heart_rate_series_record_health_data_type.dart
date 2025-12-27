@@ -2,17 +2,25 @@ part of 'health_data_type.dart';
 
 /// Health data type for Android heart rate series records.
 ///
-/// **Platform:** Android Health Connect Only (Android Health Connect)
-///
 /// Heart rate series records on Android are container records with embedded
 /// BPM samples. Each record has a single ID that encompasses all measurements.
 ///
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: [`HeartRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateRecord)
+/// - **iOS HealthKit**: Not supported (iOS uses discrete
+///   [HeartRateMeasurementRecordHealthDataType] samples)
+///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query heart rate series
-/// - ✅ Writeable: Write heart rate series
-/// - ✅ Aggregatable: Calculate avg, min, max heart rate
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query heart rate series
+/// - Writeable: Write heart rate series
+/// - Aggregatable: Calculate avg, min, max heart rate
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [HeartRateSeriesRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

@@ -16,10 +16,14 @@ part of 'health_data_type.dart';
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query wheelchair pushes records
-/// - ✅ Writeable: Write wheelchair pushes records
-/// - ✅ Aggregatable: Sum total wheelchair pushes
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query wheelchair pushes records
+/// - Writeable: Write wheelchair pushes records
+/// - Aggregatable: Sum total wheelchair pushes
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [WheelchairPushesRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

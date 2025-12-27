@@ -5,15 +5,16 @@ part of 'health_data_type.dart';
 /// Tracks water consumption over time, enabling users to monitor daily
 /// hydration levels and maintain healthy fluid intake.
 ///
-/// ## Platform Support
-/// - ✅ Android Health Connect: Fully supported via `HydrationRecord`
-/// - ✅ iOS HealthKit: Fully supported via `dietaryWater`
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: [`HydrationRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HydrationRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.dietaryWater`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarywater)
 ///
 /// ## Capabilities
-/// - ✅ Read: Query historical hydration records
-/// - ✅ Write: Create new hydration records
-/// - ✅ Aggregate: Sum (total intake)
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Read: Query historical hydration records
+/// - Write: Create new hydration records
+/// - Aggregate: Sum (total intake)
+/// - Deletable: Delete records by IDs or time range
 ///
 /// ## Example
 ///
@@ -52,6 +53,10 @@ part of 'health_data_type.dart';
 /// final aggResponse = await connector.aggregate(aggRequest);
 /// print('Total water intake: ${aggResponse.value?.inLiters} L');
 /// ```
+///
+/// ## See also
+///
+/// - [HydrationRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

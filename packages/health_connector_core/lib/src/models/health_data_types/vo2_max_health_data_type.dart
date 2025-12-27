@@ -14,15 +14,19 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `Vo2MaxRecord`
-/// - **iOS HealthKit**: `HKQuantityType(.vo2Max)`
+/// - **Android Health Connect**: [`Vo2MaxRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.vo2Max`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/vo2max)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query VO₂ max records
-/// - ✅ Writeable: Write VO₂ max records
-/// - ✅ Aggregatable: Calculate avg, min, max VO₂ max
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query VO₂ max records
+/// - Writeable: Write VO₂ max records
+/// - Aggregatable: Calculate avg, min, max VO₂ max
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [Vo2MaxRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_3_0

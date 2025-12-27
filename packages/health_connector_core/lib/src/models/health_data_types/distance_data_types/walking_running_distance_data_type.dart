@@ -11,16 +11,14 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.distanceWalkingRunning)`
-/// - **Android Health Connect**: Not directly supported (use general distance
-/// records)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceWalkingRunning`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distanceWalkingRunning)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query walking/running distance records
-/// - ✅ Writeable: Write walking/running distance records
-/// - ✅ Aggregatable: Sum total walking/running distance
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query walking/running distance records
+/// - Writeable: Write walking/running distance records
+/// - Aggregatable: Sum total walking/running distance
+/// - Deletable: Delete records by IDs or time range
 ///
 /// {@category Health Data Types}
 @sinceV2_0_0

@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart' show ChangeNotifier;
-import 'package:health_connector/health_connector.dart'
+import 'package:health_connector/health_connector_internal.dart'
     show
         AggregateRequest,
         AggregationMetric,

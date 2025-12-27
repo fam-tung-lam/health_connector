@@ -174,7 +174,7 @@ import 'package:meta/meta.dart' show internal;
 /// imports are missing:
 ///
 /// ```dart
-/// // ✅ SAFE: Explicit extension invocation
+/// // SAFE: Explicit extension invocation
 /// case final BodyTemperatureRecord record:
 ///   return BodyTemperatureRecordToDto(record).toDto();  // Compile error if import missing
 /// ```

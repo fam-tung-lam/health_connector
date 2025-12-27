@@ -94,7 +94,8 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         WalkingSpeedRecord,
         RunningSpeedRecord,
         StairAscentSpeedRecord,
-        StairDescentSpeedRecord;
+        StairDescentSpeedRecord,
+        VitaminNutrientRecord;
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
     show
         BloodGlucose,

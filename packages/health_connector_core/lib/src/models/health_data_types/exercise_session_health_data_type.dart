@@ -16,10 +16,14 @@ part of 'health_data_type.dart';
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query exercise session records
-/// - ✅ Writeable: Write exercise session records
-/// - ✅ Aggregatable: Sum total exercise duration
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query exercise session records
+/// - Writeable: Write exercise session records
+/// - Aggregatable: Sum total exercise duration
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [ExerciseSessionRecord]
 ///
 /// {@category Health Data Types}
 @sinceV2_0_0

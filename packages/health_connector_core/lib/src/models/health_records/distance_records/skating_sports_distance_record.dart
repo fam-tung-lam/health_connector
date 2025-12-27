@@ -6,7 +6,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.distanceSkatingSports`
+/// - **Android Health Connect**: Not supported (Use [DistanceRecord])
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.distanceSkatingSports`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distanceskatingsports)
 ///
 /// ## Example
 ///

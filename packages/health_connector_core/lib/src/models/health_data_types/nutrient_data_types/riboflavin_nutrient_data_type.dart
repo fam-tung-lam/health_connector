@@ -11,15 +11,19 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.dietaryRiboflavin)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryRiboflavin`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryriboflavin)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query riboflavin (vitamin b2) intake records
-/// - ✅ Writeable: Write riboflavin (vitamin b2) intake records
-/// - ✅ Aggregatable: Sum total riboflavin (vitamin b2) intake
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query riboflavin (vitamin b2) intake records
+/// - Writeable: Write riboflavin (vitamin b2) intake records
+/// - Aggregatable: Sum total riboflavin (vitamin b2) intake
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [RiboflavinNutrientRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0

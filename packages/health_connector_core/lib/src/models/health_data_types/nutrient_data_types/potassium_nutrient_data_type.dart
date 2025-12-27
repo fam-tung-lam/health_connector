@@ -11,15 +11,19 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.dietaryPotassium)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryPotassium`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarypotassium)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query potassium intake records
-/// - ✅ Writeable: Write potassium intake records
-/// - ✅ Aggregatable: Sum total potassium intake
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query potassium intake records
+/// - Writeable: Write potassium intake records
+/// - Aggregatable: Sum total potassium intake
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [PotassiumNutrientRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0

@@ -10,7 +10,9 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `NutritionRecord`
+/// ## Platform Mapping
+///
+/// - **Android Health Connect**: [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 /// - **iOS HealthKit**: Multiple `HKQuantityType` correlations for individual
 ///   nutrients
 ///

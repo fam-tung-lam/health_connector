@@ -4,7 +4,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit**: `HKQuantityTypeIdentifier.stairAscentSpeed`
+/// - **Android Health Connect**: Not supported (Use [SpeedSeriesRecord])
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.stairAscentSpeed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/stairascentspeed)
 ///
 /// ## Example
 ///

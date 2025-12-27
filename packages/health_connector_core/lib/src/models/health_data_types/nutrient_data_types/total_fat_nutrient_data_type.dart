@@ -11,15 +11,19 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.dietaryFatTotal)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryFatTotal`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfattotal)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query total fat intake records
-/// - ✅ Writeable: Write total fat intake records
-/// - ✅ Aggregatable: Sum total total fat intake
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query total fat intake records
+/// - Writeable: Write total fat intake records
+/// - Aggregatable: Sum total total fat intake
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [TotalFatNutrientRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0

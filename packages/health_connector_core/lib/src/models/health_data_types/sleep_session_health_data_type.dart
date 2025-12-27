@@ -12,19 +12,23 @@ part of 'health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: `SleepSessionRecord`
+/// - **Android Health Connect**: [`SleepSessionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SleepSessionRecord)
 /// - **iOS HealthKit**: Not supported (use [SleepStageHealthDataType])
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query sleep session records
-/// - ✅ Writeable: Write sleep session records
-/// - ✅ Aggregatable: Sum total sleep duration
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query sleep session records
+/// - Writeable: Write sleep session records
+/// - Aggregatable: Sum total sleep duration
+/// - Deletable: Delete records by IDs or time range
 ///
 /// > [!NOTE]
 /// > This data type is only supported on Android Health Connect. For iOS,
 /// > use [SleepStageHealthDataType] instead.
+///
+/// ## See also
+///
+/// - [SleepSessionRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0

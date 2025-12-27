@@ -11,15 +11,19 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: `HKQuantityType(.dietaryFatMonounsaturated)`
-/// - **Android Health Connect**: Not directly supported
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryFatMonounsaturated`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfatmonounsaturated)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Capabilities
 ///
-/// - ✅ Readable: Query monounsaturated fat intake records
-/// - ✅ Writeable: Write monounsaturated fat intake records
-/// - ✅ Aggregatable: Sum total monounsaturated fat intake
-/// - ✅ Deletable: Delete records by IDs or time range
+/// - Readable: Query monounsaturated fat intake records
+/// - Writeable: Write monounsaturated fat intake records
+/// - Aggregatable: Sum total monounsaturated fat intake
+/// - Deletable: Delete records by IDs or time range
+///
+/// ## See also
+///
+/// - [MonounsaturatedFatNutrientRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0

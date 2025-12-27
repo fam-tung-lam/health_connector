@@ -1,4 +1,4 @@
-import 'package:health_connector/health_connector.dart'
+import 'package:health_connector/health_connector_internal.dart'
     show BloodPressureBodyPosition;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 

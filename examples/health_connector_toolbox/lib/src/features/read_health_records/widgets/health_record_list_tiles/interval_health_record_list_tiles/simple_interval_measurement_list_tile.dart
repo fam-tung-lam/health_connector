@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_connector/health_connector.dart';
+import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/health_record_list_tile_subtitle.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/interval_health_record_list_tile.dart';
 
