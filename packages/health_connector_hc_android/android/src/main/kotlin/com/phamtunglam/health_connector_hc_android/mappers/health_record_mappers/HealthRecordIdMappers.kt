@@ -13,6 +13,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSeriesRecordD
 import com.phamtunglam.health_connector_hc_android.pigeon.HeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.LeanBodyMassRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.MindfulnessSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.NutritionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.OxygenSaturationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PowerSeriesRecordDto
@@ -69,4 +70,7 @@ internal val HealthRecordDto.id: String?
 
         // Exercise session record
         is ExerciseSessionRecordDto -> id
+
+        // Mindfulness session record
+        is MindfulnessSessionRecordDto -> id
     }

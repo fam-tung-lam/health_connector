@@ -91,6 +91,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(HeartRateHandler(healthStore: healthStore))
         register(RestingHeartRateHandler(healthStore: healthStore))
         register(SleepStageHandler(healthStore: healthStore))
+        register(MindfulnessSessionHandler(healthStore: healthStore))
         register(ExerciseSessionHandler(healthStore: healthStore))
         register(EnergyNutrientHandler(healthStore: healthStore))
         register(CaffeineNutrientHandler(healthStore: healthStore))

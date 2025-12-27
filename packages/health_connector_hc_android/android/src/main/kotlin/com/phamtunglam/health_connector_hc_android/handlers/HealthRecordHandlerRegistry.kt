@@ -13,6 +13,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.HeightHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.HydrationHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.LeanBodyMassHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.MindfulnessSessionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.NutritionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.OxygenSaturationHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.PowerSeriesHandler
@@ -53,6 +54,7 @@ internal class HealthRecordHandlerRegistry(private val client: HealthConnectClie
             register(NutritionHandler(client))
             register(PowerSeriesHandler(client))
             register(SleepSessionHandler(client))
+            register(MindfulnessSessionHandler(client))
             register(SpeedSeriesHandler(client))
             register(WheelchairPushesHandler(client))
         }

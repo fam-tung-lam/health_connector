@@ -627,6 +627,32 @@ enum ExerciseTypeDto {
   swimBikeRun,
 }
 
+/// Mindfulness session type classification.
+///
+/// Maps to Android Health Connect MindfulnessSessionRecord session type.
+///
+/// Note: iOS HealthKit only supports generic HKCategoryTypeIdentifier.mindfulSession.
+/// Session types are stored in custom metadata when writing to HealthKit.
+enum MindfulnessSessionTypeDto {
+  /// Unknown or unspecified session type.
+  unknown,
+
+  /// Meditation session.
+  meditation,
+
+  /// Breathing exercise session.
+  breathing,
+
+  /// Music-based mindfulness session.
+  music,
+
+  /// Movement-based mindfulness session.
+  movement,
+
+  /// Unguided mindfulness session.
+  unguided,
+}
+
 /// Sealed class for all health record DTOs.
 sealed class HealthRecordDto {}
 
@@ -849,6 +875,9 @@ enum HealthDataTypeDto {
 
   /// Exercise session data.
   exerciseSession,
+
+  /// Mindfulness session data.
+  mindfulnessSession,
 }
 
 /// Represents a resting heart rate record for platform transfer.
@@ -985,6 +1014,52 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
   final String? title;
 
   /// Optional notes about the exercise session.
+  final String? notes;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a mindfulness session record for platform transfer.
+///
+/// Maps to iOS HealthKit HKCategoryType.mindfulSession.
+/// Note: HealthKit only supports generic mindfulness category. Session types
+/// are stored in custom metadata when writing to HealthKit.
+class MindfulnessSessionRecordDto extends HealthRecordDto {
+  MindfulnessSessionRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.sessionType,
+    this.title,
+    this.notes,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Type of mindfulness session.
+  final MindfulnessSessionTypeDto sessionType;
+
+  /// Optional title for the mindfulness session.
+  final String? title;
+
+  /// Optional notes about the mindfulness session.
   final String? notes;
 
   /// Timezone offset in seconds for start time (optional).

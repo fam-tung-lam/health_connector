@@ -85,6 +85,8 @@ part 'resting_heart_rate_record.dart';
 part 'series_health_record.dart';
 part 'sleep_records/sleep_session_record.dart';
 part 'sleep_records/sleep_stage_record.dart';
+part 'mindfulness_records/mindfulness_session_record.dart';
+part 'mindfulness_records/mindfulness_session_type.dart';
 part 'speed_records/running_speed_record.dart';
 part 'speed_records/speed_activity_record.dart';
 part 'speed_records/speed_series_record.dart';

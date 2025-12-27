@@ -215,10 +215,9 @@ extension HealthDataTypeDto {
                 )
             }
         case .exerciseSession:
-            throw HealthConnectorError.unsupportedOperation(
-                message: "Exercise session is an interval type, not convertible to HKSampleType",
-                context: [:]
-            )
+            HKObjectType.workoutType()
+        case .mindfulnessSession:
+            try HKCategoryType.make(from: .mindfulSession)
         }
     }
 }

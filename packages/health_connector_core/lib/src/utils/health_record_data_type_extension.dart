@@ -85,6 +85,9 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       SleepSessionRecord() => HealthDataType.sleepSession,
       SleepStageRecord() => HealthDataType.sleepStageRecord,
 
+      // Mindfulness records
+      MindfulnessSessionRecord() => HealthDataType.mindfulnessSession,
+
       // Vital signs
       RestingHeartRateRecord() => HealthDataType.restingHeartRate,
       OxygenSaturationRecord() => HealthDataType.oxygenSaturation,

@@ -18,6 +18,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         NutritionRecord,
         SleepSessionRecord,
         SleepStageRecord,
+        MindfulnessSessionRecord,
         StepsRecord,
         SystolicBloodPressureRecord,
         WeightRecord,
@@ -83,6 +84,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/po
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/respiratory_rate_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/resting_heart_rate_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sleep_session_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/mindfulness_session_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/speed_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/steps_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/vo2_max_record_mappers.dart';
@@ -106,6 +108,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         PowerSeriesRecordDto,
         RestingHeartRateRecordDto,
         SleepSessionRecordDto,
+        MindfulnessSessionRecordDto,
         StepsRecordDto,
         WeightRecordDto,
         WheelchairPushesRecordDto,
@@ -195,6 +198,8 @@ extension HealthRecordToDto on HealthRecord {
         return SleepSessionRecordToDto(record).toDto();
       case final ExerciseSessionRecord record:
         return ExerciseSessionRecordToDto(record).toDto();
+      case final MindfulnessSessionRecord record:
+        return MindfulnessSessionRecordToDtoExtension(record).toDto();
       case final NutritionRecord record:
         return NutritionRecordToDto(record).toDto();
       case final RestingHeartRateRecord record:
@@ -451,6 +456,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return SleepSessionRecordDtoToDomain(dto).toDomain();
       case final ExerciseSessionRecordDto dto:
         return ExerciseSessionRecordFromDto(dto).fromDto();
+      case final MindfulnessSessionRecordDto dto:
+        return MindfulnessSessionRecordDtoToDomainExtension(dto).toDomain();
       case final NutritionRecordDto dto:
         return NutritionRecordDtoToDomain(dto).toDomain();
       case final RestingHeartRateRecordDto dto:

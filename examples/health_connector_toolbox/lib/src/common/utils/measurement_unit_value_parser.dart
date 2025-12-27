@@ -140,7 +140,11 @@ abstract class MeasurementUnitValueParser {
       ),
       ExerciseSessionHealthDataType() => throw UnsupportedError(
         'ExerciseSession is a complex type with exercise type and times, '
-        'cannot be parsed from a single string input.',
+        'not a simple numeric value. Cannot parse.',
+      ),
+      MindfulnessSessionDataType() => throw UnsupportedError(
+        'MindfulnessSession is a complex type with session type and times, '
+        'not a simple numeric value. Cannot parse.',
       ),
     };
   }

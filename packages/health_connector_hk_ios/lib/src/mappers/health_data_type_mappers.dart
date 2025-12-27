@@ -16,6 +16,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HeightHealthDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
+        MindfulnessSessionDataType,
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
         MeasurementUnit,
@@ -231,6 +232,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.stairDescentSpeed;
       case HealthDataTypeDto.exerciseSession:
         return HealthDataType.exerciseSession;
+      case HealthDataTypeDto.mindfulnessSession:
+        return HealthDataType.mindfulnessSession;
     }
   }
 }
@@ -338,16 +341,6 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
 
       case NutritionHealthDataType _:
         return HealthDataTypeDto.nutrition;
-      case SleepSessionHealthDataType _:
-        throw UnsupportedError(
-          '$SleepSessionHealthDataType is not supported on iOS. '
-          'Use $SleepStageHealthDataType instead.',
-        );
-      case HeartRateSeriesRecordHealthDataType _:
-        throw UnsupportedError(
-          '$HeartRateSeriesRecordHealthDataType is not supported on iOS. '
-          'Use $HeartRateMeasurementRecordHealthDataType instead.',
-        );
       case BloodPressureHealthDataType _:
         return HealthDataTypeDto.bloodPressure;
       case SystolicBloodPressureHealthDataType _:
@@ -396,6 +389,10 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.stairAscentSpeed;
       case StairDescentSpeedDataType _:
         return HealthDataTypeDto.stairDescentSpeed;
+      case ExerciseSessionHealthDataType():
+        return HealthDataTypeDto.exerciseSession;
+      case MindfulnessSessionDataType():
+        return HealthDataTypeDto.mindfulnessSession;
       case SpeedSeriesDataType _:
         throw UnsupportedError(
           '$SpeedSeriesDataType is not supported on iOS. '
@@ -406,8 +403,16 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$PowerSeriesDataType is not supported on iOS. '
           'Use CyclingPowerDataType instead.',
         );
-      case ExerciseSessionHealthDataType():
-        return HealthDataTypeDto.exerciseSession;
+      case SleepSessionHealthDataType _:
+        throw UnsupportedError(
+          '$SleepSessionHealthDataType is not supported on iOS. '
+          'Use $SleepStageHealthDataType instead.',
+        );
+      case HeartRateSeriesRecordHealthDataType _:
+        throw UnsupportedError(
+          '$HeartRateSeriesRecordHealthDataType is not supported on iOS. '
+          'Use $HeartRateMeasurementRecordHealthDataType instead.',
+        );
     }
   }
 }

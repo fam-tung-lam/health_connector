@@ -155,6 +155,7 @@ abstract final class AppTexts {
       PowerSeriesDataType() => powerSeries,
       CyclingPowerDataType() => cyclingPower,
       ExerciseSessionHealthDataType() => exerciseSession,
+      MindfulnessSessionDataType() => mindfulnessSession,
     };
   }
 
@@ -846,6 +847,7 @@ abstract final class AppTexts {
 
   // region Exercise Session
   static const String exerciseSession = 'Exercise Session';
+  static const String mindfulnessSession = 'Mindfulness Session';
   static const String exerciseType = 'Exercise Type';
   static const String exerciseTitleOptional = 'Title (optional)';
   static const String exerciseTitleHelper = 'Optional title for the exercise';

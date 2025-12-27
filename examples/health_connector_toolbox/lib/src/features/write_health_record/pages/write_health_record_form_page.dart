@@ -12,6 +12,7 @@ import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart
 import 'package:health_connector_toolbox/src/common/widgets/pickers/date_time_picker_row.dart';
 import 'package:health_connector_toolbox/src/common/widgets/pickers/duration_picker_field.dart'
     show DurationPickerField;
+import 'package:health_connector_toolbox/src/common/utils/extensions/mindfulness_session_type_extension.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/models/nutrition_form_data.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/form_fields/blood_pressure_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/form_fields/enum_dropdown_form_field.dart';
@@ -62,6 +63,8 @@ extension HealthDataTypeFormExtension on HealthDataType {
     SleepSessionHealthDataType() ||
     // Exercise types (interval)
     ExerciseSessionHealthDataType() ||
+    // Mindfulness types (interval)
+    MindfulnessSessionDataType() ||
     // Speed types (interval - series records)
     SpeedSeriesDataType() ||
     // Power types (interval - series records)
@@ -539,6 +542,7 @@ final class HealthRecordBuilder {
       SleepStageHealthDataType() ||
       SleepSessionHealthDataType() ||
       ExerciseSessionHealthDataType() ||
+      MindfulnessSessionDataType() ||
       NutritionHealthDataType() ||
       BloodPressureHealthDataType() ||
       Vo2MaxHealthDataType() ||
@@ -1089,6 +1093,25 @@ final class HealthRecordBuilder {
     );
   }
 
+  /// Builds a [MindfulnessSessionRecord] from form data.
+  static MindfulnessSessionRecord buildMindfulnessSession({
+    required DateTime startDateTime,
+    required DateTime endDateTime,
+    required MindfulnessSessionType sessionType,
+    required Metadata metadata,
+    String? title,
+    String? notes,
+  }) {
+    return MindfulnessSessionRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      sessionType: sessionType,
+      metadata: metadata,
+      title: title,
+      notes: notes,
+    );
+  }
+
   // endregion
 }
 
@@ -1177,6 +1200,11 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
   ExerciseType? _exerciseType;
   String? _exerciseTitle;
   String? _exerciseNotes;
+
+  // State for mindfulness session
+  MindfulnessSessionType? _mindfulnessSessionType;
+  String? _mindfulnessTitle;
+  String? _mindfulnessNotes;
 
   // Use different state mixins based on whether duration is needed
   DateTime? _startDate;
@@ -1366,6 +1394,10 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
       if (_exerciseType == null) {
         return;
       }
+    } else if (widget.dataType is MindfulnessSessionDataType) {
+      if (_mindfulnessSessionType == null) {
+        return;
+      }
     } else if (HealthRecordBuilder.isNutrientType(widget.dataType)) {
       // Nutrient records need a value
       if (_value == null) {
@@ -1507,6 +1539,19 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
             metadata: metadata,
             title: _exerciseTitle?.isEmpty ?? true ? null : _exerciseTitle,
             notes: _exerciseNotes?.isEmpty ?? true ? null : _exerciseNotes,
+          ),
+        MindfulnessSessionDataType() =>
+          HealthRecordBuilder.buildMindfulnessSession(
+            startDateTime: startDateTime!,
+            endDateTime: endDateTime!,
+            sessionType: _mindfulnessSessionType!,
+            metadata: metadata,
+            title: _mindfulnessTitle?.isEmpty ?? true
+                ? null
+                : _mindfulnessTitle,
+            notes: _mindfulnessNotes?.isEmpty ?? true
+                ? null
+                : _mindfulnessNotes,
           ),
         _ =>
           HealthRecordBuilder.isNutrientType(widget.dataType)
@@ -1710,6 +1755,31 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
     });
   }
 
+  void _onMindfulnessSessionTypeChanged(MindfulnessSessionType? type) {
+    setState(() {
+      _mindfulnessSessionType = type;
+    });
+  }
+
+  String? _validateMindfulnessSessionType(MindfulnessSessionType? value) {
+    if (value == null) {
+      return AppTexts.getPleaseSelectText(AppTexts.mindfulnessSession);
+    }
+    return null;
+  }
+
+  void _onMindfulnessTitleChanged(String value) {
+    setState(() {
+      _mindfulnessTitle = value.isEmpty ? null : value;
+    });
+  }
+
+  void _onMindfulnessNotesChanged(String value) {
+    setState(() {
+      _mindfulnessNotes = value.isEmpty ? null : value;
+    });
+  }
+
   void _onRecordingMethodChanged(RecordingMethod? method) {
     setState(() {
       _recordingMethod = method ?? RecordingMethod.unknown;
@@ -1905,6 +1975,39 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
                             helperText: AppTexts.exerciseNotesHelper,
                           ),
                           onChanged: _onExerciseNotesChanged,
+                          maxLines: 3,
+                        ),
+                      ] else if (widget.dataType
+                          is MindfulnessSessionDataType) ...[
+                        EnumDropdownFormField<MindfulnessSessionType>(
+                          labelText: AppTexts.mindfulnessSession,
+                          values: MindfulnessSessionType.values,
+                          value: _mindfulnessSessionType,
+                          onChanged: _onMindfulnessSessionTypeChanged,
+                          validator: _validateMindfulnessSessionType,
+                          displayNameBuilder: (type) => type.displayName,
+                          prefixIcon: AppIcons.selfImprovement,
+                          hint: AppTexts.pleaseSelect,
+                        ),
+                        const SizedBox(height: 16),
+                        TextFormField(
+                          initialValue: _mindfulnessTitle,
+                          decoration: const InputDecoration(
+                            labelText: AppTexts.titleOptional,
+                            border: OutlineInputBorder(),
+                            helperText: AppTexts.titleOptional,
+                          ),
+                          onChanged: _onMindfulnessTitleChanged,
+                        ),
+                        const SizedBox(height: 16),
+                        TextFormField(
+                          initialValue: _mindfulnessNotes,
+                          decoration: const InputDecoration(
+                            labelText: AppTexts.notesOptional,
+                            border: OutlineInputBorder(),
+                            helperText: AppTexts.notesOptional,
+                          ),
+                          onChanged: _onMindfulnessNotesChanged,
                           maxLines: 3,
                         ),
                       ] else ...[

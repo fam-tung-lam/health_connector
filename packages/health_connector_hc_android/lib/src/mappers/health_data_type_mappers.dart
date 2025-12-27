@@ -50,6 +50,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         SkatingSportsDistanceDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
+        MindfulnessSessionDataType,
         SodiumNutrientDataType,
         StepsHealthDataType,
         SugarNutrientDataType,
@@ -136,6 +137,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.powerSeries;
       case HealthDataTypeDto.speedSeries:
         return HealthDataType.speedSeries;
+      case HealthDataTypeDto.mindfulnessSession:
+        return HealthDataType.mindfulnessSession;
     }
   }
 }
@@ -174,6 +177,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.sleepSession;
       case ExerciseSessionHealthDataType _:
         return HealthDataTypeDto.exerciseSession;
+      case MindfulnessSessionDataType _:
+        return HealthDataTypeDto.mindfulnessSession;
       case EnergyNutrientDataType _:
       case CaffeineNutrientDataType _:
       case ProteinNutrientDataType _:

@@ -56,6 +56,7 @@ abstract final class AppIcons {
   static const IconData edit = Icons.edit;
   static const IconData autoAwesome = Icons.auto_awesome;
   static const IconData fitnessCenter = Icons.fitness_center;
+  static const IconData selfImprovement = Icons.self_improvement;
 
   // Device Types
   static const IconData watch = Icons.watch;
