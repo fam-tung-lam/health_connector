@@ -46,11 +46,11 @@ extension SpeedSeriesRecordDtoToDomain on SpeedSeriesRecordDto {
       startTime: DateTime.fromMillisecondsSinceEpoch(
         startTime,
         isUtc: true,
-      ).toLocal(),
+      ),
       endTime: DateTime.fromMillisecondsSinceEpoch(
         endTime,
         isUtc: true,
-      ).toLocal(),
+      ),
       metadata: metadata.toDomain(),
       samples: samples.map((dto) => dto._toDomain()).toList(),
       startZoneOffsetSeconds: startZoneOffsetSeconds,
@@ -63,7 +63,7 @@ extension SpeedSeriesRecordDtoToDomain on SpeedSeriesRecordDto {
 extension _SpeedSampleDtoToDomain on SpeedMeasurementDto {
   SpeedMeasurement _toDomain() {
     return SpeedMeasurement(
-      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true).toLocal(),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       speed: speed.toDomain(),
     );
   }

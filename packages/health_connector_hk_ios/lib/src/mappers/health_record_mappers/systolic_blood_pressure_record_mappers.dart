@@ -30,7 +30,7 @@ extension SystolicBloodPressureRecordDtoToDomain
   SystolicBloodPressureRecord toDomain() {
     return SystolicBloodPressureRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
-      time: DateTime.fromMillisecondsSinceEpoch(time),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       pressure: pressure.toDomain(),

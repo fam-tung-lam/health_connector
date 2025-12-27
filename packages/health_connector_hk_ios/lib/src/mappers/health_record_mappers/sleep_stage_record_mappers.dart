@@ -32,8 +32,8 @@ extension SleepStageRecordDtoToDomain on SleepStageRecordDto {
     return SleepStageRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
       metadata: metadata.toDomain(),
-      startTime: DateTime.fromMillisecondsSinceEpoch(startTime),
-      endTime: DateTime.fromMillisecondsSinceEpoch(endTime),
+      startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
+      endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),
       stageType: stageType.toDomain(),
     );
   }

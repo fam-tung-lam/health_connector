@@ -1,19 +1,7 @@
 part of 'health_record.dart';
 
-/// A health record containing multiple data samples within a time interval.
-///
-/// ## Platform Behavior
-///
-/// ### Android Health Connect
-/// - Native support for series records
-/// - Maps to `SeriesRecord` subclasses
-/// - Samples stored as part of the record
-/// - Efficient bulk storage and retrieval
-///
-/// ### iOS HealthKit
-/// - Series represented via `HKQuantitySeries` or multiple `HKQuantitySample`
-/// - Less direct support compared to Android
-/// - May require aggregation of individual samples
+/// Base health record class containing multiple data samples within a
+/// time interval.
 ///
 /// {@category Health Records}
 @sinceV1_0_0

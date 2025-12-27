@@ -59,8 +59,8 @@ extension DistanceActivityRecordToDto on DistanceActivityRecord {
 extension DistanceActivityRecordDtoToDomain on DistanceActivityRecordDto {
   DistanceActivityRecord toDomain() {
     final recordId = id?.toDomain() ?? HealthRecordId.none;
-    final start = DateTime.fromMillisecondsSinceEpoch(startTime);
-    final end = DateTime.fromMillisecondsSinceEpoch(endTime);
+    final start = DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true);
+    final end = DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true);
     final meta = metadata.toDomain();
     final dist = distance.toDomain();
     final zoneOffset = zoneOffsetSeconds;
