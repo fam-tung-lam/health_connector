@@ -40,6 +40,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         SeleniumNutrientRecord,
         SleepSessionRecord,
         SleepStageRecord,
+        MindfulnessSessionRecord,
         SodiumNutrientRecord,
         StepsRecord,
         SugarNutrientRecord,
@@ -85,6 +86,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/respir
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/resting_heart_rate_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sleep_stage_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/speed_activity_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/mindfulness_session_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/steps_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/systolic_blood_pressure_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/vo2_max_record_mappers.dart';
@@ -128,6 +130,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         SaturatedFatNutrientRecordDto,
         SeleniumNutrientRecordDto,
         SleepStageRecordDto,
+        MindfulnessSessionRecordDto,
         SodiumNutrientRecordDto,
         StepsRecordDto,
         SugarNutrientRecordDto,
@@ -316,6 +319,12 @@ extension HealthRecordToDto on HealthRecord {
         return CyclingPowerRecordToDto(record).toDto();
       case final DistanceActivityRecord record:
         return DistanceActivityRecordToDto(record).toDto();
+      case final MindfulnessSessionRecord record:
+        return MindfulnessSessionRecordToDtoExtension(record).toDto();
+      case ExerciseSessionRecord():
+        return ExerciseSessionRecordToDto(
+          this as ExerciseSessionRecord,
+        ).toDto();
       case final HeartRateSeriesRecord _:
         throw UnsupportedError(
           '$HeartRateSeriesRecord is not supported on iOS HealthKit. '
@@ -343,10 +352,6 @@ extension HealthRecordToDto on HealthRecord {
           '$PowerSeriesRecord is not supported on iOS HealthKit. '
           'Use $CyclingPowerRecord instead.',
         );
-      case ExerciseSessionRecord():
-        return ExerciseSessionRecordToDto(
-          this as ExerciseSessionRecord,
-        ).toDto();
     }
   }
 }
@@ -473,6 +478,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return SpeedActivityRecordDtoToDomain(dto).toDomain();
       case final ExerciseSessionRecordDto dto:
         return ExerciseSessionRecordDtoToDomain(dto).toDomain();
+      case final MindfulnessSessionRecordDto dto:
+        return MindfulnessSessionRecordDtoToDomainExtension(dto).toDomain();
     }
   }
 }

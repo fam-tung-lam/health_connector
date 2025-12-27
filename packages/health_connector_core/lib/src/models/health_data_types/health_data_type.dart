@@ -1,19 +1,6 @@
-import 'package:health_connector_core/health_connector_core.dart'
-    show Permission, ReadRecordByIdRequest, sinceV1_4_0, sinceV2_1_0;
-import 'package:health_connector_core/src/annotations/annotations.dart'
-    show
-        sinceV1_0_0,
-        supportedOnHealthConnect,
-        supportedOnAppleHealth,
-        sinceV1_1_0,
-        sinceV1_2_0,
-        sinceV1_3_0,
-        sinceV2_0_0;
+import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
     show HealthConnectorConfigConstants;
-import 'package:health_connector_core/src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';
-import 'package:health_connector_core/src/models/health_platform.dart'
-    show HealthPlatform;
 import 'package:health_connector_core/src/models/health_platform_data.dart'
     show HealthPlatformData;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
@@ -70,6 +57,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         SkatingSportsDistanceRecord,
         SleepSessionRecord,
         SleepStageRecord,
+        MindfulnessSessionRecord,
         SodiumNutrientRecord,
         StepsRecord,
         SugarNutrientRecord,
@@ -98,36 +86,6 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         StairAscentSpeedRecord,
         StairDescentSpeedRecord,
         VitaminNutrientRecord;
-import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart'
-    show
-        BloodGlucose,
-        Number,
-        Energy,
-        TimeDuration,
-        Length,
-        Mass,
-        MeasurementUnit,
-        Percentage,
-        Power,
-        Pressure,
-        Temperature,
-        Velocity,
-        Volume;
-import 'package:health_connector_core/src/models/metadata/metadata.dart'
-    show DataOrigin;
-import 'package:health_connector_core/src/models/permissions/permission.dart'
-    show HealthDataPermission;
-import 'package:health_connector_core/src/models/requests/aggregate_request.dart'
-    show
-        AggregateRequest,
-        BloodPressureAggregateRequest,
-        CommonAggregateRequest;
-import 'package:health_connector_core/src/models/requests/aggregation_metric.dart'
-    show AggregationMetric;
-import 'package:health_connector_core/src/models/requests/delete_records_request.dart'
-    show DeleteRecordsByIdsRequest, DeleteRecordsInTimeRangeRequest;
-import 'package:health_connector_core/src/models/requests/read_records_request.dart'
-    show ReadRecordsInTimeRangeRequest;
 import 'package:meta/meta.dart' show immutable, internal;
 
 part 'active_calories_burned_health_data_type.dart';
@@ -156,6 +114,7 @@ part 'heart_rate_series_record_health_data_type.dart';
 part 'height_health_data_type.dart';
 part 'hydration_health_data_type.dart';
 part 'lean_body_mass_health_data_type.dart';
+part 'mindfulness_session_data_type.dart';
 part 'nutrient_data_types/biotin_nutrient_data_type.dart';
 part 'nutrient_data_types/caffeine_nutrient_data_type.dart';
 part 'nutrient_data_types/calcium_nutrient_data_type.dart';
@@ -519,6 +478,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const sleepStageRecord = SleepStageHealthDataType();
 
+  /// Mindfulness session data type.
+  ///
+  /// Represents mindfulness sessions including meditation, breathing exercises,
+  /// and other mindfulness activities. Supports reading, writing, deletion,
+  /// and SUM aggregation for total mindfulness duration.
+  @sinceV2_1_0
+  static const mindfulnessSession = MindfulnessSessionDataType();
+
   /// Resting heart rate data type.
   ///
   /// Represents the heart rate while at complete rest, typically measured
@@ -846,6 +813,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     selenium,
     sleepSession,
     sleepStageRecord,
+    mindfulnessSession,
     sodium,
     steps,
     sugar,

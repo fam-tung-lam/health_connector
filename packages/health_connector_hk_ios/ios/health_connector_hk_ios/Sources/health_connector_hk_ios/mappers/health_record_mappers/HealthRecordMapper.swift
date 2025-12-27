@@ -59,6 +59,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as ExerciseSessionRecordDto:
             return try dto.toHealthKit()
+        case let dto as MindfulnessSessionRecordDto:
+            return try dto.toHealthKit()
         default:
             throw HealthConnectorError.unsupportedOperation(
                 message:
@@ -106,6 +108,8 @@ extension HKCategorySample {
         switch type {
         case .sleepStageRecord:
             try toSleepStageRecordDto()
+        case .mindfulnessSession:
+            toMindfulnessSessionDto()
         default:
             throw HealthConnectorError.invalidArgument(
                 message: "Unsupported health data type for HKCategorySample",

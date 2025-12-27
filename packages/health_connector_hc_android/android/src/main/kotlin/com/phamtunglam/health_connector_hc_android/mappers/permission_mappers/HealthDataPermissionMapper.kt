@@ -1,5 +1,6 @@
 package com.phamtunglam.health_connector_hc_android.mappers.permission_mappers
 
+import androidx.health.connect.client.feature.ExperimentalMindfulnessSessionApi
 import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord
@@ -13,6 +14,7 @@ import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
+import androidx.health.connect.client.records.MindfulnessSessionRecord
 import androidx.health.connect.client.records.NutritionRecord
 import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.records.PowerRecord
@@ -31,6 +33,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.PermissionAccessTypeDt
 /**
  * Helper function to map data type and access type to Health Connect permission string.
  */
+@OptIn(ExperimentalMindfulnessSessionApi::class)
 internal fun getHealthConnectPermission(
     dataType: HealthDataTypeDto,
     accessType: PermissionAccessTypeDto,
@@ -310,6 +313,18 @@ internal fun getHealthConnectPermission(
             )
         }
     }
+
+    HealthDataTypeDto.MINDFULNESS_SESSION -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                MindfulnessSessionRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                MindfulnessSessionRecord::class,
+            )
+        }
+    }
 }
 
 /**
@@ -384,6 +399,7 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto 
         "SPEED" -> HealthDataTypeDto.SPEED_SERIES
         "POWER" -> HealthDataTypeDto.POWER_SERIES
         "EXERCISE_SESSION" -> HealthDataTypeDto.EXERCISE_SESSION
+        "MINDFULNESS_SESSION" -> HealthDataTypeDto.MINDFULNESS_SESSION
         else -> throw IllegalArgumentException(
             "Invalid/unsupported/unimplemented Health Connect data type: $dataTypeStr.",
         )

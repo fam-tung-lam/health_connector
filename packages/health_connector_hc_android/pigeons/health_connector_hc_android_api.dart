@@ -466,7 +466,32 @@ enum ExerciseTypeDto {
   wheelchair,
 }
 
-// endregion
+/// Mindfulness session type classification.
+///
+/// Maps to Android Health Connect MindfulnessSessionRecord session type
+/// constants.
+///
+/// Note: iOS HealthKit only supports a single generic mindfulness category
+/// type. Session types are stored in custom metadata when writing to HealthKit.
+enum MindfulnessSessionTypeDto {
+  /// Unknown or unspecified session type (0).
+  unknown,
+
+  /// Meditation session (1).
+  meditation,
+
+  /// Breathing exercise session (2).
+  breathing,
+
+  /// Music-based mindfulness session (3).
+  music,
+
+  /// Movement-based mindfulness session (4).
+  movement,
+
+  /// Unguided mindfulness session (5).
+  unguided,
+}
 
 // region Metadata
 
@@ -641,6 +666,9 @@ enum HealthDataTypeDto {
 
   /// Speed data.
   speedSeries,
+
+  /// Mindfulness session data.
+  mindfulnessSession,
 }
 
 /// Represents a blood glucose record for platform transfer.
@@ -1407,6 +1435,51 @@ class ExerciseSessionRecordDto extends HealthRecordDto {
   final String? title;
 
   /// Optional notes about the exercise session.
+  final String? notes;
+}
+
+/// Represents a mindfulness session record for platform transfer.
+///
+/// Note: iOS HealthKit only supports generic mindfulness category. The session
+/// type is stored in custom metadata when writing to HealthKit.
+class MindfulnessSessionRecordDto extends HealthRecordDto {
+  MindfulnessSessionRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.startTime,
+    required this.endTime,
+    required this.sessionType,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+    this.title,
+    this.notes,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+
+  /// Type of mindfulness session.
+  final MindfulnessSessionTypeDto sessionType;
+
+  /// Optional title for the mindfulness session.
+  final String? title;
+
+  /// Optional notes about the mindfulness session.
   final String? notes;
 }
 

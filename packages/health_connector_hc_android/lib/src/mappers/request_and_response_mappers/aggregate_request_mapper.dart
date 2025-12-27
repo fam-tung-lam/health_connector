@@ -27,6 +27,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         OxygenSaturationHealthDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
+        MindfulnessSessionDataType,
         StepsHealthDataType,
         WeightHealthDataType,
         WheelchairPushesHealthDataType,
@@ -198,6 +199,7 @@ extension AggregateRequestDtoMapper<
           case RunningSpeedDataType _:
           case StairAscentSpeedDataType _:
           case StairDescentSpeedDataType _:
+          case MindfulnessSessionDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',
             );

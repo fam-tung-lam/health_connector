@@ -150,6 +150,8 @@ extension HKSample {
             // Category types
             case HKCategoryTypeIdentifier.sleepAnalysis.rawValue:
                 return .sleepStageRecord
+            case HKCategoryTypeIdentifier.mindfulSession.rawValue:
+                return .mindfulnessSession
             // Correlation types
             case HKCorrelationTypeIdentifier.bloodPressure.rawValue:
                 return .bloodPressure

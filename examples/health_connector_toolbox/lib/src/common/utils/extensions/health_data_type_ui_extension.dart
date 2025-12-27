@@ -33,6 +33,7 @@ import 'package:health_connector/health_connector_internal.dart'
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
         ExerciseSessionHealthDataType,
+        MindfulnessSessionDataType,
         OxygenSaturationHealthDataType,
         NutritionHealthDataType,
         EnergyNutrientDataType,
@@ -163,6 +164,7 @@ extension HealthDataTypeUI on HealthDataType {
       PowerSeriesDataType _ => AppTexts.powerSeries,
       CyclingPowerDataType _ => AppTexts.cyclingPower,
       ExerciseSessionHealthDataType _ => AppTexts.exerciseSession,
+      MindfulnessSessionDataType _ => AppTexts.mindfulnessSession,
     };
   }
 
@@ -256,6 +258,7 @@ extension HealthDataTypeUI on HealthDataType {
       PowerSeriesDataType _ => 'Power output measurements over time (Android)',
       CyclingPowerDataType _ => 'Cycling power output in watts (iOS)',
       ExerciseSessionHealthDataType _ => 'Period of physical activity',
+      MindfulnessSessionDataType _ => 'Period of mindfulness practice',
     };
   }
 
@@ -340,6 +343,7 @@ extension HealthDataTypeUI on HealthDataType {
       PowerSeriesDataType _ => AppIcons.power,
       CyclingPowerDataType _ => AppIcons.power,
       ExerciseSessionHealthDataType _ => AppIcons.fitnessCenter,
+      MindfulnessSessionDataType _ => AppIcons.selfImprovement,
     };
   }
 }

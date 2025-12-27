@@ -1,5 +1,6 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
+import androidx.health.connect.client.feature.ExperimentalMindfulnessSessionApi
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
@@ -12,6 +13,7 @@ import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
+import androidx.health.connect.client.records.MindfulnessSessionRecord
 import androidx.health.connect.client.records.NutritionRecord
 import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.records.PowerRecord
@@ -38,6 +40,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSeriesRecordD
 import com.phamtunglam.health_connector_hc_android.pigeon.HeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.LeanBodyMassRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.MindfulnessSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.NutritionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.OxygenSaturationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PowerSeriesRecordDto
@@ -56,6 +59,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecord
  * This extension uses pattern matching on the sealed class to determine
  * the corresponding health data type for each record type.
  */
+@OptIn(ExperimentalMindfulnessSessionApi::class)
 internal val HealthRecordDto.dataType: HealthDataTypeDto
     get() = when (this) {
         is ActiveCaloriesBurnedRecordDto -> HealthDataTypeDto.ACTIVE_CALORIES_BURNED
@@ -72,6 +76,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is HeartRateSeriesRecordDto -> HealthDataTypeDto.HEART_RATE_SERIES_RECORD
         is RestingHeartRateRecordDto -> HealthDataTypeDto.RESTING_HEART_RATE
         is SleepSessionRecordDto -> HealthDataTypeDto.SLEEP_SESSION
+        is MindfulnessSessionRecordDto -> HealthDataTypeDto.MINDFULNESS_SESSION
         is SpeedSeriesRecordDto -> HealthDataTypeDto.SPEED_SERIES
         is NutritionRecordDto -> HealthDataTypeDto.NUTRITION
         is OxygenSaturationRecordDto -> HealthDataTypeDto.OXYGEN_SATURATION
@@ -89,6 +94,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
  * This extension uses pattern matching on the sealed class to convert
  * each record type to its corresponding Health Connect record.
  */
+@OptIn(ExperimentalMindfulnessSessionApi::class)
 internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is ActiveCaloriesBurnedRecordDto -> toHealthConnect()
     is DistanceRecordDto -> toHealthConnect()
@@ -104,6 +110,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is HeartRateSeriesRecordDto -> toHealthConnect()
     is RestingHeartRateRecordDto -> toHealthConnect()
     is SleepSessionRecordDto -> toHealthConnect()
+    is MindfulnessSessionRecordDto -> toHealthConnect()
     is SpeedSeriesRecordDto -> toHealthConnect()
     is NutritionRecordDto -> toHealthConnect()
     is OxygenSaturationRecordDto -> toHealthConnect()
@@ -127,6 +134,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
  * @return The [HealthRecordDto] corresponding to the record type
  * @throws IllegalArgumentException if the record type is not supported
  */
+@OptIn(ExperimentalMindfulnessSessionApi::class)
 internal fun Record.toDto(): HealthRecordDto = when (this) {
     is ActiveCaloriesBurnedRecord -> toDto()
     is DistanceRecord -> toDto()
@@ -142,6 +150,7 @@ internal fun Record.toDto(): HealthRecordDto = when (this) {
     is HeartRateRecord -> toDto()
     is RestingHeartRateRecord -> toDto()
     is SleepSessionRecord -> toDto()
+    is MindfulnessSessionRecord -> toDto()
     is SpeedRecord -> toDto()
     is NutritionRecord -> toDto()
     is OxygenSaturationRecord -> toDto()
