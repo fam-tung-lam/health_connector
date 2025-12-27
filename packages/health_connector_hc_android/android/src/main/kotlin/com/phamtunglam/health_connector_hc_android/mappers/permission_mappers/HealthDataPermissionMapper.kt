@@ -15,6 +15,7 @@ import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
 import androidx.health.connect.client.records.NutritionRecord
 import androidx.health.connect.client.records.OxygenSaturationRecord
+import androidx.health.connect.client.records.PowerRecord
 import androidx.health.connect.client.records.RespiratoryRateRecord
 import androidx.health.connect.client.records.RestingHeartRateRecord
 import androidx.health.connect.client.records.SleepSessionRecord
@@ -286,6 +287,18 @@ internal fun getHealthConnectPermission(
         }
     }
 
+    HealthDataTypeDto.POWER_SERIES -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                PowerRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                PowerRecord::class,
+            )
+        }
+    }
+
     HealthDataTypeDto.EXERCISE_SESSION -> {
         when (accessType) {
             PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
@@ -369,6 +382,7 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto 
         "VO2MAX" -> HealthDataTypeDto.VO2MAX
         "NUTRITION" -> HealthDataTypeDto.NUTRITION
         "SPEED" -> HealthDataTypeDto.SPEED_SERIES
+        "POWER" -> HealthDataTypeDto.POWER_SERIES
         "EXERCISE_SESSION" -> HealthDataTypeDto.EXERCISE_SESSION
         else -> throw IllegalArgumentException(
             "Invalid/unsupported/unimplemented Health Connect data type: $dataTypeStr.",

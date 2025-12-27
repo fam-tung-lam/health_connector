@@ -152,6 +152,8 @@ abstract final class AppTexts {
       RunningSpeedDataType() ||
       StairAscentSpeedDataType() ||
       StairDescentSpeedDataType() => speed,
+      PowerSeriesDataType() => powerSeries,
+      CyclingPowerDataType() => cyclingPower,
       ExerciseSessionHealthDataType() => exerciseSession,
     };
   }
@@ -680,6 +682,12 @@ abstract final class AppTexts {
   static const String stairAscentSpeed = 'Stair Ascent $speed';
   static const String stairDescentSpeed = 'Stair Descent $speed';
   static const String speedSamples = '$speed Samples';
+  // endregion
+
+  // region Power Data Types
+  static const String powerSeries = '$power Series';
+  static const String cyclingPower = 'Cycling $power';
+  static const String powerSamples = '$power Samples';
   // endregion
 
   // region Health Record Descriptions

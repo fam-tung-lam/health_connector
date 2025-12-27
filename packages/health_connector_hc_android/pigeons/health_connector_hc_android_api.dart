@@ -627,6 +627,9 @@ enum HealthDataTypeDto {
   /// Oxygen saturation data.
   oxygenSaturation,
 
+  /// Power data.
+  powerSeries,
+
   /// Respiratory rate data.
   respiratoryRate,
 
@@ -1253,6 +1256,54 @@ class SpeedSeriesRecordDto extends HealthRecordDto {
 
   /// List of speed measurements within this time interval.
   final List<SpeedMeasurementDto> samples;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+}
+
+/// Represents a single power measurement within a [PowerSeriesRecordDto].
+class PowerMeasurementDto {
+  PowerMeasurementDto({
+    required this.time,
+    required this.power,
+  });
+
+  /// Timestamp in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Power measurement.
+  final PowerDto power;
+}
+
+/// Represents a power series record for platform transfer.
+class PowerSeriesRecordDto extends HealthRecordDto {
+  PowerSeriesRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.samples,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// List of power measurements within this time interval.
+  final List<PowerMeasurementDto> samples;
 
   /// Timezone offset in seconds for start time (optional).
   final int? startZoneOffsetSeconds;

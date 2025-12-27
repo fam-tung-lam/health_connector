@@ -78,6 +78,8 @@ part 'nutrition_records/vitamin_k_nutrient_record.dart';
 part 'nutrition_records/vitamin_nutrient_record.dart';
 part 'nutrition_records/zinc_nutrient_record.dart';
 part 'oxygen_saturation_record.dart';
+part 'power_records/cycling_power_record.dart';
+part 'power_records/power_series_record.dart';
 part 'respiratory_rate_record.dart';
 part 'resting_heart_rate_record.dart';
 part 'series_health_record.dart';

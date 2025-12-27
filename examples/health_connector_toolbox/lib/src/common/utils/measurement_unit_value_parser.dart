@@ -97,6 +97,9 @@ abstract class MeasurementUnitValueParser {
       StairAscentSpeedDataType() ||
       StairDescentSpeedDataType() => _parseVelocity(value),
 
+      // Power
+      CyclingPowerDataType() => _parsePower(value),
+
       // Respiratory Rate
       RespiratoryRateHealthDataType() => _parseRespiratoryRate(value),
 
@@ -129,6 +132,10 @@ abstract class MeasurementUnitValueParser {
       ),
       SpeedSeriesDataType() => throw UnsupportedError(
         'SpeedSeries is a time series data type, '
+        'cannot be parsed from a single string input.',
+      ),
+      PowerSeriesDataType() => throw UnsupportedError(
+        'PowerSeries is a time series data type, '
         'cannot be parsed from a single string input.',
       ),
       ExerciseSessionHealthDataType() => throw UnsupportedError(
@@ -289,5 +296,17 @@ abstract class MeasurementUnitValueParser {
       throw const FormatException('Volume must be positive');
     }
     return Volume.liters(volume);
+  }
+
+  /// Parse power value in watts.
+  static Power _parsePower(String value) {
+    final watts = double.tryParse(value);
+    if (watts == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (watts <= 0) {
+      throw const FormatException('Power must be positive');
+    }
+    return Power.watts(watts);
   }
 }

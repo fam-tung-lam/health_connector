@@ -186,6 +186,15 @@ extension HKSample {
                     }
                 }
 
+                if #available(iOS 17.0, *) {
+                    switch identifier {
+                    case HKQuantityTypeIdentifier.cyclingPower.rawValue:
+                        return .cyclingPower
+                    default:
+                        break
+                    }
+                }
+
                 throw HealthConnectorError.invalidArgument(
                     message: "Unrecognized HealthKit identifier: \(identifier)",
                     context: ["identifier": identifier]

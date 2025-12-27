@@ -118,6 +118,15 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .bloodGlucose)
         case .cyclingDistance:
             try HKQuantityType.make(from: .distanceCycling)
+        case .cyclingPower:
+            if #available(iOS 17.0, *) {
+                try HKQuantityType.make(from: .cyclingPower)
+            } else {
+                throw HealthConnectorError.unsupportedOperation(
+                    message: "Cycling power is only supported on iOS 17.0 and later",
+                    context: ["dataType": "cyclingPower", "minimumIOSVersion": "17.0"]
+                )
+            }
         case .swimmingDistance:
             try HKQuantityType.make(from: .distanceSwimming)
         case .wheelchairDistance:

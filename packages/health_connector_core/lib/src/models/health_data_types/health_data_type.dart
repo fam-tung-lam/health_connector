@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core.dart'
-    show Permission, ReadRecordByIdRequest, sinceV1_4_0;
+    show Permission, ReadRecordByIdRequest, sinceV1_4_0, sinceV2_1_0;
 import 'package:health_connector_core/src/annotations/annotations.dart'
     show
         sinceV1_0_0,
@@ -29,6 +29,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         CholesterolNutrientRecord,
         CrossCountrySkiingDistanceRecord,
         CyclingDistanceRecord,
+        CyclingPowerRecord,
         DiastolicBloodPressureRecord,
         DietaryFiberNutrientRecord,
         DistanceActivityRecord,
@@ -57,6 +58,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         PhosphorusNutrientRecord,
         PolyunsaturatedFatNutrientRecord,
         PotassiumNutrientRecord,
+        PowerSeriesRecord,
         ProteinNutrientRecord,
         RespiratoryRateRecord,
         RestingHeartRateRecord,
@@ -106,6 +108,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
         Mass,
         MeasurementUnit,
         Percentage,
+        Power,
         Pressure,
         Temperature,
         Velocity,
@@ -192,6 +195,8 @@ part 'nutrient_data_types/vitamin_k_nutrient_data_type.dart';
 part 'nutrient_data_types/vitamin_nutrient_data_type.dart';
 part 'nutrient_data_types/zinc_nutrient_data_type.dart';
 part 'oxygen_saturation_health_data_type.dart';
+part 'power_data_types/cycling_power_data_type.dart';
+part 'power_data_types/power_series_data_type.dart';
 part 'respiratory_rate_health_data_type.dart';
 part 'resting_heart_rate_health_data_type.dart';
 part 'sleep_session_health_data_type.dart';
@@ -530,6 +535,22 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV1_3_0
   static const oxygenSaturation = OxygenSaturationHealthDataType();
 
+  /// Power data type (Android Health Connect only).
+  ///
+  /// Represents power measurements as a series of samples over a time interval.
+  /// For iOS, use [cyclingPower].
+  @sinceV2_1_0
+  @supportedOnHealthConnect
+  static const powerSeries = PowerSeriesDataType();
+
+  /// Cycling power data type (iOS HealthKit only).
+  ///
+  /// Represents cycling power output measurements.
+  /// For Android, use [powerSeries].
+  @sinceV2_1_0
+  @supportedOnAppleHealth
+  static const cyclingPower = CyclingPowerDataType();
+
   /// Respiratory rate data type.
   ///
   /// Represents the number of breaths a person takes per minute.
@@ -811,6 +832,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     niacin,
     nutrition,
     oxygenSaturation,
+    powerSeries,
+    cyclingPower,
     pantothenicAcid,
     phosphorus,
     polyunsaturatedFat,

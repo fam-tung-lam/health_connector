@@ -8,6 +8,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         CaffeineNutrientRecord,
         CalciumNutrientRecord,
         CholesterolNutrientRecord,
+        CyclingPowerRecord,
         DietaryFiberNutrientRecord,
         DiastolicBloodPressureRecord,
         DistanceActivityRecord,
@@ -31,6 +32,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         PhosphorusNutrientRecord,
         PolyunsaturatedFatNutrientRecord,
         PotassiumNutrientRecord,
+        PowerSeriesRecord,
         ProteinNutrientRecord,
         RestingHeartRateRecord,
         RiboflavinNutrientRecord,
@@ -68,6 +70,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_fat_percentage_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_temperature_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/cycling_power_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/diastolic_blood_pressure_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/distance_activity_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise_session_record_mappers.dart';
@@ -97,6 +100,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         CaffeineNutrientRecordDto,
         CalciumNutrientRecordDto,
         CholesterolNutrientRecordDto,
+        CyclingPowerRecordDto,
         DiastolicBloodPressureRecordDto,
         DietaryFiberNutrientRecordDto,
         DistanceActivityRecordDto,
@@ -308,6 +312,8 @@ extension HealthRecordToDto on HealthRecord {
         return Vo2MaxRecordToDto(record).toDto();
       case final BloodGlucoseRecord record:
         return BloodGlucoseRecordToDto(record).toDto();
+      case final CyclingPowerRecord record:
+        return CyclingPowerRecordToDto(record).toDto();
       case final DistanceActivityRecord record:
         return DistanceActivityRecordToDto(record).toDto();
       case final HeartRateSeriesRecord _:
@@ -331,6 +337,11 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$SpeedSeriesRecord is not supported on iOS HealthKit. '
           'Use $SpeedActivityRecord instead.',
+        );
+      case PowerSeriesRecord():
+        throw UnsupportedError(
+          '$PowerSeriesRecord is not supported on iOS HealthKit. '
+          'Use $CyclingPowerRecord instead.',
         );
       case ExerciseSessionRecord():
         return ExerciseSessionRecordToDto(
@@ -454,6 +465,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return Vo2MaxRecordDtoToDomain(dto).toDomain();
       case final BloodGlucoseRecordDto dto:
         return BloodGlucoseRecordDtoToDomain(dto).toDomain();
+      case final CyclingPowerRecordDto dto:
+        return CyclingPowerRecordDtoToDomain(dto).toDomain();
       case final DistanceActivityRecordDto dto:
         return DistanceActivityRecordDtoToDomain(dto).toDomain();
       case final SpeedActivityRecordDto dto:

@@ -14,6 +14,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BodyTemperatureHealthDataType,
         CrossCountrySkiingDistanceDataType,
         CyclingDistanceDataType,
+        CyclingPowerDataType,
         DistanceHealthDataType,
         DownhillSnowSportsDistanceDataType,
         FloorsClimbedHealthDataType,
@@ -52,6 +53,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ManganeseNutrientDataType,
         PhosphorusNutrientDataType,
         PotassiumNutrientDataType,
+        PowerSeriesDataType,
         RestingHeartRateHealthDataType,
         SeleniumNutrientDataType,
         SodiumNutrientDataType,
@@ -130,6 +132,8 @@ extension AggregateRequestDtoMapper<
           case DistanceHealthDataType _:
           case CrossCountrySkiingDistanceDataType _:
           case CyclingDistanceDataType _:
+          case CyclingPowerDataType _:
+          case PowerSeriesDataType _:
           case DownhillSnowSportsDistanceDataType _:
           case PaddleSportsDistanceDataType _:
           case RowingDistanceDataType _:

@@ -19,6 +19,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/form_fields/heart_rate_series_record_heart_rate_measurements_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/form_fields/metadata_form_field_group.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/form_fields/nutrition_record_nutrient_form_fields.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/form_fields/power_series_record_power_samples_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/form_fields/sleep_session_record_sleep_stages_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/form_fields/speed_series_record_speed_samples_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/write_health_record_change_notifier.dart';
@@ -63,6 +64,8 @@ extension HealthDataTypeFormExtension on HealthDataType {
     ExerciseSessionHealthDataType() ||
     // Speed types (interval - series records)
     SpeedSeriesDataType() ||
+    // Power types (interval - series records)
+    PowerSeriesDataType() ||
     // Vitals types (interval - series records)
     HeartRateSeriesRecordHealthDataType() => true,
 
@@ -87,6 +90,8 @@ extension HealthDataTypeFormExtension on HealthDataType {
     RunningSpeedDataType() ||
     StairAscentSpeedDataType() ||
     StairDescentSpeedDataType() ||
+    // Power types (instant)
+    CyclingPowerDataType() ||
     // Nutrient types (instant)
     EnergyNutrientDataType() ||
     CaffeineNutrientDataType() ||
@@ -336,6 +341,14 @@ final class HealthRecordBuilder {
       ),
       // endregion
 
+      // region Power Types (Instant)
+      CyclingPowerDataType() => CyclingPowerRecord(
+        time: startDateTime,
+        power: value as Power,
+        metadata: metadata,
+      ),
+      // endregion
+
       // region Nutrient Types (Instant)
       EnergyNutrientDataType() => _buildNutrientRecord(
         time: startDateTime,
@@ -522,6 +535,7 @@ final class HealthRecordBuilder {
       // Types that require specialized builders
       HeartRateSeriesRecordHealthDataType() ||
       SpeedSeriesDataType() ||
+      PowerSeriesDataType() ||
       SleepStageHealthDataType() ||
       SleepSessionHealthDataType() ||
       ExerciseSessionHealthDataType() ||
@@ -570,6 +584,21 @@ final class HealthRecordBuilder {
     required Metadata metadata,
   }) {
     return SpeedSeriesRecord(
+      startTime: startDateTime,
+      endTime: endDateTime,
+      samples: samples,
+      metadata: metadata,
+    );
+  }
+
+  /// Builds a [PowerSeriesRecord] from form data (Android).
+  static PowerSeriesRecord buildPowerSeries({
+    required DateTime startDateTime,
+    required DateTime endDateTime,
+    required List<PowerMeasurement> samples,
+    required Metadata metadata,
+  }) {
+    return PowerSeriesRecord(
       startTime: startDateTime,
       endTime: endDateTime,
       samples: samples,
@@ -1109,6 +1138,9 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
   // State for speed series samples (Android)
   List<SpeedMeasurement>? _speedSamples;
 
+  // State for power series samples (Android)
+  List<PowerMeasurement>? _powerSamples;
+
   // State for sleep stages (Android SleepSessionRecord)
   List<SleepStage>? _sleepStages;
 
@@ -1302,6 +1334,10 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
       if (_speedSamples == null || _speedSamples!.isEmpty) {
         return;
       }
+    } else if (widget.dataType is PowerSeriesDataType) {
+      if (_powerSamples == null || _powerSamples!.isEmpty) {
+        return;
+      }
     } else if (widget.dataType is SleepSessionHealthDataType) {
       if (_sleepStages == null || _sleepStages!.isEmpty) {
         return;
@@ -1379,6 +1415,12 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
           startDateTime: startDateTime!,
           endDateTime: endDateTime!,
           samples: _speedSamples!,
+          metadata: metadata,
+        ),
+        PowerSeriesDataType() => HealthRecordBuilder.buildPowerSeries(
+          startDateTime: startDateTime!,
+          endDateTime: endDateTime!,
+          samples: _powerSamples!,
           metadata: metadata,
         ),
         SleepSessionHealthDataType() => HealthRecordBuilder.buildSleepSession(
@@ -1532,6 +1574,15 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
     }
     setState(() {
       _speedSamples = samples;
+    });
+  }
+
+  void _onPowerSamplesChanged(List<PowerMeasurement>? samples) {
+    if (samples == null) {
+      return;
+    }
+    setState(() {
+      _powerSamples = samples;
     });
   }
 
@@ -1747,6 +1798,12 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
                           startDateTime: startDateTime,
                           endDateTime: endDateTime,
                           onChanged: _onSpeedSamplesChanged,
+                        )
+                      else if (widget.dataType is PowerSeriesDataType)
+                        PowerSeriesRecordPowerSamplesFormField(
+                          startDateTime: startDateTime,
+                          endDateTime: endDateTime,
+                          onChanged: _onPowerSamplesChanged,
                         )
                       else if (widget.dataType is SleepStageHealthDataType) ...[
                         EnumDropdownFormField<SleepStageType>(

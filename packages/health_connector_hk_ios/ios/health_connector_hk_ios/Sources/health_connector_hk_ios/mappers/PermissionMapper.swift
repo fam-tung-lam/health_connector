@@ -20,6 +20,7 @@ extension HealthDataPermissionDto {
         case .activeCaloriesBurned,
              .distance,
              .cyclingDistance,
+             .cyclingPower,
              .swimmingDistance,
              .wheelchairDistance,
              .walkingRunningDistance,

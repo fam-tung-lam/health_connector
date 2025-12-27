@@ -78,6 +78,8 @@ import 'package:health_connector/health_connector_internal.dart'
         RunningSpeedDataType,
         StairAscentSpeedDataType,
         StairDescentSpeedDataType,
+        PowerSeriesDataType,
+        CyclingPowerDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
         LeanBodyMassHealthDataType,
@@ -491,6 +493,39 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
+
+      // Power types - avg/min/max
+      PowerSeriesDataType() => _buildAvgMinMax(
+        () => HealthDataType.powerSeries.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.powerSeries.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.powerSeries.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
+      CyclingPowerDataType() => _buildAvgMinMax(
+        () => HealthDataType.cyclingPower.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.cyclingPower.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.cyclingPower.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
+
       ExerciseSessionHealthDataType() => _buildSum(
         () => HealthDataType.exerciseSession.aggregateSum(
           startTime: startTime,

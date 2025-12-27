@@ -16,6 +16,7 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/sleep_session_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/sleep_stage_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/heart_rate_series_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/power_series_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/speed_activity_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/series_health_record_list_tiles/speed_series_list_tile.dart';
 
@@ -89,6 +90,20 @@ final class HealthRecordListTile extends StatelessWidget {
         record: r,
         onDelete: onDelete,
       ),
+
+      // Power records
+      final PowerSeriesRecord r => PowerSeriesTile(
+        record: r,
+        onDelete: onDelete,
+      ),
+      final CyclingPowerRecord r => SimpleInstantMeasurementListTile(
+        record: r,
+        icon: AppIcons.power,
+        titleBuilder: (r) => '${r.power.inWatts.toStringAsFixed(1)} W',
+        valueExtractor: (r) => r.power,
+        onDelete: onDelete,
+      ),
+
       final WalkingSpeedRecord r => SpeedActivityTile(
         record: r,
         onDelete: onDelete,

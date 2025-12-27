@@ -74,7 +74,9 @@ import 'package:health_connector/health_connector_internal.dart'
         WalkingSpeedDataType,
         RunningSpeedDataType,
         StairAscentSpeedDataType,
-        StairDescentSpeedDataType;
+        StairDescentSpeedDataType,
+        PowerSeriesDataType,
+        CyclingPowerDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -158,6 +160,8 @@ extension HealthDataTypeUI on HealthDataType {
       RunningSpeedDataType _ => AppTexts.runningSpeed,
       StairAscentSpeedDataType _ => AppTexts.stairAscentSpeed,
       StairDescentSpeedDataType _ => AppTexts.stairDescentSpeed,
+      PowerSeriesDataType _ => AppTexts.powerSeries,
+      CyclingPowerDataType _ => AppTexts.cyclingPower,
       ExerciseSessionHealthDataType _ => AppTexts.exerciseSession,
     };
   }
@@ -249,6 +253,8 @@ extension HealthDataTypeUI on HealthDataType {
       RunningSpeedDataType _ => AppTexts.speedDescription,
       StairAscentSpeedDataType _ => AppTexts.speedDescription,
       StairDescentSpeedDataType _ => AppTexts.speedDescription,
+      PowerSeriesDataType _ => 'Power output measurements over time (Android)',
+      CyclingPowerDataType _ => 'Cycling power output in watts (iOS)',
       ExerciseSessionHealthDataType _ => 'Period of physical activity',
     };
   }
@@ -331,6 +337,8 @@ extension HealthDataTypeUI on HealthDataType {
       RunningSpeedDataType _ => AppIcons.speed,
       StairAscentSpeedDataType _ => AppIcons.speed,
       StairDescentSpeedDataType _ => AppIcons.speed,
+      PowerSeriesDataType _ => AppIcons.power,
+      CyclingPowerDataType _ => AppIcons.power,
       ExerciseSessionHealthDataType _ => AppIcons.fitnessCenter,
     };
   }
@@ -621,9 +629,12 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (StairAscentSpeedDataType) => AppTexts.stairAscentSpeed,
       const (StairDescentSpeedDataType) => AppTexts.stairDescentSpeed,
 
-      _ => throw StateError(
+      // Power Types
+      const (CyclingPowerDataType) => AppTexts.cyclingPower,
+
+      _ => throw ArgumentError(
         'No field label for $runtimeType. '
-        'This type may not be supported for UI input.',
+        'This type may not be supported or unimplemented.',
       ),
     };
   }
@@ -661,6 +672,9 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (BloodGlucoseHealthDataType) => AppTexts.milligramsPerDeciliter,
       const (RespiratoryRateHealthDataType) => AppTexts.breathsPerMinute,
       const (Vo2MaxHealthDataType) => AppTexts.millilitersPerKilogramPerMinute,
+
+      // Power
+      const (CyclingPowerDataType) => 'W',
 
       // Activity & Energy
       const (ActiveCaloriesBurnedHealthDataType) ||
@@ -773,6 +787,9 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       ),
       const (Vo2MaxHealthDataType) => AppTexts.getPleaseEnterText(
         AppTexts.vo2Max,
+      ),
+      const (CyclingPowerDataType) => AppTexts.getPleaseEnterText(
+        AppTexts.power,
       ),
       const (ActiveCaloriesBurnedHealthDataType) => AppTexts.getPleaseEnterText(
         AppTexts.activeCaloriesBurned,

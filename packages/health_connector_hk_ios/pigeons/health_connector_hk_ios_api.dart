@@ -641,6 +641,9 @@ enum HealthDataTypeDto {
   /// Cycling distance.
   cyclingDistance,
 
+  /// Cycling power data (iOS 16+).
+  cyclingPower,
+
   /// Swimming distance.
   swimmingDistance,
 
@@ -1397,6 +1400,32 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
 
   /// Body temperature measurement.
   final TemperatureDto temperature;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// DTO for cycling power health data.
+class CyclingPowerRecordDto extends HealthRecordDto {
+  CyclingPowerRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.power,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Cycling power measurement.
+  final PowerDto power;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;

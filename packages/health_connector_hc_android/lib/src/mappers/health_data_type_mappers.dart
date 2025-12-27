@@ -10,6 +10,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         CholesterolNutrientDataType,
         CrossCountrySkiingDistanceDataType,
         CyclingDistanceDataType,
+        CyclingPowerDataType,
         DietaryFiberNutrientDataType,
         DistanceHealthDataType,
         DownhillSnowSportsDistanceDataType,
@@ -37,6 +38,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         PhosphorusNutrientDataType,
         PolyunsaturatedFatNutrientDataType,
         PotassiumNutrientDataType,
+        PowerSeriesDataType,
         ProteinNutrientDataType,
         RiboflavinNutrientDataType,
         RestingHeartRateHealthDataType,
@@ -130,6 +132,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.vo2Max;
       case HealthDataTypeDto.bloodGlucose:
         return HealthDataType.bloodGlucose;
+      case HealthDataTypeDto.powerSeries:
+        return HealthDataType.powerSeries;
       case HealthDataTypeDto.speedSeries:
         return HealthDataType.speedSeries;
     }
@@ -258,6 +262,13 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         );
       case SpeedSeriesDataType _:
         return HealthDataTypeDto.speedSeries;
+      case PowerSeriesDataType _:
+        return HealthDataTypeDto.powerSeries;
+      case CyclingPowerDataType _:
+        throw UnsupportedError(
+          '$this is an iOS-only power data type '
+          'and is not supported on Android Health Connect.',
+        );
       // Speed activity types (iOS HealthKit only)
       case WalkingSpeedDataType _:
       case RunningSpeedDataType _:

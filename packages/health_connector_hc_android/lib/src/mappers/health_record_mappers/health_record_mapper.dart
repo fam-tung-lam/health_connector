@@ -24,6 +24,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         WheelchairPushesRecord,
         PhosphorusNutrientRecord,
         OxygenSaturationRecord,
+        PowerSeriesRecord,
         EnergyNutrientRecord,
         CaffeineNutrientRecord,
         ProteinNutrientRecord,
@@ -49,6 +50,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BiotinNutrientRecord,
         PantothenicAcidNutrientRecord,
         CalciumNutrientRecord,
+        CyclingPowerRecord,
         IronNutrientRecord,
         MagnesiumNutrientRecord,
         ManganeseNutrientRecord,
@@ -77,6 +79,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/hy
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/lean_body_mass_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/nutrition_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/oxygen_saturation_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/power_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/respiratory_rate_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/resting_heart_rate_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sleep_session_record_mappers.dart';
@@ -100,6 +103,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         LeanBodyMassRecordDto,
         NutritionRecordDto,
         OxygenSaturationRecordDto,
+        PowerSeriesRecordDto,
         RestingHeartRateRecordDto,
         SleepSessionRecordDto,
         StepsRecordDto,
@@ -395,6 +399,13 @@ extension HealthRecordToDto on HealthRecord {
           '$DistanceActivityRecord and its subclasses are iOS-only '
           'and not supported on Android Health Connect.',
         );
+      case final CyclingPowerRecord _:
+        throw UnsupportedError(
+          '$CyclingPowerRecord is iOS-only and not supported on '
+          'Android Health Connect. Use $PowerSeriesRecord instead.',
+        );
+      case final PowerSeriesRecord record:
+        return PowerSeriesRecordToDto(record).toDto();
       case final SpeedSeriesRecord record:
         return SpeedSeriesRecordToDto(record).toDto();
       case final SpeedActivityRecord _:
@@ -454,6 +465,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return Vo2MaxRecordDtoToDomain(dto).toDomain();
       case final BloodGlucoseRecordDto dto:
         return BloodGlucoseRecordDtoToDomain(dto).toDomain();
+      case final PowerSeriesRecordDto dto:
+        return PowerSeriesRecordDtoToDomain(dto).toDomain();
       case final SpeedSeriesRecordDto dto:
         return SpeedSeriesRecordDtoToDomain(dto).toDomain();
     }

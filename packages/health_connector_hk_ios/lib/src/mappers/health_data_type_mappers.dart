@@ -5,6 +5,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BodyTemperatureHealthDataType,
         CrossCountrySkiingDistanceDataType,
         CyclingDistanceDataType,
+        CyclingPowerDataType,
         DistanceHealthDataType,
         DownhillSnowSportsDistanceDataType,
         FloorsClimbedHealthDataType,
@@ -49,6 +50,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ManganeseNutrientDataType,
         PhosphorusNutrientDataType,
         PotassiumNutrientDataType,
+        PowerSeriesDataType,
         SeleniumNutrientDataType,
         SodiumNutrientDataType,
         ZincNutrientDataType,
@@ -199,6 +201,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.vo2Max;
       case HealthDataTypeDto.cyclingDistance:
         return HealthDataType.cyclingDistance;
+      case HealthDataTypeDto.cyclingPower:
+        return HealthDataType.cyclingPower;
       case HealthDataTypeDto.swimmingDistance:
         return HealthDataType.swimmingDistance;
       case HealthDataTypeDto.wheelchairDistance:
@@ -363,6 +367,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       // Distance activity types (iOS HealthKit only)
       case CyclingDistanceDataType _:
         return HealthDataTypeDto.cyclingDistance;
+      case CyclingPowerDataType _:
+        return HealthDataTypeDto.cyclingPower;
       case SwimmingDistanceDataType _:
         return HealthDataTypeDto.swimmingDistance;
       case WheelchairDistanceDataType _:
@@ -394,6 +400,11 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         throw UnsupportedError(
           '$SpeedSeriesDataType is not supported on iOS. '
           'Use WalkingSpeedDataType, RunningSpeedDataType, etc. instead.',
+        );
+      case PowerSeriesDataType _:
+        throw UnsupportedError(
+          '$PowerSeriesDataType is not supported on iOS. '
+          'Use CyclingPowerDataType instead.',
         );
       case ExerciseSessionHealthDataType():
         return HealthDataTypeDto.exerciseSession;

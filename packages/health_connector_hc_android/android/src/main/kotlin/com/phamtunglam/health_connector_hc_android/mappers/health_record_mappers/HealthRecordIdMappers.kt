@@ -15,6 +15,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.LeanBodyMassRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.NutritionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.OxygenSaturationRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.PowerSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RespiratoryRateRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RestingHeartRateRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepSessionRecordDto
@@ -53,6 +54,7 @@ internal val HealthRecordDto.id: String?
         is OxygenSaturationRecordDto -> id
         is SleepSessionRecordDto -> id
         is SpeedSeriesRecordDto -> id
+        is PowerSeriesRecordDto -> id
         is RespiratoryRateRecordDto -> id
         is Vo2MaxRecordDto -> id
 

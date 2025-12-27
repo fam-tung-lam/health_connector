@@ -38,6 +38,8 @@ extension HealthRecordDto {
             record.id
         case let record as ExerciseSessionRecordDto:
             record.id
+        case let record as CyclingPowerRecordDto:
+            record.id
         default:
             nil
         }
@@ -177,10 +179,11 @@ extension HealthRecordDto {
                 return .vo2Max
             case is ExerciseSessionRecordDto:
                 return .exerciseSession
+            case is CyclingPowerRecordDto:
+                return .cyclingPower
             default:
                 throw HealthConnectorError.invalidArgument(
-                    message: "Unimplemented HealthRecordDto type: \(type(of: self))"
-                )
+                    message: "Unimplemented HealthRecordDto type: \(type(of: self))")
             }
         }
     }
@@ -312,6 +315,8 @@ extension HealthRecordDto {
             return dto.time
         case let dto as ExerciseSessionRecordDto:
             return dto.endTime
+        case let dto as CyclingPowerRecordDto:
+            return dto.time
         default:
             throw HealthConnectorError.invalidArgument(
                 message: "Unimplemented HealthRecordDto type: \(type(of: self))"
