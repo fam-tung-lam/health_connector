@@ -16,6 +16,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HydrationRecord,
         LeanBodyMassRecord,
         NutritionRecord,
+        CervicalMucusRecord,
+        SexualActivityRecord,
         SleepSessionRecord,
         SleepStageRecord,
         MindfulnessSessionRecord,
@@ -71,6 +73,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/bl
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_pressure_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_fat_percentage_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_temperature_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cervical_mucus_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/distance_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/exercise_session_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/floors_climbed_record_mappers.dart';
@@ -83,6 +86,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/ox
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/power_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/respiratory_rate_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/resting_heart_rate_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sexual_activity_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sleep_session_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/mindfulness_session_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/speed_record_mappers.dart';
@@ -96,6 +100,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         BloodPressureRecordDto,
         BodyFatPercentageRecordDto,
         BodyTemperatureRecordDto,
+        CervicalMucusRecordDto,
         DistanceRecordDto,
         FloorsClimbedRecordDto,
         HealthRecordDto,
@@ -107,6 +112,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         OxygenSaturationRecordDto,
         PowerSeriesRecordDto,
         RestingHeartRateRecordDto,
+        SexualActivityRecordDto,
         SleepSessionRecordDto,
         MindfulnessSessionRecordDto,
         StepsRecordDto,
@@ -186,6 +192,8 @@ extension HealthRecordToDto on HealthRecord {
         return BodyFatPercentageRecordToDto(record).toDto();
       case final BodyTemperatureRecord record:
         return BodyTemperatureRecordToDto(record).toDto();
+      case final CervicalMucusRecord record:
+        return CervicalMucusRecordToDto(record).toDto();
       case final StepsRecord record:
         return StepsRecordToDto(record).toDto();
       case final WeightRecord record:
@@ -194,6 +202,8 @@ extension HealthRecordToDto on HealthRecord {
         return WheelchairPushesRecordToDto(record).toDto();
       case final HeartRateSeriesRecord record:
         return HeartRateSeriesRecordToDto(record).toDto();
+      case final SexualActivityRecord record:
+        return SexualActivityRecordToDto(record).toDto();
       case final SleepSessionRecord record:
         return SleepSessionRecordToDto(record).toDto();
       case final ExerciseSessionRecord record:
@@ -444,6 +454,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return BodyFatPercentageRecordDtoToDomain(dto).toDomain();
       case final BodyTemperatureRecordDto dto:
         return BodyTemperatureRecordDtoToDomain(dto).toDomain();
+      case final CervicalMucusRecordDto dto:
+        return CervicalMucusRecordDtoToDomain(dto).toDomain();
       case final StepsRecordDto dto:
         return StepsRecordDtoToDomain(dto).toDomain();
       case final WeightRecordDto dto:
@@ -452,6 +464,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return WheelchairPushesRecordDtoToDomain(dto).toDomain();
       case final HeartRateSeriesRecordDto dto:
         return HeartRateSeriesRecordDtoToDomain(dto).toDomain();
+      case final SexualActivityRecordDto dto:
+        return SexualActivityRecordDtoToDomain(dto).toDomain();
       case final SleepSessionRecordDto dto:
         return SleepSessionRecordDtoToDomain(dto).toDomain();
       case final ExerciseSessionRecordDto dto:

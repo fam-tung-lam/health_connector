@@ -40,6 +40,10 @@ extension HealthRecordDto {
             record.id
         case let record as CyclingPowerRecordDto:
             record.id
+        case let record as SexualActivityRecordDto:
+            record.id
+        case let record as CervicalMucusRecordDto:
+            record.id
         case let record as MindfulnessSessionRecordDto:
             record.id
         default:
@@ -183,6 +187,10 @@ extension HealthRecordDto {
                 return .exerciseSession
             case is CyclingPowerRecordDto:
                 return .cyclingPower
+            case is SexualActivityRecordDto:
+                return .sexualActivity
+            case is CervicalMucusRecordDto:
+                return .cervicalMucus
             case is MindfulnessSessionRecordDto:
                 return .mindfulnessSession
             default:
@@ -322,6 +330,10 @@ extension HealthRecordDto {
         case let dto as MindfulnessSessionRecordDto:
             return dto.endTime
         case let dto as CyclingPowerRecordDto:
+            return dto.time
+        case let dto as SexualActivityRecordDto:
+            return dto.time
+        case let dto as CervicalMucusRecordDto:
             return dto.time
         default:
             throw HealthConnectorError.invalidArgument(

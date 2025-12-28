@@ -12,6 +12,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         BodyFatPercentageRecord,
         BodyTemperatureRecord,
         CaffeineNutrientRecord,
+        CervicalMucusRecord,
         CalciumNutrientRecord,
         CholesterolNutrientRecord,
         CrossCountrySkiingDistanceRecord,
@@ -53,6 +54,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         RowingDistanceRecord,
         SaturatedFatNutrientRecord,
         SeleniumNutrientRecord,
+        SexualActivityRecord,
         SixMinuteWalkTestDistanceRecord,
         SkatingSportsDistanceRecord,
         SleepSessionRecord,
@@ -95,6 +97,7 @@ part 'blood_pressure_health_data_types/diastolic_blood_pressure_health_data_type
 part 'blood_pressure_health_data_types/systolic_blood_pressure_health_data_type.dart';
 part 'body_fat_percentage_health_data_type.dart';
 part 'body_temperature_health_data_type.dart';
+part 'cervical_mucus_data_type.dart';
 part 'distance_data_types/cross_country_skiing_distance_data_type.dart';
 part 'distance_data_types/cycling_distance_data_type.dart';
 part 'distance_data_types/distance_activity_data_type.dart';
@@ -158,6 +161,7 @@ part 'power_data_types/cycling_power_data_type.dart';
 part 'power_data_types/power_series_data_type.dart';
 part 'respiratory_rate_health_data_type.dart';
 part 'resting_heart_rate_health_data_type.dart';
+part 'sexual_activity_data_type.dart';
 part 'sleep_session_health_data_type.dart';
 part 'sleep_stage_record_health_data_type.dart';
 part 'speed_data_types/running_speed_data_type.dart';
@@ -385,6 +389,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// existing body temperature data and writing new measurements.
   static const bodyTemperature = BodyTemperatureHealthDataType();
 
+  /// Cervical mucus data type.
+  ///
+  /// Represents cervical mucus observations including appearance and sensation.
+  /// Used for fertility tracking. Supports reading, writing, and deletion of
+  /// cervical mucus records.
+  @sinceV2_1_0
+  static const cervicalMucus = CervicalMucusDataType();
+
   /// Body height data type.
   ///
   /// Represents the user's body height measurements. Supports both reading
@@ -485,6 +497,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// and SUM aggregation for total mindfulness duration.
   @sinceV2_1_0
   static const mindfulnessSession = MindfulnessSessionDataType();
+
+  /// Sexual activity data type.
+  ///
+  /// Represents sexual activity sessions with optional information about
+  /// whether protection was used.
+  @sinceV2_1_0
+  static const sexualActivity = SexualActivityDataType();
 
   /// Resting heart rate data type.
   ///
@@ -779,6 +798,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     bodyFatPercentage,
     bodyTemperature,
     caffeine,
+    cervicalMucus,
     calcium,
     cholesterol,
     diastolicBloodPressure,
@@ -811,6 +831,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     riboflavin,
     saturatedFat,
     selenium,
+    sexualActivity,
     sleepSession,
     sleepStageRecord,
     mindfulnessSession,

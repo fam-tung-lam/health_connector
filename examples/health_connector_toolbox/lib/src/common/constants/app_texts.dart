@@ -86,6 +86,7 @@ abstract final class AppTexts {
       BodyFatPercentageHealthDataType() => bodyFatPercentage,
       LeanBodyMassHealthDataType() => leanBodyMass,
       BodyTemperatureHealthDataType() => bodyTemperature,
+      CervicalMucusDataType() => cervicalMucus,
       BloodPressureHealthDataType() => bloodPressure,
       SystolicBloodPressureHealthDataType() => systolic,
       DiastolicBloodPressureHealthDataType() => diastolic,
@@ -108,6 +109,7 @@ abstract final class AppTexts {
       HeartRateSeriesRecordHealthDataType() => heartRate,
       SleepSessionHealthDataType() => sleepSession,
       SleepStageHealthDataType() => sleepStage,
+      SexualActivityDataType() => sexualActivity,
       EnergyNutrientDataType() => energy,
       CaffeineNutrientDataType() => caffeine,
       ProteinNutrientDataType() => protein,
@@ -317,6 +319,7 @@ abstract final class AppTexts {
   static const String bodyFatPercentage = 'Body Fat Percentage';
   static const String leanBodyMass = 'Lean Body Mass';
   static const String bodyTemperature = 'Body Temperature';
+  static const String cervicalMucus = 'Cervical Mucus';
   static const String hydration = 'Hydration';
   static const String bloodPressure = 'Blood Pressure';
   static const String systolic = 'Systolic';
@@ -349,6 +352,26 @@ abstract final class AppTexts {
   static const String sleepStages = '${sleepStage}s';
   static const String stageType = 'Stage $type';
   static const String bloodPressureType = '$bloodPressure $type';
+  static const String sexualActivity = 'Sexual Activity';
+  static const String protectionUsed = 'Protection Used';
+  static const String appearance = 'Appearance';
+  static const String sensation = 'Sensation';
+  static const String optional = 'Optional';
+
+  // Sexual Activity Protection
+  static const String protected = 'Protected';
+  static const String unprotected = 'Unprotected';
+
+  // Cervical Mucus
+  static const String light = 'Light';
+  static const String medium = 'Medium';
+  static const String heavy = 'Heavy';
+  static const String dry = 'Dry';
+  static const String sticky = 'Sticky';
+  static const String creamy = 'Creamy';
+  static const String watery = 'Watery';
+  static const String eggWhite = 'Egg White';
+  static const String unusual = 'Unusual';
 
   // endregion
 
@@ -451,7 +474,6 @@ abstract final class AppTexts {
   static const String read = 'Read';
   static const String write = 'Write';
   static const String requestPermissions = 'Request $permissions';
-  static const String checkPermissions = 'Check $permissions';
   static const String dataTypePermissions = 'Data $type $permissions';
   static const String featurePermissions = 'Feature $permissions';
   static const String feature = 'Feature';
@@ -756,6 +778,15 @@ abstract final class AppTexts {
       'Period of sleep with optional stage information';
   static const String sleepStageRecordDescription =
       'Type of sleep stage during a sleep session';
+
+  // Sexual Activity
+  static const String sexualActivityDescription =
+      'Record of sexual activity occurrence with optional '
+      'protection information';
+
+  // Cervical Mucus
+  static const String cervicalMucusDescription =
+      'Cervical mucus appearance and sensation observation';
 
   // Respiratory and Oxygen
   static const String oxygenSaturationDescription =

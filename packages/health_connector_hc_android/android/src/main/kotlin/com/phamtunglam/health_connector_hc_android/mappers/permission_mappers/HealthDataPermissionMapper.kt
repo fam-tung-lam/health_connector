@@ -7,6 +7,7 @@ import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
+import androidx.health.connect.client.records.CervicalMucusRecord
 import androidx.health.connect.client.records.DistanceRecord
 import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.FloorsClimbedRecord
@@ -20,6 +21,7 @@ import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.records.PowerRecord
 import androidx.health.connect.client.records.RespiratoryRateRecord
 import androidx.health.connect.client.records.RestingHeartRateRecord
+import androidx.health.connect.client.records.SexualActivityRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.SpeedRecord
 import androidx.health.connect.client.records.StepsRecord
@@ -158,6 +160,18 @@ internal fun getHealthConnectPermission(
         }
     }
 
+    HealthDataTypeDto.CERVICAL_MUCUS -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                CervicalMucusRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                CervicalMucusRecord::class,
+            )
+        }
+    }
+
     HealthDataTypeDto.WHEELCHAIR_PUSHES -> {
         when (accessType) {
             PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
@@ -178,6 +192,18 @@ internal fun getHealthConnectPermission(
 
             PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
                 HeartRateRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.SEXUAL_ACTIVITY -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                SexualActivityRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                SexualActivityRecord::class,
             )
         }
     }

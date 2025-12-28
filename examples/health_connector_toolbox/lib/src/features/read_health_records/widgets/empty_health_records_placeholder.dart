@@ -49,18 +49,6 @@ final class EmptyHealthRecordsPlaceholder extends StatelessWidget {
               color: colorScheme.onSurfaceVariant,
             ),
           ),
-          const SizedBox(height: 2),
-          ElevatedButton.icon(
-            onPressed: onCheckPermissions,
-            icon: const Icon(AppIcons.lockOutline),
-            label: const Text(AppTexts.checkPermissions),
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24,
-                vertical: 12,
-              ),
-            ),
-          ),
         ],
       ),
     );

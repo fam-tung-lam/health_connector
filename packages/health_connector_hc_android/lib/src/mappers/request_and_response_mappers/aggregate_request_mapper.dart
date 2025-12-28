@@ -12,6 +12,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ActiveCaloriesBurnedHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
+        CervicalMucusDataType,
         CrossCountrySkiingDistanceDataType,
         CyclingDistanceDataType,
         CyclingPowerDataType,
@@ -80,7 +81,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         WalkingSpeedDataType,
         RunningSpeedDataType,
         StairAscentSpeedDataType,
-        StairDescentSpeedDataType;
+        StairDescentSpeedDataType,
+        SexualActivityDataType;
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show ExerciseSessionHealthDataType;
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mappers.dart';
@@ -130,6 +132,7 @@ extension AggregateRequestDtoMapper<
           case BloodPressureHealthDataType _:
           case BodyFatPercentageHealthDataType _:
           case BodyTemperatureHealthDataType _:
+          case CervicalMucusDataType _:
           case DistanceHealthDataType _:
           case CrossCountrySkiingDistanceDataType _:
           case CyclingDistanceDataType _:
@@ -151,6 +154,7 @@ extension AggregateRequestDtoMapper<
           case HydrationHealthDataType _:
           case LeanBodyMassHealthDataType _:
           case NutritionHealthDataType _:
+          case SexualActivityDataType _:
           case SleepSessionHealthDataType _:
           case SleepStageHealthDataType _:
           case StepsHealthDataType _:

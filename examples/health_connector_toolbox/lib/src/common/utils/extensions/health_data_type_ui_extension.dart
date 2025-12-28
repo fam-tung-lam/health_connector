@@ -32,6 +32,7 @@ import 'package:health_connector/health_connector_internal.dart'
         RestingHeartRateHealthDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
+        SexualActivityDataType,
         ExerciseSessionHealthDataType,
         MindfulnessSessionDataType,
         OxygenSaturationHealthDataType,
@@ -77,7 +78,8 @@ import 'package:health_connector/health_connector_internal.dart'
         StairAscentSpeedDataType,
         StairDescentSpeedDataType,
         PowerSeriesDataType,
-        CyclingPowerDataType;
+        CyclingPowerDataType,
+        CervicalMucusDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -118,6 +120,7 @@ extension HealthDataTypeUI on HealthDataType {
       RestingHeartRateHealthDataType _ => AppTexts.restingHeartRate,
       SleepSessionHealthDataType _ => AppTexts.sleepSession,
       SleepStageHealthDataType _ => AppTexts.sleepStage,
+      SexualActivityDataType _ => AppTexts.sexualActivity,
       OxygenSaturationHealthDataType _ => AppTexts.oxygenSaturation,
       NutritionHealthDataType _ => AppTexts.nutrition,
       EnergyNutrientDataType _ => AppTexts.energy,
@@ -164,6 +167,7 @@ extension HealthDataTypeUI on HealthDataType {
       PowerSeriesDataType _ => AppTexts.powerSeries,
       CyclingPowerDataType _ => AppTexts.cyclingPower,
       ExerciseSessionHealthDataType _ => AppTexts.exerciseSession,
+      CervicalMucusDataType _ => AppTexts.cervicalMucus,
       MindfulnessSessionDataType _ => AppTexts.mindfulnessSession,
     };
   }
@@ -209,6 +213,7 @@ extension HealthDataTypeUI on HealthDataType {
       RestingHeartRateHealthDataType _ => AppTexts.restingHeartRateDescription,
       SleepSessionHealthDataType _ => AppTexts.sleepSessionDescription,
       SleepStageHealthDataType _ => AppTexts.sleepStageRecordDescription,
+      SexualActivityDataType _ => AppTexts.sexualActivityDescription,
       OxygenSaturationHealthDataType _ => AppTexts.oxygenSaturationDescription,
       NutritionHealthDataType _ => AppTexts.nutritionDescription,
       EnergyNutrientDataType _ => AppTexts.energyDescription,
@@ -259,6 +264,7 @@ extension HealthDataTypeUI on HealthDataType {
       CyclingPowerDataType _ => 'Cycling power output in watts (iOS)',
       ExerciseSessionHealthDataType _ => 'Period of physical activity',
       MindfulnessSessionDataType _ => 'Period of mindfulness practice',
+      CervicalMucusDataType _ => AppTexts.cervicalMucusDescription,
     };
   }
 
@@ -297,6 +303,7 @@ extension HealthDataTypeUI on HealthDataType {
       RestingHeartRateHealthDataType _ => AppIcons.favorite,
       SleepSessionHealthDataType _ => AppIcons.bedtime,
       SleepStageHealthDataType _ => AppIcons.bedtime,
+      SexualActivityDataType _ => AppIcons.favorite,
       OxygenSaturationHealthDataType _ => AppIcons.percent,
       NutritionHealthDataType _ => AppIcons.fastfood,
       EnergyNutrientDataType _ => AppIcons.localFireDepartment,
@@ -343,6 +350,7 @@ extension HealthDataTypeUI on HealthDataType {
       PowerSeriesDataType _ => AppIcons.power,
       CyclingPowerDataType _ => AppIcons.power,
       ExerciseSessionHealthDataType _ => AppIcons.fitnessCenter,
+      CervicalMucusDataType _ => AppIcons.waterDrop,
       MindfulnessSessionDataType _ => AppIcons.selfImprovement,
     };
   }
@@ -635,6 +643,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
 
       // Power Types
       const (CyclingPowerDataType) => AppTexts.cyclingPower,
+
+      // Reproductive Health
+      const (SexualActivityDataType) => AppTexts.sexualActivity,
+      const (CervicalMucusDataType) => AppTexts.cervicalMucus,
 
       _ => throw ArgumentError(
         'No field label for $runtimeType. '

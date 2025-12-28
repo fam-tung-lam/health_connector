@@ -86,6 +86,9 @@ extension HealthDataPermissionDto {
              .stairAscentSpeed,
              .stairDescentSpeed:
             try [healthDataType.toHealthKit()]
+        case .sexualActivity,
+             .cervicalMucus:
+            try [healthDataType.toHealthKit()]
         // Exercise sessions use HKWorkoutType, not HKQuantityType
         case .exerciseSession:
             [HKObjectType.workoutType()]

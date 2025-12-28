@@ -6,6 +6,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BloodPressureHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BodyFatPercentageHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BodyTemperatureHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.CervicalMucusHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.DistanceHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ExerciseSessionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.FloorsClimbedHandler
@@ -19,6 +20,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.PowerSeriesHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.RespiratoryRateHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.RestingHeartRateHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SexualActivityHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SleepSessionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SpeedSeriesHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.StepsHandler
@@ -36,6 +38,7 @@ internal class HealthRecordHandlerRegistry(private val client: HealthConnectClie
             register(HeartRateHandler(client))
             register(HeightHandler(client))
             register(BodyTemperatureHandler(client))
+            register(CervicalMucusHandler(client))
             register(LeanBodyMassHandler(client))
             register(BodyFatPercentageHandler(client))
             register(StepsHandler(client))
@@ -53,6 +56,7 @@ internal class HealthRecordHandlerRegistry(private val client: HealthConnectClie
             register(HydrationHandler(client))
             register(NutritionHandler(client))
             register(PowerSeriesHandler(client))
+            register(SexualActivityHandler(client))
             register(SleepSessionHandler(client))
             register(MindfulnessSessionHandler(client))
             register(SpeedSeriesHandler(client))

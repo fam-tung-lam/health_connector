@@ -585,6 +585,66 @@ class MetadataDto {
   final RecordingMethodDto recordingMethod;
 }
 
+/// Cervical mucus appearance classification.
+///
+/// Maps to Android Health Connect CervicalMucusRecord appearance types
+/// and iOS HealthKit HKCategoryValueCervicalMucusQuality enum.
+enum CervicalMucusAppearanceTypeDto {
+  /// Unknown appearance.
+  unknown,
+
+  /// Dry appearance.
+  dry,
+
+  /// Sticky appearance.
+  sticky,
+
+  /// Creamy appearance.
+  creamy,
+
+  /// Watery appearance.
+  watery,
+
+  /// Egg white appearance.
+  eggWhite,
+
+  /// Unusual appearance.
+  unusual,
+}
+
+/// Cervical mucus sensation classification.
+///
+/// Maps to Android Health Connect CervicalMucusRecord sensation types.
+/// Note: Not natively supported on iOS HealthKit.
+enum CervicalMucusSensationTypeDto {
+  /// Unknown sensation.
+  unknown,
+
+  /// Light sensation.
+  light,
+
+  /// Medium sensation.
+  medium,
+
+  /// Heavy sensation.
+  heavy,
+}
+
+/// Sexual activity protection used classification.
+///
+/// Maps to Android Health Connect SexualActivityRecord protection types
+/// and iOS HealthKit HKMetadataKeySexualActivityProtectionUsed metadata key.
+enum SexualActivityProtectionUsedTypeDto {
+  /// Protection was used.
+  protected,
+
+  /// Protection was not used.
+  unprotected,
+
+  /// Unknown whether protection was used.
+  unknown,
+}
+
 // endregion
 
 // region Health Records
@@ -621,6 +681,9 @@ enum HealthDataTypeDto {
   /// Body temperature data.
   bodyTemperature,
 
+  /// Cervical mucus observation data.
+  cervicalMucus,
+
   /// Lean body mass data.
   leanBodyMass,
 
@@ -632,6 +695,9 @@ enum HealthDataTypeDto {
 
   /// Heart rate series record data.
   heartRateSeriesRecord,
+
+  /// Sexual activity data.
+  sexualActivity,
 
   /// Sleep session data.
   sleepSession,
@@ -1159,6 +1225,36 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 }
 
+/// Represents a cervical mucus observation record for platform transfer.
+class CervicalMucusRecordDto extends HealthRecordDto {
+  CervicalMucusRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.appearance,
+    required this.sensation,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Observation time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Timezone offset in seconds for observation time (optional).
+  final int? zoneOffsetSeconds;
+
+  /// Cervical mucus appearance (optional).
+  final CervicalMucusAppearanceTypeDto appearance;
+
+  /// Cervical mucus sensation (optional).
+  final CervicalMucusSensationTypeDto sensation;
+}
+
 /// Represents a hydration (water intake) record for platform transfer.
 class HydrationRecordDto extends HealthRecordDto {
   HydrationRecordDto({
@@ -1394,6 +1490,32 @@ class SleepSessionRecordDto extends HealthRecordDto {
   final String? title;
   final String? notes;
   final List<SleepStageDto> stages;
+}
+
+/// Represents a sexual activity record for platform transfer.
+class SexualActivityRecordDto extends HealthRecordDto {
+  SexualActivityRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.protectionUsed,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+
+  /// Whether protection was used (optional).
+  final SexualActivityProtectionUsedTypeDto protectionUsed;
 }
 
 /// Represents an exercise session record for platform transfer.

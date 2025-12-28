@@ -65,6 +65,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       BloodGlucoseRecord() => HealthDataType.bloodGlucose,
       BodyFatPercentageRecord() => HealthDataType.bodyFatPercentage,
       BodyTemperatureRecord() => HealthDataType.bodyTemperature,
+      CervicalMucusRecord() => HealthDataType.cervicalMucus,
       ActiveCaloriesBurnedRecord() => HealthDataType.activeCaloriesBurned,
       ExerciseSessionRecord() => HealthDataType.exerciseSession,
       FloorsClimbedRecord() => HealthDataType.floorsClimbed,
@@ -84,6 +85,9 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       // Sleep records
       SleepSessionRecord() => HealthDataType.sleepSession,
       SleepStageRecord() => HealthDataType.sleepStageRecord,
+
+      // Sexual activity
+      SexualActivityRecord() => HealthDataType.sexualActivity,
 
       // Mindfulness records
       MindfulnessSessionRecord() => HealthDataType.mindfulnessSession,

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart' hide Velocity;
 import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
+import 'package:health_connector_toolbox/src/common/utils/extensions/cervical_mucus_appearance_extension.dart';
+import 'package:health_connector_toolbox/src/common/utils/extensions/cervical_mucus_sensation_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/exercise_type_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/meal_type_extension.dart';
+import 'package:health_connector_toolbox/src/common/utils/extensions/sexual_activity_protection_used_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/sleep_stage_type_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/mixins/process_operation_with_error_handler_page_state_mixin.dart';
 import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dart';
@@ -88,6 +91,10 @@ extension HealthDataTypeFormExtension on HealthDataType {
     RestingHeartRateHealthDataType() ||
     Vo2MaxHealthDataType() ||
     BloodGlucoseHealthDataType() ||
+    // Sexual activity (instant)
+    SexualActivityDataType() ||
+    // Cervical mucus (instant)
+    CervicalMucusDataType() ||
     // Speed types (instant)
     WalkingSpeedDataType() ||
     RunningSpeedDataType() ||
@@ -290,6 +297,16 @@ final class HealthRecordBuilder {
         time: startDateTime,
         breathsPerMin: value as Number,
         metadata: metadata,
+      ),
+      SexualActivityDataType() => SexualActivityRecord(
+        time: startDateTime,
+        metadata: metadata,
+        // protectionUsed defaults to null - needs specialized form
+      ),
+      CervicalMucusDataType() => CervicalMucusRecord(
+        time: startDateTime,
+        metadata: metadata,
+        // appearance and sensation default to null - needs specialized form
       ),
       BodyTemperatureHealthDataType() => BodyTemperatureRecord(
         time: startDateTime,
@@ -1201,6 +1218,14 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
   String? _exerciseTitle;
   String? _exerciseNotes;
 
+  // State for sexual activity
+  SexualActivityProtectionUsedType _protectionUsed =
+      SexualActivityProtectionUsedType.unknown;
+
+  // State for cervical mucus
+  CervicalMucusAppearanceType _appearance = CervicalMucusAppearanceType.unknown;
+  CervicalMucusSensationType _sensation = CervicalMucusSensationType.unknown;
+
   // State for mindfulness session
   MindfulnessSessionType? _mindfulnessSessionType;
   String? _mindfulnessTitle;
@@ -1403,6 +1428,12 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
       if (_value == null) {
         return;
       }
+    } else if (widget.dataType is SexualActivityDataType) {
+      // Sexual activity records are always valid (all fields are optional)
+      // No required validation needed
+    } else if (widget.dataType is CervicalMucusDataType) {
+      // Cervical mucus records are always valid (all fields are optional)
+      // No required validation needed
     } else {
       if (_value == null) {
         return;
@@ -1540,6 +1571,17 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
             title: _exerciseTitle?.isEmpty ?? true ? null : _exerciseTitle,
             notes: _exerciseNotes?.isEmpty ?? true ? null : _exerciseNotes,
           ),
+        SexualActivityDataType() => SexualActivityRecord(
+          time: startDateTime!,
+          metadata: metadata,
+          protectionUsed: _protectionUsed,
+        ),
+        CervicalMucusDataType() => CervicalMucusRecord(
+          time: startDateTime!,
+          metadata: metadata,
+          appearance: _appearance,
+          sensation: _sensation,
+        ),
         MindfulnessSessionDataType() =>
           HealthRecordBuilder.buildMindfulnessSession(
             startDateTime: startDateTime!,
@@ -1752,6 +1794,24 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
   void _onExerciseNotesChanged(String value) {
     setState(() {
       _exerciseNotes = value.isEmpty ? null : value;
+    });
+  }
+
+  void _onProtectionUsedChanged(SexualActivityProtectionUsedType? value) {
+    setState(() {
+      _protectionUsed = value ?? SexualActivityProtectionUsedType.unknown;
+    });
+  }
+
+  void _onAppearanceChanged(CervicalMucusAppearanceType? value) {
+    setState(() {
+      _appearance = value ?? CervicalMucusAppearanceType.unknown;
+    });
+  }
+
+  void _onSensationChanged(CervicalMucusSensationType? value) {
+    setState(() {
+      _sensation = value ?? CervicalMucusSensationType.unknown;
     });
   }
 
@@ -2009,6 +2069,36 @@ class _WriteHealthRecordFormPageState extends State<WriteHealthRecordFormPage>
                           ),
                           onChanged: _onMindfulnessNotesChanged,
                           maxLines: 3,
+                        ),
+                      ] else if (widget.dataType is SexualActivityDataType) ...[
+                        EnumDropdownFormField<SexualActivityProtectionUsedType>(
+                          labelText: AppTexts.protectionUsed,
+                          values: SexualActivityProtectionUsedType.values,
+                          value: _protectionUsed,
+                          onChanged: _onProtectionUsedChanged,
+                          displayNameBuilder: (type) => type.displayName,
+                          prefixIcon: AppIcons.favorite,
+                          hint: AppTexts.optional,
+                        ),
+                      ] else if (widget.dataType is CervicalMucusDataType) ...[
+                        EnumDropdownFormField<CervicalMucusAppearanceType>(
+                          labelText: AppTexts.appearance,
+                          values: CervicalMucusAppearanceType.values,
+                          value: _appearance,
+                          onChanged: _onAppearanceChanged,
+                          displayNameBuilder: (type) => type.displayName,
+                          prefixIcon: AppIcons.waterDrop,
+                          hint: AppTexts.optional,
+                        ),
+                        const SizedBox(height: 16),
+                        EnumDropdownFormField<CervicalMucusSensationType>(
+                          labelText: AppTexts.sensation,
+                          values: CervicalMucusSensationType.values,
+                          value: _sensation,
+                          onChanged: _onSensationChanged,
+                          displayNameBuilder: (type) => type.displayName,
+                          prefixIcon: AppIcons.waterDrop,
+                          hint: AppTexts.optional,
                         ),
                       ] else ...[
                         HealthRecordValueFormField(

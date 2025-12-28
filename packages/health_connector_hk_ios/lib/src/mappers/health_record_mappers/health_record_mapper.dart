@@ -5,6 +5,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BloodPressureRecord,
         BodyFatPercentageRecord,
         BodyTemperatureRecord,
+        CervicalMucusRecord,
         CaffeineNutrientRecord,
         CalciumNutrientRecord,
         CholesterolNutrientRecord,
@@ -38,6 +39,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         RiboflavinNutrientRecord,
         SaturatedFatNutrientRecord,
         SeleniumNutrientRecord,
+        SexualActivityRecord,
         SleepSessionRecord,
         SleepStageRecord,
         MindfulnessSessionRecord,
@@ -71,6 +73,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_fat_percentage_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_temperature_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/cervical_mucus_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/cycling_power_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/diastolic_blood_pressure_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/distance_activity_record_mappers.dart';
@@ -84,6 +87,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrit
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/oxygen_saturation_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/respiratory_rate_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/resting_heart_rate_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sexual_activity_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sleep_stage_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/speed_activity_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/mindfulness_session_record_mappers.dart';
@@ -99,6 +103,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         BloodPressureRecordDto,
         BodyFatPercentageRecordDto,
         BodyTemperatureRecordDto,
+        CervicalMucusRecordDto,
         CaffeineNutrientRecordDto,
         CalciumNutrientRecordDto,
         CholesterolNutrientRecordDto,
@@ -129,6 +134,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         RiboflavinNutrientRecordDto,
         SaturatedFatNutrientRecordDto,
         SeleniumNutrientRecordDto,
+        SexualActivityRecordDto,
         SleepStageRecordDto,
         MindfulnessSessionRecordDto,
         SodiumNutrientRecordDto,
@@ -223,12 +229,16 @@ extension HealthRecordToDto on HealthRecord {
         return BodyFatPercentageRecordToDto(record).toDto();
       case final BodyTemperatureRecord record:
         return BodyTemperatureRecordToDto(record).toDto();
+      case final CervicalMucusRecord record:
+        return CervicalMucusRecordToDto(record).toDto();
       case final HydrationRecord record:
         return HydrationRecordToDto(record).toDto();
       case final WheelchairPushesRecord record:
         return WheelchairPushesRecordToDto(record).toDto();
       case final HeartRateMeasurementRecord record:
         return HeartRateMeasurementRecordToDto(record).toDto();
+      case final SexualActivityRecord record:
+        return SexualActivityRecordToDto(record).toDto();
       case final SleepStageRecord record:
         return SleepStageRecordToDto(record).toDto();
       case final NutritionRecord record:
@@ -378,12 +388,16 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return BodyFatPercentageRecordDtoToDomain(dto).toDomain();
       case final BodyTemperatureRecordDto dto:
         return BodyTemperatureRecordDtoToDomain(dto).toDomain();
+      case final CervicalMucusRecordDto dto:
+        return CervicalMucusRecordDtoToDomain(dto).toDomain();
       case final HydrationRecordDto dto:
         return HydrationRecordDtoToDomain(dto).toDomain();
       case final WheelchairPushesRecordDto dto:
         return WheelchairPushesRecordDtoToDomain(dto).toDomain();
       case final HeartRateMeasurementRecordDto dto:
         return HeartRateMeasurementRecordDtoToDomain(dto).toDomain();
+      case final SexualActivityRecordDto dto:
+        return SexualActivityRecordDtoToDomain(dto).toDomain();
       case final SleepStageRecordDto dto:
         return SleepStageRecordDtoToDomain(dto).toDomain();
       case final OxygenSaturationRecordDto dto:

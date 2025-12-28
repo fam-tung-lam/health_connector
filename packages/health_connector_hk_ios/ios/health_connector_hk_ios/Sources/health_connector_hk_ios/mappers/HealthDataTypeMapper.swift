@@ -214,6 +214,10 @@ extension HealthDataTypeDto {
                     context: ["dataType": "stairDescentSpeed", "minimumIOSVersion": "16.0"]
                 )
             }
+        case .sexualActivity:
+            try HKCategoryType.make(from: .sexualActivity)
+        case .cervicalMucus:
+            try HKCategoryType.make(from: .cervicalMucusQuality)
         case .exerciseSession:
             HKObjectType.workoutType()
         case .mindfulnessSession:
