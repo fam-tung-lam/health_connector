@@ -44,7 +44,8 @@ enum MindfulnessSessionType {
 
   /// Movement-based mindfulness session.
   ///
-  /// Mindful movement practices such as walking meditation or gentle stretching.
+  /// Mindful movement practices such as walking meditation or gentle
+  /// stretching.
   movement,
 
   /// Unguided mindfulness session.

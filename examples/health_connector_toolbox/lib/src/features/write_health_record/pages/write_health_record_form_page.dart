@@ -6,6 +6,7 @@ import 'package:health_connector_toolbox/src/common/utils/extensions/cervical_mu
 import 'package:health_connector_toolbox/src/common/utils/extensions/cervical_mucus_sensation_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/exercise_type_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/meal_type_extension.dart';
+import 'package:health_connector_toolbox/src/common/utils/extensions/mindfulness_session_type_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/sexual_activity_protection_used_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/sleep_stage_type_extension.dart';
 import 'package:health_connector_toolbox/src/common/utils/mixins/process_operation_with_error_handler_page_state_mixin.dart';
@@ -15,7 +16,6 @@ import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart
 import 'package:health_connector_toolbox/src/common/widgets/pickers/date_time_picker_row.dart';
 import 'package:health_connector_toolbox/src/common/widgets/pickers/duration_picker_field.dart'
     show DurationPickerField;
-import 'package:health_connector_toolbox/src/common/utils/extensions/mindfulness_session_type_extension.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/models/nutrition_form_data.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/form_fields/blood_pressure_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/form_fields/enum_dropdown_form_field.dart';
