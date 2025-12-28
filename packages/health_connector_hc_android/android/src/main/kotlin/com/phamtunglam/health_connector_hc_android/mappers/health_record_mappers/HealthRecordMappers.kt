@@ -6,6 +6,7 @@ import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
+import androidx.health.connect.client.records.CervicalMucusRecord
 import androidx.health.connect.client.records.DistanceRecord
 import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.FloorsClimbedRecord
@@ -20,6 +21,7 @@ import androidx.health.connect.client.records.PowerRecord
 import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.RespiratoryRateRecord
 import androidx.health.connect.client.records.RestingHeartRateRecord
+import androidx.health.connect.client.records.SexualActivityRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.SpeedRecord
 import androidx.health.connect.client.records.StepsRecord
@@ -31,6 +33,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyFatPercentageRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyTemperatureRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.CervicalMucusRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DistanceRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ExerciseSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.FloorsClimbedRecordDto
@@ -46,6 +49,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.OxygenSaturationRecord
 import com.phamtunglam.health_connector_hc_android.pigeon.PowerSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RespiratoryRateRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RestingHeartRateRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.SexualActivityRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepsRecordDto
@@ -70,11 +74,13 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is HydrationRecordDto -> HealthDataTypeDto.HYDRATION
         is BodyFatPercentageRecordDto -> HealthDataTypeDto.BODY_FAT_PERCENTAGE
         is BodyTemperatureRecordDto -> HealthDataTypeDto.BODY_TEMPERATURE
+        is CervicalMucusRecordDto -> HealthDataTypeDto.CERVICAL_MUCUS
         is WeightRecordDto -> HealthDataTypeDto.WEIGHT
         is LeanBodyMassRecordDto -> HealthDataTypeDto.LEAN_BODY_MASS
         is WheelchairPushesRecordDto -> HealthDataTypeDto.WHEELCHAIR_PUSHES
         is HeartRateSeriesRecordDto -> HealthDataTypeDto.HEART_RATE_SERIES_RECORD
         is RestingHeartRateRecordDto -> HealthDataTypeDto.RESTING_HEART_RATE
+        is SexualActivityRecordDto -> HealthDataTypeDto.SEXUAL_ACTIVITY
         is SleepSessionRecordDto -> HealthDataTypeDto.SLEEP_SESSION
         is MindfulnessSessionRecordDto -> HealthDataTypeDto.MINDFULNESS_SESSION
         is SpeedSeriesRecordDto -> HealthDataTypeDto.SPEED_SERIES
@@ -104,11 +110,13 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is HydrationRecordDto -> toHealthConnect()
     is BodyFatPercentageRecordDto -> toHealthConnect()
     is BodyTemperatureRecordDto -> toHealthConnect()
+    is CervicalMucusRecordDto -> toHealthConnect()
     is WeightRecordDto -> toHealthConnect()
     is LeanBodyMassRecordDto -> toHealthConnect()
     is WheelchairPushesRecordDto -> toHealthConnect()
     is HeartRateSeriesRecordDto -> toHealthConnect()
     is RestingHeartRateRecordDto -> toHealthConnect()
+    is SexualActivityRecordDto -> toHealthConnect()
     is SleepSessionRecordDto -> toHealthConnect()
     is MindfulnessSessionRecordDto -> toHealthConnect()
     is SpeedSeriesRecordDto -> toHealthConnect()
@@ -144,11 +152,13 @@ internal fun Record.toDto(): HealthRecordDto = when (this) {
     is HydrationRecord -> toDto()
     is BodyFatRecord -> toDto()
     is BodyTemperatureRecord -> toDto()
+    is CervicalMucusRecord -> toDto()
     is WeightRecord -> toDto()
     is LeanBodyMassRecord -> toDto()
     is WheelchairPushesRecord -> toDto()
     is HeartRateRecord -> toDto()
     is RestingHeartRateRecord -> toDto()
+    is SexualActivityRecord -> toDto()
     is SleepSessionRecord -> toDto()
     is MindfulnessSessionRecord -> toDto()
     is SpeedRecord -> toDto()

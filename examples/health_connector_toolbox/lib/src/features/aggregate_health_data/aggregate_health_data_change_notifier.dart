@@ -36,6 +36,7 @@ import 'package:health_connector/health_connector_internal.dart'
         RestingHeartRateHealthDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
+        SexualActivityDataType,
         ExerciseSessionHealthDataType,
         MindfulnessSessionDataType,
         OxygenSaturationHealthDataType,
@@ -85,7 +86,8 @@ import 'package:health_connector/health_connector_internal.dart'
         BodyTemperatureHealthDataType,
         LeanBodyMassHealthDataType,
         NutritionHealthDataType,
-        SpeedSeriesDataType;
+        SpeedSeriesDataType,
+        CervicalMucusDataType;
 
 /// Manages state and operations for aggregating health data.
 ///
@@ -556,8 +558,14 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       NutritionHealthDataType() => throw UnsupportedError(
         'Nutrition does not support aggregation',
       ),
+      SexualActivityDataType() => throw UnsupportedError(
+        'Sexual activity does not support aggregation',
+      ),
       SpeedSeriesDataType() => throw UnsupportedError(
         'Speed series data type does not support aggregation',
+      ),
+      CervicalMucusDataType() => throw UnsupportedError(
+        'Cervical mucus does not support aggregation',
       ),
     };
   }

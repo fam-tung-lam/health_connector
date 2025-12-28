@@ -130,6 +130,10 @@ abstract class MeasurementUnitValueParser {
         'SleepStage is part of SleepSession, '
         'cannot be parsed from a single string input.',
       ),
+      SexualActivityDataType() => throw UnsupportedError(
+        'SexualActivity is a complex type with time and optional '
+        'protection info, cannot be parsed from a single string input.',
+      ),
       SpeedSeriesDataType() => throw UnsupportedError(
         'SpeedSeries is a time series data type, '
         'cannot be parsed from a single string input.',
@@ -145,6 +149,10 @@ abstract class MeasurementUnitValueParser {
       MindfulnessSessionDataType() => throw UnsupportedError(
         'MindfulnessSession is a complex type with session type and times, '
         'not a simple numeric value. Cannot parse.',
+      ),
+      CervicalMucusDataType() => throw UnsupportedError(
+        'CervicalMucus is a complex type with appearance and sensation, '
+        'cannot be parsed from a single string input.',
       ),
     };
   }

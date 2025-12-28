@@ -17,6 +17,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as BodyTemperatureRecordDto:
             return try dto.toHealthKit()
+        case let dto as CervicalMucusRecordDto:
+            return try dto.toHealthKit()
         case let dto as DiastolicBloodPressureRecordDto:
             return try dto.toHealthKit()
         case let dto as DistanceActivityRecordDto:
@@ -50,6 +52,8 @@ extension HealthRecordDto {
         case let dto as BloodPressureRecordDto:
             return try dto.toHealthKit()
         case let dto as NutritionRecordDto:
+            return try dto.toHealthKit()
+        case let dto as SexualActivityRecordDto:
             return try dto.toHealthKit()
         case let dto as SleepStageRecordDto:
             return try dto.toHealthKit()
@@ -106,6 +110,10 @@ extension HKCategorySample {
     /// - Throws: `HealthConnectorError.invalidArgument` if the sample cannot be converted
     func mapCategorySampleToDto(for type: HealthDataTypeDto) throws -> HealthRecordDto {
         switch type {
+        case .cervicalMucus:
+            try toCervicalMucusRecordDto()
+        case .sexualActivity:
+            try toSexualActivityRecordDto()
         case .sleepStageRecord:
             try toSleepStageRecordDto()
         case .mindfulnessSession:

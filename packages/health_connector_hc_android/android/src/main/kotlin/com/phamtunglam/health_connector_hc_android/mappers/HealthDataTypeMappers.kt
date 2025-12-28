@@ -6,6 +6,7 @@ import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
+import androidx.health.connect.client.records.CervicalMucusRecord
 import androidx.health.connect.client.records.DistanceRecord
 import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.FloorsClimbedRecord
@@ -20,6 +21,7 @@ import androidx.health.connect.client.records.PowerRecord
 import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.RespiratoryRateRecord
 import androidx.health.connect.client.records.RestingHeartRateRecord
+import androidx.health.connect.client.records.SexualActivityRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.SpeedRecord
 import androidx.health.connect.client.records.StepsRecord
@@ -46,10 +48,12 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
     HealthDataTypeDto.LEAN_BODY_MASS -> LeanBodyMassRecord::class
     HealthDataTypeDto.BODY_FAT_PERCENTAGE -> BodyFatRecord::class
     HealthDataTypeDto.BODY_TEMPERATURE -> BodyTemperatureRecord::class
+    HealthDataTypeDto.CERVICAL_MUCUS -> CervicalMucusRecord::class
     HealthDataTypeDto.STEPS -> StepsRecord::class
     HealthDataTypeDto.WEIGHT -> WeightRecord::class
     HealthDataTypeDto.WHEELCHAIR_PUSHES -> WheelchairPushesRecord::class
     HealthDataTypeDto.HEART_RATE_SERIES_RECORD -> HeartRateRecord::class
+    HealthDataTypeDto.SEXUAL_ACTIVITY -> SexualActivityRecord::class
     HealthDataTypeDto.SLEEP_SESSION -> SleepSessionRecord::class
     HealthDataTypeDto.RESTING_HEART_RATE -> RestingHeartRateRecord::class
     HealthDataTypeDto.BLOOD_PRESSURE -> BloodPressureRecord::class

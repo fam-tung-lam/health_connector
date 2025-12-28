@@ -3,6 +3,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ActiveCaloriesBurnedHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
+        CervicalMucusDataType,
         CrossCountrySkiingDistanceDataType,
         CyclingDistanceDataType,
         CyclingPowerDataType,
@@ -14,6 +15,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HeartRateMeasurementRecordHealthDataType,
         HeartRateSeriesRecordHealthDataType,
         HeightHealthDataType,
+        SexualActivityDataType,
         SleepSessionHealthDataType,
         SleepStageHealthDataType,
         MindfulnessSessionDataType,
@@ -106,6 +108,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.bodyFatPercentage;
       case HealthDataTypeDto.bodyTemperature:
         return HealthDataType.bodyTemperature;
+      case HealthDataTypeDto.cervicalMucus:
+        return HealthDataType.cervicalMucus;
       case HealthDataTypeDto.steps:
         return HealthDataType.steps;
       case HealthDataTypeDto.weight:
@@ -116,6 +120,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.heartRateMeasurementRecord;
       case HealthDataTypeDto.sleepStageRecord:
         return HealthDataType.sleepStageRecord;
+      case HealthDataTypeDto.sexualActivity:
+        return HealthDataType.sexualActivity;
       case HealthDataTypeDto.energyNutrient:
         return HealthDataType.energyNutrient;
       case HealthDataTypeDto.caffeine:
@@ -260,6 +266,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.bodyFatPercentage;
       case BodyTemperatureHealthDataType _:
         return HealthDataTypeDto.bodyTemperature;
+      case CervicalMucusDataType _:
+        return HealthDataTypeDto.cervicalMucus;
       case StepsHealthDataType _:
         return HealthDataTypeDto.steps;
       case WeightHealthDataType _:
@@ -270,6 +278,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.heartRateMeasurementRecord;
       case SleepStageHealthDataType _:
         return HealthDataTypeDto.sleepStageRecord;
+      case SexualActivityDataType _:
+        return HealthDataTypeDto.sexualActivity;
       case EnergyNutrientDataType _:
         return HealthDataTypeDto.energyNutrient;
       case CaffeineNutrientDataType _:

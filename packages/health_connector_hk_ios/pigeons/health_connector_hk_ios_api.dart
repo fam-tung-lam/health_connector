@@ -491,6 +491,70 @@ enum SleepStageTypeDto {
   inBed,
 }
 
+/// Cervical mucus appearance classification.
+///
+/// Maps to iOS HealthKit `HKCategoryValueCervicalMucusQuality` enum.
+///
+/// **iOS HealthKit Limitation**: Only `dry`, `sticky`, `creamy`, `watery`, and
+/// `eggWhite` are natively supported via `HKCategoryValueCervicalMucusQuality`.
+/// Values `unusual` and `unknown` require custom metadata handling in Swift.
+enum CervicalMucusAppearanceTypeDto {
+  /// Unknown appearance (custom metadata on iOS).
+  unknown,
+
+  /// Dry appearance.
+  dry,
+
+  /// Sticky appearance.
+  sticky,
+
+  /// Creamy appearance.
+  creamy,
+
+  /// Watery appearance.
+  watery,
+
+  /// Egg white appearance.
+  eggWhite,
+
+  /// Unusual appearance (custom metadata on iOS).
+  unusual,
+}
+
+/// Cervical mucus sensation classification.
+///
+/// **iOS HealthKit Limitation**: HealthKit's HKCategoryTypeIdentifier.
+/// cervicalMucusQuality only tracks appearance, not sensation.
+/// All sensation values require custom metadata handling in Swift.
+enum CervicalMucusSensationTypeDto {
+  /// Unknown sensation (custom metadata on iOS).
+  unknown,
+
+  /// Light sensation (custom metadata on iOS).
+  light,
+
+  /// Medium sensation (custom metadata on iOS).
+  medium,
+
+  /// Heavy sensation (custom metadata on iOS).
+  heavy,
+}
+
+/// Sexual activity protection used classification.
+///
+/// Maps to Android Health Connect SexualActivityRecord protection types
+/// and iOS HealthKit HKMetadataKeySexualActivityProtectionUsed metadata key.
+enum SexualActivityProtectionUsedTypeDto {
+  /// Protection was used.
+  protected,
+
+  /// Protection was not used.
+  unprotected,
+
+  /// Unknown whether protection was used.
+  unknown,
+}
+
 /// Represents the type of speed-based activity.
 ///
 /// Maps to different iOS HKQuantityTypeIdentifier values.
@@ -715,6 +779,9 @@ enum HealthDataTypeDto {
   /// Body temperature data.
   bodyTemperature,
 
+  /// Cervical mucus observation data.
+  cervicalMucus,
+
   /// Lean body mass data.
   leanBodyMass,
 
@@ -729,6 +796,9 @@ enum HealthDataTypeDto {
 
   /// Sleep stage record data (iOS HealthKit).
   sleepStageRecord,
+
+  /// Sexual activity data.
+  sexualActivity,
 
   // SPEED TYPES (4)
   /// Walking speed data.
@@ -1480,6 +1550,47 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 }
 
+/// Represents a cervical mucus observation record for platform transfer.
+///
+/// Maps to iOS HealthKit HKCategoryTypeIdentifier.cervicalMucusQuality.
+///
+/// **iOS Platform Limitations:**
+/// - `appearance`: Only `dry`, `sticky`, `creamy`, `watery`, `eggWhite`
+///   use native HKCategoryValueCervicalMucusQuality mapping. Values `unusual`
+///   and `unknown` require custom metadata handling in Swift.
+/// - `sensation`: Not natively supported by iOS HealthKit. All sensation
+///   values require custom metadata handling in Swift.
+class CervicalMucusRecordDto extends HealthRecordDto {
+  CervicalMucusRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.appearance,
+    required this.sensation,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Observation time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Timezone offset in seconds for observation time (optional).
+  final int? zoneOffsetSeconds;
+
+  /// Cervical mucus appearance.
+  /// Values `unusual` and `unknown` use custom metadata on iOS.
+  final CervicalMucusAppearanceTypeDto appearance;
+
+  /// Cervical mucus sensation.
+  /// All values use custom metadata on iOS (HealthKit limitation).
+  final CervicalMucusSensationTypeDto sensation;
+}
+
 /// DTO for cycling power health data.
 class CyclingPowerRecordDto extends HealthRecordDto {
   CyclingPowerRecordDto({
@@ -1668,6 +1779,32 @@ class SleepStageRecordDto extends HealthRecordDto {
 
   /// Timezone offset in seconds for end time (optional).
   final int? endZoneOffsetSeconds;
+}
+
+/// Represents a sexual activity record for platform transfer.
+class SexualActivityRecordDto extends HealthRecordDto {
+  SexualActivityRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.protectionUsed,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Timezone offset in seconds (optional).
+  final int? zoneOffsetSeconds;
+
+  /// Whether protection was used (optional).
+  final SexualActivityProtectionUsedTypeDto protectionUsed;
 }
 
 /// Represents energy nutrient data for platform transfer.
