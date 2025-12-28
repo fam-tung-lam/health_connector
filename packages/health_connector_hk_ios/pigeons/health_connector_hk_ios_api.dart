@@ -694,9 +694,6 @@ enum ExerciseTypeDto {
 /// Mindfulness session type classification.
 ///
 /// Maps to Android Health Connect MindfulnessSessionRecord session type.
-///
-/// Note: iOS HealthKit only supports generic HKCategoryTypeIdentifier.mindfulSession.
-/// Session types are stored in custom metadata when writing to HealthKit.
 enum MindfulnessSessionTypeDto {
   /// Unknown or unspecified session type.
   unknown,
