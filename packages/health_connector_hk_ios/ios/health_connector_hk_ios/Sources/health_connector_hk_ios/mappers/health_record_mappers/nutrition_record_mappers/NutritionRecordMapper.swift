@@ -1,10 +1,10 @@
 import Foundation
 import HealthKit
 
-private enum NutritionMetadataKeys {
-    static let mealType = "com.phamtunglam.health_connector.meal_type"
-}
+// MARK: - Custom Metadata Keys
 
+private let nutritionMealTypeMetadataKey =
+    "\(hkMetadataKeyPrefix)meal_type"
 extension HKCorrelation {
     /// Converts this food correlation to NutritionRecordDto
     ///
@@ -81,7 +81,7 @@ extension HKCorrelation {
     /// Extracts energy value from contained samples
     private func extractEnergy() -> EnergyDto? {
         guard let energyType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed),
-              let sample = objects(for: energyType).first as? HKQuantitySample
+            let sample = objects(for: energyType).first as? HKQuantitySample
         else {
             return nil
         }
@@ -91,7 +91,7 @@ extension HKCorrelation {
     /// Extracts mass value for a specific nutrient type from contained samples
     private func extractMass(for identifier: HKQuantityTypeIdentifier) -> MassDto? {
         guard let quantityType = HKQuantityType.quantityType(forIdentifier: identifier),
-              let sample = objects(for: quantityType).first as? HKQuantitySample
+            let sample = objects(for: quantityType).first as? HKQuantitySample
         else {
             return nil
         }
@@ -226,7 +226,7 @@ extension NutritionRecordDto {
             hkMetadata[HKMetadataKeyFoodType] = foodName
         }
         if let mealType {
-            hkMetadata[NutritionMetadataKeys.mealType] = mealType.toString()
+            hkMetadata[nutritionMealTypeMetadataKey] = mealType.toString()
         }
 
         return HKCorrelation(
@@ -273,7 +273,7 @@ extension NutritionRecordDto {
         end: Date
     ) {
         guard let dto,
-              let sample = createEnergySample(dto, start: start, end: end)
+            let sample = createEnergySample(dto, start: start, end: end)
         else {
             return
         }
@@ -289,7 +289,7 @@ extension NutritionRecordDto {
         end: Date
     ) {
         guard let dto,
-              let sample = createMassSample(type, dto, start: start, end: end)
+            let sample = createMassSample(type, dto, start: start, end: end)
         else {
             return
         }

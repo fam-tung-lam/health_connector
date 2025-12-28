@@ -3,13 +3,13 @@ import HealthKit
 
 // MARK: - Constants
 
-private enum SessionTypeValue {
-    static let unknown = "unknown"
-    static let meditation = "meditation"
-    static let breathing = "breathing"
-    static let music = "music"
-    static let movement = "movement"
-    static let unguided = "unguided"
+private enum SessionTypeValue: String {
+    case unknown
+    case meditation
+    case breathing
+    case music
+    case movement
+    case unguided
 }
 
 // MARK: - MindfulnessSessionType Mapper
@@ -22,17 +22,17 @@ extension MindfulnessSessionTypeDto {
     func toMetadataValue() -> String {
         switch self {
         case .unknown:
-            SessionTypeValue.unknown
+            SessionTypeValue.unknown.rawValue
         case .meditation:
-            SessionTypeValue.meditation
+            SessionTypeValue.meditation.rawValue
         case .breathing:
-            SessionTypeValue.breathing
+            SessionTypeValue.breathing.rawValue
         case .music:
-            SessionTypeValue.music
+            SessionTypeValue.music.rawValue
         case .movement:
-            SessionTypeValue.movement
+            SessionTypeValue.movement.rawValue
         case .unguided:
-            SessionTypeValue.unguided
+            SessionTypeValue.unguided.rawValue
         }
     }
 }
@@ -41,15 +41,15 @@ extension String {
     /// Converts a metadata string value back to a session type DTO.
     func toMindfulnessSessionTypeDto() -> MindfulnessSessionTypeDto {
         switch self {
-        case SessionTypeValue.meditation:
+        case SessionTypeValue.meditation.rawValue:
             .meditation
-        case SessionTypeValue.breathing:
+        case SessionTypeValue.breathing.rawValue:
             .breathing
-        case SessionTypeValue.music:
+        case SessionTypeValue.music.rawValue:
             .music
-        case SessionTypeValue.movement:
+        case SessionTypeValue.movement.rawValue:
             .movement
-        case SessionTypeValue.unguided:
+        case SessionTypeValue.unguided.rawValue:
             .unguided
         default:
             .unknown
@@ -60,7 +60,12 @@ extension String {
 // MARK: - MindfulnessSessionRecord Mapper
 
 /// Metadata key used to store the session type in HealthKit.
-private let kSessionTypeMetadataKey = "health_connector_session_type"
+private let kSessionTypeMetadataKey =
+    "\(hkMetadataKeyPrefix)session_type"
+
+/// Metadata key used to store session notes in HealthKit.
+private let kSessionNotesMetadataKey =
+    "\(hkMetadataKeyPrefix)session_notes"
 
 extension MindfulnessSessionRecordDto {
     /// Converts the DTO to an HKCategorySample for writing to HealthKit.
@@ -88,7 +93,7 @@ extension MindfulnessSessionRecordDto {
 
         // Store notes if present (using a custom key since there's no standard one)
         if let notes {
-            metadataDict["health_connector_notes"] = notes
+            metadataDict[kSessionNotesMetadataKey] = notes
         }
 
         return HKCategorySample(
@@ -124,7 +129,7 @@ extension HKCategorySample {
         let title = metadata?[HKMetadataKeyExternalUUID] as? String
 
         // Retrieve notes from metadata
-        let notes = metadata?["health_connector_notes"] as? String
+        let notes = metadata?[kSessionNotesMetadataKey] as? String
 
         // Extract metadata dictionary and convert to DTO
         let metadataDict = metadata ?? [:]

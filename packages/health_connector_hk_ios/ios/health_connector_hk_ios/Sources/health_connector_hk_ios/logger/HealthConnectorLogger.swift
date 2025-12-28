@@ -8,8 +8,6 @@ import OSLog
 /// Uses `NSLock` to protect the `isEnabled` flag for thread-safe access across concurrency domains.
 /// NSLock is used instead of Mutex for iOS 15+ compatibility (Mutex requires iOS 18+).
 enum HealthConnectorLogger {
-    /// OSLog subsystem identifier for Health Connector iOS plugin.
-    private static let subsystem = "com.phamtunglam.health_connector_hk_ios"
 
     /// Lock for thread-safe access to _isEnabled
     private static let lock = NSLock()
@@ -272,7 +270,7 @@ enum HealthConnectorLogger {
         let formattedMessage = "[\(formattedDateTime)][\(levelName)]: \n\(structuredMessage)"
 
         let uppercaseTag = tag.uppercased()
-        let logger = Logger(subsystem: subsystem, category: uppercaseTag)
+        let logger = Logger(subsystem: healthConnectorIdentifier, category: uppercaseTag)
 
         // Use OSLog with appropriate level
         switch level {

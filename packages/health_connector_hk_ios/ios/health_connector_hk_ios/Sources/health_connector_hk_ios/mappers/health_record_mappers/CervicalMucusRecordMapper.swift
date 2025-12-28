@@ -19,7 +19,7 @@ import HealthKit
 /// - On read, custom metadata takes priority over native HealthKit values to ensure
 ///   we always retrieve the correct appearance type
 private let cervicalMucusAppearanceTypeMetadataKey =
-    "com.phamtunglam.health_connector_hk_ios.hk_metadata_key_cervical_mucus_appearance_type"
+    "\(hkMetadataKeyPrefix)cervical_mucus_appearance_type"
 
 /// Custom metadata key for storing cervical mucus sensation type as a string.
 ///
@@ -33,7 +33,7 @@ private let cervicalMucusAppearanceTypeMetadataKey =
 /// - All sensation values are stored as strings in this metadata key
 /// - On read, we parse the string back to the DTO enum, defaulting to `.unknown` if absent
 private let cervicalMucusSensationTypeMetadataKey =
-    "com.phamtunglam.health_connector_hk_ios.hk_metadata_key_cervical_mucus_sensation_type"
+    "\(hkMetadataKeyPrefix)cervical_mucus_sensation_type"
 
 // MARK: - Raw String Value Enums
 
@@ -282,7 +282,7 @@ extension CervicalMucusRecordDto {
         }
 
         let startDate = Date(timeIntervalSince1970: TimeInterval(time) / 1000)
-        let endDate = startDate // Cervical mucus is an instant observation, not a duration
+        let endDate = startDate  // Cervical mucus is an instant observation, not a duration
 
         var hkMetadata = metadata.toHealthKitMetadata()
 
@@ -302,7 +302,7 @@ extension CervicalMucusRecordDto {
         // so this native value primarily serves compatibility with non-SDK apps.
         let appearanceHealthKitRawValue: Int =
             appearance.toHealthKit()?.rawValue
-                ?? HKCategoryValueCervicalMucusQuality.dry.rawValue
+            ?? HKCategoryValueCervicalMucusQuality.dry.rawValue
 
         return HKCategorySample(
             type: categoryType,

@@ -1,20 +1,21 @@
 import Foundation
 import HealthKit
 
-private extension String {
-    static let foodNameKey = "com.phamtunglam.health_connector.food_name"
-    static let mealTypeKey = "com.phamtunglam.health_connector.meal_type"
-}
+// MARK: - Custom Metadata Keys
 
+private let nutrientFoodNameMetadataKey =
+    "\(hkMetadataKeyPrefix)food_name"
+private let nutrientMealTypeMetadataKey =
+    "\(hkMetadataKeyPrefix)meal_type"
 extension [String: Any] {
     /// Extracts food name from HealthKit metadata.
     func extractFoodName() -> String? {
-        self[.foodNameKey] as? String
+        self[nutrientFoodNameMetadataKey] as? String
     }
 
     /// Extracts meal type from HealthKit metadata.
     func extractMealType() -> MealTypeDto? {
-        guard let mealTypeString = self[.mealTypeKey] as? String else {
+        guard let mealTypeString = self[nutrientMealTypeMetadataKey] as? String else {
             return nil
         }
         return MealTypeDto.fromString(mealTypeString)
@@ -32,10 +33,10 @@ extension MetadataDto {
 
         // Add nutrient-specific metadata
         if let foodName {
-            metadata[.foodNameKey] = foodName
+            metadata[nutrientFoodNameMetadataKey] = foodName
         }
         if let mealType {
-            metadata[.mealTypeKey] = mealType.toString()
+            metadata[nutrientMealTypeMetadataKey] = mealType.toString()
         }
 
         return metadata
