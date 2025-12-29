@@ -10,13 +10,19 @@ extension CyclingPowerRecordDto {
             let quantity = try power.toHealthKit()
             let date = Date(millisecondsSince1970: time)
 
+            // Create builder with timezone offset
+            var builder = try MetadataBuilder(
+                from: metadata,
+                startTimeZoneOffset: zoneOffsetSeconds
+            )
+
             return HKQuantitySample(
                 type: type,
                 quantity: quantity,
                 start: date,
                 end: date, // Instant records have same start and end
-                device: metadata.toHealthKitDevice(),
-                metadata: metadata.toHealthKitMetadata()
+                device: builder.healthDevice,
+                metadata: builder.metadataDict
             )
         } else {
             throw HealthConnectorError.unsupportedOperation(
@@ -43,15 +49,19 @@ extension HKQuantitySample {
                 )
             }
 
-            let metadataDict = metadata ?? [:]
-            let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+            // Create builder from HK metadata with source and device
+            var builder = MetadataBuilder(
+                fromHKMetadata: metadata ?? [:],
+                source: sourceRevision.source,
+                device: device
+            )
+
+            // Extract timezone offset from metadata
+            let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
 
             return try CyclingPowerRecordDto(
                 id: uuid.uuidString,
-                metadata: metadataDict.toMetadataDto(
-                    source: sourceRevision.source,
-                    device: device
-                ),
+                metadata: builder.toMetadataDto(),
                 time: startDate.millisecondsSince1970,
                 power: quantity.toPowerDto(),
                 zoneOffsetSeconds: zoneOffset

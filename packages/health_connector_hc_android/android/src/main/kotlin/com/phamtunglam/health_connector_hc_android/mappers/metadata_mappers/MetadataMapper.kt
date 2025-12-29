@@ -2,6 +2,7 @@ package com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers
 
 import androidx.health.connect.client.records.metadata.Device
 import androidx.health.connect.client.records.metadata.Metadata
+import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 
@@ -15,31 +16,21 @@ import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
  * @param id Optional Health Connect record ID for update operations.
  */
 internal fun MetadataDto.toHealthConnect(id: String? = null): Metadata {
-    val device = if (deviceType != null || deviceManufacturer != null || deviceModel != null) {
-        Device(
-            manufacturer = deviceManufacturer,
-            model = deviceModel,
-            type = deviceType?.toHealthConnect() ?: Device.TYPE_UNKNOWN,
-        )
-    } else {
-        null
-    }
+    val device = Device(
+        manufacturer = deviceManufacturer,
+        model = deviceModel,
+        type = deviceType.toHealthConnect(),
+    )
     val clientRecordVersion = clientRecordVersion ?: 0L
 
     // If ID is provided, we're updating an existing record - use WithId factory methods
     if (id != null) {
         return when (recordingMethod) {
             RecordingMethodDto.ACTIVELY_RECORDED -> {
-                requireNotNull(device) {
-                    "Device must be specified when using ACTIVELY_RECORDED recording method"
-                }
                 Metadata.activelyRecordedWithId(id, device)
             }
 
             RecordingMethodDto.AUTOMATICALLY_RECORDED -> {
-                requireNotNull(device) {
-                    "Device must be specified when using AUTOMATICALLY_RECORDED recording method"
-                }
                 Metadata.autoRecordedWithId(id, device)
             }
 
@@ -56,9 +47,6 @@ internal fun MetadataDto.toHealthConnect(id: String? = null): Metadata {
     // No ID provided - creating a new record
     return when (recordingMethod) {
         RecordingMethodDto.ACTIVELY_RECORDED -> {
-            requireNotNull(device) {
-                "Device must be specified when using ACTIVELY_RECORDED recording method"
-            }
             if (clientRecordId != null) {
                 Metadata.activelyRecorded(device, clientRecordId, clientRecordVersion)
             } else {
@@ -67,9 +55,6 @@ internal fun MetadataDto.toHealthConnect(id: String? = null): Metadata {
         }
 
         RecordingMethodDto.AUTOMATICALLY_RECORDED -> {
-            requireNotNull(device) {
-                "Device must be specified when using AUTOMATICALLY_RECORDED recording method"
-            }
             if (clientRecordId != null) {
                 Metadata.autoRecorded(device, clientRecordId, clientRecordVersion)
             } else {
@@ -104,7 +89,7 @@ internal fun Metadata.toDto(): MetadataDto = MetadataDto(
     lastModifiedTime = lastModifiedTime.toEpochMilli(),
     clientRecordId = clientRecordId,
     clientRecordVersion = clientRecordVersion,
-    deviceType = device?.type?.toDeviceTypeDto(),
+    deviceType = device?.type?.toDeviceTypeDto() ?: DeviceTypeDto.UNKNOWN,
     deviceManufacturer = device?.manufacturer,
     deviceModel = device?.model,
 )

@@ -9,13 +9,19 @@ extension BodyFatPercentageRecordDto {
         let quantity = percentage.toHealthKit()
         let date = Date(millisecondsSince1970: time)
 
+        // Create builder with timezone offset
+        var builder = try MetadataBuilder(
+            from: metadata,
+            startTimeZoneOffset: zoneOffsetSeconds
+        )
+
         return HKQuantitySample(
             type: type,
             quantity: quantity,
             start: date,
             end: date, // Instant records have same start and end
-            device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            device: builder.healthDevice,
+            metadata: builder.metadataDict
         )
     }
 }
@@ -27,7 +33,8 @@ extension HKQuantitySample {
     func toBodyFatPercentageRecordDto() throws -> BodyFatPercentageRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bodyFatPercentage.rawValue else {
             throw HealthConnectorError.invalidArgument(
-                message: "Expected body fat percentage quantity type, got \(quantityType.identifier)",
+                message:
+                "Expected body fat percentage quantity type, got \(quantityType.identifier)",
                 context: [
                     "expected": HKQuantityTypeIdentifier.bodyFatPercentage.rawValue,
                     "actual": quantityType.identifier,
@@ -35,15 +42,19 @@ extension HKQuantitySample {
             )
         }
 
-        let metadataDict = metadata ?? [:]
-        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        // Create builder from HK metadata with source and device
+        var builder = MetadataBuilder(
+            fromHKMetadata: metadata ?? [:],
+            source: sourceRevision.source,
+            device: device
+        )
 
-        return BodyFatPercentageRecordDto(
+        // Extract timezone offset from metadata
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+
+        return try BodyFatPercentageRecordDto(
             id: uuid.uuidString,
-            metadata: metadataDict.toMetadataDto(
-                source: sourceRevision.source,
-                device: device
-            ),
+            metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
             percentage: quantity.toPercentageDto(),
             zoneOffsetSeconds: zoneOffset

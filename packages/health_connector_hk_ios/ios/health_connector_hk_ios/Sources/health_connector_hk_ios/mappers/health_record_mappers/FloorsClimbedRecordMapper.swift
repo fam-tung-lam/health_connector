@@ -10,13 +10,19 @@ extension FloorsClimbedRecordDto {
         let startDate = Date(millisecondsSince1970: startTime)
         let endDate = Date(millisecondsSince1970: endTime)
 
+        // Create builder with timezone offset
+        var builder = try MetadataBuilder(
+            from: metadata,
+            startTimeZoneOffset: zoneOffsetSeconds
+        )
+
         return HKQuantitySample(
             type: type,
             quantity: quantity,
             start: startDate,
             end: endDate,
-            device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata(timeZone: TimeZone.current)
+            device: builder.healthDevice,
+            metadata: builder.metadataDict
         )
     }
 }
@@ -37,17 +43,21 @@ extension HKQuantitySample {
         }
 
         let floorsClimbed = quantity.doubleValue(for: HKUnit.count())
-        let metadataDict = metadata ?? [:]
-        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        // Create builder from HK metadata with source and device
+        var builder = MetadataBuilder(
+            fromHKMetadata: metadata ?? [:],
+            source: sourceRevision.source,
+            device: device
+        )
 
-        return FloorsClimbedRecordDto(
+        // Extract timezone offset from metadata
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+
+        return try FloorsClimbedRecordDto(
             floors: NumberDto(value: floorsClimbed),
             endTime: endDate.millisecondsSince1970,
             id: uuid.uuidString,
-            metadata: metadataDict.toMetadataDto(
-                source: sourceRevision.source,
-                device: device
-            ),
+            metadata: builder.toMetadataDto(),
             startTime: startDate.millisecondsSince1970,
             zoneOffsetSeconds: zoneOffset
         )

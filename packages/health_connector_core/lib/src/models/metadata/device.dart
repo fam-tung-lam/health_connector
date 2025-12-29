@@ -66,38 +66,24 @@ final class Device {
       udiDeviceIdentifier = null;
 
   /// The type of device (watch, phone, scale, etc.).
-  ///
-  /// **Platform:** Android Health Connect Only (Android Health Connect).
-  /// On iOS [type] is always [DeviceType.unknown].
   final DeviceType type;
 
   /// The name of the device.
   ///
   /// Examples: "Apple Watch", "My Fitness Tracker", "iPhone"
   ///
-  /// **Platform support:**
-  /// - **iOS HealthKit:** Supported via `HKDevice.name`
-  ///   and `HKMetadataKeyDeviceName`
-  /// - **Android Health Connect:** Not supported
-  ///
   /// **Fallback behavior:** If `name` is `null`, the `model` value will be
   /// used as the device name when writing to HealthKit and Health Connect SDKs.
-  ///
-  /// May be `null` if device name information is unavailable.
   final String? name;
 
   /// The manufacturer or brand of the device.
   ///
   /// Examples: "Apple", "Samsung", "Fitbit", "Withings"
-  ///
-  /// May be `null` if manufacturer information is unavailable.
   final String? manufacturer;
 
   /// The specific model of the device.
   ///
   /// Examples: "iPhone 15 Pro", "Galaxy Watch 6", "Pixel 8"
-  ///
-  /// May be `null` if model information is unavailable.
   final String? model;
 
   /// The hardware version of the device.
@@ -107,8 +93,6 @@ final class Device {
   /// **Platform support:**
   /// - **iOS HealthKit:** Supported via `HKDevice.hardwareVersion`
   /// - **Android Health Connect:** Not supported
-  ///
-  /// May be `null` if hardware version information is unavailable.
   final String? hardwareVersion;
 
   /// The firmware version of the device.
@@ -118,8 +102,6 @@ final class Device {
   /// **Platform support:**
   /// - **iOS HealthKit:** Supported via `HKDevice.firmwareVersion`
   /// - **Android Health Connect:** Not supported
-  ///
-  /// May be `null` if firmware version information is unavailable.
   final String? firmwareVersion;
 
   /// The software version of the device.
@@ -129,8 +111,6 @@ final class Device {
   /// **Platform support:**
   /// - **iOS HealthKit:** Supported via `HKDevice.softwareVersion`
   /// - **Android Health Connect:** Not supported
-  ///
-  /// May be `null` if software version information is unavailable.
   final String? softwareVersion;
 
   /// A local identifier for the device.
@@ -141,8 +121,6 @@ final class Device {
   /// **Platform support:**
   /// - **iOS HealthKit:** Supported via `HKDevice.localIdentifier`
   /// - **Android Health Connect:** Not supported
-  ///
-  /// May be `null` if local identifier information is unavailable.
   final String? localIdentifier;
 
   /// The UDI (Unique Device Identifier) for the device.
@@ -153,8 +131,6 @@ final class Device {
   /// **Platform support:**
   /// - **iOS HealthKit:** Supported via `HKDevice.udiDeviceIdentifier`
   /// - **Android Health Connect:** Not supported
-  ///
-  /// May be `null` if UDI information is unavailable.
   final String? udiDeviceIdentifier;
 
   @override
@@ -226,21 +202,6 @@ final class Device {
 }
 
 /// The type of device that recorded the health data.
-///
-/// ## Platform Support
-///
-/// ### Android Health Connect
-/// - All device types are supported
-/// - See: https://developer.android.com/reference/android/health/connect/client
-/// /records/metadata/Device
-///
-/// ### iOS HealthKit
-/// - Device type is not directly supported by HealthKit
-/// - The plugin infers device type from device name or
-///   model string values using heuristics:
-/// - Common patterns: "watch" → watch, "phone"/"iphone" → phone, "scale" →
-/// scale, etc.
-///   - If no pattern matches, defaults to [unknown]
 @sinceV1_0_0
 enum DeviceType {
   /// Device type is unknown or cannot be determined.

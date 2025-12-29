@@ -12,10 +12,16 @@ extension Vo2MaxRecordDto {
         let quantity = HKQuantity(unit: unit, doubleValue: mLPerKgPerMin.value)
         let date = Date(millisecondsSince1970: time)
 
-        var metadataDict = metadata.toHealthKitMetadata() ?? [:]
+        // Create builder with timezone offset
+        var builder = try MetadataBuilder(
+            from: metadata,
+            startTimeZoneOffset: zoneOffsetSeconds
+        )
 
         if let testType {
-            metadataDict[HKMetadataKeyVO2MaxTestType] = testType.toHealthKitValue()
+            builder.set(
+                standardKey: HKMetadataKeyVO2MaxTestType, value: testType.toHealthKitValue()
+            )
         }
 
         return HKQuantitySample(
@@ -23,8 +29,8 @@ extension Vo2MaxRecordDto {
             quantity: quantity,
             start: date,
             end: date, // Instant records have same start and end
-            device: metadata.toHealthKitDevice(),
-            metadata: metadataDict
+            device: builder.healthDevice,
+            metadata: builder.metadataDict
         )
     }
 }
@@ -44,24 +50,28 @@ extension HKQuantitySample {
             )
         }
 
-        let metadataDict = metadata ?? [:]
-        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        // Create builder from HK metadata with source and device
+        var builder = MetadataBuilder(
+            fromHKMetadata: metadata ?? [:],
+            source: sourceRevision.source,
+            device: device
+        )
+
+        // Extract timezone offset from metadata
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
         let unit = HKUnit.literUnit(with: .milli)
             .unitDivided(by: HKUnit.gramUnit(with: .kilo).unitMultiplied(by: .minute()))
         let value = quantity.doubleValue(for: unit)
 
         var testTypeDto: Vo2MaxTestTypeDto?
-        if let testTypeRaw = metadataDict[HKMetadataKeyVO2MaxTestType] as? Int {
+        if let testTypeRaw = builder.metadataDict[HKMetadataKeyVO2MaxTestType] as? Int {
             testTypeDto = Vo2MaxTestTypeDto.fromHealthKitValue(testTypeRaw)
         }
 
-        return Vo2MaxRecordDto(
+        return try Vo2MaxRecordDto(
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
-            metadata: metadataDict.toMetadataDto(
-                source: sourceRevision.source,
-                device: device
-            ),
+            metadata: builder.toMetadataDto(),
             mLPerKgPerMin: NumberDto(value: value),
             testType: testTypeDto,
             zoneOffsetSeconds: zoneOffset

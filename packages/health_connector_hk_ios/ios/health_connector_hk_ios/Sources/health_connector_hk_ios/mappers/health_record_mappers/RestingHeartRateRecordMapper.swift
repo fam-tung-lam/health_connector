@@ -12,13 +12,19 @@ extension RestingHeartRateRecordDto {
         let quantity = HKQuantity(unit: bpmUnit, doubleValue: beatsPerMinute.toDouble())
         let date = Date(millisecondsSince1970: time)
 
+        // Create builder with timezone offset
+        var builder = try MetadataBuilder(
+            from: metadata,
+            startTimeZoneOffset: zoneOffsetSeconds
+        )
+
         return HKQuantitySample(
             type: type,
             quantity: quantity,
             start: date,
             end: date, // Instant records have same start and end
-            device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            device: builder.healthDevice,
+            metadata: builder.metadataDict
         )
     }
 }
@@ -39,19 +45,23 @@ extension HKQuantitySample {
             )
         }
 
-        let metadataDict = metadata ?? [:]
-        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        // Create builder from HK metadata with source and device
+        var builder = MetadataBuilder(
+            fromHKMetadata: metadata ?? [:],
+            source: sourceRevision.source,
+            device: device
+        )
+
+        // Extract timezone offset from metadata
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
 
         let bpmUnit = HKUnit.count().unitDivided(by: .minute())
         let beatsPerMinute = quantity.doubleValue(for: bpmUnit)
 
-        return RestingHeartRateRecordDto(
+        return try RestingHeartRateRecordDto(
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
-            metadata: metadataDict.toMetadataDto(
-                source: sourceRevision.source,
-                device: device
-            ),
+            metadata: builder.toMetadataDto(),
             beatsPerMinute: NumberDto(value: beatsPerMinute),
             zoneOffsetSeconds: zoneOffset
         )

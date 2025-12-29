@@ -1288,8 +1288,10 @@ data class MetadataDto (
   val clientRecordVersion: Long? = null,
   /** The package name of the source app that wrote this health record. */
   val dataOrigin: String,
-  /** The type of device that recorded the data (optional). */
-  val deviceType: DeviceTypeDto? = null,
+  /** The type of device that recorded the data. */
+  val deviceType: DeviceTypeDto,
+  /** The method used to record this data. */
+  val recordingMethod: RecordingMethodDto,
   /** The manufacturer of the device that recorded the data (optional). */
   val deviceManufacturer: String? = null,
   /** The model of the device that recorded the data (optional). */
@@ -1300,9 +1302,7 @@ data class MetadataDto (
    * Unix timestamp in milliseconds since epoch (UTC).
    * Automatically maintained by Health Connect.
    */
-  val lastModifiedTime: Long? = null,
-  /** The method used to record this data. */
-  val recordingMethod: RecordingMethodDto
+  val lastModifiedTime: Long? = null
 )
  {
   companion object {
@@ -1310,12 +1310,12 @@ data class MetadataDto (
       val clientRecordId = pigeonVar_list[0] as String?
       val clientRecordVersion = pigeonVar_list[1] as Long?
       val dataOrigin = pigeonVar_list[2] as String
-      val deviceType = pigeonVar_list[3] as DeviceTypeDto?
-      val deviceManufacturer = pigeonVar_list[4] as String?
-      val deviceModel = pigeonVar_list[5] as String?
-      val lastModifiedTime = pigeonVar_list[6] as Long?
-      val recordingMethod = pigeonVar_list[7] as RecordingMethodDto
-      return MetadataDto(clientRecordId, clientRecordVersion, dataOrigin, deviceType, deviceManufacturer, deviceModel, lastModifiedTime, recordingMethod)
+      val deviceType = pigeonVar_list[3] as DeviceTypeDto
+      val recordingMethod = pigeonVar_list[4] as RecordingMethodDto
+      val deviceManufacturer = pigeonVar_list[5] as String?
+      val deviceModel = pigeonVar_list[6] as String?
+      val lastModifiedTime = pigeonVar_list[7] as Long?
+      return MetadataDto(clientRecordId, clientRecordVersion, dataOrigin, deviceType, recordingMethod, deviceManufacturer, deviceModel, lastModifiedTime)
     }
   }
   fun toList(): List<Any?> {
@@ -1324,10 +1324,10 @@ data class MetadataDto (
       clientRecordVersion,
       dataOrigin,
       deviceType,
+      recordingMethod,
       deviceManufacturer,
       deviceModel,
       lastModifiedTime,
-      recordingMethod,
     )
   }
   override fun equals(other: Any?): Boolean {

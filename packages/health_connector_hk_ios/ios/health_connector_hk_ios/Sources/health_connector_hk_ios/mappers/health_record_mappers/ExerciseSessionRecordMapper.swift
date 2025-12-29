@@ -1,36 +1,34 @@
 import Foundation
 import HealthKit
 
-private enum ExerciseSessionMetadataKeys {
-    static let title = "WorkoutTitle"
-    static let notes = "WorkoutNotes"
-}
-
 extension HKWorkout {
     /// Convert HKWorkout to ExerciseSessionRecordDto
     ///
     /// This method extracts exercise session data from a HealthKit workout sample,
     /// including exercise type, duration, metadata (title, notes), and timezone information.
-    func toExerciseSessionRecordDto() -> ExerciseSessionRecordDto {
+    func toExerciseSessionRecordDto() throws -> ExerciseSessionRecordDto {
         let exerciseType = workoutActivityType.toDto()
-        let metadataDict = metadata ?? [:]
 
-        // Extract custom metadata
-        let title = metadataDict[ExerciseSessionMetadataKeys.title] as? String
-        let notes = metadataDict[ExerciseSessionMetadataKeys.notes] as? String
+        // Create builder from HK metadata with source and device
+        var builder = MetadataBuilder(
+            fromHKMetadata: metadata ?? [:],
+            source: sourceRevision.source,
+            device: device
+        )
+
+        // Extract custom metadata using centralized keys
+        let title = ExerciseSessionTitleKey.read(from: builder.metadataDict)
+        let notes = ExerciseSessionNotesKey.read(from: builder.metadataDict)
 
         // Extract timezone offsets
-        let startZoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
-        let endZoneOffset = metadataDict.extractTimeZoneOffset(for: endDate)
+        let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict) ?? startZoneOffset
 
-        return ExerciseSessionRecordDto(
+        return try ExerciseSessionRecordDto(
             id: uuid.uuidString,
             startTime: Int64(startDate.timeIntervalSince1970 * 1000),
             endTime: Int64(endDate.timeIntervalSince1970 * 1000),
-            metadata: metadataDict.toMetadataDto(
-                source: sourceRevision.source,
-                device: device
-            ),
+            metadata: builder.toMetadataDto(),
             exerciseType: exerciseType,
             title: title,
             notes: notes,
@@ -55,29 +53,32 @@ extension ExerciseSessionRecordDto {
         let endDate = Date(millisecondsSince1970: endTime)
         let duration = endDate.timeIntervalSince(startDate)
 
-        // Build metadata dictionary
-        var metadataDict = metadata.toHealthKitMetadata(timeZone: TimeZone.current)
+        // Build metadata using centralized builder
+        var builder = try MetadataBuilder(
+            from: metadata, startTimeZoneOffset: startZoneOffsetSeconds
+        )
 
-        // Add custom metadata for title and notes
+        // Add custom metadata for title and notes using centralized keys
         if let title {
-            metadataDict[ExerciseSessionMetadataKeys.title] = title
+            builder.set(ExerciseSessionTitleKey.self, value: title)
         }
         if let notes {
-            metadataDict[ExerciseSessionMetadataKeys.notes] = notes
+            builder.set(ExerciseSessionNotesKey.self, value: notes)
         }
 
         // Add timezone information for start time
         if let startOffset = startZoneOffsetSeconds {
-            metadataDict[HKMetadataKeyTimeZone] =
-                TimeZone(secondsFromGMT: Int(startOffset))?.identifier
+            builder.set(
+                standardKey: HKMetadataKeyTimeZone,
+                value: TimeZone(secondsFromGMT: Int(startOffset))?.identifier as Any
+            )
         }
 
-        // If end offset differs from start, note it in custom metadata
-        // (HealthKit doesn't have native support for dual timezone offsets)
+        // If end offset differs from start, store in custom metadata
         if let endOffset = endZoneOffsetSeconds,
            endOffset != startZoneOffsetSeconds
         {
-            metadataDict["EndTimeZoneOffset"] = endOffset
+            builder.set(EndTimeZoneOffsetKey.self, value: endOffset)
         }
 
         // Create the workout
@@ -91,8 +92,8 @@ extension ExerciseSessionRecordDto {
             duration: duration,
             totalEnergyBurned: nil,
             totalDistance: nil,
-            device: metadata.toHealthKitDevice(),
-            metadata: metadataDict
+            device: builder.healthDevice,
+            metadata: builder.build()
         )
     }
 }

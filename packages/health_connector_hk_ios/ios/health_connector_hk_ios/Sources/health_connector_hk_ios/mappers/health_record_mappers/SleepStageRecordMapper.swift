@@ -17,18 +17,22 @@ extension HKCategorySample {
         }
 
         let stageType = HKCategoryValueSleepAnalysis(rawValue: value)?.toDto() ?? .unknown
-        let metadataDict = metadata ?? [:]
-        let startZoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
-        let endZoneOffset = metadataDict.extractTimeZoneOffset(for: endDate)
 
-        return SleepStageRecordDto(
+        // Create builder from HK metadata with source and device
+        var builder = MetadataBuilder(
+            fromHKMetadata: metadata ?? [:],
+            source: sourceRevision.source,
+            device: device
+        )
+
+        let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
+
+        return try SleepStageRecordDto(
             id: uuid.uuidString,
             startTime: Int64(startDate.timeIntervalSince1970 * 1000),
             endTime: Int64(endDate.timeIntervalSince1970 * 1000),
-            metadata: metadataDict.toMetadataDto(
-                source: sourceRevision.source,
-                device: device
-            ),
+            metadata: builder.toMetadataDto(),
             stageType: stageType,
             startZoneOffsetSeconds: startZoneOffset,
             endZoneOffsetSeconds: endZoneOffset
@@ -45,18 +49,19 @@ extension SleepStageRecordDto {
         let value = try HKCategoryValueSleepAnalysis.from(dto: stageType).rawValue
         let startDate = Date(millisecondsSince1970: startTime)
         let endDate = Date(millisecondsSince1970: endTime)
-        var metadataDict = metadata.toHealthKitMetadata(timeZone: TimeZone.current)
-        if let startOffset = startZoneOffsetSeconds {
-            metadataDict[HKMetadataKeyTimeZone] =
-                TimeZone(secondsFromGMT: Int(startOffset))?.identifier
-        }
 
-        // If end offset differs from start, we note that in custom metadata
+        // Create builder with timezone offset
+        var builder = try MetadataBuilder(
+            from: metadata,
+            startTimeZoneOffset: startZoneOffsetSeconds
+        )
+
+        // If end offset differs from start, store it in custom metadata
         // (HealthKit doesn't have native support for dual timezone offsets per sample)
         if let endOffset = endZoneOffsetSeconds,
            endOffset != startZoneOffsetSeconds
         {
-            metadataDict["EndTimeZoneOffset"] = endOffset
+            builder.set(EndTimeZoneOffsetKey.self, value: endOffset)
         }
 
         return HKCategorySample(
@@ -64,8 +69,8 @@ extension SleepStageRecordDto {
             value: value,
             start: startDate,
             end: endDate,
-            device: metadata.toHealthKitDevice(),
-            metadata: metadataDict
+            device: builder.healthDevice,
+            metadata: builder.metadataDict
         )
     }
 }

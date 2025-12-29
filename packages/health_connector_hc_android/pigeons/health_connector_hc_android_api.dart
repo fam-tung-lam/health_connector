@@ -545,10 +545,10 @@ class MetadataDto {
   MetadataDto({
     required this.dataOrigin,
     required this.recordingMethod,
+    required this.deviceType,
     this.lastModifiedTime,
     this.clientRecordId,
     this.clientRecordVersion,
-    this.deviceType,
     this.deviceManufacturer,
     this.deviceModel,
   });
@@ -566,8 +566,11 @@ class MetadataDto {
   /// The package name of the source app that wrote this health record.
   final String dataOrigin;
 
-  /// The type of device that recorded the data (optional).
-  final DeviceTypeDto? deviceType;
+  /// The type of device that recorded the data.
+  final DeviceTypeDto deviceType;
+
+  /// The method used to record this data.
+  final RecordingMethodDto recordingMethod;
 
   /// The manufacturer of the device that recorded the data (optional).
   final String? deviceManufacturer;
@@ -580,9 +583,6 @@ class MetadataDto {
   /// Unix timestamp in milliseconds since epoch (UTC).
   /// Automatically maintained by Health Connect.
   final int? lastModifiedTime;
-
-  /// The method used to record this data.
-  final RecordingMethodDto recordingMethod;
 }
 
 /// Cervical mucus appearance classification.

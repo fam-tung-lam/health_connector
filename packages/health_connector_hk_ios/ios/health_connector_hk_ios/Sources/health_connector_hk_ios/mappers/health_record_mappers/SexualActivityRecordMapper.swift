@@ -9,18 +9,21 @@ extension HKCategorySample {
                 $0 ? .protected : .unprotected
             } ?? .unknown
 
-        let metadataDict = metadata ?? [:]
+        // Create builder from HK metadata with source and device
+        var builder = MetadataBuilder(
+            fromHKMetadata: metadata ?? [:],
+            source: sourceRevision.source,
+            device: device
+        )
 
-        return SexualActivityRecordDto(
+        // Extract timezone offset from metadata
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+
+        return try SexualActivityRecordDto(
             id: uuid.uuidString,
-            metadata: metadataDict.toMetadataDto(
-                source: sourceRevision.source,
-                device: device
-            ),
+            metadata: builder.toMetadataDto(),
             time: Int64(startDate.timeIntervalSince1970 * 1000),
-            zoneOffsetSeconds: Int64(
-                TimeZone.current.secondsFromGMT(for: startDate)
-            ),
+            zoneOffsetSeconds: zoneOffset,
             protectionUsed: protectionUsed
         )
     }
@@ -42,18 +45,19 @@ extension SexualActivityRecordDto {
         let startDate = Date(timeIntervalSince1970: TimeInterval(time) / 1000)
         let endDate = startDate // Sexual activity is an instant event
 
-        var hkMetadata = metadata.toHealthKitMetadata()
+        // Build metadata using centralized builder
+        var builder = try MetadataBuilder(
+            from: metadata)
 
         // Store in native key `HKMetadataKeySexualActivityProtectionUsed` for `protected` and
         // `unprotected`, remove for `unknown`
         switch protectionUsed {
         case .protected:
-            hkMetadata[HKMetadataKeySexualActivityProtectionUsed] = true
+            builder.set(standardKey: HKMetadataKeySexualActivityProtectionUsed, value: true)
         case .unprotected:
-            hkMetadata[HKMetadataKeySexualActivityProtectionUsed] = false
+            builder.set(standardKey: HKMetadataKeySexualActivityProtectionUsed, value: false)
         case .unknown:
-            // Remove key-value if it exists
-            hkMetadata.removeValue(forKey: HKMetadataKeySexualActivityProtectionUsed)
+            builder.remove(standardKey: HKMetadataKeySexualActivityProtectionUsed)
         }
 
         return HKCategorySample(
@@ -61,8 +65,8 @@ extension SexualActivityRecordDto {
             value: HKCategoryValue.notApplicable.rawValue,
             start: startDate,
             end: endDate,
-            device: metadata.toHealthKitDevice(),
-            metadata: hkMetadata.isEmpty ? nil : hkMetadata
+            device: builder.healthDevice,
+            metadata: builder.build()
         )
     }
 }

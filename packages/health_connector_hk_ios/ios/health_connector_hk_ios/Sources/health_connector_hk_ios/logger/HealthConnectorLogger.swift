@@ -8,7 +8,6 @@ import OSLog
 /// Uses `NSLock` to protect the `isEnabled` flag for thread-safe access across concurrency domains.
 /// NSLock is used instead of Mutex for iOS 15+ compatibility (Mutex requires iOS 18+).
 enum HealthConnectorLogger {
-
     /// Lock for thread-safe access to _isEnabled
     private static let lock = NSLock()
 

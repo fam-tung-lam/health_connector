@@ -338,11 +338,57 @@ enum BloodGlucoseSpecimenSourceDto {
 
 // region Metadata
 
+/// Device type for health data recording.
+enum DeviceTypeDto {
+  /// Chest strap heart rate monitor.
+  chestStrap,
+
+  /// Fitness band or activity tracker.
+  fitnessBand,
+
+  /// Head-mounted device (e.g., AR/VR headset).
+  headMounted,
+
+  /// Mobile phone or smartphone.
+  phone,
+
+  /// Smart ring wearable.
+  ring,
+
+  /// Weight scale or body composition scale.
+  scale,
+
+  /// Smart display device.
+  smartDisplay,
+
+  /// Unknown or unspecified device type.
+  unknown,
+
+  /// Smartwatch or wearable watch.
+  watch,
+}
+
+/// Recording method for health data.
+enum RecordingMethodDto {
+  /// Data was recorded during an active user-initiated session.
+  activelyRecorded,
+
+  /// Data was automatically recorded by a device in the background.
+  automaticallyRecorded,
+
+  /// Data was manually entered by the user.
+  manualEntry,
+
+  /// The recording method is unknown or unspecified.
+  unknown,
+}
+
 /// Represents metadata for a health record.
 class MetadataDto {
   MetadataDto({
     required this.dataOrigin,
-    required this.isManualEntry,
+    required this.recordingMethod,
+    required this.deviceType,
     this.clientRecordId,
     this.clientRecordVersion,
     this.deviceName,
@@ -364,6 +410,12 @@ class MetadataDto {
   ///
   /// Use this to implement your own versioning or tracking logic.
   final int? clientRecordVersion;
+
+  /// The type of device that recorded the data.
+  final DeviceTypeDto deviceType;
+
+  /// The method used to record this data.
+  final RecordingMethodDto recordingMethod;
 
   /// The package name of the source app that wrote this health record.
   final String dataOrigin;
@@ -392,11 +444,6 @@ class MetadataDto {
   /// The UDI (Unique Device Identifier) for the device that recorded
   /// the data (optional).
   final String? deviceUdiDeviceIdentifier;
-
-  /// Whether this data was manually entered by the user.
-  ///
-  /// `true` indicates manual entry, `false` indicates unknown/not manual entry.
-  final bool isManualEntry;
 }
 
 // endregion

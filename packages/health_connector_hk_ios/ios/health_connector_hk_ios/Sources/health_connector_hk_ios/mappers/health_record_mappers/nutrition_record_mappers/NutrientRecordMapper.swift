@@ -1,45 +1,31 @@
 import Foundation
 import HealthKit
 
-// MARK: - Custom Metadata Keys
-
-private let nutrientFoodNameMetadataKey =
-    "\(hkMetadataKeyPrefix)food_name"
-private let nutrientMealTypeMetadataKey =
-    "\(hkMetadataKeyPrefix)meal_type"
-extension [String: Any] {
-    /// Extracts food name from HealthKit metadata.
-    func extractFoodName() -> String? {
-        self[nutrientFoodNameMetadataKey] as? String
-    }
-
-    /// Extracts meal type from HealthKit metadata.
-    func extractMealType() -> MealTypeDto? {
-        guard let mealTypeString = self[nutrientMealTypeMetadataKey] as? String else {
-            return nil
-        }
-        return MealTypeDto.fromString(mealTypeString)
-    }
-}
+// MARK: - Metadata Extraction Extensions
 
 extension MetadataDto {
     /// Converts metadata DTO to HealthKit metadata including nutrient-specific fields.
+    ///
+    /// Uses the centralized key infrastructure for consistent key naming.
     func toHealthKitNutrientMetadata(
-        timeZone: TimeZone? = nil,
+        zoneOffsetSeconds: Int64? = nil,
         foodName: String? = nil,
         mealType: MealTypeDto? = nil
-    ) -> [String: Any] {
-        var metadata = toHealthKitMetadata(timeZone: timeZone)
+    ) throws -> [String: Any]? {
+        var builder = try MetadataBuilder(
+            from: self,
+            startTimeZoneOffset: zoneOffsetSeconds
+        )
 
-        // Add nutrient-specific metadata
+        // Add nutrient-specific metadata using centralized keys
         if let foodName {
-            metadata[nutrientFoodNameMetadataKey] = foodName
+            builder.set(NutrientFoodNameKey.self, value: foodName)
         }
         if let mealType {
-            metadata[nutrientMealTypeMetadataKey] = mealType.toString()
+            builder.set(NutrientMealTypeKey.self, value: mealType)
         }
 
-        return metadata
+        return builder.metadataDict
     }
 }
 

@@ -17,7 +17,7 @@ extension MetadataDtoMapper on Metadata {
       lastModifiedTime: lastModifiedTime?.millisecondsSinceEpoch,
       clientRecordId: clientRecordId,
       clientRecordVersion: clientRecordVersion,
-      deviceType: device?.type.toDto(),
+      deviceType: device?.type.toDto() ?? DeviceType.unknown.toDto(),
       deviceManufacturer: device?.manufacturer,
       deviceModel: device?.model,
     );
@@ -37,16 +37,11 @@ extension MetadataDtoToDomain on MetadataDto {
           : null,
       clientRecordId: clientRecordId,
       clientRecordVersion: clientRecordVersion,
-      device:
-          (deviceType != null ||
-              deviceManufacturer != null ||
-              deviceModel != null)
-          ? Device(
-              type: deviceType?.toDomain() ?? DeviceType.unknown,
-              manufacturer: deviceManufacturer,
-              model: deviceModel,
-            )
-          : null,
+      device: Device(
+        type: deviceType.toDomain(),
+        manufacturer: deviceManufacturer,
+        model: deviceModel,
+      ),
     );
   }
 }

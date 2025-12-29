@@ -1,10 +1,6 @@
 import Foundation
 import HealthKit
 
-// MARK: - Custom Metadata Keys
-
-private let nutritionMealTypeMetadataKey =
-    "\(hkMetadataKeyPrefix)meal_type"
 extension HKCorrelation {
     /// Converts this food correlation to NutritionRecordDto
     ///
@@ -23,15 +19,19 @@ extension HKCorrelation {
         let startTime = startDate.millisecondsSince1970
         let endTime = endDate.millisecondsSince1970
 
-        let metadataDict = metadata ?? [:]
-        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
-        let metadataDto = metadataDict.toMetadataDto(
+        // Create builder from HK metadata with source and device
+        var builder = MetadataBuilder(
+            fromHKMetadata: metadata ?? [:],
             source: sourceRevision.source,
             device: device
         )
 
-        let foodName = metadataDict[HKMetadataKeyFoodType] as? String
-        let mealType = metadataDict.extractMealType()
+        // Extract timezone offset from metadata
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let metadataDto = try builder.toMetadataDto()
+
+        let foodName = builder.metadataDict[HKMetadataKeyFoodType] as? String
+        let mealType = NutrientMealTypeKey.read(from: builder.metadataDict)
 
         return NutritionRecordDto(
             id: id,
@@ -81,7 +81,7 @@ extension HKCorrelation {
     /// Extracts energy value from contained samples
     private func extractEnergy() -> EnergyDto? {
         guard let energyType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed),
-            let sample = objects(for: energyType).first as? HKQuantitySample
+              let sample = objects(for: energyType).first as? HKQuantitySample
         else {
             return nil
         }
@@ -91,7 +91,7 @@ extension HKCorrelation {
     /// Extracts mass value for a specific nutrient type from contained samples
     private func extractMass(for identifier: HKQuantityTypeIdentifier) -> MassDto? {
         guard let quantityType = HKQuantityType.quantityType(forIdentifier: identifier),
-            let sample = objects(for: quantityType).first as? HKQuantitySample
+              let sample = objects(for: quantityType).first as? HKQuantitySample
         else {
             return nil
         }
@@ -217,16 +217,20 @@ extension NutritionRecordDto {
             to: &samples, for: caffeine, type: .dietaryCaffeine, start: startDate, end: endDate
         )
 
-        // Build metadata
-        let timeZone: TimeZone? = startZoneOffsetSeconds.flatMap {
-            TimeZone(secondsFromGMT: Int($0))
+        // Build metadata with timezone offset
+        var builder = try MetadataBuilder(
+            from: metadata,
+            startTimeZoneOffset: startZoneOffsetSeconds
+        )
+
+        // Add food-specific metadata
+        if let mealType {
+            builder.set(NutrientMealTypeKey.self, value: mealType)
         }
-        var hkMetadata = metadata.toHealthKitMetadata(timeZone: timeZone)
+
+        var hkMetadata = builder.metadataDict
         if let foodName {
             hkMetadata[HKMetadataKeyFoodType] = foodName
-        }
-        if let mealType {
-            hkMetadata[nutritionMealTypeMetadataKey] = mealType.toString()
         }
 
         return HKCorrelation(
@@ -234,7 +238,7 @@ extension NutritionRecordDto {
             start: startDate,
             end: endDate,
             objects: samples,
-            device: metadata.toHealthKitDevice(),
+            device: builder.healthDevice,
             metadata: hkMetadata
         )
     }
@@ -273,7 +277,7 @@ extension NutritionRecordDto {
         end: Date
     ) {
         guard let dto,
-            let sample = createEnergySample(dto, start: start, end: end)
+              let sample = createEnergySample(dto, start: start, end: end)
         else {
             return
         }
@@ -289,7 +293,7 @@ extension NutritionRecordDto {
         end: Date
     ) {
         guard let dto,
-            let sample = createMassSample(type, dto, start: start, end: end)
+              let sample = createMassSample(type, dto, start: start, end: end)
         else {
             return
         }

@@ -89,7 +89,7 @@ extension HKSample {
         } else if let quantitySample = self as? HKQuantitySample {
             return try quantitySample.mapQuantitySampleToDto(for: dataType)
         } else if let workout = self as? HKWorkout {
-            return workout.toExerciseSessionRecordDto()
+            return try workout.toExerciseSessionRecordDto()
         }
 
         throw HealthConnectorError.invalidArgument(
@@ -117,7 +117,7 @@ extension HKCategorySample {
         case .sleepStageRecord:
             try toSleepStageRecordDto()
         case .mindfulnessSession:
-            toMindfulnessSessionDto()
+            try toMindfulnessSessionDto()
         default:
             throw HealthConnectorError.invalidArgument(
                 message: "Unsupported health data type for HKCategorySample",

@@ -10,7 +10,8 @@ extension HKCorrelation {
         guard correlationType.identifier == HKCorrelationTypeIdentifier.bloodPressure.rawValue
         else {
             throw HealthConnectorError.invalidArgument(
-                message: "Expected blood pressure correlation type, got \(correlationType.identifier)",
+                message:
+                "Expected blood pressure correlation type, got \(correlationType.identifier)",
                 context: [
                     "expected": HKCorrelationTypeIdentifier.bloodPressure.rawValue,
                     "actual": correlationType.identifier,
@@ -47,15 +48,19 @@ extension HKCorrelation {
             )
         }
 
-        let metadataDict = metadata ?? [:]
-        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        // Create builder from HK metadata with source and device
+        var builder = MetadataBuilder(
+            fromHKMetadata: metadata ?? [:],
+            source: sourceRevision.source,
+            device: device
+        )
 
-        return BloodPressureRecordDto(
+        // Extract timezone offset from metadata
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+
+        return try BloodPressureRecordDto(
             id: uuid.uuidString,
-            metadata: metadataDict.toMetadataDto(
-                source: sourceRevision.source,
-                device: nil
-            ),
+            metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
             systolic: PressureDto(unit: .millimetersOfMercury, value: systolic),
             diastolic: PressureDto(unit: .millimetersOfMercury, value: diastolic),
@@ -79,13 +84,19 @@ extension BloodPressureRecordDto {
         let systolicQuantity = HKQuantity(unit: mmHgUnit, doubleValue: systolic.value)
         let diastolicQuantity = HKQuantity(unit: mmHgUnit, doubleValue: diastolic.value)
 
+        // Create builder with timezone offset
+        var builder = try MetadataBuilder(
+            from: metadata,
+            startTimeZoneOffset: zoneOffsetSeconds
+        )
+
         let systolicSample = HKQuantitySample(
             type: systolicType,
             quantity: systolicQuantity,
             start: date,
             end: date,
-            device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            device: builder.healthDevice,
+            metadata: builder.metadataDict
         )
 
         let diastolicSample = HKQuantitySample(
@@ -93,8 +104,8 @@ extension BloodPressureRecordDto {
             quantity: diastolicQuantity,
             start: date,
             end: date,
-            device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            device: builder.healthDevice,
+            metadata: builder.metadataDict
         )
 
         return HKCorrelation(
@@ -102,8 +113,8 @@ extension BloodPressureRecordDto {
             start: date,
             end: date,
             objects: Set([systolicSample, diastolicSample]),
-            device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            device: builder.healthDevice,
+            metadata: builder.metadataDict
         )
     }
 }
@@ -116,7 +127,8 @@ extension HKQuantitySample {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bloodPressureSystolic.rawValue
         else {
             throw HealthConnectorError.invalidArgument(
-                message: "Expected systolic blood pressure quantity type, got \(quantityType.identifier)",
+                message:
+                "Expected systolic blood pressure quantity type, got \(quantityType.identifier)",
                 context: [
                     "expected": HKQuantityTypeIdentifier.bloodPressureSystolic.rawValue,
                     "actual": quantityType.identifier,
@@ -127,15 +139,19 @@ extension HKQuantitySample {
         let mmHgUnit = HKUnit.millimeterOfMercury()
         let value = quantity.doubleValue(for: mmHgUnit)
 
-        let metadataDict = metadata ?? [:]
-        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        // Create builder from HK metadata with source and device
+        var builder = MetadataBuilder(
+            fromHKMetadata: metadata ?? [:],
+            source: sourceRevision.source,
+            device: device
+        )
 
-        return SystolicBloodPressureRecordDto(
+        // Extract timezone offset from metadata
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+
+        return try SystolicBloodPressureRecordDto(
             id: uuid.uuidString,
-            metadata: metadataDict.toMetadataDto(
-                source: sourceRevision.source,
-                device: device
-            ),
+            metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
             pressure: PressureDto(unit: .millimetersOfMercury, value: value),
             zoneOffsetSeconds: zoneOffset
@@ -149,7 +165,8 @@ extension HKQuantitySample {
         guard quantityType.identifier == HKQuantityTypeIdentifier.bloodPressureDiastolic.rawValue
         else {
             throw HealthConnectorError.invalidArgument(
-                message: "Expected diastolic blood pressure quantity type, got \(quantityType.identifier)",
+                message:
+                "Expected diastolic blood pressure quantity type, got \(quantityType.identifier)",
                 context: [
                     "expected": HKQuantityTypeIdentifier.bloodPressureDiastolic.rawValue,
                     "actual": quantityType.identifier,
@@ -160,15 +177,19 @@ extension HKQuantitySample {
         let mmHgUnit = HKUnit.millimeterOfMercury()
         let value = quantity.doubleValue(for: mmHgUnit)
 
-        let metadataDict = metadata ?? [:]
-        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        // Create builder from HK metadata with source and device
+        var builder = MetadataBuilder(
+            fromHKMetadata: metadata ?? [:],
+            source: sourceRevision.source,
+            device: device
+        )
 
-        return DiastolicBloodPressureRecordDto(
+        // Extract timezone offset from metadata
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+
+        return try DiastolicBloodPressureRecordDto(
             id: uuid.uuidString,
-            metadata: metadataDict.toMetadataDto(
-                source: sourceRevision.source,
-                device: device
-            ),
+            metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
             pressure: PressureDto(unit: .millimetersOfMercury, value: value),
             zoneOffsetSeconds: zoneOffset
@@ -185,13 +206,19 @@ extension SystolicBloodPressureRecordDto {
         let quantity = HKQuantity(unit: mmHgUnit, doubleValue: pressure.value)
         let date = Date(millisecondsSince1970: time)
 
+        // Create builder with timezone offset
+        var builder = try MetadataBuilder(
+            from: metadata,
+            startTimeZoneOffset: zoneOffsetSeconds
+        )
+
         return HKQuantitySample(
             type: type,
             quantity: quantity,
             start: date,
             end: date,
-            device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            device: builder.healthDevice,
+            metadata: builder.metadataDict
         )
     }
 }
@@ -205,13 +232,19 @@ extension DiastolicBloodPressureRecordDto {
         let quantity = HKQuantity(unit: mmHgUnit, doubleValue: pressure.value)
         let date = Date(millisecondsSince1970: time)
 
+        // Create builder with timezone offset
+        var builder = try MetadataBuilder(
+            from: metadata,
+            startTimeZoneOffset: zoneOffsetSeconds
+        )
+
         return HKQuantitySample(
             type: type,
             quantity: quantity,
             start: date,
             end: date,
-            device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            device: builder.healthDevice,
+            metadata: builder.metadataDict
         )
     }
 }

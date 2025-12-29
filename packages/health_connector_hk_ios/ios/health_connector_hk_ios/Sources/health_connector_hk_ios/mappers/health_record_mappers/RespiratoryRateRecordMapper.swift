@@ -10,13 +10,19 @@ extension RespiratoryRateRecordDto {
         let quantity = HKQuantity(unit: unit, doubleValue: Double(breathsPerMin.value))
         let date = Date(millisecondsSince1970: time)
 
+        // Create builder with timezone offset
+        var builder = try MetadataBuilder(
+            from: metadata,
+            startTimeZoneOffset: zoneOffsetSeconds
+        )
+
         return HKQuantitySample(
             type: type,
             quantity: quantity,
             start: date,
             end: date, // Instant records have same start and end
-            device: metadata.toHealthKitDevice(),
-            metadata: metadata.toHealthKitMetadata()
+            device: builder.healthDevice,
+            metadata: builder.metadataDict
         )
     }
 }
@@ -36,17 +42,21 @@ extension HKQuantitySample {
             )
         }
 
-        let metadataDict = metadata ?? [:]
-        let zoneOffset = metadataDict.extractTimeZoneOffset(for: startDate)
+        // Create builder from HK metadata with source and device
+        var builder = MetadataBuilder(
+            fromHKMetadata: metadata ?? [:],
+            source: sourceRevision.source,
+            device: device
+        )
+
+        // Extract timezone offset from metadata
+        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
         let unit = HKUnit.count().unitDivided(by: .minute()) // breaths/min
 
-        return RespiratoryRateRecordDto(
+        return try RespiratoryRateRecordDto(
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
-            metadata: metadataDict.toMetadataDto(
-                source: sourceRevision.source,
-                device: device
-            ),
+            metadata: builder.toMetadataDto(),
             breathsPerMin: NumberDto(value: quantity.doubleValue(for: unit)),
             zoneOffsetSeconds: zoneOffset
         )

@@ -1256,11 +1256,11 @@ class MetadataDto {
     this.clientRecordId,
     this.clientRecordVersion,
     required this.dataOrigin,
-    this.deviceType,
+    required this.deviceType,
+    required this.recordingMethod,
     this.deviceManufacturer,
     this.deviceModel,
     this.lastModifiedTime,
-    required this.recordingMethod,
   });
 
   /// A custom identifier assigned by your application.
@@ -1276,8 +1276,11 @@ class MetadataDto {
   /// The package name of the source app that wrote this health record.
   String dataOrigin;
 
-  /// The type of device that recorded the data (optional).
-  DeviceTypeDto? deviceType;
+  /// The type of device that recorded the data.
+  DeviceTypeDto deviceType;
+
+  /// The method used to record this data.
+  RecordingMethodDto recordingMethod;
 
   /// The manufacturer of the device that recorded the data (optional).
   String? deviceManufacturer;
@@ -1291,19 +1294,16 @@ class MetadataDto {
   /// Automatically maintained by Health Connect.
   int? lastModifiedTime;
 
-  /// The method used to record this data.
-  RecordingMethodDto recordingMethod;
-
   List<Object?> _toList() {
     return <Object?>[
       clientRecordId,
       clientRecordVersion,
       dataOrigin,
       deviceType,
+      recordingMethod,
       deviceManufacturer,
       deviceModel,
       lastModifiedTime,
-      recordingMethod,
     ];
   }
 
@@ -1317,11 +1317,11 @@ class MetadataDto {
       clientRecordId: result[0] as String?,
       clientRecordVersion: result[1] as int?,
       dataOrigin: result[2]! as String,
-      deviceType: result[3] as DeviceTypeDto?,
-      deviceManufacturer: result[4] as String?,
-      deviceModel: result[5] as String?,
-      lastModifiedTime: result[6] as int?,
-      recordingMethod: result[7]! as RecordingMethodDto,
+      deviceType: result[3]! as DeviceTypeDto,
+      recordingMethod: result[4]! as RecordingMethodDto,
+      deviceManufacturer: result[5] as String?,
+      deviceModel: result[6] as String?,
+      lastModifiedTime: result[7] as int?,
     );
   }
 

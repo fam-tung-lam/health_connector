@@ -1,29 +1,41 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show RecordingMethod, sinceV1_0_0;
+    show RecordingMethod, sinceV2_1_0;
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
+    show RecordingMethodDto;
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [RecordingMethod] to HealthKit's manual entry flag.
-@sinceV1_0_0
+/// Converts [RecordingMethod] to [RecordingMethodDto].
+@sinceV2_1_0
 @internal
 extension RecordingMethodDtoMapper on RecordingMethod {
-  /// Converts [RecordingMethod] to a boolean indicating manual entry.
-  ///
-  /// HealthKit only uses a boolean flag to indicate whether data was
-  /// manually entered.
-  bool toIsManualEntry() {
-    return this == RecordingMethod.manualEntry;
+  RecordingMethodDto toDto() {
+    switch (this) {
+      case RecordingMethod.unknown:
+        return RecordingMethodDto.unknown;
+      case RecordingMethod.manualEntry:
+        return RecordingMethodDto.manualEntry;
+      case RecordingMethod.automaticallyRecorded:
+        return RecordingMethodDto.automaticallyRecorded;
+      case RecordingMethod.activelyRecorded:
+        return RecordingMethodDto.activelyRecorded;
+    }
   }
 }
 
-/// Converts HealthKit's manual entry flag to [RecordingMethod].
-@sinceV1_0_0
+/// Converts [RecordingMethodDto] to [RecordingMethod].
+@sinceV2_1_0
 @internal
-extension RecordingMethodFromDto on bool {
-  /// Converts a manual entry flag to [RecordingMethod].
-  ///
-  /// Returns [RecordingMethod.manualEntry] if true,
-  /// otherwise [RecordingMethod.unknown].
-  RecordingMethod toRecordingMethod() {
-    return this ? RecordingMethod.manualEntry : RecordingMethod.unknown;
+extension RecordingMethodDtoToDomain on RecordingMethodDto {
+  RecordingMethod toDomain() {
+    switch (this) {
+      case RecordingMethodDto.unknown:
+        return RecordingMethod.unknown;
+      case RecordingMethodDto.manualEntry:
+        return RecordingMethod.manualEntry;
+      case RecordingMethodDto.automaticallyRecorded:
+        return RecordingMethod.automaticallyRecorded;
+      case RecordingMethodDto.activelyRecorded:
+        return RecordingMethod.activelyRecorded;
+    }
   }
 }
