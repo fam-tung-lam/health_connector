@@ -16,11 +16,11 @@ import 'package:health_connector_toolbox/src/common/utils/mixins/process_operati
 import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dart';
 import 'package:health_connector_toolbox/src/common/widgets/buttons/elevated_gradient_button.dart';
 import 'package:health_connector_toolbox/src/common/widgets/date_range_presets.dart';
+import 'package:health_connector_toolbox/src/common/widgets/health_data_type_dropdown_field.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
 import 'package:health_connector_toolbox/src/common/widgets/pickers/date_time_range_picker_column.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/aggregate_health_data_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/widgets/aggregate_result_card.dart';
-import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_data_type_dropdown_field.dart';
 import 'package:provider/provider.dart' show Provider, Selector;
 
 /// Page for aggregating health data over a time range.

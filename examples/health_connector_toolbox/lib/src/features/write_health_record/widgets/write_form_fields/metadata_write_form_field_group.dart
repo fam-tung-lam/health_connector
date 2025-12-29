@@ -5,7 +5,7 @@ import 'package:health_connector/health_connector_internal.dart'
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
-import 'package:health_connector_toolbox/src/features/write_health_record/widgets/form_fields/enum_dropdown_form_field.dart';
+import 'package:health_connector_toolbox/src/common/widgets/searchable_dropdown_menu_form_field.dart';
 
 /// A reusable widget containing form fields for metadata and device
 /// information.
@@ -22,8 +22,8 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 /// - Hidden for manual entry (device not required)
 /// - Optional for unknown recording method
 @immutable
-final class MetadataFormFieldGroup extends StatefulWidget {
-  const MetadataFormFieldGroup({
+final class MetadataWriteFormFieldGroup extends StatefulWidget {
+  const MetadataWriteFormFieldGroup({
     required this.healthPlatform,
     required this.onRecordingMethodChanged,
     required this.onDeviceChanged,
@@ -62,10 +62,12 @@ final class MetadataFormFieldGroup extends StatefulWidget {
   final double spacing;
 
   @override
-  State<MetadataFormFieldGroup> createState() => _MetadataFormFieldGroupState();
+  State<MetadataWriteFormFieldGroup> createState() =>
+      _MetadataWriteFormFieldGroupState();
 }
 
-class _MetadataFormFieldGroupState extends State<MetadataFormFieldGroup> {
+class _MetadataWriteFormFieldGroupState
+    extends State<MetadataWriteFormFieldGroup> {
   late RecordingMethod _recordingMethod;
   late DeviceType _deviceType;
   late final TextEditingController _nameController;
@@ -194,20 +196,20 @@ class _MetadataFormFieldGroupState extends State<MetadataFormFieldGroup> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        EnumDropdownFormField<RecordingMethod>(
+        SearchableDropdownMenuFormField<RecordingMethod>(
           labelText: AppTexts.recordingMethod,
           values: RecordingMethod.values,
-          value: _recordingMethod,
+          initialValue: _recordingMethod,
           onChanged: _onRecordingMethodChanged,
           validator: widget.recordingMethodValidator,
           displayNameBuilder: (method) => method.displayName,
           prefixIcon: AppIcons.settings,
         ),
         SizedBox(height: widget.spacing),
-        EnumDropdownFormField<DeviceType>(
+        SearchableDropdownMenuFormField<DeviceType>(
           labelText: AppTexts.deviceType,
           values: DeviceType.values,
-          value: _deviceType,
+          initialValue: _deviceType,
           onChanged: _onDeviceTypeChanged,
           validator: isDeviceTypeRequired ? widget.deviceTypeValidator : null,
           displayNameBuilder: (deviceType) => deviceType.displayName,

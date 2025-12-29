@@ -7,11 +7,11 @@ import 'package:health_connector_toolbox/src/common/utils/mixins/process_operati
 import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dart';
 import 'package:health_connector_toolbox/src/common/widgets/buttons/elevated_gradient_button.dart';
 import 'package:health_connector_toolbox/src/common/widgets/date_range_presets.dart';
+import 'package:health_connector_toolbox/src/common/widgets/health_data_type_dropdown_field.dart';
 import 'package:health_connector_toolbox/src/common/widgets/loading_overlay.dart';
 import 'package:health_connector_toolbox/src/common/widgets/pickers/date_time_range_picker_column.dart';
 import 'package:health_connector_toolbox/src/features/permissions/pages/permissions_page.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/read_health_records_change_notifier.dart';
-import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_data_type_dropdown_field.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/read_health_record_results_section.dart';
 import 'package:provider/provider.dart' show Provider, Selector;
 

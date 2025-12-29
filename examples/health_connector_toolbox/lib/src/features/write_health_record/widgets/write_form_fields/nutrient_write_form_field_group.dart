@@ -8,20 +8,16 @@ import 'package:health_connector_toolbox/src/common/utils/extensions/meal_type_e
 import 'package:health_connector_toolbox/src/common/utils/measurement_unit_value_parser.dart';
 import 'package:health_connector_toolbox/src/common/utils/measurement_unit_value_validator.dart';
 import 'package:health_connector_toolbox/src/common/widgets/collapsible_form_section.dart';
+import 'package:health_connector_toolbox/src/common/widgets/searchable_dropdown_menu_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/models/nutrition_form_data.dart';
-import 'package:health_connector_toolbox/src/features/write_health_record/widgets/form_fields/enum_dropdown_form_field.dart';
 
 /// A form field widget for entering nutrition record data.
-///
-/// Allows entering multiple optional nutrient values including energy,
-/// macronutrients, vitamins, minerals, and other nutrients.
-/// Fields are organized into collapsible sections to reduce cognitive load.
 ///
 /// Uses extension methods on [HealthDataType] to build nutrient fields
 /// dynamically with consistent styling and validation.
 @immutable
-final class NutritionRecordNutrientFormFields extends StatefulWidget {
-  const NutritionRecordNutrientFormFields({
+final class NutrientWriteFormFieldGroup extends StatefulWidget {
+  const NutrientWriteFormFieldGroup({
     required this.onChanged,
     super.key,
   });
@@ -32,12 +28,12 @@ final class NutritionRecordNutrientFormFields extends StatefulWidget {
   final ValueChanged<NutritionData> onChanged;
 
   @override
-  State<NutritionRecordNutrientFormFields> createState() =>
-      _NutritionRecordNutrientFormFieldsState();
+  State<NutrientWriteFormFieldGroup> createState() =>
+      _NutrientWriteFormFieldGroupState();
 }
 
-class _NutritionRecordNutrientFormFieldsState
-    extends State<NutritionRecordNutrientFormFields> {
+class _NutrientWriteFormFieldGroupState
+    extends State<NutrientWriteFormFieldGroup> {
   String? _foodName;
   MealType _mealType = MealType.unknown;
   final Map<HealthDataType, TextEditingController> _controllers = {};
@@ -189,10 +185,10 @@ class _NutritionRecordNutrientFormFieldsState
           },
         ),
         const SizedBox(height: 16.0),
-        EnumDropdownFormField<MealType>(
+        SearchableDropdownMenuFormField<MealType>(
           labelText: AppTexts.mealType,
           values: MealType.values,
-          value: _mealType,
+          initialValue: _mealType,
           onChanged: (type) {
             setState(() {
               _mealType = type ?? MealType.unknown;

@@ -3,9 +3,6 @@ import 'package:health_connector/health_connector_internal.dart'
     show HealthRecord, HealthRecordId, HealthPlatform, HealthConnector;
 
 /// Manages state and operations for writing health records.
-///
-/// Handles writing health records to the health platform, tracking loading
-/// state and the ID of newly created records.
 final class WriteHealthRecordChangeNotifier extends ChangeNotifier {
   final HealthConnector _healthConnector;
 
@@ -13,24 +10,17 @@ final class WriteHealthRecordChangeNotifier extends ChangeNotifier {
 
   bool _isLoading = false;
 
-  HealthRecordId? _newRecordId;
-
-  HealthRecordId? get newRecordId => _newRecordId;
-
   HealthPlatform get healthPlatform => _healthConnector.healthPlatform;
 
   bool get isLoading => _isLoading;
 
   /// Writes a health record to the health platform.
-  ///
-  /// Sets loading state and updates [newRecordId] on success.
-  /// Exceptions are propagated to the caller for handling.
-  Future<void> writeHealthRecord(HealthRecord record) async {
+  Future<HealthRecordId> writeHealthRecord(HealthRecord record) async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      _newRecordId = await _healthConnector.writeRecord(record);
+      return await _healthConnector.writeRecord(record);
     } finally {
       _isLoading = false;
       notifyListeners();

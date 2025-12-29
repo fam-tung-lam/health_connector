@@ -3,16 +3,12 @@ import 'package:health_connector/health_connector_internal.dart'
     show HeartRateMeasurement, Number;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
-import 'package:health_connector_toolbox/src/features/write_health_record/widgets/form_fields/series_health_record_samples_form_field.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_form_fields/record_sample_form_field_group.dart';
 
 /// A form field widget for managing multiple heart rate measurement samples.
-///
-/// Now uses the generic [SeriesHealthRecordSamplesFormField] widget
-/// to eliminate duplication.
 @immutable
-final class HeartRateSeriesRecordHeartRateMeasurementsFormField
-    extends StatelessWidget {
-  const HeartRateSeriesRecordHeartRateMeasurementsFormField({
+final class HeartRateMeasurementsWriteFormFieldGroup extends StatelessWidget {
+  const HeartRateMeasurementsWriteFormFieldGroup({
     required this.startDateTime,
     required this.endDateTime,
     required this.onChanged,
@@ -29,7 +25,7 @@ final class HeartRateSeriesRecordHeartRateMeasurementsFormField
 
   @override
   Widget build(BuildContext context) {
-    return SeriesHealthRecordSamplesFormField<HeartRateMeasurement, int>(
+    return RecordSampleFormFieldGroup<HeartRateMeasurement, int>(
       title: AppTexts.heartRateSamples,
       startDateTime: startDateTime,
       endDateTime: endDateTime,

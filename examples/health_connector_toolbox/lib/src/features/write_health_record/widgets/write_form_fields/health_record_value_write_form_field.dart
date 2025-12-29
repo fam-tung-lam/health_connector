@@ -12,21 +12,9 @@ import 'package:health_connector_toolbox/src/common/utils/measurement_unit_value
 /// appropriate input field configuration, parsing logic, and validation rules
 /// for each health data type. This eliminates the need for massive switch
 /// statements and centralizes all configuration in one place.
-///
-/// Example:
-/// ```dart
-/// HealthRecordValueField(
-///   dataType: StepsHealthDataType(),
-///   onChanged: (value) {
-///     if (value != null) {
-///       print('Steps: ${(value as Number).value}');
-///     }
-///   },
-/// )
-/// ```
 @immutable
-final class HealthRecordValueFormField extends StatefulWidget {
-  const HealthRecordValueFormField({
+final class HealthRecordValueWriteFormField extends StatefulWidget {
+  const HealthRecordValueWriteFormField({
     required this.dataType,
     required this.onChanged,
     super.key,
@@ -48,12 +36,12 @@ final class HealthRecordValueFormField extends StatefulWidget {
   final String? Function(MeasurementUnit?)? validator;
 
   @override
-  State<HealthRecordValueFormField> createState() =>
-      _HealthRecordValueFormFieldState();
+  State<HealthRecordValueWriteFormField> createState() =>
+      _HealthRecordValueWriteFormFieldState();
 }
 
-class _HealthRecordValueFormFieldState
-    extends State<HealthRecordValueFormField> {
+class _HealthRecordValueWriteFormFieldState
+    extends State<HealthRecordValueWriteFormField> {
   late final TextEditingController controller;
 
   MeasurementUnit? _value;

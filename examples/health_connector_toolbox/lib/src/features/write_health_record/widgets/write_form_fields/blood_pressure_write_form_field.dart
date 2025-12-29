@@ -3,12 +3,11 @@ import 'package:health_connector/health_connector_internal.dart' show Pressure;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
-/// A form field widget for entering blood pressure record data.
-///
-/// Allows entering systolic and diastolic blood pressure values.
+/// A form field widget for entering systolic and diastolic blood pressure
+/// values.
 @immutable
-final class BloodPressureFormField extends StatefulWidget {
-  const BloodPressureFormField({
+final class BloodPressureWriteFormField extends StatefulWidget {
+  const BloodPressureWriteFormField({
     required this.onChanged,
     super.key,
     this.validator,
@@ -27,10 +26,12 @@ final class BloodPressureFormField extends StatefulWidget {
   final String? Function(Pressure? systolic, Pressure? diastolic)? validator;
 
   @override
-  State<BloodPressureFormField> createState() => _BloodPressureFormFieldState();
+  State<BloodPressureWriteFormField> createState() =>
+      _BloodPressureWriteFormFieldState();
 }
 
-class _BloodPressureFormFieldState extends State<BloodPressureFormField> {
+class _BloodPressureWriteFormFieldState
+    extends State<BloodPressureWriteFormField> {
   late final TextEditingController _systolicController;
   late final TextEditingController _diastolicController;
   Pressure? _systolic;

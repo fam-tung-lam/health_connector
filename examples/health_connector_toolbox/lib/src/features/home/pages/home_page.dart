@@ -12,7 +12,7 @@ import 'package:health_connector_toolbox/src/features/home/widgets/welcome_heade
 import 'package:health_connector_toolbox/src/features/permissions/pages/permissions_page.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/pages/read_health_records_page.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/read_health_records_change_notifier.dart';
-import 'package:health_connector_toolbox/src/features/write_health_record/pages/write_health_record_page.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/pages/health_data_type_selection_page.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/write_health_record_change_notifier.dart';
 import 'package:provider/provider.dart'
     show Consumer, Provider, ChangeNotifierProvider;
@@ -207,7 +207,7 @@ final class _HomeContent extends StatelessWidget {
             create: (_) => WriteHealthRecordChangeNotifier(
               healthConnector,
             ),
-            child: WriteHealthRecordPage(
+            child: HealthDataTypeSelectionPage(
               healthPlatform: healthConnector.healthPlatform,
             ),
           ),

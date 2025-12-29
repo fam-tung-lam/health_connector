@@ -51,6 +51,7 @@ final class DateTimePickerRow extends StatelessWidget {
     if (validator != null) {
       return validator!();
     }
+
     // Default validation
     if (startDate == null) {
       return '${AppTexts.pleaseSelect} ${dateLabel ?? AppTexts.date}';

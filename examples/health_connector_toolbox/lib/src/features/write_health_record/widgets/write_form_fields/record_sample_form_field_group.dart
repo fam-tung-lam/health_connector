@@ -11,23 +11,9 @@ import 'package:health_connector_toolbox/src/common/widgets/pickers/date_time_pi
 /// Type parameters:
 /// - [T]: The sample type (e.g., HeartRateMeasurement, SleepStage)
 /// - [V]: The value type (e.g., int for BPM, SleepStageType for stage type)
-///
-/// Example usage:
-/// ```dart
-/// SamplesFormField<HeartRateMeasurement, int>(
-///   title: 'Heart Rate Samples',
-///   startDateTime: startTime,
-///   endDateTime: endTime,
-///   onChanged: (samples) => setState(() => _samples = samples),
-///   defaultValue: 72,
-///   valueInputBuilder: (index, bpm, onChange) => TextFormField(...),
-///   sampleFactory: (time, _, bpm) => HeartRateMeasurement(...),
-///   sampleExtractor: (sample) => (...),
-/// )
-/// ```
 @immutable
-final class SeriesHealthRecordSamplesFormField<T, V> extends StatefulWidget {
-  const SeriesHealthRecordSamplesFormField({
+final class RecordSampleFormFieldGroup<T, V> extends StatefulWidget {
+  const RecordSampleFormFieldGroup({
     required this.title,
     required this.startDateTime,
     required this.endDateTime,
@@ -87,12 +73,12 @@ final class SeriesHealthRecordSamplesFormField<T, V> extends StatefulWidget {
   final bool Function(V?)? valueValidator;
 
   @override
-  State<SeriesHealthRecordSamplesFormField<T, V>> createState() =>
-      _SeriesHealthRecordSamplesFormFieldState<T, V>();
+  State<RecordSampleFormFieldGroup<T, V>> createState() =>
+      _RecordSampleFormFieldGroupState<T, V>();
 }
 
-class _SeriesHealthRecordSamplesFormFieldState<T, V>
-    extends State<SeriesHealthRecordSamplesFormField<T, V>> {
+class _RecordSampleFormFieldGroupState<T, V>
+    extends State<RecordSampleFormFieldGroup<T, V>> {
   late List<_SampleEntry<V>> _samples;
 
   @override

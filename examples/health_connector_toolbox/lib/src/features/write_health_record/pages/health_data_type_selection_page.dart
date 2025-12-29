@@ -4,7 +4,7 @@ import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
 import 'package:health_connector_toolbox/src/common/widgets/search_text_field.dart';
 import 'package:health_connector_toolbox/src/features/home/widgets/feature_navigation_card.dart';
-import 'package:health_connector_toolbox/src/features/write_health_record/pages/write_health_record_form_page.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/pages/health_record_write_page.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/write_health_record_change_notifier.dart';
 import 'package:provider/provider.dart';
 
@@ -13,8 +13,8 @@ import 'package:provider/provider.dart';
 /// Shows a searchable list of health data types as cards. Tapping a card
 /// navigates to the corresponding form page for writing that data type.
 @immutable
-final class WriteHealthRecordPage extends StatefulWidget {
-  const WriteHealthRecordPage({
+final class HealthDataTypeSelectionPage extends StatefulWidget {
+  const HealthDataTypeSelectionPage({
     required this.healthPlatform,
     super.key,
   });
@@ -22,10 +22,12 @@ final class WriteHealthRecordPage extends StatefulWidget {
   final HealthPlatform healthPlatform;
 
   @override
-  State<WriteHealthRecordPage> createState() => _WriteHealthRecordPageState();
+  State<HealthDataTypeSelectionPage> createState() =>
+      _HealthDataTypeSelectionPageState();
 }
 
-class _WriteHealthRecordPageState extends State<WriteHealthRecordPage> {
+class _HealthDataTypeSelectionPageState
+    extends State<HealthDataTypeSelectionPage> {
   String _searchQuery = '';
 
   List<HealthDataType> _getFilteredDataTypes() {
@@ -106,7 +108,7 @@ class _WriteHealthRecordPageState extends State<WriteHealthRecordPage> {
         builder: (_) =>
             ChangeNotifierProvider<WriteHealthRecordChangeNotifier>.value(
               value: context.read<WriteHealthRecordChangeNotifier>(),
-              child: WriteHealthRecordFormPage(
+              child: HealthRecordWritePage(
                 dataType: dataType,
               ),
             ),

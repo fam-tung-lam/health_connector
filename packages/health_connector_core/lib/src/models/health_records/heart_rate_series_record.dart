@@ -49,11 +49,11 @@ final class HeartRateSeriesRecord
     extends SeriesHealthRecord<HeartRateMeasurement> {
   /// Creates a heart rate series record.
   const HeartRateSeriesRecord({
-    required super.id,
     required super.metadata,
     required super.startTime,
     required super.endTime,
     required super.samples,
+    super.id,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });

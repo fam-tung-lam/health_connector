@@ -83,6 +83,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/height_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/hydration_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/lean_body_mass_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/mindfulness_session_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/oxygen_saturation_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/respiratory_rate_record_mappers.dart';
@@ -90,7 +91,6 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/restin
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sexual_activity_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/sleep_stage_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/speed_activity_record_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/mindfulness_session_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/steps_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/systolic_blood_pressure_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/vo2_max_record_mappers.dart';

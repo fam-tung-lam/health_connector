@@ -4,6 +4,7 @@ import 'package:health_connector/health_connector_internal.dart'
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
+import 'package:health_connector_toolbox/src/common/widgets/searchable_dropdown_menu_form_field.dart';
 
 /// A reusable dropdown field for selecting a health data type.
 @immutable
@@ -32,19 +33,15 @@ final class HealthDataTypeDropdownField extends StatelessWidget {
         ? allItems.where(itemsFilter!).toList()
         : allItems.toList();
 
-    return DropdownButtonFormField<
+    return SearchableDropdownMenuFormField<
       HealthDataType<HealthRecord, MeasurementUnit>
     >(
       initialValue: initialValue,
-      decoration: const InputDecoration(
-        labelText: AppTexts.dataType,
-        border: OutlineInputBorder(),
-        prefixIcon: Icon(AppIcons.category),
-      ),
-      items: filteredItems.map((type) {
-        return DropdownMenuItem(value: type, child: Text(type.displayName));
-      }).toList(),
+      labelText: AppTexts.dataType,
+      prefixIcon: AppIcons.category,
+      values: filteredItems,
       onChanged: onChanged,
+      displayNameBuilder: (type) => type.displayName,
       validator: validator,
     );
   }
