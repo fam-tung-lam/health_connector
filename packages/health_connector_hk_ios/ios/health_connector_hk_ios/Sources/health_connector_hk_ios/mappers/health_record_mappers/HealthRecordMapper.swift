@@ -19,6 +19,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as BodyTemperatureRecordDto:
             return try dto.toHealthKit()
+        case let dto as BasalBodyTemperatureRecordDto:
+            return try dto.toHealthKit()
         case let dto as CervicalMucusRecordDto:
             return try dto.toHealthKit()
         case let dto as DiastolicBloodPressureRecordDto:
@@ -186,6 +188,8 @@ extension HKQuantitySample {
             try toBodyFatPercentageRecordDto()
         case .bodyTemperature:
             try toBodyTemperatureRecordDto()
+        case .basalBodyTemperature:
+            try toBasalBodyTemperatureRecordDto()
         case .floorsClimbed:
             try toFloorsClimbedRecordDto()
         case .heartRateMeasurementRecord:

@@ -88,6 +88,7 @@ import 'package:health_connector/health_connector_internal.dart'
         CyclingPedalingCadenceSeriesRecordHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
+        BasalBodyTemperatureHealthDataType,
         LeanBodyMassHealthDataType,
         NutritionHealthDataType,
         SpeedSeriesDataType,
@@ -601,6 +602,9 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       // Unsupported types
       BodyFatPercentageHealthDataType() => throw UnsupportedError(
         'Body fat percentage does not support aggregation',
+      ),
+      BasalBodyTemperatureHealthDataType() => throw UnsupportedError(
+        'Basal body temperature does not support aggregation',
       ),
       BodyTemperatureHealthDataType() => throw UnsupportedError(
         'Body temperature does not support aggregation',

@@ -2,6 +2,7 @@ package com.phamtunglam.health_connector_hc_android.mappers
 
 import androidx.health.connect.client.feature.ExperimentalMindfulnessSessionApi
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
+import androidx.health.connect.client.records.BasalBodyTemperatureRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
@@ -51,6 +52,7 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
     HealthDataTypeDto.LEAN_BODY_MASS -> LeanBodyMassRecord::class
     HealthDataTypeDto.BODY_FAT_PERCENTAGE -> BodyFatRecord::class
     HealthDataTypeDto.BODY_TEMPERATURE -> BodyTemperatureRecord::class
+    HealthDataTypeDto.BASAL_BODY_TEMPERATURE -> BasalBodyTemperatureRecord::class
     HealthDataTypeDto.CERVICAL_MUCUS -> CervicalMucusRecord::class
     HealthDataTypeDto.STEPS -> StepsRecord::class
     HealthDataTypeDto.WEIGHT -> WeightRecord::class

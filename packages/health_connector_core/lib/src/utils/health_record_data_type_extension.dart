@@ -144,8 +144,10 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       FolateNutrientRecord _ => HealthDataType.folate,
       BiotinNutrientRecord _ => HealthDataType.biotin,
       PantothenicAcidNutrientRecord _ => HealthDataType.pantothenicAcid,
-      TotalCaloriesBurnedRecord() => HealthDataType.totalCaloriesBurned,
-      BasalEnergyBurnedRecord() => HealthDataType.basalEnergyBurned,
+
+      TotalCaloriesBurnedRecord _ => HealthDataType.totalCaloriesBurned,
+      BasalEnergyBurnedRecord _ => HealthDataType.basalEnergyBurned,
+      BasalBodyTemperatureRecord _ => HealthDataType.basalBodyTemperature,
     };
   }
 }

@@ -41,6 +41,8 @@ extension HKSample {
                 return .bodyFatPercentage
             case HKQuantityTypeIdentifier.bodyTemperature.rawValue:
                 return .bodyTemperature
+            case HKQuantityTypeIdentifier.basalBodyTemperature.rawValue:
+                return .basalBodyTemperature
             case HKQuantityTypeIdentifier.activeEnergyBurned.rawValue:
                 return .activeCaloriesBurned
             case HKQuantityTypeIdentifier.basalEnergyBurned.rawValue:

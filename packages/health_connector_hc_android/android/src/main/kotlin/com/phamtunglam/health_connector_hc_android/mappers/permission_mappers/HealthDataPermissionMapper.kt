@@ -3,6 +3,7 @@ package com.phamtunglam.health_connector_hc_android.mappers.permission_mappers
 import androidx.health.connect.client.feature.ExperimentalMindfulnessSessionApi
 import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
+import androidx.health.connect.client.records.BasalBodyTemperatureRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
@@ -171,6 +172,18 @@ internal fun getHealthConnectPermission(
 
             PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
                 BodyTemperatureRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.BASAL_BODY_TEMPERATURE -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                BasalBodyTemperatureRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                BasalBodyTemperatureRecord::class,
             )
         }
     }
@@ -452,6 +465,7 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto 
         "LEAN_BODY_MASS" -> HealthDataTypeDto.LEAN_BODY_MASS
         "BODY_FAT_PERCENTAGE" -> HealthDataTypeDto.BODY_FAT_PERCENTAGE
         "BODY_TEMPERATURE" -> HealthDataTypeDto.BODY_TEMPERATURE
+        "BASAL_BODY_TEMPERATURE" -> HealthDataTypeDto.BASAL_BODY_TEMPERATURE
         "WHEELCHAIR_PUSHES" -> HealthDataTypeDto.WHEELCHAIR_PUSHES
         "HEART_RATE" -> HealthDataTypeDto.HEART_RATE_SERIES_RECORD
         "RESTING_HEART_RATE" -> HealthDataTypeDto.RESTING_HEART_RATE

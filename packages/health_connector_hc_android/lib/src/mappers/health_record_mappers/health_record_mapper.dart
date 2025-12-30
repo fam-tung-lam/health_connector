@@ -4,6 +4,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BloodPressureRecord,
         BodyFatPercentageRecord,
         BodyTemperatureRecord,
+        BasalBodyTemperatureRecord,
         DiastolicBloodPressureRecord,
         DistanceActivityRecord,
         DistanceRecord,
@@ -74,6 +75,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         sinceV1_0_0,
         BasalEnergyBurnedRecord;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/active_calories_burned_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/basal_body_temperature_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_glucose_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_pressure_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_fat_percentage_record_mappers.dart';
@@ -108,6 +110,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         BloodPressureRecordDto,
         BodyFatPercentageRecordDto,
         BodyTemperatureRecordDto,
+        BasalBodyTemperatureRecordDto,
         CervicalMucusRecordDto,
         DistanceRecordDto,
         FloorsClimbedRecordDto,
@@ -203,6 +206,8 @@ extension HealthRecordToDto on HealthRecord {
         return BodyFatPercentageRecordToDto(record).toDto();
       case final BodyTemperatureRecord record:
         return BodyTemperatureRecordToDto(record).toDto();
+      case final BasalBodyTemperatureRecord record:
+        return BasalBodyTemperatureRecordToDto(record).toDto();
       case final CervicalMucusRecord record:
         return CervicalMucusRecordToDto(record).toDto();
       case final StepsRecord record:
@@ -483,6 +488,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return BodyFatPercentageRecordDtoToDomain(dto).toDomain();
       case final BodyTemperatureRecordDto dto:
         return BodyTemperatureRecordDtoToDomain(dto).toDomain();
+      case final BasalBodyTemperatureRecordDto dto:
+        return BasalBodyTemperatureRecordDtoToDomain(dto).toDomain();
       case final CervicalMucusRecordDto dto:
         return CervicalMucusRecordDtoToDomain(dto).toDomain();
       case final StepsRecordDto dto:

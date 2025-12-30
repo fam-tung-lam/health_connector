@@ -12,6 +12,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         BloodGlucoseRecord,
         BodyFatPercentageRecord,
         BodyTemperatureRecord,
+        BasalBodyTemperatureRecord,
         CaffeineNutrientRecord,
         CervicalMucusRecord,
         CalciumNutrientRecord,
@@ -102,6 +103,7 @@ part 'blood_pressure_health_data_types/diastolic_blood_pressure_health_data_type
 part 'blood_pressure_health_data_types/systolic_blood_pressure_health_data_type.dart';
 part 'body_fat_percentage_health_data_type.dart';
 part 'body_temperature_health_data_type.dart';
+part 'basal_body_temperature_health_data_type.dart';
 part 'cervical_mucus_data_type.dart';
 part 'distance_data_types/cross_country_skiing_distance_data_type.dart';
 part 'distance_data_types/cycling_distance_data_type.dart';
@@ -398,6 +400,15 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Represents the user's body temperature measurements. Supports both reading
   /// existing body temperature data and writing new measurements.
   static const bodyTemperature = BodyTemperatureHealthDataType();
+
+  /// Basal body temperature data type.
+  ///
+  /// Represents basal body temperature measurements, which are the lowest body
+  /// temperature attained during rest. Typically measured immediately after
+  /// waking and before any physical activity. Commonly used for fertility
+  /// tracking and menstrual cycle monitoring.
+  @sinceV2_2_0
+  static const basalBodyTemperature = BasalBodyTemperatureHealthDataType();
 
   /// Cervical mucus data type.
   ///
@@ -856,11 +867,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     totalCaloriesBurned,
     basalEnergyBurned,
 
+    // Body temperature types
+    bodyTemperature,
+    basalBodyTemperature,
+
     biotin,
     bloodGlucose,
     bloodPressure,
     bodyFatPercentage,
-    bodyTemperature,
     caffeine,
     cervicalMucus,
     calcium,

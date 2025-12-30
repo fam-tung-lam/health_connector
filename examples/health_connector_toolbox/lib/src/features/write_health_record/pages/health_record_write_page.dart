@@ -9,6 +9,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/custom_health_record_write_forms/cervical_mucus_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/custom_health_record_write_forms/ovulation_test_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/custom_health_record_write_forms/sexual_activity_health_record_write_form.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/basal_body_temperature_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/blood_glucose_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/body_fat_percentage_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/body_temperature_health_record_write_form.dart';
@@ -146,6 +147,10 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         onSubmit: _onSubmit,
       ),
       BodyTemperatureHealthDataType _ => BodyTemperatureWriteForm(
+        healthPlatform: _notifier.healthPlatform,
+        onSubmit: _onSubmit,
+      ),
+      BasalBodyTemperatureHealthDataType _ => BasalBodyTemperatureWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),

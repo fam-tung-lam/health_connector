@@ -86,6 +86,7 @@ abstract final class AppTexts {
       BodyFatPercentageHealthDataType() => bodyFatPercentage,
       LeanBodyMassHealthDataType() => leanBodyMass,
       BodyTemperatureHealthDataType() => bodyTemperature,
+      BasalBodyTemperatureHealthDataType() => basalBodyTemperature,
       CervicalMucusDataType() => cervicalMucus,
       BloodPressureHealthDataType() => bloodPressure,
       SystolicBloodPressureHealthDataType() => systolic,
@@ -327,6 +328,7 @@ abstract final class AppTexts {
   static const String bodyFatPercentage = 'Body Fat Percentage';
   static const String leanBodyMass = 'Lean Body Mass';
   static const String bodyTemperature = 'Body Temperature';
+  static const String basalBodyTemperature = 'Basal Body Temperature';
   static const String cervicalMucus = 'Cervical Mucus';
   static const String hydration = 'Hydration';
   static const String bloodPressure = 'Blood Pressure';
@@ -348,6 +350,16 @@ abstract final class AppTexts {
   static const String rightWrist = 'Right Wrist';
   static const String leftUpperArm = 'Left Upper Arm';
   static const String rightUpperArm = 'Right Upper Arm';
+  static const String armpit = 'Armpit';
+  static const String ear = 'Ear';
+  static const String finger = 'Finger';
+  static const String forehead = 'Forehead';
+  static const String mouth = 'Mouth';
+  static const String rectum = 'Rectum';
+  static const String temporalArtery = 'Temporal Artery';
+  static const String toe = 'Toe';
+  static const String vagina = 'Vagina';
+  static const String wrist = 'Wrist';
   static const String heartRate = 'Heart Rate';
   static const String restingHeartRate = 'Resting Heart Rate';
   static const String heartRateSamples = '$heartRate Samples';
@@ -750,6 +762,8 @@ abstract final class AppTexts {
   static const String leanBodyMassDescription = 'Weight of body excluding fat';
   static const String bodyTemperatureDescription =
       'Core body temperature measurement';
+  static const String basalBodyTemperatureDescription =
+      'Basal body temperature measurement';
 
   // Blood Pressure
   static const String bloodPressureDescription =

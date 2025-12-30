@@ -2,6 +2,7 @@ package com.phamtunglam.health_connector_hc_android.handlers
 
 import androidx.health.connect.client.HealthConnectClient
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActiveCaloriesBurnedHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BasalBodyTemperatureHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BloodGlucoseHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BloodPressureHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BodyFatPercentageHandler
@@ -42,6 +43,7 @@ internal class HealthRecordHandlerRegistry(private val client: HealthConnectClie
             register(CyclingPedalingCadenceHandler(client))
             register(HeightHandler(client))
             register(BodyTemperatureHandler(client))
+            register(BasalBodyTemperatureHandler(client))
             register(CervicalMucusHandler(client))
             register(LeanBodyMassHandler(client))
             register(BodyFatPercentageHandler(client))

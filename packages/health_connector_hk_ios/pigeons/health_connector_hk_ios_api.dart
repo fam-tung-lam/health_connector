@@ -620,6 +620,42 @@ enum OvulationTestResultTypeDto {
   positive,
 }
 
+/// Measurement location for basal body temperature reading.
+enum BasalBodyTemperatureMeasurementLocationDto {
+  /// Unknown location.
+  unknown,
+
+  /// Armpit measurement.
+  armpit,
+
+  /// Ear measurement.
+  ear,
+
+  /// Finger measurement.
+  finger,
+
+  /// Forehead measurement.
+  forehead,
+
+  /// Mouth measurement.
+  mouth,
+
+  /// Rectum measurement.
+  rectum,
+
+  /// Temporal artery measurement.
+  temporalArtery,
+
+  /// Toe measurement.
+  toe,
+
+  /// Vagina measurement.
+  vagina,
+
+  /// Wrist measurement.
+  wrist,
+}
+
 /// Represents the type of speed-based activity.
 ///
 /// Maps to different iOS HKQuantityTypeIdentifier values.
@@ -843,6 +879,9 @@ enum HealthDataTypeDto {
 
   /// Body temperature data.
   bodyTemperature,
+
+  /// Basal body temperature data.
+  basalBodyTemperature,
 
   /// Cervical mucus observation data.
   cervicalMucus,
@@ -1636,6 +1675,36 @@ class BodyTemperatureRecordDto extends HealthRecordDto {
 
   /// Body temperature measurement.
   final TemperatureDto temperature;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// DTO for basal body temperature health data.
+class BasalBodyTemperatureRecordDto extends HealthRecordDto {
+  BasalBodyTemperatureRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.temperature,
+    required this.measurementLocation,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Basal body temperature measurement.
+  final TemperatureDto temperature;
+
+  /// The location on the body where the measurement was taken.
+  final BasalBodyTemperatureMeasurementLocationDto measurementLocation;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
