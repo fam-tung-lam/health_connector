@@ -107,6 +107,9 @@ abstract final class AppTexts {
       HydrationHealthDataType() => hydration,
       HeartRateMeasurementRecordHealthDataType() ||
       HeartRateSeriesRecordHealthDataType() => heartRate,
+      CyclingPedalingCadenceMeasurementRecordHealthDataType() ||
+      CyclingPedalingCadenceSeriesRecordHealthDataType() =>
+        cyclingPedalingCadence,
       SleepSessionHealthDataType() => sleepSession,
       SleepStageHealthDataType() => sleepStage,
       SexualActivityDataType() => sexualActivity,
@@ -713,6 +716,14 @@ abstract final class AppTexts {
   static const String powerSamples = '$power Samples';
   // endregion
 
+  // region Cycling Cadence Data Types
+  static const String cyclingPedalingCadence = 'Cycling Pedaling Cadence';
+  static const String cyclingPedalingCadenceSamples =
+      '$cyclingPedalingCadence Samples';
+  static const String sampleRpm = 'Sample RPM';
+  static const String rpm = 'RPM';
+  // endregion
+
   // region Health Record Descriptions
 
   // Basic Health Metrics
@@ -772,6 +783,12 @@ abstract final class AppTexts {
   static const String heartRateSeriesRecordDescription =
       'Heart rate measurements over a period of time';
   static const String restingHeartRateDescription = 'Heart rate while at rest';
+
+  // Cycling Pedaling Cadence
+  static const String cyclingPedalingCadenceRecordDescription =
+      'Cycling pedaling cadence (RPM) at a specific point in time';
+  static const String cyclingPedalingCadenceSeriesRecordDescription =
+      'Cycling pedaling cadence (RPM) measurements over a period of time';
 
   // Sleep
   static const String sleepSessionDescription =

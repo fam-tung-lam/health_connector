@@ -11,6 +11,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         CholesterolNutrientDataType,
         CrossCountrySkiingDistanceDataType,
         CyclingDistanceDataType,
+        CyclingPedalingCadenceMeasurementRecordHealthDataType,
+        CyclingPedalingCadenceSeriesRecordHealthDataType,
         CyclingPowerDataType,
         DietaryFiberNutrientDataType,
         DistanceHealthDataType,
@@ -118,6 +120,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.wheelchairPushes;
       case HealthDataTypeDto.heartRateSeriesRecord:
         return HealthDataType.heartRateSeriesRecord;
+      case HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord:
+        return HealthDataType.cyclingPedalingCadenceSeriesRecord;
       case HealthDataTypeDto.sexualActivity:
         return HealthDataType.sexualActivity;
       case HealthDataTypeDto.sleepSession:
@@ -181,6 +185,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.wheelchairPushes;
       case HeartRateSeriesRecordHealthDataType _:
         return HealthDataTypeDto.heartRateSeriesRecord;
+      case CyclingPedalingCadenceSeriesRecordHealthDataType _:
+        return HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord;
       case SexualActivityDataType _:
         return HealthDataTypeDto.sexualActivity;
       case SleepSessionHealthDataType _:
@@ -249,6 +255,12 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$HeartRateMeasurementRecordHealthDataType is not '
           'supported on Android Health Connect. '
           'Use $HeartRateSeriesRecordHealthDataType instead.',
+        );
+      case CyclingPedalingCadenceMeasurementRecordHealthDataType _:
+        throw UnsupportedError(
+          '$CyclingPedalingCadenceMeasurementRecordHealthDataType is not '
+          'supported on Android Health Connect. '
+          'Use $CyclingPedalingCadenceSeriesRecordHealthDataType instead.',
         );
       case SystolicBloodPressureHealthDataType _:
         throw UnsupportedError(

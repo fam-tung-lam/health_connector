@@ -21,6 +21,7 @@ extension HealthDataPermissionDto {
              .distance,
              .cyclingDistance,
              .cyclingPower,
+             .cyclingPedalingCadenceMeasurementRecord,
              .swimmingDistance,
              .wheelchairDistance,
              .walkingRunningDistance,

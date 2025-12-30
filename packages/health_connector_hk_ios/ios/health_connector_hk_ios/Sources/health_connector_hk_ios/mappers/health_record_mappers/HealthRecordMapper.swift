@@ -61,6 +61,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as CyclingPowerRecordDto:
             return try dto.toHealthKit()
+        case let dto as CyclingPedalingCadenceMeasurementRecordDto:
+            return try dto.toHealthKit()
         case let dto as ExerciseSessionRecordDto:
             return try dto.toHealthKit()
         case let dto as MindfulnessSessionRecordDto:
@@ -232,6 +234,8 @@ extension HKQuantitySample {
             try toSpeedActivityRecordDto(speedActivityType: .stairDescent)
         case .cyclingPower:
             try toCyclingPowerRecordDto()
+        case .cyclingPedalingCadenceMeasurementRecord:
+            try toCyclingPedalingCadenceMeasurementRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
                 message: "Unsupported health data type for HKQuantitySample",

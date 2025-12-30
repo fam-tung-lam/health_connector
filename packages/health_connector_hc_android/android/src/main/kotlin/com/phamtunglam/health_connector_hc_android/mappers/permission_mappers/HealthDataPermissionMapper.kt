@@ -8,6 +8,7 @@ import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
 import androidx.health.connect.client.records.CervicalMucusRecord
+import androidx.health.connect.client.records.CyclingPedalingCadenceRecord
 import androidx.health.connect.client.records.DistanceRecord
 import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.FloorsClimbedRecord
@@ -328,6 +329,18 @@ internal fun getHealthConnectPermission(
         }
     }
 
+    HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                CyclingPedalingCadenceRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                CyclingPedalingCadenceRecord::class,
+            )
+        }
+    }
+
     HealthDataTypeDto.EXERCISE_SESSION -> {
         when (accessType) {
             PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
@@ -424,6 +437,7 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto 
         "NUTRITION" -> HealthDataTypeDto.NUTRITION
         "SPEED" -> HealthDataTypeDto.SPEED_SERIES
         "POWER" -> HealthDataTypeDto.POWER_SERIES
+        "CYCLING_CADENCE" -> HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
         "EXERCISE_SESSION" -> HealthDataTypeDto.EXERCISE_SESSION
         "MINDFULNESS_SESSION" -> HealthDataTypeDto.MINDFULNESS_SESSION
         else -> throw IllegalArgumentException(

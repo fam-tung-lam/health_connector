@@ -838,6 +838,9 @@ enum HealthDataTypeDto {
   /// Heart rate measurement record data (iOS HealthKit).
   heartRateMeasurementRecord,
 
+  /// Cycling pedaling cadence measurement record data (iOS HealthKit).
+  cyclingPedalingCadenceMeasurementRecord,
+
   /// Sleep stage record data (iOS HealthKit).
   sleepStageRecord,
 
@@ -1804,6 +1807,50 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
   final HeartRateMeasurementDto measurement;
 
   /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// Represents a single cycling pedaling cadence measurement.
+///
+/// This is a platform-agnostic value class used within cycling pedaling
+/// cadence records.
+/// It contains a timestamp and RPM value without ID or metadata.
+class CyclingPedalingCadenceMeasurementDto {
+  CyclingPedalingCadenceMeasurementDto({
+    required this.time,
+    required this.revolutionsPerMinute,
+  });
+
+  /// Timestamp in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Cycling cadence value in revolutions per minute (RPM).
+  final NumberDto revolutionsPerMinute;
+}
+
+/// Represents a cycling pedaling cadence measurement record (iOS HealthKit).
+class CyclingPedalingCadenceMeasurementRecordDto extends HealthRecordDto {
+  CyclingPedalingCadenceMeasurementRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.measurement,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Metadata for this record.
+  final MetadataDto metadata;
+
+  /// The cadence measurement.
+  final CyclingPedalingCadenceMeasurementDto measurement;
+
+  /// Timezone offset in seconds. Null if unknown.
   final int? zoneOffsetSeconds;
 }
 

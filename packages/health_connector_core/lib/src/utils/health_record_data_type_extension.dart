@@ -82,6 +82,12 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       HeartRateSeriesRecord() => HealthDataType.heartRateSeriesRecord,
       HeartRateMeasurementRecord() => HealthDataType.heartRateMeasurementRecord,
 
+      // Cycling pedaling cadence records
+      CyclingPedalingCadenceSeriesRecord() =>
+        HealthDataType.cyclingPedalingCadenceSeriesRecord,
+      CyclingPedalingCadenceMeasurementRecord() =>
+        HealthDataType.cyclingPedalingCadenceMeasurementRecord,
+
       // Sleep records
       SleepSessionRecord() => HealthDataType.sleepSession,
       SleepStageRecord() => HealthDataType.sleepStageRecord,

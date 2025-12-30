@@ -7,6 +7,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BodyFatPercentageHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BodyTemperatureHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.CervicalMucusHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.CyclingPedalingCadenceHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.DistanceHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ExerciseSessionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.FloorsClimbedHandler
@@ -36,6 +37,7 @@ internal class HealthRecordHandlerRegistry(private val client: HealthConnectClie
     private val handlers: Map<HealthDataTypeDto, HealthRecordHandler> by lazy {
         buildMap {
             register(HeartRateHandler(client))
+            register(CyclingPedalingCadenceHandler(client))
             register(HeightHandler(client))
             register(BodyTemperatureHandler(client))
             register(CervicalMucusHandler(client))

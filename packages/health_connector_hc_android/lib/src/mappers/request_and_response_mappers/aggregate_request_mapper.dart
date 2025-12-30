@@ -15,6 +15,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         CervicalMucusDataType,
         CrossCountrySkiingDistanceDataType,
         CyclingDistanceDataType,
+        CyclingPedalingCadenceMeasurementRecordHealthDataType,
+        CyclingPedalingCadenceSeriesRecordHealthDataType,
         CyclingPowerDataType,
         DistanceHealthDataType,
         DownhillSnowSportsDistanceDataType,
@@ -150,6 +152,8 @@ extension AggregateRequestDtoMapper<
           case FloorsClimbedHealthDataType _:
           case HeartRateMeasurementRecordHealthDataType _:
           case HeartRateSeriesRecordHealthDataType _:
+          case CyclingPedalingCadenceMeasurementRecordHealthDataType _:
+          case CyclingPedalingCadenceSeriesRecordHealthDataType _:
           case HeightHealthDataType _:
           case HydrationHealthDataType _:
           case LeanBodyMassHealthDataType _:
