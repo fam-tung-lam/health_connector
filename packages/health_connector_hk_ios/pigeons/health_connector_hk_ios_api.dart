@@ -1444,6 +1444,8 @@ class SystolicBloodPressureRecordDto extends HealthRecordDto {
     required this.time,
     required this.metadata,
     required this.pressure,
+    required this.bodyPosition,
+    required this.measurementLocation,
     this.zoneOffsetSeconds,
   });
 
@@ -1459,6 +1461,14 @@ class SystolicBloodPressureRecordDto extends HealthRecordDto {
   /// Systolic blood pressure measurement.
   final PressureDto pressure;
 
+  /// Body position during measurement (Android Health Connect Only, always
+  /// unknown on iOS HealthKit).
+  final BodyPositionDto bodyPosition;
+
+  /// Location where measurement was taken (Android Health Connect Only,
+  /// always unknown on iOS HealthKit).
+  final MeasurementLocationDto measurementLocation;
+
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
 }
@@ -1471,6 +1481,8 @@ class DiastolicBloodPressureRecordDto extends HealthRecordDto {
     required this.time,
     required this.metadata,
     required this.pressure,
+    required this.bodyPosition,
+    required this.measurementLocation,
     this.zoneOffsetSeconds,
   });
 
@@ -1485,6 +1497,14 @@ class DiastolicBloodPressureRecordDto extends HealthRecordDto {
 
   /// Diastolic blood pressure measurement.
   final PressureDto pressure;
+
+  /// Body position during measurement (Android Health Connect Only, always
+  /// unknown on iOS HealthKit).
+  final BodyPositionDto bodyPosition;
+
+  /// Location where measurement was taken (Android Health Connect Only,
+  /// always unknown on iOS HealthKit).
+  final MeasurementLocationDto measurementLocation;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;

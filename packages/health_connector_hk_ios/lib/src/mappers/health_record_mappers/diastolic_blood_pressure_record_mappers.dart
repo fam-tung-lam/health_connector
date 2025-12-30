@@ -1,5 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show DiastolicBloodPressureRecord, HealthRecordId, sinceV1_2_0;
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -19,6 +20,8 @@ extension DiastolicBloodPressureRecordToDto on DiastolicBloodPressureRecord {
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
       pressure: pressure.toDto(),
+      bodyPosition: bodyPosition.toDto(),
+      measurementLocation: measurementLocation.toDto(),
     );
   }
 }
@@ -36,6 +39,8 @@ extension DiastolicBloodPressureRecordDtoToDomain
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       pressure: pressure.toDomain(),
+      bodyPosition: bodyPosition.toDomain(),
+      measurementLocation: measurementLocation.toDomain(),
     );
   }
 }

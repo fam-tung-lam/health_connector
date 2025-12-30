@@ -2081,6 +2081,12 @@ public struct SystolicBloodPressureRecordDto: HealthRecordDto {
   var time: Int64
   /// Systolic blood pressure measurement.
   var pressure: PressureDto
+  /// Body position during measurement (Android Health Connect Only, always
+  /// unknown on iOS HealthKit).
+  var bodyPosition: BodyPositionDto
+  /// Location where measurement was taken (Android Health Connect Only,
+  /// always unknown on iOS HealthKit).
+  var measurementLocation: MeasurementLocationDto
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -2091,13 +2097,17 @@ public struct SystolicBloodPressureRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let pressure = pigeonVar_list[3] as! PressureDto
-    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
+    let bodyPosition = pigeonVar_list[4] as! BodyPositionDto
+    let measurementLocation = pigeonVar_list[5] as! MeasurementLocationDto
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
     return SystolicBloodPressureRecordDto(
       id: id,
       metadata: metadata,
       time: time,
       pressure: pressure,
+      bodyPosition: bodyPosition,
+      measurementLocation: measurementLocation,
       zoneOffsetSeconds: zoneOffsetSeconds
     )
   }
@@ -2107,6 +2117,8 @@ public struct SystolicBloodPressureRecordDto: HealthRecordDto {
       metadata,
       time,
       pressure,
+      bodyPosition,
+      measurementLocation,
       zoneOffsetSeconds,
     ]
   }
@@ -2130,6 +2142,12 @@ public struct DiastolicBloodPressureRecordDto: HealthRecordDto {
   var time: Int64
   /// Diastolic blood pressure measurement.
   var pressure: PressureDto
+  /// Body position during measurement (Android Health Connect Only, always
+  /// unknown on iOS HealthKit).
+  var bodyPosition: BodyPositionDto
+  /// Location where measurement was taken (Android Health Connect Only,
+  /// always unknown on iOS HealthKit).
+  var measurementLocation: MeasurementLocationDto
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -2140,13 +2158,17 @@ public struct DiastolicBloodPressureRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let pressure = pigeonVar_list[3] as! PressureDto
-    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
+    let bodyPosition = pigeonVar_list[4] as! BodyPositionDto
+    let measurementLocation = pigeonVar_list[5] as! MeasurementLocationDto
+    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
     return DiastolicBloodPressureRecordDto(
       id: id,
       metadata: metadata,
       time: time,
       pressure: pressure,
+      bodyPosition: bodyPosition,
+      measurementLocation: measurementLocation,
       zoneOffsetSeconds: zoneOffsetSeconds
     )
   }
@@ -2156,6 +2178,8 @@ public struct DiastolicBloodPressureRecordDto: HealthRecordDto {
       metadata,
       time,
       pressure,
+      bodyPosition,
+      measurementLocation,
       zoneOffsetSeconds,
     ]
   }

@@ -58,14 +58,19 @@ extension HKCorrelation {
         // Extract timezone offset from metadata
         let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
 
+        // Extract body position and measurement location from custom metadata
+        let bodyPosition = BodyPositionKey.read(from: builder.metadataDict) ?? .unknown
+        let measurementLocation =
+            MeasurementLocationKey.read(from: builder.metadataDict) ?? .unknown
+
         return try BloodPressureRecordDto(
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
             systolic: PressureDto(unit: .millimetersOfMercury, value: systolic),
             diastolic: PressureDto(unit: .millimetersOfMercury, value: diastolic),
-            bodyPosition: .unknown, // Not supported by HealthKit
-            measurementLocation: .unknown, // Not supported by HealthKit
+            bodyPosition: bodyPosition,
+            measurementLocation: measurementLocation,
             zoneOffsetSeconds: zoneOffset
         )
     }
@@ -89,6 +94,10 @@ extension BloodPressureRecordDto {
             from: metadata,
             startTimeZoneOffset: zoneOffsetSeconds
         )
+
+        // Store body position and measurement location in custom metadata
+        builder.set(BodyPositionKey.self, value: bodyPosition)
+        builder.set(MeasurementLocationKey.self, value: measurementLocation)
 
         let systolicSample = HKQuantitySample(
             type: systolicType,
@@ -149,11 +158,18 @@ extension HKQuantitySample {
         // Extract timezone offset from metadata
         let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
 
+        // Extract body position and measurement location from custom metadata
+        let bodyPosition = BodyPositionKey.read(from: builder.metadataDict) ?? .unknown
+        let measurementLocation =
+            MeasurementLocationKey.read(from: builder.metadataDict) ?? .unknown
+
         return try SystolicBloodPressureRecordDto(
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
             pressure: PressureDto(unit: .millimetersOfMercury, value: value),
+            bodyPosition: bodyPosition,
+            measurementLocation: measurementLocation,
             zoneOffsetSeconds: zoneOffset
         )
     }
@@ -187,11 +203,18 @@ extension HKQuantitySample {
         // Extract timezone offset from metadata
         let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
 
+        // Extract body position and measurement location from custom metadata
+        let bodyPosition = BodyPositionKey.read(from: builder.metadataDict) ?? .unknown
+        let measurementLocation =
+            MeasurementLocationKey.read(from: builder.metadataDict) ?? .unknown
+
         return try DiastolicBloodPressureRecordDto(
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
             pressure: PressureDto(unit: .millimetersOfMercury, value: value),
+            bodyPosition: bodyPosition,
+            measurementLocation: measurementLocation,
             zoneOffsetSeconds: zoneOffset
         )
     }
@@ -211,6 +234,10 @@ extension SystolicBloodPressureRecordDto {
             from: metadata,
             startTimeZoneOffset: zoneOffsetSeconds
         )
+
+        // Store body position and measurement location in custom metadata
+        builder.set(BodyPositionKey.self, value: bodyPosition)
+        builder.set(MeasurementLocationKey.self, value: measurementLocation)
 
         return HKQuantitySample(
             type: type,
@@ -237,6 +264,10 @@ extension DiastolicBloodPressureRecordDto {
             from: metadata,
             startTimeZoneOffset: zoneOffsetSeconds
         )
+
+        // Store body position and measurement location in custom metadata
+        builder.set(BodyPositionKey.self, value: bodyPosition)
+        builder.set(MeasurementLocationKey.self, value: measurementLocation)
 
         return HKQuantitySample(
             type: type,

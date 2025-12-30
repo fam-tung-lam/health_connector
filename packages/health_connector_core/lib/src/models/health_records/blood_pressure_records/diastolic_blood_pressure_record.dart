@@ -12,11 +12,7 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit**: `HKQuantityType(.bloodPressureDiastolic)`
-///
-/// > [!NOTE]
-/// > This record type is only supported on iOS/HealthKit. It is not available
-/// > on Android Health Connect, which only supports combined blood pressure
-/// > readings via [BloodPressureRecord].
+/// - **Android Health Connect**: Not supported ( use [BloodPressureRecord])
 ///
 /// ## Example
 ///
@@ -32,7 +28,11 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
+/// - [BloodPressureRecord]
+/// - [SystolicBloodPressureRecord]
+/// - [BloodPressureHealthDataType]
 /// - [DiastolicBloodPressureHealthDataType]
+/// - [SystolicBloodPressureHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_2_0
@@ -48,12 +48,16 @@ final class DiastolicBloodPressureRecord extends InstantHealthRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [pressure]: The diastolic blood pressure measurement.
+  /// - [bodyPosition]: Optional body position during measurement.
+  /// - [measurementLocation]: Optional location where measurement was taken.
   const DiastolicBloodPressureRecord({
     required super.time,
     required super.metadata,
     required this.pressure,
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
+    this.bodyPosition = BloodPressureBodyPosition.unknown,
+    this.measurementLocation = BloodPressureMeasurementLocation.unknown,
   });
 
   /// The diastolic blood pressure measurement (pressure between heartbeats).
@@ -62,12 +66,26 @@ final class DiastolicBloodPressureRecord extends InstantHealthRecord {
   /// Normal values are typically around 80 mmHg.
   final Pressure pressure;
 
+  /// The body position during the blood pressure measurement.
+  ///
+  /// This field is only supported on Android Health Connect.
+  /// On iOS, this will always be [BloodPressureBodyPosition.unknown].
+  final BloodPressureBodyPosition bodyPosition;
+
+  /// The location on the body where the measurement was taken.
+  ///
+  /// This field is only supported on Android Health Connect.
+  /// On iOS, this will always be [BloodPressureMeasurementLocation.unknown].
+  final BloodPressureMeasurementLocation measurementLocation;
+
   /// Creates a copy with the given fields replaced with the new values.
   DiastolicBloodPressureRecord copyWith({
     DateTime? time,
     Pressure? pressure,
     Metadata? metadata,
     HealthRecordId? id,
+    BloodPressureBodyPosition? bodyPosition,
+    BloodPressureMeasurementLocation? measurementLocation,
     int? zoneOffsetSeconds,
   }) {
     return DiastolicBloodPressureRecord(
@@ -75,6 +93,8 @@ final class DiastolicBloodPressureRecord extends InstantHealthRecord {
       pressure: pressure ?? this.pressure,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
+      bodyPosition: bodyPosition ?? this.bodyPosition,
+      measurementLocation: measurementLocation ?? this.measurementLocation,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
     );
   }
@@ -88,6 +108,8 @@ final class DiastolicBloodPressureRecord extends InstantHealthRecord {
           time == other.time &&
           zoneOffsetSeconds == other.zoneOffsetSeconds &&
           pressure == other.pressure &&
+          bodyPosition == other.bodyPosition &&
+          measurementLocation == other.measurementLocation &&
           metadata == other.metadata;
 
   @override
@@ -96,5 +118,7 @@ final class DiastolicBloodPressureRecord extends InstantHealthRecord {
       time.hashCode ^
       (zoneOffsetSeconds?.hashCode ?? 0) ^
       pressure.hashCode ^
+      bodyPosition.hashCode ^
+      measurementLocation.hashCode ^
       metadata.hashCode;
 }
