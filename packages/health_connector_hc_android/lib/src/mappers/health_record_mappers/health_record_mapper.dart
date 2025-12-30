@@ -12,6 +12,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HealthRecord,
         HeartRateMeasurementRecord,
         HeartRateSeriesRecord,
+        CyclingPedalingCadenceMeasurementRecord,
+        CyclingPedalingCadenceSeriesRecord,
         HeightRecord,
         HydrationRecord,
         LeanBodyMassRecord,
@@ -74,6 +76,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/bl
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_fat_percentage_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_temperature_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cervical_mucus_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cycling_pedaling_cadence_series_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/distance_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/exercise_session_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/floors_climbed_record_mappers.dart';
@@ -105,6 +108,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         FloorsClimbedRecordDto,
         HealthRecordDto,
         HeartRateSeriesRecordDto,
+        CyclingPedalingCadenceSeriesRecordDto,
         HeightRecordDto,
         HydrationRecordDto,
         LeanBodyMassRecordDto,
@@ -202,6 +206,8 @@ extension HealthRecordToDto on HealthRecord {
         return WheelchairPushesRecordToDto(record).toDto();
       case final HeartRateSeriesRecord record:
         return HeartRateSeriesRecordToDto(record).toDto();
+      case final CyclingPedalingCadenceSeriesRecord record:
+        return CyclingPedalingCadenceSeriesRecordToDto(record).toDto();
       case final SexualActivityRecord record:
         return SexualActivityRecordToDto(record).toDto();
       case final SleepSessionRecord record:
@@ -419,6 +425,12 @@ extension HealthRecordToDto on HealthRecord {
           '$CyclingPowerRecord is iOS-only and not supported on '
           'Android Health Connect. Use $PowerSeriesRecord instead.',
         );
+      case final CyclingPedalingCadenceMeasurementRecord _:
+        throw UnsupportedError(
+          '$CyclingPedalingCadenceMeasurementRecord is not supported on '
+          'Android Health Connect. '
+          'Use $CyclingPedalingCadenceSeriesRecord instead.',
+        );
       case final PowerSeriesRecord record:
         return PowerSeriesRecordToDto(record).toDto();
       case final SpeedSeriesRecord record:
@@ -464,6 +476,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return WheelchairPushesRecordDtoToDomain(dto).toDomain();
       case final HeartRateSeriesRecordDto dto:
         return HeartRateSeriesRecordDtoToDomain(dto).toDomain();
+      case final CyclingPedalingCadenceSeriesRecordDto dto:
+        return CyclingPedalingCadenceSeriesRecordDtoToDomain(dto).toDomain();
       case final SexualActivityRecordDto dto:
         return SexualActivityRecordDtoToDomain(dto).toDomain();
       case final SleepSessionRecordDto dto:

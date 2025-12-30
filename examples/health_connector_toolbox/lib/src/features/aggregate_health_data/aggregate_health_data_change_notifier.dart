@@ -82,6 +82,8 @@ import 'package:health_connector/health_connector_internal.dart'
         StairDescentSpeedDataType,
         PowerSeriesDataType,
         CyclingPowerDataType,
+        CyclingPedalingCadenceMeasurementRecordHealthDataType,
+        CyclingPedalingCadenceSeriesRecordHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
         LeanBodyMassHealthDataType,
@@ -328,6 +330,40 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
           endTime: endTime,
         ),
         () => HealthDataType.heartRateSeriesRecord.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
+      CyclingPedalingCadenceMeasurementRecordHealthDataType() =>
+        _buildAvgMinMax(
+          () => HealthDataType.cyclingPedalingCadenceMeasurementRecord
+              .aggregateAvg(
+                startTime: startTime,
+                endTime: endTime,
+              ),
+          () => HealthDataType.cyclingPedalingCadenceMeasurementRecord
+              .aggregateMin(
+                startTime: startTime,
+                endTime: endTime,
+              ),
+          () => HealthDataType.cyclingPedalingCadenceMeasurementRecord
+              .aggregateMax(
+                startTime: startTime,
+                endTime: endTime,
+              ),
+          metric,
+        ),
+      CyclingPedalingCadenceSeriesRecordHealthDataType() => _buildAvgMinMax(
+        () => HealthDataType.cyclingPedalingCadenceSeriesRecord.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.cyclingPedalingCadenceSeriesRecord.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.cyclingPedalingCadenceSeriesRecord.aggregateMax(
           startTime: startTime,
           endTime: endTime,
         ),

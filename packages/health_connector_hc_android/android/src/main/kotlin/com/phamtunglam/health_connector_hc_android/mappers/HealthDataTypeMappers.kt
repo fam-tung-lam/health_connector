@@ -7,6 +7,7 @@ import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
 import androidx.health.connect.client.records.CervicalMucusRecord
+import androidx.health.connect.client.records.CyclingPedalingCadenceRecord
 import androidx.health.connect.client.records.DistanceRecord
 import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.FloorsClimbedRecord
@@ -64,5 +65,6 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
     HealthDataTypeDto.NUTRITION -> NutritionRecord::class
     HealthDataTypeDto.SPEED_SERIES -> SpeedRecord::class
     HealthDataTypeDto.POWER_SERIES -> PowerRecord::class
+    HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD -> CyclingPedalingCadenceRecord::class
     HealthDataTypeDto.MINDFULNESS_SESSION -> MindfulnessSessionRecord::class
 }

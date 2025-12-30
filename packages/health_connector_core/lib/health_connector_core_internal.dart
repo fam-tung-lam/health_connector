@@ -72,6 +72,7 @@ export 'src/models/health_platform.dart';
 export 'src/models/health_platform_features/health_platform_feature.dart';
 export 'src/models/health_records/blood_pressure_records/blood_pressure_body_position.dart';
 export 'src/models/health_records/blood_pressure_records/blood_pressure_measurement_location.dart';
+export 'src/models/health_records/cycling_pedaling_cadence_measurement.dart';
 // Models - Health Records
 export 'src/models/health_records/health_record.dart'
     hide MacronutrientRecord, MineralNutrientRecord, VitaminNutrientRecord;

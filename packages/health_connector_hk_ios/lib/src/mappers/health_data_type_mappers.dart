@@ -6,6 +6,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         CervicalMucusDataType,
         CrossCountrySkiingDistanceDataType,
         CyclingDistanceDataType,
+        CyclingPedalingCadenceMeasurementRecordHealthDataType,
+        CyclingPedalingCadenceSeriesRecordHealthDataType,
         CyclingPowerDataType,
         DistanceHealthDataType,
         DownhillSnowSportsDistanceDataType,
@@ -118,6 +120,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.wheelchairPushes;
       case HealthDataTypeDto.heartRateMeasurementRecord:
         return HealthDataType.heartRateMeasurementRecord;
+      case HealthDataTypeDto.cyclingPedalingCadenceMeasurementRecord:
+        return HealthDataType.cyclingPedalingCadenceMeasurementRecord;
       case HealthDataTypeDto.sleepStageRecord:
         return HealthDataType.sleepStageRecord;
       case HealthDataTypeDto.sexualActivity:
@@ -276,6 +280,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.wheelchairPushes;
       case HeartRateMeasurementRecordHealthDataType _:
         return HealthDataTypeDto.heartRateMeasurementRecord;
+      case CyclingPedalingCadenceMeasurementRecordHealthDataType _:
+        return HealthDataTypeDto.cyclingPedalingCadenceMeasurementRecord;
       case SleepStageHealthDataType _:
         return HealthDataTypeDto.sleepStageRecord;
       case SexualActivityDataType _:
@@ -422,6 +428,12 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         throw UnsupportedError(
           '$HeartRateSeriesRecordHealthDataType is not supported on iOS. '
           'Use $HeartRateMeasurementRecordHealthDataType instead.',
+        );
+      case CyclingPedalingCadenceSeriesRecordHealthDataType _:
+        throw UnsupportedError(
+          '$CyclingPedalingCadenceSeriesRecordHealthDataType is not '
+          'supported on iOS HealthKit. '
+          'Use $CyclingPedalingCadenceMeasurementRecordHealthDataType instead.',
         );
     }
   }

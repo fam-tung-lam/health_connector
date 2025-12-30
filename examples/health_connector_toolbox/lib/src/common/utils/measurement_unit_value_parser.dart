@@ -19,6 +19,8 @@ abstract class MeasurementUnitValueParser {
       FloorsClimbedHealthDataType() ||
       WheelchairPushesHealthDataType() ||
       HeartRateMeasurementRecordHealthDataType() ||
+      CyclingPedalingCadenceMeasurementRecordHealthDataType() ||
+      CyclingPedalingCadenceSeriesRecordHealthDataType() ||
       RestingHeartRateHealthDataType() => _parseIntegerCount(value),
 
       // Mass types (kilograms)

@@ -696,6 +696,9 @@ enum HealthDataTypeDto {
   /// Heart rate series record data.
   heartRateSeriesRecord,
 
+  /// Cycling pedaling cadence series record data.
+  cyclingPedalingCadenceSeriesRecord,
+
   /// Sexual activity data.
   sexualActivity,
 
@@ -1338,6 +1341,58 @@ class HeartRateSeriesRecordDto extends HealthRecordDto {
 
   /// Timezone offset in seconds for end time (optional).
   final int? endZoneOffsetSeconds;
+}
+
+/// Represents a single cycling pedaling cadence measurement.
+///
+/// This is a platform-agnostic value class used within cycling pedaling
+/// cadence records.
+/// It contains a timestamp and RPM value without ID or metadata.
+class CyclingPedalingCadenceMeasurementDto {
+  CyclingPedalingCadenceMeasurementDto({
+    required this.time,
+    required this.revolutionsPerMinute,
+  });
+
+  /// Timestamp in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Cycling cadence value in revolutions per minute (RPM).
+  final NumberDto revolutionsPerMinute;
+}
+
+/// Represents a cycling pedaling cadence series record.
+class CyclingPedalingCadenceSeriesRecordDto extends HealthRecordDto {
+  CyclingPedalingCadenceSeriesRecordDto({
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.metadata,
+    required this.samples,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier. Null if not yet synced.
+  final String? id;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Start timezone offset in seconds. Null if unknown.
+  final int? startZoneOffsetSeconds;
+
+  /// End timezone offset in seconds. Null if unknown.
+  final int? endZoneOffsetSeconds;
+
+  /// Metadata for this record.
+  final MetadataDto metadata;
+
+  /// List of cadence measurements.
+  final List<CyclingPedalingCadenceMeasurementDto> samples;
 }
 
 /// Represents a single speed measurement within a [SpeedSeriesRecordDto].

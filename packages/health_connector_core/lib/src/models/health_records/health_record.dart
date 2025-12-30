@@ -33,6 +33,8 @@ part 'exercise_records/exercise_type.dart';
 part 'floors_climbed_record.dart';
 part 'heart_rate_measurement_record.dart';
 part 'heart_rate_series_record.dart';
+part 'cycling_pedaling_cadence_measurement_record.dart';
+part 'cycling_pedaling_cadence_series_record.dart';
 part 'height_record.dart';
 part 'hydration_record.dart';
 part 'instant_health_record.dart';

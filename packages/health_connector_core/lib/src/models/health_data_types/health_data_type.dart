@@ -17,6 +17,8 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         CholesterolNutrientRecord,
         CrossCountrySkiingDistanceRecord,
         CyclingDistanceRecord,
+        CyclingPedalingCadenceMeasurementRecord,
+        CyclingPedalingCadenceSeriesRecord,
         CyclingPowerRecord,
         DiastolicBloodPressureRecord,
         DietaryFiberNutrientRecord,
@@ -114,6 +116,8 @@ part 'exercise_session_health_data_type.dart';
 part 'floors_climbed_health_data_type.dart';
 part 'heart_rate_measurement_record_health_data_type.dart';
 part 'heart_rate_series_record_health_data_type.dart';
+part 'cycling_pedaling_cadence_measurement_record_health_data_type.dart';
+part 'cycling_pedaling_cadence_series_record_health_data_type.dart';
 part 'height_health_data_type.dart';
 part 'hydration_health_data_type.dart';
 part 'lean_body_mass_health_data_type.dart';
@@ -537,6 +541,29 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const cyclingPower = CyclingPowerDataType();
 
+  /// Cycling pedaling cadence series record data type.
+  ///
+  /// Represents cycling cadence measurements in revolutions per minute (RPM).
+  /// Each record contains multiple cadence samples over a time interval.
+  ///
+  /// Supports AVG, MIN, MAX aggregation.
+  @sinceV2_2_0
+  @supportedOnHealthConnect
+  static const cyclingPedalingCadenceSeriesRecord =
+      CyclingPedalingCadenceSeriesRecordHealthDataType();
+
+  /// Cycling pedaling cadence measurement record data type.
+  ///
+  /// Represents individual cycling cadence measurements in revolutions per
+  /// minute (RPM).
+  /// Each record is a discrete measurement at a specific point in time.
+  ///
+  /// Supports AVG, MIN, MAX aggregation.
+  @sinceV2_2_0
+  @supportedOnAppleHealth
+  static const cyclingPedalingCadenceMeasurementRecord =
+      CyclingPedalingCadenceMeasurementRecordHealthDataType();
+
   /// Respiratory rate data type.
   ///
   /// Represents the number of breaths a person takes per minute.
@@ -821,6 +848,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     oxygenSaturation,
     powerSeries,
     cyclingPower,
+    cyclingPedalingCadenceMeasurementRecord,
+    cyclingPedalingCadenceSeriesRecord,
     pantothenicAcid,
     phosphorus,
     polyunsaturatedFat,
