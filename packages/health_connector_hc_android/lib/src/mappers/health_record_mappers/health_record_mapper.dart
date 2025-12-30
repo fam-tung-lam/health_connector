@@ -28,6 +28,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         WeightRecord,
         WheelchairPushesRecord,
         PhosphorusNutrientRecord,
+        OvulationTestRecord,
         OxygenSaturationRecord,
         PowerSeriesRecord,
         EnergyNutrientRecord,
@@ -86,6 +87,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/hy
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/lean_body_mass_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/mindfulness_session_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/nutrition_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/ovulation_test_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/oxygen_saturation_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/power_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/respiratory_rate_record_mappers.dart';
@@ -113,6 +115,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         HydrationRecordDto,
         LeanBodyMassRecordDto,
         NutritionRecordDto,
+        OvulationTestRecordDto,
         OxygenSaturationRecordDto,
         PowerSeriesRecordDto,
         RestingHeartRateRecordDto,
@@ -220,6 +223,8 @@ extension HealthRecordToDto on HealthRecord {
         return NutritionRecordToDto(record).toDto();
       case final RestingHeartRateRecord record:
         return RestingHeartRateRecordToDto(record).toDto();
+      case final OvulationTestRecord record:
+        return OvulationTestRecordToDto(record).toDto();
       case final OxygenSaturationRecord record:
         return OxygenSaturationRecordToDto(record).toDto();
       case final BloodPressureRecord record:
@@ -490,6 +495,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return NutritionRecordDtoToDomain(dto).toDomain();
       case final RestingHeartRateRecordDto dto:
         return RestingHeartRateRecordDtoToDomain(dto).toDomain();
+      case final OvulationTestRecordDto dto:
+        return OvulationTestRecordDtoToDomain(dto).toDomain();
       case final OxygenSaturationRecordDto dto:
         return OxygenSaturationRecordDtoToDomain(dto).toDomain();
       case final BloodPressureRecordDto dto:

@@ -113,6 +113,7 @@ abstract final class AppTexts {
       SleepSessionHealthDataType() => sleepSession,
       SleepStageHealthDataType() => sleepStage,
       SexualActivityDataType() => sexualActivity,
+      OvulationTestDataType() => ovulationTest,
       EnergyNutrientDataType() => energy,
       CaffeineNutrientDataType() => caffeine,
       ProteinNutrientDataType() => protein,
@@ -357,6 +358,9 @@ abstract final class AppTexts {
   static const String bloodPressureType = '$bloodPressure $type';
   static const String sexualActivity = 'Sexual Activity';
   static const String protectionUsed = 'Protection Used';
+  static const String ovulationTest = 'Ovulation Test';
+  static const String testResult = 'Test Result';
+  static const String selectTestResult = 'Select test result';
   static const String appearance = 'Appearance';
   static const String sensation = 'Sensation';
   static const String optional = 'Optional';
@@ -364,6 +368,12 @@ abstract final class AppTexts {
   // Sexual Activity Protection
   static const String protected = 'Protected';
   static const String unprotected = 'Unprotected';
+
+  // Ovulation Test Results
+  static const String negative = 'Negative';
+  static const String inconclusive = 'Inconclusive';
+  static const String high = 'High';
+  static const String positive = 'Positive';
 
   // Cervical Mucus
   static const String light = 'Light';
@@ -804,6 +814,10 @@ abstract final class AppTexts {
   // Cervical Mucus
   static const String cervicalMucusDescription =
       'Cervical mucus appearance and sensation observation';
+
+  // Ovulation Test
+  static const String ovulationTestDescription =
+      'Ovulation test results to track fertility cycles';
 
   // Respiratory and Oxygen
   static const String oxygenSaturationDescription =

@@ -18,6 +18,7 @@ import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
 import androidx.health.connect.client.records.MindfulnessSessionRecord
 import androidx.health.connect.client.records.NutritionRecord
+import androidx.health.connect.client.records.OvulationTestRecord
 import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.records.PowerRecord
 import androidx.health.connect.client.records.RespiratoryRateRecord
@@ -205,6 +206,18 @@ internal fun getHealthConnectPermission(
 
             PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
                 SexualActivityRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.OVULATION_TEST -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                OvulationTestRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                OvulationTestRecord::class,
             )
         }
     }
@@ -431,6 +444,7 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto 
         "SLEEP_SESSION" -> HealthDataTypeDto.SLEEP_SESSION
         "BLOOD_PRESSURE" -> HealthDataTypeDto.BLOOD_PRESSURE
         "BLOOD_GLUCOSE" -> HealthDataTypeDto.BLOOD_GLUCOSE
+        "OVULATION_TEST" -> HealthDataTypeDto.OVULATION_TEST
         "OXYGEN_SATURATION" -> HealthDataTypeDto.OXYGEN_SATURATION
         "RESPIRATORY_RATE" -> HealthDataTypeDto.RESPIRATORY_RATE
         "VO2MAX" -> HealthDataTypeDto.VO2MAX

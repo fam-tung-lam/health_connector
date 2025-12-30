@@ -42,6 +42,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         MonounsaturatedFatNutrientRecord,
         NiacinNutrientRecord,
         NutritionRecord,
+        OvulationTestRecord,
         OxygenSaturationRecord,
         PaddleSportsDistanceRecord,
         PantothenicAcidNutrientRecord,
@@ -160,6 +161,7 @@ part 'nutrient_data_types/vitamin_e_nutrient_data_type.dart';
 part 'nutrient_data_types/vitamin_k_nutrient_data_type.dart';
 part 'nutrient_data_types/vitamin_nutrient_data_type.dart';
 part 'nutrient_data_types/zinc_nutrient_data_type.dart';
+part 'ovulation_test_data_type.dart';
 part 'oxygen_saturation_health_data_type.dart';
 part 'power_data_types/cycling_power_data_type.dart';
 part 'power_data_types/power_series_data_type.dart';
@@ -517,6 +519,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV1_3_0
   static const restingHeartRate = RestingHeartRateHealthDataType();
 
+  /// Ovulation test data type.
+  ///
+  /// Represents ovulation test results that detect hormonal changes to
+  /// identify fertility windows. Results can be negative, inconclusive,
+  /// high (estrogen surge), or positive (LH surge).
+  @sinceV2_2_0
+  static const ovulationTest = OvulationTestDataType();
+
   /// Oxygen saturation data type.
   ///
   /// Represents the percentage of oxygen-saturated hemoglobin relative
@@ -845,6 +855,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     monounsaturatedFat,
     niacin,
     nutrition,
+    ovulationTest,
     oxygenSaturation,
     powerSeries,
     cyclingPower,
