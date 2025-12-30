@@ -66,7 +66,8 @@ abstract class MeasurementUnitValueParser {
       OxygenSaturationHealthDataType() => _parsePercentage(value),
 
       // Temperature
-      BodyTemperatureHealthDataType() => _parseTemperature(value),
+      BodyTemperatureHealthDataType() ||
+      BasalBodyTemperatureHealthDataType() => _parseTemperature(value),
 
       // Distance/Length
       HeightHealthDataType() ||

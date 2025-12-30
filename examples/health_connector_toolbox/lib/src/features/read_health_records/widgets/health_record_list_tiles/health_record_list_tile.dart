@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/basal_body_temperature_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/blood_glucose_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/blood_pressure_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/cervical_mucus_list_tile.dart';
@@ -161,6 +162,10 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.temperature,
           onDelete: onDelete,
         ),
+      final BasalBodyTemperatureRecord r => BasalBodyTemperatureTile(
+        record: r,
+        onDelete: onDelete,
+      ),
       final HeightRecord r => SimpleInstantMeasurementListTile<HeightRecord>(
         record: r,
         icon: AppIcons.height,

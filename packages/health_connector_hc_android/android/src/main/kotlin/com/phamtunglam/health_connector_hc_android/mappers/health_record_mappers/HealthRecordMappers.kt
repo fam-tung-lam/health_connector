@@ -2,6 +2,7 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 
 import androidx.health.connect.client.feature.ExperimentalMindfulnessSessionApi
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
+import androidx.health.connect.client.records.BasalBodyTemperatureRecord
 import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
@@ -32,6 +33,7 @@ import androidx.health.connect.client.records.Vo2MaxRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
 import com.phamtunglam.health_connector_hc_android.pigeon.ActiveCaloriesBurnedRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BasalBodyTemperatureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyFatPercentageRecordDto
@@ -80,6 +82,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is HydrationRecordDto -> HealthDataTypeDto.HYDRATION
         is BodyFatPercentageRecordDto -> HealthDataTypeDto.BODY_FAT_PERCENTAGE
         is BodyTemperatureRecordDto -> HealthDataTypeDto.BODY_TEMPERATURE
+        is BasalBodyTemperatureRecordDto -> HealthDataTypeDto.BASAL_BODY_TEMPERATURE
         is CervicalMucusRecordDto -> HealthDataTypeDto.CERVICAL_MUCUS
         is WeightRecordDto -> HealthDataTypeDto.WEIGHT
         is LeanBodyMassRecordDto -> HealthDataTypeDto.LEAN_BODY_MASS
@@ -120,6 +123,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is HydrationRecordDto -> toHealthConnect()
     is BodyFatPercentageRecordDto -> toHealthConnect()
     is BodyTemperatureRecordDto -> toHealthConnect()
+    is BasalBodyTemperatureRecordDto -> toHealthConnect()
     is CervicalMucusRecordDto -> toHealthConnect()
     is WeightRecordDto -> toHealthConnect()
     is LeanBodyMassRecordDto -> toHealthConnect()
@@ -165,6 +169,7 @@ internal fun Record.toDto(): HealthRecordDto = when (this) {
     is HydrationRecord -> toDto()
     is BodyFatRecord -> toDto()
     is BodyTemperatureRecord -> toDto()
+    is BasalBodyTemperatureRecord -> toDto()
     is CervicalMucusRecord -> toDto()
     is WeightRecord -> toDto()
     is LeanBodyMassRecord -> toDto()

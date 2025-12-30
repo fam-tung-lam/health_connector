@@ -24,6 +24,8 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .bodyFatPercentage)
         case .bodyTemperature:
             try HKQuantityType.make(from: .bodyTemperature)
+        case .basalBodyTemperature:
+            try HKQuantityType.make(from: .basalBodyTemperature)
         case .steps:
             try HKQuantityType.make(from: .stepCount)
         case .activeCaloriesBurned:

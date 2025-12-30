@@ -13,6 +13,8 @@ part 'blood_pressure_records/diastolic_blood_pressure_record.dart';
 part 'blood_pressure_records/systolic_blood_pressure_record.dart';
 part 'body_fat_percentage_record.dart';
 part 'body_temperature_record.dart';
+part 'basal_body_temperature_record.dart';
+part 'basal_body_temperature_measurement_location.dart';
 part 'cervical_mucus/cervical_mucus_appearance_type.dart';
 part 'cervical_mucus/cervical_mucus_record.dart';
 part 'cervical_mucus/cervical_mucus_sensation_type.dart';

@@ -25,6 +25,7 @@ import 'package:health_connector/health_connector_internal.dart'
         WalkingRunningDistanceDataType,
         ActiveCaloriesBurnedHealthDataType,
         BasalEnergyBurnedHealthDataType,
+        BasalBodyTemperatureHealthDataType,
         TotalCaloriesBurnedHealthDataType,
         FloorsClimbedHealthDataType,
         WheelchairPushesHealthDataType,
@@ -104,6 +105,7 @@ extension HealthDataTypeUI on HealthDataType {
       BodyFatPercentageHealthDataType _ => AppTexts.bodyFatPercentage,
       LeanBodyMassHealthDataType _ => AppTexts.leanBodyMass,
       BodyTemperatureHealthDataType _ => AppTexts.bodyTemperature,
+      BasalBodyTemperatureHealthDataType _ => AppTexts.basalBodyTemperature,
       DistanceHealthDataType _ => AppTexts.distance,
       CrossCountrySkiingDistanceDataType _ => AppTexts.crossCountrySkiing,
       CyclingDistanceDataType _ => AppTexts.cyclingDistance,
@@ -202,6 +204,8 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.bodyFatPercentageDescription,
       LeanBodyMassHealthDataType _ => AppTexts.leanBodyMassDescription,
       BodyTemperatureHealthDataType _ => AppTexts.bodyTemperatureDescription,
+      BasalBodyTemperatureHealthDataType _ =>
+        AppTexts.basalBodyTemperatureDescription,
       DistanceHealthDataType _ => AppTexts.distanceDescription,
       CrossCountrySkiingDistanceDataType _ => AppTexts.distanceDescription,
       CyclingDistanceDataType _ => AppTexts.distanceDescription,
@@ -304,6 +308,7 @@ extension HealthDataTypeUI on HealthDataType {
       BodyFatPercentageHealthDataType _ => AppIcons.percent,
       LeanBodyMassHealthDataType _ => AppIcons.monitorWeight,
       BodyTemperatureHealthDataType _ => AppIcons.temperature,
+      BasalBodyTemperatureHealthDataType _ => AppIcons.temperature,
       DistanceHealthDataType _ => AppIcons.straighten,
       CrossCountrySkiingDistanceDataType _ => AppIcons.straighten,
       CyclingDistanceDataType _ => AppIcons.straighten,
@@ -490,6 +495,10 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       // Vital Signs
       const (BodyTemperatureHealthDataType) => AppTexts.withUnit(
         AppTexts.bodyTemperature,
+        AppTexts.celsius,
+      ),
+      const (BasalBodyTemperatureHealthDataType) => AppTexts.withUnit(
+        AppTexts.basalBodyTemperature,
         AppTexts.celsius,
       ),
       const (SystolicBloodPressureHealthDataType) => AppTexts.withUnit(
@@ -718,6 +727,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
 
       // Vital Signs
       const (BodyTemperatureHealthDataType) => AppTexts.celsius,
+      const (BasalEnergyBurnedHealthDataType) => AppTexts.celsius,
       const (SystolicBloodPressureHealthDataType) ||
       const (DiastolicBloodPressureHealthDataType) =>
         AppTexts.millimetersOfMercury,
@@ -824,6 +834,9 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       ),
       const (BodyTemperatureHealthDataType) => AppTexts.getPleaseEnterText(
         AppTexts.bodyTemperature,
+      ),
+      const (BasalBodyTemperatureHealthDataType) => AppTexts.getPleaseEnterText(
+        AppTexts.basalBodyTemperature,
       ),
       const (SystolicBloodPressureHealthDataType) =>
         AppTexts.getPleaseEnterText(

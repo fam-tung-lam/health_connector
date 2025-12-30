@@ -5,6 +5,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BloodGlucoseHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
+        BasalBodyTemperatureHealthDataType,
         CaffeineNutrientDataType,
         CalciumNutrientDataType,
         CervicalMucusDataType,
@@ -113,6 +114,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.bodyFatPercentage;
       case HealthDataTypeDto.bodyTemperature:
         return HealthDataType.bodyTemperature;
+      case HealthDataTypeDto.basalBodyTemperature:
+        return HealthDataType.basalBodyTemperature;
       case HealthDataTypeDto.cervicalMucus:
         return HealthDataType.cervicalMucus;
       case HealthDataTypeDto.steps:
@@ -182,6 +185,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.bodyFatPercentage;
       case BodyTemperatureHealthDataType _:
         return HealthDataTypeDto.bodyTemperature;
+      case BasalBodyTemperatureHealthDataType _:
+        return HealthDataTypeDto.basalBodyTemperature;
       case CervicalMucusDataType _:
         return HealthDataTypeDto.cervicalMucus;
       case StepsHealthDataType _:

@@ -1,6 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import com.phamtunglam.health_connector_hc_android.pigeon.ActiveCaloriesBurnedRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BasalBodyTemperatureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyFatPercentageRecordDto
@@ -53,6 +54,7 @@ internal val HealthRecordDto.id: String?
         is HydrationRecordDto -> id
         is BodyFatPercentageRecordDto -> id
         is BodyTemperatureRecordDto -> id
+        is BasalBodyTemperatureRecordDto -> id
         is CervicalMucusRecordDto -> id
         is WeightRecordDto -> id
         is LeanBodyMassRecordDto -> id

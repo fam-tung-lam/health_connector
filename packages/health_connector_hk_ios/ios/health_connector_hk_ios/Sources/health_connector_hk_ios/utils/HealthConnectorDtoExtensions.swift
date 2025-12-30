@@ -30,6 +30,8 @@ extension HealthRecordDto {
             record.id
         case let record as BodyTemperatureRecordDto:
             record.id
+        case let record as BasalBodyTemperatureRecordDto:
+            record.id
         case let record as WheelchairPushesRecordDto:
             record.id
         case let record as HeartRateMeasurementRecordDto:
@@ -71,6 +73,8 @@ extension HealthRecordDto {
                 return .bodyFatPercentage
             case is BodyTemperatureRecordDto:
                 return .bodyTemperature
+            case is BasalBodyTemperatureRecordDto:
+                return .basalBodyTemperature
             case is ActiveCaloriesBurnedRecordDto:
                 return .activeCaloriesBurned
             case is BasalEnergyBurnedRecordDto:
@@ -250,6 +254,8 @@ extension HealthRecordDto {
         case let dto as BodyFatPercentageRecordDto:
             return dto.time
         case let dto as BodyTemperatureRecordDto:
+            return dto.time
+        case let dto as BasalBodyTemperatureRecordDto:
             return dto.time
         case let dto as LeanBodyMassRecordDto:
             return dto.time

@@ -88,6 +88,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(HeightHandler(healthStore: healthStore))
         register(BodyFatPercentageHandler(healthStore: healthStore))
         register(BodyTemperatureHandler(healthStore: healthStore))
+        register(BasalBodyTemperatureHandler(healthStore: healthStore))
         register(CervicalMucusHandler(healthStore: healthStore))
         register(LeanBodyMassHandler(healthStore: healthStore))
         register(HeartRateHandler(healthStore: healthStore))
