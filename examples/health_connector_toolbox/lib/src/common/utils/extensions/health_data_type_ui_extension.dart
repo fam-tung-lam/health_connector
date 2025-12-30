@@ -81,7 +81,8 @@ import 'package:health_connector/health_connector_internal.dart'
         CyclingPowerDataType,
         CyclingPedalingCadenceMeasurementRecordHealthDataType,
         CyclingPedalingCadenceSeriesRecordHealthDataType,
-        CervicalMucusDataType;
+        CervicalMucusDataType,
+        OvulationTestDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -127,6 +128,7 @@ extension HealthDataTypeUI on HealthDataType {
       SleepSessionHealthDataType _ => AppTexts.sleepSession,
       SleepStageHealthDataType _ => AppTexts.sleepStage,
       SexualActivityDataType _ => AppTexts.sexualActivity,
+      OvulationTestDataType _ => AppTexts.ovulationTest,
       OxygenSaturationHealthDataType _ => AppTexts.oxygenSaturation,
       NutritionHealthDataType _ => AppTexts.nutrition,
       EnergyNutrientDataType _ => AppTexts.energy,
@@ -275,6 +277,7 @@ extension HealthDataTypeUI on HealthDataType {
       ExerciseSessionHealthDataType _ => 'Period of physical activity',
       MindfulnessSessionDataType _ => 'Period of mindfulness practice',
       CervicalMucusDataType _ => AppTexts.cervicalMucusDescription,
+      OvulationTestDataType _ => AppTexts.ovulationTestDescription,
     };
   }
 
@@ -363,6 +366,7 @@ extension HealthDataTypeUI on HealthDataType {
       CyclingPowerDataType _ => AppIcons.power,
       ExerciseSessionHealthDataType _ => AppIcons.fitnessCenter,
       CervicalMucusDataType _ => AppIcons.waterDrop,
+      OvulationTestDataType _ => AppIcons.science,
       MindfulnessSessionDataType _ => AppIcons.selfImprovement,
     };
   }

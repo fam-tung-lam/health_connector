@@ -134,6 +134,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(Vo2MaxHandler(healthStore: healthStore))
         register(BloodGlucoseHandler(healthStore: healthStore))
         register(NutritionHandler(healthStore: healthStore))
+        register(OvulationTestHandler(healthStore: healthStore))
         register(BloodPressureHandler(healthStore: healthStore))
         register(SystolicBloodPressureHandler(healthStore: healthStore))
         register(DiastolicBloodPressureHandler(healthStore: healthStore))

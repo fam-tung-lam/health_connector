@@ -17,6 +17,7 @@ import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
 import androidx.health.connect.client.records.MindfulnessSessionRecord
 import androidx.health.connect.client.records.NutritionRecord
+import androidx.health.connect.client.records.OvulationTestRecord
 import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.records.PowerRecord
 import androidx.health.connect.client.records.Record
@@ -47,6 +48,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.LeanBodyMassRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MindfulnessSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.NutritionRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.OvulationTestRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.OxygenSaturationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PowerSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RespiratoryRateRecordDto
@@ -87,9 +89,11 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is MindfulnessSessionRecordDto -> HealthDataTypeDto.MINDFULNESS_SESSION
         is SpeedSeriesRecordDto -> HealthDataTypeDto.SPEED_SERIES
         is NutritionRecordDto -> HealthDataTypeDto.NUTRITION
+        is OvulationTestRecordDto -> HealthDataTypeDto.OVULATION_TEST
         is OxygenSaturationRecordDto -> HealthDataTypeDto.OXYGEN_SATURATION
         is PowerSeriesRecordDto -> HealthDataTypeDto.POWER_SERIES
-        is CyclingPedalingCadenceSeriesRecordDto -> HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
+        is CyclingPedalingCadenceSeriesRecordDto ->
+            HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
         is RespiratoryRateRecordDto -> HealthDataTypeDto.RESPIRATORY_RATE
         is Vo2MaxRecordDto -> HealthDataTypeDto.VO2MAX
         is BloodPressureRecordDto -> HealthDataTypeDto.BLOOD_PRESSURE
@@ -124,6 +128,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is MindfulnessSessionRecordDto -> toHealthConnect()
     is SpeedSeriesRecordDto -> toHealthConnect()
     is NutritionRecordDto -> toHealthConnect()
+    is OvulationTestRecordDto -> toHealthConnect()
     is OxygenSaturationRecordDto -> toHealthConnect()
     is PowerSeriesRecordDto -> toHealthConnect()
     is CyclingPedalingCadenceSeriesRecordDto -> toHealthConnect()
@@ -175,5 +180,6 @@ internal fun Record.toDto(): HealthRecordDto = when (this) {
     is BloodPressureRecord -> toDto()
     is BloodGlucoseRecord -> toDto()
     is ExerciseSessionRecord -> toDto()
+    is OvulationTestRecord -> toDto()
     else -> throw IllegalArgumentException("Unsupported record type: ${this::class.simpleName}")
 }

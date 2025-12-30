@@ -230,6 +230,8 @@ extension HealthDataTypeDto {
             try HKCategoryType.make(from: .sexualActivity)
         case .cervicalMucus:
             try HKCategoryType.make(from: .cervicalMucusQuality)
+        case .ovulationTest:
+            try HKCategoryType.make(from: .ovulationTestResult)
         case .exerciseSession:
             HKObjectType.workoutType()
         case .mindfulnessSession:

@@ -154,6 +154,8 @@ extension HKSample {
                 return .sexualActivity
             case HKCategoryTypeIdentifier.cervicalMucusQuality.rawValue:
                 return .cervicalMucus
+            case HKCategoryTypeIdentifier.ovulationTestResult.rawValue:
+                return .ovulationTest
             case HKCategoryTypeIdentifier.mindfulSession.rawValue:
                 return .mindfulnessSession
             // Correlation types

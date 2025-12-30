@@ -32,117 +32,118 @@ extension HealthRecordDataTypeExtension on HealthRecord {
   HealthDataType<HealthRecord, MeasurementUnit> get dataType {
     return switch (this) {
       // Distance records
-      DistanceRecord() => HealthDataType.distance,
-      CyclingDistanceRecord() => HealthDataType.cyclingDistance,
-      SwimmingDistanceRecord() => HealthDataType.swimmingDistance,
-      WheelchairDistanceRecord() => HealthDataType.wheelchairDistance,
-      DownhillSnowSportsDistanceRecord() =>
+      DistanceRecord _ => HealthDataType.distance,
+      CyclingDistanceRecord _ => HealthDataType.cyclingDistance,
+      SwimmingDistanceRecord _ => HealthDataType.swimmingDistance,
+      WheelchairDistanceRecord _ => HealthDataType.wheelchairDistance,
+      DownhillSnowSportsDistanceRecord _ =>
         HealthDataType.downhillSnowSportsDistance,
-      RowingDistanceRecord() => HealthDataType.rowingDistance,
-      PaddleSportsDistanceRecord() => HealthDataType.paddleSportsDistance,
-      CrossCountrySkiingDistanceRecord() =>
+      RowingDistanceRecord _ => HealthDataType.rowingDistance,
+      PaddleSportsDistanceRecord _ => HealthDataType.paddleSportsDistance,
+      CrossCountrySkiingDistanceRecord _ =>
         HealthDataType.crossCountrySkiingDistance,
-      SkatingSportsDistanceRecord() => HealthDataType.skatingSportsDistance,
-      SixMinuteWalkTestDistanceRecord() =>
+      SkatingSportsDistanceRecord _ => HealthDataType.skatingSportsDistance,
+      SixMinuteWalkTestDistanceRecord _ =>
         HealthDataType.sixMinuteWalkTestDistance,
-      WalkingRunningDistanceRecord() => HealthDataType.walkingRunningDistance,
+      WalkingRunningDistanceRecord _ => HealthDataType.walkingRunningDistance,
 
       // Speed records
-      SpeedSeriesRecord() => HealthDataType.speedSeries,
-      WalkingSpeedRecord() => HealthDataType.walkingSpeed,
-      RunningSpeedRecord() => HealthDataType.runningSpeed,
-      StairAscentSpeedRecord() => HealthDataType.stairAscentSpeed,
-      StairDescentSpeedRecord() => HealthDataType.stairDescentSpeed,
+      SpeedSeriesRecord _ => HealthDataType.speedSeries,
+      WalkingSpeedRecord _ => HealthDataType.walkingSpeed,
+      RunningSpeedRecord _ => HealthDataType.runningSpeed,
+      StairAscentSpeedRecord _ => HealthDataType.stairAscentSpeed,
+      StairDescentSpeedRecord _ => HealthDataType.stairDescentSpeed,
 
       // Power records
-      PowerSeriesRecord() => HealthDataType.powerSeries,
-      CyclingPowerRecord() => HealthDataType.cyclingPower,
+      PowerSeriesRecord _ => HealthDataType.powerSeries,
+      CyclingPowerRecord _ => HealthDataType.cyclingPower,
 
       // Basic health records
-      StepsRecord() => HealthDataType.steps,
-      WeightRecord() => HealthDataType.weight,
-      HeightRecord() => HealthDataType.height,
-      BloodGlucoseRecord() => HealthDataType.bloodGlucose,
-      BodyFatPercentageRecord() => HealthDataType.bodyFatPercentage,
-      BodyTemperatureRecord() => HealthDataType.bodyTemperature,
-      CervicalMucusRecord() => HealthDataType.cervicalMucus,
-      ActiveCaloriesBurnedRecord() => HealthDataType.activeCaloriesBurned,
-      ExerciseSessionRecord() => HealthDataType.exerciseSession,
-      FloorsClimbedRecord() => HealthDataType.floorsClimbed,
-      WheelchairPushesRecord() => HealthDataType.wheelchairPushes,
-      LeanBodyMassRecord() => HealthDataType.leanBodyMass,
-      HydrationRecord() => HealthDataType.hydration,
+      StepsRecord _ => HealthDataType.steps,
+      WeightRecord _ => HealthDataType.weight,
+      HeightRecord _ => HealthDataType.height,
+      BloodGlucoseRecord _ => HealthDataType.bloodGlucose,
+      BodyFatPercentageRecord _ => HealthDataType.bodyFatPercentage,
+      BodyTemperatureRecord _ => HealthDataType.bodyTemperature,
+      CervicalMucusRecord _ => HealthDataType.cervicalMucus,
+      ActiveCaloriesBurnedRecord _ => HealthDataType.activeCaloriesBurned,
+      ExerciseSessionRecord _ => HealthDataType.exerciseSession,
+      FloorsClimbedRecord _ => HealthDataType.floorsClimbed,
+      WheelchairPushesRecord _ => HealthDataType.wheelchairPushes,
+      LeanBodyMassRecord _ => HealthDataType.leanBodyMass,
+      HydrationRecord _ => HealthDataType.hydration,
 
       // Blood pressure records
-      BloodPressureRecord() => HealthDataType.bloodPressure,
-      SystolicBloodPressureRecord() => HealthDataType.systolicBloodPressure,
-      DiastolicBloodPressureRecord() => HealthDataType.diastolicBloodPressure,
+      BloodPressureRecord _ => HealthDataType.bloodPressure,
+      SystolicBloodPressureRecord _ => HealthDataType.systolicBloodPressure,
+      DiastolicBloodPressureRecord _ => HealthDataType.diastolicBloodPressure,
 
       // Heart rate records
-      HeartRateSeriesRecord() => HealthDataType.heartRateSeriesRecord,
-      HeartRateMeasurementRecord() => HealthDataType.heartRateMeasurementRecord,
+      HeartRateSeriesRecord _ => HealthDataType.heartRateSeriesRecord,
+      HeartRateMeasurementRecord _ => HealthDataType.heartRateMeasurementRecord,
 
       // Cycling pedaling cadence records
-      CyclingPedalingCadenceSeriesRecord() =>
+      CyclingPedalingCadenceSeriesRecord _ =>
         HealthDataType.cyclingPedalingCadenceSeriesRecord,
-      CyclingPedalingCadenceMeasurementRecord() =>
+      CyclingPedalingCadenceMeasurementRecord _ =>
         HealthDataType.cyclingPedalingCadenceMeasurementRecord,
 
       // Sleep records
-      SleepSessionRecord() => HealthDataType.sleepSession,
-      SleepStageRecord() => HealthDataType.sleepStageRecord,
+      SleepSessionRecord _ => HealthDataType.sleepSession,
+      SleepStageRecord _ => HealthDataType.sleepStageRecord,
 
       // Sexual activity
-      SexualActivityRecord() => HealthDataType.sexualActivity,
+      SexualActivityRecord _ => HealthDataType.sexualActivity,
 
       // Mindfulness records
-      MindfulnessSessionRecord() => HealthDataType.mindfulnessSession,
+      MindfulnessSessionRecord _ => HealthDataType.mindfulnessSession,
 
       // Vital signs
-      RestingHeartRateRecord() => HealthDataType.restingHeartRate,
-      OxygenSaturationRecord() => HealthDataType.oxygenSaturation,
-      RespiratoryRateRecord() => HealthDataType.respiratoryRate,
-      Vo2MaxRecord() => HealthDataType.vo2Max,
+      RestingHeartRateRecord _ => HealthDataType.restingHeartRate,
+      OvulationTestRecord _ => HealthDataType.ovulationTest,
+      OxygenSaturationRecord _ => HealthDataType.oxygenSaturation,
+      RespiratoryRateRecord _ => HealthDataType.respiratoryRate,
+      Vo2MaxRecord _ => HealthDataType.vo2Max,
 
       // Nutrition records
-      NutritionRecord() => HealthDataType.nutrition,
-      EnergyNutrientRecord() => HealthDataType.energyNutrient,
-      CaffeineNutrientRecord() => HealthDataType.caffeine,
-      ProteinNutrientRecord() => HealthDataType.protein,
-      TotalCarbohydrateNutrientRecord() => HealthDataType.totalCarbohydrate,
-      TotalFatNutrientRecord() => HealthDataType.totalFat,
-      SaturatedFatNutrientRecord() => HealthDataType.saturatedFat,
-      MonounsaturatedFatNutrientRecord() => HealthDataType.monounsaturatedFat,
-      PolyunsaturatedFatNutrientRecord() => HealthDataType.polyunsaturatedFat,
-      CholesterolNutrientRecord() => HealthDataType.cholesterol,
-      DietaryFiberNutrientRecord() => HealthDataType.dietaryFiber,
-      SugarNutrientRecord() => HealthDataType.sugar,
+      NutritionRecord _ => HealthDataType.nutrition,
+      EnergyNutrientRecord _ => HealthDataType.energyNutrient,
+      CaffeineNutrientRecord _ => HealthDataType.caffeine,
+      ProteinNutrientRecord _ => HealthDataType.protein,
+      TotalCarbohydrateNutrientRecord _ => HealthDataType.totalCarbohydrate,
+      TotalFatNutrientRecord _ => HealthDataType.totalFat,
+      SaturatedFatNutrientRecord _ => HealthDataType.saturatedFat,
+      MonounsaturatedFatNutrientRecord _ => HealthDataType.monounsaturatedFat,
+      PolyunsaturatedFatNutrientRecord _ => HealthDataType.polyunsaturatedFat,
+      CholesterolNutrientRecord _ => HealthDataType.cholesterol,
+      DietaryFiberNutrientRecord _ => HealthDataType.dietaryFiber,
+      SugarNutrientRecord _ => HealthDataType.sugar,
 
       // Mineral nutrients
-      CalciumNutrientRecord() => HealthDataType.calcium,
-      IronNutrientRecord() => HealthDataType.iron,
-      MagnesiumNutrientRecord() => HealthDataType.magnesium,
-      ManganeseNutrientRecord() => HealthDataType.manganese,
-      PhosphorusNutrientRecord() => HealthDataType.phosphorus,
-      PotassiumNutrientRecord() => HealthDataType.potassium,
-      SeleniumNutrientRecord() => HealthDataType.selenium,
-      SodiumNutrientRecord() => HealthDataType.sodium,
-      ZincNutrientRecord() => HealthDataType.zinc,
+      CalciumNutrientRecord _ => HealthDataType.calcium,
+      IronNutrientRecord _ => HealthDataType.iron,
+      MagnesiumNutrientRecord _ => HealthDataType.magnesium,
+      ManganeseNutrientRecord _ => HealthDataType.manganese,
+      PhosphorusNutrientRecord _ => HealthDataType.phosphorus,
+      PotassiumNutrientRecord _ => HealthDataType.potassium,
+      SeleniumNutrientRecord _ => HealthDataType.selenium,
+      SodiumNutrientRecord _ => HealthDataType.sodium,
+      ZincNutrientRecord _ => HealthDataType.zinc,
 
       // Vitamin nutrients
-      VitaminANutrientRecord() => HealthDataType.vitaminA,
-      VitaminB6NutrientRecord() => HealthDataType.vitaminB6,
-      VitaminB12NutrientRecord() => HealthDataType.vitaminB12,
-      VitaminCNutrientRecord() => HealthDataType.vitaminC,
-      VitaminDNutrientRecord() => HealthDataType.vitaminD,
-      VitaminENutrientRecord() => HealthDataType.vitaminE,
-      VitaminKNutrientRecord() => HealthDataType.vitaminK,
-      ThiaminNutrientRecord() => HealthDataType.thiamin,
-      RiboflavinNutrientRecord() => HealthDataType.riboflavin,
-      NiacinNutrientRecord() => HealthDataType.niacin,
-      FolateNutrientRecord() => HealthDataType.folate,
-      BiotinNutrientRecord() => HealthDataType.biotin,
-      PantothenicAcidNutrientRecord() => HealthDataType.pantothenicAcid,
+      VitaminANutrientRecord _ => HealthDataType.vitaminA,
+      VitaminB6NutrientRecord _ => HealthDataType.vitaminB6,
+      VitaminB12NutrientRecord _ => HealthDataType.vitaminB12,
+      VitaminCNutrientRecord _ => HealthDataType.vitaminC,
+      VitaminDNutrientRecord _ => HealthDataType.vitaminD,
+      VitaminENutrientRecord _ => HealthDataType.vitaminE,
+      VitaminKNutrientRecord _ => HealthDataType.vitaminK,
+      ThiaminNutrientRecord _ => HealthDataType.thiamin,
+      RiboflavinNutrientRecord _ => HealthDataType.riboflavin,
+      NiacinNutrientRecord _ => HealthDataType.niacin,
+      FolateNutrientRecord _ => HealthDataType.folate,
+      BiotinNutrientRecord _ => HealthDataType.biotin,
+      PantothenicAcidNutrientRecord _ => HealthDataType.pantothenicAcid,
     };
   }
 }

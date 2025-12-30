@@ -602,6 +602,24 @@ enum SexualActivityProtectionUsedTypeDto {
   unknown,
 }
 
+/// Ovulation test result classification.
+///
+/// Maps to Android Health Connect OvulationTestRecord result constants
+/// and iOS HealthKit HKCategoryValueOvulationTestResult enum.
+enum OvulationTestResultTypeDto {
+  /// Test result is negative (no hormonal surge).
+  negative,
+
+  /// Test result is inconclusive.
+  inconclusive,
+
+  /// Test result shows high estrogen levels.
+  high,
+
+  /// Test result is positive (LH surge detected).
+  positive,
+}
+
 /// Represents the type of speed-based activity.
 ///
 /// Maps to different iOS HKQuantityTypeIdentifier values.
@@ -977,6 +995,9 @@ enum HealthDataTypeDto {
 
   /// Diastolic blood pressure (HKQuantityType.bloodPressureDiastolic).
   diastolicBloodPressure,
+
+  /// Ovulation test data.
+  ovulationTest,
 
   /// Oxygen saturation data.
   oxygenSaturation,
@@ -1708,6 +1729,32 @@ class OxygenSaturationRecordDto extends HealthRecordDto {
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
+}
+
+/// Represents an ovulation test record for platform transfer.
+class OvulationTestRecordDto extends HealthRecordDto {
+  OvulationTestRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.result,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+
+  /// The ovulation test result.
+  final OvulationTestResultTypeDto result;
 }
 
 /// Represents a respiratory rate record for platform transfer.

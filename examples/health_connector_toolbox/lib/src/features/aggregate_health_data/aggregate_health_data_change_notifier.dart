@@ -89,7 +89,8 @@ import 'package:health_connector/health_connector_internal.dart'
         LeanBodyMassHealthDataType,
         NutritionHealthDataType,
         SpeedSeriesDataType,
-        CervicalMucusDataType;
+        CervicalMucusDataType,
+        OvulationTestDataType;
 
 /// Manages state and operations for aggregating health data.
 ///
@@ -602,6 +603,9 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
       CervicalMucusDataType() => throw UnsupportedError(
         'Cervical mucus does not support aggregation',
+      ),
+      OvulationTestDataType() => throw UnsupportedError(
+        'Ovulation test does not support aggregation',
       ),
     };
   }

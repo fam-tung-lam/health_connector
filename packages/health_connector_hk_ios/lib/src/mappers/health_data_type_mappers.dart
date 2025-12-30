@@ -45,6 +45,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         MonounsaturatedFatNutrientDataType,
         CholesterolNutrientDataType,
         RespiratoryRateHealthDataType,
+        OvulationTestDataType,
         OxygenSaturationHealthDataType,
         RestingHeartRateHealthDataType,
         DietaryFiberNutrientDataType,
@@ -202,6 +203,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.diastolicBloodPressure;
       case HealthDataTypeDto.restingHeartRate:
         return HealthDataType.restingHeartRate;
+      case HealthDataTypeDto.ovulationTest:
+        return HealthDataType.ovulationTest;
       case HealthDataTypeDto.oxygenSaturation:
         return HealthDataType.oxygenSaturation;
       case HealthDataTypeDto.respiratoryRate:
@@ -365,6 +368,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.diastolicBloodPressure;
       case RestingHeartRateHealthDataType _:
         return HealthDataTypeDto.restingHeartRate;
+      case OvulationTestDataType _:
+        return HealthDataTypeDto.ovulationTest;
       case OxygenSaturationHealthDataType _:
         return HealthDataTypeDto.oxygenSaturation;
       case RespiratoryRateHealthDataType _:

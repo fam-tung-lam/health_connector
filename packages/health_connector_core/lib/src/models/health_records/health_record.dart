@@ -82,6 +82,8 @@ part 'nutrition_records/vitamin_e_nutrient_record.dart';
 part 'nutrition_records/vitamin_k_nutrient_record.dart';
 part 'nutrition_records/vitamin_nutrient_record.dart';
 part 'nutrition_records/zinc_nutrient_record.dart';
+part 'ovulation_test/ovulation_test_record.dart';
+part 'ovulation_test/ovulation_test_result_type.dart';
 part 'oxygen_saturation_record.dart';
 part 'power_records/cycling_power_record.dart';
 part 'power_records/power_series_record.dart';

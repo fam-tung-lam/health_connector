@@ -113,47 +113,51 @@ abstract class MeasurementUnitValueParser {
 
       // Complex/composite types that cannot be parsed from a single string value
       BloodPressureHealthDataType() => throw UnsupportedError(
-        'BloodPressure requires systolic and diastolic values, '
+        '$BloodPressureHealthDataType requires systolic and diastolic values, '
         'cannot be parsed from a single string input.',
       ),
       HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
-        'HeartRateSeries is a time series data type, '
+        '$HeartRateSeriesRecordHealthDataType is a time series data type, '
         'cannot be parsed from a single string input.',
       ),
       NutritionHealthDataType() => throw UnsupportedError(
-        'Nutrition requires multiple nutrient values, '
+        '$NutritionHealthDataType requires multiple nutrient values, '
         'cannot be parsed from a single string input.',
       ),
       SleepSessionHealthDataType() => throw UnsupportedError(
-        'SleepSession is a complex type with stages and times, '
+        '$SleepSessionHealthDataType is a complex type with stages and times, '
         'cannot be parsed from a single string input.',
       ),
       SleepStageHealthDataType() => throw UnsupportedError(
-        'SleepStage is part of SleepSession, '
+        '$SleepStageHealthDataType is part of SleepSession, '
         'cannot be parsed from a single string input.',
       ),
       SexualActivityDataType() => throw UnsupportedError(
-        'SexualActivity is a complex type with time and optional '
+        '$SexualActivityDataType is a complex type with time and optional '
         'protection info, cannot be parsed from a single string input.',
       ),
       SpeedSeriesDataType() => throw UnsupportedError(
-        'SpeedSeries is a time series data type, '
+        '$SpeedSeriesDataType is a time series data type, '
         'cannot be parsed from a single string input.',
       ),
       PowerSeriesDataType() => throw UnsupportedError(
-        'PowerSeries is a time series data type, '
+        '$PowerSeriesDataType is a time series data type, '
         'cannot be parsed from a single string input.',
       ),
       ExerciseSessionHealthDataType() => throw UnsupportedError(
-        'ExerciseSession is a complex type with exercise type and times, '
-        'not a simple numeric value. Cannot parse.',
+        '$ExerciseSessionHealthDataType is a complex type with exercise '
+        'type and times, not a simple numeric value. Cannot parse.',
       ),
       MindfulnessSessionDataType() => throw UnsupportedError(
-        'MindfulnessSession is a complex type with session type and times, '
-        'not a simple numeric value. Cannot parse.',
+        '$MindfulnessSessionDataType is a complex type with session '
+        'type and times, not a simple numeric value. Cannot parse.',
       ),
       CervicalMucusDataType() => throw UnsupportedError(
-        'CervicalMucus is a complex type with appearance and sensation, '
+        '$CervicalMucusDataType is a complex type with appearance and '
+        'sensation, cannot be parsed from a single string input.',
+      ),
+      OvulationTestDataType() => throw UnsupportedError(
+        '$OvulationTestDataType is a complex type with test result, '
         'cannot be parsed from a single string input.',
       ),
     };
