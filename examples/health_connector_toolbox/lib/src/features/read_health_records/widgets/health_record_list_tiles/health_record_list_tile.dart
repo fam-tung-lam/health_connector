@@ -448,6 +448,24 @@ final class HealthRecordListTile extends StatelessWidget {
           record: r,
           onDelete: onDelete,
         ),
+      final TotalCaloriesBurnedRecord r =>
+        SimpleIntervalMeasurementListTile<TotalCaloriesBurnedRecord>(
+          record: r,
+          icon: AppIcons.localFireDepartment,
+          titleBuilder: (r) =>
+              '${r.energy.inKilocalories.toStringAsFixed(0)} kcal (Total)',
+          valueExtractor: (r) => r.energy,
+          onDelete: onDelete,
+        ),
+      final BasalEnergyBurnedRecord r =>
+        SimpleIntervalMeasurementListTile<BasalEnergyBurnedRecord>(
+          record: r,
+          icon: AppIcons.localFireDepartment,
+          titleBuilder: (r) =>
+              '${r.energy.inKilocalories.toStringAsFixed(0)} kcal (Basal)',
+          valueExtractor: (r) => r.energy,
+          onDelete: onDelete,
+        ),
     };
 
     // Wrap tile with consistent spacing

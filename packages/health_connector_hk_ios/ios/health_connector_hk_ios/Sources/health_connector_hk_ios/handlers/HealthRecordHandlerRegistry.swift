@@ -80,6 +80,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
     private func registerAllHandlers() {
         register(StepsHandler(healthStore: healthStore))
         register(ActiveCaloriesBurnedHandler(healthStore: healthStore))
+        register(BasalEnergyBurnedHandler(healthStore: healthStore))
         register(FloorsClimbedHandler(healthStore: healthStore))
         register(WheelchairPushesHandler(healthStore: healthStore))
         register(HydrationHandler(healthStore: healthStore))

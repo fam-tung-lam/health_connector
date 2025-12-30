@@ -1,6 +1,7 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show
         ActiveCaloriesBurnedHealthDataType,
+        BasalEnergyBurnedHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
         CervicalMucusDataType,
@@ -84,7 +85,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         RunningSpeedDataType,
         StairAscentSpeedDataType,
         StairDescentSpeedDataType,
-        ExerciseSessionHealthDataType;
+        ExerciseSessionHealthDataType,
+        TotalCaloriesBurnedHealthDataType;
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show HealthDataTypeDto;
 import 'package:meta/meta.dart' show internal;
@@ -97,6 +99,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
     switch (this) {
       case HealthDataTypeDto.activeCaloriesBurned:
         return HealthDataType.activeCaloriesBurned;
+      case HealthDataTypeDto.basalEnergyBurned:
+        return HealthDataType.basalEnergyBurned;
       case HealthDataTypeDto.distance:
         return HealthDataType.distance;
       case HealthDataTypeDto.floorsClimbed:
@@ -259,6 +263,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
     switch (this) {
       case ActiveCaloriesBurnedHealthDataType _:
         return HealthDataTypeDto.activeCaloriesBurned;
+      case BasalEnergyBurnedHealthDataType _:
+        return HealthDataTypeDto.basalEnergyBurned;
       case DistanceHealthDataType _:
         return HealthDataTypeDto.distance;
       case FloorsClimbedHealthDataType _:
@@ -439,6 +445,12 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$CyclingPedalingCadenceSeriesRecordHealthDataType is not '
           'supported on iOS HealthKit. '
           'Use $CyclingPedalingCadenceMeasurementRecordHealthDataType instead.',
+        );
+      case TotalCaloriesBurnedHealthDataType _:
+        throw UnsupportedError(
+          '$TotalCaloriesBurnedHealthDataType is not supported on iOS '
+          'HealthKit. Use $ActiveCaloriesBurnedHealthDataType and '
+          '$BasalEnergyBurnedHealthDataType instead.',
         );
     }
   }

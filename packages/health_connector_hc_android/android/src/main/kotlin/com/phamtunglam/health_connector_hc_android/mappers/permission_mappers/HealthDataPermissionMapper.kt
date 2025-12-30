@@ -27,6 +27,7 @@ import androidx.health.connect.client.records.SexualActivityRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.SpeedRecord
 import androidx.health.connect.client.records.StepsRecord
+import androidx.health.connect.client.records.TotalCaloriesBurnedRecord
 import androidx.health.connect.client.records.Vo2MaxRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
@@ -50,6 +51,18 @@ internal fun getHealthConnectPermission(
 
             PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
                 ActiveCaloriesBurnedRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.TOTAL_CALORIES_BURNED -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                TotalCaloriesBurnedRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                TotalCaloriesBurnedRecord::class,
             )
         }
     }
@@ -429,6 +442,7 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto 
 
     val dataType = when (dataTypeStr) {
         "ACTIVE_CALORIES_BURNED" -> HealthDataTypeDto.ACTIVE_CALORIES_BURNED
+        "TOTAL_CALORIES_BURNED" -> HealthDataTypeDto.TOTAL_CALORIES_BURNED
         "STEPS" -> HealthDataTypeDto.STEPS
         "WEIGHT" -> HealthDataTypeDto.WEIGHT
         "DISTANCE" -> HealthDataTypeDto.DISTANCE

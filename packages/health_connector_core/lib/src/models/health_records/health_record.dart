@@ -106,6 +106,8 @@ part 'steps_record.dart';
 part 'vo2_max_record.dart';
 part 'weight_record.dart';
 part 'wheelchair_pushes_record.dart';
+part 'total_calories_burned_record.dart';
+part 'basal_energy_burned_record.dart';
 
 /// Base class for all health records.
 ///

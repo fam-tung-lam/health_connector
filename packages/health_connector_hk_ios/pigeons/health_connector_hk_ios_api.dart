@@ -799,6 +799,9 @@ enum HealthDataTypeDto {
   /// Swimming distance.
   swimmingDistance,
 
+  /// Basal energy burned data.
+  basalEnergyBurned,
+
   /// Wheelchair distance.
   wheelchairDistance,
 
@@ -2863,6 +2866,40 @@ class NutritionRecordDto extends HealthRecordDto {
 }
 
 // endregion
+
+/// Represents a basal energy burned record for platform transfer.
+class BasalEnergyBurnedRecordDto extends HealthRecordDto {
+  BasalEnergyBurnedRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.startTime,
+    required this.endTime,
+    required this.energy,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+
+  /// Energy burned.
+  final EnergyDto energy;
+}
 
 // region Requests/Responses
 

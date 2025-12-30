@@ -6,6 +6,7 @@ import 'package:health_connector_core/src/models/health_platform_data.dart'
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show
         ActiveCaloriesBurnedRecord,
+        BasalEnergyBurnedRecord,
         BiotinNutrientRecord,
         BloodPressureRecord,
         BloodGlucoseRecord,
@@ -69,6 +70,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         SwimmingDistanceRecord,
         SystolicBloodPressureRecord,
         ThiaminNutrientRecord,
+        TotalCaloriesBurnedRecord,
         TotalCarbohydrateNutrientRecord,
         TotalFatNutrientRecord,
         VitaminANutrientRecord,
@@ -180,6 +182,8 @@ part 'steps_health_data_type.dart';
 part 'vo2_max_health_data_type.dart';
 part 'weight_health_data_type.dart';
 part 'wheelchair_pushes_health_data_type.dart';
+part 'total_calories_burned_health_data_type.dart';
+part 'basal_energy_burned_health_data_type.dart';
 
 /// [HealthDataType] represents different kinds of health and fitness data
 /// that can be read from or written to health platforms.
@@ -603,6 +607,25 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV1_1_0
   static const energyNutrient = EnergyNutrientDataType();
 
+  /// Total calories burned data type.
+  ///
+  /// Represents the total energy burned by the user, including both
+  /// active energy and basal metabolic rate.
+  ///
+  /// Supports reading, writing, and sum aggregation.
+  @sinceV2_2_0
+  @supportedOnHealthConnect
+  static const totalCaloriesBurned = TotalCaloriesBurnedHealthDataType();
+
+  /// Basal energy burned data type.
+  ///
+  /// Represents the energy burned by the body at rest (BMR).
+  ///
+  /// Supports reading, writing, and sum aggregation.
+  @sinceV2_2_0
+  @supportedOnAppleHealth
+  static const basalEnergyBurned = BasalEnergyBurnedHealthDataType();
+
   /// Caffeine nutrient data type.
   ///
   /// Represents caffeine intake. Supports reading, writing,
@@ -828,7 +851,11 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
 
   /// Returns a list of all available health data types.
   static const values = <HealthDataType<HealthRecord, MeasurementUnit>>[
+    // Energy/Calories burned types
     activeCaloriesBurned,
+    totalCaloriesBurned,
+    basalEnergyBurned,
+
     biotin,
     bloodGlucose,
     bloodPressure,

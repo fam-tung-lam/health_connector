@@ -28,6 +28,8 @@ extension HealthDataTypeDto {
             try HKQuantityType.make(from: .stepCount)
         case .activeCaloriesBurned:
             try HKQuantityType.make(from: .activeEnergyBurned)
+        case .basalEnergyBurned:
+            try HKQuantityType.make(from: .basalEnergyBurned)
         case .floorsClimbed:
             try HKQuantityType.make(from: .flightsClimbed)
         case .wheelchairPushes:

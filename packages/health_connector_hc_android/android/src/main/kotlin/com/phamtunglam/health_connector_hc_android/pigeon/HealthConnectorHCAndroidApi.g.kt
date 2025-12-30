@@ -764,7 +764,9 @@ enum class HealthDataTypeDto(val raw: Int) {
   /** Speed data. */
   SPEED_SERIES(26),
   /** Mindfulness session data. */
-  MINDFULNESS_SESSION(27);
+  MINDFULNESS_SESSION(27),
+  /** Total calories burned data. */
+  TOTAL_CALORIES_BURNED(28);
 
   companion object {
     fun ofRaw(raw: Int): HealthDataTypeDto? {
@@ -3261,6 +3263,63 @@ data class NutritionRecordDto (
 }
 
 /**
+ * Represents a total calories burned record for platform transfer.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class TotalCaloriesBurnedRecordDto (
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
+  /** Metadata about this record. */
+  val metadata: MetadataDto,
+  /** Start time in milliseconds since epoch (UTC). */
+  val startTime: Long,
+  /** End time in milliseconds since epoch (UTC). */
+  val endTime: Long,
+  /** Timezone offset in seconds for start time (optional). */
+  val startZoneOffsetSeconds: Long? = null,
+  /** Timezone offset in seconds for end time (optional). */
+  val endZoneOffsetSeconds: Long? = null,
+  /** Energy burned. */
+  val energy: EnergyDto
+) : HealthRecordDto()
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): TotalCaloriesBurnedRecordDto {
+      val id = pigeonVar_list[0] as String?
+      val metadata = pigeonVar_list[1] as MetadataDto
+      val startTime = pigeonVar_list[2] as Long
+      val endTime = pigeonVar_list[3] as Long
+      val startZoneOffsetSeconds = pigeonVar_list[4] as Long?
+      val endZoneOffsetSeconds = pigeonVar_list[5] as Long?
+      val energy = pigeonVar_list[6] as EnergyDto
+      return TotalCaloriesBurnedRecordDto(id, metadata, startTime, endTime, startZoneOffsetSeconds, endZoneOffsetSeconds, energy)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      id,
+      metadata,
+      startTime,
+      endTime,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+      energy,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other !is TotalCaloriesBurnedRecordDto) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
+
+  override fun hashCode(): Int = toList().hashCode()
+}
+
+/**
  * Represents a permission request.
  *
  * Generated class from Pigeon that represents data sent in messages.
@@ -4238,70 +4297,75 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       210.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthPlatformFeaturePermissionRequestResultDto.fromList(it)
+          TotalCaloriesBurnedRecordDto.fromList(it)
         }
       }
       211.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthDataPermissionRequestDto.fromList(it)
+          HealthPlatformFeaturePermissionRequestResultDto.fromList(it)
         }
       }
       212.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthDataPermissionRequestResultDto.fromList(it)
+          HealthDataPermissionRequestDto.fromList(it)
         }
       }
       213.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthPlatformFeaturePermissionRequest.fromList(it)
+          HealthDataPermissionRequestResultDto.fromList(it)
         }
       }
       214.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PermissionRequestsDto.fromList(it)
+          HealthPlatformFeaturePermissionRequest.fromList(it)
         }
       }
       215.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PermissionRequestsResponseDto.fromList(it)
+          PermissionRequestsDto.fromList(it)
         }
       }
       216.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          CommonAggregateRequestDto.fromList(it)
+          PermissionRequestsResponseDto.fromList(it)
         }
       }
       217.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BloodPressureAggregateRequestDto.fromList(it)
+          CommonAggregateRequestDto.fromList(it)
         }
       }
       218.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByIdsRequestDto.fromList(it)
+          BloodPressureAggregateRequestDto.fromList(it)
         }
       }
       219.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByTimeRangeRequestDto.fromList(it)
+          DeleteRecordsByIdsRequestDto.fromList(it)
         }
       }
       220.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordRequestDto.fromList(it)
+          DeleteRecordsByTimeRangeRequestDto.fromList(it)
         }
       }
       221.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsRequestDto.fromList(it)
+          ReadRecordRequestDto.fromList(it)
         }
       }
       222.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsResponseDto.fromList(it)
+          ReadRecordsRequestDto.fromList(it)
         }
       }
       223.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          ReadRecordsResponseDto.fromList(it)
+        }
+      }
+      224.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
           HealthConnectorConfigDto.fromList(it)
         }
@@ -4635,60 +4699,64 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(209)
         writeValue(stream, value.toList())
       }
-      is HealthPlatformFeaturePermissionRequestResultDto -> {
+      is TotalCaloriesBurnedRecordDto -> {
         stream.write(210)
         writeValue(stream, value.toList())
       }
-      is HealthDataPermissionRequestDto -> {
+      is HealthPlatformFeaturePermissionRequestResultDto -> {
         stream.write(211)
         writeValue(stream, value.toList())
       }
-      is HealthDataPermissionRequestResultDto -> {
+      is HealthDataPermissionRequestDto -> {
         stream.write(212)
         writeValue(stream, value.toList())
       }
-      is HealthPlatformFeaturePermissionRequest -> {
+      is HealthDataPermissionRequestResultDto -> {
         stream.write(213)
         writeValue(stream, value.toList())
       }
-      is PermissionRequestsDto -> {
+      is HealthPlatformFeaturePermissionRequest -> {
         stream.write(214)
         writeValue(stream, value.toList())
       }
-      is PermissionRequestsResponseDto -> {
+      is PermissionRequestsDto -> {
         stream.write(215)
         writeValue(stream, value.toList())
       }
-      is CommonAggregateRequestDto -> {
+      is PermissionRequestsResponseDto -> {
         stream.write(216)
         writeValue(stream, value.toList())
       }
-      is BloodPressureAggregateRequestDto -> {
+      is CommonAggregateRequestDto -> {
         stream.write(217)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByIdsRequestDto -> {
+      is BloodPressureAggregateRequestDto -> {
         stream.write(218)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByTimeRangeRequestDto -> {
+      is DeleteRecordsByIdsRequestDto -> {
         stream.write(219)
         writeValue(stream, value.toList())
       }
-      is ReadRecordRequestDto -> {
+      is DeleteRecordsByTimeRangeRequestDto -> {
         stream.write(220)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsRequestDto -> {
+      is ReadRecordRequestDto -> {
         stream.write(221)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsResponseDto -> {
+      is ReadRecordsRequestDto -> {
         stream.write(222)
         writeValue(stream, value.toList())
       }
-      is HealthConnectorConfigDto -> {
+      is ReadRecordsResponseDto -> {
         stream.write(223)
+        writeValue(stream, value.toList())
+      }
+      is HealthConnectorConfigDto -> {
+        stream.write(224)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)

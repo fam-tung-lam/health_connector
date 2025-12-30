@@ -85,7 +85,9 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         RunningSpeedDataType,
         StairAscentSpeedDataType,
         StairDescentSpeedDataType,
-        SexualActivityDataType;
+        SexualActivityDataType,
+        TotalCaloriesBurnedHealthDataType,
+        BasalEnergyBurnedHealthDataType;
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show ExerciseSessionHealthDataType;
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mappers.dart';
@@ -210,6 +212,8 @@ extension AggregateRequestDtoMapper<
           case StairAscentSpeedDataType _:
           case StairDescentSpeedDataType _:
           case MindfulnessSessionDataType _:
+          case TotalCaloriesBurnedHealthDataType _:
+          case BasalEnergyBurnedHealthDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',
             );

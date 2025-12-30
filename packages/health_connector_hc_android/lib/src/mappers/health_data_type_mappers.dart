@@ -80,11 +80,13 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         SystolicBloodPressureHealthDataType,
         DiastolicBloodPressureHealthDataType,
         SpeedSeriesDataType,
+        TotalCaloriesBurnedHealthDataType,
         WalkingSpeedDataType,
         RunningSpeedDataType,
         StairAscentSpeedDataType,
         StairDescentSpeedDataType,
-        sinceV1_0_0;
+        sinceV1_0_0,
+        BasalEnergyBurnedHealthDataType;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show HealthDataTypeDto;
 import 'package:meta/meta.dart' show internal;
@@ -150,6 +152,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.powerSeries;
       case HealthDataTypeDto.speedSeries:
         return HealthDataType.speedSeries;
+      case HealthDataTypeDto.totalCaloriesBurned:
+        return HealthDataType.totalCaloriesBurned;
       case HealthDataTypeDto.mindfulnessSession:
         return HealthDataType.mindfulnessSession;
     }
@@ -250,6 +254,14 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.vo2Max;
       case BloodGlucoseHealthDataType _:
         return HealthDataTypeDto.bloodGlucose;
+      case TotalCaloriesBurnedHealthDataType _:
+        return HealthDataTypeDto.totalCaloriesBurned;
+      case BasalEnergyBurnedHealthDataType _:
+        throw UnsupportedError(
+          '$BasalEnergyBurnedHealthDataType is not supported on '
+          'Android Health Connect. Use $TotalCaloriesBurnedHealthDataType '
+          'and $ActiveCaloriesBurnedHealthDataType instead.',
+        );
       case SleepStageHealthDataType _:
         throw UnsupportedError(
           '$SleepStageHealthDataType is not supported on '

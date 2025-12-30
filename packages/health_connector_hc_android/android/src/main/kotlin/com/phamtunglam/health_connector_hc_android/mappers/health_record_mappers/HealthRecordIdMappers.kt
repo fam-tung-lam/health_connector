@@ -26,6 +26,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.SexualActivityRecordDt
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepsRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.TotalCaloriesBurnedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecordDto
@@ -44,6 +45,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecord
 internal val HealthRecordDto.id: String?
     get() = when (this) {
         is ActiveCaloriesBurnedRecordDto -> id
+        is TotalCaloriesBurnedRecordDto -> id
         is DistanceRecordDto -> id
         is FloorsClimbedRecordDto -> id
         is StepsRecordDto -> id
