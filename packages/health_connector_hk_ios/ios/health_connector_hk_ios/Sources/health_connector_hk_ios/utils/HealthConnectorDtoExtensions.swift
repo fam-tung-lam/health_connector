@@ -10,6 +10,8 @@ extension HealthRecordDto {
         switch self {
         case let record as ActiveCaloriesBurnedRecordDto:
             record.id
+        case let record as BasalEnergyBurnedRecordDto:
+            record.id
         case let record as DistanceActivityRecordDto:
             record.id
         case let record as FloorsClimbedRecordDto:
@@ -71,6 +73,8 @@ extension HealthRecordDto {
                 return .bodyTemperature
             case is ActiveCaloriesBurnedRecordDto:
                 return .activeCaloriesBurned
+            case is BasalEnergyBurnedRecordDto:
+                return .basalEnergyBurned
             case let record as DistanceActivityRecordDto:
                 return switch record.activityType {
                 case .walkingRunning: .walkingRunningDistance
@@ -223,6 +227,8 @@ extension HealthRecordDto {
         case let dto as StepsRecordDto:
             return dto.endTime
         case let dto as ActiveCaloriesBurnedRecordDto:
+            return dto.endTime
+        case let dto as BasalEnergyBurnedRecordDto:
             return dto.endTime
         case let dto as DistanceActivityRecordDto:
             return dto.endTime

@@ -759,6 +759,9 @@ enum HealthDataTypeDto {
 
   /// Mindfulness session data.
   mindfulnessSession,
+
+  /// Total calories burned data.
+  totalCaloriesBurned,
 }
 
 /// Represents a blood glucose record for platform transfer.
@@ -1892,6 +1895,40 @@ class NutritionRecordDto extends HealthRecordDto {
 }
 
 // endregion
+
+/// Represents a total calories burned record for platform transfer.
+class TotalCaloriesBurnedRecordDto extends HealthRecordDto {
+  TotalCaloriesBurnedRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.startTime,
+    required this.endTime,
+    required this.energy,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+
+  /// Energy burned.
+  final EnergyDto energy;
+}
 
 // region Requests/Responses
 

@@ -30,6 +30,8 @@ import 'package:health_connector/health_connector_internal.dart'
         WalkingRunningDistanceDataType,
         Length,
         ActiveCaloriesBurnedHealthDataType,
+        BasalEnergyBurnedHealthDataType,
+        TotalCaloriesBurnedHealthDataType,
         HydrationHealthDataType,
         HeartRateMeasurementRecordHealthDataType,
         HeartRateSeriesRecordHealthDataType,
@@ -292,6 +294,20 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       // Energy/hydration types - sum only
       ActiveCaloriesBurnedHealthDataType() => _buildSum(
         () => HealthDataType.activeCaloriesBurned.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
+      BasalEnergyBurnedHealthDataType() => _buildSum(
+        () => HealthDataType.basalEnergyBurned.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
+      TotalCaloriesBurnedHealthDataType() => _buildSum(
+        () => HealthDataType.totalCaloriesBurned.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),

@@ -18,6 +18,7 @@ extension HealthDataPermissionDto {
         switch healthDataType {
         // Quantity types
         case .activeCaloriesBurned,
+             .basalEnergyBurned,
              .distance,
              .cyclingDistance,
              .cyclingPower,

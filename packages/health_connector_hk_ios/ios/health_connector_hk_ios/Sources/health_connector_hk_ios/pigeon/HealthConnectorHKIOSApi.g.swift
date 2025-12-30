@@ -649,148 +649,150 @@ public enum HealthDataTypeDto: Int {
   case cyclingPower = 3
   /// Swimming distance.
   case swimmingDistance = 4
+  /// Basal energy burned data.
+  case basalEnergyBurned = 5
   /// Wheelchair distance.
-  case wheelchairDistance = 5
+  case wheelchairDistance = 6
   /// Walking or running distance.
-  case walkingRunningDistance = 6
+  case walkingRunningDistance = 7
   /// Downhill snow sports distance.
-  case downhillSnowSportsDistance = 7
+  case downhillSnowSportsDistance = 8
   /// Rowing distance (iOS 18+).
-  case rowingDistance = 8
+  case rowingDistance = 9
   /// Paddle sports distance (iOS 18+).
-  case paddleSportsDistance = 9
+  case paddleSportsDistance = 10
   /// Cross-country skiing distance (iOS 18+).
-  case crossCountrySkiingDistance = 10
+  case crossCountrySkiingDistance = 11
   /// Skating sports distance (iOS 18+).
-  case skatingSportsDistance = 11
+  case skatingSportsDistance = 12
   /// Six-minute walk test distance.
-  case sixMinuteWalkTestDistance = 12
+  case sixMinuteWalkTestDistance = 13
   /// Floors climbed data.
-  case floorsClimbed = 13
+  case floorsClimbed = 14
   /// Step count data.
-  case steps = 14
+  case steps = 15
   /// Body weight data.
-  case weight = 15
+  case weight = 16
   /// Body height data.
-  case height = 16
+  case height = 17
   /// Body fat percentage data.
-  case bodyFatPercentage = 17
+  case bodyFatPercentage = 18
   /// Body temperature data.
-  case bodyTemperature = 18
+  case bodyTemperature = 19
   /// Cervical mucus observation data.
-  case cervicalMucus = 19
+  case cervicalMucus = 20
   /// Lean body mass data.
-  case leanBodyMass = 20
+  case leanBodyMass = 21
   /// Wheelchair pushes data.
-  case wheelchairPushes = 21
+  case wheelchairPushes = 22
   /// Hydration (water intake) data.
-  case hydration = 22
+  case hydration = 23
   /// Heart rate measurement record data (iOS HealthKit).
-  case heartRateMeasurementRecord = 23
+  case heartRateMeasurementRecord = 24
   /// Cycling pedaling cadence measurement record data (iOS HealthKit).
-  case cyclingPedalingCadenceMeasurementRecord = 24
+  case cyclingPedalingCadenceMeasurementRecord = 25
   /// Sleep stage record data (iOS HealthKit).
-  case sleepStageRecord = 25
+  case sleepStageRecord = 26
   /// Sexual activity data.
-  case sexualActivity = 26
+  case sexualActivity = 27
   /// Walking speed data.
-  case walkingSpeed = 27
+  case walkingSpeed = 28
   /// Running speed data.
-  case runningSpeed = 28
+  case runningSpeed = 29
   /// Stair ascent speed data.
-  case stairAscentSpeed = 29
+  case stairAscentSpeed = 30
   /// Stair descent speed data.
-  case stairDescentSpeed = 30
+  case stairDescentSpeed = 31
   /// Energy nutrient data (calories consumed).
-  case energyNutrient = 31
+  case energyNutrient = 32
   /// Caffeine nutrient data.
-  case caffeine = 32
+  case caffeine = 33
   /// Protein nutrient data.
-  case protein = 33
+  case protein = 34
   /// Total carbohydrate nutrient data.
-  case totalCarbohydrate = 34
+  case totalCarbohydrate = 35
   /// Total fat nutrient data.
-  case totalFat = 35
+  case totalFat = 36
   /// Saturated fat nutrient data.
-  case saturatedFat = 36
+  case saturatedFat = 37
   /// Monounsaturated fat nutrient data.
-  case monounsaturatedFat = 37
+  case monounsaturatedFat = 38
   /// Polyunsaturated fat nutrient data.
-  case polyunsaturatedFat = 38
+  case polyunsaturatedFat = 39
   /// Cholesterol nutrient data.
-  case cholesterol = 39
+  case cholesterol = 40
   /// Dietary fiber nutrient data.
-  case dietaryFiber = 40
+  case dietaryFiber = 41
   /// Sugar nutrient data.
-  case sugar = 41
+  case sugar = 42
   /// Vitamin A nutrient data.
-  case vitaminA = 42
+  case vitaminA = 43
   /// Vitamin B6 nutrient data.
-  case vitaminB6 = 43
+  case vitaminB6 = 44
   /// Vitamin B12 nutrient data.
-  case vitaminB12 = 44
+  case vitaminB12 = 45
   /// Vitamin C nutrient data.
-  case vitaminC = 45
+  case vitaminC = 46
   /// Vitamin D nutrient data.
-  case vitaminD = 46
+  case vitaminD = 47
   /// Vitamin E nutrient data.
-  case vitaminE = 47
+  case vitaminE = 48
   /// Vitamin K nutrient data.
-  case vitaminK = 48
+  case vitaminK = 49
   /// Thiamin (Vitamin B1) nutrient data.
-  case thiamin = 49
+  case thiamin = 50
   /// Riboflavin (Vitamin B2) nutrient data.
-  case riboflavin = 50
+  case riboflavin = 51
   /// Niacin (Vitamin B3) nutrient data.
-  case niacin = 51
+  case niacin = 52
   /// Folate (Vitamin B9) nutrient data.
-  case folate = 52
+  case folate = 53
   /// Biotin (Vitamin B7) nutrient data.
-  case biotin = 53
+  case biotin = 54
   /// Pantothenic acid (Vitamin B5) nutrient data.
-  case pantothenicAcid = 54
+  case pantothenicAcid = 55
   /// Calcium nutrient data.
-  case calcium = 55
+  case calcium = 56
   /// Iron nutrient data.
-  case iron = 56
+  case iron = 57
   /// Magnesium nutrient data.
-  case magnesium = 57
+  case magnesium = 58
   /// Manganese nutrient data.
-  case manganese = 58
+  case manganese = 59
   /// Phosphorus nutrient data.
-  case phosphorus = 59
+  case phosphorus = 60
   /// Potassium nutrient data.
-  case potassium = 60
+  case potassium = 61
   /// Selenium nutrient data.
-  case selenium = 61
+  case selenium = 62
   /// Sodium nutrient data.
-  case sodium = 62
+  case sodium = 63
   /// Zinc nutrient data.
-  case zinc = 63
+  case zinc = 64
   /// Combined nutrition record (HKCorrelation.food).
-  case nutrition = 64
+  case nutrition = 65
   /// Resting heart rate data.
-  case restingHeartRate = 65
+  case restingHeartRate = 66
   /// Composite blood pressure (HKCorrelationType.bloodPressure).
-  case bloodPressure = 66
+  case bloodPressure = 67
   /// Systolic blood pressure (HKQuantityType.bloodPressureSystolic).
-  case systolicBloodPressure = 67
+  case systolicBloodPressure = 68
   /// Diastolic blood pressure (HKQuantityType.bloodPressureDiastolic).
-  case diastolicBloodPressure = 68
+  case diastolicBloodPressure = 69
   /// Ovulation test data.
-  case ovulationTest = 69
+  case ovulationTest = 70
   /// Oxygen saturation data.
-  case oxygenSaturation = 70
+  case oxygenSaturation = 71
   /// Respiratory rate data.
-  case respiratoryRate = 71
+  case respiratoryRate = 72
   /// VO2 max (maximal oxygen uptake) data.
-  case vo2Max = 72
+  case vo2Max = 73
   /// Blood glucose data.
-  case bloodGlucose = 73
+  case bloodGlucose = 74
   /// Exercise session data.
-  case exerciseSession = 74
+  case exerciseSession = 75
   /// Mindfulness session data.
-  case mindfulnessSession = 75
+  case mindfulnessSession = 76
 }
 
 /// Aggregation metric types for health data queries.
@@ -4919,6 +4921,64 @@ public struct NutritionRecordDto: HealthRecordDto {
   }
 }
 
+/// Represents a basal energy burned record for platform transfer.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct BasalEnergyBurnedRecordDto: HealthRecordDto {
+  /// Platform-assigned unique identifier.
+  var id: String? = nil
+  /// Metadata about this record.
+  var metadata: MetadataDto
+  /// Start time in milliseconds since epoch (UTC).
+  var startTime: Int64
+  /// End time in milliseconds since epoch (UTC).
+  var endTime: Int64
+  /// Timezone offset in seconds for start time (optional).
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time (optional).
+  var endZoneOffsetSeconds: Int64? = nil
+  /// Energy burned.
+  var energy: EnergyDto
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> BasalEnergyBurnedRecordDto? {
+    let id: String? = nilOrValue(pigeonVar_list[0])
+    let metadata = pigeonVar_list[1] as! MetadataDto
+    let startTime = pigeonVar_list[2] as! Int64
+    let endTime = pigeonVar_list[3] as! Int64
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let energy = pigeonVar_list[6] as! EnergyDto
+
+    return BasalEnergyBurnedRecordDto(
+      id: id,
+      metadata: metadata,
+      startTime: startTime,
+      endTime: endTime,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      energy: energy
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      metadata,
+      startTime,
+      endTime,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
+      energy,
+    ]
+  }
+  public static func == (lhs: BasalEnergyBurnedRecordDto, rhs: BasalEnergyBurnedRecordDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
 /// Represents the result of a health data permission request.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -5642,24 +5702,26 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 240:
       return NutritionRecordDto.fromList(self.readValue() as! [Any?])
     case 241:
-      return HealthDataPermissionRequestResultDto.fromList(self.readValue() as! [Any?])
+      return BasalEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
     case 242:
-      return PermissionsRequestDto.fromList(self.readValue() as! [Any?])
+      return HealthDataPermissionRequestResultDto.fromList(self.readValue() as! [Any?])
     case 243:
-      return PermissionsRequestResponseDto.fromList(self.readValue() as! [Any?])
+      return PermissionsRequestDto.fromList(self.readValue() as! [Any?])
     case 244:
-      return AggregateRequestDto.fromList(self.readValue() as! [Any?])
+      return PermissionsRequestResponseDto.fromList(self.readValue() as! [Any?])
     case 245:
-      return DeleteRecordsByIdsRequestDto.fromList(self.readValue() as! [Any?])
+      return AggregateRequestDto.fromList(self.readValue() as! [Any?])
     case 246:
-      return DeleteRecordsByTimeRangeRequestDto.fromList(self.readValue() as! [Any?])
+      return DeleteRecordsByIdsRequestDto.fromList(self.readValue() as! [Any?])
     case 247:
-      return ReadRecordRequestDto.fromList(self.readValue() as! [Any?])
+      return DeleteRecordsByTimeRangeRequestDto.fromList(self.readValue() as! [Any?])
     case 248:
-      return ReadRecordsRequestDto.fromList(self.readValue() as! [Any?])
+      return ReadRecordRequestDto.fromList(self.readValue() as! [Any?])
     case 249:
-      return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
+      return ReadRecordsRequestDto.fromList(self.readValue() as! [Any?])
     case 250:
+      return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
+    case 251:
       return HealthConnectorConfigDto.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -6005,35 +6067,38 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? NutritionRecordDto {
       super.writeByte(240)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataPermissionRequestResultDto {
+    } else if let value = value as? BasalEnergyBurnedRecordDto {
       super.writeByte(241)
       super.writeValue(value.toList())
-    } else if let value = value as? PermissionsRequestDto {
+    } else if let value = value as? HealthDataPermissionRequestResultDto {
       super.writeByte(242)
       super.writeValue(value.toList())
-    } else if let value = value as? PermissionsRequestResponseDto {
+    } else if let value = value as? PermissionsRequestDto {
       super.writeByte(243)
       super.writeValue(value.toList())
-    } else if let value = value as? AggregateRequestDto {
+    } else if let value = value as? PermissionsRequestResponseDto {
       super.writeByte(244)
       super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByIdsRequestDto {
+    } else if let value = value as? AggregateRequestDto {
       super.writeByte(245)
       super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
+    } else if let value = value as? DeleteRecordsByIdsRequestDto {
       super.writeByte(246)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordRequestDto {
+    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
       super.writeByte(247)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordsRequestDto {
+    } else if let value = value as? ReadRecordRequestDto {
       super.writeByte(248)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordsResponseDto {
+    } else if let value = value as? ReadRecordsRequestDto {
       super.writeByte(249)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthConnectorConfigDto {
+    } else if let value = value as? ReadRecordsResponseDto {
       super.writeByte(250)
+      super.writeValue(value.toList())
+    } else if let value = value as? HealthConnectorConfigDto {
+      super.writeByte(251)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)

@@ -27,6 +27,7 @@ import androidx.health.connect.client.records.SexualActivityRecord
 import androidx.health.connect.client.records.SleepSessionRecord
 import androidx.health.connect.client.records.SpeedRecord
 import androidx.health.connect.client.records.StepsRecord
+import androidx.health.connect.client.records.TotalCaloriesBurnedRecord
 import androidx.health.connect.client.records.Vo2MaxRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
@@ -57,6 +58,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.SexualActivityRecordDt
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepsRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.TotalCaloriesBurnedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecordDto
@@ -95,6 +97,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is CyclingPedalingCadenceSeriesRecordDto ->
             HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
         is RespiratoryRateRecordDto -> HealthDataTypeDto.RESPIRATORY_RATE
+        is TotalCaloriesBurnedRecordDto -> HealthDataTypeDto.TOTAL_CALORIES_BURNED
         is Vo2MaxRecordDto -> HealthDataTypeDto.VO2MAX
         is BloodPressureRecordDto -> HealthDataTypeDto.BLOOD_PRESSURE
         is BloodGlucoseRecordDto -> HealthDataTypeDto.BLOOD_GLUCOSE
@@ -133,6 +136,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is PowerSeriesRecordDto -> toHealthConnect()
     is CyclingPedalingCadenceSeriesRecordDto -> toHealthConnect()
     is RespiratoryRateRecordDto -> toHealthConnect()
+    is TotalCaloriesBurnedRecordDto -> toHealthConnect()
     is Vo2MaxRecordDto -> toHealthConnect()
     is BloodPressureRecordDto -> toHealthConnect()
     is BloodGlucoseRecordDto -> toHealthConnect()
@@ -176,6 +180,7 @@ internal fun Record.toDto(): HealthRecordDto = when (this) {
     is PowerRecord -> toDto()
     is CyclingPedalingCadenceRecord -> toDto()
     is RespiratoryRateRecord -> toDto()
+    is TotalCaloriesBurnedRecord -> toDto()
     is Vo2MaxRecord -> toDto()
     is BloodPressureRecord -> toDto()
     is BloodGlucoseRecord -> toDto()

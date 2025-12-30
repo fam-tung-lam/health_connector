@@ -62,6 +62,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ManganeseNutrientRecord,
         PotassiumNutrientRecord,
         RestingHeartRateRecord,
+        TotalCaloriesBurnedRecord,
         SeleniumNutrientRecord,
         SodiumNutrientRecord,
         ZincNutrientRecord,
@@ -70,7 +71,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         RespiratoryRateRecord,
         SpeedSeriesRecord,
         SpeedActivityRecord,
-        sinceV1_0_0;
+        sinceV1_0_0,
+        BasalEnergyBurnedRecord;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/active_calories_burned_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_glucose_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_pressure_record_mappers.dart';
@@ -96,6 +98,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/se
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sleep_session_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/speed_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/steps_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/total_calories_burned_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/vo2_max_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/weight_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/wheelchair_pushes_record_mappers.dart';
@@ -129,6 +132,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         BloodGlucoseRecordDto,
         ExerciseSessionRecordDto,
         RespiratoryRateRecordDto,
+        TotalCaloriesBurnedRecordDto,
         SpeedSeriesRecordDto;
 import 'package:meta/meta.dart' show internal;
 
@@ -235,6 +239,14 @@ extension HealthRecordToDto on HealthRecord {
         return Vo2MaxRecordToDto(record).toDto();
       case final BloodGlucoseRecord record:
         return BloodGlucoseRecordToDto(record).toDto();
+      case final TotalCaloriesBurnedRecord record:
+        return TotalCaloriesBurnedRecordToDto(record).toDto();
+      case final BasalEnergyBurnedRecord _:
+        throw UnsupportedError(
+          '$BasalEnergyBurnedRecord is not supported on Android '
+          'Health Connect. Use $TotalCaloriesBurnedRecord and '
+          '$ActiveCaloriesBurnedRecord instead',
+        );
       case final EnergyNutrientRecord _:
         throw UnsupportedError(
           '$EnergyNutrientRecord is not supported on Health Connect. '
@@ -511,6 +523,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return PowerSeriesRecordDtoToDomain(dto).toDomain();
       case final SpeedSeriesRecordDto dto:
         return SpeedSeriesRecordDtoToDomain(dto).toDomain();
+      case final TotalCaloriesBurnedRecordDto dto:
+        return TotalCaloriesBurnedRecordDtoToDomain(dto).toDomain();
     }
   }
 }

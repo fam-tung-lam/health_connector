@@ -1,6 +1,7 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show
         ActiveCaloriesBurnedRecord,
+        BasalEnergyBurnedRecord,
         BiotinNutrientRecord,
         BloodPressureRecord,
         BodyFatPercentageRecord,
@@ -52,6 +53,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ThiaminNutrientRecord,
         TotalCarbohydrateNutrientRecord,
         TotalFatNutrientRecord,
+        TotalCaloriesBurnedRecord,
         VitaminANutrientRecord,
         VitaminB12NutrientRecord,
         VitaminB6NutrientRecord,
@@ -72,6 +74,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ExerciseSessionRecord,
         sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/active_calories_burned_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/basal_energy_burned_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_fat_percentage_record_mappers.dart';
@@ -104,6 +107,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/wheelc
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show
         ActiveCaloriesBurnedRecordDto,
+        BasalEnergyBurnedRecordDto,
         BiotinNutrientRecordDto,
         BloodPressureRecordDto,
         BodyFatPercentageRecordDto,
@@ -222,6 +226,8 @@ extension HealthRecordToDto on HealthRecord {
     switch (this) {
       case final ActiveCaloriesBurnedRecord record:
         return ActiveCaloriesBurnedRecordToDto(record).toDto();
+      case final BasalEnergyBurnedRecord record:
+        return BasalEnergyBurnedRecordToDto(record).toDto();
       case final FloorsClimbedRecord record:
         return FloorsClimbedRecordToDto(record).toDto();
       case final StepsRecord record:
@@ -378,6 +384,11 @@ extension HealthRecordToDto on HealthRecord {
           '$PowerSeriesRecord is not supported on iOS HealthKit. '
           'Use $CyclingPowerRecord instead.',
         );
+      case final TotalCaloriesBurnedRecord _:
+        throw UnsupportedError(
+          '$TotalCaloriesBurnedRecord is not supported on iOS HealthKit. '
+          'Use $ActiveCaloriesBurnedRecord + $BasalEnergyBurnedRecord.',
+        );
     }
   }
 }
@@ -390,6 +401,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
     switch (this) {
       case final ActiveCaloriesBurnedRecordDto dto:
         return ActiveCaloriesBurnedRecordDtoToDomain(dto).toDomain();
+      case final BasalEnergyBurnedRecordDto dto:
+        return BasalEnergyBurnedRecordDtoToDomain(dto).toDomain();
       case final FloorsClimbedRecordDto dto:
         return FloorsClimbedRecordDtoToDomain(dto).toDomain();
       case final StepsRecordDto dto:

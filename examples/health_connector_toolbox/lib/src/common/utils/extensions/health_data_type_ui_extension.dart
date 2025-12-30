@@ -24,6 +24,8 @@ import 'package:health_connector/health_connector_internal.dart'
         WheelchairDistanceDataType,
         WalkingRunningDistanceDataType,
         ActiveCaloriesBurnedHealthDataType,
+        BasalEnergyBurnedHealthDataType,
+        TotalCaloriesBurnedHealthDataType,
         FloorsClimbedHealthDataType,
         WheelchairPushesHealthDataType,
         HydrationHealthDataType,
@@ -115,6 +117,8 @@ extension HealthDataTypeUI on HealthDataType {
       WheelchairDistanceDataType _ => AppTexts.wheelchairDistance,
       WalkingRunningDistanceDataType _ => AppTexts.walkingRunningDistance,
       ActiveCaloriesBurnedHealthDataType _ => AppTexts.activeCaloriesBurned,
+      BasalEnergyBurnedHealthDataType _ => AppTexts.basalEnergyBurned,
+      TotalCaloriesBurnedHealthDataType _ => AppTexts.totalCaloriesBurned,
       FloorsClimbedHealthDataType _ => AppTexts.floorsClimbed,
       WheelchairPushesHealthDataType _ => AppTexts.wheelchairPushes,
       HydrationHealthDataType _ => AppTexts.hydration,
@@ -211,6 +215,10 @@ extension HealthDataTypeUI on HealthDataType {
       WalkingRunningDistanceDataType _ => AppTexts.distanceDescription,
       ActiveCaloriesBurnedHealthDataType _ =>
         AppTexts.activeCaloriesBurnedDescription,
+      BasalEnergyBurnedHealthDataType _ =>
+        AppTexts.basalEnergyBurnedDescription,
+      TotalCaloriesBurnedHealthDataType _ =>
+        AppTexts.totalCaloriesBurnedDescription,
       FloorsClimbedHealthDataType _ => AppTexts.floorsClimbedDescription,
       WheelchairPushesHealthDataType _ => AppTexts.wheelchairPushesDescription,
       HydrationHealthDataType _ => AppTexts.hydrationDescription,
@@ -308,6 +316,8 @@ extension HealthDataTypeUI on HealthDataType {
       WheelchairDistanceDataType _ => AppIcons.straighten,
       WalkingRunningDistanceDataType _ => AppIcons.straighten,
       ActiveCaloriesBurnedHealthDataType _ => AppIcons.localFireDepartment,
+      BasalEnergyBurnedHealthDataType _ => AppIcons.localFireDepartment,
+      TotalCaloriesBurnedHealthDataType _ => AppIcons.localFireDepartment,
       FloorsClimbedHealthDataType _ => AppIcons.stairs,
       WheelchairPushesHealthDataType _ => AppIcons.accessible,
       HydrationHealthDataType _ => AppIcons.volume,
@@ -505,6 +515,14 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
 
       // Activity & Energy
       const (ActiveCaloriesBurnedHealthDataType) => AppTexts.withUnit(
+        AppTexts.activeCaloriesBurned,
+        AppTexts.kilocalories,
+      ),
+      const (TotalCaloriesBurnedHealthDataType) => AppTexts.withUnit(
+        AppTexts.activeCaloriesBurned,
+        AppTexts.kilocalories,
+      ),
+      const (BasalEnergyBurnedHealthDataType) => AppTexts.withUnit(
         AppTexts.activeCaloriesBurned,
         AppTexts.kilocalories,
       ),
@@ -712,6 +730,8 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
 
       // Activity & Energy
       const (ActiveCaloriesBurnedHealthDataType) ||
+      const (BasalEnergyBurnedHealthDataType) ||
+      const (TotalCaloriesBurnedHealthDataType) ||
       const (EnergyNutrientDataType) => AppTexts.kilocalories,
       const (HydrationHealthDataType) => AppTexts.liter,
 

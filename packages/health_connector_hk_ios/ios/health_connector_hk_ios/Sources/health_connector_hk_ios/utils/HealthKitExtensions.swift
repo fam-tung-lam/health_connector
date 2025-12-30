@@ -43,6 +43,8 @@ extension HKSample {
                 return .bodyTemperature
             case HKQuantityTypeIdentifier.activeEnergyBurned.rawValue:
                 return .activeCaloriesBurned
+            case HKQuantityTypeIdentifier.basalEnergyBurned.rawValue:
+                return .basalEnergyBurned
             case HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue:
                 return .distance
             case HKQuantityTypeIdentifier.flightsClimbed.rawValue:
