@@ -139,6 +139,7 @@ final class HealthRecordHandlerRegistry: @unchecked Sendable {
         register(OvulationTestHandler(healthStore: healthStore))
         register(IntermenstrualBleedingHandler(healthStore: healthStore))
         register(BodyMassIndexHandler(healthStore: healthStore))
+        register(MenstrualFlowHandler(healthStore: healthStore))
         register(WaistCircumferenceHandler(healthStore: healthStore))
         register(HeartRateVariabilitySDNNHandler(healthStore: healthStore))
         register(BloodPressureHandler(healthStore: healthStore))

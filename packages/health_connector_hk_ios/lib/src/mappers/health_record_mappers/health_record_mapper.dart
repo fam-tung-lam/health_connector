@@ -80,6 +80,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         SpeedActivityRecord,
         SpeedSeriesRecord,
         ExerciseSessionRecord,
+        MenstrualFlowRecord,
+        MenstrualFlowInstantRecord,
         sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/active_calories_burned_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/basal_body_temperature_record_mappers.dart';
@@ -102,6 +104,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/height
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/hydration_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/intermenstrual_bleeding_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/lean_body_mass_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstrual_flow_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/mindfulness_session_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/ovulation_test_record_mappers.dart';
@@ -188,6 +191,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         BloodGlucoseRecordDto,
         Vo2MaxRecordDto,
         SpeedActivityRecordDto,
+        MenstrualFlowRecordDto,
         ExerciseSessionRecordDto;
 import 'package:meta/meta.dart' show internal;
 
@@ -374,6 +378,8 @@ extension HealthRecordToDto on HealthRecord {
         return BodyMassIndexRecordToDto(record).toDto();
       case final WaistCircumferenceRecord record:
         return WaistCircumferenceRecordToDto(record).toDto();
+      case final MenstrualFlowRecord record:
+        return MenstrualFlowRecordToDto(record).toDto();
       case final HeartRateVariabilitySDNNRecord record:
         return HeartRateVariabilitySDNNRecordToDto(record).toDto();
       case ExerciseSessionRecord():
@@ -428,6 +434,11 @@ extension HealthRecordToDto on HealthRecord {
       case final HeartRateVariabilityRMSSDRecord _:
         throw UnsupportedError(
           '$HeartRateVariabilityRMSSDRecord is not supported on iOS HealthKit.',
+        );
+      case final MenstrualFlowInstantRecord _:
+        throw UnsupportedError(
+          '$MenstrualFlowInstantRecord is not supported on iOS HealthKit. '
+          'Use $MenstrualFlowRecord instead.',
         );
     }
   }
@@ -577,6 +588,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return BodyMassIndexRecordDtoToDomain(dto).toDomain();
       case final WaistCircumferenceRecordDto dto:
         return WaistCircumferenceRecordDtoToDomain(dto).toDomain();
+      case final MenstrualFlowRecordDto dto:
+        return MenstrualFlowRecordDtoToDomain(dto).toDomain();
       case final HeartRateVariabilitySDNNRecordDto dto:
         return HeartRateVariabilitySDNNRecordDtoToDomain(dto).toDomain();
     }

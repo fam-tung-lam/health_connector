@@ -42,6 +42,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         NiacinNutrientDataType,
         NutritionHealthDataType,
         IntermenstrualBleedingDataType,
+        MenstrualFlowDataType,
+        MenstrualFlowInstantDataType,
         OvulationTestDataType,
         OxygenSaturationHealthDataType,
         PaddleSportsDistanceDataType,
@@ -152,6 +154,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.ovulationTest;
       case HealthDataTypeDto.intermenstrualBleeding:
         return HealthDataType.intermenstrualBleeding;
+      case HealthDataTypeDto.menstrualFlowInstant:
+        return HealthDataType.menstrualFlowInstant;
       case HealthDataTypeDto.oxygenSaturation:
         return HealthDataType.oxygenSaturation;
       case HealthDataTypeDto.respiratoryRate:
@@ -234,6 +238,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.ovulationTest;
       case IntermenstrualBleedingDataType _:
         return HealthDataTypeDto.intermenstrualBleeding;
+      case MenstrualFlowInstantDataType _:
+        return HealthDataTypeDto.menstrualFlowInstant;
       case OxygenSaturationHealthDataType _:
         return HealthDataTypeDto.oxygenSaturation;
       case RespiratoryRateHealthDataType _:
@@ -365,6 +371,12 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$HeartRateVariabilitySDNNDataType is not supported on '
           'Android Health Connect. Use $HeartRateVariabilityRMSSDDataType '
           'instead.',
+        );
+
+      case MenstrualFlowDataType _:
+        throw UnsupportedError(
+          '$MenstrualFlowDataType is not supported on Android Health Connect. '
+          'Use $MenstrualFlowInstantDataType instead.',
         );
     }
   }

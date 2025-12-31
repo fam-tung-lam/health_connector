@@ -20,6 +20,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.IntermenstrualBleedingRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.LeanBodyMassRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.MenstrualFlowInstantRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MindfulnessSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.NutritionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.OvulationTestRecordDto
@@ -80,6 +81,7 @@ internal val HealthRecordDto.id: String?
         is ExerciseSessionRecordDto -> id
         is MindfulnessSessionRecordDto -> id
         is IntermenstrualBleedingRecordDto -> id
+        is MenstrualFlowInstantRecordDto -> id
         is BoneMassRecordDto -> id
         is BodyWaterMassRecordDto -> id
         is HeartRateVariabilityRMSSDRecordDto -> id

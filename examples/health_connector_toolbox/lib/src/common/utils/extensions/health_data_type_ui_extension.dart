@@ -92,7 +92,9 @@ import 'package:health_connector/health_connector_internal.dart'
         HeartRateVariabilityRMSSDDataType,
         BodyMassIndexHealthDataType,
         WaistCircumferenceHealthDataType,
-        HeartRateVariabilitySDNNDataType;
+        HeartRateVariabilitySDNNDataType,
+        MenstrualFlowDataType,
+        MenstrualFlowInstantDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -197,6 +199,8 @@ extension HealthDataTypeUI on HealthDataType {
       BodyMassIndexHealthDataType _ => AppTexts.bodyMassIndex,
       WaistCircumferenceHealthDataType _ => AppTexts.waistCircumference,
       HeartRateVariabilitySDNNDataType _ => AppTexts.heartRateVariabilitySDNN,
+      MenstrualFlowDataType _ => AppTexts.menstrualFlow,
+      MenstrualFlowInstantDataType _ => AppTexts.menstrualFlow,
     };
   }
 
@@ -315,6 +319,9 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.waistCircumferenceDescription,
       HeartRateVariabilitySDNNDataType _ =>
         AppTexts.heartRateVariabilitySDNNDescription,
+      MenstrualFlowDataType _ => 'Menstrual flow intensity over time (iOS)',
+      MenstrualFlowInstantDataType _ =>
+        'Menstrual flow intensity snapshot (Android)',
     };
   }
 
@@ -415,6 +422,8 @@ extension HealthDataTypeUI on HealthDataType {
       BodyMassIndexHealthDataType _ => AppIcons.monitorWeight,
       WaistCircumferenceHealthDataType _ => AppIcons.straighten,
       HeartRateVariabilitySDNNDataType _ => AppIcons.favorite,
+      MenstrualFlowDataType _ => AppIcons.waterDrop,
+      MenstrualFlowInstantDataType _ => AppIcons.waterDrop,
     };
   }
 }

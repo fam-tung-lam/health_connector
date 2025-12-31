@@ -57,6 +57,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         OvulationTestDataType,
         OxygenSaturationHealthDataType,
         RestingHeartRateHealthDataType,
+        MenstrualFlowDataType,
+        MenstrualFlowInstantDataType,
         DietaryFiberNutrientDataType,
         SugarNutrientDataType,
         CalciumNutrientDataType,
@@ -227,6 +229,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.ovulationTest;
       case HealthDataTypeDto.intermenstrualBleeding:
         return HealthDataType.intermenstrualBleeding;
+      case HealthDataTypeDto.menstrualFlow:
+        return HealthDataType.menstrualFlow;
       case HealthDataTypeDto.oxygenSaturation:
         return HealthDataType.oxygenSaturation;
       case HealthDataTypeDto.respiratoryRate:
@@ -402,6 +406,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.ovulationTest;
       case IntermenstrualBleedingDataType _:
         return HealthDataTypeDto.intermenstrualBleeding;
+      case MenstrualFlowDataType _:
+        return HealthDataTypeDto.menstrualFlow;
       case OxygenSaturationHealthDataType _:
         return HealthDataTypeDto.oxygenSaturation;
       case RespiratoryRateHealthDataType _:
@@ -494,6 +500,12 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         throw UnsupportedError(
           '$HeartRateVariabilityRMSSDDataType is not supported on iOS '
           'HealthKit. Use $HeartRateVariabilitySDNNDataType instead.',
+        );
+
+      case MenstrualFlowInstantDataType _:
+        throw UnsupportedError(
+          '$MenstrualFlowInstantDataType is not supported on iOS HealthKit. '
+          'Use $MenstrualFlowDataType instead.',
         );
     }
   }

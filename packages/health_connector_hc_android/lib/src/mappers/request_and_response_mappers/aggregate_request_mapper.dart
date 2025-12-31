@@ -33,6 +33,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         LeanBodyMassHealthDataType,
         NutritionHealthDataType,
         IntermenstrualBleedingDataType,
+        MenstrualFlowDataType,
+        MenstrualFlowInstantDataType,
         OvulationTestDataType,
         OxygenSaturationHealthDataType,
         SleepSessionHealthDataType,
@@ -170,6 +172,7 @@ extension AggregateRequestDtoMapper<
           case NutritionHealthDataType _:
           case OvulationTestDataType _:
           case IntermenstrualBleedingDataType _:
+          case MenstrualFlowInstantDataType _:
           case SexualActivityDataType _:
           case SleepSessionHealthDataType _:
           case SleepStageHealthDataType _:
@@ -229,6 +232,7 @@ extension AggregateRequestDtoMapper<
           case HeartRateVariabilitySDNNDataType _:
           case BodyMassIndexHealthDataType _:
           case WaistCircumferenceHealthDataType _:
+          case MenstrualFlowDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',
             );

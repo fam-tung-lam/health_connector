@@ -20,6 +20,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.HydrationHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.IntermenstrualBleedingHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.LeanBodyMassHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.MenstrualFlowInstantHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.MindfulnessSessionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.NutritionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.OvulationTestHandler
@@ -68,6 +69,7 @@ internal class HealthRecordHandlerRegistry(private val client: HealthConnectClie
             register(NutritionHandler(client))
             register(OvulationTestHandler(client))
             register(IntermenstrualBleedingHandler(client))
+            register(MenstrualFlowInstantHandler(client))
             register(PowerSeriesHandler(client))
             register(SexualActivityHandler(client))
             register(SleepSessionHandler(client))

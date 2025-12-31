@@ -56,6 +56,8 @@ extension HealthRecordDto {
             record.id
         case let record as IntermenstrualBleedingRecordDto:
             record.id
+        case let record as MenstrualFlowRecordDto:
+            record.id
         case let record as BodyMassIndexRecordDto:
             record.id
         case let record as WaistCircumferenceRecordDto:
@@ -219,6 +221,8 @@ extension HealthRecordDto {
                 return .ovulationTest
             case is IntermenstrualBleedingRecordDto:
                 return .intermenstrualBleeding
+            case is MenstrualFlowRecordDto:
+                return .menstrualFlow
             case is BodyMassIndexRecordDto:
                 return .bodyMassIndex
             case is WaistCircumferenceRecordDto:
@@ -249,6 +253,8 @@ extension HealthRecordDto {
         case let dto as ActiveCaloriesBurnedRecordDto:
             return dto.endTime
         case let dto as BasalEnergyBurnedRecordDto:
+            return dto.endTime
+        case let dto as MenstrualFlowRecordDto:
             return dto.endTime
         case let dto as DistanceActivityRecordDto:
             return dto.endTime

@@ -170,6 +170,8 @@ extension HKSample {
                 return .mindfulnessSession
             case HKCategoryTypeIdentifier.intermenstrualBleeding.rawValue:
                 return .intermenstrualBleeding
+            case HKCategoryTypeIdentifier.menstrualFlow.rawValue:
+                return .menstrualFlow
             // Correlation types
             case HKCorrelationTypeIdentifier.bloodPressure.rawValue:
                 return .bloodPressure

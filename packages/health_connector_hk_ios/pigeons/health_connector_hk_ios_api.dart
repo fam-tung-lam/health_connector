@@ -656,6 +656,37 @@ enum BasalBodyTemperatureMeasurementLocationDto {
   wrist,
 }
 
+/// Menstrual flow intensity classification.
+///
+/// Maps to Android Health Connect MenstruationFlowRecord.FLOW_* constants
+/// and iOS HealthKit HKCategoryValueMenstrualFlow (iOS ≤17) or
+/// HKCategoryValueVaginalBleeding (iOS ≥18) enum values.
+enum MenstrualFlowTypeDto {
+  /// Flow is unknown or unspecified.
+  /// - Android: FLOW_UNKNOWN
+  /// - iOS ≤ 17: HKCategoryValueMenstrualFlow.unspecified/.none
+  /// - iOS ≥ 18: HKCategoryValueVaginalBleeding.unspecified/.none
+  unknown,
+
+  /// Light menstrual flow.
+  /// - Android: FLOW_LIGHT
+  /// - iOS ≤17: HKCategoryValueMenstrualFlow.light
+  /// - iOS ≥18: HKCategoryValueVaginalBleeding.light
+  light,
+
+  /// Medium menstrual flow.
+  /// - Android: FLOW_MEDIUM
+  /// - iOS ≤17: HKCategoryValueMenstrualFlow.medium
+  /// - iOS ≥18: HKCategoryValueVaginalBleeding.medium
+  medium,
+
+  /// Heavy menstrual flow.
+  /// - Android: FLOW_HEAVY
+  /// - iOS ≤17: HKCategoryValueMenstrualFlow.heavy
+  /// - iOS ≥18: HKCategoryValueVaginalBleeding.heavy
+  heavy,
+}
+
 /// Represents the type of speed-based activity.
 ///
 /// Maps to different iOS HKQuantityTypeIdentifier values.
@@ -1043,6 +1074,9 @@ enum HealthDataTypeDto {
 
   /// Intermenstrual bleeding data.
   intermenstrualBleeding,
+
+  /// Menstrual flow data (iOS HealthKit only).
+  menstrualFlow,
 
   /// Oxygen saturation data.
   oxygenSaturation,
@@ -1939,6 +1973,49 @@ class IntermenstrualBleedingRecordDto extends HealthRecordDto {
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
+}
+
+/// Represents a menstrual flow interval record for platform transfer (iOS).
+///
+/// This DTO is used for iOS HealthKit's menstrualFlow category type,
+/// which tracks flow intensity over a time interval and includes
+/// cycle start metadata.
+class MenstrualFlowRecordDto extends HealthRecordDto {
+  MenstrualFlowRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.startTime,
+    required this.endTime,
+    required this.flow,
+    required this.isCycleStart,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Start time in milliseconds since epoch (UTC).
+  final int startTime;
+
+  /// End time in milliseconds since epoch (UTC).
+  final int endTime;
+
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
+
+  /// The menstrual flow intensity.
+  final MenstrualFlowTypeDto flow;
+
+  /// Whether this sample marks the start of a menstrual cycle.
+  /// Maps to HKMetadataKeyMenstrualCycleStart in iOS HealthKit.
+  final bool isCycleStart;
 }
 
 /// Represents a respiratory rate record for platform transfer.
