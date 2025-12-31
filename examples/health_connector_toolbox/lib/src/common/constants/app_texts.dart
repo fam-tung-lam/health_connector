@@ -117,6 +117,8 @@ abstract final class AppTexts {
       SleepStageHealthDataType() => sleepStage,
       SexualActivityDataType() => sexualActivity,
       IntermenstrualBleedingDataType() => intermenstrualBleeding,
+      MenstrualFlowDataType() => menstrualFlow,
+      MenstrualFlowInstantDataType() => menstrualFlowInstant,
       OvulationTestDataType() => ovulationTest,
       EnergyNutrientDataType() => energy,
       CaffeineNutrientDataType() => caffeine,
@@ -389,7 +391,11 @@ abstract final class AppTexts {
   static const String bloodPressureType = '$bloodPressure $type';
   static const String sexualActivity = 'Sexual Activity';
   static const String protectionUsed = 'Protection Used';
+  static const String menstrualFlow = 'Menstrual Flow';
+  static const String menstrualFlowInstant = 'Menstrual Flow (Instant)';
   static const String intermenstrualBleeding = 'Intermenstrual Bleeding';
+  static const String flow = 'Flow';
+  static const String isCycleStart = 'Is Cycle Start';
   static const String ovulationTest = 'Ovulation Test';
   static const String testResult = 'Test Result';
   static const String selectTestResult = 'Select test result';
@@ -417,6 +423,8 @@ abstract final class AppTexts {
   static const String watery = 'Watery';
   static const String eggWhite = 'Egg White';
   static const String unusual = 'Unusual';
+  static const String unspecified = 'Unspecified';
+  static const String none = 'None';
 
   // endregion
 

@@ -36,6 +36,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         WaistCircumferenceRecord,
         PhosphorusNutrientRecord,
         IntermenstrualBleedingRecord,
+        MenstrualFlowInstantRecord,
+        MenstrualFlowRecord,
         OvulationTestRecord,
         OxygenSaturationRecord,
         PowerSeriesRecord,
@@ -100,6 +102,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/he
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/hydration_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/intermenstrual_bleeding_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/lean_body_mass_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstrual_flow_instant_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/mindfulness_session_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/nutrition_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/ovulation_test_record_mappers.dart';
@@ -136,6 +139,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         LeanBodyMassRecordDto,
         NutritionRecordDto,
         IntermenstrualBleedingRecordDto,
+        MenstrualFlowInstantRecordDto,
         OvulationTestRecordDto,
         OxygenSaturationRecordDto,
         PowerSeriesRecordDto,
@@ -251,6 +255,8 @@ extension HealthRecordToDto on HealthRecord {
         return OvulationTestRecordToDto(record).toDto();
       case final IntermenstrualBleedingRecord record:
         return IntermenstrualBleedingRecordToDto(record).toDto();
+      case final MenstrualFlowInstantRecord record:
+        return MenstrualFlowInstantRecordToDto(record).toDto();
       case final OxygenSaturationRecord record:
         return OxygenSaturationRecordToDto(record).toDto();
       case final BloodPressureRecord record:
@@ -497,6 +503,11 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$HeartRateVariabilitySDNNRecord is not supported on Android Health Connect.',
         );
+      case final MenstrualFlowRecord _:
+        throw UnsupportedError(
+          '$MenstrualFlowRecord is not supported on Android Health Connect. '
+          'Use $MenstrualFlowInstantRecord instead.',
+        );
     }
   }
 }
@@ -553,6 +564,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return OvulationTestRecordDtoToDomain(dto).toDomain();
       case final IntermenstrualBleedingRecordDto dto:
         return IntermenstrualBleedingRecordDtoToDomain(dto).toDomain();
+      case final MenstrualFlowInstantRecordDto dto:
+        return MenstrualFlowInstantRecordDtoToDomain(dto).toDomain();
       case final OxygenSaturationRecordDto dto:
         return OxygenSaturationRecordDtoToDomain(dto).toDomain();
       case final BloodPressureRecordDto dto:

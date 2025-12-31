@@ -48,6 +48,8 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         NiacinNutrientRecord,
         NutritionRecord,
         IntermenstrualBleedingRecord,
+        MenstrualFlowInstantRecord,
+        MenstrualFlowRecord,
         OvulationTestRecord,
         OxygenSaturationRecord,
         PaddleSportsDistanceRecord,
@@ -177,6 +179,8 @@ part 'nutrient_data_types/vitamin_nutrient_data_type.dart';
 part 'nutrient_data_types/zinc_nutrient_data_type.dart';
 part 'intermenstrual_bleeding_data_type.dart';
 part 'ovulation_test_data_type.dart';
+part 'menstrual_flow_instant_data_type.dart';
+part 'menstrual_flow_data_type.dart';
 part 'oxygen_saturation_health_data_type.dart';
 part 'power_data_types/cycling_power_data_type.dart';
 part 'power_data_types/power_series_data_type.dart';
@@ -608,6 +612,26 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV2_2_0
   static const intermenstrualBleeding = IntermenstrualBleedingDataType();
 
+  /// Menstrual flow instant data type.
+  ///
+  /// Represents the intensity of menstrual flow at a specific point in time.
+  /// This data type is for Android Health Connect only. iOS uses
+  /// [menstrualFlow] instead, which tracks flow over intervals with
+  /// cycle start metadata.
+  @sinceV2_2_0
+  @supportedOnHealthConnect
+  static const menstrualFlowInstant = MenstrualFlowInstantDataType();
+
+  /// Menstrual flow data type.
+  ///
+  /// Represents the intensity of menstrual flow over a time interval,
+  /// including cycle start metadata. This data type is for iOS HealthKit only.
+  /// Android uses [menstrualFlowInstant] instead, which tracks flow at
+  /// specific points in time.
+  @sinceV2_2_0
+  @supportedOnAppleHealth
+  static const menstrualFlow = MenstrualFlowDataType();
+
   /// Oxygen saturation data type.
   ///
   /// Represents the percentage of oxygen-saturated hemoglobin relative
@@ -966,6 +990,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     leanBodyMass,
     magnesium,
     manganese,
+    menstrualFlow,
+    menstrualFlowInstant,
     mindfulnessSession,
     monounsaturatedFat,
     niacin,

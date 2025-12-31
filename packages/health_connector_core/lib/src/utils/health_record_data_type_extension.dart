@@ -102,6 +102,8 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       RestingHeartRateRecord _ => HealthDataType.restingHeartRate,
       OvulationTestRecord _ => HealthDataType.ovulationTest,
       IntermenstrualBleedingRecord _ => HealthDataType.intermenstrualBleeding,
+      MenstrualFlowInstantRecord _ => HealthDataType.menstrualFlowInstant,
+      MenstrualFlowRecord _ => HealthDataType.menstrualFlow,
       OxygenSaturationRecord _ => HealthDataType.oxygenSaturation,
       RespiratoryRateRecord _ => HealthDataType.respiratoryRate,
       Vo2MaxRecord _ => HealthDataType.vo2Max,

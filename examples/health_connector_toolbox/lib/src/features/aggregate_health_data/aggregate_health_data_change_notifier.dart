@@ -100,7 +100,9 @@ import 'package:health_connector/health_connector_internal.dart'
         HeartRateVariabilityRMSSDDataType,
         BodyMassIndexHealthDataType,
         WaistCircumferenceHealthDataType,
-        HeartRateVariabilitySDNNDataType;
+        HeartRateVariabilitySDNNDataType,
+        MenstrualFlowDataType,
+        MenstrualFlowInstantDataType;
 
 /// Manages state and operations for aggregating health data.
 ///
@@ -690,6 +692,12 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
       HeartRateVariabilityRMSSDDataType() => throw UnsupportedError(
         'Heart rate variability (RMSSD) does not support aggregation',
+      ),
+      MenstrualFlowDataType() => throw UnsupportedError(
+        'Menstrual flow does not support aggregation',
+      ),
+      MenstrualFlowInstantDataType() => throw UnsupportedError(
+        'Menstrual flow does not support aggregation',
       ),
     };
   }

@@ -20,6 +20,7 @@ import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.IntermenstrualBleedingRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
+import androidx.health.connect.client.records.MenstruationFlowRecord
 import androidx.health.connect.client.records.MindfulnessSessionRecord
 import androidx.health.connect.client.records.NutritionRecord
 import androidx.health.connect.client.records.OvulationTestRecord
@@ -57,6 +58,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.IntermenstrualBleedingRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.LeanBodyMassRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.MenstrualFlowInstantRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MindfulnessSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.NutritionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.OvulationTestRecordDto
@@ -104,6 +106,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is NutritionRecordDto -> HealthDataTypeDto.NUTRITION
         is OvulationTestRecordDto -> HealthDataTypeDto.OVULATION_TEST
         is IntermenstrualBleedingRecordDto -> HealthDataTypeDto.INTERMENSTRUAL_BLEEDING
+        is MenstrualFlowInstantRecordDto -> HealthDataTypeDto.MENSTRUAL_FLOW_INSTANT
         is OxygenSaturationRecordDto -> HealthDataTypeDto.OXYGEN_SATURATION
         is PowerSeriesRecordDto -> HealthDataTypeDto.POWER_SERIES
         is CyclingPedalingCadenceSeriesRecordDto ->
@@ -150,6 +153,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is NutritionRecordDto -> toHealthConnect()
     is OvulationTestRecordDto -> toHealthConnect()
     is IntermenstrualBleedingRecordDto -> toHealthConnect()
+    is MenstrualFlowInstantRecordDto -> toHealthConnect()
     is OxygenSaturationRecordDto -> toHealthConnect()
     is PowerSeriesRecordDto -> toHealthConnect()
     is CyclingPedalingCadenceSeriesRecordDto -> toHealthConnect()
@@ -209,6 +213,7 @@ internal fun Record.toDto(): HealthRecordDto = when (this) {
     is ExerciseSessionRecord -> toDto()
     is OvulationTestRecord -> toDto()
     is IntermenstrualBleedingRecord -> toDto()
+    is MenstruationFlowRecord -> toDto()
     is BoneMassRecord -> toDto()
     is BodyWaterMassRecord -> toDto()
     is HeartRateVariabilityRmssdRecord -> toDto()

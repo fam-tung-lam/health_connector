@@ -21,6 +21,7 @@ import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.IntermenstrualBleedingRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
+import androidx.health.connect.client.records.MenstruationFlowRecord
 import androidx.health.connect.client.records.MindfulnessSessionRecord
 import androidx.health.connect.client.records.NutritionRecord
 import androidx.health.connect.client.records.OvulationTestRecord
@@ -260,6 +261,18 @@ internal fun getHealthConnectPermission(
 
             PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
                 IntermenstrualBleedingRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.MENSTRUAL_FLOW_INSTANT -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                MenstruationFlowRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                MenstruationFlowRecord::class,
             )
         }
     }
@@ -526,6 +539,7 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto 
         "BLOOD_GLUCOSE" -> HealthDataTypeDto.BLOOD_GLUCOSE
         "OVULATION_TEST" -> HealthDataTypeDto.OVULATION_TEST
         "INTERMENSTRUAL_BLEEDING" -> HealthDataTypeDto.INTERMENSTRUAL_BLEEDING
+        "MENSTRUATION_FLOW" -> HealthDataTypeDto.MENSTRUAL_FLOW_INSTANT
         "OXYGEN_SATURATION" -> HealthDataTypeDto.OXYGEN_SATURATION
         "RESPIRATORY_RATE" -> HealthDataTypeDto.RESPIRATORY_RATE
         "VO2MAX" -> HealthDataTypeDto.VO2MAX

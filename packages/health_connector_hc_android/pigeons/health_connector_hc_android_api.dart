@@ -699,6 +699,23 @@ enum BasalBodyTemperatureMeasurementLocationDto {
   wrist,
 }
 
+/// Menstrual flow intensity classification.
+///
+/// Maps to Android Health Connect MenstruationFlowRecord.FLOW_* constants.
+enum MenstrualFlowTypeDto {
+  /// Flow is unknown or unspecified.
+  unknown,
+
+  /// Light menstrual flow.
+  light,
+
+  /// Medium menstrual flow.
+  medium,
+
+  /// Heavy menstrual flow.
+  heavy,
+}
+
 // endregion
 
 // region Health Records
@@ -780,6 +797,9 @@ enum HealthDataTypeDto {
 
   /// Intermenstrual bleeding data.
   intermenstrualBleeding,
+
+  /// Menstrual flow instant data (Android Health Connect).
+  menstrualFlowInstant,
 
   /// Oxygen saturation data.
   oxygenSaturation,
@@ -951,6 +971,35 @@ class IntermenstrualBleedingRecordDto extends HealthRecordDto {
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
+}
+
+/// Represents a menstrual flow instant record for platform transfer (Android).
+///
+/// This DTO is used for Android Health Connect's MenstruationFlowRecord,
+/// which tracks flow intensity at a single point in time.
+class MenstrualFlowInstantRecordDto extends HealthRecordDto {
+  MenstrualFlowInstantRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    required this.flow,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+
+  /// The menstrual flow intensity.
+  final MenstrualFlowTypeDto flow;
 }
 
 /// Represents a respiratory rate record for platform transfer.
