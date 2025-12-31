@@ -100,6 +100,15 @@ final class HealthRecordListTile extends StatelessWidget {
           record: r,
           onDelete: onDelete,
         ),
+      final HeartRateVariabilitySDNNRecord r =>
+        SimpleInstantMeasurementListTile<HeartRateVariabilitySDNNRecord>(
+          record: r,
+          icon: AppIcons.favorite,
+          titleBuilder: (r) =>
+              '${r.heartRateVariabilitySDNN.value.toStringAsFixed(1)} ms',
+          valueExtractor: (r) => r.heartRateVariabilitySDNN,
+          onDelete: onDelete,
+        ),
 
       // Respiratory records
       final RespiratoryRateRecord r => RespiratoryRateTile(
@@ -209,6 +218,24 @@ final class HealthRecordListTile extends StatelessWidget {
         record: r,
         onDelete: onDelete,
       ),
+      final BodyMassIndexRecord r =>
+        SimpleInstantMeasurementListTile<BodyMassIndexRecord>(
+          record: r,
+          icon: AppIcons.monitorWeight,
+          titleBuilder: (r) =>
+              '${r.bodyMassIndex.value.toStringAsFixed(1)} kg/m²',
+          valueExtractor: (r) => r.bodyMassIndex,
+          onDelete: onDelete,
+        ),
+      final WaistCircumferenceRecord r =>
+        SimpleInstantMeasurementListTile<WaistCircumferenceRecord>(
+          record: r,
+          icon: AppIcons.straighten,
+          titleBuilder: (r) =>
+              '${r.circumference.inCentimeters.toStringAsFixed(1)} cm',
+          valueExtractor: (r) => r.circumference,
+          onDelete: onDelete,
+        ),
 
       // Vitals
       final OxygenSaturationRecord r =>

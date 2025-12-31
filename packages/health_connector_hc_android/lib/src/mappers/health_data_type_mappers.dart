@@ -4,6 +4,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BiotinNutrientDataType,
         BloodGlucoseHealthDataType,
         BodyFatPercentageHealthDataType,
+        BodyMassIndexHealthDataType,
         BodyTemperatureHealthDataType,
         BasalBodyTemperatureHealthDataType,
         BoneMassDataType,
@@ -29,6 +30,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HeartRateMeasurementRecordHealthDataType,
         HeartRateSeriesRecordHealthDataType,
         HeartRateVariabilityRMSSDDataType,
+        HeartRateVariabilitySDNNDataType,
         HeightHealthDataType,
         HydrationHealthDataType,
         IronNutrientDataType,
@@ -77,6 +79,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         VitaminKNutrientDataType,
         Vo2MaxHealthDataType,
         WeightHealthDataType,
+        WaistCircumferenceHealthDataType,
         WheelchairDistanceDataType,
         WalkingRunningDistanceDataType,
         WheelchairPushesHealthDataType,
@@ -225,6 +228,30 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.bodyWaterMass;
       case HeartRateVariabilityRMSSDDataType _:
         return HealthDataTypeDto.heartRateVariabilityRMSSD;
+      case BloodPressureHealthDataType _:
+        return HealthDataTypeDto.bloodPressure;
+      case OvulationTestDataType _:
+        return HealthDataTypeDto.ovulationTest;
+      case IntermenstrualBleedingDataType _:
+        return HealthDataTypeDto.intermenstrualBleeding;
+      case OxygenSaturationHealthDataType _:
+        return HealthDataTypeDto.oxygenSaturation;
+      case RespiratoryRateHealthDataType _:
+        return HealthDataTypeDto.respiratoryRate;
+      case NutritionHealthDataType _:
+        return HealthDataTypeDto.nutrition;
+      case RestingHeartRateHealthDataType _:
+        return HealthDataTypeDto.restingHeartRate;
+      case Vo2MaxHealthDataType _:
+        return HealthDataTypeDto.vo2Max;
+      case BloodGlucoseHealthDataType _:
+        return HealthDataTypeDto.bloodGlucose;
+      case TotalCaloriesBurnedHealthDataType _:
+        return HealthDataTypeDto.totalCaloriesBurned;
+      case SpeedSeriesDataType _:
+        return HealthDataTypeDto.speedSeries;
+      case PowerSeriesDataType _:
+        return HealthDataTypeDto.powerSeries;
       case EnergyNutrientDataType _:
       case CaffeineNutrientDataType _:
       case ProteinNutrientDataType _:
@@ -259,28 +286,9 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       case SodiumNutrientDataType _:
       case ZincNutrientDataType _:
         throw UnsupportedError(
-          '$this is not supported on Android Health Connect.',
+          '$this is not supported on Android Health Connect. '
+          'Use $NutritionHealthDataType instead.',
         );
-      case BloodPressureHealthDataType _:
-        return HealthDataTypeDto.bloodPressure;
-      case OvulationTestDataType _:
-        return HealthDataTypeDto.ovulationTest;
-      case IntermenstrualBleedingDataType _:
-        return HealthDataTypeDto.intermenstrualBleeding;
-      case OxygenSaturationHealthDataType _:
-        return HealthDataTypeDto.oxygenSaturation;
-      case RespiratoryRateHealthDataType _:
-        return HealthDataTypeDto.respiratoryRate;
-      case NutritionHealthDataType _:
-        return HealthDataTypeDto.nutrition;
-      case RestingHeartRateHealthDataType _:
-        return HealthDataTypeDto.restingHeartRate;
-      case Vo2MaxHealthDataType _:
-        return HealthDataTypeDto.vo2Max;
-      case BloodGlucoseHealthDataType _:
-        return HealthDataTypeDto.bloodGlucose;
-      case TotalCaloriesBurnedHealthDataType _:
-        return HealthDataTypeDto.totalCaloriesBurned;
       case BasalEnergyBurnedHealthDataType _:
         throw UnsupportedError(
           '$BasalEnergyBurnedHealthDataType is not supported on '
@@ -314,7 +322,6 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$DiastolicBloodPressureHealthDataType is not supported on '
           'Health Connect. Use $BloodPressureHealthDataType instead.',
         );
-      // Distance activity data types (iOS HealthKit only)
       case CyclingDistanceDataType _:
       case SwimmingDistanceDataType _:
       case WheelchairDistanceDataType _:
@@ -326,26 +333,38 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       case SixMinuteWalkTestDistanceDataType _:
       case WalkingRunningDistanceDataType _:
         throw UnsupportedError(
-          '$this is an iOS-only distance activity data type '
-          'and is not supported on Android Health Connect.',
+          '$this is is not supported on Android Health Connect. '
+          'Use general $DistanceHealthDataType instead',
         );
-      case SpeedSeriesDataType _:
-        return HealthDataTypeDto.speedSeries;
-      case PowerSeriesDataType _:
-        return HealthDataTypeDto.powerSeries;
       case CyclingPowerDataType _:
         throw UnsupportedError(
-          '$this is an iOS-only power data type '
-          'and is not supported on Android Health Connect.',
+          '$CyclingPowerDataType is not supported on Android Health '
+          'Connect. Use general $PowerSeriesDataType instead',
         );
-      // Speed activity types (iOS HealthKit only)
       case WalkingSpeedDataType _:
       case RunningSpeedDataType _:
       case StairAscentSpeedDataType _:
       case StairDescentSpeedDataType _:
         throw UnsupportedError(
-          '$this is an iOS-only speed activity data type '
-          'and is not supported on Android Health Connect.',
+          '$this is not supported on Android Health Connect. '
+          'Use general $SpeedSeriesDataType instead.',
+        );
+      case BodyMassIndexHealthDataType _:
+        throw UnsupportedError(
+          '$BodyMassIndexHealthDataType is not supported on Android '
+          'Health Connect. Use $WeightHealthDataType and '
+          '$HeightHealthDataType for calculation instead',
+        );
+      case WaistCircumferenceHealthDataType _:
+        throw UnsupportedError(
+          '$WaistCircumferenceHealthDataType is not supported on '
+          'Android Health Connect.',
+        );
+      case HeartRateVariabilitySDNNDataType _:
+        throw UnsupportedError(
+          '$HeartRateVariabilitySDNNDataType is not supported on '
+          'Android Health Connect. Use $HeartRateVariabilityRMSSDDataType '
+          'instead.',
         );
     }
   }

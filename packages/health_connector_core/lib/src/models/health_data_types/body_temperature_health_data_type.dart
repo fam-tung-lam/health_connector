@@ -19,7 +19,7 @@ part of 'health_data_type.dart';
 /// - Readable: Query body temperature records
 /// - Writeable: Write body temperature records
 /// - Deletable: Delete records by IDs or time range
-/// - ❌ Not aggregatable
+/// - Not aggregatable
 ///
 /// ## See also
 ///

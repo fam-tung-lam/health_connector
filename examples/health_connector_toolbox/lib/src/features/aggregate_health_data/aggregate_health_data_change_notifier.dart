@@ -97,7 +97,10 @@ import 'package:health_connector/health_connector_internal.dart'
         OvulationTestDataType,
         BoneMassDataType,
         BodyWaterMassDataType,
-        HeartRateVariabilityRMSSDDataType;
+        HeartRateVariabilityRMSSDDataType,
+        BodyMassIndexHealthDataType,
+        WaistCircumferenceHealthDataType,
+        HeartRateVariabilitySDNNDataType;
 
 /// Manages state and operations for aggregating health data.
 ///
@@ -222,6 +225,51 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
           endTime: endTime,
         ),
         () => HealthDataType.height.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
+      BodyMassIndexHealthDataType() => _buildAvgMinMax(
+        () => HealthDataType.bodyMassIndex.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.bodyMassIndex.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.bodyMassIndex.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
+      WaistCircumferenceHealthDataType() => _buildAvgMinMax(
+        () => HealthDataType.waistCircumference.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.waistCircumference.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.waistCircumference.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        metric,
+      ),
+      HeartRateVariabilitySDNNDataType() => _buildAvgMinMax(
+        () => HealthDataType.heartRateVariabilitySDNN.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.heartRateVariabilitySDNN.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.heartRateVariabilitySDNN.aggregateMax(
           startTime: startTime,
           endTime: endTime,
         ),

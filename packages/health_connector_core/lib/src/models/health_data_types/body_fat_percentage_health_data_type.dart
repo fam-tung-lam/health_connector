@@ -20,7 +20,7 @@ part of 'health_data_type.dart';
 /// - Readable: Query body fat percentage records
 /// - Writeable: Write body fat percentage records
 /// - Deletable: Delete records by IDs or time range
-/// - ❌ Not aggregatable
+/// - Not aggregatable
 ///
 /// ## See also
 ///

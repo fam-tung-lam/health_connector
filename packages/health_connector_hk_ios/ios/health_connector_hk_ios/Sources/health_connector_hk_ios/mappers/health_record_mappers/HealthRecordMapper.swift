@@ -75,6 +75,12 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as IntermenstrualBleedingRecordDto:
             return try dto.toHealthKit()
+        case let dto as BodyMassIndexRecordDto:
+            return try dto.toHealthKit()
+        case let dto as HeartRateVariabilitySDNNRecordDto:
+            return try dto.toHealthKit()
+        case let dto as WaistCircumferenceRecordDto:
+            return try dto.toHealthKit()
         default:
             throw HealthConnectorError.unsupportedOperation(
                 message:
@@ -218,7 +224,6 @@ extension HKQuantitySample {
             try toSystolicBloodPressureRecordDto()
         case .diastolicBloodPressure:
             try toDiastolicBloodPressureRecordDto()
-        // Distance activity types
         case .cyclingDistance:
             try toDistanceActivityRecordDto(distanceActivityType: .cycling)
         case .swimmingDistance:
@@ -239,7 +244,6 @@ extension HKQuantitySample {
             try toDistanceActivityRecordDto(distanceActivityType: .skatingSports)
         case .sixMinuteWalkTestDistance:
             try toDistanceActivityRecordDto(distanceActivityType: .sixMinuteWalkTest)
-        // Speed activity types
         case .walkingSpeed:
             try toSpeedActivityRecordDto(speedActivityType: .walking)
         case .runningSpeed:
@@ -252,9 +256,15 @@ extension HKQuantitySample {
             try toCyclingPowerRecordDto()
         case .cyclingPedalingCadenceMeasurementRecord:
             try toCyclingPedalingCadenceMeasurementRecordDto()
+        case .bodyMassIndex:
+            try toBodyMassIndexRecordDto()
+        case .heartRateVariabilitySDNN:
+            try toHeartRateVariabilitySDNNRecordDto()
+        case .waistCircumference:
+            try toWaistCircumferenceRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
-                message: "Unsupported health data type for HKQuantitySample",
+                message: "Unsupported or unimplemented health data type for HKQuantitySample",
                 context: [
                     "type": type.rawValue,
                     "quantityType": quantityType.identifier,

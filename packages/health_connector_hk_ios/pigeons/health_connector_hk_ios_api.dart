@@ -1061,6 +1061,15 @@ enum HealthDataTypeDto {
 
   /// Mindfulness session data.
   mindfulnessSession,
+
+  /// Body mass index data.
+  bodyMassIndex,
+
+  /// Waist circumference data.
+  waistCircumference,
+
+  /// Heart rate variability (SDNN) data.
+  heartRateVariabilitySDNN,
 }
 
 /// Represents a resting heart rate record for platform transfer.
@@ -1119,6 +1128,84 @@ class Vo2MaxRecordDto extends HealthRecordDto {
   ///
   /// Maps to HKMetadataKeyVO2MaxTestType.
   final Vo2MaxTestTypeDto? testType;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// Represents a body mass index record for platform transfer.
+class BodyMassIndexRecordDto extends HealthRecordDto {
+  BodyMassIndexRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.bodyMassIndex,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The body mass index value.
+  final NumberDto bodyMassIndex;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// Represents a waist circumference record for platform transfer.
+class WaistCircumferenceRecordDto extends HealthRecordDto {
+  WaistCircumferenceRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.circumference,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The waist circumference measurement.
+  final LengthDto circumference;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// Represents a heart rate variability (SDNN) record for platform transfer.
+class HeartRateVariabilitySDNNRecordDto extends HealthRecordDto {
+  HeartRateVariabilitySDNNRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.heartRateVariabilitySDNN,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// The heart rate variability SDNN value in milliseconds.
+  final NumberDto heartRateVariabilitySDNN;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;

@@ -169,6 +169,9 @@ abstract final class AppTexts {
       BoneMassDataType() => boneMass,
       BodyWaterMassDataType() => bodyWaterMass,
       HeartRateVariabilityRMSSDDataType() => heartRateVariabilityRMSSD,
+      BodyMassIndexHealthDataType() => bodyMassIndex,
+      WaistCircumferenceHealthDataType() => waistCircumference,
+      HeartRateVariabilitySDNNDataType() => heartRateVariabilitySDNN,
     };
   }
 
@@ -331,12 +334,16 @@ abstract final class AppTexts {
   static const String height = 'Height';
   static const String bodyFatPercentage = 'Body Fat Percentage';
   static const String leanBodyMass = 'Lean Body Mass';
+  static const String bodyMassIndex = 'Body Mass Index';
+  static const String waistCircumference = 'Waist Circumference';
   static const String bodyTemperature = 'Body Temperature';
   static const String basalBodyTemperature = 'Basal Body Temperature';
   static const String boneMass = 'Bone Mass';
   static const String bodyWaterMass = 'Body Water Mass';
   static const String heartRateVariabilityRMSSD =
       'Heart Rate Variability (RMSSD)';
+  static const String heartRateVariabilitySDNN =
+      'Heart Rate Variability (SDNN)';
   static const String cervicalMucus = 'Cervical Mucus';
   static const String hydration = 'Hydration';
   static const String bloodPressure = 'Blood Pressure';
@@ -770,6 +777,9 @@ abstract final class AppTexts {
   static const String bodyFatPercentageDescription =
       'Percentage of body weight that is fat';
   static const String leanBodyMassDescription = 'Weight of body excluding fat';
+  static const String bodyMassIndexDescription = 'Body mass index measurement';
+  static const String waistCircumferenceDescription =
+      'Waist circumference measurement';
   static const String bodyTemperatureDescription =
       'Core body temperature measurement';
   static const String basalBodyTemperatureDescription =
@@ -778,6 +788,8 @@ abstract final class AppTexts {
   static const String bodyWaterMassDescription = 'Body water mass measurement';
   static const String heartRateVariabilityRMSSDDescription =
       'Heart rate variability (RMSSD) measurement';
+  static const String heartRateVariabilitySDNNDescription =
+      'Heart rate variability (SDNN) measurement';
 
   // Blood Pressure
   static const String bloodPressureDescription =

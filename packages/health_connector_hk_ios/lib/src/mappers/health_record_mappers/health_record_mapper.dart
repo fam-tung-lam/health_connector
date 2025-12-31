@@ -5,6 +5,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BiotinNutrientRecord,
         BloodPressureRecord,
         BodyFatPercentageRecord,
+        BodyMassIndexRecord,
         BodyTemperatureRecord,
         BasalBodyTemperatureRecord,
         BoneMassRecord,
@@ -26,6 +27,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HealthRecord,
         HeartRateMeasurementRecord,
         HeartRateSeriesRecord,
+        HeartRateVariabilitySDNNRecord,
         HeartRateVariabilityRMSSDRecord,
         HeightRecord,
         HydrationRecord,
@@ -66,6 +68,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         VitaminENutrientRecord,
         VitaminKNutrientRecord,
         WeightRecord,
+        WaistCircumferenceRecord,
         WheelchairPushesRecord,
         ZincNutrientRecord,
         IntermenstrualBleedingRecord,
@@ -84,6 +87,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/basal_
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_fat_percentage_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_mass_index_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_temperature_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/cervical_mucus_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/cycling_pedaling_cadence_measurement_record_mappers.dart';
@@ -93,6 +97,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/distan
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise_session_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/floors_climbed_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate_measurement_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate_variability_sdnn_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/height_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/hydration_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/intermenstrual_bleeding_record_mappers.dart';
@@ -109,6 +114,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/speed_
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/steps_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/systolic_blood_pressure_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/vo2_max_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/waist_circumference_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/weight_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/wheelchair_pushes_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -118,6 +124,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         BiotinNutrientRecordDto,
         BloodPressureRecordDto,
         BodyFatPercentageRecordDto,
+        BodyMassIndexRecordDto,
         BodyTemperatureRecordDto,
         BasalBodyTemperatureRecordDto,
         CervicalMucusRecordDto,
@@ -134,6 +141,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         FolateNutrientRecordDto,
         HealthRecordDto,
         HeartRateMeasurementRecordDto,
+        HeartRateVariabilitySDNNRecordDto,
         HeightRecordDto,
         HydrationRecordDto,
         IronNutrientRecordDto,
@@ -170,6 +178,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         VitaminENutrientRecordDto,
         VitaminKNutrientRecordDto,
         WeightRecordDto,
+        WaistCircumferenceRecordDto,
         WheelchairPushesRecordDto,
         ZincNutrientRecordDto,
         IntermenstrualBleedingRecordDto,
@@ -361,6 +370,12 @@ extension HealthRecordToDto on HealthRecord {
         return DistanceActivityRecordToDto(record).toDto();
       case final MindfulnessSessionRecord record:
         return MindfulnessSessionRecordToDtoExtension(record).toDto();
+      case final BodyMassIndexRecord record:
+        return BodyMassIndexRecordToDto(record).toDto();
+      case final WaistCircumferenceRecord record:
+        return WaistCircumferenceRecordToDto(record).toDto();
+      case final HeartRateVariabilitySDNNRecord record:
+        return HeartRateVariabilitySDNNRecordToDto(record).toDto();
       case ExerciseSessionRecord():
         return ExerciseSessionRecordToDto(
           this as ExerciseSessionRecord,
@@ -558,6 +573,12 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return ExerciseSessionRecordDtoToDomain(dto).toDomain();
       case final MindfulnessSessionRecordDto dto:
         return MindfulnessSessionRecordDtoToDomainExtension(dto).toDomain();
+      case final BodyMassIndexRecordDto dto:
+        return BodyMassIndexRecordDtoToDomain(dto).toDomain();
+      case final WaistCircumferenceRecordDto dto:
+        return WaistCircumferenceRecordDtoToDomain(dto).toDomain();
+      case final HeartRateVariabilitySDNNRecordDto dto:
+        return HeartRateVariabilitySDNNRecordDtoToDomain(dto).toDomain();
     }
   }
 }

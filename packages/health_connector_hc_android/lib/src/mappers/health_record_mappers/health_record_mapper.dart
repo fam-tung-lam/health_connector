@@ -3,6 +3,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ActiveCaloriesBurnedRecord,
         BloodPressureRecord,
         BodyFatPercentageRecord,
+        BodyMassIndexRecord,
         BodyTemperatureRecord,
         BasalBodyTemperatureRecord,
         BoneMassRecord,
@@ -18,6 +19,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         CyclingPedalingCadenceMeasurementRecord,
         CyclingPedalingCadenceSeriesRecord,
         HeartRateVariabilityRMSSDRecord,
+        HeartRateVariabilitySDNNRecord,
         HeightRecord,
         HydrationRecord,
         LeanBodyMassRecord,
@@ -31,6 +33,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         SystolicBloodPressureRecord,
         WeightRecord,
         WheelchairPushesRecord,
+        WaistCircumferenceRecord,
         PhosphorusNutrientRecord,
         IntermenstrualBleedingRecord,
         OvulationTestRecord,
@@ -481,6 +484,18 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$SpeedActivityRecord and its subclasses are iOS-only '
           'and not supported on Android Health Connect.',
+        );
+      case final BodyMassIndexRecord _:
+        throw UnsupportedError(
+          '$BodyMassIndexRecord is not supported on Android Health Connect.',
+        );
+      case final WaistCircumferenceRecord _:
+        throw UnsupportedError(
+          '$WaistCircumferenceRecord is not supported on Android Health Connect.',
+        );
+      case final HeartRateVariabilitySDNNRecord _:
+        throw UnsupportedError(
+          '$HeartRateVariabilitySDNNRecord is not supported on Android Health Connect.',
         );
     }
   }

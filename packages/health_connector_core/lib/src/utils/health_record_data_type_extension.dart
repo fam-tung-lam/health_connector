@@ -153,6 +153,10 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       BodyWaterMassRecord _ => HealthDataType.bodyWaterMass,
       HeartRateVariabilityRMSSDRecord _ =>
         HealthDataType.heartRateVariabilityRMSSD,
+      BodyMassIndexRecord _ => HealthDataType.bodyMassIndex,
+      WaistCircumferenceRecord _ => HealthDataType.waistCircumference,
+      HeartRateVariabilitySDNNRecord _ =>
+        HealthDataType.heartRateVariabilitySDNN,
     };
   }
 }

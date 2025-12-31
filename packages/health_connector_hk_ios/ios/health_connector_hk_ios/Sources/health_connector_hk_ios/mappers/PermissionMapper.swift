@@ -87,7 +87,10 @@ extension HealthDataPermissionDto {
              .walkingSpeed,
              .runningSpeed,
              .stairAscentSpeed,
-             .stairDescentSpeed:
+             .stairDescentSpeed,
+             .bodyMassIndex,
+             .waistCircumference,
+             .heartRateVariabilitySDNN:
             try [healthDataType.toHealthKit()]
         case .sexualActivity,
              .cervicalMucus,
