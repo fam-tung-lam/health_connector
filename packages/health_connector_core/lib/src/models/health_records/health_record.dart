@@ -111,6 +111,9 @@ part 'weight_record.dart';
 part 'wheelchair_pushes_record.dart';
 part 'total_calories_burned_record.dart';
 part 'basal_energy_burned_record.dart';
+part 'bone_mass_record.dart';
+part 'body_water_mass_record.dart';
+part 'heart_rate_variability_rmssd_record.dart';
 
 /// Base class for all health records.
 ///

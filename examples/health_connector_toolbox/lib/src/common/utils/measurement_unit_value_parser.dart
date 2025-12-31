@@ -25,7 +25,9 @@ abstract class MeasurementUnitValueParser {
 
       // Mass types (kilograms)
       WeightHealthDataType() ||
-      LeanBodyMassHealthDataType() => _parseMassKilograms(value),
+      LeanBodyMassHealthDataType() ||
+      BoneMassDataType() ||
+      BodyWaterMassDataType() => _parseMassKilograms(value),
 
       // Mass types (grams for nutrients)
       CaffeineNutrientDataType() ||
@@ -110,6 +112,9 @@ abstract class MeasurementUnitValueParser {
 
       // VO2 Max
       Vo2MaxHealthDataType() => _parseVo2Max(value),
+
+      // Double Number types
+      HeartRateVariabilityRMSSDDataType() => _parseDoubleNumber(value),
 
       // Volume
       HydrationHealthDataType() => _parseVolume(value),
@@ -333,5 +338,14 @@ abstract class MeasurementUnitValueParser {
       throw const FormatException('Power must be positive');
     }
     return Power.watts(watts);
+  }
+
+  /// Parse double number value.
+  static Number _parseDoubleNumber(String value) {
+    final val = double.tryParse(value);
+    if (val == null) {
+      throw const FormatException('Invalid number value');
+    }
+    return Number(val);
   }
 }

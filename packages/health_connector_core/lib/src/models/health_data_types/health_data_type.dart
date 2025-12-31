@@ -13,6 +13,9 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         BodyFatPercentageRecord,
         BodyTemperatureRecord,
         BasalBodyTemperatureRecord,
+        BoneMassRecord,
+        BodyWaterMassRecord,
+        HeartRateVariabilityRMSSDRecord,
         CaffeineNutrientRecord,
         CervicalMucusRecord,
         CalciumNutrientRecord,
@@ -105,6 +108,9 @@ part 'blood_pressure_health_data_types/systolic_blood_pressure_health_data_type.
 part 'body_fat_percentage_health_data_type.dart';
 part 'body_temperature_health_data_type.dart';
 part 'basal_body_temperature_health_data_type.dart';
+part 'bone_mass_health_data_type.dart';
+part 'body_water_mass_health_data_type.dart';
+part 'heart_rate_variability_rmssd_health_data_type.dart';
 part 'cervical_mucus_data_type.dart';
 part 'distance_data_types/cross_country_skiing_distance_data_type.dart';
 part 'distance_data_types/cycling_distance_data_type.dart';
@@ -411,6 +417,30 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// tracking and menstrual cycle monitoring.
   @sinceV2_2_0
   static const basalBodyTemperature = BasalBodyTemperatureHealthDataType();
+
+  /// Bone mass data type.
+  ///
+  /// Represents the user's bone mass measurements.
+  /// Supports reading, writing, and deletion.
+  @sinceV2_2_0
+  @supportedOnHealthConnect
+  static const boneMass = BoneMassDataType();
+
+  /// Body water mass data type.
+  ///
+  /// Represents the user's body water mass measurements.
+  /// Supports reading, writing, and deletion.
+  @sinceV2_2_0
+  @supportedOnHealthConnect
+  static const bodyWaterMass = BodyWaterMassDataType();
+
+  /// Heart rate variability (RMSSD) data type.
+  ///
+  /// Represents the user's heart rate variability (RMSSD) measurements.
+  /// Supports reading, writing, and deletion.
+  @sinceV2_2_0
+  @supportedOnHealthConnect
+  static const heartRateVariabilityRMSSD = HeartRateVariabilityRMSSDDataType();
 
   /// Cervical mucus data type.
   ///
@@ -875,6 +905,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     basalBodyTemperature,
     basalEnergyBurned,
     biotin,
+    bodyWaterMass,
+    boneMass,
     bloodGlucose,
     bloodPressure,
     bodyFatPercentage,
@@ -897,6 +929,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     folate,
     heartRateMeasurementRecord,
     heartRateSeriesRecord,
+    heartRateVariabilityRMSSD,
     height,
     hydration,
     intermenstrualBleeding,

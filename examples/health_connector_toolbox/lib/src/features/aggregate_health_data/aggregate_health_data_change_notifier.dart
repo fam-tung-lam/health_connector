@@ -94,7 +94,10 @@ import 'package:health_connector/health_connector_internal.dart'
         SpeedSeriesDataType,
         CervicalMucusDataType,
         IntermenstrualBleedingDataType,
-        OvulationTestDataType;
+        OvulationTestDataType,
+        BoneMassDataType,
+        BodyWaterMassDataType,
+        HeartRateVariabilityRMSSDDataType;
 
 /// Manages state and operations for aggregating health data.
 ///
@@ -630,6 +633,15 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
       OvulationTestDataType() => throw UnsupportedError(
         'Ovulation test does not support aggregation',
+      ),
+      BoneMassDataType() => throw UnsupportedError(
+        'Bone mass does not support aggregation',
+      ),
+      BodyWaterMassDataType() => throw UnsupportedError(
+        'Body water mass does not support aggregation',
+      ),
+      HeartRateVariabilityRMSSDDataType() => throw UnsupportedError(
+        'Heart rate variability (RMSSD) does not support aggregation',
       ),
     };
   }

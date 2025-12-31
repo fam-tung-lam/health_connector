@@ -7,12 +7,15 @@ import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
+import androidx.health.connect.client.records.BodyWaterMassRecord
+import androidx.health.connect.client.records.BoneMassRecord
 import androidx.health.connect.client.records.CervicalMucusRecord
 import androidx.health.connect.client.records.CyclingPedalingCadenceRecord
 import androidx.health.connect.client.records.DistanceRecord
 import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.FloorsClimbedRecord
 import androidx.health.connect.client.records.HeartRateRecord
+import androidx.health.connect.client.records.HeartRateVariabilityRmssdRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.IntermenstrualBleedingRecord
@@ -39,6 +42,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyFatPercentageRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BodyTemperatureRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BodyWaterMassRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BoneMassRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CervicalMucusRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CyclingPedalingCadenceSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DistanceRecordDto
@@ -47,6 +52,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.FloorsClimbedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSeriesRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateVariabilityRMSSDRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.IntermenstrualBleedingRecordDto
@@ -108,6 +114,10 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is BloodPressureRecordDto -> HealthDataTypeDto.BLOOD_PRESSURE
         is BloodGlucoseRecordDto -> HealthDataTypeDto.BLOOD_GLUCOSE
         is ExerciseSessionRecordDto -> HealthDataTypeDto.EXERCISE_SESSION
+        is BoneMassRecordDto -> HealthDataTypeDto.BONE_MASS
+        is BodyWaterMassRecordDto -> HealthDataTypeDto.BODY_WATER_MASS
+        is HeartRateVariabilityRMSSDRecordDto ->
+            HealthDataTypeDto.HEART_RATE_VARIABILITY_RMSSD
     }
 
 /**
@@ -149,6 +159,9 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is BloodPressureRecordDto -> toHealthConnect()
     is BloodGlucoseRecordDto -> toHealthConnect()
     is ExerciseSessionRecordDto -> toHealthConnect()
+    is BoneMassRecordDto -> toHealthConnect()
+    is BodyWaterMassRecordDto -> toHealthConnect()
+    is HeartRateVariabilityRMSSDRecordDto -> toHealthConnect()
 }
 
 /**
@@ -196,5 +209,8 @@ internal fun Record.toDto(): HealthRecordDto = when (this) {
     is ExerciseSessionRecord -> toDto()
     is OvulationTestRecord -> toDto()
     is IntermenstrualBleedingRecord -> toDto()
+    is BoneMassRecord -> toDto()
+    is BodyWaterMassRecord -> toDto()
+    is HeartRateVariabilityRmssdRecord -> toDto()
     else -> throw IllegalArgumentException("Unsupported record type: ${this::class.simpleName}")
 }

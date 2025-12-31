@@ -166,6 +166,9 @@ abstract final class AppTexts {
       CyclingPowerDataType() => cyclingPower,
       ExerciseSessionHealthDataType() => exerciseSession,
       MindfulnessSessionDataType() => mindfulnessSession,
+      BoneMassDataType() => boneMass,
+      BodyWaterMassDataType() => bodyWaterMass,
+      HeartRateVariabilityRMSSDDataType() => heartRateVariabilityRMSSD,
     };
   }
 
@@ -330,6 +333,10 @@ abstract final class AppTexts {
   static const String leanBodyMass = 'Lean Body Mass';
   static const String bodyTemperature = 'Body Temperature';
   static const String basalBodyTemperature = 'Basal Body Temperature';
+  static const String boneMass = 'Bone Mass';
+  static const String bodyWaterMass = 'Body Water Mass';
+  static const String heartRateVariabilityRMSSD =
+      'Heart Rate Variability (RMSSD)';
   static const String cervicalMucus = 'Cervical Mucus';
   static const String hydration = 'Hydration';
   static const String bloodPressure = 'Blood Pressure';
@@ -461,6 +468,7 @@ abstract final class AppTexts {
   static const String kilometer = 'km';
   static const String centimeter = 'cm';
   static const String millimeter = 'mm';
+  static const String millisecond = 'ms';
   static const String mile = 'mi';
   static const String foot = 'ft';
   static const String inch = 'in';
@@ -766,6 +774,10 @@ abstract final class AppTexts {
       'Core body temperature measurement';
   static const String basalBodyTemperatureDescription =
       'Basal body temperature measurement';
+  static const String boneMassDescription = 'Bone mass measurement';
+  static const String bodyWaterMassDescription = 'Body water mass measurement';
+  static const String heartRateVariabilityRMSSDDescription =
+      'Heart rate variability (RMSSD) measurement';
 
   // Blood Pressure
   static const String bloodPressureDescription =

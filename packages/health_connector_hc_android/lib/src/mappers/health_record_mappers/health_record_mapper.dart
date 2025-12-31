@@ -5,6 +5,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BodyFatPercentageRecord,
         BodyTemperatureRecord,
         BasalBodyTemperatureRecord,
+        BoneMassRecord,
+        BodyWaterMassRecord,
         DiastolicBloodPressureRecord,
         DistanceActivityRecord,
         DistanceRecord,
@@ -15,6 +17,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HeartRateSeriesRecord,
         CyclingPedalingCadenceMeasurementRecord,
         CyclingPedalingCadenceSeriesRecord,
+        HeartRateVariabilityRMSSDRecord,
         HeightRecord,
         HydrationRecord,
         LeanBodyMassRecord,
@@ -81,12 +84,15 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/bl
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_pressure_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_fat_percentage_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_temperature_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_water_mass_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/bone_mass_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cervical_mucus_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cycling_pedaling_cadence_series_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/distance_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/exercise_session_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/floors_climbed_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/heart_rate_series_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/heart_rate_variability_rmssd_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/height_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/hydration_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/intermenstrual_bleeding_record_mappers.dart';
@@ -113,12 +119,15 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         BodyFatPercentageRecordDto,
         BodyTemperatureRecordDto,
         BasalBodyTemperatureRecordDto,
+        BoneMassRecordDto,
+        BodyWaterMassRecordDto,
         CervicalMucusRecordDto,
         DistanceRecordDto,
         FloorsClimbedRecordDto,
         HealthRecordDto,
         HeartRateSeriesRecordDto,
         CyclingPedalingCadenceSeriesRecordDto,
+        HeartRateVariabilityRMSSDRecordDto,
         HeightRecordDto,
         HydrationRecordDto,
         LeanBodyMassRecordDto,
@@ -251,6 +260,12 @@ extension HealthRecordToDto on HealthRecord {
         return BloodGlucoseRecordToDto(record).toDto();
       case final TotalCaloriesBurnedRecord record:
         return TotalCaloriesBurnedRecordToDto(record).toDto();
+      case final BoneMassRecord record:
+        return BoneMassRecordToDto(record).toDto();
+      case final BodyWaterMassRecord record:
+        return BodyWaterMassRecordToDto(record).toDto();
+      case final HeartRateVariabilityRMSSDRecord record:
+        return HeartRateVariabilityRMSSDRecordToDto(record).toDto();
       case final BasalEnergyBurnedRecord _:
         throw UnsupportedError(
           '$BasalEnergyBurnedRecord is not supported on Android '
@@ -539,6 +554,12 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return SpeedSeriesRecordDtoToDomain(dto).toDomain();
       case final TotalCaloriesBurnedRecordDto dto:
         return TotalCaloriesBurnedRecordDtoToDomain(dto).toDomain();
+      case final BoneMassRecordDto dto:
+        return BoneMassRecordDtoToDomain(dto).toDomain();
+      case final BodyWaterMassRecordDto dto:
+        return BodyWaterMassRecordDtoToDomain(dto).toDomain();
+      case final HeartRateVariabilityRMSSDRecordDto dto:
+        return HeartRateVariabilityRMSSDRecordDtoToDomain(dto).toDomain();
     }
   }
 }
