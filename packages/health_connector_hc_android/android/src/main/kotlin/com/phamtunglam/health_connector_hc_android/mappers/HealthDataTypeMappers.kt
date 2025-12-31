@@ -7,12 +7,15 @@ import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
+import androidx.health.connect.client.records.BodyWaterMassRecord
+import androidx.health.connect.client.records.BoneMassRecord
 import androidx.health.connect.client.records.CervicalMucusRecord
 import androidx.health.connect.client.records.CyclingPedalingCadenceRecord
 import androidx.health.connect.client.records.DistanceRecord
 import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.FloorsClimbedRecord
 import androidx.health.connect.client.records.HeartRateRecord
+import androidx.health.connect.client.records.HeartRateVariabilityRmssdRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.IntermenstrualBleedingRecord
@@ -75,4 +78,7 @@ internal fun HealthDataTypeDto.toHealthConnectRecordClass(): KClass<out Record> 
     HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD -> CyclingPedalingCadenceRecord::class
     HealthDataTypeDto.MINDFULNESS_SESSION -> MindfulnessSessionRecord::class
     HealthDataTypeDto.TOTAL_CALORIES_BURNED -> TotalCaloriesBurnedRecord::class
+    HealthDataTypeDto.BONE_MASS -> BoneMassRecord::class
+    HealthDataTypeDto.BODY_WATER_MASS -> BodyWaterMassRecord::class
+    HealthDataTypeDto.HEART_RATE_VARIABILITY_RMSSD -> HeartRateVariabilityRmssdRecord::class
 }

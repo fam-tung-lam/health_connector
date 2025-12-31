@@ -7,6 +7,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BodyFatPercentageRecord,
         BodyTemperatureRecord,
         BasalBodyTemperatureRecord,
+        BoneMassRecord,
+        BodyWaterMassRecord,
         CervicalMucusRecord,
         CaffeineNutrientRecord,
         CalciumNutrientRecord,
@@ -24,6 +26,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HealthRecord,
         HeartRateMeasurementRecord,
         HeartRateSeriesRecord,
+        HeartRateVariabilityRMSSDRecord,
         HeightRecord,
         HydrationRecord,
         IronNutrientRecord,
@@ -398,6 +401,18 @@ extension HealthRecordToDto on HealthRecord {
         throw UnsupportedError(
           '$TotalCaloriesBurnedRecord is not supported on iOS HealthKit. '
           'Use $ActiveCaloriesBurnedRecord + $BasalEnergyBurnedRecord.',
+        );
+      case final BoneMassRecord _:
+        throw UnsupportedError(
+          '$BoneMassRecord is not supported on iOS HealthKit.',
+        );
+      case final BodyWaterMassRecord _:
+        throw UnsupportedError(
+          '$BodyWaterMassRecord is not supported on iOS HealthKit.',
+        );
+      case final HeartRateVariabilityRMSSDRecord _:
+        throw UnsupportedError(
+          '$HeartRateVariabilityRMSSDRecord is not supported on iOS HealthKit.',
         );
     }
   }

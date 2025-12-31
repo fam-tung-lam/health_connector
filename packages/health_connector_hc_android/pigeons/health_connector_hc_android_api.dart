@@ -804,6 +804,15 @@ enum HealthDataTypeDto {
 
   /// Total calories burned data.
   totalCaloriesBurned,
+
+  /// Bone mass data.
+  boneMass,
+
+  /// Heart rate variability (RMSSD) data.
+  heartRateVariabilityRMSSD,
+
+  /// Body water mass data.
+  bodyWaterMass,
 }
 
 /// Represents a blood glucose record for platform transfer.
@@ -2022,6 +2031,84 @@ class TotalCaloriesBurnedRecordDto extends HealthRecordDto {
 
   /// Energy burned.
   final EnergyDto energy;
+}
+
+/// Represents a bone mass record for platform transfer.
+class BoneMassRecordDto extends HealthRecordDto {
+  BoneMassRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.mass,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Bone mass measurement.
+  final MassDto mass;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// Represents a heart rate variability (RMSSD) record for platform transfer.
+class HeartRateVariabilityRMSSDRecordDto extends HealthRecordDto {
+  HeartRateVariabilityRMSSDRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.heartRateVariabilityMillis,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Heart rate variability in milliseconds.
+  final double heartRateVariabilityMillis;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
+}
+
+/// Represents a body water mass record for platform transfer.
+class BodyWaterMassRecordDto extends HealthRecordDto {
+  BodyWaterMassRecordDto({
+    required this.id,
+    required this.time,
+    required this.metadata,
+    required this.mass,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Body water mass measurement.
+  final MassDto mass;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
 }
 
 // region Requests/Responses

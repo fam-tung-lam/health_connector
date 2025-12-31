@@ -149,6 +149,10 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       TotalCaloriesBurnedRecord _ => HealthDataType.totalCaloriesBurned,
       BasalEnergyBurnedRecord _ => HealthDataType.basalEnergyBurned,
       BasalBodyTemperatureRecord _ => HealthDataType.basalBodyTemperature,
+      BoneMassRecord _ => HealthDataType.boneMass,
+      BodyWaterMassRecord _ => HealthDataType.bodyWaterMass,
+      HeartRateVariabilityRMSSDRecord _ =>
+        HealthDataType.heartRateVariabilityRMSSD,
     };
   }
 }

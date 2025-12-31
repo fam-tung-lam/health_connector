@@ -8,12 +8,15 @@ import androidx.health.connect.client.records.BloodGlucoseRecord
 import androidx.health.connect.client.records.BloodPressureRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.BodyTemperatureRecord
+import androidx.health.connect.client.records.BodyWaterMassRecord
+import androidx.health.connect.client.records.BoneMassRecord
 import androidx.health.connect.client.records.CervicalMucusRecord
 import androidx.health.connect.client.records.CyclingPedalingCadenceRecord
 import androidx.health.connect.client.records.DistanceRecord
 import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.FloorsClimbedRecord
 import androidx.health.connect.client.records.HeartRateRecord
+import androidx.health.connect.client.records.HeartRateVariabilityRmssdRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
 import androidx.health.connect.client.records.IntermenstrualBleedingRecord
@@ -416,6 +419,42 @@ internal fun getHealthConnectPermission(
             )
         }
     }
+
+    HealthDataTypeDto.BONE_MASS -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                BoneMassRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                BoneMassRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.BODY_WATER_MASS -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                BodyWaterMassRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                BodyWaterMassRecord::class,
+            )
+        }
+    }
+
+    HealthDataTypeDto.HEART_RATE_VARIABILITY_RMSSD -> {
+        when (accessType) {
+            PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
+                HeartRateVariabilityRmssdRecord::class,
+            )
+
+            PermissionAccessTypeDto.WRITE -> HealthPermission.getWritePermission(
+                HeartRateVariabilityRmssdRecord::class,
+            )
+        }
+    }
 }
 
 /**
@@ -496,6 +535,9 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto 
         "CYCLING_CADENCE" -> HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
         "EXERCISE_SESSION" -> HealthDataTypeDto.EXERCISE_SESSION
         "MINDFULNESS_SESSION" -> HealthDataTypeDto.MINDFULNESS_SESSION
+        "BONE_MASS" -> HealthDataTypeDto.BONE_MASS
+        "BODY_WATER_MASS" -> HealthDataTypeDto.BODY_WATER_MASS
+        "HEART_RATE_VARIABILITY_RMSSD" -> HealthDataTypeDto.HEART_RATE_VARIABILITY_RMSSD
         else -> throw IllegalArgumentException(
             "Invalid/unsupported/unimplemented Health Connect data type: $dataTypeStr.",
         )

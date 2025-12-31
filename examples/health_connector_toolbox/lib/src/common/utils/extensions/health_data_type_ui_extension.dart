@@ -86,7 +86,10 @@ import 'package:health_connector/health_connector_internal.dart'
         CyclingPedalingCadenceSeriesRecordHealthDataType,
         CervicalMucusDataType,
         IntermenstrualBleedingDataType,
-        OvulationTestDataType;
+        OvulationTestDataType,
+        BoneMassDataType,
+        BodyWaterMassDataType,
+        HeartRateVariabilityRMSSDDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -185,6 +188,9 @@ extension HealthDataTypeUI on HealthDataType {
       ExerciseSessionHealthDataType _ => AppTexts.exerciseSession,
       CervicalMucusDataType _ => AppTexts.cervicalMucus,
       MindfulnessSessionDataType _ => AppTexts.mindfulnessSession,
+      BoneMassDataType _ => AppTexts.boneMass,
+      BodyWaterMassDataType _ => AppTexts.bodyWaterMass,
+      HeartRateVariabilityRMSSDDataType _ => AppTexts.heartRateVariabilityRMSSD,
     };
   }
 
@@ -294,6 +300,10 @@ extension HealthDataTypeUI on HealthDataType {
       IntermenstrualBleedingDataType _ =>
         'Record of intermenstrual bleeding or spotting between periods',
       OvulationTestDataType _ => AppTexts.ovulationTestDescription,
+      BoneMassDataType _ => AppTexts.boneMassDescription,
+      BodyWaterMassDataType _ => AppTexts.bodyWaterMassDescription,
+      HeartRateVariabilityRMSSDDataType _ =>
+        AppTexts.heartRateVariabilityRMSSDDescription,
     };
   }
 
@@ -388,6 +398,9 @@ extension HealthDataTypeUI on HealthDataType {
       IntermenstrualBleedingDataType _ => AppIcons.waterDrop,
       OvulationTestDataType _ => AppIcons.science,
       MindfulnessSessionDataType _ => AppIcons.selfImprovement,
+      BoneMassDataType _ => AppIcons.monitorWeight,
+      BodyWaterMassDataType _ => AppIcons.waterDrop,
+      HeartRateVariabilityRMSSDDataType _ => AppIcons.favorite,
     };
   }
 }
@@ -435,6 +448,18 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (LeanBodyMassHealthDataType) => AppTexts.valueWithUnit(
         AppTexts.leanBodyMass,
         AppTexts.kilogram,
+      ),
+      const (BoneMassDataType) => AppTexts.valueWithUnit(
+        AppTexts.boneMass,
+        AppTexts.kilogram,
+      ),
+      const (BodyWaterMassDataType) => AppTexts.valueWithUnit(
+        AppTexts.bodyWaterMass,
+        AppTexts.kilogram,
+      ),
+      const (HeartRateVariabilityRMSSDDataType) => AppTexts.valueWithUnit(
+        AppTexts.heartRateVariabilityRMSSD,
+        AppTexts.millisecond,
       ),
 
       // Percentage Types
@@ -710,7 +735,9 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
     return switch (runtimeType) {
       // Mass types (kilograms)
       const (WeightHealthDataType) ||
-      const (LeanBodyMassHealthDataType) => AppTexts.kilogram,
+      const (LeanBodyMassHealthDataType) ||
+      const (BoneMassDataType) ||
+      const (BodyWaterMassDataType) => AppTexts.kilogram,
 
       // Percentage types
       const (BodyFatPercentageHealthDataType) ||
@@ -739,6 +766,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (BloodGlucoseHealthDataType) => AppTexts.milligramsPerDeciliter,
       const (RespiratoryRateHealthDataType) => AppTexts.breathsPerMinute,
       const (Vo2MaxHealthDataType) => AppTexts.millilitersPerKilogramPerMinute,
+      const (HeartRateVariabilityRMSSDDataType) => AppTexts.millisecond,
 
       // Power
       const (CyclingPowerDataType) => 'W',

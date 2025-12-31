@@ -7,12 +7,15 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BloodPressureHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BodyFatPercentageHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BodyTemperatureHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BodyWaterMassHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BoneMassHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.CervicalMucusHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.CyclingPedalingCadenceHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.DistanceHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ExerciseSessionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.FloorsClimbedHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.HeartRateHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.HeartRateVariabilityRMSSDHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.HeightHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.HydrationHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.IntermenstrualBleedingHandler
@@ -71,6 +74,9 @@ internal class HealthRecordHandlerRegistry(private val client: HealthConnectClie
             register(MindfulnessSessionHandler(client))
             register(SpeedSeriesHandler(client))
             register(WheelchairPushesHandler(client))
+            register(BoneMassHandler(client))
+            register(BodyWaterMassHandler(client))
+            register(HeartRateVariabilityRMSSDHandler(client))
         }
     }
 

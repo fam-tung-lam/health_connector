@@ -5,11 +5,14 @@ import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/basal_body_temperature_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/blood_glucose_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/blood_pressure_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/body_water_mass_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/bone_mass_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/cervical_mucus_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/cycling_pedaling_cadence_measurement_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/diastolic_blood_pressure_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/energy_nutrient_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/heart_rate_measurement_list_tile.dart';
+import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/heart_rate_variability_rmssd_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/intermenstrual_bleeding_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/mass_nutrient_list_tile.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/instant_health_record_list_tiles/nutrition_list_tile.dart';
@@ -83,6 +86,10 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.beatsPerMinute,
           onDelete: onDelete,
         ),
+      final HeartRateVariabilityRMSSDRecord r => HeartRateVariabilityRMSSDTile(
+        record: r,
+        onDelete: onDelete,
+      ),
       final CyclingPedalingCadenceMeasurementRecord r =>
         CyclingPedalingCadenceMeasurementTile(
           record: r,
@@ -197,6 +204,11 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.mass,
           onDelete: onDelete,
         ),
+      final BoneMassRecord r => BoneMassTile(record: r, onDelete: onDelete),
+      final BodyWaterMassRecord r => BodyWaterMassTile(
+        record: r,
+        onDelete: onDelete,
+      ),
 
       // Vitals
       final OxygenSaturationRecord r =>

@@ -6,6 +6,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
         BasalBodyTemperatureHealthDataType,
+        BoneMassDataType,
+        BodyWaterMassDataType,
         CaffeineNutrientDataType,
         CalciumNutrientDataType,
         CervicalMucusDataType,
@@ -26,6 +28,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HealthRecord,
         HeartRateMeasurementRecordHealthDataType,
         HeartRateSeriesRecordHealthDataType,
+        HeartRateVariabilityRMSSDDataType,
         HeightHealthDataType,
         HydrationHealthDataType,
         IronNutrientDataType,
@@ -162,6 +165,12 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.totalCaloriesBurned;
       case HealthDataTypeDto.mindfulnessSession:
         return HealthDataType.mindfulnessSession;
+      case HealthDataTypeDto.boneMass:
+        return HealthDataType.boneMass;
+      case HealthDataTypeDto.bodyWaterMass:
+        return HealthDataType.bodyWaterMass;
+      case HealthDataTypeDto.heartRateVariabilityRMSSD:
+        return HealthDataType.heartRateVariabilityRMSSD;
     }
   }
 }
@@ -210,6 +219,12 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.exerciseSession;
       case MindfulnessSessionDataType _:
         return HealthDataTypeDto.mindfulnessSession;
+      case BoneMassDataType _:
+        return HealthDataTypeDto.boneMass;
+      case BodyWaterMassDataType _:
+        return HealthDataTypeDto.bodyWaterMass;
+      case HeartRateVariabilityRMSSDDataType _:
+        return HealthDataTypeDto.heartRateVariabilityRMSSD;
       case EnergyNutrientDataType _:
       case CaffeineNutrientDataType _:
       case ProteinNutrientDataType _:

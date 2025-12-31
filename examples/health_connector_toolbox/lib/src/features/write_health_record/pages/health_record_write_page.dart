@@ -14,10 +14,13 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/blood_glucose_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/body_fat_percentage_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/body_temperature_health_record_write_form.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/body_water_mass_health_record_write_form.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/bone_mass_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/cycling_pedaling_cadence_measurement_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/cycling_power_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/diastolic_blood_pressure_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/heart_rate_measurement_health_record_write_form.dart';
+import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/heart_rate_variability_rmssd_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/height_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/lean_body_mass_health_record_write_form.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/instant_health_record_write_forms/nutrient_health_record_write_forms.dart';
@@ -467,6 +470,18 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         onSubmit: _onSubmit,
       ),
       BasalEnergyBurnedHealthDataType _ => BasalEnergyBurnedWriteForm(
+        healthPlatform: _notifier.healthPlatform,
+        onSubmit: _onSubmit,
+      ),
+      BoneMassDataType _ => BoneMassWriteForm(
+        healthPlatform: _notifier.healthPlatform,
+        onSubmit: _onSubmit,
+      ),
+      BodyWaterMassDataType _ => BodyWaterMassWriteForm(
+        healthPlatform: _notifier.healthPlatform,
+        onSubmit: _onSubmit,
+      ),
+      HeartRateVariabilityRMSSDDataType _ => HeartRateVariabilityRMSSDWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),

@@ -5,6 +5,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
         BasalBodyTemperatureHealthDataType,
+        BoneMassDataType,
+        BodyWaterMassDataType,
         CervicalMucusDataType,
         CrossCountrySkiingDistanceDataType,
         CyclingDistanceDataType,
@@ -18,6 +20,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HealthRecord,
         HeartRateMeasurementRecordHealthDataType,
         HeartRateSeriesRecordHealthDataType,
+        HeartRateVariabilityRMSSDDataType,
         HeightHealthDataType,
         SexualActivityDataType,
         SleepSessionHealthDataType,
@@ -461,6 +464,19 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$TotalCaloriesBurnedHealthDataType is not supported on iOS '
           'HealthKit. Use $ActiveCaloriesBurnedHealthDataType and '
           '$BasalEnergyBurnedHealthDataType instead.',
+        );
+      case BoneMassDataType _:
+        throw UnsupportedError(
+          '$BoneMassDataType is not supported on iOS HealthKit.',
+        );
+      case BodyWaterMassDataType _:
+        throw UnsupportedError(
+          '$BodyWaterMassDataType is not supported on iOS HealthKit.',
+        );
+      case HeartRateVariabilityRMSSDDataType _:
+        throw UnsupportedError(
+          '$HeartRateVariabilityRMSSDDataType is not supported on iOS '
+          'HealthKit.',
         );
     }
   }
