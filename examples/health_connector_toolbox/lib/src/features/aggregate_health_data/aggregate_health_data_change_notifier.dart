@@ -93,6 +93,7 @@ import 'package:health_connector/health_connector_internal.dart'
         NutritionHealthDataType,
         SpeedSeriesDataType,
         CervicalMucusDataType,
+        IntermenstrualBleedingDataType,
         OvulationTestDataType;
 
 /// Manages state and operations for aggregating health data.
@@ -623,6 +624,9 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
       CervicalMucusDataType() => throw UnsupportedError(
         'Cervical mucus does not support aggregation',
+      ),
+      IntermenstrualBleedingDataType() => throw UnsupportedError(
+        'Intermenstrual bleeding does not support aggregation',
       ),
       OvulationTestDataType() => throw UnsupportedError(
         'Ovulation test does not support aggregation',

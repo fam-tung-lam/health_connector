@@ -159,6 +159,10 @@ abstract class MeasurementUnitValueParser {
         '$CervicalMucusDataType is a complex type with appearance and '
         'sensation, cannot be parsed from a single string input.',
       ),
+      IntermenstrualBleedingDataType() => throw UnsupportedError(
+        '$IntermenstrualBleedingDataType is a record of bleeding occurrence, '
+        'cannot be parsed from a single string input.',
+      ),
       OvulationTestDataType() => throw UnsupportedError(
         '$OvulationTestDataType is a complex type with test result, '
         'cannot be parsed from a single string input.',

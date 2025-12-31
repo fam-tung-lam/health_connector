@@ -101,6 +101,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       // Vital signs
       RestingHeartRateRecord _ => HealthDataType.restingHeartRate,
       OvulationTestRecord _ => HealthDataType.ovulationTest,
+      IntermenstrualBleedingRecord _ => HealthDataType.intermenstrualBleeding,
       OxygenSaturationRecord _ => HealthDataType.oxygenSaturation,
       RespiratoryRateRecord _ => HealthDataType.respiratoryRate,
       Vo2MaxRecord _ => HealthDataType.vo2Max,

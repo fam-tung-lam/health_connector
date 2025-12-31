@@ -15,6 +15,7 @@ import androidx.health.connect.client.records.FloorsClimbedRecord
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.records.HydrationRecord
+import androidx.health.connect.client.records.IntermenstrualBleedingRecord
 import androidx.health.connect.client.records.LeanBodyMassRecord
 import androidx.health.connect.client.records.MindfulnessSessionRecord
 import androidx.health.connect.client.records.NutritionRecord
@@ -48,6 +49,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HydrationRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.IntermenstrualBleedingRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.LeanBodyMassRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MindfulnessSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.NutritionRecordDto
@@ -95,6 +97,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is SpeedSeriesRecordDto -> HealthDataTypeDto.SPEED_SERIES
         is NutritionRecordDto -> HealthDataTypeDto.NUTRITION
         is OvulationTestRecordDto -> HealthDataTypeDto.OVULATION_TEST
+        is IntermenstrualBleedingRecordDto -> HealthDataTypeDto.INTERMENSTRUAL_BLEEDING
         is OxygenSaturationRecordDto -> HealthDataTypeDto.OXYGEN_SATURATION
         is PowerSeriesRecordDto -> HealthDataTypeDto.POWER_SERIES
         is CyclingPedalingCadenceSeriesRecordDto ->
@@ -136,6 +139,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is SpeedSeriesRecordDto -> toHealthConnect()
     is NutritionRecordDto -> toHealthConnect()
     is OvulationTestRecordDto -> toHealthConnect()
+    is IntermenstrualBleedingRecordDto -> toHealthConnect()
     is OxygenSaturationRecordDto -> toHealthConnect()
     is PowerSeriesRecordDto -> toHealthConnect()
     is CyclingPedalingCadenceSeriesRecordDto -> toHealthConnect()
@@ -191,5 +195,6 @@ internal fun Record.toDto(): HealthRecordDto = when (this) {
     is BloodGlucoseRecord -> toDto()
     is ExerciseSessionRecord -> toDto()
     is OvulationTestRecord -> toDto()
+    is IntermenstrualBleedingRecord -> toDto()
     else -> throw IllegalArgumentException("Unsupported record type: ${this::class.simpleName}")
 }

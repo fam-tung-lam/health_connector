@@ -116,6 +116,7 @@ abstract final class AppTexts {
       SleepSessionHealthDataType() => sleepSession,
       SleepStageHealthDataType() => sleepStage,
       SexualActivityDataType() => sexualActivity,
+      IntermenstrualBleedingDataType() => intermenstrualBleeding,
       OvulationTestDataType() => ovulationTest,
       EnergyNutrientDataType() => energy,
       CaffeineNutrientDataType() => caffeine,
@@ -374,6 +375,7 @@ abstract final class AppTexts {
   static const String bloodPressureType = '$bloodPressure $type';
   static const String sexualActivity = 'Sexual Activity';
   static const String protectionUsed = 'Protection Used';
+  static const String intermenstrualBleeding = 'Intermenstrual Bleeding';
   static const String ovulationTest = 'Ovulation Test';
   static const String testResult = 'Test Result';
   static const String selectTestResult = 'Select test result';

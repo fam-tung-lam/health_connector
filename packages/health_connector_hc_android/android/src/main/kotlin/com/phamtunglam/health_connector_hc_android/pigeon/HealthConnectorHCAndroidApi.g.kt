@@ -785,22 +785,24 @@ enum class HealthDataTypeDto(val raw: Int) {
   BLOOD_PRESSURE(20),
   /** Ovulation test data. */
   OVULATION_TEST(21),
+  /** Intermenstrual bleeding data. */
+  INTERMENSTRUAL_BLEEDING(22),
   /** Oxygen saturation data. */
-  OXYGEN_SATURATION(22),
+  OXYGEN_SATURATION(23),
   /** Power data. */
-  POWER_SERIES(23),
+  POWER_SERIES(24),
   /** Respiratory rate data. */
-  RESPIRATORY_RATE(24),
+  RESPIRATORY_RATE(25),
   /** VO2 max (maximal oxygen uptake) data. */
-  VO2MAX(25),
+  VO2MAX(26),
   /** Blood glucose data. */
-  BLOOD_GLUCOSE(26),
+  BLOOD_GLUCOSE(27),
   /** Speed data. */
-  SPEED_SERIES(27),
+  SPEED_SERIES(28),
   /** Mindfulness session data. */
-  MINDFULNESS_SESSION(28),
+  MINDFULNESS_SESSION(29),
   /** Total calories burned data. */
-  TOTAL_CALORIES_BURNED(29);
+  TOTAL_CALORIES_BURNED(30);
 
   companion object {
     fun ofRaw(raw: Int): HealthDataTypeDto? {
@@ -1610,6 +1612,51 @@ data class OvulationTestRecordDto (
   }
   override fun equals(other: Any?): Boolean {
     if (other !is OvulationTestRecordDto) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
+
+  override fun hashCode(): Int = toList().hashCode()
+}
+
+/**
+ * Represents an intermenstrual bleeding record for platform transfer.
+ *
+ * Generated class from Pigeon that represents data sent in messages.
+ */
+data class IntermenstrualBleedingRecordDto (
+  /** Platform-assigned unique identifier. */
+  val id: String? = null,
+  /** Metadata about this record. */
+  val metadata: MetadataDto,
+  /** Measurement time in milliseconds since epoch (UTC). */
+  val time: Long,
+  /** Timezone offset in seconds for measurement time (optional). */
+  val zoneOffsetSeconds: Long? = null
+) : HealthRecordDto()
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): IntermenstrualBleedingRecordDto {
+      val id = pigeonVar_list[0] as String?
+      val metadata = pigeonVar_list[1] as MetadataDto
+      val time = pigeonVar_list[2] as Long
+      val zoneOffsetSeconds = pigeonVar_list[3] as Long?
+      return IntermenstrualBleedingRecordDto(id, metadata, time, zoneOffsetSeconds)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      id,
+      metadata,
+      time,
+      zoneOffsetSeconds,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other !is IntermenstrualBleedingRecordDto) {
       return false
     }
     if (this === other) {
@@ -4244,225 +4291,230 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       182.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          RespiratoryRateRecordDto.fromList(it)
+          IntermenstrualBleedingRecordDto.fromList(it)
         }
       }
       183.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          Vo2MaxRecordDto.fromList(it)
+          RespiratoryRateRecordDto.fromList(it)
         }
       }
       184.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ActiveCaloriesBurnedRecordDto.fromList(it)
+          Vo2MaxRecordDto.fromList(it)
         }
       }
       185.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DistanceRecordDto.fromList(it)
+          ActiveCaloriesBurnedRecordDto.fromList(it)
         }
       }
       186.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          FloorsClimbedRecordDto.fromList(it)
+          DistanceRecordDto.fromList(it)
         }
       }
       187.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          WheelchairPushesRecordDto.fromList(it)
+          FloorsClimbedRecordDto.fromList(it)
         }
       }
       188.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          StepsRecordDto.fromList(it)
+          WheelchairPushesRecordDto.fromList(it)
         }
       }
       189.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          WeightRecordDto.fromList(it)
+          StepsRecordDto.fromList(it)
         }
       }
       190.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BloodPressureRecordDto.fromList(it)
+          WeightRecordDto.fromList(it)
         }
       }
       191.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          LeanBodyMassRecordDto.fromList(it)
+          BloodPressureRecordDto.fromList(it)
         }
       }
       192.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HeightRecordDto.fromList(it)
+          LeanBodyMassRecordDto.fromList(it)
         }
       }
       193.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BodyFatPercentageRecordDto.fromList(it)
+          HeightRecordDto.fromList(it)
         }
       }
       194.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BodyTemperatureRecordDto.fromList(it)
+          BodyFatPercentageRecordDto.fromList(it)
         }
       }
       195.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BasalBodyTemperatureRecordDto.fromList(it)
+          BodyTemperatureRecordDto.fromList(it)
         }
       }
       196.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          CervicalMucusRecordDto.fromList(it)
+          BasalBodyTemperatureRecordDto.fromList(it)
         }
       }
       197.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HydrationRecordDto.fromList(it)
+          CervicalMucusRecordDto.fromList(it)
         }
       }
       198.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HeartRateMeasurementDto.fromList(it)
+          HydrationRecordDto.fromList(it)
         }
       }
       199.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HeartRateSeriesRecordDto.fromList(it)
+          HeartRateMeasurementDto.fromList(it)
         }
       }
       200.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          CyclingPedalingCadenceMeasurementDto.fromList(it)
+          HeartRateSeriesRecordDto.fromList(it)
         }
       }
       201.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          CyclingPedalingCadenceSeriesRecordDto.fromList(it)
+          CyclingPedalingCadenceMeasurementDto.fromList(it)
         }
       }
       202.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          SpeedMeasurementDto.fromList(it)
+          CyclingPedalingCadenceSeriesRecordDto.fromList(it)
         }
       }
       203.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          SpeedSeriesRecordDto.fromList(it)
+          SpeedMeasurementDto.fromList(it)
         }
       }
       204.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PowerMeasurementDto.fromList(it)
+          SpeedSeriesRecordDto.fromList(it)
         }
       }
       205.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PowerSeriesRecordDto.fromList(it)
+          PowerMeasurementDto.fromList(it)
         }
       }
       206.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          SleepStageDto.fromList(it)
+          PowerSeriesRecordDto.fromList(it)
         }
       }
       207.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          SleepSessionRecordDto.fromList(it)
+          SleepStageDto.fromList(it)
         }
       }
       208.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          SexualActivityRecordDto.fromList(it)
+          SleepSessionRecordDto.fromList(it)
         }
       }
       209.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ExerciseSessionRecordDto.fromList(it)
+          SexualActivityRecordDto.fromList(it)
         }
       }
       210.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          MindfulnessSessionRecordDto.fromList(it)
+          ExerciseSessionRecordDto.fromList(it)
         }
       }
       211.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          NutritionRecordDto.fromList(it)
+          MindfulnessSessionRecordDto.fromList(it)
         }
       }
       212.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          TotalCaloriesBurnedRecordDto.fromList(it)
+          NutritionRecordDto.fromList(it)
         }
       }
       213.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthPlatformFeaturePermissionRequestResultDto.fromList(it)
+          TotalCaloriesBurnedRecordDto.fromList(it)
         }
       }
       214.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthDataPermissionRequestDto.fromList(it)
+          HealthPlatformFeaturePermissionRequestResultDto.fromList(it)
         }
       }
       215.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthDataPermissionRequestResultDto.fromList(it)
+          HealthDataPermissionRequestDto.fromList(it)
         }
       }
       216.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthPlatformFeaturePermissionRequest.fromList(it)
+          HealthDataPermissionRequestResultDto.fromList(it)
         }
       }
       217.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PermissionRequestsDto.fromList(it)
+          HealthPlatformFeaturePermissionRequest.fromList(it)
         }
       }
       218.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PermissionRequestsResponseDto.fromList(it)
+          PermissionRequestsDto.fromList(it)
         }
       }
       219.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          CommonAggregateRequestDto.fromList(it)
+          PermissionRequestsResponseDto.fromList(it)
         }
       }
       220.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BloodPressureAggregateRequestDto.fromList(it)
+          CommonAggregateRequestDto.fromList(it)
         }
       }
       221.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByIdsRequestDto.fromList(it)
+          BloodPressureAggregateRequestDto.fromList(it)
         }
       }
       222.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByTimeRangeRequestDto.fromList(it)
+          DeleteRecordsByIdsRequestDto.fromList(it)
         }
       }
       223.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordRequestDto.fromList(it)
+          DeleteRecordsByTimeRangeRequestDto.fromList(it)
         }
       }
       224.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsRequestDto.fromList(it)
+          ReadRecordRequestDto.fromList(it)
         }
       }
       225.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsResponseDto.fromList(it)
+          ReadRecordsRequestDto.fromList(it)
         }
       }
       226.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          ReadRecordsResponseDto.fromList(it)
+        }
+      }
+      227.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
           HealthConnectorConfigDto.fromList(it)
         }
@@ -4684,184 +4736,188 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(181)
         writeValue(stream, value.toList())
       }
-      is RespiratoryRateRecordDto -> {
+      is IntermenstrualBleedingRecordDto -> {
         stream.write(182)
         writeValue(stream, value.toList())
       }
-      is Vo2MaxRecordDto -> {
+      is RespiratoryRateRecordDto -> {
         stream.write(183)
         writeValue(stream, value.toList())
       }
-      is ActiveCaloriesBurnedRecordDto -> {
+      is Vo2MaxRecordDto -> {
         stream.write(184)
         writeValue(stream, value.toList())
       }
-      is DistanceRecordDto -> {
+      is ActiveCaloriesBurnedRecordDto -> {
         stream.write(185)
         writeValue(stream, value.toList())
       }
-      is FloorsClimbedRecordDto -> {
+      is DistanceRecordDto -> {
         stream.write(186)
         writeValue(stream, value.toList())
       }
-      is WheelchairPushesRecordDto -> {
+      is FloorsClimbedRecordDto -> {
         stream.write(187)
         writeValue(stream, value.toList())
       }
-      is StepsRecordDto -> {
+      is WheelchairPushesRecordDto -> {
         stream.write(188)
         writeValue(stream, value.toList())
       }
-      is WeightRecordDto -> {
+      is StepsRecordDto -> {
         stream.write(189)
         writeValue(stream, value.toList())
       }
-      is BloodPressureRecordDto -> {
+      is WeightRecordDto -> {
         stream.write(190)
         writeValue(stream, value.toList())
       }
-      is LeanBodyMassRecordDto -> {
+      is BloodPressureRecordDto -> {
         stream.write(191)
         writeValue(stream, value.toList())
       }
-      is HeightRecordDto -> {
+      is LeanBodyMassRecordDto -> {
         stream.write(192)
         writeValue(stream, value.toList())
       }
-      is BodyFatPercentageRecordDto -> {
+      is HeightRecordDto -> {
         stream.write(193)
         writeValue(stream, value.toList())
       }
-      is BodyTemperatureRecordDto -> {
+      is BodyFatPercentageRecordDto -> {
         stream.write(194)
         writeValue(stream, value.toList())
       }
-      is BasalBodyTemperatureRecordDto -> {
+      is BodyTemperatureRecordDto -> {
         stream.write(195)
         writeValue(stream, value.toList())
       }
-      is CervicalMucusRecordDto -> {
+      is BasalBodyTemperatureRecordDto -> {
         stream.write(196)
         writeValue(stream, value.toList())
       }
-      is HydrationRecordDto -> {
+      is CervicalMucusRecordDto -> {
         stream.write(197)
         writeValue(stream, value.toList())
       }
-      is HeartRateMeasurementDto -> {
+      is HydrationRecordDto -> {
         stream.write(198)
         writeValue(stream, value.toList())
       }
-      is HeartRateSeriesRecordDto -> {
+      is HeartRateMeasurementDto -> {
         stream.write(199)
         writeValue(stream, value.toList())
       }
-      is CyclingPedalingCadenceMeasurementDto -> {
+      is HeartRateSeriesRecordDto -> {
         stream.write(200)
         writeValue(stream, value.toList())
       }
-      is CyclingPedalingCadenceSeriesRecordDto -> {
+      is CyclingPedalingCadenceMeasurementDto -> {
         stream.write(201)
         writeValue(stream, value.toList())
       }
-      is SpeedMeasurementDto -> {
+      is CyclingPedalingCadenceSeriesRecordDto -> {
         stream.write(202)
         writeValue(stream, value.toList())
       }
-      is SpeedSeriesRecordDto -> {
+      is SpeedMeasurementDto -> {
         stream.write(203)
         writeValue(stream, value.toList())
       }
-      is PowerMeasurementDto -> {
+      is SpeedSeriesRecordDto -> {
         stream.write(204)
         writeValue(stream, value.toList())
       }
-      is PowerSeriesRecordDto -> {
+      is PowerMeasurementDto -> {
         stream.write(205)
         writeValue(stream, value.toList())
       }
-      is SleepStageDto -> {
+      is PowerSeriesRecordDto -> {
         stream.write(206)
         writeValue(stream, value.toList())
       }
-      is SleepSessionRecordDto -> {
+      is SleepStageDto -> {
         stream.write(207)
         writeValue(stream, value.toList())
       }
-      is SexualActivityRecordDto -> {
+      is SleepSessionRecordDto -> {
         stream.write(208)
         writeValue(stream, value.toList())
       }
-      is ExerciseSessionRecordDto -> {
+      is SexualActivityRecordDto -> {
         stream.write(209)
         writeValue(stream, value.toList())
       }
-      is MindfulnessSessionRecordDto -> {
+      is ExerciseSessionRecordDto -> {
         stream.write(210)
         writeValue(stream, value.toList())
       }
-      is NutritionRecordDto -> {
+      is MindfulnessSessionRecordDto -> {
         stream.write(211)
         writeValue(stream, value.toList())
       }
-      is TotalCaloriesBurnedRecordDto -> {
+      is NutritionRecordDto -> {
         stream.write(212)
         writeValue(stream, value.toList())
       }
-      is HealthPlatformFeaturePermissionRequestResultDto -> {
+      is TotalCaloriesBurnedRecordDto -> {
         stream.write(213)
         writeValue(stream, value.toList())
       }
-      is HealthDataPermissionRequestDto -> {
+      is HealthPlatformFeaturePermissionRequestResultDto -> {
         stream.write(214)
         writeValue(stream, value.toList())
       }
-      is HealthDataPermissionRequestResultDto -> {
+      is HealthDataPermissionRequestDto -> {
         stream.write(215)
         writeValue(stream, value.toList())
       }
-      is HealthPlatformFeaturePermissionRequest -> {
+      is HealthDataPermissionRequestResultDto -> {
         stream.write(216)
         writeValue(stream, value.toList())
       }
-      is PermissionRequestsDto -> {
+      is HealthPlatformFeaturePermissionRequest -> {
         stream.write(217)
         writeValue(stream, value.toList())
       }
-      is PermissionRequestsResponseDto -> {
+      is PermissionRequestsDto -> {
         stream.write(218)
         writeValue(stream, value.toList())
       }
-      is CommonAggregateRequestDto -> {
+      is PermissionRequestsResponseDto -> {
         stream.write(219)
         writeValue(stream, value.toList())
       }
-      is BloodPressureAggregateRequestDto -> {
+      is CommonAggregateRequestDto -> {
         stream.write(220)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByIdsRequestDto -> {
+      is BloodPressureAggregateRequestDto -> {
         stream.write(221)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByTimeRangeRequestDto -> {
+      is DeleteRecordsByIdsRequestDto -> {
         stream.write(222)
         writeValue(stream, value.toList())
       }
-      is ReadRecordRequestDto -> {
+      is DeleteRecordsByTimeRangeRequestDto -> {
         stream.write(223)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsRequestDto -> {
+      is ReadRecordRequestDto -> {
         stream.write(224)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsResponseDto -> {
+      is ReadRecordsRequestDto -> {
         stream.write(225)
         writeValue(stream, value.toList())
       }
-      is HealthConnectorConfigDto -> {
+      is ReadRecordsResponseDto -> {
         stream.write(226)
+        writeValue(stream, value.toList())
+      }
+      is HealthConnectorConfigDto -> {
+        stream.write(227)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)

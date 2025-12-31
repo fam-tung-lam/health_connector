@@ -73,6 +73,8 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as OvulationTestRecordDto:
             return try dto.toHealthKit()
+        case let dto as IntermenstrualBleedingRecordDto:
+            return try dto.toHealthKit()
         default:
             throw HealthConnectorError.unsupportedOperation(
                 message:
@@ -128,6 +130,8 @@ extension HKCategorySample {
             try toMindfulnessSessionDto()
         case .ovulationTest:
             try toOvulationTestRecordDto()
+        case .intermenstrualBleeding:
+            try toIntermenstrualBleedingRecordDto()
         default:
             throw HealthConnectorError.invalidArgument(
                 message: "Unsupported health data type for HKCategorySample",
