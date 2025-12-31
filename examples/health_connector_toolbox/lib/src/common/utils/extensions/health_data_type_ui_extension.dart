@@ -89,7 +89,10 @@ import 'package:health_connector/health_connector_internal.dart'
         OvulationTestDataType,
         BoneMassDataType,
         BodyWaterMassDataType,
-        HeartRateVariabilityRMSSDDataType;
+        HeartRateVariabilityRMSSDDataType,
+        BodyMassIndexHealthDataType,
+        WaistCircumferenceHealthDataType,
+        HeartRateVariabilitySDNNDataType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -191,6 +194,9 @@ extension HealthDataTypeUI on HealthDataType {
       BoneMassDataType _ => AppTexts.boneMass,
       BodyWaterMassDataType _ => AppTexts.bodyWaterMass,
       HeartRateVariabilityRMSSDDataType _ => AppTexts.heartRateVariabilityRMSSD,
+      BodyMassIndexHealthDataType _ => AppTexts.bodyMassIndex,
+      WaistCircumferenceHealthDataType _ => AppTexts.waistCircumference,
+      HeartRateVariabilitySDNNDataType _ => AppTexts.heartRateVariabilitySDNN,
     };
   }
 
@@ -304,6 +310,11 @@ extension HealthDataTypeUI on HealthDataType {
       BodyWaterMassDataType _ => AppTexts.bodyWaterMassDescription,
       HeartRateVariabilityRMSSDDataType _ =>
         AppTexts.heartRateVariabilityRMSSDDescription,
+      BodyMassIndexHealthDataType _ => AppTexts.bodyMassIndexDescription,
+      WaistCircumferenceHealthDataType _ =>
+        AppTexts.waistCircumferenceDescription,
+      HeartRateVariabilitySDNNDataType _ =>
+        AppTexts.heartRateVariabilitySDNNDescription,
     };
   }
 
@@ -401,6 +412,9 @@ extension HealthDataTypeUI on HealthDataType {
       BoneMassDataType _ => AppIcons.monitorWeight,
       BodyWaterMassDataType _ => AppIcons.waterDrop,
       HeartRateVariabilityRMSSDDataType _ => AppIcons.favorite,
+      BodyMassIndexHealthDataType _ => AppIcons.monitorWeight,
+      WaistCircumferenceHealthDataType _ => AppIcons.straighten,
+      HeartRateVariabilitySDNNDataType _ => AppIcons.favorite,
     };
   }
 }
@@ -459,6 +473,18 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       ),
       const (HeartRateVariabilityRMSSDDataType) => AppTexts.valueWithUnit(
         AppTexts.heartRateVariabilityRMSSD,
+        AppTexts.millisecond,
+      ),
+      const (BodyMassIndexHealthDataType) => AppTexts.valueWithUnit(
+        AppTexts.bodyMassIndex,
+        'kg/m²',
+      ),
+      const (WaistCircumferenceHealthDataType) => AppTexts.valueWithUnit(
+        AppTexts.waistCircumference,
+        AppTexts.meter,
+      ),
+      const (HeartRateVariabilitySDNNDataType) => AppTexts.valueWithUnit(
+        AppTexts.heartRateVariabilitySDNN,
         AppTexts.millisecond,
       ),
 
@@ -743,6 +769,8 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (BodyFatPercentageHealthDataType) ||
       const (OxygenSaturationHealthDataType) => '%',
 
+      const (BodyMassIndexHealthDataType) => 'kg/m²',
+
       // Distance types
       const (HeightHealthDataType) ||
       const (DistanceHealthDataType) ||
@@ -755,6 +783,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (SkatingSportsDistanceDataType) ||
       const (SwimmingDistanceDataType) ||
       const (WheelchairDistanceDataType) ||
+      const (WaistCircumferenceHealthDataType) ||
       const (WalkingRunningDistanceDataType) => AppTexts.meter,
 
       // Vital Signs
@@ -766,7 +795,8 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (BloodGlucoseHealthDataType) => AppTexts.milligramsPerDeciliter,
       const (RespiratoryRateHealthDataType) => AppTexts.breathsPerMinute,
       const (Vo2MaxHealthDataType) => AppTexts.millilitersPerKilogramPerMinute,
-      const (HeartRateVariabilityRMSSDDataType) => AppTexts.millisecond,
+      const (HeartRateVariabilityRMSSDDataType) ||
+      const (HeartRateVariabilitySDNNDataType) => AppTexts.millisecond,
 
       // Power
       const (CyclingPowerDataType) => 'W',

@@ -19,7 +19,7 @@ part of 'health_data_type.dart';
 /// - Readable: Query lean body mass records
 /// - Writeable: Write lean body mass records
 /// - Deletable: Delete records by IDs or time range
-/// - ❌ Not aggregatable
+/// - Not aggregatable
 ///
 /// ## See also
 ///

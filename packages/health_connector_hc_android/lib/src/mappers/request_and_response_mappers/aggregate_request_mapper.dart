@@ -12,6 +12,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ActiveCaloriesBurnedHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
+        BodyMassIndexHealthDataType,
         BoneMassDataType,
         BodyWaterMassDataType,
         CervicalMucusDataType,
@@ -26,6 +27,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HeartRateMeasurementRecordHealthDataType,
         HeartRateSeriesRecordHealthDataType,
         HeartRateVariabilityRMSSDDataType,
+        HeartRateVariabilitySDNNDataType,
         HeightHealthDataType,
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
@@ -38,6 +40,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         MindfulnessSessionDataType,
         StepsHealthDataType,
         WeightHealthDataType,
+        WaistCircumferenceHealthDataType,
         WheelchairPushesHealthDataType,
         PaddleSportsDistanceDataType,
         RowingDistanceDataType,
@@ -223,6 +226,9 @@ extension AggregateRequestDtoMapper<
           case BoneMassDataType _:
           case BodyWaterMassDataType _:
           case HeartRateVariabilityRMSSDDataType _:
+          case HeartRateVariabilitySDNNDataType _:
+          case BodyMassIndexHealthDataType _:
+          case WaistCircumferenceHealthDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',
             );

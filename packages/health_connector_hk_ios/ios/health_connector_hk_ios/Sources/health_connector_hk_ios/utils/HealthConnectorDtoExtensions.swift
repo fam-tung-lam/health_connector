@@ -56,6 +56,12 @@ extension HealthRecordDto {
             record.id
         case let record as IntermenstrualBleedingRecordDto:
             record.id
+        case let record as BodyMassIndexRecordDto:
+            record.id
+        case let record as WaistCircumferenceRecordDto:
+            record.id
+        case let record as HeartRateVariabilitySDNNRecordDto:
+            record.id
         default:
             nil
         }
@@ -213,6 +219,12 @@ extension HealthRecordDto {
                 return .ovulationTest
             case is IntermenstrualBleedingRecordDto:
                 return .intermenstrualBleeding
+            case is BodyMassIndexRecordDto:
+                return .bodyMassIndex
+            case is WaistCircumferenceRecordDto:
+                return .waistCircumference
+            case is HeartRateVariabilitySDNNRecordDto:
+                return .heartRateVariabilitySDNN
             default:
                 throw HealthConnectorError.invalidArgument(
                     message: "Unimplemented HealthRecordDto type: \(type(of: self))")
@@ -364,6 +376,12 @@ extension HealthRecordDto {
         case let dto as OvulationTestRecordDto:
             return dto.time
         case let dto as IntermenstrualBleedingRecordDto:
+            return dto.time
+        case let dto as BodyMassIndexRecordDto:
+            return dto.time
+        case let dto as WaistCircumferenceRecordDto:
+            return dto.time
+        case let dto as HeartRateVariabilitySDNNRecordDto:
             return dto.time
         default:
             throw HealthConnectorError.invalidArgument(

@@ -111,6 +111,9 @@ part 'basal_body_temperature_health_data_type.dart';
 part 'bone_mass_health_data_type.dart';
 part 'body_water_mass_health_data_type.dart';
 part 'heart_rate_variability_rmssd_health_data_type.dart';
+part 'body_mass_index_health_data_type.dart';
+part 'waist_circumference_health_data_type.dart';
+part 'heart_rate_variability_sdnn_health_data_type.dart';
 part 'cervical_mucus_data_type.dart';
 part 'distance_data_types/cross_country_skiing_distance_data_type.dart';
 part 'distance_data_types/cycling_distance_data_type.dart';
@@ -441,6 +444,30 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV2_2_0
   @supportedOnHealthConnect
   static const heartRateVariabilityRMSSD = HeartRateVariabilityRMSSDDataType();
+
+  /// Heart rate variability (SDNN) data type.
+  ///
+  /// Represents the user's heart rate variability (SDNN) measurements.
+  /// Supports reading, writing, and deletion.
+  @sinceV2_2_0
+  @supportedOnAppleHealth
+  static const heartRateVariabilitySDNN = HeartRateVariabilitySDNNDataType();
+
+  /// Body mass index data type.
+  ///
+  /// Represents the user's body mass index (BMI).
+  /// Supports reading, writing, and deletion.
+  @sinceV2_2_0
+  @supportedOnAppleHealth
+  static const bodyMassIndex = BodyMassIndexHealthDataType();
+
+  /// Waist circumference data type.
+  ///
+  /// Represents the user's waist circumference.
+  /// Supports reading, writing, and deletion.
+  @sinceV2_2_0
+  @supportedOnAppleHealth
+  static const waistCircumference = WaistCircumferenceHealthDataType();
 
   /// Cervical mucus data type.
   ///
@@ -907,6 +934,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     biotin,
     bodyWaterMass,
     boneMass,
+    bodyMassIndex,
     bloodGlucose,
     bloodPressure,
     bodyFatPercentage,
@@ -930,6 +958,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     heartRateMeasurementRecord,
     heartRateSeriesRecord,
     heartRateVariabilityRMSSD,
+    heartRateVariabilitySDNN,
     height,
     hydration,
     intermenstrualBleeding,
@@ -982,6 +1011,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     vitaminE,
     vitaminK,
     vo2Max,
+    waistCircumference,
     walkingRunningDistance,
     walkingSpeed,
     weight,

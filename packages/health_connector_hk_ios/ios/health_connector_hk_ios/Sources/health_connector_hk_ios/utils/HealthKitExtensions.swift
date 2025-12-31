@@ -151,6 +151,12 @@ extension HKSample {
                 return .downhillSnowSportsDistance
             case HKQuantityTypeIdentifier.sixMinuteWalkTestDistance.rawValue:
                 return .sixMinuteWalkTestDistance
+            case HKQuantityTypeIdentifier.bodyMassIndex.rawValue:
+                return .bodyMassIndex
+            case HKQuantityTypeIdentifier.waistCircumference.rawValue:
+                return .waistCircumference
+            case HKQuantityTypeIdentifier.heartRateVariabilitySDNN.rawValue:
+                return .heartRateVariabilitySDNN
             // Category types
             case HKCategoryTypeIdentifier.sleepAnalysis.rawValue:
                 return .sleepStageRecord

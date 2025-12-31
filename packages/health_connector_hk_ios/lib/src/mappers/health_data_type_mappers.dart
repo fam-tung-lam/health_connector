@@ -4,6 +4,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BasalEnergyBurnedHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
+        BodyMassIndexHealthDataType,
         BasalBodyTemperatureHealthDataType,
         BoneMassDataType,
         BodyWaterMassDataType,
@@ -21,6 +22,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HeartRateMeasurementRecordHealthDataType,
         HeartRateSeriesRecordHealthDataType,
         HeartRateVariabilityRMSSDDataType,
+        HeartRateVariabilitySDNNDataType,
         HeightHealthDataType,
         SexualActivityDataType,
         SleepSessionHealthDataType,
@@ -38,6 +40,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         WeightHealthDataType,
         WheelchairDistanceDataType,
         WheelchairPushesHealthDataType,
+        WaistCircumferenceHealthDataType,
         WalkingRunningDistanceDataType,
         PolyunsaturatedFatNutrientDataType,
         NutritionHealthDataType,
@@ -120,6 +123,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.bodyFatPercentage;
       case HealthDataTypeDto.bodyTemperature:
         return HealthDataType.bodyTemperature;
+      case HealthDataTypeDto.bodyMassIndex:
+        return HealthDataType.bodyMassIndex;
       case HealthDataTypeDto.basalBodyTemperature:
         return HealthDataType.basalBodyTemperature;
       case HealthDataTypeDto.cervicalMucus:
@@ -128,10 +133,14 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.steps;
       case HealthDataTypeDto.weight:
         return HealthDataType.weight;
+      case HealthDataTypeDto.waistCircumference:
+        return HealthDataType.waistCircumference;
       case HealthDataTypeDto.wheelchairPushes:
         return HealthDataType.wheelchairPushes;
       case HealthDataTypeDto.heartRateMeasurementRecord:
         return HealthDataType.heartRateMeasurementRecord;
+      case HealthDataTypeDto.heartRateVariabilitySDNN:
+        return HealthDataType.heartRateVariabilitySDNN;
       case HealthDataTypeDto.cyclingPedalingCadenceMeasurementRecord:
         return HealthDataType.cyclingPedalingCadenceMeasurementRecord;
       case HealthDataTypeDto.sleepStageRecord:
@@ -288,6 +297,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.bodyFatPercentage;
       case BodyTemperatureHealthDataType _:
         return HealthDataTypeDto.bodyTemperature;
+      case BodyMassIndexHealthDataType _:
+        return HealthDataTypeDto.bodyMassIndex;
       case BasalBodyTemperatureHealthDataType _:
         return HealthDataTypeDto.basalBodyTemperature;
       case CervicalMucusDataType _:
@@ -296,6 +307,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.steps;
       case WeightHealthDataType _:
         return HealthDataTypeDto.weight;
+      case WaistCircumferenceHealthDataType _:
+        return HealthDataTypeDto.waistCircumference;
       case WheelchairPushesHealthDataType _:
         return HealthDataTypeDto.wheelchairPushes;
       case HeartRateMeasurementRecordHealthDataType _:
@@ -433,25 +446,29 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.exerciseSession;
       case MindfulnessSessionDataType():
         return HealthDataTypeDto.mindfulnessSession;
+      case HeartRateVariabilitySDNNDataType _:
+        return HealthDataTypeDto.heartRateVariabilitySDNN;
       case SpeedSeriesDataType _:
         throw UnsupportedError(
-          '$SpeedSeriesDataType is not supported on iOS. '
-          'Use WalkingSpeedDataType, RunningSpeedDataType, etc. instead.',
+          'General $SpeedSeriesDataType type is not supported on iOS '
+          'HealthKit. Use specific speed types (f.e. $WalkingSpeedDataType, '
+          '$RunningSpeedDataType) instead.',
         );
       case PowerSeriesDataType _:
         throw UnsupportedError(
-          '$PowerSeriesDataType is not supported on iOS. '
-          'Use CyclingPowerDataType instead.',
+          'General $PowerSeriesDataType type is not supported on iOS '
+          'HealthKit. Use specific power types (f.e. $CyclingPowerDataType) '
+          'instead.',
         );
       case SleepSessionHealthDataType _:
         throw UnsupportedError(
-          '$SleepSessionHealthDataType is not supported on iOS. '
-          'Use $SleepStageHealthDataType instead.',
+          '$SleepSessionHealthDataType is not supported on '
+          'iOS HealthKit. Use $SleepStageHealthDataType instead.',
         );
       case HeartRateSeriesRecordHealthDataType _:
         throw UnsupportedError(
-          '$HeartRateSeriesRecordHealthDataType is not supported on iOS. '
-          'Use $HeartRateMeasurementRecordHealthDataType instead.',
+          '$HeartRateSeriesRecordHealthDataType is not supported on iOS '
+          'HealthKit. Use $HeartRateMeasurementRecordHealthDataType instead.',
         );
       case CyclingPedalingCadenceSeriesRecordHealthDataType _:
         throw UnsupportedError(
@@ -462,7 +479,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       case TotalCaloriesBurnedHealthDataType _:
         throw UnsupportedError(
           '$TotalCaloriesBurnedHealthDataType is not supported on iOS '
-          'HealthKit. Use $ActiveCaloriesBurnedHealthDataType and '
+          'HealthKit. Use $ActiveCaloriesBurnedHealthDataType + '
           '$BasalEnergyBurnedHealthDataType instead.',
         );
       case BoneMassDataType _:
@@ -476,7 +493,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       case HeartRateVariabilityRMSSDDataType _:
         throw UnsupportedError(
           '$HeartRateVariabilityRMSSDDataType is not supported on iOS '
-          'HealthKit.',
+          'HealthKit. Use $HeartRateVariabilitySDNNDataType instead.',
         );
     }
   }

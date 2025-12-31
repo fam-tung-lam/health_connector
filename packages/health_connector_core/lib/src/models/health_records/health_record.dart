@@ -114,6 +114,9 @@ part 'basal_energy_burned_record.dart';
 part 'bone_mass_record.dart';
 part 'body_water_mass_record.dart';
 part 'heart_rate_variability_rmssd_record.dart';
+part 'body_mass_index_record.dart';
+part 'waist_circumference_record.dart';
+part 'heart_rate_variability_sdnn_record.dart';
 
 /// Base class for all health records.
 ///

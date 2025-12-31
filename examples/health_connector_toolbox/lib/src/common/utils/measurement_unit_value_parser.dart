@@ -73,6 +73,7 @@ abstract class MeasurementUnitValueParser {
 
       // Distance/Length
       HeightHealthDataType() ||
+      WaistCircumferenceHealthDataType() ||
       DistanceHealthDataType() ||
       CrossCountrySkiingDistanceDataType() ||
       CyclingDistanceDataType() ||
@@ -114,7 +115,9 @@ abstract class MeasurementUnitValueParser {
       Vo2MaxHealthDataType() => _parseVo2Max(value),
 
       // Double Number types
-      HeartRateVariabilityRMSSDDataType() => _parseDoubleNumber(value),
+      HeartRateVariabilityRMSSDDataType() ||
+      HeartRateVariabilitySDNNDataType() ||
+      BodyMassIndexHealthDataType() => _parseDoubleNumber(value),
 
       // Volume
       HydrationHealthDataType() => _parseVolume(value),
