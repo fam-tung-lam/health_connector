@@ -27,6 +27,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HydrationHealthDataType,
         LeanBodyMassHealthDataType,
         NutritionHealthDataType,
+        IntermenstrualBleedingDataType,
         OvulationTestDataType,
         OxygenSaturationHealthDataType,
         SleepSessionHealthDataType,
@@ -162,6 +163,7 @@ extension AggregateRequestDtoMapper<
           case LeanBodyMassHealthDataType _:
           case NutritionHealthDataType _:
           case OvulationTestDataType _:
+          case IntermenstrualBleedingDataType _:
           case SexualActivityDataType _:
           case SleepSessionHealthDataType _:
           case SleepStageHealthDataType _:

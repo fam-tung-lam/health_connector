@@ -162,6 +162,8 @@ extension HKSample {
                 return .ovulationTest
             case HKCategoryTypeIdentifier.mindfulSession.rawValue:
                 return .mindfulnessSession
+            case HKCategoryTypeIdentifier.intermenstrualBleeding.rawValue:
+                return .intermenstrualBleeding
             // Correlation types
             case HKCorrelationTypeIdentifier.bloodPressure.rawValue:
                 return .bloodPressure

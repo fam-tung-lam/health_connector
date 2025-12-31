@@ -44,6 +44,7 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
         MonounsaturatedFatNutrientRecord,
         NiacinNutrientRecord,
         NutritionRecord,
+        IntermenstrualBleedingRecord,
         OvulationTestRecord,
         OxygenSaturationRecord,
         PaddleSportsDistanceRecord,
@@ -165,6 +166,7 @@ part 'nutrient_data_types/vitamin_e_nutrient_data_type.dart';
 part 'nutrient_data_types/vitamin_k_nutrient_data_type.dart';
 part 'nutrient_data_types/vitamin_nutrient_data_type.dart';
 part 'nutrient_data_types/zinc_nutrient_data_type.dart';
+part 'intermenstrual_bleeding_data_type.dart';
 part 'ovulation_test_data_type.dart';
 part 'oxygen_saturation_health_data_type.dart';
 part 'power_data_types/cycling_power_data_type.dart';
@@ -542,6 +544,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV2_2_0
   static const ovulationTest = OvulationTestDataType();
 
+  /// Intermenstrual bleeding data type.
+  ///
+  /// Represents occurrences of vaginal bleeding between menstrual periods
+  /// (spotting). Used for fertility tracking and cycle monitoring.
+  @sinceV2_2_0
+  static const intermenstrualBleeding = IntermenstrualBleedingDataType();
+
   /// Oxygen saturation data type.
   ///
   /// Represents the percentage of oxygen-saturated hemoglobin relative
@@ -862,15 +871,11 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
 
   /// Returns a list of all available health data types.
   static const values = <HealthDataType<HealthRecord, MeasurementUnit>>[
-    // Energy/Calories burned types
     activeCaloriesBurned,
     totalCaloriesBurned,
     basalEnergyBurned,
-
-    // Body temperature types
     bodyTemperature,
     basalBodyTemperature,
-
     biotin,
     bloodGlucose,
     bloodPressure,
@@ -934,8 +939,6 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     weight,
     wheelchairPushes,
     zinc,
-
-    // Distance activity types
     distance,
     crossCountrySkiingDistance,
     downhillSnowSportsDistance,
@@ -946,13 +949,12 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     swimmingDistance,
     wheelchairDistance,
     walkingRunningDistance,
-
-    // Speed data types
     speedSeries,
     walkingSpeed,
     runningSpeed,
     stairAscentSpeed,
     stairDescentSpeed,
+    intermenstrualBleeding,
   ];
 
   /// Returns a list of all available health data types for

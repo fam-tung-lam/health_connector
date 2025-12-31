@@ -1041,6 +1041,9 @@ enum HealthDataTypeDto {
   /// Ovulation test data.
   ovulationTest,
 
+  /// Intermenstrual bleeding data.
+  intermenstrualBleeding,
+
   /// Oxygen saturation data.
   oxygenSaturation,
 
@@ -1827,6 +1830,28 @@ class OvulationTestRecordDto extends HealthRecordDto {
 
   /// The ovulation test result.
   final OvulationTestResultTypeDto result;
+}
+
+/// Represents an intermenstrual bleeding record for platform transfer.
+class IntermenstrualBleedingRecordDto extends HealthRecordDto {
+  IntermenstrualBleedingRecordDto({
+    required this.id,
+    required this.metadata,
+    required this.time,
+    this.zoneOffsetSeconds,
+  });
+
+  /// Platform-assigned unique identifier.
+  final String? id;
+
+  /// Metadata about this record.
+  final MetadataDto metadata;
+
+  /// Measurement time in milliseconds since epoch (UTC).
+  final int time;
+
+  /// Timezone offset in seconds for measurement time (optional).
+  final int? zoneOffsetSeconds;
 }
 
 /// Represents a respiratory rate record for platform transfer.

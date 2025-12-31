@@ -29,6 +29,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         WeightRecord,
         WheelchairPushesRecord,
         PhosphorusNutrientRecord,
+        IntermenstrualBleedingRecord,
         OvulationTestRecord,
         OxygenSaturationRecord,
         PowerSeriesRecord,
@@ -88,6 +89,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/fl
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/heart_rate_series_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/height_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/hydration_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/intermenstrual_bleeding_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/lean_body_mass_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/mindfulness_session_record_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/nutrition_record_mappers.dart';
@@ -121,6 +123,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         HydrationRecordDto,
         LeanBodyMassRecordDto,
         NutritionRecordDto,
+        IntermenstrualBleedingRecordDto,
         OvulationTestRecordDto,
         OxygenSaturationRecordDto,
         PowerSeriesRecordDto,
@@ -234,6 +237,8 @@ extension HealthRecordToDto on HealthRecord {
         return RestingHeartRateRecordToDto(record).toDto();
       case final OvulationTestRecord record:
         return OvulationTestRecordToDto(record).toDto();
+      case final IntermenstrualBleedingRecord record:
+        return IntermenstrualBleedingRecordToDto(record).toDto();
       case final OxygenSaturationRecord record:
         return OxygenSaturationRecordToDto(record).toDto();
       case final BloodPressureRecord record:
@@ -516,6 +521,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return RestingHeartRateRecordDtoToDomain(dto).toDomain();
       case final OvulationTestRecordDto dto:
         return OvulationTestRecordDtoToDomain(dto).toDomain();
+      case final IntermenstrualBleedingRecordDto dto:
+        return IntermenstrualBleedingRecordDtoToDomain(dto).toDomain();
       case final OxygenSaturationRecordDto dto:
         return OxygenSaturationRecordDtoToDomain(dto).toDomain();
       case final BloodPressureRecordDto dto:

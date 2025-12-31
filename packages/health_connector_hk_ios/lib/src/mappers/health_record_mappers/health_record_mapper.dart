@@ -65,6 +65,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         WeightRecord,
         WheelchairPushesRecord,
         ZincNutrientRecord,
+        IntermenstrualBleedingRecord,
         OvulationTestRecord,
         OxygenSaturationRecord,
         RespiratoryRateRecord,
@@ -91,6 +92,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/floors
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate_measurement_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/height_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/hydration_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/intermenstrual_bleeding_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/lean_body_mass_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/mindfulness_session_record_mappers.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition_record_mappers.dart';
@@ -167,6 +169,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         WeightRecordDto,
         WheelchairPushesRecordDto,
         ZincNutrientRecordDto,
+        IntermenstrualBleedingRecordDto,
         OvulationTestRecordDto,
         OxygenSaturationRecordDto,
         RespiratoryRateRecordDto,
@@ -331,6 +334,8 @@ extension HealthRecordToDto on HealthRecord {
         return ZincNutrientRecordToDto(record).toDto();
       case final OvulationTestRecord record:
         return OvulationTestRecordToDto(record).toDto();
+      case final IntermenstrualBleedingRecord record:
+        return IntermenstrualBleedingRecordToDto(record).toDto();
       case final OxygenSaturationRecord record:
         return OxygenSaturationRecordToDto(record).toDto();
       case final RespiratoryRateRecord record:
@@ -520,6 +525,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return ZincNutrientRecordDtoToDomain(dto).toDomain();
       case final OvulationTestRecordDto dto:
         return OvulationTestRecordDtoToDomain(dto).toDomain();
+      case final IntermenstrualBleedingRecordDto dto:
+        return IntermenstrualBleedingRecordDtoToDomain(dto).toDomain();
       case final NutritionRecordDto dto:
         return NutritionRecordDtoToDomain(dto).toDomain();
       case final Vo2MaxRecordDto dto:
