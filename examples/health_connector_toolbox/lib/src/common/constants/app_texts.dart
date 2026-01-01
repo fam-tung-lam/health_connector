@@ -21,6 +21,9 @@ abstract final class AppTexts {
   static const String exploreFeatures = 'Explore Features';
 
   // Feature Descriptions
+  static const String openHealthAppStore = 'Open Health App Store';
+  static const String openHealthAppStoreDescription =
+      'Install or update the health app from the app store';
   static const String permissionsDescription =
       'Manage health data permissions and access controls';
   static const String readRecordsDescription =
@@ -553,6 +556,8 @@ abstract final class AppTexts {
       'Failed to request permissions';
   static const String failedToLoadFeatureStatuses =
       'Failed to load feature statuses';
+  static const String failedToLaunchHealthAppStore =
+      'Failed to launch health app store';
 
   // endregion
 

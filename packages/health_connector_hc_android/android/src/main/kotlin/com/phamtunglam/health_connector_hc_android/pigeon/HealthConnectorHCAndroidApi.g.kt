@@ -5213,6 +5213,7 @@ interface HealthConnectorHCAndroidApi {
    * to properly configure the native platform code, including logger settings.
    */
   fun initialize(config: HealthConnectorConfigDto, callback: (Result<Unit>) -> Unit)
+  fun launchHealthConnectPageInGooglePlay(callback: (Result<Unit>) -> Unit)
   fun aggregate(request: AggregateRequestDto, callback: (Result<MeasurementUnitDto>) -> Unit)
   fun deleteRecords(request: DeleteRecordsRequestDto, callback: (Result<Unit>) -> Unit)
   fun getFeatureStatus(feature: HealthPlatformFeatureDto, callback: (Result<HealthPlatformFeatureStatusDto>) -> Unit)
@@ -5244,6 +5245,23 @@ interface HealthConnectorHCAndroidApi {
             val args = message as List<Any?>
             val configArg = args[0] as HealthConnectorConfigDto
             api.initialize(configArg) { result: Result<Unit> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
+              } else {
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapResult(null))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.launchHealthConnectPageInGooglePlay$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { _, reply ->
+            api.launchHealthConnectPageInGooglePlay{ result: Result<Unit> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))

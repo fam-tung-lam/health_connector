@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
+import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dart';
 import 'package:health_connector_toolbox/src/common/widgets/error_view.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/aggregate_health_data_change_notifier.dart';
 import 'package:health_connector_toolbox/src/features/aggregate_health_data/pages/aggregate_health_data_page.dart';
@@ -37,33 +38,41 @@ final class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Consumer<HomeChangeNotifier>(
           builder: (context, notifier, _) {
-            // Loading state
             if (notifier.isLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
             }
 
-            // Error state
-            if (notifier.error != null) {
-              return Center(
-                child: ErrorView(
-                  message: notifier.error.toString(),
-                  onRetry: () => notifier.init(),
-                ),
-              );
+            final error = notifier.error;
+            if (error != null) {
+              switch (error.code) {
+                case HealthConnectorErrorCode
+                    .healthPlatformNotInstalledOrUpdateRequired:
+                  return Center(
+                    child: ErrorView(
+                      message: error.toString(),
+                      onRetry: () => notifier.launchHealthAppPageInAppStore(),
+                    ),
+                  );
+                case HealthConnectorErrorCode.healthPlatformUnavailable:
+                case HealthConnectorErrorCode.unsupportedOperation:
+                case HealthConnectorErrorCode.invalidConfiguration:
+                case HealthConnectorErrorCode.invalidArgument:
+                case HealthConnectorErrorCode.notAuthorized:
+                case HealthConnectorErrorCode.remoteError:
+                case HealthConnectorErrorCode.unknown:
+                  return Center(
+                    child: ErrorView(
+                      message: error.toString(),
+                      onRetry: () => notifier.init(),
+                    ),
+                  );
+              }
             }
 
-            final healthConnector = notifier.healthConnector;
-            if (healthConnector == null) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            // Main content
             return _HomeContent(
-              healthConnector: healthConnector,
+              healthConnector: notifier.healthConnector!,
             );
           },
         ),
@@ -101,8 +110,28 @@ final class _HomeContent extends StatelessWidget {
           const SizedBox(height: 32),
 
           // Feature navigation section
-          _buildSectionHeader(context, AppTexts.exploreFeatures),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Text(
+              AppTexts.exploreFeatures,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
           const SizedBox(height: 16),
+
+          // Launch Health App in App Store card
+          if (healthConnector.healthPlatform != HealthPlatform.appleHealth) ...[
+            FeatureNavigationCard(
+              icon: AppIcons.store,
+              title: AppTexts.openHealthAppStore,
+              description: AppTexts.openHealthAppStoreDescription,
+              color: Colors.green,
+              onTap: () => _launchHealthAppPageInAppStore(context),
+            ),
+            const SizedBox(height: 12),
+          ],
 
           // Permissions card
           FeatureNavigationCard(
@@ -146,20 +175,6 @@ final class _HomeContent extends StatelessWidget {
           // Bottom padding for better scroll experience
           const SizedBox(height: 20),
         ],
-      ),
-    );
-  }
-
-  /// Builds a section header with consistent styling.
-  Widget _buildSectionHeader(BuildContext context, String title) {
-    final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: Text(
-        title,
-        style: theme.textTheme.titleMedium?.copyWith(
-          fontWeight: FontWeight.w600,
-        ),
       ),
     );
   }
@@ -231,5 +246,21 @@ final class _HomeContent extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _launchHealthAppPageInAppStore(BuildContext context) async {
+    try {
+      final notifier = Provider.of<HomeChangeNotifier>(context, listen: false);
+
+      return notifier.launchHealthAppPageInAppStore();
+    } on HealthConnectorException catch (e) {
+      if (context.mounted) {
+        showAppSnackBar(
+          context,
+          SnackBarType.error,
+          '${AppTexts.failedToLaunchHealthAppStore}: ${e.message}',
+        );
+      }
+    }
   }
 }

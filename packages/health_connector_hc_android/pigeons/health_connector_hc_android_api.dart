@@ -2435,6 +2435,9 @@ abstract class HealthConnectorHCAndroidApi {
   void initialize(HealthConnectorConfigDto config);
 
   @async
+  void launchHealthConnectPageInGooglePlay();
+
+  @async
   MeasurementUnitDto aggregate(AggregateRequestDto request);
 
   @async

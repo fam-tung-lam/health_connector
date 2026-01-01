@@ -252,6 +252,80 @@ class HealthConnectorHCAndroidPlugin :
     }
 
     /**
+     * Launches the Health Connect app page in the Google Play Store.
+     *
+     * Opens the Google Play Store application to the Health Connect app's detail page,
+     * allowing users to install or update the app. This method should be called when
+     * [getHealthPlatformStatus] indicates that Health Connect installation or update is required.
+     *
+     * @param callback Called with a [Result] indicating success or failure
+     *
+     * @throws HealthConnectorErrorDto if the Play Store cannot be launched or activity is unavailable
+     */
+    override fun launchHealthConnectPageInGooglePlay(callback: (Result<Unit>) -> Unit) {
+        scope.launch(Dispatchers.Main.immediate) {
+            try {
+                val currentActivity = activity
+                if (currentActivity == null) {
+                    HealthConnectorLogger.error(
+                        tag = TAG,
+                        operation = "launch_health_connect_page_in_google_play",
+                        message = "Cannot launch Play Store without activity context",
+                    )
+
+                    complete(
+                        callback,
+                        Result.failure(
+                            HealthConnectorErrorCodeDto.INVALID_CONFIGURATION.toError(
+                                "Activity is unavailable. " +
+                                    "The app may be in the background or " +
+                                    "activity has been destroyed.",
+                            ),
+                        ),
+                    )
+
+                    return@launch
+                }
+
+                HealthConnectorClient.launchHealthConnectPageInGooglePlay(currentActivity)
+
+                complete(callback, Result.success(Unit))
+            } catch (e: HealthConnectorErrorDto) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "launch_health_connect_page_in_google_play",
+                    message = "Failed to launch Health Connect page in Google Play",
+                    context = mapOf(
+                        "error_code" to e.code,
+                        "error_message" to (e.message ?: "Unknown error"),
+                    ),
+                    exception = e,
+                )
+
+                complete(callback, Result.failure(e))
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "launch_health_connect_page_in_google_play",
+                    message = "Unexpected error while launching Play Store",
+                    exception = e,
+                )
+
+                complete(
+                    callback,
+                    Result.failure(
+                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                            "Failed to launch Play Store: ${e.message ?: "Unknown error"}",
+                        ),
+                    ),
+                )
+            }
+        }
+    }
+
+    /**
      * Gets the current status of the Health Connect platform on the device.
      *
      * @param callback Called with a [Result] containing the platform status

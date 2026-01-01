@@ -23,7 +23,8 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ReadRecordsInTimeRangeResponse,
         PermissionListExtension,
         internalUse,
-        sinceV1_0_0;
+        sinceV1_0_0,
+        sinceV2_3_0;
 import 'package:health_connector_hc_android/src/mappers/config_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_connector_error_code_mappers.dart';
 import 'package:health_connector_hc_android/src/mappers/health_platform_feature_mappers.dart';
@@ -164,6 +165,65 @@ final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
       throw HealthConnectorException.fromCode(
         e.code.toErrorCode(),
         'Failed to get health platform status: '
+        '${e.message ?? 'Unknown error'}',
+        cause: e,
+        stackTrace: st,
+      );
+    }
+  }
+
+  /// Launches the Health Connect app page in Google Play Store.
+  ///
+  /// Opens the Google Play Store page for the Health Connect app, allowing
+  /// users to install or update it. This method should be called when
+  /// [getHealthPlatformStatus] returns
+  /// [HealthPlatformStatus.installationOrUpdateRequired].
+  ///
+  /// ## Throws
+  ///
+  /// - [HealthConnectorException] if the Google Play Store cannot be launched
+  ///   or is not available on the device.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final status = await HealthConnectorHCClient.getHealthPlatformStatus();
+  /// if (status == HealthPlatformStatus.installationOrUpdateRequired) {
+  ///   try {
+  ///     await HealthConnectorHCClient.launchHealthConnectPageInGooglePlay();
+  ///   } on HealthConnectorException catch (e) {
+  ///     print('Failed to launch Google Play: ${e.message}');
+  ///   }
+  /// }
+  /// ```
+  @sinceV2_3_0
+  static Future<void> launchHealthConnectPageInGooglePlay() async {
+    HealthConnectorLogger.debug(
+      _tag,
+      operation: 'launch_health_connect_app_page_in_google_play',
+      message: 'Launching Health Connect app page in Google Play',
+    );
+
+    try {
+      await _platformClient.launchHealthConnectPageInGooglePlay();
+
+      HealthConnectorLogger.info(
+        _tag,
+        operation: 'launch_health_connect_app_page_in_google_play',
+        message: 'Launched Health Connect app page in Google Play',
+      );
+    } on PlatformException catch (e, st) {
+      HealthConnectorLogger.error(
+        _tag,
+        operation: 'launch_health_connect_app_page_in_google_play',
+        message: 'Failed to launch Health Connect app page in Google Play',
+        exception: e,
+        stackTrace: st,
+      );
+
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
+        'Failed to launch Health Connect app page in Google Play: '
         '${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,

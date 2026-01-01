@@ -1,9 +1,11 @@
 package com.phamtunglam.health_connector_hc_android
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.metadata.DataOrigin
+import com.phamtunglam.health_connector_hc_android.HealthConnectorClient.Companion.getHealthPlatformStatus
 import com.phamtunglam.health_connector_hc_android.handlers.CustomAggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
@@ -134,6 +136,89 @@ internal class HealthConnectorClient private constructor(
             )
 
             return statusDto
+        }
+
+        /**
+         * Launches the Health Connect app page in the Google Play Store.
+         *
+         * Opens the Google Play Store application to the Health Connect app's detail page,
+         * allowing users to install or update the app. This method should be called when
+         * [getHealthPlatformStatus] indicates that Health Connect installation or update is required.
+         *
+         * ## Implementation Details
+         *
+         * The method attempts to open the Play Store using the `market://` URI scheme first.
+         * If the Play Store app is not installed or the intent cannot be resolved, it falls back
+         * to opening the web version using an HTTPS URL.
+         *
+         * **Package Name**: `com.google.android.apps.healthdata`
+         *
+         * @param activity The [ComponentActivity] used to launch the Play Store intent
+         *
+         * @throws HealthConnectorErrorDto with code `UNKNOWN` if the Play Store cannot be launched
+         */
+        @Throws(HealthConnectorErrorDto::class)
+        fun launchHealthConnectPageInGooglePlay(activity: ComponentActivity) {
+            HealthConnectorLogger.debug(
+                tag = TAG,
+                operation = "launch_health_connect_page_in_google_play",
+                message = "Launching Health Connect app page in Google Play",
+            )
+
+            try {
+                val healthConnectPackage = "com.google.android.apps.healthdata"
+                val playStoreIntent =
+                    android.content.Intent(android.content.Intent.ACTION_VIEW).apply {
+                        data = android.net.Uri.parse("market://details?id=$healthConnectPackage")
+                        setPackage("com.android.vending")
+                        flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+                    }
+
+                try {
+                    activity.startActivity(playStoreIntent)
+
+                    HealthConnectorLogger.info(
+                        tag = TAG,
+                        operation = "launch_health_connect_page_in_google_play",
+                        message = "Successfully launched Play Store app",
+                        context = mapOf("package_name" to healthConnectPackage),
+                    )
+                } catch (_: ActivityNotFoundException) {
+                    HealthConnectorLogger.info(
+                        tag = TAG,
+                        operation = "launch_health_connect_page_in_google_play",
+                        message = "Play Store app not found, falling back to web browser",
+                    )
+
+                    val webIntent =
+                        android.content.Intent(android.content.Intent.ACTION_VIEW).apply {
+                            data = android.net.Uri.parse(
+                                "https://play.google.com/store/apps/details?id=$healthConnectPackage",
+                            )
+                            flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
+
+                    activity.startActivity(webIntent)
+
+                    HealthConnectorLogger.info(
+                        tag = TAG,
+                        operation = "launch_health_connect_page_in_google_play",
+                        message = "Successfully launched Play Store web page",
+                        context = mapOf("package_name" to healthConnectPackage),
+                    )
+                }
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = "launch_health_connect_page_in_google_play",
+                    message = "Unexpected error while launching Play Store",
+                    exception = e,
+                )
+
+                throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                    "Failed to launch Play Store: ${e.message ?: "Unknown error"}",
+                )
+            }
         }
     }
 
