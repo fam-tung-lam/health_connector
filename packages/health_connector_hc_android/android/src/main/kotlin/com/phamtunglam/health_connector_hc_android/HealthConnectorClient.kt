@@ -3,6 +3,7 @@ package com.phamtunglam.health_connector_hc_android
 import android.content.ActivityNotFoundException
 import android.content.Context
 import androidx.activity.ComponentActivity
+import androidx.annotation.VisibleForTesting
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.metadata.DataOrigin
 import com.phamtunglam.health_connector_hc_android.HealthConnectorClient.Companion.getHealthPlatformStatus
@@ -47,7 +48,7 @@ import java.time.Instant
 /**
  * Internal client wrapper for the Android Health Connect SDK.
  */
-internal class HealthConnectorClient private constructor(
+internal class HealthConnectorClient @VisibleForTesting internal constructor(
     private val client: HealthConnectClient,
     private val manifestService: HealthConnectorManifestService,
     private val featureService: HealthConnectorFeatureService,
