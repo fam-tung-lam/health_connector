@@ -6,13 +6,13 @@ import 'package:health_connector/health_connector_internal.dart';
 final class HomeChangeNotifier extends ChangeNotifier {
   bool _isLoading = false;
   HealthConnector? _healthConnector;
-  Exception? _error;
+  HealthConnectorException? _error;
 
   bool get isLoading => _isLoading;
 
   HealthConnector? get healthConnector => _healthConnector;
 
-  Exception? get error => _error;
+  HealthConnectorException? get error => _error;
 
   /// Initializes the Health Connector instance.
   ///
@@ -32,6 +32,15 @@ final class HomeChangeNotifier extends ChangeNotifier {
     } finally {
       _isLoading = false;
       notifyListeners();
+    }
+  }
+
+  /// Launches the health app page in the respective app store.
+  Future<void> launchHealthAppPageInAppStore() async {
+    try {
+      await HealthConnector.launchHealthAppPageInAppStore();
+    } on HealthConnectorException {
+      rethrow;
     }
   }
 }

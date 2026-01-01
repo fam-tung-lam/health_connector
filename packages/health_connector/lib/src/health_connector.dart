@@ -1,37 +1,8 @@
 import 'dart:io' show Platform;
 
+import 'package:health_connector/health_connector.dart';
 import 'package:health_connector/src/health_connector_impl.dart'
     show HealthConnectorImpl;
-import 'package:health_connector_core/health_connector_core.dart'
-    show
-        AggregateRequest,
-        DeleteRecordsRequest,
-        HealthConnectorConfig,
-        HealthPlatformFeaturePermission,
-        PermissionStatus,
-        HealthDataPermission,
-        HealthConnectorException,
-        HealthConnectorErrorCode,
-        HealthPlatform,
-        HealthPlatformFeature,
-        HealthPlatformFeatureStatus,
-        HealthPlatformStatus,
-        HealthRecord,
-        HealthRecordId,
-        MeasurementUnit,
-        Permission,
-        PermissionRequestResult,
-        ReadRecordByIdRequest,
-        ReadRecordsInTimeRangeRequest,
-        ReadRecordsInTimeRangeResponse,
-        supportedOnHealthConnect,
-        sinceV2_0_0,
-        DeleteRecordsInTimeRangeRequest,
-        DeleteRecordsByIdsRequest,
-        HealthPlatformUnavailableException,
-        HealthPlatformNotInstalledOrUpdateRequiredException,
-        sinceV1_0_0,
-        HealthDataType;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
 import 'package:health_connector_hk_ios/health_connector_hk_ios.dart'
@@ -46,8 +17,8 @@ import 'package:health_connector_logger/health_connector_logger.dart';
 ///
 /// ## Platform Support
 ///
-/// - **iOS**: Uses HealthKit for all health data operations
-/// - **Android**: Uses Health Connect SDK
+/// - **iOS**: Uses Apple HealthKit Framework
+/// - **Android**: Uses GoogleHealth Connect SDK
 ///
 /// ## Getting Started
 ///
@@ -267,6 +238,95 @@ abstract interface class HealthConnector {
         _tag,
         operation: 'get_health_platform_status',
         message: 'Failed to get health platform status',
+        exception: e,
+        stackTrace: st,
+      );
+
+      rethrow;
+    }
+  }
+
+  /// Launches the health app page in the platform's app store.
+  ///
+  /// Opens the app store page for installing or updating the health platform
+  /// app. This method should be called when [getHealthPlatformStatus] returns
+  /// [HealthPlatformStatus.installationOrUpdateRequired].
+  ///
+  /// ## Platform Differences
+  ///
+  /// ### iOS HealthKit
+  ///
+  /// - Always throws [UnsupportedOperationException] because Apple Health
+  ///   is a built-in system service that is always available on iOS devices.
+  ///
+  /// ### Android Health Connect
+  ///
+  /// - Opens the Health Connect app page in Google Play Store.
+  /// - This allows users to install or update the Health Connect app.
+  ///
+  /// ## Throws
+  ///
+  /// - [UnsupportedOperationException] on iOS, as Apple Health is always
+  ///   available and doesn't require installation.
+  /// - [HealthConnectorException] when unable to launch the app store page.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final status = await HealthConnector.getHealthPlatformStatus();
+  /// if (status == HealthPlatformStatus.installationOrUpdateRequired) {
+  ///   try {
+  ///     await HealthConnector.launchHealthAppPageInAppStore();
+  ///   } on UnsupportedOperationException catch (e) {
+  ///     // On iOS, Health is always available
+  ///     print('Apple Health is built-in');
+  ///   } on HealthConnectorException catch (e) {
+  ///     print('Failed to launch app store: ${e.message}');
+  ///   }
+  /// }
+  /// ```
+  @sinceV2_3_0
+  @supportedOnHealthConnect
+  static Future<void> launchHealthAppPageInAppStore() async {
+    final healthPlatform = Platform.isIOS
+        ? HealthPlatform.appleHealth
+        : HealthPlatform.healthConnect;
+
+    HealthConnectorLogger.debug(
+      _tag,
+      operation: 'launch_health_app_page_in_app_store',
+      message: 'Launching health app page in app store',
+      context: {
+        'health_platform': healthPlatform,
+      },
+    );
+
+    try {
+      switch (healthPlatform) {
+        case HealthPlatform.appleHealth:
+          throw const UnsupportedOperationException(
+            'Apple Health service is always available on iOS devices.',
+          );
+        case HealthPlatform.healthConnect:
+          await HealthConnectorHCClient.launchHealthConnectPageInGooglePlay();
+      }
+
+      HealthConnectorLogger.info(
+        _tag,
+        operation: 'launch_health_app_page_in_app_store',
+        message: 'Launched health app page in app store',
+        context: {
+          'health_platform': healthPlatform,
+        },
+      );
+    } catch (e, st) {
+      HealthConnectorLogger.error(
+        _tag,
+        operation: 'launch_health_app_page_in_app_store',
+        message: 'Failed to launch health app page in app store',
+        context: {
+          'health_platform': healthPlatform,
+        },
         exception: e,
         stackTrace: st,
       );
