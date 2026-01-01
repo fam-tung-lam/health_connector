@@ -1,14 +1,30 @@
+import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
+
 group = "com.phamtunglam.health_connector_hc_android"
 version = "1.0-SNAPSHOT"
 
 buildscript {
+    // Core libraries
     ext.kotlin_version = "2.1.0"
     ext.gradle_version = "8.9.1"
-    ext.health_connect_version = "1.1.0"
     ext.kotlin_coroutines_version = "1.10.2"
+
+    // Health Connect SDK library
+    ext.health_connect_version = "1.1.0"
+
+    // Code quality libraries
     ext.ktlint_version = "1.6.0"
     ext.ktlint_gradle_version = "12.1.2"
     ext.detekt_version = "1.23.8"
+
+    // Local unit/integration testing libraries
+    ext.mockk_version = "1.14.7"
+    ext.junit_version = "5.11.4"
+    ext.kotest_version = "5.9.1"
+    ext.androidx_test_core_version = "1.7.0"
+    ext.robolectric_version = "4.16"
+    ext.health_connect_testing_version = "1.0.0-alpha03"
     repositories {
         google()
         mavenCentral()
@@ -67,7 +83,7 @@ detekt {
 }
 
 // Configure type resolution for Detekt (enables advanced analysis)
-tasks.withType(io.gitlab.arturbosch.detekt.Detekt).configureEach {
+tasks.withType(Detekt).configureEach {
     jvmTarget = "11"
 
     // Exclude Pigeon-generated files and other generated code
@@ -82,7 +98,7 @@ tasks.withType(io.gitlab.arturbosch.detekt.Detekt).configureEach {
     }
 }
 
-tasks.withType(io.gitlab.arturbosch.detekt.DetektCreateBaselineTask).configureEach {
+tasks.withType(DetektCreateBaselineTask).configureEach {
     jvmTarget = "11"
 
     // Exclude Pigeon-generated files and other generated code
@@ -123,23 +139,75 @@ android {
     }
 
     defaultConfig {
+        // Minimum Android SDK version required for the app to use the Health Connect SDK.
         minSdk = 26
     }
 
     dependencies {
+        // Core dependencies - required for the plugin to function
         implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
         implementation("androidx.health.connect:connect-client:$health_connect_version")
+
+        // MockK is a Kotlin mocking library.
+        testImplementation("io.mockk:mockk:$mockk_version")
+        testImplementation("io.mockk:mockk-android:$mockk_version")
+
+        // JUnit 5 is a core testing framework.
+        testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:$junit_version")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_version")
+
+        // Kotest Assertions provides expressive, readable assertions for better test clarity.
+        testImplementation("io.kotest:kotest-assertions-core:$kotest_version")
+
+        // Kotlin Coroutines Test library is needed for testing all suspend functions and
+        // coroutine-based operations
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlin_coroutines_version")
+
+        // AndroidX Test Core provides utilities for testing Android-specific components without
+        // running a emulator/device. It works in conjunction with Robolectric to provide
+        // Android framework mocks.
+        testImplementation("androidx.test:core:$androidx_test_core_version")
+        testImplementation("androidx.test:core-ktx:$androidx_test_core_version")
+
+        // Robolectric allows to test all Android framework interactions in unit tests without a
+        // emulator/device.
+        testImplementation("org.robolectric:robolectric:$robolectric_version")
+
+        // Health Connect Testing allows to test all Health Connect interactions in unit tests
+        // without a emulator/device.
+        testImplementation("androidx.health.connect:connect-testing:$health_connect_testing_version")
     }
 
     testOptions {
-        unitTests.all {
-            useJUnitPlatform()
+        unitTests {
+            // **NOTE**: Must use `all` here, NOT `configureEach`
+            // The Android Gradle Plugin's `UnitTestOptions` class does not support `configureEach()`
+            // Attempting to use `configureEach` will result in the error when running `./gradlew testDebugUnitTest`:
+            // "Could not find method configureEach() for arguments [...] on object of type UnitTestOptions"
+            all {
+                // Use JUnit Platform (JUnit 5) instead of JUnit 4
+                // Required for running JUnit 5 tests with Gradle
+                useJUnitPlatform()
 
-            testLogging {
-               events "passed", "skipped", "failed", "standardOut", "standardError"
-               outputs.upToDateWhen {false}
-               showStandardStreams = true
+                testLogging {
+                    // Log all test events for better debugging
+                    events "passed", "skipped", "failed", "standardOut", "standardError"
+
+                    // Always show output even if tests pass (helps debug flaky tests)
+                    outputs.upToDateWhen {false}
+                    showStandardStreams = true
+
+                    // Show full exception details for easier debugging
+                    exceptionFormat = "full"
+                    showCauses = true
+                    showStackTraces = true
+                }
             }
+
+            // Enable Robolectric to access Android resources during tests
+            // Required for Robolectric to simulate the Android environment properly
+            includeAndroidResources = true
         }
     }
 }
