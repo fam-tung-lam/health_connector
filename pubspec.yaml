@@ -170,13 +170,17 @@ melos:
       run: cd packages/health_connector_hc_android/android && ./gradlew ktlintCheck
 
     # Testing
-    test:
+    test:kotlin:
+      description: Run all Android/Kotlin tests for the `health_connector_hc_android`.
+      run: cd packages/health_connector_hc_android/example/android && ./gradlew testDebugUnitTest
+
+    test:dart:
       description: Run all Flutter tests in this project.
       run: melos run test:select --no-select
       packageFilters:
         dirExists: test
 
-    test:select:
+    test:dart:select:
       description: Run Flutter tests for selected packages with test directories.
       run: flutter test
       exec:
@@ -185,7 +189,7 @@ melos:
       packageFilters:
         dirExists: test
 
-    test:coverage:
+    test:dart:coverage:
       description: Generate coverage for the selected package.
       steps:
         - flutter test --coverage
