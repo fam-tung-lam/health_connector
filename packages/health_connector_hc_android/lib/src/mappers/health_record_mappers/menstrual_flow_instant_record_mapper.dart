@@ -25,7 +25,7 @@ extension MenstrualFlowInstantRecordDtoToDomain
     on MenstrualFlowInstantRecordDto {
   MenstrualFlowInstantRecord toDomain() => MenstrualFlowInstantRecord(
     id: id?.toDomain() ?? HealthRecordId.none,
-    time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true).toLocal(),
+    time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
     zoneOffsetSeconds: zoneOffsetSeconds,
     metadata: metadata.toDomain(),
     flow: flow.toDomain(),

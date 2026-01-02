@@ -24,7 +24,10 @@ extension DeleteRecordsRequestDtoMapper<R extends HealthRecord>
       DeleteRecordsByIdsRequest(:final dataType, :final recordIds) =>
         DeleteRecordsByIdsRequestDto(
           dataType: dataType.toDto(),
-          recordIds: recordIds.map((id) => id.toDto()).toList(),
+          recordIds: recordIds
+              .map((id) => id.toDto())
+              .whereType<String>()
+              .toList(),
         ),
       DeleteRecordsInTimeRangeRequest(
         :final dataType,

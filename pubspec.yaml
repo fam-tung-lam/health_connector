@@ -35,6 +35,8 @@ melos:
         meta: ^1.16.0
 
       dev_dependencies:
+        mocktail: ^1.0.4
+        parameterized_test: ^2.0.2
         pigeon: ^26.1.0
         test: ^1.24.0
 
@@ -176,7 +178,7 @@ melos:
 
     test:dart:
       description: Run all Flutter tests in this project.
-      run: melos run test:select --no-select
+      run: melos run test:dart:select --no-select
       packageFilters:
         dirExists: test
 
@@ -255,7 +257,8 @@ melos:
       description: Run `flutter pub get` for all packages
       run: flutter pub get
       exec:
-        concurrency: 5
+        # Run sequentially to ensure deterministic resolution of inter-dependent packages.
+        concurrency: 1
       packageFilters:
         dirExists: lib
 

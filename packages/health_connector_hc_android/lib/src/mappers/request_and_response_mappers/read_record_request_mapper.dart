@@ -12,8 +12,16 @@ import 'package:meta/meta.dart' show internal;
 extension ReadRecordRequestDtoMapper<R extends HealthRecord>
     on ReadRecordByIdRequest<R> {
   ReadRecordRequestDto toDto() {
+    final idDto = id.toDto();
+
+    if (idDto == null) {
+      throw ArgumentError(
+        'ID cannot be `HealthRecordId.none` for ReadRecordByIdRequest.',
+      );
+    }
+
     return ReadRecordRequestDto(
-      recordId: id.toDto(),
+      recordId: idDto,
       dataType: dataType.toDto(),
     );
   }

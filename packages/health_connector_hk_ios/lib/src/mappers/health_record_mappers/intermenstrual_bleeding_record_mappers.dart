@@ -33,7 +33,7 @@ extension IntermenstrualBleedingRecordDtoToDomain
     return IntermenstrualBleedingRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
       metadata: metadata.toDomain(),
-      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true).toLocal(),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
     );
   }

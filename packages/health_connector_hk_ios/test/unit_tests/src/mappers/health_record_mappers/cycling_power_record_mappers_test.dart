@@ -1,0 +1,105 @@
+import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/cycling_power_record_mappers.dart';
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
+import 'package:test/test.dart';
+
+import '../../../utils/fake_data.dart';
+
+void main() {
+  group(
+    'CyclingPowerRecordMapper',
+    () {
+      group(
+        'CyclingPowerRecordToDto',
+        () {
+          test(
+            'converts CyclingPowerRecord to CyclingPowerRecordDto',
+            () {
+              final time = FakeData.fakeTime;
+
+              final record = CyclingPowerRecord(
+                id: HealthRecordId(FakeData.fakeId),
+                time: time,
+                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                metadata: const Metadata(
+                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                  recordingMethod: RecordingMethod.manualEntry,
+                  clientRecordVersion: 1,
+                  device: Device(type: DeviceType.phone),
+                ),
+                power: const Power.watts(250.0),
+              );
+
+              final dto = record.toDto();
+
+              expect(dto.id, FakeData.fakeId);
+              expect(dto.time, time.millisecondsSinceEpoch);
+              expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(dto.power.value, 250.0);
+              expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
+            },
+          );
+        },
+      );
+
+      group(
+        'CyclingPowerRecordDtoToDomain',
+        () {
+          test(
+            'converts CyclingPowerRecordDto to CyclingPowerRecord',
+            () {
+              final time = FakeData.fakeTime;
+
+              final dto = CyclingPowerRecordDto(
+                id: FakeData.fakeId,
+                time: time.millisecondsSinceEpoch,
+                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                metadata: MetadataDto(
+                  dataOrigin: FakeData.fakeDataOrigin,
+                  recordingMethod: RecordingMethodDto.activelyRecorded,
+                  clientRecordVersion: 1,
+                  deviceType: DeviceTypeDto.phone,
+                ),
+                power: PowerDto(value: 220.0, unit: PowerUnitDto.watts),
+              );
+
+              final record = dto.toDomain();
+
+              expect(record.id.value, FakeData.fakeId);
+              expect(record.time, time);
+              expect(record.power.inWatts, 220.0);
+              expect(
+                record.metadata.dataOrigin.packageName,
+                FakeData.fakeDataOrigin,
+              );
+            },
+          );
+
+          test(
+            'converts CyclingPowerRecordDto with null id to '
+            'domain with none id',
+            () {
+              final time = FakeData.fakeTime;
+
+              final dto = CyclingPowerRecordDto(
+                time: time.millisecondsSinceEpoch,
+                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                metadata: MetadataDto(
+                  dataOrigin: FakeData.fakeDataOrigin,
+                  recordingMethod: RecordingMethodDto.manualEntry,
+                  clientRecordVersion: 1,
+                  deviceType: DeviceTypeDto.phone,
+                ),
+                power: PowerDto(value: 200.0, unit: PowerUnitDto.watts),
+              );
+
+              final record = dto.toDomain();
+
+              expect(record.id, HealthRecordId.none);
+            },
+          );
+        },
+      );
+    },
+  );
+}

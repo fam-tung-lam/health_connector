@@ -31,7 +31,7 @@ extension CervicalMucusRecordDtoToDomain on CervicalMucusRecordDto {
     return CervicalMucusRecord(
       id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
       metadata: metadata.toDomain(),
-      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true).toLocal(),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       appearance: appearance.toDomain(),
       sensation: sensation.toDomain(),

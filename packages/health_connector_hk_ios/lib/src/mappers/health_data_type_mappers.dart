@@ -287,8 +287,6 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.activeCaloriesBurned;
       case BasalEnergyBurnedHealthDataType _:
         return HealthDataTypeDto.basalEnergyBurned;
-      case DistanceHealthDataType _:
-        return HealthDataTypeDto.distance;
       case FloorsClimbedHealthDataType _:
         return HealthDataTypeDto.floorsClimbed;
       case HeightHealthDataType _:
@@ -438,7 +436,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       case SixMinuteWalkTestDistanceDataType _:
         return HealthDataTypeDto.sixMinuteWalkTestDistance;
       case WalkingRunningDistanceDataType _:
-        return HealthDataTypeDto.distance;
+        return HealthDataTypeDto.walkingRunningDistance;
       // Speed activity types (iOS HealthKit only)
       case WalkingSpeedDataType _:
         return HealthDataTypeDto.walkingSpeed;
@@ -454,6 +452,12 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.mindfulnessSession;
       case HeartRateVariabilitySDNNDataType _:
         return HealthDataTypeDto.heartRateVariabilitySDNN;
+      case DistanceHealthDataType _:
+        throw UnsupportedError(
+          'General $DistanceHealthDataType type is not supported on iOS '
+          'HealthKit. Use specific distance types (f.e. '
+          '$RowingDistanceDataType, $SwimmingDistanceDataType) instead.',
+        );
       case SpeedSeriesDataType _:
         throw UnsupportedError(
           'General $SpeedSeriesDataType type is not supported on iOS '
