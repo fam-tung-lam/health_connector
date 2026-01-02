@@ -1,6 +1,5 @@
 package com.phamtunglam.health_connector_hc_android.handlers
 
-import android.os.RemoteException
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.request.AggregateRequest
@@ -11,9 +10,9 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDt
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
+import com.phamtunglam.health_connector_hc_android.utils.dataType
 import com.phamtunglam.health_connector_hc_android.utils.endTime
 import com.phamtunglam.health_connector_hc_android.utils.startTime
-import java.io.IOException
 import java.time.Instant
 
 /**
@@ -41,21 +40,19 @@ internal interface HealthConnectAggregatableHealthRecordHandler : AggregatableHe
      *
      * @param request The aggregation request containing data type, metric, and time range
      * @return The aggregation response with the computed value
-     * @throws IllegalArgumentException if [startTime] > [endTime]
-     * @throws Exception that can be thrown by [HealthConnectClient.deleteRecords]
+     * @throws HealthConnectorErrorDto if [startTime] > [endTime] or exception by [HealthConnectClient.aggregate]
      */
-    @Throws(
-        IllegalArgumentException::class,
-        RemoteException::class,
-        SecurityException::class,
-        IOException::class,
-    )
+    @Throws(HealthConnectorErrorDto::class)
     override suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto = process(
         operation = "aggregate",
         context = mapOf("request" to request),
     ) {
         require(request.startTime < request.endTime) {
             "Invalid time range: startTime must be before endTime"
+        }
+
+        require(request.dataType == dataType) {
+            "Handler does not support data type: ${request.dataType}. Supported data type: $dataType"
         }
 
         val metric = aggregateMetricMappings[request.aggregationMetric]
