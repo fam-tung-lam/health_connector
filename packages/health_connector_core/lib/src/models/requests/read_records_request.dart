@@ -17,7 +17,7 @@ import 'package:health_connector_core/src/models/responses/read_records_response
 import 'package:health_connector_core/src/utils/collection.dart';
 import 'package:health_connector_core/src/utils/validation.dart'
     show requireEndTimeAfterStartTime, require;
-import 'package:meta/meta.dart' show immutable, internal;
+import 'package:meta/meta.dart' show immutable;
 
 /// Base sealed class for all health records read requests.
 @sinceV2_0_0
@@ -46,7 +46,7 @@ final class ReadRecordByIdRequest<R extends HealthRecord>
   ///
   /// ## Throws
   /// - [ArgumentError] if [id] is [HealthRecordId.none]
-  @internal
+  @internalUse
   factory ReadRecordByIdRequest({
     required HealthDataType<R, MeasurementUnit> dataType,
     required HealthRecordId id,
@@ -105,7 +105,7 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
   ///   - [endTime] before [startTime]
   ///   - or [pageSize] is not between 1 and
   ///     [HealthConnectorConfigConstants.maxPageSize]
-  @internal
+  @internalUse
   factory ReadRecordsInTimeRangeRequest({
     required HealthDataType<R, MeasurementUnit> dataType,
     required DateTime startTime,

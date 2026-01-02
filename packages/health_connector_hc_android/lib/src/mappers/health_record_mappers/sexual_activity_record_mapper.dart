@@ -29,7 +29,7 @@ extension SexualActivityRecordDtoToDomain on SexualActivityRecordDto {
     return SexualActivityRecord(
       id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
       metadata: metadata.toDomain(),
-      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true).toLocal(),
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       protectionUsed: protectionUsed.toDomain(),
     );

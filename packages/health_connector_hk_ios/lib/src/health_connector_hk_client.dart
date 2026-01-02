@@ -32,7 +32,7 @@ import 'package:health_connector_hk_ios/src/mappers/request_and_response_mappers
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show HealthConnectorHKIOSApi, HealthPlatformStatusDto;
 import 'package:health_connector_logger/health_connector_logger.dart';
-import 'package:meta/meta.dart' show immutable;
+import 'package:meta/meta.dart' show immutable, visibleForTesting, internal;
 
 /// Platform client that communicates with native iOS HealthKit code.
 ///
@@ -41,12 +41,18 @@ import 'package:meta/meta.dart' show immutable;
 @sinceV1_0_0
 @internalUse
 @immutable
-final class HealthConnectorHKClient implements HealthConnectorPlatformClient {
+class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   static const _tag = 'HealthConnectorHKClient';
 
   /// The Pigeon-generated platform API client for native communication.
-  static final HealthConnectorHKIOSApi _platformClient =
-      HealthConnectorHKIOSApi();
+  static HealthConnectorHKIOSApi _platformClient = HealthConnectorHKIOSApi();
+
+  /// Test-only setter for injecting a mock platform client.
+  @visibleForTesting
+  @internal
+  static set platformClient(HealthConnectorHKIOSApi client) {
+    _platformClient = client;
+  }
 
   /// Creates a new [HealthConnectorHKClient] instance with the given config.
   ///

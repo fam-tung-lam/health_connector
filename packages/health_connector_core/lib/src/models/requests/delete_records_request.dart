@@ -4,7 +4,7 @@ import 'package:health_connector_core/src/models/requests/request.dart'
 import 'package:health_connector_core/src/utils/collection.dart';
 import 'package:health_connector_core/src/utils/validation.dart'
     show require, requireEndTimeAfterStartTime;
-import 'package:meta/meta.dart' show immutable, internal;
+import 'package:meta/meta.dart' show immutable;
 
 /// Base sealed class for all delete records requests.
 @sinceV2_0_0
@@ -53,7 +53,7 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
   ///
   /// ## Throws
   /// - [ArgumentError] if any record ID is [HealthRecordId.none]
-  @internal
+  @internalUse
   factory DeleteRecordsByIdsRequest({
     required HealthDataType<R, MeasurementUnit> dataType,
     required List<HealthRecordId> recordIds,
@@ -133,7 +133,7 @@ final class DeleteRecordsInTimeRangeRequest<R extends HealthRecord>
   ///
   /// ## Throws
   /// - [ArgumentError] if [endTime] is before [startTime]
-  @internal
+  @internalUse
   factory DeleteRecordsInTimeRangeRequest({
     required HealthDataType<R, MeasurementUnit> dataType,
     required DateTime startTime,

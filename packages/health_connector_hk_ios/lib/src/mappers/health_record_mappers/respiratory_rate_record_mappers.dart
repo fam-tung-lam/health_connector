@@ -28,8 +28,8 @@ extension RespiratoryRateRecordDtoToDomain on RespiratoryRateRecordDto {
   /// Converts [RespiratoryRateRecordDto] to its domain representation.
   RespiratoryRateRecord toDomain() {
     return RespiratoryRateRecord(
-      id: HealthRecordId(id ?? HealthRecordId.none.value),
-      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true).toLocal(),
+      id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
+      time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       breathsPerMin: Number(breathsPerMin.value),

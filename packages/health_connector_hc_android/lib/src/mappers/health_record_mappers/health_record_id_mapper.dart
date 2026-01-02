@@ -6,7 +6,7 @@ import 'package:meta/meta.dart' show internal;
 @sinceV1_0_0
 @internal
 extension HealthRecordIdToString on HealthRecordId {
-  String toDto() => value;
+  String? toDto() => value.isEmpty ? null : value;
 }
 
 /// Converts [String] to [HealthRecordId].

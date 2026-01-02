@@ -25,7 +25,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         internalUse,
         sinceV1_0_0,
         sinceV2_3_0;
-import 'package:health_connector_hc_android/src/mappers/config_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_connector_config_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_connector_error_code_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_platform_feature_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
@@ -38,7 +38,7 @@ import 'package:health_connector_hc_android/src/mappers/request_and_response_map
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show HealthConnectorHCAndroidApi, HealthPlatformStatusDto;
 import 'package:health_connector_logger/health_connector_logger.dart';
-import 'package:meta/meta.dart' show immutable;
+import 'package:meta/meta.dart' show immutable, visibleForTesting, internal;
 
 /// Platform client that communicates with native Android Health Connect code.
 ///
@@ -47,12 +47,21 @@ import 'package:meta/meta.dart' show immutable;
 @sinceV1_0_0
 @internalUse
 @immutable
-final class HealthConnectorHCClient implements HealthConnectorPlatformClient {
+class HealthConnectorHCClient implements HealthConnectorPlatformClient {
   static const _tag = 'HealthConnectorHKClient';
 
   /// The Pigeon-generated platform API client for native communication.
-  static final HealthConnectorHCAndroidApi _platformClient =
+  static HealthConnectorHCAndroidApi _platformClient =
       HealthConnectorHCAndroidApi();
+
+  /// Sets the platform client for testing purposes.
+  ///
+  /// This allows injecting a mock [HealthConnectorHCAndroidApi] in unit tests.
+  @visibleForTesting
+  @internal
+  static set platformClient(HealthConnectorHCAndroidApi client) {
+    _platformClient = client;
+  }
 
   /// Creates a new [HealthConnectorHCClient] instance with the given config.
   ///

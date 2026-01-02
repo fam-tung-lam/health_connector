@@ -1,0 +1,47 @@
+import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
+import 'package:test/test.dart';
+
+void main() {
+  group(
+    'PercentageMapper',
+    () {
+      group(
+        'PercentageToDto',
+        () {
+          test(
+            'converts Percentage to PercentageDto',
+            () {
+              const percentage = Percentage.fromWhole(75.0);
+
+              final dto = percentage.toDto();
+
+              expect(dto.value, 0.75);
+              expect(dto.unit, PercentageUnitDto.decimal);
+            },
+          );
+        },
+      );
+
+      group(
+        'PercentageDtoToDomain',
+        () {
+          test(
+            'converts PercentageDto to Percentage',
+            () {
+              final dto = PercentageDto(
+                value: 80.0,
+                unit: PercentageUnitDto.whole,
+              );
+
+              final percentage = dto.toDomain();
+
+              expect(percentage.asWhole, 80.0);
+            },
+          );
+        },
+      );
+    },
+  );
+}
