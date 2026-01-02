@@ -18,7 +18,7 @@ import org.junit.jupiter.params.provider.MethodSource
  * [HealthPlatformStatusDto] values, including edge cases for unknown status codes.
  */
 @DisplayName("PlatformStatusMappers")
-class PlatformStatusMappersTest {
+class PlatformStatusMapperTest {
 
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)

@@ -1,5 +1,6 @@
 package com.phamtunglam.health_connector_hc_android.handlers
 
+import androidx.annotation.VisibleForTesting
 import androidx.health.connect.client.HealthConnectClient
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActiveCaloriesBurnedHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BasalBodyTemperatureHandler
@@ -37,8 +38,6 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.WeightHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.WheelchairPushesHandler
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
-
-import androidx.annotation.VisibleForTesting
 
 /**
  * Central registry for Health Connect type handlers.

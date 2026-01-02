@@ -62,18 +62,17 @@ internal fun PermissionRequestDto.toHealthConnect(): String = when (this) {
 /**
  * Helper to map a raw permission string to its corresponding DTO result.
  */
-fun String.toPermissionRequestResultDto(): PermissionRequestResultDto =
-    if (isFeaturePermission) {
-        HealthPlatformFeaturePermissionRequestResultDto(
-            feature = toHealthPlatformFeatureDto(),
-            status = PermissionStatusDto.GRANTED,
-        )
-    } else {
-        HealthDataPermissionRequestResultDto(
-            permission = toHealthDataPermissionDto(),
-            status = PermissionStatusDto.GRANTED,
-        )
-    }
+fun String.toPermissionRequestResultDto(): PermissionRequestResultDto = if (isFeaturePermission) {
+    HealthPlatformFeaturePermissionRequestResultDto(
+        feature = toHealthPlatformFeatureDto(),
+        status = PermissionStatusDto.GRANTED,
+    )
+} else {
+    HealthDataPermissionRequestResultDto(
+        permission = toHealthDataPermissionDto(),
+        status = PermissionStatusDto.GRANTED,
+    )
+}
 
 /**
  * Helper function to map data type and access type to Health Connect permission string.

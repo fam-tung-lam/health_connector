@@ -90,7 +90,9 @@ class HealthRecordHandlerRegistryTest {
     }
 
     @Test
-    @DisplayName("GIVEN registry WHEN initialized THEN has handlers for all HealthDataTypeDto values")
+    @DisplayName(
+        "GIVEN registry WHEN initialized THEN has handlers for all HealthDataTypeDto values",
+    )
     fun testRegisteredHandlersCount() {
         systemUnderTest.registeredHandlersCount shouldBe HealthDataTypeDto.entries.size
     }

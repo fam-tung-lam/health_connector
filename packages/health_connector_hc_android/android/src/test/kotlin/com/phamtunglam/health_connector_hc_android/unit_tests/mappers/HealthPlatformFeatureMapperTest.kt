@@ -20,7 +20,7 @@ import org.junit.jupiter.params.provider.MethodSource
  * Health Connect feature constants, as well as status code conversions.
  */
 @DisplayName("HealthPlatformFeatureMappers")
-class HealthPlatformFeatureMappersTest {
+class HealthPlatformFeatureMapperTest {
 
     // region toHealthConnectFeature Tests
 

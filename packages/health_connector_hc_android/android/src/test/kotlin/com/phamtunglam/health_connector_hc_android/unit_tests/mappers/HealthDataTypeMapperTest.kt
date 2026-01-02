@@ -56,7 +56,7 @@ import org.junit.jupiter.params.provider.MethodSource
  */
 @DisplayName("HealthDataTypeMappers")
 @ExperimentalMindfulnessSessionApi
-class HealthDataTypeMappersTest {
+class HealthDataTypeMapperTest {
 
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
