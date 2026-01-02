@@ -3,10 +3,10 @@ package com.phamtunglam.health_connector_hc_android.handlers
 import androidx.health.connect.client.HealthConnectClient
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.logger.TAG
-import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
+import com.phamtunglam.health_connector_hc_android.utils.toError
 import java.io.IOException
 
 /**

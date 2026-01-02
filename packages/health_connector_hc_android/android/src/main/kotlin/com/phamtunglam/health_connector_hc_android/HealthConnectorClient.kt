@@ -16,12 +16,10 @@ import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecor
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.logger.TAG
-import com.phamtunglam.health_connector_hc_android.mappers.dataType
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.dataType
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.id
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
@@ -43,6 +41,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorFeatureService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorManifestService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorPermissionService
+import com.phamtunglam.health_connector_hc_android.utils.dataType
+import com.phamtunglam.health_connector_hc_android.utils.toError
 import java.time.Instant
 
 /**

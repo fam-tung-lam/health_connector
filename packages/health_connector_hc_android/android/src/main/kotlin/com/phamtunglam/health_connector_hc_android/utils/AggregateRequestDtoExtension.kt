@@ -1,4 +1,4 @@
-package com.phamtunglam.health_connector_hc_android.mappers
+package com.phamtunglam.health_connector_hc_android.utils
 
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto

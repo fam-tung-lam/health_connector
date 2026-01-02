@@ -5,14 +5,14 @@ import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.time.TimeRangeFilter
-import com.phamtunglam.health_connector_hc_android.mappers.aggregationMetric
-import com.phamtunglam.health_connector_hc_android.mappers.endTime
-import com.phamtunglam.health_connector_hc_android.mappers.startTime
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
+import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
+import com.phamtunglam.health_connector_hc_android.utils.endTime
+import com.phamtunglam.health_connector_hc_android.utils.startTime
 import java.io.IOException
 import java.time.Instant
 
