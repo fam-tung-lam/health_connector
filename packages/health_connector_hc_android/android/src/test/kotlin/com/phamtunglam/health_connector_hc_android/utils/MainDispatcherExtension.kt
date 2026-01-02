@@ -1,4 +1,4 @@
-package com.phamtunglam.health_connector_hc_android.extensions
+package com.phamtunglam.health_connector_hc_android.utils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
