@@ -83,41 +83,41 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         SpeedActivityRecord,
         sinceV1_0_0,
         BasalEnergyBurnedRecord;
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/active_calories_burned_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/basal_body_temperature_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_glucose_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_pressure_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_fat_percentage_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_temperature_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_water_mass_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/bone_mass_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cervical_mucus_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cycling_pedaling_cadence_series_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/distance_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/exercise_session_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/floors_climbed_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/heart_rate_series_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/heart_rate_variability_rmssd_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/height_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/hydration_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/intermenstrual_bleeding_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/lean_body_mass_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstrual_flow_instant_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/mindfulness_session_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/nutrition_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/ovulation_test_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/oxygen_saturation_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/power_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/respiratory_rate_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/resting_heart_rate_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sexual_activity_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sleep_session_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/speed_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/steps_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/total_calories_burned_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/vo2_max_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/weight_record_mappers.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/wheelchair_pushes_record_mappers.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/active_calories_burned_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/basal_body_temperature_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_glucose_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_pressure_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_fat_percentage_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_temperature_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/body_water_mass_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/bone_mass_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cervical_mucus_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cycling_pedaling_cadence_series_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/distance_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/exercise_session_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/floors_climbed_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/heart_rate_series_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/heart_rate_variability_rmssd_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/height_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/hydration_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/intermenstrual_bleeding_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/lean_body_mass_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstrual_flow_instant_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/mindfulness_session_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/nutrition_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/ovulation_test_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/oxygen_saturation_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/power_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/respiratory_rate_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/resting_heart_rate_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sexual_activity_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sleep_session_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/speed_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/steps_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/total_calories_burned_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/vo2_max_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/weight_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/wheelchair_pushes_record_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show
         ActiveCaloriesBurnedRecordDto,
@@ -167,7 +167,7 @@ import 'package:meta/meta.dart' show internal;
 ///
 /// Each [HealthRecord] subclass has its own `toDto()` extension method defined
 /// in a separate file (e.g., `BodyTemperatureRecordToDto` in
-/// `body_temperature_record_mappers.dart`). If you forget to import one of
+/// `body_temperature_record_mapper.dart`). If you forget to import one of
 /// these files, Dart's extension resolution will fall back to this base
 /// extension, causing infinite recursion:
 ///
