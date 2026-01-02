@@ -63,14 +63,14 @@ internal fun PermissionRequestDto.toHealthConnect(): String = when (this) {
  * Helper to map a raw permission string to its corresponding DTO result.
  */
 fun String.toPermissionRequestResultDto(): PermissionRequestResultDto =
-    if (this.isFeaturePermission) {
+    if (isFeaturePermission) {
         HealthPlatformFeaturePermissionRequestResultDto(
-            feature = this.toHealthPlatformFeatureDto(),
+            feature = toHealthPlatformFeatureDto(),
             status = PermissionStatusDto.GRANTED,
         )
     } else {
         HealthDataPermissionRequestResultDto(
-            permission = this.toHealthDataPermissionDto(),
+            permission = toHealthDataPermissionDto(),
             status = PermissionStatusDto.GRANTED,
         )
     }
@@ -79,7 +79,7 @@ fun String.toPermissionRequestResultDto(): PermissionRequestResultDto =
  * Helper function to map data type and access type to Health Connect permission string.
  */
 @OptIn(ExperimentalMindfulnessSessionApi::class)
-internal fun HealthDataPermissionRequestDto.toHealthConnect(): String = when (healthDataType) {
+private fun HealthDataPermissionRequestDto.toHealthConnect(): String = when (healthDataType) {
     HealthDataTypeDto.ACTIVE_CALORIES_BURNED -> {
         when (accessType) {
             PermissionAccessTypeDto.READ -> HealthPermission.getReadPermission(
@@ -515,7 +515,7 @@ internal fun HealthDataPermissionRequestDto.toHealthConnect(): String = when (he
  *         by this application
  */
 @Throws(IllegalArgumentException::class, UnsupportedOperationException::class)
-internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto {
+private fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto {
     // Health Connect permission strings follow the pattern:
     // android.permission.health.READ_STEPS, android.permission.health.WRITE_WEIGHT, etc.
     val prefix = "android.permission.health."
@@ -559,7 +559,7 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto 
         "HEIGHT" -> HealthDataTypeDto.HEIGHT
         "HYDRATION" -> HealthDataTypeDto.HYDRATION
         "LEAN_BODY_MASS" -> HealthDataTypeDto.LEAN_BODY_MASS
-        "BODY_FAT_PERCENTAGE" -> HealthDataTypeDto.BODY_FAT_PERCENTAGE
+        "BODY_FAT" -> HealthDataTypeDto.BODY_FAT_PERCENTAGE
         "BODY_TEMPERATURE" -> HealthDataTypeDto.BODY_TEMPERATURE
         "BASAL_BODY_TEMPERATURE" -> HealthDataTypeDto.BASAL_BODY_TEMPERATURE
         "CERVICAL_MUCUS" -> HealthDataTypeDto.CERVICAL_MUCUS
@@ -567,24 +567,24 @@ internal fun String.toHealthDataPermissionDto(): HealthDataPermissionRequestDto 
         "WHEELCHAIR_PUSHES" -> HealthDataTypeDto.WHEELCHAIR_PUSHES
         "HEART_RATE" -> HealthDataTypeDto.HEART_RATE_SERIES_RECORD
         "RESTING_HEART_RATE" -> HealthDataTypeDto.RESTING_HEART_RATE
-        "SLEEP_SESSION" -> HealthDataTypeDto.SLEEP_SESSION
+        "SLEEP" -> HealthDataTypeDto.SLEEP_SESSION
         "BLOOD_PRESSURE" -> HealthDataTypeDto.BLOOD_PRESSURE
         "BLOOD_GLUCOSE" -> HealthDataTypeDto.BLOOD_GLUCOSE
         "OVULATION_TEST" -> HealthDataTypeDto.OVULATION_TEST
         "INTERMENSTRUAL_BLEEDING" -> HealthDataTypeDto.INTERMENSTRUAL_BLEEDING
-        "MENSTRUATION_FLOW" -> HealthDataTypeDto.MENSTRUAL_FLOW_INSTANT
+        "MENSTRUATION" -> HealthDataTypeDto.MENSTRUAL_FLOW_INSTANT
         "OXYGEN_SATURATION" -> HealthDataTypeDto.OXYGEN_SATURATION
         "RESPIRATORY_RATE" -> HealthDataTypeDto.RESPIRATORY_RATE
-        "VO2MAX" -> HealthDataTypeDto.VO2MAX
+        "VO2_MAX" -> HealthDataTypeDto.VO2MAX
         "NUTRITION" -> HealthDataTypeDto.NUTRITION
         "SPEED" -> HealthDataTypeDto.SPEED_SERIES
         "POWER" -> HealthDataTypeDto.POWER_SERIES
-        "CYCLING_CADENCE" -> HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
-        "EXERCISE_SESSION" -> HealthDataTypeDto.EXERCISE_SESSION
-        "MINDFULNESS_SESSION" -> HealthDataTypeDto.MINDFULNESS_SESSION
+        "CYCLING_PEDALING_CADENCE" -> HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
+        "EXERCISE" -> HealthDataTypeDto.EXERCISE_SESSION
+        "MINDFULNESS" -> HealthDataTypeDto.MINDFULNESS_SESSION
         "BONE_MASS" -> HealthDataTypeDto.BONE_MASS
         "BODY_WATER_MASS" -> HealthDataTypeDto.BODY_WATER_MASS
-        "HEART_RATE_VARIABILITY_RMSSD" -> HealthDataTypeDto.HEART_RATE_VARIABILITY_RMSSD
+        "HEART_RATE_VARIABILITY" -> HealthDataTypeDto.HEART_RATE_VARIABILITY_RMSSD
         else -> throw IllegalArgumentException(
             "Invalid/unsupported/unimplemented Health Connect data type: $dataTypeStr.",
         )
