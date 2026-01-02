@@ -38,10 +38,16 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.WheelchairPushesHandler
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 
+import androidx.annotation.VisibleForTesting
+
 /**
  * Central registry for Health Connect type handlers.
  */
 internal class HealthRecordHandlerRegistry(private val client: HealthConnectClient) {
+    @get:VisibleForTesting
+    internal val registeredHandlersCount: Int
+        get() = handlers.size
+
     private val handlers: Map<HealthDataTypeDto, HealthRecordHandler> by lazy {
         buildMap {
             register(HeartRateHandler(client))
