@@ -2,9 +2,9 @@ package com.phamtunglam.health_connector_hc_android.services
 
 import android.content.Context
 import android.content.pm.PackageManager
-import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
+import com.phamtunglam.health_connector_hc_android.utils.toError
 
 /**
  * Internal service responsible for validating the application's Android Manifest configuration.

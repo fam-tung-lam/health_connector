@@ -7,7 +7,6 @@ import androidx.activity.ComponentActivity
 import androidx.health.connect.client.PermissionController
 import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toPermissionRequestResultDto
-import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestDto
@@ -19,6 +18,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestResul
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
+import com.phamtunglam.health_connector_hc_android.utils.toError
 import java.io.IOException
 import java.util.UUID
 import kotlinx.coroutines.CompletableDeferred

@@ -5,11 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.annotation.VisibleForTesting
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.logger.TAG
-import com.phamtunglam.health_connector_hc_android.mappers.aggregationMetric
-import com.phamtunglam.health_connector_hc_android.mappers.dataType
-import com.phamtunglam.health_connector_hc_android.mappers.endTime
-import com.phamtunglam.health_connector_hc_android.mappers.startTime
-import com.phamtunglam.health_connector_hc_android.mappers.toError
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
@@ -30,6 +25,11 @@ import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
+import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
+import com.phamtunglam.health_connector_hc_android.utils.dataType
+import com.phamtunglam.health_connector_hc_android.utils.endTime
+import com.phamtunglam.health_connector_hc_android.utils.startTime
+import com.phamtunglam.health_connector_hc_android.utils.toError
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
