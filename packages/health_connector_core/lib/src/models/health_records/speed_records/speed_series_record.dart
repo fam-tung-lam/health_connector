@@ -97,7 +97,10 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedMeasurement> {
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          samples.equals(other.samples) &&
+          const ListEquality<SpeedMeasurement>().equals(
+            samples,
+            other.samples,
+          )  &&
           metadata == other.metadata;
 
   @override

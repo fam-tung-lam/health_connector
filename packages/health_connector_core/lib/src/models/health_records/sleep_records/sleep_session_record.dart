@@ -132,7 +132,10 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStage> {
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
           title == other.title &&
           notes == other.notes &&
-          samples.equals(other.samples);
+          const ListEquality<SleepStage>().equals(
+            samples,
+            other.samples,
+          );
 
   @override
   int get hashCode =>

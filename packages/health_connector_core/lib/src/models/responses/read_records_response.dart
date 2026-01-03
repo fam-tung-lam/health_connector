@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show ListEquality;
 import 'package:health_connector_core/src/annotations/annotations.dart'
     show sinceV2_0_0;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
@@ -6,7 +7,6 @@ import 'package:health_connector_core/src/models/requests/read_records_request.d
     show ReadRecordsInTimeRangeRequest;
 import 'package:health_connector_core/src/models/responses/response.dart'
     show Response;
-import 'package:health_connector_core/src/utils/collection.dart';
 import 'package:meta/meta.dart' show immutable, internal;
 
 /// Base sealed class for all health records read responses.
@@ -70,7 +70,10 @@ final class ReadRecordsInTimeRangeResponse<R extends HealthRecord>
       identical(this, other) ||
       other is ReadRecordsInTimeRangeResponse<R> &&
           runtimeType == other.runtimeType &&
-          records.equals(other.records) &&
+          const ListEquality<HealthRecord>().equals(
+            records,
+            other.records,
+          ) &&
           nextPageRequest == other.nextPageRequest;
 
   @override

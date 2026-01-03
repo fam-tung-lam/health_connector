@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show ListEquality;
 import 'package:health_connector_core/src/annotations/annotations.dart'
     show sinceV1_0_0, sinceV2_0_0, internalUse;
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
@@ -14,7 +15,6 @@ import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
 import 'package:health_connector_core/src/models/responses/read_records_response.dart'
     show ReadRecordsInTimeRangeResponse;
-import 'package:health_connector_core/src/utils/collection.dart';
 import 'package:health_connector_core/src/utils/validation.dart'
     show requireEndTimeAfterStartTime, require;
 import 'package:meta/meta.dart' show immutable;
@@ -206,7 +206,10 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
           endTime == other.endTime &&
           pageSize == other.pageSize &&
           pageToken == other.pageToken &&
-          dataOrigins.equals(other.dataOrigins);
+          const ListEquality<DataOrigin>().equals(
+            dataOrigins,
+            other.dataOrigins,
+          );
 
   @override
   int get hashCode =>

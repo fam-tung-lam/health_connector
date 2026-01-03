@@ -1,8 +1,8 @@
+import 'package:collection/collection.dart' show ListEquality;
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart';
 import 'package:health_connector_core/src/models/health_platform_data.dart'
     show HealthPlatformData;
-import 'package:health_connector_core/src/utils/collection.dart';
 import 'package:health_connector_core/src/utils/health_record_data_type_extension.dart';
 import 'package:meta/meta.dart' show immutable, internal;
 

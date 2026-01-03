@@ -1,7 +1,7 @@
+import 'package:collection/collection.dart' show ListEquality;
 import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
-import 'package:health_connector_core/src/utils/collection.dart';
 import 'package:health_connector_core/src/utils/validation.dart'
     show require, requireEndTimeAfterStartTime;
 import 'package:meta/meta.dart' show immutable;
@@ -87,7 +87,10 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
       other is DeleteRecordsByIdsRequest<R> &&
           runtimeType == other.runtimeType &&
           dataType == other.dataType &&
-          recordIds.equals(other.recordIds);
+          const ListEquality<HealthRecordId>().equals(
+            recordIds,
+            other.recordIds,
+          );
 
   @override
   int get hashCode => dataType.hashCode ^ recordIds.hashCode;

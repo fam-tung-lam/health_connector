@@ -93,7 +93,10 @@ final class PowerSeriesRecord extends SeriesHealthRecord<PowerMeasurement> {
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          samples.equals(other.samples) &&
+          const ListEquality<PowerMeasurement>().equals(
+            samples,
+            other.samples,
+          ) &&
           metadata == other.metadata;
 
   @override
