@@ -1,6 +1,7 @@
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart';
 import 'package:health_connector_core/src/models/health_records/health_record.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
+import 'package:meta/meta.dart' show internal;
 
 /// Extension on [HealthRecord] that provides a getter for the associated
 /// [HealthDataType].
@@ -24,6 +25,7 @@ import 'package:health_connector_core/src/models/measurement_units/measurement_u
 /// ```
 ///
 /// @nodoc
+@internal
 extension HealthRecordDataTypeExtension on HealthRecord {
   /// Returns the [HealthDataType] associated with this [HealthRecord].
   ///
@@ -31,7 +33,6 @@ extension HealthRecordDataTypeExtension on HealthRecord {
   /// and returns the appropriate [HealthDataType] for each implementation.
   HealthDataType<HealthRecord, MeasurementUnit> get dataType {
     return switch (this) {
-      // Distance records
       DistanceRecord _ => HealthDataType.distance,
       CyclingDistanceRecord _ => HealthDataType.cyclingDistance,
       SwimmingDistanceRecord _ => HealthDataType.swimmingDistance,
@@ -46,19 +47,13 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       SixMinuteWalkTestDistanceRecord _ =>
         HealthDataType.sixMinuteWalkTestDistance,
       WalkingRunningDistanceRecord _ => HealthDataType.walkingRunningDistance,
-
-      // Speed records
       SpeedSeriesRecord _ => HealthDataType.speedSeries,
       WalkingSpeedRecord _ => HealthDataType.walkingSpeed,
       RunningSpeedRecord _ => HealthDataType.runningSpeed,
       StairAscentSpeedRecord _ => HealthDataType.stairAscentSpeed,
       StairDescentSpeedRecord _ => HealthDataType.stairDescentSpeed,
-
-      // Power records
       PowerSeriesRecord _ => HealthDataType.powerSeries,
       CyclingPowerRecord _ => HealthDataType.cyclingPower,
-
-      // Basic health records
       StepsRecord _ => HealthDataType.steps,
       WeightRecord _ => HealthDataType.weight,
       HeightRecord _ => HealthDataType.height,
@@ -72,33 +67,19 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       WheelchairPushesRecord _ => HealthDataType.wheelchairPushes,
       LeanBodyMassRecord _ => HealthDataType.leanBodyMass,
       HydrationRecord _ => HealthDataType.hydration,
-
-      // Blood pressure records
       BloodPressureRecord _ => HealthDataType.bloodPressure,
       SystolicBloodPressureRecord _ => HealthDataType.systolicBloodPressure,
       DiastolicBloodPressureRecord _ => HealthDataType.diastolicBloodPressure,
-
-      // Heart rate records
       HeartRateSeriesRecord _ => HealthDataType.heartRateSeriesRecord,
       HeartRateMeasurementRecord _ => HealthDataType.heartRateMeasurementRecord,
-
-      // Cycling pedaling cadence records
       CyclingPedalingCadenceSeriesRecord _ =>
         HealthDataType.cyclingPedalingCadenceSeriesRecord,
       CyclingPedalingCadenceMeasurementRecord _ =>
         HealthDataType.cyclingPedalingCadenceMeasurementRecord,
-
-      // Sleep records
       SleepSessionRecord _ => HealthDataType.sleepSession,
       SleepStageRecord _ => HealthDataType.sleepStageRecord,
-
-      // Sexual activity
       SexualActivityRecord _ => HealthDataType.sexualActivity,
-
-      // Mindfulness records
       MindfulnessSessionRecord _ => HealthDataType.mindfulnessSession,
-
-      // Vital signs
       RestingHeartRateRecord _ => HealthDataType.restingHeartRate,
       OvulationTestRecord _ => HealthDataType.ovulationTest,
       IntermenstrualBleedingRecord _ => HealthDataType.intermenstrualBleeding,
@@ -107,8 +88,6 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       OxygenSaturationRecord _ => HealthDataType.oxygenSaturation,
       RespiratoryRateRecord _ => HealthDataType.respiratoryRate,
       Vo2MaxRecord _ => HealthDataType.vo2Max,
-
-      // Nutrition records
       NutritionRecord _ => HealthDataType.nutrition,
       EnergyNutrientRecord _ => HealthDataType.energyNutrient,
       CaffeineNutrientRecord _ => HealthDataType.caffeine,
@@ -121,8 +100,6 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       CholesterolNutrientRecord _ => HealthDataType.cholesterol,
       DietaryFiberNutrientRecord _ => HealthDataType.dietaryFiber,
       SugarNutrientRecord _ => HealthDataType.sugar,
-
-      // Mineral nutrients
       CalciumNutrientRecord _ => HealthDataType.calcium,
       IronNutrientRecord _ => HealthDataType.iron,
       MagnesiumNutrientRecord _ => HealthDataType.magnesium,
@@ -132,8 +109,6 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       SeleniumNutrientRecord _ => HealthDataType.selenium,
       SodiumNutrientRecord _ => HealthDataType.sodium,
       ZincNutrientRecord _ => HealthDataType.zinc,
-
-      // Vitamin nutrients
       VitaminANutrientRecord _ => HealthDataType.vitaminA,
       VitaminB6NutrientRecord _ => HealthDataType.vitaminB6,
       VitaminB12NutrientRecord _ => HealthDataType.vitaminB12,
@@ -147,7 +122,6 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       FolateNutrientRecord _ => HealthDataType.folate,
       BiotinNutrientRecord _ => HealthDataType.biotin,
       PantothenicAcidNutrientRecord _ => HealthDataType.pantothenicAcid,
-
       TotalCaloriesBurnedRecord _ => HealthDataType.totalCaloriesBurned,
       BasalEnergyBurnedRecord _ => HealthDataType.basalEnergyBurned,
       BasalBodyTemperatureRecord _ => HealthDataType.basalBodyTemperature,

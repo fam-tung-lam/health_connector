@@ -1,9 +1,6 @@
-import 'package:health_connector_core/health_connector_core.dart'
-    show HealthPlatform, HealthConnectorErrorCode, HealthConnectorException;
+import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_core/src/annotations/meta_targets.dart'
     show memberAndTypeTargets;
-import 'package:health_connector_core/src/annotations/since.dart'
-    show sinceV1_0_0;
 import 'package:meta/meta.dart' show immutable, internal;
 
 /// Annotation used to mark APIs that are supported only on specific
@@ -13,8 +10,7 @@ import 'package:meta/meta.dart' show immutable, internal;
 /// that are only available on certain [HealthPlatform]s.
 ///
 /// When the annotated API is called on an unsupported platform, the annotated
-/// API should throw a [HealthConnectorException] with
-/// [HealthConnectorErrorCode.unsupportedOperation].
+/// API should throw a [UnsupportedOperationException].
 ///
 /// ## Example
 ///
@@ -22,7 +18,9 @@ import 'package:meta/meta.dart' show immutable, internal;
 /// @SupportedHealthPlatforms([HealthPlatform.android])
 /// Future<void> getFeatureStatus() async {
 ///   if (_currentPlatform != HealthPlatform.android) {
-///     // Throw an error
+///     throw UnsupportedOperationException(
+///       'getFeatureStatus is not supported on $_currentPlatform.',
+///     );
 ///   }
 /// }
 /// ```
@@ -43,7 +41,7 @@ final class SupportedOn {
   final List<HealthPlatform> platforms;
 }
 
-/// Convenience annotation for APIs supported only on Health Connect.
+/// Convenience annotation for APIs supported only on Android Health Connect.
 const supportedOnHealthConnect = SupportedOn([
   HealthPlatform.healthConnect,
 ]);

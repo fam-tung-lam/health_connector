@@ -5,9 +5,6 @@ import 'package:meta/meta.dart' show immutable;
 
 /// Configuration for Health Connector.
 ///
-/// This immutable data class holds configuration settings for the Health
-/// Connector, including logger settings.
-///
 /// {@category Core API}
 @sinceV1_0_0
 @immutable

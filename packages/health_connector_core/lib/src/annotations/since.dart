@@ -4,9 +4,8 @@ import 'package:meta/meta.dart' show immutable, internal;
 
 /// Annotation class marking the version where an API was added.
 ///
-/// A `Since` annotation can be applied to a library declaration,
-/// any public declaration in a library, or in a class, or to
-/// an optional parameter.
+/// A `Since` annotation can be applied to a library declaration, any public
+/// declaration in a library, or in a class, or to an optional parameter.
 ///
 /// ## Example
 ///

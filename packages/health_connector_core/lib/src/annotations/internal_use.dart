@@ -3,13 +3,14 @@ import 'package:health_connector_core/src/annotations/meta_targets.dart'
 import 'package:meta/meta.dart' show immutable;
 
 /// Marks APIs intended only for cross-package communication and implementation
-/// details within the Health Connector SDK ecosystem.
+/// details **within** the Health Connector SDK ecosystem.
 ///
 /// **Application developers should not use or depend on APIs marked with
 /// [internalUse]**, as these are not considered part of the public API surface
 /// and can be changed without notice.
 ///
-/// ### Example
+/// ## Example
+///
 /// ```
 /// @internalUse
 /// final class AggregateRequest {}
@@ -17,7 +18,7 @@ import 'package:meta/meta.dart' show immutable;
 /// // ❌ Not intended: Do not instantiate AggregateRequest in apps
 /// final request = AggregateRequest();
 ///
-/// // Intended: Use the documented approach instead
+/// // ✅ Intended: Use the documented approach instead
 /// final sumAggregateRequest = HealthDataType.steps.aggregateSum(
 ///   startTime: DateTime.now().startOfDay,
 ///   endTime: DateTime.now(),
