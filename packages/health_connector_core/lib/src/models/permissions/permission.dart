@@ -45,6 +45,7 @@ enum PermissionStatus {
 
 /// Extension methods for filtering [List<Permission>] by permission type.
 @sinceV1_0_0
+@internalUse
 extension PermissionListExtension on List<Permission> {
   /// Returns a list containing only [HealthDataPermission] instances.
   ///

@@ -39,7 +39,7 @@
 /// ### 3. Usage
 ///
 /// ```dart
-/// import 'package:health_connector/health_connector.dart';
+/// import 'package:health_connector/health_connector_internal.dart';
 ///
 /// final healthConnector = HealthConnector();
 ///

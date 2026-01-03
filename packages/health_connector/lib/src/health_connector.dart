@@ -1,6 +1,6 @@
 import 'dart:io' show Platform;
 
-import 'package:health_connector/health_connector.dart';
+import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector/src/health_connector_impl.dart'
     show HealthConnectorImpl;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'

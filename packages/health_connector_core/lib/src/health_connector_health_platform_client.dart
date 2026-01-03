@@ -1,17 +1,21 @@
-import 'package:health_connector_core/health_connector_core.dart';
+import 'package:health_connector_core/src/annotations/annotations.dart';
+import 'package:health_connector_core/src/config/health_connector_config.dart';
+import 'package:health_connector_core/src/models/exceptions/health_connector_error_code.dart';
+import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart';
+import 'package:health_connector_core/src/models/health_records/health_record.dart';
+import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
+import 'package:health_connector_core/src/models/permissions/permission.dart';
+import 'package:health_connector_core/src/models/requests/aggregate_request.dart';
+import 'package:health_connector_core/src/models/requests/delete_records_request.dart';
+import 'package:health_connector_core/src/models/requests/read_records_request.dart';
+import 'package:health_connector_core/src/models/responses/permission_request_result.dart';
+import 'package:health_connector_core/src/models/responses/read_records_response.dart';
 
 /// Platform client interface for interacting with native health platforms.
 ///
 /// This interface defines the contract for platform-specific implementations
-/// that communicate with Android Health Connect or iOS HealthKit to read,
-/// write, and manage health data.
-///
-/// Implementations of this interface handle:
-/// - Permission management
-/// - Reading and writing health records
-/// - Aggregating health data
-/// - Deleting health records
-/// - Querying platform capabilities and features
+/// that communicate with health platforms to read, write, and
+/// manage health data.
 @sinceV1_0_0
 @internalUse
 abstract interface class HealthConnectorPlatformClient {
@@ -20,10 +24,6 @@ abstract interface class HealthConnectorPlatformClient {
   HealthConnectorConfig get config;
 
   /// Requests permissions from the native platform.
-  ///
-  /// Prompts the user to grant the specified permissions for reading and/or
-  /// writing health data. The user may grant, deny, or dismiss the permission
-  /// dialog.
   ///
   /// ## Parameters
   ///
@@ -61,10 +61,6 @@ abstract interface class HealthConnectorPlatformClient {
   Future<PermissionStatus> getPermissionStatus(Permission permission);
 
   /// Reads a single health record by ID.
-  ///
-  /// Fetches a specific health record from the platform using its unique
-  /// identifier. The record ID should come from a previous write operation
-  /// or from reading a list of records.
   ///
   /// ## Parameters
   ///

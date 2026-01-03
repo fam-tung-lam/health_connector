@@ -1,4 +1,4 @@
-import 'package:health_connector/health_connector.dart';
+import 'package:health_connector/health_connector_internal.dart';
 
 /// Extension on [MindfulnessSessionType] to provide display names.
 extension MindfulnessSessionTypeExtension on MindfulnessSessionType {

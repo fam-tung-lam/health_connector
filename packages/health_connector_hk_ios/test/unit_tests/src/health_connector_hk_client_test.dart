@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart' show PlatformException;
-import 'package:health_connector_core/health_connector_core.dart';
+import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/health_connector_hk_client.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:health_connector_logger/health_connector_logger.dart';

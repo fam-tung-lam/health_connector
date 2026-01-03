@@ -1,5 +1,4 @@
-import 'package:health_connector_core/health_connector_core.dart'
-    show sinceV1_0_0;
+import 'package:health_connector_core/src/annotations/annotations.dart';
 import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart' show immutable;
 

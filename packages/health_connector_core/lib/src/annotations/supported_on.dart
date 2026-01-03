@@ -1,6 +1,8 @@
-import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_core/src/annotations/annotations.dart';
 import 'package:health_connector_core/src/annotations/meta_targets.dart'
     show memberAndTypeTargets;
+import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart';
+import 'package:health_connector_core/src/models/health_platform.dart';
 import 'package:meta/meta.dart' show immutable, internal;
 
 /// Annotation used to mark APIs that are supported only on specific

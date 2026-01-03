@@ -1,5 +1,5 @@
-/// @docImport 'package:health_connector/health_connector.dart';
-/// @docImport 'package:health_connector_core/health_connector_core.dart';
+/// @docImport 'package:health_connector/health_connector_internal.dart';
+/// @docImport 'package:health_connector_core/health_connector_core_internal.dart';
 ///
 /// Cross-platform health and fitness data integration for Flutter.
 ///
@@ -39,7 +39,7 @@
 /// ### 3. Usage
 ///
 /// ```dart
-/// import 'package:health_connector/health_connector.dart';
+/// import 'package:health_connector/health_connector_internal.dart';
 ///
 /// final healthConnector = HealthConnector();
 ///

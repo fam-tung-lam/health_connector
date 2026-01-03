@@ -1,4 +1,3 @@
-import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
