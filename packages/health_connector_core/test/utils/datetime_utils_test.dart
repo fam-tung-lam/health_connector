@@ -1,4 +1,4 @@
-import 'package:health_connector_core/src/utils/datetime.dart';
+import 'package:health_connector_core/src/utils/datetime_utils.dart';
 import 'package:test/test.dart';
 
 void main() {

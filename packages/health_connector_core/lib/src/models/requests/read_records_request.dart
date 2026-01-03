@@ -15,7 +15,7 @@ import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
 import 'package:health_connector_core/src/models/responses/read_records_response.dart'
     show ReadRecordsInTimeRangeResponse;
-import 'package:health_connector_core/src/utils/validation.dart'
+import 'package:health_connector_core/src/utils/validation_utils.dart'
     show requireEndTimeAfterStartTime, require;
 import 'package:meta/meta.dart' show immutable;
 

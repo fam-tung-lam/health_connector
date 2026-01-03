@@ -94,5 +94,5 @@ export 'src/models/responses/permission_request_result.dart';
 export 'src/models/responses/read_records_response.dart'
     hide ReadRecordsResponse;
 // Internal: Utility functions
-export 'src/utils/datetime.dart';
-export 'src/utils/validation.dart';
+export 'src/utils/datetime_utils.dart';
+export 'src/utils/validation_utils.dart';

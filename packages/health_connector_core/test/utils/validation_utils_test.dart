@@ -1,4 +1,4 @@
-import 'package:health_connector_core/src/utils/validation.dart';
+import 'package:health_connector_core/src/utils/validation_utils.dart';
 import 'package:test/test.dart';
 
 void main() {

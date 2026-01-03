@@ -100,7 +100,7 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedMeasurement> {
           const ListEquality<SpeedMeasurement>().equals(
             samples,
             other.samples,
-          )  &&
+          ) &&
           metadata == other.metadata;
 
   @override

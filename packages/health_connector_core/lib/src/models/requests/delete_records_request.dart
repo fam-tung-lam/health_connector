@@ -2,7 +2,7 @@ import 'package:collection/collection.dart' show ListEquality;
 import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
-import 'package:health_connector_core/src/utils/validation.dart'
+import 'package:health_connector_core/src/utils/validation_utils.dart'
     show require, requireEndTimeAfterStartTime;
 import 'package:meta/meta.dart' show immutable;
 

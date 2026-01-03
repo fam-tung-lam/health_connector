@@ -10,7 +10,7 @@ import 'package:health_connector_core/src/models/requests/aggregation_metric.dar
     show AggregationMetric;
 import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
-import 'package:health_connector_core/src/utils/validation.dart'
+import 'package:health_connector_core/src/utils/validation_utils.dart'
     show requireEndTimeAfterStartTime, require;
 import 'package:meta/meta.dart' show immutable;
 
