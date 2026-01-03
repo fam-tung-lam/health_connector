@@ -8,6 +8,7 @@ environment:
   sdk: ^3.9.2
 
 dependencies:
+  collection: ^1.19.1
   health_connector_logger: ^2.0.0
   meta: ^1.16.0
 
