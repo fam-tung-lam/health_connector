@@ -1,0 +1,207 @@
+import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/speed/running_speed_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
+import 'package:test/test.dart';
+
+import '../../../../utils/fake_data.dart';
+
+void main() {
+  group(
+    'RunningSpeedRecordMapper',
+    () {
+      group(
+        'RunningSpeedRecordToDto',
+        () {
+          test(
+            'converts RunningSpeedRecord to SpeedActivityRecordDto',
+            () {
+              // Given
+              final time = FakeData.fakeTime;
+
+              final record = RunningSpeedRecord(
+                id: HealthRecordId(FakeData.fakeId),
+                time: time,
+                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                metadata: const Metadata(
+                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                  recordingMethod: RecordingMethod.activelyRecorded,
+                  clientRecordVersion: 1,
+                  device: Device(type: DeviceType.watch),
+                ),
+                speed: const Velocity.metersPerSecond(3.5),
+              );
+
+              // When
+              final dto = record.toDto();
+
+              // Then
+              expect(dto.id, FakeData.fakeId);
+              expect(dto.time, time.millisecondsSinceEpoch);
+              expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(dto.speed.value, 3.5);
+              expect(dto.speed.unit, VelocityUnitDto.metersPerSecond);
+              expect(dto.activityType, SpeedActivityTypeDto.running);
+              expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
+              expect(
+                dto.metadata.recordingMethod,
+                RecordingMethodDto.activelyRecorded,
+              );
+              expect(dto.metadata.clientRecordVersion, 1);
+              expect(dto.metadata.deviceType, DeviceTypeDto.watch);
+            },
+          );
+
+          test(
+            'converts RunningSpeedRecord with different speed value',
+            () {
+              // Given
+              final time = FakeData.fakeTime;
+
+              final record = RunningSpeedRecord(
+                id: HealthRecordId(FakeData.fakeId),
+                time: time,
+                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                metadata: const Metadata(
+                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                  recordingMethod: RecordingMethod.manualEntry,
+                  clientRecordVersion: 2,
+                  device: Device(type: DeviceType.phone),
+                ),
+                speed: const Velocity.metersPerSecond(5.2),
+              );
+
+              // When
+              final dto = record.toDto();
+
+              // Then
+              expect(dto.speed.value, 5.2);
+              expect(dto.activityType, SpeedActivityTypeDto.running);
+              expect(
+                dto.metadata.recordingMethod,
+                RecordingMethodDto.manualEntry,
+              );
+              expect(dto.metadata.deviceType, DeviceTypeDto.phone);
+            },
+          );
+        },
+      );
+
+      group(
+        'RunningSpeedRecordDtoToDomain',
+        () {
+          test(
+            'converts SpeedActivityRecordDto to RunningSpeedRecord',
+            () {
+              // Given
+              final time = FakeData.fakeTime;
+
+              final dto = SpeedActivityRecordDto(
+                id: FakeData.fakeId,
+                time: time.millisecondsSinceEpoch,
+                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                metadata: MetadataDto(
+                  dataOrigin: FakeData.fakeDataOrigin,
+                  recordingMethod: RecordingMethodDto.activelyRecorded,
+                  clientRecordVersion: 1,
+                  deviceType: DeviceTypeDto.watch,
+                ),
+                speed: VelocityDto(
+                  value: 4.2,
+                  unit: VelocityUnitDto.metersPerSecond,
+                ),
+                activityType: SpeedActivityTypeDto.running,
+              );
+
+              // When
+              final record = dto.toDomain();
+
+              // Then
+              expect(record, isA<RunningSpeedRecord>());
+              expect(record.id.value, FakeData.fakeId);
+              expect(record.time, time);
+              expect(record.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(record.speed.inMetersPerSecond, 4.2);
+              expect(
+                record.metadata.dataOrigin.packageName,
+                FakeData.fakeDataOrigin,
+              );
+              expect(
+                record.metadata.recordingMethod,
+                RecordingMethod.activelyRecorded,
+              );
+              expect(record.metadata.clientRecordVersion, 1);
+              expect(record.metadata.device?.type, DeviceType.watch);
+            },
+          );
+
+          test(
+            'converts SpeedActivityRecordDto with null id to domain with '
+            'none id',
+            () {
+              // Given
+              final time = FakeData.fakeTime;
+
+              final dto = SpeedActivityRecordDto(
+                time: time.millisecondsSinceEpoch,
+                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                metadata: MetadataDto(
+                  dataOrigin: FakeData.fakeDataOrigin,
+                  recordingMethod: RecordingMethodDto.manualEntry,
+                  clientRecordVersion: 1,
+                  deviceType: DeviceTypeDto.phone,
+                ),
+                speed: VelocityDto(
+                  value: 3.8,
+                  unit: VelocityUnitDto.metersPerSecond,
+                ),
+                activityType: SpeedActivityTypeDto.running,
+              );
+
+              // When
+              final record = dto.toDomain();
+
+              // Then
+              expect(record.id, HealthRecordId.none);
+              expect(record.speed.inMetersPerSecond, 3.8);
+            },
+          );
+
+          test(
+            'converts SpeedActivityRecordDto with different speed value',
+            () {
+              // Given
+              final time = FakeData.fakeTime;
+
+              final dto = SpeedActivityRecordDto(
+                id: FakeData.fakeId,
+                time: time.millisecondsSinceEpoch,
+                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                metadata: MetadataDto(
+                  dataOrigin: FakeData.fakeDataOrigin,
+                  recordingMethod: RecordingMethodDto.manualEntry,
+                  clientRecordVersion: 1,
+                  deviceType: DeviceTypeDto.phone,
+                ),
+                speed: VelocityDto(
+                  value: 6.5,
+                  unit: VelocityUnitDto.metersPerSecond,
+                ),
+                activityType: SpeedActivityTypeDto.running,
+              );
+
+              // When
+              final record = dto.toDomain();
+
+              // Then
+              expect(record.speed.inMetersPerSecond, 6.5);
+              expect(
+                record.metadata.recordingMethod,
+                RecordingMethod.manualEntry,
+              );
+            },
+          );
+        },
+      );
+    },
+  );
+}

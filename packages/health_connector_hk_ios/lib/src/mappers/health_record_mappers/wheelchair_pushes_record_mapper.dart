@@ -17,7 +17,6 @@ extension WheelchairPushesRecordToDto on WheelchairPushesRecord {
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
       zoneOffsetSeconds: startZoneOffsetSeconds,
-
       metadata: metadata.toDto(),
       pushes: pushes.toDto(),
     );

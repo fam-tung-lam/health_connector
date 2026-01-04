@@ -17,7 +17,6 @@ extension FloorsClimbedRecordToDto on FloorsClimbedRecord {
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
       zoneOffsetSeconds: startZoneOffsetSeconds,
-
       metadata: metadata.toDto(),
       floors: floors.toDto(),
     );
