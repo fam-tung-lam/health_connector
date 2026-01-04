@@ -29,7 +29,8 @@ void main() {
                     id: 'steps-1',
                     startTime: DateTime(2025, 1, 1, 10).millisecondsSinceEpoch,
                     endTime: DateTime(2025, 1, 1, 11).millisecondsSinceEpoch,
-                    zoneOffsetSeconds: 0,
+                    startZoneOffsetSeconds: 0,
+                    endZoneOffsetSeconds: 0,
                     metadata: MetadataDto(
                       dataOrigin: FakeData.fakeDataOrigin,
                       recordingMethod: RecordingMethodDto.activelyRecorded,
@@ -42,7 +43,8 @@ void main() {
                     id: 'steps-2',
                     startTime: DateTime(2025, 1, 2, 10).millisecondsSinceEpoch,
                     endTime: DateTime(2025, 1, 2, 11).millisecondsSinceEpoch,
-                    zoneOffsetSeconds: 0,
+                    startZoneOffsetSeconds: 0,
+                    endZoneOffsetSeconds: 0,
                     metadata: MetadataDto(
                       dataOrigin: FakeData.fakeDataOrigin,
                       recordingMethod: RecordingMethodDto.activelyRecorded,

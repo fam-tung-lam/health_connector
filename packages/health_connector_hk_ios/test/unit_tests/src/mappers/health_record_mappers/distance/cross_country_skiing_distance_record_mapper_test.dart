@@ -21,8 +21,10 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                startZoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
-                endZoneOffsetSeconds: FakeData.fakeEndTimeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -45,6 +47,14 @@ void main() {
                 dto.endTime,
                 FakeData.fakeEndTime.millisecondsSinceEpoch,
               );
+              expect(
+                dto.startZoneOffsetSeconds,
+                FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+              );
+              expect(
+                dto.endZoneOffsetSeconds,
+                FakeData.fakeEndTime.timeZoneOffset.inSeconds,
+              );
               expect(dto.distance.meters, 8000.0);
               expect(
                 dto.activityType,
@@ -63,8 +73,10 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                startZoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
-                endZoneOffsetSeconds: FakeData.fakeEndTimeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
@@ -100,7 +112,10 @@ void main() {
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.activelyRecorded,
@@ -135,7 +150,8 @@ void main() {
               final dto = DistanceActivityRecordDto(
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: 0,
+                startZoneOffsetSeconds: 0,
+                endZoneOffsetSeconds: 0,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,
@@ -163,7 +179,8 @@ void main() {
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: 0,
+                startZoneOffsetSeconds: 0,
+                endZoneOffsetSeconds: 0,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,

@@ -21,7 +21,7 @@ void main() {
               final record = StairDescentSpeedRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: time,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -37,7 +37,10 @@ void main() {
               // Then
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, time.millisecondsSinceEpoch);
-              expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(
+                dto.zoneOffsetSeconds,
+                FakeData.fakeTime.timeZoneOffset.inSeconds,
+              );
               expect(dto.speed.metersPerSecond, 1.0);
 
               expect(dto.activityType, SpeedActivityTypeDto.stairDescent);
@@ -60,7 +63,7 @@ void main() {
               final record = StairDescentSpeedRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: time,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
@@ -98,7 +101,7 @@ void main() {
               final dto = SpeedActivityRecordDto(
                 id: FakeData.fakeId,
                 time: time.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.activelyRecorded,
@@ -116,7 +119,10 @@ void main() {
               expect(record, isA<StairDescentSpeedRecord>());
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, time);
-              expect(record.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(
+                record.zoneOffsetSeconds,
+                FakeData.fakeTime.timeZoneOffset.inSeconds,
+              );
               expect(record.speed.inMetersPerSecond, 0.9);
               expect(
                 record.metadata.dataOrigin.packageName,
@@ -140,7 +146,7 @@ void main() {
 
               final dto = SpeedActivityRecordDto(
                 time: time.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,
@@ -169,7 +175,7 @@ void main() {
               final dto = SpeedActivityRecordDto(
                 id: FakeData.fakeId,
                 time: time.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,

@@ -19,8 +19,10 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                startZoneOffsetSeconds: 3_600,
-                endZoneOffsetSeconds: 3_600,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -38,7 +40,14 @@ void main() {
                 FakeData.fakeStartTime.millisecondsSinceEpoch,
               );
               expect(dto.endTime, FakeData.fakeEndTime.millisecondsSinceEpoch);
-              expect(dto.zoneOffsetSeconds, 3_600);
+              expect(
+                dto.startZoneOffsetSeconds,
+                FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+              );
+              expect(
+                dto.endZoneOffsetSeconds,
+                FakeData.fakeEndTime.timeZoneOffset.inSeconds,
+              );
               expect(dto.count.value, 12000);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
@@ -56,7 +65,8 @@ void main() {
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: 0,
+                startZoneOffsetSeconds: 0,
+                endZoneOffsetSeconds: 0,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,
@@ -85,7 +95,8 @@ void main() {
               final dto = StepsRecordDto(
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: 0,
+                startZoneOffsetSeconds: 0,
+                endZoneOffsetSeconds: 0,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.activelyRecorded,

@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HeartRateSeriesRecord, HealthRecordId, sinceV1_0_0;
+    show HeartRateSeriesRecord, HealthRecordId, sinceV1_0_0, DateTimeToDto;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/heart_rate/heart_rate_measurement_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -16,8 +16,12 @@ extension HeartRateSeriesRecordToDto on HeartRateSeriesRecord {
       id: id.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
-      startZoneOffsetSeconds: startZoneOffsetSeconds,
-      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      startZoneOffsetSeconds: startTime.resolveZoneOffsetSeconds(
+        startZoneOffsetSeconds,
+      ),
+      endZoneOffsetSeconds: endTime.resolveZoneOffsetSeconds(
+        endZoneOffsetSeconds,
+      ),
       metadata: metadata.toDto(),
       samples: samples.map((s) => s.toDto()).toList(),
     );

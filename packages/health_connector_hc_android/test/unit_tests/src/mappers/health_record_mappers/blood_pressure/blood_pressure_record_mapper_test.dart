@@ -19,7 +19,7 @@ void main() {
               final record = BloodPressureRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: FakeData.fakeTime,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -39,7 +39,10 @@ void main() {
               // Then
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
-              expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(
+                dto.zoneOffsetSeconds,
+                FakeData.fakeTime.timeZoneOffset.inSeconds,
+              );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(dto.systolic.millimetersOfMercury, 120);
               expect(dto.diastolic.millimetersOfMercury, 80);
@@ -63,7 +66,7 @@ void main() {
               final dto = BloodPressureRecordDto(
                 id: FakeData.fakeId,
                 time: FakeData.fakeLocalTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,
@@ -82,7 +85,10 @@ void main() {
               // Then
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, FakeData.fakeTime);
-              expect(record.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(
+                record.zoneOffsetSeconds,
+                FakeData.fakeTime.timeZoneOffset.inSeconds,
+              );
               expect(
                 record.metadata.dataOrigin.packageName,
                 FakeData.fakeDataOrigin,

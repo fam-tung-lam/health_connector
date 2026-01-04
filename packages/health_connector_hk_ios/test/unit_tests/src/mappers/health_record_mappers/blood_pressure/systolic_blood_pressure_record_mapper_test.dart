@@ -21,7 +21,7 @@ void main() {
               final record = SystolicBloodPressureRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: time,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
@@ -37,7 +37,10 @@ void main() {
 
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, time.millisecondsSinceEpoch);
-              expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(
+                dto.zoneOffsetSeconds,
+                FakeData.fakeTime.timeZoneOffset.inSeconds,
+              );
               expect(dto.pressure.millimetersOfMercury, 120.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
@@ -57,7 +60,7 @@ void main() {
               final dto = SystolicBloodPressureRecordDto(
                 id: FakeData.fakeId,
                 time: time.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.activelyRecorded,
@@ -89,7 +92,7 @@ void main() {
 
               final dto = SystolicBloodPressureRecordDto(
                 time: time.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,

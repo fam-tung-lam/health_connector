@@ -21,8 +21,10 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                startZoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
-                endZoneOffsetSeconds: FakeData.fakeEndTimeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
@@ -64,8 +66,10 @@ void main() {
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeLocalStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeLocalEndTime.millisecondsSinceEpoch,
-                startZoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
-                endZoneOffsetSeconds: FakeData.fakeEndTimeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 healthDataType: HealthDataTypeDto.nutrition,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,

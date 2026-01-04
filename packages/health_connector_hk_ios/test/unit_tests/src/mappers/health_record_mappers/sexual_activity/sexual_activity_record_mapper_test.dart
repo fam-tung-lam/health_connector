@@ -20,7 +20,7 @@ void main() {
               final record = SexualActivityRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: time,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
@@ -34,7 +34,10 @@ void main() {
 
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, time.millisecondsSinceEpoch);
-              expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(
+                dto.zoneOffsetSeconds,
+                FakeData.fakeTime.timeZoneOffset.inSeconds,
+              );
               expect(
                 dto.protectionUsed,
                 SexualActivityProtectionUsedTypeDto.protected,
@@ -56,7 +59,7 @@ void main() {
               final dto = SexualActivityRecordDto(
                 id: FakeData.fakeId,
                 time: time.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,
@@ -89,7 +92,7 @@ void main() {
 
               final dto = SexualActivityRecordDto(
                 time: time.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,

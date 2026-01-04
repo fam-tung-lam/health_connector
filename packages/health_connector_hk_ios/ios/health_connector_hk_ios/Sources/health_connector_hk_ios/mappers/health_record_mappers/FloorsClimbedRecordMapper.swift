@@ -10,10 +10,11 @@ extension FloorsClimbedRecordDto {
         let startDate = Date(millisecondsSince1970: startTime)
         let endDate = Date(millisecondsSince1970: endTime)
 
-        // Create builder with timezone offset
+        // Create builder with timezone offsets
         var builder = try MetadataBuilder(
             from: metadata,
-            startTimeZoneOffset: zoneOffsetSeconds
+            startTimeZoneOffset: startZoneOffsetSeconds,
+            endTimeZoneOffset: endZoneOffsetSeconds
         )
 
         return HKQuantitySample(
@@ -50,8 +51,9 @@ extension HKQuantitySample {
             device: device
         )
 
-        // Extract timezone offset from metadata
-        let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+        // Extract timezone offsets from metadata
+        let startZoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
+        let endZoneOffset = EndTimeZoneOffsetKey.read(from: builder.metadataDict)
 
         return try FloorsClimbedRecordDto(
             floors: NumberDto(value: floorsClimbed),
@@ -59,7 +61,8 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
             startTime: startDate.millisecondsSince1970,
-            zoneOffsetSeconds: zoneOffset
+            startZoneOffsetSeconds: startZoneOffset,
+            endZoneOffsetSeconds: endZoneOffset
         )
     }
 }

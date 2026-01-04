@@ -70,7 +70,8 @@ void main() {
           count: NumberDto(value: 100),
           startTime: 0,
           endTime: 1000,
-          zoneOffsetSeconds: 0,
+          startZoneOffsetSeconds: 0,
+          endZoneOffsetSeconds: 0,
           metadata: MetadataDto(
             dataOrigin: FakeData.fakeDataOrigin,
             recordingMethod: RecordingMethodDto.manualEntry,
@@ -404,7 +405,8 @@ void main() {
                       count: NumberDto(value: 100),
                       startTime: 0,
                       endTime: 1000,
-                      zoneOffsetSeconds: 0,
+                      startZoneOffsetSeconds: 0,
+                      endZoneOffsetSeconds: 0,
                       metadata: MetadataDto(
                         clientRecordId: 'test-id',
                         dataOrigin: FakeData.fakeDataOrigin,
@@ -478,7 +480,8 @@ void main() {
                           count: NumberDto(value: 100),
                           startTime: 0,
                           endTime: 1000,
-                          zoneOffsetSeconds: 0,
+                          startZoneOffsetSeconds: 0,
+                          endZoneOffsetSeconds: 0,
                           metadata: MetadataDto(
                             clientRecordId: 'test-id',
                             dataOrigin: FakeData.fakeDataOrigin,

@@ -21,8 +21,10 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                startZoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
-                endZoneOffsetSeconds: FakeData.fakeEndTimeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -51,8 +53,10 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                startZoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
-                endZoneOffsetSeconds: FakeData.fakeEndTimeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -82,7 +86,7 @@ void main() {
               final HealthRecord record = WeightRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: time,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
@@ -112,7 +116,7 @@ void main() {
               final HealthRecord record = BloodPressureRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: time,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
@@ -143,8 +147,10 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                startZoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
-                endZoneOffsetSeconds: FakeData.fakeEndTimeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -176,8 +182,10 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                startZoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
-                endZoneOffsetSeconds: FakeData.fakeEndTimeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -209,8 +217,10 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                startZoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
-                endZoneOffsetSeconds: FakeData.fakeEndTimeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -248,7 +258,10 @@ void main() {
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.activelyRecorded,
@@ -277,7 +290,10 @@ void main() {
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.activelyRecorded,
@@ -307,7 +323,7 @@ void main() {
               final HealthRecordDto dto = WeightRecordDto(
                 id: FakeData.fakeId,
                 time: time.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,
@@ -365,7 +381,7 @@ void main() {
               final HealthRecordDto dto = SpeedActivityRecordDto(
                 id: FakeData.fakeId,
                 time: time.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.activelyRecorded,

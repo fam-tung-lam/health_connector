@@ -19,8 +19,10 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                startZoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
-                endZoneOffsetSeconds: FakeData.fakeEndTimeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -39,8 +41,12 @@ void main() {
               );
               expect(dto.endTime, FakeData.fakeEndTime.millisecondsSinceEpoch);
               expect(
-                dto.zoneOffsetSeconds,
-                FakeData.fakeStartTimeZoneOffsetSeconds,
+                dto.startZoneOffsetSeconds,
+                FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+              );
+              expect(
+                dto.endZoneOffsetSeconds,
+                FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
               expect(dto.pushes.value, 42.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
@@ -59,7 +65,8 @@ void main() {
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: 0,
+                startZoneOffsetSeconds: 0,
+                endZoneOffsetSeconds: 0,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.activelyRecorded,
@@ -89,7 +96,8 @@ void main() {
               final dto = WheelchairPushesRecordDto(
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: 0,
+                startZoneOffsetSeconds: 0,
+                endZoneOffsetSeconds: 0,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,

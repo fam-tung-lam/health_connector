@@ -2209,7 +2209,8 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
     this.id,
     required this.metadata,
     required this.startTime,
-    this.zoneOffsetSeconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
   });
 
   /// Energy (calories) burned during the interval.
@@ -2227,8 +2228,11 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   int startTime;
 
-  /// Timezone offset in seconds (optional).
-  int? zoneOffsetSeconds;
+  /// Timezone offset in seconds for start time (optional).
+  int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  int? endZoneOffsetSeconds;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -2237,7 +2241,8 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
       id,
       metadata,
       startTime,
-      zoneOffsetSeconds,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
     ];
   }
 
@@ -2253,7 +2258,8 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
       id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
       startTime: result[4]! as int,
-      zoneOffsetSeconds: result[5] as int?,
+      startZoneOffsetSeconds: result[5] as int?,
+      endZoneOffsetSeconds: result[6] as int?,
     );
   }
 
@@ -2284,7 +2290,8 @@ class DistanceActivityRecordDto extends HealthRecordDto {
     this.id,
     required this.metadata,
     required this.startTime,
-    this.zoneOffsetSeconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
   });
 
   /// Distance traveled during the interval.
@@ -2305,8 +2312,11 @@ class DistanceActivityRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   int startTime;
 
-  /// Timezone offset in seconds (optional).
-  int? zoneOffsetSeconds;
+  /// Timezone offset in seconds for start time (optional).
+  int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  int? endZoneOffsetSeconds;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -2316,7 +2326,8 @@ class DistanceActivityRecordDto extends HealthRecordDto {
       id,
       metadata,
       startTime,
-      zoneOffsetSeconds,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
     ];
   }
 
@@ -2333,7 +2344,8 @@ class DistanceActivityRecordDto extends HealthRecordDto {
       id: result[3] as String?,
       metadata: result[4]! as MetadataDto,
       startTime: result[5]! as int,
-      zoneOffsetSeconds: result[6] as int?,
+      startZoneOffsetSeconds: result[6] as int?,
+      endZoneOffsetSeconds: result[7] as int?,
     );
   }
 
@@ -2439,7 +2451,8 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
     this.id,
     required this.metadata,
     required this.startTime,
-    this.zoneOffsetSeconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
   });
 
   /// Number of floors (flights of stairs) climbed during the interval.
@@ -2457,8 +2470,11 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   int startTime;
 
-  /// Timezone offset in seconds (optional).
-  int? zoneOffsetSeconds;
+  /// Timezone offset in seconds for start time (optional).
+  int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  int? endZoneOffsetSeconds;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -2467,7 +2483,8 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
       id,
       metadata,
       startTime,
-      zoneOffsetSeconds,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
     ];
   }
 
@@ -2483,7 +2500,8 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
       id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
       startTime: result[4]! as int,
-      zoneOffsetSeconds: result[5] as int?,
+      startZoneOffsetSeconds: result[5] as int?,
+      endZoneOffsetSeconds: result[6] as int?,
     );
   }
 
@@ -2512,7 +2530,8 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
     this.id,
     required this.metadata,
     required this.startTime,
-    this.zoneOffsetSeconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
   });
 
   /// Number of wheelchair pushes performed during the interval.
@@ -2530,8 +2549,11 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   int startTime;
 
-  /// Timezone offset in seconds (optional).
-  int? zoneOffsetSeconds;
+  /// Timezone offset in seconds for start time (optional).
+  int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  int? endZoneOffsetSeconds;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -2540,7 +2562,8 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
       id,
       metadata,
       startTime,
-      zoneOffsetSeconds,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
     ];
   }
 
@@ -2556,7 +2579,8 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
       id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
       startTime: result[4]! as int,
-      zoneOffsetSeconds: result[5] as int?,
+      startZoneOffsetSeconds: result[5] as int?,
+      endZoneOffsetSeconds: result[6] as int?,
     );
   }
 
@@ -2586,7 +2610,8 @@ class StepsRecordDto extends HealthRecordDto {
     this.id,
     required this.metadata,
     required this.startTime,
-    this.zoneOffsetSeconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
   });
 
   /// Number of steps taken during the interval (must be >= 0).
@@ -2604,8 +2629,11 @@ class StepsRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   int startTime;
 
-  /// Timezone offset in seconds (optional).
-  int? zoneOffsetSeconds;
+  /// Timezone offset in seconds for start time (optional).
+  int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  int? endZoneOffsetSeconds;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -2614,7 +2642,8 @@ class StepsRecordDto extends HealthRecordDto {
       id,
       metadata,
       startTime,
-      zoneOffsetSeconds,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
     ];
   }
 
@@ -2630,7 +2659,8 @@ class StepsRecordDto extends HealthRecordDto {
       id: result[2] as String?,
       metadata: result[3]! as MetadataDto,
       startTime: result[4]! as int,
-      zoneOffsetSeconds: result[5] as int?,
+      startZoneOffsetSeconds: result[5] as int?,
+      endZoneOffsetSeconds: result[6] as int?,
     );
   }
 
@@ -3831,7 +3861,8 @@ class HydrationRecordDto extends HealthRecordDto {
     required this.endTime,
     required this.metadata,
     required this.volume,
-    this.zoneOffsetSeconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
   });
 
   /// Platform-assigned unique identifier.
@@ -3849,8 +3880,11 @@ class HydrationRecordDto extends HealthRecordDto {
   /// Volume of water consumed during the interval.
   VolumeDto volume;
 
-  /// Timezone offset in seconds (optional).
-  int? zoneOffsetSeconds;
+  /// Timezone offset in seconds for start time (optional).
+  int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  int? endZoneOffsetSeconds;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -3859,7 +3893,8 @@ class HydrationRecordDto extends HealthRecordDto {
       endTime,
       metadata,
       volume,
-      zoneOffsetSeconds,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
     ];
   }
 
@@ -3875,7 +3910,8 @@ class HydrationRecordDto extends HealthRecordDto {
       endTime: result[2]! as int,
       metadata: result[3]! as MetadataDto,
       volume: result[4]! as VolumeDto,
-      zoneOffsetSeconds: result[5] as int?,
+      startZoneOffsetSeconds: result[5] as int?,
+      endZoneOffsetSeconds: result[6] as int?,
     );
   }
 

@@ -13,7 +13,7 @@ void main() {
       () {
         final record = CholesterolNutrientRecord(
           time: FakeData.fakeTime,
-          zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+          zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
           metadata: const Metadata(
             dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
             recordingMethod: RecordingMethod.manualEntry,
@@ -28,7 +28,10 @@ void main() {
         final dto = record.toDto();
 
         expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
-        expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+        expect(
+          dto.zoneOffsetSeconds,
+          FakeData.fakeTime.timeZoneOffset.inSeconds,
+        );
         expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
         expect(dto.value.kilograms, closeTo(0.01, 0.0001));
 
@@ -43,7 +46,7 @@ void main() {
       () {
         final dto = CholesterolNutrientRecordDto(
           time: FakeData.fakeTime.millisecondsSinceEpoch,
-          zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+          zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
           metadata: MetadataDto(
             dataOrigin: FakeData.fakeDataOrigin,
             recordingMethod: RecordingMethodDto.manualEntry,
@@ -58,7 +61,10 @@ void main() {
         final record = dto.toDomain();
 
         expect(record.time, FakeData.fakeTime);
-        expect(record.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+        expect(
+          record.zoneOffsetSeconds,
+          FakeData.fakeTime.timeZoneOffset.inSeconds,
+        );
         expect(record.metadata.dataOrigin.packageName, FakeData.fakeDataOrigin);
         expect(record.value.inKilograms, closeTo(10.0, 0.0001));
         expect(record.foodName, 'Test Food');

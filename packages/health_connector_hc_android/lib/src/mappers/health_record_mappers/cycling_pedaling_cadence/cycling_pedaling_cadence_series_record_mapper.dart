@@ -1,5 +1,9 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show CyclingPedalingCadenceSeriesRecord, HealthRecordId, sinceV2_2_0;
+    show
+        CyclingPedalingCadenceSeriesRecord,
+        HealthRecordId,
+        sinceV2_2_0,
+        DateTimeToDto;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cycling_pedaling_cadence/cycling_pedaling_cadence_measurement_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -18,8 +22,12 @@ extension CyclingPedalingCadenceSeriesRecordToDto
       id: id.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
-      startZoneOffsetSeconds: startZoneOffsetSeconds,
-      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      startZoneOffsetSeconds: startTime.resolveZoneOffsetSeconds(
+        startZoneOffsetSeconds,
+      ),
+      endZoneOffsetSeconds: endTime.resolveZoneOffsetSeconds(
+        endZoneOffsetSeconds,
+      ),
       metadata: metadata.toDto(),
       samples: samples.map((s) => s.toDto()).toList(),
     );

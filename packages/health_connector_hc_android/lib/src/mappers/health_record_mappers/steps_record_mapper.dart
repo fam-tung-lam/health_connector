@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show StepsRecord, HealthRecordId, sinceV1_0_0;
+    show StepsRecord, HealthRecordId, sinceV1_0_0, DateTimeToDto;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -16,8 +16,12 @@ extension StepsRecordToDto on StepsRecord {
       id: id.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
-      startZoneOffsetSeconds: startZoneOffsetSeconds,
-      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      startZoneOffsetSeconds: startTime.resolveZoneOffsetSeconds(
+        startZoneOffsetSeconds,
+      ),
+      endZoneOffsetSeconds: endTime.resolveZoneOffsetSeconds(
+        endZoneOffsetSeconds,
+      ),
       metadata: metadata.toDto(),
       count: count.toDto(),
     );

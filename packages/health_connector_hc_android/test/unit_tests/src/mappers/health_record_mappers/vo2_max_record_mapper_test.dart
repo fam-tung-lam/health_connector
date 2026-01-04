@@ -18,7 +18,7 @@ void main() {
             () {
               final record = Vo2MaxRecord(
                 time: FakeData.fakeTime,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: Metadata.manualEntry(
                   dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                 ),
@@ -30,7 +30,10 @@ void main() {
 
               expect(dto.id, isNull);
               expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
-              expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(
+                dto.zoneOffsetSeconds,
+                FakeData.fakeTime.timeZoneOffset.inSeconds,
+              );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(dto.mLPerKgPerMin.value, 45.5);
               expect(
@@ -50,7 +53,7 @@ void main() {
             () {
               final dto = Vo2MaxRecordDto(
                 time: FakeData.fakeLocalTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   lastModifiedTime: FakeData.fakeTime.millisecondsSinceEpoch,

@@ -48,5 +48,6 @@ export 'src/models/requests/read_records_request.dart' hide ReadRecordsRequest;
 export 'src/models/responses/permission_request_result.dart';
 export 'src/models/responses/read_records_response.dart'
     hide ReadRecordsResponse;
+export 'src/utils/date_time_utils.dart';
 export 'src/utils/permission_extension.dart';
 export 'src/utils/validation_utils.dart';

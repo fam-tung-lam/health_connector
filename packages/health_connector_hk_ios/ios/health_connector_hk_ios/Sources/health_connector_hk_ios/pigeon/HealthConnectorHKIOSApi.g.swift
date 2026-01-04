@@ -1738,8 +1738,10 @@ public struct ActiveCaloriesBurnedRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds (optional).
-  var zoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for start time (optional).
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time (optional).
+  var endZoneOffsetSeconds: Int64? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -1749,7 +1751,8 @@ public struct ActiveCaloriesBurnedRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[2])
     let metadata = pigeonVar_list[3] as! MetadataDto
     let startTime = pigeonVar_list[4] as! Int64
-    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
     return ActiveCaloriesBurnedRecordDto(
       energy: energy,
@@ -1757,7 +1760,8 @@ public struct ActiveCaloriesBurnedRecordDto: HealthRecordDto {
       id: id,
       metadata: metadata,
       startTime: startTime,
-      zoneOffsetSeconds: zoneOffsetSeconds
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
     )
   }
   func toList() -> [Any?] {
@@ -1767,7 +1771,8 @@ public struct ActiveCaloriesBurnedRecordDto: HealthRecordDto {
       id,
       metadata,
       startTime,
-      zoneOffsetSeconds,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
     ]
   }
   public static func == (lhs: ActiveCaloriesBurnedRecordDto, rhs: ActiveCaloriesBurnedRecordDto) -> Bool {
@@ -1793,8 +1798,10 @@ public struct DistanceActivityRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds (optional).
-  var zoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for start time (optional).
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time (optional).
+  var endZoneOffsetSeconds: Int64? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -1805,7 +1812,8 @@ public struct DistanceActivityRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[3])
     let metadata = pigeonVar_list[4] as! MetadataDto
     let startTime = pigeonVar_list[5] as! Int64
-    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[7])
 
     return DistanceActivityRecordDto(
       distance: distance,
@@ -1814,7 +1822,8 @@ public struct DistanceActivityRecordDto: HealthRecordDto {
       id: id,
       metadata: metadata,
       startTime: startTime,
-      zoneOffsetSeconds: zoneOffsetSeconds
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
     )
   }
   func toList() -> [Any?] {
@@ -1825,7 +1834,8 @@ public struct DistanceActivityRecordDto: HealthRecordDto {
       id,
       metadata,
       startTime,
-      zoneOffsetSeconds,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
     ]
   }
   public static func == (lhs: DistanceActivityRecordDto, rhs: DistanceActivityRecordDto) -> Bool {
@@ -1905,8 +1915,10 @@ public struct FloorsClimbedRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds (optional).
-  var zoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for start time (optional).
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time (optional).
+  var endZoneOffsetSeconds: Int64? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -1916,7 +1928,8 @@ public struct FloorsClimbedRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[2])
     let metadata = pigeonVar_list[3] as! MetadataDto
     let startTime = pigeonVar_list[4] as! Int64
-    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
     return FloorsClimbedRecordDto(
       floors: floors,
@@ -1924,7 +1937,8 @@ public struct FloorsClimbedRecordDto: HealthRecordDto {
       id: id,
       metadata: metadata,
       startTime: startTime,
-      zoneOffsetSeconds: zoneOffsetSeconds
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
     )
   }
   func toList() -> [Any?] {
@@ -1934,7 +1948,8 @@ public struct FloorsClimbedRecordDto: HealthRecordDto {
       id,
       metadata,
       startTime,
-      zoneOffsetSeconds,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
     ]
   }
   public static func == (lhs: FloorsClimbedRecordDto, rhs: FloorsClimbedRecordDto) -> Bool {
@@ -1958,8 +1973,10 @@ public struct WheelchairPushesRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds (optional).
-  var zoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for start time (optional).
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time (optional).
+  var endZoneOffsetSeconds: Int64? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -1969,7 +1986,8 @@ public struct WheelchairPushesRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[2])
     let metadata = pigeonVar_list[3] as! MetadataDto
     let startTime = pigeonVar_list[4] as! Int64
-    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
     return WheelchairPushesRecordDto(
       pushes: pushes,
@@ -1977,7 +1995,8 @@ public struct WheelchairPushesRecordDto: HealthRecordDto {
       id: id,
       metadata: metadata,
       startTime: startTime,
-      zoneOffsetSeconds: zoneOffsetSeconds
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
     )
   }
   func toList() -> [Any?] {
@@ -1987,7 +2006,8 @@ public struct WheelchairPushesRecordDto: HealthRecordDto {
       id,
       metadata,
       startTime,
-      zoneOffsetSeconds,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
     ]
   }
   public static func == (lhs: WheelchairPushesRecordDto, rhs: WheelchairPushesRecordDto) -> Bool {
@@ -2011,8 +2031,10 @@ public struct StepsRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Start time in milliseconds since epoch (UTC).
   var startTime: Int64
-  /// Timezone offset in seconds (optional).
-  var zoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for start time (optional).
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time (optional).
+  var endZoneOffsetSeconds: Int64? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -2022,7 +2044,8 @@ public struct StepsRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[2])
     let metadata = pigeonVar_list[3] as! MetadataDto
     let startTime = pigeonVar_list[4] as! Int64
-    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
     return StepsRecordDto(
       count: count,
@@ -2030,7 +2053,8 @@ public struct StepsRecordDto: HealthRecordDto {
       id: id,
       metadata: metadata,
       startTime: startTime,
-      zoneOffsetSeconds: zoneOffsetSeconds
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
     )
   }
   func toList() -> [Any?] {
@@ -2040,7 +2064,8 @@ public struct StepsRecordDto: HealthRecordDto {
       id,
       metadata,
       startTime,
-      zoneOffsetSeconds,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
     ]
   }
   public static func == (lhs: StepsRecordDto, rhs: StepsRecordDto) -> Bool {
@@ -2912,8 +2937,10 @@ public struct HydrationRecordDto: HealthRecordDto {
   var metadata: MetadataDto
   /// Volume of water consumed during the interval.
   var volume: VolumeDto
-  /// Timezone offset in seconds (optional).
-  var zoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for start time (optional).
+  var startZoneOffsetSeconds: Int64? = nil
+  /// Timezone offset in seconds for end time (optional).
+  var endZoneOffsetSeconds: Int64? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -2923,7 +2950,8 @@ public struct HydrationRecordDto: HealthRecordDto {
     let endTime = pigeonVar_list[2] as! Int64
     let metadata = pigeonVar_list[3] as! MetadataDto
     let volume = pigeonVar_list[4] as! VolumeDto
-    let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
+    let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
     return HydrationRecordDto(
       id: id,
@@ -2931,7 +2959,8 @@ public struct HydrationRecordDto: HealthRecordDto {
       endTime: endTime,
       metadata: metadata,
       volume: volume,
-      zoneOffsetSeconds: zoneOffsetSeconds
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds
     )
   }
   func toList() -> [Any?] {
@@ -2941,7 +2970,8 @@ public struct HydrationRecordDto: HealthRecordDto {
       endTime,
       metadata,
       volume,
-      zoneOffsetSeconds,
+      startZoneOffsetSeconds,
+      endZoneOffsetSeconds,
     ]
   }
   public static func == (lhs: HydrationRecordDto, rhs: HydrationRecordDto) -> Bool {

@@ -21,8 +21,10 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                startZoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
-                endZoneOffsetSeconds: FakeData.fakeEndTimeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -44,11 +46,11 @@ void main() {
               expect(dto.endTime, FakeData.fakeEndTime.millisecondsSinceEpoch);
               expect(
                 dto.startZoneOffsetSeconds,
-                FakeData.fakeStartTimeZoneOffsetSeconds,
+                FakeData.fakeStartTime.timeZoneOffset.inSeconds,
               );
               expect(
                 dto.endZoneOffsetSeconds,
-                FakeData.fakeEndTimeZoneOffsetSeconds,
+                FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(
@@ -73,8 +75,10 @@ void main() {
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeLocalStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeLocalEndTime.millisecondsSinceEpoch,
-                startZoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
-                endZoneOffsetSeconds: FakeData.fakeEndTimeZoneOffsetSeconds,
+                startZoneOffsetSeconds:
+                    FakeData.fakeStartTime.timeZoneOffset.inSeconds,
+                endZoneOffsetSeconds:
+                    FakeData.fakeEndTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,
@@ -93,11 +97,11 @@ void main() {
               expect(record.endTime, FakeData.fakeEndTime);
               expect(
                 record.startZoneOffsetSeconds,
-                FakeData.fakeStartTimeZoneOffsetSeconds,
+                FakeData.fakeStartTime.timeZoneOffset.inSeconds,
               );
               expect(
                 record.endZoneOffsetSeconds,
-                FakeData.fakeEndTimeZoneOffsetSeconds,
+                FakeData.fakeEndTime.timeZoneOffset.inSeconds,
               );
               expect(
                 record.metadata.dataOrigin.packageName,

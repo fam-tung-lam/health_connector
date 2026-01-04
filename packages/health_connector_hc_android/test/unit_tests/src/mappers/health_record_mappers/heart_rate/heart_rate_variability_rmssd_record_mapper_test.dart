@@ -19,7 +19,7 @@ void main() {
               final record = HeartRateVariabilityRMSSDRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: FakeData.fakeTime,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -33,7 +33,10 @@ void main() {
 
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
-              expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(
+                dto.zoneOffsetSeconds,
+                FakeData.fakeTime.timeZoneOffset.inSeconds,
+              );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(dto.heartRateVariabilityMillis, 45.0);
             },
@@ -51,7 +54,7 @@ void main() {
               final dto = HeartRateVariabilityRMSSDRecordDto(
                 id: FakeData.fakeId,
                 time: FakeData.fakeLocalTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,
@@ -65,7 +68,10 @@ void main() {
 
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, FakeData.fakeTime);
-              expect(record.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(
+                record.zoneOffsetSeconds,
+                FakeData.fakeTime.timeZoneOffset.inSeconds,
+              );
               expect(
                 record.metadata.dataOrigin.packageName,
                 FakeData.fakeDataOrigin,

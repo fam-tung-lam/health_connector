@@ -1276,7 +1276,8 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
     required this.endTime,
     required this.metadata,
     required this.energy,
-    this.zoneOffsetSeconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
   });
 
   /// Energy (calories) burned during the interval.
@@ -1294,8 +1295,11 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds (optional).
-  final int? zoneOffsetSeconds;
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a distance activity record for platform transfer.
@@ -1307,7 +1311,8 @@ class DistanceActivityRecordDto extends HealthRecordDto {
     required this.metadata,
     required this.distance,
     required this.activityType,
-    this.zoneOffsetSeconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
   });
 
   /// Distance traveled during the interval.
@@ -1328,8 +1333,11 @@ class DistanceActivityRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds (optional).
-  final int? zoneOffsetSeconds;
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a speed activity record for platform transfer.
@@ -1373,7 +1381,8 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
     required this.endTime,
     required this.metadata,
     required this.floors,
-    this.zoneOffsetSeconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
   });
 
   /// Number of floors (flights of stairs) climbed during the interval.
@@ -1391,8 +1400,11 @@ class FloorsClimbedRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds (optional).
-  final int? zoneOffsetSeconds;
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a wheelchair pushes record for platform transfer.
@@ -1403,7 +1415,8 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
     required this.endTime,
     required this.metadata,
     required this.pushes,
-    this.zoneOffsetSeconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
   });
 
   /// Number of wheelchair pushes performed during the interval.
@@ -1421,8 +1434,11 @@ class WheelchairPushesRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds (optional).
-  final int? zoneOffsetSeconds;
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a step count record for platform transfer.
@@ -1433,7 +1449,8 @@ class StepsRecordDto extends HealthRecordDto {
     required this.endTime,
     required this.metadata,
     required this.count,
-    this.zoneOffsetSeconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
   });
 
   /// Number of steps taken during the interval (must be >= 0).
@@ -1451,8 +1468,11 @@ class StepsRecordDto extends HealthRecordDto {
   /// Start time in milliseconds since epoch (UTC).
   final int startTime;
 
-  /// Timezone offset in seconds (optional).
-  final int? zoneOffsetSeconds;
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a weight record for platform transfer.
@@ -1948,7 +1968,8 @@ class HydrationRecordDto extends HealthRecordDto {
     required this.endTime,
     required this.metadata,
     required this.volume,
-    this.zoneOffsetSeconds,
+    this.startZoneOffsetSeconds,
+    this.endZoneOffsetSeconds,
   });
 
   /// Platform-assigned unique identifier.
@@ -1966,8 +1987,11 @@ class HydrationRecordDto extends HealthRecordDto {
   /// Volume of water consumed during the interval.
   final VolumeDto volume;
 
-  /// Timezone offset in seconds (optional).
-  final int? zoneOffsetSeconds;
+  /// Timezone offset in seconds for start time (optional).
+  final int? startZoneOffsetSeconds;
+
+  /// Timezone offset in seconds for end time (optional).
+  final int? endZoneOffsetSeconds;
 }
 
 /// Represents a single heart rate measurement for platform transfer.

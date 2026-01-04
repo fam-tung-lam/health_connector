@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show ActiveCaloriesBurnedRecord, HealthRecordId, sinceV1_0_0;
+    show ActiveCaloriesBurnedRecord, HealthRecordId, sinceV1_0_0, DateTimeToDto;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/energy_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
@@ -16,7 +16,12 @@ extension ActiveCaloriesBurnedRecordToDto on ActiveCaloriesBurnedRecord {
       id: id.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
-      zoneOffsetSeconds: startZoneOffsetSeconds ?? endZoneOffsetSeconds,
+      startZoneOffsetSeconds: startTime.resolveZoneOffsetSeconds(
+        startZoneOffsetSeconds,
+      ),
+      endZoneOffsetSeconds: endTime.resolveZoneOffsetSeconds(
+        endZoneOffsetSeconds,
+      ),
       metadata: metadata.toDto(),
       energy: energy.toDto(),
     );
@@ -33,8 +38,8 @@ extension ActiveCaloriesBurnedRecordDtoToDomain
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),
-      startZoneOffsetSeconds: zoneOffsetSeconds,
-      endZoneOffsetSeconds: zoneOffsetSeconds,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
       energy: energy.toDomain(),
     );

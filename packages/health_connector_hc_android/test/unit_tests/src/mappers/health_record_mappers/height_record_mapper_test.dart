@@ -18,7 +18,7 @@ void main() {
               final record = HeightRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: FakeData.fakeTime,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
@@ -32,7 +32,10 @@ void main() {
 
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
-              expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(
+                dto.zoneOffsetSeconds,
+                FakeData.fakeTime.timeZoneOffset.inSeconds,
+              );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(dto.height.meters, 1.75);
@@ -50,7 +53,7 @@ void main() {
               final dto = HeightRecordDto(
                 id: FakeData.fakeId,
                 time: FakeData.fakeLocalTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.activelyRecorded,
@@ -64,7 +67,10 @@ void main() {
 
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, FakeData.fakeTime);
-              expect(record.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(
+                record.zoneOffsetSeconds,
+                FakeData.fakeTime.timeZoneOffset.inSeconds,
+              );
               expect(record.height.inMeters, 1.80);
             },
           );

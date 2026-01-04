@@ -19,7 +19,7 @@ void main() {
               final record = WalkingSpeedRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: FakeData.fakeTime,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -45,7 +45,7 @@ void main() {
               final record = RunningSpeedRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: FakeData.fakeTime,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -71,7 +71,7 @@ void main() {
               final record = StairAscentSpeedRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: FakeData.fakeTime,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -97,7 +97,7 @@ void main() {
               final record = StairDescentSpeedRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: FakeData.fakeTime,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -128,7 +128,7 @@ void main() {
               final dto = SpeedActivityRecordDto(
                 id: FakeData.fakeId,
                 time: FakeData.fakeTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.activelyRecorded,
@@ -155,7 +155,7 @@ void main() {
               final dto = SpeedActivityRecordDto(
                 id: FakeData.fakeId,
                 time: FakeData.fakeTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.activelyRecorded,
@@ -182,7 +182,7 @@ void main() {
               final dto = SpeedActivityRecordDto(
                 id: FakeData.fakeId,
                 time: FakeData.fakeTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.activelyRecorded,
@@ -209,7 +209,7 @@ void main() {
               final dto = SpeedActivityRecordDto(
                 id: FakeData.fakeId,
                 time: FakeData.fakeTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.activelyRecorded,

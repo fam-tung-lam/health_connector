@@ -19,7 +19,7 @@ void main() {
               final record = BasalBodyTemperatureRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 time: FakeData.fakeTime,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: const Metadata(
                   dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
@@ -33,7 +33,10 @@ void main() {
 
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
-              expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
+              expect(
+                dto.zoneOffsetSeconds,
+                FakeData.fakeTime.timeZoneOffset.inSeconds,
+              );
               expect(dto.temperature.celsius, 36.5);
             },
           );
@@ -50,7 +53,7 @@ void main() {
               final dto = BasalBodyTemperatureRecordDto(
                 id: FakeData.fakeId,
                 time: FakeData.fakeLocalTime.millisecondsSinceEpoch,
-                zoneOffsetSeconds: FakeData.fakeZoneOffsetSeconds,
+                zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,
                   recordingMethod: RecordingMethodDto.manualEntry,

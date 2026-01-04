@@ -53,3 +53,9 @@ const sinceV2_2_0 = Since('2.2.0');
 
 /// Marks APIs added in version 2.3.0 of the SDK.
 const sinceV2_3_0 = Since('2.3.0');
+
+/// Marks APIs added in version 2.3.1 of the SDK.
+const sinceV2_3_1 = Since('2.3.1');
+
+/// Marks APIs added in version 2.3.2 of the SDK.
+const sinceV2_3_2 = Since('2.3.2');
