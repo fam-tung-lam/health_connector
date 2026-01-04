@@ -15,7 +15,7 @@ import 'package:pigeon/pigeon.dart';
       package: 'com.phamtunglam.health_connector_hc_android.pigeon',
       errorClassName: 'HealthConnectorErrorDto',
     ),
-    copyrightHeader: 'pigeons/copyright_header.txt',
+    copyrightHeader: 'pigeon/copyright_header.txt',
   ),
 )
 /// Error codes that native platforms can use when throwing error.

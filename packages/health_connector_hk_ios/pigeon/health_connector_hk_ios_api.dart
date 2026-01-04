@@ -12,7 +12,7 @@ import 'package:pigeon/pigeon.dart';
     swiftOut:
         'ios/health_connector_hk_ios/Sources/health_connector_hk_ios/pigeon/HealthConnectorHKIOSApi.g.swift',
     swiftOptions: SwiftOptions(errorClassName: 'HealthConnectorErrorDto'),
-    copyrightHeader: 'pigeons/copyright_header.txt',
+    copyrightHeader: 'pigeon/copyright_header.txt',
   ),
 )
 /// Represents the status of the health platform on the device.

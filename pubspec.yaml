@@ -229,8 +229,8 @@ melos:
     pigeon:generate:
       description: Generate Pigeon platform channel code for Android and iOS packages
       steps:
-        - melos exec --scope="health_connector_hc_android" -- dart run pigeon --input pigeons/health_connector_hc_android_api.dart
-        - melos exec --scope="health_connector_hk_ios" -- dart run pigeon --input pigeons/health_connector_hk_ios_api.dart
+        - melos exec --scope="health_connector_hc_android" -- dart run pigeon --input pigeon/health_connector_hc_android_api.dart
+        - melos exec --scope="health_connector_hk_ios" -- dart run pigeon --input pigeon/health_connector_hk_ios_api.dart
         - python3 packages/health_connector_hk_ios/scripts/add_public_keyword_to_swift_code.py packages/health_connector_hk_ios/ios/health_connector_hk_ios/Sources/health_connector_hk_ios/pigeon/HealthConnectorHKIOSApi.g.swift
         - melos format
 
