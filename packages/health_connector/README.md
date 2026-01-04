@@ -131,7 +131,7 @@ dependencies:
 <details>
 <summary><b>🤖 Android Health Connect Setup</b></summary>
 
-##### Update AndroidManifest.xml
+##### Step 1: Update AndroidManifest.xml
 
 Add to `android/app/src/main/AndroidManifest.xml`:
 
@@ -176,7 +176,7 @@ Add to `android/app/src/main/AndroidManifest.xml`:
 > **❗ Important**: You must declare a permission for _each_ health data type and feature your app accesses.
 > See the [Health Connect data types list](https://developer.android.com/health-and-fitness/guides/health-connect/plan/data-types) for all available permissions.
 
-##### Update MainActivity (Android 14+)
+##### Step 2: Update MainActivity (Android 14+)
 
 This SDK uses the modern `registerForActivityResult` API when requesting permissions from Health
 Connect. For this to work correctly, your app's `MainActivity` must extend `FlutterFragmentActivity`
@@ -195,7 +195,7 @@ class MainActivity: FlutterFragmentActivity() {
 }
 ```
 
-##### Enable AndroidX
+##### Step 3: Enable AndroidX
 
 Health Connect is built on AndroidX libraries. `android.useAndroidX=true` enables AndroidX support,
 and `android.enableJetifier=true` automatically migrates third-party libraries to use AndroidX.
@@ -209,12 +209,35 @@ android.enableJetifier=true
 android.useAndroidX=true
 ```
 
+##### Step 4: Update Gradle
+
+Update `android/app/build.gradle`:
+
+```gradle
+android {
+    // Your existing configuration
+
+    defaultConfig {
+        // Your existing configuration
+
+        minSdkVersion 26
+    }
+}
+```
+
 </details>
 
 <details>
 <summary><b>🍎 iOS HealthKit Setup</b></summary>
 
-##### Enable HealthKit Capability
+##### Step 1: Set Minimum iOS Version
+
+1. Open your project in Xcode (`ios/Runner.xcworkspace`)
+2. Select your app target
+3. Go to **General** tab
+4. Set **Minimum Deployments** to **15.0**
+
+##### Step 2: Enable HealthKit Capability
 
 1. Open your project in Xcode (`ios/Runner.xcworkspace`)
 2. Select your app target
@@ -222,7 +245,7 @@ android.useAndroidX=true
 4. Click **+ Capability**
 5. Add **HealthKit**
 
-##### Update Info.plist
+##### Step 3: Update Info.plist
 
 Add to `ios/Runner/Info.plist`:
 
@@ -271,7 +294,7 @@ Future<void> quickStart() async {
   ]);
 
   // 4. Check if all permissions were granted
-  final arePermissionsGranted = results.every((r) => r.status == PermissionStatus.granted);
+  final arePermissionsGranted = results.every((r) => r.status != PermissionStatus.denied);
 
   if (!arePermissionsGranted) {
     print('Permissions not granted');
@@ -283,24 +306,27 @@ Future<void> quickStart() async {
     StepsRecord(
       startTime: DateTime.now().subtract(Duration(hours: 3)),
       endTime: DateTime.now().subtract(Duration(hours: 2)),
-      count: Numeric(1500),
+      count: Number(1500),
       metadata: Metadata.automaticallyRecorded(
+        dataOrigin: DataOrigin('com.example'),
         device: Device.fromType(DeviceType.phone),
       ),
     ),
     StepsRecord(
       startTime: DateTime.now().subtract(Duration(hours: 2)),
       endTime: DateTime.now().subtract(Duration(hours: 1)),
-      count: Numeric(2000),
+      count: Number(2000),
       metadata: Metadata.automaticallyRecorded(
+        dataOrigin: DataOrigin('com.example'),
         device: Device.fromType(DeviceType.phone),
       ),
     ),
     StepsRecord(
       startTime: DateTime.now().subtract(Duration(hours: 1)),
       endTime: DateTime.now(),
-      count: Numeric(1800),
+      count: Number(1800),
       metadata: Metadata.automaticallyRecorded(
+        dataOrigin: DataOrigin('com.example'),
         device: Device.fromType(DeviceType.phone),
       ),
     ),
@@ -331,8 +357,8 @@ Future<void> quickStart() async {
 
 #### Request Permissions
 
-> **iOS Privacy Note**: Read permissions always return `PermissionStatus.unknown` on iOS.
-> This is intentional—Apple prevents apps from detecting whether users have health data by checking permission status.
+> **⚠️ iOS Privacy Limitation**: HealthKit **always returns `PermissionStatus.unknown`** for read 
+> permissions to protect user privacy. This is Apple's intentional design, not a limitation of this SDK.
 
 ```dart
 final permissions = [
@@ -352,6 +378,40 @@ for (final result in results) {
   print('${result.permission}: ${result.status}');
 }
 ```
+
+##### iOS Read Permission Workaround
+
+While the SDK respects Apple's privacy guidelines by returning `unknown` for read permissions, 
+developers who need to determine actual read permission status can use the following workaround:
+
+**Workaround Strategy**: Attempt to read a small amount of data. 
+If the read fails with `NotAuthorizedException`, the permission is denied. If it succeeds (even with empty results), the permission is granted.
+
+```dart
+Future<bool> checkIOSReadPermission(HealthDataType dataType) async {
+  try {
+    // Attempt to read a minimal amount of data
+    final request = dataType.readInTimeRange(
+      startTime: DateTime.now().subtract(Duration(days: 1)),
+      endTime: DateTime.now(),
+      pageSize: 1, // Minimal data fetch
+    );
+    
+    await connector.readRecords(request);
+    
+    // If read succeeds, permission is granted
+    return true;
+  } on NotAuthorizedException {
+    // Permission was denied
+    return false;
+  }
+}
+```
+
+> **⚠️ Important Considerations**:
+>
+> - This workaround is **not officially recommended** by Apple
+> - The SDK intentionally does not implement this as default behavior to ensure developers are aware of the privacy implications
 
 #### Check Individual Permission Status
 
@@ -475,7 +535,7 @@ final stepRecord = StepsRecord(
   id: HealthRecordId.none, // Must be .none for new records
   startTime: DateTime.now().subtract(Duration(hours: 1)),
   endTime: DateTime.now(),
-  count: Numeric(5000),
+  count: Number(5000),
   metadata: Metadata.automaticallyRecorded(
     device: Device.fromType(DeviceType.phone),
   ),
@@ -495,7 +555,7 @@ final records = [
     id: HealthRecordId.none,
     startTime: DateTime.now().subtract(Duration(hours: 2)),
     endTime: DateTime.now().subtract(Duration(hours: 1)),
-    count: Numeric(3000),
+    count: Number(3000),
     metadata: Metadata.automaticallyRecorded(
       device: Device.fromType(DeviceType.phone),
     ),
@@ -504,7 +564,7 @@ final records = [
     id: HealthRecordId.none,
     startTime: DateTime.now().subtract(Duration(hours: 1)),
     endTime: DateTime.now(),
-    count: Numeric(2000),
+    count: Number(2000),
     metadata: Metadata.automaticallyRecorded(
       device: Device.fromType(DeviceType.phone),
     ),
@@ -529,7 +589,7 @@ final existingRecord = await connector.readRecord(request);
 
 if (existingRecord != null) {
   final updatedRecord = existingRecord.copyWith(
-    count: Numeric(existingRecord.count.value + 500),
+    count: Number(existingRecord.count.value + 500),
   );
 
   await connector.updateRecord(updatedRecord);
@@ -552,7 +612,7 @@ final response = await connector.readRecords(readRequest);
 // Update all records by adding 100 steps to each
 final updatedRecords = response.records.map((record) {
   return record.copyWith(
-    count: Numeric(record.count.value + 100),
+    count: Number(record.count.value + 100),
   );
 }).toList();
 
@@ -574,7 +634,7 @@ final newRecord = StepsRecord(
   id: HealthRecordId.none,
   startTime: existingRecord.startTime,
   endTime: existingRecord.endTime,
-  count: Numeric(newValue),
+  count: Number(newValue),
   metadata: existingRecord.metadata,
 );
 
