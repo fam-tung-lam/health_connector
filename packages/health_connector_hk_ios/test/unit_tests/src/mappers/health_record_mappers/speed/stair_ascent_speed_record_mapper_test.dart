@@ -38,8 +38,8 @@ void main() {
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, time.millisecondsSinceEpoch);
               expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
-              expect(dto.speed.value, 0.8);
-              expect(dto.speed.unit, VelocityUnitDto.metersPerSecond);
+              expect(dto.speed.metersPerSecond, 0.8);
+
               expect(dto.activityType, SpeedActivityTypeDto.stairAscent);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(
@@ -74,7 +74,7 @@ void main() {
               final dto = record.toDto();
 
               // Then
-              expect(dto.speed.value, 1.2);
+              expect(dto.speed.metersPerSecond, 1.2);
               expect(dto.activityType, SpeedActivityTypeDto.stairAscent);
               expect(
                 dto.metadata.recordingMethod,
@@ -105,10 +105,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                speed: VelocityDto(
-                  value: 0.7,
-                  unit: VelocityUnitDto.metersPerSecond,
-                ),
+                speed: VelocityDto(metersPerSecond: 0.7),
                 activityType: SpeedActivityTypeDto.stairAscent,
               );
 
@@ -150,10 +147,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                speed: VelocityDto(
-                  value: 0.9,
-                  unit: VelocityUnitDto.metersPerSecond,
-                ),
+                speed: VelocityDto(metersPerSecond: 0.9),
                 activityType: SpeedActivityTypeDto.stairAscent,
               );
 
@@ -182,10 +176,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                speed: VelocityDto(
-                  value: 0.5,
-                  unit: VelocityUnitDto.metersPerSecond,
-                ),
+                speed: VelocityDto(metersPerSecond: 0.5),
                 activityType: SpeedActivityTypeDto.stairAscent,
               );
 

@@ -6,7 +6,7 @@ extension BodyTemperatureRecordDto {
     func toHealthKit() throws -> HKQuantitySample {
         let type = try HKQuantityType.make(from: .bodyTemperature)
 
-        let quantity = HKQuantity(unit: .degreeCelsius(), doubleValue: temperature.value)
+        let quantity = HKQuantity(unit: .degreeCelsius(), doubleValue: temperature.celsius)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -58,7 +58,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             metadata: builder.toMetadataDto(),
             time: startDate.millisecondsSince1970,
-            temperature: TemperatureDto(unit: TemperatureUnitDto.celsius, value: value),
+            temperature: TemperatureDto(celsius: value),
             zoneOffsetSeconds: zoneOffset
         )
     }

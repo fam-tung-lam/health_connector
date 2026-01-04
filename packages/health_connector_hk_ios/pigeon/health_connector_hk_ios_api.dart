@@ -15,149 +15,60 @@ import 'package:pigeon/pigeon.dart';
     copyrightHeader: 'pigeon/copyright_header.txt',
   ),
 )
-/// Represents the status of the health platform on the device.
-enum HealthPlatformStatusDto {
-  /// The health platform is available and ready to use.
-  available,
+/// Configuration data transfer object for Health Connector.
+///
+/// Contains configuration settings that are passed from Dart to native
+/// platform code during client initialization.
+class HealthConnectorConfigDto {
+  HealthConnectorConfigDto({required this.isLoggerEnabled});
 
-  /// The health platform is not available on this device.
-  notAvailable,
+  /// Whether logging is enabled for the Health Connector.
+  final bool isLoggerEnabled;
 }
 
 // region Measurement Unit
+
 /// Sealed class for all measurement unit DTOs.
 sealed class MeasurementUnitDto {}
 
-/// Blood glucose unit types supported by the plugin.
-enum BloodGlucoseUnitDto { milligramsPerDeciliter, millimolesPerLiter }
-
-/// Energy unit types supported by the plugin.
-enum EnergyUnitDto { calories, joules, kilocalories, kilojoules }
-
-/// Interval unit types supported by the plugin.
-enum TimeDurationUnitDto { seconds, minutes, hours }
-
-/// Length unit types supported by the plugin.
-enum LengthUnitDto { feet, inches, kilometers, meters, miles }
-
-/// Mass unit types supported by the plugin.
-enum MassUnitDto { grams, kilograms, ounces, pounds }
-
-/// Percentage unit types supported by the plugin.
-enum PercentageUnitDto {
-  /// Percentage as a decimal value (0.0 to 1.0).
-  decimal,
-
-  /// Percentage as a whole number (0 to 100).
-  whole,
-}
-
-/// Represents the type of access requested for health data.
-enum PermissionAccessTypeDto {
-  /// Read access to health data.
-  read,
-
-  /// Write access to health data.
-  write,
-}
-
-/// Represents the status of a permission.
-enum PermissionStatusDto {
-  /// Permission has been explicitly denied by the user.
-  denied,
-
-  /// Permission has been explicitly granted by the user.
-  granted,
-
-  /// The permission status cannot be determined.
-  unknown,
-}
-
-/// Pressure unit types supported by the plugin.
-enum PressureUnitDto { millimetersOfMercury }
-
-/// Power unit types supported by the plugin.
-enum PowerUnitDto { kilowatts, watts }
-
-/// Temperature unit types supported by the plugin.
-enum TemperatureUnitDto { celsius, fahrenheit, kelvin }
-
-/// Velocity unit types supported by the plugin.
-enum VelocityUnitDto { kilometersPerHour, metersPerSecond, milesPerHour }
-
-/// Volume unit types supported by the plugin.
-enum VolumeUnitDto { fluidOuncesUs, liters, milliliters }
-
-/// Test type for VO2 max measurement (iOS HealthKit).
-///
-/// Maps to HKMetadataKeyVO2MaxTestType enum values.
-enum Vo2MaxTestTypeDto {
-  /// Direct measurement at maximum exercise (gold standard).
-  maxExercise,
-
-  /// Estimated from sub-maximal exercise.
-  predictionSubMaxExercise,
-
-  /// Estimated without exercise (e.g., from heart rate ratio).
-  predictionNonExercise,
-
-  /// Step-based protocol prediction.
-  predictionStepTest,
-}
-
-/// Represents a blood glucose measurement for platform transfer.
+/// Represents a blood glucose measurement in millimoles per liter.
 class BloodGlucoseDto extends MeasurementUnitDto {
-  BloodGlucoseDto({required this.value, required this.unit});
+  BloodGlucoseDto(this.millimolesPerLiter);
 
-  /// The unit in which the value is expressed.
-  final BloodGlucoseUnitDto unit;
-
-  /// The numeric value of the blood glucose.
-  final double value;
+  /// Blood glucose value in millimoles per liter (mmol/L).
+  final double millimolesPerLiter;
 }
 
-/// Represents an energy measurement for platform transfer.
+/// Represents an energy measurement in kilocalories.
 class EnergyDto extends MeasurementUnitDto {
-  EnergyDto({required this.value, required this.unit});
+  EnergyDto(this.kilocalories);
 
-  /// The unit in which the value is expressed.
-  final EnergyUnitDto unit;
-
-  /// The numeric value of the energy.
-  final double value;
+  /// Energy value in kilocalories (kcal).
+  final double kilocalories;
 }
 
-/// Represents an interval (time duration) measurement for platform transfer.
+/// Represents a time duration in seconds.
 class TimeDurationDto extends MeasurementUnitDto {
-  TimeDurationDto({required this.value, required this.unit});
+  TimeDurationDto(this.seconds);
 
-  /// The unit in which the value is expressed.
-  final TimeDurationUnitDto unit;
-
-  /// The numeric value of the interval.
-  final double value;
+  /// Duration value in seconds (s).
+  final double seconds;
 }
 
-/// Represents a length measurement for platform transfer.
+/// Represents a length measurement in meters.
 class LengthDto extends MeasurementUnitDto {
-  LengthDto({required this.value, required this.unit});
+  LengthDto(this.meters);
 
-  /// The unit in which the value is expressed.
-  final LengthUnitDto unit;
-
-  /// The numeric value of the length.
-  final double value;
+  /// Length value in meters (m).
+  final double meters;
 }
 
-/// Represents a mass measurement for platform transfer.
+/// Represents a mass measurement in kilograms.
 class MassDto extends MeasurementUnitDto {
-  MassDto({required this.value, required this.unit});
+  MassDto(this.kilograms);
 
-  /// The unit in which the value is expressed.
-  final MassUnitDto unit;
-
-  /// The numeric value of the mass.
-  final double value;
+  /// Mass value in kilograms (kg).
+  final double kilograms;
 }
 
 /// Represents a number for platform transfer.
@@ -168,173 +79,55 @@ class NumberDto extends MeasurementUnitDto {
   final double value;
 }
 
-/// Represents a percentage measurement for platform transfer.
+/// Represents a percentage as a decimal value (0.0 to 1.0).
 class PercentageDto extends MeasurementUnitDto {
-  PercentageDto({required this.value, required this.unit});
+  PercentageDto(this.decimal);
 
-  /// The unit in which the value is expressed.
-  final PercentageUnitDto unit;
-
-  /// The numeric value of the percentage.
-  final double value;
+  /// Percentage value as decimal (0.0 to 1.0).
+  final double decimal;
 }
 
-/// Represents a power measurement for platform transfer.
+/// Represents a power measurement in watts.
 class PowerDto extends MeasurementUnitDto {
-  PowerDto({required this.value, required this.unit});
+  PowerDto(this.watts);
 
-  /// The unit in which the value is expressed.
-  final PowerUnitDto unit;
-
-  /// The numeric value of the power.
-  final double value;
+  /// Power value in watts (W).
+  final double watts;
 }
 
-/// Represents a pressure measurement for platform transfer.
+/// Represents a pressure measurement in millimeters of mercury.
 class PressureDto extends MeasurementUnitDto {
-  PressureDto({required this.value, required this.unit});
+  PressureDto(this.millimetersOfMercury);
 
-  /// The unit in which the value is expressed.
-  final PressureUnitDto unit;
-
-  /// The numeric value of the pressure.
-  final double value;
+  /// Pressure value in millimeters of mercury (mmHg).
+  final double millimetersOfMercury;
 }
 
-/// Represents a temperature measurement for platform transfer.
+/// Represents a temperature measurement in celsius.
 class TemperatureDto extends MeasurementUnitDto {
-  TemperatureDto({required this.value, required this.unit});
+  TemperatureDto(this.celsius);
 
-  /// The unit in which the value is expressed.
-  final TemperatureUnitDto unit;
-
-  /// The numeric value of the temperature.
-  final double value;
+  /// Temperature value in degrees Celsius (°C).
+  final double celsius;
 }
 
-/// Represents a velocity measurement for platform transfer.
+/// Represents a velocity measurement in meters per second.
 class VelocityDto extends MeasurementUnitDto {
-  VelocityDto({required this.value, required this.unit});
+  VelocityDto(this.metersPerSecond);
 
-  /// The unit in which the value is expressed.
-  final VelocityUnitDto unit;
-
-  /// The numeric value of the velocity.
-  final double value;
+  /// Velocity value in meters per second (m/s).
+  final double metersPerSecond;
 }
 
-/// Represents a volume measurement for platform transfer.
+/// Represents a volume measurement in liters.
 class VolumeDto extends MeasurementUnitDto {
-  VolumeDto({required this.value, required this.unit});
+  VolumeDto(this.liters);
 
-  /// The unit in which the value is expressed.
-  final VolumeUnitDto unit;
-
-  /// The numeric value of the volume.
-  final double value;
-}
-
-/// Meal type classification for nutrient records.
-///
-/// Represents the type of meal associated with a nutrition or nutrient record.
-enum MealTypeDto {
-  /// Unknown or unspecified meal type.
-  unknown,
-
-  /// Breakfast meal.
-  breakfast,
-
-  /// Lunch meal.
-  lunch,
-
-  /// Dinner meal.
-  dinner,
-
-  /// Snack or other meal type.
-  snack,
-}
-
-/// Body position during blood pressure measurement.
-/// Note: Not directly supported by HealthKit - included for Android parity.
-enum BodyPositionDto {
-  /// Unknown body position.
-  unknown,
-
-  /// Standing up.
-  standingUp,
-
-  /// Sitting down.
-  sittingDown,
-
-  /// Lying down.
-  lyingDown,
-
-  /// Reclining.
-  reclining,
-}
-
-/// Measurement location for blood pressure reading.
-/// Note: Not directly supported by HealthKit - included for Android parity.
-enum MeasurementLocationDto {
-  /// Unknown location.
-  unknown,
-
-  /// Left wrist.
-  leftWrist,
-
-  /// Right wrist.
-  rightWrist,
-
-  /// Left upper arm.
-  leftUpperArm,
-
-  /// Right upper arm.
-  rightUpperArm,
+  /// Volume value in liters (L).
+  final double liters;
 }
 
 // endregion
-
-/// Relationship of a blood glucose measurement to a meal.
-enum BloodGlucoseRelationToMealDto {
-  /// Unknown relationship.
-  unknown,
-
-  /// General relationship (not specific to a meal).
-  general,
-
-  /// Fasting state (no recent meal).
-  fasting,
-
-  /// Measurement taken before a meal.
-  beforeMeal,
-
-  /// Measurement taken after a meal.
-  afterMeal,
-}
-
-/// Source of the biological specimen for valid blood glucose measurement.
-enum BloodGlucoseSpecimenSourceDto {
-  /// Unknown specimen source.
-  unknown,
-
-  /// Interstitial fluid.
-  interstitialFluid,
-
-  /// Capillary blood.
-  capillaryBlood,
-
-  /// Plasma.
-  plasma,
-
-  /// Serum.
-  serum,
-
-  /// Tears.
-  tears,
-
-  /// Whole blood.
-  wholeBlood,
-}
 
 // region Metadata
 
@@ -448,21 +241,124 @@ class MetadataDto {
 
 // endregion
 
-/// Represents a permission request for accessing specific health data.
-class HealthDataPermissionDto {
-  HealthDataPermissionDto({
-    required this.healthDataType,
-    required this.accessType,
-  });
+// region Health Records
 
-  /// The type of access being requested (read or write).
-  final PermissionAccessTypeDto accessType;
+/// Test type for VO2 max measurement (iOS HealthKit).
+///
+/// Maps to HKMetadataKeyVO2MaxTestType enum values.
+enum Vo2MaxTestTypeDto {
+  /// Direct measurement at maximum exercise (gold standard).
+  maxExercise,
 
-  /// The type of health data for which permission is requested.
-  final HealthDataTypeDto healthDataType;
+  /// Estimated from sub-maximal exercise.
+  predictionSubMaxExercise,
+
+  /// Estimated without exercise (e.g., from heart rate ratio).
+  predictionNonExercise,
+
+  /// Step-based protocol prediction.
+  predictionStepTest,
 }
 
-// region Health Records
+/// Meal type classification for nutrient records.
+///
+/// Represents the type of meal associated with a nutrition or nutrient record.
+enum MealTypeDto {
+  /// Unknown or unspecified meal type.
+  unknown,
+
+  /// Breakfast meal.
+  breakfast,
+
+  /// Lunch meal.
+  lunch,
+
+  /// Dinner meal.
+  dinner,
+
+  /// Snack or other meal type.
+  snack,
+}
+
+/// Body position during blood pressure measurement.
+/// Note: Not directly supported by HealthKit - included for Android parity.
+enum BodyPositionDto {
+  /// Unknown body position.
+  unknown,
+
+  /// Standing up.
+  standingUp,
+
+  /// Sitting down.
+  sittingDown,
+
+  /// Lying down.
+  lyingDown,
+
+  /// Reclining.
+  reclining,
+}
+
+/// Measurement location for blood pressure reading.
+/// Note: Not directly supported by HealthKit - included for Android parity.
+enum MeasurementLocationDto {
+  /// Unknown location.
+  unknown,
+
+  /// Left wrist.
+  leftWrist,
+
+  /// Right wrist.
+  rightWrist,
+
+  /// Left upper arm.
+  leftUpperArm,
+
+  /// Right upper arm.
+  rightUpperArm,
+}
+
+/// Relationship of a blood glucose measurement to a meal.
+enum BloodGlucoseRelationToMealDto {
+  /// Unknown relationship.
+  unknown,
+
+  /// General relationship (not specific to a meal).
+  general,
+
+  /// Fasting state (no recent meal).
+  fasting,
+
+  /// Measurement taken before a meal.
+  beforeMeal,
+
+  /// Measurement taken after a meal.
+  afterMeal,
+}
+
+/// Source of the biological specimen for valid blood glucose measurement.
+enum BloodGlucoseSpecimenSourceDto {
+  /// Unknown specimen source.
+  unknown,
+
+  /// Interstitial fluid.
+  interstitialFluid,
+
+  /// Capillary blood.
+  capillaryBlood,
+
+  /// Plasma.
+  plasma,
+
+  /// Serum.
+  serum,
+
+  /// Tears.
+  tears,
+
+  /// Whole blood.
+  wholeBlood,
+}
 
 /// Represents the type of distance-based activity.
 ///
@@ -846,9 +742,6 @@ enum MindfulnessSessionTypeDto {
   unguided,
 }
 
-/// Sealed class for all health record DTOs.
-sealed class HealthRecordDto {}
-
 /// Represents a health data type.
 enum HealthDataTypeDto {
   /// Active calories burned data.
@@ -1105,6 +998,9 @@ enum HealthDataTypeDto {
   /// Heart rate variability (SDNN) data.
   heartRateVariabilitySDNN,
 }
+
+/// Sealed class for all health record DTOs.
+sealed class HealthRecordDto {}
 
 /// Represents a resting heart rate record for platform transfer.
 class RestingHeartRateRecordDto extends HealthRecordDto {
@@ -3123,8 +3019,6 @@ class NutritionRecordDto extends HealthRecordDto {
   final MassDto? caffeine;
 }
 
-// endregion
-
 /// Represents a basal energy burned record for platform transfer.
 class BasalEnergyBurnedRecordDto extends HealthRecordDto {
   BasalEnergyBurnedRecordDto({
@@ -3159,7 +3053,53 @@ class BasalEnergyBurnedRecordDto extends HealthRecordDto {
   final EnergyDto energy;
 }
 
+// endregion
+
 // region Requests/Responses
+
+/// Represents the status of the health platform on the device.
+enum HealthPlatformStatusDto {
+  /// The health platform is available and ready to use.
+  available,
+
+  /// The health platform is not available on this device.
+  notAvailable,
+}
+
+/// Represents a permission request for accessing specific health data.
+class HealthDataPermissionDto {
+  HealthDataPermissionDto({
+    required this.healthDataType,
+    required this.accessType,
+  });
+
+  /// The type of access being requested (read or write).
+  final PermissionAccessTypeDto accessType;
+
+  /// The type of health data for which permission is requested.
+  final HealthDataTypeDto healthDataType;
+}
+
+/// Represents the type of access requested for health data.
+enum PermissionAccessTypeDto {
+  /// Read access to health data.
+  read,
+
+  /// Write access to health data.
+  write,
+}
+
+/// Represents the status of a permission.
+enum PermissionStatusDto {
+  /// Permission has been explicitly denied by the user.
+  denied,
+
+  /// Permission has been explicitly granted by the user.
+  granted,
+
+  /// The permission status cannot be determined.
+  unknown,
+}
 
 /// Represents the result of a health data permission request.
 class HealthDataPermissionRequestResultDto {
@@ -3323,17 +3263,6 @@ class ReadRecordsResponseDto {
 }
 
 // endregion
-
-/// Configuration data transfer object for Health Connector.
-///
-/// Contains configuration settings that are passed from Dart to native
-/// platform code during client initialization.
-class HealthConnectorConfigDto {
-  HealthConnectorConfigDto({required this.isLoggerEnabled});
-
-  /// Whether logging is enabled for the Health Connector.
-  final bool isLoggerEnabled;
-}
 
 /// The main API for communicating with the health platform.
 @HostApi()

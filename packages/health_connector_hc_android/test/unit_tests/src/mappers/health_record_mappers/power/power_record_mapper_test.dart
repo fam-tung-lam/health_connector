@@ -85,7 +85,7 @@ void main() {
                 samples: [
                   PowerMeasurementDto(
                     time: fakeSampleTime.millisecondsSinceEpoch,
-                    power: PowerDto(value: 200, unit: PowerUnitDto.watts),
+                    power: PowerDto(watts: 200),
                   ),
                 ],
               );

@@ -24,6 +24,6 @@ final class HeightHandler: @unchecked Sendable,
 
     func convertQuantity(_ quantity: HKQuantity) throws -> LengthDto {
         let meters = quantity.doubleValue(for: .meter())
-        return LengthDto(unit: .meters, value: meters)
+        return LengthDto(meters: meters)
     }
 }

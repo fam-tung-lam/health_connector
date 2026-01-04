@@ -10,7 +10,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import com.phamtunglam.health_connector_hc_android.pigeon.TemperatureDto
-import com.phamtunglam.health_connector_hc_android.pigeon.TemperatureUnitDto
 import io.kotest.matchers.shouldBe
 import java.time.Instant
 import java.time.ZoneOffset
@@ -42,8 +41,7 @@ class BodyTemperatureRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.temperature.value shouldBe TEST_TEMPERATURE_CELSIUS
-        result.temperature.unit shouldBe TemperatureUnitDto.CELSIUS
+        result.temperature.celsius shouldBe TEST_TEMPERATURE_CELSIUS
         result.time shouldBe TEST_TIME
         result.zoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
     }
@@ -57,8 +55,7 @@ class BodyTemperatureRecordMapperTest {
             time = TEST_TIME,
             zoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
             temperature = TemperatureDto(
-                value = TEST_TEMPERATURE_CELSIUS,
-                unit = TemperatureUnitDto.CELSIUS,
+                celsius = TEST_TEMPERATURE_CELSIUS,
             ),
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",

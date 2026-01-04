@@ -23,12 +23,10 @@ void main() {
       );
 
       final dto = record.toDto();
-
       expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
       expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
       expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-      expect(dto.value.value, closeTo(0.5, 0.0001)); // 500 cal = 0.5 kcal
-      expect(dto.value.unit, EnergyUnitDto.kilocalories);
+      expect(dto.value.kilocalories, closeTo(0.5, 0.0001));
       expect(dto.foodName, 'Test Food');
       expect(dto.mealType, MealTypeDto.breakfast);
     });
@@ -45,7 +43,7 @@ void main() {
             clientRecordVersion: 1,
             deviceType: DeviceTypeDto.phone,
           ),
-          value: EnergyDto(value: 500.0, unit: EnergyUnitDto.calories),
+          value: EnergyDto(kilocalories: 500.0),
           foodName: 'Test Food',
           mealType: MealTypeDto.breakfast,
         );
@@ -55,7 +53,7 @@ void main() {
         expect(record.time, FakeData.fakeTime);
         expect(record.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
         expect(record.metadata.dataOrigin.packageName, FakeData.fakeDataOrigin);
-        expect(record.value.inCalories, closeTo(500.0, 0.0001));
+        expect(record.value.inKilocalories, closeTo(500.0, 0.0001));
         expect(record.foodName, 'Test Food');
         expect(record.mealType, MealType.breakfast);
       },

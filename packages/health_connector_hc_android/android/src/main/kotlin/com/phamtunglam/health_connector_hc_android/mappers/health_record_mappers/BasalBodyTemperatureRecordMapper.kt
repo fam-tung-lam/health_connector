@@ -29,7 +29,7 @@ internal fun BasalBodyTemperatureRecord.toDto(): BasalBodyTemperatureRecordDto =
  */
 internal fun BasalBodyTemperatureRecordDto.toHealthConnect(): BasalBodyTemperatureRecord =
     BasalBodyTemperatureRecord(
-        temperature = Temperature.celsius(temperature.value),
+        temperature = Temperature.celsius(temperature.celsius),
         measurementLocation = measurementLocation.toHealthConnect(),
         time = Instant.ofEpochMilli(time),
         zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },

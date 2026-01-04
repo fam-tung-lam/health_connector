@@ -35,8 +35,7 @@ void main() {
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, time.millisecondsSinceEpoch);
               expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
-              expect(dto.temperature.value, 37.2);
-              expect(dto.temperature.unit, TemperatureUnitDto.celsius);
+              expect(dto.temperature.celsius, 37.2);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -61,10 +60,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                temperature: TemperatureDto(
-                  value: 36.8,
-                  unit: TemperatureUnitDto.celsius,
-                ),
+                temperature: TemperatureDto(celsius: 36.8),
               );
 
               final record = dto.toDomain();
@@ -94,10 +90,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                temperature: TemperatureDto(
-                  value: 37.0,
-                  unit: TemperatureUnitDto.celsius,
-                ),
+                temperature: TemperatureDto(celsius: 37.0),
               );
 
               final record = dto.toDomain();

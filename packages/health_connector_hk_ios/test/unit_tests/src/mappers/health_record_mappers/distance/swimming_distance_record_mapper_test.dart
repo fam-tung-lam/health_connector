@@ -48,8 +48,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeStartTimeZoneOffsetSeconds,
               );
-              expect(dto.distance.value, 1000.0);
-              expect(dto.distance.unit, LengthUnitDto.meters);
+              expect(dto.distance.meters, 1000.0);
               expect(dto.activityType, DistanceActivityTypeDto.swimming);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(
@@ -84,7 +83,7 @@ void main() {
               final dto = record.toDto();
 
               // Then
-              expect(dto.distance.value, 500.0);
+              expect(dto.distance.meters, 500.0);
               expect(dto.activityType, DistanceActivityTypeDto.swimming);
               expect(
                 dto.metadata.recordingMethod,
@@ -114,7 +113,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                distance: LengthDto(value: 800.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 800.0),
                 activityType: DistanceActivityTypeDto.swimming,
               );
 
@@ -163,7 +162,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 1500.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 1500.0),
                 activityType: DistanceActivityTypeDto.swimming,
               );
 
@@ -191,7 +190,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 200.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 200.0),
                 activityType: DistanceActivityTypeDto.swimming,
               );
 

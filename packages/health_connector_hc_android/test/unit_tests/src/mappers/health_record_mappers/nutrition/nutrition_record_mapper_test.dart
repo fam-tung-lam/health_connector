@@ -46,58 +46,9 @@ void main() {
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(dto.foodName, foodName);
               expect(dto.mealType, MealTypeDto.lunch);
-              expect(dto.energy?.value, 350);
-              expect(dto.protein?.value, 0.025);
-            },
-          );
-
-          test(
-            'converts NutritionRecord with comprehensive nutrients to DTO',
-            () {
-              final record = NutritionRecord(
-                id: HealthRecordId(FakeData.fakeId),
-                startTime: FakeData.fakeStartTime,
-                endTime: FakeData.fakeEndTime,
-                startZoneOffsetSeconds: FakeData.fakeStartTimeZoneOffsetSeconds,
-                endZoneOffsetSeconds: FakeData.fakeEndTimeZoneOffsetSeconds,
-                metadata: const Metadata(
-                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
-                  recordingMethod: RecordingMethod.manualEntry,
-                  clientRecordVersion: 1,
-                  device: Device(type: DeviceType.phone),
-                ),
-                foodName: 'Oatmeal with Berries',
-                mealType: MealType.breakfast,
-                energy: const Energy.kilocalories(300),
-                protein: const Mass.grams(10),
-                totalCarbohydrate: const Mass.grams(45),
-                totalFat: const Mass.grams(8),
-                saturatedFat: const Mass.grams(1.5),
-                dietaryFiber: const Mass.grams(7),
-                sugar: const Mass.grams(12),
-                calcium: const Mass.grams(0.3),
-                iron: const Mass.grams(0.01),
-                potassium: const Mass.grams(0.5),
-                zinc: const Mass.grams(0.005),
-                vitaminC: const Mass.grams(0.06),
-                vitaminD: const Mass.grams(0.000002),
-              );
-
-              final dto = record.toDto();
-
-              expect(dto.foodName, 'Oatmeal with Berries');
-              expect(dto.mealType, MealTypeDto.breakfast);
-              expect(dto.energy?.value, 300);
-              expect(dto.protein?.value, 0.01);
-              expect(dto.totalCarbohydrate?.value, 0.045);
-              expect(dto.totalFat?.value, 0.008);
-              expect(dto.saturatedFat?.value, 0.0015);
-              expect(dto.dietaryFiber?.value, 0.007);
-              expect(dto.sugar?.value, 0.012);
-              expect(dto.calcium?.value, 0.0003);
-              expect(dto.iron?.value, 0.00001);
-              expect(dto.vitaminC?.value, closeTo(0.00006, 0.0000001));
-              expect(dto.vitaminD?.value, closeTo(0.000000002, 0.0000000001));
+              expect(dto.mealType, MealTypeDto.lunch);
+              expect(dto.energy?.kilocalories, 350);
+              expect(dto.protein?.kilograms, 0.025);
             },
           );
         },
@@ -124,9 +75,9 @@ void main() {
                 ),
                 foodName: 'Salmon Dinner',
                 mealType: MealTypeDto.dinner,
-                energy: EnergyDto(value: 500, unit: EnergyUnitDto.kilocalories),
-                protein: MassDto(value: 40, unit: MassUnitDto.grams),
-                calcium: MassDto(value: 300, unit: MassUnitDto.grams),
+                energy: EnergyDto(kilocalories: 500),
+                protein: MassDto(kilograms: 0.040),
+                calcium: MassDto(kilograms: 0.300),
               );
 
               final record = dto.toDomain() as NutritionRecord;

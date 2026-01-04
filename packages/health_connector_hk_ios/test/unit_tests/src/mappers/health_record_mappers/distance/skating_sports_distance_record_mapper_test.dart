@@ -45,8 +45,7 @@ void main() {
                 dto.endTime,
                 FakeData.fakeEndTime.millisecondsSinceEpoch,
               );
-              expect(dto.distance.value, 6000.0);
-              expect(dto.distance.unit, LengthUnitDto.meters);
+              expect(dto.distance.meters, 6000.0);
               expect(
                 dto.activityType,
                 DistanceActivityTypeDto.skatingSports,
@@ -79,7 +78,7 @@ void main() {
               final dto = record.toDto();
 
               // Then
-              expect(dto.distance.value, 9000.0);
+              expect(dto.distance.meters, 9000.0);
               expect(
                 dto.activityType,
                 DistanceActivityTypeDto.skatingSports,
@@ -108,7 +107,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                distance: LengthDto(value: 5500.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 5500.0),
                 activityType: DistanceActivityTypeDto.skatingSports,
               );
 
@@ -143,7 +142,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 7700.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 7700.0),
                 activityType: DistanceActivityTypeDto.skatingSports,
               );
 
@@ -171,7 +170,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 3200.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 3200.0),
                 activityType: DistanceActivityTypeDto.skatingSports,
               );
 

@@ -46,8 +46,7 @@ void main() {
                 dto.endZoneOffsetSeconds,
                 FakeData.fakeEndTimeZoneOffsetSeconds,
               );
-              expect(dto.distance.value, 5_500);
-              expect(dto.distance.unit, LengthUnitDto.meters);
+              expect(dto.distance.meters, 5_500);
             },
           );
         },
@@ -71,10 +70,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(
-                  value: 10.0,
-                  unit: LengthUnitDto.kilometers,
-                ),
+                distance: LengthDto(meters: 10000.0),
               );
 
               final record = dto.toDomain();
@@ -100,10 +96,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(
-                  value: 3.5,
-                  unit: LengthUnitDto.kilometers,
-                ),
+                distance: LengthDto(meters: 3500.0),
               );
 
               final record = dto.toDomain();

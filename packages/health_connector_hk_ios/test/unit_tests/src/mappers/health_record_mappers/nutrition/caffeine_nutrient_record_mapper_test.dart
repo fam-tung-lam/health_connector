@@ -29,8 +29,8 @@ void main() {
         expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
         expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
         expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-        expect(dto.value.value, closeTo(0.01, 0.0001));
-        expect(dto.value.unit, MassUnitDto.kilograms);
+        expect(dto.value.kilograms, closeTo(0.01, 0.0001));
+
         expect(dto.foodName, 'Test Food');
         expect(dto.mealType, MealTypeDto.breakfast);
       },
@@ -48,7 +48,7 @@ void main() {
             clientRecordVersion: 1,
             deviceType: DeviceTypeDto.phone,
           ),
-          value: MassDto(value: 10.0, unit: MassUnitDto.grams),
+          value: MassDto(kilograms: 10.0),
           foodName: 'Test Food',
           mealType: MealTypeDto.breakfast,
         );
@@ -58,7 +58,7 @@ void main() {
         expect(record.time, FakeData.fakeTime);
         expect(record.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
         expect(record.metadata.dataOrigin.packageName, FakeData.fakeDataOrigin);
-        expect(record.value.inGrams, closeTo(10.0, 0.0001));
+        expect(record.value.inKilograms, closeTo(10.0, 0.0001));
         expect(record.foodName, 'Test Food');
         expect(record.mealType, MealType.breakfast);
       },

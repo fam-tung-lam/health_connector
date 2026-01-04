@@ -1,7 +1,7 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
-import 'package:parameterized_test/parameterized_test.dart';
+
 import 'package:test/test.dart';
 
 void main() {
@@ -11,251 +11,142 @@ void main() {
       group(
         'MeasurementUnitDtoToDomain',
         () {
-          parameterizedTest(
-            'converts MeasurementUnitDto to MeasurementUnit for all types',
-            [
-              [
-                MassDto(value: 70.0, unit: MassUnitDto.kilograms),
-                const Mass.kilograms(70.0),
-              ],
-              [
-                EnergyDto(value: 2000.0, unit: EnergyUnitDto.kilocalories),
-                const Energy.kilocalories(2000.0),
-              ],
-              [
-                TimeDurationDto(value: 60.0, unit: TimeDurationUnitDto.seconds),
-                const TimeDuration.seconds(60.0),
-              ],
-              [
-                LengthDto(value: 1000.0, unit: LengthUnitDto.meters),
-                const Length.meters(1000.0),
-              ],
-              [
-                TemperatureDto(value: 37.0, unit: TemperatureUnitDto.celsius),
-                const Temperature.celsius(37.0),
-              ],
-              [
-                PressureDto(
-                  value: 120.0,
-                  unit: PressureUnitDto.millimetersOfMercury,
-                ),
-                const Pressure.millimetersOfMercury(120.0),
-              ],
-              [
-                VelocityDto(
-                  value: 10.0,
-                  unit: VelocityUnitDto.metersPerSecond,
-                ),
-                const Velocity.metersPerSecond(10.0),
-              ],
-              [
-                VolumeDto(value: 2.0, unit: VolumeUnitDto.liters),
-                const Volume.liters(2.0),
-              ],
-              [
-                PowerDto(value: 100.0, unit: PowerUnitDto.watts),
-                const Power.watts(100.0),
-              ],
-              [
-                BloodGlucoseDto(
-                  value: 5.5,
-                  unit: BloodGlucoseUnitDto.millimolesPerLiter,
-                ),
-                const BloodGlucose.millimolesPerLiter(5.5),
-              ],
-              [
-                NumberDto(value: 42.0),
-                const Number(42.0),
-              ],
-              [
-                PercentageDto(value: 0.95, unit: PercentageUnitDto.decimal),
-                const Percentage.fromDecimal(0.95),
-              ],
-            ],
-            (MeasurementUnitDto dto, MeasurementUnit expectedDomain) {
-              final domain = dto.toDomain();
+          test('maps MassDto to Mass', () {
+            final dto = MassDto(kilograms: 70.0);
+            expect(dto.toDomain(), const Mass.kilograms(70.0));
+          });
 
-              // Verify that the conversion produces the expected domain object
-              expect(domain.runtimeType, expectedDomain.runtimeType);
+          test('maps EnergyDto to Energy', () {
+            final dto = EnergyDto(kilocalories: 2000.0);
+            expect(dto.toDomain(), const Energy.kilocalories(2000.0));
+          });
 
-              // Type-specific assertions to verify values
-              switch (domain) {
-                case Mass():
-                  expect(
-                    domain.inKilograms,
-                    (expectedDomain as Mass).inKilograms,
-                  );
-                case Energy():
-                  expect(
-                    domain.inKilocalories,
-                    (expectedDomain as Energy).inKilocalories,
-                  );
-                case TimeDuration():
-                  expect(
-                    domain.inSeconds,
-                    (expectedDomain as TimeDuration).inSeconds,
-                  );
-                case Length():
-                  expect(
-                    domain.inMeters,
-                    (expectedDomain as Length).inMeters,
-                  );
-                case Temperature():
-                  expect(
-                    domain.inCelsius,
-                    (expectedDomain as Temperature).inCelsius,
-                  );
-                case Pressure():
-                  expect(
-                    domain.inMillimetersOfMercury,
-                    (expectedDomain as Pressure).inMillimetersOfMercury,
-                  );
-                case Velocity():
-                  expect(
-                    domain.inMetersPerSecond,
-                    (expectedDomain as Velocity).inMetersPerSecond,
-                  );
-                case Volume():
-                  expect(
-                    domain.inLiters,
-                    (expectedDomain as Volume).inLiters,
-                  );
-                case Power():
-                  expect(
-                    domain.inWatts,
-                    (expectedDomain as Power).inWatts,
-                  );
-                case BloodGlucose():
-                  expect(
-                    domain.inMillimolesPerLiter,
-                    (expectedDomain as BloodGlucose).inMillimolesPerLiter,
-                  );
-                case Number():
-                  expect(
-                    domain.value,
-                    (expectedDomain as Number).value,
-                  );
-                case Percentage():
-                  expect(
-                    domain.asDecimal,
-                    (expectedDomain as Percentage).asDecimal,
-                  );
-              }
-            },
-          );
+          test('maps TimeDurationDto to TimeDuration', () {
+            final dto = TimeDurationDto(seconds: 60.0);
+            expect(dto.toDomain(), const TimeDuration.seconds(60.0));
+          });
+
+          test('maps LengthDto to Length', () {
+            final dto = LengthDto(meters: 1000.0);
+            expect(dto.toDomain(), const Length.meters(1000.0));
+          });
+
+          test('maps TemperatureDto to Temperature', () {
+            final dto = TemperatureDto(celsius: 37.0);
+            expect(dto.toDomain(), const Temperature.celsius(37.0));
+          });
+
+          test('maps PressureDto to Pressure', () {
+            final dto = PressureDto(millimetersOfMercury: 120.0);
+            expect(dto.toDomain(), const Pressure.millimetersOfMercury(120.0));
+          });
+
+          test('maps VelocityDto to Velocity', () {
+            final dto = VelocityDto(metersPerSecond: 10.0);
+            expect(dto.toDomain(), const Velocity.metersPerSecond(10.0));
+          });
+
+          test('maps VolumeDto to Volume', () {
+            final dto = VolumeDto(liters: 2.0);
+            expect(dto.toDomain(), const Volume.liters(2.0));
+          });
+
+          test('maps PowerDto to Power', () {
+            final dto = PowerDto(watts: 100.0);
+            expect(dto.toDomain(), const Power.watts(100.0));
+          });
+
+          test('maps BloodGlucoseDto to BloodGlucose', () {
+            final dto = BloodGlucoseDto(millimolesPerLiter: 5.5);
+            expect(dto.toDomain(), const BloodGlucose.millimolesPerLiter(5.5));
+          });
+
+          test('maps NumberDto to Number', () {
+            final dto = NumberDto(value: 42.0);
+            expect(dto.toDomain(), const Number(42.0));
+          });
+
+          test('maps PercentageDto to Percentage', () {
+            final dto = PercentageDto(decimal: 0.95);
+            expect(dto.toDomain(), const Percentage.fromDecimal(0.95));
+          });
         },
       );
 
       group(
         'MeasurementUnitToDto',
         () {
-          parameterizedTest(
-            'converts MeasurementUnit to MeasurementUnitDto for all types',
-            [
-              [
-                const Mass.kilograms(70.0),
-                MassDto(value: 70.0, unit: MassUnitDto.kilograms),
-              ],
-              [
-                const Energy.kilocalories(2000.0),
-                EnergyDto(value: 2000.0, unit: EnergyUnitDto.kilocalories),
-              ],
-              [
-                const TimeDuration.seconds(60.0),
-                TimeDurationDto(value: 60.0, unit: TimeDurationUnitDto.seconds),
-              ],
-              [
-                const Length.meters(1000.0),
-                LengthDto(value: 1000.0, unit: LengthUnitDto.meters),
-              ],
-              [
-                const Temperature.celsius(37.0),
-                TemperatureDto(value: 37.0, unit: TemperatureUnitDto.celsius),
-              ],
-              [
-                const Pressure.millimetersOfMercury(120.0),
-                PressureDto(
-                  value: 120.0,
-                  unit: PressureUnitDto.millimetersOfMercury,
-                ),
-              ],
-              [
-                const Velocity.metersPerSecond(10.0),
-                VelocityDto(
-                  value: 10.0,
-                  unit: VelocityUnitDto.metersPerSecond,
-                ),
-              ],
-              [
-                const Volume.liters(2.0),
-                VolumeDto(value: 2.0, unit: VolumeUnitDto.liters),
-              ],
-              [
-                const Power.watts(100.0),
-                PowerDto(value: 100.0, unit: PowerUnitDto.watts),
-              ],
-              [
-                const BloodGlucose.millimolesPerLiter(5.5),
-                BloodGlucoseDto(
-                  value: 5.5,
-                  unit: BloodGlucoseUnitDto.millimolesPerLiter,
-                ),
-              ],
-              [
-                const Number(42.0),
-                NumberDto(value: 42.0),
-              ],
-              [
-                const Percentage.fromDecimal(0.95),
-                PercentageDto(value: 0.95, unit: PercentageUnitDto.decimal),
-              ],
-            ],
-            (MeasurementUnit domain, MeasurementUnitDto expectedDto) {
-              final dto = domain.toDto();
+          test('converts Mass to MassDto', () {
+            const domain = Mass.kilograms(70.0);
+            final dto = domain.toDto();
+            expect(dto.kilograms, 70.0);
+          });
 
-              // Verify that the conversion produces the expected DTO type
-              expect(dto.runtimeType, expectedDto.runtimeType);
+          test('converts Energy to EnergyDto', () {
+            const domain = Energy.kilocalories(2000.0);
+            final dto = domain.toDto();
+            expect(dto.kilocalories, 2000.0);
+          });
 
-              // Type-specific assertions to verify values
-              switch (dto) {
-                case MassDto():
-                  expect(dto.value, (expectedDto as MassDto).value);
-                  expect(dto.unit, expectedDto.unit);
-                case EnergyDto():
-                  expect(dto.value, (expectedDto as EnergyDto).value);
-                  expect(dto.unit, expectedDto.unit);
-                case TimeDurationDto():
-                  expect(dto.value, (expectedDto as TimeDurationDto).value);
-                  expect(dto.unit, expectedDto.unit);
-                case LengthDto():
-                  expect(dto.value, (expectedDto as LengthDto).value);
-                  expect(dto.unit, expectedDto.unit);
-                case TemperatureDto():
-                  expect(dto.value, (expectedDto as TemperatureDto).value);
-                  expect(dto.unit, expectedDto.unit);
-                case PressureDto():
-                  expect(dto.value, (expectedDto as PressureDto).value);
-                  expect(dto.unit, expectedDto.unit);
-                case VelocityDto():
-                  expect(dto.value, (expectedDto as VelocityDto).value);
-                  expect(dto.unit, expectedDto.unit);
-                case VolumeDto():
-                  expect(dto.value, (expectedDto as VolumeDto).value);
-                  expect(dto.unit, expectedDto.unit);
-                case PowerDto():
-                  expect(dto.value, (expectedDto as PowerDto).value);
-                  expect(dto.unit, expectedDto.unit);
-                case BloodGlucoseDto():
-                  expect(dto.value, (expectedDto as BloodGlucoseDto).value);
-                  expect(dto.unit, expectedDto.unit);
-                case NumberDto():
-                  expect(dto.value, (expectedDto as NumberDto).value);
-                case PercentageDto():
-                  expect(dto.value, (expectedDto as PercentageDto).value);
-                  expect(dto.unit, expectedDto.unit);
-              }
-            },
-          );
+          test('converts TimeDuration to TimeDurationDto', () {
+            const domain = TimeDuration.seconds(60.0);
+            final dto = domain.toDto();
+            expect(dto.seconds, 60.0);
+          });
+
+          test('converts Length to LengthDto', () {
+            const domain = Length.meters(1000.0);
+            final dto = domain.toDto();
+            expect(dto.meters, 1000.0);
+          });
+
+          test('converts Temperature to TemperatureDto', () {
+            const domain = Temperature.celsius(37.0);
+            final dto = domain.toDto();
+            expect(dto.celsius, 37.0);
+          });
+
+          test('converts Pressure to PressureDto', () {
+            const domain = Pressure.millimetersOfMercury(120.0);
+            final dto = domain.toDto();
+            expect(dto.millimetersOfMercury, 120.0);
+          });
+
+          test('converts Velocity to VelocityDto', () {
+            const domain = Velocity.metersPerSecond(10.0);
+            final dto = domain.toDto();
+            expect(dto.metersPerSecond, 10.0);
+          });
+
+          test('converts Volume to VolumeDto', () {
+            const domain = Volume.liters(2.0);
+            final dto = domain.toDto();
+            expect(dto.liters, 2.0);
+          });
+
+          test('converts Power to PowerDto', () {
+            const domain = Power.watts(100.0);
+            final dto = domain.toDto();
+            expect(dto.watts, 100.0);
+          });
+
+          test('converts BloodGlucose to BloodGlucoseDto', () {
+            const domain = BloodGlucose.millimolesPerLiter(5.5);
+            final dto = domain.toDto();
+            expect(dto.millimolesPerLiter, 5.5);
+          });
+
+          test('converts Number to NumberDto', () {
+            const domain = Number(42.0);
+            final dto = domain.toDto();
+            expect(dto.value, 42.0);
+          });
+
+          test('converts Percentage to PercentageDto', () {
+            const domain = Percentage.fromDecimal(0.95);
+            final dto = domain.toDto();
+            expect(dto.decimal, 0.95);
+          });
         },
       );
     },

@@ -11,7 +11,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementLocationDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PressureDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PressureUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import io.kotest.matchers.shouldBe
 import java.time.Instant
@@ -48,10 +47,8 @@ class BloodPressureRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.systolic.value shouldBe TEST_SYSTOLIC
-        result.systolic.unit shouldBe PressureUnitDto.MILLIMETERS_OF_MERCURY
-        result.diastolic.value shouldBe TEST_DIASTOLIC
-        result.diastolic.unit shouldBe PressureUnitDto.MILLIMETERS_OF_MERCURY
+        result.systolic.millimetersOfMercury shouldBe TEST_SYSTOLIC
+        result.diastolic.millimetersOfMercury shouldBe TEST_DIASTOLIC
         result.bodyPosition shouldBe BodyPositionDto.SITTING_DOWN
         result.measurementLocation shouldBe MeasurementLocationDto.LEFT_UPPER_ARM
         result.time shouldBe TEST_TIME
@@ -67,12 +64,10 @@ class BloodPressureRecordMapperTest {
             time = TEST_TIME,
             zoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
             systolic = PressureDto(
-                value = TEST_SYSTOLIC,
-                unit = PressureUnitDto.MILLIMETERS_OF_MERCURY,
+                millimetersOfMercury = TEST_SYSTOLIC,
             ),
             diastolic = PressureDto(
-                value = TEST_DIASTOLIC,
-                unit = PressureUnitDto.MILLIMETERS_OF_MERCURY,
+                millimetersOfMercury = TEST_DIASTOLIC,
             ),
             bodyPosition = BodyPositionDto.SITTING_DOWN,
             measurementLocation = MeasurementLocationDto.LEFT_UPPER_ARM,

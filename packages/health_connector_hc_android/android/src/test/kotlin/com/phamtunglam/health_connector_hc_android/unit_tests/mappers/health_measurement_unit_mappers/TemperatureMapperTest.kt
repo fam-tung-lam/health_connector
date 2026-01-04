@@ -4,7 +4,6 @@ import androidx.health.connect.client.units.Temperature
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.TemperatureDto
-import com.phamtunglam.health_connector_hc_android.pigeon.TemperatureUnitDto
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -26,7 +25,7 @@ class TemperatureMapperTest {
     )
     fun whenTemperatureDtoInCelsius_thenCreatesCorrectTemperature() {
         // Given
-        val dto = TemperatureDto(value = 37.0, unit = TemperatureUnitDto.CELSIUS)
+        val dto = TemperatureDto(celsius = 37.0)
 
         // When
         val result = dto.toHealthConnect()
@@ -49,7 +48,6 @@ class TemperatureMapperTest {
         val result = temperature.toDto()
 
         // Then
-        result.value shouldBe 37.0
-        result.unit shouldBe TemperatureUnitDto.CELSIUS
+        result.celsius shouldBe 37.0
     }
 }

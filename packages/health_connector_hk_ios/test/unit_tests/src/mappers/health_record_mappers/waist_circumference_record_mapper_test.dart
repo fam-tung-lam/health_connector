@@ -35,8 +35,7 @@ void main() {
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, time.millisecondsSinceEpoch);
               expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
-              expect(dto.circumference.value, 0.85);
-              expect(dto.circumference.unit, LengthUnitDto.meters);
+              expect(dto.circumference.meters, 0.85);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -61,10 +60,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                circumference: LengthDto(
-                  value: 0.90,
-                  unit: LengthUnitDto.meters,
-                ),
+                circumference: LengthDto(meters: 0.90),
               );
 
               final record = dto.toDomain();
@@ -94,10 +90,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                circumference: LengthDto(
-                  value: 0.80,
-                  unit: LengthUnitDto.meters,
-                ),
+                circumference: LengthDto(meters: 0.80),
               );
 
               final record = dto.toDomain();

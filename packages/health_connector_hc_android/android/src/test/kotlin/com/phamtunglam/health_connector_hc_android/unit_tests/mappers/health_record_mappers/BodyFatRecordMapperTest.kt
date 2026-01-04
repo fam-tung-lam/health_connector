@@ -9,7 +9,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.BodyFatPercentageRecor
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PercentageDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PercentageUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import io.kotest.matchers.shouldBe
 import java.time.Instant
@@ -40,8 +39,7 @@ class BodyFatRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.percentage.value shouldBe TEST_PERCENTAGE
-        result.percentage.unit shouldBe PercentageUnitDto.DECIMAL
+        result.percentage.decimal shouldBe TEST_PERCENTAGE
     }
 
     @Test
@@ -52,7 +50,7 @@ class BodyFatRecordMapperTest {
             id = TEST_ID,
             time = TEST_TIME,
             zoneOffsetSeconds = null,
-            percentage = PercentageDto(value = TEST_PERCENTAGE, unit = PercentageUnitDto.DECIMAL),
+            percentage = PercentageDto(decimal = TEST_PERCENTAGE),
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,

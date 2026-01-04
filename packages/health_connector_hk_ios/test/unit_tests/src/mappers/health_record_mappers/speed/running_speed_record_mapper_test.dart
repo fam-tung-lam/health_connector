@@ -38,8 +38,8 @@ void main() {
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, time.millisecondsSinceEpoch);
               expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
-              expect(dto.speed.value, 3.5);
-              expect(dto.speed.unit, VelocityUnitDto.metersPerSecond);
+              expect(dto.speed.metersPerSecond, 3.5);
+
               expect(dto.activityType, SpeedActivityTypeDto.running);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(
@@ -74,7 +74,7 @@ void main() {
               final dto = record.toDto();
 
               // Then
-              expect(dto.speed.value, 5.2);
+              expect(dto.speed.metersPerSecond, 5.2);
               expect(dto.activityType, SpeedActivityTypeDto.running);
               expect(
                 dto.metadata.recordingMethod,
@@ -105,10 +105,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                speed: VelocityDto(
-                  value: 4.2,
-                  unit: VelocityUnitDto.metersPerSecond,
-                ),
+                speed: VelocityDto(metersPerSecond: 4.2),
                 activityType: SpeedActivityTypeDto.running,
               );
 
@@ -150,10 +147,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                speed: VelocityDto(
-                  value: 3.8,
-                  unit: VelocityUnitDto.metersPerSecond,
-                ),
+                speed: VelocityDto(metersPerSecond: 3.8),
                 activityType: SpeedActivityTypeDto.running,
               );
 
@@ -182,10 +176,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                speed: VelocityDto(
-                  value: 6.5,
-                  unit: VelocityUnitDto.metersPerSecond,
-                ),
+                speed: VelocityDto(metersPerSecond: 6.5),
                 activityType: SpeedActivityTypeDto.running,
               );
 

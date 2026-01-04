@@ -9,10 +9,8 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.EnergyDto
-import com.phamtunglam.health_connector_hc_android.pigeon.EnergyUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MassDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MassUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MealTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.NutritionRecordDto
@@ -64,12 +62,9 @@ class NutritionRecordMapperTest {
         result.endZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
         result.foodName shouldBe TEST_FOOD_NAME
         result.mealType shouldBe MealTypeDto.BREAKFAST
-        result.energy?.value shouldBe TEST_ENERGY_KCAL
-        result.energy?.unit shouldBe EnergyUnitDto.KILOCALORIES
-        result.protein?.value shouldBe TEST_PROTEIN_GRAMS / 1000.0 // Convert grams to kgs
-        result.protein?.unit shouldBe MassUnitDto.KILOGRAMS
-        result.totalCarbohydrate?.value shouldBe TEST_CARBS_GRAMS / 1000.0 // Convert grams to kgs
-        result.totalCarbohydrate?.unit shouldBe MassUnitDto.KILOGRAMS
+        result.energy?.kilocalories shouldBe TEST_ENERGY_KCAL
+        result.protein?.kilograms shouldBe TEST_PROTEIN_GRAMS / 1000.0 // Grams to kgs
+        result.totalCarbohydrate?.kilograms shouldBe TEST_CARBS_GRAMS / 1000.0 // Grams to kgs
         result.healthDataType shouldBe HealthDataTypeDto.NUTRITION
     }
 
@@ -86,8 +81,8 @@ class NutritionRecordMapperTest {
             healthDataType = HealthDataTypeDto.NUTRITION,
             foodName = TEST_FOOD_NAME,
             mealType = MealTypeDto.LUNCH,
-            energy = EnergyDto(value = TEST_ENERGY_KCAL, unit = EnergyUnitDto.KILOCALORIES),
-            protein = MassDto(value = TEST_PROTEIN_GRAMS, unit = MassUnitDto.GRAMS),
+            energy = EnergyDto(kilocalories = TEST_ENERGY_KCAL),
+            protein = MassDto(kilograms = TEST_PROTEIN_GRAMS / 1000.0),
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,

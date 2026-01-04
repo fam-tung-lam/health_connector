@@ -4,7 +4,6 @@ import androidx.health.connect.client.units.Pressure
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.PressureDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PressureUnitDto
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -26,7 +25,7 @@ class PressureMapperTest {
     )
     fun whenPressureDtoInMmHg_thenCreatesCorrectPressure() {
         // Given
-        val dto = PressureDto(value = 120.0, unit = PressureUnitDto.MILLIMETERS_OF_MERCURY)
+        val dto = PressureDto(millimetersOfMercury = 120.0)
 
         // When
         val result = dto.toHealthConnect()
@@ -49,7 +48,6 @@ class PressureMapperTest {
         val result = pressure.toDto()
 
         // Then
-        result.value shouldBe 120.0
-        result.unit shouldBe PressureUnitDto.MILLIMETERS_OF_MERCURY
+        result.millimetersOfMercury shouldBe 120.0
     }
 }

@@ -17,8 +17,7 @@ void main() {
 
               final dto = percentage.toDto();
 
-              expect(dto.value, 0.75);
-              expect(dto.unit, PercentageUnitDto.decimal);
+              expect(dto.decimal, 0.75);
             },
           );
         },
@@ -31,8 +30,7 @@ void main() {
             'converts PercentageDto to Percentage',
             () {
               final dto = PercentageDto(
-                value: 80.0,
-                unit: PercentageUnitDto.whole,
+                decimal: 0.8,
               );
 
               final percentage = dto.toDomain();

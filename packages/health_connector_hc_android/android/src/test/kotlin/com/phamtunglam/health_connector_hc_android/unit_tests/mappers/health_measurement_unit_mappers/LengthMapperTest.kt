@@ -4,7 +4,6 @@ import androidx.health.connect.client.units.Length
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.LengthDto
-import com.phamtunglam.health_connector_hc_android.pigeon.LengthUnitDto
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -30,7 +29,7 @@ class LengthMapperTest {
     )
     fun whenLengthDtoInMeters_thenCreatesCorrectLength() {
         // Given
-        val dto = LengthDto(value = TEST_VALUE, unit = LengthUnitDto.METERS)
+        val dto = LengthDto(meters = TEST_VALUE)
 
         // When
         val result = dto.toHealthConnect()
@@ -53,7 +52,6 @@ class LengthMapperTest {
         val result = length.toDto()
 
         // Then
-        result.value shouldBe TEST_VALUE
-        result.unit shouldBe LengthUnitDto.METERS
+        result.meters shouldBe TEST_VALUE
     }
 }

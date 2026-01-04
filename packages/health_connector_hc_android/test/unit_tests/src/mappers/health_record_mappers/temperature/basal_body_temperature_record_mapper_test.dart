@@ -34,8 +34,7 @@ void main() {
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
               expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
-              expect(dto.temperature.value, 36.5);
-              expect(dto.temperature.unit, TemperatureUnitDto.celsius);
+              expect(dto.temperature.celsius, 36.5);
             },
           );
         },
@@ -60,10 +59,7 @@ void main() {
                 ),
                 measurementLocation:
                     BasalBodyTemperatureMeasurementLocationDto.wrist,
-                temperature: TemperatureDto(
-                  value: 37.0,
-                  unit: TemperatureUnitDto.celsius,
-                ),
+                temperature: TemperatureDto(celsius: 37.0),
               );
 
               final record = dto.toDomain();
@@ -93,10 +89,7 @@ void main() {
                 ),
                 measurementLocation:
                     BasalBodyTemperatureMeasurementLocationDto.wrist,
-                temperature: TemperatureDto(
-                  value: 37.0,
-                  unit: TemperatureUnitDto.celsius,
-                ),
+                temperature: TemperatureDto(celsius: 37.0),
               );
 
               final record = dto.toDomain();

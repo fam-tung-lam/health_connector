@@ -28,8 +28,7 @@ void main() {
 
               // Then
               expect(dto.time, fakeSampleTime.millisecondsSinceEpoch);
-              expect(dto.power.value, 200);
-              expect(dto.power.unit, PowerUnitDto.watts);
+              expect(dto.power.watts, 200);
             },
           );
         },
@@ -44,7 +43,7 @@ void main() {
               // Given
               final dto = PowerMeasurementDto(
                 time: fakeSampleTime.millisecondsSinceEpoch,
-                power: PowerDto(value: 200, unit: PowerUnitDto.watts),
+                power: PowerDto(watts: 200),
               );
 
               // When

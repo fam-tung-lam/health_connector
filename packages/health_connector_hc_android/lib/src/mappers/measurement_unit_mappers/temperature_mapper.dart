@@ -1,7 +1,7 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show Temperature;
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
-    show TemperatureDto, TemperatureUnitDto;
+    show TemperatureDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [Temperature] to [TemperatureDto].
@@ -10,8 +10,7 @@ extension TemperatureToDto on Temperature {
   TemperatureDto toDto() {
     // Uses celsius as the transfer unit for consistency.
     return TemperatureDto(
-      value: inCelsius,
-      unit: TemperatureUnitDto.celsius,
+      celsius: inCelsius,
     );
   }
 }
@@ -20,13 +19,6 @@ extension TemperatureToDto on Temperature {
 @internal
 extension TemperatureDtoToDomain on TemperatureDto {
   Temperature toDomain() {
-    switch (unit) {
-      case TemperatureUnitDto.celsius:
-        return Temperature.celsius(value);
-      case TemperatureUnitDto.fahrenheit:
-        return Temperature.fahrenheit(value);
-      case TemperatureUnitDto.kelvin:
-        return Temperature.kelvin(value);
-    }
+    return Temperature.celsius(celsius);
   }
 }

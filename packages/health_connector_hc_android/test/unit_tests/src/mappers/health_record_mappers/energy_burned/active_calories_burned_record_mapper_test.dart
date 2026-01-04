@@ -55,8 +55,7 @@ void main() {
                 dto.metadata.recordingMethod,
                 RecordingMethodDto.activelyRecorded,
               );
-              expect(dto.energy.value, 250.5);
-              expect(dto.energy.unit, EnergyUnitDto.kilocalories);
+              expect(dto.energy.kilocalories, 250.5);
             },
           );
         },
@@ -82,10 +81,7 @@ void main() {
                   clientRecordVersion: 2,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                energy: EnergyDto(
-                  value: 300.0,
-                  unit: EnergyUnitDto.kilocalories,
-                ),
+                energy: EnergyDto(kilocalories: 300.0),
               );
 
               // Then
@@ -129,10 +125,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                energy: EnergyDto(
-                  value: 150.0,
-                  unit: EnergyUnitDto.kilocalories,
-                ),
+                energy: EnergyDto(kilocalories: 150.0),
               );
 
               // Then

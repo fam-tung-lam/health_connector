@@ -77,10 +77,7 @@ void main() {
           endTime: DateTime(
             2025,
           ).add(const Duration(hours: 1)).millisecondsSinceEpoch,
-          energy: EnergyDto(
-            unit: EnergyUnitDto.kilocalories,
-            value: 0.1,
-          ), // 100 cal = 0.1 kcal
+          energy: EnergyDto(kilocalories: 0.1), // 100 cal = 0.1 kcal
           metadata: MetadataDto(
             dataOrigin: 'com.example',
             deviceType: DeviceTypeDto.unknown,

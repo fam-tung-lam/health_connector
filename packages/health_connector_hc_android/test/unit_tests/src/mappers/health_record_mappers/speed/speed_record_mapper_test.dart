@@ -61,7 +61,7 @@ void main() {
               );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(dto.samples, hasLength(1));
-              expect(dto.samples[0].speed.value, 2.5);
+              expect(dto.samples[0].speed.metersPerSecond, 2.5);
             },
           );
         },
@@ -70,11 +70,9 @@ void main() {
       group(
         'SpeedSeriesRecordDtoToDomain',
         () {
-          // Should
           test(
             'converts SpeedSeriesRecordDto to SpeedSeriesRecord',
             () {
-              // Given
               final dto = SpeedSeriesRecordDto(
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeLocalStartTime.millisecondsSinceEpoch,
@@ -90,18 +88,13 @@ void main() {
                 samples: [
                   SpeedMeasurementDto(
                     time: fakeSampleTime.millisecondsSinceEpoch,
-                    speed: VelocityDto(
-                      value: 3.0,
-                      unit: VelocityUnitDto.metersPerSecond,
-                    ),
+                    speed: VelocityDto(metersPerSecond: 3.0),
                   ),
                 ],
               );
 
-              // When
               final record = dto.toDomain();
 
-              // Then
               expect(record.id.value, FakeData.fakeId);
               expect(record.startTime, FakeData.fakeStartTime);
               expect(record.endTime, FakeData.fakeEndTime);

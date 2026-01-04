@@ -16,8 +16,7 @@ void main() {
               const pressure = Pressure.millimetersOfMercury(120.0);
               final dto = pressure.toDto();
 
-              expect(dto.value, 120.0);
-              expect(dto.unit, PressureUnitDto.millimetersOfMercury);
+              expect(dto.millimetersOfMercury, 120.0);
             },
           );
         },
@@ -29,10 +28,7 @@ void main() {
           test(
             'maps PressureDto to Pressure',
             () {
-              final dto = PressureDto(
-                value: 120.0,
-                unit: PressureUnitDto.millimetersOfMercury,
-              );
+              final dto = PressureDto(millimetersOfMercury: 120.0);
               final pressure = dto.toDomain();
 
               expect(pressure.inMillimetersOfMercury, 120.0);

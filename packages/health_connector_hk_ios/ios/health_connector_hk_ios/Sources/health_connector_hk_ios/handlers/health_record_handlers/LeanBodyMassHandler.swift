@@ -24,6 +24,6 @@ final class LeanBodyMassHandler: @unchecked Sendable,
 
     func convertQuantity(_ quantity: HKQuantity) throws -> MassDto {
         let kilograms = quantity.doubleValue(for: .gramUnit(with: .kilo))
-        return MassDto(unit: .kilograms, value: kilograms)
+        return MassDto(kilograms: kilograms)
     }
 }

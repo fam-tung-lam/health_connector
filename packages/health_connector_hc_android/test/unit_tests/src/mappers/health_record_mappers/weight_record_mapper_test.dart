@@ -34,8 +34,8 @@ void main() {
               expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
               expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-              expect(dto.weight.value, 70.5);
-              expect(dto.weight.unit, MassUnitDto.kilograms);
+              expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
+              expect(dto.weight.kilograms, 70.5);
             },
           );
         },
@@ -57,10 +57,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                weight: MassDto(
-                  value: 65.3,
-                  unit: MassUnitDto.kilograms,
-                ),
+                weight: MassDto(kilograms: 65.3),
               );
 
               final record = dto.toDomain();
@@ -84,10 +81,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                weight: MassDto(
-                  value: 68.0,
-                  unit: MassUnitDto.kilograms,
-                ),
+                weight: MassDto(kilograms: 68.0),
               );
 
               final record = dto.toDomain();

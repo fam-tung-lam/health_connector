@@ -1,7 +1,7 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/temperature_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
-import 'package:parameterized_test/parameterized_test.dart';
+
 import 'package:test/test.dart';
 
 void main() {
@@ -17,8 +17,7 @@ void main() {
               const temperature = Temperature.celsius(37.0);
               final dto = temperature.toDto();
 
-              expect(dto.value, 37.0);
-              expect(dto.unit, TemperatureUnitDto.celsius);
+              expect(dto.celsius, 37.0);
             },
           );
 
@@ -28,8 +27,7 @@ void main() {
               const temperature = Temperature.fahrenheit(98.6);
               final dto = temperature.toDto();
 
-              expect(dto.unit, TemperatureUnitDto.celsius);
-              expect(dto.value, closeTo(37.0, 0.1));
+              expect(dto.celsius, closeTo(37.0, 0.1));
             },
           );
         },
@@ -38,25 +36,13 @@ void main() {
       group(
         'TemperatureDtoToDomain',
         () {
-          parameterizedTest(
+          test(
             'maps TemperatureDto to Temperature',
-            [
-              [TemperatureUnitDto.celsius, 37.0],
-              [TemperatureUnitDto.fahrenheit, 98.6],
-              [TemperatureUnitDto.kelvin, 310.15],
-            ],
-            (TemperatureUnitDto unit, double value) {
-              final dto = TemperatureDto(value: value, unit: unit);
+            () {
+              final dto = TemperatureDto(celsius: 37.0);
               final temperature = dto.toDomain();
 
-              switch (unit) {
-                case TemperatureUnitDto.celsius:
-                  expect(temperature.inCelsius, value);
-                case TemperatureUnitDto.fahrenheit:
-                  expect(temperature.inFahrenheit, value);
-                case TemperatureUnitDto.kelvin:
-                  expect(temperature.inKelvin, value);
-              }
+              expect(temperature.inCelsius, 37.0);
             },
           );
         },

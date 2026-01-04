@@ -10,7 +10,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PowerDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PowerMeasurementDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PowerSeriesRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PowerUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import io.kotest.matchers.shouldBe
 import java.time.Instant
@@ -59,9 +58,9 @@ class PowerSeriesRecordMapperTest {
         result.startTime shouldBe TEST_START_TIME
         result.endTime shouldBe TEST_END_TIME
         result.samples.size shouldBe 2
-        result.samples[0].power.value shouldBe TEST_POWER_WATTS_1
-        result.samples[0].power.unit shouldBe PowerUnitDto.WATTS
-        result.samples[1].power.value shouldBe TEST_POWER_WATTS_2
+        result.samples[0].power.watts shouldBe TEST_POWER_WATTS_1
+        result.samples[1].power.watts shouldBe TEST_POWER_WATTS_2
+
         result.startZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
         result.endZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
     }
@@ -84,11 +83,11 @@ class PowerSeriesRecordMapperTest {
             samples = listOf(
                 PowerMeasurementDto(
                     time = TEST_START_TIME,
-                    power = PowerDto(value = TEST_POWER_WATTS_1, unit = PowerUnitDto.WATTS),
+                    power = PowerDto(watts = TEST_POWER_WATTS_1),
                 ),
                 PowerMeasurementDto(
                     time = TEST_END_TIME,
-                    power = PowerDto(value = TEST_POWER_WATTS_2, unit = PowerUnitDto.WATTS),
+                    power = PowerDto(watts = TEST_POWER_WATTS_2),
                 ),
             ),
         )

@@ -26,8 +26,7 @@ void main() {
 
               // Then
               expect(dto.time, time.millisecondsSinceEpoch);
-              expect(dto.speed.value, 2.5);
-              expect(dto.speed.unit, VelocityUnitDto.metersPerSecond);
+              expect(dto.speed.metersPerSecond, 2.5);
             },
           );
         },
@@ -44,10 +43,7 @@ void main() {
               final time = DateTime(2025, 1, 15, 10).toUtc();
               final dto = SpeedMeasurementDto(
                 time: time.millisecondsSinceEpoch,
-                speed: VelocityDto(
-                  value: 3.0,
-                  unit: VelocityUnitDto.metersPerSecond,
-                ),
+                speed: VelocityDto(metersPerSecond: 3.0),
               );
 
               // When

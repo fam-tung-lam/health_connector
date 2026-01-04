@@ -39,7 +39,7 @@ void main() {
               expect(dto, isA<ActiveCaloriesBurnedRecordDto>());
               final caloriesDto = dto as ActiveCaloriesBurnedRecordDto;
               expect(caloriesDto.id, FakeData.fakeId);
-              expect(caloriesDto.energy.value, 350.0);
+              expect(caloriesDto.energy.kilocalories, 350.0);
             },
           );
 
@@ -99,7 +99,7 @@ void main() {
               expect(dto, isA<WeightRecordDto>());
               final weightDto = dto as WeightRecordDto;
               expect(weightDto.id, FakeData.fakeId);
-              expect(weightDto.weight.value, 70.5);
+              expect(weightDto.weight.kilograms, 70.5);
             },
           );
 
@@ -130,8 +130,8 @@ void main() {
               expect(dto, isA<BloodPressureRecordDto>());
               final bpDto = dto as BloodPressureRecordDto;
               expect(bpDto.id, FakeData.fakeId);
-              expect(bpDto.systolic.value, 120.0);
-              expect(bpDto.diastolic.value, 80.0);
+              expect(bpDto.systolic.millimetersOfMercury, 120.0);
+              expect(bpDto.diastolic.millimetersOfMercury, 80.0);
             },
           );
 
@@ -255,10 +255,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                energy: EnergyDto(
-                  value: 275.0,
-                  unit: EnergyUnitDto.kilocalories,
-                ),
+                energy: EnergyDto(kilocalories: 275.0),
               );
 
               // When
@@ -317,7 +314,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                weight: MassDto(value: 68.2, unit: MassUnitDto.kilograms),
+                weight: MassDto(kilograms: 68.2),
               );
 
               // When
@@ -375,10 +372,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                speed: VelocityDto(
-                  value: 1.3,
-                  unit: VelocityUnitDto.metersPerSecond,
-                ),
+                speed: VelocityDto(metersPerSecond: 1.3),
                 activityType: SpeedActivityTypeDto.walking,
               );
 

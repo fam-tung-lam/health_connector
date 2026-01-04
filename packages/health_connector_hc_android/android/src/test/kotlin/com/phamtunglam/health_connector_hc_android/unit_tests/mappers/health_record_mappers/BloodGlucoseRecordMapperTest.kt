@@ -10,7 +10,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRelationToMealDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseSpecimenSourceDto
-import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MealTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
@@ -49,8 +48,7 @@ class BloodGlucoseRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.bloodGlucose.value shouldBe TEST_GLUCOSE_MMOL
-        result.bloodGlucose.unit shouldBe BloodGlucoseUnitDto.MILLIMOLES_PER_LITER
+        result.bloodGlucose.millimolesPerLiter shouldBe TEST_GLUCOSE_MMOL
         result.specimenSource shouldBe BloodGlucoseSpecimenSourceDto.PLASMA
         result.mealType shouldBe MealTypeDto.LUNCH
         result.relationToMeal shouldBe BloodGlucoseRelationToMealDto.AFTER_MEAL
@@ -67,8 +65,7 @@ class BloodGlucoseRecordMapperTest {
             time = TEST_TIME,
             zoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
             bloodGlucose = BloodGlucoseDto(
-                value = TEST_GLUCOSE_MMOL,
-                unit = BloodGlucoseUnitDto.MILLIMOLES_PER_LITER,
+                millimolesPerLiter = TEST_GLUCOSE_MMOL,
             ),
             specimenSource = BloodGlucoseSpecimenSourceDto.PLASMA,
             mealType = MealTypeDto.LUNCH,

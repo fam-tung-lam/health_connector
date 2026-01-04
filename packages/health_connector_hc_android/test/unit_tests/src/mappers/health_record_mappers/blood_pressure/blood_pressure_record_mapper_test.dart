@@ -41,8 +41,8 @@ void main() {
               expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
               expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-              expect(dto.systolic.value, 120);
-              expect(dto.diastolic.value, 80);
+              expect(dto.systolic.millimetersOfMercury, 120);
+              expect(dto.diastolic.millimetersOfMercury, 80);
               expect(dto.bodyPosition, BodyPositionDto.sittingDown);
               expect(
                 dto.measurementLocation,
@@ -70,14 +70,8 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                systolic: PressureDto(
-                  value: 130,
-                  unit: PressureUnitDto.millimetersOfMercury,
-                ),
-                diastolic: PressureDto(
-                  value: 85,
-                  unit: PressureUnitDto.millimetersOfMercury,
-                ),
+                systolic: PressureDto(millimetersOfMercury: 130),
+                diastolic: PressureDto(millimetersOfMercury: 85),
                 bodyPosition: BodyPositionDto.standingUp,
                 measurementLocation: MeasurementLocationDto.rightWrist,
               );
@@ -117,14 +111,8 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                systolic: PressureDto(
-                  value: 115,
-                  unit: PressureUnitDto.millimetersOfMercury,
-                ),
-                diastolic: PressureDto(
-                  value: 75,
-                  unit: PressureUnitDto.millimetersOfMercury,
-                ),
+                systolic: PressureDto(millimetersOfMercury: 115),
+                diastolic: PressureDto(millimetersOfMercury: 75),
                 bodyPosition: BodyPositionDto.unknown,
                 measurementLocation: MeasurementLocationDto.unknown,
               );

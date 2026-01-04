@@ -122,10 +122,7 @@ void main() {
                       clientRecordVersion: 1,
                       deviceType: DeviceTypeDto.phone,
                     ),
-                    weight: MassDto(
-                      value: 70.5,
-                      unit: MassUnitDto.kilograms,
-                    ),
+                    weight: MassDto(kilograms: 70.5),
                   ),
                 ],
               );

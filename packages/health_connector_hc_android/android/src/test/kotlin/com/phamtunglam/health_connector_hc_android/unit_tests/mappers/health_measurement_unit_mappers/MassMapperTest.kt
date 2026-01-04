@@ -4,14 +4,10 @@ import androidx.health.connect.client.units.Mass
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.MassDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MassUnitDto
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.Arguments
-import org.junit.jupiter.params.provider.MethodSource
 
 /**
  * Unit tests for Mass Mapper.
@@ -27,35 +23,22 @@ class MassMapperTest {
         const val TEST_VALUE = 100.0
     }
 
-    @ParameterizedTest(name = "unit={0}, value={1}")
-    @MethodSource("provideMassUnits")
+    @Test
     @DisplayName(
-        "GIVEN MassDto with various units → " +
+        "GIVEN MassDto in kilograms → " +
             "WHEN toHealthConnect called → " +
-            "THEN creates Mass with correct value in that unit",
+            "THEN creates Mass with correct value",
     )
-    fun whenMassDto_thenCreatesCorrectMass(unit: MassUnitDto, value: Double) {
+    fun whenMassDtoInKilograms_thenCreatesCorrectMass() {
         // Given
-        val dto = MassDto(value = value, unit = unit)
+        val dto = MassDto(kilograms = TEST_VALUE)
 
         // When
         val result = dto.toHealthConnect()
 
         // Then
-        when (unit) {
-            MassUnitDto.KILOGRAMS -> result.inKilograms shouldBe value
-            MassUnitDto.GRAMS -> result.inGrams shouldBe value
-            MassUnitDto.POUNDS -> result.inPounds shouldBe value
-            MassUnitDto.OUNCES -> result.inOunces shouldBe value
-        }
+        result.inKilograms shouldBe TEST_VALUE
     }
-
-    fun provideMassUnits(): List<Arguments> = listOf(
-        Arguments.of(MassUnitDto.KILOGRAMS, 70.0),
-        Arguments.of(MassUnitDto.GRAMS, 70000.0),
-        Arguments.of(MassUnitDto.POUNDS, 154.0),
-        Arguments.of(MassUnitDto.OUNCES, 2469.0),
-    )
 
     @Test
     @DisplayName(
@@ -71,7 +54,6 @@ class MassMapperTest {
         val result = mass.toDto()
 
         // Then
-        result.value shouldBe TEST_VALUE
-        result.unit shouldBe MassUnitDto.KILOGRAMS
+        result.kilograms shouldBe TEST_VALUE
     }
 }

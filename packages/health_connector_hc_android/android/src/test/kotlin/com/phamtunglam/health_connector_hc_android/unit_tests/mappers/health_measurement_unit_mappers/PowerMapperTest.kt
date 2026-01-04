@@ -4,7 +4,6 @@ import androidx.health.connect.client.units.Power
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.PowerDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PowerUnitDto
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -26,7 +25,7 @@ class PowerMapperTest {
     )
     fun whenPowerDtoInWatts_thenCreatesCorrectPower() {
         // Given
-        val dto = PowerDto(value = 250.0, unit = PowerUnitDto.WATTS)
+        val dto = PowerDto(watts = 250.0)
 
         // When
         val result = dto.toHealthConnect()
@@ -49,7 +48,6 @@ class PowerMapperTest {
         val result = power.toDto()
 
         // Then
-        result.value shouldBe 250.0
-        result.unit shouldBe PowerUnitDto.WATTS
+        result.watts shouldBe 250.0
     }
 }

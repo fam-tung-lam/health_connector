@@ -40,11 +40,7 @@ void main() {
               expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
               expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-              expect(dto.bloodGlucose.value, 5.5);
-              expect(
-                dto.bloodGlucose.unit,
-                BloodGlucoseUnitDto.millimolesPerLiter,
-              );
+              expect(dto.bloodGlucose.millimolesPerLiter, 5.5);
               expect(
                 dto.relationToMeal,
                 BloodGlucoseRelationToMealDto.fasting,
@@ -76,10 +72,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                bloodGlucose: BloodGlucoseDto(
-                  value: 110.0,
-                  unit: BloodGlucoseUnitDto.milligramsPerDeciliter,
-                ),
+                bloodGlucose: BloodGlucoseDto(millimolesPerLiter: 6.0),
                 relationToMeal: BloodGlucoseRelationToMealDto.afterMeal,
                 specimenSource: BloodGlucoseSpecimenSourceDto.plasma,
                 mealType: MealTypeDto.lunch,
@@ -96,7 +89,7 @@ void main() {
                 record.metadata.dataOrigin.packageName,
                 FakeData.fakeDataOrigin,
               );
-              expect(record.bloodGlucose.inMilligramsPerDeciliter, 110.0);
+              expect(record.bloodGlucose.inMillimolesPerLiter, 6.0);
               expect(
                 record.relationToMeal,
                 BloodGlucoseRelationToMeal.afterMeal,
@@ -123,10 +116,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                bloodGlucose: BloodGlucoseDto(
-                  value: 100.0,
-                  unit: BloodGlucoseUnitDto.milligramsPerDeciliter,
-                ),
+                bloodGlucose: BloodGlucoseDto(millimolesPerLiter: 5.5),
               );
 
               // When

@@ -35,8 +35,7 @@ void main() {
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, time.millisecondsSinceEpoch);
               expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
-              expect(dto.height.value, 1.75);
-              expect(dto.height.unit, LengthUnitDto.meters);
+              expect(dto.height.meters, 1.75);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -61,7 +60,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                height: LengthDto(value: 1.82, unit: LengthUnitDto.meters),
+                height: LengthDto(meters: 1.82),
               );
 
               final record = dto.toDomain();
@@ -90,7 +89,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                height: LengthDto(value: 1.68, unit: LengthUnitDto.meters),
+                height: LengthDto(meters: 1.68),
               );
 
               final record = dto.toDomain();

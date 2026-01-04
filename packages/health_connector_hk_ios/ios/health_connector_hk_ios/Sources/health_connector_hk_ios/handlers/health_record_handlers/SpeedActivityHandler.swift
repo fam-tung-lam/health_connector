@@ -47,7 +47,7 @@ class SpeedActivityHandler<T: SpeedActivityHandlerConfig>: Sendable,
 
     func convertQuantity(_ quantity: HKQuantity) throws -> VelocityDto {
         let metersPerSecond = quantity.doubleValue(for: HKUnit.meter().unitDivided(by: .second()))
-        return VelocityDto(unit: .metersPerSecond, value: metersPerSecond)
+        return VelocityDto(metersPerSecond: metersPerSecond)
     }
 }
 

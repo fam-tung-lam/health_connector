@@ -35,7 +35,7 @@ void main() {
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, time.millisecondsSinceEpoch);
               expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
-              expect(dto.power.value, 250.0);
+              expect(dto.power.watts, 250.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -60,7 +60,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                power: PowerDto(value: 220.0, unit: PowerUnitDto.watts),
+                power: PowerDto(watts: 220.0),
               );
 
               final record = dto.toDomain();
@@ -90,7 +90,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                power: PowerDto(value: 200.0, unit: PowerUnitDto.watts),
+                power: PowerDto(watts: 200.0),
               );
 
               final record = dto.toDomain();

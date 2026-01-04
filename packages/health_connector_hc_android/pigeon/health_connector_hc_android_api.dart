@@ -18,111 +18,346 @@ import 'package:pigeon/pigeon.dart';
     copyrightHeader: 'pigeon/copyright_header.txt',
   ),
 )
-/// Error codes that native platforms can use when throwing error.
-enum HealthConnectorErrorCodeDto {
-  /// Health Connect installation or update is required.
-  healthPlatformNotInstalledOrUpdateRequired,
+/// Configuration data transfer object for Health Connector.
+///
+/// Contains configuration settings that are passed from Dart to native
+/// platform code during client initialization.
+class HealthConnectorConfigDto {
+  HealthConnectorConfigDto({required this.isLoggerEnabled});
 
-  /// Health platform is unavailable on this device.
-  healthPlatformUnavailable,
-
-  /// Invalid platform configuration detected.
-  invalidConfiguration,
-
-  /// Invalid argument or input validation error.
-  invalidArgument,
-
-  /// Attempted to use platform APIs or features that are not supported
-  /// on the current health platform.
-  unsupportedOperation,
-
-  /// Unknown or unspecified error.
-  unknown,
-
-  /// Security/permission error occurred.
-  notAuthorized,
-
-  /// A transient I/O or communication error occurred.
-  remoteError,
-}
-
-/// Represents the status of the health platform on the device.
-enum HealthPlatformStatusDto {
-  /// The health platform is available and ready to use.
-  available,
-
-  /// The health platform is not installed or not supported.
-  ///
-  /// Note: Health Connect only.
-  installationOrUpdateRequired,
-
-  /// The health platform is not available on this device.
-  notAvailable,
+  /// Whether logging is enabled for the Health Connector.
+  final bool isLoggerEnabled;
 }
 
 // region Measurement Unit
+
 /// Sealed class for all measurement unit DTOs.
 sealed class MeasurementUnitDto {}
 
-/// Blood glucose unit types supported by the plugin.
-enum BloodGlucoseUnitDto { milligramsPerDeciliter, millimolesPerLiter }
+/// Represents a blood glucose measurement in millimoles per liter.
+class BloodGlucoseDto extends MeasurementUnitDto {
+  BloodGlucoseDto(this.millimolesPerLiter);
 
-/// Energy unit types supported by the plugin.
-enum EnergyUnitDto { calories, joules, kilocalories, kilojoules }
-
-/// Duration unit types supported by the plugin.
-enum TimeDurationUnitDto { seconds, minutes, hours }
-
-/// Length unit types supported by the plugin.
-enum LengthUnitDto { feet, inches, kilometers, meters, miles }
-
-/// Mass unit types supported by the plugin.
-enum MassUnitDto { grams, kilograms, ounces, pounds }
-
-/// Percentage unit types supported by the plugin.
-enum PercentageUnitDto {
-  /// Percentage as a decimal value (0.0 to 1.0).
-  decimal,
-
-  /// Percentage as a whole number (0 to 100).
-  whole,
+  /// Blood glucose value in millimoles per liter (mmol/L).
+  final double millimolesPerLiter;
 }
 
-/// Represents the type of access requested for health data.
-enum PermissionAccessTypeDto {
-  /// Read access to health data.
-  read,
+/// Represents an energy measurement in kilocalories.
+class EnergyDto extends MeasurementUnitDto {
+  EnergyDto(this.kilocalories);
 
-  /// Write access to health data.
-  write,
+  /// Energy value in kilocalories (kcal).
+  final double kilocalories;
 }
 
-/// Represents the status of a permission.
-enum PermissionStatusDto {
-  /// Permission has been explicitly denied by the user.
-  denied,
+/// Represents a time duration in seconds.
+class TimeDurationDto extends MeasurementUnitDto {
+  TimeDurationDto(this.seconds);
 
-  /// Permission has been explicitly granted by the user.
-  granted,
+  /// Duration value in seconds (s).
+  final double seconds;
+}
 
-  /// The permission status cannot be determined.
+/// Represents a length measurement in meters.
+class LengthDto extends MeasurementUnitDto {
+  LengthDto(this.meters);
+
+  /// Length value in meters (m).
+  final double meters;
+}
+
+/// Represents a mass measurement in kilograms.
+class MassDto extends MeasurementUnitDto {
+  MassDto(this.kilograms);
+
+  /// Mass value in kilograms (kg).
+  final double kilograms;
+}
+
+/// Represents a number for platform transfer.
+class NumberDto extends MeasurementUnitDto {
+  NumberDto(this.value);
+
+  /// The count value.
+  final double value;
+}
+
+/// Represents a percentage as a decimal value (0.0 to 1.0).
+class PercentageDto extends MeasurementUnitDto {
+  PercentageDto(this.decimal);
+
+  /// Percentage value as decimal (0.0 to 1.0).
+  final double decimal;
+}
+
+/// Represents a power measurement in watts.
+class PowerDto extends MeasurementUnitDto {
+  PowerDto(this.watts);
+
+  /// Power value in watts (W).
+  final double watts;
+}
+
+/// Represents a pressure measurement in millimeters of mercury.
+class PressureDto extends MeasurementUnitDto {
+  PressureDto(this.millimetersOfMercury);
+
+  /// Pressure value in millimeters of mercury (mmHg).
+  final double millimetersOfMercury;
+}
+
+/// Represents a temperature measurement in celsius.
+class TemperatureDto extends MeasurementUnitDto {
+  TemperatureDto(this.celsius);
+
+  /// Temperature value in degrees Celsius (°C).
+  final double celsius;
+}
+
+/// Represents a velocity measurement in meters per second.
+class VelocityDto extends MeasurementUnitDto {
+  VelocityDto(this.metersPerSecond);
+
+  /// Velocity value in meters per second (m/s).
+  final double metersPerSecond;
+}
+
+/// Represents a volume measurement in liters.
+class VolumeDto extends MeasurementUnitDto {
+  VolumeDto(this.liters);
+
+  /// Volume value in liters (L).
+  final double liters;
+}
+
+// endregion
+
+// region Metadata
+
+/// Device type for health data recording.
+enum DeviceTypeDto {
+  /// Chest strap heart rate monitor.
+  chestStrap,
+
+  /// Fitness band or activity tracker.
+  fitnessBand,
+
+  /// Head-mounted device (e.g., AR/VR headset).
+  headMounted,
+
+  /// Mobile phone or smartphone.
+  phone,
+
+  /// Smart ring wearable.
+  ring,
+
+  /// Weight scale or body composition scale.
+  scale,
+
+  /// Smart display device.
+  smartDisplay,
+
+  /// Unknown or unspecified device type.
+  unknown,
+
+  /// Smartwatch or wearable watch.
+  watch,
+}
+
+/// Recording method for health data.
+enum RecordingMethodDto {
+  /// Data was recorded during an active user-initiated session.
+  activelyRecorded,
+
+  /// Data was automatically recorded by a device in the background.
+  automaticallyRecorded,
+
+  /// Data was manually entered by the user.
+  manualEntry,
+
+  /// The recording method is unknown or unspecified.
   unknown,
 }
 
-/// Pressure unit types supported by the plugin.
-enum PressureUnitDto { millimetersOfMercury }
+/// Represents metadata for a health record.
+class MetadataDto {
+  MetadataDto({
+    required this.dataOrigin,
+    required this.recordingMethod,
+    required this.deviceType,
+    this.lastModifiedTime,
+    this.clientRecordId,
+    this.clientRecordVersion,
+    this.deviceManufacturer,
+    this.deviceModel,
+  });
 
-/// Power unit types supported by the plugin.
-enum PowerUnitDto { kilowatts, watts }
+  /// A custom identifier assigned by your application.
+  ///
+  /// Use this for client-side record tracking, deduplication, or correlation.
+  final String? clientRecordId;
 
-/// Temperature unit types supported by the plugin.
-enum TemperatureUnitDto { celsius, fahrenheit, kelvin }
+  /// A version number assigned by your application.
+  ///
+  /// Use this to implement your own versioning or tracking logic.
+  final int? clientRecordVersion;
 
-/// Velocity unit types supported by the plugin.
-enum VelocityUnitDto { kilometersPerHour, metersPerSecond, milesPerHour }
+  /// The package name of the source app that wrote this health record.
+  final String dataOrigin;
 
-/// Volume unit types supported by the plugin.
-enum VolumeUnitDto { fluidOuncesUs, liters, milliliters }
+  /// The type of device that recorded the data.
+  final DeviceTypeDto deviceType;
+
+  /// The method used to record this data.
+  final RecordingMethodDto recordingMethod;
+
+  /// The manufacturer of the device that recorded the data (optional).
+  final String? deviceManufacturer;
+
+  /// The model of the device that recorded the data (optional).
+  final String? deviceModel;
+
+  /// The timestamp when this record was last modified on the platform.
+  ///
+  /// Unix timestamp in milliseconds since epoch (UTC).
+  /// Automatically maintained by Health Connect.
+  final int? lastModifiedTime;
+}
+
+// endregion
+
+// region Health Records
+
+/// Cervical mucus appearance classification.
+///
+/// Maps to Android Health Connect CervicalMucusRecord appearance types
+/// and iOS HealthKit HKCategoryValueCervicalMucusQuality enum.
+enum CervicalMucusAppearanceTypeDto {
+  /// Unknown appearance.
+  unknown,
+
+  /// Dry appearance.
+  dry,
+
+  /// Sticky appearance.
+  sticky,
+
+  /// Creamy appearance.
+  creamy,
+
+  /// Watery appearance.
+  watery,
+
+  /// Egg white appearance.
+  eggWhite,
+
+  /// Unusual appearance.
+  unusual,
+}
+
+/// Cervical mucus sensation classification.
+///
+/// Maps to Android Health Connect CervicalMucusRecord sensation types.
+/// Note: Not natively supported on iOS HealthKit.
+enum CervicalMucusSensationTypeDto {
+  /// Unknown sensation.
+  unknown,
+
+  /// Light sensation.
+  light,
+
+  /// Medium sensation.
+  medium,
+
+  /// Heavy sensation.
+  heavy,
+}
+
+/// Sexual activity protection used classification.
+///
+/// Maps to Android Health Connect SexualActivityRecord protection types
+/// and iOS HealthKit HKMetadataKeySexualActivityProtectionUsed metadata key.
+enum SexualActivityProtectionUsedTypeDto {
+  /// Protection was used.
+  protected,
+
+  /// Protection was not used.
+  unprotected,
+
+  /// Unknown whether protection was used.
+  unknown,
+}
+
+/// Ovulation test result classification.
+///
+/// Maps to Android Health Connect OvulationTestRecord result constants
+/// and iOS HealthKit HKCategoryValueOvulationTestResult enum.
+enum OvulationTestResultTypeDto {
+  /// Test result is negative (no hormonal surge).
+  negative,
+
+  /// Test result is inconclusive.
+  inconclusive,
+
+  /// Test result shows high estrogen levels.
+  high,
+
+  /// Test result is positive (LH surge detected).
+  positive,
+}
+
+/// Measurement location for basal body temperature reading.
+enum BasalBodyTemperatureMeasurementLocationDto {
+  /// Unknown location.
+  unknown,
+
+  /// Armpit measurement.
+  armpit,
+
+  /// Ear measurement.
+  ear,
+
+  /// Finger measurement.
+  finger,
+
+  /// Forehead measurement.
+  forehead,
+
+  /// Mouth measurement.
+  mouth,
+
+  /// Rectum measurement.
+  rectum,
+
+  /// Temporal artery measurement.
+  temporalArtery,
+
+  /// Toe measurement.
+  toe,
+
+  /// Vagina measurement.
+  vagina,
+
+  /// Wrist measurement.
+  wrist,
+}
+
+/// Menstrual flow intensity classification.
+///
+/// Maps to Android Health Connect MenstruationFlowRecord.FLOW_* constants.
+enum MenstrualFlowTypeDto {
+  /// Flow is unknown or unspecified.
+  unknown,
+
+  /// Light menstrual flow.
+  light,
+
+  /// Medium menstrual flow.
+  medium,
+
+  /// Heavy menstrual flow.
+  heavy,
+}
 
 /// Measurement method for VO2 max calculation (Android Health Connect).
 ///
@@ -145,135 +380,6 @@ enum Vo2MaxMeasurementMethodDto {
 
   /// Based on the Rockport 1-mile walk test (5).
   rockportFitnessTest,
-}
-
-/// Represents a blood glucose measurement for platform transfer.
-class BloodGlucoseDto extends MeasurementUnitDto {
-  BloodGlucoseDto({required this.value, required this.unit});
-
-  /// The unit in which the value is expressed.
-  final BloodGlucoseUnitDto unit;
-
-  /// The numeric value of the blood glucose.
-  final double value;
-}
-
-/// Represents an energy measurement for platform transfer.
-class EnergyDto extends MeasurementUnitDto {
-  EnergyDto({required this.value, required this.unit});
-
-  /// The unit in which the value is expressed.
-  final EnergyUnitDto unit;
-
-  /// The numeric value of the energy.
-  final double value;
-}
-
-/// Represents an interval (time duration) measurement for platform transfer.
-class TimeDurationDto extends MeasurementUnitDto {
-  TimeDurationDto({required this.value, required this.unit});
-
-  /// The unit in which the value is expressed.
-  final TimeDurationUnitDto unit;
-
-  /// The numeric value of the interval.
-  final double value;
-}
-
-/// Represents a length measurement for platform transfer.
-class LengthDto extends MeasurementUnitDto {
-  LengthDto({required this.value, required this.unit});
-
-  /// The unit in which the value is expressed.
-  final LengthUnitDto unit;
-
-  /// The numeric value of the length.
-  final double value;
-}
-
-/// Represents a mass measurement for platform transfer.
-class MassDto extends MeasurementUnitDto {
-  MassDto({required this.value, required this.unit});
-
-  /// The unit in which the value is expressed.
-  final MassUnitDto unit;
-
-  /// The numeric value of the mass.
-  final double value;
-}
-
-/// Represents a number for platform transfer.
-class NumberDto extends MeasurementUnitDto {
-  NumberDto(this.value);
-
-  /// The count value.
-  final double value;
-}
-
-/// Represents a percentage measurement for platform transfer.
-class PercentageDto extends MeasurementUnitDto {
-  PercentageDto({required this.value, required this.unit});
-
-  /// The unit in which the value is expressed.
-  final PercentageUnitDto unit;
-
-  /// The numeric value of the percentage.
-  final double value;
-}
-
-/// Represents a power measurement for platform transfer.
-class PowerDto extends MeasurementUnitDto {
-  PowerDto({required this.value, required this.unit});
-
-  /// The unit in which the value is expressed.
-  final PowerUnitDto unit;
-
-  /// The numeric value of the power.
-  final double value;
-}
-
-/// Represents a pressure measurement for platform transfer.
-class PressureDto extends MeasurementUnitDto {
-  PressureDto({required this.value, required this.unit});
-
-  /// The unit in which the value is expressed.
-  final PressureUnitDto unit;
-
-  /// The numeric value of the pressure.
-  final double value;
-}
-
-/// Represents a temperature measurement for platform transfer.
-class TemperatureDto extends MeasurementUnitDto {
-  TemperatureDto({required this.value, required this.unit});
-
-  /// The unit in which the value is expressed.
-  final TemperatureUnitDto unit;
-
-  /// The numeric value of the temperature.
-  final double value;
-}
-
-/// Represents a velocity measurement for platform transfer.
-class VelocityDto extends MeasurementUnitDto {
-  VelocityDto({required this.value, required this.unit});
-
-  /// The unit in which the value is expressed.
-  final VelocityUnitDto unit;
-
-  /// The numeric value of the velocity.
-  final double value;
-}
-
-/// Represents a volume measurement for platform transfer.
-class VolumeDto extends MeasurementUnitDto {
-  VolumeDto({required this.value, required this.unit});
-
-  /// The unit in which the value is expressed.
-  final VolumeUnitDto unit;
-
-  /// The numeric value of the volume.
-  final double value;
 }
 
 /// Meal type classification for nutrition records.
@@ -493,233 +599,6 @@ enum MindfulnessSessionTypeDto {
   unguided,
 }
 
-// region Metadata
-
-/// Device type for health data recording.
-enum DeviceTypeDto {
-  /// Chest strap heart rate monitor.
-  chestStrap,
-
-  /// Fitness band or activity tracker.
-  fitnessBand,
-
-  /// Head-mounted device (e.g., AR/VR headset).
-  headMounted,
-
-  /// Mobile phone or smartphone.
-  phone,
-
-  /// Smart ring wearable.
-  ring,
-
-  /// Weight scale or body composition scale.
-  scale,
-
-  /// Smart display device.
-  smartDisplay,
-
-  /// Unknown or unspecified device type.
-  unknown,
-
-  /// Smartwatch or wearable watch.
-  watch,
-}
-
-/// Recording method for health data.
-enum RecordingMethodDto {
-  /// Data was recorded during an active user-initiated session.
-  activelyRecorded,
-
-  /// Data was automatically recorded by a device in the background.
-  automaticallyRecorded,
-
-  /// Data was manually entered by the user.
-  manualEntry,
-
-  /// The recording method is unknown or unspecified.
-  unknown,
-}
-
-/// Represents metadata for a health record.
-class MetadataDto {
-  MetadataDto({
-    required this.dataOrigin,
-    required this.recordingMethod,
-    required this.deviceType,
-    this.lastModifiedTime,
-    this.clientRecordId,
-    this.clientRecordVersion,
-    this.deviceManufacturer,
-    this.deviceModel,
-  });
-
-  /// A custom identifier assigned by your application.
-  ///
-  /// Use this for client-side record tracking, deduplication, or correlation.
-  final String? clientRecordId;
-
-  /// A version number assigned by your application.
-  ///
-  /// Use this to implement your own versioning or tracking logic.
-  final int? clientRecordVersion;
-
-  /// The package name of the source app that wrote this health record.
-  final String dataOrigin;
-
-  /// The type of device that recorded the data.
-  final DeviceTypeDto deviceType;
-
-  /// The method used to record this data.
-  final RecordingMethodDto recordingMethod;
-
-  /// The manufacturer of the device that recorded the data (optional).
-  final String? deviceManufacturer;
-
-  /// The model of the device that recorded the data (optional).
-  final String? deviceModel;
-
-  /// The timestamp when this record was last modified on the platform.
-  ///
-  /// Unix timestamp in milliseconds since epoch (UTC).
-  /// Automatically maintained by Health Connect.
-  final int? lastModifiedTime;
-}
-
-/// Cervical mucus appearance classification.
-///
-/// Maps to Android Health Connect CervicalMucusRecord appearance types
-/// and iOS HealthKit HKCategoryValueCervicalMucusQuality enum.
-enum CervicalMucusAppearanceTypeDto {
-  /// Unknown appearance.
-  unknown,
-
-  /// Dry appearance.
-  dry,
-
-  /// Sticky appearance.
-  sticky,
-
-  /// Creamy appearance.
-  creamy,
-
-  /// Watery appearance.
-  watery,
-
-  /// Egg white appearance.
-  eggWhite,
-
-  /// Unusual appearance.
-  unusual,
-}
-
-/// Cervical mucus sensation classification.
-///
-/// Maps to Android Health Connect CervicalMucusRecord sensation types.
-/// Note: Not natively supported on iOS HealthKit.
-enum CervicalMucusSensationTypeDto {
-  /// Unknown sensation.
-  unknown,
-
-  /// Light sensation.
-  light,
-
-  /// Medium sensation.
-  medium,
-
-  /// Heavy sensation.
-  heavy,
-}
-
-/// Sexual activity protection used classification.
-///
-/// Maps to Android Health Connect SexualActivityRecord protection types
-/// and iOS HealthKit HKMetadataKeySexualActivityProtectionUsed metadata key.
-enum SexualActivityProtectionUsedTypeDto {
-  /// Protection was used.
-  protected,
-
-  /// Protection was not used.
-  unprotected,
-
-  /// Unknown whether protection was used.
-  unknown,
-}
-
-/// Ovulation test result classification.
-///
-/// Maps to Android Health Connect OvulationTestRecord result constants
-/// and iOS HealthKit HKCategoryValueOvulationTestResult enum.
-enum OvulationTestResultTypeDto {
-  /// Test result is negative (no hormonal surge).
-  negative,
-
-  /// Test result is inconclusive.
-  inconclusive,
-
-  /// Test result shows high estrogen levels.
-  high,
-
-  /// Test result is positive (LH surge detected).
-  positive,
-}
-
-/// Measurement location for basal body temperature reading.
-enum BasalBodyTemperatureMeasurementLocationDto {
-  /// Unknown location.
-  unknown,
-
-  /// Armpit measurement.
-  armpit,
-
-  /// Ear measurement.
-  ear,
-
-  /// Finger measurement.
-  finger,
-
-  /// Forehead measurement.
-  forehead,
-
-  /// Mouth measurement.
-  mouth,
-
-  /// Rectum measurement.
-  rectum,
-
-  /// Temporal artery measurement.
-  temporalArtery,
-
-  /// Toe measurement.
-  toe,
-
-  /// Vagina measurement.
-  vagina,
-
-  /// Wrist measurement.
-  wrist,
-}
-
-/// Menstrual flow intensity classification.
-///
-/// Maps to Android Health Connect MenstruationFlowRecord.FLOW_* constants.
-enum MenstrualFlowTypeDto {
-  /// Flow is unknown or unspecified.
-  unknown,
-
-  /// Light menstrual flow.
-  light,
-
-  /// Medium menstrual flow.
-  medium,
-
-  /// Heavy menstrual flow.
-  heavy,
-}
-
-// endregion
-
-// region Health Records
-
 /// Sealed class for all health record DTOs.
 sealed class HealthRecordDto {}
 
@@ -779,12 +658,8 @@ enum HealthDataTypeDto {
   /// Sleep session data.
   sleepSession,
 
-  // region Nutrition
-
   /// Combined nutrition record with all nutrients.
   nutrition,
-
-  // endregion
 
   /// Resting heart rate data.
   restingHeartRate,
@@ -2046,8 +1921,6 @@ class NutritionRecordDto extends HealthRecordDto {
   final MassDto? caffeine;
 }
 
-// endregion
-
 /// Represents a total calories burned record for platform transfer.
 class TotalCaloriesBurnedRecordDto extends HealthRecordDto {
   TotalCaloriesBurnedRecordDto({
@@ -2160,7 +2033,72 @@ class BodyWaterMassRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 }
 
+// endregion
+
 // region Requests/Responses
+
+/// Error codes that native platforms can use when throwing error.
+enum HealthConnectorErrorCodeDto {
+  /// Health Connect installation or update is required.
+  healthPlatformNotInstalledOrUpdateRequired,
+
+  /// Health platform is unavailable on this device.
+  healthPlatformUnavailable,
+
+  /// Invalid platform configuration detected.
+  invalidConfiguration,
+
+  /// Invalid argument or input validation error.
+  invalidArgument,
+
+  /// Attempted to use platform APIs or features that are not supported
+  /// on the current health platform.
+  unsupportedOperation,
+
+  /// Unknown or unspecified error.
+  unknown,
+
+  /// Security/permission error occurred.
+  notAuthorized,
+
+  /// A transient I/O or communication error occurred.
+  remoteError,
+}
+
+/// Represents the status of the health platform on the device.
+enum HealthPlatformStatusDto {
+  /// The health platform is available and ready to use.
+  available,
+
+  /// The health platform is not installed or not supported.
+  ///
+  /// Note: Health Connect only.
+  installationOrUpdateRequired,
+
+  /// The health platform is not available on this device.
+  notAvailable,
+}
+
+/// Represents the type of access requested for health data.
+enum PermissionAccessTypeDto {
+  /// Read access to health data.
+  read,
+
+  /// Write access to health data.
+  write,
+}
+
+/// Represents the status of a permission.
+enum PermissionStatusDto {
+  /// Permission has been explicitly denied by the user.
+  denied,
+
+  /// Permission has been explicitly granted by the user.
+  granted,
+
+  /// The permission status cannot be determined.
+  unknown,
+}
 
 /// Represents a health platform feature.
 enum HealthPlatformFeatureDto {
@@ -2412,17 +2350,6 @@ class ReadRecordsResponseDto {
 }
 
 // endregion
-
-/// Configuration data transfer object for Health Connector.
-///
-/// Contains configuration settings that are passed from Dart to native
-/// platform code during client initialization.
-class HealthConnectorConfigDto {
-  HealthConnectorConfigDto({required this.isLoggerEnabled});
-
-  /// Whether logging is enabled for the Health Connector.
-  final bool isLoggerEnabled;
-}
 
 /// The main API for communicating with the health platform.
 @HostApi()

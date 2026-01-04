@@ -4,14 +4,10 @@ import androidx.health.connect.client.units.Energy
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.EnergyDto
-import com.phamtunglam.health_connector_hc_android.pigeon.EnergyUnitDto
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.Arguments
-import org.junit.jupiter.params.provider.MethodSource
 
 /**
  * Unit tests for Energy Mapper.
@@ -27,35 +23,22 @@ class EnergyMapperTest {
         const val TEST_VALUE = 100.0
     }
 
-    @ParameterizedTest(name = "unit={0}, value={1}")
-    @MethodSource("provideEnergyUnits")
+    @Test
     @DisplayName(
-        "GIVEN EnergyDto with various units → " +
+        "GIVEN EnergyDto in kilocalories → " +
             "WHEN toHealthConnect called → " +
-            "THEN creates Energy with correct value in that unit",
+            "THEN creates Energy with correct value",
     )
-    fun whenEnergyDto_thenCreatesCorrectEnergy(unit: EnergyUnitDto, value: Double) {
+    fun whenEnergyDtoInKilocalories_thenCreatesCorrectEnergy() {
         // Given
-        val dto = EnergyDto(value = value, unit = unit)
+        val dto = EnergyDto(kilocalories = TEST_VALUE)
 
         // When
         val result = dto.toHealthConnect()
 
         // Then
-        when (unit) {
-            EnergyUnitDto.KILOCALORIES -> result.inKilocalories shouldBe value
-            EnergyUnitDto.KILOJOULES -> result.inKilojoules shouldBe value
-            EnergyUnitDto.CALORIES -> result.inCalories shouldBe value
-            EnergyUnitDto.JOULES -> result.inJoules shouldBe value
-        }
+        result.inKilocalories shouldBe TEST_VALUE
     }
-
-    fun provideEnergyUnits(): List<Arguments> = listOf(
-        Arguments.of(EnergyUnitDto.KILOCALORIES, 250.0),
-        Arguments.of(EnergyUnitDto.KILOJOULES, 1046.0),
-        Arguments.of(EnergyUnitDto.CALORIES, 250000.0),
-        Arguments.of(EnergyUnitDto.JOULES, 1046000.0),
-    )
 
     @Test
     @DisplayName(
@@ -71,7 +54,6 @@ class EnergyMapperTest {
         val result = energy.toDto()
 
         // Then
-        result.value shouldBe TEST_VALUE
-        result.unit shouldBe EnergyUnitDto.KILOCALORIES
+        result.kilocalories shouldBe TEST_VALUE
     }
 }

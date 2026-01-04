@@ -46,8 +46,7 @@ void main() {
                 dto.endZoneOffsetSeconds,
                 FakeData.fakeEndTimeZoneOffsetSeconds,
               );
-              expect(dto.volume.value, 0.5);
-              expect(dto.volume.unit, VolumeUnitDto.liters);
+              expect(dto.volume.liters, 0.5);
             },
           );
         },
@@ -71,10 +70,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                volume: VolumeDto(
-                  value: 0.25,
-                  unit: VolumeUnitDto.liters,
-                ),
+                volume: VolumeDto(liters: 0.25),
               );
 
               final record = dto.toDomain();
@@ -100,10 +96,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                volume: VolumeDto(
-                  value: 0.75,
-                  unit: VolumeUnitDto.liters,
-                ),
+                volume: VolumeDto(liters: 0.75),
               );
 
               final record = dto.toDomain();

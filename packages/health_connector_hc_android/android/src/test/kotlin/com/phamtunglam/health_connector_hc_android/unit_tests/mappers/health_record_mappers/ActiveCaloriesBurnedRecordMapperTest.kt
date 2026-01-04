@@ -8,7 +8,6 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 import com.phamtunglam.health_connector_hc_android.pigeon.ActiveCaloriesBurnedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.EnergyDto
-import com.phamtunglam.health_connector_hc_android.pigeon.EnergyUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import io.kotest.matchers.shouldBe
@@ -57,8 +56,7 @@ class ActiveCaloriesBurnedRecordMapperTest {
         result.endTime shouldBe TEST_END_TIME
         result.startZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
         result.endZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
-        result.energy.value shouldBe TEST_ENERGY_KCAL
-        result.energy.unit shouldBe EnergyUnitDto.KILOCALORIES
+        result.energy.kilocalories shouldBe TEST_ENERGY_KCAL
         result.metadata shouldNotBe null
     }
 
@@ -76,7 +74,7 @@ class ActiveCaloriesBurnedRecordMapperTest {
             endTime = TEST_END_TIME,
             startZoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
             endZoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
-            energy = EnergyDto(value = TEST_ENERGY_KCAL, unit = EnergyUnitDto.KILOCALORIES),
+            energy = EnergyDto(kilocalories = TEST_ENERGY_KCAL),
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,

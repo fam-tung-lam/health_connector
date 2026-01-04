@@ -8,7 +8,6 @@ import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecord
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
@@ -42,11 +41,10 @@ internal class BloodGlucoseHandler(override val client: HealthConnectClient) :
             )
         }
 
-        return recordDto.bloodGlucose.value
+        return recordDto.bloodGlucose.millimolesPerLiter
     }
 
     override fun wrapAggregationResult(value: Double): MeasurementUnitDto = BloodGlucoseDto(
-        BloodGlucoseUnitDto.MILLIGRAMS_PER_DECILITER,
-        value,
+        millimolesPerLiter = value,
     )
 }

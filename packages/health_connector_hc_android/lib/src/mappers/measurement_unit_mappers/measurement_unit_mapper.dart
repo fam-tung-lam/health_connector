@@ -40,18 +40,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         BloodGlucoseDto,
         NumberDto,
         PercentageDto,
-        MeasurementUnitDto,
-        MassUnitDto,
-        EnergyUnitDto,
-        TimeDurationUnitDto,
-        LengthUnitDto,
-        TemperatureUnitDto,
-        PressureUnitDto,
-        VelocityUnitDto,
-        VolumeUnitDto,
-        PowerUnitDto,
-        BloodGlucoseUnitDto,
-        PercentageUnitDto;
+        MeasurementUnitDto;
 import 'package:meta/meta.dart' show internal;
 
 export 'blood_glucose_mapper.dart';
@@ -146,65 +135,23 @@ extension MeasurementUnitDtoToDomain on MeasurementUnitDto {
     // Inline conversion logic to avoid infinite recursion.
     // Calling `.toDomain()` on subtypes would resolve back to this extension.
     return switch (this) {
-      MassDto(:final unit, :final value) => switch (unit) {
-        MassUnitDto.kilograms => Mass.kilograms(value),
-        MassUnitDto.grams => Mass.grams(value),
-        MassUnitDto.pounds => Mass.pounds(value),
-        MassUnitDto.ounces => Mass.ounces(value),
-      },
-      EnergyDto(:final unit, :final value) => switch (unit) {
-        EnergyUnitDto.kilocalories => Energy.kilocalories(value),
-        EnergyUnitDto.kilojoules => Energy.kilojoules(value),
-        EnergyUnitDto.calories => Energy.calories(value),
-        EnergyUnitDto.joules => Energy.joules(value),
-      },
-      TimeDurationDto(:final unit, :final value) => switch (unit) {
-        TimeDurationUnitDto.seconds => TimeDuration.seconds(value),
-        TimeDurationUnitDto.minutes => TimeDuration.minutes(value),
-        TimeDurationUnitDto.hours => TimeDuration.hours(value),
-      },
-      LengthDto(:final unit, :final value) => switch (unit) {
-        LengthUnitDto.meters => Length.meters(value),
-        LengthUnitDto.kilometers => Length.kilometers(value),
-        LengthUnitDto.miles => Length.miles(value),
-        LengthUnitDto.feet => Length.feet(value),
-        LengthUnitDto.inches => Length.inches(value),
-      },
-      TemperatureDto(:final unit, :final value) => switch (unit) {
-        TemperatureUnitDto.celsius => Temperature.celsius(value),
-        TemperatureUnitDto.fahrenheit => Temperature.fahrenheit(value),
-        TemperatureUnitDto.kelvin => Temperature.kelvin(value),
-      },
-      PressureDto(:final unit, :final value) => switch (unit) {
-        PressureUnitDto.millimetersOfMercury => Pressure.millimetersOfMercury(
-          value,
-        ),
-      },
-      VelocityDto(:final unit, :final value) => switch (unit) {
-        VelocityUnitDto.metersPerSecond => Velocity.metersPerSecond(value),
-        VelocityUnitDto.kilometersPerHour => Velocity.kilometersPerHour(value),
-        VelocityUnitDto.milesPerHour => Velocity.milesPerHour(value),
-      },
-      VolumeDto(:final unit, :final value) => switch (unit) {
-        VolumeUnitDto.liters => Volume.liters(value),
-        VolumeUnitDto.milliliters => Volume.milliliters(value),
-        VolumeUnitDto.fluidOuncesUs => Volume.fluidOuncesUs(value),
-      },
-      PowerDto(:final unit, :final value) => switch (unit) {
-        PowerUnitDto.watts => Power.watts(value),
-        PowerUnitDto.kilowatts => Power.kilowatts(value),
-      },
-      BloodGlucoseDto(:final unit, :final value) => switch (unit) {
-        BloodGlucoseUnitDto.milligramsPerDeciliter =>
-          BloodGlucose.milligramsPerDeciliter(value),
-        BloodGlucoseUnitDto.millimolesPerLiter =>
-          BloodGlucose.millimolesPerLiter(value),
-      },
+      MassDto(:final kilograms) => Mass.kilograms(kilograms),
+      EnergyDto(:final kilocalories) => Energy.kilocalories(kilocalories),
+      TimeDurationDto(:final seconds) => TimeDuration.seconds(seconds),
+      LengthDto(:final meters) => Length.meters(meters),
+      TemperatureDto(:final celsius) => Temperature.celsius(celsius),
+      PressureDto(:final millimetersOfMercury) => Pressure.millimetersOfMercury(
+        millimetersOfMercury,
+      ),
+      VelocityDto(:final metersPerSecond) => Velocity.metersPerSecond(
+        metersPerSecond,
+      ),
+      VolumeDto(:final liters) => Volume.liters(liters),
+      PowerDto(:final watts) => Power.watts(watts),
+      BloodGlucoseDto(:final millimolesPerLiter) =>
+        BloodGlucose.millimolesPerLiter(millimolesPerLiter),
       NumberDto(:final value) => Number(value),
-      PercentageDto(:final unit, :final value) => switch (unit) {
-        PercentageUnitDto.decimal => Percentage.fromDecimal(value),
-        PercentageUnitDto.whole => Percentage.fromWhole(value),
-      },
+      PercentageDto(:final decimal) => Percentage.fromDecimal(decimal),
     };
   }
 }

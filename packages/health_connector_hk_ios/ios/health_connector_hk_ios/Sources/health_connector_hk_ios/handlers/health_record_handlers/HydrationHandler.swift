@@ -24,6 +24,6 @@ final class HydrationHandler: @unchecked Sendable,
 
     func convertQuantity(_ quantity: HKQuantity) throws -> VolumeDto {
         let liters = quantity.doubleValue(for: .liter())
-        return VolumeDto(unit: .liters, value: liters)
+        return VolumeDto(liters: liters)
     }
 }

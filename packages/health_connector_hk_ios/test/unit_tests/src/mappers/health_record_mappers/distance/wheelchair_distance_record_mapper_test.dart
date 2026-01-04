@@ -48,8 +48,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeStartTimeZoneOffsetSeconds,
               );
-              expect(dto.distance.value, 2000.0);
-              expect(dto.distance.unit, LengthUnitDto.meters);
+              expect(dto.distance.meters, 2000.0);
               expect(dto.activityType, DistanceActivityTypeDto.wheelchair);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
@@ -78,7 +77,7 @@ void main() {
               final dto = record.toDto();
 
               // Then
-              expect(dto.distance.value, 1500.0);
+              expect(dto.distance.meters, 1500.0);
               expect(dto.activityType, DistanceActivityTypeDto.wheelchair);
             },
           );
@@ -103,7 +102,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                distance: LengthDto(value: 1800.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 1800.0),
                 activityType: DistanceActivityTypeDto.wheelchair,
               );
 
@@ -138,7 +137,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 2200.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 2200.0),
                 activityType: DistanceActivityTypeDto.wheelchair,
               );
 
@@ -166,7 +165,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 900.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 900.0),
                 activityType: DistanceActivityTypeDto.wheelchair,
               );
 

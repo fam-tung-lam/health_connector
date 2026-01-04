@@ -37,11 +37,7 @@ void main() {
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, time.millisecondsSinceEpoch);
               expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
-              expect(dto.bloodGlucose.value, 5.5);
-              expect(
-                dto.bloodGlucose.unit,
-                BloodGlucoseUnitDto.millimolesPerLiter,
-              );
+              expect(dto.bloodGlucose.millimolesPerLiter, 5.5);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -66,10 +62,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                bloodGlucose: BloodGlucoseDto(
-                  value: 6.1,
-                  unit: BloodGlucoseUnitDto.millimolesPerLiter,
-                ),
+                bloodGlucose: BloodGlucoseDto(millimolesPerLiter: 6.1),
               );
 
               final record = dto.toDomain();
@@ -99,10 +92,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                bloodGlucose: BloodGlucoseDto(
-                  value: 4.8,
-                  unit: BloodGlucoseUnitDto.millimolesPerLiter,
-                ),
+                bloodGlucose: BloodGlucoseDto(millimolesPerLiter: 4.8),
               );
 
               final record = dto.toDomain();

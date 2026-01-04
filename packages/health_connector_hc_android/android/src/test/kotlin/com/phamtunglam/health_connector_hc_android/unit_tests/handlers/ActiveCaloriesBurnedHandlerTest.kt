@@ -17,7 +17,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.EnergyDto
-import com.phamtunglam.health_connector_hc_android.pigeon.EnergyUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
@@ -106,8 +105,7 @@ class ActiveCaloriesBurnedHandlerTest {
                 startTime = startTime,
                 endTime = endTime,
                 energy = EnergyDto(
-                    unit = EnergyUnitDto.KILOCALORIES,
-                    value = energyValue,
+                    kilocalories = energyValue,
                 ),
                 metadata = MetadataDto(
                     dataOrigin = "com.test",
@@ -178,7 +176,7 @@ class ActiveCaloriesBurnedHandlerTest {
             result.first.size shouldBe 5
             result.first.forEachIndexed { index, dto ->
                 dto.shouldBeInstanceOf<ActiveCaloriesBurnedRecordDto>()
-                dto.energy.value shouldBe (index + 1) * 10.0
+                dto.energy.kilocalories shouldBe (index + 1) * 10.0
             }
         }
 
@@ -275,8 +273,7 @@ class ActiveCaloriesBurnedHandlerTest {
                 startTime = startTime.toEpochMilli(),
                 endTime = endTime.toEpochMilli(),
                 energy = EnergyDto(
-                    unit = EnergyUnitDto.KILOCALORIES,
-                    value = updatedEnergy,
+                    kilocalories = updatedEnergy,
                 ),
                 metadata = MetadataDto(
                     dataOrigin = FAKE_PACKAGE_NAME,
@@ -430,8 +427,7 @@ class ActiveCaloriesBurnedHandlerTest {
             val response = systemUnderTest.aggregate(request)
 
             response.shouldBeInstanceOf<EnergyDto>()
-            response.value shouldBe expectedEnergy
-            response.unit shouldBe EnergyUnitDto.KILOCALORIES
+            response.kilocalories shouldBe expectedEnergy
         }
 
         @Test

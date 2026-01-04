@@ -4,7 +4,6 @@ import androidx.health.connect.client.units.Velocity
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.VelocityDto
-import com.phamtunglam.health_connector_hc_android.pigeon.VelocityUnitDto
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -26,7 +25,7 @@ class VelocityMapperTest {
     )
     fun whenVelocityDtoInMetersPerSecond_thenCreatesCorrectVelocity() {
         // Given
-        val dto = VelocityDto(value = 10.0, unit = VelocityUnitDto.METERS_PER_SECOND)
+        val dto = VelocityDto(metersPerSecond = 10.0)
 
         // When
         val result = dto.toHealthConnect()
@@ -49,7 +48,6 @@ class VelocityMapperTest {
         val result = velocity.toDto()
 
         // Then
-        result.value shouldBe 10.0
-        result.unit shouldBe VelocityUnitDto.METERS_PER_SECOND
+        result.metersPerSecond shouldBe 10.0
     }
 }

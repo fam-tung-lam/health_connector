@@ -3,7 +3,6 @@ package com.phamtunglam.health_connector_hc_android.unit_tests.mappers.health_me
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.PercentageDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PercentageUnitDto
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -25,24 +24,7 @@ class PercentageMapperTest {
     )
     fun whenDecimalPercentageDto_thenCreatesCorrectPercentage() {
         // Given
-        val dto = PercentageDto(value = 0.855, unit = PercentageUnitDto.DECIMAL)
-
-        // When
-        val result = dto.toHealthConnect()
-
-        // Then
-        result.value shouldBe 0.855
-    }
-
-    @Test
-    @DisplayName(
-        "GIVEN PercentageDto in WHOLE → " +
-            "WHEN toHealthConnect called → " +
-            "THEN creates Percentage with converted value",
-    )
-    fun whenWholePercentageDto_thenConvertsToDecimal() {
-        // Given
-        val dto = PercentageDto(value = 85.5, unit = PercentageUnitDto.WHOLE)
+        val dto = PercentageDto(decimal = 0.855)
 
         // When
         val result = dto.toHealthConnect()
@@ -65,7 +47,6 @@ class PercentageMapperTest {
         val result = percentage.toDto()
 
         // Then
-        result.value shouldBe 0.75
-        result.unit shouldBe PercentageUnitDto.DECIMAL
+        result.decimal shouldBe 0.75
     }
 }

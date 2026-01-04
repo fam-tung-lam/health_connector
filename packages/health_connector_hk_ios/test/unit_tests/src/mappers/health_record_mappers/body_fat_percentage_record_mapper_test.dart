@@ -35,8 +35,7 @@ void main() {
               expect(dto.id, FakeData.fakeId);
               expect(dto.time, time.millisecondsSinceEpoch);
               expect(dto.zoneOffsetSeconds, FakeData.fakeZoneOffsetSeconds);
-              expect(dto.percentage.value, 0.185);
-              expect(dto.percentage.unit, PercentageUnitDto.decimal);
+              expect(dto.percentage.decimal, 0.185);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -61,17 +60,14 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                percentage: PercentageDto(
-                  value: 20.2,
-                  unit: PercentageUnitDto.whole,
-                ),
+                percentage: PercentageDto(decimal: 20.2),
               );
 
               final record = dto.toDomain();
 
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, time);
-              expect(record.percentage.asWhole, 20.2);
+              expect(record.percentage.asDecimal, 20.2);
               expect(
                 record.metadata.dataOrigin.packageName,
                 FakeData.fakeDataOrigin,
@@ -94,10 +90,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                percentage: PercentageDto(
-                  value: 15.8,
-                  unit: PercentageUnitDto.whole,
-                ),
+                percentage: PercentageDto(decimal: 15.8),
               );
 
               final record = dto.toDomain();

@@ -17,7 +17,7 @@ void main() {
               final dto = unit.toDto();
 
               expect(dto, isA<EnergyDto>());
-              expect(dto.value, 500.0);
+              expect(dto.kilocalories, 500.0);
             },
           );
 
@@ -28,7 +28,7 @@ void main() {
               final dto = unit.toDto();
 
               expect(dto, isA<MassDto>());
-              expect(dto.value, 70.0);
+              expect(dto.kilograms, 70.0);
             },
           );
 
@@ -39,7 +39,7 @@ void main() {
               final dto = unit.toDto();
 
               expect(dto, isA<LengthDto>());
-              expect(dto.value, 1.75);
+              expect(dto.meters, 1.75);
             },
           );
 
@@ -50,7 +50,7 @@ void main() {
               final dto = unit.toDto();
 
               expect(dto, isA<VolumeDto>());
-              expect(dto.value, 2.0);
+              expect(dto.liters, 2.0);
             },
           );
 
@@ -72,7 +72,7 @@ void main() {
               final dto = unit.toDto();
 
               expect(dto, isA<PercentageDto>());
-              expect(dto.value, 0.755);
+              expect(dto.decimal, 0.755);
             },
           );
         },

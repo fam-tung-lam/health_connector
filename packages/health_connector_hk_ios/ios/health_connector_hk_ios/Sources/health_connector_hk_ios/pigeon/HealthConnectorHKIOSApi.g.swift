@@ -143,108 +143,38 @@ func deepHashHealthConnectorHKIOSApi(value: Any?, hasher: inout Hasher) {
 
     
 
-/// Represents the status of the health platform on the device.
-public enum HealthPlatformStatusDto: Int {
-  /// The health platform is available and ready to use.
-  case available = 0
-  /// The health platform is not available on this device.
-  case notAvailable = 1
+/// Device type for health data recording.
+public enum DeviceTypeDto: Int {
+  /// Chest strap heart rate monitor.
+  case chestStrap = 0
+  /// Fitness band or activity tracker.
+  case fitnessBand = 1
+  /// Head-mounted device (e.g., AR/VR headset).
+  case headMounted = 2
+  /// Mobile phone or smartphone.
+  case phone = 3
+  /// Smart ring wearable.
+  case ring = 4
+  /// Weight scale or body composition scale.
+  case scale = 5
+  /// Smart display device.
+  case smartDisplay = 6
+  /// Unknown or unspecified device type.
+  case unknown = 7
+  /// Smartwatch or wearable watch.
+  case watch = 8
 }
 
-/// Blood glucose unit types supported by the plugin.
-public enum BloodGlucoseUnitDto: Int {
-  case milligramsPerDeciliter = 0
-  case millimolesPerLiter = 1
-}
-
-/// Energy unit types supported by the plugin.
-public enum EnergyUnitDto: Int {
-  case calories = 0
-  case joules = 1
-  case kilocalories = 2
-  case kilojoules = 3
-}
-
-/// Interval unit types supported by the plugin.
-public enum TimeDurationUnitDto: Int {
-  case seconds = 0
-  case minutes = 1
-  case hours = 2
-}
-
-/// Length unit types supported by the plugin.
-public enum LengthUnitDto: Int {
-  case feet = 0
-  case inches = 1
-  case kilometers = 2
-  case meters = 3
-  case miles = 4
-}
-
-/// Mass unit types supported by the plugin.
-public enum MassUnitDto: Int {
-  case grams = 0
-  case kilograms = 1
-  case ounces = 2
-  case pounds = 3
-}
-
-/// Percentage unit types supported by the plugin.
-public enum PercentageUnitDto: Int {
-  /// Percentage as a decimal value (0.0 to 1.0).
-  case decimal = 0
-  /// Percentage as a whole number (0 to 100).
-  case whole = 1
-}
-
-/// Represents the type of access requested for health data.
-public enum PermissionAccessTypeDto: Int {
-  /// Read access to health data.
-  case read = 0
-  /// Write access to health data.
-  case write = 1
-}
-
-/// Represents the status of a permission.
-public enum PermissionStatusDto: Int {
-  /// Permission has been explicitly denied by the user.
-  case denied = 0
-  /// Permission has been explicitly granted by the user.
-  case granted = 1
-  /// The permission status cannot be determined.
-  case unknown = 2
-}
-
-/// Pressure unit types supported by the plugin.
-public enum PressureUnitDto: Int {
-  case millimetersOfMercury = 0
-}
-
-/// Power unit types supported by the plugin.
-public enum PowerUnitDto: Int {
-  case kilowatts = 0
-  case watts = 1
-}
-
-/// Temperature unit types supported by the plugin.
-public enum TemperatureUnitDto: Int {
-  case celsius = 0
-  case fahrenheit = 1
-  case kelvin = 2
-}
-
-/// Velocity unit types supported by the plugin.
-public enum VelocityUnitDto: Int {
-  case kilometersPerHour = 0
-  case metersPerSecond = 1
-  case milesPerHour = 2
-}
-
-/// Volume unit types supported by the plugin.
-public enum VolumeUnitDto: Int {
-  case fluidOuncesUs = 0
-  case liters = 1
-  case milliliters = 2
+/// Recording method for health data.
+public enum RecordingMethodDto: Int {
+  /// Data was recorded during an active user-initiated session.
+  case activelyRecorded = 0
+  /// Data was automatically recorded by a device in the background.
+  case automaticallyRecorded = 1
+  /// Data was manually entered by the user.
+  case manualEntry = 2
+  /// The recording method is unknown or unspecified.
+  case unknown = 3
 }
 
 /// Test type for VO2 max measurement (iOS HealthKit).
@@ -337,40 +267,6 @@ public enum BloodGlucoseSpecimenSourceDto: Int {
   case tears = 5
   /// Whole blood.
   case wholeBlood = 6
-}
-
-/// Device type for health data recording.
-public enum DeviceTypeDto: Int {
-  /// Chest strap heart rate monitor.
-  case chestStrap = 0
-  /// Fitness band or activity tracker.
-  case fitnessBand = 1
-  /// Head-mounted device (e.g., AR/VR headset).
-  case headMounted = 2
-  /// Mobile phone or smartphone.
-  case phone = 3
-  /// Smart ring wearable.
-  case ring = 4
-  /// Weight scale or body composition scale.
-  case scale = 5
-  /// Smart display device.
-  case smartDisplay = 6
-  /// Unknown or unspecified device type.
-  case unknown = 7
-  /// Smartwatch or wearable watch.
-  case watch = 8
-}
-
-/// Recording method for health data.
-public enum RecordingMethodDto: Int {
-  /// Data was recorded during an active user-initiated session.
-  case activelyRecorded = 0
-  /// Data was automatically recorded by a device in the background.
-  case automaticallyRecorded = 1
-  /// Data was manually entered by the user.
-  case manualEntry = 2
-  /// The recording method is unknown or unspecified.
-  case unknown = 3
 }
 
 /// Represents the type of distance-based activity.
@@ -861,6 +757,32 @@ public enum HealthDataTypeDto: Int {
   case heartRateVariabilitySDNN = 82
 }
 
+/// Represents the status of the health platform on the device.
+public enum HealthPlatformStatusDto: Int {
+  /// The health platform is available and ready to use.
+  case available = 0
+  /// The health platform is not available on this device.
+  case notAvailable = 1
+}
+
+/// Represents the type of access requested for health data.
+public enum PermissionAccessTypeDto: Int {
+  /// Read access to health data.
+  case read = 0
+  /// Write access to health data.
+  case write = 1
+}
+
+/// Represents the status of a permission.
+public enum PermissionStatusDto: Int {
+  /// Permission has been explicitly denied by the user.
+  case denied = 0
+  /// Permission has been explicitly granted by the user.
+  case granted = 1
+  /// The permission status cannot be determined.
+  case unknown = 2
+}
+
 /// Aggregation metric types for health data queries.
 public enum AggregationMetricDto: Int {
   /// Average (mean) value across all data points.
@@ -873,6 +795,37 @@ public enum AggregationMetricDto: Int {
   case sum = 3
 }
 
+/// Configuration data transfer object for Health Connector.
+///
+/// Contains configuration settings that are passed from Dart to native
+/// platform code during client initialization.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct HealthConnectorConfigDto: Hashable {
+  /// Whether logging is enabled for the Health Connector.
+  var isLoggerEnabled: Bool
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> HealthConnectorConfigDto? {
+    let isLoggerEnabled = pigeonVar_list[0] as! Bool
+
+    return HealthConnectorConfigDto(
+      isLoggerEnabled: isLoggerEnabled
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      isLoggerEnabled
+    ]
+  }
+  public static func == (lhs: HealthConnectorConfigDto, rhs: HealthConnectorConfigDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
 /// Sealed class for all measurement unit DTOs.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -881,30 +834,25 @@ public protocol MeasurementUnitDto {
 
 }
 
-/// Represents a blood glucose measurement for platform transfer.
+/// Represents a blood glucose measurement in millimoles per liter.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct BloodGlucoseDto: MeasurementUnitDto {
-  /// The unit in which the value is expressed.
-  var unit: BloodGlucoseUnitDto
-  /// The numeric value of the blood glucose.
-  var value: Double
+  /// Blood glucose value in millimoles per liter (mmol/L).
+  var millimolesPerLiter: Double
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> BloodGlucoseDto? {
-    let unit = pigeonVar_list[0] as! BloodGlucoseUnitDto
-    let value = pigeonVar_list[1] as! Double
+    let millimolesPerLiter = pigeonVar_list[0] as! Double
 
     return BloodGlucoseDto(
-      unit: unit,
-      value: value
+      millimolesPerLiter: millimolesPerLiter
     )
   }
   func toList() -> [Any?] {
     return [
-      unit,
-      value,
+      millimolesPerLiter
     ]
   }
   public static func == (lhs: BloodGlucoseDto, rhs: BloodGlucoseDto) -> Bool {
@@ -914,30 +862,25 @@ public struct BloodGlucoseDto: MeasurementUnitDto {
   }
 }
 
-/// Represents an energy measurement for platform transfer.
+/// Represents an energy measurement in kilocalories.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct EnergyDto: MeasurementUnitDto {
-  /// The unit in which the value is expressed.
-  var unit: EnergyUnitDto
-  /// The numeric value of the energy.
-  var value: Double
+  /// Energy value in kilocalories (kcal).
+  var kilocalories: Double
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> EnergyDto? {
-    let unit = pigeonVar_list[0] as! EnergyUnitDto
-    let value = pigeonVar_list[1] as! Double
+    let kilocalories = pigeonVar_list[0] as! Double
 
     return EnergyDto(
-      unit: unit,
-      value: value
+      kilocalories: kilocalories
     )
   }
   func toList() -> [Any?] {
     return [
-      unit,
-      value,
+      kilocalories
     ]
   }
   public static func == (lhs: EnergyDto, rhs: EnergyDto) -> Bool {
@@ -947,30 +890,25 @@ public struct EnergyDto: MeasurementUnitDto {
   }
 }
 
-/// Represents an interval (time duration) measurement for platform transfer.
+/// Represents a time duration in seconds.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct TimeDurationDto: MeasurementUnitDto {
-  /// The unit in which the value is expressed.
-  var unit: TimeDurationUnitDto
-  /// The numeric value of the interval.
-  var value: Double
+  /// Duration value in seconds (s).
+  var seconds: Double
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> TimeDurationDto? {
-    let unit = pigeonVar_list[0] as! TimeDurationUnitDto
-    let value = pigeonVar_list[1] as! Double
+    let seconds = pigeonVar_list[0] as! Double
 
     return TimeDurationDto(
-      unit: unit,
-      value: value
+      seconds: seconds
     )
   }
   func toList() -> [Any?] {
     return [
-      unit,
-      value,
+      seconds
     ]
   }
   public static func == (lhs: TimeDurationDto, rhs: TimeDurationDto) -> Bool {
@@ -980,30 +918,25 @@ public struct TimeDurationDto: MeasurementUnitDto {
   }
 }
 
-/// Represents a length measurement for platform transfer.
+/// Represents a length measurement in meters.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct LengthDto: MeasurementUnitDto {
-  /// The unit in which the value is expressed.
-  var unit: LengthUnitDto
-  /// The numeric value of the length.
-  var value: Double
+  /// Length value in meters (m).
+  var meters: Double
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> LengthDto? {
-    let unit = pigeonVar_list[0] as! LengthUnitDto
-    let value = pigeonVar_list[1] as! Double
+    let meters = pigeonVar_list[0] as! Double
 
     return LengthDto(
-      unit: unit,
-      value: value
+      meters: meters
     )
   }
   func toList() -> [Any?] {
     return [
-      unit,
-      value,
+      meters
     ]
   }
   public static func == (lhs: LengthDto, rhs: LengthDto) -> Bool {
@@ -1013,30 +946,25 @@ public struct LengthDto: MeasurementUnitDto {
   }
 }
 
-/// Represents a mass measurement for platform transfer.
+/// Represents a mass measurement in kilograms.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct MassDto: MeasurementUnitDto {
-  /// The unit in which the value is expressed.
-  var unit: MassUnitDto
-  /// The numeric value of the mass.
-  var value: Double
+  /// Mass value in kilograms (kg).
+  var kilograms: Double
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> MassDto? {
-    let unit = pigeonVar_list[0] as! MassUnitDto
-    let value = pigeonVar_list[1] as! Double
+    let kilograms = pigeonVar_list[0] as! Double
 
     return MassDto(
-      unit: unit,
-      value: value
+      kilograms: kilograms
     )
   }
   func toList() -> [Any?] {
     return [
-      unit,
-      value,
+      kilograms
     ]
   }
   public static func == (lhs: MassDto, rhs: MassDto) -> Bool {
@@ -1074,30 +1002,25 @@ public struct NumberDto: MeasurementUnitDto {
   }
 }
 
-/// Represents a percentage measurement for platform transfer.
+/// Represents a percentage as a decimal value (0.0 to 1.0).
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct PercentageDto: MeasurementUnitDto {
-  /// The unit in which the value is expressed.
-  var unit: PercentageUnitDto
-  /// The numeric value of the percentage.
-  var value: Double
+  /// Percentage value as decimal (0.0 to 1.0).
+  var decimal: Double
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> PercentageDto? {
-    let unit = pigeonVar_list[0] as! PercentageUnitDto
-    let value = pigeonVar_list[1] as! Double
+    let decimal = pigeonVar_list[0] as! Double
 
     return PercentageDto(
-      unit: unit,
-      value: value
+      decimal: decimal
     )
   }
   func toList() -> [Any?] {
     return [
-      unit,
-      value,
+      decimal
     ]
   }
   public static func == (lhs: PercentageDto, rhs: PercentageDto) -> Bool {
@@ -1107,30 +1030,25 @@ public struct PercentageDto: MeasurementUnitDto {
   }
 }
 
-/// Represents a power measurement for platform transfer.
+/// Represents a power measurement in watts.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct PowerDto: MeasurementUnitDto {
-  /// The unit in which the value is expressed.
-  var unit: PowerUnitDto
-  /// The numeric value of the power.
-  var value: Double
+  /// Power value in watts (W).
+  var watts: Double
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> PowerDto? {
-    let unit = pigeonVar_list[0] as! PowerUnitDto
-    let value = pigeonVar_list[1] as! Double
+    let watts = pigeonVar_list[0] as! Double
 
     return PowerDto(
-      unit: unit,
-      value: value
+      watts: watts
     )
   }
   func toList() -> [Any?] {
     return [
-      unit,
-      value,
+      watts
     ]
   }
   public static func == (lhs: PowerDto, rhs: PowerDto) -> Bool {
@@ -1140,30 +1058,25 @@ public struct PowerDto: MeasurementUnitDto {
   }
 }
 
-/// Represents a pressure measurement for platform transfer.
+/// Represents a pressure measurement in millimeters of mercury.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct PressureDto: MeasurementUnitDto {
-  /// The unit in which the value is expressed.
-  var unit: PressureUnitDto
-  /// The numeric value of the pressure.
-  var value: Double
+  /// Pressure value in millimeters of mercury (mmHg).
+  var millimetersOfMercury: Double
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> PressureDto? {
-    let unit = pigeonVar_list[0] as! PressureUnitDto
-    let value = pigeonVar_list[1] as! Double
+    let millimetersOfMercury = pigeonVar_list[0] as! Double
 
     return PressureDto(
-      unit: unit,
-      value: value
+      millimetersOfMercury: millimetersOfMercury
     )
   }
   func toList() -> [Any?] {
     return [
-      unit,
-      value,
+      millimetersOfMercury
     ]
   }
   public static func == (lhs: PressureDto, rhs: PressureDto) -> Bool {
@@ -1173,30 +1086,25 @@ public struct PressureDto: MeasurementUnitDto {
   }
 }
 
-/// Represents a temperature measurement for platform transfer.
+/// Represents a temperature measurement in celsius.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct TemperatureDto: MeasurementUnitDto {
-  /// The unit in which the value is expressed.
-  var unit: TemperatureUnitDto
-  /// The numeric value of the temperature.
-  var value: Double
+  /// Temperature value in degrees Celsius (°C).
+  var celsius: Double
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> TemperatureDto? {
-    let unit = pigeonVar_list[0] as! TemperatureUnitDto
-    let value = pigeonVar_list[1] as! Double
+    let celsius = pigeonVar_list[0] as! Double
 
     return TemperatureDto(
-      unit: unit,
-      value: value
+      celsius: celsius
     )
   }
   func toList() -> [Any?] {
     return [
-      unit,
-      value,
+      celsius
     ]
   }
   public static func == (lhs: TemperatureDto, rhs: TemperatureDto) -> Bool {
@@ -1206,30 +1114,25 @@ public struct TemperatureDto: MeasurementUnitDto {
   }
 }
 
-/// Represents a velocity measurement for platform transfer.
+/// Represents a velocity measurement in meters per second.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct VelocityDto: MeasurementUnitDto {
-  /// The unit in which the value is expressed.
-  var unit: VelocityUnitDto
-  /// The numeric value of the velocity.
-  var value: Double
+  /// Velocity value in meters per second (m/s).
+  var metersPerSecond: Double
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> VelocityDto? {
-    let unit = pigeonVar_list[0] as! VelocityUnitDto
-    let value = pigeonVar_list[1] as! Double
+    let metersPerSecond = pigeonVar_list[0] as! Double
 
     return VelocityDto(
-      unit: unit,
-      value: value
+      metersPerSecond: metersPerSecond
     )
   }
   func toList() -> [Any?] {
     return [
-      unit,
-      value,
+      metersPerSecond
     ]
   }
   public static func == (lhs: VelocityDto, rhs: VelocityDto) -> Bool {
@@ -1239,30 +1142,25 @@ public struct VelocityDto: MeasurementUnitDto {
   }
 }
 
-/// Represents a volume measurement for platform transfer.
+/// Represents a volume measurement in liters.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 public struct VolumeDto: MeasurementUnitDto {
-  /// The unit in which the value is expressed.
-  var unit: VolumeUnitDto
-  /// The numeric value of the volume.
-  var value: Double
+  /// Volume value in liters (L).
+  var liters: Double
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> VolumeDto? {
-    let unit = pigeonVar_list[0] as! VolumeUnitDto
-    let value = pigeonVar_list[1] as! Double
+    let liters = pigeonVar_list[0] as! Double
 
     return VolumeDto(
-      unit: unit,
-      value: value
+      liters: liters
     )
   }
   func toList() -> [Any?] {
     return [
-      unit,
-      value,
+      liters
     ]
   }
   public static func == (lhs: VolumeDto, rhs: VolumeDto) -> Bool {
@@ -1359,39 +1257,6 @@ public struct MetadataDto: Hashable {
     ]
   }
   public static func == (lhs: MetadataDto, rhs: MetadataDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-/// Represents a permission request for accessing specific health data.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct HealthDataPermissionDto: Hashable {
-  /// The type of access being requested (read or write).
-  var accessType: PermissionAccessTypeDto
-  /// The type of health data for which permission is requested.
-  var healthDataType: HealthDataTypeDto
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> HealthDataPermissionDto? {
-    let accessType = pigeonVar_list[0] as! PermissionAccessTypeDto
-    let healthDataType = pigeonVar_list[1] as! HealthDataTypeDto
-
-    return HealthDataPermissionDto(
-      accessType: accessType,
-      healthDataType: healthDataType
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      accessType,
-      healthDataType,
-    ]
-  }
-  public static func == (lhs: HealthDataPermissionDto, rhs: HealthDataPermissionDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
   public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
@@ -5353,6 +5218,39 @@ public struct BasalEnergyBurnedRecordDto: HealthRecordDto {
   }
 }
 
+/// Represents a permission request for accessing specific health data.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+public struct HealthDataPermissionDto: Hashable {
+  /// The type of access being requested (read or write).
+  var accessType: PermissionAccessTypeDto
+  /// The type of health data for which permission is requested.
+  var healthDataType: HealthDataTypeDto
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> HealthDataPermissionDto? {
+    let accessType = pigeonVar_list[0] as! PermissionAccessTypeDto
+    let healthDataType = pigeonVar_list[1] as! HealthDataTypeDto
+
+    return HealthDataPermissionDto(
+      accessType: accessType,
+      healthDataType: healthDataType
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      accessType,
+      healthDataType,
+    ]
+  }
+  public static func == (lhs: HealthDataPermissionDto, rhs: HealthDataPermissionDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
 /// Represents the result of a health data permission request.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -5685,480 +5583,345 @@ public struct ReadRecordsResponseDto: Hashable {
   }
 }
 
-/// Configuration data transfer object for Health Connector.
-///
-/// Contains configuration settings that are passed from Dart to native
-/// platform code during client initialization.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct HealthConnectorConfigDto: Hashable {
-  /// Whether logging is enabled for the Health Connector.
-  var isLoggerEnabled: Bool
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> HealthConnectorConfigDto? {
-    let isLoggerEnabled = pigeonVar_list[0] as! Bool
-
-    return HealthConnectorConfigDto(
-      isLoggerEnabled: isLoggerEnabled
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      isLoggerEnabled
-    ]
-  }
-  public static func == (lhs: HealthConnectorConfigDto, rhs: HealthConnectorConfigDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
-
-private struct PigeonInternalCodecOverflow {
-  var type: Int
-  var wrapped: Any? = nil
-
-  func toList() -> [Any?] {
-    return [
-      type,
-      wrapped,
-    ]
-  }
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> Any? {
-    let type = pigeonVar_list[0] as! Int
-    let wrapped: Any? = pigeonVar_list[1]
-
-    let wrapper = PigeonInternalCodecOverflow(
-      type: type,
-      wrapped: wrapped
-    )
-
-    return wrapper.unwrap()
-  }
-
-  func unwrap() -> Any? {
-    if (wrapped == nil) {
-      return nil;
-    }
-        
-    switch type {
-      case 0:
-        return DeleteRecordsByTimeRangeRequestDto.fromList(wrapped as! [Any?]);
-      case 1:
-        return ReadRecordRequestDto.fromList(wrapped as! [Any?]);
-      case 2:
-        return ReadRecordsRequestDto.fromList(wrapped as! [Any?]);
-      case 3:
-        return ReadRecordsResponseDto.fromList(wrapped as! [Any?]);
-      case 4:
-        return HealthConnectorConfigDto.fromList(wrapped as! [Any?]);
-      default: 
-        return nil
-    }
-  }
-}
-
 private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
     case 129:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return HealthPlatformStatusDto(rawValue: enumResultAsInt)
+        return DeviceTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 130:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return BloodGlucoseUnitDto(rawValue: enumResultAsInt)
+        return RecordingMethodDto(rawValue: enumResultAsInt)
       }
       return nil
     case 131:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return EnergyUnitDto(rawValue: enumResultAsInt)
+        return Vo2MaxTestTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 132:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return TimeDurationUnitDto(rawValue: enumResultAsInt)
+        return MealTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 133:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return LengthUnitDto(rawValue: enumResultAsInt)
+        return BodyPositionDto(rawValue: enumResultAsInt)
       }
       return nil
     case 134:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return MassUnitDto(rawValue: enumResultAsInt)
+        return MeasurementLocationDto(rawValue: enumResultAsInt)
       }
       return nil
     case 135:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return PercentageUnitDto(rawValue: enumResultAsInt)
+        return BloodGlucoseRelationToMealDto(rawValue: enumResultAsInt)
       }
       return nil
     case 136:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return PermissionAccessTypeDto(rawValue: enumResultAsInt)
+        return BloodGlucoseSpecimenSourceDto(rawValue: enumResultAsInt)
       }
       return nil
     case 137:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return PermissionStatusDto(rawValue: enumResultAsInt)
+        return DistanceActivityTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 138:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return PressureUnitDto(rawValue: enumResultAsInt)
+        return SleepStageTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 139:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return PowerUnitDto(rawValue: enumResultAsInt)
+        return CervicalMucusAppearanceTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 140:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return TemperatureUnitDto(rawValue: enumResultAsInt)
+        return CervicalMucusSensationTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 141:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return VelocityUnitDto(rawValue: enumResultAsInt)
+        return SexualActivityProtectionUsedTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 142:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return VolumeUnitDto(rawValue: enumResultAsInt)
+        return OvulationTestResultTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 143:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return Vo2MaxTestTypeDto(rawValue: enumResultAsInt)
+        return BasalBodyTemperatureMeasurementLocationDto(rawValue: enumResultAsInt)
       }
       return nil
     case 144:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return MealTypeDto(rawValue: enumResultAsInt)
+        return MenstrualFlowTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 145:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return BodyPositionDto(rawValue: enumResultAsInt)
+        return SpeedActivityTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 146:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return MeasurementLocationDto(rawValue: enumResultAsInt)
+        return ExerciseTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 147:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return BloodGlucoseRelationToMealDto(rawValue: enumResultAsInt)
+        return MindfulnessSessionTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 148:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return BloodGlucoseSpecimenSourceDto(rawValue: enumResultAsInt)
+        return HealthDataTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 149:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return DeviceTypeDto(rawValue: enumResultAsInt)
+        return HealthPlatformStatusDto(rawValue: enumResultAsInt)
       }
       return nil
     case 150:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return RecordingMethodDto(rawValue: enumResultAsInt)
+        return PermissionAccessTypeDto(rawValue: enumResultAsInt)
       }
       return nil
     case 151:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return DistanceActivityTypeDto(rawValue: enumResultAsInt)
+        return PermissionStatusDto(rawValue: enumResultAsInt)
       }
       return nil
     case 152:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return SleepStageTypeDto(rawValue: enumResultAsInt)
-      }
-      return nil
-    case 153:
-      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
-      if let enumResultAsInt = enumResultAsInt {
-        return CervicalMucusAppearanceTypeDto(rawValue: enumResultAsInt)
-      }
-      return nil
-    case 154:
-      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
-      if let enumResultAsInt = enumResultAsInt {
-        return CervicalMucusSensationTypeDto(rawValue: enumResultAsInt)
-      }
-      return nil
-    case 155:
-      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
-      if let enumResultAsInt = enumResultAsInt {
-        return SexualActivityProtectionUsedTypeDto(rawValue: enumResultAsInt)
-      }
-      return nil
-    case 156:
-      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
-      if let enumResultAsInt = enumResultAsInt {
-        return OvulationTestResultTypeDto(rawValue: enumResultAsInt)
-      }
-      return nil
-    case 157:
-      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
-      if let enumResultAsInt = enumResultAsInt {
-        return BasalBodyTemperatureMeasurementLocationDto(rawValue: enumResultAsInt)
-      }
-      return nil
-    case 158:
-      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
-      if let enumResultAsInt = enumResultAsInt {
-        return MenstrualFlowTypeDto(rawValue: enumResultAsInt)
-      }
-      return nil
-    case 159:
-      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
-      if let enumResultAsInt = enumResultAsInt {
-        return SpeedActivityTypeDto(rawValue: enumResultAsInt)
-      }
-      return nil
-    case 160:
-      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
-      if let enumResultAsInt = enumResultAsInt {
-        return ExerciseTypeDto(rawValue: enumResultAsInt)
-      }
-      return nil
-    case 161:
-      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
-      if let enumResultAsInt = enumResultAsInt {
-        return MindfulnessSessionTypeDto(rawValue: enumResultAsInt)
-      }
-      return nil
-    case 162:
-      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
-      if let enumResultAsInt = enumResultAsInt {
-        return HealthDataTypeDto(rawValue: enumResultAsInt)
-      }
-      return nil
-    case 163:
-      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
-      if let enumResultAsInt = enumResultAsInt {
         return AggregationMetricDto(rawValue: enumResultAsInt)
       }
       return nil
-    case 164:
+    case 153:
+      return HealthConnectorConfigDto.fromList(self.readValue() as! [Any?])
+    case 154:
       return BloodGlucoseDto.fromList(self.readValue() as! [Any?])
-    case 165:
+    case 155:
       return EnergyDto.fromList(self.readValue() as! [Any?])
-    case 166:
+    case 156:
       return TimeDurationDto.fromList(self.readValue() as! [Any?])
-    case 167:
+    case 157:
       return LengthDto.fromList(self.readValue() as! [Any?])
-    case 168:
+    case 158:
       return MassDto.fromList(self.readValue() as! [Any?])
-    case 169:
+    case 159:
       return NumberDto.fromList(self.readValue() as! [Any?])
-    case 170:
+    case 160:
       return PercentageDto.fromList(self.readValue() as! [Any?])
-    case 171:
+    case 161:
       return PowerDto.fromList(self.readValue() as! [Any?])
-    case 172:
+    case 162:
       return PressureDto.fromList(self.readValue() as! [Any?])
-    case 173:
+    case 163:
       return TemperatureDto.fromList(self.readValue() as! [Any?])
-    case 174:
+    case 164:
       return VelocityDto.fromList(self.readValue() as! [Any?])
-    case 175:
+    case 165:
       return VolumeDto.fromList(self.readValue() as! [Any?])
-    case 176:
+    case 166:
       return MetadataDto.fromList(self.readValue() as! [Any?])
-    case 177:
-      return HealthDataPermissionDto.fromList(self.readValue() as! [Any?])
-    case 178:
+    case 167:
       return RestingHeartRateRecordDto.fromList(self.readValue() as! [Any?])
-    case 179:
+    case 168:
       return Vo2MaxRecordDto.fromList(self.readValue() as! [Any?])
-    case 180:
+    case 169:
       return BodyMassIndexRecordDto.fromList(self.readValue() as! [Any?])
-    case 181:
+    case 170:
       return WaistCircumferenceRecordDto.fromList(self.readValue() as! [Any?])
-    case 182:
+    case 171:
       return HeartRateVariabilitySDNNRecordDto.fromList(self.readValue() as! [Any?])
-    case 183:
+    case 172:
       return BloodGlucoseRecordDto.fromList(self.readValue() as! [Any?])
-    case 184:
+    case 173:
       return ExerciseSessionRecordDto.fromList(self.readValue() as! [Any?])
-    case 185:
+    case 174:
       return MindfulnessSessionRecordDto.fromList(self.readValue() as! [Any?])
-    case 186:
+    case 175:
       return ActiveCaloriesBurnedRecordDto.fromList(self.readValue() as! [Any?])
-    case 187:
+    case 176:
       return DistanceActivityRecordDto.fromList(self.readValue() as! [Any?])
-    case 188:
+    case 177:
       return SpeedActivityRecordDto.fromList(self.readValue() as! [Any?])
-    case 189:
+    case 178:
       return FloorsClimbedRecordDto.fromList(self.readValue() as! [Any?])
-    case 190:
+    case 179:
       return WheelchairPushesRecordDto.fromList(self.readValue() as! [Any?])
-    case 191:
+    case 180:
       return StepsRecordDto.fromList(self.readValue() as! [Any?])
-    case 192:
+    case 181:
       return WeightRecordDto.fromList(self.readValue() as! [Any?])
-    case 193:
+    case 182:
       return BloodPressureRecordDto.fromList(self.readValue() as! [Any?])
-    case 194:
+    case 183:
       return SystolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
-    case 195:
+    case 184:
       return DiastolicBloodPressureRecordDto.fromList(self.readValue() as! [Any?])
-    case 196:
+    case 185:
       return LeanBodyMassRecordDto.fromList(self.readValue() as! [Any?])
-    case 197:
+    case 186:
       return HeightRecordDto.fromList(self.readValue() as! [Any?])
-    case 198:
+    case 187:
       return BodyFatPercentageRecordDto.fromList(self.readValue() as! [Any?])
-    case 199:
+    case 188:
       return BodyTemperatureRecordDto.fromList(self.readValue() as! [Any?])
-    case 200:
+    case 189:
       return BasalBodyTemperatureRecordDto.fromList(self.readValue() as! [Any?])
-    case 201:
+    case 190:
       return CervicalMucusRecordDto.fromList(self.readValue() as! [Any?])
-    case 202:
+    case 191:
       return CyclingPowerRecordDto.fromList(self.readValue() as! [Any?])
-    case 203:
+    case 192:
       return OxygenSaturationRecordDto.fromList(self.readValue() as! [Any?])
-    case 204:
+    case 193:
       return OvulationTestRecordDto.fromList(self.readValue() as! [Any?])
-    case 205:
+    case 194:
       return IntermenstrualBleedingRecordDto.fromList(self.readValue() as! [Any?])
-    case 206:
+    case 195:
       return MenstrualFlowRecordDto.fromList(self.readValue() as! [Any?])
-    case 207:
+    case 196:
       return RespiratoryRateRecordDto.fromList(self.readValue() as! [Any?])
-    case 208:
+    case 197:
       return HydrationRecordDto.fromList(self.readValue() as! [Any?])
-    case 209:
+    case 198:
       return HeartRateMeasurementDto.fromList(self.readValue() as! [Any?])
-    case 210:
+    case 199:
       return HeartRateMeasurementRecordDto.fromList(self.readValue() as! [Any?])
-    case 211:
+    case 200:
       return CyclingPedalingCadenceMeasurementDto.fromList(self.readValue() as! [Any?])
-    case 212:
+    case 201:
       return CyclingPedalingCadenceMeasurementRecordDto.fromList(self.readValue() as! [Any?])
-    case 213:
+    case 202:
       return SleepStageRecordDto.fromList(self.readValue() as! [Any?])
-    case 214:
+    case 203:
       return SexualActivityRecordDto.fromList(self.readValue() as! [Any?])
-    case 215:
+    case 204:
       return EnergyNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 216:
+    case 205:
       return CaffeineNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 217:
+    case 206:
       return ProteinNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 218:
+    case 207:
       return TotalCarbohydrateNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 219:
+    case 208:
       return TotalFatNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 220:
+    case 209:
       return SaturatedFatNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 221:
+    case 210:
       return MonounsaturatedFatNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 222:
+    case 211:
       return PolyunsaturatedFatNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 223:
+    case 212:
       return CholesterolNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 224:
+    case 213:
       return DietaryFiberNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 225:
+    case 214:
       return SugarNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 226:
+    case 215:
       return VitaminANutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 227:
+    case 216:
       return VitaminB6NutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 228:
+    case 217:
       return VitaminB12NutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 229:
+    case 218:
       return VitaminCNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 230:
+    case 219:
       return VitaminDNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 231:
+    case 220:
       return VitaminENutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 232:
+    case 221:
       return VitaminKNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 233:
+    case 222:
       return ThiaminNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 234:
+    case 223:
       return RiboflavinNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 235:
+    case 224:
       return NiacinNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 236:
+    case 225:
       return FolateNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 237:
+    case 226:
       return BiotinNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 238:
+    case 227:
       return PantothenicAcidNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 239:
+    case 228:
       return CalciumNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 240:
+    case 229:
       return IronNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 241:
+    case 230:
       return MagnesiumNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 242:
+    case 231:
       return ManganeseNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 243:
+    case 232:
       return PhosphorusNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 244:
+    case 233:
       return PotassiumNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 245:
+    case 234:
       return SeleniumNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 246:
+    case 235:
       return SodiumNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 247:
+    case 236:
       return ZincNutrientRecordDto.fromList(self.readValue() as! [Any?])
-    case 248:
+    case 237:
       return NutritionRecordDto.fromList(self.readValue() as! [Any?])
-    case 249:
+    case 238:
       return BasalEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
-    case 250:
+    case 239:
+      return HealthDataPermissionDto.fromList(self.readValue() as! [Any?])
+    case 240:
       return HealthDataPermissionRequestResultDto.fromList(self.readValue() as! [Any?])
-    case 251:
+    case 241:
       return PermissionsRequestDto.fromList(self.readValue() as! [Any?])
-    case 252:
+    case 242:
       return PermissionsRequestResponseDto.fromList(self.readValue() as! [Any?])
-    case 253:
+    case 243:
       return AggregateRequestDto.fromList(self.readValue() as! [Any?])
-    case 254:
+    case 244:
       return DeleteRecordsByIdsRequestDto.fromList(self.readValue() as! [Any?])
-    case 255:
-      return PigeonInternalCodecOverflow.fromList(self.readValue() as! [Any?])
+    case 245:
+      return DeleteRecordsByTimeRangeRequestDto.fromList(self.readValue() as! [Any?])
+    case 246:
+      return ReadRecordRequestDto.fromList(self.readValue() as! [Any?])
+    case 247:
+      return ReadRecordsRequestDto.fromList(self.readValue() as! [Any?])
+    case 248:
+      return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
     }
@@ -6167,404 +5930,366 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
 
 private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
-    if let value = value as? HealthPlatformStatusDto {
+    if let value = value as? DeviceTypeDto {
       super.writeByte(129)
       super.writeValue(value.rawValue)
-    } else if let value = value as? BloodGlucoseUnitDto {
+    } else if let value = value as? RecordingMethodDto {
       super.writeByte(130)
       super.writeValue(value.rawValue)
-    } else if let value = value as? EnergyUnitDto {
+    } else if let value = value as? Vo2MaxTestTypeDto {
       super.writeByte(131)
       super.writeValue(value.rawValue)
-    } else if let value = value as? TimeDurationUnitDto {
+    } else if let value = value as? MealTypeDto {
       super.writeByte(132)
       super.writeValue(value.rawValue)
-    } else if let value = value as? LengthUnitDto {
+    } else if let value = value as? BodyPositionDto {
       super.writeByte(133)
       super.writeValue(value.rawValue)
-    } else if let value = value as? MassUnitDto {
+    } else if let value = value as? MeasurementLocationDto {
       super.writeByte(134)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PercentageUnitDto {
+    } else if let value = value as? BloodGlucoseRelationToMealDto {
       super.writeByte(135)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PermissionAccessTypeDto {
+    } else if let value = value as? BloodGlucoseSpecimenSourceDto {
       super.writeByte(136)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PermissionStatusDto {
+    } else if let value = value as? DistanceActivityTypeDto {
       super.writeByte(137)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PressureUnitDto {
+    } else if let value = value as? SleepStageTypeDto {
       super.writeByte(138)
       super.writeValue(value.rawValue)
-    } else if let value = value as? PowerUnitDto {
+    } else if let value = value as? CervicalMucusAppearanceTypeDto {
       super.writeByte(139)
       super.writeValue(value.rawValue)
-    } else if let value = value as? TemperatureUnitDto {
+    } else if let value = value as? CervicalMucusSensationTypeDto {
       super.writeByte(140)
       super.writeValue(value.rawValue)
-    } else if let value = value as? VelocityUnitDto {
+    } else if let value = value as? SexualActivityProtectionUsedTypeDto {
       super.writeByte(141)
       super.writeValue(value.rawValue)
-    } else if let value = value as? VolumeUnitDto {
+    } else if let value = value as? OvulationTestResultTypeDto {
       super.writeByte(142)
       super.writeValue(value.rawValue)
-    } else if let value = value as? Vo2MaxTestTypeDto {
+    } else if let value = value as? BasalBodyTemperatureMeasurementLocationDto {
       super.writeByte(143)
       super.writeValue(value.rawValue)
-    } else if let value = value as? MealTypeDto {
+    } else if let value = value as? MenstrualFlowTypeDto {
       super.writeByte(144)
       super.writeValue(value.rawValue)
-    } else if let value = value as? BodyPositionDto {
+    } else if let value = value as? SpeedActivityTypeDto {
       super.writeByte(145)
       super.writeValue(value.rawValue)
-    } else if let value = value as? MeasurementLocationDto {
+    } else if let value = value as? ExerciseTypeDto {
       super.writeByte(146)
       super.writeValue(value.rawValue)
-    } else if let value = value as? BloodGlucoseRelationToMealDto {
+    } else if let value = value as? MindfulnessSessionTypeDto {
       super.writeByte(147)
       super.writeValue(value.rawValue)
-    } else if let value = value as? BloodGlucoseSpecimenSourceDto {
+    } else if let value = value as? HealthDataTypeDto {
       super.writeByte(148)
       super.writeValue(value.rawValue)
-    } else if let value = value as? DeviceTypeDto {
+    } else if let value = value as? HealthPlatformStatusDto {
       super.writeByte(149)
       super.writeValue(value.rawValue)
-    } else if let value = value as? RecordingMethodDto {
+    } else if let value = value as? PermissionAccessTypeDto {
       super.writeByte(150)
       super.writeValue(value.rawValue)
-    } else if let value = value as? DistanceActivityTypeDto {
+    } else if let value = value as? PermissionStatusDto {
       super.writeByte(151)
       super.writeValue(value.rawValue)
-    } else if let value = value as? SleepStageTypeDto {
+    } else if let value = value as? AggregationMetricDto {
       super.writeByte(152)
       super.writeValue(value.rawValue)
-    } else if let value = value as? CervicalMucusAppearanceTypeDto {
+    } else if let value = value as? HealthConnectorConfigDto {
       super.writeByte(153)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? CervicalMucusSensationTypeDto {
-      super.writeByte(154)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? SexualActivityProtectionUsedTypeDto {
-      super.writeByte(155)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? OvulationTestResultTypeDto {
-      super.writeByte(156)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? BasalBodyTemperatureMeasurementLocationDto {
-      super.writeByte(157)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? MenstrualFlowTypeDto {
-      super.writeByte(158)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? SpeedActivityTypeDto {
-      super.writeByte(159)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? ExerciseTypeDto {
-      super.writeByte(160)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? MindfulnessSessionTypeDto {
-      super.writeByte(161)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? HealthDataTypeDto {
-      super.writeByte(162)
-      super.writeValue(value.rawValue)
-    } else if let value = value as? AggregationMetricDto {
-      super.writeByte(163)
-      super.writeValue(value.rawValue)
+      super.writeValue(value.toList())
     } else if let value = value as? BloodGlucoseDto {
-      super.writeByte(164)
+      super.writeByte(154)
       super.writeValue(value.toList())
     } else if let value = value as? EnergyDto {
-      super.writeByte(165)
+      super.writeByte(155)
       super.writeValue(value.toList())
     } else if let value = value as? TimeDurationDto {
-      super.writeByte(166)
+      super.writeByte(156)
       super.writeValue(value.toList())
     } else if let value = value as? LengthDto {
-      super.writeByte(167)
+      super.writeByte(157)
       super.writeValue(value.toList())
     } else if let value = value as? MassDto {
-      super.writeByte(168)
+      super.writeByte(158)
       super.writeValue(value.toList())
     } else if let value = value as? NumberDto {
-      super.writeByte(169)
+      super.writeByte(159)
       super.writeValue(value.toList())
     } else if let value = value as? PercentageDto {
-      super.writeByte(170)
+      super.writeByte(160)
       super.writeValue(value.toList())
     } else if let value = value as? PowerDto {
-      super.writeByte(171)
+      super.writeByte(161)
       super.writeValue(value.toList())
     } else if let value = value as? PressureDto {
-      super.writeByte(172)
+      super.writeByte(162)
       super.writeValue(value.toList())
     } else if let value = value as? TemperatureDto {
-      super.writeByte(173)
+      super.writeByte(163)
       super.writeValue(value.toList())
     } else if let value = value as? VelocityDto {
-      super.writeByte(174)
+      super.writeByte(164)
       super.writeValue(value.toList())
     } else if let value = value as? VolumeDto {
-      super.writeByte(175)
+      super.writeByte(165)
       super.writeValue(value.toList())
     } else if let value = value as? MetadataDto {
-      super.writeByte(176)
-      super.writeValue(value.toList())
-    } else if let value = value as? HealthDataPermissionDto {
-      super.writeByte(177)
+      super.writeByte(166)
       super.writeValue(value.toList())
     } else if let value = value as? RestingHeartRateRecordDto {
-      super.writeByte(178)
+      super.writeByte(167)
       super.writeValue(value.toList())
     } else if let value = value as? Vo2MaxRecordDto {
-      super.writeByte(179)
+      super.writeByte(168)
       super.writeValue(value.toList())
     } else if let value = value as? BodyMassIndexRecordDto {
-      super.writeByte(180)
+      super.writeByte(169)
       super.writeValue(value.toList())
     } else if let value = value as? WaistCircumferenceRecordDto {
-      super.writeByte(181)
+      super.writeByte(170)
       super.writeValue(value.toList())
     } else if let value = value as? HeartRateVariabilitySDNNRecordDto {
-      super.writeByte(182)
+      super.writeByte(171)
       super.writeValue(value.toList())
     } else if let value = value as? BloodGlucoseRecordDto {
-      super.writeByte(183)
+      super.writeByte(172)
       super.writeValue(value.toList())
     } else if let value = value as? ExerciseSessionRecordDto {
-      super.writeByte(184)
+      super.writeByte(173)
       super.writeValue(value.toList())
     } else if let value = value as? MindfulnessSessionRecordDto {
-      super.writeByte(185)
+      super.writeByte(174)
       super.writeValue(value.toList())
     } else if let value = value as? ActiveCaloriesBurnedRecordDto {
-      super.writeByte(186)
+      super.writeByte(175)
       super.writeValue(value.toList())
     } else if let value = value as? DistanceActivityRecordDto {
-      super.writeByte(187)
+      super.writeByte(176)
       super.writeValue(value.toList())
     } else if let value = value as? SpeedActivityRecordDto {
-      super.writeByte(188)
+      super.writeByte(177)
       super.writeValue(value.toList())
     } else if let value = value as? FloorsClimbedRecordDto {
-      super.writeByte(189)
+      super.writeByte(178)
       super.writeValue(value.toList())
     } else if let value = value as? WheelchairPushesRecordDto {
-      super.writeByte(190)
+      super.writeByte(179)
       super.writeValue(value.toList())
     } else if let value = value as? StepsRecordDto {
-      super.writeByte(191)
+      super.writeByte(180)
       super.writeValue(value.toList())
     } else if let value = value as? WeightRecordDto {
-      super.writeByte(192)
+      super.writeByte(181)
       super.writeValue(value.toList())
     } else if let value = value as? BloodPressureRecordDto {
-      super.writeByte(193)
+      super.writeByte(182)
       super.writeValue(value.toList())
     } else if let value = value as? SystolicBloodPressureRecordDto {
-      super.writeByte(194)
+      super.writeByte(183)
       super.writeValue(value.toList())
     } else if let value = value as? DiastolicBloodPressureRecordDto {
-      super.writeByte(195)
+      super.writeByte(184)
       super.writeValue(value.toList())
     } else if let value = value as? LeanBodyMassRecordDto {
-      super.writeByte(196)
+      super.writeByte(185)
       super.writeValue(value.toList())
     } else if let value = value as? HeightRecordDto {
-      super.writeByte(197)
+      super.writeByte(186)
       super.writeValue(value.toList())
     } else if let value = value as? BodyFatPercentageRecordDto {
-      super.writeByte(198)
+      super.writeByte(187)
       super.writeValue(value.toList())
     } else if let value = value as? BodyTemperatureRecordDto {
-      super.writeByte(199)
+      super.writeByte(188)
       super.writeValue(value.toList())
     } else if let value = value as? BasalBodyTemperatureRecordDto {
-      super.writeByte(200)
+      super.writeByte(189)
       super.writeValue(value.toList())
     } else if let value = value as? CervicalMucusRecordDto {
-      super.writeByte(201)
+      super.writeByte(190)
       super.writeValue(value.toList())
     } else if let value = value as? CyclingPowerRecordDto {
-      super.writeByte(202)
+      super.writeByte(191)
       super.writeValue(value.toList())
     } else if let value = value as? OxygenSaturationRecordDto {
-      super.writeByte(203)
+      super.writeByte(192)
       super.writeValue(value.toList())
     } else if let value = value as? OvulationTestRecordDto {
-      super.writeByte(204)
+      super.writeByte(193)
       super.writeValue(value.toList())
     } else if let value = value as? IntermenstrualBleedingRecordDto {
-      super.writeByte(205)
+      super.writeByte(194)
       super.writeValue(value.toList())
     } else if let value = value as? MenstrualFlowRecordDto {
-      super.writeByte(206)
+      super.writeByte(195)
       super.writeValue(value.toList())
     } else if let value = value as? RespiratoryRateRecordDto {
-      super.writeByte(207)
+      super.writeByte(196)
       super.writeValue(value.toList())
     } else if let value = value as? HydrationRecordDto {
-      super.writeByte(208)
+      super.writeByte(197)
       super.writeValue(value.toList())
     } else if let value = value as? HeartRateMeasurementDto {
-      super.writeByte(209)
+      super.writeByte(198)
       super.writeValue(value.toList())
     } else if let value = value as? HeartRateMeasurementRecordDto {
-      super.writeByte(210)
+      super.writeByte(199)
       super.writeValue(value.toList())
     } else if let value = value as? CyclingPedalingCadenceMeasurementDto {
-      super.writeByte(211)
+      super.writeByte(200)
       super.writeValue(value.toList())
     } else if let value = value as? CyclingPedalingCadenceMeasurementRecordDto {
-      super.writeByte(212)
+      super.writeByte(201)
       super.writeValue(value.toList())
     } else if let value = value as? SleepStageRecordDto {
-      super.writeByte(213)
+      super.writeByte(202)
       super.writeValue(value.toList())
     } else if let value = value as? SexualActivityRecordDto {
-      super.writeByte(214)
+      super.writeByte(203)
       super.writeValue(value.toList())
     } else if let value = value as? EnergyNutrientRecordDto {
-      super.writeByte(215)
+      super.writeByte(204)
       super.writeValue(value.toList())
     } else if let value = value as? CaffeineNutrientRecordDto {
-      super.writeByte(216)
+      super.writeByte(205)
       super.writeValue(value.toList())
     } else if let value = value as? ProteinNutrientRecordDto {
-      super.writeByte(217)
+      super.writeByte(206)
       super.writeValue(value.toList())
     } else if let value = value as? TotalCarbohydrateNutrientRecordDto {
-      super.writeByte(218)
+      super.writeByte(207)
       super.writeValue(value.toList())
     } else if let value = value as? TotalFatNutrientRecordDto {
-      super.writeByte(219)
+      super.writeByte(208)
       super.writeValue(value.toList())
     } else if let value = value as? SaturatedFatNutrientRecordDto {
-      super.writeByte(220)
+      super.writeByte(209)
       super.writeValue(value.toList())
     } else if let value = value as? MonounsaturatedFatNutrientRecordDto {
-      super.writeByte(221)
+      super.writeByte(210)
       super.writeValue(value.toList())
     } else if let value = value as? PolyunsaturatedFatNutrientRecordDto {
-      super.writeByte(222)
+      super.writeByte(211)
       super.writeValue(value.toList())
     } else if let value = value as? CholesterolNutrientRecordDto {
-      super.writeByte(223)
+      super.writeByte(212)
       super.writeValue(value.toList())
     } else if let value = value as? DietaryFiberNutrientRecordDto {
-      super.writeByte(224)
+      super.writeByte(213)
       super.writeValue(value.toList())
     } else if let value = value as? SugarNutrientRecordDto {
-      super.writeByte(225)
+      super.writeByte(214)
       super.writeValue(value.toList())
     } else if let value = value as? VitaminANutrientRecordDto {
-      super.writeByte(226)
+      super.writeByte(215)
       super.writeValue(value.toList())
     } else if let value = value as? VitaminB6NutrientRecordDto {
-      super.writeByte(227)
+      super.writeByte(216)
       super.writeValue(value.toList())
     } else if let value = value as? VitaminB12NutrientRecordDto {
-      super.writeByte(228)
+      super.writeByte(217)
       super.writeValue(value.toList())
     } else if let value = value as? VitaminCNutrientRecordDto {
-      super.writeByte(229)
+      super.writeByte(218)
       super.writeValue(value.toList())
     } else if let value = value as? VitaminDNutrientRecordDto {
-      super.writeByte(230)
+      super.writeByte(219)
       super.writeValue(value.toList())
     } else if let value = value as? VitaminENutrientRecordDto {
-      super.writeByte(231)
+      super.writeByte(220)
       super.writeValue(value.toList())
     } else if let value = value as? VitaminKNutrientRecordDto {
-      super.writeByte(232)
+      super.writeByte(221)
       super.writeValue(value.toList())
     } else if let value = value as? ThiaminNutrientRecordDto {
-      super.writeByte(233)
+      super.writeByte(222)
       super.writeValue(value.toList())
     } else if let value = value as? RiboflavinNutrientRecordDto {
-      super.writeByte(234)
+      super.writeByte(223)
       super.writeValue(value.toList())
     } else if let value = value as? NiacinNutrientRecordDto {
-      super.writeByte(235)
+      super.writeByte(224)
       super.writeValue(value.toList())
     } else if let value = value as? FolateNutrientRecordDto {
-      super.writeByte(236)
+      super.writeByte(225)
       super.writeValue(value.toList())
     } else if let value = value as? BiotinNutrientRecordDto {
-      super.writeByte(237)
+      super.writeByte(226)
       super.writeValue(value.toList())
     } else if let value = value as? PantothenicAcidNutrientRecordDto {
-      super.writeByte(238)
+      super.writeByte(227)
       super.writeValue(value.toList())
     } else if let value = value as? CalciumNutrientRecordDto {
-      super.writeByte(239)
+      super.writeByte(228)
       super.writeValue(value.toList())
     } else if let value = value as? IronNutrientRecordDto {
-      super.writeByte(240)
+      super.writeByte(229)
       super.writeValue(value.toList())
     } else if let value = value as? MagnesiumNutrientRecordDto {
-      super.writeByte(241)
+      super.writeByte(230)
       super.writeValue(value.toList())
     } else if let value = value as? ManganeseNutrientRecordDto {
-      super.writeByte(242)
+      super.writeByte(231)
       super.writeValue(value.toList())
     } else if let value = value as? PhosphorusNutrientRecordDto {
-      super.writeByte(243)
+      super.writeByte(232)
       super.writeValue(value.toList())
     } else if let value = value as? PotassiumNutrientRecordDto {
-      super.writeByte(244)
+      super.writeByte(233)
       super.writeValue(value.toList())
     } else if let value = value as? SeleniumNutrientRecordDto {
-      super.writeByte(245)
+      super.writeByte(234)
       super.writeValue(value.toList())
     } else if let value = value as? SodiumNutrientRecordDto {
-      super.writeByte(246)
+      super.writeByte(235)
       super.writeValue(value.toList())
     } else if let value = value as? ZincNutrientRecordDto {
-      super.writeByte(247)
+      super.writeByte(236)
       super.writeValue(value.toList())
     } else if let value = value as? NutritionRecordDto {
-      super.writeByte(248)
+      super.writeByte(237)
       super.writeValue(value.toList())
     } else if let value = value as? BasalEnergyBurnedRecordDto {
-      super.writeByte(249)
+      super.writeByte(238)
+      super.writeValue(value.toList())
+    } else if let value = value as? HealthDataPermissionDto {
+      super.writeByte(239)
       super.writeValue(value.toList())
     } else if let value = value as? HealthDataPermissionRequestResultDto {
-      super.writeByte(250)
+      super.writeByte(240)
       super.writeValue(value.toList())
     } else if let value = value as? PermissionsRequestDto {
-      super.writeByte(251)
+      super.writeByte(241)
       super.writeValue(value.toList())
     } else if let value = value as? PermissionsRequestResponseDto {
-      super.writeByte(252)
+      super.writeByte(242)
       super.writeValue(value.toList())
     } else if let value = value as? AggregateRequestDto {
-      super.writeByte(253)
+      super.writeByte(243)
       super.writeValue(value.toList())
     } else if let value = value as? DeleteRecordsByIdsRequestDto {
-      super.writeByte(254)
+      super.writeByte(244)
       super.writeValue(value.toList())
     } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
-      let wrap = PigeonInternalCodecOverflow(type: 0, wrapped: value.toList())
-      super.writeByte(255)
-      super.writeValue(wrap.toList())
+      super.writeByte(245)
+      super.writeValue(value.toList())
     } else if let value = value as? ReadRecordRequestDto {
-      let wrap = PigeonInternalCodecOverflow(type: 1, wrapped: value.toList())
-      super.writeByte(255)
-      super.writeValue(wrap.toList())
+      super.writeByte(246)
+      super.writeValue(value.toList())
     } else if let value = value as? ReadRecordsRequestDto {
-      let wrap = PigeonInternalCodecOverflow(type: 2, wrapped: value.toList())
-      super.writeByte(255)
-      super.writeValue(wrap.toList())
+      super.writeByte(247)
+      super.writeValue(value.toList())
     } else if let value = value as? ReadRecordsResponseDto {
-      let wrap = PigeonInternalCodecOverflow(type: 3, wrapped: value.toList())
-      super.writeByte(255)
-      super.writeValue(wrap.toList())
-    } else if let value = value as? HealthConnectorConfigDto {
-      let wrap = PigeonInternalCodecOverflow(type: 4, wrapped: value.toList())
-      super.writeByte(255)
-      super.writeValue(wrap.toList())
+      super.writeByte(248)
+      super.writeValue(value.toList())
     } else {
       super.writeValue(value)
     }

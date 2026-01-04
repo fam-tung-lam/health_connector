@@ -4,7 +4,6 @@ import androidx.health.connect.client.units.Volume
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.VolumeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.VolumeUnitDto
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -30,7 +29,7 @@ class VolumeMapperTest {
     )
     fun whenVolumeDtoInLiters_thenCreatesCorrectVolume() {
         // Given
-        val dto = VolumeDto(value = TEST_VALUE, unit = VolumeUnitDto.LITERS)
+        val dto = VolumeDto(liters = TEST_VALUE)
 
         // When
         val result = dto.toHealthConnect()
@@ -53,7 +52,6 @@ class VolumeMapperTest {
         val result = volume.toDto()
 
         // Then
-        result.value shouldBe TEST_VALUE
-        result.unit shouldBe VolumeUnitDto.LITERS
+        result.liters shouldBe TEST_VALUE
     }
 }

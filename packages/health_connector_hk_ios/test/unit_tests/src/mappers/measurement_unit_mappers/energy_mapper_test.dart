@@ -1,7 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/energy_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
-import 'package:parameterized_test/parameterized_test.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -17,8 +16,7 @@ void main() {
               const energy = Energy.kilocalories(500.0);
               final dto = energy.toDto();
 
-              expect(dto.value, 500.0);
-              expect(dto.unit, EnergyUnitDto.kilocalories);
+              expect(dto.kilocalories, 500.0);
             },
           );
 
@@ -28,8 +26,7 @@ void main() {
               const energy = Energy.kilojoules(2092.0);
               final dto = energy.toDto();
 
-              expect(dto.unit, EnergyUnitDto.kilocalories);
-              expect(dto.value, closeTo(500.0, 0.5));
+              expect(dto.kilocalories, closeTo(500.0, 0.5));
             },
           );
         },
@@ -38,28 +35,14 @@ void main() {
       group(
         'EnergyDtoToDomain',
         () {
-          parameterizedTest(
+          test(
             'maps EnergyDto to Energy',
-            [
-              [EnergyUnitDto.kilocalories, 500.0],
-              [EnergyUnitDto.kilojoules, 2092.0],
-              [EnergyUnitDto.calories, 500000.0],
-              [EnergyUnitDto.joules, 2092000.0],
-            ],
-            (EnergyUnitDto unit, double value) {
-              final dto = EnergyDto(value: value, unit: unit);
+            () {
+              const value = 500.0;
+              final dto = EnergyDto(kilocalories: value);
               final energy = dto.toDomain();
 
-              switch (unit) {
-                case EnergyUnitDto.kilocalories:
-                  expect(energy.inKilocalories, value);
-                case EnergyUnitDto.kilojoules:
-                  expect(energy.inKilojoules, value);
-                case EnergyUnitDto.calories:
-                  expect(energy.inCalories, value);
-                case EnergyUnitDto.joules:
-                  expect(energy.inJoules, value);
-              }
+              expect(energy.inKilocalories, value);
             },
           );
         },

@@ -47,8 +47,7 @@ void main() {
                 dto.endZoneOffsetSeconds,
                 FakeData.fakeEndTimeZoneOffsetSeconds,
               );
-              expect(dto.energy.value, 2100.0);
-              expect(dto.energy.unit, EnergyUnitDto.kilocalories);
+              expect(dto.energy.kilocalories, 2100.0);
             },
           );
         },
@@ -73,10 +72,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                energy: EnergyDto(
-                  value: 1800.0,
-                  unit: EnergyUnitDto.kilocalories,
-                ),
+                energy: EnergyDto(kilocalories: 1800.0),
               );
 
               final record = dto.toDomain();
@@ -103,10 +99,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                energy: EnergyDto(
-                  value: 2000.0,
-                  unit: EnergyUnitDto.kilocalories,
-                ),
+                energy: EnergyDto(kilocalories: 2000.0),
               );
 
               final record = dto.toDomain();

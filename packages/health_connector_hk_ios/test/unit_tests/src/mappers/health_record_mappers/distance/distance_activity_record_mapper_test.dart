@@ -36,7 +36,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.cycling);
-              expect(dto.distance.value, 5000.0);
+              expect(dto.distance.meters, 5000.0);
             },
           );
 
@@ -64,7 +64,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.swimming);
-              expect(dto.distance.value, 1000.0);
+              expect(dto.distance.meters, 1000.0);
             },
           );
 
@@ -92,7 +92,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.wheelchair);
-              expect(dto.distance.value, 2000.0);
+              expect(dto.distance.meters, 2000.0);
             },
           );
 
@@ -123,7 +123,7 @@ void main() {
                 dto.activityType,
                 DistanceActivityTypeDto.downhillSnowSports,
               );
-              expect(dto.distance.value, 3000.0);
+              expect(dto.distance.meters, 3000.0);
             },
           );
 
@@ -151,7 +151,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.rowing);
-              expect(dto.distance.value, 4000.0);
+              expect(dto.distance.meters, 4000.0);
             },
           );
 
@@ -179,7 +179,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.paddleSports);
-              expect(dto.distance.value, 3500.0);
+              expect(dto.distance.meters, 3500.0);
             },
           );
 
@@ -210,7 +210,7 @@ void main() {
                 dto.activityType,
                 DistanceActivityTypeDto.crossCountrySkiing,
               );
-              expect(dto.distance.value, 8000.0);
+              expect(dto.distance.meters, 8000.0);
             },
           );
 
@@ -238,7 +238,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.skatingSports);
-              expect(dto.distance.value, 6000.0);
+              expect(dto.distance.meters, 6000.0);
             },
           );
 
@@ -269,7 +269,7 @@ void main() {
                 dto.activityType,
                 DistanceActivityTypeDto.sixMinuteWalkTest,
               );
-              expect(dto.distance.value, 500.0);
+              expect(dto.distance.meters, 500.0);
             },
           );
 
@@ -297,7 +297,7 @@ void main() {
 
               // Then
               expect(dto.activityType, DistanceActivityTypeDto.walkingRunning);
-              expect(dto.distance.value, 8000.0);
+              expect(dto.distance.meters, 8000.0);
             },
           );
         },
@@ -321,7 +321,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 4500.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 4500.0),
                 activityType: DistanceActivityTypeDto.cycling,
               );
 
@@ -349,7 +349,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 800.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 800.0),
                 activityType: DistanceActivityTypeDto.swimming,
               );
 
@@ -377,7 +377,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 1800.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 1800.0),
                 activityType: DistanceActivityTypeDto.wheelchair,
               );
 
@@ -406,7 +406,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 2500.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 2500.0),
                 activityType: DistanceActivityTypeDto.downhillSnowSports,
               );
 
@@ -434,7 +434,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 3500.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 3500.0),
                 activityType: DistanceActivityTypeDto.rowing,
               );
 
@@ -462,7 +462,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 2800.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 2800.0),
                 activityType: DistanceActivityTypeDto.paddleSports,
               );
 
@@ -491,7 +491,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 7500.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 7500.0),
                 activityType: DistanceActivityTypeDto.crossCountrySkiing,
               );
 
@@ -519,7 +519,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 5500.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 5500.0),
                 activityType: DistanceActivityTypeDto.skatingSports,
               );
 
@@ -548,7 +548,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 450.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 450.0),
                 activityType: DistanceActivityTypeDto.sixMinuteWalkTest,
               );
 
@@ -576,7 +576,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                distance: LengthDto(value: 7000.0, unit: LengthUnitDto.meters),
+                distance: LengthDto(meters: 7000.0),
                 activityType: DistanceActivityTypeDto.walkingRunning,
               );
 

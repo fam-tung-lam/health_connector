@@ -47,146 +47,180 @@ bool _deepEquals(Object? a, Object? b) {
   return a == b;
 }
 
-/// Error codes that native platforms can use when throwing error.
-enum HealthConnectorErrorCodeDto {
-  /// Health Connect installation or update is required.
-  healthPlatformNotInstalledOrUpdateRequired,
+/// Device type for health data recording.
+enum DeviceTypeDto {
+  /// Chest strap heart rate monitor.
+  chestStrap,
 
-  /// Health platform is unavailable on this device.
-  healthPlatformUnavailable,
+  /// Fitness band or activity tracker.
+  fitnessBand,
 
-  /// Invalid platform configuration detected.
-  invalidConfiguration,
+  /// Head-mounted device (e.g., AR/VR headset).
+  headMounted,
 
-  /// Invalid argument or input validation error.
-  invalidArgument,
+  /// Mobile phone or smartphone.
+  phone,
 
-  /// Attempted to use platform APIs or features that are not supported
-  /// on the current health platform.
-  unsupportedOperation,
+  /// Smart ring wearable.
+  ring,
 
-  /// Unknown or unspecified error.
+  /// Weight scale or body composition scale.
+  scale,
+
+  /// Smart display device.
+  smartDisplay,
+
+  /// Unknown or unspecified device type.
   unknown,
 
-  /// Security/permission error occurred.
-  notAuthorized,
-
-  /// A transient I/O or communication error occurred.
-  remoteError,
+  /// Smartwatch or wearable watch.
+  watch,
 }
 
-/// Represents the status of the health platform on the device.
-enum HealthPlatformStatusDto {
-  /// The health platform is available and ready to use.
-  available,
+/// Recording method for health data.
+enum RecordingMethodDto {
+  /// Data was recorded during an active user-initiated session.
+  activelyRecorded,
 
-  /// The health platform is not installed or not supported.
-  ///
-  /// Note: Health Connect only.
-  installationOrUpdateRequired,
+  /// Data was automatically recorded by a device in the background.
+  automaticallyRecorded,
 
-  /// The health platform is not available on this device.
-  notAvailable,
-}
+  /// Data was manually entered by the user.
+  manualEntry,
 
-/// Blood glucose unit types supported by the plugin.
-enum BloodGlucoseUnitDto {
-  milligramsPerDeciliter,
-  millimolesPerLiter,
-}
-
-/// Energy unit types supported by the plugin.
-enum EnergyUnitDto {
-  calories,
-  joules,
-  kilocalories,
-  kilojoules,
-}
-
-/// Duration unit types supported by the plugin.
-enum TimeDurationUnitDto {
-  seconds,
-  minutes,
-  hours,
-}
-
-/// Length unit types supported by the plugin.
-enum LengthUnitDto {
-  feet,
-  inches,
-  kilometers,
-  meters,
-  miles,
-}
-
-/// Mass unit types supported by the plugin.
-enum MassUnitDto {
-  grams,
-  kilograms,
-  ounces,
-  pounds,
-}
-
-/// Percentage unit types supported by the plugin.
-enum PercentageUnitDto {
-  /// Percentage as a decimal value (0.0 to 1.0).
-  decimal,
-
-  /// Percentage as a whole number (0 to 100).
-  whole,
-}
-
-/// Represents the type of access requested for health data.
-enum PermissionAccessTypeDto {
-  /// Read access to health data.
-  read,
-
-  /// Write access to health data.
-  write,
-}
-
-/// Represents the status of a permission.
-enum PermissionStatusDto {
-  /// Permission has been explicitly denied by the user.
-  denied,
-
-  /// Permission has been explicitly granted by the user.
-  granted,
-
-  /// The permission status cannot be determined.
+  /// The recording method is unknown or unspecified.
   unknown,
 }
 
-/// Pressure unit types supported by the plugin.
-enum PressureUnitDto {
-  millimetersOfMercury,
+/// Cervical mucus appearance classification.
+///
+/// Maps to Android Health Connect CervicalMucusRecord appearance types
+/// and iOS HealthKit HKCategoryValueCervicalMucusQuality enum.
+enum CervicalMucusAppearanceTypeDto {
+  /// Unknown appearance.
+  unknown,
+
+  /// Dry appearance.
+  dry,
+
+  /// Sticky appearance.
+  sticky,
+
+  /// Creamy appearance.
+  creamy,
+
+  /// Watery appearance.
+  watery,
+
+  /// Egg white appearance.
+  eggWhite,
+
+  /// Unusual appearance.
+  unusual,
 }
 
-/// Power unit types supported by the plugin.
-enum PowerUnitDto {
-  kilowatts,
-  watts,
+/// Cervical mucus sensation classification.
+///
+/// Maps to Android Health Connect CervicalMucusRecord sensation types.
+/// Note: Not natively supported on iOS HealthKit.
+enum CervicalMucusSensationTypeDto {
+  /// Unknown sensation.
+  unknown,
+
+  /// Light sensation.
+  light,
+
+  /// Medium sensation.
+  medium,
+
+  /// Heavy sensation.
+  heavy,
 }
 
-/// Temperature unit types supported by the plugin.
-enum TemperatureUnitDto {
-  celsius,
-  fahrenheit,
-  kelvin,
+/// Sexual activity protection used classification.
+///
+/// Maps to Android Health Connect SexualActivityRecord protection types
+/// and iOS HealthKit HKMetadataKeySexualActivityProtectionUsed metadata key.
+enum SexualActivityProtectionUsedTypeDto {
+  /// Protection was used.
+  protected,
+
+  /// Protection was not used.
+  unprotected,
+
+  /// Unknown whether protection was used.
+  unknown,
 }
 
-/// Velocity unit types supported by the plugin.
-enum VelocityUnitDto {
-  kilometersPerHour,
-  metersPerSecond,
-  milesPerHour,
+/// Ovulation test result classification.
+///
+/// Maps to Android Health Connect OvulationTestRecord result constants
+/// and iOS HealthKit HKCategoryValueOvulationTestResult enum.
+enum OvulationTestResultTypeDto {
+  /// Test result is negative (no hormonal surge).
+  negative,
+
+  /// Test result is inconclusive.
+  inconclusive,
+
+  /// Test result shows high estrogen levels.
+  high,
+
+  /// Test result is positive (LH surge detected).
+  positive,
 }
 
-/// Volume unit types supported by the plugin.
-enum VolumeUnitDto {
-  fluidOuncesUs,
-  liters,
-  milliliters,
+/// Measurement location for basal body temperature reading.
+enum BasalBodyTemperatureMeasurementLocationDto {
+  /// Unknown location.
+  unknown,
+
+  /// Armpit measurement.
+  armpit,
+
+  /// Ear measurement.
+  ear,
+
+  /// Finger measurement.
+  finger,
+
+  /// Forehead measurement.
+  forehead,
+
+  /// Mouth measurement.
+  mouth,
+
+  /// Rectum measurement.
+  rectum,
+
+  /// Temporal artery measurement.
+  temporalArtery,
+
+  /// Toe measurement.
+  toe,
+
+  /// Vagina measurement.
+  vagina,
+
+  /// Wrist measurement.
+  wrist,
+}
+
+/// Menstrual flow intensity classification.
+///
+/// Maps to Android Health Connect MenstruationFlowRecord.FLOW_* constants.
+enum MenstrualFlowTypeDto {
+  /// Flow is unknown or unspecified.
+  unknown,
+
+  /// Light menstrual flow.
+  light,
+
+  /// Medium menstrual flow.
+  medium,
+
+  /// Heavy menstrual flow.
+  heavy,
 }
 
 /// Measurement method for VO2 max calculation (Android Health Connect).
@@ -429,182 +463,6 @@ enum MindfulnessSessionTypeDto {
   unguided,
 }
 
-/// Device type for health data recording.
-enum DeviceTypeDto {
-  /// Chest strap heart rate monitor.
-  chestStrap,
-
-  /// Fitness band or activity tracker.
-  fitnessBand,
-
-  /// Head-mounted device (e.g., AR/VR headset).
-  headMounted,
-
-  /// Mobile phone or smartphone.
-  phone,
-
-  /// Smart ring wearable.
-  ring,
-
-  /// Weight scale or body composition scale.
-  scale,
-
-  /// Smart display device.
-  smartDisplay,
-
-  /// Unknown or unspecified device type.
-  unknown,
-
-  /// Smartwatch or wearable watch.
-  watch,
-}
-
-/// Recording method for health data.
-enum RecordingMethodDto {
-  /// Data was recorded during an active user-initiated session.
-  activelyRecorded,
-
-  /// Data was automatically recorded by a device in the background.
-  automaticallyRecorded,
-
-  /// Data was manually entered by the user.
-  manualEntry,
-
-  /// The recording method is unknown or unspecified.
-  unknown,
-}
-
-/// Cervical mucus appearance classification.
-///
-/// Maps to Android Health Connect CervicalMucusRecord appearance types
-/// and iOS HealthKit HKCategoryValueCervicalMucusQuality enum.
-enum CervicalMucusAppearanceTypeDto {
-  /// Unknown appearance.
-  unknown,
-
-  /// Dry appearance.
-  dry,
-
-  /// Sticky appearance.
-  sticky,
-
-  /// Creamy appearance.
-  creamy,
-
-  /// Watery appearance.
-  watery,
-
-  /// Egg white appearance.
-  eggWhite,
-
-  /// Unusual appearance.
-  unusual,
-}
-
-/// Cervical mucus sensation classification.
-///
-/// Maps to Android Health Connect CervicalMucusRecord sensation types.
-/// Note: Not natively supported on iOS HealthKit.
-enum CervicalMucusSensationTypeDto {
-  /// Unknown sensation.
-  unknown,
-
-  /// Light sensation.
-  light,
-
-  /// Medium sensation.
-  medium,
-
-  /// Heavy sensation.
-  heavy,
-}
-
-/// Sexual activity protection used classification.
-///
-/// Maps to Android Health Connect SexualActivityRecord protection types
-/// and iOS HealthKit HKMetadataKeySexualActivityProtectionUsed metadata key.
-enum SexualActivityProtectionUsedTypeDto {
-  /// Protection was used.
-  protected,
-
-  /// Protection was not used.
-  unprotected,
-
-  /// Unknown whether protection was used.
-  unknown,
-}
-
-/// Ovulation test result classification.
-///
-/// Maps to Android Health Connect OvulationTestRecord result constants
-/// and iOS HealthKit HKCategoryValueOvulationTestResult enum.
-enum OvulationTestResultTypeDto {
-  /// Test result is negative (no hormonal surge).
-  negative,
-
-  /// Test result is inconclusive.
-  inconclusive,
-
-  /// Test result shows high estrogen levels.
-  high,
-
-  /// Test result is positive (LH surge detected).
-  positive,
-}
-
-/// Measurement location for basal body temperature reading.
-enum BasalBodyTemperatureMeasurementLocationDto {
-  /// Unknown location.
-  unknown,
-
-  /// Armpit measurement.
-  armpit,
-
-  /// Ear measurement.
-  ear,
-
-  /// Finger measurement.
-  finger,
-
-  /// Forehead measurement.
-  forehead,
-
-  /// Mouth measurement.
-  mouth,
-
-  /// Rectum measurement.
-  rectum,
-
-  /// Temporal artery measurement.
-  temporalArtery,
-
-  /// Toe measurement.
-  toe,
-
-  /// Vagina measurement.
-  vagina,
-
-  /// Wrist measurement.
-  wrist,
-}
-
-/// Menstrual flow intensity classification.
-///
-/// Maps to Android Health Connect MenstruationFlowRecord.FLOW_* constants.
-enum MenstrualFlowTypeDto {
-  /// Flow is unknown or unspecified.
-  unknown,
-
-  /// Light menstrual flow.
-  light,
-
-  /// Medium menstrual flow.
-  medium,
-
-  /// Heavy menstrual flow.
-  heavy,
-}
-
 /// Represents a health data type.
 enum HealthDataTypeDto {
   /// Active calories burned data.
@@ -725,6 +583,69 @@ enum SleepStageTypeDto {
   inBed,
 }
 
+/// Error codes that native platforms can use when throwing error.
+enum HealthConnectorErrorCodeDto {
+  /// Health Connect installation or update is required.
+  healthPlatformNotInstalledOrUpdateRequired,
+
+  /// Health platform is unavailable on this device.
+  healthPlatformUnavailable,
+
+  /// Invalid platform configuration detected.
+  invalidConfiguration,
+
+  /// Invalid argument or input validation error.
+  invalidArgument,
+
+  /// Attempted to use platform APIs or features that are not supported
+  /// on the current health platform.
+  unsupportedOperation,
+
+  /// Unknown or unspecified error.
+  unknown,
+
+  /// Security/permission error occurred.
+  notAuthorized,
+
+  /// A transient I/O or communication error occurred.
+  remoteError,
+}
+
+/// Represents the status of the health platform on the device.
+enum HealthPlatformStatusDto {
+  /// The health platform is available and ready to use.
+  available,
+
+  /// The health platform is not installed or not supported.
+  ///
+  /// Note: Health Connect only.
+  installationOrUpdateRequired,
+
+  /// The health platform is not available on this device.
+  notAvailable,
+}
+
+/// Represents the type of access requested for health data.
+enum PermissionAccessTypeDto {
+  /// Read access to health data.
+  read,
+
+  /// Write access to health data.
+  write,
+}
+
+/// Represents the status of a permission.
+enum PermissionStatusDto {
+  /// Permission has been explicitly denied by the user.
+  denied,
+
+  /// Permission has been explicitly granted by the user.
+  granted,
+
+  /// The permission status cannot be determined.
+  unknown,
+}
+
 /// Represents a health platform feature.
 enum HealthPlatformFeatureDto {
   /// Read health data in the background.
@@ -763,26 +684,68 @@ enum BloodPressureHealthDataTypeDto {
   systolic,
 }
 
-/// Sealed class for all measurement unit DTOs.
-sealed class MeasurementUnitDto {}
-
-/// Represents a blood glucose measurement for platform transfer.
-class BloodGlucoseDto extends MeasurementUnitDto {
-  BloodGlucoseDto({
-    required this.unit,
-    required this.value,
+/// Configuration data transfer object for Health Connector.
+///
+/// Contains configuration settings that are passed from Dart to native
+/// platform code during client initialization.
+class HealthConnectorConfigDto {
+  HealthConnectorConfigDto({
+    required this.isLoggerEnabled,
   });
 
-  /// The unit in which the value is expressed.
-  BloodGlucoseUnitDto unit;
-
-  /// The numeric value of the blood glucose.
-  double value;
+  /// Whether logging is enabled for the Health Connector.
+  bool isLoggerEnabled;
 
   List<Object?> _toList() {
     return <Object?>[
-      unit,
-      value,
+      isLoggerEnabled,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static HealthConnectorConfigDto decode(Object result) {
+    result as List<Object?>;
+    return HealthConnectorConfigDto(
+      isLoggerEnabled: result[0]! as bool,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! HealthConnectorConfigDto ||
+        other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
+/// Sealed class for all measurement unit DTOs.
+sealed class MeasurementUnitDto {}
+
+/// Represents a blood glucose measurement in millimoles per liter.
+class BloodGlucoseDto extends MeasurementUnitDto {
+  BloodGlucoseDto({
+    required this.millimolesPerLiter,
+  });
+
+  /// Blood glucose value in millimoles per liter (mmol/L).
+  double millimolesPerLiter;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      millimolesPerLiter,
     ];
   }
 
@@ -793,8 +756,7 @@ class BloodGlucoseDto extends MeasurementUnitDto {
   static BloodGlucoseDto decode(Object result) {
     result as List<Object?>;
     return BloodGlucoseDto(
-      unit: result[0]! as BloodGlucoseUnitDto,
-      value: result[1]! as double,
+      millimolesPerLiter: result[0]! as double,
     );
   }
 
@@ -815,23 +777,18 @@ class BloodGlucoseDto extends MeasurementUnitDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents an energy measurement for platform transfer.
+/// Represents an energy measurement in kilocalories.
 class EnergyDto extends MeasurementUnitDto {
   EnergyDto({
-    required this.unit,
-    required this.value,
+    required this.kilocalories,
   });
 
-  /// The unit in which the value is expressed.
-  EnergyUnitDto unit;
-
-  /// The numeric value of the energy.
-  double value;
+  /// Energy value in kilocalories (kcal).
+  double kilocalories;
 
   List<Object?> _toList() {
     return <Object?>[
-      unit,
-      value,
+      kilocalories,
     ];
   }
 
@@ -842,8 +799,7 @@ class EnergyDto extends MeasurementUnitDto {
   static EnergyDto decode(Object result) {
     result as List<Object?>;
     return EnergyDto(
-      unit: result[0]! as EnergyUnitDto,
-      value: result[1]! as double,
+      kilocalories: result[0]! as double,
     );
   }
 
@@ -864,23 +820,18 @@ class EnergyDto extends MeasurementUnitDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents an interval (time duration) measurement for platform transfer.
+/// Represents a time duration in seconds.
 class TimeDurationDto extends MeasurementUnitDto {
   TimeDurationDto({
-    required this.unit,
-    required this.value,
+    required this.seconds,
   });
 
-  /// The unit in which the value is expressed.
-  TimeDurationUnitDto unit;
-
-  /// The numeric value of the interval.
-  double value;
+  /// Duration value in seconds (s).
+  double seconds;
 
   List<Object?> _toList() {
     return <Object?>[
-      unit,
-      value,
+      seconds,
     ];
   }
 
@@ -891,8 +842,7 @@ class TimeDurationDto extends MeasurementUnitDto {
   static TimeDurationDto decode(Object result) {
     result as List<Object?>;
     return TimeDurationDto(
-      unit: result[0]! as TimeDurationUnitDto,
-      value: result[1]! as double,
+      seconds: result[0]! as double,
     );
   }
 
@@ -913,23 +863,18 @@ class TimeDurationDto extends MeasurementUnitDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents a length measurement for platform transfer.
+/// Represents a length measurement in meters.
 class LengthDto extends MeasurementUnitDto {
   LengthDto({
-    required this.unit,
-    required this.value,
+    required this.meters,
   });
 
-  /// The unit in which the value is expressed.
-  LengthUnitDto unit;
-
-  /// The numeric value of the length.
-  double value;
+  /// Length value in meters (m).
+  double meters;
 
   List<Object?> _toList() {
     return <Object?>[
-      unit,
-      value,
+      meters,
     ];
   }
 
@@ -940,8 +885,7 @@ class LengthDto extends MeasurementUnitDto {
   static LengthDto decode(Object result) {
     result as List<Object?>;
     return LengthDto(
-      unit: result[0]! as LengthUnitDto,
-      value: result[1]! as double,
+      meters: result[0]! as double,
     );
   }
 
@@ -962,23 +906,18 @@ class LengthDto extends MeasurementUnitDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents a mass measurement for platform transfer.
+/// Represents a mass measurement in kilograms.
 class MassDto extends MeasurementUnitDto {
   MassDto({
-    required this.unit,
-    required this.value,
+    required this.kilograms,
   });
 
-  /// The unit in which the value is expressed.
-  MassUnitDto unit;
-
-  /// The numeric value of the mass.
-  double value;
+  /// Mass value in kilograms (kg).
+  double kilograms;
 
   List<Object?> _toList() {
     return <Object?>[
-      unit,
-      value,
+      kilograms,
     ];
   }
 
@@ -989,8 +928,7 @@ class MassDto extends MeasurementUnitDto {
   static MassDto decode(Object result) {
     result as List<Object?>;
     return MassDto(
-      unit: result[0]! as MassUnitDto,
-      value: result[1]! as double,
+      kilograms: result[0]! as double,
     );
   }
 
@@ -1054,23 +992,18 @@ class NumberDto extends MeasurementUnitDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents a percentage measurement for platform transfer.
+/// Represents a percentage as a decimal value (0.0 to 1.0).
 class PercentageDto extends MeasurementUnitDto {
   PercentageDto({
-    required this.unit,
-    required this.value,
+    required this.decimal,
   });
 
-  /// The unit in which the value is expressed.
-  PercentageUnitDto unit;
-
-  /// The numeric value of the percentage.
-  double value;
+  /// Percentage value as decimal (0.0 to 1.0).
+  double decimal;
 
   List<Object?> _toList() {
     return <Object?>[
-      unit,
-      value,
+      decimal,
     ];
   }
 
@@ -1081,8 +1014,7 @@ class PercentageDto extends MeasurementUnitDto {
   static PercentageDto decode(Object result) {
     result as List<Object?>;
     return PercentageDto(
-      unit: result[0]! as PercentageUnitDto,
-      value: result[1]! as double,
+      decimal: result[0]! as double,
     );
   }
 
@@ -1103,23 +1035,18 @@ class PercentageDto extends MeasurementUnitDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents a power measurement for platform transfer.
+/// Represents a power measurement in watts.
 class PowerDto extends MeasurementUnitDto {
   PowerDto({
-    required this.unit,
-    required this.value,
+    required this.watts,
   });
 
-  /// The unit in which the value is expressed.
-  PowerUnitDto unit;
-
-  /// The numeric value of the power.
-  double value;
+  /// Power value in watts (W).
+  double watts;
 
   List<Object?> _toList() {
     return <Object?>[
-      unit,
-      value,
+      watts,
     ];
   }
 
@@ -1130,8 +1057,7 @@ class PowerDto extends MeasurementUnitDto {
   static PowerDto decode(Object result) {
     result as List<Object?>;
     return PowerDto(
-      unit: result[0]! as PowerUnitDto,
-      value: result[1]! as double,
+      watts: result[0]! as double,
     );
   }
 
@@ -1152,23 +1078,18 @@ class PowerDto extends MeasurementUnitDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents a pressure measurement for platform transfer.
+/// Represents a pressure measurement in millimeters of mercury.
 class PressureDto extends MeasurementUnitDto {
   PressureDto({
-    required this.unit,
-    required this.value,
+    required this.millimetersOfMercury,
   });
 
-  /// The unit in which the value is expressed.
-  PressureUnitDto unit;
-
-  /// The numeric value of the pressure.
-  double value;
+  /// Pressure value in millimeters of mercury (mmHg).
+  double millimetersOfMercury;
 
   List<Object?> _toList() {
     return <Object?>[
-      unit,
-      value,
+      millimetersOfMercury,
     ];
   }
 
@@ -1179,8 +1100,7 @@ class PressureDto extends MeasurementUnitDto {
   static PressureDto decode(Object result) {
     result as List<Object?>;
     return PressureDto(
-      unit: result[0]! as PressureUnitDto,
-      value: result[1]! as double,
+      millimetersOfMercury: result[0]! as double,
     );
   }
 
@@ -1201,23 +1121,18 @@ class PressureDto extends MeasurementUnitDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents a temperature measurement for platform transfer.
+/// Represents a temperature measurement in celsius.
 class TemperatureDto extends MeasurementUnitDto {
   TemperatureDto({
-    required this.unit,
-    required this.value,
+    required this.celsius,
   });
 
-  /// The unit in which the value is expressed.
-  TemperatureUnitDto unit;
-
-  /// The numeric value of the temperature.
-  double value;
+  /// Temperature value in degrees Celsius (°C).
+  double celsius;
 
   List<Object?> _toList() {
     return <Object?>[
-      unit,
-      value,
+      celsius,
     ];
   }
 
@@ -1228,8 +1143,7 @@ class TemperatureDto extends MeasurementUnitDto {
   static TemperatureDto decode(Object result) {
     result as List<Object?>;
     return TemperatureDto(
-      unit: result[0]! as TemperatureUnitDto,
-      value: result[1]! as double,
+      celsius: result[0]! as double,
     );
   }
 
@@ -1250,23 +1164,18 @@ class TemperatureDto extends MeasurementUnitDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents a velocity measurement for platform transfer.
+/// Represents a velocity measurement in meters per second.
 class VelocityDto extends MeasurementUnitDto {
   VelocityDto({
-    required this.unit,
-    required this.value,
+    required this.metersPerSecond,
   });
 
-  /// The unit in which the value is expressed.
-  VelocityUnitDto unit;
-
-  /// The numeric value of the velocity.
-  double value;
+  /// Velocity value in meters per second (m/s).
+  double metersPerSecond;
 
   List<Object?> _toList() {
     return <Object?>[
-      unit,
-      value,
+      metersPerSecond,
     ];
   }
 
@@ -1277,8 +1186,7 @@ class VelocityDto extends MeasurementUnitDto {
   static VelocityDto decode(Object result) {
     result as List<Object?>;
     return VelocityDto(
-      unit: result[0]! as VelocityUnitDto,
-      value: result[1]! as double,
+      metersPerSecond: result[0]! as double,
     );
   }
 
@@ -1299,23 +1207,18 @@ class VelocityDto extends MeasurementUnitDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents a volume measurement for platform transfer.
+/// Represents a volume measurement in liters.
 class VolumeDto extends MeasurementUnitDto {
   VolumeDto({
-    required this.unit,
-    required this.value,
+    required this.liters,
   });
 
-  /// The unit in which the value is expressed.
-  VolumeUnitDto unit;
-
-  /// The numeric value of the volume.
-  double value;
+  /// Volume value in liters (L).
+  double liters;
 
   List<Object?> _toList() {
     return <Object?>[
-      unit,
-      value,
+      liters,
     ];
   }
 
@@ -1326,8 +1229,7 @@ class VolumeDto extends MeasurementUnitDto {
   static VolumeDto decode(Object result) {
     result as List<Object?>;
     return VolumeDto(
-      unit: result[0]! as VolumeUnitDto,
-      value: result[1]! as double,
+      liters: result[0]! as double,
     );
   }
 
@@ -5247,53 +5149,6 @@ class ReadRecordsResponseDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Configuration data transfer object for Health Connector.
-///
-/// Contains configuration settings that are passed from Dart to native
-/// platform code during client initialization.
-class HealthConnectorConfigDto {
-  HealthConnectorConfigDto({
-    required this.isLoggerEnabled,
-  });
-
-  /// Whether logging is enabled for the Health Connector.
-  bool isLoggerEnabled;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      isLoggerEnabled,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static HealthConnectorConfigDto decode(Object result) {
-    result as List<Object?>;
-    return HealthConnectorConfigDto(
-      isLoggerEnabled: result[0]! as bool,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! HealthConnectorConfigDto ||
-        other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -5301,317 +5156,284 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    } else if (value is HealthConnectorErrorCodeDto) {
+    } else if (value is DeviceTypeDto) {
       buffer.putUint8(129);
       writeValue(buffer, value.index);
-    } else if (value is HealthPlatformStatusDto) {
+    } else if (value is RecordingMethodDto) {
       buffer.putUint8(130);
       writeValue(buffer, value.index);
-    } else if (value is BloodGlucoseUnitDto) {
+    } else if (value is CervicalMucusAppearanceTypeDto) {
       buffer.putUint8(131);
       writeValue(buffer, value.index);
-    } else if (value is EnergyUnitDto) {
+    } else if (value is CervicalMucusSensationTypeDto) {
       buffer.putUint8(132);
       writeValue(buffer, value.index);
-    } else if (value is TimeDurationUnitDto) {
+    } else if (value is SexualActivityProtectionUsedTypeDto) {
       buffer.putUint8(133);
       writeValue(buffer, value.index);
-    } else if (value is LengthUnitDto) {
+    } else if (value is OvulationTestResultTypeDto) {
       buffer.putUint8(134);
       writeValue(buffer, value.index);
-    } else if (value is MassUnitDto) {
+    } else if (value is BasalBodyTemperatureMeasurementLocationDto) {
       buffer.putUint8(135);
       writeValue(buffer, value.index);
-    } else if (value is PercentageUnitDto) {
+    } else if (value is MenstrualFlowTypeDto) {
       buffer.putUint8(136);
       writeValue(buffer, value.index);
-    } else if (value is PermissionAccessTypeDto) {
+    } else if (value is Vo2MaxMeasurementMethodDto) {
       buffer.putUint8(137);
       writeValue(buffer, value.index);
-    } else if (value is PermissionStatusDto) {
+    } else if (value is MealTypeDto) {
       buffer.putUint8(138);
       writeValue(buffer, value.index);
-    } else if (value is PressureUnitDto) {
+    } else if (value is BodyPositionDto) {
       buffer.putUint8(139);
       writeValue(buffer, value.index);
-    } else if (value is PowerUnitDto) {
+    } else if (value is MeasurementLocationDto) {
       buffer.putUint8(140);
       writeValue(buffer, value.index);
-    } else if (value is TemperatureUnitDto) {
+    } else if (value is BloodGlucoseRelationToMealDto) {
       buffer.putUint8(141);
       writeValue(buffer, value.index);
-    } else if (value is VelocityUnitDto) {
+    } else if (value is BloodGlucoseSpecimenSourceDto) {
       buffer.putUint8(142);
       writeValue(buffer, value.index);
-    } else if (value is VolumeUnitDto) {
+    } else if (value is ExerciseTypeDto) {
       buffer.putUint8(143);
       writeValue(buffer, value.index);
-    } else if (value is Vo2MaxMeasurementMethodDto) {
+    } else if (value is MindfulnessSessionTypeDto) {
       buffer.putUint8(144);
       writeValue(buffer, value.index);
-    } else if (value is MealTypeDto) {
+    } else if (value is HealthDataTypeDto) {
       buffer.putUint8(145);
       writeValue(buffer, value.index);
-    } else if (value is BodyPositionDto) {
+    } else if (value is SleepStageTypeDto) {
       buffer.putUint8(146);
       writeValue(buffer, value.index);
-    } else if (value is MeasurementLocationDto) {
+    } else if (value is HealthConnectorErrorCodeDto) {
       buffer.putUint8(147);
       writeValue(buffer, value.index);
-    } else if (value is BloodGlucoseRelationToMealDto) {
+    } else if (value is HealthPlatformStatusDto) {
       buffer.putUint8(148);
       writeValue(buffer, value.index);
-    } else if (value is BloodGlucoseSpecimenSourceDto) {
+    } else if (value is PermissionAccessTypeDto) {
       buffer.putUint8(149);
       writeValue(buffer, value.index);
-    } else if (value is ExerciseTypeDto) {
+    } else if (value is PermissionStatusDto) {
       buffer.putUint8(150);
       writeValue(buffer, value.index);
-    } else if (value is MindfulnessSessionTypeDto) {
+    } else if (value is HealthPlatformFeatureDto) {
       buffer.putUint8(151);
       writeValue(buffer, value.index);
-    } else if (value is DeviceTypeDto) {
+    } else if (value is HealthPlatformFeatureStatusDto) {
       buffer.putUint8(152);
       writeValue(buffer, value.index);
-    } else if (value is RecordingMethodDto) {
+    } else if (value is AggregationMetricDto) {
       buffer.putUint8(153);
       writeValue(buffer, value.index);
-    } else if (value is CervicalMucusAppearanceTypeDto) {
+    } else if (value is BloodPressureHealthDataTypeDto) {
       buffer.putUint8(154);
       writeValue(buffer, value.index);
-    } else if (value is CervicalMucusSensationTypeDto) {
+    } else if (value is HealthConnectorConfigDto) {
       buffer.putUint8(155);
-      writeValue(buffer, value.index);
-    } else if (value is SexualActivityProtectionUsedTypeDto) {
-      buffer.putUint8(156);
-      writeValue(buffer, value.index);
-    } else if (value is OvulationTestResultTypeDto) {
-      buffer.putUint8(157);
-      writeValue(buffer, value.index);
-    } else if (value is BasalBodyTemperatureMeasurementLocationDto) {
-      buffer.putUint8(158);
-      writeValue(buffer, value.index);
-    } else if (value is MenstrualFlowTypeDto) {
-      buffer.putUint8(159);
-      writeValue(buffer, value.index);
-    } else if (value is HealthDataTypeDto) {
-      buffer.putUint8(160);
-      writeValue(buffer, value.index);
-    } else if (value is SleepStageTypeDto) {
-      buffer.putUint8(161);
-      writeValue(buffer, value.index);
-    } else if (value is HealthPlatformFeatureDto) {
-      buffer.putUint8(162);
-      writeValue(buffer, value.index);
-    } else if (value is HealthPlatformFeatureStatusDto) {
-      buffer.putUint8(163);
-      writeValue(buffer, value.index);
-    } else if (value is AggregationMetricDto) {
-      buffer.putUint8(164);
-      writeValue(buffer, value.index);
-    } else if (value is BloodPressureHealthDataTypeDto) {
-      buffer.putUint8(165);
-      writeValue(buffer, value.index);
+      writeValue(buffer, value.encode());
     } else if (value is BloodGlucoseDto) {
-      buffer.putUint8(166);
+      buffer.putUint8(156);
       writeValue(buffer, value.encode());
     } else if (value is EnergyDto) {
-      buffer.putUint8(167);
+      buffer.putUint8(157);
       writeValue(buffer, value.encode());
     } else if (value is TimeDurationDto) {
-      buffer.putUint8(168);
+      buffer.putUint8(158);
       writeValue(buffer, value.encode());
     } else if (value is LengthDto) {
-      buffer.putUint8(169);
+      buffer.putUint8(159);
       writeValue(buffer, value.encode());
     } else if (value is MassDto) {
-      buffer.putUint8(170);
+      buffer.putUint8(160);
       writeValue(buffer, value.encode());
     } else if (value is NumberDto) {
-      buffer.putUint8(171);
+      buffer.putUint8(161);
       writeValue(buffer, value.encode());
     } else if (value is PercentageDto) {
-      buffer.putUint8(172);
+      buffer.putUint8(162);
       writeValue(buffer, value.encode());
     } else if (value is PowerDto) {
-      buffer.putUint8(173);
+      buffer.putUint8(163);
       writeValue(buffer, value.encode());
     } else if (value is PressureDto) {
-      buffer.putUint8(174);
+      buffer.putUint8(164);
       writeValue(buffer, value.encode());
     } else if (value is TemperatureDto) {
-      buffer.putUint8(175);
+      buffer.putUint8(165);
       writeValue(buffer, value.encode());
     } else if (value is VelocityDto) {
-      buffer.putUint8(176);
+      buffer.putUint8(166);
       writeValue(buffer, value.encode());
     } else if (value is VolumeDto) {
-      buffer.putUint8(177);
+      buffer.putUint8(167);
       writeValue(buffer, value.encode());
     } else if (value is MetadataDto) {
-      buffer.putUint8(178);
+      buffer.putUint8(168);
       writeValue(buffer, value.encode());
     } else if (value is BloodGlucoseRecordDto) {
-      buffer.putUint8(179);
+      buffer.putUint8(169);
       writeValue(buffer, value.encode());
     } else if (value is RestingHeartRateRecordDto) {
-      buffer.putUint8(180);
+      buffer.putUint8(170);
       writeValue(buffer, value.encode());
     } else if (value is OxygenSaturationRecordDto) {
-      buffer.putUint8(181);
+      buffer.putUint8(171);
       writeValue(buffer, value.encode());
     } else if (value is OvulationTestRecordDto) {
-      buffer.putUint8(182);
+      buffer.putUint8(172);
       writeValue(buffer, value.encode());
     } else if (value is IntermenstrualBleedingRecordDto) {
-      buffer.putUint8(183);
+      buffer.putUint8(173);
       writeValue(buffer, value.encode());
     } else if (value is MenstrualFlowInstantRecordDto) {
-      buffer.putUint8(184);
+      buffer.putUint8(174);
       writeValue(buffer, value.encode());
     } else if (value is RespiratoryRateRecordDto) {
-      buffer.putUint8(185);
+      buffer.putUint8(175);
       writeValue(buffer, value.encode());
     } else if (value is Vo2MaxRecordDto) {
-      buffer.putUint8(186);
+      buffer.putUint8(176);
       writeValue(buffer, value.encode());
     } else if (value is ActiveCaloriesBurnedRecordDto) {
-      buffer.putUint8(187);
+      buffer.putUint8(177);
       writeValue(buffer, value.encode());
     } else if (value is DistanceRecordDto) {
-      buffer.putUint8(188);
+      buffer.putUint8(178);
       writeValue(buffer, value.encode());
     } else if (value is FloorsClimbedRecordDto) {
-      buffer.putUint8(189);
+      buffer.putUint8(179);
       writeValue(buffer, value.encode());
     } else if (value is WheelchairPushesRecordDto) {
-      buffer.putUint8(190);
+      buffer.putUint8(180);
       writeValue(buffer, value.encode());
     } else if (value is StepsRecordDto) {
-      buffer.putUint8(191);
+      buffer.putUint8(181);
       writeValue(buffer, value.encode());
     } else if (value is WeightRecordDto) {
-      buffer.putUint8(192);
+      buffer.putUint8(182);
       writeValue(buffer, value.encode());
     } else if (value is BloodPressureRecordDto) {
-      buffer.putUint8(193);
+      buffer.putUint8(183);
       writeValue(buffer, value.encode());
     } else if (value is LeanBodyMassRecordDto) {
-      buffer.putUint8(194);
+      buffer.putUint8(184);
       writeValue(buffer, value.encode());
     } else if (value is HeightRecordDto) {
-      buffer.putUint8(195);
+      buffer.putUint8(185);
       writeValue(buffer, value.encode());
     } else if (value is BodyFatPercentageRecordDto) {
-      buffer.putUint8(196);
+      buffer.putUint8(186);
       writeValue(buffer, value.encode());
     } else if (value is BodyTemperatureRecordDto) {
-      buffer.putUint8(197);
+      buffer.putUint8(187);
       writeValue(buffer, value.encode());
     } else if (value is BasalBodyTemperatureRecordDto) {
-      buffer.putUint8(198);
+      buffer.putUint8(188);
       writeValue(buffer, value.encode());
     } else if (value is CervicalMucusRecordDto) {
-      buffer.putUint8(199);
+      buffer.putUint8(189);
       writeValue(buffer, value.encode());
     } else if (value is HydrationRecordDto) {
-      buffer.putUint8(200);
+      buffer.putUint8(190);
       writeValue(buffer, value.encode());
     } else if (value is HeartRateMeasurementDto) {
-      buffer.putUint8(201);
+      buffer.putUint8(191);
       writeValue(buffer, value.encode());
     } else if (value is HeartRateSeriesRecordDto) {
-      buffer.putUint8(202);
+      buffer.putUint8(192);
       writeValue(buffer, value.encode());
     } else if (value is CyclingPedalingCadenceMeasurementDto) {
-      buffer.putUint8(203);
+      buffer.putUint8(193);
       writeValue(buffer, value.encode());
     } else if (value is CyclingPedalingCadenceSeriesRecordDto) {
-      buffer.putUint8(204);
+      buffer.putUint8(194);
       writeValue(buffer, value.encode());
     } else if (value is SpeedMeasurementDto) {
-      buffer.putUint8(205);
+      buffer.putUint8(195);
       writeValue(buffer, value.encode());
     } else if (value is SpeedSeriesRecordDto) {
-      buffer.putUint8(206);
+      buffer.putUint8(196);
       writeValue(buffer, value.encode());
     } else if (value is PowerMeasurementDto) {
-      buffer.putUint8(207);
+      buffer.putUint8(197);
       writeValue(buffer, value.encode());
     } else if (value is PowerSeriesRecordDto) {
-      buffer.putUint8(208);
+      buffer.putUint8(198);
       writeValue(buffer, value.encode());
     } else if (value is SleepStageDto) {
-      buffer.putUint8(209);
+      buffer.putUint8(199);
       writeValue(buffer, value.encode());
     } else if (value is SleepSessionRecordDto) {
-      buffer.putUint8(210);
+      buffer.putUint8(200);
       writeValue(buffer, value.encode());
     } else if (value is SexualActivityRecordDto) {
-      buffer.putUint8(211);
+      buffer.putUint8(201);
       writeValue(buffer, value.encode());
     } else if (value is ExerciseSessionRecordDto) {
-      buffer.putUint8(212);
+      buffer.putUint8(202);
       writeValue(buffer, value.encode());
     } else if (value is MindfulnessSessionRecordDto) {
-      buffer.putUint8(213);
+      buffer.putUint8(203);
       writeValue(buffer, value.encode());
     } else if (value is NutritionRecordDto) {
-      buffer.putUint8(214);
+      buffer.putUint8(204);
       writeValue(buffer, value.encode());
     } else if (value is TotalCaloriesBurnedRecordDto) {
-      buffer.putUint8(215);
+      buffer.putUint8(205);
       writeValue(buffer, value.encode());
     } else if (value is BoneMassRecordDto) {
-      buffer.putUint8(216);
+      buffer.putUint8(206);
       writeValue(buffer, value.encode());
     } else if (value is HeartRateVariabilityRMSSDRecordDto) {
-      buffer.putUint8(217);
+      buffer.putUint8(207);
       writeValue(buffer, value.encode());
     } else if (value is BodyWaterMassRecordDto) {
-      buffer.putUint8(218);
+      buffer.putUint8(208);
       writeValue(buffer, value.encode());
     } else if (value is HealthPlatformFeaturePermissionRequestResultDto) {
-      buffer.putUint8(219);
+      buffer.putUint8(209);
       writeValue(buffer, value.encode());
     } else if (value is HealthDataPermissionRequestDto) {
-      buffer.putUint8(220);
+      buffer.putUint8(210);
       writeValue(buffer, value.encode());
     } else if (value is HealthDataPermissionRequestResultDto) {
-      buffer.putUint8(221);
+      buffer.putUint8(211);
       writeValue(buffer, value.encode());
     } else if (value is HealthPlatformFeaturePermissionRequest) {
-      buffer.putUint8(222);
+      buffer.putUint8(212);
       writeValue(buffer, value.encode());
     } else if (value is PermissionRequestsDto) {
-      buffer.putUint8(223);
+      buffer.putUint8(213);
       writeValue(buffer, value.encode());
     } else if (value is PermissionRequestsResponseDto) {
-      buffer.putUint8(224);
+      buffer.putUint8(214);
       writeValue(buffer, value.encode());
     } else if (value is CommonAggregateRequestDto) {
-      buffer.putUint8(225);
+      buffer.putUint8(215);
       writeValue(buffer, value.encode());
     } else if (value is BloodPressureAggregateRequestDto) {
-      buffer.putUint8(226);
+      buffer.putUint8(216);
       writeValue(buffer, value.encode());
     } else if (value is DeleteRecordsByIdsRequestDto) {
-      buffer.putUint8(227);
+      buffer.putUint8(217);
       writeValue(buffer, value.encode());
     } else if (value is DeleteRecordsByTimeRangeRequestDto) {
-      buffer.putUint8(228);
+      buffer.putUint8(218);
       writeValue(buffer, value.encode());
     } else if (value is ReadRecordRequestDto) {
-      buffer.putUint8(229);
+      buffer.putUint8(219);
       writeValue(buffer, value.encode());
     } else if (value is ReadRecordsRequestDto) {
-      buffer.putUint8(230);
+      buffer.putUint8(220);
       writeValue(buffer, value.encode());
     } else if (value is ReadRecordsResponseDto) {
-      buffer.putUint8(231);
-      writeValue(buffer, value.encode());
-    } else if (value is HealthConnectorConfigDto) {
-      buffer.putUint8(232);
+      buffer.putUint8(221);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -5623,269 +5445,236 @@ class _PigeonCodec extends StandardMessageCodec {
     switch (type) {
       case 129:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : HealthConnectorErrorCodeDto.values[value];
+        return value == null ? null : DeviceTypeDto.values[value];
       case 130:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : HealthPlatformStatusDto.values[value];
-      case 131:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : BloodGlucoseUnitDto.values[value];
-      case 132:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : EnergyUnitDto.values[value];
-      case 133:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : TimeDurationUnitDto.values[value];
-      case 134:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : LengthUnitDto.values[value];
-      case 135:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : MassUnitDto.values[value];
-      case 136:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PercentageUnitDto.values[value];
-      case 137:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PermissionAccessTypeDto.values[value];
-      case 138:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PermissionStatusDto.values[value];
-      case 139:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PressureUnitDto.values[value];
-      case 140:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : PowerUnitDto.values[value];
-      case 141:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : TemperatureUnitDto.values[value];
-      case 142:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : VelocityUnitDto.values[value];
-      case 143:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : VolumeUnitDto.values[value];
-      case 144:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : Vo2MaxMeasurementMethodDto.values[value];
-      case 145:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : MealTypeDto.values[value];
-      case 146:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : BodyPositionDto.values[value];
-      case 147:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : MeasurementLocationDto.values[value];
-      case 148:
-        final int? value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : BloodGlucoseRelationToMealDto.values[value];
-      case 149:
-        final int? value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : BloodGlucoseSpecimenSourceDto.values[value];
-      case 150:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : ExerciseTypeDto.values[value];
-      case 151:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : MindfulnessSessionTypeDto.values[value];
-      case 152:
-        final int? value = readValue(buffer) as int?;
-        return value == null ? null : DeviceTypeDto.values[value];
-      case 153:
-        final int? value = readValue(buffer) as int?;
         return value == null ? null : RecordingMethodDto.values[value];
-      case 154:
+      case 131:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
             : CervicalMucusAppearanceTypeDto.values[value];
-      case 155:
+      case 132:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
             : CervicalMucusSensationTypeDto.values[value];
-      case 156:
+      case 133:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
             : SexualActivityProtectionUsedTypeDto.values[value];
-      case 157:
+      case 134:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : OvulationTestResultTypeDto.values[value];
-      case 158:
+      case 135:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
             : BasalBodyTemperatureMeasurementLocationDto.values[value];
-      case 159:
+      case 136:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : MenstrualFlowTypeDto.values[value];
-      case 160:
+      case 137:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : Vo2MaxMeasurementMethodDto.values[value];
+      case 138:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : MealTypeDto.values[value];
+      case 139:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : BodyPositionDto.values[value];
+      case 140:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : MeasurementLocationDto.values[value];
+      case 141:
+        final int? value = readValue(buffer) as int?;
+        return value == null
+            ? null
+            : BloodGlucoseRelationToMealDto.values[value];
+      case 142:
+        final int? value = readValue(buffer) as int?;
+        return value == null
+            ? null
+            : BloodGlucoseSpecimenSourceDto.values[value];
+      case 143:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : ExerciseTypeDto.values[value];
+      case 144:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : MindfulnessSessionTypeDto.values[value];
+      case 145:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : HealthDataTypeDto.values[value];
-      case 161:
+      case 146:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : SleepStageTypeDto.values[value];
-      case 162:
+      case 147:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : HealthConnectorErrorCodeDto.values[value];
+      case 148:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : HealthPlatformStatusDto.values[value];
+      case 149:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PermissionAccessTypeDto.values[value];
+      case 150:
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : PermissionStatusDto.values[value];
+      case 151:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : HealthPlatformFeatureDto.values[value];
-      case 163:
+      case 152:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
             : HealthPlatformFeatureStatusDto.values[value];
-      case 164:
+      case 153:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : AggregationMetricDto.values[value];
-      case 165:
+      case 154:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
             : BloodPressureHealthDataTypeDto.values[value];
-      case 166:
+      case 155:
+        return HealthConnectorConfigDto.decode(readValue(buffer)!);
+      case 156:
         return BloodGlucoseDto.decode(readValue(buffer)!);
-      case 167:
+      case 157:
         return EnergyDto.decode(readValue(buffer)!);
-      case 168:
+      case 158:
         return TimeDurationDto.decode(readValue(buffer)!);
-      case 169:
+      case 159:
         return LengthDto.decode(readValue(buffer)!);
-      case 170:
+      case 160:
         return MassDto.decode(readValue(buffer)!);
-      case 171:
+      case 161:
         return NumberDto.decode(readValue(buffer)!);
-      case 172:
+      case 162:
         return PercentageDto.decode(readValue(buffer)!);
-      case 173:
+      case 163:
         return PowerDto.decode(readValue(buffer)!);
-      case 174:
+      case 164:
         return PressureDto.decode(readValue(buffer)!);
-      case 175:
+      case 165:
         return TemperatureDto.decode(readValue(buffer)!);
-      case 176:
+      case 166:
         return VelocityDto.decode(readValue(buffer)!);
-      case 177:
+      case 167:
         return VolumeDto.decode(readValue(buffer)!);
-      case 178:
+      case 168:
         return MetadataDto.decode(readValue(buffer)!);
-      case 179:
+      case 169:
         return BloodGlucoseRecordDto.decode(readValue(buffer)!);
-      case 180:
+      case 170:
         return RestingHeartRateRecordDto.decode(readValue(buffer)!);
-      case 181:
+      case 171:
         return OxygenSaturationRecordDto.decode(readValue(buffer)!);
-      case 182:
+      case 172:
         return OvulationTestRecordDto.decode(readValue(buffer)!);
-      case 183:
+      case 173:
         return IntermenstrualBleedingRecordDto.decode(readValue(buffer)!);
-      case 184:
+      case 174:
         return MenstrualFlowInstantRecordDto.decode(readValue(buffer)!);
-      case 185:
+      case 175:
         return RespiratoryRateRecordDto.decode(readValue(buffer)!);
-      case 186:
+      case 176:
         return Vo2MaxRecordDto.decode(readValue(buffer)!);
-      case 187:
+      case 177:
         return ActiveCaloriesBurnedRecordDto.decode(readValue(buffer)!);
-      case 188:
+      case 178:
         return DistanceRecordDto.decode(readValue(buffer)!);
-      case 189:
+      case 179:
         return FloorsClimbedRecordDto.decode(readValue(buffer)!);
-      case 190:
+      case 180:
         return WheelchairPushesRecordDto.decode(readValue(buffer)!);
-      case 191:
+      case 181:
         return StepsRecordDto.decode(readValue(buffer)!);
-      case 192:
+      case 182:
         return WeightRecordDto.decode(readValue(buffer)!);
-      case 193:
+      case 183:
         return BloodPressureRecordDto.decode(readValue(buffer)!);
-      case 194:
+      case 184:
         return LeanBodyMassRecordDto.decode(readValue(buffer)!);
-      case 195:
+      case 185:
         return HeightRecordDto.decode(readValue(buffer)!);
-      case 196:
+      case 186:
         return BodyFatPercentageRecordDto.decode(readValue(buffer)!);
-      case 197:
+      case 187:
         return BodyTemperatureRecordDto.decode(readValue(buffer)!);
-      case 198:
+      case 188:
         return BasalBodyTemperatureRecordDto.decode(readValue(buffer)!);
-      case 199:
+      case 189:
         return CervicalMucusRecordDto.decode(readValue(buffer)!);
-      case 200:
+      case 190:
         return HydrationRecordDto.decode(readValue(buffer)!);
-      case 201:
+      case 191:
         return HeartRateMeasurementDto.decode(readValue(buffer)!);
-      case 202:
+      case 192:
         return HeartRateSeriesRecordDto.decode(readValue(buffer)!);
-      case 203:
+      case 193:
         return CyclingPedalingCadenceMeasurementDto.decode(readValue(buffer)!);
-      case 204:
+      case 194:
         return CyclingPedalingCadenceSeriesRecordDto.decode(readValue(buffer)!);
-      case 205:
+      case 195:
         return SpeedMeasurementDto.decode(readValue(buffer)!);
-      case 206:
+      case 196:
         return SpeedSeriesRecordDto.decode(readValue(buffer)!);
-      case 207:
+      case 197:
         return PowerMeasurementDto.decode(readValue(buffer)!);
-      case 208:
+      case 198:
         return PowerSeriesRecordDto.decode(readValue(buffer)!);
-      case 209:
+      case 199:
         return SleepStageDto.decode(readValue(buffer)!);
-      case 210:
+      case 200:
         return SleepSessionRecordDto.decode(readValue(buffer)!);
-      case 211:
+      case 201:
         return SexualActivityRecordDto.decode(readValue(buffer)!);
-      case 212:
+      case 202:
         return ExerciseSessionRecordDto.decode(readValue(buffer)!);
-      case 213:
+      case 203:
         return MindfulnessSessionRecordDto.decode(readValue(buffer)!);
-      case 214:
+      case 204:
         return NutritionRecordDto.decode(readValue(buffer)!);
-      case 215:
+      case 205:
         return TotalCaloriesBurnedRecordDto.decode(readValue(buffer)!);
-      case 216:
+      case 206:
         return BoneMassRecordDto.decode(readValue(buffer)!);
-      case 217:
+      case 207:
         return HeartRateVariabilityRMSSDRecordDto.decode(readValue(buffer)!);
-      case 218:
+      case 208:
         return BodyWaterMassRecordDto.decode(readValue(buffer)!);
-      case 219:
+      case 209:
         return HealthPlatformFeaturePermissionRequestResultDto.decode(
           readValue(buffer)!,
         );
-      case 220:
+      case 210:
         return HealthDataPermissionRequestDto.decode(readValue(buffer)!);
-      case 221:
+      case 211:
         return HealthDataPermissionRequestResultDto.decode(readValue(buffer)!);
-      case 222:
+      case 212:
         return HealthPlatformFeaturePermissionRequest.decode(
           readValue(buffer)!,
         );
-      case 223:
+      case 213:
         return PermissionRequestsDto.decode(readValue(buffer)!);
-      case 224:
+      case 214:
         return PermissionRequestsResponseDto.decode(readValue(buffer)!);
-      case 225:
+      case 215:
         return CommonAggregateRequestDto.decode(readValue(buffer)!);
-      case 226:
+      case 216:
         return BloodPressureAggregateRequestDto.decode(readValue(buffer)!);
-      case 227:
+      case 217:
         return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
-      case 228:
+      case 218:
         return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
-      case 229:
+      case 219:
         return ReadRecordRequestDto.decode(readValue(buffer)!);
-      case 230:
+      case 220:
         return ReadRecordsRequestDto.decode(readValue(buffer)!);
-      case 231:
+      case 221:
         return ReadRecordsResponseDto.decode(readValue(buffer)!);
-      case 232:
-        return HealthConnectorConfigDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
     }
