@@ -1,7 +1,7 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show AggregateRequest, HealthRecord, MeasurementUnit, sinceV1_0_0;
-import 'package:health_connector_hk_ios/src/mappers/aggregation_metric_mappers.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_data_type_mappers.dart';
+import 'package:health_connector_hk_ios/src/mappers/aggregation_metric_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show AggregateRequestDto;
 import 'package:meta/meta.dart' show internal;
