@@ -13,7 +13,12 @@ final class Velocity extends MeasurementUnit implements Comparable<Velocity> {
 
   /// Creates a velocity from a value in meters per second.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The velocity value in meters per second.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final velocity = Velocity.metersPerSecond(2.78);
   /// print(velocity.inMetersPerSecond); // 2.78
@@ -22,7 +27,12 @@ final class Velocity extends MeasurementUnit implements Comparable<Velocity> {
 
   /// Creates a velocity from a value in kilometers per hour.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The velocity value in kilometers per hour.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final velocity = Velocity.kilometersPerHour(10);
   /// print(velocity.inMetersPerSecond); // ~2.78
@@ -32,7 +42,12 @@ final class Velocity extends MeasurementUnit implements Comparable<Velocity> {
 
   /// Creates a velocity from a value in miles per hour.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The velocity value in miles per hour.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final velocity = Velocity.milesPerHour(6.21);
   /// print(velocity.inMetersPerSecond); // ~2.78
@@ -61,7 +76,8 @@ final class Velocity extends MeasurementUnit implements Comparable<Velocity> {
 
   /// Returns the velocity in meters per second.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final velocity = Velocity.kilometersPerHour(10);
   /// print(velocity.inMetersPerSecond); // ~2.78
@@ -70,7 +86,8 @@ final class Velocity extends MeasurementUnit implements Comparable<Velocity> {
 
   /// Returns the velocity in kilometers per hour.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final velocity = Velocity.metersPerSecond(2.78);
   /// print(velocity.inKilometersPerHour); // ~10.0
@@ -79,7 +96,8 @@ final class Velocity extends MeasurementUnit implements Comparable<Velocity> {
 
   /// Returns the velocity in miles per hour.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final velocity = Velocity.metersPerSecond(2.78);
   /// print(velocity.inMilesPerHour); // ~6.21

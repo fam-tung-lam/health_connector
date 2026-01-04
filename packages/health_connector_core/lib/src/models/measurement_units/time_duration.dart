@@ -14,7 +14,12 @@ final class TimeDuration extends MeasurementUnit
 
   /// Creates an duration from a Duration object.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [duration]: The Dart Duration object.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final duration = TimeDuration.fromDuration(Duration(hours: 8));
   /// print(duration.inHours); // 8.0
@@ -24,7 +29,12 @@ final class TimeDuration extends MeasurementUnit
 
   /// Creates an duration from a value in seconds.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The duration value in seconds.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final duration = TimeDuration.seconds(3600);
   /// print(duration.inHours); // 1.0
@@ -33,7 +43,12 @@ final class TimeDuration extends MeasurementUnit
 
   /// Creates an duration from a value in minutes.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The duration value in minutes.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final duration = TimeDuration.minutes(60);
   /// print(duration.inHours); // 1.0
@@ -43,7 +58,12 @@ final class TimeDuration extends MeasurementUnit
 
   /// Creates an duration from a value in hours.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The duration value in hours.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final duration = TimeDuration.hours(8);
   /// print(duration.inMinutes); // 480.0
@@ -67,7 +87,8 @@ final class TimeDuration extends MeasurementUnit
 
   /// Returns the duration in seconds.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final duration = TimeDuration.hours(1);
   /// print(duration.inSeconds); // 3600.0
@@ -76,7 +97,8 @@ final class TimeDuration extends MeasurementUnit
 
   /// Returns the duration in minutes.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final duration = TimeDuration.hours(1);
   /// print(duration.inMinutes); // 60.0
@@ -85,7 +107,8 @@ final class TimeDuration extends MeasurementUnit
 
   /// Returns the duration in hours.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final duration = TimeDuration.minutes(120);
   /// print(duration.inHours); // 2.0
@@ -94,9 +117,8 @@ final class TimeDuration extends MeasurementUnit
 
   /// Returns the duration as a Dart Duration object.
   ///
-  /// Note: Converts to microseconds precision.
+  /// ## Example
   ///
-  /// Example:
   /// ```dart
   /// final duration = TimeDuration.hours(8);
   /// final duration = duration.asDuration;
@@ -108,7 +130,8 @@ final class TimeDuration extends MeasurementUnit
 
   /// Adds two intervals together.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final i1 = TimeDuration.hours(2);
   /// final i2 = TimeDuration.minutes(30);
@@ -120,7 +143,8 @@ final class TimeDuration extends MeasurementUnit
 
   /// Subtracts one duration from another.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final i1 = TimeDuration.hours(3);
   /// final i2 = TimeDuration.minutes(30);

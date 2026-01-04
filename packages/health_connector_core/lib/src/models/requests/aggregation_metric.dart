@@ -3,9 +3,6 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
 
 /// Defines the type of aggregation to perform on health data.
 ///
-/// Each aggregation type computes a different metric over a set of health
-/// records within a specified time range.
-///
 /// {@category Core API}
 @sinceV1_0_0
 enum AggregationMetric {

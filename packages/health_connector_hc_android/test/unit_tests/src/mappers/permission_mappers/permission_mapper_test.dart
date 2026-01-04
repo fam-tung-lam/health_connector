@@ -50,7 +50,7 @@ void main() {
             'maps HealthPlatformFeaturePermission to '
             'HealthPlatformFeaturePermissionRequest',
             () {
-              final permission = HealthPlatformFeaturePermission(
+              const permission = HealthPlatformFeaturePermission(
                 HealthPlatformFeature.readHealthDataInBackground,
               );
 

@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart' show ListEquality;
 import 'package:health_connector_core/src/annotations/annotations.dart';
+import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart';
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart';
 import 'package:health_connector_core/src/models/health_records/health_record.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
@@ -12,6 +13,10 @@ import 'package:meta/meta.dart' show immutable;
 @internalUse
 sealed class DeleteRecordsRequest<R extends HealthRecord> extends Request {
   /// Creates a base delete records request.
+  /// 
+  /// ## Parameters
+  ///
+  /// - [dataType]: The type of health data to delete.
   const DeleteRecordsRequest({required this.dataType});
 
   /// The type of health data to delete.
@@ -27,19 +32,7 @@ sealed class DeleteRecordsRequest<R extends HealthRecord> extends Request {
 ///
 /// Apps can only delete health records that they created.
 /// Attempting to delete records created by other apps, manually entered by
-/// users, or system-generated will fail with a security error.
-///
-/// ## Throws
-/// - [ArgumentError] if [recordIds] is empty
-/// - [ArgumentError] if any record ID is [HealthRecordId.none]
-///
-/// ## Example
-///
-/// ```dart
-/// // Delete specific step records
-/// final request = HealthDataType.steps.deleteByIds([id1, id2, id3]);
-/// await connector.deleteRecords(request);
-/// ```
+/// users, or system-generated will fail with [NotAuthorizedException].
 @sinceV2_0_0
 @internalUse
 @immutable
@@ -53,8 +46,8 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
   /// - [recordIds]: List of unique record identifiers to delete
   ///
   /// ## Throws
+  ///
   /// - [ArgumentError] if any record ID is [HealthRecordId.none]
-  @internalUse
   factory DeleteRecordsByIdsRequest({
     required HealthDataType<R, MeasurementUnit> dataType,
     required List<HealthRecordId> recordIds,
@@ -107,21 +100,7 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
 ///
 /// Apps can only delete health records that they created.
 /// Attempting to delete records created by other apps, manually entered by
-/// users, or system-generated will fail with a security error.
-///
-/// ## Throws
-/// - [ArgumentError] if [endTime] is before [startTime]
-///
-/// ## Example
-///
-/// ```dart
-/// // Delete all step records from the last 7 days
-/// final request = HealthDataType.steps.deleteInTimeRange(
-///   startTime: DateTime.now().subtract(Duration(days: 7)),
-///   endTime: DateTime.now(),
-/// );
-/// await connector.deleteRecords(request);
-/// ```
+/// users, or system-generated will fail with [NotAuthorizedException].
 @sinceV2_0_0
 @internalUse
 @immutable
@@ -136,8 +115,8 @@ final class DeleteRecordsInTimeRangeRequest<R extends HealthRecord>
   /// - [endTime]: Inclusive end of the time range
   ///
   /// ## Throws
+  ///
   /// - [ArgumentError] if [endTime] is before [startTime]
-  @internalUse
   factory DeleteRecordsInTimeRangeRequest({
     required HealthDataType<R, MeasurementUnit> dataType,
     required DateTime startTime,

@@ -1,4 +1,4 @@
-part of 'health_record.dart';
+part of '../health_record.dart';
 
 /// Represents an ovulation test result at a specific point in time.
 ///

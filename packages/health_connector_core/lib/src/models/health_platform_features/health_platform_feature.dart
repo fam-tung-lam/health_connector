@@ -10,7 +10,11 @@ part 'read_health_data_in_background_feature.dart';
 /// Features are capabilities or functionalities provided by health platforms
 /// that may or may not be available on a given device or platform version.
 @sinceV1_0_0
+@immutable
 sealed class HealthPlatformFeature implements HealthPlatformData {
+  @internalUse
+  const HealthPlatformFeature();
+
   /// Returns the permission associated with this feature.
   HealthPlatformFeaturePermission get permission =>
       HealthPlatformFeaturePermission(this);
@@ -22,14 +26,14 @@ sealed class HealthPlatformFeature implements HealthPlatformData {
   ///
   /// See [HealthPlatformFeatureReadHealthDataHistory] for details on
   /// platform support and usage.
-  static final readHealthDataHistory =
+  static const readHealthDataHistory =
       HealthPlatformFeatureReadHealthDataHistory();
 
   /// Background health data reading capability.
   ///
   /// See [HealthPlatformFeatureReadHealthDataInBackground] for details on
   /// platform support and usage.
-  static final readHealthDataInBackground =
+  static const readHealthDataInBackground =
       HealthPlatformFeatureReadHealthDataInBackground();
 
   /// Returns a list of all available health platform features.

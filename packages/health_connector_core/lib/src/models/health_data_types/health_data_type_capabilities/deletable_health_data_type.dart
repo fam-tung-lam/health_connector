@@ -47,6 +47,7 @@ abstract interface class DeletableHealthDataType<R extends HealthRecord> {
   /// A [DeleteRecordsByIdsRequest]
   ///
   /// ## Throws
+  ///
   /// - [ArgumentError] if [recordIds] is empty
   /// - [ArgumentError] if any record ID is [HealthRecordId.none]
   DeleteRecordsByIdsRequest<R> deleteByIds(List<HealthRecordId> recordIds);
@@ -66,6 +67,7 @@ abstract interface class DeletableHealthDataType<R extends HealthRecord> {
   /// A [DeleteRecordsInTimeRangeRequest]
   ///
   /// ## Throws
+  ///
   /// - [ArgumentError] if [endTime] is before [startTime]
   DeleteRecordsInTimeRangeRequest<R> deleteInTimeRange({
     required DateTime startTime,

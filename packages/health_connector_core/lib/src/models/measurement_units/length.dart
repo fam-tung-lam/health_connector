@@ -13,7 +13,12 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Creates a length from a value in meters.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The length value in meters.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.meters(1000);
   /// print(length.inMeters); // 1000.0
@@ -22,7 +27,12 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Creates a length from a value in kilometers.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The length value in kilometers.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.kilometers(1);
   /// print(length.inMeters); // 1000.0
@@ -31,7 +41,12 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Creates a length from a value in centimeters.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The length value in centimeters.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.centimeters(100000);
   /// print(length.inMeters); // 1000.0
@@ -41,7 +56,12 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Creates a length from a value in millimeters.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The length value in millimeters.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.millimeters(1000000);
   /// print(length.inMeters); // 1000.0
@@ -51,7 +71,12 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Creates a length from a value in miles.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The length value in miles.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.miles(0.621371);
   /// print(length.inMeters); // ~1000.0
@@ -60,7 +85,12 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Creates a length from a value in feet.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The length value in feet.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.feet(3280.84);
   /// print(length.inMeters); // ~1000.0
@@ -69,7 +99,12 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Creates a length from a value in inches.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The length value in inches.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.inches(39370.1);
   /// print(length.inMeters); // ~1000.0
@@ -108,7 +143,8 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Returns the length in meters.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.kilometers(1.5);
   /// print(length.inMeters); // 1500.0
@@ -117,7 +153,8 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Returns the length in kilometers.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.meters(1500);
   /// print(length.inKilometers); // 1.5
@@ -126,7 +163,8 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Returns the length in centimeters.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.meters(1.5);
   /// print(length.inCentimeters); // 150.0
@@ -135,7 +173,8 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Returns the length in millimeters.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.meters(0.05);
   /// print(length.inMillimeters); // 50.0
@@ -144,7 +183,8 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Returns the length in miles.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.meters(1609.34);
   /// print(length.inMiles); // ~1.0
@@ -153,7 +193,8 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Returns the length in feet.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.meters(1);
   /// print(length.inFeet); // ~3.28
@@ -162,7 +203,8 @@ final class Length extends MeasurementUnit implements Comparable<Length> {
 
   /// Returns the length in inches.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final length = Length.feet(1);
   /// print(length.inInches); // 12.0

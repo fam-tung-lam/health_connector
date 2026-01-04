@@ -13,7 +13,12 @@ final class Energy extends MeasurementUnit implements Comparable<Energy> {
 
   /// Creates an energy value from kilocalories.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The energy value in kilocalories.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final energy = Energy.kilocalories(2000);
   /// print(energy.inKilocalories); // 2000.0
@@ -22,7 +27,12 @@ final class Energy extends MeasurementUnit implements Comparable<Energy> {
 
   /// Creates an energy value from calories.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The energy value in calories.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final energy = Energy.calories(2000000);
   /// print(energy.inKilocalories); // 2000.0
@@ -32,7 +42,12 @@ final class Energy extends MeasurementUnit implements Comparable<Energy> {
 
   /// Creates an energy value from kilojoules.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The energy value in kilojoules.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final energy = Energy.kilojoules(8368);
   /// print(energy.inKilocalories); // ~2000.0
@@ -42,7 +57,12 @@ final class Energy extends MeasurementUnit implements Comparable<Energy> {
 
   /// Creates an energy value from joules.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The energy value in joules.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final energy = Energy.joules(8368000);
   /// print(energy.inKilocalories); // ~2000.0
@@ -74,7 +94,8 @@ final class Energy extends MeasurementUnit implements Comparable<Energy> {
 
   /// Returns the energy in kilocalories.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final energy = Energy.kilojoules(8368);
   /// print(energy.inKilocalories); // ~2000.0
@@ -83,7 +104,8 @@ final class Energy extends MeasurementUnit implements Comparable<Energy> {
 
   /// Returns the energy in calories.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final energy = Energy.kilocalories(2000);
   /// print(energy.inCalories); // 2000000.0
@@ -92,7 +114,8 @@ final class Energy extends MeasurementUnit implements Comparable<Energy> {
 
   /// Returns the energy in kilojoules.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final energy = Energy.kilocalories(2000);
   /// print(energy.inKilojoules); // ~8368.0
@@ -102,7 +125,8 @@ final class Energy extends MeasurementUnit implements Comparable<Energy> {
 
   /// Returns the energy in joules.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final energy = Energy.kilocalories(2000);
   /// print(energy.inJoules); // ~8368000.0
@@ -111,7 +135,8 @@ final class Energy extends MeasurementUnit implements Comparable<Energy> {
 
   /// Adds two energy values together.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final e1 = Energy.kilocalories(1500);
   /// final e2 = Energy.kilocalories(500);
@@ -123,7 +148,8 @@ final class Energy extends MeasurementUnit implements Comparable<Energy> {
 
   /// Subtracts one energy value from another.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final e1 = Energy.kilocalories(2000);
   /// final e2 = Energy.kilocalories(500);

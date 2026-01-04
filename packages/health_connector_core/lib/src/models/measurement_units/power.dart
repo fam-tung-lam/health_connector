@@ -13,7 +13,12 @@ final class Power extends MeasurementUnit implements Comparable<Power> {
 
   /// Creates a power value from watts.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The power value in watts.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final power = Power.watts(250);
   /// print(power.inWatts); // 250.0
@@ -22,7 +27,12 @@ final class Power extends MeasurementUnit implements Comparable<Power> {
 
   /// Creates a power value from kilowatts.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The power value in kilowatts.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final power = Power.kilowatts(0.25);
   /// print(power.inWatts); // 250.0
@@ -43,7 +53,8 @@ final class Power extends MeasurementUnit implements Comparable<Power> {
 
   /// Returns the power in watts.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final power = Power.kilowatts(0.25);
   /// print(power.inWatts); // 250.0
@@ -52,7 +63,8 @@ final class Power extends MeasurementUnit implements Comparable<Power> {
 
   /// Returns the power in kilowatts.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final power = Power.watts(250);
   /// print(power.inKilowatts); // 0.25

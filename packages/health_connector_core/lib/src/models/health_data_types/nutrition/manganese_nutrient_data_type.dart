@@ -38,7 +38,7 @@ final class ManganeseNutrientDataType
         DeletableHealthDataType<ManganeseNutrientRecord> {
   /// Creates a manganese nutrient data type.
   ///
-  ///This is a constant constructor used internally. To reference this data
+  /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
   const ManganeseNutrientDataType();

@@ -25,6 +25,10 @@ import 'package:meta/meta.dart' show immutable;
 @immutable
 sealed class ReadRecordsRequest<R extends HealthRecord> extends Request {
   /// Creates a base read records request.
+  /// 
+  /// ## Parameters
+  ///
+  /// - [dataType]: The type of health data to read.
   const ReadRecordsRequest({required this.dataType});
 
   /// The type of health data to read.
@@ -41,12 +45,12 @@ final class ReadRecordByIdRequest<R extends HealthRecord>
   ///
   /// ## Parameters
   ///
-  /// - [dataType]: The type of health data to read
-  /// - [id]: The unique identifier of the record to read
+  /// - [dataType]: The type of health data to read.
+  /// - [id]: The unique identifier of the record to read.
   ///
   /// ## Throws
+  ///
   /// - [ArgumentError] if [id] is [HealthRecordId.none]
-  @internalUse
   factory ReadRecordByIdRequest({
     required HealthDataType<R, MeasurementUnit> dataType,
     required HealthRecordId id,
@@ -66,8 +70,8 @@ final class ReadRecordByIdRequest<R extends HealthRecord>
 
   /// The unique identifier of the record to read.
   ///
-  /// This ID should come from a previous write operation or from reading
-  /// a list of records. IDs are platform-assigned and cannot be manually
+  /// **⚠️ WARNING**: This ID should come from a previous write or reading
+  /// operation. IDs are platform-assigned and should not be manually
   /// created.
   final HealthRecordId id;
 
@@ -101,11 +105,10 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
   /// - [dataOrigins]: List of data origins to filter by
   ///
   /// ## Throws
-  /// - [ArgumentError] if:
-  ///   - [endTime] before [startTime]
-  ///   - or [pageSize] is not between 1 and
-  ///     [HealthConnectorConfigConstants.maxPageSize]
-  @internalUse
+  ///
+  /// - [ArgumentError] if [endTime] before [startTime]
+  /// - [ArgumentError] if [pageSize] is not between 1 and
+  ///   [HealthConnectorConfigConstants.maxPageSize]
   factory ReadRecordsInTimeRangeRequest({
     required HealthDataType<R, MeasurementUnit> dataType,
     required DateTime startTime,
@@ -146,7 +149,8 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
   /// When empty, records from all sources are returned (no filtering).
   /// When non-empty, only records from the specified data origins are returned.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// // Filter by specific apps
   /// final request = ReadRecordsRequest(

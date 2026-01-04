@@ -7,13 +7,24 @@ part of 'permission.dart';
 @immutable
 final class HealthDataPermission extends Permission {
   /// Creates a health data permission request.
+  ///
+  /// ## Parameters
+  ///
+  /// - [dataType]: The data type this permission is for.
+  /// - [accessType]: The access type this permission is for.
+  @internalUse
   const HealthDataPermission({
     required this.dataType,
     required this.accessType,
   });
 
   /// Creates a read permission for the specified health data type.
+  ///
+  /// ## Parameters
+  ///
+  /// - [accessType]: The access type this read permission is for.
   @sinceV2_0_0
+  @internalUse
   factory HealthDataPermission.read(
     HealthDataType<HealthRecord, MeasurementUnit> dataType,
   ) {
@@ -24,7 +35,12 @@ final class HealthDataPermission extends Permission {
   }
 
   /// Creates a write permission for the specified health data type.
+  ///
+  /// ## Parameters
+  ///
+  /// - [accessType]: The access type this write permission is for.
   @sinceV2_0_0
+  @internalUse
   factory HealthDataPermission.write(
     HealthDataType<HealthRecord, MeasurementUnit> dataType,
   ) {

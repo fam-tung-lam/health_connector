@@ -30,7 +30,7 @@ export 'src/models/health_records/sleep/sleep_stage_type.dart';
 export 'src/models/measurement_units/measurement_unit.dart'
     hide MeasurementUnit;
 export 'src/models/metadata/metadata.dart';
-export 'src/models/permissions/permission.dart';
+export 'src/models/permissions/permission.dart' hide Permission;
 export 'src/models/requests/aggregation_metric.dart' show AggregationMetric;
 export 'src/models/responses/permission_request_result.dart'
     show PermissionRequestResult;

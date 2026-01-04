@@ -44,8 +44,9 @@ export 'src/models/permissions/permission.dart';
 export 'src/models/requests/aggregate_request.dart';
 export 'src/models/requests/aggregation_metric.dart';
 export 'src/models/requests/delete_records_request.dart';
-export 'src/models/requests/read_records_request.dart';
+export 'src/models/requests/read_records_request.dart' hide ReadRecordsRequest;
 export 'src/models/responses/permission_request_result.dart';
 export 'src/models/responses/read_records_response.dart'
     hide ReadRecordsResponse;
+export 'src/utils/permission_extension.dart';
 export 'src/utils/validation_utils.dart';

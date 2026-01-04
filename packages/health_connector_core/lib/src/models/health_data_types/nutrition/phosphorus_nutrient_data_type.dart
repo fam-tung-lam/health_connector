@@ -38,7 +38,7 @@ final class PhosphorusNutrientDataType
         DeletableHealthDataType<PhosphorusNutrientRecord> {
   /// Creates a phosphorus nutrient data type.
   ///
-  ///This is a constant constructor used internally. To reference this data
+  /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
   const PhosphorusNutrientDataType();

@@ -111,7 +111,7 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
 
     try {
       // Build a list of permissions to request
-      final permissions = <Permission>[
+      final permissions = [
         // Request health data read and write permissions
         HealthDataType.steps.readPermission,
         HealthDataType.steps.writePermission,

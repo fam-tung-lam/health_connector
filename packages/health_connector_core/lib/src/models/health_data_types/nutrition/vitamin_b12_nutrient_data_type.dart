@@ -38,7 +38,7 @@ final class VitaminB12NutrientDataType
         DeletableHealthDataType<VitaminB12NutrientRecord> {
   /// Creates a vitamin b12 (cobalamin) nutrient data type.
   ///
-  ///This is a constant constructor used internally. To reference this data
+  /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
   const VitaminB12NutrientDataType();

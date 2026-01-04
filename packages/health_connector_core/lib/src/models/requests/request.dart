@@ -4,9 +4,6 @@ import 'package:meta/meta.dart' show immutable, internal;
 
 /// Base abstract class for all request types.
 ///
-/// This class provides a common interface for all request objects in the
-/// health connector API. All request classes should extend this base class.
-///
 /// ## Example
 ///
 /// ```dart

@@ -38,7 +38,7 @@ final class PantothenicAcidNutrientDataType
         DeletableHealthDataType<PantothenicAcidNutrientRecord> {
   /// Creates a pantothenic acid (vitamin b5) nutrient data type.
   ///
-  ///This is a constant constructor used internally. To reference this data
+  /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
   const PantothenicAcidNutrientDataType();

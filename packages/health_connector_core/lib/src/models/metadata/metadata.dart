@@ -16,6 +16,15 @@ final class Metadata {
   /// Internal factory constructor to create metadata with all fields.
   ///
   /// **Not for public use.** Use the semantic factory methods instead.
+  ///
+  /// ## Parameters
+  ///
+  /// - [dataOrigin]: The application that wrote this health record.
+  /// - [recordingMethod]: The method used to record this data.
+  /// - [lastModifiedTime]: The timestamp when this record was last modified.
+  /// - [clientRecordId]: A custom identifier assigned by your application.
+  /// - [clientRecordVersion]: A version number assigned by your application.
+  /// - [device]: The device that recorded the data.
   const Metadata({
     required this.dataOrigin,
     required this.recordingMethod,
@@ -29,6 +38,12 @@ final class Metadata {
   ///
   /// Use this when a user types or inputs health data through your
   /// application's UI. Manual entry does not require a device.
+  ///
+  /// ## Parameters
+  ///
+  /// - [dataOrigin]: The application that wrote this health record.
+  /// - [clientRecordId]: A custom identifier assigned by your application.
+  /// - [clientRecordVersion]: A version number assigned by your application.
   factory Metadata.manualEntry({
     required DataOrigin dataOrigin,
     String? clientRecordId,
@@ -46,6 +61,13 @@ final class Metadata {
   ///
   /// Use this when a device passively captures data in the background without
   /// explicit user action for each measurement. A device must be specified.
+  ///
+  /// ## Parameters
+  ///
+  /// - [dataOrigin]: The application that wrote this health record.
+  /// - [device]: The device that recorded the data.
+  /// - [clientRecordId]: A custom identifier assigned by your application.
+  /// - [clientRecordVersion]: A version number assigned by your application.
   factory Metadata.automaticallyRecorded({
     required DataOrigin dataOrigin,
     required Device device,
@@ -66,6 +88,13 @@ final class Metadata {
   /// Use this when a user explicitly initiates a recording session on a device.
   /// This indicates intentional, focused data capture
   /// A device must be specified.
+  ///
+  /// ## Parameters
+  ///
+  /// - [dataOrigin]: The application that wrote this health record.
+  /// - [device]: The device that recorded the data.
+  /// - [clientRecordId]: A custom identifier assigned by your application.
+  /// - [clientRecordVersion]: A version number assigned by your application.
   factory Metadata.activelyRecorded({
     required DataOrigin dataOrigin,
     required Device device,
@@ -85,6 +114,13 @@ final class Metadata {
   ///
   /// Use this when you cannot determine or verify how the data was captured.
   /// This should be used sparingly, typically only for legacy data migration.
+  ///
+  /// ## Parameters
+  ///
+  /// - [dataOrigin]: The application that wrote this health record.
+  /// - [device]: The device that recorded the data.
+  /// - [clientRecordId]: A custom identifier assigned by your application.
+  /// - [clientRecordVersion]: A version number assigned by your application.
   factory Metadata.unknownRecordingMethod({
     required DataOrigin dataOrigin,
     Device? device,

@@ -1,5 +1,5 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_0_0;
+    show sinceV1_0_0, internalUse;
 import 'package:health_connector_core/src/models/permissions/permission.dart'
     show Permission, PermissionStatus;
 import 'package:health_connector_core/src/models/responses/response.dart'
@@ -14,8 +14,11 @@ import 'package:meta/meta.dart' show immutable;
 final class PermissionRequestResult extends Response {
   /// Creates a permission request result.
   ///
-  /// Both [permission] and [status] are required and represent the permission
-  /// that was requested and its resulting status.
+  /// ## Parameters
+  ///
+  /// - [permission]: The permission that was requested.
+  /// - [status]: The status of the permission after the request.
+  @internalUse
   const PermissionRequestResult({
     required this.permission,
     required this.status,

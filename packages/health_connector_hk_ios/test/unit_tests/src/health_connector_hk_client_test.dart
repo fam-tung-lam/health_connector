@@ -250,7 +250,7 @@ void main() {
                 'auto-grants feature permissions on iOS',
                 () async {
                   final result = await client.requestPermissions([
-                    HealthPlatformFeaturePermission(
+                    const HealthPlatformFeaturePermission(
                       HealthPlatformFeature.readHealthDataHistory,
                     ),
                   ]);
@@ -283,7 +283,7 @@ void main() {
                       dataType: HealthDataType.steps,
                       accessType: HealthDataPermissionAccessType.read,
                     ),
-                    HealthPlatformFeaturePermission(
+                    const HealthPlatformFeaturePermission(
                       HealthPlatformFeature.readHealthDataHistory,
                     ),
                   ]);
@@ -362,7 +362,7 @@ void main() {
                 'auto-grants feature permissions without API call',
                 () async {
                   final result = await client.getPermissionStatus(
-                    HealthPlatformFeaturePermission(
+                    const HealthPlatformFeaturePermission(
                       HealthPlatformFeature.readHealthDataHistory,
                     ),
                   );

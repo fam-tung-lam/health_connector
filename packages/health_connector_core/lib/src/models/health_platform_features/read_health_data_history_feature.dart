@@ -6,17 +6,17 @@ part of 'health_platform_feature.dart';
 /// before the current application was installed or before the current
 /// permission grant.
 ///
-/// ## Platform Ecosystems
+/// ## Platform Behaviors
 ///
-/// - **Android Health Connect**: Requires the `READ_HEALTH_DATA_HISTORY`
-///   permission. This is a sensitive permission that may require additional
-///   justification during Google Play Store review.
-/// - **iOS HealthKit**: implicit capability, but users can restrict the
-///   read scope in system settings.
+/// - **Android Health Connect**: Feature might not be available depending on
+///   Android or Health Connect versions. If available, usage requires the
+///   `READ_HEALTH_DATA_HISTORY` permission.
+/// - **iOS HealthKit**: Available by default. No permission request is
+///   needed, though users can restrict the read scope in system settings.
 ///
 /// ## Permission
 ///
-/// To use this feature, you must include it in your permission request:
+/// If available, you must include it in your permission request to use it:
 ///
 /// ```dart
 /// await HealthConnector.requestPermissions([
@@ -28,6 +28,10 @@ part of 'health_platform_feature.dart';
 @immutable
 final class HealthPlatformFeatureReadHealthDataHistory
     extends HealthPlatformFeature {
+  /// Creates a instance of [HealthPlatformFeatureReadHealthDataHistory].
+  @internalUse
+  const HealthPlatformFeatureReadHealthDataHistory();
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

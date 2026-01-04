@@ -6,9 +6,17 @@ part of 'metadata.dart';
 final class Device {
   /// Creates a device with the specified information.
   ///
-  /// All fields except [type] are optional. This allows creating a device
-  /// with varying levels of detail depending on what information is available.
+  /// ## Parameters
   ///
+  /// - [type]: The type of the device.
+  /// - [name]: The name of the device.
+  /// - [manufacturer]: The manufacturer of the device.
+  /// - [model]: The model of the device.
+  /// - [hardwareVersion]: The hardware version of the device.
+  /// - [firmwareVersion]: The firmware version of the device.
+  /// - [softwareVersion]: The software version of the device.
+  /// - [localIdentifier]: The local identifier of the device.
+  /// - [udiDeviceIdentifier]: The UDI device identifier.
   const Device({
     required this.type,
     this.name,
@@ -26,7 +34,8 @@ final class Device {
   /// Use this when device information is completely unavailable or cannot be
   /// determined.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final device = Device.unknown();
   /// print(device.type); // DeviceType.unknown
@@ -48,7 +57,12 @@ final class Device {
   /// Use this when you know the device type but don't have additional details
   /// like manufacturer or model.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [deviceType]: The type of the device.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final device = Device.fromType(DeviceType.phone);
   /// print(device.type); // DeviceType.phone
@@ -65,15 +79,13 @@ final class Device {
       localIdentifier = null,
       udiDeviceIdentifier = null;
 
-  /// The type of device (watch, phone, scale, etc.).
+  /// The type of device.
   final DeviceType type;
 
   /// The name of the device.
   ///
-  /// Examples: "Apple Watch", "My Fitness Tracker", "iPhone"
-  ///
-  /// **Fallback behavior:** If `name` is `null`, the `model` value will be
-  /// used as the device name when writing to HealthKit and Health Connect SDKs.
+  /// **Note:** If [name] is `null`, the [model] is present will be used as the
+  /// device name.
   final String? name;
 
   /// The manufacturer or brand of the device.
@@ -83,34 +95,32 @@ final class Device {
 
   /// The specific model of the device.
   ///
-  /// Examples: "iPhone 15 Pro", "Galaxy Watch 6", "Pixel 8"
+  /// **Note:** If [name] is `null`, [model] will be used as the device name
+  /// if available.
   final String? model;
 
   /// The hardware version of the device.
   ///
-  /// Examples: "2.0", "A2484", "Rev 3"
+  /// ## Platform Mapping
   ///
-  /// **Platform support:**
-  /// - **iOS HealthKit:** Supported via `HKDevice.hardwareVersion`
-  /// - **Android Health Connect:** Not supported
+  /// - **Android Health Connect**: Not supported
+  /// - **iOS HealthKit**: Supported via `HKDevice.hardwareVersion`
   final String? hardwareVersion;
 
   /// The firmware version of the device.
   ///
-  /// Examples: "1.5.3", "2.1.0"
+  /// ## Platform Mapping
   ///
-  /// **Platform support:**
-  /// - **iOS HealthKit:** Supported via `HKDevice.firmwareVersion`
-  /// - **Android Health Connect:** Not supported
+  /// - **Android Health Connect**: Not supported
+  /// - **iOS HealthKit**: Supported via `HKDevice.firmwareVersion`
   final String? firmwareVersion;
 
   /// The software version of the device.
   ///
-  /// Examples: "4.2.1", "watchOS 10.0"
+  /// ## Platform Mapping
   ///
-  /// **Platform support:**
-  /// - **iOS HealthKit:** Supported via `HKDevice.softwareVersion`
-  /// - **Android Health Connect:** Not supported
+  /// - **Android Health Connect**: Not supported
+  /// - **iOS HealthKit**: Supported via `HKDevice.softwareVersion`
   final String? softwareVersion;
 
   /// A local identifier for the device.
@@ -118,9 +128,10 @@ final class Device {
   /// This is a device-specific identifier that may be used for local tracking
   /// or correlation purposes.
   ///
-  /// **Platform support:**
-  /// - **iOS HealthKit:** Supported via `HKDevice.localIdentifier`
-  /// - **Android Health Connect:** Not supported
+  /// ## Platform Mapping
+  ///
+  /// - **Android Health Connect**: Not supported
+  /// - **iOS HealthKit**: Supported via `HKDevice.localIdentifier`
   final String? localIdentifier;
 
   /// The UDI (Unique Device Identifier) for the device.
@@ -128,9 +139,10 @@ final class Device {
   /// This is a globally unique identifier for medical devices, typically used
   /// for regulatory compliance.
   ///
-  /// **Platform support:**
-  /// - **iOS HealthKit:** Supported via `HKDevice.udiDeviceIdentifier`
-  /// - **Android Health Connect:** Not supported
+  /// ## Platform Mapping
+  ///
+  /// - **Android Health Connect**: Not supported
+  /// - **iOS HealthKit**: Supported via `HKDevice.udiDeviceIdentifier`
   final String? udiDeviceIdentifier;
 
   @override
@@ -159,46 +171,6 @@ final class Device {
       softwareVersion.hashCode ^
       localIdentifier.hashCode ^
       udiDeviceIdentifier.hashCode;
-
-  @override
-  String toString() {
-    final buffer = StringBuffer('Device(type: ${type.name}');
-
-    if (name != null) {
-      buffer.write(', name: $name');
-    }
-
-    if (manufacturer != null) {
-      buffer.write(', manufacturer: $manufacturer');
-    }
-
-    if (model != null) {
-      buffer.write(', model: $model');
-    }
-
-    if (hardwareVersion != null) {
-      buffer.write(', hardwareVersion: $hardwareVersion');
-    }
-
-    if (firmwareVersion != null) {
-      buffer.write(', firmwareVersion: $firmwareVersion');
-    }
-
-    if (softwareVersion != null) {
-      buffer.write(', softwareVersion: $softwareVersion');
-    }
-
-    if (localIdentifier != null) {
-      buffer.write(', localIdentifier: $localIdentifier');
-    }
-
-    if (udiDeviceIdentifier != null) {
-      buffer.write(', udiDeviceIdentifier: $udiDeviceIdentifier');
-    }
-
-    buffer.write(')');
-    return buffer.toString();
-  }
 }
 
 /// The type of device that recorded the health data.

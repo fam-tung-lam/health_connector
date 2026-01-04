@@ -38,7 +38,7 @@ final class DietaryFiberNutrientDataType
         DeletableHealthDataType<DietaryFiberNutrientRecord> {
   /// Creates a dietary fiber nutrient data type.
   ///
-  ///This is a constant constructor used internally. To reference this data
+  /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
   const DietaryFiberNutrientDataType();

@@ -15,7 +15,12 @@ final class BloodGlucose extends MeasurementUnit
   ///
   /// This is the standard unit used in most countries.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The blood glucose value in millimoles per liter.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final glucose = BloodGlucose.millimolesPerLiter(5.5);
   /// print(glucose.inMillimolesPerLiter); // 5.5
@@ -27,7 +32,12 @@ final class BloodGlucose extends MeasurementUnit
   ///
   /// This unit is primarily used in the United States.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The blood glucose value in milligrams per deciliter.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final glucose = BloodGlucose.milligramsPerDeciliter(99);
   /// print(glucose.inMillimolesPerLiter); // ~5.5
@@ -53,7 +63,8 @@ final class BloodGlucose extends MeasurementUnit
   ///
   /// This is the standard unit used in most countries.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final glucose = BloodGlucose.milligramsPerDeciliter(99);
   /// print(glucose.inMillimolesPerLiter); // ~5.5
@@ -66,7 +77,8 @@ final class BloodGlucose extends MeasurementUnit
   ///
   /// Conversion: mg/dL = mmol/L × 18.0182
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final glucose = BloodGlucose.millimolesPerLiter(5.5);
   /// print(glucose.inMilligramsPerDeciliter); // ~99.1
@@ -75,9 +87,6 @@ final class BloodGlucose extends MeasurementUnit
       _millimolesPerLiter * _mmolToMgdlConversionFactor;
 
   /// Adds two blood glucose values together.
-  ///
-  /// Note: Adding absolute glucose levels doesn't make medical sense, but
-  /// this is useful for calculating differences.
   BloodGlucose operator +(BloodGlucose other) =>
       BloodGlucose._(_millimolesPerLiter + other._millimolesPerLiter);
 

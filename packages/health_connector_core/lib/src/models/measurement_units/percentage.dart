@@ -5,12 +5,6 @@ part of 'measurement_unit.dart';
 /// Percentage is used for body fat percentage, blood oxygen saturation,
 /// and other percentage-based health data.
 ///
-/// Percentages are stored internally as decimal values (0.0 to 1.0),
-/// where:
-/// - 0.0 = 0%
-/// - 0.25 = 25%
-/// - 1.0 = 100%
-///
 /// {@category Measurement Units}
 @sinceV1_0_0
 @immutable
@@ -20,7 +14,12 @@ final class Percentage extends MeasurementUnit
 
   /// Creates a percentage from a decimal value (0.0 to 1.0).
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The decimal value (0.0 to 1.0).
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final percentage = Percentage.fromDecimal(0.25);
   /// print(percentage.asWhole); // 25.0
@@ -29,7 +28,12 @@ final class Percentage extends MeasurementUnit
 
   /// Creates a percentage from a whole number value (0 to 100).
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The whole number value (0 to 100).
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final percentage = Percentage.fromWhole(25);
   /// print(percentage.asDecimal); // 0.25
@@ -50,7 +54,8 @@ final class Percentage extends MeasurementUnit
 
   /// Returns the percentage as a decimal (0.0 to 1.0).
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final percentage = Percentage.fromWhole(25);
   /// print(percentage.asDecimal); // 0.25
@@ -59,7 +64,8 @@ final class Percentage extends MeasurementUnit
 
   /// Returns the percentage as a whole number (0 to 100).
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final percentage = Percentage.fromDecimal(0.25);
   /// print(percentage.asWhole); // 25.0
@@ -68,7 +74,8 @@ final class Percentage extends MeasurementUnit
 
   /// Adds two percentage values together.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final p1 = Percentage.fromWhole(15);
   /// final p2 = Percentage.fromWhole(10);
@@ -80,7 +87,8 @@ final class Percentage extends MeasurementUnit
 
   /// Subtracts one percentage value from another.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final p1 = Percentage.fromWhole(25);
   /// final p2 = Percentage.fromWhole(10);

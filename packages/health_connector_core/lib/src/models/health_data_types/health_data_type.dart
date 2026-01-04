@@ -93,7 +93,7 @@ part 'nutrition/vitamin_e_nutrient_data_type.dart';
 part 'nutrition/vitamin_k_nutrient_data_type.dart';
 part 'nutrition/vitamin_nutrient_data_type.dart';
 part 'nutrition/zinc_nutrient_data_type.dart';
-part 'ovulation_test_data_type.dart';
+part 'menstruation/ovulation_test_data_type.dart';
 part 'oxygen_saturation_health_data_type.dart';
 part 'power/cycling_power_data_type.dart';
 part 'power/power_series_data_type.dart';

@@ -6,19 +6,21 @@ part of 'health_platform_feature.dart';
 /// running in the background, without requiring a foreground service or user
 /// interaction.
 ///
-/// ## Platform Ecosystems
+/// ## Platform Behaviors
 ///
-/// - **Android Health Connect**:
-///   - Requires the `READ_HEALTH_DATA_IN_BACKGROUND` permission.
+/// - **Android Health Connect**: Feature might not be available depending on
+///   Android or Health Connect versions. If available, usage requires the
+///   `READ_HEALTH_DATA_IN_BACKGROUND` permission.
 ///   - This is a sensitive permission that requires additional justification
 ///     during Google Play Store review.
-/// - **iOS HealthKit**:
-///   - Supported via `HKObserverQuery` and Background Delivery.
-///   - Requires enabling the "HealthKit" and "Background Modes" capabilities.
+/// - **iOS HealthKit**: Available by default if the app has the "HealthKit"
+///   and "Background Modes" capabilities enabled. No permission request is
+///   needed, though users can restrict the background updates in system
+///   settings.
 ///
 /// ## Permission
 ///
-/// To use this feature, you must include it in your permission request:
+/// If available, you must include it in your permission request to use it:
 ///
 /// ```dart
 /// await HealthConnector.requestPermissions([
@@ -30,6 +32,10 @@ part of 'health_platform_feature.dart';
 @immutable
 final class HealthPlatformFeatureReadHealthDataInBackground
     extends HealthPlatformFeature {
+  /// Creates a instance of [HealthPlatformFeatureReadHealthDataInBackground].
+  @internalUse
+  const HealthPlatformFeatureReadHealthDataInBackground();
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

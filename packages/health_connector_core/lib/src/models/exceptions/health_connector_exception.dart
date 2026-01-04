@@ -6,36 +6,16 @@ import 'package:meta/meta.dart' show immutable;
 
 /// Sealed exception class for all health connector plugin errors.
 ///
-/// Use the specific subclasses to create exceptions with the appropriate error
-/// code automatically assigned. Each subclass corresponds to a specific
-/// [HealthConnectorErrorCode].
-///
-/// Example:
-/// ```dart
-/// try {
-///   await HealthConnector.requestPermissions([...]);
-/// } on HealthPlatformNotInstalledOrUpdateRequiredException {
-///   // Prompt user to install Health Connect (Android Health Connect Only)
-/// } on NotAuthorizedException {
-///   // Handle permission denial
-/// } on HealthConnectorException catch (e) {
-///   // Handle generic health connector errors
-///   print('Error: ${e.message}, Code: ${e.code}');
-/// } catch (e) {
-///   // Handle other unknown errors
-/// }
-/// ```
-///
 /// {@category Exceptions}
 @sinceV1_0_0
 @immutable
 sealed class HealthConnectorException implements Exception {
-  /// Creates a [HealthConnectorException] with the given [code], [message],
-  /// optional [cause] and [stackTrace].
+  /// Creates a [HealthConnectorException].
   ///
-  /// The [code] identifies the type of error.
-  /// The [message] should describe what went wrong in user-friendly terms.
-  /// The [cause] contains the underlying error that triggered this exception.
+  /// ## Parameters
+  /// - [code]: The error code identifying the type of error.
+  /// - [message]: A human-readable description of the error.
+  /// - [cause]: The underlying cause of this exception, if any.
   const HealthConnectorException(
     this.code,
     this.message, {
@@ -45,6 +25,12 @@ sealed class HealthConnectorException implements Exception {
 
   /// Creates a specific [HealthConnectorException] subclass based on the
   /// provided [code].
+  ///
+  /// ## Parameters
+  /// - [code]: The error code identifying the type of error.
+  /// - [message]: A human-readable description of the error.
+  /// - [cause]: The underlying cause of this exception, if any.
+  /// - [stackTrace]: The stack trace of this exception, if any.
   @sinceV2_0_0
   factory HealthConnectorException.fromCode(
     HealthConnectorErrorCode code,
@@ -136,11 +122,18 @@ sealed class HealthConnectorException implements Exception {
   @override
   String toString() {
     final buffer = StringBuffer(
-      'HealthConnectorException [${code.code}]: $message',
+      'HealthConnectorException(code=${code.code}, message=$message',
     );
+
     if (cause != null) {
-      buffer.write('\n  Caused by: $cause');
+      buffer.write(', cause=$cause');
     }
+
+    if (stackTrace != null) {
+      buffer.write(', stackTrace=$stackTrace');
+    }
+
+    buffer.write(')');
 
     return buffer.toString();
   }
@@ -148,16 +141,9 @@ sealed class HealthConnectorException implements Exception {
 
 /// Exception thrown when the health platform needs to be installed or updated.
 ///
-/// **Platform:** Android Health Connect Only. On iOS Apple Health is
-/// pre-installed.
+/// ## See Also
 ///
-/// **Causes:**
-/// - Health Connect app is not installed.
-/// - Health Connect app is outdated and requires an update.
-///
-/// **Action:**
-/// - Prompt the user to install or update Health Connect from the Play Store.
-/// - Provide a direct link.
+/// - [HealthConnectorErrorCode.healthPlatformNotInstalledOrUpdateRequired]
 ///
 /// {@category Exceptions}
 @sinceV2_0_0
@@ -179,15 +165,9 @@ final class HealthPlatformNotInstalledOrUpdateRequiredException
 
 /// Exception thrown when the health platform is unavailable on this device.
 ///
-/// **Causes:**
-/// - Device does not support health API (Android < SDK 28, unsupported iPad).
-/// - Enterprise policy (MDM) or parental controls block access.
-/// - Health service is explicitly disabled by the system.
-/// - Device is in a restricted profile (Android work profile).
+/// ## See Also
 ///
-/// **Action:**
-/// - Inform the user that health features are not available on their device.
-/// - Gracefully disable health-related functionality.
+/// - [HealthConnectorErrorCode.healthPlatformUnavailable]
 ///
 /// {@category Exceptions}
 @sinceV2_0_0
@@ -210,13 +190,9 @@ final class HealthPlatformUnavailableException
 /// Exception thrown when an API not supported by the current platform or
 /// version is used.
 ///
-/// **Causes:**
-/// - Calling an Android-specific API on iOS (or vice versa).
-/// - Requesting a data type unsupported by the current SDK version.
+/// ## See Also
 ///
-/// **Action:**
-/// - Check platform/version before calling the API.
-/// - This error should not occur in production if properly guarded.
+/// - [HealthConnectorErrorCode.unsupportedOperation]
 ///
 /// {@category Exceptions}
 @sinceV2_0_0
@@ -237,15 +213,9 @@ final class UnsupportedOperationException extends HealthConnectorException {
 
 /// Exception thrown when the app configuration is missing or invalid.
 ///
-/// **Causes:**
-/// - Android: Missing permissions in `AndroidManifest.xml`.
-/// - Android: Missing Play Console health data declarations.
-/// - iOS: Missing HealthKit entitlement in Signing & Capabilities.
-/// - iOS: Missing usage description keys in `Info.plist`.
+/// ## See Also
 ///
-/// **Action:**
-/// - Check build logs and fix the app configuration.
-/// - This error should not occur in production if properly configured.
+/// - [HealthConnectorErrorCode.invalidConfiguration]
 ///
 /// {@category Exceptions}
 @sinceV2_0_0
@@ -266,14 +236,9 @@ final class InvalidConfigurationException extends HealthConnectorException {
 
 /// Exception thrown when an invalid argument is provided to the API.
 ///
-/// **Causes:**
-/// - `startTime` is after `endTime`.
-/// - Value out of valid range (e.g., negative step count).
-/// - Record ID does not exist (delete/update operations).
+/// ## See Also
 ///
-/// **Action:**
-/// - Validate inputs before calling the plugin.
-/// - Refresh local record ID cache before delete/update operations.
+/// - [HealthConnectorErrorCode.invalidArgument]
 ///
 /// {@category Exceptions}
 @sinceV2_0_0
@@ -295,16 +260,9 @@ final class InvalidArgumentException extends HealthConnectorException {
 /// Exception thrown when access to health data was denied or not yet
 /// authorized.
 ///
-/// **Causes:**
-/// - Permissions have not been requested yet.
-/// - User denied permissions in the system dialog.
-/// - Permissions were revoked via system settings.
+/// ## See Also
 ///
-/// **Action:**
-/// - If not yet requested: Trigger the permission request flow.
-/// - If denied: Explain why the feature needs access and guide user to
-///   settings.
-/// - Respect user choice; avoid repeated prompting.
+/// - [HealthConnectorErrorCode.notAuthorized]
 ///
 /// {@category Exceptions}
 @sinceV2_0_0
@@ -325,15 +283,9 @@ final class NotAuthorizedException extends HealthConnectorException {
 
 /// Exception thrown when a transient I/O or communication error occurred.
 ///
-/// **Causes:**
-/// - Temporary disk I/O failure.
-/// - Inter-process communication (IPC) interrupted.
-/// - Background service temporarily unreachable.
-/// - Too many read/write operations in a short time window (Android Health Connect Only).
+/// ## See Also
 ///
-/// **Action:**
-/// - Retry with exponential backoff (e.g., 1s → 2s → 4s, max 30s).
-/// - These issues typically resolve quickly without user intervention.
+/// - [HealthConnectorErrorCode.remoteError]
 ///
 /// {@category Exceptions}
 @sinceV2_0_0
@@ -354,15 +306,9 @@ final class RemoteErrorException extends HealthConnectorException {
 
 /// Exception thrown when an unknown or unexpected error occurred.
 ///
-/// **Causes:**
-/// - Unmapped native error code.
-/// - Internal platform bug.
-/// - New error type from SDK update.
+/// ## See Also
 ///
-/// **Action:**
-/// - Log the full error details for investigation.
-/// - Show a generic "Something went wrong" message to the user.
-/// - Report to crash analytics.
+/// - [HealthConnectorErrorCode.unknown]
 ///
 /// {@category Exceptions}
 @sinceV2_0_0

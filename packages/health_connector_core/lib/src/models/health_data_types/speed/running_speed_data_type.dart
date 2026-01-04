@@ -28,7 +28,7 @@ part of '../health_data_type.dart';
 @immutable
 final class RunningSpeedDataType
     extends SpeedActivityHealthDataType<RunningSpeedRecord> {
-  ///Creates a running speed data type.
+  /// Creates a running speed data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].

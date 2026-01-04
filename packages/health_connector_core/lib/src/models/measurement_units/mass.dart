@@ -13,7 +13,12 @@ final class Mass extends MeasurementUnit implements Comparable<Mass> {
 
   /// Creates a mass from a value in kilograms.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The mass value in kilograms.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final mass = Mass.kilograms(70.5);
   /// print(mass.inKilograms); // 70.5
@@ -22,7 +27,12 @@ final class Mass extends MeasurementUnit implements Comparable<Mass> {
 
   /// Creates a mass from a value in grams.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The mass value in grams.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final mass = Mass.grams(70500);
   /// print(mass.inKilograms); // 70.5
@@ -31,7 +41,12 @@ final class Mass extends MeasurementUnit implements Comparable<Mass> {
 
   /// Creates a mass from a value in pounds.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The mass value in pounds.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final mass = Mass.pounds(155.4);
   /// print(mass.inKilograms); // ~70.5
@@ -40,7 +55,12 @@ final class Mass extends MeasurementUnit implements Comparable<Mass> {
 
   /// Creates a mass from a value in ounces.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The mass value in ounces.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final mass = Mass.ounces(2487.0);
   /// print(mass.inKilograms); // ~70.5
@@ -71,7 +91,8 @@ final class Mass extends MeasurementUnit implements Comparable<Mass> {
 
   /// Returns the mass in kilograms.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final mass = Mass.pounds(155.4);
   /// print(mass.inKilograms); // ~70.5
@@ -80,7 +101,8 @@ final class Mass extends MeasurementUnit implements Comparable<Mass> {
 
   /// Returns the mass in grams.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final mass = Mass.kilograms(70.5);
   /// print(mass.inGrams); // 70500.0
@@ -89,7 +111,8 @@ final class Mass extends MeasurementUnit implements Comparable<Mass> {
 
   /// Returns the mass in pounds.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final mass = Mass.kilograms(70.5);
   /// print(mass.inPounds); // ~155.42
@@ -98,7 +121,8 @@ final class Mass extends MeasurementUnit implements Comparable<Mass> {
 
   /// Returns the mass in ounces.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final mass = Mass.kilograms(70.5);
   /// print(mass.inOunces); // ~2487.0
@@ -107,7 +131,8 @@ final class Mass extends MeasurementUnit implements Comparable<Mass> {
 
   /// Adds two masses together.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final m1 = Mass.kilograms(50.0);
   /// final m2 = Mass.kilograms(20.5);
@@ -118,7 +143,8 @@ final class Mass extends MeasurementUnit implements Comparable<Mass> {
 
   /// Subtracts one mass from another.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final m1 = Mass.kilograms(70.5);
   /// final m2 = Mass.kilograms(20.0);

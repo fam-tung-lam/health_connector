@@ -53,7 +53,7 @@ void main() {
                   dataType: HealthDataType.weight,
                   accessType: HealthDataPermissionAccessType.write,
                 ),
-                HealthPlatformFeaturePermission(
+                const HealthPlatformFeaturePermission(
                   HealthPlatformFeature.readHealthDataInBackground,
                 ),
               ];

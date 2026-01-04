@@ -2,22 +2,16 @@ part of 'permission.dart';
 
 /// Represents a permission request for a platform feature.
 ///
-/// [HealthPlatformFeaturePermission] wraps a [HealthPlatformFeature] to enable
-/// permission checking and requesting for feature-dependent functionality.
-/// While features represent capabilities, feature permissions represent the
-/// authorization to use those capabilities.
-///
-/// **Platform:** Android Health Connect Only (Android Health Connect).
-/// On iOS feature permissions are always granted.
-///
 /// {@category Permissions}
 @sinceV1_0_0
 @immutable
 final class HealthPlatformFeaturePermission extends Permission {
   /// Creates a permission for the specified [feature].
   ///
-  /// The [feature] parameter specifies which platform feature this
-  /// permission is for.
+  /// ## Parameters
+  ///
+  /// - [feature]: The platform feature this permission is for.
+  @internalUse
   const HealthPlatformFeaturePermission(this.feature);
 
   /// The feature that this permission is for.

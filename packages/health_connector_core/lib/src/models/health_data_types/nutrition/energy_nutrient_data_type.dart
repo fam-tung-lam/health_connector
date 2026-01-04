@@ -38,7 +38,7 @@ final class EnergyNutrientDataType
         DeletableHealthDataType<EnergyNutrientRecord> {
   /// Creates a energy (calories) nutrient data type.
   ///
-  ///This is a constant constructor used internally. To reference this data
+  /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
   const EnergyNutrientDataType();

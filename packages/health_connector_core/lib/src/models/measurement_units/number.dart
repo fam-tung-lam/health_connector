@@ -10,6 +10,10 @@ part of 'measurement_unit.dart';
 @immutable
 final class Number extends MeasurementUnit implements Comparable<Number> {
   /// Creates a number with the given value.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The numeric value.
   const Number(this.value);
 
   /// The numeric value.

@@ -4,9 +4,6 @@ import 'package:meta/meta.dart' show immutable, internal;
 
 /// Base abstract class for all response types.
 ///
-/// This class provides a common interface for all response objects in the
-/// health connector API. All response classes should extend this base class.
-///
 /// ## Example
 ///
 /// ```dart

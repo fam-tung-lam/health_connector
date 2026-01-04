@@ -14,7 +14,12 @@ final class Pressure extends MeasurementUnit implements Comparable<Pressure> {
   ///
   /// This is the standard unit for blood pressure measurements.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The pressure value in millimeters of mercury.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final pressure = Pressure.millimetersOfMercury(120);
   /// print(pressure.inMillimetersOfMercury); // 120.0
@@ -24,7 +29,12 @@ final class Pressure extends MeasurementUnit implements Comparable<Pressure> {
 
   /// Creates a pressure from a value in pascals.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The pressure value in pascals.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final pressure = Pressure.pascals(15998.7);
   /// print(pressure.inMillimetersOfMercury); // ~120.0
@@ -50,7 +60,8 @@ final class Pressure extends MeasurementUnit implements Comparable<Pressure> {
   ///
   /// This is the standard unit for blood pressure.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final pressure = Pressure.pascals(15998.7);
   /// print(pressure.inMillimetersOfMercury); // ~120.0
@@ -59,7 +70,8 @@ final class Pressure extends MeasurementUnit implements Comparable<Pressure> {
 
   /// Returns the pressure in pascals.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final pressure = Pressure.millimetersOfMercury(120);
   /// print(pressure.inPascals); // ~15998.7

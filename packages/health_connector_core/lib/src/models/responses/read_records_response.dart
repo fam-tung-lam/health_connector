@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart' show ListEquality;
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV2_0_0;
+    show sinceV2_0_0, internalUse;
 import 'package:health_connector_core/src/models/health_records/health_record.dart'
     show HealthRecord;
 import 'package:health_connector_core/src/models/requests/read_records_request.dart'
@@ -25,6 +25,12 @@ sealed class ReadRecordsResponse<R extends HealthRecord> extends Response {
 final class ReadRecordsInTimeRangeResponse<R extends HealthRecord>
     extends ReadRecordsResponse {
   /// Creates a read records response.
+  ///
+  /// ## Parameters
+  ///
+  /// - [records]: The list of health records in this page.
+  /// - [nextPageRequest]: Request for fetching the next page of records.
+  @internalUse
   const ReadRecordsInTimeRangeResponse({
     required this.records,
     this.nextPageRequest,
@@ -45,7 +51,7 @@ final class ReadRecordsInTimeRangeResponse<R extends HealthRecord>
   /// ## Example
   ///
   /// ```dart
-  /// if (response.hasMorePages) {
+  /// if (response.nextPageRequest != null) {
   ///   final nextPage = await connector.readRecords(response.nextPageRequest!);
   /// }
   /// ```

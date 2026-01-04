@@ -21,11 +21,6 @@ import 'package:meta/meta.dart' show immutable;
 sealed class AggregateRequest<R extends HealthRecord, U extends MeasurementUnit>
     extends Request {
   /// The type of health data to aggregate.
-  ///
-  /// This determines:
-  /// - Which health record (R) are considered in the aggregation
-  /// - The type of the aggregated value (V)
-  /// - Which aggregation operations are supported
   final HealthDataType<R, U> dataType;
 
   /// The type of aggregation to perform.
@@ -98,6 +93,7 @@ final class CommonAggregateRequest<
   /// - [endTime]: Exclusive end of the time range
   ///
   /// ## Throws
+  ///
   /// - [ArgumentError] if [endTime] before [startTime]
   /// - [ArgumentError] if [dataType] does not support [aggregationMetric]
   CommonAggregateRequest({

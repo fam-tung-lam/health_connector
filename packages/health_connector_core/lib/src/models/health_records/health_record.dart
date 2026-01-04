@@ -101,7 +101,7 @@ part 'nutrition/vitamin_e_nutrient_record.dart';
 part 'nutrition/vitamin_k_nutrient_record.dart';
 part 'nutrition/vitamin_nutrient_record.dart';
 part 'nutrition/zinc_nutrient_record.dart';
-part 'ovulation_test_record.dart';
+part 'menstruation/ovulation_test_record.dart';
 part 'oxygen_saturation_record.dart';
 part 'power/cycling_power_record.dart';
 part 'power/power_series_record.dart';
@@ -190,7 +190,8 @@ final class HealthRecordId {
   ///
   /// The [value] must not be empty. Throws [ArgumentError] if [value] is empty.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// // Valid - platform-assigned UUID
   /// final id = HealthRecordId('550e8400-e29b-41d4-a716-446655440000');
@@ -220,7 +221,8 @@ final class HealthRecordId {
   /// the platform yet. The platform will assign an actual ID when the record
   /// is written.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final newRecord = StepsRecord(
   ///   id: HealthRecordId.none, // Indicates this is a new record

@@ -14,7 +14,12 @@ final class Temperature extends MeasurementUnit
 
   /// Creates a temperature from a value in Celsius.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The temperature value in Celsius.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final temp = Temperature.celsius(36.5);
   /// print(temp.inCelsius); // 36.5
@@ -23,7 +28,12 @@ final class Temperature extends MeasurementUnit
 
   /// Creates a temperature from a value in Fahrenheit.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The temperature value in Fahrenheit.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final temp = Temperature.fahrenheit(97.7);
   /// print(temp.inCelsius); // ~36.5
@@ -36,7 +46,12 @@ final class Temperature extends MeasurementUnit
 
   /// Creates a temperature from a value in Kelvin.
   ///
-  /// Example:
+  /// ## Parameters
+  ///
+  /// - [value]: The temperature value in Kelvin.
+  ///
+  /// ## Example
+  ///
   /// ```dart
   /// final temp = Temperature.kelvin(309.65);
   /// print(temp.inCelsius); // ~36.5
@@ -70,7 +85,8 @@ final class Temperature extends MeasurementUnit
 
   /// Returns the temperature in Celsius.
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final temp = Temperature.fahrenheit(98.6);
   /// print(temp.inCelsius); // 37.0
@@ -81,7 +97,8 @@ final class Temperature extends MeasurementUnit
   ///
   /// Formula: °F = °C × 9/5 + 32
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final temp = Temperature.celsius(37.0);
   /// print(temp.inFahrenheit); // 98.6
@@ -96,7 +113,8 @@ final class Temperature extends MeasurementUnit
   ///
   /// Formula: K = °C + 273.15
   ///
-  /// Example:
+  /// ## Example
+  ///
   /// ```dart
   /// final temp = Temperature.celsius(0);
   /// print(temp.inKelvin); // 273.15
