@@ -12,40 +12,12 @@ import 'package:health_connector_logger/health_connector_logger.dart';
 /// Main entry point for interacting with platform-specific health APIs.
 ///
 /// Provides a unified interface for accessing health and fitness data across
-/// iOS HealthKit and Android Health Connect. This class handles permission
-/// management, data reading/writing, aggregations, and record operations.
+/// multiple health platforms.
 ///
-/// ## Platform Support
+/// ## Supported Health Platforms
 ///
 /// - **iOS**: Uses Apple HealthKit Framework
-/// - **Android**: Uses GoogleHealth Connect SDK
-///
-/// ## Getting Started
-///
-/// Create a [HealthConnector] instance using [HealthConnector.create]:
-///
-/// ```dart
-/// // Create connector with default configuration
-/// final connector = await HealthConnector.create();
-///
-/// // Request permissions
-/// final permissions = [
-///   HealthDataType.steps.readPermission,
-///   HealthDataType.heartRate.readPermission,
-/// ];
-/// final results = await connector.requestPermissions(permissions);
-///
-/// // Read health data
-/// final request = HealthDataType.steps.readInTimeRange(
-///   startTime: DateTime.now().subtract(Duration(days: 7)),
-///   endTime: DateTime.now(),
-/// );
-/// final response = await connector.readRecords(request);
-///
-/// for (final record in response.records) {
-///   print('Steps: ${record.count.value}');
-/// }
-/// ```
+/// - **Android**: Uses Google Health Connect SDK
 ///
 /// ## Core Capabilities
 ///
@@ -55,13 +27,6 @@ import 'package:health_connector_logger/health_connector_logger.dart';
 /// - **Aggregations**: Compute sums, averages, min/max over time ranges
 /// - **Record Updates**: Modify existing records (Android Health Connect Only)
 /// - **Data Deletion**: Remove records by ID or time range
-///
-/// ## Key Types
-///
-/// - [HealthDataType]: Enumeration of supported health metrics
-/// - [HealthRecord]: Base class for all health data records
-/// - [Permission]: Base class for data and feature permissions
-/// - [HealthConnectorConfig]: Configuration options for the connector
 ///
 /// ## See Also
 ///
@@ -78,9 +43,8 @@ abstract interface class HealthConnector {
   /// Creates a new [HealthConnector] instance.
   ///
   /// This factory ensures that the instance is properly configured for the
-  /// current platform (iOS HealthKit or Android Health Connect).
-  /// The factory automatically detects the platform and verifies health
-  /// service availability before creating the instance.
+  /// current health platform. The factory automatically detects the platform
+  /// and verifies health service availability before creating the instance.
   ///
   /// ## Parameters
   ///
@@ -106,10 +70,7 @@ abstract interface class HealthConnector {
   /// ## Example
   ///
   /// ```dart
-  /// // Create with default configuration
-  /// final connector = await HealthConnector.create();
-  ///
-  /// // Create with custom configuration
+  /// // Create with configuration
   /// final connectorWithLogging = await HealthConnector.create(
   ///   HealthConnectorConfig(isLoggerEnabled: true),
   /// );
@@ -339,13 +300,34 @@ abstract interface class HealthConnector {
   ///
   /// This value is determined during connector creation and remains constant
   /// for the lifetime of the instance.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final connector = await HealthConnector.create();
+  /// print('Using: ${connector.healthPlatform}');
+  /// // iOS: HealthPlatform.appleHealth
+  /// // Android: HealthPlatform.healthConnect
+  /// ```
   HealthPlatform get healthPlatform;
 
   /// The configuration used by this connector.
   ///
   /// Contains settings such as logger enablement and other connector
-  /// behavior options. See [HealthConnectorConfig] for available
-  /// configuration options.
+  /// behavior options.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final connector = await HealthConnector.create(
+  ///   HealthConnectorConfig(isLoggerEnabled: true),
+  /// );
+  /// print('Logger enabled: ${connector.config.isLoggerEnabled}');
+  /// ```
+  ///
+  /// ## See Also
+  ///
+  /// - [HealthConnectorConfig] for available configuration options
   HealthConnectorConfig get config;
 
   /// Requests the specified permissions from the health platform.
@@ -628,6 +610,7 @@ abstract interface class HealthConnector {
   ///   print('Record not found');
   /// }
   /// ```
+  @sinceV1_0_0
   Future<R?> readRecord<R extends HealthRecord>(
     ReadRecordByIdRequest<R> request,
   );
@@ -706,7 +689,7 @@ abstract interface class HealthConnector {
   ///   id: HealthRecordId.none, // Must be none for new records
   ///   startTime: DateTime.now().subtract(Duration(hours: 1)),
   ///   endTime: DateTime.now(),
-  ///   count: Numeric(1234),
+  ///   count: Number(1234),
   ///   metadata: Metadata.automaticallyRecorded(
   ///     device: Device.fromType(DeviceType.phone),
   ///   ),
@@ -751,7 +734,7 @@ abstract interface class HealthConnector {
   ///   StepsRecord(
   ///     startTime: DateTime(2024, 1, 1, 9, 0),
   ///     endTime: DateTime(2024, 1, 1, 10, 0),
-  ///     count: Numeric(1200),
+  ///     count: Number(1200),
   ///     metadata: Metadata.automaticallyRecorded(
   ///       device: Device.fromType(DeviceType.phone),
   ///     ),
@@ -759,7 +742,7 @@ abstract interface class HealthConnector {
   ///   StepsRecord(
   ///     startTime: DateTime(2024, 1, 1, 10, 0),
   ///     endTime: DateTime(2024, 1, 1, 11, 0),
-  ///     count: Numeric(1500),
+  ///     count: Number(1500),
   ///     metadata: Metadata.automaticallyRecorded(
   ///       device: Device.fromType(DeviceType.phone),
   ///     ),
@@ -802,7 +785,7 @@ abstract interface class HealthConnector {
   /// );
   /// final response = await connector.aggregate(request);
   ///
-  /// print('Total steps: ${response.value.value}'); // response.value is Numeric
+  /// print('Total steps: ${response.value}'); // response is Number
   /// ```
   Future<U> aggregate<R extends HealthRecord, U extends MeasurementUnit>(
     AggregateRequest<R, U> request,
@@ -909,7 +892,7 @@ abstract interface class HealthConnector {
   /// if (existingRecord != null && existingRecord is StepsRecord) {
   ///   // Modify the record
   ///   final updatedRecord = existingRecord.copyWith(
-  ///     count: Numeric(existingRecord.count.value + 500),
+  ///     count: Number(existingRecord.count.value + 500),
   ///   );
   ///
   ///   // Update the record (Android Health Connect Only)
@@ -953,7 +936,7 @@ abstract interface class HealthConnector {
   ///   id: HealthRecordId.none,
   ///   startTime: record.startTime,
   ///   endTime: record.endTime,
-  ///   count: Numeric(newStepCount),
+  ///   count: Number(newStepCount),
   ///   metadata: record.metadata,
   /// )).toList();
   ///
@@ -973,7 +956,7 @@ abstract interface class HealthConnector {
   /// final updatedRecords = records.map((record) {
   ///   if (record is StepsRecord) {
   ///     return record.copyWith(
-  ///       count: Numeric(record.count.value + 1000),
+  ///       count: Number(record.count.value + 1000),
   ///     );
   ///   }
   ///   return record;
