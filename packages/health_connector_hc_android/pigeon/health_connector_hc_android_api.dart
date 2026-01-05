@@ -2182,14 +2182,6 @@ class PermissionRequestsDto {
   final List<PermissionRequestDto> permissionRequests;
 }
 
-/// Represents the response from a permissions request.
-class PermissionRequestsResponseDto {
-  PermissionRequestsResponseDto(this.permissionResults);
-
-  /// Results for each permission that was requested.
-  final List<PermissionRequestResultDto> permissionResults;
-}
-
 /// Aggregation metric types for health data queries.
 enum AggregationMetricDto {
   /// Average (mean) value across all data points.
@@ -2379,12 +2371,12 @@ abstract class HealthConnectorHCAndroidApi {
   HealthPlatformStatusDto getHealthPlatformStatus();
 
   @async
-  PermissionRequestsResponseDto requestPermissions(
+  List<PermissionRequestResultDto> requestPermissions(
     PermissionRequestsDto request,
   );
 
   @async
-  PermissionRequestsResponseDto getGrantedPermissions();
+  List<PermissionRequestResultDto> getGrantedPermissions();
 
   @async
   void revokeAllPermissions();

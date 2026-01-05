@@ -3149,14 +3149,6 @@ class PermissionsRequestDto {
   final List<HealthDataPermissionDto> healthDataPermissions;
 }
 
-/// Represents the response from a permissions request.
-class PermissionsRequestResponseDto {
-  PermissionsRequestResponseDto(this.healthDataPermissionResults);
-
-  /// Results for each health data permission that was requested.
-  final List<HealthDataPermissionRequestResultDto> healthDataPermissionResults;
-}
-
 /// Aggregation metric types for health data queries.
 enum AggregationMetricDto {
   /// Average (mean) value across all data points.
@@ -3304,7 +3296,7 @@ abstract class HealthConnectorHKIOSApi {
   HealthPlatformStatusDto getHealthPlatformStatus();
 
   @async
-  PermissionsRequestResponseDto requestPermissions(
+  List<HealthDataPermissionRequestResultDto> requestPermissions(
     PermissionsRequestDto request,
   );
 

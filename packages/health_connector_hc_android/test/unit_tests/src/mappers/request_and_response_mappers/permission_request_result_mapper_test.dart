@@ -1,37 +1,35 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
-import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/permissions_request_response_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/permission_request_result_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
 import 'package:test/test.dart';
 
 void main() {
   group(
-    'PermissionsRequestResponseMapper',
+    'PermissionRequestResultMapper',
     () {
       group(
-        'PermissionsRequestResponseDtoToDomain',
+        'PermissionRequestResultDtoToDomain',
         () {
           test(
-            'maps PermissionRequestsResponseDto with '
-            'HealthDataPermissionRequestResultDto to PermissionRequestResult',
+            'maps HealthDataPermissionRequestResultDto to '
+            'PermissionRequestResult',
             () {
-              final dto = PermissionRequestsResponseDto(
-                permissionResults: [
-                  HealthDataPermissionRequestResultDto(
-                    permission: HealthDataPermissionRequestDto(
-                      healthDataType: HealthDataTypeDto.steps,
-                      accessType: PermissionAccessTypeDto.read,
-                    ),
-                    status: PermissionStatusDto.granted,
+              final dto = [
+                HealthDataPermissionRequestResultDto(
+                  permission: HealthDataPermissionRequestDto(
+                    healthDataType: HealthDataTypeDto.steps,
+                    accessType: PermissionAccessTypeDto.read,
                   ),
-                  HealthDataPermissionRequestResultDto(
-                    permission: HealthDataPermissionRequestDto(
-                      healthDataType: HealthDataTypeDto.weight,
-                      accessType: PermissionAccessTypeDto.write,
-                    ),
-                    status: PermissionStatusDto.denied,
+                  status: PermissionStatusDto.granted,
+                ),
+                HealthDataPermissionRequestResultDto(
+                  permission: HealthDataPermissionRequestDto(
+                    healthDataType: HealthDataTypeDto.weight,
+                    accessType: PermissionAccessTypeDto.write,
                   ),
-                ],
-              );
+                  status: PermissionStatusDto.denied,
+                ),
+              ];
 
               final results = dto.toDomain();
 
@@ -64,19 +62,15 @@ void main() {
           );
 
           test(
-            'maps PermissionRequestsResponseDto with '
-            'HealthPlatformFeaturePermissionRequestResultDto to '
+            'maps HealthPlatformFeaturePermissionRequestResultDto to '
             'PermissionRequestResult',
             () {
-              final dto = PermissionRequestsResponseDto(
-                permissionResults: [
-                  HealthPlatformFeaturePermissionRequestResultDto(
-                    feature:
-                        HealthPlatformFeatureDto.readHealthDataInBackground,
-                    status: PermissionStatusDto.granted,
-                  ),
-                ],
-              );
+              final dto = [
+                HealthPlatformFeaturePermissionRequestResultDto(
+                  feature: HealthPlatformFeatureDto.readHealthDataInBackground,
+                  status: PermissionStatusDto.granted,
+                ),
+              ];
 
               final results = dto.toDomain();
 
@@ -96,24 +90,22 @@ void main() {
           );
 
           test(
-            'maps PermissionRequestsResponseDto with mixed permission results',
+            'maps mixed permission result DTOs to '
+            'PermissionRequestResult',
             () {
-              final dto = PermissionRequestsResponseDto(
-                permissionResults: [
-                  HealthDataPermissionRequestResultDto(
-                    permission: HealthDataPermissionRequestDto(
-                      healthDataType: HealthDataTypeDto.steps,
-                      accessType: PermissionAccessTypeDto.read,
-                    ),
-                    status: PermissionStatusDto.granted,
+              final dto = [
+                HealthDataPermissionRequestResultDto(
+                  permission: HealthDataPermissionRequestDto(
+                    healthDataType: HealthDataTypeDto.steps,
+                    accessType: PermissionAccessTypeDto.read,
                   ),
-                  HealthPlatformFeaturePermissionRequestResultDto(
-                    feature:
-                        HealthPlatformFeatureDto.readHealthDataInBackground,
-                    status: PermissionStatusDto.denied,
-                  ),
-                ],
-              );
+                  status: PermissionStatusDto.granted,
+                ),
+                HealthPlatformFeaturePermissionRequestResultDto(
+                  feature: HealthPlatformFeatureDto.readHealthDataInBackground,
+                  status: PermissionStatusDto.denied,
+                ),
+              ];
 
               final results = dto.toDomain();
 

@@ -57,7 +57,7 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchec
         case .unsupportedOperation: "UNSUPPORTED_OPERATION"
         case .unknown: "UNKNOWN_ERROR"
         case .notAuthorized: "NOT_AUTHORIZED"
-        case .userCancelled: "NOT_AUTHORIZED"
+        case .userCancelled: "NOT_AUTHORIZED" // Treats user cancellation as not authorized
         }
     }
 

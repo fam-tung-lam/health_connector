@@ -3718,39 +3718,6 @@ data class PermissionRequestsDto (
 }
 
 /**
- * Represents the response from a permissions request.
- *
- * Generated class from Pigeon that represents data sent in messages.
- */
-data class PermissionRequestsResponseDto (
-  /** Results for each permission that was requested. */
-  val permissionResults: List<PermissionRequestResultDto>
-)
- {
-  companion object {
-    fun fromList(pigeonVar_list: List<Any?>): PermissionRequestsResponseDto {
-      val permissionResults = pigeonVar_list[0] as List<PermissionRequestResultDto>
-      return PermissionRequestsResponseDto(permissionResults)
-    }
-  }
-  fun toList(): List<Any?> {
-    return listOf(
-      permissionResults,
-    )
-  }
-  override fun equals(other: Any?): Boolean {
-    if (other !is PermissionRequestsResponseDto) {
-      return false
-    }
-    if (this === other) {
-      return true
-    }
-    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
-
-  override fun hashCode(): Int = toList().hashCode()
-}
-
-/**
  * Sealed class for all aggregation request DTOs.
  *
  * Generated class from Pigeon that represents data sent in messages.
@@ -4492,40 +4459,35 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       214.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PermissionRequestsResponseDto.fromList(it)
+          CommonAggregateRequestDto.fromList(it)
         }
       }
       215.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          CommonAggregateRequestDto.fromList(it)
+          BloodPressureAggregateRequestDto.fromList(it)
         }
       }
       216.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BloodPressureAggregateRequestDto.fromList(it)
+          DeleteRecordsByIdsRequestDto.fromList(it)
         }
       }
       217.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByIdsRequestDto.fromList(it)
+          DeleteRecordsByTimeRangeRequestDto.fromList(it)
         }
       }
       218.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByTimeRangeRequestDto.fromList(it)
+          ReadRecordRequestDto.fromList(it)
         }
       }
       219.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordRequestDto.fromList(it)
-        }
-      }
-      220.toByte() -> {
-        return (readValue(buffer) as? List<Any?>)?.let {
           ReadRecordsRequestDto.fromList(it)
         }
       }
-      221.toByte() -> {
+      220.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
           ReadRecordsResponseDto.fromList(it)
         }
@@ -4875,36 +4837,32 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(213)
         writeValue(stream, value.toList())
       }
-      is PermissionRequestsResponseDto -> {
+      is CommonAggregateRequestDto -> {
         stream.write(214)
         writeValue(stream, value.toList())
       }
-      is CommonAggregateRequestDto -> {
+      is BloodPressureAggregateRequestDto -> {
         stream.write(215)
         writeValue(stream, value.toList())
       }
-      is BloodPressureAggregateRequestDto -> {
+      is DeleteRecordsByIdsRequestDto -> {
         stream.write(216)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByIdsRequestDto -> {
+      is DeleteRecordsByTimeRangeRequestDto -> {
         stream.write(217)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByTimeRangeRequestDto -> {
+      is ReadRecordRequestDto -> {
         stream.write(218)
         writeValue(stream, value.toList())
       }
-      is ReadRecordRequestDto -> {
+      is ReadRecordsRequestDto -> {
         stream.write(219)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsRequestDto -> {
-        stream.write(220)
-        writeValue(stream, value.toList())
-      }
       is ReadRecordsResponseDto -> {
-        stream.write(221)
+        stream.write(220)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)
@@ -4931,8 +4889,8 @@ interface HealthConnectorHCAndroidApi {
   fun deleteRecords(request: DeleteRecordsRequestDto, callback: (Result<Unit>) -> Unit)
   fun getFeatureStatus(feature: HealthPlatformFeatureDto, callback: (Result<HealthPlatformFeatureStatusDto>) -> Unit)
   fun getHealthPlatformStatus(callback: (Result<HealthPlatformStatusDto>) -> Unit)
-  fun requestPermissions(request: PermissionRequestsDto, callback: (Result<PermissionRequestsResponseDto>) -> Unit)
-  fun getGrantedPermissions(callback: (Result<PermissionRequestsResponseDto>) -> Unit)
+  fun requestPermissions(request: PermissionRequestsDto, callback: (Result<List<PermissionRequestResultDto>>) -> Unit)
+  fun getGrantedPermissions(callback: (Result<List<PermissionRequestResultDto>>) -> Unit)
   fun revokeAllPermissions(callback: (Result<Unit>) -> Unit)
   fun getPermissionStatus(permission: PermissionRequestDto, callback: (Result<PermissionStatusDto>) -> Unit)
   fun readRecord(request: ReadRecordRequestDto, callback: (Result<HealthRecordDto?>) -> Unit)
@@ -5070,7 +5028,7 @@ interface HealthConnectorHCAndroidApi {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
             val requestArg = args[0] as PermissionRequestsDto
-            api.requestPermissions(requestArg) { result: Result<PermissionRequestsResponseDto> ->
+            api.requestPermissions(requestArg) { result: Result<List<PermissionRequestResultDto>> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
@@ -5088,7 +5046,7 @@ interface HealthConnectorHCAndroidApi {
         val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getGrantedPermissions$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { _, reply ->
-            api.getGrantedPermissions{ result: Result<PermissionRequestsResponseDto> ->
+            api.getGrantedPermissions{ result: Result<List<PermissionRequestResultDto>> ->
               val error = result.exceptionOrNull()
               if (error != null) {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))

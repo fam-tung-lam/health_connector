@@ -5342,34 +5342,6 @@ public struct PermissionsRequestDto: Hashable {
   }
 }
 
-/// Represents the response from a permissions request.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-public struct PermissionsRequestResponseDto: Hashable {
-  /// Results for each health data permission that was requested.
-  var healthDataPermissionResults: [HealthDataPermissionRequestResultDto]
-
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> PermissionsRequestResponseDto? {
-    let healthDataPermissionResults = pigeonVar_list[0] as! [HealthDataPermissionRequestResultDto]
-
-    return PermissionsRequestResponseDto(
-      healthDataPermissionResults: healthDataPermissionResults
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      healthDataPermissionResults
-    ]
-  }
-  public static func == (lhs: PermissionsRequestResponseDto, rhs: PermissionsRequestResponseDto) -> Bool {
-    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
-  public func hash(into hasher: inout Hasher) {
-    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
-  }
-}
-
 /// Request to perform aggregation on health records.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -5939,18 +5911,16 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 241:
       return PermissionsRequestDto.fromList(self.readValue() as! [Any?])
     case 242:
-      return PermissionsRequestResponseDto.fromList(self.readValue() as! [Any?])
-    case 243:
       return AggregateRequestDto.fromList(self.readValue() as! [Any?])
-    case 244:
+    case 243:
       return DeleteRecordsByIdsRequestDto.fromList(self.readValue() as! [Any?])
-    case 245:
+    case 244:
       return DeleteRecordsByTimeRangeRequestDto.fromList(self.readValue() as! [Any?])
-    case 246:
+    case 245:
       return ReadRecordRequestDto.fromList(self.readValue() as! [Any?])
-    case 247:
+    case 246:
       return ReadRecordsRequestDto.fromList(self.readValue() as! [Any?])
-    case 248:
+    case 247:
       return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -6299,26 +6269,23 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? PermissionsRequestDto {
       super.writeByte(241)
       super.writeValue(value.toList())
-    } else if let value = value as? PermissionsRequestResponseDto {
+    } else if let value = value as? AggregateRequestDto {
       super.writeByte(242)
       super.writeValue(value.toList())
-    } else if let value = value as? AggregateRequestDto {
+    } else if let value = value as? DeleteRecordsByIdsRequestDto {
       super.writeByte(243)
       super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByIdsRequestDto {
+    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
       super.writeByte(244)
       super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
+    } else if let value = value as? ReadRecordRequestDto {
       super.writeByte(245)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordRequestDto {
+    } else if let value = value as? ReadRecordsRequestDto {
       super.writeByte(246)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordsRequestDto {
-      super.writeByte(247)
-      super.writeValue(value.toList())
     } else if let value = value as? ReadRecordsResponseDto {
-      super.writeByte(248)
+      super.writeByte(247)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -6349,7 +6316,7 @@ protocol HealthConnectorHKIOSApi {
   func aggregate(request: AggregateRequestDto, completion: @escaping (Result<MeasurementUnitDto, Error>) -> Void)
   func deleteRecords(request: DeleteRecordsRequestDto, completion: @escaping (Result<Void, Error>) -> Void)
   func getHealthPlatformStatus(completion: @escaping (Result<HealthPlatformStatusDto, Error>) -> Void)
-  func requestPermissions(request: PermissionsRequestDto, completion: @escaping (Result<PermissionsRequestResponseDto, Error>) -> Void)
+  func requestPermissions(request: PermissionsRequestDto, completion: @escaping (Result<[HealthDataPermissionRequestResultDto], Error>) -> Void)
   func getPermissionStatus(permission: HealthDataPermissionDto, completion: @escaping (Result<PermissionStatusDto, Error>) -> Void)
   func readRecord(request: ReadRecordRequestDto, completion: @escaping (Result<HealthRecordDto?, Error>) -> Void)
   func readRecords(request: ReadRecordsRequestDto, completion: @escaping (Result<ReadRecordsResponseDto, Error>) -> Void)

@@ -34,6 +34,7 @@ import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers
 import 'package:health_connector_hc_android/src/mappers/permission_mappers/permission_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/permission_mappers/permission_status_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/permission_mappers/permissions_list_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/permission_request_result_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/request_and_response_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show HealthConnectorHCAndroidApi, HealthPlatformStatusDto;
@@ -274,27 +275,27 @@ class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     }
 
     try {
-      final requestDto = permissions.toDto();
-      final responseDto = await _platformClient.requestPermissions(requestDto);
-      final results = responseDto.toDomain();
+      final permissionRequestDtos = permissions.toDto();
 
+      final resultDtos = await _platformClient.requestPermissions(
+        permissionRequestDtos,
+      );
+
+      final results = resultDtos.toDomain();
+
+      // Add all nutrient health data type permissions if there is proper
+      // read or write permission of `HealthDataType.nutrition`.
       final finalResults = _handleNutritionNutrientPermissions(
         requestedPermissions: permissions,
         results: results,
       );
-      final grantedPermissions = finalResults
-          .where((result) => result.status == PermissionStatus.granted)
-          .map((result) => result.permission)
-          .toList();
 
       HealthConnectorLogger.info(
         tag,
         operation: 'requestPermissions',
         message: 'Health Connect permissions requested successfully',
         context: {
-          'granted_health_data_permissions':
-              grantedPermissions.healthDataPermissions,
-          'granted_feature_permissions': grantedPermissions.featurePermissions,
+          'permission_results': finalResults,
         },
       );
 
@@ -346,11 +347,11 @@ class HealthConnectorHCClient implements HealthConnectorPlatformClient {
     );
 
     try {
-      final responseDto = await _platformClient.getGrantedPermissions();
+      final resultDtos = await _platformClient.getGrantedPermissions();
 
-      final results = responseDto.toDomain();
+      final results = resultDtos.toDomain();
 
-      // Filter only granted permissions
+      // Just in case, filter only granted permissions.
       final grantedPermissions = results
           .where((result) => result.status == PermissionStatus.granted)
           .map((result) => result.permission)
