@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:health_connector_logger/health_connector_logger.dart';
-import 'package:health_connector_logger/src/health_connector_logger.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -33,7 +32,7 @@ void main() {
       await Future<void>.delayed(Duration.zero);
 
       expect(logs, hasLength(1));
-      expect(logs[0].level, equals(LogLevel.info));
+      expect(logs[0].level, equals(HealthConnectorLogLevel.info));
       expect(logs[0].tag, equals('TEST'));
       expect(logs[0].operation, equals('testOp'));
       expect(logs[0].message, equals('info message'));
@@ -54,7 +53,7 @@ void main() {
       await Future<void>.delayed(Duration.zero);
 
       expect(logs, hasLength(1));
-      expect(logs[0].level, equals(LogLevel.debug));
+      expect(logs[0].level, equals(HealthConnectorLogLevel.debug));
       expect(logs[0].tag, equals('DEBUG_TAG'));
       expect(logs[0].operation, equals('debugOp'));
 
@@ -74,7 +73,7 @@ void main() {
       await Future<void>.delayed(Duration.zero);
 
       expect(logs, hasLength(1));
-      expect(logs[0].level, equals(LogLevel.warning));
+      expect(logs[0].level, equals(HealthConnectorLogLevel.warning));
       expect(logs[0].tag, equals('WARN'));
       expect(logs[0].operation, equals('warnOp'));
       expect(logs[0].message, equals('warning message'));
@@ -100,7 +99,7 @@ void main() {
       await Future<void>.delayed(Duration.zero);
 
       expect(logs, hasLength(1));
-      expect(logs[0].level, equals(LogLevel.error));
+      expect(logs[0].level, equals(HealthConnectorLogLevel.error));
       expect(logs[0].tag, equals('ERROR'));
       expect(logs[0].operation, equals('errorOp'));
       expect(logs[0].message, equals('error message'));
@@ -291,10 +290,10 @@ void main() {
       await Future<void>.delayed(Duration.zero);
 
       expect(logs, hasLength(4));
-      expect(logs[0].level, equals(LogLevel.debug));
-      expect(logs[1].level, equals(LogLevel.info));
-      expect(logs[2].level, equals(LogLevel.warning));
-      expect(logs[3].level, equals(LogLevel.error));
+      expect(logs[0].level, equals(HealthConnectorLogLevel.debug));
+      expect(logs[1].level, equals(HealthConnectorLogLevel.info));
+      expect(logs[2].level, equals(HealthConnectorLogLevel.warning));
+      expect(logs[3].level, equals(HealthConnectorLogLevel.error));
 
       expect(logs[0].operation, equals('op1'));
       expect(logs[1].operation, equals('op2'));
@@ -325,7 +324,7 @@ void main() {
       expect(logs, hasLength(1));
       final log = logs[0];
 
-      expect(log.level, equals(LogLevel.error));
+      expect(log.level, equals(HealthConnectorLogLevel.error));
       expect(log.tag, equals('ERROR_TAG'));
       expect(log.operation, equals('failedOperation'));
 

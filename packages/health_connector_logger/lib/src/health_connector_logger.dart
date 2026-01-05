@@ -1,20 +1,10 @@
 import 'dart:async' show Stream, StreamController;
-import 'dart:developer' show log;
 
-import 'package:health_connector_logger/src/health_connector_log.dart';
+import 'package:health_connector_logger/src/models/health_connector_log.dart';
+import 'package:health_connector_logger/src/models/health_connector_log_level.dart';
 import 'package:meta/meta.dart' show internal, visibleForTesting;
 
-/// A singleton logger that wraps the `log` function from `dart:developer`.
-///
-/// This logger provides a consistent structured logging interface with
-
-/// information:
-///
-/// - Level (INFO, DEBUG, WARNING, ERROR)
-/// - Tag (Category)
-/// - Operation (Action being performed)
-/// - Timestamp
-/// - Structured data (JSON-like format)
+/// A singleton logger that provides a consistent structured logging mechanism.
 abstract final class HealthConnectorLogger {
   /// Private constructor to prevent instantiation.
   const HealthConnectorLogger._();
@@ -88,7 +78,6 @@ abstract final class HealthConnectorLogger {
   ///
   /// - [tag]: A tag for categorizing the log entry (converted to uppercase).
   /// - [operation]: The operation being performed.
-
   /// - [message]: Optional message to include in the log.
   /// - [context]: Optional contextual information.
   /// - [exception]: Optional exception object to include in the log.
@@ -105,15 +94,15 @@ abstract final class HealthConnectorLogger {
   /// );
   /// ```
   static void info(
-    String tag, {
-    required String operation,
-    String? message,
-    Map<String, dynamic>? context,
-    Object? exception,
-    StackTrace? stackTrace,
+    final String tag, {
+    required final String operation,
+    final String? message,
+    final Map<String, dynamic>? context,
+    final Object? exception,
+    final StackTrace? stackTrace,
   }) {
     _log(
-      LogLevel.info,
+      HealthConnectorLogLevel.info,
       tag,
       operation: operation,
       message: message,
@@ -132,7 +121,6 @@ abstract final class HealthConnectorLogger {
   ///
   /// - [tag]: A tag for categorizing the log entry (converted to uppercase).
   /// - [operation]: The operation being performed.
-
   /// - [message]: Optional message to include in the log.
   /// - [context]: Optional contextual information.
   /// - [exception]: Optional exception object to include in the log.
@@ -149,15 +137,15 @@ abstract final class HealthConnectorLogger {
   /// );
   /// ```
   static void debug(
-    String tag, {
-    required String operation,
-    String? message,
-    Map<String, dynamic>? context,
-    Object? exception,
-    StackTrace? stackTrace,
+    final String tag, {
+    required final String operation,
+    final String? message,
+    final Map<String, dynamic>? context,
+    final Object? exception,
+    final StackTrace? stackTrace,
   }) {
     _log(
-      LogLevel.debug,
+      HealthConnectorLogLevel.debug,
       tag,
       operation: operation,
       message: message,
@@ -176,7 +164,6 @@ abstract final class HealthConnectorLogger {
   ///
   /// - [tag]: A tag for categorizing the log entry (converted to uppercase).
   /// - [operation]: The operation being performed.
-
   /// - [message]: Optional message to include in the log.
   /// - [context]: Optional contextual information.
   /// - [exception]: Optional exception object to include in the log.
@@ -193,15 +180,15 @@ abstract final class HealthConnectorLogger {
   /// );
   /// ```
   static void warning(
-    String tag, {
-    required String operation,
-    String? message,
-    Map<String, dynamic>? context,
-    Object? exception,
-    StackTrace? stackTrace,
+    final String tag, {
+    required final String operation,
+    final String? message,
+    final Map<String, dynamic>? context,
+    final Object? exception,
+    final StackTrace? stackTrace,
   }) {
     _log(
-      LogLevel.warning,
+      HealthConnectorLogLevel.warning,
       tag,
       operation: operation,
       message: message,
@@ -220,7 +207,6 @@ abstract final class HealthConnectorLogger {
   ///
   /// - [tag]: A tag for categorizing the log entry (converted to uppercase).
   /// - [operation]: The operation being performed.
-
   /// - [message]: Optional message to include in the log.
   /// - [context]: Optional contextual information.
   /// - [exception]: Optional exception object to include in the log.
@@ -239,15 +225,15 @@ abstract final class HealthConnectorLogger {
   /// );
   /// ```
   static void error(
-    String tag, {
-    required String operation,
-    String? message,
-    Map<String, dynamic>? context,
-    Object? exception,
-    StackTrace? stackTrace,
+    final String tag, {
+    required final String operation,
+    final String? message,
+    final Map<String, dynamic>? context,
+    final Object? exception,
+    final StackTrace? stackTrace,
   }) {
     _log(
-      LogLevel.error,
+      HealthConnectorLogLevel.error,
       tag,
       operation: operation,
       message: message,
@@ -287,13 +273,13 @@ abstract final class HealthConnectorLogger {
   /// - [exception]: Optional exception object.
   /// - [stackTrace]: Optional stack trace.
   static void _log(
-    LogLevel level,
-    String tag, {
-    required String operation,
-    String? message,
-    Map<String, dynamic>? context,
-    Object? exception,
-    StackTrace? stackTrace,
+    final HealthConnectorLogLevel level,
+    final String tag, {
+    required final String operation,
+    final String? message,
+    final Map<String, dynamic>? context,
+    final Object? exception,
+    final StackTrace? stackTrace,
   }) {
     // Early exit if logging is disabled
     if (!isEnabled) {
@@ -329,14 +315,6 @@ abstract final class HealthConnectorLogger {
       structuredMessage: structuredMessage,
     );
     _logsController.add(logEvent);
-
-    // Existing dart:developer.log output
-    final formattedMessage = '[${level.name}]: \n$structuredMessage';
-    log(
-      formattedMessage,
-      name: tag,
-      level: level.value,
-    );
   }
 
   /// Formats a structured log message in JSON-like format.
@@ -358,13 +336,13 @@ abstract final class HealthConnectorLogger {
   @internal
   @visibleForTesting
   static String formatStructuredMessage({
-    required LogLevel level,
-    required String operation,
-    DateTime? dateTime,
-    String? message,
-    Map<String, dynamic>? context,
-    Object? exception,
-    StackTrace? stackTrace,
+    required final HealthConnectorLogLevel level,
+    required final String operation,
+    final DateTime? dateTime,
+    final String? message,
+    final Map<String, dynamic>? context,
+    final Object? exception,
+    final StackTrace? stackTrace,
   }) {
     final buffer = StringBuffer();
     final dateTimeToLog = dateTime ?? DateTime.now();
@@ -413,7 +391,7 @@ abstract final class HealthConnectorLogger {
       for (final entry in context.entries) {
         buffer.write('\n');
         buffer.write('${_getIndent(1)}${entry.key}: ');
-        _formatValueTo(buffer, entry.value, 1);
+        _formatValueTo(buffer: buffer, value: entry.value, depth: 1);
         buffer.write(',');
       }
       buffer.write('\n${_getIndent(0)}},');
@@ -436,7 +414,7 @@ abstract final class HealthConnectorLogger {
   /// ## Returns
   ///
   /// The indentation string for the given depth.
-  static String _getIndent(int depth) {
+  static String _getIndent(final int depth) {
     if (depth <= _maxCachedIndentDepth) {
       return _indentCache[depth];
     }
@@ -455,7 +433,11 @@ abstract final class HealthConnectorLogger {
   /// - [value]: The value to format (can be a map, list, or any other type).
   /// - [depth]: The current nesting depth (0 for top-level,
   ///   increases with nesting).
-  static void _formatValueTo(StringBuffer buffer, dynamic value, int depth) {
+  static void _formatValueTo({
+    required final StringBuffer buffer,
+    required final dynamic value,
+    required final int depth,
+  }) {
     final currentIndent = _getIndent(depth);
     final nextIndent = _getIndent(depth + 1);
 
@@ -473,7 +455,11 @@ abstract final class HealthConnectorLogger {
         }
         isFirst = false;
         buffer.write('$nextIndent${entry.key}: ');
-        _formatValueTo(buffer, entry.value, depth + 1);
+        _formatValueTo(
+          buffer: buffer,
+          value: entry.value,
+          depth: depth + 1,
+        );
         buffer.write(',');
       }
       buffer.write('\n$currentIndent}');
@@ -494,7 +480,7 @@ abstract final class HealthConnectorLogger {
         }
         isFirst = false;
         buffer.write(nextIndent);
-        _formatValueTo(buffer, element, depth + 1);
+        _formatValueTo(buffer: buffer, value: element, depth: depth + 1);
         buffer.write(',');
       }
       buffer.write('\n$currentIndent]');
@@ -504,33 +490,4 @@ abstract final class HealthConnectorLogger {
     // Handle other types - convert to string
     buffer.write(value.toString());
   }
-}
-
-/// Enum representing the different log levels.
-///
-/// Each level has a [name] field that contains the string representation
-/// of the log level and a [value] field that contains the integer value
-/// for `dart:developer.log`.
-@internal
-enum LogLevel {
-  /// Debug level for detailed diagnostic information.
-  debug('DEBUG', 500),
-
-  /// Info level for general informational messages.
-  info('INFO', 800),
-
-  /// Warning level for potential problems or unexpected behavior.
-  warning('WARNING', 900),
-
-  /// Error level for serious problems.
-  error('ERROR', 1000);
-
-  /// The string name of the log level.
-  final String name;
-
-  /// The integer value for `dart:developer.log`.
-  final int value;
-
-  /// Creates a [LogLevel] with the given [name] and [value].
-  const LogLevel(this.name, this.value);
 }

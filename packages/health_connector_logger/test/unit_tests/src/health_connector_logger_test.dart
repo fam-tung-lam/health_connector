@@ -1,7 +1,8 @@
 import 'package:health_connector_logger/src/health_connector_logger.dart';
+import 'package:health_connector_logger/src/models/health_connector_log_level.dart';
 import 'package:test/test.dart';
 
-import '../utils/date_time_parser.dart' show parseDateTime;
+import '../../utils/date_time_parser.dart' show parseDateTime;
 
 void main() {
   group('HealthConnectorLogger.formatStructuredMessage', () {
@@ -11,7 +12,7 @@ void main() {
     group('basic formatting', () {
       test('formats message with only required parameters', () {
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'readRecords',
           dateTime: testDateTime,
         );
@@ -27,7 +28,7 @@ void main() {
 
       test('includes datetime and operation in correct format', () {
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.debug,
+          level: HealthConnectorLogLevel.debug,
           operation: 'testOperation',
           dateTime: testDateTime,
         );
@@ -43,7 +44,7 @@ void main() {
       test('formats datetime with zero-padding for single-digit values', () {
         final singleDigitDateTime = DateTime(2024, 1, 5, 9, 3, 7, 42);
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           dateTime: singleDigitDateTime,
         );
@@ -54,7 +55,7 @@ void main() {
       test('formats datetime correctly for edge case dates', () {
         final edgeCaseDateTime = DateTime(2024, 12, 31, 23, 59, 59, 999);
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           dateTime: edgeCaseDateTime,
         );
@@ -65,7 +66,7 @@ void main() {
       test('uses current datetime when dateTime parameter is not provided', () {
         final before = DateTime.now();
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
         );
         final after = DateTime.now();
@@ -91,7 +92,7 @@ void main() {
     group('optional message parameter', () {
       test('includes message field when provided', () {
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'readRecords',
           message: 'Successfully read records',
           dateTime: testDateTime,
@@ -103,7 +104,7 @@ void main() {
 
       test('omits message field when null', () {
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'readRecords',
           dateTime: testDateTime,
         );
@@ -114,7 +115,7 @@ void main() {
 
       test('handles message with newlines and special characters', () {
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'Message with\nnewline and "quotes"',
           dateTime: testDateTime,
@@ -128,7 +129,7 @@ void main() {
       test('includes exception block with only exception', () {
         final exception = Exception('Test exception');
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.error,
+          level: HealthConnectorLogLevel.error,
           operation: 'test',
           exception: exception,
           dateTime: testDateTime,
@@ -143,7 +144,7 @@ void main() {
       test('includes exception block with only stackTrace', () {
         final stackTrace = StackTrace.current;
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.error,
+          level: HealthConnectorLogLevel.error,
           operation: 'test',
           stackTrace: stackTrace,
           dateTime: testDateTime,
@@ -159,7 +160,7 @@ void main() {
         final exception = Exception('Test exception');
         final stackTrace = StackTrace.current;
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.error,
+          level: HealthConnectorLogLevel.error,
           operation: 'test',
           exception: exception,
           stackTrace: stackTrace,
@@ -174,7 +175,7 @@ void main() {
 
       test('omits exception block when both are null', () {
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           dateTime: testDateTime,
         );
@@ -185,7 +186,7 @@ void main() {
       test('handles different exception types', () {
         final argumentError = ArgumentError('Invalid argument');
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.error,
+          level: HealthConnectorLogLevel.error,
           operation: 'test',
           exception: argumentError,
           dateTime: testDateTime,
@@ -202,7 +203,7 @@ void main() {
           'duration': '123ms',
         };
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'readRecords',
           context: context,
           dateTime: testDateTime,
@@ -222,7 +223,7 @@ void main() {
           },
         };
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           context: context,
           dateTime: testDateTime,
@@ -244,7 +245,7 @@ void main() {
           },
         };
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           context: context,
           dateTime: testDateTime,
@@ -261,7 +262,7 @@ void main() {
           'tags': ['tag1', 'tag2'],
         };
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           context: context,
           dateTime: testDateTime,
@@ -285,7 +286,7 @@ void main() {
           ],
         };
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           context: context,
           dateTime: testDateTime,
@@ -299,7 +300,7 @@ void main() {
 
       test('excludes empty context', () {
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           context: {},
           dateTime: testDateTime,
@@ -310,7 +311,7 @@ void main() {
 
       test('excludes null context', () {
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           dateTime: testDateTime,
         );
@@ -327,7 +328,7 @@ void main() {
           'nullValue': null,
         };
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           context: context,
           dateTime: testDateTime,
@@ -346,7 +347,7 @@ void main() {
           'emptyMap': <String, dynamic>{},
         };
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           context: context,
           dateTime: testDateTime,
@@ -360,7 +361,7 @@ void main() {
     group('log levels', () {
       test('works with LogLevel.debug', () {
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.debug,
+          level: HealthConnectorLogLevel.debug,
           operation: 'test',
           dateTime: testDateTime,
         );
@@ -371,7 +372,7 @@ void main() {
 
       test('works with LogLevel.info', () {
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           dateTime: testDateTime,
         );
@@ -382,7 +383,7 @@ void main() {
 
       test('works with LogLevel.warning', () {
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.warning,
+          level: HealthConnectorLogLevel.warning,
           operation: 'test',
           dateTime: testDateTime,
         );
@@ -393,7 +394,7 @@ void main() {
 
       test('works with LogLevel.error', () {
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.error,
+          level: HealthConnectorLogLevel.error,
           operation: 'test',
           dateTime: testDateTime,
         );
@@ -416,7 +417,7 @@ void main() {
         };
 
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'readRecords',
           dateTime: testDateTime,
           message: 'Successfully read records',
@@ -453,7 +454,7 @@ void main() {
         };
 
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           dateTime: testDateTime,
           context: context,
@@ -472,7 +473,7 @@ void main() {
     group('edge cases', () {
       test('handles empty operation string', () {
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: '',
           dateTime: testDateTime,
         );
@@ -483,7 +484,7 @@ void main() {
       test('handles very long operation name', () {
         final longOperation = 'a' * 1000;
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: longOperation,
           dateTime: testDateTime,
         );
@@ -504,7 +505,7 @@ void main() {
         };
 
         final result = HealthConnectorLogger.formatStructuredMessage(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           operation: 'test',
           context: context,
           dateTime: testDateTime,

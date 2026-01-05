@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   meta: ^1.16.0
+  collection: ^1.19.1
 
 dev_dependencies:
   health_connector_lint: ^1.2.0

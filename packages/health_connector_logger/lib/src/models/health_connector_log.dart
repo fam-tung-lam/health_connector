@@ -1,46 +1,26 @@
-import 'package:health_connector_logger/src/health_connector_logger.dart'
-    show LogLevel;
-import 'package:meta/meta.dart';
+import 'package:collection/collection.dart';
+import 'package:health_connector_logger/src/models/health_connector_log_level.dart';
+import 'package:meta/meta.dart' show immutable;
 
 /// A structured log event emitted by `HealthConnectorLogger`.
 ///
 /// Represents a single log entry with all associated metadata including
 /// the log level, tag, operation, timestamp, and optional contextual data.
-///
-/// ## Usage
-///
-/// Subscribe to `HealthConnectorLogger.logs` to receive these events:
-///
-/// ```dart
-/// HealthConnectorLogger.logs.listen((log) {
-///   print('${log.level.name}: ${log.operation}');
-///   if (log.exception != null) {
-///     print('Exception: ${log.exception}');
-///   }
-/// });
-/// ```
-///
-/// ## Fields
-///
-/// - [level]: The severity level of the log entry
-/// - [tag]: A category identifier for the log (e.g., 'API', 'DATABASE')
-/// - [operation]: The operation being logged (e.g., 'readRecords')
-/// - [dateTime]: The timestamp when the log was created
-/// - [structuredMessage]: The formatted structured message output
 @immutable
-class HealthConnectorLog {
+final class HealthConnectorLog {
   /// The severity level of this log entry.
-  final LogLevel level;
+  final HealthConnectorLogLevel level;
 
   /// A tag for categorizing the log entry.
   ///
   /// Typically represents the source or category of the log,
-  /// such as 'API', 'DATABASE', or 'PERMISSIONS'.
+  /// such as 'HealthConnector', 'HealthConnectorHCClient', or
+  /// 'HealthConnectorHKClient'.
   final String tag;
 
   /// The operation being logged.
   ///
-  /// Examples: 'readRecords', 'writeRecords', 'requestPermissions'.
+  /// Examples: 'read_records', 'write_records', 'request_permissions'.
   final String operation;
 
   /// The timestamp when this log was created.
@@ -74,7 +54,6 @@ class HealthConnectorLog {
     required this.dateTime,
     required this.structuredMessage,
     this.message,
-
     this.context,
     this.exception,
     this.stackTrace,
@@ -90,7 +69,10 @@ class HealthConnectorLog {
           operation == other.operation &&
           dateTime == other.dateTime &&
           message == other.message &&
-          _mapEquals(context, other.context) &&
+          const MapEquality<String, dynamic>().equals(
+            context,
+            other.context,
+          ) &&
           exception == other.exception &&
           stackTrace == other.stackTrace &&
           structuredMessage == other.structuredMessage;
@@ -102,7 +84,7 @@ class HealthConnectorLog {
       operation.hashCode ^
       dateTime.hashCode ^
       message.hashCode ^
-      _mapHashCode(context) ^
+      context.hashCode ^
       exception.hashCode ^
       stackTrace.hashCode ^
       structuredMessage.hashCode;
@@ -120,39 +102,4 @@ class HealthConnectorLog {
       'stackTrace: $stackTrace, '
       'structuredMessage: $structuredMessage'
       ')';
-
-  /// Helper method for comparing maps in equality check.
-  static bool _mapEquals(
-    Map<String, dynamic>? a,
-    Map<String, dynamic>? b,
-  ) {
-    if (identical(a, b)) {
-      return true;
-    }
-    if (a == null || b == null) {
-      return false;
-    }
-    if (a.length != b.length) {
-      return false;
-    }
-
-    for (final key in a.keys) {
-      if (!b.containsKey(key) || a[key] != b[key]) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  /// Helper method for computing hash code of a map.
-  static int _mapHashCode(Map<String, dynamic>? map) {
-    if (map == null) {
-      return 0;
-    }
-    var hash = 0;
-    for (final entry in map.entries) {
-      hash ^= entry.key.hashCode ^ entry.value.hashCode;
-    }
-    return hash;
-  }
 }

@@ -1,5 +1,4 @@
 import 'package:health_connector_logger/health_connector_logger.dart';
-import 'package:health_connector_logger/src/health_connector_logger.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -9,14 +8,14 @@ void main() {
 
     test('creates instance with all required fields', () {
       final log = HealthConnectorLog(
-        level: LogLevel.info,
+        level: HealthConnectorLogLevel.info,
         tag: 'TEST',
         operation: 'testOp',
         dateTime: testDateTime,
         structuredMessage: testStructuredMessage,
       );
 
-      expect(log.level, equals(LogLevel.info));
+      expect(log.level, equals(HealthConnectorLogLevel.info));
       expect(log.tag, equals('TEST'));
       expect(log.operation, equals('testOp'));
       expect(log.dateTime, equals(testDateTime));
@@ -34,7 +33,7 @@ void main() {
       final context = {'key': 'value'};
 
       final log = HealthConnectorLog(
-        level: LogLevel.error,
+        level: HealthConnectorLogLevel.error,
         tag: 'ERROR',
         operation: 'failedOp',
         dateTime: testDateTime,
@@ -54,7 +53,7 @@ void main() {
     group('equality', () {
       test('two logs with identical values are equal', () {
         final log1 = HealthConnectorLog(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           tag: 'TEST',
           operation: 'testOp',
           dateTime: testDateTime,
@@ -65,7 +64,7 @@ void main() {
         );
 
         final log2 = HealthConnectorLog(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           tag: 'TEST',
           operation: 'testOp',
           dateTime: testDateTime,
@@ -81,7 +80,7 @@ void main() {
 
       test('two logs with different levels are not equal', () {
         final log1 = HealthConnectorLog(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           tag: 'TEST',
           operation: 'testOp',
           dateTime: testDateTime,
@@ -89,7 +88,7 @@ void main() {
         );
 
         final log2 = HealthConnectorLog(
-          level: LogLevel.debug,
+          level: HealthConnectorLogLevel.debug,
           tag: 'TEST',
           operation: 'testOp',
           dateTime: testDateTime,
@@ -101,7 +100,7 @@ void main() {
 
       test('two logs with different context are not equal', () {
         final log1 = HealthConnectorLog(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           tag: 'TEST',
           operation: 'testOp',
           dateTime: testDateTime,
@@ -110,7 +109,7 @@ void main() {
         );
 
         final log2 = HealthConnectorLog(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           tag: 'TEST',
           operation: 'testOp',
           dateTime: testDateTime,
@@ -123,7 +122,7 @@ void main() {
 
       test('handles null context in equality', () {
         final log1 = HealthConnectorLog(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           tag: 'TEST',
           operation: 'testOp',
           dateTime: testDateTime,
@@ -131,7 +130,7 @@ void main() {
         );
 
         final log2 = HealthConnectorLog(
-          level: LogLevel.info,
+          level: HealthConnectorLogLevel.info,
           tag: 'TEST',
           operation: 'testOp',
           dateTime: testDateTime,
@@ -144,7 +143,7 @@ void main() {
 
     test('toString includes all fields', () {
       final log = HealthConnectorLog(
-        level: LogLevel.warning,
+        level: HealthConnectorLogLevel.warning,
         tag: 'WARN',
         operation: 'warnOp',
         dateTime: testDateTime,
