@@ -7,5 +7,6 @@
 library;
 
 export 'package:health_connector_core/health_connector_core.dart';
+export 'package:health_connector_logger/health_connector_logger.dart';
 
 export 'src/health_connector.dart';
