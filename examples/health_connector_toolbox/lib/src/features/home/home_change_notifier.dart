@@ -1,9 +1,13 @@
+import 'dart:async';
+import 'dart:developer' show log;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:health_connector/health_connector_internal.dart';
 
 /// Manages the initialization state of the Health Connector for the home page.
 final class HomeChangeNotifier extends ChangeNotifier {
+  StreamSubscription<HealthConnectorLog>? _logEventSubscription;
   bool _isLoading = false;
   HealthConnector? _healthConnector;
   HealthConnectorException? _error;
@@ -24,6 +28,11 @@ final class HomeChangeNotifier extends ChangeNotifier {
 
     try {
       final healthConnector = await HealthConnector.create();
+      _logEventSubscription = HealthConnectorLogger.logs.listen(
+        (logEvent) {
+          log('[${logEvent.level.name}] ${logEvent.structuredMessage}');
+        },
+      );
 
       _healthConnector = healthConnector;
     } on HealthConnectorException catch (e) {
@@ -42,5 +51,14 @@ final class HomeChangeNotifier extends ChangeNotifier {
     } on HealthConnectorException {
       rethrow;
     }
+  }
+
+  @override
+  void dispose() {
+    _logEventSubscription?.cancel();
+    _logEventSubscription = null;
+    _healthConnector = null;
+
+    super.dispose();
   }
 }
