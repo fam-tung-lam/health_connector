@@ -48,6 +48,11 @@ final class BasalEnergyBurnedHealthDataType
   int get hashCode => runtimeType.hashCode;
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => [
+    HealthPlatform.appleHealth,
+  ];
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];
