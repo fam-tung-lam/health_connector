@@ -79,7 +79,7 @@ void main() {
           );
 
           test(
-            'returns empty list if no HealthPlatformFeaturePermission instances',
+            'returns empty list if no HealthPlatformFeaturePermission',
             () {
               const onlyHealthData = <Permission>[
                 HealthDataPermission(

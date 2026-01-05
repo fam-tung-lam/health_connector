@@ -2,10 +2,9 @@ part of '../health_data_type.dart';
 
 /// Sleep stage data type.
 ///
-/// Represents individual sleep stage records on iOS HealthKit. Each sleep stage
-/// (light, deep, REM, awake) is recorded as a separate record with its own
-/// UUID.
-/// A complete night's sleep consists of multiple records.
+/// Represents individual sleep stage records. Each sleep stage is recorded as
+/// a separate record with its own UUID. A complete night's sleep consists of
+/// multiple records.
 ///
 /// ## Measurement Unit
 ///
@@ -24,16 +23,13 @@ part of '../health_data_type.dart';
 /// - Aggregatable: Sum total sleep duration (excluding awake stages)
 /// - Deletable: Delete records by IDs or time range
 ///
-/// > [!NOTE]
-/// > This data type is only supported on iOS HealthKit. For Android,
-/// > use [SleepSessionHealthDataType] instead.
-///
 /// ## See also
 ///
 /// - [SleepStageRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0
+@supportedOnAppleHealth
 @immutable
 final class SleepStageHealthDataType
     extends HealthDataType<SleepStageRecord, TimeDuration>
@@ -56,6 +52,11 @@ final class SleepStageHealthDataType
 
   @override
   int get hashCode => runtimeType.hashCode;
+
+  @override
+  List<HealthPlatform> get supportedHealthPlatforms => [
+    HealthPlatform.appleHealth,
+  ];
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [
@@ -91,10 +92,10 @@ final class SleepStageHealthDataType
   @override
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
-  /// ## Note
+  /// ## Implementation Note
   ///
-  /// HealthKit category samples don't support `HKStatisticsQuery`,
-  /// so the custom aggregation approach is implemented:
+  /// HealthKit category samples don't support aggregation natively, so the
+  /// custom aggregation approach is implemented by the SDK:
   /// - Query all sleep stages
   /// - And calculate the total sleep duration
   ///

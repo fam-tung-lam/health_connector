@@ -22,10 +22,6 @@ part of '../health_data_type.dart';
 /// - Aggregatable: Sum total sleep duration
 /// - Deletable: Delete records by IDs or time range
 ///
-/// > [!NOTE]
-/// > This data type is only supported on Android Health Connect. For iOS,
-/// > use [SleepStageHealthDataType] instead.
-///
 /// ## See also
 ///
 /// - [SleepSessionRecord]
@@ -55,6 +51,11 @@ final class SleepSessionHealthDataType
 
   @override
   int get hashCode => runtimeType.hashCode;
+
+  @override
+  List<HealthPlatform> get supportedHealthPlatforms => [
+    HealthPlatform.healthConnect,
+  ];
 
   @override
   List<AggregationMetric> get supportedAggregationMetrics => [

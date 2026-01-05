@@ -53,6 +53,11 @@ final class TotalCaloriesBurnedHealthDataType
   int get hashCode => runtimeType.hashCode;
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => [
+    HealthPlatform.healthConnect,
+  ];
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];
