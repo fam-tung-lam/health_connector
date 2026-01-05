@@ -7,6 +7,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.metadata.DataOrigin
 import com.phamtunglam.health_connector_hc_android.HealthConnectorClient.Companion.getHealthPlatformStatus
+import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.handlers.CustomAggregatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.HealthConnectAggregatableHealthRecordHandler
@@ -24,8 +25,6 @@ import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatu
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDto
@@ -42,8 +41,8 @@ import com.phamtunglam.health_connector_hc_android.services.HealthConnectorFeatu
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorManifestService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorPermissionService
 import com.phamtunglam.health_connector_hc_android.utils.dataType
-import com.phamtunglam.health_connector_hc_android.utils.toError
 import java.time.Instant
+import kotlinx.coroutines.CancellationException
 
 /**
  * Internal client wrapper for the Android Health Connect SDK.
@@ -62,13 +61,11 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
          * @param context Android application context used to access Health Connect services
          * @return A new [HealthConnectorClient] instance wrapping the Health Connect SDK client
          *
-         * @throws HealthConnectorErrorDto with code `HEALTH_PLATFORM_NOT_AVAILABLE` when:
-         *         - The device SDK version is too low (below API 26)
-         *         - The app is running in a profile/work profile that doesn't support Health Connect
-         *         - Health Connect SDK initialization fails
+         * @throws HealthConnectorException.HealthPlatformNotInstalledOrUpdateRequired when SDK version is too low or running in unsupported profile
+         * @throws HealthConnectorException.HealthPlatformUnavailable when the service is not available
          */
-        @Throws(HealthConnectorErrorDto::class)
-        fun getOrCreate(context: Context): HealthConnectorClient {
+        @Throws(HealthConnectorException::class)
+        fun getOrCreate(context: Context): HealthConnectorClient = process("get_or_create") {
             try {
                 val client = HealthConnectClient.getOrCreate(context)
                 val manifestService = HealthConnectorManifestService(context)
@@ -78,7 +75,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 )
                 val recordHandlerRegistry = HealthRecordHandlerRegistry(client)
 
-                return HealthConnectorClient(
+                HealthConnectorClient(
                     client = client,
                     manifestService = manifestService,
                     featureService = featureService,
@@ -93,10 +90,10 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                         "due to SDK version too low or running in a profile mode",
                     exception = e,
                 )
-                throw HealthConnectorErrorCodeDto
-                    .HEALTH_PLATFORM_NOT_INSTALLED_OR_UPDATE_REQUIRED.toError(
-                        e.message,
-                    )
+                throw HealthConnectorException.HealthPlatformNotInstalledOrUpdateRequired(
+                    message = e.message ?: "SDK version too low or running in unsupported profile",
+                    cause = e,
+                )
             } catch (e: IllegalStateException) {
                 HealthConnectorLogger.error(
                     tag = TAG,
@@ -104,8 +101,9 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                     message = "Failed to create Health Connect client due to service not available",
                     exception = e,
                 )
-                throw HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE.toError(
-                    e.message,
+                throw HealthConnectorException.HealthPlatformUnavailable(
+                    message = e.message ?: "Health Connect service not available",
+                    cause = e,
                 )
             }
         }
@@ -116,28 +114,29 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
          * @param context Android application context used to query Health Connect status
          * @return The current platform status as a [HealthPlatformStatusDto]
          */
-        fun getHealthPlatformStatus(context: Context): HealthPlatformStatusDto {
-            HealthConnectorLogger.debug(
-                tag = TAG,
-                operation = "get_health_platform_status",
-                message = "Getting Health Connect SDK status",
-            )
+        fun getHealthPlatformStatus(context: Context): HealthPlatformStatusDto =
+            process("get_health_platform_status") {
+                HealthConnectorLogger.debug(
+                    tag = TAG,
+                    operation = "get_health_platform_status",
+                    message = "Getting Health Connect SDK status",
+                )
 
-            val statusCode = HealthConnectClient.getSdkStatus(context)
-            val statusDto = statusCode.toHealthPlatformStatusDto()
+                val statusCode = HealthConnectClient.getSdkStatus(context)
+                val statusDto = statusCode.toHealthPlatformStatusDto()
 
-            HealthConnectorLogger.info(
-                tag = TAG,
-                operation = "get_health_platform_status",
-                message = "Health Connect platform status retrieved",
-                context = mapOf(
-                    "status_code" to statusCode,
-                    "status_dto" to statusDto,
-                ),
-            )
+                HealthConnectorLogger.info(
+                    tag = TAG,
+                    operation = "get_health_platform_status",
+                    message = "Health Connect platform status retrieved",
+                    context = mapOf(
+                        "status_code" to statusCode,
+                        "status_dto" to statusDto,
+                    ),
+                )
 
-            return statusDto
-        }
+                statusDto
+            }
 
         /**
          * Launches the Health Connect app page in the Google Play Store.
@@ -156,17 +155,17 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
          *
          * @param activity The [ComponentActivity] used to launch the Play Store intent
          *
-         * @throws HealthConnectorErrorDto with code `UNKNOWN` if the Play Store cannot be launched
+         * @throws HealthConnectorException.Unknown if the Play Store cannot be launched
          */
-        @Throws(HealthConnectorErrorDto::class)
-        fun launchHealthConnectPageInGooglePlay(activity: ComponentActivity) {
-            HealthConnectorLogger.debug(
-                tag = TAG,
-                operation = "launch_health_connect_page_in_google_play",
-                message = "Launching Health Connect app page in Google Play",
-            )
+        @Throws(HealthConnectorException::class)
+        fun launchHealthConnectPageInGooglePlay(activity: ComponentActivity) =
+            process("launch_health_connect_page_in_google_play") {
+                HealthConnectorLogger.debug(
+                    tag = TAG,
+                    operation = "launch_health_connect_page_in_google_play",
+                    message = "Launching Health Connect app page in Google Play",
+                )
 
-            try {
                 val healthConnectPackage = "com.google.android.apps.healthdata"
                 val playStoreIntent =
                     android.content.Intent(android.content.Intent.ACTION_VIEW).apply {
@@ -208,16 +207,37 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                         context = mapOf("package_name" to healthConnectPackage),
                     )
                 }
+            }
+
+        /**
+         * Executes the given block and handles HealthConnectorException by re-throwing it.
+         * This method encapsulates common error handling logic across all API methods.
+         *
+         * This inline function can handle both suspend and non-suspend blocks.
+         *
+         * @param operation The operation name for logging purposes
+         * @param block The function to execute (can be suspend or non-suspend)
+         * @return The result of the block execution
+         * @throws HealthConnectorException if the block throws a HealthConnectorException
+         */
+        private inline fun <T> process(operation: String, block: () -> T): T {
+            try {
+                return block()
+            } catch (e: HealthConnectorException) {
+                throw e
+            } catch (e: CancellationException) {
+                throw e // Rethrow to preserve structured concurrency
             } catch (e: Exception) {
                 HealthConnectorLogger.error(
                     tag = TAG,
-                    operation = "launch_health_connect_page_in_google_play",
-                    message = "Unexpected error while launching Play Store",
+                    operation = operation,
+                    message = "Unexpected error while $operation",
                     exception = e,
                 )
 
-                throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                    "Failed to launch Play Store: ${e.message ?: "Unknown error"}",
+                throw HealthConnectorException.Unknown(
+                    message = "Failed to $operation: ${e.message ?: "Unknown error"}",
+                    cause = e,
                 )
             }
         }
@@ -230,12 +250,11 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @param request The permissions request containing both health data and feature permissions
      * @return Result lists for health data and feature permissions
      *
-     * @throws HealthConnectorErrorDto with code `INVALID_PLATFORM_CONFIGURATION` if any requested
-     *         permissions/features are not declared in AndroidManifest.xml (caught from
-     *         [IllegalStateException] thrown by validation)
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorException.InvalidConfiguration if any requested
+     *         permissions/features are not declared in AndroidManifest.xml
+     * @throws HealthConnectorException.Unknown if an unexpected error occurs
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     suspend fun requestPermissions(
         activity: ComponentActivity,
         request: PermissionRequestsDto,
@@ -249,16 +268,14 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             ),
         )
 
-        try {
+        return process("request_permissions") {
             val permissionStrings = request.permissionRequests.map {
                 it.toHealthConnect()
             }
 
             manifestService.checkPermissionsDeclared(permissionStrings.toSet())
 
-            return permissionService.requestPermissions(activity, request)
-        } catch (e: HealthConnectorErrorDto) {
-            throw e
+            permissionService.requestPermissions(activity, request)
         }
     }
 
@@ -268,9 +285,9 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @param request The permission to check
      * @return [PermissionStatusDto.GRANTED] if granted, [PermissionStatusDto.DENIED] otherwise
      *
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorException if an unexpected error occurs
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     suspend fun getPermissionStatus(request: PermissionRequestDto): PermissionStatusDto {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -279,7 +296,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             context = mapOf("permission" to request.toString()),
         )
 
-        try {
+        return process("get_permission_status") {
             val status = permissionService.getPermissionStatus(request)
 
             HealthConnectorLogger.info(
@@ -292,9 +309,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 ),
             )
 
-            return status
-        } catch (e: HealthConnectorErrorDto) {
-            throw e
+            status
         }
     }
 
@@ -306,11 +321,11 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @return [HealthPlatformFeatureStatusDto.AVAILABLE] if the feature is available,
      *         [HealthPlatformFeatureStatusDto.UNAVAILABLE] otherwise
      *
-     * @throws HealthConnectorErrorDto with code `INVALID_PLATFORM_CONFIGURATION` if the feature permission
+     * @throws HealthConnectorException.InvalidConfiguration if the feature permission
      *         is not declared in AndroidManifest.xml
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorException.Unknown if an unexpected error occurs
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     fun getFeatureStatus(
         context: Context,
         feature: HealthPlatformFeatureDto,
@@ -347,8 +362,9 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 context = mapOf("feature" to feature),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.INVALID_CONFIGURATION.toError(
-                e.message,
+            throw HealthConnectorException.InvalidConfiguration(
+                message = e.message ?: "Invalid configuration",
+                cause = e,
             )
         } catch (e: RuntimeException) {
             HealthConnectorLogger.error(
@@ -358,8 +374,12 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 context = mapOf("feature" to feature),
                 exception = e,
             )
-            throw HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                "Failed to get feature status for $feature: " + (e.message ?: "Unknown error"),
+            throw HealthConnectorException.Unknown(
+                message = "Failed to get feature status for $feature: " + (
+                    e.message
+                        ?: "Unknown error"
+                    ),
+                cause = e,
             )
         }
     }
@@ -370,11 +390,10 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @param request Contains the data type and record ID to read
      * @return HealthRecordDto or null if not found
      *
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support reading
-     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorException.UnsupportedOperation if handler not found or doesn't support reading
+     * @throws HealthConnectorException otherwise for any errors
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     suspend fun readRecord(request: ReadRecordRequestDto): HealthRecordDto {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -383,15 +402,15 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             context = mapOf("request" to request),
         )
 
-        try {
+        return process("read_record") {
             val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
-                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "No handler found for type ${request.dataType}",
+                ?: throw HealthConnectorException.UnsupportedOperation(
+                    message = "No handler found for type ${request.dataType}",
                 )
 
             if (handler !is ReadableHealthRecordHandler) {
-                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "Type ${request.dataType} does not support reading",
+                throw HealthConnectorException.UnsupportedOperation(
+                    message = "Type ${request.dataType} does not support reading",
                 )
             }
 
@@ -404,20 +423,17 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 context = mapOf("data_type" to request.dataType, "record_id" to request.recordId),
             )
 
-            return dto
-        } catch (e: HealthConnectorErrorDto) {
-            throw e
+            dto
         }
     }
 
     /**
      * Reads a collection of records based on the criteria.
      *
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support reading
-     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorException.UnsupportedOperation if handler not found or doesn't support reading
+     * @throws HealthConnectorException otherwise for any errors
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     suspend fun readRecords(request: ReadRecordsRequestDto): ReadRecordsResponseDto {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -426,15 +442,15 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             context = mapOf("request" to request),
         )
 
-        try {
+        return process("read_records") {
             val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
-                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "No handler found for type ${request.dataType}",
+                ?: throw HealthConnectorException.UnsupportedOperation(
+                    message = "No handler found for type ${request.dataType}",
                 )
 
             if (handler !is ReadableHealthRecordHandler) {
-                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "Type ${request.dataType} does not support reading",
+                throw HealthConnectorException.UnsupportedOperation(
+                    message = "Type ${request.dataType} does not support reading",
                 )
             }
 
@@ -453,12 +469,10 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 context = mapOf("data_type" to request.dataType, "count" to records.size),
             )
 
-            return ReadRecordsResponseDto(
+            ReadRecordsResponseDto(
                 records = records,
                 nextPageToken = nextPageToken,
             )
-        } catch (e: HealthConnectorErrorDto) {
-            throw e
         }
     }
 
@@ -468,11 +482,10 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @param record The record to write
      * @return The platform-assigned record ID
      *
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support writing
-     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorException.UnsupportedOperation if handler not found or doesn't support writing
+     * @throws HealthConnectorException otherwise for any errors
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     suspend fun writeRecord(record: HealthRecordDto): String {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -481,15 +494,15 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             context = mapOf("record" to record),
         )
 
-        try {
+        return process("write_record") {
             val handler = recordHandlerRegistry.getRecordHandler(record.dataType)
-                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "No handler found for type ${record.dataType}",
+                ?: throw HealthConnectorException.UnsupportedOperation(
+                    message = "No handler found for type ${record.dataType}",
                 )
 
             if (handler !is WritableHealthRecordHandler) {
-                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "Type ${record.dataType} does not support writing",
+                throw HealthConnectorException.UnsupportedOperation(
+                    message = "Type ${record.dataType} does not support writing",
                 )
             }
 
@@ -502,9 +515,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 context = mapOf("data_type" to record.dataType, "record_id" to recordId),
             )
 
-            return recordId
-        } catch (e: HealthConnectorErrorDto) {
-            throw e
+            recordId
         }
     }
 
@@ -518,11 +529,10 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @param records The list of records to write
      * @return The record IDs in input order
      *
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if any type is not writable
-     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorException.UnsupportedOperation if any type is not writable
+     * @throws HealthConnectorException otherwise for any errors
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     suspend fun writeRecords(records: List<HealthRecordDto>): List<String> {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -534,27 +544,27 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             ),
         )
 
-        try {
+        return process("write_records") {
             if (records.isEmpty()) {
                 HealthConnectorLogger.debug(
                     tag = TAG,
                     operation = "write_records",
                     message = "No records to write, returning empty response",
                 )
-                return emptyList()
+                return@process emptyList()
             }
 
             // Validate all records support the write operation
             val dataTypes = records.map { record -> record.dataType }
             dataTypes.forEach { dataType ->
                 val handler = recordHandlerRegistry.getRecordHandler(dataType)
-                    ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                        "Unsupported data type: $dataType",
+                    ?: throw HealthConnectorException.UnsupportedOperation(
+                        message = "Unsupported data type: $dataType",
                     )
 
                 if (handler !is WritableHealthRecordHandler) {
-                    throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                        "Data type does not support the write operation: $dataType",
+                    throw HealthConnectorException.UnsupportedOperation(
+                        message = "Data type does not support the write operation: $dataType",
                     )
                 }
             }
@@ -585,9 +595,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 context = mapOf("count" to recordIds.size),
             )
 
-            return recordIds
-        } catch (e: HealthConnectorErrorDto) {
-            throw e
+            recordIds
         }
     }
 
@@ -596,12 +604,10 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      *
      * @param record The record to update
      *
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support updates
-     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if record ID is invalid
-     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorException.UnsupportedOperation if handler not found or doesn't support updates
+     * @throws HealthConnectorException otherwise for any errors
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     suspend fun updateRecord(record: HealthRecordDto) {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -610,15 +616,15 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             context = mapOf("record" to record),
         )
 
-        try {
+        process("update_record") {
             val handler = recordHandlerRegistry.getRecordHandler(record.dataType)
-                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "No handler found for type ${record.dataType}",
+                ?: throw HealthConnectorException.UnsupportedOperation(
+                    message = "No handler found for type ${record.dataType}",
                 )
 
             if (handler !is UpdatableHealthRecordHandler) {
-                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "Type ${record.dataType} does not support updates",
+                throw HealthConnectorException.UnsupportedOperation(
+                    message = "Type ${record.dataType} does not support updates",
                 )
             }
 
@@ -630,8 +636,6 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 message = "Health Connect record updated successfully",
                 context = mapOf("data_type" to record.dataType),
             )
-        } catch (e: HealthConnectorErrorDto) {
-            throw e
         }
     }
 
@@ -643,12 +647,10 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      *
      * @param records The list of health records to update (all must have valid IDs)
      *
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if any type is not updatable
-     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if any record ID is invalid
-     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorException.UnsupportedOperation if any type is not updatable
+     * @throws HealthConnectorException otherwise for any errors
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     suspend fun updateRecords(records: List<HealthRecordDto>) {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -660,14 +662,14 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             ),
         )
 
-        try {
+        process("update_records") {
             if (records.isEmpty()) {
                 HealthConnectorLogger.debug(
                     tag = TAG,
                     operation = "update_records",
                     message = "No records to update, returning",
                 )
-                return
+                return@process
             }
 
             val invalidRecords = records.filter { record -> record.id.isNullOrEmpty() }
@@ -680,13 +682,13 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             val dataTypes = records.map { record -> record.dataType }
             dataTypes.forEach { dataType ->
                 val handler = recordHandlerRegistry.getRecordHandler(dataType)
-                    ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                        "No handler found for type $dataType",
+                    ?: throw HealthConnectorException.UnsupportedOperation(
+                        message = "No handler found for type $dataType",
                     )
 
                 if (handler !is UpdatableHealthRecordHandler) {
-                    throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                        "Type $dataType does not support updates",
+                    throw HealthConnectorException.UnsupportedOperation(
+                        message = "Type $dataType does not support updates",
                     )
                 }
             }
@@ -701,8 +703,6 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 message = "Health Connect records updated successfully",
                 context = mapOf("count" to records.size),
             )
-        } catch (e: HealthConnectorErrorDto) {
-            throw e
         }
     }
 
@@ -710,11 +710,10 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * Deletes specific records by their IDs.
      *
      * @param request Contains data type and list of record IDs to delete
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support deletion
-     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if deletion fails
+     * @throws HealthConnectorException.UnsupportedOperation if handler not found or doesn't support deletion
+     * @throws HealthConnectorException otherwise for any errors
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     suspend fun deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -732,15 +731,15 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             return
         }
 
-        try {
+        process("delete_records_by_ids") {
             val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
-                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "No handler found for type ${request.dataType}",
+                ?: throw HealthConnectorException.UnsupportedOperation(
+                    message = "No handler found for type ${request.dataType}",
                 )
 
             if (handler !is DeletableHealthRecordHandler) {
-                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "Type ${request.dataType} does not support deletion",
+                throw HealthConnectorException.UnsupportedOperation(
+                    message = "Type ${request.dataType} does not support deletion",
                 )
             }
 
@@ -752,8 +751,6 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 message = "Health Connect records deleted successfully",
                 context = mapOf("data_type" to request.dataType, "count" to request.recordIds.size),
             )
-        } catch (e: HealthConnectorErrorDto) {
-            throw e
         }
     }
 
@@ -761,11 +758,10 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * Deletes all records of a data type within a time range.
      *
      * @param request Contains data type and time range for deletion
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support deletion
-     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if permission access is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if deletion fails
+     * @throws HealthConnectorException.UnsupportedOperation if handler not found or doesn't support deletion
+     * @throws HealthConnectorException otherwise for any errors
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     suspend fun deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -774,15 +770,15 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             context = mapOf("request" to request),
         )
 
-        try {
+        process("delete_records_by_time_range") {
             val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
-                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "No handler found for type ${request.dataType}",
+                ?: throw HealthConnectorException.UnsupportedOperation(
+                    message = "No handler found for type ${request.dataType}",
                 )
 
             if (handler !is DeletableHealthRecordHandler) {
-                throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "Type ${request.dataType} does not support deletion",
+                throw HealthConnectorException.UnsupportedOperation(
+                    message = "Type ${request.dataType} does not support deletion",
                 )
             }
 
@@ -797,8 +793,6 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 message = "Health Connect records deleted successfully",
                 context = mapOf("data_type" to request.dataType),
             )
-        } catch (e: HealthConnectorErrorDto) {
-            throw e
         }
     }
 
@@ -808,12 +802,10 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @param request Contains data type, aggregation metric, and time range
      * @return MeasurementUnitDto with the aggregated value
      *
-     * @throws HealthConnectorErrorDto with code `UNSUPPORTED_OPERATION` if handler not found or doesn't support aggregation
-     * @throws HealthConnectorErrorDto with code `INVALID_ARGUMENT` if time range or metric is invalid
-     * @throws HealthConnectorErrorDto with code `NOT_AUTHORIZED` if authorization is denied
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorException.UnsupportedOperation if handler not found or doesn't support aggregation
+     * @throws HealthConnectorException otherwise for any errors
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -822,10 +814,10 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             context = mapOf("request" to request),
         )
 
-        try {
+        return process("aggregate") {
             val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
-                ?: throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "Data type ${request.dataType} does not support aggregation",
+                ?: throw HealthConnectorException.UnsupportedOperation(
+                    message = "Data type ${request.dataType} does not support aggregation",
                 )
 
             val responseDto = when (handler) {
@@ -833,8 +825,8 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
 
                 is CustomAggregatableHealthRecordHandler -> handler.aggregate(request)
 
-                else -> throw HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION.toError(
-                    "Type ${request.dataType} does not support aggregation",
+                else -> throw HealthConnectorException.UnsupportedOperation(
+                    message = "Type ${request.dataType} does not support aggregation",
                 )
             }
 
@@ -848,9 +840,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 ),
             )
 
-            return responseDto
-        } catch (e: HealthConnectorErrorDto) {
-            throw e
+            responseDto
         }
     }
 
@@ -859,9 +849,9 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      *
      * @return Lists for health data and feature permissions that have been granted
      *
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorException if an unexpected error occurs
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     suspend fun getGrantedPermissions(): List<PermissionRequestResultDto> {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -869,19 +859,17 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             message = "Getting granted Health Connect permissions",
         )
 
-        try {
-            return permissionService.getGrantedPermissions()
-        } catch (e: HealthConnectorErrorDto) {
-            throw e
+        return process("get_granted_permissions") {
+            permissionService.getGrantedPermissions()
         }
     }
 
     /**
      * Revokes all permissions that have been granted to the app.
      *
-     * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
+     * @throws HealthConnectorException if an unexpected error occurs
      */
-    @Throws(HealthConnectorErrorDto::class)
+    @Throws(HealthConnectorException::class)
     suspend fun revokeAllPermissions() {
         HealthConnectorLogger.debug(
             tag = TAG,
@@ -889,7 +877,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             message = "Revoking all Health Connect permissions",
         )
 
-        try {
+        process("revoke_all_permissions") {
             permissionService.revokeAllPermissions()
 
             HealthConnectorLogger.info(
@@ -897,8 +885,6 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 operation = "revoke_all_permissions",
                 message = "All Health Connect permissions revoked successfully",
             )
-        } catch (e: HealthConnectorErrorDto) {
-            throw e
         }
     }
 }

@@ -6,7 +6,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.health.connect.client.testing.FakePermissionController
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
+import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
@@ -273,7 +273,7 @@ class HealthConnectorPermissionServiceTest {
             val response = systemUnderTest.getGrantedPermissions()
 
             // Then
-            response.permissionResults.shouldBeEmpty()
+            response.shouldBeEmpty()
         }
 
         @ParameterizedTest(
@@ -294,13 +294,12 @@ class HealthConnectorPermissionServiceTest {
 
             // When
             val response = systemUnderTest.getGrantedPermissions()
-            val actualGrantedPermissions = response.permissionResults
 
             // Then
-            actualGrantedPermissions.size shouldBe expectedPermissionRequestResults.size
+            response.size shouldBe expectedPermissionRequestResults.size
 
             // Verify each expected permission is present (order-independent)
-            actualGrantedPermissions shouldContainAll expectedPermissionRequestResults
+            response shouldContainAll expectedPermissionRequestResults
         }
 
         fun providePermissionRequests(): List<Arguments> = listOf(
@@ -437,7 +436,7 @@ class HealthConnectorPermissionServiceTest {
 
             // Then
             val response = systemUnderTest.getGrantedPermissions()
-            response.permissionResults.shouldBeEmpty()
+            response.shouldBeEmpty()
         }
 
         @Test
@@ -487,12 +486,11 @@ class HealthConnectorPermissionServiceTest {
                 android.content.ActivityNotFoundException("Health Connect not found")
 
             // When
-            val exception = shouldThrow<HealthConnectorErrorDto> {
+            shouldThrow<HealthConnectorException.Unknown> {
                 systemUnderTest.requestPermissions(activity, requestDto)
             }
 
             // Then
-            exception.code shouldBe "UNKNOWN"
             verify { activityResultLauncher.unregister() }
         }
     }
