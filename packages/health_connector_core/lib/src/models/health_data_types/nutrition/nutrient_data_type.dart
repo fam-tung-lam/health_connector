@@ -16,5 +16,6 @@ sealed class NutrientHealthDataType<
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
+    HealthPlatform.healthConnect,
   ];
 }
