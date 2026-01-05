@@ -19,8 +19,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDt
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
@@ -387,7 +387,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     @Throws(HealthConnectorErrorDto::class)
     override fun requestPermissions(
         request: PermissionRequestsDto,
-        callback: (Result<PermissionRequestsResponseDto>) -> Unit,
+        callback: (Result<List<PermissionRequestResultDto>>) -> Unit,
     ) {
         scope.launch {
             try {
@@ -510,7 +510,9 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
      * @param callback Called with a [Result] containing the permission response
      */
     @Throws(HealthConnectorErrorDto::class)
-    override fun getGrantedPermissions(callback: (Result<PermissionRequestsResponseDto>) -> Unit) {
+    override fun getGrantedPermissions(
+        callback: (Result<List<PermissionRequestResultDto>>) -> Unit,
+    ) {
         scope.launch {
             try {
                 val responseDto = requireClient().getGrantedPermissions()

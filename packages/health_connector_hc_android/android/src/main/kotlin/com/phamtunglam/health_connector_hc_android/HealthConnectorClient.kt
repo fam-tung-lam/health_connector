@@ -32,8 +32,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDt
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
@@ -228,8 +228,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      *
      * @param activity The [ComponentActivity] that will host the permission request UI
      * @param request The permissions request containing both health data and feature permissions
-     * @return [PermissionRequestsResponseDto] containing separate result lists for health data
-     *         and feature permissions
+     * @return Result lists for health data and feature permissions
      *
      * @throws HealthConnectorErrorDto with code `INVALID_PLATFORM_CONFIGURATION` if any requested
      *         permissions/features are not declared in AndroidManifest.xml (caught from
@@ -240,7 +239,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
     suspend fun requestPermissions(
         activity: ComponentActivity,
         request: PermissionRequestsDto,
-    ): PermissionRequestsResponseDto {
+    ): List<PermissionRequestResultDto> {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "request_permissions",
@@ -257,9 +256,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
 
             manifestService.checkPermissionsDeclared(permissionStrings.toSet())
 
-            val permissionRequestResults = permissionService.requestPermissions(activity, request)
-
-            return PermissionRequestsResponseDto(permissionRequestResults)
+            return permissionService.requestPermissions(activity, request)
         } catch (e: HealthConnectorErrorDto) {
             throw e
         }
@@ -860,13 +857,12 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
     /**
      * Gets all permissions that have been granted to the app.
      *
-     * @return [PermissionRequestsResponseDto] containing separate lists for health data and feature permissions
-     *         that have been granted
+     * @return Lists for health data and feature permissions that have been granted
      *
      * @throws HealthConnectorErrorDto with code `UNKNOWN` if an unexpected error occurs
      */
     @Throws(HealthConnectorErrorDto::class)
-    suspend fun getGrantedPermissions(): PermissionRequestsResponseDto {
+    suspend fun getGrantedPermissions(): List<PermissionRequestResultDto> {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "get_granted_permissions",

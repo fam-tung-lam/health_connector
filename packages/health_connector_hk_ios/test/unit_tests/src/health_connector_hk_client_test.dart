@@ -222,17 +222,15 @@ void main() {
                 'returns permission results for health data permissions',
                 () async {
                   when(() => mockApi.requestPermissions(any())).thenAnswer(
-                    (_) async => PermissionsRequestResponseDto(
-                      healthDataPermissionResults: [
-                        HealthDataPermissionRequestResultDto(
-                          permission: HealthDataPermissionDto(
-                            healthDataType: HealthDataTypeDto.steps,
-                            accessType: PermissionAccessTypeDto.read,
-                          ),
-                          status: PermissionStatusDto.granted,
+                    (_) async => [
+                      HealthDataPermissionRequestResultDto(
+                        permission: HealthDataPermissionDto(
+                          healthDataType: HealthDataTypeDto.steps,
+                          accessType: PermissionAccessTypeDto.read,
                         ),
-                      ],
-                    ),
+                        status: PermissionStatusDto.granted,
+                      ),
+                    ],
                   );
 
                   final result = await client.requestPermissions([
@@ -266,17 +264,15 @@ void main() {
                 'handles mixed permissions (health data + feature)',
                 () async {
                   when(() => mockApi.requestPermissions(any())).thenAnswer(
-                    (_) async => PermissionsRequestResponseDto(
-                      healthDataPermissionResults: [
-                        HealthDataPermissionRequestResultDto(
-                          permission: HealthDataPermissionDto(
-                            healthDataType: HealthDataTypeDto.steps,
-                            accessType: PermissionAccessTypeDto.read,
-                          ),
-                          status: PermissionStatusDto.granted,
+                    (_) async => [
+                      HealthDataPermissionRequestResultDto(
+                        permission: HealthDataPermissionDto(
+                          healthDataType: HealthDataTypeDto.steps,
+                          accessType: PermissionAccessTypeDto.read,
                         ),
-                      ],
-                    ),
+                        status: PermissionStatusDto.granted,
+                      ),
+                    ],
                   );
 
                   final result = await client.requestPermissions([

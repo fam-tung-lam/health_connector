@@ -1,7 +1,6 @@
 package com.phamtunglam.health_connector_hc_android.services
 
 import android.content.ActivityNotFoundException
-import android.health.connect.HealthConnectException
 import android.os.RemoteException
 import androidx.activity.ComponentActivity
 import androidx.health.connect.client.PermissionController
@@ -16,7 +15,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureP
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PermissionRequestsResponseDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
 import com.phamtunglam.health_connector_hc_android.utils.toError
 import java.io.IOException
@@ -145,7 +143,7 @@ internal class HealthConnectorPermissionService(
             } else {
                 PermissionStatusDto.DENIED
             }
-        } catch (e: HealthConnectException) {
+        } catch (e: HealthConnectorErrorDto) {
             throw e
         }
     }
@@ -153,14 +151,14 @@ internal class HealthConnectorPermissionService(
     /**
      * Retrieves the list of permissions currently granted to this application by the user.
      *
-     * @return A [PermissionRequestsResponseDto] containing all granted permissions.
+     * @return All granted permissions.
      * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.REMOTE_ERROR] for
      *         any IPC transportation and disk I/O issues.
      * @throws HealthConnectorErrorDto with [HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE]
      *         if service is not available.
      */
     @Throws(HealthConnectorErrorDto::class)
-    suspend fun getGrantedPermissions(): PermissionRequestsResponseDto {
+    suspend fun getGrantedPermissions(): List<PermissionRequestResultDto> {
         try {
             val grantedPermissionStrings = getGrantedPermissionStrings()
 
@@ -168,8 +166,8 @@ internal class HealthConnectorPermissionService(
                 permissionString.toPermissionRequestResultDto()
             }
 
-            return PermissionRequestsResponseDto(grantedPermissions)
-        } catch (e: HealthConnectException) {
+            return grantedPermissions
+        } catch (e: HealthConnectorErrorDto) {
             throw e
         }
     }

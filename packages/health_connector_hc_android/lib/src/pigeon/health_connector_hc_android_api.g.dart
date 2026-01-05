@@ -4695,51 +4695,6 @@ class PermissionRequestsDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents the response from a permissions request.
-class PermissionRequestsResponseDto {
-  PermissionRequestsResponseDto({
-    required this.permissionResults,
-  });
-
-  /// Results for each permission that was requested.
-  List<PermissionRequestResultDto> permissionResults;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      permissionResults,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static PermissionRequestsResponseDto decode(Object result) {
-    result as List<Object?>;
-    return PermissionRequestsResponseDto(
-      permissionResults: (result[0] as List<Object?>?)!
-          .cast<PermissionRequestResultDto>(),
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! PermissionRequestsResponseDto ||
-        other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
 /// Sealed class for all aggregation request DTOs.
 sealed class AggregateRequestDto {}
 
@@ -5411,29 +5366,26 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is PermissionRequestsDto) {
       buffer.putUint8(213);
       writeValue(buffer, value.encode());
-    } else if (value is PermissionRequestsResponseDto) {
+    } else if (value is CommonAggregateRequestDto) {
       buffer.putUint8(214);
       writeValue(buffer, value.encode());
-    } else if (value is CommonAggregateRequestDto) {
+    } else if (value is BloodPressureAggregateRequestDto) {
       buffer.putUint8(215);
       writeValue(buffer, value.encode());
-    } else if (value is BloodPressureAggregateRequestDto) {
+    } else if (value is DeleteRecordsByIdsRequestDto) {
       buffer.putUint8(216);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByIdsRequestDto) {
+    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
       buffer.putUint8(217);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
+    } else if (value is ReadRecordRequestDto) {
       buffer.putUint8(218);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordRequestDto) {
+    } else if (value is ReadRecordsRequestDto) {
       buffer.putUint8(219);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsRequestDto) {
-      buffer.putUint8(220);
-      writeValue(buffer, value.encode());
     } else if (value is ReadRecordsResponseDto) {
-      buffer.putUint8(221);
+      buffer.putUint8(220);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -5660,20 +5612,18 @@ class _PigeonCodec extends StandardMessageCodec {
       case 213:
         return PermissionRequestsDto.decode(readValue(buffer)!);
       case 214:
-        return PermissionRequestsResponseDto.decode(readValue(buffer)!);
-      case 215:
         return CommonAggregateRequestDto.decode(readValue(buffer)!);
-      case 216:
+      case 215:
         return BloodPressureAggregateRequestDto.decode(readValue(buffer)!);
-      case 217:
+      case 216:
         return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
-      case 218:
+      case 217:
         return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
-      case 219:
+      case 218:
         return ReadRecordRequestDto.decode(readValue(buffer)!);
-      case 220:
+      case 219:
         return ReadRecordsRequestDto.decode(readValue(buffer)!);
-      case 221:
+      case 220:
         return ReadRecordsResponseDto.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -5878,7 +5828,7 @@ class HealthConnectorHCAndroidApi {
     }
   }
 
-  Future<PermissionRequestsResponseDto> requestPermissions(
+  Future<List<PermissionRequestResultDto>> requestPermissions(
     PermissionRequestsDto request,
   ) async {
     final String pigeonVar_channelName =
@@ -5908,11 +5858,12 @@ class HealthConnectorHCAndroidApi {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
-      return (pigeonVar_replyList[0] as PermissionRequestsResponseDto?)!;
+      return (pigeonVar_replyList[0] as List<Object?>?)!
+          .cast<PermissionRequestResultDto>();
     }
   }
 
-  Future<PermissionRequestsResponseDto> getGrantedPermissions() async {
+  Future<List<PermissionRequestResultDto>> getGrantedPermissions() async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.getGrantedPermissions$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
@@ -5938,7 +5889,8 @@ class HealthConnectorHCAndroidApi {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
-      return (pigeonVar_replyList[0] as PermissionRequestsResponseDto?)!;
+      return (pigeonVar_replyList[0] as List<Object?>?)!
+          .cast<PermissionRequestResultDto>();
     }
   }
 

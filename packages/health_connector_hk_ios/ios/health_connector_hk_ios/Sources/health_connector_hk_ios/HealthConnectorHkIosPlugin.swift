@@ -96,14 +96,11 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     /// - Throws: `HealthConnectorError.unknown` for unexpected errors
     public func requestPermissions(
         request: PermissionsRequestDto,
-        completion: @escaping (Result<PermissionsRequestResponseDto, Error>) -> Void
+        completion: @escaping (Result<[HealthDataPermissionRequestResultDto], Error>) -> Void
     ) {
         process(operation: "requestPermissions", completion: completion) {
-            let healthDataResults = try await self.healthClient
+            try await self.healthClient
                 .requestPermissions(healthDataPermissions: request.healthDataPermissions)
-            return PermissionsRequestResponseDto(
-                healthDataPermissionResults: healthDataResults
-            )
         }
     }
 
