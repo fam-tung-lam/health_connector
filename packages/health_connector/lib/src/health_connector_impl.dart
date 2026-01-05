@@ -29,7 +29,6 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         sinceV2_0_0;
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
-import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart' show internal, immutable;
 
 @sinceV2_0_0
