@@ -3,11 +3,10 @@ package com.phamtunglam.health_connector_hc_android.unit_tests.services
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
+import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorManifestService
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -161,13 +160,10 @@ class HealthConnectorManifestServiceTest {
                 PERMISSION_READ_HEART_RATE,
             )
 
-            // When
-            val exception = shouldThrow<HealthConnectorErrorDto> {
+            // // When && Then
+            shouldThrow<HealthConnectorException.InvalidConfiguration> {
                 systemUnderTest.checkPermissionsDeclared(setOf(PERMISSION_READ_STEPS))
             }
-
-            // Then
-            exception.code shouldBe ERROR_CODE_INVALID_CONFIGURATION
         }
 
         @Test
@@ -182,7 +178,7 @@ class HealthConnectorManifestServiceTest {
             val missingPermissions = setOf(PERMISSION_READ_STEPS, PERMISSION_WRITE_STEPS)
 
             // When
-            val exception = shouldThrow<HealthConnectorErrorDto> {
+            val exception = shouldThrow<HealthConnectorException.InvalidConfiguration> {
                 systemUnderTest.checkPermissionsDeclared(missingPermissions)
             }
 
@@ -202,7 +198,7 @@ class HealthConnectorManifestServiceTest {
             packageInfo.requestedPermissions = arrayOf(PERMISSION_READ_STEPS)
 
             // When
-            val exception = shouldThrow<HealthConnectorErrorDto> {
+            val exception = shouldThrow<HealthConnectorException.InvalidConfiguration> {
                 systemUnderTest.checkPermissionsDeclared(
                     setOf(
                         PERMISSION_READ_STEPS,
@@ -261,13 +257,10 @@ class HealthConnectorManifestServiceTest {
             // Given
             packageInfo.requestedPermissions = arrayOf("android.permission.health.read_steps")
 
-            // When
-            val exception = shouldThrow<HealthConnectorErrorDto> {
+            // // When && Then
+            val exception = shouldThrow<HealthConnectorException.InvalidConfiguration> {
                 systemUnderTest.checkPermissionsDeclared(setOf(PERMISSION_READ_STEPS))
             }
-
-            // Then
-            exception.code shouldBe ERROR_CODE_INVALID_CONFIGURATION
         }
     }
 
@@ -280,7 +273,6 @@ class HealthConnectorManifestServiceTest {
         const val PERMISSION_READ_STEPS = "android.permission.health.READ_STEPS"
         const val PERMISSION_WRITE_STEPS = "android.permission.health.WRITE_STEPS"
         const val PERMISSION_READ_HEART_RATE = "android.permission.health.READ_HEART_RATE"
-        const val ERROR_CODE_INVALID_CONFIGURATION = "INVALID_CONFIGURATION"
     }
 
     // endregion

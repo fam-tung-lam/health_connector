@@ -3,14 +3,15 @@ package com.phamtunglam.health_connector_hc_android
 import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.annotation.VisibleForTesting
+import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.logger.TAG
+import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorConfigDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorHCAndroidApi
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
@@ -29,7 +30,6 @@ import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.utils.dataType
 import com.phamtunglam.health_connector_hc_android.utils.endTime
 import com.phamtunglam.health_connector_hc_android.utils.startTime
-import com.phamtunglam.health_connector_hc_android.utils.toError
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -243,7 +243,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 )
 
                 callback(Result.success(Unit))
-            } catch (e: HealthConnectorErrorDto) {
+            } catch (e: HealthConnectorException) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "create",
@@ -268,9 +268,10 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 )
                 callback(
                     Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
+                        HealthConnectorException.Unknown(
                             "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
+                            cause = e,
+                        ).toDto(),
                     ),
                 )
             }
@@ -300,11 +301,11 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
 
                 callback(
                     Result.failure(
-                        HealthConnectorErrorCodeDto.INVALID_CONFIGURATION.toError(
-                            "Activity is unavailable. " +
+                        HealthConnectorException.InvalidConfiguration(
+                            message = "Activity is unavailable. " +
                                 "The app may be in the background or " +
                                 "activity has been destroyed.",
-                        ),
+                        ).toDto(),
                     ),
                 )
 
@@ -314,7 +315,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
             HealthConnectorClient.launchHealthConnectPageInGooglePlay(currentActivity)
 
             callback(Result.success(Unit))
-        } catch (e: HealthConnectorErrorDto) {
+        } catch (e: HealthConnectorException) {
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "launch_health_connect_page_in_google_play",
@@ -337,9 +338,10 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
 
             callback(
                 Result.failure(
-                    HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                        "Failed to launch Play Store: ${e.message ?: "Unknown error"}",
-                    ),
+                    HealthConnectorException.Unknown(
+                        message = "Failed to launch Play Store: ${e.message ?: "Unknown error"}",
+                        cause = e,
+                    ).toDto(),
                 ),
             )
         }
@@ -367,9 +369,10 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 )
                 callback(
                     Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
+                        HealthConnectorException.Unknown(
+                            message = "Unexpected error: ${e.message ?: "Unknown error"}",
+                            cause = e,
+                        ).toDto(),
                     ),
                 )
             }
@@ -402,11 +405,11 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
 
                     callback(
                         Result.failure(
-                            HealthConnectorErrorCodeDto.INVALID_CONFIGURATION.toError(
-                                "Activity is unavailable. " +
+                            HealthConnectorException.InvalidConfiguration(
+                                message = "Activity is unavailable. " +
                                     "The app may be in the background or " +
                                     "activity has been destroyed.",
-                            ),
+                            ).toDto(),
                         ),
                     )
 
@@ -419,7 +422,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 )
 
                 callback(Result.success(responseDto))
-            } catch (e: HealthConnectorErrorDto) {
+            } catch (e: HealthConnectorException) {
                 HealthConnectorLogger.error(
                     tag = TAG,
                     operation = "request_permissions",
@@ -444,9 +447,10 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 )
                 callback(
                     Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
+                        HealthConnectorException.Unknown(
+                            message = "Unexpected error: ${e.message ?: "Unknown error"}",
+                            cause = e,
+                        ).toDto(),
                     ),
                 )
             }
@@ -465,41 +469,12 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         callback: (Result<PermissionStatusDto>) -> Unit,
     ) {
         scope.launch {
-            try {
-                val statusDto = requireClient().getPermissionStatus(request)
-
-                callback(Result.success(statusDto))
-            } catch (e: HealthConnectorErrorDto) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "get_permission_status",
-                    message = "Failed to get permission status",
-                    context = mapOf(
-                        "permission" to request.toString(),
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "get_permission_status",
-                    message = "Unexpected error while getting permission status",
-                    context = mapOf("permission" to request),
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
-                    ),
-                )
+            process(
+                operation = "get_permission_status",
+                context = mapOf("permission" to request.toString()),
+                callback = callback,
+            ) {
+                requireClient().getPermissionStatus(request)
             }
         }
     }
@@ -514,39 +489,11 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         callback: (Result<List<PermissionRequestResultDto>>) -> Unit,
     ) {
         scope.launch {
-            try {
-                val responseDto = requireClient().getGrantedPermissions()
-
-                callback(Result.success(responseDto))
-            } catch (e: HealthConnectorErrorDto) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "get_granted_permissions",
-                    message = "Failed to get granted Health Connect permissions",
-                    context = mapOf(
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "get_granted_permissions",
-                    message = "Unexpected error while getting granted permissions",
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
-                    ),
-                )
+            process(
+                operation = "get_granted_permissions",
+                callback = callback,
+            ) {
+                requireClient().getGrantedPermissions()
             }
         }
     }
@@ -559,39 +506,11 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     @Throws(HealthConnectorErrorDto::class)
     override fun revokeAllPermissions(callback: (Result<Unit>) -> Unit) {
         scope.launch {
-            try {
+            process(
+                operation = "revoke_all_permissions",
+                callback = callback,
+            ) {
                 requireClient().revokeAllPermissions()
-
-                callback(Result.success(Unit))
-            } catch (e: HealthConnectorErrorDto) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "revoke_all_permissions",
-                    message = "Failed to revoke all Health Connect permissions",
-                    context = mapOf(
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "revoke_all_permissions",
-                    message = "Unexpected error while revoking all permissions",
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
-                    ),
-                )
             }
         }
     }
@@ -608,41 +527,12 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         callback: (Result<HealthPlatformFeatureStatusDto>) -> Unit,
     ) {
         scope.launch {
-            try {
-                val featureStatusDto = requireClient().getFeatureStatus(context, feature)
-
-                callback(Result.success(featureStatusDto))
-            } catch (e: HealthConnectorErrorDto) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "get_feature_status",
-                    message = "Failed to get Health Connect feature status",
-                    context = mapOf(
-                        "feature" to feature.toString(),
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "get_feature_status",
-                    message = "Unexpected error while getting feature status",
-                    context = mapOf("feature" to feature.toString()),
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
-                    ),
-                )
+            process(
+                operation = "get_feature_status",
+                context = mapOf("feature" to feature.toString()),
+                callback = callback,
+            ) {
+                requireClient().getFeatureStatus(context, feature)
             }
         }
     }
@@ -659,42 +549,15 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         callback: (Result<HealthRecordDto?>) -> Unit,
     ) {
         scope.launch {
-            try {
-                val result = requireClient().readRecord(request)
-
-                callback(Result.success(result))
-            } catch (e: HealthConnectorErrorDto) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "read_record",
-                    message = "Failed to read Health Connect record",
-                    context = mapOf(
-                        "data_type" to request.dataType.toString(),
-                        "record_id" to request.recordId,
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "read_record",
-                    message = "Unexpected error escaped from handler",
-                    context = mapOf("request" to request),
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
-                    ),
-                )
+            process(
+                operation = "read_record",
+                context = mapOf(
+                    "data_type" to request.dataType.toString(),
+                    "record_id" to request.recordId,
+                ),
+                callback = callback,
+            ) {
+                requireClient().readRecord(request)
             }
         }
     }
@@ -711,44 +574,17 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         callback: (Result<ReadRecordsResponseDto>) -> Unit,
     ) {
         scope.launch {
-            try {
-                val result = requireClient().readRecords(request)
-
-                callback(Result.success(result))
-            } catch (e: HealthConnectorErrorDto) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "read_records",
-                    message = "Failed to read Health Connect records",
-                    context = mapOf(
-                        "data_type" to request.dataType.toString(),
-                        "start_time" to request.startTime,
-                        "end_time" to request.endTime,
-                        "page_size" to request.pageSize,
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "read_records",
-                    message = "Unexpected error escaped from handler",
-                    context = mapOf("request" to request),
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
-                    ),
-                )
+            process(
+                operation = "read_records",
+                context = mapOf(
+                    "data_type" to request.dataType.toString(),
+                    "start_time" to request.startTime,
+                    "end_time" to request.endTime,
+                    "page_size" to request.pageSize,
+                ),
+                callback = callback,
+            ) {
+                requireClient().readRecords(request)
             }
         }
     }
@@ -762,40 +598,11 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     @Throws(HealthConnectorErrorDto::class)
     override fun writeRecord(record: HealthRecordDto, callback: (Result<String>) -> Unit) {
         scope.launch {
-            try {
-                val id = requireClient().writeRecord(record)
-
-                callback(Result.success(id))
-            } catch (e: HealthConnectorErrorDto) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "write_record",
-                    message = "Failed to write Health Connect record",
-                    context = mapOf(
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "write_record",
-                    message = "Unexpected error escaped from handler",
-                    context = mapOf("record" to record),
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
-                    ),
-                )
+            process(
+                operation = "write_record",
+                callback = callback,
+            ) {
+                requireClient().writeRecord(record)
             }
         }
     }
@@ -812,41 +619,12 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         callback: (Result<List<String>>) -> Unit,
     ) {
         scope.launch {
-            try {
-                val ids = requireClient().writeRecords(records)
-
-                callback(Result.success(ids))
-            } catch (e: HealthConnectorErrorDto) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "write_records",
-                    message = "Failed to write Health Connect records",
-                    context = mapOf(
-                        "records_count" to records.size,
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "write_records",
-                    message = "Unexpected error escaped from handler",
-                    context = mapOf("records" to records),
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
-                    ),
-                )
+            process(
+                operation = "write_records",
+                context = mapOf("records_count" to records.size),
+                callback = callback,
+            ) {
+                requireClient().writeRecords(records)
             }
         }
     }
@@ -860,40 +638,11 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     @Throws(HealthConnectorErrorDto::class)
     override fun updateRecord(record: HealthRecordDto, callback: (Result<Unit>) -> Unit) {
         scope.launch {
-            try {
+            process(
+                operation = "update_record",
+                callback = callback,
+            ) {
                 requireClient().updateRecord(record)
-
-                callback(Result.success(Unit))
-            } catch (e: HealthConnectorErrorDto) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "update_record",
-                    message = "Failed to update Health Connect record",
-                    context = mapOf(
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "update_record",
-                    message = "Unexpected error escaped from handler",
-                    context = mapOf("record" to record),
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
-                    ),
-                )
             }
         }
     }
@@ -907,41 +656,12 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     @Throws(HealthConnectorErrorDto::class)
     override fun updateRecords(records: List<HealthRecordDto>, callback: (Result<Unit>) -> Unit) {
         scope.launch {
-            try {
+            process(
+                operation = "update_records",
+                context = mapOf("records_count" to records.size),
+                callback = callback,
+            ) {
                 requireClient().updateRecords(records)
-
-                callback(Result.success(Unit))
-            } catch (e: HealthConnectorErrorDto) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "update_records",
-                    message = "Failed to update Health Connect records",
-                    context = mapOf(
-                        "records_count" to records.size,
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "update_records",
-                    message = "Unexpected error escaped from handler",
-                    context = mapOf("records" to records),
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
-                    ),
-                )
             }
         }
     }
@@ -957,7 +677,11 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         callback: (Result<Unit>) -> Unit,
     ) {
         scope.launch {
-            try {
+            process(
+                operation = "delete_records",
+                context = mapOf("request_type" to request.javaClass.simpleName),
+                callback = callback,
+            ) {
                 val healthClient = requireClient()
                 when (request) {
                     is DeleteRecordsByIdsRequestDto -> healthClient.deleteRecordsByIds(request)
@@ -965,39 +689,6 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                         request,
                     )
                 }
-
-                callback(Result.success(Unit))
-            } catch (e: HealthConnectorErrorDto) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "delete_records",
-                    message = "Failed to delete Health Connect records",
-                    context = mapOf(
-                        "request_type" to request.javaClass.simpleName,
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "delete_records",
-                    message = "Unexpected error escaped from handler",
-                    context = mapOf("request" to request.toString()),
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
-                    ),
-                )
             }
         }
     }
@@ -1014,44 +705,17 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         callback: (Result<MeasurementUnitDto>) -> Unit,
     ) {
         scope.launch {
-            try {
-                val result = requireClient().aggregate(request)
-
-                callback(Result.success(result))
-            } catch (e: HealthConnectorErrorDto) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "aggregate",
-                    message = "Failed to aggregate Health Connect data",
-                    context = mapOf(
-                        "data_type" to request.dataType.toString(),
-                        "aggregation_metric" to request.aggregationMetric.toString(),
-                        "start_time" to request.startTime,
-                        "end_time" to request.endTime,
-                        "error_code" to e.code,
-                        "error_message" to (e.message ?: "Unknown error"),
-                    ),
-                    exception = e,
-                )
-
-                callback(Result.failure(e))
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "aggregate",
-                    message = "Unexpected error escaped from handler",
-                    context = mapOf("request" to request),
-                    exception = e,
-                )
-                callback(
-                    Result.failure(
-                        HealthConnectorErrorCodeDto.UNKNOWN.toError(
-                            "Unexpected error: ${e.message ?: "Unknown error"}",
-                        ),
-                    ),
-                )
+            process(
+                operation = "aggregate",
+                context = mapOf(
+                    "data_type" to request.dataType.toString(),
+                    "aggregation_metric" to request.aggregationMetric.toString(),
+                    "start_time" to request.startTime,
+                    "end_time" to request.endTime,
+                ),
+                callback = callback,
+            ) {
+                requireClient().aggregate(request)
             }
         }
     }
@@ -1102,12 +766,70 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
      * Returns the [HealthConnectorClient] instance, or throws if not initialized.
      *
      * @return The initialized Health Connect client
-     * @throws HealthConnectorErrorDto if the client has not been initialized
+     * @throws HealthConnectorException.InvalidConfiguration if the client has not been initialized
      */
     private fun requireClient(): HealthConnectorClient =
-        client ?: throw HealthConnectorErrorCodeDto.INVALID_CONFIGURATION.toError(
-            "Plugin not initialized. Call `initialize()` before using any API.",
+        client ?: throw HealthConnectorException.InvalidConfiguration(
+            message = "Plugin not initialized. Call `initialize()` before using any API.",
         )
 
     // endregion
+
+    companion object {
+        /**
+         * Executes a suspendable operation with standardized error handling.
+         *
+         * This method encapsulates the common error handling pattern used across all API methods:
+         * - Catches [HealthConnectorException] and logs/converts to DTO
+         * - Rethrows [CancellationException] to preserve structured concurrency
+         * - Catches generic [Exception] and wraps in [HealthConnectorException.Unknown]
+         *
+         * @param T The success type returned by the operation
+         * @param operation The operation name for logging purposes
+         * @param context Additional context information for logging
+         * @param callback The callback to invoke with the result
+         * @param block The suspendable operation to execute
+         */
+        private suspend fun <T> process(
+            operation: String,
+            context: Map<String, Any> = emptyMap(),
+            callback: (Result<T>) -> Unit,
+            block: suspend () -> T,
+        ) {
+            try {
+                val result = block()
+                callback(Result.success(result))
+            } catch (e: HealthConnectorException) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = operation,
+                    message = "Failed to execute $operation",
+                    context = context + mapOf(
+                        "error_code" to e.code,
+                        "error_message" to (e.message ?: "Unknown error"),
+                    ),
+                    exception = e,
+                )
+                callback(Result.failure(e.toDto()))
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                HealthConnectorLogger.error(
+                    tag = TAG,
+                    operation = operation,
+                    message = "Unexpected error in $operation",
+                    context = context,
+                    exception = e,
+                )
+                callback(
+                    Result.failure(
+                        HealthConnectorException.Unknown(
+                            message = "Unexpected error: ${e.message ?: "Unknown error"}",
+                            cause = e,
+                        ).toDto(),
+                    ),
+                )
+            }
+        }
+    }
 }

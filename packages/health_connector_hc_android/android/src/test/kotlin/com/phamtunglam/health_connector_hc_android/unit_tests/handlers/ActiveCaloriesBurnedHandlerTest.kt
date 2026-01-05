@@ -10,6 +10,7 @@ import androidx.health.connect.client.testing.FakePermissionController
 import androidx.health.connect.client.testing.stubs.stub
 import androidx.health.connect.client.time.TimeRangeFilter
 import androidx.health.connect.client.units.Energy
+import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActiveCaloriesBurnedHandler
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.pigeon.ActiveCaloriesBurnedRecordDto
@@ -17,8 +18,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.EnergyDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
@@ -451,7 +450,7 @@ class ActiveCaloriesBurnedHandlerTest {
             }
 
             result.isFailure shouldBe true
-            result.exceptionOrNull().shouldBeInstanceOf<HealthConnectorErrorDto>()
+            result.exceptionOrNull().shouldBeInstanceOf<HealthConnectorException.InvalidArgument>()
         }
 
         @Test
@@ -478,13 +477,10 @@ class ActiveCaloriesBurnedHandlerTest {
                 endTime = endTime.toEpochMilli(),
             )
 
-            // When
-            val exception = shouldThrow<HealthConnectorErrorDto> {
+            // When && Then
+            shouldThrow<HealthConnectorException.InvalidArgument> {
                 systemUnderTest.aggregate(request)
             }
-
-            // Then
-            exception.code shouldBe HealthConnectorErrorCodeDto.INVALID_ARGUMENT.name
         }
 
         @Test
@@ -510,13 +506,10 @@ class ActiveCaloriesBurnedHandlerTest {
                 endTime = endTime.toEpochMilli(),
             )
 
-            // When
-            val exception = shouldThrow<HealthConnectorErrorDto> {
+            // When && Then
+            shouldThrow<HealthConnectorException.InvalidArgument> {
                 systemUnderTest.aggregate(request)
             }
-
-            // Then
-            exception.code shouldBe HealthConnectorErrorCodeDto.INVALID_ARGUMENT.name
         }
     }
 
