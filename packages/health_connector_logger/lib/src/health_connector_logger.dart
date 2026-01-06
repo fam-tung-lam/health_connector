@@ -367,7 +367,7 @@ abstract final class HealthConnectorLogger {
 
     // Create and emit log event
     _logsController.add(
-      HealthConnectorLog(
+      HealthConnectorDartLog(
         level: level,
         tag: tag,
         operation: operation,

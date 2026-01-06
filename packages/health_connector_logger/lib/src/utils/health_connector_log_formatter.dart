@@ -26,8 +26,12 @@ abstract final class HealthConnectorLogFormatter {
   ///
   /// ## Parameters
   ///
+  /// - [tag]: A tag for categorizing the log entry (converted to uppercase).
+  /// - [level]: The log level (DEBUG, INFO, WARNING, ERROR).
+  /// - [message]: The message to include in the log.
+  /// - [dateTime]: Optional timestamp (defaults to now).
   /// - [operation]: The operation being performed (e.g., 'readRecords').
-  /// - [message]: Optional message to include in the log.
+  /// - [platform]: Optional platform identifier (added to context).
   /// - [context]: Optional map of contextual information.
   /// - [exception]: Optional exception object.
   /// - [stackTrace]: Optional stack trace.
@@ -36,10 +40,12 @@ abstract final class HealthConnectorLogFormatter {
   ///
   /// A formatted string in JSON-like format with indentation.
   static String formatStructuredMessage({
+    required final String tag,
     required final HealthConnectorLogLevel level,
     required final String message,
     final DateTime? dateTime,
     final String? operation,
+    final String? platform,
     final Map<String, dynamic>? context,
     final Object? exception,
     final StackTrace? stackTrace,
@@ -47,25 +53,17 @@ abstract final class HealthConnectorLogFormatter {
     final buffer = StringBuffer();
     final dateTimeToLog = dateTime ?? DateTime.now();
 
-    // Always include datetime and operation
-    buffer.writeln('[${level.name.toUpperCase()}]:');
+    // First line: [tag] [level]
+    buffer.writeln('[${tag.toUpperCase()}] [${level.name.toUpperCase()}]:');
     buffer.writeln('{');
+
+    // Include platform as first field if provided
+    if (platform != null) {
+      buffer.write('${_getIndent(0)}platform: $platform,\n');
+    }
+
     buffer.write('${_getIndent(0)}datetime: ');
-    // Format datetime: day-month-year hour:minute:second.millisecond
-    buffer
-      ..write(dateTimeToLog.day.toString().padLeft(2, '0'))
-      ..write('-')
-      ..write(dateTimeToLog.month.toString().padLeft(2, '0'))
-      ..write('-')
-      ..write(dateTimeToLog.year.toString())
-      ..write(' ')
-      ..write(dateTimeToLog.hour.toString().padLeft(2, '0'))
-      ..write(':')
-      ..write(dateTimeToLog.minute.toString().padLeft(2, '0'))
-      ..write(':')
-      ..write(dateTimeToLog.second.toString().padLeft(2, '0'))
-      ..write('.')
-      ..write(dateTimeToLog.millisecond.toString().padLeft(3, '0'));
+    _formatDateTimeTo(buffer, dateTimeToLog);
     buffer.write(',');
     buffer.write('\n${_getIndent(0)}message: $message,');
 
@@ -101,6 +99,27 @@ abstract final class HealthConnectorLogFormatter {
     buffer.write('\n}');
 
     return buffer.toString();
+  }
+
+  /// Formats a [DateTime] to the buffer in the format:
+  /// `DD-MM-YYYY HH:MM:SS.mmm`
+  ///
+  /// This helper method centralizes datetime formatting logic for cleaner code.
+  static void _formatDateTimeTo(StringBuffer buffer, DateTime dateTime) {
+    buffer
+      ..write(dateTime.day.toString().padLeft(2, '0'))
+      ..write('-')
+      ..write(dateTime.month.toString().padLeft(2, '0'))
+      ..write('-')
+      ..write(dateTime.year)
+      ..write(' ')
+      ..write(dateTime.hour.toString().padLeft(2, '0'))
+      ..write(':')
+      ..write(dateTime.minute.toString().padLeft(2, '0'))
+      ..write(':')
+      ..write(dateTime.second.toString().padLeft(2, '0'))
+      ..write('.')
+      ..write(dateTime.millisecond.toString().padLeft(3, '0'));
   }
 
   /// Gets the indentation string for the given depth.

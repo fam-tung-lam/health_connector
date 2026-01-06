@@ -122,7 +122,7 @@ final class HealthConnectorLogger: WatchLogEventsStreamHandler {
 
             let logDto = HealthConnectorLogDto(
                 level: level.toDto(),
-                tag: "NATIVE_HK_IOS__\(tag)",
+                tag: tag.uppercased(),
                 millisecondsSinceEpoch: timestampMs,
                 message: message ?? "",
                 operation: operation,

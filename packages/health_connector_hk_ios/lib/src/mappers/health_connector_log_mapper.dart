@@ -1,3 +1,4 @@
+import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/mappers/exception_mappers/health_connector_exception_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:health_connector_logger/health_connector_logger.dart';
@@ -10,8 +11,13 @@ extension HealthConnectorLogDtoToDomain on HealthConnectorLogDto {
   HealthConnectorLog toDomain() {
     final st = stackTrace;
     final details = context?.cast<String, dynamic>();
+    final platform =
+        '${HealthPlatform.appleHealth.os.name}_'
+                '${HealthPlatform.appleHealth.name}'
+            .toUpperCase();
 
-    return HealthConnectorLog(
+    return HealthConnectorNativeLog(
+      platform: platform,
       level: level.toDomain(),
       tag: tag,
       operation: operation,

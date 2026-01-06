@@ -231,7 +231,7 @@ internal object HealthConnectorLogger : WatchLogEventsStreamHandler() {
             eventSink?.success(
                 HealthConnectorLogDto(
                     level = level.toDto(),
-                    tag = "NATIVE_HC_ANDROID__$tag",
+                    tag = tag.uppercase(),
                     operation = operation,
                     millisecondsSinceEpoch = System.currentTimeMillis(),
                     message = message,

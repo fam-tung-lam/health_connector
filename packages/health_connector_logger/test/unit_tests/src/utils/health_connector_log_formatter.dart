@@ -12,6 +12,7 @@ void main() {
     group('basic formatting', () {
       test('formats message with only required parameters', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'readRecords',
           message: 'test message',
@@ -20,7 +21,7 @@ void main() {
 
         expect(result, contains('datetime: 15-03-2024 10:30:45.123'));
         expect(result, contains('operation: readRecords'));
-        expect(result, startsWith('{'));
+        expect(result, startsWith('[TEST] [INFO]:'));
         expect(result, endsWith('\n}'));
         expect(result, contains('message: test message'));
         expect(result, isNot(contains('exception:')));
@@ -29,6 +30,7 @@ void main() {
 
       test('includes datetime and operation in correct format', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.debug,
           operation: 'testOperation',
           message: 'test message',
@@ -36,10 +38,11 @@ void main() {
         );
 
         final lines = result.split('\n');
-        expect(lines[0], equals('{'));
-        expect(lines[1], equals('    datetime: 15-03-2024 10:30:45.123,'));
-        expect(lines[2], equals('    message: test message,'));
-        expect(lines[3], equals('    operation: testOperation,'));
+        expect(lines[0], equals('[TEST] [DEBUG]:'));
+        expect(lines[1], equals('{'));
+        expect(lines[2], equals('    datetime: 15-03-2024 10:30:45.123,'));
+        expect(lines[3], equals('    message: test message,'));
+        expect(lines[4], equals('    operation: testOperation,'));
       });
     });
 
@@ -47,6 +50,7 @@ void main() {
       test('formats datetime with zero-padding for single-digit values', () {
         final singleDigitDateTime = DateTime(2024, 1, 5, 9, 3, 7, 42);
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -59,6 +63,7 @@ void main() {
       test('formats datetime correctly for edge case dates', () {
         final edgeCaseDateTime = DateTime(2024, 12, 31, 23, 59, 59, 999);
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -71,6 +76,7 @@ void main() {
       test('uses current datetime when dateTime parameter is not provided', () {
         final before = DateTime.now();
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -98,6 +104,7 @@ void main() {
     group('message parameter', () {
       test('includes message field when provided', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'readRecords',
           message: 'Successfully read records',
@@ -110,6 +117,7 @@ void main() {
 
       test('omits operation field when null', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           message: 'test message',
           dateTime: testDateTime,
@@ -121,6 +129,7 @@ void main() {
 
       test('handles message with newlines and special characters', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           // operation is optional
           message: 'Message with\nnewline and "quotes"',
@@ -135,6 +144,7 @@ void main() {
       test('includes exception block with only exception', () {
         final exception = Exception('Test exception');
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.error,
           operation: 'test',
           message: 'test message',
@@ -151,6 +161,7 @@ void main() {
       test('includes exception block with only stackTrace', () {
         final stackTrace = StackTrace.current;
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.error,
           operation: 'test',
           message: 'test message',
@@ -168,6 +179,7 @@ void main() {
         final exception = Exception('Test exception');
         final stackTrace = StackTrace.current;
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.error,
           operation: 'test',
           message: 'test message',
@@ -184,6 +196,7 @@ void main() {
 
       test('omits exception block when both are null', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -196,6 +209,7 @@ void main() {
       test('handles different exception types', () {
         final argumentError = ArgumentError('Invalid argument');
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.error,
           operation: 'test',
           message: 'test message',
@@ -214,6 +228,7 @@ void main() {
           'duration': '123ms',
         };
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'readRecords',
           message: 'test message',
@@ -235,6 +250,7 @@ void main() {
           },
         };
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -258,6 +274,7 @@ void main() {
           },
         };
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -276,6 +293,7 @@ void main() {
           'tags': ['tag1', 'tag2'],
         };
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -301,6 +319,7 @@ void main() {
           ],
         };
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -316,6 +335,7 @@ void main() {
 
       test('excludes empty context', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -328,6 +348,7 @@ void main() {
 
       test('excludes null context', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -346,6 +367,7 @@ void main() {
           'nullValue': null,
         };
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -366,6 +388,7 @@ void main() {
           'emptyMap': <String, dynamic>{},
         };
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -381,6 +404,7 @@ void main() {
     group('log levels', () {
       test('works with LogLevel.debug', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.debug,
           operation: 'test',
           message: 'test message',
@@ -393,6 +417,7 @@ void main() {
 
       test('works with LogLevel.info', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -405,6 +430,7 @@ void main() {
 
       test('works with LogLevel.warning', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.warning,
           operation: 'test',
           message: 'test message',
@@ -417,6 +443,7 @@ void main() {
 
       test('works with LogLevel.error', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.error,
           operation: 'test',
           message: 'test message',
@@ -441,6 +468,7 @@ void main() {
         };
 
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'readRecords',
           dateTime: testDateTime,
@@ -464,7 +492,7 @@ void main() {
         expect(result, contains('version: 1.0'));
 
         // Verify structure
-        expect(result, startsWith('{'));
+        expect(result, startsWith('[TEST] [INFO]:'));
         expect(result, endsWith('\n}'));
       });
 
@@ -478,6 +506,7 @@ void main() {
         };
 
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -498,6 +527,7 @@ void main() {
     group('edge cases', () {
       test('handles empty operation string', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: '',
           message: 'test message',
@@ -510,6 +540,7 @@ void main() {
       test('handles very long operation name', () {
         final longOperation = 'a' * 1000;
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: longOperation,
           message: 'test message',
@@ -532,6 +563,7 @@ void main() {
         };
 
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'TEST',
           level: HealthConnectorLogLevel.info,
           operation: 'test',
           message: 'test message',
@@ -544,6 +576,227 @@ void main() {
         expect(result, contains('list1: ['));
         expect(result, contains('list2: ['));
       });
+    });
+
+    group('tag formatting', () {
+      test('includes tag in first line with uppercase conversion', () {
+        final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'api',
+          level: HealthConnectorLogLevel.info,
+          message: 'test message',
+          dateTime: testDateTime,
+        );
+
+        expect(result, startsWith('[API] [INFO]:'));
+      });
+
+      test('preserves already uppercase tag', () {
+        final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'DATABASE',
+          level: HealthConnectorLogLevel.debug,
+          message: 'test message',
+          dateTime: testDateTime,
+        );
+
+        expect(result, startsWith('[DATABASE] [DEBUG]:'));
+      });
+
+      test('handles mixed case tag', () {
+        final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'MyComponent',
+          level: HealthConnectorLogLevel.warning,
+          message: 'test message',
+          dateTime: testDateTime,
+        );
+
+        expect(result, startsWith('[MYCOMPONENT] [WARNING]:'));
+      });
+
+      test('handles tag with special characters', () {
+        final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'native_ios',
+          level: HealthConnectorLogLevel.error,
+          message: 'test message',
+          dateTime: testDateTime,
+        );
+
+        expect(result, startsWith('[NATIVE_IOS] [ERROR]:'));
+      });
+
+      test('formats first line correctly for all log levels', () {
+        final levels = [
+          (HealthConnectorLogLevel.debug, 'DEBUG'),
+          (HealthConnectorLogLevel.info, 'INFO'),
+          (HealthConnectorLogLevel.warning, 'WARNING'),
+          (HealthConnectorLogLevel.error, 'ERROR'),
+        ];
+
+        for (final (level, levelName) in levels) {
+          final result = HealthConnectorLogFormatter.formatStructuredMessage(
+            tag: 'test',
+            level: level,
+            message: 'test message',
+            dateTime: testDateTime,
+          );
+
+          expect(
+            result,
+            startsWith('[TEST] [$levelName]:'),
+            reason: 'Failed for level $levelName',
+          );
+        }
+      });
+    });
+
+    group('platform parameter', () {
+      test('includes platform as first field when provided', () {
+        final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'NATIVE',
+          level: HealthConnectorLogLevel.info,
+          message: 'test message',
+          platform: 'iOS',
+          dateTime: testDateTime,
+        );
+
+        // Platform should appear before datetime
+        final lines = result.split('\n');
+        expect(lines[0], equals('[NATIVE] [INFO]:'));
+        expect(lines[1], equals('{'));
+        expect(lines[2], equals('    platform: iOS,'));
+        expect(lines[3], startsWith('    datetime:'));
+      });
+
+      test('platform is separate from context', () {
+        final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'NATIVE',
+          level: HealthConnectorLogLevel.info,
+          message: 'test message',
+          platform: 'Android',
+          context: {
+            'version': '1.0',
+            'device': 'Pixel',
+          },
+          dateTime: testDateTime,
+        );
+
+        // Platform is top-level, not in context
+        expect(result, contains('    platform: Android,'));
+        expect(result, contains('context: {'));
+        expect(result, contains('version: 1.0'));
+        expect(result, contains('device: Pixel'));
+        // Context should not contain platform
+        final contextStart = result.indexOf('context: {');
+        final contextEnd = result.indexOf('},', contextStart);
+        final contextSection = result.substring(contextStart, contextEnd);
+        expect(contextSection, isNot(contains('platform:')));
+      });
+
+      test('does not add platform field when platform is null', () {
+        final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'DART',
+          level: HealthConnectorLogLevel.info,
+          message: 'test message',
+          dateTime: testDateTime,
+        );
+
+        expect(result, isNot(contains('platform:')));
+        // Datetime should be the first field after opening brace
+        final lines = result.split('\n');
+        expect(lines[2], startsWith('    datetime:'));
+      });
+
+      test('works with different platform values', () {
+        final platforms = [
+          'IOS_APPLE_HEALTH',
+          'ANDROID_HEALTH_CONNECT',
+          'healthKit',
+          'healthConnect',
+        ];
+
+        for (final platform in platforms) {
+          final result = HealthConnectorLogFormatter.formatStructuredMessage(
+            tag: 'NATIVE',
+            level: HealthConnectorLogLevel.info,
+            message: 'test message',
+            platform: platform,
+            dateTime: testDateTime,
+          );
+
+          expect(
+            result,
+            contains('    platform: $platform,'),
+            reason: 'Failed for platform $platform',
+          );
+        }
+      });
+    });
+
+    group('tag and platform combined', () {
+      test('formats complete native log with tag and platform', () {
+        final result = HealthConnectorLogFormatter.formatStructuredMessage(
+          tag: 'native_hk_ios',
+          level: HealthConnectorLogLevel.debug,
+          message: 'Reading health records',
+          operation: 'readRecords',
+          platform: 'IOS_APPLE_HEALTH',
+          context: {
+            'recordCount': 42,
+          },
+          dateTime: testDateTime,
+        );
+
+        // Check first line has tag and level
+        expect(result, startsWith('[NATIVE_HK_IOS] [DEBUG]:'));
+
+        // Check platform is at top level (before datetime)
+        final lines = result.split('\n');
+        expect(lines[2], equals('    platform: IOS_APPLE_HEALTH,'));
+        expect(lines[3], startsWith('    datetime:'));
+
+        // Check context has only app-specific data
+        expect(result, contains('context: {'));
+        expect(result, contains('recordCount: 42'));
+
+        // Check other fields
+        expect(result, contains('message: Reading health records'));
+        expect(result, contains('operation: readRecords'));
+      });
+
+      test(
+        'formats complete message with all parameters including platform',
+        () {
+          final exception = Exception('Test exception');
+          final stackTrace = StackTrace.current;
+
+          final result = HealthConnectorLogFormatter.formatStructuredMessage(
+            tag: 'api_client',
+            level: HealthConnectorLogLevel.error,
+            message: 'API call failed',
+            operation: 'fetchData',
+            platform: 'ANDROID_HEALTH_CONNECT',
+            context: {
+              'endpoint': '/api/v1/data',
+              'statusCode': 500,
+            },
+            exception: exception,
+            stackTrace: stackTrace,
+            dateTime: testDateTime,
+          );
+
+          // Verify all fields are present
+          expect(result, startsWith('[API_CLIENT] [ERROR]:'));
+          expect(result, contains('    platform: ANDROID_HEALTH_CONNECT,'));
+          expect(result, contains('datetime: 15-03-2024 10:30:45.123'));
+          expect(result, contains('message: API call failed'));
+          expect(result, contains('operation: fetchData'));
+          expect(result, contains('exception: {'));
+          expect(result, contains('cause: $exception'));
+          expect(result, contains('stack_trace: $stackTrace'));
+          expect(result, contains('context: {'));
+          expect(result, contains('endpoint: /api/v1/data'));
+          expect(result, contains('statusCode: 500'));
+        },
+      );
     });
   });
 }
