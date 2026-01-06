@@ -24,7 +24,7 @@ void main() {
         () {
           expect(
             dataType.supportedHealthPlatforms,
-            contains(HealthPlatform.healthConnect),
+            isNot(contains(HealthPlatform.healthConnect)),
           );
           expect(
             dataType.supportedHealthPlatforms,

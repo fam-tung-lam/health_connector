@@ -24,10 +24,13 @@ void main() {
       test(
         'supported platforms are correctly defined',
         () {
-          expect(dataType.supportedHealthPlatforms, hasLength(1));
           expect(
             dataType.supportedHealthPlatforms,
             contains(HealthPlatform.healthConnect),
+          );
+          expect(
+            dataType.supportedHealthPlatforms,
+            isNot(contains(HealthPlatform.appleHealth)),
           );
         },
       );
