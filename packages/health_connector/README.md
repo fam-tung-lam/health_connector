@@ -13,7 +13,7 @@
 
 ## 📖 Table of Contents
 
-- [📱 Explore SDK Capabilities](#-exploring-sdk-capabilities-using-health-connector-toolbox)
+- [🎮 See It In Action](#-see-it-in-action--interactive-toolbox-demo)
 
 - [🚀 Quick Start](#-quick-start)
   - [📋 Requirements](#-requirements)
@@ -24,14 +24,14 @@
 - [📘 Developer Guide](#-developer-guide)
   - [🔐 Permission Management](#-permission-management)
   - [📖 Reading Health Data](#-reading-health-data)
-  - [💾 Writing Health Data](#-writing-health-data)
-  - [✍️ Updating Health Records](#-updating-health-records)
+  - [✍️ Writing Health Data](#-writing-health-data)
+  - [🔄 Updating Health Records](#-updating-health-records)
   - [🗑️ Deleting Health Records](#-deleting-health-records)
   - [➕ Aggregating Health Data](#-aggregating-health-data)
   - [⚙️ Feature Management](#-feature-management)
   - [⚠️ Error Handling](#-error-handling)
-  - [🔧 Troubleshooting](#-troubleshooting)
-  - [❓ FAQ](#-faq)
+  - [📝 Logging](#-logging)
+  - [❓ Troubleshooting & FAQ](#-troubleshooting--faq)
   - [🎯 Real-World Use Cases](#-real-world-use-cases)
 
 - [📚 References](#-references)
@@ -42,19 +42,19 @@
 
 ---
 
-## 📱 Exploring SDK Capabilities using Health Connector Toolbox
+## 🎮 See It In Action — Interactive Toolbox Demo
 
-To explore the SDK's capabilities hands-on, you can use the **Health Connector Toolbox** app
-included in the repository.
+**See what's possible.** The Health Connector Toolbox showcases the full power of the SDK with live,
+interactive demonstrations running on both iOS and Android.
 
 <div align="center">
   <table>
     <tr>
-      <th>Permission Request</th>
-      <th>Read Data</th>
-      <th>Write Data</th>
-      <th>Delete Data</th>
-      <th>Aggregate Data</th>
+      <th>🔐 Permissions</th>
+      <th>📖 Read</th>
+      <th>✍️ Write</th>
+      <th>🗑️ Delete</th>
+      <th>📊 Aggregate</th>
     </tr>
     <tr>
       <td><img alt="Permission Request" src="../../doc/assets/videos/ios_request_permissions_demo.gif" width="160"/></td>
@@ -73,34 +73,22 @@ included in the repository.
   </table>
 </div>
 
-> **ℹ️ Note:** The toolbox is intended as a **demonstration and internal testing tool** only.
-> It is **not recommended** as a reference for building production applications.
-
-#### What the Toolbox Offers
-
-- Interactive demonstrations of core SDK capabilities
-  - Permission management
-  - Read, write, update, and delete operations
-  - Data aggregation
-  - Feature management
-- Visual representation of health records
-
-#### Running the Toolbox
+### 🚀 Try It Yourself
 
 ```bash
-# Clone the repository
 git clone https://github.com/fam-tung-lam/health_connector.git
-cd health_connector
-
-# Navigate to the toolbox app
-cd examples/health_connector_toolbox
-
-# Install dependencies
-flutter pub get
-
-# Run on your device
-flutter run
+cd health_connector/examples/health_connector_toolbox
+flutter pub get && flutter run
 ```
+
+**Explore:**
+
+- 🔐 Permission flows for HealthKit & Health Connect
+- 📊 Real-time health data visualization
+- ✍️ CRUD operations with live feedback
+- 🧪 Feature detection and platform capabilities
+
+> **💡 Note:** The toolbox is a demonstration tool—perfect for exploring APIs, not for production reference.
 
 ---
 
@@ -209,9 +197,9 @@ android.enableJetifier=true
 android.useAndroidX=true
 ```
 
-##### Step 4: Update Gradle
+##### Step 4: Set Minimum Android Version
 
-Update `android/app/build.gradle`:
+Health Connect requires Android 8.0 (API 26) or higher. Update `android/app/build.gradle`:
 
 ```gradle
 android {
@@ -220,7 +208,7 @@ android {
     defaultConfig {
         // Your existing configuration
 
-        minSdkVersion 26
+        minSdkVersion 26  // Required for Health Connect
     }
 }
 ```
@@ -230,22 +218,14 @@ android {
 <details>
 <summary><b>🍎 iOS HealthKit Setup</b></summary>
 
-##### Step 1: Set Minimum iOS Version
+##### Step 1: Configure Xcode
 
 1. Open your project in Xcode (`ios/Runner.xcworkspace`)
 2. Select your app target
-3. Go to **General** tab
-4. Set **Minimum Deployments** to **15.0**
+3. In **General** tab → Set **Minimum Deployments** to **15.0**
+4. In **Signing & Capabilities** tab → Click **+ Capability** → Add **HealthKit**
 
-##### Step 2: Enable HealthKit Capability
-
-1. Open your project in Xcode (`ios/Runner.xcworkspace`)
-2. Select your app target
-3. Go to **Signing & Capabilities** tab
-4. Click **+ Capability**
-5. Add **HealthKit**
-
-##### Step 3: Update Info.plist
+##### Step 2: Update Info.plist
 
 Add to `ios/Runner/Info.plist`:
 
@@ -283,71 +263,62 @@ Future<void> quickStart() async {
 
   // 2. Create connector instance
   final connector = await HealthConnector.create(
-    HealthConnectorConfig(isLoggerEnabled: true),
+    const HealthConnectorConfig(isLoggerEnabled: true),
   );
 
-  // 3. Request permissions for steps
-  // **Note**: Feel free to use any other data type you want.
+  // 3. Request permissions
   final results = await connector.requestPermissions([
     HealthDataType.steps.readPermission,
     HealthDataType.steps.writePermission,
   ]);
 
-  // 4. Check if all permissions were granted
-  final arePermissionsGranted = results.every((r) => r.status != PermissionStatus.denied);
-
-  if (!arePermissionsGranted) {
-    print('Permissions not granted');
+  // 4. Verify permissions were granted
+  final granted = results.every((r) => r.status != PermissionStatus.denied);
+  if (!granted) {
+    print('Permissions denied');
     return;
   }
 
-  // 5. Write multiple step records
-  final stepsRecords = [
-    StepsRecord(
-      startTime: DateTime.now().subtract(Duration(hours: 3)),
-      endTime: DateTime.now().subtract(Duration(hours: 2)),
-      count: Number(1500),
-      metadata: Metadata.automaticallyRecorded(
-        dataOrigin: DataOrigin('com.example'),
-        device: Device.fromType(DeviceType.phone),
-      ),
-    ),
-    StepsRecord(
-      startTime: DateTime.now().subtract(Duration(hours: 2)),
-      endTime: DateTime.now().subtract(Duration(hours: 1)),
-      count: Number(2000),
-      metadata: Metadata.automaticallyRecorded(
-        dataOrigin: DataOrigin('com.example'),
-        device: Device.fromType(DeviceType.phone),
-      ),
-    ),
-    StepsRecord(
-      startTime: DateTime.now().subtract(Duration(hours: 1)),
-      endTime: DateTime.now(),
-      count: Number(1800),
-      metadata: Metadata.automaticallyRecorded(
-        dataOrigin: DataOrigin('com.example'),
-        device: Device.fromType(DeviceType.phone),
-      ),
-    ),
+  // 5. Write health data
+  final now = DateTime.now();
+  final records = [
+    _createStepsRecord(now.subtract(Duration(hours: 3)), 1500),
+    _createStepsRecord(now.subtract(Duration(hours: 2)), 2000),
+    _createStepsRecord(now.subtract(Duration(hours: 1)), 1800),
   ];
-  final recordIds = await connector.writeRecords(stepsRecords);
-  print('Wrote ${recordIds.length} records');
+  
+  final recordIds = await connector.writeRecords(records);
+  print('✅ Wrote ${recordIds.length} records');
 
-
-  // 6. Read today's step records
+  // 6. Read health data
   final response = await connector.readRecords(
     HealthDataType.steps.readInTimeRange(
-      startTime: DateTime.now().subtract(Duration(days: 1)),
-      endTime: DateTime.now(),
+      startTime: now.subtract(Duration(days: 1)),
+      endTime: now,
     ),
   );
 
+  print('📊 Found ${response.records.length} records:');
   for (final record in response.records) {
-    print('Record: ${record.count.value} (${record.startTime} - ${record.endTime})');
+    print('  → ${record.count.value} steps (${record.startTime})');
   }
 }
+
+// Helper to create step records
+StepsRecord _createStepsRecord(DateTime time, int steps) {
+  return StepsRecord(
+    startTime: time,
+    endTime: time.add(Duration(hours: 1)),
+    count: Number(steps),
+    metadata: Metadata.automaticallyRecorded(
+      dataOrigin: DataOrigin('com.example'),
+      device: Device.fromType(DeviceType.phone),
+    ),
+  );
+}
 ```
+
+> **💡 What's Next?** Check out the [Developer Guide](#-developer-guide) for full API documentation, error handling, and advanced features.
 
 ---
 
@@ -357,63 +328,29 @@ Future<void> quickStart() async {
 
 #### Request Permissions
 
-> **⚠️ iOS Privacy Limitation**: HealthKit **always returns `PermissionStatus.unknown`** for read 
-> permissions to protect user privacy. This is Apple's intentional design, not a limitation of this SDK.
-
 ```dart
 final permissions = [
-  // Data permissions
   HealthDataType.steps.readPermission,
   HealthDataType.steps.writePermission,
   HealthDataType.weight.readPermission,
-  HealthDataType.weight.writePermission,
-  
-  // Feature permissions
   HealthPlatformFeature.readHealthDataInBackground.permission,
 ];
 
 final results = await connector.requestPermissions(permissions);
 
+// Process results
 for (final result in results) {
-  print('${result.permission}: ${result.status}');
-}
-```
-
-##### iOS Read Permission Workaround
-
-While the SDK respects Apple's privacy guidelines by returning `unknown` for read permissions, 
-developers who need to determine actual read permission status can use the following workaround:
-
-**Workaround Strategy**: Attempt to read a small amount of data. 
-If the read fails with `NotAuthorizedException`, the permission is denied. If it succeeds (even with empty results), the permission is granted.
-
-```dart
-Future<bool> checkIOSReadPermission(HealthDataType dataType) async {
-  try {
-    // Attempt to read a minimal amount of data
-    final request = dataType.readInTimeRange(
-      startTime: DateTime.now().subtract(Duration(days: 1)),
-      endTime: DateTime.now(),
-      pageSize: 1, // Minimal data fetch
-    );
-    
-    await connector.readRecords(request);
-    
-    // If read succeeds, permission is granted
-    return true;
-  } on NotAuthorizedException {
-    // Permission was denied
-    return false;
+  if (result.status == PermissionStatus.granted) {
+    print('✅ ${result.permission}');
+  } else if (result.status == PermissionStatus.unknown) {
+    print('❓ ${result.permission} (iOS read permission)');
   }
 }
 ```
 
-> **⚠️ Important Considerations**:
->
-> - This workaround is **not officially recommended** by Apple
-> - The SDK intentionally does not implement this as default behavior to ensure developers are aware of the privacy implications
+> **iOS Privacy:** Read permissions always return `unknown` to prevent apps from inferring whether users have health data.
 
-#### Check Individual Permission Status
+#### Check Permission Status
 
 ```dart
 final status = await connector.getPermissionStatus(
@@ -422,89 +359,98 @@ final status = await connector.getPermissionStatus(
 
 switch (status) {
   case PermissionStatus.granted:
-    print('Permission granted');
+    // Permission granted
   case PermissionStatus.denied:
-    print('Permission denied');
+    // Permission denied
   case PermissionStatus.unknown:
-    print('Cannot determine (iOS read permission)');
+    // iOS read permission (cannot determine)
 }
 ```
 
-#### Get All Granted Permissions (Android Health Connect Only)
+#### iOS Read Permission Workaround
 
-> **iOS Privacy Note**: This API is not available on iOS. HealthKit does not provide a way to query
-> all granted permissions to protect user privacy. Apps cannot enumerate what health data access
-> they have been granted.
+**Strategy:** Attempt a minimal read operation and catch `NotAuthorizedException`.
+
+```dart
+Future<bool> hasReadPermission(HealthDataType dataType) async {
+  try {
+    await connector.readRecords(
+      dataType.readInTimeRange(
+        startTime: DateTime.now().subtract(Duration(days: 1)),
+        endTime: DateTime.now(),
+        pageSize: 1,
+      ),
+    );
+    return true;  // Read succeeded = permission granted
+  } on NotAuthorizedException {
+    return false; // Permission denied
+  }
+}
+```
+
+> **Disclaimer:** Not officially recommended by Apple. Use only if your app genuinely needs to determine read permission status.
+
+#### Get All Granted Permissions (Android only)
+
+> **iOS Privacy:** HealthKit doesn't allow apps to enumerate granted permissions.
 
 ```dart
 try {
-  final grantedPermissions = await connector.getGrantedPermissions();
-  for (final permission in grantedPermissions) {
-    if (permission is HealthDataPermission) {
-      print('${permission.dataType} (${permission.accessType})');
-    }
+  final granted = await connector.getGrantedPermissions();
+  for (final p in granted) {
+    print('${p.dataType} (${p.accessType})');
   }
 } on UnsupportedOperationException {
-  print('Only available on Android');
+  // iOS doesn't support this API
 }
 ```
 
-#### Revoke All Permissions (Android Health Connect Only)
+#### Revoke All Permissions (Android only)
 
-> **iOS Privacy Note**: This API is not available on iOS. HealthKit requires users to manually
-> revoke permissions through the iOS Settings app. This ensures users have full control and
-> visibility over their health data permissions.
+> **iOS Privacy:** Not supported by HealthKit. Users must revoke permissions manually via Settings app.
 
 ```dart
 try {
   await connector.revokeAllPermissions();
 } on UnsupportedOperationException {
-  print('Only available on Android');
+  // iOS users must revoke via Settings app
 }
 ```
 
 ### 📖 Reading Health Data
 
-> **Platform Note - Historical Data Access**
->
-> **Android Health Connect**: By default, Health Connect only provides access to the **last 30 days** of historical health data.
-> To read data older than 30 days, the `HealthPlatformFeature.readHealthDataHistory` feature must be
-> available and its permission must be granted.
->
-> **iOS HealthKit**: HealthKit has **no default limitation** on historical data access. Apps can read health data from
-> any time period, subject only to user permission.
-
 #### Read by ID
 
 ```dart
-final recordId = HealthRecordId('existing-record-id');
-final request = HealthDataType.steps.readRecord(recordId);
-final record = await connector.readRecord(request);
-
-if (record != null) {
-  print('Steps: ${record.count.value}');
-} else {
-  print('Record not found');
-}
-```
-
-#### Read Multiple Records
-
-```dart
-final request = HealthDataType.steps.readInTimeRange(
-  startTime: DateTime.now().subtract(Duration(days: 7)),
-  endTime: DateTime.now(),
-  pageSize: 100,
+final record = await connector.readRecord(
+  HealthDataType.steps.readRecord(HealthRecordId('record-id')),
 );
 
-final response = await connector.readRecords(request);
-
-for (final record in response.records) {
-  print('Steps: ${record.count.value} (${record.startTime} - ${record.endTime})');
+if (record != null) {
+  print('✅ Found: ${record.count.value} steps');
 }
 ```
 
-#### Pagination
+#### Read by Time Range
+
+```dart
+final response = await connector.readRecords(
+  HealthDataType.steps.readInTimeRange(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+    pageSize: 100,
+  ),
+);
+
+print('📊 Found ${response.records.length} records');
+for (final record in response.records) {
+  print('${record.count.value} steps on ${record.startTime}');
+}
+```
+
+> **Historical Data Access:** Android Health Connect defaults to 30 days—request `HealthPlatformFeature.readHealthDataHistory` permission for older data. iOS HealthKit has no restrictions.
+
+#### Paginate Through All Records
 
 ```dart
 var request = HealthDataType.steps.readInTimeRange(
@@ -515,23 +461,27 @@ var request = HealthDataType.steps.readInTimeRange(
 
 final allRecords = <StepsRecord>[];
 
+// Fetch all pages
 while (true) {
   final response = await connector.readRecords(request);
   allRecords.addAll(response.records.cast<StepsRecord>());
 
+  // Check if there are more pages
   if (response.nextPageRequest == null) break;
   request = response.nextPageRequest!;
 }
 
-print('Total records: ${allRecords.length}');
+print('📊 Total: ${allRecords.length} records');
 ```
 
-### 💾 Writing Health Data
+[📤 Back to top](#-table-of-contents)
+
+### ✍️ Writing Health Data
 
 #### Write Single Record
 
 ```dart
-final stepRecord = StepsRecord(
+final record = StepsRecord(
   id: HealthRecordId.none, // Must be .none for new records
   startTime: DateTime.now().subtract(Duration(hours: 1)),
   endTime: DateTime.now(),
@@ -541,121 +491,121 @@ final stepRecord = StepsRecord(
   ),
 );
 
-final recordId = await connector.writeRecord(stepRecord);
-print('Record ID: $recordId');
+final recordId = await connector.writeRecord(record);
+print('✅ Saved: $recordId');
 ```
 
-#### Atomic Write Multiple Records
+#### Batch Write Multiple Records
 
 All records succeed or all fail together:
 
 ```dart
+// Helper to create step records
+StepsRecord _createSteps(DateTime time, int steps) => StepsRecord(
+  id: HealthRecordId.none,
+  startTime: time,
+  endTime: time.add(Duration(hours: 1)),
+  count: Number(steps),
+  metadata: Metadata.automaticallyRecorded(
+    device: Device.fromType(DeviceType.phone),
+  ),
+);
+
+final now = DateTime.now();
 final records = [
-  StepsRecord(
-    id: HealthRecordId.none,
-    startTime: DateTime.now().subtract(Duration(hours: 2)),
-    endTime: DateTime.now().subtract(Duration(hours: 1)),
-    count: Number(3000),
-    metadata: Metadata.automaticallyRecorded(
-      device: Device.fromType(DeviceType.phone),
-    ),
-  ),
-  StepsRecord(
-    id: HealthRecordId.none,
-    startTime: DateTime.now().subtract(Duration(hours: 1)),
-    endTime: DateTime.now(),
-    count: Number(2000),
-    metadata: Metadata.automaticallyRecorded(
-      device: Device.fromType(DeviceType.phone),
-    ),
-  ),
+  _createSteps(now.subtract(Duration(hours: 3)), 1500),
+  _createSteps(now.subtract(Duration(hours: 2)), 2000),
+  _createSteps(now.subtract(Duration(hours: 1)), 1800),
 ];
 
-final recordIds = await connector.writeRecords(records);
-print('Wrote ${recordIds.length} records');
+final ids = await connector.writeRecords(records);
+print('✅ Wrote ${ids.length} records');
 ```
 
-### ✍️ Updating Health Records
+[📤 Back to top](#-table-of-contents)
 
-> **iOS Privacy Note**: HealthKit does not provide an update API because it uses an **immutable data
-> model**. Once a health record is written to HealthKit, it cannot be modified—only deleted.
+### 🔄 Updating Health Records
 
-#### Update Record (Android Health Connect Only)
+> **iOS Note:** HealthKit uses an immutable data model—records cannot be updated, only deleted and recreated.
+
+#### Update Single Record (Android only)
 
 ```dart
-final recordId = HealthRecordId('existing-record-id');
-final request = HealthDataType.steps.readRecord(recordId);
-final existingRecord = await connector.readRecord(request);
+final record = await connector.readRecord(
+  HealthDataType.steps.readRecord(HealthRecordId('record-id')),
+);
 
-if (existingRecord != null) {
-  final updatedRecord = existingRecord.copyWith(
-    count: Number(existingRecord.count.value + 500),
+if (record != null) {
+  await connector.updateRecord(
+    record.copyWith(count: Number(record.count.value + 500)),
   );
-
-  await connector.updateRecord(updatedRecord);
-  print('Record updated');
+  print('✅ Record updated');
 }
 ```
 
-#### Atomic Update Multiple Records (Android Health Connect Only)
+#### Batch Update (Android only)
 
-Update multiple records atomically—all succeed or all fail together:
+Update multiple records atomically—all succeed or all fail.
 
 ```dart
-// Read existing records
-final readRequest = HealthDataType.steps.readInTimeRange(
-  startTime: DateTime.now().subtract(Duration(days: 7)),
-  endTime: DateTime.now(),
+// Fetch records to update
+final response = await connector.readRecords(
+  HealthDataType.steps.readInTimeRange(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+  ),
 );
-final response = await connector.readRecords(readRequest);
 
-// Update all records by adding 100 steps to each
-final updatedRecords = response.records.map((record) {
-  return record.copyWith(
-    count: Number(record.count.value + 100),
-  );
-}).toList();
+// Apply updates
+final updated = response.records.map((r) => 
+  r.copyWith(count: Number(r.count.value + 100))
+).toList();
 
-// Batch update all records
-await connector.updateRecords(updatedRecords);
-print('Updated ${updatedRecords.length} records');
+await connector.updateRecords(updated);
+print('✅ Updated ${updated.length} records');
 ```
 
-#### iOS HealthKit Update Workaround (Delete + Write)
+#### iOS Workaround: Delete + Recreate
 
 ```dart
-// 1. Delete existing record
+// Delete existing
 await connector.deleteRecords(
   HealthDataType.steps.deleteByIds([existingRecord.id]),
 );
 
-// 2. Write new record with updated values
-final newRecord = StepsRecord(
+// Write new record with updated values
+final newRecord = existingRecord.copyWith(
   id: HealthRecordId.none,
-  startTime: existingRecord.startTime,
-  endTime: existingRecord.endTime,
   count: Number(newValue),
-  metadata: existingRecord.metadata,
 );
 
 final newId = await connector.writeRecord(newRecord);
-// Note: newId will be different from the original ID
+// ⚠️ Note: ID changes after recreation
 ```
+
+[📤 Back to top](#-table-of-contents)
 
 ### 🗑️ Deleting Health Records
 
-#### Atomic Delete by IDs
+> **Limitation:** Apps can only delete records they created—platform security restriction.
+
+#### Delete by IDs
 
 ```dart
-await connector.deleteRecords(
-  HealthDataType.steps.deleteByIds([
-    HealthRecordId('id-1'),
-    HealthRecordId('id-2'),
-  ]),
-);
+try {
+  await connector.deleteRecords(
+    HealthDataType.steps.deleteByIds([
+      HealthRecordId('id-1'),
+      HealthRecordId('id-2'),
+    ]),
+  );
+  print('✅ Deleted');
+} on NotAuthorizedException {
+  print('❌ Cannot delete records from other apps');
+}
 ```
 
-#### Atomic Delete by Time Range
+#### Delete by Time Range
 
 ```dart
 await connector.deleteRecords(
@@ -666,288 +616,189 @@ await connector.deleteRecords(
 );
 ```
 
-> **Important**: Apps can only delete records they created.
-> Attempting to delete records from other apps will lead to `NotAuthorizedException`.
+[📤 Back to top](#-table-of-contents)
 
-### ➕ Aggregating Health Data
+### 📊 Aggregating Health Data
 
-#### Sum Aggregation
-
-Get the total value over a period, such as total steps for a day:
+#### Example: Sum
 
 ```dart
-final sumRequest = HealthDataType.steps.aggregateSum(
-  startTime: DateTime.now().subtract(Duration(days: 1)),
-  endTime: DateTime.now(),
+final response = await connector.aggregate(
+  HealthDataType.steps.aggregateSum(
+    startTime: DateTime.now().subtract(Duration(days: 1)),
+    endTime: DateTime.now(),
+  ),
 );
 
-final sumResponse = await connector.aggregate(sumRequest);
-print('Total steps: ${sumResponse.value.value}');
+print('📊 Total steps: ${response.value.value}');
 ```
 
-#### Average Aggregation
-
-Get the average value over 30 days:
+#### Example: Average, Min, Max
 
 ```dart
-final avgRequest = HealthDataType.weight.aggregateAvg(
-  startTime: DateTime.now().subtract(Duration(days: 30)),
-  endTime: DateTime.now(),
+final now = DateTime.now();
+final thirtyDaysAgo = now.subtract(Duration(days: 30));
+
+// Get average weight
+final avg = await connector.aggregate(
+  HealthDataType.weight.aggregateAvg(
+    startTime: thirtyDaysAgo,
+    endTime: now,
+  ),
 );
 
-final avgResponse = await connector.aggregate(avgRequest);
-print('Average weight: ${avgResponse.value.inKilograms} kg');
-```
-
-#### Minimum Aggregation
-
-Get the minimum recorded value over a period:
-
-```dart
-final minRequest = HealthDataType.weight.aggregateMin(
-  startTime: DateTime.now().subtract(Duration(days: 30)),
-  endTime: DateTime.now(),
+// Get min/max weight
+final min = await connector.aggregate(
+  HealthDataType.weight.aggregateMin(
+    startTime: thirtyDaysAgo,
+    endTime: now,
+  ),
 );
 
-final minResponse = await connector.aggregate(minRequest);
-print('Min weight: ${minResponse.value.inKilograms} kg');
-```
-
-#### Maximum Aggregation
-
-Get the maximum recorded value over a period:
-
-```dart
-final maxRequest = HealthDataType.weight.aggregateMax(
-  startTime: DateTime.now().subtract(Duration(days: 30)),
-  endTime: DateTime.now(),
+// Get min/max weight
+final max = await connector.aggregate(
+  HealthDataType.weight.aggregateMax(
+    startTime: thirtyDaysAgo,
+    endTime: now,
+  ),
 );
 
-final maxResponse = await connector.aggregate(maxRequest);
-print('Max weight: ${maxResponse.value.inKilograms} kg');
+print('Avg: ${avg.value.inKilograms} kg');
+print('Min: ${min.value.inKilograms} kg');
+print('Max: ${max.value.inKilograms} kg');
 ```
+
+[📤 Back to top](#-table-of-contents)
 
 ### ⚙️ Feature Management
 
-Platform features have different availability characteristics across platforms.
+> **Platform Behavior:** iOS HealthKit features are always available (built into iOS). Android Health Connect features depend on app version—check `getFeatureStatus()` before requesting permissions.
 
-#### Platform Differences
-
-- **iOS HealthKit**:
-  - All features are **available and granted by default**
-  - When checking feature status with `getFeatureStatus()`, the SDK always returns
-      `HealthPlatformFeatureStatus.available`
-  - When requesting feature permissions with `requestPermissions()`, the SDK always returns
-      `PermissionStatus.granted`
-- **Android Health Connect**:
-  - Feature availability **depends on Android version and Health Connect SDK version**
-  - Some features require specific minimum versions, f.e. background health data reading requires
-      Health Connect SDK `v1.1.0-alpha04`
-
-#### Checking Feature Availability
+#### Check Feature Availability
 
 ```dart
-// Check if background reading is available
 final status = await connector.getFeatureStatus(
   HealthPlatformFeature.readHealthDataInBackground,
 );
 
 if (status == HealthPlatformFeatureStatus.available) {
-  // Feature is supported - safe to request permission
   await connector.requestPermissions([
     HealthPlatformFeature.readHealthDataInBackground.permission,
   ]);
+  print('✅ Feature available and requested');
 } else {
-  // Feature not available on this device/version
-  print('Background reading not available');
-  // Implement fallback or disable feature in UI
+  print('❌ Feature not available—implement fallback');
 }
+
+// Note: iOS always returns 'available', Android returns actual status
 ```
 
-#### Feature Permission Status
-
-When checking the status of a feature permission:
-
-```dart
-final permissionStatus = await connector.getPermissionStatus(
-  HealthPlatformFeature.readHealthDataInBackground.permission,
-);
-
-// On iOS: Always returns PermissionStatus.granted
-// On Android: Returns actual status (granted/denied)
-```
+[📤 Back to top](#-table-of-contents)
 
 ### ⚠️ Error Handling
 
-The SDK provides two approaches for handling errors.
-
-#### Approach 1: Catching Specific Exceptions
-
-Use Dart's type-based exception handling to catch specific error types.
-
-```dart
-try {
-  await connector.requestPermissions([...]);
-  await connector.writeRecord(record);
-} on NotAuthorizedException catch (e) {
-  // User denied or revoked permissions
-  // Recovery: Explain why permission is needed, guide to settings
-  print('Permission denied: ${e.message}');
-} on InvalidConfigurationException catch (e) {
-  // Missing AndroidManifest.xml or Info.plist configuration
-  // Recovery: Fix app configuration (development-time error)
-  print('Configuration error: ${e.message}');
-} on UnsupportedOperationException catch (e) {
-  // Platform doesn't support this operation
-  // Recovery: Check platform before calling, use alternative approach
-  print('Not supported: ${e.message}');
-} on InvalidArgumentException catch (e) {
-  // Invalid input (e.g., startTime > endTime, negative values)
-  // Recovery: Validate inputs before calling
-  print('Invalid argument: ${e.message}');
-} on HealthPlatformUnavailableException catch (e) {
-  // Device doesn't support health API
-  // Recovery: Disable health features for this device
-  print('Health unavailable: ${e.message}');
-} on HealthPlatformNotInstalledOrUpdateRequiredException catch (e) {
-  // Health Connect needs installation/update (Android Health Connect Only)
-  // Recovery: Prompt user to install/update Health Connect
-  print('Health Connect needs update: ${e.message}');
-} on RemoteErrorException catch (e) {
-  // Transient I/O or communication error
-  // Recovery: Retry with exponential backoff
-  print('Remote error: ${e.message}');
-} on HealthConnectorException catch (e) {
-  // Generic fallback for unexpected errors
-  print('Unknown error [${e.code}]: ${e.message}');
-}
-```
-
-#### Approach 2: Handling by Error Code
-
-Catch the base `HealthConnectorException` and switch on `HealthConnectorErrorCode`.
-
-```dart
-try {
-  await connector.requestPermissions([...]);
-  await connector.writeRecord(record);
-} on HealthConnectorException catch (e) {
-  switch (e.code) {
-    case HealthConnectorErrorCode.notAuthorized:
-      print('Permission denied: ${e.message}');
-    case HealthConnectorErrorCode.invalidConfiguration:
-      print('Configuration error: ${e.message}');
-    case HealthConnectorErrorCode.unsupportedOperation:
-      print('Not supported: ${e.message}');
-    case HealthConnectorErrorCode.invalidArgument:
-      print('Invalid argument: ${e.message}');
-    case HealthConnectorErrorCode.healthPlatformUnavailable:
-      print('Health unavailable: ${e.message}');
-    case HealthConnectorErrorCode.healthPlatformNotInstalledOrUpdateRequired:
-      print('Health Connect needs update: ${e.message}');
-    case HealthConnectorErrorCode.remoteError:
-      print('Remote error: ${e.message}');
-    case HealthConnectorErrorCode.unknown:
-      print('Unknown error [${e.code}]: ${e.message}');
-  }
-}
-```
-
 #### Exception Quick Reference
 
-| Exception                                             | Cause                      | Recovery                |
-|-------------------------------------------------------|----------------------------|-------------------------|
-| `NotAuthorizedException`                              | Permission denied/revoked  | Guide user to settings  |
-| `InvalidConfigurationException`                       | Missing manifest entries   | Fix configuration       |
-| `UnsupportedOperationException`                       | API not available          | Check platform first    |
-| `InvalidArgumentException`                            | Invalid input values       | Validate inputs         |
-| `HealthPlatformUnavailableException`                  | Device unsupported         | Disable health features |
-| `HealthPlatformNotInstalledOrUpdateRequiredException` | Health Connect app missing | Prompt installation     |
+| Exception | Recovery Strategy |
+|-----------|-------------------|
+| `NotAuthorizedException` | Guide user to System Settings to enable permissions |
+| `HealthPlatformUnavailableException` | Disable health features gracefully (device unsupported) |
+| `InvalidConfigurationException` | Dev error: check `AndroidManifest.xml` / `Info.plist` |
+| `UnsupportedOperationException` | Check `getFeatureStatus()` before calling platform-specific APIs |
 
-### 🔧 Troubleshooting
-
-#### Common Issues
-
-| Issue                                                 | Platform               | Solution                                                                                                                  |
-|-------------------------------------------------------|------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| `HealthPlatformUnavailableException`                  | iOS HealthKit API          | Add HealthKit capability in Xcode → Signing & Capabilities                                                                |
-| `HealthPlatformUnavailableException`                  | Android Health Connect API | Device doesn't support Health Connect (requires Android 8.0+)                                                             |
-| `HealthPlatformNotInstalledOrUpdateRequiredException` | Android Health Connect API | Prompt user to install [Health Connect](https://play.google.com/store/apps/details?id=com.google.android.apps.healthdata) |
-| `InvalidConfigurationException`                       | Android Health Connect API | Add required permissions to `AndroidManifest.xml`                                                                         |
-| `InvalidConfigurationException`                       | iOS HealthKit API          | Add `NSHealthShareUsageDescription` and `NSHealthUpdateUsageDescription` to `Info.plist`                                  |
-| Read permissions return `unknown`                     | iOS HealthKit API          | Normal behavior—iOS doesn't expose read permission status for privacy                                                     |
-| Can't delete/update records                           | Both                   | Apps can only modify records they created                                                                                 |
-
-#### Debug Logging
-
-Enable detailed logs to troubleshoot issues:
+#### Standard Exception Handling
 
 ```dart
-final connector = await HealthConnector.create(
-  HealthConnectorConfig(isLoggerEnabled: true),
-);
-```
-
-### ❓ FAQ
-
-#### Why do iOS read permissions always return `unknown`?
-
-Apple intentionally hides read permission status to protect user privacy. This prevents apps from
-inferring whether a user has any health data by checking if read permission was denied.
-
-#### How do I handle Health Connect not being installed?
-
-```dart
-final status = await HealthConnector.getHealthPlatformStatus();
-if (status == HealthPlatformStatus.installationOrUpdateRequired) {
-  // Show dialog prompting user to install Health Connect
-  // Then launch the app store page:
-  await HealthConnector.launchHealthAppPageInAppStore();
+try {
+  await connector.writeRecord(record);
+} on NotAuthorizedException catch (e) {
+  print('❌ Permission denied: ${e.message}');
+  // Show UI prompting user to check settings
+} on HealthPlatformUnavailableException {
+  print('❌ Health API unavailable on this device');
+} on HealthConnectorException catch (e) {
+  print('❌ Error [${e.code}]: ${e.message}');
 }
 ```
 
-#### What's the difference between `heartRateSeriesRecord` and `heartRateMeasurementRecord`?
+[📤 Back to top](#-table-of-contents)
 
-- **Android Health Connect**: Uses `heartRateSeriesRecord` — a single record with multiple samples
-  over a time interval
-- **iOS HealthKit**: Uses `heartRateMeasurementRecord` — each measurement is a separate record with
-  its own ID
+### 📝 Logging
 
-#### Can I read health data from other apps?
+> **Zero-intrusion:** Logs are emitted to a stream (`HealthConnectorLogger.logs`) and never printed automatically. You control the output.
 
-Yes, with user permission. When granted read access, you can read health data from all sources (
-other apps, devices, manual entries).
+#### Setup & Subscribing
 
-#### Can I delete health data from other apps?
+```dart
+// 1. Enable logging during initialization
+final connector = await HealthConnector.create(
+  const HealthConnectorConfig(isLoggerEnabled: true),
+);
 
-No. Apps can only delete records they created. This is a platform security restriction.
+// 2. Subscribe and filter
+HealthConnectorLogger.logs
+  .where((log) => log.level == HealthConnectorLogLevel.error) // Optional filter
+  .listen((log) {
+    print(log.structuredMessage);
+    // OR send to Crashlytics:
+    // Crashlytics.recordError(log.exception, log.stackTrace, reason: log.message);
+  });
+```
+
+#### Log Structure Example
+
+```text
+[HEALTHCONNECTOR] [INFO]:
+{
+    datetime: 06-01-2026 18:15:32.456,
+    message: HealthConnector created successfully,
+    operation: create,
+    context: { platform: healthConnect },
+}
+
+[HEALTHCONNECTOR] [ERROR]:
+{
+    datetime: 06-01-2026 18:15:34.123,
+    message: Failed to read records,
+    exception: { cause: NotAuthorizedException... },
+}
+```
+
+[📤 Back to top](#-table-of-contents)
+
+### 🔧 Troubleshooting & FAQ
+
+| Issue / Question                                                                        | Platform / Context     | Solution / Answer                                                                                     |
+|-----------------------------------------------------------------------------------------|------------------------|-------------------------------------------------------------------------------------------------------|
+| `HealthPlatformUnavailableException`                                                    | iOS HealthKit          | Add HealthKit capability in Xcode → Signing & Capabilities                                            |
+| `HealthPlatformUnavailableException`                                                    | Android Health Connect | Device doesn't support Health Connect (requires Android 8.0+)                                         |
+| `HealthPlatformNotInstalledOrUpdateRequiredException`                                   | Android Health Connect | Check `getHealthPlatformStatus()` and call `launchHealthAppPageInAppStore()` to open Play Store       |
+| `InvalidConfigurationException`                                                         | Android Health Connect | Add required permissions to `AndroidManifest.xml`                                                     |
+| `InvalidConfigurationException`                                                         | iOS HealthKit          | Add `NSHealthShareUsageDescription` and `NSHealthUpdateUsageDescription` to `Info.plist`              |
+| Why do iOS read permissions return `unknown`?                                           | iOS HealthKit          | Apple hides read permission status to protect privacy — apps cannot infer if a user has health data   |
+| What's the difference between `heartRateSeriesRecord` and `heartRateMeasurementRecord`? | Cross-platform         | Android uses series records (multiple samples in one record); iOS uses individual measurement records |
+| Can I read health data from other apps?                                                 | Both platforms         | Yes — with user permission, you can read data from all sources (apps, devices, manual entries)        |
+| Can I modify/delete data from other apps?                                               | Both platforms         | No — apps can only modify or delete records they created (platform security restriction)              |
+
+[📤 Back to top](#-table-of-contents)
 
 ### 🎯 Real-World Use Cases
 
-#### Fitness Tracker
-
-Track daily activity with steps, calories, and distance:
+#### 🏃 Fitness Dashboard
 
 ```dart
-Future<Map<String, double>> getDailyActivitySummary(
-  HealthConnector connector,
-  DateTime date,
-) async {
-  final startOfDay = DateTime(date.year, date.month, date.day);
-  final endOfDay = startOfDay.add(Duration(days: 1));
+// Get daily summary: steps & calories
+Future<Map<String, double>> getDailySummary(HealthConnector connector) async {
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  final tomorrow = today.add(Duration(days: 1));
 
   final steps = await connector.aggregate(
-    HealthDataType.steps.aggregateSum(
-      startTime: startOfDay,
-      endTime: endOfDay,
-    ),
+    HealthDataType.steps.aggregateSum(startTime: today, endTime: tomorrow),
   );
 
   final calories = await connector.aggregate(
-    HealthDataType.activeCaloriesBurned.aggregateSum(
-      startTime: startOfDay,
-      endTime: endOfDay,
-    ),
+    HealthDataType.activeCaloriesBurned.aggregateSum(startTime: today, endTime: tomorrow),
   );
 
   return {
@@ -957,72 +808,53 @@ Future<Map<String, double>> getDailyActivitySummary(
 }
 ```
 
-#### Health Dashboard
-
-Display vital signs with recent measurements:
+#### ❤️ Vitals Monitor
 
 ```dart
-Future<void> displayVitals(HealthConnector connector) async {
+Future<void> logVitals(HealthConnector connector) async {
+  final weekAgo = DateTime.now().subtract(Duration(days: 7));
   final now = DateTime.now();
-  final weekAgo = now.subtract(Duration(days: 7));
 
-  // Get latest weight
-  final weightResponse = await connector.readRecords(
+  // 1. Get latest weight
+  final weight = await connector.readRecords(
     HealthDataType.weight.readInTimeRange(
-      startTime: weekAgo,
-      endTime: now,
-      pageSize: 1,
+      startTime: weekAgo, endTime: now, pageSize: 1,
     ),
   );
-
-  if (weightResponse.records.isNotEmpty) {
-    final latestWeight = weightResponse.records.first as WeightRecord;
-    print('Latest weight: ${latestWeight.weight.inKilograms} kg');
+  if (weight.records.isNotEmpty) {
+    print('⚖️ Latest weight: ${(weight.records.first as WeightRecord).weight.inKilograms} kg');
   }
 
-  // Get heart rate average
-  final heartRateAvg = await connector.aggregate(
-    HealthDataType.restingHeartRate.aggregateAvg(
-      startTime: weekAgo,
-      endTime: now,
-    ),
+  // 2. Get avg resting heart rate
+  final hr = await connector.aggregate(
+    HealthDataType.restingHeartRate.aggregateAvg(startTime: weekAgo, endTime: now),
   );
-  print('Avg resting HR: ${heartRateAvg.value.inBeatsPerMinute} bpm');
+  print('💓 Avg Resting HR: ${hr.value.inBeatsPerMinute} bpm');
 }
 ```
 
-#### Nutrition Logger
-
-Log meals with macronutrients:
+#### 🥗 Nutrition Tracker
 
 ```dart
-Future<void> logMeal({
-  required HealthConnector connector,
-  required String mealName,
-  required double calories,
-  required double proteinGrams,
-  required double carbsGrams,
-  required double fatGrams,
-}) async {
-  final now = DateTime.now();
-
-  final nutritionRecord = NutritionRecord(
+Future<void> logLunch(HealthConnector connector) async {
+  final entry = NutritionRecord(
     id: HealthRecordId.none,
-    startTime: now.subtract(Duration(minutes: 30)),
-    endTime: now,
-    mealType: MealType.lunch,
-    name: mealName,
-    energy: Energy.kilocalories(calories),
-    protein: Mass.grams(proteinGrams),
-    totalCarbohydrate: Mass.grams(carbsGrams),
-    totalFat: Mass.grams(fatGrams),
+    startTime: DateTime.now().subtract(Duration(minutes: 30)),
+    endTime: DateTime.now(),
+    name: 'Grilled Chicken Salad',
+    energy: Energy.kilocalories(450),
+    protein: Mass.grams(40),
+    totalCarbohydrate: Mass.grams(12),
+    totalFat: Mass.grams(15),
     metadata: Metadata.manual(),
   );
 
-  await connector.writeRecord(nutritionRecord);
-  print('Meal logged: $mealName');
+  await connector.writeRecord(entry);
+  print('✅ Meal logged');
 }
 ```
+
+[📤 Back to top](#-table-of-contents)
 
 ---
 
@@ -1310,6 +1142,8 @@ Future<void> logMeal({
 | Menstruation Flow       | Menstrual flow intensity                  | `HealthDataType.menstrualFlow`          | -                     | [MenstruationFlowRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/MenstruationFlowRecord)         | [HKCategoryTypeIdentifier.menstrualFlow](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/menstrualflow)                                       |
 | Ovulation Test          | Ovulation test result                     | `HealthDataType.ovulationTest`          | -                     | [OvulationTestRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/OvulationTestRecord)               | [HKCategoryTypeIdentifier.ovulationTestResult](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/ovulationtestresult)                           |
 | Intermenstrual Bleeding | Intermenstrual bleeding spotting          | `HealthDataType.intermenstrualBleeding` | -                     | -                                                                                                                                              | [HKCategoryTypeIdentifier.persistentIntermenstrualBleeding](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/persistentintermenstrualbleeding) |
+
+[📤 Back to top](#-table-of-contents)
 
 ### 🔄 Migration Guides
 
