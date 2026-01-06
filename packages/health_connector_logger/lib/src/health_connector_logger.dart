@@ -1,4 +1,4 @@
-import 'dart:async' show Stream, StreamController;
+import 'dart:async' show Stream, StreamController, StreamSubscription;
 
 import 'package:health_connector_logger/src/models/health_connector_log.dart';
 import 'package:health_connector_logger/src/models/health_connector_log_level.dart';
@@ -16,8 +16,6 @@ abstract final class HealthConnectorLogger {
   static bool isEnabled = true;
 
   /// Stream controller for broadcasting log events.
-  ///
-  /// Uses a broadcast stream to allow multiple simultaneous subscribers.
   static final StreamController<HealthConnectorLog> _logsController =
       StreamController<HealthConnectorLog>.broadcast();
 
@@ -54,6 +52,102 @@ abstract final class HealthConnectorLogger {
   /// await subscription.cancel();
   /// ```
   static Stream<HealthConnectorLog> get logs => _logsController.stream;
+
+  /// Subscriptions to external log source streams for cleanup management.
+  ///
+  /// This list tracks [StreamSubscription]s created when external log sources
+  /// are registered via [registerExternalLogSource]. Each subscription
+  /// forwards log events from the external source to the unified [logs] stream.
+  static final List<StreamSubscription<HealthConnectorLog>>
+  _externalLogSourceSubscriptions = [];
+
+  /// Registers an external log source stream to forward events to the unified
+  /// log stream.
+  ///
+  /// This method subscribes to the provided stream and forwards all log events
+  /// to the main [logs] stream, allowing platform-specific plugins to
+  /// contribute their native log events.
+  ///
+  /// The subscription is managed internally and will be cancelled when
+  /// [disposeExternalLogSources] is called. Events are only forwarded when
+  /// [isEnabled] is `true`.
+  ///
+  /// ## Parameters
+  ///
+  /// - [source]: A stream of [HealthConnectorLog] events from an external
+  ///   source.
+  ///
+  /// ## Error Handling
+  ///
+  /// Errors from the external source are logged via [debug] but do not
+  /// propagate or terminate the subscription, ensuring one source's failures
+  /// don't affect other registered sources.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// // In health_connector_hc_android plugin initialization:
+  /// final nativeLogStream = HealthConnectorHCClient.watchNativeLogs();
+  /// HealthConnectorLogger.registerExternalLogSource(nativeLogStream);
+  /// ```
+  ///
+  /// ## See Also
+  ///
+  /// - [disposeExternalLogSources] to cancel all registered log sources
+  /// - [logs] for the unified log stream output
+  static void registerExternalLogSource(Stream<HealthConnectorLog> source) {
+    final subscription = source.listen(
+      (log) {
+        if (isEnabled) {
+          _logsController.add(log);
+        }
+      },
+      onError: (Object error, StackTrace stackTrace) {
+        // Log the error but don't propagate to avoid breaking the stream.
+        debug(
+          'HealthConnectorLogger',
+          operation: 'register_external_log_source',
+          message: 'Error from external log source',
+          exception: error,
+          stackTrace: stackTrace,
+        );
+      },
+      cancelOnError: false,
+    );
+    _externalLogSourceSubscriptions.add(subscription);
+  }
+
+  /// Disposes all external log source subscriptions and releases resources.
+  ///
+  /// This method cancels all stream subscriptions created by
+  /// [registerExternalLogSource] and clears the internal subscription list.
+  /// After calling this method, external log sources will no longer forward
+  /// events to the unified [logs] stream.
+  ///
+  /// ## Returns
+  ///
+  /// A [Future] that completes when all subscriptions have been cancelled.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// // During plugin cleanup:
+  /// @override
+  /// Future<void> dispose() async {
+  ///   await HealthConnectorLogger.disposeExternalLogSources();
+  ///   super.dispose();
+  /// }
+  /// ```
+  ///
+  /// ## See Also
+  ///
+  /// - [registerExternalLogSource] to register new log sources
+  static Future<void> disposeExternalLogSources() async {
+    for (final subscription in _externalLogSourceSubscriptions) {
+      await subscription.cancel();
+    }
+    _externalLogSourceSubscriptions.clear();
+  }
 
   /// Base indentation unit (4 spaces).
   static const String _indentation = '    ';
