@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:health_connector_logger/src/models/health_connector_log_level.dart';
+import 'package:health_connector_logger/src/utils/health_connector_log_formatter.dart';
 import 'package:meta/meta.dart' show immutable;
 
 /// A structured log event emitted by `HealthConnectorLogger`.
@@ -14,14 +15,14 @@ final class HealthConnectorLog {
   /// A tag for categorizing the log entry.
   final String tag;
 
+  /// Descriptive message.
+  final String message;
+
   /// The operation being logged.
   final String? operation;
 
   /// The timestamp when this log was created.
   final DateTime dateTime;
-
-  /// Optional descriptive message.
-  final String? message;
 
   /// Optional contextual information as key-value pairs.
   final Map<String, dynamic>? context;
@@ -32,8 +33,17 @@ final class HealthConnectorLog {
   /// Optional stack trace associated with the exception.
   final StackTrace? stackTrace;
 
-  /// The JSON-like formatted output message.
-  final String? structuredMessage;
+  /// Formats the log entry as a structured message.
+  String get structuredMessage =>
+      HealthConnectorLogFormatter.formatStructuredMessage(
+        level: level,
+        message: message,
+        dateTime: dateTime,
+        operation: operation,
+        context: context,
+        exception: exception,
+        stackTrace: stackTrace,
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -50,17 +60,15 @@ final class HealthConnectorLog {
             other.context,
           ) &&
           exception == other.exception &&
-          stackTrace == other.stackTrace &&
-          structuredMessage == other.structuredMessage;
+          stackTrace == other.stackTrace;
 
   /// Creates a [HealthConnectorLog] with the specified properties.
   const HealthConnectorLog({
     required this.level,
     required this.tag,
     required this.dateTime,
+    required this.message,
     this.operation,
-    this.message,
-    this.structuredMessage,
     this.context,
     this.exception,
     this.stackTrace,
@@ -75,6 +83,8 @@ final class HealthConnectorLog {
       message.hashCode ^
       context.hashCode ^
       exception.hashCode ^
-      stackTrace.hashCode ^
-      structuredMessage.hashCode;
+      stackTrace.hashCode;
+
+  @override
+  String toString() => structuredMessage;
 }

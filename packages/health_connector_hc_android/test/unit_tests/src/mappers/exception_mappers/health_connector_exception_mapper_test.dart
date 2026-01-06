@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hc_android/src/mappers/exception_mappers/health_connector_exception_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
 import 'package:parameterized_test/parameterized_test.dart';
-import 'package:test/test.dart';
 
 void main() {
   group(
@@ -114,7 +114,12 @@ void main() {
                 stackTrace: stackTrace,
               );
 
-              expect(exception.cause, 'SocketException: Connection refused');
+              expect(exception.cause, isA<PlatformException>());
+              final platformException = exception.cause! as PlatformException;
+              expect(
+                platformException.message,
+                'Network error. Cause: SocketException: Connection refused',
+              );
             },
           );
 

@@ -14,14 +14,14 @@ extension HealthConnectorExceptionDtoToDomain on HealthConnectorExceptionDto {
     required final Map<String, dynamic>? context,
     required final String? stackTrace,
   }) {
-    final errorCode = code.name.toErrorCode();
+    final errorCode = code.toDomain();
 
     return HealthConnectorException.fromCode(
       errorCode,
       message,
       cause: PlatformException(
-        code: errorCode.name,
-        message: message,
+        code: errorCode.code,
+        message: cause != null ? '$message. Cause: $cause' : message,
         details: context,
         stacktrace: stackTrace,
       ),

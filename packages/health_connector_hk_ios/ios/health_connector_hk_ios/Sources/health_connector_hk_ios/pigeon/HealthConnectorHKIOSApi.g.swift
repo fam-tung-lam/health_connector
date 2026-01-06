@@ -5674,8 +5674,6 @@ public struct HealthConnectorLogDto: Hashable {
   var stackTrace: String? = nil
   /// Optional structured context data.
   var context: [String?: Any?]? = nil
-  /// Optional structured log message.
-  var structuredMessage: String? = nil
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -5688,7 +5686,6 @@ public struct HealthConnectorLogDto: Hashable {
     let exception: HealthConnectorExceptionDto? = nilOrValue(pigeonVar_list[5])
     let stackTrace: String? = nilOrValue(pigeonVar_list[6])
     let context: [String?: Any?]? = nilOrValue(pigeonVar_list[7])
-    let structuredMessage: String? = nilOrValue(pigeonVar_list[8])
 
     return HealthConnectorLogDto(
       level: level,
@@ -5698,8 +5695,7 @@ public struct HealthConnectorLogDto: Hashable {
       operation: operation,
       exception: exception,
       stackTrace: stackTrace,
-      context: context,
-      structuredMessage: structuredMessage
+      context: context
     )
   }
   func toList() -> [Any?] {
@@ -5712,7 +5708,6 @@ public struct HealthConnectorLogDto: Hashable {
       exception,
       stackTrace,
       context,
-      structuredMessage,
     ]
   }
   public static func == (lhs: HealthConnectorLogDto, rhs: HealthConnectorLogDto) -> Bool {

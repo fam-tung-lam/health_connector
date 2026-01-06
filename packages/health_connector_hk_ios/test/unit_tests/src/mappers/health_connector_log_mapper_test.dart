@@ -1,10 +1,10 @@
 import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_connector_log_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:parameterized_test/parameterized_test.dart';
-import 'package:test/test.dart';
 
 void main() {
   group(
@@ -36,7 +36,6 @@ void main() {
               expect(log.context, isNull);
               expect(log.exception, isNull);
               expect(log.stackTrace, isNull);
-              expect(log.structuredMessage, isNull);
             },
           );
 
@@ -62,7 +61,6 @@ void main() {
                 exception: exceptionDto,
                 stackTrace: stackTraceString,
                 context: context.cast<String?, Object?>(),
-                structuredMessage: 'Structured test message',
               );
 
               final log = dto.toDomain();
@@ -82,7 +80,6 @@ void main() {
               expect(exception.message, 'Test error message');
               expect(log.stackTrace, isNotNull);
               expect(log.stackTrace.toString(), stackTraceString);
-              expect(log.structuredMessage, 'Structured test message');
             },
           );
 
@@ -147,22 +144,6 @@ void main() {
               final log = dto.toDomain();
 
               expect(log.context, isNull);
-            },
-          );
-
-          test(
-            'converts DTO with null structuredMessage',
-            () {
-              final dto = HealthConnectorLogDto(
-                level: HealthConnectorLogLevelDto.info,
-                tag: 'HEALTH_CONNECTOR',
-                millisecondsSinceEpoch: 1704542400000,
-                message: 'Delete records',
-              );
-
-              final log = dto.toDomain();
-
-              expect(log.structuredMessage, isNull);
             },
           );
 

@@ -1,6 +1,6 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
-import 'package:test/test.dart';
 
 import '../../../utils/fake_data.dart';
 

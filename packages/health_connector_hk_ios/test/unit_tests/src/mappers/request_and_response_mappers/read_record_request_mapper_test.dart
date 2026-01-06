@@ -1,7 +1,7 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/mappers/request_and_response_mappers/read_record_request_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
-import 'package:test/test.dart';
 
 void main() {
   group(

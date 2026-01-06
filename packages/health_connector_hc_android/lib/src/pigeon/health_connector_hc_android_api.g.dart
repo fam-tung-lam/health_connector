@@ -5186,7 +5186,6 @@ class HealthConnectorLogDto {
     this.exception,
     this.stackTrace,
     this.context,
-    this.structuredMessage,
   });
 
   /// The severity level of the log event.
@@ -5213,9 +5212,6 @@ class HealthConnectorLogDto {
   /// Optional structured context data.
   Map<String?, Object?>? context;
 
-  /// Optional structured log message.
-  String? structuredMessage;
-
   List<Object?> _toList() {
     return <Object?>[
       level,
@@ -5226,7 +5222,6 @@ class HealthConnectorLogDto {
       exception,
       stackTrace,
       context,
-      structuredMessage,
     ];
   }
 
@@ -5245,7 +5240,6 @@ class HealthConnectorLogDto {
       exception: result[5] as HealthConnectorExceptionDto?,
       stackTrace: result[6] as String?,
       context: (result[7] as Map<Object?, Object?>?)?.cast<String?, Object?>(),
-      structuredMessage: result[8] as String?,
     );
   }
 
