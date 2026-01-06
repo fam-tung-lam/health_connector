@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
-import 'package:health_connector_hc_android/src/mappers/health_connector_error_code_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/exception_mappers/health_connector_error_code_mapper.dart';
 import 'package:parameterized_test/parameterized_test.dart';
 import 'package:test/test.dart';
 

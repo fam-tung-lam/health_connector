@@ -2343,7 +2343,104 @@ class ReadRecordsResponseDto {
 
 // endregion
 
-/// The main API for communicating with the health platform.
+// region Log Event Streaming DTOs
+
+/// Log level classification for Health Connector log events.
+enum HealthConnectorLogLevelDto {
+  /// Debug level for detailed diagnostic information.
+  debug,
+
+  /// Info level for general informational messages.
+  info,
+
+  /// Warning level for potential problems or unexpected behavior.
+  warning,
+
+  /// Error level for serious problems.
+  error,
+}
+
+/// Represents exception for log events.
+class HealthConnectorExceptionDto {
+  HealthConnectorExceptionDto({
+    required this.code,
+    required this.message,
+    this.cause,
+  });
+
+  /// The error code from HealthConnectorErrorCodeDto.
+  final HealthConnectorErrorCodeDto code;
+
+  /// Human-readable error message.
+  final String message;
+
+  /// Optional cause/original exception message.
+  final String? cause;
+}
+
+/// Represents a structured log event from the native platform code.
+class HealthConnectorLogDto {
+  HealthConnectorLogDto({
+    required this.level,
+    required this.tag,
+    required this.millisecondsSinceEpoch,
+    required this.message,
+    this.operation,
+    this.context,
+    this.exception,
+    this.stackTrace,
+    this.structuredMessage,
+  });
+
+  /// The severity level of the log event.
+  final HealthConnectorLogLevelDto level;
+
+  /// The tag/category for the log entry.
+  final String tag;
+
+  /// Timestamp in milliseconds since epoch (UTC) when the log was created.
+  final int millisecondsSinceEpoch;
+
+  /// Human-readable message describing the log entry.
+  final String message;
+
+  /// Optional operation being performed.
+  final String? operation;
+
+  /// Optional exception information if this log contains error data.
+  final HealthConnectorExceptionDto? exception;
+
+  /// Optional stack trace as a string.
+  final String? stackTrace;
+
+  /// Optional structured context data.
+  final Map<String?, Object?>? context;
+
+  /// Optional structured log message.
+  final String? structuredMessage;
+}
+
+// endregion
+
+/// EventChannel API for streaming log events from native to Flutter.
+///
+/// This API enables real-time observation of Health Connector SDK operations
+/// for debugging, monitoring, and analytics purposes.
+@EventChannelApi()
+abstract class HealthConnectorLogStreamApi {
+  /// Watch for log events from the native Health Connector SDK.
+  ///
+  /// Returns a continuous stream of log events that can be filtered
+  /// and processed by the Flutter application.
+  ///
+  /// Platform implementation:
+  /// - Android: Uses Kotlin Flow with coroutine producer
+  ///
+  /// Note: The stream respects the logger's enabled state.
+  /// If logging is disabled, no events will be emitted.
+  HealthConnectorLogDto watchLogEvents();
+}
+
 @HostApi()
 abstract class HealthConnectorHCAndroidApi {
   /// Initializes the Health Connector client with the provided configuration.

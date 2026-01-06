@@ -2,35 +2,185 @@ package com.phamtunglam.health_connector_hc_android.logger
 
 import android.util.Log
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger.MAX_CACHED_INDENT_DEPTH
+import com.phamtunglam.health_connector_hc_android.mappers.toDto
+import com.phamtunglam.health_connector_hc_android.mappers.toExceptionInfoDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorLogDto
+import com.phamtunglam.health_connector_hc_android.pigeon.PigeonEventSink
+import com.phamtunglam.health_connector_hc_android.pigeon.WatchLogEventsStreamHandler
 import java.util.Locale
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
- * A singleton logger that wraps Android's [android.util.Log] class.
+ * A singleton logger.
  *
  * This logger provides a consistent structured logging interface with
  * formatted messages across the plugin. It supports structured logging with
  * operation, phase, optional message, and context.
+ *
+ * Extends [WatchLogEventsStreamHandler] to provide log event streaming
+ * to Flutter via Pigeon EventChannel.
  */
-internal object HealthConnectorLogger {
+internal object HealthConnectorLogger : WatchLogEventsStreamHandler() {
     /**
-     * Whether logging is enabled.
-     *
-     * When set to `false`, all logging methods will return immediately without
-     * logging any messages. Defaults to `true`.
+     * Coroutine scope for executing asynchronous operations.
      */
-    var isEnabled: Boolean = true
-        private set
+    lateinit var scope: CoroutineScope
+
+    fun initialize(externalScope: CoroutineScope) {
+        if (!this::scope.isInitialized) {
+            scope = externalScope
+        }
+    }
 
     /**
-     * Sets whether logging is enabled.
-     *
-     * When set to `false`, all logging methods will return immediately without
-     * logging any messages.
-     *
-     * @param enabled Whether to enable logging.
+     * Flag for whether logging is enabled.
      */
-    fun setEnabled(enabled: Boolean) {
-        isEnabled = enabled
+    var isEnabled = false
+
+    /**
+     * Logs a debug message.
+     *
+     * Use this method for detailed diagnostic information that is typically
+     * only of interest when diagnosing problems.
+     *
+     * @param tag A tag for categorizing the log entry (converted to uppercase).
+     * @param operation The operation being performed.
+     * @param message Optional message to include in the log.
+     * @param context Optional contextual information.
+     * @param exception Optional exception object to include in the log.
+     */
+    fun debug(
+        tag: String,
+        message: String,
+        operation: String? = null,
+        context: Map<String, Any?>? = null,
+        exception: Throwable? = null,
+    ) {
+        log(
+            level = LogLevel.DEBUG,
+            tag = tag,
+            operation = operation,
+            message = message,
+            context = context,
+            exception = exception,
+        )
+    }
+
+    /**
+     * Logs an informational message.
+     *
+     * Use this method for general informational messages that describe normal
+     * application flow.
+     *
+     * @param tag A tag for categorizing the log entry (converted to uppercase).
+     * @param operation The operation being performed.
+     * @param message Optional message to include in the log.
+     * @param context Optional contextual information.
+     * @param exception Optional exception object to include in the log.
+     */
+    fun info(
+        tag: String,
+        message: String,
+        operation: String? = null,
+        context: Map<String, Any?>? = null,
+        exception: Throwable? = null,
+    ) {
+        log(
+            level = LogLevel.INFO,
+            tag = tag,
+            operation = operation,
+            message = message,
+            context = context,
+            exception = exception,
+        )
+    }
+
+    /**
+     * Logs a warning message.
+     *
+     * Use this method for warning messages that indicate potential problems or
+     * unexpected behavior that doesn't prevent the application from functioning.
+     *
+     * @param tag A tag for categorizing the log entry (converted to uppercase).
+     * @param operation The operation being performed.
+     * @param message Optional message to include in the log.
+     * @param context Optional contextual information.
+     * @param exception Optional exception object to include in the log.
+     */
+    fun warning(
+        tag: String,
+        message: String,
+        operation: String? = null,
+        context: Map<String, Any?>? = null,
+        exception: Throwable? = null,
+    ) {
+        log(
+            level = LogLevel.WARNING,
+            tag = tag,
+            operation = operation,
+            message = message,
+            context = context,
+            exception = exception,
+        )
+    }
+
+    /**
+     * Logs an error message.
+     *
+     * Use this method for error messages that indicate serious problems that
+     * may prevent the application from functioning correctly.
+     *
+     * @param tag A tag for categorizing the log entry (converted to uppercase).
+     * @param operation The operation being performed.
+     * @param message Optional message to include in the log.
+     * @param context Optional contextual information.
+     * @param exception Optional exception object to include in the log.
+     */
+    fun error(
+        tag: String,
+        message: String,
+        operation: String? = null,
+        context: Map<String, Any?>? = null,
+        exception: Throwable? = null,
+    ) {
+        log(
+            level = LogLevel.ERROR,
+            tag = tag,
+            operation = operation,
+            message = message,
+            context = context,
+            exception = exception,
+        )
+    }
+
+    /**
+     * Enum representing the different log levels.
+     *
+     * Each level uses the built-in [name] property from [Enum] which contains
+     * the string representation of the log level.
+     */
+    enum class LogLevel {
+        /**
+         * Debug level for detailed diagnostic information.
+         */
+        DEBUG,
+
+        /**
+         * Info level for general informational messages.
+         */
+        INFO,
+
+        /**
+         * Warning level for potential problems or unexpected behavior.
+         */
+        WARNING,
+
+        /**
+         * Error level for serious problems.
+         */
+        ERROR,
     }
 
     /**
@@ -65,6 +215,26 @@ internal object HealthConnectorLogger {
         indentCache[depth]
     } else {
         INDENTATION.repeat(depth + 1)
+    }
+
+    /**
+     * Thread-safe reference to the event sink for streaming logs to Flutter.
+     */
+    private var eventSink: PigeonEventSink<HealthConnectorLogDto>? = null
+
+    /**
+     * Called when Flutter starts listening to the log event stream.
+     */
+    override fun onListen(p0: Any?, sink: PigeonEventSink<HealthConnectorLogDto>) {
+        eventSink = sink
+    }
+
+    /**
+     * Called when Flutter stops listening to the log event stream.
+     */
+    override fun onCancel(p0: Any?) {
+        eventSink?.endOfStream()
+        eventSink = null
     }
 
     /**
@@ -135,7 +305,6 @@ internal object HealthConnectorLogger {
      * only non-null fields.
      *
      * @param operation The operation being performed (e.g., 'readRecords').
-
      * @param message Optional message to include in the log.
      * @param context Optional map of contextual information.
      * @param exception Optional exception object.
@@ -143,21 +312,21 @@ internal object HealthConnectorLogger {
      * @return A formatted string in JSON-like format with indentation.
      */
     private fun formatStructuredMessage(
-        operation: String,
-        message: String? = null,
+        message: String,
+        operation: String? = null,
         context: Map<String, Any?>? = null,
         exception: Throwable? = null,
         stackTrace: Array<StackTraceElement>? = null,
     ): String {
         val buffer = StringBuilder()
 
-        // Always include operation
+        // Always include message
         buffer.appendLine("{")
-        buffer.append("${getIndent(0)}operation: $operation,")
+        buffer.append("\n${getIndent(0)}message: $message,")
 
-        // Include message if provided
-        if (message != null) {
-            buffer.append("\n${getIndent(0)}message: $message,")
+        // Include operation if provided
+        if (operation != null) {
+            buffer.append("${getIndent(0)}operation: $operation,")
         }
 
         // Include exception block if exception or stackTrace is provided
@@ -194,29 +363,12 @@ internal object HealthConnectorLogger {
      * Internal method that formats and logs the message.
      *
      * Handles all logging logic including enabled check, message formatting,
-     * and output. Formats the message according to the specified format:
-     * ```
-     * {
-     *    operation: {operation},
-
-     *    message: {message},
-     *    exception: {
-     *      cause: {exception},
-     *      stack_trace: {stackTrace},
-     *    },
-     *    context: {
-     *      key1: value1,
-     *    },
-     * }
-     * ```
-     *
-     * Note: DateTime and log level are provided by Android's Log class
-     * and are not included in the message.
+     * stream emission, and output. When logging is disabled, neither prints
+     * nor emits to the stream.
      *
      * @param level The log level (DEBUG, INFO, WARNING, ERROR).
      * @param tag The tag for categorizing the log entry (converted to uppercase).
      * @param operation The operation being performed.
-
      * @param message Optional message to include in the log.
      * @param context Optional contextual information.
      * @param exception Optional exception object.
@@ -224,8 +376,8 @@ internal object HealthConnectorLogger {
     private fun log(
         level: LogLevel,
         tag: String,
-        operation: String,
-        message: String? = null,
+        message: String,
+        operation: String? = null,
         context: Map<String, Any?>? = null,
         exception: Throwable? = null,
     ) {
@@ -236,200 +388,34 @@ internal object HealthConnectorLogger {
         val stackTrace = exception?.stackTrace
         val structuredMessage = formatStructuredMessage(
             operation = operation,
-
             message = message,
             context = context,
             exception = exception,
             stackTrace = stackTrace,
         )
-
         val uppercaseTag = tag.uppercase(Locale.US)
 
-        // Use Android Log with exception parameter when exception is provided
         when (level) {
-            LogLevel.DEBUG -> {
-                if (exception != null) {
-                    Log.d(uppercaseTag, structuredMessage, exception)
-                } else {
-                    Log.d(uppercaseTag, structuredMessage)
-                }
-            }
-
-            LogLevel.INFO -> {
-                if (exception != null) {
-                    Log.i(uppercaseTag, structuredMessage, exception)
-                } else {
-                    Log.i(uppercaseTag, structuredMessage)
-                }
-            }
-
-            LogLevel.WARNING -> {
-                if (exception != null) {
-                    Log.w(uppercaseTag, structuredMessage, exception)
-                } else {
-                    Log.w(uppercaseTag, structuredMessage)
-                }
-            }
-
-            LogLevel.ERROR -> {
-                if (exception != null) {
-                    Log.e(uppercaseTag, structuredMessage, exception)
-                } else {
-                    Log.e(uppercaseTag, structuredMessage)
-                }
-            }
+            LogLevel.DEBUG -> Log.d(uppercaseTag, structuredMessage, exception)
+            LogLevel.INFO -> Log.i(uppercaseTag, structuredMessage, exception)
+            LogLevel.WARNING -> Log.w(uppercaseTag, structuredMessage, exception)
+            LogLevel.ERROR -> Log.e(uppercaseTag, structuredMessage, exception)
         }
-    }
 
-    /**
-     * Logs a debug message.
-     *
-     * Use this method for detailed diagnostic information that is typically
-     * only of interest when diagnosing problems.
-     *
-     * @param tag A tag for categorizing the log entry (converted to uppercase).
-     * @param operation The operation being performed.
-
-     * @param message Optional message to include in the log.
-     * @param context Optional contextual information.
-     * @param exception Optional exception object to include in the log.
-     */
-    fun debug(
-        tag: String,
-        operation: String,
-        message: String? = null,
-        context: Map<String, Any?>? = null,
-        exception: Throwable? = null,
-    ) {
-        log(
-            level = LogLevel.DEBUG,
-            tag = tag,
-            operation = operation,
-
-            message = message,
-            context = context,
-            exception = exception,
-        )
-    }
-
-    /**
-     * Logs an informational message.
-     *
-     * Use this method for general informational messages that describe normal
-     * application flow.
-     *
-     * @param tag A tag for categorizing the log entry (converted to uppercase).
-     * @param operation The operation being performed.
-
-     * @param message Optional message to include in the log.
-     * @param context Optional contextual information.
-     * @param exception Optional exception object to include in the log.
-     */
-    fun info(
-        tag: String,
-        operation: String,
-        message: String? = null,
-        context: Map<String, Any?>? = null,
-        exception: Throwable? = null,
-    ) {
-        log(
-            level = LogLevel.INFO,
-            tag = tag,
-            operation = operation,
-
-            message = message,
-            context = context,
-            exception = exception,
-        )
-    }
-
-    /**
-     * Logs a warning message.
-     *
-     * Use this method for warning messages that indicate potential problems or
-     * unexpected behavior that doesn't prevent the application from functioning.
-     *
-     * @param tag A tag for categorizing the log entry (converted to uppercase).
-     * @param operation The operation being performed.
-
-     * @param message Optional message to include in the log.
-     * @param context Optional contextual information.
-     * @param exception Optional exception object to include in the log.
-     */
-    fun warning(
-        tag: String,
-        operation: String,
-        message: String? = null,
-        context: Map<String, Any?>? = null,
-        exception: Throwable? = null,
-    ) {
-        log(
-            level = LogLevel.WARNING,
-            tag = tag,
-            operation = operation,
-
-            message = message,
-            context = context,
-            exception = exception,
-        )
-    }
-
-    /**
-     * Logs an error message.
-     *
-     * Use this method for error messages that indicate serious problems that
-     * may prevent the application from functioning correctly.
-     *
-     * @param tag A tag for categorizing the log entry (converted to uppercase).
-     * @param operation The operation being performed.
-
-     * @param message Optional message to include in the log.
-     * @param context Optional contextual information.
-     * @param exception Optional exception object to include in the log.
-     */
-    fun error(
-        tag: String,
-        operation: String,
-        message: String? = null,
-        context: Map<String, Any?>? = null,
-        exception: Throwable? = null,
-    ) {
-        log(
-            level = LogLevel.ERROR,
-            tag = tag,
-            operation = operation,
-
-            message = message,
-            context = context,
-            exception = exception,
-        )
-    }
-
-    /**
-     * Enum representing the different log levels.
-     *
-     * Each level uses the built-in [name] property from [Enum] which contains
-     * the string representation of the log level.
-     */
-    private enum class LogLevel {
-        /**
-         * Debug level for detailed diagnostic information.
-         */
-        DEBUG,
-
-        /**
-         * Info level for general informational messages.
-         */
-        INFO,
-
-        /**
-         * Warning level for potential problems or unexpected behavior.
-         */
-        WARNING,
-
-        /**
-         * Error level for serious problems.
-         */
-        ERROR,
+        // Events from native to Flutter layer must be sent on the main thread.
+        scope.launch(Dispatchers.Main.immediate) {
+            eventSink?.success(
+                HealthConnectorLogDto(
+                    level = level.toDto(),
+                    tag = tag,
+                    operation = operation,
+                    millisecondsSinceEpoch = System.currentTimeMillis(),
+                    message = message,
+                    context = context?.mapKeys { it.key },
+                    exception = exception?.toExceptionInfoDto(),
+                    structuredMessage = structuredMessage,
+                ),
+            )
+        }
     }
 }

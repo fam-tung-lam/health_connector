@@ -5,5 +5,5 @@
 extension ObjectNameExtension on Object {
   /// Returns class name for this instance (e.g., `ClassA().tag` -> "ClassA").
   // ignore: no_runtimetype_tostring
-  String get tag => toString();
+  String get tag => runtimeType.toString();
 }

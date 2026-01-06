@@ -49,7 +49,7 @@ class ActiveCaloriesBurnedHandlerTest {
 
     @BeforeEach
     fun setUp() {
-        HealthConnectorLogger.setEnabled(false)
+        HealthConnectorLogger.isEnabled = false
         fakePermissionController = FakePermissionController(grantAll = true)
         fakeHealthConnectClient = FakeHealthConnectClient(
             packageName = FAKE_PACKAGE_NAME,

@@ -16,7 +16,6 @@ import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecord
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
-import com.phamtunglam.health_connector_hc_android.logger.TAG
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.dataType
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.id
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
@@ -40,6 +39,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorFeatureService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorManifestService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorPermissionService
+import com.phamtunglam.health_connector_hc_android.utils.TAG
 import com.phamtunglam.health_connector_hc_android.utils.dataType
 import java.time.Instant
 import kotlinx.coroutines.CancellationException
@@ -357,8 +357,8 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
         } catch (e: IllegalStateException) {
             HealthConnectorLogger.error(
                 tag = TAG,
+                message = e.message ?: "Invalid configuration",
                 operation = "get_feature_status",
-                message = e.message,
                 context = mapOf("feature" to feature),
                 exception = e,
             )

@@ -19,6 +19,12 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     public static func register(with registrar: FlutterPluginRegistrar) {
         let instance = HealthConnectorHkIosPlugin()
         HealthConnectorHKIOSApiSetup.setUp(binaryMessenger: registrar.messenger(), api: instance)
+
+        // Register log stream handler
+        WatchLogEventsStreamHandler.register(
+            with: registrar.messenger(),
+            streamHandler: HealthConnectorLogger.shared
+        )
     }
 
     /// Initializes the Health Connector client with the provided configuration.

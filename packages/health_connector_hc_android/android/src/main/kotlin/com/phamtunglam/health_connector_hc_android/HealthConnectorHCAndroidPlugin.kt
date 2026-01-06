@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.annotation.VisibleForTesting
 import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
-import com.phamtunglam.health_connector_hc_android.logger.TAG
 import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
@@ -26,6 +25,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
+import com.phamtunglam.health_connector_hc_android.pigeon.WatchLogEventsStreamHandler
+import com.phamtunglam.health_connector_hc_android.utils.TAG
 import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.utils.dataType
 import com.phamtunglam.health_connector_hc_android.utils.endTime
@@ -119,7 +120,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     private val scope: CoroutineScope = CoroutineScope(
         SupervisorJob() + ioDispatcher + CoroutineExceptionHandler { _, e ->
             HealthConnectorLogger.warning(
-                tag = TAG,
+                "HealthConnectorHCAndroidPlugin",
                 operation = "coroutine_exception_handler",
                 message = "Unhandled exception in coroutine scope",
                 exception = e,
@@ -137,6 +138,12 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         context = flutterPluginBinding.applicationContext
         HealthConnectorHCAndroidApi.setUp(flutterPluginBinding.binaryMessenger, this)
+
+        HealthConnectorLogger.initialize(scope)
+        WatchLogEventsStreamHandler.register(
+            flutterPluginBinding.binaryMessenger,
+            HealthConnectorLogger,
+        )
     }
 
     /**
@@ -220,9 +227,9 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     override fun initialize(config: HealthConnectorConfigDto, callback: (Result<Unit>) -> Unit) {
         scope.launch {
             HealthConnectorLogger.debug(
-                tag = TAG,
-                operation = "create",
-                message = "Creating ${HealthConnectorClient.TAG}...",
+                "HealthConnectorHCAndroidPlugin",
+                operation = "initialize",
+                message = "Initializing Health Connector Android plugin...",
                 context = mapOf("is_logger_enabled" to config.isLoggerEnabled.toString()),
             )
 
@@ -233,21 +240,21 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                     }
                 }
 
-                HealthConnectorLogger.setEnabled(config.isLoggerEnabled)
+                HealthConnectorLogger.isEnabled = config.isLoggerEnabled
 
                 HealthConnectorLogger.debug(
-                    tag = TAG,
-                    operation = "create",
-                    message = "${HealthConnectorClient.TAG} initialized successfully",
+                    "HealthConnectorHCAndroidPlugin",
+                    operation = "initialize",
+                    message = "Initialized Health Connector Android plugin.",
                     context = mapOf("is_logger_enabled" to config.isLoggerEnabled.toString()),
                 )
 
                 callback(Result.success(Unit))
             } catch (e: HealthConnectorException) {
                 HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "create",
-                    message = "Failed to create ${HealthConnectorClient.TAG}",
+                    "HealthConnectorHCAndroidPlugin",
+                    operation = "initialize",
+                    message = "Failed to initialize Health Connector Android plugin.",
                     context = mapOf(
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
@@ -260,9 +267,10 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 throw e
             } catch (e: Exception) {
                 HealthConnectorLogger.error(
-                    tag = TAG,
+                    "HealthConnectorHCAndroidPlugin",
                     operation = "create",
-                    message = "Unexpected error during initialization",
+                    message = "Unexpected error during initialization Health Connector " +
+                        "Android plugin.",
                     context = mapOf("is_logger_enabled" to config.isLoggerEnabled.toString()),
                     exception = e,
                 )
@@ -294,7 +302,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
             val currentActivity = activity
             if (currentActivity == null) {
                 HealthConnectorLogger.error(
-                    tag = TAG,
+                    "HealthConnectorHCAndroidPlugin",
                     operation = "launch_health_connect_page_in_google_play",
                     message = "Cannot launch Play Store without activity context",
                 )
@@ -317,7 +325,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
             callback(Result.success(Unit))
         } catch (e: HealthConnectorException) {
             HealthConnectorLogger.error(
-                tag = TAG,
+                "HealthConnectorHCAndroidPlugin",
                 operation = "launch_health_connect_page_in_google_play",
                 message = "Failed to launch Health Connect page in Google Play",
                 context = mapOf(
@@ -330,7 +338,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
             callback(Result.failure(e))
         } catch (e: Exception) {
             HealthConnectorLogger.error(
-                tag = TAG,
+                "HealthConnectorHCAndroidPlugin",
                 operation = "launch_health_connect_page_in_google_play",
                 message = "Unexpected error while launching Play Store",
                 exception = e,
@@ -362,7 +370,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 throw e
             } catch (e: Exception) {
                 HealthConnectorLogger.error(
-                    tag = TAG,
+                    "HealthConnectorHCAndroidPlugin",
                     operation = "get_health_platform_status",
                     message = "Unexpected error while getting platform status",
                     exception = e,
@@ -397,7 +405,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 val currentActivity = activity
                 if (currentActivity == null) {
                     HealthConnectorLogger.error(
-                        tag = TAG,
+                        "HealthConnectorHCAndroidPlugin",
                         operation = "request_permissions",
                         message = "Activity is null. " +
                             "Cannot request permissions without activity context",
@@ -424,7 +432,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 callback(Result.success(responseDto))
             } catch (e: HealthConnectorException) {
                 HealthConnectorLogger.error(
-                    tag = TAG,
+                    "HealthConnectorHCAndroidPlugin",
                     operation = "request_permissions",
                     message = "Failed to request Health Connect permissions",
                     context = mapOf(
@@ -439,7 +447,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 throw e
             } catch (e: Exception) {
                 HealthConnectorLogger.error(
-                    tag = TAG,
+                    "HealthConnectorHCAndroidPlugin",
                     operation = "request_permissions",
                     message = "Unexpected error while requesting permissions",
                     context = mapOf("requested_permissions" to request.permissionRequests),
@@ -801,7 +809,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 callback(Result.success(result))
             } catch (e: HealthConnectorException) {
                 HealthConnectorLogger.error(
-                    tag = TAG,
+                    "HealthConnectorHCAndroidPlugin",
                     operation = operation,
                     message = "Failed to execute $operation",
                     context = context + mapOf(
@@ -815,7 +823,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 throw e
             } catch (e: Exception) {
                 HealthConnectorLogger.error(
-                    tag = TAG,
+                    tag = HealthConnectorHCAndroidPlugin.TAG,
                     operation = operation,
                     message = "Unexpected error in $operation",
                     context = context,

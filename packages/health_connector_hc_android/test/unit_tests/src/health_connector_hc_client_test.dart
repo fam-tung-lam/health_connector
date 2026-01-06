@@ -1,11 +1,11 @@
 import 'package:flutter/services.dart' show PlatformException;
+import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hc_android/src/health_connector_hc_client.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
 import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:parameterized_test/parameterized_test.dart';
-import 'package:test/test.dart';
 
 import '../utils/fake_data.dart';
 
@@ -17,6 +17,9 @@ void main() {
 
   setUpAll(
     () {
+      // Initialize Flutter binding for EventChannel support
+      TestWidgetsFlutterBinding.ensureInitialized();
+
       // Disable logging during tests
       HealthConnectorLogger.isEnabled = false;
 
