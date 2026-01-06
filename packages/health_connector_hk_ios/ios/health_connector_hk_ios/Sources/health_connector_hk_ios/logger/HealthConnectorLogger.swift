@@ -5,9 +5,12 @@ import OSLog
 ///
 /// This logger provides a consistent structured logging interface with formatted messages across the plugin.
 ///
+/// Implements `WatchLogEventsStreamHandler` to provide log event streaming
+/// to Flutter via Pigeon EventChannel.
+///
 /// Uses `NSLock` to protect the `isEnabled` flag for thread-safe access across concurrency domains.
 /// NSLock is used instead of Mutex for iOS 15+ compatibility (Mutex requires iOS 18+).
-enum HealthConnectorLogger {
+final class HealthConnectorLogger: WatchLogEventsStreamHandler {
     /// Lock for thread-safe access to _isEnabled
     private static let lock = NSLock()
 
@@ -34,6 +37,18 @@ enum HealthConnectorLogger {
             defer { lock.unlock() }
             _isEnabled = newValue
         }
+    }
+
+    /// Singleton instance of the logger
+    static let shared = HealthConnectorLogger()
+
+    /// Thread-safe reference to the event sink for streaming logs to Flutter.
+    private var eventSink: PigeonEventSink<HealthConnectorLogDto>?
+    private let sinkLock = NSLock()
+
+    /// Private initializer to enforce singleton pattern
+    override private init() {
+        super.init()
     }
 
     /// Sets whether logging is enabled.
@@ -284,6 +299,43 @@ enum HealthConnectorLogger {
         default:
             logger.log("\(formattedMessage)")
         }
+
+        // Emit log event to Flutter stream if listening
+        shared.sinkLock.lock()
+        let sink = shared.eventSink
+        shared.sinkLock.unlock()
+
+        if let sink {
+            let timestampMs = Int64(now.timeIntervalSince1970 * 1000)
+
+            // Convert context to [String?: String?] for codec compatibility
+            // All values must be converted to strings to avoid codec serialization errors
+            let convertedContext: [String?: String?]? = context?.reduce(into: [:]) { result, pair in
+                if let value = pair.value {
+                    result[pair.key as String?] = String(describing: value)
+                } else {
+                    result[pair.key as String?] = nil
+                }
+            }
+
+            let logDto = HealthConnectorLogDto(
+                level: level.toDto(),
+                tag: tag,
+                millisecondsSinceEpoch: timestampMs,
+                message: message ?? "",
+                operation: operation,
+                exception: exception?.toExceptionInfoDto(),
+                stackTrace: exception != nil
+                    ? Thread.callStackSymbols.joined(separator: "\n") : nil,
+                context: convertedContext,
+                structuredMessage: structuredMessage
+            )
+
+            // Must emit on main thread for Flutter channel safety
+            DispatchQueue.main.async {
+                sink.success(logDto)
+            }
+        }
     }
 
     /// Gets the string name for a log level.
@@ -416,5 +468,24 @@ enum HealthConnectorLogger {
             context: context,
             exception: exception
         )
+    }
+
+    // MARK: - WatchLogEventsStreamHandler Implementation
+
+    /// Called when Flutter starts listening to the log event stream.
+    override func onListen(
+        withArguments _: Any?,
+        sink: PigeonEventSink<HealthConnectorLogDto>
+    ) {
+        sinkLock.lock()
+        defer { sinkLock.unlock() }
+        eventSink = sink
+    }
+
+    /// Called when Flutter stops listening to the log event stream.
+    override func onCancel(withArguments _: Any?) {
+        sinkLock.lock()
+        defer { sinkLock.unlock() }
+        eventSink = nil
     }
 }

@@ -24,13 +24,18 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         UnsupportedOperationException;
 import 'package:health_connector_hk_ios/src/mappers/health_connector_config_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_connector_error_code_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_connector_log_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers/permission_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/request_and_response_mappers/request_and_response_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
-    show HealthConnectorHKIOSApi, HealthPlatformStatusDto;
+    show
+        HealthConnectorHKIOSApi,
+        HealthConnectorLogDto,
+        HealthPlatformStatusDto,
+        watchLogEvents;
 import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart' show immutable, visibleForTesting, internal;
 
@@ -70,6 +75,14 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     HealthConnectorConfig config = const HealthConnectorConfig(),
   ]) async {
     await _platformClient.initialize(config.toDto());
+
+    // Register native log stream if logging is enabled
+    if (config.isLoggerEnabled) {
+      final nativeLogStream = watchLogEvents().map(
+        (HealthConnectorLogDto dto) => dto.toDomain(),
+      );
+      HealthConnectorLogger.registerExternalLogSource(nativeLogStream);
+    }
 
     return HealthConnectorHKClient._(config);
   }

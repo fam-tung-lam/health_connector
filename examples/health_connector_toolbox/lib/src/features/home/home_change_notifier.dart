@@ -30,7 +30,10 @@ final class HomeChangeNotifier extends ChangeNotifier {
       final healthConnector = await HealthConnector.create();
       _logEventSubscription = HealthConnectorLogger.logs.listen(
         (logEvent) {
-          log('[${logEvent.level.name}] ${logEvent.structuredMessage}');
+          log(
+            '[${logEvent.tag}] [${logEvent.level.name}] '
+            '${logEvent.structuredMessage}',
+          );
         },
       );
 

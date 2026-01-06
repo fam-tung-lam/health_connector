@@ -1,0 +1,30 @@
+import 'package:flutter/services.dart' show PlatformException;
+import 'package:health_connector_core/health_connector_core_internal.dart'
+    show HealthConnectorException;
+import 'package:health_connector_hc_android/src/mappers/exception_mappers/health_connector_error_code_mapper.dart';
+import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
+    show HealthConnectorExceptionDto;
+import 'package:meta/meta.dart' show internal;
+
+/// Extension to convert [HealthConnectorExceptionDto] to
+/// [HealthConnectorException].
+@internal
+extension HealthConnectorExceptionDtoToDomain on HealthConnectorExceptionDto {
+  HealthConnectorException toDomain({
+    required final Map<String, dynamic>? context,
+    required final String? stackTrace,
+  }) {
+    final errorCode = code.name.toErrorCode();
+
+    return HealthConnectorException.fromCode(
+      errorCode,
+      message,
+      cause: PlatformException(
+        code: errorCode.name,
+        message: message,
+        details: context,
+        stacktrace: stackTrace,
+      ),
+    );
+  }
+}
