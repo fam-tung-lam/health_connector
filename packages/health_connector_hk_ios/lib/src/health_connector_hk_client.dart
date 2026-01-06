@@ -21,7 +21,9 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         sinceV1_0_0,
         internalUse,
         DeleteRecordsRequest,
-        UnsupportedOperationException;
+        UnsupportedOperationException,
+        DeleteRecordsInTimeRangeRequest,
+        DeleteRecordsByIdsRequest;
 import 'package:health_connector_hk_ios/src/mappers/health_connector_config_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_connector_error_code_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_connector_log_mapper.dart';
@@ -164,19 +166,18 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   ) async {
     final healthDataPermissions = permissions.healthDataPermissions;
     final featurePermissions = permissions.featurePermissions;
-    final healthDataCount = healthDataPermissions.length;
     final featureCount = featurePermissions.length;
+    final context = {
+      'health_data_count': healthDataPermissions.length,
+      'feature_count': featureCount,
+      'total_permissions': permissions.length,
+    };
 
     HealthConnectorLogger.debug(
       tag,
       operation: 'requestPermissions',
       message: 'Requesting HealthKit permissions',
-      context: {
-        'requested_health_data_permissions': healthDataPermissions,
-        'requested_feature_permissions': featurePermissions,
-        'health_data_count': healthDataCount,
-        'feature_count': featureCount,
-      },
+      context: context,
     );
 
     if (permissions.isEmpty) {
@@ -207,11 +208,7 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
           tag,
           operation: 'requestPermissions',
           message: 'Failed to request HealthKit permissions',
-          context: {
-            'requested_permissions': {
-              'health_data_permissions': healthDataPermissions,
-            },
-          },
+          context: context,
           exception: e,
           stackTrace: st,
         );
@@ -249,8 +246,16 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       operation: 'requestPermissions',
       message: 'HealthKit permissions requested successfully',
       context: {
-        'granted_health_data_permissions': grantedHealthDataPermissions,
-        'auto_granted_feature_permissions_count': featureCount,
+        ...context,
+        'granted_health_data_count': grantedHealthDataPermissions.length,
+        'denied_health_data_count': results
+            .where(
+              (r) =>
+                  r.status == PermissionStatus.denied &&
+                  r.permission is HealthDataPermission,
+            )
+            .length,
+        'auto_granted_feature_count': featureCount,
         'total_results': results.length,
       },
     );
@@ -260,11 +265,15 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
 
   @override
   Future<PermissionStatus> getPermissionStatus(Permission permission) async {
+    final context = {
+      'permission_type': permission.runtimeType.toString(),
+    };
+
     HealthConnectorLogger.debug(
       tag,
       operation: 'getPermissionStatus',
       message: 'Getting permission status',
-      context: {'permission': permission},
+      context: context,
     );
 
     // Handle feature permissions - automatically granted on iOS
@@ -273,7 +282,10 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         tag,
         operation: 'getPermissionStatus',
         message: 'Feature permission status - automatically granted on iOS',
-        context: {'permission': permission},
+        context: {
+          ...context,
+          'status': 'granted',
+        },
       );
       return PermissionStatus.granted;
     }
@@ -294,7 +306,10 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         tag,
         operation: 'getPermissionStatus',
         message: 'Permission status retrieved',
-        context: {'permission': permission, 'status': status.name},
+        context: {
+          ...context,
+          'status': status.name,
+        },
       );
 
       return status;
@@ -303,7 +318,7 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         tag,
         operation: 'getPermissionStatus',
         message: 'Failed to get permission status',
-        context: {'permission': permission},
+        context: context,
         exception: e,
         stackTrace: st,
       );
@@ -321,11 +336,16 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   Future<R?> readRecord<R extends HealthRecord>(
     ReadRecordByIdRequest<R> request,
   ) async {
+    final context = {
+      'data_type': request.dataType.runtimeType.toString(),
+      'has_record_id': request.id != HealthRecordId.none,
+    };
+
     HealthConnectorLogger.debug(
       tag,
       operation: 'readRecord',
       message: 'Reading HealthKit record',
-      context: {'request': request},
+      context: context,
     );
 
     try {
@@ -340,14 +360,21 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
           tag,
           operation: 'readRecord',
           message: 'HealthKit record not found',
-          context: {'request': request, 'response': null},
+          context: {
+            ...context,
+            'record_found': false,
+          },
         );
       } else {
         HealthConnectorLogger.info(
           tag,
           operation: 'readRecord',
           message: 'HealthKit record read successfully',
-          context: {'request': request, 'response': record},
+          context: {
+            ...context,
+            'record_found': true,
+            'record_type': record.runtimeType.toString(),
+          },
         );
       }
 
@@ -357,7 +384,7 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         tag,
         operation: 'readRecord',
         message: 'Failed to read HealthKit record',
-        context: {'request': request},
+        context: context,
         exception: e,
         stackTrace: st,
       );
@@ -375,12 +402,18 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   Future<ReadRecordsInTimeRangeResponse<R>> readRecords<R extends HealthRecord>(
     ReadRecordsInTimeRangeRequest<R> request,
   ) async {
+    final context = {
+      'data_type': request.dataType.runtimeType.toString(),
+      'query_span_days': request.startTime.difference(request.endTime).inDays,
+      'page_size': request.pageSize,
+      'has_page_token': request.pageToken != null,
+    };
+
     HealthConnectorLogger.debug(
       tag,
       operation: 'readRecords',
-
       message: 'Reading HealthKit records',
-      context: {'request': request},
+      context: context,
     );
 
     try {
@@ -394,7 +427,11 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         tag,
         operation: 'readRecords',
         message: 'HealthKit records read successfully',
-        context: {'request': request, 'response': response},
+        context: {
+          ...context,
+          'record_count': response.records.length,
+          'has_next_page': response.hasMorePages,
+        },
       );
 
       return response;
@@ -403,7 +440,7 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         tag,
         operation: 'readRecords',
         message: 'Failed to read HealthKit records',
-        context: {'request': request},
+        context: context,
         exception: e,
         stackTrace: st,
       );
@@ -419,12 +456,15 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
 
   @override
   Future<HealthRecordId> writeRecord<R extends HealthRecord>(R record) async {
+    final context = {
+      'record_type': record.runtimeType.toString(),
+    };
+
     HealthConnectorLogger.debug(
       tag,
       operation: 'write_record',
-
       message: 'Writing HealthKit record',
-      context: {'record': record},
+      context: context,
     );
 
     try {
@@ -436,7 +476,10 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         tag,
         operation: 'write_record',
         message: 'HealthKit record written successfully',
-        context: {'record': record, 'record_id': recordId},
+        context: {
+          ...context,
+          'record_written': true,
+        },
       );
 
       return recordId;
@@ -445,7 +488,7 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         tag,
         operation: 'write_record',
         message: 'Failed to write HealthKit record',
-        context: {'record': record},
+        context: context,
         exception: e,
         stackTrace: st,
       );
@@ -463,12 +506,19 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   Future<List<HealthRecordId>> writeRecords<R extends HealthRecord>(
     List<R> records,
   ) async {
+    final context = {
+      'record_count': records.length,
+      'record_types': records
+          .map((r) => r.runtimeType.toString())
+          .toSet()
+          .toList(),
+    };
+
     HealthConnectorLogger.debug(
       tag,
       operation: 'write_records',
-
       message: 'Writing HealthKit records',
-      context: {'records': records},
+      context: context,
     );
 
     if (records.isEmpty) {
@@ -492,7 +542,10 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         tag,
         operation: 'write_records',
         message: 'HealthKit records written successfully',
-        context: {'records': records, 'record_ids': recordIds},
+        context: {
+          ...context,
+          'records_written': recordIds.length,
+        },
       );
 
       return recordIds;
@@ -501,7 +554,7 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         tag,
         operation: 'write_records',
         message: 'Failed to write HealthKit records',
-        context: {'records': records},
+        context: context,
         exception: e,
         stackTrace: st,
       );
@@ -533,12 +586,17 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   Future<U> aggregate<R extends HealthRecord, U extends MeasurementUnit>(
     AggregateRequest<R, U> request,
   ) async {
+    final context = {
+      'data_type': request.dataType.runtimeType.toString(),
+      'metric_type': request.aggregationMetric.runtimeType.toString(),
+      'query_span_days': request.startTime.difference(request.endTime).inDays,
+    };
+
     HealthConnectorLogger.debug(
       tag,
       operation: 'aggregate',
-
       message: 'Aggregating HealthKit data',
-      context: {'request': request},
+      context: context,
     );
 
     try {
@@ -552,7 +610,10 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         tag,
         operation: 'aggregate',
         message: 'HealthKit data aggregated successfully',
-        context: {'request': request, 'response': response},
+        context: {
+          ...context,
+          'result_type': response.runtimeType.toString(),
+        },
       );
 
       return response;
@@ -561,7 +622,7 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         tag,
         operation: 'aggregate',
         message: 'Failed to aggregate HealthKit data',
-        context: {'request': request},
+        context: context,
         exception: e,
         stackTrace: st,
       );
@@ -579,11 +640,22 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   Future<void> deleteRecords<R extends HealthRecord>(
     DeleteRecordsRequest<R> request,
   ) async {
+    final context = {
+      'data_type': request.dataType.runtimeType.toString(),
+      if (request is DeleteRecordsInTimeRangeRequest)
+        'query_span_days': (request as DeleteRecordsInTimeRangeRequest)
+            .startTime
+            .difference((request as DeleteRecordsInTimeRangeRequest).endTime)
+      else
+        'id_to_delete_count':
+            (request as DeleteRecordsByIdsRequest).recordIds.length,
+    };
+
     HealthConnectorLogger.debug(
       tag,
       operation: 'deleteRecords',
-      message: 'Deleting HealthKit records by time range',
-      context: {'request': request},
+      message: 'Deleting HealthKit records',
+      context: context,
     );
 
     try {
@@ -593,14 +665,14 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         tag,
         operation: 'deleteRecords',
         message: 'HealthKit records deleted successfully',
-        context: {'request': request},
+        context: context,
       );
     } on PlatformException catch (e, st) {
       HealthConnectorLogger.error(
         tag,
         operation: 'deleteRecords',
         message: 'Failed to delete HealthKit records',
-        context: {'request': request},
+        context: context,
         exception: e,
         stackTrace: st,
       );

@@ -40,6 +40,7 @@ import com.phamtunglam.health_connector_hc_android.services.HealthConnectorFeatu
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorManifestService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorPermissionService
 import com.phamtunglam.health_connector_hc_android.utils.TAG
+import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.utils.dataType
 import java.time.Instant
 import kotlinx.coroutines.CancellationException
@@ -264,7 +265,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             operation = "request_permissions",
             message = "Requesting Health Connect permissions",
             context = mapOf(
-                "requested_permissions" to request.permissionRequests,
+                "permission_count" to request.permissionRequests.size,
             ),
         )
 
@@ -399,7 +400,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             tag = TAG,
             operation = "read_record",
             message = "Reading Health Connect record",
-            context = mapOf("request" to request),
+            context = mapOf("data_type" to request.dataType, "record_id" to request.recordId),
         )
 
         return process("read_record") {
@@ -439,7 +440,11 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             tag = TAG,
             operation = "read_records",
             message = "Reading Health Connect records",
-            context = mapOf("request" to request),
+            context = mapOf(
+                "data_type" to request.dataType,
+                "page_size" to request.pageSize,
+                "has_page_token" to (request.pageToken != null),
+            ),
         )
 
         return process("read_records") {
@@ -491,7 +496,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             tag = TAG,
             operation = "write_record",
             message = "Writing Health Connect record",
-            context = mapOf("record" to record),
+            context = mapOf("record_type" to record.dataType),
         )
 
         return process("write_record") {
@@ -539,8 +544,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             operation = "write_records",
             message = "Writing Health Connect records atomically",
             context = mapOf(
-                "total_records" to records.size,
-                "records" to records,
+                "record_count" to records.size,
             ),
         )
 
@@ -613,7 +617,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             tag = TAG,
             operation = "update_record",
             message = "Updating Health Connect record",
-            context = mapOf("record" to record),
+            context = mapOf("record_type" to record.dataType),
         )
 
         process("update_record") {
@@ -657,8 +661,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             operation = "update_records",
             message = "Updating Health Connect records atomically",
             context = mapOf(
-                "total_records" to records.size,
-                "records" to records,
+                "record_count" to records.size,
             ),
         )
 
@@ -719,7 +722,10 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             tag = TAG,
             operation = "delete_records_by_ids",
             message = "Deleting Health Connect records by IDs",
-            context = mapOf("request" to request),
+            context = mapOf(
+                "data_type" to request.dataType,
+                "count" to request.recordIds.size,
+            ),
         )
 
         if (request.recordIds.isEmpty()) {
@@ -767,7 +773,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             tag = TAG,
             operation = "delete_records_by_time_range",
             message = "Deleting Health Connect records by time range",
-            context = mapOf("request" to request),
+            context = mapOf("data_type" to request.dataType),
         )
 
         process("delete_records_by_time_range") {
@@ -811,7 +817,10 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             tag = TAG,
             operation = "aggregate",
             message = "Aggregating Health Connect data",
-            context = mapOf("request" to request),
+            context = mapOf(
+                "data_type" to request.dataType,
+                "metric" to request.aggregationMetric,
+            ),
         )
 
         return process("aggregate") {
@@ -835,8 +844,9 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 operation = "aggregate",
                 message = "Health Connect data aggregated successfully",
                 context = mapOf(
-                    "request" to request,
-                    "response" to responseDto,
+                    "data_type" to request.dataType,
+                    "metric" to request.aggregationMetric,
+                    "result_type" to responseDto::class.simpleName,
                 ),
             )
 

@@ -29,8 +29,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.WatchLogEventsStreamHa
 import com.phamtunglam.health_connector_hc_android.utils.TAG
 import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.utils.dataType
-import com.phamtunglam.health_connector_hc_android.utils.endTime
-import com.phamtunglam.health_connector_hc_android.utils.startTime
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -450,7 +448,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                     "HealthConnectorHCAndroidPlugin",
                     operation = "request_permissions",
                     message = "Unexpected error while requesting permissions",
-                    context = mapOf("requested_permissions" to request.permissionRequests),
+                    context = mapOf("permission_count" to request.permissionRequests.size),
                     exception = e,
                 )
                 callback(
@@ -586,8 +584,6 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 operation = "read_records",
                 context = mapOf(
                     "data_type" to request.dataType.toString(),
-                    "start_time" to request.startTime,
-                    "end_time" to request.endTime,
                     "page_size" to request.pageSize,
                 ),
                 callback = callback,
@@ -718,8 +714,6 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 context = mapOf(
                     "data_type" to request.dataType.toString(),
                     "aggregation_metric" to request.aggregationMetric.toString(),
-                    "start_time" to request.startTime,
-                    "end_time" to request.endTime,
                 ),
                 callback = callback,
             ) {

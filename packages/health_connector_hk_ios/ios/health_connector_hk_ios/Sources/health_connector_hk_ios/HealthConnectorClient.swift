@@ -109,7 +109,7 @@ actor HealthConnectorClient: Taggable {
             operation: "requestPermissions",
             message: "Requesting HealthKit permissions via permission service",
             context: [
-                "requested_health_data_permissions": healthDataPermissions,
+                "health_data_permission_count": healthDataPermissions.count
             ]
         )
 
@@ -135,7 +135,7 @@ actor HealthConnectorClient: Taggable {
             operation: "getPermissionStatus",
             message: "Getting HealthKit permission status via permission service",
             context: [
-                "permission": permission,
+                "permission_type": String(describing: type(of: permission))
             ]
         )
 
@@ -153,12 +153,21 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func readRecord(request: ReadRecordRequestDto) async throws -> HealthRecordDto? {
-        try await process(operation: "readRecord", context: ["request": request]) {
+        try await process(
+            operation: "readRecord",
+            context: [
+                "data_type": request.dataType,
+                "has_record_id": !request.recordId.isEmpty,
+            ]
+        ) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
                 operation: "readRecord",
-                message: "Reading Health Connect record",
-                context: ["request": request]
+                message: "Reading HealthKit record",
+                context: [
+                    "data_type": request.dataType,
+                    "has_record_id": !request.recordId.isEmpty,
+                ]
             )
 
             let handler = try handlerRegistry.handler(
@@ -171,8 +180,12 @@ actor HealthConnectorClient: Taggable {
             HealthConnectorLogger.info(
                 tag: Self.tag,
                 operation: "readRecord",
-                message: "Health Connect record read successfully",
-                context: ["request": request, "record": recordDto as Any]
+                message: "HealthKit record read successfully",
+                context: [
+                    "data_type": request.dataType,
+                    "record_found": true,
+                    "record_type": String(describing: type(of: recordDto)),
+                ]
             )
 
             return recordDto
@@ -223,12 +236,22 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func readRecords(request: ReadRecordsRequestDto) async throws -> ReadRecordsResponseDto {
-        try await process(operation: "readRecords", context: ["request": request]) {
+        try await process(
+            operation: "readRecords",
+            context: [
+                "data_type": request.dataType,
+                "page_size": request.pageSize,
+            ]
+        ) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
                 operation: "readRecords",
-                message: "Reading Health Connect records",
-                context: ["request": request]
+                message: "Reading HealthKit records",
+                context: [
+                    "data_type": request.dataType,
+                    "page_size": request.pageSize,
+                    "has_page_token": request.pageToken != nil,
+                ]
             )
 
             // Validate time range
@@ -236,7 +259,7 @@ actor HealthConnectorClient: Taggable {
                 throw HealthConnectorError.invalidArgument(
                     message: "Invalid time range: startTime must be before endTime",
                     context: [
-                        "details": "startTime=\(request.startTime), endTime=\(request.endTime)",
+                        "details": "startTime=\(request.startTime), endTime=\(request.endTime)"
                     ]
                 )
             }
@@ -278,8 +301,12 @@ actor HealthConnectorClient: Taggable {
             HealthConnectorLogger.info(
                 tag: Self.tag,
                 operation: "readRecords",
-                message: "Health Connect records read successfully",
-                context: ["request": request, "response": responseDto]
+                message: "HealthKit records read successfully",
+                context: [
+                    "data_type": request.dataType,
+                    "record_count": responseDto.records.count,
+                    "has_next_page": responseDto.nextPageToken != nil,
+                ]
             )
 
             return responseDto
@@ -296,12 +323,19 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func writeRecord(record: HealthRecordDto) async throws -> String {
-        try await process(operation: "writeRecord", context: ["record": record]) {
+        try await process(
+            operation: "writeRecord",
+            context: [
+                "record_type": String(describing: type(of: record))
+            ]
+        ) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
                 operation: "writeRecord",
-                message: "Writing Health Connect record",
-                context: ["record": record]
+                message: "Writing HealthKit record",
+                context: [
+                    "record_type": String(describing: type(of: record))
+                ]
             )
 
             let dataType = try record.dataType
@@ -317,8 +351,11 @@ actor HealthConnectorClient: Taggable {
             HealthConnectorLogger.info(
                 tag: Self.tag,
                 operation: "writeRecord",
-                message: "Health Connect record written successfully",
-                context: ["record": record, "assignedRecordId": recordId]
+                message: "HealthKit record written successfully",
+                context: [
+                    "record_type": String(describing: type(of: record)),
+                    "record_written": true,
+                ]
             )
 
             return recordId
@@ -346,7 +383,7 @@ actor HealthConnectorClient: Taggable {
                 operation: "writeRecords",
                 message: "Writing Health Connect records atomically",
                 context: [
-                    "totalRecords": records.count,
+                    "totalRecords": records.count
                 ]
             )
 
@@ -381,7 +418,7 @@ actor HealthConnectorClient: Taggable {
                 operation: "writeRecords",
                 message: "All records validated and converted to samples",
                 context: [
-                    "sampleCount": samples.count,
+                    "sampleCount": samples.count
                 ]
             )
 
@@ -400,7 +437,7 @@ actor HealthConnectorClient: Taggable {
                 operation: "writeRecords",
                 message: "Health Connect records written successfully",
                 context: [
-                    "recordCount": recordIds.count,
+                    "recordCount": recordIds.count
                 ]
             )
 
@@ -418,19 +455,28 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func aggregate(request: AggregateRequestDto) async throws -> MeasurementUnitDto {
-        try await process(operation: "aggregate", context: ["request": request]) {
+        try await process(
+            operation: "aggregate",
+            context: [
+                "data_type": request.dataType,
+                "metric_type": request.aggregationMetric,
+            ]
+        ) {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
                 operation: "aggregate",
-                message: "Aggregating Health Connect data",
-                context: ["request": request]
+                message: "Aggregating HealthKit data",
+                context: [
+                    "data_type": request.dataType,
+                    "metric_type": request.aggregationMetric,
+                ]
             )
 
             if request.startTime >= request.endTime {
                 throw HealthConnectorError.invalidArgument(
                     message: "Invalid time range: startTime must be before endTime",
                     context: [
-                        "details": "startTime=\(request.startTime), endTime=\(request.endTime)",
+                        "details": "startTime=\(request.startTime), endTime=\(request.endTime)"
                     ]
                 )
             }
@@ -453,8 +499,12 @@ actor HealthConnectorClient: Taggable {
             HealthConnectorLogger.info(
                 tag: Self.tag,
                 operation: "aggregate",
-                message: "Health Connect data aggregated successfully",
-                context: ["request": request, "value": value]
+                message: "HealthKit data aggregated successfully",
+                context: [
+                    "data_type": request.dataType,
+                    "metric_type": request.aggregationMetric,
+                    "result_type": String(describing: type(of: value)),
+                ]
             )
 
             return value
@@ -471,19 +521,25 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
     func deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) async throws {
-        try await process(operation: "deleteRecordsByTimeRange", context: ["request": request]) {
+        try await process(
+            operation: "deleteRecordsByTimeRange",
+            context: ["data_type": request.dataType]
+        ) {
             HealthConnectorLogger.debug(
                 tag: HealthConnectorClient.tag,
                 operation: "deleteRecordsByTimeRange",
-                message: "Deleting Health Connect records by time range",
-                context: ["request": request]
+                message: "Deleting HealthKit records by time range",
+                context: [
+                    "data_type": request.dataType,
+                    "delete_by": "time_range",
+                ]
             )
 
             if request.startTime >= request.endTime {
                 throw HealthConnectorError.invalidArgument(
                     message: "Invalid time range: startTime must be before endTime",
                     context: [
-                        "details": "startTime=\(request.startTime), endTime=\(request.endTime)",
+                        "details": "startTime=\(request.startTime), endTime=\(request.endTime)"
                     ]
                 )
             }
@@ -505,8 +561,11 @@ actor HealthConnectorClient: Taggable {
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
                 operation: "deleteRecordsByTimeRange",
-                message: "Health Connect records deleted successfully",
-                context: ["request": request]
+                message: "HealthKit records deleted successfully",
+                context: [
+                    "data_type": request.dataType,
+                    "delete_by": "time_range",
+                ]
             )
         }
     }
@@ -521,12 +580,22 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
     func deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) async throws {
-        try await process(operation: "deleteRecordsByIds", context: ["request": request]) {
+        try await process(
+            operation: "deleteRecordsByIds",
+            context: [
+                "data_type": request.dataType,
+                "count": request.recordIds.count,
+            ]
+        ) {
             HealthConnectorLogger.debug(
                 tag: HealthConnectorClient.tag,
                 operation: "deleteRecordsByIds",
-                message: "Deleting Health Connect records by IDs",
-                context: ["request": request]
+                message: "Deleting HealthKit records by IDs",
+                context: [
+                    "data_type": request.dataType,
+                    "delete_by": "ids",
+                    "record_count": request.recordIds.count,
+                ]
             )
 
             let handler = try handlerRegistry.handler(
@@ -539,8 +608,11 @@ actor HealthConnectorClient: Taggable {
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
                 operation: "deleteRecordsByIds",
-                message: "Health Connect records deleted successfully",
-                context: ["request": request]
+                message: "HealthKit records deleted successfully",
+                context: [
+                    "data_type": request.dataType,
+                    "delete_by": "ids",
+                ]
             )
         }
     }
