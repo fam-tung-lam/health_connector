@@ -20,7 +20,6 @@ extension HealthConnectorLogDtoToDomain on HealthConnectorLogDto {
       context: details,
       exception: exception?.toDomain(context: details, stackTrace: st),
       stackTrace: st != null ? StackTrace.fromString(st) : null,
-      structuredMessage: structuredMessage,
     );
   }
 }

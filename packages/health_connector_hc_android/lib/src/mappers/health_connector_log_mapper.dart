@@ -25,7 +25,6 @@ extension HealthConnectorLogDtoToDomain on HealthConnectorLogDto {
       stackTrace: stackTrace != null
           ? StackTrace.fromString(stackTrace!)
           : null,
-      structuredMessage: structuredMessage,
     );
   }
 }

@@ -2389,7 +2389,6 @@ class HealthConnectorLogDto {
     this.context,
     this.exception,
     this.stackTrace,
-    this.structuredMessage,
   });
 
   /// The severity level of the log event.
@@ -2415,9 +2414,6 @@ class HealthConnectorLogDto {
 
   /// Optional structured context data.
   final Map<String?, Object?>? context;
-
-  /// Optional structured log message.
-  final String? structuredMessage;
 }
 
 // endregion

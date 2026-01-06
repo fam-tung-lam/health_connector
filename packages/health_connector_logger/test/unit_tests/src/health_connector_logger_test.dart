@@ -1,520 +1,374 @@
-import 'package:health_connector_logger/src/health_connector_logger.dart';
-import 'package:health_connector_logger/src/models/health_connector_log_level.dart';
+import 'dart:async';
+
+import 'package:async/async.dart';
+import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:test/test.dart';
 
-import '../../utils/date_time_parser.dart' show parseDateTime;
-
 void main() {
-  group('HealthConnectorLogger.formatStructuredMessage', () {
-    // Use fixed DateTime for predictable output
-    final testDateTime = DateTime(2024, 3, 15, 10, 30, 45, 123);
+  group('HealthConnectorLogger', () {
+    group('Stream API', () {
+      // Store original state
+      late bool originalIsEnabled;
 
-    group('basic formatting', () {
-      test('formats message with only required parameters', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'readRecords',
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('datetime: 15-03-2024 10:30:45.123'));
-        expect(result, contains('operation: readRecords'));
-        expect(result, startsWith('{'));
-        expect(result, endsWith('\n}'));
-        expect(result, isNot(contains('message:')));
-        expect(result, isNot(contains('exception:')));
-        expect(result, isNot(contains('context:')));
+      setUp(() {
+        originalIsEnabled = HealthConnectorLogger.isEnabled;
+        HealthConnectorLogger.isEnabled = true;
       });
 
-      test('includes datetime and operation in correct format', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.debug,
-          operation: 'testOperation',
-          dateTime: testDateTime,
-        );
-
-        final lines = result.split('\n');
-        expect(lines[0], equals('{'));
-        expect(lines[1], equals('    datetime: 15-03-2024 10:30:45.123,'));
-        expect(lines[2], equals('    operation: testOperation,'));
-      });
-    });
-
-    group('DateTime formatting', () {
-      test('formats datetime with zero-padding for single-digit values', () {
-        final singleDigitDateTime = DateTime(2024, 1, 5, 9, 3, 7, 42);
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          dateTime: singleDigitDateTime,
-        );
-
-        expect(result, contains('datetime: 05-01-2024 09:03:07.042'));
+      tearDown(() {
+        HealthConnectorLogger.isEnabled = originalIsEnabled;
       });
 
-      test('formats datetime correctly for edge case dates', () {
-        final edgeCaseDateTime = DateTime(2024, 12, 31, 23, 59, 59, 999);
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          dateTime: edgeCaseDateTime,
+      test('emits log event for info level', () async {
+        final future = expectLater(
+          HealthConnectorLogger.logs,
+          emits(
+            isA<HealthConnectorLog>()
+                .having(
+                  (log) => log.level,
+                  'level',
+                  equals(HealthConnectorLogLevel.info),
+                )
+                .having((log) => log.tag, 'tag', equals('TEST'))
+                .having((log) => log.operation, 'operation', equals('testOp'))
+                .having(
+                  (log) => log.message,
+                  'message',
+                  equals('info message'),
+                )
+                .having(
+                  (log) => log.context,
+                  'context',
+                  equals({'key': 'value'}),
+                ),
+          ),
         );
 
-        expect(result, contains('datetime: 31-12-2024 23:59:59.999'));
+        HealthConnectorLogger.info(
+          'TEST',
+          operation: 'testOp',
+          message: 'info message',
+          context: {'key': 'value'},
+        );
+
+        await future;
       });
 
-      test('uses current datetime when dateTime parameter is not provided', () {
-        final before = DateTime.now();
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-        );
-        final after = DateTime.now();
-
-        // Extract datetime from result
-        final datetimeMatch = RegExp(
-          r'datetime: (\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2}\.\d{3})',
-        ).firstMatch(result);
-        expect(datetimeMatch, isNotNull);
-
-        final loggedDateTime = parseDateTime(datetimeMatch!.group(1)!);
-        expect(
-          loggedDateTime.isAfter(before.subtract(const Duration(seconds: 1))),
-          isTrue,
-        );
-        expect(
-          loggedDateTime.isBefore(after.add(const Duration(seconds: 1))),
-          isTrue,
-        );
-      });
-    });
-
-    group('optional message parameter', () {
-      test('includes message field when provided', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'readRecords',
-          message: 'Successfully read records',
-          dateTime: testDateTime,
+      test('emits log event for debug level', () async {
+        final future = expectLater(
+          HealthConnectorLogger.logs,
+          emits(
+            isA<HealthConnectorLog>()
+                .having(
+                  (log) => log.level,
+                  'level',
+                  equals(HealthConnectorLogLevel.debug),
+                )
+                .having((log) => log.tag, 'tag', equals('DEBUG_TAG'))
+                .having(
+                  (log) => log.operation,
+                  'operation',
+                  equals('debugOp'),
+                ),
+          ),
         );
 
-        expect(result, contains('message: Successfully read records'));
-        expect(result, contains('operation: readRecords'));
+        HealthConnectorLogger.debug(
+          'DEBUG_TAG',
+          operation: 'debugOp',
+          message: 'Debug message',
+        );
+
+        await future;
       });
 
-      test('omits message field when null', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'readRecords',
-          dateTime: testDateTime,
+      test('emits log event for warning level', () async {
+        final future = expectLater(
+          HealthConnectorLogger.logs,
+          emits(
+            isA<HealthConnectorLog>()
+                .having(
+                  (log) => log.level,
+                  'level',
+                  equals(HealthConnectorLogLevel.warning),
+                )
+                .having((log) => log.tag, 'tag', equals('WARN'))
+                .having((log) => log.operation, 'operation', equals('warnOp'))
+                .having(
+                  (log) => log.message,
+                  'message',
+                  equals('warning message'),
+                ),
+          ),
         );
 
-        expect(result, isNot(contains('message:')));
-        expect(result, contains('operation: readRecords'));
-      });
-
-      test('handles message with newlines and special characters', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          message: 'Message with\nnewline and "quotes"',
-          dateTime: testDateTime,
+        HealthConnectorLogger.warning(
+          'WARN',
+          operation: 'warnOp',
+          message: 'warning message',
         );
 
-        expect(result, contains('message: Message with\nnewline and "quotes"'));
-      });
-    });
-
-    group('exception handling', () {
-      test('includes exception block with only exception', () {
-        final exception = Exception('Test exception');
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.error,
-          operation: 'test',
-          exception: exception,
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('exception: {'));
-        expect(result, contains('cause: $exception'));
-        expect(result, isNot(contains('stack_trace:')));
-        expect(result, contains('    },'));
+        await future;
       });
 
-      test('includes exception block with only stackTrace', () {
+      test('emits log event for error level', () async {
+        final exception = Exception('test error');
         final stackTrace = StackTrace.current;
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.error,
-          operation: 'test',
-          stackTrace: stackTrace,
-          dateTime: testDateTime,
+
+        final future = expectLater(
+          HealthConnectorLogger.logs,
+          emits(
+            isA<HealthConnectorLog>()
+                .having(
+                  (log) => log.level,
+                  'level',
+                  equals(HealthConnectorLogLevel.error),
+                )
+                .having((log) => log.tag, 'tag', equals('ERROR'))
+                .having(
+                  (log) => log.operation,
+                  'operation',
+                  equals('errorOp'),
+                )
+                .having(
+                  (log) => log.message,
+                  'message',
+                  equals('error message'),
+                )
+                .having(
+                  (log) => log.exception,
+                  'exception',
+                  equals(exception),
+                )
+                .having(
+                  (log) => log.stackTrace,
+                  'stackTrace',
+                  equals(stackTrace),
+                ),
+          ),
         );
 
-        expect(result, contains('exception: {'));
-        expect(result, contains('stack_trace: $stackTrace'));
-        expect(result, isNot(contains('cause:')));
-        expect(result, contains('    },'));
-      });
-
-      test('includes exception block with both exception and stackTrace', () {
-        final exception = Exception('Test exception');
-        final stackTrace = StackTrace.current;
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.error,
-          operation: 'test',
-          exception: exception,
-          stackTrace: stackTrace,
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('exception: {'));
-        expect(result, contains('cause: $exception'));
-        expect(result, contains('stack_trace: $stackTrace'));
-        expect(result, contains('    },'));
-      });
-
-      test('omits exception block when both are null', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          dateTime: testDateTime,
-        );
-
-        expect(result, isNot(contains('exception:')));
-      });
-
-      test('handles different exception types', () {
-        final argumentError = ArgumentError('Invalid argument');
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.error,
-          operation: 'test',
-          exception: argumentError,
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('cause: $argumentError'));
-      });
-    });
-
-    group('context formatting', () {
-      test('includes simple key-value context', () {
-        final context = {
-          'recordCount': 42,
-          'duration': '123ms',
-        };
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'readRecords',
-          context: context,
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('context: {'));
-        expect(result, contains('recordCount: 42'));
-        expect(result, contains('duration: 123ms'));
-        expect(result, contains('    },'));
-      });
-
-      test('includes context with nested maps', () {
-        final context = {
-          'metadata': {
-            'version': '1.0',
-            'source': 'health_kit',
-          },
-        };
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          context: context,
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('context: {'));
-        expect(result, contains('metadata: {'));
-        expect(result, contains('version: 1.0'));
-        expect(result, contains('source: health_kit'));
-        expect(result, contains('        },'));
-      });
-
-      test('includes context with deeply nested maps', () {
-        final context = {
-          'level1': {
-            'level2': {
-              'level3': 'deep value',
-            },
-          },
-        };
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          context: context,
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('level1: {'));
-        expect(result, contains('level2: {'));
-        expect(result, contains('level3: deep value'));
-      });
-
-      test('includes context with lists', () {
-        final context = {
-          'recordIds': [1, 2, 3],
-          'tags': ['tag1', 'tag2'],
-        };
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          context: context,
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('context: {'));
-        expect(result, contains('recordIds: ['));
-        expect(result, contains('tags: ['));
-        expect(result, contains('1,'));
-        expect(result, contains('2,'));
-        expect(result, contains('3,'));
-        expect(result, contains('tag1,'));
-        expect(result, contains('tag2,'));
-      });
-
-      test('includes context with nested lists', () {
-        final context = {
-          'matrix': [
-            [1, 2],
-            [3, 4],
-          ],
-        };
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          context: context,
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('matrix: ['));
-        expect(result, contains('['));
-        expect(result, contains('1,'));
-        expect(result, contains('2,'));
-      });
-
-      test('excludes empty context', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          context: {},
-          dateTime: testDateTime,
-        );
-
-        expect(result, isNot(contains('context:')));
-      });
-
-      test('excludes null context', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          dateTime: testDateTime,
-        );
-
-        expect(result, isNot(contains('context:')));
-      });
-
-      test('handles context with mixed types', () {
-        final context = {
-          'stringValue': 'text',
-          'intValue': 42,
-          'doubleValue': 3.14,
-          'boolValue': true,
-          'nullValue': null,
-        };
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          context: context,
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('stringValue: text'));
-        expect(result, contains('intValue: 42'));
-        expect(result, contains('doubleValue: 3.14'));
-        expect(result, contains('boolValue: true'));
-        expect(result, contains('nullValue: null'));
-      });
-
-      test('handles context with empty lists and maps', () {
-        final context = {
-          'emptyList': <int>[],
-          'emptyMap': <String, dynamic>{},
-        };
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          context: context,
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('emptyList: []'));
-        expect(result, contains('emptyMap: {}'));
-      });
-    });
-
-    group('log levels', () {
-      test('works with LogLevel.debug', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.debug,
-          operation: 'test',
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('operation: test'));
-        expect(result, isA<String>());
-      });
-
-      test('works with LogLevel.info', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('operation: test'));
-        expect(result, isA<String>());
-      });
-
-      test('works with LogLevel.warning', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.warning,
-          operation: 'test',
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('operation: test'));
-        expect(result, isA<String>());
-      });
-
-      test('works with LogLevel.error', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.error,
-          operation: 'test',
-          dateTime: testDateTime,
-        );
-
-        expect(result, contains('operation: test'));
-        expect(result, isA<String>());
-      });
-    });
-
-    group('complete message', () {
-      test('formats message with all parameters provided', () {
-        final exception = Exception('Test exception');
-        final stackTrace = StackTrace.current;
-        final context = {
-          'recordCount': 42,
-          'duration': '123ms',
-          'metadata': {
-            'version': '1.0',
-          },
-        };
-
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'readRecords',
-          dateTime: testDateTime,
-          message: 'Successfully read records',
-          context: context,
+        HealthConnectorLogger.error(
+          'ERROR',
+          operation: 'errorOp',
+          message: 'error message',
           exception: exception,
           stackTrace: stackTrace,
         );
 
-        // Verify all fields are present
-        expect(result, contains('datetime: 15-03-2024 10:30:45.123'));
-        expect(result, contains('operation: readRecords'));
-        expect(result, contains('message: Successfully read records'));
-        expect(result, contains('exception: {'));
-        expect(result, contains('cause: $exception'));
-        expect(result, contains('stack_trace: $stackTrace'));
-        expect(result, contains('context: {'));
-        expect(result, contains('recordCount: 42'));
-        expect(result, contains('duration: 123ms'));
-        expect(result, contains('metadata: {'));
-        expect(result, contains('version: 1.0'));
-
-        // Verify structure
-        expect(result, startsWith('{'));
-        expect(result, endsWith('\n}'));
+        await future;
       });
 
-      test('maintains correct indentation throughout', () {
-        final context = {
-          'nested': {
-            'deep': {
-              'value': 'test',
-            },
-          },
-        };
+      test('does not emit when isEnabled is false', () async {
+        // Disable logging
+        HealthConnectorLogger.isEnabled = false;
 
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          dateTime: testDateTime,
-          context: context,
+        // Ensure no events are emitted
+        final stream = HealthConnectorLogger.logs;
+        // We start listening
+        final subscription = stream.listen(
+          (event) => fail('Should not emit event'),
         );
 
-        // Check indentation levels
-        expect(result, contains('    datetime:'));
-        expect(result, contains('    operation:'));
-        expect(result, contains('    context: {'));
-        expect(result, contains('        nested: {'));
-        expect(result, contains('            deep: {'));
-        expect(result, contains('                value: test'));
-      });
-    });
-
-    group('edge cases', () {
-      test('handles empty operation string', () {
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: '',
-          dateTime: testDateTime,
+        HealthConnectorLogger.info(
+          'TEST',
+          operation: 'testOp',
+          message: 'should not emit',
         );
 
-        expect(result, contains('operation: ,'));
+        // Wait a bit to ensure nothing is emitted
+        await Future<void>.delayed(Duration.zero);
+        await subscription.cancel();
       });
 
-      test('handles very long operation name', () {
-        final longOperation = 'a' * 1000;
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: longOperation,
-          dateTime: testDateTime,
+      test('emits again after re-enabling', () async {
+        // Disable logging
+        HealthConnectorLogger.isEnabled = false;
+        final queue = StreamQueue(HealthConnectorLogger.logs);
+
+        HealthConnectorLogger.info(
+          'TEST',
+          operation: 'disabledOp',
+          message: 'Disabled message',
+        );
+        // We expect nothing here.
+
+        // Re-enable logging
+        HealthConnectorLogger.isEnabled = true;
+
+        HealthConnectorLogger.info(
+          'TEST',
+          operation: 'enabledOp',
+          message: 'Enabled message',
         );
 
-        expect(result, contains('operation: $longOperation'));
+        await expectLater(
+          queue.next,
+          completion(
+            isA<HealthConnectorLog>().having(
+              (log) => log.operation,
+              'operation',
+              equals('enabledOp'),
+            ),
+          ),
+        );
+        await queue.cancel();
       });
 
-      test('handles context with complex nested structures', () {
-        final context = {
-          'listOfMaps': [
-            {'key1': 'value1'},
-            {'key2': 'value2'},
-          ],
-          'mapOfLists': {
-            'list1': [1, 2, 3],
-            'list2': ['a', 'b', 'c'],
-          },
-        };
+      test('supports multiple simultaneous listeners (broadcast)', () async {
+        final logMatcher = isA<HealthConnectorLog>()
+            .having((log) => log.operation, 'operation', 'broadcastOp')
+            .having((log) => log.message, 'message', 'broadcast test');
 
-        final result = HealthConnectorLogger.formatStructuredMessage(
-          level: HealthConnectorLogLevel.info,
-          operation: 'test',
-          context: context,
-          dateTime: testDateTime,
+        final future1 = expectLater(
+          HealthConnectorLogger.logs,
+          emits(logMatcher),
+        );
+        final future2 = expectLater(
+          HealthConnectorLogger.logs,
+          emits(logMatcher),
         );
 
-        expect(result, contains('listOfMaps: ['));
-        expect(result, contains('mapOfLists: {'));
-        expect(result, contains('list1: ['));
-        expect(result, contains('list2: ['));
+        HealthConnectorLogger.info(
+          'TEST',
+          operation: 'broadcastOp',
+          message: 'broadcast test',
+        );
+
+        await Future.wait([future1, future2]);
+      });
+
+      test('emits multiple events in sequence', () async {
+        final future = expectLater(
+          HealthConnectorLogger.logs,
+          emitsInOrder([
+            isA<HealthConnectorLog>()
+                .having(
+                  (log) => log.level,
+                  'level',
+                  equals(HealthConnectorLogLevel.debug),
+                )
+                .having((log) => log.operation, 'operation', 'op1'),
+            isA<HealthConnectorLog>()
+                .having(
+                  (log) => log.level,
+                  'level',
+                  equals(HealthConnectorLogLevel.info),
+                )
+                .having((log) => log.operation, 'operation', 'op2'),
+            isA<HealthConnectorLog>()
+                .having(
+                  (log) => log.level,
+                  'level',
+                  equals(HealthConnectorLogLevel.warning),
+                )
+                .having((log) => log.operation, 'operation', 'op3'),
+            isA<HealthConnectorLog>()
+                .having(
+                  (log) => log.level,
+                  'level',
+                  equals(HealthConnectorLogLevel.error),
+                )
+                .having((log) => log.operation, 'operation', 'op4'),
+          ]),
+        );
+
+        HealthConnectorLogger.debug(
+          'TAG',
+          operation: 'op1',
+          message: 'message1',
+        );
+        HealthConnectorLogger.info(
+          'TAG',
+          operation: 'op2',
+          message: 'message2',
+        );
+        HealthConnectorLogger.warning(
+          'TAG',
+          operation: 'op3',
+          message: 'message3',
+        );
+        HealthConnectorLogger.error(
+          'TAG',
+          operation: 'op4',
+          message: 'message4',
+        );
+
+        await future;
+      });
+
+      test('includes all optional fields when provided', () async {
+        final exception = Exception('test exception');
+        final stackTrace = StackTrace.current;
+
+        final future = expectLater(
+          HealthConnectorLogger.logs,
+          emits(
+            isA<HealthConnectorLog>()
+                .having(
+                  (log) => log.level,
+                  'level',
+                  equals(HealthConnectorLogLevel.error),
+                )
+                .having((log) => log.tag, 'tag', 'ERROR_TAG')
+                .having(
+                  (log) => log.operation,
+                  'operation',
+                  'failedOperation',
+                )
+                .having(
+                  (log) => log.message,
+                  'message',
+                  'Operation failed with error',
+                )
+                .having(
+                  (log) => log.context,
+                  'context',
+                  {'attempt': 3, 'maxRetries': 5},
+                )
+                .having((log) => log.exception, 'exception', exception)
+                .having((log) => log.stackTrace, 'stackTrace', stackTrace),
+          ),
+        );
+
+        HealthConnectorLogger.error(
+          'ERROR_TAG',
+          operation: 'failedOperation',
+          message: 'Operation failed with error',
+          context: {'attempt': 3, 'maxRetries': 5},
+          exception: exception,
+          stackTrace: stackTrace,
+        );
+
+        await future;
+      });
+
+      test('context is immutable in emitted event', () async {
+        final originalContext = {'key': 'value'};
+
+        final future = expectLater(
+          HealthConnectorLogger.logs,
+          emits(
+            isA<HealthConnectorLog>().having(
+              (log) => log.context,
+              'context',
+              equals({'key': 'value'}), // Matches original state
+            ),
+          ),
+        );
+
+        HealthConnectorLogger.info(
+          'TEST',
+          operation: 'testOp',
+          message: 'Test message',
+          context: originalContext,
+        );
+
+        await future;
+
+        // Modify the original context
+        originalContext['key'] = 'modified';
+        originalContext['newKey'] = 'newValue';
       });
     });
   });

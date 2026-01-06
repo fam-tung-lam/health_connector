@@ -4110,9 +4110,7 @@ data class HealthConnectorLogDto (
   /** Optional stack trace as a string. */
   val stackTrace: String? = null,
   /** Optional structured context data. */
-  val context: Map<String?, Any?>? = null,
-  /** Optional structured log message. */
-  val structuredMessage: String? = null
+  val context: Map<String?, Any?>? = null
 )
  {
   companion object {
@@ -4125,8 +4123,7 @@ data class HealthConnectorLogDto (
       val exception = pigeonVar_list[5] as HealthConnectorExceptionDto?
       val stackTrace = pigeonVar_list[6] as String?
       val context = pigeonVar_list[7] as Map<String?, Any?>?
-      val structuredMessage = pigeonVar_list[8] as String?
-      return HealthConnectorLogDto(level, tag, millisecondsSinceEpoch, message, operation, exception, stackTrace, context, structuredMessage)
+      return HealthConnectorLogDto(level, tag, millisecondsSinceEpoch, message, operation, exception, stackTrace, context)
     }
   }
   fun toList(): List<Any?> {
@@ -4139,7 +4136,6 @@ data class HealthConnectorLogDto (
       exception,
       stackTrace,
       context,
-      structuredMessage,
     )
   }
   override fun equals(other: Any?): Boolean {
