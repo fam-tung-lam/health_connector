@@ -10,7 +10,6 @@ environment:
 dependencies:
   collection: ^1.19.1
   meta: ^1.16.0
-  collection: ^1.19.1
 
 dev_dependencies:
   async: ^2.13.0
