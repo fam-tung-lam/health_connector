@@ -690,7 +690,17 @@ abstract final class AppTexts {
   static const String food = 'Food';
   static const String meal = 'Meal';
   static const String relationToMeal = 'Relation to $meal';
+  static const String relationToMealGeneral = 'General';
+  static const String relationToMealFasting = 'Fasting';
+  static const String relationToMealBeforeMeal = 'Before $meal';
+  static const String relationToMealAfterMeal = 'After $meal';
   static const String specimenSource = 'Specimen Source';
+  static const String specimenSourceInterstitialFluid = 'Interstitial Fluid';
+  static const String specimenSourceCapillaryBlood = 'Capillary Blood';
+  static const String specimenSourcePlasma = 'Plasma';
+  static const String specimenSourceSerum = 'Serum';
+  static const String specimenSourceTears = 'Tears';
+  static const String specimenSourceWholeBlood = 'Whole Blood';
 
   // endregion
 
@@ -767,12 +777,14 @@ abstract final class AppTexts {
   static const String stairAscentSpeed = 'Stair Ascent $speed';
   static const String stairDescentSpeed = 'Stair Descent $speed';
   static const String speedSamples = '$speed Samples';
+
   // endregion
 
   // region Power Data Types
   static const String powerSeries = '$power Series';
   static const String cyclingPower = 'Cycling $power';
   static const String powerSamples = '$power Samples';
+
   // endregion
 
   // region Cycling Cadence Data Types
@@ -781,6 +793,7 @@ abstract final class AppTexts {
       '$cyclingPedalingCadence Samples';
   static const String sampleRpm = 'Sample RPM';
   static const String rpm = 'RPM';
+
   // endregion
 
   // region Health Record Descriptions
