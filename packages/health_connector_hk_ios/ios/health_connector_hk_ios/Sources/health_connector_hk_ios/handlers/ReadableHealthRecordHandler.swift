@@ -235,10 +235,10 @@ extension ReadableHealthRecordHandler {
                     // No matching sources found - return empty result
                     return (records: [], pageToken: nil)
                 }
-                let sourcePredicates = sources.map { HKQuery.predicateForObjects(from: $0) }
-                let sourcePredicate = NSCompoundPredicate(
-                    orPredicateWithSubpredicates: sourcePredicates
-                )
+
+                // Use predicateForObjects(from:) directly with the Set<HKSource>
+                // This API automatically handles multiple sources using an IN operator
+                let sourcePredicate = HKQuery.predicateForObjects(from: sources)
                 predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
                     sourcePredicate, timePredicate,
                 ])
@@ -251,7 +251,7 @@ extension ReadableHealthRecordHandler {
             if let pageToken {
                 let pageTokenDate = pageToken.toDate()
                 let paginationPredicate = NSPredicate(
-                    format: "startDate > %@", pageTokenDate as NSDate
+                    format: "startDate >= %@", pageTokenDate as NSDate
                 )
                 finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
                     predicate, paginationPredicate,
