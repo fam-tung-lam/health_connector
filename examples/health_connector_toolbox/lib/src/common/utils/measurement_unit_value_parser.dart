@@ -17,11 +17,13 @@ abstract class MeasurementUnitValueParser {
       // Integer count types
       StepsHealthDataType() ||
       FloorsClimbedHealthDataType() ||
-      WheelchairPushesHealthDataType() ||
+      WheelchairPushesHealthDataType() => _parseIntegerCount(value),
+
+      // Frequency types
       HeartRateMeasurementRecordHealthDataType() ||
       CyclingPedalingCadenceMeasurementRecordHealthDataType() ||
       CyclingPedalingCadenceSeriesRecordHealthDataType() ||
-      RestingHeartRateHealthDataType() => _parseIntegerCount(value),
+      RestingHeartRateHealthDataType() => _parseFrequency(value),
 
       // Mass types (kilograms)
       WeightHealthDataType() ||
@@ -109,7 +111,7 @@ abstract class MeasurementUnitValueParser {
       CyclingPowerDataType() => _parsePower(value),
 
       // Respiratory Rate
-      RespiratoryRateHealthDataType() => _parseRespiratoryRate(value),
+      RespiratoryRateHealthDataType() => _parseFrequency(value),
 
       // VO2 Max
       Vo2MaxHealthDataType() => _parseVo2Max(value),
@@ -303,16 +305,16 @@ abstract class MeasurementUnitValueParser {
     return Velocity.metersPerSecond(speed);
   }
 
-  /// Parse respiratory rate value.
-  static Number _parseRespiratoryRate(String value) {
+  /// Parse frequency value (heart rate, respiratory rate, cadence).
+  static Frequency _parseFrequency(String value) {
     final rate = double.tryParse(value);
     if (rate == null) {
       throw const FormatException('Invalid number value');
     }
     if (rate <= 0) {
-      throw const FormatException('Respiratory rate must be positive');
+      throw const FormatException('Frequency must be positive');
     }
-    return Number(rate.toInt());
+    return Frequency.perMinute(rate);
   }
 
   /// Parse VO2 max value.

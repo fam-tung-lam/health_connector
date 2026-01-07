@@ -5,8 +5,8 @@ import androidx.health.connect.client.records.metadata.Metadata
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.FrequencyDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
-import com.phamtunglam.health_connector_hc_android.pigeon.NumberDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RestingHeartRateRecordDto
 import io.kotest.matchers.shouldBe
@@ -40,7 +40,7 @@ class RestingHeartRateRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.beatsPerMinute.value shouldBe TEST_BPM.toDouble()
+        result.beatsPerMinute.perMinute shouldBe TEST_BPM.toDouble()
         result.time shouldBe TEST_TIME
         result.zoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
     }
@@ -53,7 +53,7 @@ class RestingHeartRateRecordMapperTest {
             id = TEST_ID,
             time = TEST_TIME,
             zoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
-            beatsPerMinute = NumberDto(value = TEST_BPM.toDouble()),
+            beatsPerMinute = FrequencyDto(perMinute = TEST_BPM.toDouble()),
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,

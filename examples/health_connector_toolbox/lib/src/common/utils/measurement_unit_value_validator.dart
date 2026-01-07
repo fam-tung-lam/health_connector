@@ -35,6 +35,8 @@ abstract class MeasurementUnitValueValidator {
         _validatePower(value);
       case TimeDuration():
         _validateTimeDuration(value);
+      case Frequency():
+        _validateFrequency(value);
     }
   }
 
@@ -163,6 +165,17 @@ abstract class MeasurementUnitValueValidator {
   /// Throws an [ArgumentError] if the value is zero or negative.
   static void _validateTimeDuration(TimeDuration value) {
     if (value.inSeconds <= 0) {
+      throw ArgumentError(AppTexts.pleaseEnterValidNumber);
+    }
+  }
+
+  /// Validates a [Frequency] measurement unit.
+  ///
+  /// Ensures the value is positive (greater than 0).
+  ///
+  /// Throws an [ArgumentError] if the value is zero or negative.
+  static void _validateFrequency(Frequency value) {
+    if (value.inPerMinute <= 0) {
       throw ArgumentError(AppTexts.pleaseEnterValidNumber);
     }
   }

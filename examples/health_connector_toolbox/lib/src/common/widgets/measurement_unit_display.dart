@@ -3,6 +3,7 @@ import 'package:health_connector/health_connector_internal.dart'
     show
         BloodGlucose,
         Energy,
+        Frequency,
         TimeDuration,
         Length,
         Mass,
@@ -175,6 +176,14 @@ final class MeasurementUnitDisplay extends StatelessWidget {
           primaryValue: '${asWhole.toStringAsFixed(2)}${AppTexts.percent}',
           secondaryValues: [
             '${asDecimal.toStringAsFixed(4)} ${AppTexts.decimal}',
+          ],
+        );
+      case Frequency(:final inPerMinute, :final inPerSecond):
+        return _UnitDisplay(
+          primaryValue:
+              '${inPerMinute.toStringAsFixed(1)} ${AppTexts.perMinute}',
+          secondaryValues: [
+            '${inPerSecond.toStringAsFixed(3)} ${AppTexts.perSecond}',
           ],
         );
     }

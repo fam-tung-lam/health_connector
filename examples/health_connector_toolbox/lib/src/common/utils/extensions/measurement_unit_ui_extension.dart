@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide Interval, Velocity;
 import 'package:health_connector/health_connector_internal.dart'
     show
         Energy,
+        Frequency,
         TimeDuration,
         Length,
         Mass,
@@ -34,6 +35,7 @@ extension MeasurementUnitUI on MeasurementUnit {
       Temperature _ => AppTexts.temperature,
       Velocity _ => AppTexts.velocity,
       Volume _ => AppTexts.volume,
+      Frequency _ => AppTexts.frequency,
     };
   }
 
@@ -52,6 +54,7 @@ extension MeasurementUnitUI on MeasurementUnit {
       Temperature _ => AppIcons.temperature,
       Velocity _ => AppIcons.velocity,
       Volume _ => AppIcons.volume,
+      Frequency _ => AppIcons.favorite,
     };
   }
 }

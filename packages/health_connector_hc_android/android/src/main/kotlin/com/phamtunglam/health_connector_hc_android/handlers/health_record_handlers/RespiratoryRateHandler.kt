@@ -5,7 +5,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.CustomAggregatableHe
 import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toNumberDto
+import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toFrequencyDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
@@ -41,8 +41,8 @@ internal class RespiratoryRateHandler(override val client: HealthConnectClient) 
             )
         }
 
-        return recordDto.breathsPerMin.value
+        return recordDto.breathsPerMin.perMinute
     }
 
-    override fun wrapAggregationResult(value: Double): MeasurementUnitDto = value.toNumberDto()
+    override fun wrapAggregationResult(value: Double): MeasurementUnitDto = value.toFrequencyDto()
 }

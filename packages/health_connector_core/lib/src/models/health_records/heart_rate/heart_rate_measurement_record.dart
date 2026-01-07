@@ -44,14 +44,14 @@ final class HeartRateMeasurementRecord extends InstantHealthRecord {
   });
 
   /// The heart rate value in beats per minute (BPM).
-  final Number beatsPerMinute;
+  final Frequency beatsPerMinute;
 
   /// Creates a copy with the given fields replaced with the new values.
   HeartRateMeasurementRecord copyWith({
     HealthRecordId? id,
     Metadata? metadata,
     DateTime? time,
-    Number? beatsPerMinute,
+    Frequency? beatsPerMinute,
     int? zoneOffsetSeconds,
   }) {
     return HeartRateMeasurementRecord(

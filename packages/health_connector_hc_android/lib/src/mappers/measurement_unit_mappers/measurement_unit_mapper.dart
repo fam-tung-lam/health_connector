@@ -12,10 +12,12 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BloodGlucose,
         Number,
         Percentage,
+        Frequency,
         MeasurementUnit,
         sinceV1_0_0;
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/blood_glucose_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/energy_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/frequency_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/length_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/mass_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/number_mapper.dart';
@@ -40,11 +42,13 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         BloodGlucoseDto,
         NumberDto,
         PercentageDto,
+        FrequencyDto,
         MeasurementUnitDto;
 import 'package:meta/meta.dart' show internal;
 
 export 'blood_glucose_mapper.dart';
 export 'energy_mapper.dart';
+export 'frequency_mapper.dart';
 export 'length_mapper.dart';
 export 'mass_mapper.dart';
 export 'number_mapper.dart';
@@ -123,6 +127,7 @@ extension MeasurementUnitToDto on MeasurementUnit {
       ).toDto(),
       final Number number => NumberToDto(number).toDto(),
       final Percentage percentage => PercentageToDto(percentage).toDto(),
+      final Frequency frequency => FrequencyToDto(frequency).toDto(),
     };
   }
 }
@@ -152,6 +157,7 @@ extension MeasurementUnitDtoToDomain on MeasurementUnitDto {
         BloodGlucose.millimolesPerLiter(millimolesPerLiter),
       NumberDto(:final value) => Number(value),
       PercentageDto(:final decimal) => Percentage.fromDecimal(decimal),
+      FrequencyDto(:final perMinute) => Frequency.perMinute(perMinute),
     };
   }
 }

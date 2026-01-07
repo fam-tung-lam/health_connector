@@ -79,6 +79,14 @@ class NumberDto extends MeasurementUnitDto {
   final double value;
 }
 
+/// Represents a frequency measurement in events per minute.
+class FrequencyDto extends MeasurementUnitDto {
+  FrequencyDto(this.perMinute);
+
+  /// Frequency value in events per minute.
+  final double perMinute;
+}
+
 /// Represents a percentage as a decimal value (0.0 to 1.0).
 class PercentageDto extends MeasurementUnitDto {
   PercentageDto(this.decimal);
@@ -1022,7 +1030,7 @@ class RestingHeartRateRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// Resting heart rate in beats per minute.
-  final NumberDto beatsPerMinute;
+  final FrequencyDto beatsPerMinute;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1954,7 +1962,7 @@ class RespiratoryRateRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// Respiratory rate in breaths per minute.
-  final NumberDto breathsPerMin;
+  final FrequencyDto breathsPerMin;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -2008,7 +2016,7 @@ class HeartRateMeasurementDto {
   final int time;
 
   /// Heart rate value in beats per minute (BPM).
-  final NumberDto beatsPerMinute;
+  final FrequencyDto beatsPerMinute;
 }
 
 /// Represents a heart rate measurement record for platform
@@ -2032,7 +2040,7 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// The heart rate value in beats per minute (BPM).
-  final NumberDto beatsPerMinute;
+  final FrequencyDto beatsPerMinute;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;

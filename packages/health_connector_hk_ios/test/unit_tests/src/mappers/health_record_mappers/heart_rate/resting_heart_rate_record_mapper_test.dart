@@ -27,7 +27,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: Device(type: DeviceType.watch),
                 ),
-                beatsPerMinute: const Number(58.0),
+                beatsPerMinute: Frequency.perMinute(58.0),
               );
 
               final dto = record.toDto();
@@ -38,7 +38,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.beatsPerMinute.value, 58.0);
+              expect(dto.beatsPerMinute.perMinute, 58.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -63,14 +63,14 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                beatsPerMinute: NumberDto(value: 62.0),
+                beatsPerMinute: FrequencyDto(perMinute: 62.0),
               );
 
               final record = dto.toDomain();
 
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, time);
-              expect(record.beatsPerMinute.value, 62.0);
+              expect(record.beatsPerMinute.inPerMinute, 62.0);
               expect(
                 record.metadata.dataOrigin.packageName,
                 FakeData.fakeDataOrigin,
@@ -93,7 +93,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                beatsPerMinute: NumberDto(value: 60.0),
+                beatsPerMinute: FrequencyDto(perMinute: 60.0),
               );
 
               final record = dto.toDomain();

@@ -2,13 +2,14 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 
 import androidx.health.connect.client.records.HeartRateRecord
 import androidx.health.connect.client.records.HeartRateRecord.Sample
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toNumberDto
+import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toFrequencyDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateMeasurementDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSeriesRecordDto
 import java.time.Instant
 import java.time.ZoneOffset
+import kotlin.math.roundToLong
 
 /**
  * Converts a Health Connect [HeartRateRecord] object to a [HeartRateSeriesRecordDto].
@@ -23,7 +24,7 @@ internal fun HeartRateRecord.toDto(): HeartRateSeriesRecordDto = HeartRateSeries
     samples = samples.map { sample ->
         HeartRateMeasurementDto(
             time = sample.time.toEpochMilli(),
-            beatsPerMinute = sample.beatsPerMinute.toNumberDto(),
+            beatsPerMinute = sample.beatsPerMinute.toFrequencyDto(),
         )
     },
 )
@@ -35,7 +36,7 @@ internal fun HeartRateSeriesRecordDto.toHealthConnect(): HeartRateRecord = Heart
     samples = samples.map { sample ->
         Sample(
             time = Instant.ofEpochMilli(sample.time),
-            beatsPerMinute = sample.beatsPerMinute.value.toLong(),
+            beatsPerMinute = sample.beatsPerMinute.perMinute.roundToLong(),
         )
     },
     startTime = Instant.ofEpochMilli(startTime),

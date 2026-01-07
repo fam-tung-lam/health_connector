@@ -27,7 +27,9 @@ final class HeartRateSeriesRecordHeartRateMeasurementList
       samples: samples,
       itemBuilder: (sample, index) => HealthRecordDetailRow(
         label: DateFormatter.formatDateTime(sample.time),
-        value: '${sample.beatsPerMinute.value} ${AppTexts.bpm}',
+        value:
+            '${sample.beatsPerMinute.inPerMinute.toStringAsFixed(0)} '
+            '${AppTexts.bpm}',
       ),
     );
   }

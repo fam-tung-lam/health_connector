@@ -7,7 +7,7 @@ extension RespiratoryRateRecordDto {
         let type = try HKQuantityType.make(from: .respiratoryRate)
 
         let unit = HKUnit.count().unitDivided(by: .minute())
-        let quantity = HKQuantity(unit: unit, doubleValue: Double(breathsPerMin.value))
+        let quantity = HKQuantity(unit: unit, doubleValue: breathsPerMin.perMinute)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -57,7 +57,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            breathsPerMin: NumberDto(value: quantity.doubleValue(for: unit)),
+            breathsPerMin: toFrequencyDto(quantity.doubleValue(for: unit)),
             zoneOffsetSeconds: zoneOffset
         )
     }

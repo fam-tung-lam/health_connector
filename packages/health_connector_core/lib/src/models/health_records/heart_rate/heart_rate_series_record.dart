@@ -20,15 +20,15 @@ part of '../health_record.dart';
 ///   samples: [
 ///     HeartRateMeasurement(
 ///       time: DateTime.now().subtract(Duration(minutes: 10)),
-///       beatsPerMinute: Count.perMinute(65),
+///       beatsPerMinute: Frequency.perMinute(65),
 ///     ),
 ///     HeartRateMeasurement(
 ///       time: DateTime.now().subtract(Duration(minutes: 5)),
-///       beatsPerMinute: Count.perMinute(120),
+///       beatsPerMinute: Frequency.perMinute(120),
 ///     ),
 ///     HeartRateMeasurement(
 ///       time: DateTime.now(),
-///       beatsPerMinute: Count.perMinute(80),
+///       beatsPerMinute: Frequency.perMinute(80),
 ///     ),
 ///   ],
 ///   metadata: Metadata.automaticallyRecorded(
@@ -59,9 +59,9 @@ final class HeartRateSeriesRecord
   });
 
   /// The average heart rate across all samples.
-  Number get averageBpm {
+  Frequency get averageBpm {
     if (samples.isEmpty) {
-      return Number.zero;
+      return Frequency.zero;
     }
     if (samples.length == 1) {
       return samples.first.beatsPerMinute;
@@ -69,31 +69,31 @@ final class HeartRateSeriesRecord
 
     final total = samples.fold<double>(
       0,
-      (sum, sample) => sum + sample.beatsPerMinute.value,
+      (sum, sample) => sum + sample.beatsPerMinute.inPerMinute,
     );
-    final averageBpmPerMin = (total / samples.length).toInt();
+    final averageBpmPerMin = total / samples.length;
 
-    return Number(averageBpmPerMin);
+    return Frequency.perMinute(averageBpmPerMin);
   }
 
   /// The minimum heart rate value among all samples.
-  Number get minBpm {
+  Frequency get minBpm {
     if (samples.isEmpty) {
-      return Number.zero;
+      return Frequency.zero;
     }
     return samples
         .map((s) => s.beatsPerMinute)
-        .reduce((a, b) => (a.value < b.value) ? a : b);
+        .reduce((a, b) => (a.inPerMinute < b.inPerMinute) ? a : b);
   }
 
   /// The maximum heart rate value among all samples.
-  Number get maxBpm {
+  Frequency get maxBpm {
     if (samples.isEmpty) {
-      return Number.zero;
+      return Frequency.zero;
     }
     return samples
         .map((s) => s.beatsPerMinute)
-        .reduce((a, b) => (a.value > b.value) ? a : b);
+        .reduce((a, b) => (a.inPerMinute > b.inPerMinute) ? a : b);
   }
 
   /// Creates a copy with the given fields replaced with the new values.
@@ -182,7 +182,7 @@ final class HeartRateMeasurement {
   final DateTime time;
 
   /// The heart rate value in beats per minute (BPM).
-  final Number beatsPerMinute;
+  final Frequency beatsPerMinute;
 
   @override
   bool operator ==(Object other) =>

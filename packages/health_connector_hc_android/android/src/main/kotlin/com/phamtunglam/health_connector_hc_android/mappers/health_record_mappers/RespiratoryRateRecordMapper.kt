@@ -1,7 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 
 import androidx.health.connect.client.records.RespiratoryRateRecord
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toNumberDto
+import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toFrequencyDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.RespiratoryRateRecordDto
@@ -16,7 +16,7 @@ internal fun RespiratoryRateRecord.toDto(): RespiratoryRateRecordDto = Respirato
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    breathsPerMin = rate.toNumberDto(),
+    breathsPerMin = rate.toFrequencyDto(),
 )
 
 /**
@@ -24,7 +24,7 @@ internal fun RespiratoryRateRecord.toDto(): RespiratoryRateRecordDto = Respirato
  */
 internal fun RespiratoryRateRecordDto.toHealthConnect(): RespiratoryRateRecord =
     RespiratoryRateRecord(
-        rate = breathsPerMin.value,
+        rate = breathsPerMin.perMinute,
         time = Instant.ofEpochMilli(time),
         zoneOffset = zoneOffsetSeconds?.let { ZoneOffset.ofTotalSeconds(it.toInt()) },
         metadata = metadata.toHealthConnect(id),
