@@ -29,7 +29,7 @@ void main() {
                 bloodGlucose: const BloodGlucose.millimolesPerLiter(5.5),
                 relationToMeal: BloodGlucoseRelationToMeal.fasting,
                 specimenSource: BloodGlucoseSpecimenSource.capillaryBlood,
-                mealType: BloodGlucoseMealType.breakfast,
+                mealType: MealType.breakfast,
               );
 
               // When
@@ -104,7 +104,7 @@ void main() {
                 record.specimenSource,
                 BloodGlucoseSpecimenSource.plasma,
               );
-              expect(record.mealType, BloodGlucoseMealType.lunch);
+              expect(record.mealType, MealType.lunch);
             },
           );
 
@@ -138,7 +138,7 @@ void main() {
                 record.specimenSource,
                 BloodGlucoseSpecimenSource.unknown,
               );
-              expect(record.mealType, BloodGlucoseMealType.unknown);
+              expect(record.mealType, MealType.unknown);
             },
           );
         },
