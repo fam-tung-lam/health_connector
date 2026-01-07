@@ -3,13 +3,13 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BloodGlucoseRecord,
         BloodGlucoseRelationToMeal,
         BloodGlucoseSpecimenSource,
-        BloodGlucoseMealType,
+        MealType,
         HealthRecordId,
         sinceV1_4_0;
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose/blood_glucose_meal_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose/blood_glucose_relation_to_meal_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_glucose/blood_glucose_specimen_source_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/meal_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
@@ -45,8 +45,7 @@ extension BloodGlucoseRecordDtoToDomain on BloodGlucoseRecordDto {
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
       bloodGlucose: bloodGlucose.toDomain(),
-      mealType:
-          mealType?.toBloodGlucoseMealType() ?? BloodGlucoseMealType.unknown,
+      mealType: mealType?.toDomain() ?? MealType.unknown,
       relationToMeal:
           relationToMeal?.toDomain() ?? BloodGlucoseRelationToMeal.unknown,
       specimenSource:

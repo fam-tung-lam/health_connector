@@ -3,13 +3,13 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BloodGlucoseRecord,
         BloodGlucoseRelationToMeal,
         BloodGlucoseSpecimenSource,
-        BloodGlucoseMealType,
+        MealType,
         HealthRecordId,
         sinceV1_4_0;
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_glucose/blood_glucose_meal_type_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_glucose/blood_glucose_relation_to_meal_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/blood_glucose/blood_glucose_specimen_source_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/nutrition/meal_type_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
@@ -49,8 +49,7 @@ extension BloodGlucoseRecordDtoToDomain on BloodGlucoseRecordDto {
           relationToMeal?.toDomain() ?? BloodGlucoseRelationToMeal.unknown,
       specimenSource:
           specimenSource?.toDomain() ?? BloodGlucoseSpecimenSource.unknown,
-      mealType:
-          mealType?.toBloodGlucoseMealType() ?? BloodGlucoseMealType.unknown,
+      mealType: mealType?.toDomain() ?? MealType.unknown,
     );
   }
 }

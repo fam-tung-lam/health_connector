@@ -20,7 +20,7 @@ part of '../health_record.dart';
 ///   time: DateTime.now(),
 ///   bloodGlucose: BloodGlucose.millimolesPerLiter(5.5),
 ///   relationToMeal: BloodGlucoseRelationToMeal.fasting,
-///   mealType: BloodGlucoseMealType.breakfast,
+///   mealType: MealType.breakfast,
 ///   specimenSource: BloodGlucoseSpecimenSource.capillaryBlood,
 ///   metadata: Metadata.manualEntry(
 ///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
@@ -56,7 +56,7 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
     this.relationToMeal = BloodGlucoseRelationToMeal.unknown,
-    this.mealType = BloodGlucoseMealType.unknown,
+    this.mealType = MealType.unknown,
     this.specimenSource = BloodGlucoseSpecimenSource.unknown,
   });
 
@@ -67,7 +67,7 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
   final BloodGlucoseRelationToMeal relationToMeal;
 
   /// The type of meal associated with this measurement.
-  final BloodGlucoseMealType mealType;
+  final MealType mealType;
 
   /// The source of the biological specimen.
   final BloodGlucoseSpecimenSource specimenSource;
@@ -80,7 +80,7 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
     HealthRecordId? id,
     int? zoneOffsetSeconds,
     BloodGlucoseRelationToMeal? relationToMeal,
-    BloodGlucoseMealType? mealType,
+    MealType? mealType,
     BloodGlucoseSpecimenSource? specimenSource,
   }) {
     return BloodGlucoseRecord(

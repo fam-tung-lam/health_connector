@@ -58,7 +58,7 @@ void main() {
         () {
           test(
             'inMillimolesPerLiter returns blood glucose in '
-                'millimoles per liter',
+            'millimoles per liter',
             () {
               const glucose = BloodGlucose.millimolesPerLiter(5.5);
               expect(glucose.inMillimolesPerLiter, 5.5);
@@ -67,7 +67,7 @@ void main() {
 
           test(
             'inMilligramsPerDeciliter returns blood glucose in '
-                'milligrams per deciliter',
+            'milligrams per deciliter',
             () {
               const glucose = BloodGlucose.millimolesPerLiter(5.5);
               expect(glucose.inMilligramsPerDeciliter, closeTo(99.1, 0.1));
