@@ -255,7 +255,7 @@ void main() {
               ],
               [
                 HeartRateVariabilityRMSSDRecord(
-                  heartRateVariabilityMillis: 50.0,
+                  heartRateVariabilityMillis: Number(50.0),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
