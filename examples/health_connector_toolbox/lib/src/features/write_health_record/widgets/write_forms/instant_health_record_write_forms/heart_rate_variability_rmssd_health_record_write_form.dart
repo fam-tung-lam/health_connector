@@ -24,7 +24,7 @@ final class HeartRateVariabilityRMSSDFormState
   HealthRecord buildRecord() {
     return HeartRateVariabilityRMSSDRecord(
       time: startDateTime!,
-      heartRateVariabilityMillis: (value! as Number).value.toDouble(),
+      heartRateVariabilityMillis: value! as Number,
       metadata: metadata,
     );
   }

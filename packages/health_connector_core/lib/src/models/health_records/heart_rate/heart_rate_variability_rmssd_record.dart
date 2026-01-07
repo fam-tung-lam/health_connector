@@ -16,7 +16,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = HeartRateVariabilityRMSSDRecord(
 ///   time: DateTime.now(),
-///   heartRateVariabilityMillis: 45.0, // ms
+///   heartRateVariabilityMillis: Number(45.0), // ms
 ///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
@@ -40,7 +40,35 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
-  const HeartRateVariabilityRMSSDRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [heartRateVariabilityMillis] is negative.
+  factory HeartRateVariabilityRMSSDRecord({
+    required DateTime time,
+    required Metadata metadata,
+    required Number heartRateVariabilityMillis,
+    HealthRecordId id = HealthRecordId.none,
+    int? zoneOffsetSeconds,
+  }) {
+    if (heartRateVariabilityMillis < Number.zero) {
+      throw ArgumentError.value(
+        heartRateVariabilityMillis,
+        'heartRateVariabilityMillis',
+        'Heart rate variability RMSSD must be non-negative',
+      );
+    }
+    return HeartRateVariabilityRMSSDRecord._(
+      time: time,
+      metadata: metadata,
+      heartRateVariabilityMillis: heartRateVariabilityMillis,
+      id: id,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  /// Private constructor for internal use.
+  const HeartRateVariabilityRMSSDRecord._({
     required super.time,
     required super.metadata,
     required this.heartRateVariabilityMillis,
@@ -49,17 +77,17 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
   });
 
   /// The heart rate variability in milliseconds.
-  final double heartRateVariabilityMillis;
+  final Number heartRateVariabilityMillis;
 
   /// Creates a copy with the given fields replaced with the new values.
   HeartRateVariabilityRMSSDRecord copyWith({
     DateTime? time,
     Metadata? metadata,
-    double? heartRateVariabilityMillis,
+    Number? heartRateVariabilityMillis,
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {
-    return HeartRateVariabilityRMSSDRecord(
+    return HeartRateVariabilityRMSSDRecord._(
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
       heartRateVariabilityMillis:
