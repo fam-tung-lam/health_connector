@@ -476,6 +476,9 @@ abstract final class AppTexts {
   static const String breathsPerMinute = 'breaths/min';
   static const String millilitersPerKilogramPerMinute = 'mL/kg/min';
   static const String bpm = 'BPM';
+  static const String perMinute = '/min';
+  static const String perSecond = '/s';
+  static const String frequency = 'Frequency';
   static const String milligramsPerDeciliter = 'mg/dL';
   static const String gram = 'g';
   static const String milligram = 'mg';

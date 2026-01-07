@@ -19,7 +19,7 @@ part of 'health_record.dart';
 /// ```dart
 /// final record = RespiratoryRateRecord(
 ///   time: DateTime.now(),
-///   breathsPerMin: Number(16),
+///   breathsPerMin: Frequency.perMinute(16),
 ///   metadata: Metadata.automaticallyRecorded(
 ///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
 ///   ),
@@ -52,12 +52,12 @@ final class RespiratoryRateRecord extends InstantHealthRecord {
   });
 
   /// The number of breaths per minute.
-  final Number breathsPerMin;
+  final Frequency breathsPerMin;
 
   /// Creates a copy with the given fields replaced with the new values.
   RespiratoryRateRecord copyWith({
     DateTime? time,
-    Number? breathsPerMin,
+    Frequency? breathsPerMin,
     Metadata? metadata,
     HealthRecordId? id,
     int? zoneOffsetSeconds,

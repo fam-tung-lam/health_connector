@@ -25,7 +25,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: Device(type: DeviceType.watch),
                 ),
-                breathsPerMin: const Number(16),
+                breathsPerMin: Frequency.perMinute(16),
               );
 
               final dto = record.toDto();
@@ -37,7 +37,7 @@ void main() {
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-              expect(dto.breathsPerMin.value, 16);
+              expect(dto.breathsPerMin.perMinute, 16);
             },
           );
         },
@@ -59,7 +59,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                breathsPerMin: NumberDto(value: 18),
+                breathsPerMin: FrequencyDto(perMinute: 18),
               );
 
               final record = dto.toDomain();
@@ -74,7 +74,7 @@ void main() {
                 record.metadata.dataOrigin.packageName,
                 FakeData.fakeDataOrigin,
               );
-              expect(record.breathsPerMin.value, 18);
+              expect(record.breathsPerMin.inPerMinute, 18);
             },
           );
 
@@ -91,7 +91,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                breathsPerMin: NumberDto(value: 14),
+                breathsPerMin: FrequencyDto(perMinute: 14),
               );
 
               final record = dto.toDomain();

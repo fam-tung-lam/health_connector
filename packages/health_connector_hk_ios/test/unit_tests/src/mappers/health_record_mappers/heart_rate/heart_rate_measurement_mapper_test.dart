@@ -17,13 +17,13 @@ void main() {
 
               final measurement = HeartRateMeasurement(
                 time: time,
-                beatsPerMinute: const Number(72),
+                beatsPerMinute: Frequency.perMinute(72),
               );
 
               final dto = measurement.toDto();
 
               expect(dto.time, time.millisecondsSinceEpoch);
-              expect(dto.beatsPerMinute.value, 72);
+              expect(dto.beatsPerMinute.perMinute, 72);
             },
           );
         },
@@ -39,13 +39,13 @@ void main() {
 
               final dto = HeartRateMeasurementDto(
                 time: time.millisecondsSinceEpoch,
-                beatsPerMinute: NumberDto(value: 68.0),
+                beatsPerMinute: FrequencyDto(perMinute: 68.0),
               );
 
               final measurement = dto.toDomain();
 
               expect(measurement.time, time);
-              expect(measurement.beatsPerMinute.value, 68.0);
+              expect(measurement.beatsPerMinute.inPerMinute, 68.0);
             },
           );
         },

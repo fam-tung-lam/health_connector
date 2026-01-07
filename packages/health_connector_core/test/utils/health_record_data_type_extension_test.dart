@@ -154,7 +154,7 @@ void main() {
               // Vital signs
               [
                 RestingHeartRateRecord(
-                  beatsPerMinute: const Number(60),
+                  beatsPerMinute: Frequency.perMinute(60),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
@@ -170,7 +170,7 @@ void main() {
               ],
               [
                 RespiratoryRateRecord(
-                  breathsPerMin: const Number(16),
+                  breathsPerMin: Frequency.perMinute(16),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),

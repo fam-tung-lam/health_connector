@@ -36,7 +36,7 @@ void main() {
                 samples: [
                   HeartRateMeasurement(
                     time: fakeSampleTime,
-                    beatsPerMinute: const Number(75),
+                    beatsPerMinute: Frequency.perMinute(75),
                   ),
                 ],
               );
@@ -50,7 +50,7 @@ void main() {
               );
               expect(dto.endTime, FakeData.fakeEndTime.millisecondsSinceEpoch);
               expect(dto.samples, hasLength(1));
-              expect(dto.samples[0].beatsPerMinute.value, 75);
+              expect(dto.samples.first.beatsPerMinute.perMinute, 75);
             },
           );
         },
@@ -79,7 +79,7 @@ void main() {
                 samples: [
                   HeartRateMeasurementDto(
                     time: fakeSampleTime.millisecondsSinceEpoch,
-                    beatsPerMinute: NumberDto(value: 80),
+                    beatsPerMinute: FrequencyDto(perMinute: 80),
                   ),
                 ],
               );
@@ -90,7 +90,7 @@ void main() {
               expect(record.startTime, FakeData.fakeStartTime);
               expect(record.endTime, FakeData.fakeEndTime);
               expect(record.samples, hasLength(1));
-              expect(record.samples[0].beatsPerMinute.value, 80);
+              expect(record.samples.first.beatsPerMinute.inPerMinute, 80);
             },
           );
 

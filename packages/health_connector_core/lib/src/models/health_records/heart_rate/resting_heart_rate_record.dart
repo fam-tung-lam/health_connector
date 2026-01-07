@@ -19,7 +19,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = RestingHeartRateRecord(
 ///   time: DateTime.now(),
-///   beatsPerMinute: Number(60),
+///   beatsPerMinute: Frequency.perMinute(60),
 ///   metadata: Metadata.manualEntry(
 ///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
 ///   ),
@@ -57,13 +57,13 @@ final class RestingHeartRateRecord extends InstantHealthRecord {
   });
 
   /// The resting heart rate measurement in beats per minute.
-  final Number beatsPerMinute;
+  final Frequency beatsPerMinute;
 
   /// Creates a copy with the given fields replaced with the new values.
   RestingHeartRateRecord copyWith({
     DateTime? time,
     Metadata? metadata,
-    Number? beatsPerMinute,
+    Frequency? beatsPerMinute,
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {

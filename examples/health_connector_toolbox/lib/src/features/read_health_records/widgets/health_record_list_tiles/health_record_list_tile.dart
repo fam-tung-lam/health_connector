@@ -84,7 +84,9 @@ final class HealthRecordListTile extends StatelessWidget {
         SimpleInstantMeasurementListTile<RestingHeartRateRecord>(
           record: r,
           icon: AppIcons.favorite,
-          titleBuilder: (r) => '${r.beatsPerMinute.value} ${AppTexts.bpm}',
+          titleBuilder: (r) =>
+              '${r.beatsPerMinute.inPerMinute.toStringAsFixed(0)} '
+              '${AppTexts.bpm}',
           valueExtractor: (r) => r.beatsPerMinute,
           onDelete: onDelete,
         ),

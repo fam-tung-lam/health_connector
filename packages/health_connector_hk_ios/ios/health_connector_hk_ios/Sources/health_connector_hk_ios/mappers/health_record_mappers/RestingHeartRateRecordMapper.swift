@@ -9,7 +9,7 @@ extension RestingHeartRateRecordDto {
         let type = try HKQuantityType.make(from: .restingHeartRate)
 
         let bpmUnit = HKUnit.count().unitDivided(by: .minute())
-        let quantity = HKQuantity(unit: bpmUnit, doubleValue: beatsPerMinute.toDouble())
+        let quantity = HKQuantity(unit: bpmUnit, doubleValue: beatsPerMinute.perMinute)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -62,7 +62,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            beatsPerMinute: NumberDto(value: beatsPerMinute),
+            beatsPerMinute: toFrequencyDto(beatsPerMinute),
             zoneOffsetSeconds: zoneOffset
         )
     }

@@ -1,9 +1,12 @@
+import 'package:health_connector_core/health_connector_core_internal.dart'
+    show sinceV3_0_0;
 import 'package:health_connector_core/src/annotations/annotations.dart'
     show sinceV1_0_0;
 import 'package:meta/meta.dart' show immutable;
 
 part 'blood_glucose.dart';
 part 'energy.dart';
+part 'frequency.dart';
 part 'length.dart';
 part 'mass.dart';
 part 'number.dart';

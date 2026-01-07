@@ -5,10 +5,10 @@ import androidx.health.connect.client.records.metadata.Metadata
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.FrequencyDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateMeasurementDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
-import com.phamtunglam.health_connector_hc_android.pigeon.NumberDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import io.kotest.matchers.shouldBe
 import java.time.Instant
@@ -57,8 +57,8 @@ class HeartRateRecordMapperTest {
         result.startTime shouldBe TEST_START_TIME
         result.endTime shouldBe TEST_END_TIME
         result.samples.size shouldBe 2
-        result.samples[0].beatsPerMinute.value shouldBe TEST_BPM_1.toDouble()
-        result.samples[1].beatsPerMinute.value shouldBe TEST_BPM_2.toDouble()
+        result.samples[0].beatsPerMinute.perMinute shouldBe TEST_BPM_1.toDouble()
+        result.samples[1].beatsPerMinute.perMinute shouldBe TEST_BPM_2.toDouble()
         result.startZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
         result.endZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
     }
@@ -81,11 +81,11 @@ class HeartRateRecordMapperTest {
             samples = listOf(
                 HeartRateMeasurementDto(
                     time = TEST_START_TIME,
-                    beatsPerMinute = NumberDto(value = TEST_BPM_1.toDouble()),
+                    beatsPerMinute = FrequencyDto(perMinute = TEST_BPM_1.toDouble()),
                 ),
                 HeartRateMeasurementDto(
                     time = TEST_END_TIME,
-                    beatsPerMinute = NumberDto(value = TEST_BPM_2.toDouble()),
+                    beatsPerMinute = FrequencyDto(perMinute = TEST_BPM_2.toDouble()),
                 ),
             ),
         )
