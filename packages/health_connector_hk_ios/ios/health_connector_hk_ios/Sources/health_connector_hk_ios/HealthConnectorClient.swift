@@ -172,7 +172,7 @@ actor HealthConnectorClient: Taggable {
 
             let handler = try handlerRegistry.handler(
                 for: request.dataType,
-                withCapability: ReadableHealthRecordHandler.self
+                withCapability: (any ReadableHealthRecordHandler).self
             )
 
             let recordDto = try await handler.readRecord(id: request.recordId)
@@ -266,7 +266,7 @@ actor HealthConnectorClient: Taggable {
 
             let handler = try handlerRegistry.handler(
                 for: request.dataType,
-                withCapability: ReadableHealthRecordHandler.self
+                withCapability: (any ReadableHealthRecordHandler).self
             )
 
             // Convert string page token to PaginationToken
@@ -342,7 +342,7 @@ actor HealthConnectorClient: Taggable {
 
             let handler = try handlerRegistry.handler(
                 for: dataType,
-                withCapability: WritableHealthRecordHandler.self
+                withCapability: (any WritableHealthRecordHandler).self
             )
 
             // Delegate to handler
@@ -406,7 +406,7 @@ actor HealthConnectorClient: Taggable {
                 // Validate: Handler exists and supports writes
                 _ = try handlerRegistry.handler(
                     for: dataType,
-                    withCapability: WritableHealthRecordHandler.self
+                    withCapability: (any WritableHealthRecordHandler).self
                 )
 
                 let sample = try record.toHealthKit()
@@ -483,8 +483,8 @@ actor HealthConnectorClient: Taggable {
 
             let handler = try handlerRegistry.handler(
                 for: request.dataType,
-                withCapability: AggregatableHealthRecordHandler.self
-            )
+                withCapability: (any AggregatableHealthRecordHandler).self
+            ) 
 
             // Convert milliseconds since epoch to Date
             let startTime = Date(millisecondsSince1970: request.startTime)
@@ -546,7 +546,7 @@ actor HealthConnectorClient: Taggable {
 
             let handler = try handlerRegistry.handler(
                 for: request.dataType,
-                withCapability: DeletableHealthRecordHandler.self
+                withCapability: (any DeletableHealthRecordHandler).self
             )
 
             // Convert milliseconds since epoch to Date
@@ -600,7 +600,7 @@ actor HealthConnectorClient: Taggable {
 
             let handler = try handlerRegistry.handler(
                 for: request.dataType,
-                withCapability: DeletableHealthRecordHandler.self
+                withCapability: (any DeletableHealthRecordHandler).self
             )
 
             try await handler.deleteRecords(ids: request.recordIds)
