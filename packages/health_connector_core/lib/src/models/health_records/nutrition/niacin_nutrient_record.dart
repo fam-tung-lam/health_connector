@@ -19,9 +19,7 @@ part of '../health_record.dart';
 ///   value: Mass.milligrams(10),
 ///   foodName: 'Chicken Breast',
 ///   mealType: MealType.lunch,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

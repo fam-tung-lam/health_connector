@@ -16,9 +16,7 @@ part of '../health_record.dart';
 /// final record = BodyTemperatureRecord(
 ///   time: DateTime.now(),
 ///   temperature: Temperature.celsius(36.5),
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

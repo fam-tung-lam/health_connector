@@ -20,9 +20,7 @@ part of '../health_record.dart';
 /// final record = SystolicBloodPressureRecord(
 ///   time: DateTime.now(),
 ///   pressure: Pressure.millimetersOfMercury(120),
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

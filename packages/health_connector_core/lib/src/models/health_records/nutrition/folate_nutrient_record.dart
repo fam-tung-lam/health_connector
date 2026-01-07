@@ -19,9 +19,7 @@ part of '../health_record.dart';
 ///   value: Mass.micrograms(180),
 ///   foodName: 'Lentils',
 ///   mealType: MealType.lunch,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

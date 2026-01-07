@@ -25,11 +25,11 @@ void main() {
                     FakeData.fakeStartTime.timeZoneOffset.inSeconds,
                 endZoneOffsetSeconds:
                     FakeData.fakeEndTime.timeZoneOffset.inSeconds,
-                metadata: const Metadata(
-                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.phone),
+                  device: const Device(type: DeviceType.phone),
                 ),
                 foodName: foodName,
                 mealType: MealType.lunch,
@@ -91,7 +91,7 @@ void main() {
               expect(record.startTime, FakeData.fakeStartTime);
               expect(record.endTime, FakeData.fakeEndTime);
               expect(
-                record.metadata.dataOrigin.packageName,
+                record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
               expect(record.foodName, 'Salmon Dinner');

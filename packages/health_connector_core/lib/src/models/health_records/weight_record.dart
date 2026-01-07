@@ -16,9 +16,7 @@ part of 'health_record.dart';
 /// final record = WeightRecord(
 ///   time: DateTime.now(),
 ///   weight: Mass.kilograms(72.5),
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

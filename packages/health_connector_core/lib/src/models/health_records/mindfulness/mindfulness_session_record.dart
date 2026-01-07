@@ -20,7 +20,7 @@ part of '../health_record.dart';
 ///   title: 'Morning Meditation',
 ///   notes: 'Focused on breath awareness',
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

@@ -1,5 +1,5 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_0_0;
+    show sinceV1_0_0, internalUse;
 import 'package:meta/meta.dart' show immutable;
 
 part 'data_origin.dart';
@@ -25,14 +25,47 @@ final class Metadata {
   /// - [clientRecordId]: A custom identifier assigned by your application.
   /// - [clientRecordVersion]: A version number assigned by your application.
   /// - [device]: The device that recorded the data.
-  const Metadata({
-    required this.dataOrigin,
+  const Metadata._({
     required this.recordingMethod,
+    this.dataOrigin,
     this.lastModifiedTime,
     this.clientRecordId,
     this.clientRecordVersion,
     this.device,
   });
+
+  /// Factory constructor for platform implementations.
+  ///
+  /// **⚠️ Internal Use Only**: This factory is intended for use by the SDK to
+  /// construct metadata instances populated with values from the underlying
+  /// native platform.
+  ///
+  /// ## Parameters
+  ///
+  /// - [dataOrigin]: The application that wrote this health record.
+  /// - [recordingMethod]: The method used to record this data.
+  /// - [lastModifiedTime]: The timestamp when this record was last modified.
+  /// - [clientRecordId]: A custom identifier assigned by your application.
+  /// - [clientRecordVersion]: A version number assigned by your application.
+  /// - [device]: The device that recorded the data.
+  @internalUse
+  factory Metadata.internal({
+    required RecordingMethod recordingMethod,
+    DataOrigin? dataOrigin,
+    DateTime? lastModifiedTime,
+    String? clientRecordId,
+    int? clientRecordVersion,
+    Device? device,
+  }) {
+    return Metadata._(
+      recordingMethod: recordingMethod,
+      dataOrigin: dataOrigin,
+      lastModifiedTime: lastModifiedTime,
+      clientRecordId: clientRecordId,
+      clientRecordVersion: clientRecordVersion,
+      device: device,
+    );
+  }
 
   /// Creates metadata for manually entered data.
   ///
@@ -41,16 +74,13 @@ final class Metadata {
   ///
   /// ## Parameters
   ///
-  /// - [dataOrigin]: The application that wrote this health record.
   /// - [clientRecordId]: A custom identifier assigned by your application.
   /// - [clientRecordVersion]: A version number assigned by your application.
   factory Metadata.manualEntry({
-    required DataOrigin dataOrigin,
     String? clientRecordId,
     int? clientRecordVersion,
   }) {
-    return Metadata(
-      dataOrigin: dataOrigin,
+    return Metadata._(
       recordingMethod: RecordingMethod.manualEntry,
       clientRecordId: clientRecordId,
       clientRecordVersion: clientRecordVersion,
@@ -64,18 +94,15 @@ final class Metadata {
   ///
   /// ## Parameters
   ///
-  /// - [dataOrigin]: The application that wrote this health record.
   /// - [device]: The device that recorded the data.
   /// - [clientRecordId]: A custom identifier assigned by your application.
   /// - [clientRecordVersion]: A version number assigned by your application.
   factory Metadata.automaticallyRecorded({
-    required DataOrigin dataOrigin,
     required Device device,
     String? clientRecordId,
     int? clientRecordVersion,
   }) {
-    return Metadata(
-      dataOrigin: dataOrigin,
+    return Metadata._(
       recordingMethod: RecordingMethod.automaticallyRecorded,
       device: device,
       clientRecordId: clientRecordId,
@@ -91,18 +118,15 @@ final class Metadata {
   ///
   /// ## Parameters
   ///
-  /// - [dataOrigin]: The application that wrote this health record.
   /// - [device]: The device that recorded the data.
   /// - [clientRecordId]: A custom identifier assigned by your application.
   /// - [clientRecordVersion]: A version number assigned by your application.
   factory Metadata.activelyRecorded({
-    required DataOrigin dataOrigin,
     required Device device,
     String? clientRecordId,
     int? clientRecordVersion,
   }) {
-    return Metadata(
-      dataOrigin: dataOrigin,
+    return Metadata._(
       recordingMethod: RecordingMethod.activelyRecorded,
       device: device,
       clientRecordId: clientRecordId,
@@ -117,18 +141,15 @@ final class Metadata {
   ///
   /// ## Parameters
   ///
-  /// - [dataOrigin]: The application that wrote this health record.
   /// - [device]: The device that recorded the data.
   /// - [clientRecordId]: A custom identifier assigned by your application.
   /// - [clientRecordVersion]: A version number assigned by your application.
   factory Metadata.unknownRecordingMethod({
-    required DataOrigin dataOrigin,
     Device? device,
     String? clientRecordId,
     int? clientRecordVersion,
   }) {
-    return Metadata(
-      dataOrigin: dataOrigin,
+    return Metadata._(
       recordingMethod: RecordingMethod.unknown,
       device: device,
       clientRecordId: clientRecordId,
@@ -136,11 +157,14 @@ final class Metadata {
     );
   }
 
-  /// The application that wrote this health record.
+  /// The data origin (app package name) that wrote this record.
   ///
-  /// Identifies the source application using its package name
-  /// (Android Health Connect) or bundle identifier (iOS HealthKit).
-  final DataOrigin dataOrigin;
+  /// This field is automatically populated by the platform when writing records
+  /// and is only available on records retrieved via read operations.
+  ///
+  /// **Important**: You cannot specify the data origin when creating records.
+  /// The platform automatically assigns your app's package name/bundle ID.
+  final DataOrigin? dataOrigin;
 
   /// The timestamp when this record was last modified on the platform.
   ///
@@ -190,15 +214,14 @@ final class Metadata {
   /// This is useful for creating variations of metadata or updating specific
   /// fields while preserving others.
   Metadata copyWith({
-    DataOrigin? dataOrigin,
     DateTime? lastModifiedTime,
     String? clientRecordId,
     int? clientRecordVersion,
     Device? device,
     RecordingMethod? recordingMethod,
   }) {
-    return Metadata(
-      dataOrigin: dataOrigin ?? this.dataOrigin,
+    return Metadata._(
+      dataOrigin: dataOrigin,
       lastModifiedTime: lastModifiedTime ?? this.lastModifiedTime,
       clientRecordId: clientRecordId ?? this.clientRecordId,
       clientRecordVersion: clientRecordVersion ?? this.clientRecordVersion,

@@ -17,9 +17,7 @@ part of 'health_record.dart';
 /// final record = BodyMassIndexRecord(
 ///   time: DateTime.now(),
 ///   bodyMassIndex: Number(22.5),
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

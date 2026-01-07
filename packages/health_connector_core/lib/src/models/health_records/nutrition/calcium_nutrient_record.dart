@@ -18,9 +18,7 @@ part of '../health_record.dart';
 ///   value: Mass.milligrams(300),
 ///   foodName: 'Milk',
 ///   mealType: MealType.breakfast,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

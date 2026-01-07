@@ -35,7 +35,7 @@ part of '../health_record.dart';
 ///     ),
 ///   ],
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

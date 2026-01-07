@@ -21,8 +21,8 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 time: time,
                 zoneOffsetSeconds: 3_600,
-                metadata: const Metadata(
-                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
                   clientRecordVersion: 1,
                   device: Device(type: DeviceType.scale),
@@ -69,7 +69,7 @@ void main() {
               expect(record.time, time);
               expect(record.weight.inKilograms, 68.2);
               expect(
-                record.metadata.dataOrigin.packageName,
+                record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
             },

@@ -19,7 +19,7 @@ part of 'health_record.dart';
 ///   time: DateTime.now(),
 ///   percentage: Percentage.fromWhole(25), // 25% body fat
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

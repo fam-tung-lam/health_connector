@@ -19,9 +19,7 @@ part of '../health_record.dart';
 ///   value: Mass.milligrams(0.1),
 ///   foodName: 'Whole Wheat Bread',
 ///   mealType: MealType.breakfast,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

@@ -23,7 +23,7 @@ part of 'health_record.dart';
 ///   time: DateTime.now(),
 ///   percentage: Percentage.fromWhole(98), // 98% SpO₂
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

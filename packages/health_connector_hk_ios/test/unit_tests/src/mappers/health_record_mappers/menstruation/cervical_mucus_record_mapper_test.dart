@@ -21,11 +21,11 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 time: time,
                 zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
-                metadata: const Metadata(
-                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.phone),
+                  device: const Device(type: DeviceType.phone),
                 ),
                 appearance: CervicalMucusAppearanceType.watery,
                 sensation: CervicalMucusSensationType.heavy,
@@ -79,7 +79,7 @@ void main() {
               expect(record.appearance, CervicalMucusAppearanceType.creamy);
               expect(record.sensation, CervicalMucusSensationType.medium);
               expect(
-                record.metadata.dataOrigin.packageName,
+                record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
             },

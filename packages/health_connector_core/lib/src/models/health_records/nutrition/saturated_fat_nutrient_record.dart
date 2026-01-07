@@ -20,9 +20,7 @@ part of '../health_record.dart';
 ///   value: Mass.grams(5),
 ///   foodName: 'Cheese',
 ///   mealType: MealType.snack,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

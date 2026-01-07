@@ -19,7 +19,7 @@ part of '../health_record.dart';
 ///   time: DateTime(2024, 1, 15, 22, 0),
 ///   protectionUsed: SexualActivityProtectionUsedType.protected,
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

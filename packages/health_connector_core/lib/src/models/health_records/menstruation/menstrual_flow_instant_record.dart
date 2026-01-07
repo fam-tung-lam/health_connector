@@ -15,9 +15,7 @@ part of '../health_record.dart';
 /// final record = MenstrualFlowInstantRecord(
 ///   time: DateTime(2024, 1, 15, 8, 30),
 ///   flow: MenstrualFlowType.medium,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

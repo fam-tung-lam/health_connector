@@ -653,9 +653,7 @@ void main() {
                       count: const Number(100),
                       startTime: now.subtract(const Duration(hours: 1)),
                       endTime: now,
-                      metadata: Metadata.manualEntry(
-                        dataOrigin: const DataOrigin('com.example.app'),
-                      ),
+                      metadata: Metadata.manualEntry(),
                     ),
                   );
 
@@ -677,9 +675,7 @@ void main() {
                         count: const Number(100),
                         startTime: now.subtract(const Duration(hours: 1)),
                         endTime: now,
-                        metadata: Metadata.manualEntry(
-                          dataOrigin: const DataOrigin('com.example.app'),
-                        ),
+                        metadata: Metadata.manualEntry(),
                       ),
                     ),
                     throwsA(isA<HealthConnectorException>()),
@@ -715,17 +711,13 @@ void main() {
                       count: const Number(100),
                       startTime: now.subtract(const Duration(hours: 2)),
                       endTime: now.subtract(const Duration(hours: 1)),
-                      metadata: Metadata.manualEntry(
-                        dataOrigin: const DataOrigin('com.example.app'),
-                      ),
+                      metadata: Metadata.manualEntry(),
                     ),
                     StepsRecord(
                       count: const Number(200),
                       startTime: now.subtract(const Duration(hours: 1)),
                       endTime: now,
-                      metadata: Metadata.manualEntry(
-                        dataOrigin: const DataOrigin('com.example.app'),
-                      ),
+                      metadata: Metadata.manualEntry(),
                     ),
                   ]);
 
@@ -749,9 +741,7 @@ void main() {
                         count: const Number(100),
                         startTime: now.subtract(const Duration(hours: 1)),
                         endTime: now,
-                        metadata: Metadata.manualEntry(
-                          dataOrigin: const DataOrigin('com.example.app'),
-                        ),
+                        metadata: Metadata.manualEntry(),
                       ),
                     ]),
                     throwsA(isA<HealthConnectorException>()),
@@ -779,9 +769,7 @@ void main() {
                         startTime: now.subtract(const Duration(hours: 1)),
                         endTime: now,
                         id: HealthRecordId('existing-id'),
-                        metadata: Metadata.manualEntry(
-                          dataOrigin: const DataOrigin('com.example.app'),
-                        ),
+                        metadata: Metadata.manualEntry(),
                       ),
                     ),
                     completes,
@@ -805,9 +793,7 @@ void main() {
                         startTime: now.subtract(const Duration(hours: 1)),
                         endTime: now,
                         id: HealthRecordId('existing-id'),
-                        metadata: Metadata.manualEntry(
-                          dataOrigin: const DataOrigin('com.example.app'),
-                        ),
+                        metadata: Metadata.manualEntry(),
                       ),
                     ),
                     throwsA(isA<HealthConnectorException>()),

@@ -23,11 +23,11 @@ void main() {
                     FakeData.fakeStartTime.timeZoneOffset.inSeconds,
                 endZoneOffsetSeconds:
                     FakeData.fakeEndTime.timeZoneOffset.inSeconds,
-                metadata: const Metadata(
-                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.phone),
+                  device: const Device(type: DeviceType.phone),
                 ),
                 volume: const Volume.liters(0.5),
               );

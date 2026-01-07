@@ -11,11 +11,11 @@ void main() {
       final record = EnergyNutrientRecord(
         time: FakeData.fakeTime,
         zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
-        metadata: const Metadata(
-          dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+        metadata: Metadata.internal(
+          dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
           recordingMethod: RecordingMethod.manualEntry,
           clientRecordVersion: 1,
-          device: Device(type: DeviceType.phone),
+          device: const Device(type: DeviceType.phone),
         ),
         value: const Energy.calories(500),
         foodName: 'Test Food',
@@ -55,7 +55,10 @@ void main() {
           record.zoneOffsetSeconds,
           FakeData.fakeTime.timeZoneOffset.inSeconds,
         );
-        expect(record.metadata.dataOrigin.packageName, FakeData.fakeDataOrigin);
+        expect(
+          record.metadata.dataOrigin?.packageName,
+          FakeData.fakeDataOrigin,
+        );
         expect(record.value.inKilocalories, closeTo(500.0, 0.0001));
         expect(record.foodName, 'Test Food');
         expect(record.mealType, MealType.breakfast);

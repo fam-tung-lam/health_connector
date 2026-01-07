@@ -18,9 +18,7 @@ part of '../health_record.dart';
 ///   value: Mass.grams(30),
 ///   foodName: 'Grilled Chicken',
 ///   mealType: MealType.lunch,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

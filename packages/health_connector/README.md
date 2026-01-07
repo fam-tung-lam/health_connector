@@ -311,7 +311,6 @@ StepsRecord _createStepsRecord(DateTime time, int steps) {
     endTime: time.add(Duration(hours: 1)),
     count: Number(steps),
     metadata: Metadata.automaticallyRecorded(
-      dataOrigin: DataOrigin('com.example'),
       device: Device.fromType(DeviceType.phone),
     ),
   );

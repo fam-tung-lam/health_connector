@@ -12,9 +12,7 @@ void main() {
           startTime: DateTime(2025),
           endTime: DateTime(2025).add(const Duration(hours: 1)),
           energy: const Energy.calories(100),
-          metadata: Metadata.manualEntry(
-            dataOrigin: const DataOrigin('com.example'),
-          ),
+          metadata: Metadata.manualEntry(),
         );
         expect(caloriesRecord.toDto(), isA<ActiveCaloriesBurnedRecordDto>());
 
@@ -23,9 +21,7 @@ void main() {
           startTime: DateTime(2023, 1, 1, 10),
           endTime: DateTime(2023, 1, 1, 11),
           count: const Number(1000),
-          metadata: Metadata.manualEntry(
-            dataOrigin: const DataOrigin('com.example'),
-          ),
+          metadata: Metadata.manualEntry(),
         );
         expect(stepsRecord.toDto(), isA<StepsRecordDto>());
       });
@@ -36,9 +32,7 @@ void main() {
             startTime: DateTime.now(),
             endTime: DateTime.now().add(const Duration(minutes: 10)),
             distance: const Length.meters(100),
-            metadata: Metadata.manualEntry(
-              dataOrigin: const DataOrigin('com.example'),
-            ),
+            metadata: Metadata.manualEntry(),
           ).toDto(),
           throwsUnsupportedError,
         );
@@ -49,9 +43,7 @@ void main() {
             startTime: DateTime.now(),
             endTime: DateTime.now().add(const Duration(minutes: 10)),
             energy: const Energy.calories(100),
-            metadata: Metadata.manualEntry(
-              dataOrigin: const DataOrigin('com.example'),
-            ),
+            metadata: Metadata.manualEntry(),
           ).toDto(),
           throwsUnsupportedError,
         );
@@ -60,9 +52,7 @@ void main() {
           () => VitaminANutrientRecord(
             time: DateTime.now(),
             value: const Mass.grams(1),
-            metadata: Metadata.manualEntry(
-              dataOrigin: const DataOrigin('com.example'),
-            ),
+            metadata: Metadata.manualEntry(),
           ).toDto(),
           throwsUnsupportedError,
         );

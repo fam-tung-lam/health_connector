@@ -19,7 +19,7 @@ part of 'health_record.dart';
 ///   endTime: DateTime.now(),
 ///   floors: Numeric(5), // 5 floors climbed
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

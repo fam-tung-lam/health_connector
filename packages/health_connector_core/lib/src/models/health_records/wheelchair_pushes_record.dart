@@ -19,7 +19,7 @@ part of 'health_record.dart';
 ///   endTime: DateTime.now(),
 ///   pushes: Numeric(150), // 150 pushes
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.phone),
 ///   ),
 /// );
 /// ```

@@ -26,11 +26,11 @@ void main() {
                 endTime: endTime,
                 startZoneOffsetSeconds: 3_600,
                 endZoneOffsetSeconds: 3_600,
-                metadata: const Metadata(
-                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.phone),
+                  device: const Device(type: DeviceType.phone),
                 ),
                 sessionType: MindfulnessSessionType.meditation,
                 title: title,
@@ -85,7 +85,7 @@ void main() {
               expect(record.startTime, startTime);
               expect(record.endTime, endTime);
               expect(
-                record.metadata.dataOrigin.packageName,
+                record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
               expect(record.sessionType, MindfulnessSessionType.breathing);

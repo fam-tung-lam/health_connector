@@ -21,9 +21,7 @@ part of '../health_record.dart';
 ///   value: Mass.grams(8),
 ///   foodName: 'Salmon',
 ///   mealType: MealType.dinner,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

@@ -18,9 +18,7 @@ part of '../health_record.dart';
 ///   value: Mass.micrograms(145),
 ///   foodName: 'Spinach',
 ///   mealType: MealType.lunch,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

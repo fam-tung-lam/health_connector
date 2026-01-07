@@ -20,8 +20,8 @@ void main() {
 
               final record = HeartRateMeasurementRecord(
                 id: HealthRecordId(FakeData.fakeId),
-                metadata: const Metadata(
-                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
                   clientRecordVersion: 1,
                   device: Device(type: DeviceType.watch),
@@ -67,7 +67,7 @@ void main() {
               expect(record.time, time);
               expect(record.beatsPerMinute.inPerMinute, 68.0);
               expect(
-                record.metadata.dataOrigin.packageName,
+                record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
             },

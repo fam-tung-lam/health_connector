@@ -18,9 +18,7 @@ part of '../health_record.dart';
 ///   value: Mass.micrograms(2.5),
 ///   foodName: 'Fortified Milk',
 ///   mealType: MealType.breakfast,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

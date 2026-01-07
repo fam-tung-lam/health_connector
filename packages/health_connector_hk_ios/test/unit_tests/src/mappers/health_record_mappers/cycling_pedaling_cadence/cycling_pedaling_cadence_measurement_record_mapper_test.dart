@@ -20,11 +20,11 @@ void main() {
 
               final record = CyclingPedalingCadenceMeasurementRecord(
                 id: HealthRecordId(FakeData.fakeId),
-                metadata: const Metadata(
-                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.phone),
+                  device: const Device(type: DeviceType.phone),
                 ),
                 measurement: CyclingPedalingCadenceMeasurement(
                   time: time,
@@ -72,7 +72,7 @@ void main() {
               expect(record.id.value, FakeData.fakeId);
               expect(record.measurement.revolutionsPerMinute.value, 85.0);
               expect(
-                record.metadata.dataOrigin.packageName,
+                record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
             },

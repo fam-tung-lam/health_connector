@@ -18,9 +18,7 @@ part of '../health_record.dart';
 ///   value: Mass.milligrams(70),
 ///   foodName: 'Orange',
 ///   mealType: MealType.snack,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

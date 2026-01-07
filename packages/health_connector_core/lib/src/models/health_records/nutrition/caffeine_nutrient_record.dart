@@ -18,9 +18,7 @@ part of '../health_record.dart';
 ///   value: Mass.milligrams(95),
 ///   foodName: 'Coffee',
 ///   mealType: MealType.breakfast,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

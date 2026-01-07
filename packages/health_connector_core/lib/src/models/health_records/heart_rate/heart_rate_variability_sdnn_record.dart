@@ -19,9 +19,7 @@ part of '../health_record.dart';
 /// final record = HeartRateVariabilitySDNNRecord(
 ///   time: DateTime.now(),
 ///   heartRateVariabilitySDNN: Number(50.0), // milliseconds
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

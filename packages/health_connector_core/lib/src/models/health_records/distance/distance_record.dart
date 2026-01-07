@@ -18,7 +18,7 @@ part of '../health_record.dart';
 ///   endTime: DateTime.now(),
 ///   distance: Length.meters(5000), // 5 km
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

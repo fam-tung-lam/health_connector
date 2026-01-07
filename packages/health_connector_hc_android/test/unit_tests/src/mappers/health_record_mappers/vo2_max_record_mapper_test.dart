@@ -19,9 +19,7 @@ void main() {
               final record = Vo2MaxRecord(
                 time: FakeData.fakeTime,
                 zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
-                metadata: Metadata.manualEntry(
-                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                ),
+                metadata: Metadata.manualEntry(),
                 mLPerKgPerMin: const Number(45.5),
                 testType: Vo2MaxTestType.rockportFitnessTest,
               );
@@ -34,7 +32,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
+              expect(dto.metadata.dataOrigin, isEmpty);
               expect(dto.mLPerKgPerMin.value, 45.5);
               expect(
                 dto.measurementMethod,
@@ -69,7 +67,7 @@ void main() {
               expect(record.id, HealthRecordId.none);
               expect(record.time, FakeData.fakeTime);
               expect(
-                record.metadata.dataOrigin.packageName,
+                record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
               expect(record.mLPerKgPerMin.value, 50.0);
@@ -154,9 +152,7 @@ void main() {
               final domainRecord = Vo2MaxRecord(
                 time: FakeData.fakeTime,
                 zoneOffsetSeconds: 0,
-                metadata: Metadata.manualEntry(
-                  dataOrigin: const DataOrigin('com.example.app'),
-                ),
+                metadata: Metadata.manualEntry(),
                 mLPerKgPerMin: const Number(45.0),
                 testType: domainVal,
               );

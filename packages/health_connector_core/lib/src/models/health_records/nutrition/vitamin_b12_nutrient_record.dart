@@ -19,9 +19,7 @@ part of '../health_record.dart';
 ///   value: Mass.micrograms(4.8),
 ///   foodName: 'Salmon',
 ///   mealType: MealType.dinner,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

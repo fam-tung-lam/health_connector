@@ -23,7 +23,7 @@ part of '../health_record.dart';
 ///     stageType: SleepStageType.light,
 ///   ),
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.apple.health'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

@@ -18,7 +18,7 @@ part of 'health_record.dart';
 ///   endTime: DateTime.now(),
 ///   volume: Volume.milliliters(500),
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.hydration_tracker'),
+///     device: Device.fromType(DeviceType.phone),
 ///   ),
 /// );
 /// ```

@@ -19,7 +19,7 @@ part of '../health_record.dart';
 ///   endTime: DateTime.now(),
 ///   energy: Energy.kilocalories(450), // 450 kcal total (active + basal)
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```
