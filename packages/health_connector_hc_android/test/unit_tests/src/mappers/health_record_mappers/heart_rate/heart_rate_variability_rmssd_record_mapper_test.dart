@@ -26,7 +26,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: Device(type: DeviceType.watch),
                 ),
-                heartRateVariabilityMillis: Number(45.0),
+                heartRateVariabilityMillis: const Number(45.0),
               );
 
               final dto = record.toDto();
@@ -76,7 +76,7 @@ void main() {
                 record.metadata.dataOrigin.packageName,
                 FakeData.fakeDataOrigin,
               );
-              expect(record.heartRateVariabilityMillis, Number(50.0));
+              expect(record.heartRateVariabilityMillis, const Number(50.0));
             },
           );
 

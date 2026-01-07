@@ -23,10 +23,8 @@ final class HeartRateMeasurementFormState
   HealthRecord buildRecord() {
     return HeartRateMeasurementRecord(
       id: HealthRecordId.none,
-      measurement: HeartRateMeasurement(
-        time: startDateTime!,
-        beatsPerMinute: value! as Number,
-      ),
+      time: startDateTime!,
+      beatsPerMinute: value! as Number,
       metadata: metadata,
     );
   }

@@ -26,16 +26,14 @@ void main() {
                   clientRecordVersion: 1,
                   device: Device(type: DeviceType.watch),
                 ),
-                measurement: HeartRateMeasurement(
-                  time: time,
-                  beatsPerMinute: const Number(72.0),
-                ),
+                time: time,
+                beatsPerMinute: const Number(72.0),
               );
 
               final dto = record.toDto();
 
               expect(dto.time, time.millisecondsSinceEpoch);
-              expect(dto.measurement.beatsPerMinute.value, 72.0);
+              expect(dto.beatsPerMinute.value, 72.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -60,17 +58,14 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                measurement: HeartRateMeasurementDto(
-                  time: time.millisecondsSinceEpoch,
-                  beatsPerMinute: NumberDto(value: 68.0),
-                ),
+                beatsPerMinute: NumberDto(value: 68.0),
               );
 
               final record = dto.toDomain();
 
               expect(record.id.value, FakeData.fakeId);
-              expect(record.measurement.time, time);
-              expect(record.measurement.beatsPerMinute.value, 68.0);
+              expect(record.time, time);
+              expect(record.beatsPerMinute.value, 68.0);
               expect(
                 record.metadata.dataOrigin.packageName,
                 FakeData.fakeDataOrigin,
@@ -92,10 +87,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                measurement: HeartRateMeasurementDto(
-                  time: time.millisecondsSinceEpoch,
-                  beatsPerMinute: NumberDto(value: 75.0),
-                ),
+                beatsPerMinute: NumberDto(value: 75.0),
               );
 
               final record = dto.toDomain();

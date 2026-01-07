@@ -10,8 +10,8 @@ extension HeartRateMeasurementRecordDto {
 
         // Heart rate is measured in beats per minute (count/minute)
         let unit = HKUnit.count().unitDivided(by: .minute())
-        let quantity = HKQuantity(unit: unit, doubleValue: measurement.beatsPerMinute.toDouble())
-        let date = Date(millisecondsSince1970: measurement.time)
+        let quantity = HKQuantity(unit: unit, doubleValue: beatsPerMinute.toDouble())
+        let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
         var builder = try MetadataBuilder(
@@ -49,11 +49,6 @@ extension HKQuantitySample {
         let unit = HKUnit.count().unitDivided(by: .minute())
         let bpmValue = quantity.doubleValue(for: unit)
 
-        let measurement = HeartRateMeasurementDto(
-            time: startDate.millisecondsSince1970,
-            beatsPerMinute: NumberDto(value: bpmValue)
-        )
-
         // Create builder from HK metadata with source and device
         var builder = MetadataBuilder(
             fromHKMetadata: metadata ?? [:],
@@ -68,7 +63,7 @@ extension HKQuantitySample {
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            measurement: measurement,
+            beatsPerMinute: NumberDto(value: bpmValue),
             zoneOffsetSeconds: zoneOffset
         )
     }
