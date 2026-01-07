@@ -16,10 +16,7 @@ part of '../health_record.dart';
 /// final record = HeartRateMeasurementRecord(
 ///   id: HealthRecordId('ABC-123'),
 ///   time: DateTime.now(),
-///   measurement: HeartRateMeasurement(
-///     time: DateTime.now(),
-///     beatsPerMinute: Frequency.perMinute(72),
-///   ),
+///   beatsPerMinute: Frequency.perMinute(72),
 ///   metadata: Metadata.automaticallyRecorded(
 ///     dataOrigin: DataOrigin(packageName: 'com.apple.health'),
 ///   ),
@@ -29,6 +26,8 @@ part of '../health_record.dart';
 /// ## See also
 ///
 /// - [HeartRateMeasurementRecordHealthDataType]
+/// - [HeartRateSeriesRecord] for series-based heart rate measurements
+/// - [HeartRateMeasurement] is used exclusively for series record samples
 ///
 /// {@category Health Records}
 @sinceV1_0_0
@@ -36,54 +35,30 @@ part of '../health_record.dart';
 @immutable
 final class HeartRateMeasurementRecord extends InstantHealthRecord {
   /// Creates a heart rate measurement record.
-  factory HeartRateMeasurementRecord({
-    required HealthRecordId id,
-    required Metadata metadata,
-    required HeartRateMeasurement measurement,
-    int? zoneOffsetSeconds,
-  }) {
-    return HeartRateMeasurementRecord._(
-      id: id,
-      metadata: metadata,
-      time: measurement.time,
-      measurement: measurement,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-    );
-  }
-
-  const HeartRateMeasurementRecord._({
+  const HeartRateMeasurementRecord({
     required super.id,
     required super.metadata,
     required super.time,
-    required this.measurement,
+    required this.beatsPerMinute,
     super.zoneOffsetSeconds,
   });
 
-  /// The heart rate measurement.
-  final HeartRateMeasurement measurement;
-
-  /// The time when this measurement was taken.
-  ///
-  /// Convenience getter that returns the time from the measurement.
-  @override
-  DateTime get time => measurement.time;
-
   /// The heart rate value in beats per minute (BPM).
-  ///
-  /// Convenience getter that returns the BPM from the measurement.
-  Number get beatsPerMinute => measurement.beatsPerMinute;
+  final Number beatsPerMinute;
 
   /// Creates a copy with the given fields replaced with the new values.
   HeartRateMeasurementRecord copyWith({
     HealthRecordId? id,
     Metadata? metadata,
-    HeartRateMeasurement? measurement,
+    DateTime? time,
+    Number? beatsPerMinute,
     int? zoneOffsetSeconds,
   }) {
     return HeartRateMeasurementRecord(
       id: id ?? this.id,
       metadata: metadata ?? this.metadata,
-      measurement: measurement ?? this.measurement,
+      time: time ?? this.time,
+      beatsPerMinute: beatsPerMinute ?? this.beatsPerMinute,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
     );
   }
@@ -95,8 +70,10 @@ final class HeartRateMeasurementRecord extends InstantHealthRecord {
           runtimeType == other.runtimeType &&
           id == other.id &&
           metadata == other.metadata &&
-          measurement == other.measurement;
+          time == other.time &&
+          beatsPerMinute == other.beatsPerMinute;
 
   @override
-  int get hashCode => id.hashCode ^ metadata.hashCode ^ measurement.hashCode;
+  int get hashCode =>
+      id.hashCode ^ metadata.hashCode ^ time.hashCode ^ beatsPerMinute.hashCode;
 }

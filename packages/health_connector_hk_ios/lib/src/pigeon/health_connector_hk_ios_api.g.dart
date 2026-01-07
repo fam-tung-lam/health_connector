@@ -4031,7 +4031,7 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
     this.id,
     required this.time,
     required this.metadata,
-    required this.measurement,
+    required this.beatsPerMinute,
     this.zoneOffsetSeconds,
   });
 
@@ -4044,8 +4044,8 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
   /// Metadata about this record.
   MetadataDto metadata;
 
-  /// The heart rate measurement.
-  HeartRateMeasurementDto measurement;
+  /// The heart rate value in beats per minute (BPM).
+  NumberDto beatsPerMinute;
 
   /// Timezone offset in seconds for measurement time (optional).
   int? zoneOffsetSeconds;
@@ -4055,7 +4055,7 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
       id,
       time,
       metadata,
-      measurement,
+      beatsPerMinute,
       zoneOffsetSeconds,
     ];
   }
@@ -4070,7 +4070,7 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       time: result[1]! as int,
       metadata: result[2]! as MetadataDto,
-      measurement: result[3]! as HeartRateMeasurementDto,
+      beatsPerMinute: result[3]! as NumberDto,
       zoneOffsetSeconds: result[4] as int?,
     );
   }

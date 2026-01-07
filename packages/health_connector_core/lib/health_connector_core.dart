@@ -25,7 +25,6 @@ export 'src/models/health_records/health_record.dart'
         VitaminNutrientRecord,
         SpeedActivityRecord,
         DistanceActivityRecord;
-export 'src/models/health_records/heart_rate/heart_rate_measurement.dart';
 export 'src/models/health_records/sleep/sleep_stage_type.dart';
 export 'src/models/measurement_units/measurement_unit.dart'
     hide MeasurementUnit;

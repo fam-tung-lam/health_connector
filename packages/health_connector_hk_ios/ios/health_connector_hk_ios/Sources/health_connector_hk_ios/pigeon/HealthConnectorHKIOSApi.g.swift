@@ -3059,8 +3059,8 @@ public struct HeartRateMeasurementRecordDto: HealthRecordDto {
   var time: Int64
   /// Metadata about this record.
   var metadata: MetadataDto
-  /// The heart rate measurement.
-  var measurement: HeartRateMeasurementDto
+  /// The heart rate value in beats per minute (BPM).
+  var beatsPerMinute: NumberDto
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -3070,14 +3070,14 @@ public struct HeartRateMeasurementRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let time = pigeonVar_list[1] as! Int64
     let metadata = pigeonVar_list[2] as! MetadataDto
-    let measurement = pigeonVar_list[3] as! HeartRateMeasurementDto
+    let beatsPerMinute = pigeonVar_list[3] as! NumberDto
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return HeartRateMeasurementRecordDto(
       id: id,
       time: time,
       metadata: metadata,
-      measurement: measurement,
+      beatsPerMinute: beatsPerMinute,
       zoneOffsetSeconds: zoneOffsetSeconds
     )
   }
@@ -3086,7 +3086,7 @@ public struct HeartRateMeasurementRecordDto: HealthRecordDto {
       id,
       time,
       metadata,
-      measurement,
+      beatsPerMinute,
       zoneOffsetSeconds,
     ]
   }

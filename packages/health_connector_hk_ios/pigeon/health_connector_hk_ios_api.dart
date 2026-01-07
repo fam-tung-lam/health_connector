@@ -2018,7 +2018,7 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.measurement,
+    required this.beatsPerMinute,
     this.zoneOffsetSeconds,
   });
 
@@ -2031,8 +2031,8 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
   /// Metadata about this record.
   final MetadataDto metadata;
 
-  /// The heart rate measurement.
-  final HeartRateMeasurementDto measurement;
+  /// The heart rate value in beats per minute (BPM).
+  final NumberDto beatsPerMinute;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
