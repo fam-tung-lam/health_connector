@@ -18,7 +18,7 @@ part of '../health_record.dart';
 ///   endTime: DateTime.now(),
 ///   energy: Energy.kilocalories(60), // 60 kcal basal burn
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

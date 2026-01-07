@@ -18,7 +18,7 @@ part of 'health_record.dart';
 ///   time: DateTime.now(),
 ///   mass: Mass.kilograms(60.0),
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

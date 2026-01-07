@@ -12,9 +12,7 @@ void main() {
         () {
           // Helper function to create metadata for test records
           Metadata createTestMetadata() {
-            return Metadata.manualEntry(
-              dataOrigin: const DataOrigin('com.test.app'),
-            );
+            return Metadata.manualEntry();
           }
 
           // Helper function to create test time

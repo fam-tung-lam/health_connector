@@ -20,9 +20,7 @@ part of '../health_record.dart';
 ///   value: Mass.milligrams(0.3),
 ///   foodName: 'Yogurt',
 ///   mealType: MealType.breakfast,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

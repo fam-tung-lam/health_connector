@@ -28,9 +28,7 @@ part of 'health_record.dart';
 ///   time: DateTime.now(),
 ///   mLPerKgPerMin: Number(45.2),
 ///   testType: Vo2MaxTestType.cooperTest,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

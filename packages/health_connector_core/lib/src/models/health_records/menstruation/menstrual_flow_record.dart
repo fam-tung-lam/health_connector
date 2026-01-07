@@ -21,9 +21,7 @@ part of '../health_record.dart';
 ///   endTime: DateTime(2024, 1, 18, 20, 0),
 ///   flow: MenstrualFlowType.medium,
 ///   isCycleStart: true,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 ///
 /// // Multi-sample period (first sample)
@@ -32,9 +30,7 @@ part of '../health_record.dart';
 ///   endTime: DateTime(2024, 1, 15, 14, 0),
 ///   flow: MenstrualFlowType.heavy,
 ///   isCycleStart: true,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 ///
 /// // Multi-sample period (subsequent sample)
@@ -43,9 +39,7 @@ part of '../health_record.dart';
 ///   endTime: DateTime(2024, 1, 15, 20, 0),
 ///   flow: MenstrualFlowType.medium,
 ///   isCycleStart: false,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

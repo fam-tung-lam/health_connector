@@ -20,9 +20,7 @@ part of '../health_record.dart';
 ///   value: Mass.grams(4),
 ///   foodName: 'Oatmeal',
 ///   mealType: MealType.breakfast,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

@@ -60,9 +60,7 @@ void main() {
           count: const Number(100),
           startTime: FakeData.fakeStartTime,
           endTime: FakeData.fakeEndTime,
-          metadata: Metadata.manualEntry(
-            dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-          ),
+          metadata: Metadata.manualEntry(),
         ),
       );
       registerFallbackValue(const <StepsRecord>[]);
@@ -265,9 +263,7 @@ void main() {
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
                 id: HealthRecordId(FakeData.fakeId),
-                metadata: Metadata.manualEntry(
-                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                ),
+                metadata: Metadata.manualEntry(),
               );
 
               when(
@@ -375,9 +371,7 @@ void main() {
                     count: const Number(100),
                     startTime: FakeData.fakeStartTime,
                     endTime: FakeData.fakeEndTime,
-                    metadata: Metadata.manualEntry(
-                      dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                    ),
+                    metadata: Metadata.manualEntry(),
                   ),
                 ],
               );
@@ -450,9 +444,7 @@ void main() {
                 count: const Number(100),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                metadata: Metadata.manualEntry(
-                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                ),
+                metadata: Metadata.manualEntry(),
               );
               final expectedId = HealthRecordId('new-id');
 
@@ -487,9 +479,7 @@ void main() {
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
                 id: HealthRecordId('existing-id'),
-                metadata: Metadata.manualEntry(
-                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                ),
+                metadata: Metadata.manualEntry(),
               );
 
               // WHEN & THEN
@@ -520,9 +510,7 @@ void main() {
                 count: const Number(100),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                metadata: Metadata.manualEntry(
-                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                ),
+                metadata: Metadata.manualEntry(),
               );
 
               when(
@@ -587,17 +575,13 @@ void main() {
                   count: const Number(100),
                   startTime: FakeData.fakeStartTime,
                   endTime: FakeData.fakeEndTime,
-                  metadata: Metadata.manualEntry(
-                    dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                  ),
+                  metadata: Metadata.manualEntry(),
                 ),
                 StepsRecord(
                   count: const Number(200),
                   startTime: FakeData.fakeStartTime,
                   endTime: FakeData.fakeEndTime,
-                  metadata: Metadata.manualEntry(
-                    dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                  ),
+                  metadata: Metadata.manualEntry(),
                 ),
               ];
               final expectedIds = [
@@ -637,9 +621,7 @@ void main() {
                   startTime: FakeData.fakeStartTime,
                   endTime: FakeData.fakeEndTime,
                   id: HealthRecordId('existing-id'),
-                  metadata: Metadata.manualEntry(
-                    dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                  ),
+                  metadata: Metadata.manualEntry(),
                 ),
               ];
 
@@ -672,9 +654,7 @@ void main() {
                   count: const Number(100),
                   startTime: FakeData.fakeStartTime,
                   endTime: FakeData.fakeEndTime,
-                  metadata: Metadata.manualEntry(
-                    dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                  ),
+                  metadata: Metadata.manualEntry(),
                 ),
               ];
 
@@ -916,9 +896,7 @@ void main() {
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
                 id: HealthRecordId('existing-id'),
-                metadata: Metadata.manualEntry(
-                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                ),
+                metadata: Metadata.manualEntry(),
               );
 
               // WHEN & THEN
@@ -948,9 +926,7 @@ void main() {
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
                 id: HealthRecordId('existing-id'),
-                metadata: Metadata.manualEntry(
-                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                ),
+                metadata: Metadata.manualEntry(),
               );
 
               when(
@@ -982,9 +958,7 @@ void main() {
                 count: const Number(100),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
-                metadata: Metadata.manualEntry(
-                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                ),
+                metadata: Metadata.manualEntry(),
               );
 
               // WHEN & THEN
@@ -1016,9 +990,7 @@ void main() {
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
                 id: HealthRecordId('existing-id'),
-                metadata: Metadata.manualEntry(
-                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                ),
+                metadata: Metadata.manualEntry(),
               );
 
               when(
@@ -1057,9 +1029,7 @@ void main() {
                   startTime: FakeData.fakeStartTime,
                   endTime: FakeData.fakeEndTime,
                   id: HealthRecordId('existing-id'),
-                  metadata: Metadata.manualEntry(
-                    dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                  ),
+                  metadata: Metadata.manualEntry(),
                 ),
               ];
 
@@ -1093,18 +1063,14 @@ void main() {
                   startTime: FakeData.fakeStartTime,
                   endTime: FakeData.fakeEndTime,
                   id: HealthRecordId('id-1'),
-                  metadata: Metadata.manualEntry(
-                    dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                  ),
+                  metadata: Metadata.manualEntry(),
                 ),
                 StepsRecord(
                   count: const Number(200),
                   startTime: FakeData.fakeStartTime,
                   endTime: FakeData.fakeEndTime,
                   id: HealthRecordId('id-2'),
-                  metadata: Metadata.manualEntry(
-                    dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                  ),
+                  metadata: Metadata.manualEntry(),
                 ),
               ];
 
@@ -1138,9 +1104,7 @@ void main() {
                   count: const Number(100),
                   startTime: FakeData.fakeStartTime,
                   endTime: FakeData.fakeEndTime,
-                  metadata: Metadata.manualEntry(
-                    dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                  ),
+                  metadata: Metadata.manualEntry(),
                 ),
               ];
 
@@ -1174,9 +1138,7 @@ void main() {
                   startTime: FakeData.fakeStartTime,
                   endTime: FakeData.fakeEndTime,
                   id: HealthRecordId('id-1'),
-                  metadata: Metadata.manualEntry(
-                    dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-                  ),
+                  metadata: Metadata.manualEntry(),
                 ),
               ];
 

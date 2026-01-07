@@ -28,9 +28,7 @@ part of '../health_record.dart';
 ///   protein: Mass.grams(35),
 ///   totalCarbohydrate: Mass.grams(50),
 ///   totalFat: Mass.grams(10),
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

@@ -23,7 +23,7 @@ void main() {
           test(
             'maps Metadata to MetadataDto with all fields populated',
             () {
-              final metadata = Metadata(
+              final metadata = Metadata.internal(
                 dataOrigin: const DataOrigin(dataOriginName),
                 recordingMethod: RecordingMethod.manualEntry,
                 lastModifiedTime: lastModifiedTime,
@@ -52,7 +52,7 @@ void main() {
           test(
             'maps Metadata to MetadataDto with nullable fields',
             () {
-              const metadata = Metadata(
+              final metadata = Metadata.internal(
                 dataOrigin: DataOrigin(dataOriginName),
                 recordingMethod: RecordingMethod.unknown,
                 clientRecordVersion: 0,
@@ -92,7 +92,7 @@ void main() {
 
               final metadata = dto.toDomain();
 
-              expect(metadata.dataOrigin.packageName, dataOriginName);
+              expect(metadata.dataOrigin?.packageName, dataOriginName);
               expect(
                 metadata.recordingMethod,
                 RecordingMethod.activelyRecorded,
@@ -118,7 +118,7 @@ void main() {
 
               final metadata = dto.toDomain();
 
-              expect(metadata.dataOrigin.packageName, dataOriginName);
+              expect(metadata.dataOrigin?.packageName, dataOriginName);
               expect(metadata.recordingMethod, RecordingMethod.unknown);
               expect(metadata.lastModifiedTime, null);
               expect(metadata.clientRecordId, null);

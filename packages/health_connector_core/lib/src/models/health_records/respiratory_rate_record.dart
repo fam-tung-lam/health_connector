@@ -21,7 +21,7 @@ part of 'health_record.dart';
 ///   time: DateTime.now(),
 ///   breathsPerMin: Frequency.perMinute(16),
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

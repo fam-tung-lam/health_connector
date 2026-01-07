@@ -19,9 +19,7 @@ part of '../health_record.dart';
 ///   value: Mass.micrograms(10),
 ///   foodName: 'Egg',
 ///   mealType: MealType.breakfast,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

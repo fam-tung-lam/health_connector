@@ -19,7 +19,7 @@ part of '../health_record.dart';
 ///   time: DateTime(2024, 1, 15, 8, 30),
 ///   result: OvulationTestResultType.positive,
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

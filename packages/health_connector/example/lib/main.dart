@@ -356,7 +356,6 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
         endTime: now,
         count: const Number(1000),
         metadata: Metadata.automaticallyRecorded(
-          dataOrigin: const DataOrigin('com.example.health_connector'),
           device: const Device.fromType(DeviceType.phone),
         ),
       );
@@ -389,7 +388,6 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
           endTime: now.subtract(const Duration(hours: 2)),
           count: const Number(1500),
           metadata: Metadata.automaticallyRecorded(
-            dataOrigin: const DataOrigin('com.example.health_connector'),
             device: const Device.fromType(DeviceType.watch),
           ),
         ),
@@ -398,7 +396,6 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
           endTime: now.subtract(const Duration(hours: 1)),
           count: const Number(2000),
           metadata: Metadata.automaticallyRecorded(
-            dataOrigin: const DataOrigin('com.example.health_connector'),
             device: const Device.fromType(DeviceType.watch),
           ),
         ),

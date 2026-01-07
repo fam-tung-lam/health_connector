@@ -24,11 +24,11 @@ void main() {
                     FakeData.fakeStartTime.timeZoneOffset.inSeconds,
                 endZoneOffsetSeconds:
                     FakeData.fakeEndTime.timeZoneOffset.inSeconds,
-                metadata: const Metadata(
-                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.watch),
+                  device: const Device(type: DeviceType.watch),
                 ),
                 energy: const Energy.kilocalories(350.0),
               );
@@ -85,7 +85,7 @@ void main() {
               expect(record.endTime, FakeData.fakeEndTime);
               expect(record.energy.inKilocalories, 275.0);
               expect(
-                record.metadata.dataOrigin.packageName,
+                record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
             },

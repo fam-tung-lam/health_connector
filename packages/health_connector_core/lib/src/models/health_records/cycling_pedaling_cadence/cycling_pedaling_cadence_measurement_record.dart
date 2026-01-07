@@ -23,7 +23,7 @@ part of '../health_record.dart';
 ///     revolutionsPerMinute: Number(85),
 ///   ),
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.apple.health'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

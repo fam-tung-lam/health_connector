@@ -20,9 +20,7 @@ part of '../health_record.dart';
 /// final record = RestingHeartRateRecord(
 ///   time: DateTime.now(),
 ///   beatsPerMinute: Frequency.perMinute(60),
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

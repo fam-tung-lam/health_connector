@@ -23,11 +23,11 @@ void main() {
                     FakeData.fakeStartTime.timeZoneOffset.inSeconds,
                 endZoneOffsetSeconds:
                     FakeData.fakeEndTime.timeZoneOffset.inSeconds,
-                metadata: const Metadata(
-                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.phone),
+                  device: const Device(type: DeviceType.phone),
                 ),
                 count: const Number(12000),
               );
@@ -83,7 +83,7 @@ void main() {
               expect(record.endTime, FakeData.fakeEndTime);
               expect(record.count.value, 8500);
               expect(
-                record.metadata.dataOrigin.packageName,
+                record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
             },

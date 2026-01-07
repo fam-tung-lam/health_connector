@@ -20,9 +20,7 @@ part of '../health_record.dart';
 ///   time: DateTime.now(),
 ///   temperature: Temperature.celsius(36.5),
 ///   measurementLocation: BasalBodyTemperatureMeasurementLocation.mouth,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

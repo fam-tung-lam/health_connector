@@ -41,10 +41,6 @@ abstract class BaseHealthRecordWriteFormState<
 >
     extends State<T>
     with StartDateTimePickerPageStateMixin<T> {
-  static const _dataOrigin = DataOrigin(
-    'com.phamtunglam.health_connector_toolbox',
-  );
-
   /// Form key for validation
   final formKey = GlobalKey<FormState>();
 
@@ -54,19 +50,14 @@ abstract class BaseHealthRecordWriteFormState<
   /// Current metadata built from form state.
   Metadata get metadata {
     return switch (_recordingMethod) {
-      RecordingMethod.manualEntry => Metadata.manualEntry(
-        dataOrigin: _dataOrigin,
-      ),
+      RecordingMethod.manualEntry => Metadata.manualEntry(),
       RecordingMethod.automaticallyRecorded => Metadata.automaticallyRecorded(
-        dataOrigin: _dataOrigin,
         device: _device!,
       ),
       RecordingMethod.activelyRecorded => Metadata.activelyRecorded(
-        dataOrigin: _dataOrigin,
         device: _device!,
       ),
       RecordingMethod.unknown => Metadata.unknownRecordingMethod(
-        dataOrigin: _dataOrigin,
         device: _device,
       ),
     };

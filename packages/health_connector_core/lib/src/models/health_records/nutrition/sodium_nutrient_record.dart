@@ -18,9 +18,7 @@ part of '../health_record.dart';
 ///   value: Mass.milligrams(700),
 ///   foodName: 'Soup',
 ///   mealType: MealType.lunch,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

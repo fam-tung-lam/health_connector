@@ -22,9 +22,7 @@ part of '../health_record.dart';
 ///   relationToMeal: BloodGlucoseRelationToMeal.fasting,
 ///   mealType: MealType.breakfast,
 ///   specimenSource: BloodGlucoseSpecimenSource.capillaryBlood,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

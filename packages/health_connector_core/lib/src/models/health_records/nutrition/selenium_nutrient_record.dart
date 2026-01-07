@@ -18,9 +18,7 @@ part of '../health_record.dart';
 ///   value: Mass.micrograms(68),
 ///   foodName: 'Brazil Nuts',
 ///   mealType: MealType.snack,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

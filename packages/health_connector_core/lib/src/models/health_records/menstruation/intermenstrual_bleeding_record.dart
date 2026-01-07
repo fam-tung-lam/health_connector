@@ -19,7 +19,7 @@ part of '../health_record.dart';
 ///   id: HealthRecordId.none,
 ///   time: DateTime(2024, 1, 15, 10, 30),
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

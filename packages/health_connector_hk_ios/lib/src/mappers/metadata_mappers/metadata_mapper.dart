@@ -12,7 +12,7 @@ import 'package:meta/meta.dart' show internal;
 extension MetadataDtoMapper on Metadata {
   MetadataDto toDto() {
     return MetadataDto(
-      dataOrigin: dataOrigin.packageName,
+      dataOrigin: dataOrigin?.packageName ?? '',
       recordingMethod: recordingMethod.toDto(),
       deviceType: device?.type.toDto() ?? DeviceType.unknown.toDto(),
       clientRecordId: clientRecordId,
@@ -34,7 +34,7 @@ extension MetadataDtoMapper on Metadata {
 @internal
 extension MetadataDtoToDomain on MetadataDto {
   Metadata toDomain() {
-    return Metadata(
+    return Metadata.internal(
       dataOrigin: DataOrigin(dataOrigin),
       recordingMethod: recordingMethod.toDomain(),
       clientRecordId: clientRecordId,

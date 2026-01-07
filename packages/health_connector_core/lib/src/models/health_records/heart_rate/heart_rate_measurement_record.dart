@@ -18,7 +18,7 @@ part of '../health_record.dart';
 ///   time: DateTime.now(),
 ///   beatsPerMinute: Frequency.perMinute(72),
 ///   metadata: Metadata.automaticallyRecorded(
-///     dataOrigin: DataOrigin(packageName: 'com.apple.health'),
+///     device: Device.fromType(DeviceType.watch),
 ///   ),
 /// );
 /// ```

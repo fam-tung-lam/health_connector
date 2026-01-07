@@ -19,11 +19,11 @@ void main() {
                 id: HealthRecordId(FakeData.fakeId),
                 time: FakeData.fakeTime,
                 zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
-                metadata: const Metadata(
-                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.phone),
+                  device: const Device(type: DeviceType.phone),
                 ),
                 protectionUsed: SexualActivityProtectionUsedType.protected,
               );
@@ -74,7 +74,7 @@ void main() {
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
               expect(
-                record.metadata.dataOrigin.packageName,
+                record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
               expect(

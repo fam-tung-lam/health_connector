@@ -23,9 +23,7 @@ part of '../health_record.dart';
 ///   diastolic: Pressure.millimetersOfMercury(80),
 ///   bodyPosition: BloodPressureBodyPosition.sitting,
 ///   measurementLocation: BloodPressureMeasurementLocation.leftUpperArm,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

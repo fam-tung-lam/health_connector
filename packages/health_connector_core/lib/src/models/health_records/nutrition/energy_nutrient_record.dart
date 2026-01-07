@@ -19,9 +19,7 @@ part of '../health_record.dart';
 ///   value: Energy.kilocalories(250),
 ///   foodName: 'Apple',
 ///   mealType: MealType.snack,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

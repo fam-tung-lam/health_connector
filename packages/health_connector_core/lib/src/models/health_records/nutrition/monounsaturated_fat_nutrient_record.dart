@@ -21,9 +21,7 @@ part of '../health_record.dart';
 ///   value: Mass.grams(10),
 ///   foodName: 'Olive Oil',
 ///   mealType: MealType.lunch,
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

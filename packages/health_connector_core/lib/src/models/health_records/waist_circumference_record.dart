@@ -18,9 +18,7 @@ part of 'health_record.dart';
 /// final record = WaistCircumferenceRecord(
 ///   time: DateTime.now(),
 ///   circumference: Length.meters(0.85), // 85 cm
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

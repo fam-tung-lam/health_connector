@@ -16,9 +16,7 @@ part of 'health_record.dart';
 /// final record = HeightRecord(
 ///   time: DateTime.now(),
 ///   height: Length.centimeters(175),
-///   metadata: Metadata.manualEntry(
-///     dataOrigin: DataOrigin(packageName: 'com.example.app'),
-///   ),
+///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
 ///

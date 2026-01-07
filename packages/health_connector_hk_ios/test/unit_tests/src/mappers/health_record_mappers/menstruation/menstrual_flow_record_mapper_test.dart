@@ -23,11 +23,11 @@ void main() {
                     FakeData.fakeStartTime.timeZoneOffset.inSeconds,
                 endZoneOffsetSeconds:
                     FakeData.fakeEndTime.timeZoneOffset.inSeconds,
-                metadata: const Metadata(
-                  dataOrigin: DataOrigin(FakeData.fakeDataOrigin),
+                metadata: Metadata.internal(
+                  dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.phone),
+                  device: const Device(type: DeviceType.phone),
                 ),
                 flow: MenstrualFlowType.medium,
                 isCycleStart: true,
@@ -81,7 +81,7 @@ void main() {
               expect(record.flow, MenstrualFlowType.heavy);
               expect(record.isCycleStart, false);
               expect(
-                record.metadata.dataOrigin.packageName,
+                record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
             },
