@@ -27,7 +27,7 @@ void main() {
                   dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.watch),
+                  device: const Device(type: DeviceType.watch),
                 ),
                 count: const Number(5000),
               );

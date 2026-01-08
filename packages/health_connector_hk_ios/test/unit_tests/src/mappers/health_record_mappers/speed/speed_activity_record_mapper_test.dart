@@ -24,7 +24,7 @@ void main() {
                   dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.watch),
+                  device: const Device(type: DeviceType.watch),
                 ),
                 speed: const Velocity.metersPerSecond(1.5),
               );
@@ -50,7 +50,7 @@ void main() {
                   dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.watch),
+                  device: const Device(type: DeviceType.watch),
                 ),
                 speed: const Velocity.metersPerSecond(3.5),
               );
@@ -76,7 +76,7 @@ void main() {
                   dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.watch),
+                  device: const Device(type: DeviceType.watch),
                 ),
                 speed: const Velocity.metersPerSecond(0.8),
               );
@@ -102,7 +102,7 @@ void main() {
                   dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.watch),
+                  device: const Device(type: DeviceType.watch),
                 ),
                 speed: const Velocity.metersPerSecond(1.0),
               );

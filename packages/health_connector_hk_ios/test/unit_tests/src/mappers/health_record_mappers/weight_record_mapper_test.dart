@@ -25,7 +25,7 @@ void main() {
                   dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.manualEntry,
                   clientRecordVersion: 1,
-                  device: Device(type: DeviceType.scale),
+                  device: const Device(type: DeviceType.scale),
                 ),
                 weight: const Mass.kilograms(70.5),
               );
