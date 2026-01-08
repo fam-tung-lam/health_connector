@@ -4,14 +4,15 @@ import 'package:health_connector/health_connector_internal.dart'
         HealthConnector,
         HealthDataPermission,
         HealthDataType,
+        HealthDataTypeCategory,
         HealthPlatformFeature,
         HealthPlatformFeatureStatus;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
 import 'package:health_connector_toolbox/src/common/widgets/buttons/elevated_gradient_button.dart';
+import 'package:health_connector_toolbox/src/common/widgets/health_data_category_list_view.dart';
 import 'package:health_connector_toolbox/src/common/widgets/search_text_field.dart';
 import 'package:health_connector_toolbox/src/features/permissions/permissions_change_notifier.dart';
-import 'package:health_connector_toolbox/src/features/permissions/widgets/permission_list.dart';
 import 'package:health_connector_toolbox/src/features/permissions/widgets/permission_list_tile.dart';
 import 'package:provider/provider.dart' show Provider, Selector;
 
@@ -132,28 +133,51 @@ final class PermissionsContentView extends StatelessWidget {
         )
         .toList();
 
-    // Filter permissions based on search query
-    final filteredPermissions = _getFilteredPermissions(allPermissions);
+    // Group permissions by category
+    final permissionsByCategory =
+        <HealthDataTypeCategory, List<HealthDataPermission>>{};
 
-    return PermissionList(
-      notifier: notifier,
-      permissions: filteredPermissions,
-    );
-  }
+    for (final permission in allPermissions) {
+      if (searchQuery.isNotEmpty &&
+          !permission.displayName.toLowerCase().contains(
+            searchQuery.toLowerCase(),
+          )) {
+        continue;
+      }
 
-  /// Filters permissions based on the search query.
-  List<HealthDataPermission> _getFilteredPermissions(
-    List<HealthDataPermission> allPermissions,
-  ) {
-    if (searchQuery.isEmpty) {
-      return allPermissions;
+      final category = permission.dataType.category;
+      permissionsByCategory.putIfAbsent(category, () => []).add(permission);
     }
 
-    final query = searchQuery.toLowerCase();
-    return allPermissions.where((permission) {
-      final displayName = permission.displayName.toLowerCase();
-      return displayName.contains(query);
-    }).toList();
+    if (permissionsByCategory.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            AppTexts.noDataTypesFound,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ),
+      );
+    }
+
+    return HealthDataCategoryListView<HealthDataPermission>(
+      groupedItems: permissionsByCategory,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemSorter: (a, b) => a.displayName.compareTo(b.displayName),
+      itemBuilder: (context, permission) {
+        return PermissionListTile(
+          title: Text(permission.displayName),
+          isSelected: notifier.isPermissionSelected(permission),
+          permissionStatus: notifier.getPermissionStatus(permission),
+          onChanged: (bool value) => notifier.togglePermissionSelection(
+            permission,
+            isSelected: value,
+          ),
+        );
+      },
+    );
   }
 }
 

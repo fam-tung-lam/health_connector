@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
+import 'package:health_connector_toolbox/src/common/widgets/health_data_category_list_view.dart';
 import 'package:health_connector_toolbox/src/common/widgets/search_text_field.dart';
 import 'package:health_connector_toolbox/src/features/home/widgets/feature_navigation_card.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/pages/health_record_write_page.dart';
@@ -30,7 +31,8 @@ class _HealthDataTypeSelectionPageState
     extends State<HealthDataTypeSelectionPage> {
   String _searchQuery = '';
 
-  List<HealthDataType> _getFilteredDataTypes() {
+  Map<HealthDataTypeCategory, List<HealthDataType>>
+  _getFilteredDataTypesByCategory() {
     final allDataTypes = HealthDataType.values
         .where(
           (type) =>
@@ -38,21 +40,28 @@ class _HealthDataTypeSelectionPageState
         )
         .toList();
 
-    if (_searchQuery.isEmpty) {
-      return allDataTypes;
+    final grouped = <HealthDataTypeCategory, List<HealthDataType>>{};
+
+    for (final type in allDataTypes) {
+      if (_searchQuery.isNotEmpty) {
+        final query = _searchQuery.toLowerCase();
+        final displayName = type.displayName.toLowerCase();
+        final description = type.description.toLowerCase();
+        if (!displayName.contains(query) && !description.contains(query)) {
+          continue;
+        }
+      }
+
+      final category = type.category;
+      grouped.putIfAbsent(category, () => []).add(type);
     }
 
-    final query = _searchQuery.toLowerCase();
-    return allDataTypes.where((type) {
-      final displayName = type.displayName.toLowerCase();
-      final description = type.description.toLowerCase();
-      return displayName.contains(query) || description.contains(query);
-    }).toList();
+    return grouped;
   }
 
   @override
   Widget build(BuildContext context) {
-    final filteredDataTypes = _getFilteredDataTypes();
+    final groupedDataTypes = _getFilteredDataTypesByCategory();
 
     return Scaffold(
       appBar: AppBar(
@@ -72,27 +81,29 @@ class _HealthDataTypeSelectionPageState
             ),
           ),
           Expanded(
-            child: filteredDataTypes.isEmpty
+            child: groupedDataTypes.isEmpty
                 ? Center(
                     child: Text(
                       AppTexts.noDataTypesFound,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   )
-                : ListView.separated(
+                : HealthDataCategoryListView<HealthDataType>(
+                    groupedItems: groupedDataTypes,
                     padding: const EdgeInsets.all(16.0),
-                    itemCount: filteredDataTypes.length,
-                    itemBuilder: (context, index) {
-                      final dataType = filteredDataTypes[index];
-                      return FeatureNavigationCard(
-                        icon: dataType.icon,
-                        title: dataType.displayName,
-                        description: dataType.description,
-                        onTap: () => _onDataTypeListTileTap(dataType),
+                    itemSorter: (a, b) =>
+                        a.displayName.compareTo(b.displayName),
+                    itemBuilder: (context, dataType) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 4.0),
+                        child: FeatureNavigationCard(
+                          icon: dataType.icon,
+                          title: dataType.displayName,
+                          description: dataType.description,
+                          onTap: () => _onDataTypeListTileTap(dataType),
+                        ),
                       );
                     },
-                    separatorBuilder: (_, int index) =>
-                        const SizedBox(height: 4),
                   ),
           ),
           const SizedBox(height: 16),

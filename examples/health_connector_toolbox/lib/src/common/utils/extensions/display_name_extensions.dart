@@ -11,6 +11,7 @@ export '../../utils/extensions/permission_status_ui_extension.dart';
 export '../../utils/extensions/recording_method_ui_extension.dart';
 export '../../utils/extensions/sleep_stage_type_extension.dart';
 export 'aggregation_metric_ui_extension.dart';
+export 'health_data_type_category_ui_extension.dart';
 export 'health_data_type_ui_extension.dart';
 export 'health_platform_ui_extension.dart';
 export 'measurement_unit_ui_extension.dart';
