@@ -3197,6 +3197,18 @@ enum AggregationMetricDto {
   sum,
 }
 
+/// Defines the sort order for health record queries.
+///
+/// Combines both field (time) and direction (ascending/descending) into
+/// a single enum for simplicity in the DTO layer.
+enum SortOrderDto {
+  /// Sort by HKSample.startTime in ascending order (oldest to newest).
+  timeAscending,
+
+  /// Sort by HKSample.startTime in descending order (newest to oldest).
+  timeDescending,
+}
+
 /// Request to perform aggregation on health records.
 class AggregateRequestDto {
   AggregateRequestDto({
@@ -3274,6 +3286,7 @@ class ReadRecordsRequestDto {
     required this.endTime,
     this.pageToken,
     this.dataOriginPackageNames = const [],
+    this.sortOrder = SortOrderDto.timeDescending,
   });
 
   /// The type of health data to read.
@@ -3295,6 +3308,9 @@ class ReadRecordsRequestDto {
 
   /// List of package names to filter by.
   final List<String> dataOriginPackageNames;
+
+  /// Sort order for the query results.
+  final SortOrderDto sortOrder;
 }
 
 /// Response containing paginated health records.

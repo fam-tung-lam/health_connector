@@ -193,6 +193,7 @@ extension ReadableHealthRecordHandler {
     ///   - pageToken: Pagination token for fetching next page, nil for first page
     ///   - pageSize: Maximum number of records to return
     ///   - dataOriginPackageNames: Optional list of bundle identifiers to filter by data source
+    ///   - sortOrder: Sort order for the query results
     /// - Returns: Tuple of (records array, next page token)
     /// - Throws: HealthConnectorError if read fails
     func readRecords(
@@ -200,7 +201,8 @@ extension ReadableHealthRecordHandler {
         endTime: Date,
         pageToken: PaginationToken? = nil,
         pageSize: Int = Self.defaultPageSize,
-        dataOriginPackageNames: [String] = []
+        dataOriginPackageNames: [String] = [],
+        sortOrder: SortOrderDto
     ) async throws -> (records: [HealthRecordDto], pageToken: PaginationToken?) {
         try await process(
             operation: "read_records",
@@ -260,10 +262,11 @@ extension ReadableHealthRecordHandler {
                 finalPredicate = predicate
             }
 
-            // Sort by startDate ascending for consistent pagination
+            // Build sort descriptor from DTO
+            let (sortIdentifier, ascending) = sortOrder.toHealthKitSort()
             let sortDescriptor = NSSortDescriptor(
-                key: HKSampleSortIdentifierStartDate,
-                ascending: true
+                key: sortIdentifier,
+                ascending: ascending
             )
 
             // Request one extra record to determine if there are more pages
@@ -301,7 +304,10 @@ extension ReadableHealthRecordHandler {
                         let nextPageToken: PaginationToken?
                         if hasMorePages, let lastDto = dtos.last {
                             let timestamp = try lastDto.extractTimestamp()
-                            nextPageToken = PaginationToken(timestamp: timestamp)
+                            // Adjust timestamp based on sort direction to avoid duplicates
+                            // For descending: use timestamp - 1ms; for ascending: use timestamp + 1ms
+                            let adjustedTimestamp = ascending ? timestamp + 1 : timestamp - 1
+                            nextPageToken = PaginationToken(timestamp: adjustedTimestamp)
                         } else {
                             nextPageToken = nil
                         }

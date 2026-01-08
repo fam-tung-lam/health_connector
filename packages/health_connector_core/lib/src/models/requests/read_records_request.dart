@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart' show ListEquality;
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_0_0, sinceV2_0_0, internalUse;
+    show sinceV1_0_0, sinceV2_0_0, internalUse, sinceV3_0_0;
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
     show HealthConnectorConfigConstants;
 import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart'
@@ -13,6 +13,8 @@ import 'package:health_connector_core/src/models/metadata/metadata.dart'
     show DataOrigin;
 import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
+import 'package:health_connector_core/src/models/requests/sort_descriptor.dart'
+    show SortDescriptor;
 import 'package:health_connector_core/src/models/responses/read_records_response.dart'
     show ReadRecordsInTimeRangeResponse;
 import 'package:health_connector_core/src/utils/validation_utils.dart'
@@ -103,6 +105,7 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
   /// - [pageSize]: Maximum number of records per page
   /// - [pageToken]: Token for pagination
   /// - [dataOrigins]: List of data origins to filter by
+  /// - [sortDescriptor]: Sort order for results (defaults to time descending)
   ///
   /// ## Throws
   ///
@@ -116,6 +119,7 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
     int pageSize = HealthConnectorConfigConstants.defaultPageSize,
     String? pageToken,
     List<DataOrigin> dataOrigins = const [],
+    @sinceV3_0_0 SortDescriptor sortDescriptor = SortDescriptor.timeDescending,
   }) {
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
@@ -132,6 +136,7 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
       pageSize: pageSize,
       pageToken: pageToken,
       dataOrigins: dataOrigins,
+      sortDescriptor: sortDescriptor,
     );
   }
 
@@ -142,6 +147,7 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
     required this.pageSize,
     this.pageToken,
     this.dataOrigins = const [],
+    this.sortDescriptor = SortDescriptor.timeAscending,
   });
 
   /// List of data origins to filter by.
@@ -188,8 +194,24 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
   /// to fetch the next page of results.
   final String? pageToken;
 
+  /// Descriptor defining how the results should be ordered.
+  ///
+  /// Defaults to [SortDescriptor.timeDescending] (newest first), which
+  /// maintains backward compatibility with the previous implicit behavior.
+  ///
+  /// ## Performance Note
+  ///
+  /// Time-based sorting is optimized on all platforms:
+  /// - iOS: Native support for both ascending and descending
+  /// - Android API 34+: Native support via Health Connect SDK
+  /// - Android < API 34: Per-page client-side reversal for descending order
+  final SortDescriptor sortDescriptor;
+
   /// Creates a copy of this request with a new page token.
-  ReadRecordsInTimeRangeRequest<R> copyWith({String? pageToken}) {
+  ReadRecordsInTimeRangeRequest<R> copyWith({
+    String? pageToken,
+    SortDescriptor? sortDescriptor,
+  }) {
     return ReadRecordsInTimeRangeRequest._(
       dataType: dataType,
       startTime: startTime,
@@ -197,6 +219,7 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
       pageSize: pageSize,
       pageToken: pageToken ?? this.pageToken,
       dataOrigins: dataOrigins,
+      sortDescriptor: sortDescriptor ?? this.sortDescriptor,
     );
   }
 
@@ -210,6 +233,7 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
           endTime == other.endTime &&
           pageSize == other.pageSize &&
           pageToken == other.pageToken &&
+          sortDescriptor == other.sortDescriptor &&
           const ListEquality<DataOrigin>().equals(
             dataOrigins,
             other.dataOrigins,
@@ -222,5 +246,6 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
       endTime.hashCode ^
       pageSize.hashCode ^
       (pageToken?.hashCode ?? 0) ^
+      sortDescriptor.hashCode ^
       dataOrigins.hashCode;
 }
