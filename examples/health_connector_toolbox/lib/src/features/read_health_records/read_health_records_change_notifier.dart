@@ -9,6 +9,7 @@ import 'package:health_connector/health_connector_internal.dart'
         HealthRecord,
         MeasurementUnit,
         ReadRecordsInTimeRangeRequest,
+        SortDescriptor,
         HealthConnector;
 
 /// Manages state and operations for reading health records.
@@ -46,6 +47,7 @@ final class ReadHealthRecordsChangeNotifier extends ChangeNotifier {
     int pageSize = 100,
     String? pageToken,
     List<DataOrigin> dataOrigins = const [],
+    SortDescriptor sortDescriptor = SortDescriptor.timeDescending,
   }) async {
     notify(() {
       _isLoading = true;
@@ -55,35 +57,15 @@ final class ReadHealthRecordsChangeNotifier extends ChangeNotifier {
     });
 
     try {
-      // ## Why `dynamic` is used here
-      //
-      // The base `HealthDataType` does not define a `readInTimeRange` method
-      // to ensure type safety, as not all data types are readable.
-      //
-      // However, all 100+ *readable* health data types consistently implement
-      // this method. This internal dynamic call allows the toolbox app to
-      // generically handle any readable type without creating a lot of
-      // repetitive code for each one.
-      //
-      // ## For Production Apps, use a type-safe approach
-      //
-      // Instead of `(dataType as dynamic)`, you should call the method on the
-      // concrete type to leverage compile-time safety.
-      //
-      // ### Example
-      // ```dart
-      // final request = Steps.readInTimeRange(...);
-      // final request = HeartRate.readInTimeRange(...);
-      // ```
-      final request =
-          (dataType as dynamic).readInTimeRange(
-                startTime: startTime,
-                endTime: endTime,
-                pageSize: pageSize,
-                pageToken: pageToken,
-                dataOrigins: dataOrigins,
-              )
-              as ReadRecordsInTimeRangeRequest;
+      final request = ReadRecordsInTimeRangeRequest(
+        dataType: dataType,
+        startTime: startTime,
+        endTime: endTime,
+        pageSize: pageSize,
+        pageToken: pageToken,
+        dataOrigins: dataOrigins,
+        sortDescriptor: sortDescriptor,
+      );
 
       final response = await _healthConnector.readRecords(request);
 
