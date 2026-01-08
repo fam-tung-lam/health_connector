@@ -94,6 +94,9 @@ final class BiotinNutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<BiotinNutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

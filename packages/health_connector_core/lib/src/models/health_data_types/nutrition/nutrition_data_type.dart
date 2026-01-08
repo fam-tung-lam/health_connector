@@ -41,6 +41,9 @@ final class NutritionHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override

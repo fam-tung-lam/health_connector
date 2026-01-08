@@ -56,4 +56,7 @@ sealed class DistanceActivityHealthDataType<R extends DistanceActivityRecord>
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
 }

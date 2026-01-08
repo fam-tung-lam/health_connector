@@ -63,6 +63,16 @@ void main() {
           expect(dataType.supportedAggregationMetrics, isEmpty);
         },
       );
+
+      test(
+        'category is correctly defined',
+        () {
+          expect(
+            dataType.category,
+            equals(HealthDataTypeCategory.reproductiveHealth),
+          );
+        },
+      );
     },
   );
 }

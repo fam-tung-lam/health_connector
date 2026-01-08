@@ -125,6 +125,9 @@ final class HeartRateVariabilitySDNNDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;
+
+  @override
   ReadRecordByIdRequest<HeartRateVariabilitySDNNRecord> readById(
     HealthRecordId id,
   ) {

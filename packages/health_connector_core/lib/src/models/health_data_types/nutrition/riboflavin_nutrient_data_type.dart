@@ -96,6 +96,9 @@ final class RiboflavinNutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<RiboflavinNutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

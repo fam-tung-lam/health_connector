@@ -118,6 +118,10 @@ final class MenstrualFlowInstantDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category =>
+      HealthDataTypeCategory.reproductiveHealth;
+
+  @override
   DeleteRecordsByIdsRequest<MenstrualFlowInstantRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

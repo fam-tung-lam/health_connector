@@ -53,7 +53,7 @@ void main() {
             'maps Metadata to MetadataDto with nullable fields',
             () {
               final metadata = Metadata.internal(
-                dataOrigin: DataOrigin(dataOriginName),
+                dataOrigin: const DataOrigin(dataOriginName),
                 recordingMethod: RecordingMethod.unknown,
                 clientRecordVersion: 0,
               );

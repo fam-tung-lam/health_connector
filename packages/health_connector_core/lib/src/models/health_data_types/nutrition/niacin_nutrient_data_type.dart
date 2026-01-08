@@ -94,6 +94,9 @@ final class NiacinNutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<NiacinNutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

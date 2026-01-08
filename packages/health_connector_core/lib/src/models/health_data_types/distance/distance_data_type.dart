@@ -104,4 +104,7 @@ final class DistanceHealthDataType
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
 }

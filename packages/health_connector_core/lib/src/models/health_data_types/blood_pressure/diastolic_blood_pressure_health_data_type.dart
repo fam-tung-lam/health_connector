@@ -145,6 +145,9 @@ final class DiastolicBloodPressureHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;
+
+  @override
   DeleteRecordsByIdsRequest<DiastolicBloodPressureRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

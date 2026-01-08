@@ -113,6 +113,10 @@ final class SexualActivityDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category =>
+      HealthDataTypeCategory.reproductiveHealth;
+
+  @override
   DeleteRecordsByIdsRequest<SexualActivityRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

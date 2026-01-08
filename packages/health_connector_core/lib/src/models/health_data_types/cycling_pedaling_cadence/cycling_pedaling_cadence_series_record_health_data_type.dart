@@ -149,6 +149,9 @@ final class CyclingPedalingCadenceSeriesRecordHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
+
+  @override
   DeleteRecordsByIdsRequest<CyclingPedalingCadenceSeriesRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

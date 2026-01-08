@@ -123,6 +123,9 @@ final class BodyMassIndexHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.bodyMeasurement;
+
+  @override
   ReadRecordByIdRequest<BodyMassIndexRecord> readById(HealthRecordId id) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }

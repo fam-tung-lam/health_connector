@@ -102,6 +102,9 @@ final class MindfulnessSessionDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.mentalHealth;
+
+  @override
   DeleteRecordsByIdsRequest<MindfulnessSessionRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

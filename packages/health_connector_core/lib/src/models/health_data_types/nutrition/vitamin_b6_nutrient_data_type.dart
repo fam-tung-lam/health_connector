@@ -94,6 +94,9 @@ final class VitaminB6NutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<VitaminB6NutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

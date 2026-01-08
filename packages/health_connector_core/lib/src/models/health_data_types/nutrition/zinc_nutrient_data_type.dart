@@ -94,6 +94,9 @@ final class ZincNutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<ZincNutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

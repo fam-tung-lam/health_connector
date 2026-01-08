@@ -77,6 +77,9 @@ final class BoneMassDataType extends HealthDataType<BoneMassRecord, Mass>
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.bodyMeasurement;
+
+  @override
   DeleteRecordsByIdsRequest<BoneMassRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

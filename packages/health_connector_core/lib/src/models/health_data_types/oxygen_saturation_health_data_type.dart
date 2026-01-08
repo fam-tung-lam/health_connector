@@ -125,6 +125,9 @@ final class OxygenSaturationHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;
+
+  @override
   DeleteRecordsByIdsRequest<OxygenSaturationRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

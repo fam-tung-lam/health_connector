@@ -111,6 +111,10 @@ final class CervicalMucusDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category =>
+      HealthDataTypeCategory.reproductiveHealth;
+
+  @override
   DeleteRecordsByIdsRequest<CervicalMucusRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

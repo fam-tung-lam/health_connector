@@ -51,6 +51,9 @@ final class SixMinuteWalkTestDistanceDataType
   int get hashCode => runtimeType.hashCode;
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.mobility;
+
+  @override
   ReadRecordByIdRequest<SixMinuteWalkTestDistanceRecord> readById(
     HealthRecordId id,
   ) {

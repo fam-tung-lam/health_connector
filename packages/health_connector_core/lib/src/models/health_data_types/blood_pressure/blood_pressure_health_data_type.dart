@@ -89,6 +89,9 @@ final class BloodPressureHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.avg,
     AggregationMetric.min,

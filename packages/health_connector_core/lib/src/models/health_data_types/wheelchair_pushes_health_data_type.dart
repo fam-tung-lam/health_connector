@@ -102,6 +102,9 @@ final class WheelchairPushesHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
+
+  @override
   DeleteRecordsByIdsRequest<WheelchairPushesRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

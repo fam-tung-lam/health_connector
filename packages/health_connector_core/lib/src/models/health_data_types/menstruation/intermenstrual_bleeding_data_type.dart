@@ -115,6 +115,10 @@ final class IntermenstrualBleedingDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category =>
+      HealthDataTypeCategory.reproductiveHealth;
+
+  @override
   DeleteRecordsByIdsRequest<IntermenstrualBleedingRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

@@ -105,6 +105,9 @@ final class BasalEnergyBurnedHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
+
+  @override
   DeleteRecordsByIdsRequest<BasalEnergyBurnedRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

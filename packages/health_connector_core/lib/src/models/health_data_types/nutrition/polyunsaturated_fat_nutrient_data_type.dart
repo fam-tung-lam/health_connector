@@ -106,6 +106,9 @@ final class PolyunsaturatedFatNutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<PolyunsaturatedFatNutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

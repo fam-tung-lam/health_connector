@@ -101,6 +101,9 @@ final class SugarNutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<SugarNutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

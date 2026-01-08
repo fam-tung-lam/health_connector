@@ -78,6 +78,9 @@ final class BodyWaterMassDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.bodyMeasurement;
+
+  @override
   DeleteRecordsByIdsRequest<BodyWaterMassRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

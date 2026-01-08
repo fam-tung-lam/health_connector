@@ -131,6 +131,9 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.bodyMeasurement;
+
+  @override
   DeleteRecordsByIdsRequest<HeightRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

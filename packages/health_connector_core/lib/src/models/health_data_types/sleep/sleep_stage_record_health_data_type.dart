@@ -127,6 +127,9 @@ final class SleepStageHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.sleep;
+
+  @override
   DeleteRecordsByIdsRequest<SleepStageRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

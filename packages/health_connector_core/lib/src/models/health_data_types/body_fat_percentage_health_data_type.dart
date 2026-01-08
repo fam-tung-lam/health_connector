@@ -87,6 +87,9 @@ final class BodyFatPercentageHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.bodyMeasurement;
+
+  @override
   DeleteRecordsByIdsRequest<BodyFatPercentageRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

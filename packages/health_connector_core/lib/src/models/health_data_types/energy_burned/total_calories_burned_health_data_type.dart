@@ -110,6 +110,9 @@ final class TotalCaloriesBurnedHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
+
+  @override
   DeleteRecordsByIdsRequest<TotalCaloriesBurnedRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

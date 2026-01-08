@@ -121,4 +121,7 @@ final class StepsHealthDataType extends HealthDataType<StepsRecord, Number>
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
 }

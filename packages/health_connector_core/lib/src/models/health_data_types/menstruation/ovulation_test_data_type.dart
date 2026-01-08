@@ -111,6 +111,10 @@ final class OvulationTestDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category =>
+      HealthDataTypeCategory.reproductiveHealth;
+
+  @override
   DeleteRecordsByIdsRequest<OvulationTestRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
