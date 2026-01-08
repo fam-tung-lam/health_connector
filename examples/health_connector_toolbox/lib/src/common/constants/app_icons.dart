@@ -120,4 +120,5 @@ abstract final class AppIcons {
   // Read Records Page
   static const IconData displaySettings = Icons.settings_outlined;
   static const IconData clipboard = Icons.assignment_outlined;
+  static const IconData dataOrigins = Icons.dataset;
 }
