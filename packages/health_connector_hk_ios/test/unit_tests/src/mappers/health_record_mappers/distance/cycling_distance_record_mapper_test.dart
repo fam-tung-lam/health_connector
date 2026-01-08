@@ -82,7 +82,7 @@ void main() {
                   dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
                   recordingMethod: RecordingMethod.activelyRecorded,
                   clientRecordVersion: 2,
-                  device: Device(type: DeviceType.watch),
+                  device: const Device(type: DeviceType.watch),
                 ),
                 distance: const Length.meters(10000.0),
               );
