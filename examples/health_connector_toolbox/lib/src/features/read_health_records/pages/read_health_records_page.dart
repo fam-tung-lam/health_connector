@@ -37,6 +37,7 @@ class _ReadHealthRecordsPageState extends State<ReadHealthRecordsPage>
   final _pageSizeController = TextEditingController();
   final _dataOriginsController = TextEditingController();
   HealthDataType<HealthRecord, MeasurementUnit>? _selectedDataType;
+  SortDescriptor _sortDescriptor = SortDescriptor.timeAscending;
   int _pageSize = 100;
 
   @override
@@ -89,6 +90,7 @@ class _ReadHealthRecordsPageState extends State<ReadHealthRecordsPage>
         endTime: endDateTime!,
         pageSize: _pageSize,
         dataOrigins: dataOrigins,
+        sortDescriptor: _sortDescriptor,
       );
     });
   }
@@ -268,6 +270,42 @@ class _ReadHealthRecordsPageState extends State<ReadHealthRecordsPage>
                               ),
                               keyboardType: TextInputType.number,
                               validator: _validatePageSize,
+                            ),
+                            const SizedBox(height: 16),
+                            DropdownButtonFormField<SortDescriptor>(
+                              initialValue: _sortDescriptor,
+                              decoration: const InputDecoration(
+                                labelText: AppTexts.sortOrder,
+                                border: OutlineInputBorder(),
+                                prefixIcon: Icon(AppIcons.sort),
+                              ),
+                              items: [
+                                DropdownMenuItem(
+                                  value: SortDescriptor.timeAscending,
+                                  child: Text(
+                                    AppTexts.timeAscending,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge,
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: SortDescriptor.timeDescending,
+                                  child: Text(
+                                    AppTexts.timeDescending,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge,
+                                  ),
+                                ),
+                              ],
+                              onChanged: (value) {
+                                if (value != null) {
+                                  setState(() {
+                                    _sortDescriptor = value;
+                                  });
+                                }
+                              },
                             ),
                             const SizedBox(height: 16),
                             TextFormField(

@@ -53,6 +53,7 @@ abstract final class AppIcons {
   static const IconData category = Icons.category;
   static const IconData list = Icons.list;
   static const IconData devices = Icons.devices;
+  static const IconData sort = Icons.sort;
 
   // Recording Method
   static const IconData edit = Icons.edit;
@@ -72,7 +73,7 @@ abstract final class AppIcons {
 
   // Aggregation Metrics
   static const IconData sum = Icons.add_circle;
-  static const IconData avg = Icons.trending_up;
+  static const IconData avg = Icons.linear_scale;
   static const IconData min = Icons.trending_down;
   static const IconData max = Icons.trending_up;
 

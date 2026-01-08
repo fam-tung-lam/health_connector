@@ -69,6 +69,9 @@ abstract final class AppTexts {
   static const String displayOptions = 'Display Options';
   static const String recordsSummary = 'Records Summary';
   static const String totalRecords = 'Total Records';
+  static const String sortOrder = 'Sort Order';
+  static const String timeAscending = 'Time Ascending';
+  static const String timeDescending = 'Time Descending';
 
   // endregion
 
