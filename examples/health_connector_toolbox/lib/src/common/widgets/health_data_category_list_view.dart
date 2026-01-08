@@ -3,7 +3,8 @@ import 'package:health_connector/health_connector_internal.dart'
     show HealthDataTypeCategory;
 import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
 
-/// A reusable widget to display a list of items grouped by [HealthDataTypeCategory].
+/// A reusable widget to display a list of items grouped by
+/// [HealthDataTypeCategory].
 ///
 /// This widget handles:
 /// - Sorting categories alphabetically by display name.

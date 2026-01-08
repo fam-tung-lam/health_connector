@@ -241,6 +241,7 @@ actor HealthConnectorClient: Taggable {
             context: [
                 "data_type": request.dataType,
                 "page_size": request.pageSize,
+                "sort_order": request.sortOrder,
             ]
         ) {
             HealthConnectorLogger.debug(
@@ -251,6 +252,7 @@ actor HealthConnectorClient: Taggable {
                     "data_type": request.dataType,
                     "page_size": request.pageSize,
                     "has_page_token": request.pageToken != nil,
+                    "sort_order": request.sortOrder,
                 ]
             )
 
@@ -287,7 +289,8 @@ actor HealthConnectorClient: Taggable {
                 endTime: endTime,
                 pageToken: paginationToken,
                 pageSize: Int(request.pageSize),
-                dataOriginPackageNames: request.dataOriginPackageNames
+                dataOriginPackageNames: request.dataOriginPackageNames,
+                sortOrder: request.sortOrder
             )
 
             // Convert PaginationToken back to string for response DTO

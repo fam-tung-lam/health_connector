@@ -31,6 +31,7 @@ export 'src/models/measurement_units/measurement_unit.dart'
 export 'src/models/metadata/metadata.dart';
 export 'src/models/permissions/permission.dart' hide Permission;
 export 'src/models/requests/aggregation_metric.dart' show AggregationMetric;
+export 'src/models/requests/sort_descriptor.dart' show SortDescriptor;
 export 'src/models/responses/permission_request_result.dart'
     show PermissionRequestResult;
 export 'src/models/responses/read_records_response.dart'

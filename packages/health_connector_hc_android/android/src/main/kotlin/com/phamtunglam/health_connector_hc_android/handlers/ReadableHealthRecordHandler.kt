@@ -6,8 +6,10 @@ import androidx.health.connect.client.records.metadata.DataOrigin
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
+import com.phamtunglam.health_connector_hc_android.mappers.isAscending
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectRecordClass
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.SortOrderDto
 import java.io.IOException
 import java.time.Instant
 
@@ -50,6 +52,7 @@ internal interface ReadableHealthRecordHandler : HealthRecordHandler {
     /**
      * Reads multiple records within a time range with pagination support.
      *
+     * @param sortOrder Sort order for the query results
      * @throws Exception that can be thrown by [HealthConnectClient.readRecords]
      */
     @Throws(
@@ -63,24 +66,27 @@ internal interface ReadableHealthRecordHandler : HealthRecordHandler {
         pageSize: Int = DEFAULT_PAGE_SIZE,
         pageToken: String? = null,
         dataOrigins: Set<DataOrigin> = emptySet(),
+        sortOrder: SortOrderDto = SortOrderDto.TIME_ASCENDING,
     ): Pair<List<HealthRecordDto>, String?> = process(
         operation = "read_records",
         context = mapOf(
             "start_time" to startTime.toString(),
             "end_time" to endTime.toString(),
+            "sort_order" to sortOrder.toString(),
         ),
     ) {
         val request = ReadRecordsRequest(
             recordType = dataType.toHealthConnectRecordClass(),
             timeRangeFilter = TimeRangeFilter.between(startTime, endTime),
+            ascendingOrder = sortOrder.isAscending(),
             pageSize = pageSize,
             pageToken = pageToken,
             dataOriginFilter = dataOrigins,
         )
 
         val response = client.readRecords(request)
-        val dtos = response.records.map { record -> record.toDto() }
+        val records = response.records.map { record -> record.toDto() }
 
-        Pair(dtos, response.pageToken)
+        Pair(records, response.pageToken)
     }
 }

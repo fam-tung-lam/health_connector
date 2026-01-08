@@ -444,6 +444,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 "data_type" to request.dataType,
                 "page_size" to request.pageSize,
                 "has_page_token" to (request.pageToken != null),
+                "sort_order" to request.sortOrder,
             ),
         )
 
@@ -465,6 +466,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 pageSize = request.pageSize.toInt(),
                 pageToken = request.pageToken,
                 dataOrigins = request.dataOriginPackageNames.map { DataOrigin(it) }.toSet(),
+                sortOrder = request.sortOrder,
             )
 
             HealthConnectorLogger.info(
