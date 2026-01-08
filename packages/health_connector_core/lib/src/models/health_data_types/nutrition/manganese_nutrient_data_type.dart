@@ -94,6 +94,9 @@ final class ManganeseNutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<ManganeseNutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

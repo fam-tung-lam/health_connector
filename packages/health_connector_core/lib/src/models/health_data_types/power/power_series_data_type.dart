@@ -59,6 +59,9 @@ final class PowerSeriesDataType extends HealthDataType<PowerSeriesRecord, Power>
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
+
+  @override
   ReadRecordByIdRequest<PowerSeriesRecord> readById(HealthRecordId id) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }

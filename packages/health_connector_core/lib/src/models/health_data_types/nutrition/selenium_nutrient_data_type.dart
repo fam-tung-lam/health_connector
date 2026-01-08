@@ -94,6 +94,9 @@ final class SeleniumNutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<SeleniumNutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

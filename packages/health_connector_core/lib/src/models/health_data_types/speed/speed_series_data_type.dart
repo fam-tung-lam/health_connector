@@ -67,6 +67,9 @@ final class SpeedSeriesDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
+
+  @override
   ReadRecordByIdRequest<SpeedSeriesRecord> readById(HealthRecordId id) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }

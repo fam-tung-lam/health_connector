@@ -102,6 +102,9 @@ final class TotalFatNutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<TotalFatNutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

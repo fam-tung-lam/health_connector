@@ -146,6 +146,9 @@ final class HeartRateMeasurementRecordHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;
+
+  @override
   DeleteRecordsByIdsRequest<HeartRateMeasurementRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

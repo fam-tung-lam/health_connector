@@ -134,6 +134,9 @@ final class HydrationHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<HydrationRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

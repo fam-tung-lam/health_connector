@@ -90,6 +90,10 @@ final class BasalBodyTemperatureHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category =>
+      HealthDataTypeCategory.reproductiveHealth;
+
+  @override
   DeleteRecordsByIdsRequest<BasalBodyTemperatureRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

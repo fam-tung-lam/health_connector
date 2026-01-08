@@ -94,6 +94,9 @@ final class MagnesiumNutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<MagnesiumNutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

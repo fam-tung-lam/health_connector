@@ -74,6 +74,16 @@ void main() {
           );
         },
       );
+
+      test(
+        'category is correctly defined',
+        () {
+          expect(
+            dataType.category,
+            equals(HealthDataTypeCategory.vitals),
+          );
+        },
+      );
     },
   );
 }

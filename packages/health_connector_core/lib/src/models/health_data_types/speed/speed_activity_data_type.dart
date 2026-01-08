@@ -44,4 +44,7 @@ sealed class SpeedActivityHealthDataType<R extends SpeedActivityRecord>
 
   @override
   List<Permission> get permissions => [readPermission, writePermission];
+
+  @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.mobility;
 }

@@ -180,6 +180,25 @@ sealed class HealthRecord implements HealthPlatformData {
   @override
   List<HealthPlatform> get supportedHealthPlatforms =>
       dataType.supportedHealthPlatforms;
+
+  /// The category of this health record, derived from its associated data type.
+  ///
+  /// Categories help organize health data into logical groups for better
+  /// discoverability and filtering in UIs.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final record = StepsRecord(...);
+  /// print(record.category); // HealthDataTypeCategory.activity
+  ///
+  /// // Filter records by category
+  /// final records = await healthConnector.readRecords(...);
+  /// final activityRecords = records.where(
+  ///   (record) => record.category == HealthDataTypeCategory.activity,
+  /// );
+  /// ```
+  HealthDataTypeCategory get category => dataType.category;
 }
 
 /// A type-safe identifier for health records.

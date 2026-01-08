@@ -133,6 +133,9 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Number>
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;
+
+  @override
   DeleteRecordsByIdsRequest<Vo2MaxRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

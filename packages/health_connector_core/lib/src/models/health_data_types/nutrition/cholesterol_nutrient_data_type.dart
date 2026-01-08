@@ -104,6 +104,9 @@ final class CholesterolNutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<CholesterolNutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

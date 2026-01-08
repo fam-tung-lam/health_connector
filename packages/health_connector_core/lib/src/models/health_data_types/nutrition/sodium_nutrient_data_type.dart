@@ -94,6 +94,9 @@ final class SodiumNutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<SodiumNutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

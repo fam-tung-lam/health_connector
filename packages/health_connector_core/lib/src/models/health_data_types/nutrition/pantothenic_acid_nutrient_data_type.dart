@@ -96,6 +96,9 @@ final class PantothenicAcidNutrientDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
+
+  @override
   DeleteRecordsByIdsRequest<PantothenicAcidNutrientRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {

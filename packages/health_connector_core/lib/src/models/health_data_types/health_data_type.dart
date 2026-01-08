@@ -15,19 +15,14 @@ import 'package:health_connector_core/src/models/requests/delete_records_request
 import 'package:health_connector_core/src/models/requests/read_records_request.dart';
 import 'package:meta/meta.dart' show immutable, internal;
 
-part 'energy_burned/active_calories_burned_health_data_type.dart';
-part 'temperature/basal_body_temperature_health_data_type.dart';
-part 'energy_burned/basal_energy_burned_health_data_type.dart';
 part 'blood_glucose_health_data_type.dart';
 part 'blood_pressure/blood_pressure_health_data_type.dart';
 part 'blood_pressure/diastolic_blood_pressure_health_data_type.dart';
 part 'blood_pressure/systolic_blood_pressure_health_data_type.dart';
 part 'body_fat_percentage_health_data_type.dart';
 part 'body_mass_index_health_data_type.dart';
-part 'temperature/body_temperature_health_data_type.dart';
 part 'body_water_mass_health_data_type.dart';
 part 'bone_mass_health_data_type.dart';
-part 'menstruation/cervical_mucus_data_type.dart';
 part 'cycling_pedaling_cadence/cycling_pedaling_cadence_measurement_record_health_data_type.dart';
 part 'cycling_pedaling_cadence/cycling_pedaling_cadence_series_record_health_data_type.dart';
 part 'distance/cross_country_skiing_distance_data_type.dart';
@@ -42,18 +37,25 @@ part 'distance/skating_sports_distance_data_type.dart';
 part 'distance/swimming_distance_data_type.dart';
 part 'distance/walking_running_distance_data_type.dart';
 part 'distance/wheelchair_distance_data_type.dart';
+part 'energy_burned/active_calories_burned_health_data_type.dart';
+part 'energy_burned/basal_energy_burned_health_data_type.dart';
+part 'energy_burned/total_calories_burned_health_data_type.dart';
 part 'exercise_session_health_data_type.dart';
 part 'floors_climbed_health_data_type.dart';
+part 'health_data_type_category.dart';
 part 'heart_rate/heart_rate_measurement_record_health_data_type.dart';
 part 'heart_rate/heart_rate_series_record_health_data_type.dart';
 part 'heart_rate/heart_rate_variability_rmssd_health_data_type.dart';
 part 'heart_rate/heart_rate_variability_sdnn_health_data_type.dart';
+part 'heart_rate/resting_heart_rate_health_data_type.dart';
 part 'height_health_data_type.dart';
 part 'hydration_health_data_type.dart';
-part 'menstruation/intermenstrual_bleeding_data_type.dart';
 part 'lean_body_mass_health_data_type.dart';
+part 'menstruation/cervical_mucus_data_type.dart';
+part 'menstruation/intermenstrual_bleeding_data_type.dart';
 part 'menstruation/menstrual_flow_data_type.dart';
 part 'menstruation/menstrual_flow_instant_data_type.dart';
+part 'menstruation/ovulation_test_data_type.dart';
 part 'mindfulness_session_data_type.dart';
 part 'nutrition/biotin_nutrient_data_type.dart';
 part 'nutrition/caffeine_nutrient_data_type.dart';
@@ -93,12 +95,10 @@ part 'nutrition/vitamin_e_nutrient_data_type.dart';
 part 'nutrition/vitamin_k_nutrient_data_type.dart';
 part 'nutrition/vitamin_nutrient_data_type.dart';
 part 'nutrition/zinc_nutrient_data_type.dart';
-part 'menstruation/ovulation_test_data_type.dart';
 part 'oxygen_saturation_health_data_type.dart';
 part 'power/cycling_power_data_type.dart';
 part 'power/power_series_data_type.dart';
 part 'respiratory_rate_health_data_type.dart';
-part 'heart_rate/resting_heart_rate_health_data_type.dart';
 part 'sexual_activity_data_type.dart';
 part 'sleep/sleep_session_health_data_type.dart';
 part 'sleep/sleep_stage_record_health_data_type.dart';
@@ -109,7 +109,8 @@ part 'speed/stair_ascent_speed_data_type.dart';
 part 'speed/stair_descent_speed_data_type.dart';
 part 'speed/walking_speed_data_type.dart';
 part 'steps_health_data_type.dart';
-part 'energy_burned/total_calories_burned_health_data_type.dart';
+part 'temperature/basal_body_temperature_health_data_type.dart';
+part 'temperature/body_temperature_health_data_type.dart';
 part 'vo2_max_health_data_type.dart';
 part 'waist_circumference_health_data_type.dart';
 part 'weight_health_data_type.dart';
@@ -184,6 +185,19 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
 
   /// The list of permissions for this health record.
   List<Permission> get permissions;
+
+  /// The category this health data type belongs to.
+  ///
+  /// Categories help organize health data types into logical groups for
+  /// better discoverability and filtering.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final category = HealthDataType.steps.category;
+  /// print(category); // HealthDataTypeCategory.activity
+  /// ```
+  HealthDataTypeCategory get category;
 
   /// Distance data type.
   ///
@@ -975,12 +989,12 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     ),
   );
 
-  /// Set of all nutrient data types, excluding [HealthDataType.nutrition]
-  /// container data type.
+  /// Returns all nutrient data types, excluding general
+  /// [HealthDataType.nutrition] data type.
   ///
   /// These represent individual nutrients like vitamins, minerals, and
   /// macronutrients that can be tracked separately.
-  static final nutrientTypes = <HealthDataType<HealthRecord, MeasurementUnit>>[
+  static final nutrientTypes = [
     HealthDataType.biotin,
     HealthDataType.caffeine,
     HealthDataType.calcium,
@@ -1015,4 +1029,76 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     HealthDataType.vitaminK,
     HealthDataType.zinc,
   ];
+
+  /// Returns all health data types in the [HealthDataTypeCategory.activity]
+  /// category.
+  static final activityTypes = values
+      .where(
+        (type) => type.category == HealthDataTypeCategory.activity,
+      )
+      .toList();
+
+  /// Returns all health data types in the
+  /// [HealthDataTypeCategory.bodyMeasurement] category.
+  static final bodyMeasurementTypes = values
+      .where(
+        (type) => type.category == HealthDataTypeCategory.bodyMeasurement,
+      )
+      .toList();
+
+  /// Returns all health data types in the [HealthDataTypeCategory.clinical]
+  /// category.
+  static final clinicalTypes = values
+      .where(
+        (type) => type.category == HealthDataTypeCategory.clinical,
+      )
+      .toList();
+
+  /// Returns all health data types in the [HealthDataTypeCategory.mentalHealth]
+  /// category.
+  static final mentalHealthTypes = values
+      .where(
+        (type) => type.category == HealthDataTypeCategory.mentalHealth,
+      )
+      .toList();
+
+  /// Returns all health data types in the [HealthDataTypeCategory.mobility]
+  /// category.
+  static final mobilityTypes = values
+      .where(
+        (type) => type.category == HealthDataTypeCategory.mobility,
+      )
+      .toList();
+
+  /// Returns all health data types in the [HealthDataTypeCategory.nutrition]
+  /// category.
+  static final nutritionTypes = values
+      .where(
+        (type) => type.category == HealthDataTypeCategory.nutrition,
+      )
+      .toList();
+
+  /// Returns all health data types in the
+  /// [HealthDataTypeCategory.reproductiveHealth] category.
+  static final reproductiveHealthTypes = values
+      .where(
+        (type) => type.category == HealthDataTypeCategory.reproductiveHealth,
+      )
+      .toList();
+
+  /// Returns all health data types in the [HealthDataTypeCategory.sleep]
+  /// category.
+  static final sleepTypes = values
+      .where(
+        (type) => type.category == HealthDataTypeCategory.sleep,
+      )
+      .toList();
+
+  /// Returns all health data types in the [HealthDataTypeCategory.vitals]
+  /// category.
+  static final vitalsTypes = values
+      .where(
+        (type) => type.category == HealthDataTypeCategory.vitals,
+      )
+      .toList();
 }

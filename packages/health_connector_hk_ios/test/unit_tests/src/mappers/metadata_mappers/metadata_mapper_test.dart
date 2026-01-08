@@ -18,11 +18,11 @@ void main() {
             'maps Metadata to MetadataDto with all fields populated',
             () {
               final metadata = Metadata.internal(
-                dataOrigin: DataOrigin(dataOriginName),
+                dataOrigin: const DataOrigin(dataOriginName),
                 recordingMethod: RecordingMethod.activelyRecorded,
                 clientRecordId: clientRecordId,
                 clientRecordVersion: clientRecordVersion,
-                device: Device(
+                device: const Device(
                   type: DeviceType.watch,
                   name: 'Apple Watch',
                   manufacturer: 'Apple Inc.',
@@ -60,7 +60,7 @@ void main() {
             'maps Metadata to MetadataDto with minimal fields',
             () {
               final metadata = Metadata.internal(
-                dataOrigin: DataOrigin(dataOriginName),
+                dataOrigin: const DataOrigin(dataOriginName),
                 recordingMethod: RecordingMethod.unknown,
                 clientRecordVersion: 0,
               );

@@ -49,6 +49,9 @@ final class BloodGlucoseHealthDataType
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override
+  HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;
+
+  @override
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
