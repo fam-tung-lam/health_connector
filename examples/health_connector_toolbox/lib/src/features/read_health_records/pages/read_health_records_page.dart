@@ -35,6 +35,7 @@ class _ReadHealthRecordsPageState extends State<ReadHealthRecordsPage>
         ProcessOperationWithErrorHandlerPageStateMixin<ReadHealthRecordsPage> {
   final _formKey = GlobalKey<FormState>();
   final _pageSizeController = TextEditingController();
+  final _dataOriginsController = TextEditingController();
   HealthDataType<HealthRecord, MeasurementUnit>? _selectedDataType;
   int _pageSize = 100;
 
@@ -55,6 +56,7 @@ class _ReadHealthRecordsPageState extends State<ReadHealthRecordsPage>
   @override
   void dispose() {
     _pageSizeController.dispose();
+    _dataOriginsController.dispose();
     super.dispose();
   }
 
@@ -70,11 +72,23 @@ class _ReadHealthRecordsPageState extends State<ReadHealthRecordsPage>
     );
 
     await process(() async {
+      // Parse data origins from comma-separated input
+      final dataOriginsText = _dataOriginsController.text.trim();
+      final dataOrigins = dataOriginsText.isEmpty
+          ? <DataOrigin>[]
+          : dataOriginsText
+                .split(',')
+                .map((e) => e.replaceAll(' ', ''))
+                .where((e) => e.isNotEmpty)
+                .map(DataOrigin.new)
+                .toList();
+
       await notifier.readHealthRecords(
         dataType: _selectedDataType!,
         startTime: startDateTime!,
         endTime: endDateTime!,
         pageSize: _pageSize,
+        dataOrigins: dataOrigins,
       );
     });
   }
@@ -254,6 +268,18 @@ class _ReadHealthRecordsPageState extends State<ReadHealthRecordsPage>
                               ),
                               keyboardType: TextInputType.number,
                               validator: _validatePageSize,
+                            ),
+                            const SizedBox(height: 16),
+                            TextFormField(
+                              controller: _dataOriginsController,
+                              decoration: const InputDecoration(
+                                labelText: AppTexts.dataOrigins,
+                                hintText: AppTexts.dataOriginsHint,
+                                border: OutlineInputBorder(),
+                                prefixIcon: Icon(AppIcons.dataOrigins),
+                                helperText: AppTexts.dataOriginsHelper,
+                              ),
+                              keyboardType: TextInputType.text,
                             ),
                             const SizedBox(height: 16),
                             ReadHealthRecordResultsSection(
