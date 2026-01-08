@@ -302,6 +302,19 @@ abstract final class AppTexts {
   static const String stepCount = 'Step Count';
   static const String weight = 'Weight';
 
+  // region Health Data Type Categories
+  static const String activityCategory = 'Activity';
+  static const String bodyMeasurementCategory = 'Body Measurement';
+  static const String clinicalCategory = 'Clinical';
+  static const String mentalHealthCategory = 'Mental Health';
+  static const String mobilityCategory = 'Mobility';
+  static const String nutritionCategory = 'Nutrition';
+  static const String reproductiveHealthCategory = 'Reproductive Health';
+  static const String sleepCategory = 'Sleep';
+  static const String vitalsCategory = 'Vitals';
+
+  // endregion
+
   // Distance activity values
   static const String activeCaloriesBurned = 'Active Calories Burned';
   static const String basalEnergyBurned = 'Basal Energy Burned';
@@ -975,16 +988,6 @@ abstract final class AppTexts {
   // Speed
   static const String speedDescription =
       'Speed of movement during physical activity';
-
-  // endregion
-
-  // region Health Data Type Categories
-  static const String activityCategory = 'Activity';
-  static const String bodyMeasurementsCategory = 'Body Measurements';
-  static const String vitalsCategory = 'Vitals';
-  static const String nutritionCategory = 'Nutrition';
-  static const String sleepCategory = 'Sleep';
-  static const String otherCategory = 'Other';
 
   // endregion
 
