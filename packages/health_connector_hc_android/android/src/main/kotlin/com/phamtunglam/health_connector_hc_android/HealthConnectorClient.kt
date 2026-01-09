@@ -48,6 +48,8 @@ import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.utils.dataType
 import java.time.Instant
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.jetbrains.annotations.ApiStatus
 
 /**
@@ -267,7 +269,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
     suspend fun requestPermissions(
         activity: ComponentActivity,
         request: PermissionRequestsDto,
-    ): List<PermissionRequestResultDto> {
+    ): List<PermissionRequestResultDto> = withContext(Dispatchers.IO) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "request_permissions",
@@ -277,7 +279,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             ),
         )
 
-        return process("request_permissions") {
+        return@withContext process("request_permissions") {
             val permissionStrings = request.permissionRequests.map {
                 it.toHealthConnect()
             }
@@ -297,30 +299,31 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException if an unexpected error occurs
      */
     @Throws(HealthConnectorException::class)
-    suspend fun getPermissionStatus(request: PermissionRequestDto): PermissionStatusDto {
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "get_permission_status",
-            message = "Checking Health Connect permission status",
-            context = mapOf("permission" to request.toString()),
-        )
-
-        return process("get_permission_status") {
-            val status = permissionService.getPermissionStatus(request)
-
-            HealthConnectorLogger.info(
+    suspend fun getPermissionStatus(request: PermissionRequestDto): PermissionStatusDto =
+        withContext(Dispatchers.IO) {
+            HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "get_permission_status",
-                message = "Permission status retrieved",
-                context = mapOf(
-                    "permission" to request.toString(),
-                    "status" to status,
-                ),
+                message = "Checking Health Connect permission status",
+                context = mapOf("permission" to request.toString()),
             )
 
-            status
+            return@withContext process("get_permission_status") {
+                val status = permissionService.getPermissionStatus(request)
+
+                HealthConnectorLogger.info(
+                    tag = TAG,
+                    operation = "get_permission_status",
+                    message = "Permission status retrieved",
+                    context = mapOf(
+                        "permission" to request.toString(),
+                        "status" to status,
+                    ),
+                )
+
+                status
+            }
         }
-    }
 
     /**
      * Gets the status of a specific feature on the current platform.
@@ -403,38 +406,42 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException otherwise for any errors
      */
     @Throws(HealthConnectorException::class)
-    suspend fun readRecord(request: ReadRecordRequestDto): HealthRecordDto {
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "read_record",
-            message = "Reading Health Connect record",
-            context = mapOf("data_type" to request.dataType, "record_id" to request.recordId),
-        )
-
-        return process("read_record") {
-            val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
-                ?: throw HealthConnectorException.UnsupportedOperation(
-                    message = "No handler found for type ${request.dataType}",
-                )
-
-            if (handler !is ReadableHealthRecordHandler) {
-                throw HealthConnectorException.UnsupportedOperation(
-                    message = "Type ${request.dataType} does not support reading",
-                )
-            }
-
-            val dto = handler.readRecord(request.recordId)
-
-            HealthConnectorLogger.info(
+    suspend fun readRecord(request: ReadRecordRequestDto): HealthRecordDto =
+        withContext(Dispatchers.IO) {
+            HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "read_record",
-                message = "Health Connect record read successfully",
+                message = "Reading Health Connect record",
                 context = mapOf("data_type" to request.dataType, "record_id" to request.recordId),
             )
 
-            dto
+            return@withContext process("read_record") {
+                val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
+                    ?: throw HealthConnectorException.UnsupportedOperation(
+                        message = "No handler found for type ${request.dataType}",
+                    )
+
+                if (handler !is ReadableHealthRecordHandler) {
+                    throw HealthConnectorException.UnsupportedOperation(
+                        message = "Type ${request.dataType} does not support reading",
+                    )
+                }
+
+                val dto = handler.readRecord(request.recordId)
+
+                HealthConnectorLogger.info(
+                    tag = TAG,
+                    operation = "read_record",
+                    message = "Health Connect record read successfully",
+                    context = mapOf(
+                        "data_type" to request.dataType,
+                        "record_id" to request.recordId,
+                    ),
+                )
+
+                dto
+            }
         }
-    }
 
     /**
      * Reads a collection of records based on the criteria.
@@ -443,53 +450,54 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException otherwise for any errors
      */
     @Throws(HealthConnectorException::class)
-    suspend fun readRecords(request: ReadRecordsRequestDto): ReadRecordsResponseDto {
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "read_records",
-            message = "Reading Health Connect records",
-            context = mapOf(
-                "data_type" to request.dataType,
-                "page_size" to request.pageSize,
-                "has_page_token" to (request.pageToken != null),
-                "sort_order" to request.sortOrder,
-            ),
-        )
-
-        return process("read_records") {
-            val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
-                ?: throw HealthConnectorException.UnsupportedOperation(
-                    message = "No handler found for type ${request.dataType}",
-                )
-
-            if (handler !is ReadableHealthRecordHandler) {
-                throw HealthConnectorException.UnsupportedOperation(
-                    message = "Type ${request.dataType} does not support reading",
-                )
-            }
-
-            val (records, nextPageToken) = handler.readRecords(
-                startTime = Instant.ofEpochMilli(request.startTime),
-                endTime = Instant.ofEpochMilli(request.endTime),
-                pageSize = request.pageSize.toInt(),
-                pageToken = request.pageToken,
-                dataOrigins = request.dataOriginPackageNames.map { DataOrigin(it) }.toSet(),
-                sortOrder = request.sortOrder,
-            )
-
-            HealthConnectorLogger.info(
+    suspend fun readRecords(request: ReadRecordsRequestDto): ReadRecordsResponseDto =
+        withContext(Dispatchers.IO) {
+            HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "read_records",
-                message = "Health Connect records read successfully",
-                context = mapOf("data_type" to request.dataType, "count" to records.size),
+                message = "Reading Health Connect records",
+                context = mapOf(
+                    "data_type" to request.dataType,
+                    "page_size" to request.pageSize,
+                    "has_page_token" to (request.pageToken != null),
+                    "sort_order" to request.sortOrder,
+                ),
             )
 
-            ReadRecordsResponseDto(
-                records = records,
-                nextPageToken = nextPageToken,
-            )
+            return@withContext process("read_records") {
+                val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
+                    ?: throw HealthConnectorException.UnsupportedOperation(
+                        message = "No handler found for type ${request.dataType}",
+                    )
+
+                if (handler !is ReadableHealthRecordHandler) {
+                    throw HealthConnectorException.UnsupportedOperation(
+                        message = "Type ${request.dataType} does not support reading",
+                    )
+                }
+
+                val (records, nextPageToken) = handler.readRecords(
+                    startTime = Instant.ofEpochMilli(request.startTime),
+                    endTime = Instant.ofEpochMilli(request.endTime),
+                    pageSize = request.pageSize.toInt(),
+                    pageToken = request.pageToken,
+                    dataOrigins = request.dataOriginPackageNames.map { DataOrigin(it) }.toSet(),
+                    sortOrder = request.sortOrder,
+                )
+
+                HealthConnectorLogger.info(
+                    tag = TAG,
+                    operation = "read_records",
+                    message = "Health Connect records read successfully",
+                    context = mapOf("data_type" to request.dataType, "count" to records.size),
+                )
+
+                ReadRecordsResponseDto(
+                    records = records,
+                    nextPageToken = nextPageToken,
+                )
+            }
         }
-    }
 
     /**
      * Writes a single health record.
@@ -501,7 +509,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException otherwise for any errors
      */
     @Throws(HealthConnectorException::class)
-    suspend fun writeRecord(record: HealthRecordDto): String {
+    suspend fun writeRecord(record: HealthRecordDto): String = withContext(Dispatchers.IO) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "write_record",
@@ -509,7 +517,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             context = mapOf("record_type" to record.dataType),
         )
 
-        return process("write_record") {
+        return@withContext process("write_record") {
             val handler = recordHandlerRegistry.getRecordHandler(record.dataType)
                 ?: throw HealthConnectorException.UnsupportedOperation(
                     message = "No handler found for type ${record.dataType}",
@@ -548,70 +556,71 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException otherwise for any errors
      */
     @Throws(HealthConnectorException::class)
-    suspend fun writeRecords(records: List<HealthRecordDto>): List<String> {
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "write_records",
-            message = "Writing Health Connect records atomically",
-            context = mapOf(
-                "record_count" to records.size,
-            ),
-        )
+    suspend fun writeRecords(records: List<HealthRecordDto>): List<String> =
+        withContext(Dispatchers.IO) {
+            HealthConnectorLogger.debug(
+                tag = TAG,
+                operation = "write_records",
+                message = "Writing Health Connect records atomically",
+                context = mapOf(
+                    "record_count" to records.size,
+                ),
+            )
 
-        return process("write_records") {
-            if (records.isEmpty()) {
+            return@withContext process("write_records") {
+                if (records.isEmpty()) {
+                    HealthConnectorLogger.debug(
+                        tag = TAG,
+                        operation = "write_records",
+                        message = "No records to write, returning empty response",
+                    )
+                    return@process emptyList()
+                }
+
+                // Validate all records support the write operation
+                val dataTypes = records.map { record -> record.dataType }
+                dataTypes.forEach { dataType ->
+                    val handler = recordHandlerRegistry.getRecordHandler(dataType)
+                        ?: throw HealthConnectorException.UnsupportedOperation(
+                            message = "Unsupported data type: $dataType",
+                        )
+
+                    if (handler !is WritableHealthRecordHandler) {
+                        throw HealthConnectorException.UnsupportedOperation(
+                            message = "Data type does not support the write operation: $dataType",
+                        )
+                    }
+                }
+
                 HealthConnectorLogger.debug(
                     tag = TAG,
                     operation = "write_records",
-                    message = "No records to write, returning empty response",
+                    message = "All records validated and converted",
+                    context = mapOf("record_count" to records.size),
                 )
-                return@process emptyList()
+
+                val response = client.insertRecords(
+                    records.map { record -> record.toHealthConnect() },
+                )
+
+                HealthConnectorLogger.debug(
+                    tag = TAG,
+                    operation = "write_records",
+                    message = "Atomic insert completed successfully",
+                )
+
+                val recordIds = response.recordIdsList
+
+                HealthConnectorLogger.info(
+                    tag = TAG,
+                    operation = "write_records",
+                    message = "Health Connect records written successfully",
+                    context = mapOf("count" to recordIds.size),
+                )
+
+                recordIds
             }
-
-            // Validate all records support the write operation
-            val dataTypes = records.map { record -> record.dataType }
-            dataTypes.forEach { dataType ->
-                val handler = recordHandlerRegistry.getRecordHandler(dataType)
-                    ?: throw HealthConnectorException.UnsupportedOperation(
-                        message = "Unsupported data type: $dataType",
-                    )
-
-                if (handler !is WritableHealthRecordHandler) {
-                    throw HealthConnectorException.UnsupportedOperation(
-                        message = "Data type does not support the write operation: $dataType",
-                    )
-                }
-            }
-
-            HealthConnectorLogger.debug(
-                tag = TAG,
-                operation = "write_records",
-                message = "All records validated and converted",
-                context = mapOf("record_count" to records.size),
-            )
-
-            val response = client.insertRecords(
-                records.map { record -> record.toHealthConnect() },
-            )
-
-            HealthConnectorLogger.debug(
-                tag = TAG,
-                operation = "write_records",
-                message = "Atomic insert completed successfully",
-            )
-
-            val recordIds = response.recordIdsList
-
-            HealthConnectorLogger.info(
-                tag = TAG,
-                operation = "write_records",
-                message = "Health Connect records written successfully",
-                context = mapOf("count" to recordIds.size),
-            )
-
-            recordIds
         }
-    }
 
     /**
      * Updates a single health record.
@@ -622,7 +631,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException otherwise for any errors
      */
     @Throws(HealthConnectorException::class)
-    suspend fun updateRecord(record: HealthRecordDto) {
+    suspend fun updateRecord(record: HealthRecordDto) = withContext(Dispatchers.IO) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "update_record",
@@ -665,7 +674,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException otherwise for any errors
      */
     @Throws(HealthConnectorException::class)
-    suspend fun updateRecords(records: List<HealthRecordDto>) {
+    suspend fun updateRecords(records: List<HealthRecordDto>) = withContext(Dispatchers.IO) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "update_records",
@@ -727,48 +736,52 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException otherwise for any errors
      */
     @Throws(HealthConnectorException::class)
-    suspend fun deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) {
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "delete_records_by_ids",
-            message = "Deleting Health Connect records by IDs",
-            context = mapOf(
-                "data_type" to request.dataType,
-                "count" to request.recordIds.size,
-            ),
-        )
-
-        if (request.recordIds.isEmpty()) {
-            HealthConnectorLogger.warning(
+    suspend fun deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) =
+        withContext(Dispatchers.IO) {
+            HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "delete_records_by_ids",
-                message = "No records to delete (empty IDs list)",
+                message = "Deleting Health Connect records by IDs",
+                context = mapOf(
+                    "data_type" to request.dataType,
+                    "count" to request.recordIds.size,
+                ),
             )
-            return
-        }
 
-        process("delete_records_by_ids") {
-            val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
-                ?: throw HealthConnectorException.UnsupportedOperation(
-                    message = "No handler found for type ${request.dataType}",
+            if (request.recordIds.isEmpty()) {
+                HealthConnectorLogger.warning(
+                    tag = TAG,
+                    operation = "delete_records_by_ids",
+                    message = "No records to delete (empty IDs list)",
                 )
-
-            if (handler !is DeletableHealthRecordHandler) {
-                throw HealthConnectorException.UnsupportedOperation(
-                    message = "Type ${request.dataType} does not support deletion",
-                )
+                return@withContext
             }
 
-            handler.deleteRecords(request.recordIds)
+            process("delete_records_by_ids") {
+                val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
+                    ?: throw HealthConnectorException.UnsupportedOperation(
+                        message = "No handler found for type ${request.dataType}",
+                    )
 
-            HealthConnectorLogger.info(
-                tag = TAG,
-                operation = "delete_records_by_ids",
-                message = "Health Connect records deleted successfully",
-                context = mapOf("data_type" to request.dataType, "count" to request.recordIds.size),
-            )
+                if (handler !is DeletableHealthRecordHandler) {
+                    throw HealthConnectorException.UnsupportedOperation(
+                        message = "Type ${request.dataType} does not support deletion",
+                    )
+                }
+
+                handler.deleteRecords(request.recordIds)
+
+                HealthConnectorLogger.info(
+                    tag = TAG,
+                    operation = "delete_records_by_ids",
+                    message = "Health Connect records deleted successfully",
+                    context = mapOf(
+                        "data_type" to request.dataType,
+                        "count" to request.recordIds.size,
+                    ),
+                )
+            }
         }
-    }
 
     /**
      * Deletes all records of a data type within a time range.
@@ -778,39 +791,40 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException otherwise for any errors
      */
     @Throws(HealthConnectorException::class)
-    suspend fun deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) {
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "delete_records_by_time_range",
-            message = "Deleting Health Connect records by time range",
-            context = mapOf("data_type" to request.dataType),
-        )
-
-        process("delete_records_by_time_range") {
-            val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
-                ?: throw HealthConnectorException.UnsupportedOperation(
-                    message = "No handler found for type ${request.dataType}",
-                )
-
-            if (handler !is DeletableHealthRecordHandler) {
-                throw HealthConnectorException.UnsupportedOperation(
-                    message = "Type ${request.dataType} does not support deletion",
-                )
-            }
-
-            handler.deleteRecordsByTimeRange(
-                startTime = Instant.ofEpochMilli(request.startTime),
-                endTime = Instant.ofEpochMilli(request.endTime),
-            )
-
-            HealthConnectorLogger.info(
+    suspend fun deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) =
+        withContext(Dispatchers.IO) {
+            HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "delete_records_by_time_range",
-                message = "Health Connect records deleted successfully",
+                message = "Deleting Health Connect records by time range",
                 context = mapOf("data_type" to request.dataType),
             )
+
+            process("delete_records_by_time_range") {
+                val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
+                    ?: throw HealthConnectorException.UnsupportedOperation(
+                        message = "No handler found for type ${request.dataType}",
+                    )
+
+                if (handler !is DeletableHealthRecordHandler) {
+                    throw HealthConnectorException.UnsupportedOperation(
+                        message = "Type ${request.dataType} does not support deletion",
+                    )
+                }
+
+                handler.deleteRecordsByTimeRange(
+                    startTime = Instant.ofEpochMilli(request.startTime),
+                    endTime = Instant.ofEpochMilli(request.endTime),
+                )
+
+                HealthConnectorLogger.info(
+                    tag = TAG,
+                    operation = "delete_records_by_time_range",
+                    message = "Health Connect records deleted successfully",
+                    context = mapOf("data_type" to request.dataType),
+                )
+            }
         }
-    }
 
     /**
      * Performs an aggregation query on health records.
@@ -822,47 +836,48 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException otherwise for any errors
      */
     @Throws(HealthConnectorException::class)
-    suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto {
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "aggregate",
-            message = "Aggregating Health Connect data",
-            context = mapOf(
-                "data_type" to request.dataType,
-                "metric" to request.aggregationMetric,
-            ),
-        )
-
-        return process("aggregate") {
-            val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
-                ?: throw HealthConnectorException.UnsupportedOperation(
-                    message = "Data type ${request.dataType} does not support aggregation",
-                )
-
-            val responseDto = when (handler) {
-                is HealthConnectAggregatableHealthRecordHandler -> handler.aggregate(request)
-
-                is CustomAggregatableHealthRecordHandler -> handler.aggregate(request)
-
-                else -> throw HealthConnectorException.UnsupportedOperation(
-                    message = "Type ${request.dataType} does not support aggregation",
-                )
-            }
-
-            HealthConnectorLogger.info(
+    suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto =
+        withContext(Dispatchers.IO) {
+            HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "aggregate",
-                message = "Health Connect data aggregated successfully",
+                message = "Aggregating Health Connect data",
                 context = mapOf(
                     "data_type" to request.dataType,
                     "metric" to request.aggregationMetric,
-                    "result_type" to responseDto::class.simpleName,
                 ),
             )
 
-            responseDto
+            return@withContext process("aggregate") {
+                val handler = recordHandlerRegistry.getRecordHandler(request.dataType)
+                    ?: throw HealthConnectorException.UnsupportedOperation(
+                        message = "Data type ${request.dataType} does not support aggregation",
+                    )
+
+                val responseDto = when (handler) {
+                    is HealthConnectAggregatableHealthRecordHandler -> handler.aggregate(request)
+
+                    is CustomAggregatableHealthRecordHandler -> handler.aggregate(request)
+
+                    else -> throw HealthConnectorException.UnsupportedOperation(
+                        message = "Type ${request.dataType} does not support aggregation",
+                    )
+                }
+
+                HealthConnectorLogger.info(
+                    tag = TAG,
+                    operation = "aggregate",
+                    message = "Health Connect data aggregated successfully",
+                    context = mapOf(
+                        "data_type" to request.dataType,
+                        "metric" to request.aggregationMetric,
+                        "result_type" to responseDto::class.simpleName,
+                    ),
+                )
+
+                responseDto
+            }
         }
-    }
 
     /**
      * Synchronizes health data using incremental change tracking.
@@ -881,7 +896,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
     suspend fun synchronize(
         dataTypes: List<HealthDataTypeDto>,
         syncToken: HealthDataSyncTokenDto?,
-    ): HealthDataSyncResultDto {
+    ): HealthDataSyncResultDto = withContext(Dispatchers.IO) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "synchronize",
@@ -892,7 +907,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             ),
         )
 
-        return process("synchronize") {
+        return@withContext process("synchronize") {
             val result = syncService.synchronize(
                 dataTypes = dataTypes,
                 syncToken = syncToken,
@@ -921,17 +936,18 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException if an unexpected error occurs
      */
     @Throws(HealthConnectorException::class)
-    suspend fun getGrantedPermissions(): List<PermissionRequestResultDto> {
-        HealthConnectorLogger.debug(
-            tag = TAG,
-            operation = "get_granted_permissions",
-            message = "Getting granted Health Connect permissions",
-        )
+    suspend fun getGrantedPermissions(): List<PermissionRequestResultDto> =
+        withContext(Dispatchers.IO) {
+            HealthConnectorLogger.debug(
+                tag = TAG,
+                operation = "get_granted_permissions",
+                message = "Getting granted Health Connect permissions",
+            )
 
-        return process("get_granted_permissions") {
-            permissionService.getGrantedPermissions()
+            return@withContext process("get_granted_permissions") {
+                permissionService.getGrantedPermissions()
+            }
         }
-    }
 
     /**
      * Revokes all permissions that have been granted to the app.
@@ -939,7 +955,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException if an unexpected error occurs
      */
     @Throws(HealthConnectorException::class)
-    suspend fun revokeAllPermissions() {
+    suspend fun revokeAllPermissions() = withContext(Dispatchers.IO) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "revoke_all_permissions",

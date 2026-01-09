@@ -14,6 +14,8 @@ import com.phamtunglam.health_connector_hc_android.utils.dataType
 import com.phamtunglam.health_connector_hc_android.utils.endTime
 import com.phamtunglam.health_connector_hc_android.utils.startTime
 import java.time.Instant
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * Capability for handlers that support aggregation operations.
@@ -171,7 +173,7 @@ internal interface CustomAggregatableHealthRecordHandler :
     private suspend fun paginateAndAggregate(
         startTime: Instant,
         endTime: Instant,
-    ): PaginatedAggregationResult {
+    ): PaginatedAggregationResult = withContext(Dispatchers.IO) {
         var pageToken: String? = null
         var count = 0
         var sum = 0.0
@@ -196,7 +198,7 @@ internal interface CustomAggregatableHealthRecordHandler :
             pageToken = nextToken
         } while (!pageToken.isNullOrEmpty())
 
-        return PaginatedAggregationResult(
+        return@withContext PaginatedAggregationResult(
             avg = if (count > 0) sum / count else 0.0,
             sum = sum,
             min = if (count > 0) min ?: 0.0 else 0.0,

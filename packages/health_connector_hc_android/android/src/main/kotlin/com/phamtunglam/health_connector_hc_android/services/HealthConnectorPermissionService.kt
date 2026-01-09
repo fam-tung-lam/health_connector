@@ -51,14 +51,14 @@ internal class HealthConnectorPermissionService(
     suspend fun requestPermissions(
         activity: ComponentActivity,
         request: PermissionRequestsDto,
-    ): List<PermissionRequestResultDto> {
+    ): List<PermissionRequestResultDto> = withContext(Dispatchers.IO) {
         val permissionStrings = request.permissionRequests.map {
             it.toHealthConnect()
         }.toSet()
 
         val grantedPermissionStrings = launchPermissionRequest(activity, permissionStrings)
 
-        return request.permissionRequests.map { permissionRequest ->
+        return@withContext request.permissionRequests.map { permissionRequest ->
             val permissionString = permissionRequest.toHealthConnect()
             val isGranted = permissionString in grantedPermissionStrings
             val status = if (isGranted) PermissionStatusDto.GRANTED else PermissionStatusDto.DENIED
@@ -132,20 +132,21 @@ internal class HealthConnectorPermissionService(
      * @throws HealthConnectorException.HealthPlatformUnavailable if service is not available.
      */
     @Throws(HealthConnectorException::class)
-    suspend fun getPermissionStatus(request: PermissionRequestDto): PermissionStatusDto {
-        try {
-            val grantedPermissions = getGrantedPermissionStrings()
+    suspend fun getPermissionStatus(request: PermissionRequestDto): PermissionStatusDto =
+        withContext(Dispatchers.IO) {
+            try {
+                val grantedPermissions = getGrantedPermissionStrings()
 
-            val permissionString = request.toHealthConnect()
-            return if (grantedPermissions.contains(permissionString)) {
-                PermissionStatusDto.GRANTED
-            } else {
-                PermissionStatusDto.DENIED
+                val permissionString = request.toHealthConnect()
+                return@withContext if (grantedPermissions.contains(permissionString)) {
+                    PermissionStatusDto.GRANTED
+                } else {
+                    PermissionStatusDto.DENIED
+                }
+            } catch (e: HealthConnectorException) {
+                throw e
             }
-        } catch (e: HealthConnectorException) {
-            throw e
         }
-    }
 
     /**
      * Retrieves the list of permissions currently granted to this application by the user.
@@ -155,19 +156,20 @@ internal class HealthConnectorPermissionService(
      * @throws HealthConnectorException.HealthPlatformUnavailable if service is not available.
      */
     @Throws(HealthConnectorException::class)
-    suspend fun getGrantedPermissions(): List<PermissionRequestResultDto> {
-        try {
-            val grantedPermissionStrings = getGrantedPermissionStrings()
+    suspend fun getGrantedPermissions(): List<PermissionRequestResultDto> =
+        withContext(Dispatchers.IO) {
+            try {
+                val grantedPermissionStrings = getGrantedPermissionStrings()
 
-            val grantedPermissions = grantedPermissionStrings.map { permissionString ->
-                permissionString.toPermissionRequestResultDto()
+                val grantedPermissions = grantedPermissionStrings.map { permissionString ->
+                    permissionString.toPermissionRequestResultDto()
+                }
+
+                return@withContext grantedPermissions
+            } catch (e: HealthConnectorException) {
+                throw e
             }
-
-            return grantedPermissions
-        } catch (e: HealthConnectorException) {
-            throw e
         }
-    }
 
     /**
      * Revokes all previously granted permissions by the user to the calling app.
@@ -176,7 +178,7 @@ internal class HealthConnectorPermissionService(
      * @throws HealthConnectorException.HealthPlatformUnavailable if service is not available.
      */
     @Throws(HealthConnectorException::class)
-    suspend fun revokeAllPermissions() {
+    suspend fun revokeAllPermissions() = withContext(Dispatchers.IO) {
         try {
             permissionClient.revokeAllPermissions()
         } catch (e: RemoteException) {

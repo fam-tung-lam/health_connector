@@ -6,6 +6,8 @@ import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.utils.TAG
 import java.io.IOException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * Base interface for all Health Connect record handlers.
@@ -44,9 +46,9 @@ internal interface HealthRecordHandler {
         operation: String,
         context: Map<String, Any?>? = null,
         block: suspend () -> T,
-    ): T {
+    ): T = withContext(Dispatchers.IO) {
         try {
-            return block()
+            return@withContext block()
         } catch (e: SecurityException) {
             HealthConnectorLogger.error(
                 tag = TAG,
