@@ -42,6 +42,9 @@ final class LeanBodyMassHealthDataType
   const LeanBodyMassHealthDataType();
 
   @override
+  String get id => 'lean_body_mass';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is LeanBodyMassHealthDataType && runtimeType == other.runtimeType;

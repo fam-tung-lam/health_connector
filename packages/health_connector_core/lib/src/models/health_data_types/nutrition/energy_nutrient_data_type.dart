@@ -44,6 +44,9 @@ final class EnergyNutrientDataType
   const EnergyNutrientDataType();
 
   @override
+  String get id => 'energy_nutrient';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is EnergyNutrientDataType && runtimeType == other.runtimeType;

@@ -44,6 +44,9 @@ final class CholesterolNutrientDataType
   const CholesterolNutrientDataType();
 
   @override
+  String get id => 'cholesterol_nutrient';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is CholesterolNutrientDataType && runtimeType == other.runtimeType;

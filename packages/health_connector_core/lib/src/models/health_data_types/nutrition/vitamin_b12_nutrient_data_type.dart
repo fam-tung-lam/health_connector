@@ -44,6 +44,9 @@ final class VitaminB12NutrientDataType
   const VitaminB12NutrientDataType();
 
   @override
+  String get id => 'vitamin_b12_nutrient';
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

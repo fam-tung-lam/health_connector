@@ -44,6 +44,9 @@ final class TotalCaloriesBurnedHealthDataType
   const TotalCaloriesBurnedHealthDataType();
 
   @override
+  String get id => 'total_calories_burned';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is TotalCaloriesBurnedHealthDataType &&

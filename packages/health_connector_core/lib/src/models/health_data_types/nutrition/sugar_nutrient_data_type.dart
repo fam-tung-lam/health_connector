@@ -43,6 +43,9 @@ final class SugarNutrientDataType
   const SugarNutrientDataType();
 
   @override
+  String get id => 'sugar_nutrient';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SugarNutrientDataType && runtimeType == other.runtimeType;

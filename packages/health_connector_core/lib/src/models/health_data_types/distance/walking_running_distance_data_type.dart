@@ -34,6 +34,9 @@ final class WalkingRunningDistanceDataType
   const WalkingRunningDistanceDataType();
 
   @override
+  String get id => 'walking_running_distance';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is WalkingRunningDistanceDataType &&

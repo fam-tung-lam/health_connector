@@ -49,6 +49,8 @@ extension HealthConnectorExceptionDtoToDomain on HealthConnectorExceptionDto {
         return HealthConnectorErrorCode.notAuthorized;
       case HealthConnectorErrorCodeDto.remoteError:
         return HealthConnectorErrorCode.remoteError;
+      case HealthConnectorErrorCodeDto.syncTokenExpired:
+        return HealthConnectorErrorCode.syncTokenExpired;
     }
   }
 }

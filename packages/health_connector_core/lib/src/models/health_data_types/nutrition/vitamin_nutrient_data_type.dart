@@ -13,4 +13,7 @@ part of '../health_data_type.dart';
 sealed class VitaminNutrientDataType<R extends HealthRecord>
     extends NutrientHealthDataType<R, Mass> {
   const VitaminNutrientDataType();
+
+  @override
+  String get id => 'vitamin_nutrient';
 }

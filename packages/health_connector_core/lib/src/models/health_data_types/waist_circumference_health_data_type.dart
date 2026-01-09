@@ -49,6 +49,9 @@ final class WaistCircumferenceHealthDataType
   const WaistCircumferenceHealthDataType();
 
   @override
+  String get id => 'waist_circumference';
+
+  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
   ];

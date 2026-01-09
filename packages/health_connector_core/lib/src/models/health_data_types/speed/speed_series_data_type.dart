@@ -38,6 +38,9 @@ final class SpeedSeriesDataType
   const SpeedSeriesDataType();
 
   @override
+  String get id => 'speed_series';
+
+  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.healthConnect,
   ];

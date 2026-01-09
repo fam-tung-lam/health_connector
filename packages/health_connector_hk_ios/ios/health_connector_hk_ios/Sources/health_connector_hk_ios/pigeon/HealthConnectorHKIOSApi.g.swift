@@ -774,6 +774,8 @@ public enum HealthConnectorErrorCodeDto: Int {
   case notAuthorized = 5
   /// A transient I/O or communication error occurred.
   case remoteError = 6
+  /// Synchronization token has expired.
+  case syncTokenExpired = 7
 }
 
 /// Represents the status of the health platform on the device.
@@ -5318,6 +5320,76 @@ public struct BasalEnergyBurnedRecordDto: HealthRecordDto {
   }
 }
 
+/// Generated class from Pigeon that represents data sent in messages.
+public struct HealthDataSyncTokenDto: Hashable {
+  var token: String
+  var dataTypes: [HealthDataTypeDto]
+  var createdAtMillis: Int64
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> HealthDataSyncTokenDto? {
+    let token = pigeonVar_list[0] as! String
+    let dataTypes = pigeonVar_list[1] as! [HealthDataTypeDto]
+    let createdAtMillis = pigeonVar_list[2] as! Int64
+
+    return HealthDataSyncTokenDto(
+      token: token,
+      dataTypes: dataTypes,
+      createdAtMillis: createdAtMillis
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      token,
+      dataTypes,
+      createdAtMillis,
+    ]
+  }
+  public static func == (lhs: HealthDataSyncTokenDto, rhs: HealthDataSyncTokenDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
+public struct HealthDataSyncResultDto: Hashable {
+  var upsertedRecords: [HealthRecordDto]
+  var deletedRecordIds: [String]
+  var hasMore: Bool
+  var nextSyncToken: HealthDataSyncTokenDto? = nil
+
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> HealthDataSyncResultDto? {
+    let upsertedRecords = pigeonVar_list[0] as! [HealthRecordDto]
+    let deletedRecordIds = pigeonVar_list[1] as! [String]
+    let hasMore = pigeonVar_list[2] as! Bool
+    let nextSyncToken: HealthDataSyncTokenDto? = nilOrValue(pigeonVar_list[3])
+
+    return HealthDataSyncResultDto(
+      upsertedRecords: upsertedRecords,
+      deletedRecordIds: deletedRecordIds,
+      hasMore: hasMore,
+      nextSyncToken: nextSyncToken
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      upsertedRecords,
+      deletedRecordIds,
+      hasMore,
+      nextSyncToken,
+    ]
+  }
+  public static func == (lhs: HealthDataSyncResultDto, rhs: HealthDataSyncResultDto) -> Bool {
+    return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
+  public func hash(into hasher: inout Hasher) {
+    deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
+  }
+}
+
 /// Represents a permission request for accessing specific health data.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -5761,6 +5833,44 @@ public struct HealthConnectorLogDto: Hashable {
   }
 }
 
+
+private struct PigeonInternalCodecOverflow {
+  var type: Int
+  var wrapped: Any? = nil
+
+  func toList() -> [Any?] {
+    return [
+      type,
+      wrapped,
+    ]
+  }
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> Any? {
+    let type = pigeonVar_list[0] as! Int
+    let wrapped: Any? = pigeonVar_list[1]
+
+    let wrapper = PigeonInternalCodecOverflow(
+      type: type,
+      wrapped: wrapped
+    )
+
+    return wrapper.unwrap()
+  }
+
+  func unwrap() -> Any? {
+    if (wrapped == nil) {
+      return nil;
+    }
+        
+    switch type {
+      case 0:
+        return HealthConnectorLogDto.fromList(wrapped as! [Any?]);
+      default: 
+        return nil
+    }
+  }
+}
+
 private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -6101,27 +6211,31 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 242:
       return BasalEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
     case 243:
-      return HealthDataPermissionDto.fromList(self.readValue() as! [Any?])
+      return HealthDataSyncTokenDto.fromList(self.readValue() as! [Any?])
     case 244:
-      return HealthDataPermissionRequestResultDto.fromList(self.readValue() as! [Any?])
+      return HealthDataSyncResultDto.fromList(self.readValue() as! [Any?])
     case 245:
-      return PermissionsRequestDto.fromList(self.readValue() as! [Any?])
+      return HealthDataPermissionDto.fromList(self.readValue() as! [Any?])
     case 246:
-      return AggregateRequestDto.fromList(self.readValue() as! [Any?])
+      return HealthDataPermissionRequestResultDto.fromList(self.readValue() as! [Any?])
     case 247:
-      return DeleteRecordsByIdsRequestDto.fromList(self.readValue() as! [Any?])
+      return PermissionsRequestDto.fromList(self.readValue() as! [Any?])
     case 248:
-      return DeleteRecordsByTimeRangeRequestDto.fromList(self.readValue() as! [Any?])
+      return AggregateRequestDto.fromList(self.readValue() as! [Any?])
     case 249:
-      return ReadRecordRequestDto.fromList(self.readValue() as! [Any?])
+      return DeleteRecordsByIdsRequestDto.fromList(self.readValue() as! [Any?])
     case 250:
-      return ReadRecordsRequestDto.fromList(self.readValue() as! [Any?])
+      return DeleteRecordsByTimeRangeRequestDto.fromList(self.readValue() as! [Any?])
     case 251:
-      return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
+      return ReadRecordRequestDto.fromList(self.readValue() as! [Any?])
     case 252:
-      return HealthConnectorExceptionDto.fromList(self.readValue() as! [Any?])
+      return ReadRecordsRequestDto.fromList(self.readValue() as! [Any?])
     case 253:
-      return HealthConnectorLogDto.fromList(self.readValue() as! [Any?])
+      return ReadRecordsResponseDto.fromList(self.readValue() as! [Any?])
+    case 254:
+      return HealthConnectorExceptionDto.fromList(self.readValue() as! [Any?])
+    case 255:
+      return PigeonInternalCodecOverflow.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
     }
@@ -6472,39 +6586,46 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? BasalEnergyBurnedRecordDto {
       super.writeByte(242)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataPermissionDto {
+    } else if let value = value as? HealthDataSyncTokenDto {
       super.writeByte(243)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthDataPermissionRequestResultDto {
+    } else if let value = value as? HealthDataSyncResultDto {
       super.writeByte(244)
       super.writeValue(value.toList())
-    } else if let value = value as? PermissionsRequestDto {
+    } else if let value = value as? HealthDataPermissionDto {
       super.writeByte(245)
       super.writeValue(value.toList())
-    } else if let value = value as? AggregateRequestDto {
+    } else if let value = value as? HealthDataPermissionRequestResultDto {
       super.writeByte(246)
       super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByIdsRequestDto {
+    } else if let value = value as? PermissionsRequestDto {
       super.writeByte(247)
       super.writeValue(value.toList())
-    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
+    } else if let value = value as? AggregateRequestDto {
       super.writeByte(248)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordRequestDto {
+    } else if let value = value as? DeleteRecordsByIdsRequestDto {
       super.writeByte(249)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordsRequestDto {
+    } else if let value = value as? DeleteRecordsByTimeRangeRequestDto {
       super.writeByte(250)
       super.writeValue(value.toList())
-    } else if let value = value as? ReadRecordsResponseDto {
+    } else if let value = value as? ReadRecordRequestDto {
       super.writeByte(251)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthConnectorExceptionDto {
+    } else if let value = value as? ReadRecordsRequestDto {
       super.writeByte(252)
       super.writeValue(value.toList())
-    } else if let value = value as? HealthConnectorLogDto {
+    } else if let value = value as? ReadRecordsResponseDto {
       super.writeByte(253)
       super.writeValue(value.toList())
+    } else if let value = value as? HealthConnectorExceptionDto {
+      super.writeByte(254)
+      super.writeValue(value.toList())
+    } else if let value = value as? HealthConnectorLogDto {
+      let wrap = PigeonInternalCodecOverflow(type: 0, wrapped: value.toList())
+      super.writeByte(255)
+      super.writeValue(wrap.toList())
     } else {
       super.writeValue(value)
     }
@@ -6610,6 +6731,7 @@ protocol HealthConnectorHKIOSApi {
   func readRecords(request: ReadRecordsRequestDto, completion: @escaping (Result<ReadRecordsResponseDto, Error>) -> Void)
   func writeRecord(record: HealthRecordDto, completion: @escaping (Result<String, Error>) -> Void)
   func writeRecords(records: [HealthRecordDto], completion: @escaping (Result<[String], Error>) -> Void)
+  func synchronize(dataTypes: [HealthDataTypeDto], syncToken: HealthDataSyncTokenDto?, completion: @escaping (Result<HealthDataSyncResultDto, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -6785,6 +6907,24 @@ class HealthConnectorHKIOSApiSetup {
       }
     } else {
       writeRecordsChannel.setMessageHandler(nil)
+    }
+    let synchronizeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.synchronize\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      synchronizeChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let dataTypesArg = args[0] as! [HealthDataTypeDto]
+        let syncTokenArg: HealthDataSyncTokenDto? = nilOrValue(args[1])
+        api.synchronize(dataTypes: dataTypesArg, syncToken: syncTokenArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      synchronizeChannel.setMessageHandler(nil)
     }
   }
 }

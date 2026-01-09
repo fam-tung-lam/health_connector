@@ -22,6 +22,9 @@ actor HealthConnectorClient: Taggable {
     /// Service for managing HealthKit permissions.
     private let permissionService: HealthConnectorPermissionService
 
+    /// Service for managing HealthKit data synchronization.
+    private let syncService: HealthConnectorDataSyncService
+
     /// Registry for handler instances
     ///
     /// **Changed:** Now stores handler instances (not static singleton)
@@ -35,6 +38,7 @@ actor HealthConnectorClient: Taggable {
     private init(store: HKHealthStore) {
         healthStore = store
         permissionService = HealthConnectorPermissionService(store: store)
+        syncService = HealthConnectorDataSyncService(store: store)
         handlerRegistry = HealthRecordHandlerRegistry(healthStore: store)
     }
 
@@ -617,6 +621,60 @@ actor HealthConnectorClient: Taggable {
                     "delete_by": "ids",
                 ]
             )
+        }
+    }
+
+    /// Synchronizes health data using incremental change tracking.
+    ///
+    /// - Parameters:
+    ///   - dataTypes: Health data types to synchronize
+    ///   - syncToken: Token from previous sync, or nil for initial sync
+    ///
+    /// - Returns: HealthDataSyncResultDto containing changes since last sync
+    ///
+    /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if parameters are invalid
+    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit is unavailable
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
+    func synchronize(
+        dataTypes: [HealthDataTypeDto],
+        syncToken: HealthDataSyncTokenDto?
+    ) async throws -> HealthDataSyncResultDto {
+        try await process(
+            operation: "synchronize",
+            context: [
+                "data_type_count": dataTypes.count,
+                "has_sync_token": syncToken != nil,
+            ]
+        ) {
+            HealthConnectorLogger.debug(
+                tag: Self.tag,
+                operation: "synchronize",
+                message: "Synchronizing HealthKit data",
+                context: [
+                    "data_type_count": dataTypes.count,
+                    "has_sync_token": syncToken != nil,
+                ]
+            )
+
+            // Delegate to sync service
+            let result = try await syncService.synchronize(
+                dataTypes: dataTypes,
+                syncToken: syncToken
+            )
+
+            HealthConnectorLogger.info(
+                tag: Self.tag,
+                operation: "synchronize",
+                message: "HealthKit data synchronized successfully",
+                context: [
+                    "upserted_count": result.upsertedRecords.count,
+                    "deleted_count": result.deletedRecordIds.count,
+                    "has_more": result.hasMore,
+                ]
+            )
+
+            return result
         }
     }
 

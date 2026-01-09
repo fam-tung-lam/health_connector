@@ -42,6 +42,9 @@ final class BodyTemperatureHealthDataType
   const BodyTemperatureHealthDataType();
 
   @override
+  String get id => 'body_temperature';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is BodyTemperatureHealthDataType &&

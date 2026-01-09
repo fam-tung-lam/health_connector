@@ -6,6 +6,9 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HealthConnectorException,
         HealthConnectorPlatformClient,
         HealthDataPermission,
+        HealthDataSyncResult,
+        HealthDataSyncToken,
+        HealthDataType,
         HealthPlatformFeaturePermission,
         HealthPlatformStatus,
         HealthRecord,
@@ -27,6 +30,9 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
 import 'package:health_connector_hk_ios/src/mappers/health_connector_config_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_connector_error_code_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_connector_log_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_data_sync/health_data_sync_result_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_data_sync/health_data_sync_token_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
@@ -680,6 +686,66 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       throw HealthConnectorException.fromCode(
         e.code.toErrorCode(),
         'Failed to delete records by $request: ${e.message ?? 'Unknown error'}',
+        cause: e,
+        stackTrace: st,
+      );
+    }
+  }
+
+  @override
+  Future<HealthDataSyncResult> synchronize({
+    required List<HealthDataType> dataTypes,
+    required HealthDataSyncToken? syncToken,
+  }) async {
+    final context = {
+      'data_types': dataTypes.map((dt) => dt.tag).toList(),
+      'has_sync_token': syncToken != null,
+    };
+
+    HealthConnectorLogger.debug(
+      tag,
+      operation: 'synchronize',
+      message: 'Synchronizing HealthKit data',
+      context: context,
+    );
+
+    try {
+      final dataTypeDtos = dataTypes.map((dt) => dt.toDto()).toList();
+      final syncTokenDto = syncToken?.toDto();
+
+      final resultDto = await _platformClient.synchronize(
+        dataTypeDtos,
+        syncTokenDto,
+      );
+
+      final result = resultDto.toDomain();
+
+      HealthConnectorLogger.info(
+        tag,
+        operation: 'synchronize',
+        message: 'HealthKit data synchronized successfully',
+        context: {
+          ...context,
+          'upserted_count': result.upsertedRecords.length,
+          'deleted_count': result.deletedRecordIds.length,
+          'has_more': result.hasMore,
+        },
+      );
+
+      return result;
+    } on PlatformException catch (e, st) {
+      HealthConnectorLogger.error(
+        tag,
+        operation: 'synchronize',
+        message: 'Failed to synchronize HealthKit data',
+        context: context,
+        exception: e,
+        stackTrace: st,
+      );
+
+      throw HealthConnectorException.fromCode(
+        e.code.toErrorCode(),
+        'Failed to synchronize: ${e.message ?? 'Unknown error'}',
         cause: e,
         stackTrace: st,
       );

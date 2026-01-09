@@ -42,6 +42,9 @@ final class SixMinuteWalkTestDistanceDataType
   const SixMinuteWalkTestDistanceDataType();
 
   @override
+  String get id => 'six_minute_walk_test_distance';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SixMinuteWalkTestDistanceDataType &&

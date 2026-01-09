@@ -44,6 +44,9 @@ final class ThiaminNutrientDataType
   const ThiaminNutrientDataType();
 
   @override
+  String get id => 'thiamin_nutrient';
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

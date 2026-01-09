@@ -44,6 +44,9 @@ final class VitaminENutrientDataType
   const VitaminENutrientDataType();
 
   @override
+  String get id => 'vitamin_e_nutrient';
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

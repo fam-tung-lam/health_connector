@@ -44,6 +44,9 @@ final class CalciumNutrientDataType
   const CalciumNutrientDataType();
 
   @override
+  String get id => 'calcium_nutrient';
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

@@ -43,6 +43,9 @@ final class BodyFatPercentageHealthDataType
   const BodyFatPercentageHealthDataType();
 
   @override
+  String get id => 'body_fat_percentage';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is BodyFatPercentageHealthDataType &&

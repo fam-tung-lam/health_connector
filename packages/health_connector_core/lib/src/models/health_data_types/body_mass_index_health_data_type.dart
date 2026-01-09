@@ -49,6 +49,9 @@ final class BodyMassIndexHealthDataType
   const BodyMassIndexHealthDataType();
 
   @override
+  String get id => 'body_mass_index';
+
+  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
   ];

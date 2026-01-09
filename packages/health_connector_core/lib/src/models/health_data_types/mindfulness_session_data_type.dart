@@ -44,6 +44,9 @@ final class MindfulnessSessionDataType
   const MindfulnessSessionDataType();
 
   @override
+  String get id => 'mindfulness_session';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is MindfulnessSessionDataType && runtimeType == other.runtimeType;

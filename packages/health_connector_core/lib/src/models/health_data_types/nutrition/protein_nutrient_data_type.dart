@@ -44,6 +44,9 @@ final class ProteinNutrientDataType
   const ProteinNutrientDataType();
 
   @override
+  String get id => 'protein_nutrient';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is ProteinNutrientDataType && runtimeType == other.runtimeType;

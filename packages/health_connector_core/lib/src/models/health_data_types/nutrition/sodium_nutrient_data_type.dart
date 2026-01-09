@@ -44,6 +44,9 @@ final class SodiumNutrientDataType
   const SodiumNutrientDataType();
 
   @override
+  String get id => 'sodium_nutrient';
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

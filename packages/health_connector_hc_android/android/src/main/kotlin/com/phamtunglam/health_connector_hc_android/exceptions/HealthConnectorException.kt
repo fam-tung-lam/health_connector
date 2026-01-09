@@ -161,6 +161,34 @@ sealed class HealthConnectorException : Throwable() {
     }
 
     /**
+     * Indicates that a synchronization token has expired.
+     *
+     * This is Android-specific and occurs when:
+     * - ChangesToken has not been used for more than ~30 days
+     * - Health Connect database was reset or upgraded
+     * - Token was invalidated by the system
+     *
+     * ## Recovery Strategy
+     *
+     * When this error occurs, clients should:
+     * 1. Calculate the data gap: `now - syncToken.createdAt`
+     * 2. Backfill missing data using `readRecords()` for the gap period
+     * 3. Reset sync by calling `synchronize(syncToken: null)` to get a fresh token
+     * 4. Log the event for monitoring sync health
+     *
+     * @property message Description of the token expiration.
+     * @property cause Optional underlying exception (typically ChangesTokenExpiredException).
+     * @property context Additional debugging information.
+     */
+    data class SyncTokenExpired(
+        override val message: String,
+        override val cause: Throwable? = null,
+        override val context: Map<String, Any>? = null,
+    ) : HealthConnectorException() {
+        override val code: HealthConnectorErrorCodeDto = HealthConnectorErrorCodeDto.SYNC_TOKEN_EXPIRED
+    }
+
+    /**
      * A generic, unexpected error that doesn't fit other categories.
      *
      * This should be used as a fallback for unmapped error codes or unexpected situations.

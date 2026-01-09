@@ -41,6 +41,9 @@ final class HeartRateVariabilityRMSSDDataType
   const HeartRateVariabilityRMSSDDataType();
 
   @override
+  String get id => 'heart_rate_variability_rmssd';
+
+  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.healthConnect,
   ];

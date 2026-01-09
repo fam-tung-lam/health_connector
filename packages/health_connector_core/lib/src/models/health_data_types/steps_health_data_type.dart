@@ -43,6 +43,9 @@ final class StepsHealthDataType extends HealthDataType<StepsRecord, Number>
   const StepsHealthDataType();
 
   @override
+  String get id => 'steps';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is StepsHealthDataType && runtimeType == other.runtimeType;

@@ -44,6 +44,9 @@ final class PantothenicAcidNutrientDataType
   const PantothenicAcidNutrientDataType();
 
   @override
+  String get id => 'pantothenic_acid_nutrient';
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

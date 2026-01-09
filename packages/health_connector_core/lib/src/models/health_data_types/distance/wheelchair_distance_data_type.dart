@@ -35,6 +35,9 @@ final class WheelchairDistanceDataType
   const WheelchairDistanceDataType();
 
   @override
+  String get id => 'wheelchair_distance';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is WheelchairDistanceDataType && runtimeType == other.runtimeType;

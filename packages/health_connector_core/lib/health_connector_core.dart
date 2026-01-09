@@ -8,6 +8,8 @@ library;
 export 'src/config/health_connector_config.dart';
 export 'src/models/exceptions/health_connector_error_code.dart';
 export 'src/models/exceptions/health_connector_exception.dart';
+export 'src/models/health_data_sync/health_data_sync_result.dart';
+export 'src/models/health_data_sync/health_data_sync_token.dart';
 export 'src/models/health_data_types/health_data_type.dart'
     hide
         MineralNutrientDataType,

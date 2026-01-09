@@ -41,6 +41,9 @@ final class RestingHeartRateHealthDataType
   const RestingHeartRateHealthDataType();
 
   @override
+  String get id => 'resting_heart_rate';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is RestingHeartRateHealthDataType &&

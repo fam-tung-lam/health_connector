@@ -11,6 +11,9 @@ sealed class MineralNutrientDataType<R extends HealthRecord>
   const MineralNutrientDataType();
 
   @override
+  String get id => 'mineral_nutrient';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is MineralNutrientDataType && runtimeType == other.runtimeType;

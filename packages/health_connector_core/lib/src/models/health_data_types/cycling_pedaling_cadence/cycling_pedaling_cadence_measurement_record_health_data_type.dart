@@ -64,6 +64,9 @@ final class CyclingPedalingCadenceMeasurementRecordHealthDataType
   const CyclingPedalingCadenceMeasurementRecordHealthDataType();
 
   @override
+  String get id => 'cycling_pedaling_cadence_measurement_record';
+
+  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
   ];

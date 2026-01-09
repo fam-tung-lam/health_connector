@@ -54,6 +54,9 @@ final class CyclingPedalingCadenceSeriesRecordHealthDataType
   const CyclingPedalingCadenceSeriesRecordHealthDataType();
 
   @override
+  String get id => 'cycling_pedaling_cadence_series_record';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is CyclingPedalingCadenceSeriesRecordHealthDataType &&

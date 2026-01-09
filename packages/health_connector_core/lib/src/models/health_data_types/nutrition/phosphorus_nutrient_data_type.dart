@@ -44,6 +44,9 @@ final class PhosphorusNutrientDataType
   const PhosphorusNutrientDataType();
 
   @override
+  String get id => 'phosphorus_nutrient';
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

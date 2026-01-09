@@ -218,6 +218,25 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         }
     }
 
+    /// Synchronizes health data using incremental change tracking.
+    ///
+    /// - Parameters:
+    ///   - dataTypes: Health data types to synchronize
+    ///   - syncToken: Token from previous sync, or nil for initial sync
+    ///   - completion: Called with a `Result` containing the synchronization result
+    public func synchronize(
+        dataTypes: [HealthDataTypeDto],
+        syncToken: HealthDataSyncTokenDto?,
+        completion: @escaping (Result<HealthDataSyncResultDto, Error>) -> Void
+    ) {
+        process(operation: "synchronize", completion: completion) {
+            try await self.healthClient.synchronize(
+                dataTypes: dataTypes,
+                syncToken: syncToken
+            )
+        }
+    }
+
     /// Processes an async operation with standardized error handling.
     ///
     /// This method wraps async closures with try-catch, converting errors to DTOs and

@@ -42,6 +42,9 @@ final class StairAscentSpeedDataType
   const StairAscentSpeedDataType();
 
   @override
+  String get id => 'stair_ascent_speed';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is StairAscentSpeedDataType && runtimeType == other.runtimeType;

@@ -43,6 +43,9 @@ final class ExerciseSessionHealthDataType
   const ExerciseSessionHealthDataType();
 
   @override
+  String get id => 'exercise_session';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is ExerciseSessionHealthDataType &&

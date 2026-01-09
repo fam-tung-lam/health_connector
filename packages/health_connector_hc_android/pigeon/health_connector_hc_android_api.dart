@@ -2041,6 +2041,36 @@ class BodyWaterMassRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 }
 
+// region Sync DTOs
+
+class HealthDataSyncTokenDto {
+  HealthDataSyncTokenDto({
+    required this.token,
+    required this.dataTypes,
+    required this.createdAtMillis,
+  });
+
+  final String token;
+  final List<HealthDataTypeDto> dataTypes;
+  final int createdAtMillis;
+}
+
+class HealthDataSyncResultDto {
+  HealthDataSyncResultDto({
+    required this.upsertedRecords,
+    required this.deletedRecordIds,
+    required this.hasMore,
+    this.nextSyncToken,
+  });
+
+  final List<HealthRecordDto> upsertedRecords;
+  final List<String> deletedRecordIds;
+  final bool hasMore;
+  final HealthDataSyncTokenDto? nextSyncToken;
+}
+
+// endregion
+
 // endregion
 
 // region Requests/Responses
@@ -2071,6 +2101,9 @@ enum HealthConnectorErrorCodeDto {
 
   /// A transient I/O or communication error occurred.
   remoteError,
+
+  /// Synchronization token has expired.
+  syncTokenExpired,
 }
 
 /// Represents the status of the health platform on the device.
@@ -2524,4 +2557,10 @@ abstract class HealthConnectorHCAndroidApi {
 
   @async
   void updateRecords(List<HealthRecordDto> records);
+
+  @async
+  HealthDataSyncResultDto synchronize(
+    List<HealthDataTypeDto> dataTypes,
+    HealthDataSyncTokenDto? syncToken,
+  );
 }

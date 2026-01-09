@@ -44,6 +44,9 @@ final class RiboflavinNutrientDataType
   const RiboflavinNutrientDataType();
 
   @override
+  String get id => 'riboflavin_nutrient';
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

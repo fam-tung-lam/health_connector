@@ -38,6 +38,9 @@ final class OxygenSaturationHealthDataType
   const OxygenSaturationHealthDataType();
 
   @override
+  String get id => 'oxygen_saturation';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is OxygenSaturationHealthDataType &&

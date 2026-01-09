@@ -71,10 +71,10 @@ extension HealthConnectorError {
         )
     }
 
-    /// Creates a `HealthConnectorError` from an `HKError`.
+    /// Creates a `HealthConnectorError` from an `Error`.
     ///
-    /// This factory method intelligently maps HealthKit errors to appropriate HealthConnectorError cases.
-    /// It provides specialized handling for all common HealthKit error scenarios.
+    /// This factory method intelligently maps errors to appropriate HealthConnectorError cases.
+    /// It provides specialized handling for HealthKit errors (`HKError`) and falls back to generic handling for others.
     ///
     /// ## HealthKit Error Mappings
     ///
@@ -89,69 +89,72 @@ extension HealthConnectorError {
     /// | `.errorUserCanceled` | `.notAuthorized` |
     /// | All others | `.unknown` (with cause) |
     ///
-    /// - Parameter error: The HKError to convert
+    /// - Parameter error: The Error to convert
     /// - Returns: A HealthConnectorError with appropriate error type and preserved underlying error information
-    ///
-    /// ## Example
-    /// ```swift
-    /// // HealthKit authorization error
-    /// healthStore.requestAuthorization(...) { success, error in
-    ///     if let error = error as? HKError {
-    ///         throw HealthConnectorError.create(from: error)
-    ///     }
-    /// }
-    /// ```
-    static func create(from error: HKError) -> HealthConnectorError {
-        // Build context with error metadata
-        var context: [String: Any] = [
-            "errorDomain": HKError.errorDomain,
-            "errorCode": error.errorCode,
-        ]
+    static func create(from error: Error) -> HealthConnectorError {
+        // Build context with basic error metadata
+        var context: [String: Any] = [:]
 
-        // Include localized failure reason if available (HKError is an NSError subclass)
+        // If it's an NSError, capture domain and code
         let nsError = error as NSError
+        context["errorDomain"] = nsError.domain
+        context["errorCode"] = nsError.code
+
         if let failureReason = nsError.localizedFailureReason {
             context["failureReason"] = failureReason
         }
 
-        // Map based on HKError code
-        switch error.code {
-        case .errorAuthorizationDenied, .errorAuthorizationNotDetermined:
-            return .notAuthorized(
-                message: error.localizedDescription,
-                context: context
-            )
+        // specialized handling for HKError
+        if let hkError = error as? HKError {
+            // Include HealthKit-specific context
+            context["errorDomain"] = HKError.errorDomain
 
-        case .errorInvalidArgument:
-            return .invalidArgument(
-                message: error.localizedDescription,
-                context: context
-            )
+            switch hkError.code {
+            case .errorAuthorizationDenied, .errorAuthorizationNotDetermined:
+                return .notAuthorized(
+                    message: hkError.localizedDescription,
+                    context: context
+                )
 
-        case .errorHealthDataUnavailable, .errorDatabaseInaccessible, .errorHealthDataRestricted:
-            return .healthPlatformUnavailable(
-                message: error.localizedDescription,
-                cause: error
-            )
+            case .errorInvalidArgument:
+                return .invalidArgument(
+                    message: hkError.localizedDescription,
+                    context: context
+                )
 
-        case .errorUserCanceled:
-            return .userCancelled(
-                message: error.localizedDescription
-            )
+            case .errorHealthDataUnavailable, .errorDatabaseInaccessible,
+                 .errorHealthDataRestricted:
+                return .healthPlatformUnavailable(
+                    message: hkError.localizedDescription,
+                    cause: hkError
+                )
 
-        case .errorNoData:
-            return .unknown(
-                message: "No health data available for the requested query",
-                cause: error,
-                context: context
-            )
+            case .errorUserCanceled:
+                return .userCancelled(
+                    message: hkError.localizedDescription
+                )
 
-        @unknown default:
-            return .unknown(
-                message: error.localizedDescription,
-                cause: error,
-                context: context
-            )
+            case .errorNoData:
+                return .unknown(
+                    message: "No health data available for the requested query",
+                    cause: hkError,
+                    context: context
+                )
+
+            @unknown default:
+                return .unknown(
+                    message: hkError.localizedDescription,
+                    cause: hkError,
+                    context: context
+                )
+            }
         }
+
+        // Generic error handling
+        return .unknown(
+            message: error.localizedDescription,
+            cause: error,
+            context: context.isEmpty ? nil : context
+        )
     }
 }

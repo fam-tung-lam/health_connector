@@ -61,6 +61,7 @@ final class HomePage extends StatelessWidget {
                 case HealthConnectorErrorCode.invalidArgument:
                 case HealthConnectorErrorCode.notAuthorized:
                 case HealthConnectorErrorCode.remoteError:
+                case HealthConnectorErrorCode.syncTokenExpired:
                 case HealthConnectorErrorCode.unknown:
                   return Center(
                     child: ErrorView(

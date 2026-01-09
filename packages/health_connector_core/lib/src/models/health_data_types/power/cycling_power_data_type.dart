@@ -43,6 +43,9 @@ final class CyclingPowerDataType
   const CyclingPowerDataType();
 
   @override
+  String get id => 'cycling_power';
+
+  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
   ];

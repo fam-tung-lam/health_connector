@@ -867,6 +867,9 @@ enum HealthConnectorErrorCodeDto {
 
   /// A transient I/O or communication error occurred.
   remoteError,
+
+  /// Synchronization token has expired.
+  syncTokenExpired,
 }
 
 /// Represents the status of the health platform on the device.
@@ -7202,6 +7205,113 @@ class BasalEnergyBurnedRecordDto extends HealthRecordDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
+class HealthDataSyncTokenDto {
+  HealthDataSyncTokenDto({
+    required this.token,
+    required this.dataTypes,
+    required this.createdAtMillis,
+  });
+
+  String token;
+
+  List<HealthDataTypeDto> dataTypes;
+
+  int createdAtMillis;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      token,
+      dataTypes,
+      createdAtMillis,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static HealthDataSyncTokenDto decode(Object result) {
+    result as List<Object?>;
+    return HealthDataSyncTokenDto(
+      token: result[0]! as String,
+      dataTypes: (result[1] as List<Object?>?)!.cast<HealthDataTypeDto>(),
+      createdAtMillis: result[2]! as int,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! HealthDataSyncTokenDto || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
+class HealthDataSyncResultDto {
+  HealthDataSyncResultDto({
+    required this.upsertedRecords,
+    required this.deletedRecordIds,
+    required this.hasMore,
+    this.nextSyncToken,
+  });
+
+  List<HealthRecordDto> upsertedRecords;
+
+  List<String> deletedRecordIds;
+
+  bool hasMore;
+
+  HealthDataSyncTokenDto? nextSyncToken;
+
+  List<Object?> _toList() {
+    return <Object?>[
+      upsertedRecords,
+      deletedRecordIds,
+      hasMore,
+      nextSyncToken,
+    ];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static HealthDataSyncResultDto decode(Object result) {
+    result as List<Object?>;
+    return HealthDataSyncResultDto(
+      upsertedRecords: (result[0] as List<Object?>?)!.cast<HealthRecordDto>(),
+      deletedRecordIds: (result[1] as List<Object?>?)!.cast<String>(),
+      hasMore: result[2]! as bool,
+      nextSyncToken: result[3] as HealthDataSyncTokenDto?,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! HealthDataSyncResultDto || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
 /// Represents a permission request for accessing specific health data.
 class HealthDataPermissionDto {
   HealthDataPermissionDto({
@@ -7835,6 +7945,38 @@ class HealthConnectorLogDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
+// ignore: camel_case_types
+class _PigeonCodecOverflow {
+  _PigeonCodecOverflow({required this.type, required this.wrapped});
+
+  int type;
+  Object? wrapped;
+
+  Object encode() {
+    return <Object?>[type, wrapped];
+  }
+
+  static _PigeonCodecOverflow decode(Object result) {
+    result as List<Object?>;
+    return _PigeonCodecOverflow(
+      type: result[0]! as int,
+      wrapped: result[1],
+    );
+  }
+
+  Object? unwrap() {
+    if (wrapped == null) {
+      return null;
+    }
+
+    switch (type) {
+      case 0:
+        return HealthConnectorLogDto.decode(wrapped!);
+    }
+    return null;
+  }
+}
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -8184,39 +8326,49 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is BasalEnergyBurnedRecordDto) {
       buffer.putUint8(242);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataPermissionDto) {
+    } else if (value is HealthDataSyncTokenDto) {
       buffer.putUint8(243);
       writeValue(buffer, value.encode());
-    } else if (value is HealthDataPermissionRequestResultDto) {
+    } else if (value is HealthDataSyncResultDto) {
       buffer.putUint8(244);
       writeValue(buffer, value.encode());
-    } else if (value is PermissionsRequestDto) {
+    } else if (value is HealthDataPermissionDto) {
       buffer.putUint8(245);
       writeValue(buffer, value.encode());
-    } else if (value is AggregateRequestDto) {
+    } else if (value is HealthDataPermissionRequestResultDto) {
       buffer.putUint8(246);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByIdsRequestDto) {
+    } else if (value is PermissionsRequestDto) {
       buffer.putUint8(247);
       writeValue(buffer, value.encode());
-    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
+    } else if (value is AggregateRequestDto) {
       buffer.putUint8(248);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordRequestDto) {
+    } else if (value is DeleteRecordsByIdsRequestDto) {
       buffer.putUint8(249);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsRequestDto) {
+    } else if (value is DeleteRecordsByTimeRangeRequestDto) {
       buffer.putUint8(250);
       writeValue(buffer, value.encode());
-    } else if (value is ReadRecordsResponseDto) {
+    } else if (value is ReadRecordRequestDto) {
       buffer.putUint8(251);
       writeValue(buffer, value.encode());
-    } else if (value is HealthConnectorExceptionDto) {
+    } else if (value is ReadRecordsRequestDto) {
       buffer.putUint8(252);
       writeValue(buffer, value.encode());
-    } else if (value is HealthConnectorLogDto) {
+    } else if (value is ReadRecordsResponseDto) {
       buffer.putUint8(253);
       writeValue(buffer, value.encode());
+    } else if (value is HealthConnectorExceptionDto) {
+      buffer.putUint8(254);
+      writeValue(buffer, value.encode());
+    } else if (value is HealthConnectorLogDto) {
+      final _PigeonCodecOverflow wrap = _PigeonCodecOverflow(
+        type: 0,
+        wrapped: value.encode(),
+      );
+      buffer.putUint8(255);
+      writeValue(buffer, wrap.encode());
     } else {
       super.writeValue(buffer, value);
     }
@@ -8495,27 +8647,34 @@ class _PigeonCodec extends StandardMessageCodec {
       case 242:
         return BasalEnergyBurnedRecordDto.decode(readValue(buffer)!);
       case 243:
-        return HealthDataPermissionDto.decode(readValue(buffer)!);
+        return HealthDataSyncTokenDto.decode(readValue(buffer)!);
       case 244:
-        return HealthDataPermissionRequestResultDto.decode(readValue(buffer)!);
+        return HealthDataSyncResultDto.decode(readValue(buffer)!);
       case 245:
-        return PermissionsRequestDto.decode(readValue(buffer)!);
+        return HealthDataPermissionDto.decode(readValue(buffer)!);
       case 246:
-        return AggregateRequestDto.decode(readValue(buffer)!);
+        return HealthDataPermissionRequestResultDto.decode(readValue(buffer)!);
       case 247:
-        return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
+        return PermissionsRequestDto.decode(readValue(buffer)!);
       case 248:
-        return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
+        return AggregateRequestDto.decode(readValue(buffer)!);
       case 249:
-        return ReadRecordRequestDto.decode(readValue(buffer)!);
+        return DeleteRecordsByIdsRequestDto.decode(readValue(buffer)!);
       case 250:
-        return ReadRecordsRequestDto.decode(readValue(buffer)!);
+        return DeleteRecordsByTimeRangeRequestDto.decode(readValue(buffer)!);
       case 251:
-        return ReadRecordsResponseDto.decode(readValue(buffer)!);
+        return ReadRecordRequestDto.decode(readValue(buffer)!);
       case 252:
-        return HealthConnectorExceptionDto.decode(readValue(buffer)!);
+        return ReadRecordsRequestDto.decode(readValue(buffer)!);
       case 253:
-        return HealthConnectorLogDto.decode(readValue(buffer)!);
+        return ReadRecordsResponseDto.decode(readValue(buffer)!);
+      case 254:
+        return HealthConnectorExceptionDto.decode(readValue(buffer)!);
+      case 255:
+        final _PigeonCodecOverflow wrapper = _PigeonCodecOverflow.decode(
+          readValue(buffer)!,
+        );
+        return wrapper.unwrap();
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -8868,6 +9027,41 @@ class HealthConnectorHKIOSApi {
       );
     } else {
       return (pigeonVar_replyList[0] as List<Object?>?)!.cast<String>();
+    }
+  }
+
+  Future<HealthDataSyncResultDto> synchronize(
+    List<HealthDataTypeDto> dataTypes,
+    HealthDataSyncTokenDto? syncToken,
+  ) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorHKIOSApi.synchronize$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[dataTypes, syncToken],
+    );
+    final List<Object?>? pigeonVar_replyList =
+        await pigeonVar_sendFuture as List<Object?>?;
+    if (pigeonVar_replyList == null) {
+      throw _createConnectionError(pigeonVar_channelName);
+    } else if (pigeonVar_replyList.length > 1) {
+      throw PlatformException(
+        code: pigeonVar_replyList[0]! as String,
+        message: pigeonVar_replyList[1] as String?,
+        details: pigeonVar_replyList[2],
+      );
+    } else if (pigeonVar_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (pigeonVar_replyList[0] as HealthDataSyncResultDto?)!;
     }
   }
 }

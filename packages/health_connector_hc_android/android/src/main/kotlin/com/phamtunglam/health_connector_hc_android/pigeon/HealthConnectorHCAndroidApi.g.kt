@@ -656,7 +656,9 @@ enum class HealthConnectorErrorCodeDto(val raw: Int) {
   /** Security/permission error occurred. */
   NOT_AUTHORIZED(6),
   /** A transient I/O or communication error occurred. */
-  REMOTE_ERROR(7);
+  REMOTE_ERROR(7),
+  /** Synchronization token has expired. */
+  SYNC_TOKEN_EXPIRED(8);
 
   companion object {
     fun ofRaw(raw: Int): HealthConnectorErrorCodeDto? {
@@ -3610,6 +3612,77 @@ data class BodyWaterMassRecordDto (
   override fun hashCode(): Int = toList().hashCode()
 }
 
+/** Generated class from Pigeon that represents data sent in messages. */
+data class HealthDataSyncTokenDto (
+  val token: String,
+  val dataTypes: List<HealthDataTypeDto>,
+  val createdAtMillis: Long
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): HealthDataSyncTokenDto {
+      val token = pigeonVar_list[0] as String
+      val dataTypes = pigeonVar_list[1] as List<HealthDataTypeDto>
+      val createdAtMillis = pigeonVar_list[2] as Long
+      return HealthDataSyncTokenDto(token, dataTypes, createdAtMillis)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      token,
+      dataTypes,
+      createdAtMillis,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other !is HealthDataSyncTokenDto) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
+
+  override fun hashCode(): Int = toList().hashCode()
+}
+
+/** Generated class from Pigeon that represents data sent in messages. */
+data class HealthDataSyncResultDto (
+  val upsertedRecords: List<HealthRecordDto>,
+  val deletedRecordIds: List<String>,
+  val hasMore: Boolean,
+  val nextSyncToken: HealthDataSyncTokenDto? = null
+)
+ {
+  companion object {
+    fun fromList(pigeonVar_list: List<Any?>): HealthDataSyncResultDto {
+      val upsertedRecords = pigeonVar_list[0] as List<HealthRecordDto>
+      val deletedRecordIds = pigeonVar_list[1] as List<String>
+      val hasMore = pigeonVar_list[2] as Boolean
+      val nextSyncToken = pigeonVar_list[3] as HealthDataSyncTokenDto?
+      return HealthDataSyncResultDto(upsertedRecords, deletedRecordIds, hasMore, nextSyncToken)
+    }
+  }
+  fun toList(): List<Any?> {
+    return listOf(
+      upsertedRecords,
+      deletedRecordIds,
+      hasMore,
+      nextSyncToken,
+    )
+  }
+  override fun equals(other: Any?): Boolean {
+    if (other !is HealthDataSyncResultDto) {
+      return false
+    }
+    if (this === other) {
+      return true
+    }
+    return HealthConnectorHCAndroidApiPigeonUtils.deepEquals(toList(), other.toList())  }
+
+  override fun hashCode(): Int = toList().hashCode()
+}
+
 /**
  * Represents a permission request.
  *
@@ -4635,70 +4708,80 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       212.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthPlatformFeaturePermissionRequestResultDto.fromList(it)
+          HealthDataSyncTokenDto.fromList(it)
         }
       }
       213.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthDataPermissionRequestDto.fromList(it)
+          HealthDataSyncResultDto.fromList(it)
         }
       }
       214.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthDataPermissionRequestResultDto.fromList(it)
+          HealthPlatformFeaturePermissionRequestResultDto.fromList(it)
         }
       }
       215.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthPlatformFeaturePermissionRequest.fromList(it)
+          HealthDataPermissionRequestDto.fromList(it)
         }
       }
       216.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PermissionRequestsDto.fromList(it)
+          HealthDataPermissionRequestResultDto.fromList(it)
         }
       }
       217.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          CommonAggregateRequestDto.fromList(it)
+          HealthPlatformFeaturePermissionRequest.fromList(it)
         }
       }
       218.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          BloodPressureAggregateRequestDto.fromList(it)
+          PermissionRequestsDto.fromList(it)
         }
       }
       219.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByIdsRequestDto.fromList(it)
+          CommonAggregateRequestDto.fromList(it)
         }
       }
       220.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          DeleteRecordsByTimeRangeRequestDto.fromList(it)
+          BloodPressureAggregateRequestDto.fromList(it)
         }
       }
       221.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordRequestDto.fromList(it)
+          DeleteRecordsByIdsRequestDto.fromList(it)
         }
       }
       222.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsRequestDto.fromList(it)
+          DeleteRecordsByTimeRangeRequestDto.fromList(it)
         }
       }
       223.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ReadRecordsResponseDto.fromList(it)
+          ReadRecordRequestDto.fromList(it)
         }
       }
       224.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HealthConnectorExceptionDto.fromList(it)
+          ReadRecordsRequestDto.fromList(it)
         }
       }
       225.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          ReadRecordsResponseDto.fromList(it)
+        }
+      }
+      226.toByte() -> {
+        return (readValue(buffer) as? List<Any?>)?.let {
+          HealthConnectorExceptionDto.fromList(it)
+        }
+      }
+      227.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
           HealthConnectorLogDto.fromList(it)
         }
@@ -5040,60 +5123,68 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(211)
         writeValue(stream, value.toList())
       }
-      is HealthPlatformFeaturePermissionRequestResultDto -> {
+      is HealthDataSyncTokenDto -> {
         stream.write(212)
         writeValue(stream, value.toList())
       }
-      is HealthDataPermissionRequestDto -> {
+      is HealthDataSyncResultDto -> {
         stream.write(213)
         writeValue(stream, value.toList())
       }
-      is HealthDataPermissionRequestResultDto -> {
+      is HealthPlatformFeaturePermissionRequestResultDto -> {
         stream.write(214)
         writeValue(stream, value.toList())
       }
-      is HealthPlatformFeaturePermissionRequest -> {
+      is HealthDataPermissionRequestDto -> {
         stream.write(215)
         writeValue(stream, value.toList())
       }
-      is PermissionRequestsDto -> {
+      is HealthDataPermissionRequestResultDto -> {
         stream.write(216)
         writeValue(stream, value.toList())
       }
-      is CommonAggregateRequestDto -> {
+      is HealthPlatformFeaturePermissionRequest -> {
         stream.write(217)
         writeValue(stream, value.toList())
       }
-      is BloodPressureAggregateRequestDto -> {
+      is PermissionRequestsDto -> {
         stream.write(218)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByIdsRequestDto -> {
+      is CommonAggregateRequestDto -> {
         stream.write(219)
         writeValue(stream, value.toList())
       }
-      is DeleteRecordsByTimeRangeRequestDto -> {
+      is BloodPressureAggregateRequestDto -> {
         stream.write(220)
         writeValue(stream, value.toList())
       }
-      is ReadRecordRequestDto -> {
+      is DeleteRecordsByIdsRequestDto -> {
         stream.write(221)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsRequestDto -> {
+      is DeleteRecordsByTimeRangeRequestDto -> {
         stream.write(222)
         writeValue(stream, value.toList())
       }
-      is ReadRecordsResponseDto -> {
+      is ReadRecordRequestDto -> {
         stream.write(223)
         writeValue(stream, value.toList())
       }
-      is HealthConnectorExceptionDto -> {
+      is ReadRecordsRequestDto -> {
         stream.write(224)
         writeValue(stream, value.toList())
       }
-      is HealthConnectorLogDto -> {
+      is ReadRecordsResponseDto -> {
         stream.write(225)
+        writeValue(stream, value.toList())
+      }
+      is HealthConnectorExceptionDto -> {
+        stream.write(226)
+        writeValue(stream, value.toList())
+      }
+      is HealthConnectorLogDto -> {
+        stream.write(227)
         writeValue(stream, value.toList())
       }
       else -> super.writeValue(stream, value)
@@ -5184,6 +5275,7 @@ interface HealthConnectorHCAndroidApi {
   fun writeRecords(records: List<HealthRecordDto>, callback: (Result<List<String>>) -> Unit)
   fun updateRecord(record: HealthRecordDto, callback: (Result<Unit>) -> Unit)
   fun updateRecords(records: List<HealthRecordDto>, callback: (Result<Unit>) -> Unit)
+  fun synchronize(dataTypes: List<HealthDataTypeDto>, syncToken: HealthDataSyncTokenDto?, callback: (Result<HealthDataSyncResultDto>) -> Unit)
 
   companion object {
     /** The codec used by HealthConnectorHCAndroidApi. */
@@ -5493,6 +5585,27 @@ interface HealthConnectorHCAndroidApi {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
               } else {
                 reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapResult(null))
+              }
+            }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorHCAndroidApi.synchronize$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val dataTypesArg = args[0] as List<HealthDataTypeDto>
+            val syncTokenArg = args[1] as HealthDataSyncTokenDto?
+            api.synchronize(dataTypesArg, syncTokenArg) { result: Result<HealthDataSyncResultDto> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(HealthConnectorHCAndroidApiPigeonUtils.wrapResult(data))
               }
             }
           }

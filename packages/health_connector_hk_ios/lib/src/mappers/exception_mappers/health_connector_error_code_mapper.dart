@@ -23,6 +23,8 @@ extension HealthConnectorErrorCodeDtoToDomain on HealthConnectorErrorCodeDto {
         HealthConnectorErrorCode.notAuthorized,
       HealthConnectorErrorCodeDto.remoteError =>
         HealthConnectorErrorCode.remoteError,
+      HealthConnectorErrorCodeDto.syncTokenExpired =>
+        HealthConnectorErrorCode.syncTokenExpired,
       HealthConnectorErrorCodeDto.unknown => HealthConnectorErrorCode.unknown,
     };
   }
