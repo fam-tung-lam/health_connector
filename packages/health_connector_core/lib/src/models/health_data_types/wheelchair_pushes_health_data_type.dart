@@ -43,6 +43,9 @@ final class WheelchairPushesHealthDataType
   const WheelchairPushesHealthDataType();
 
   @override
+  String get id => 'wheelchair_pushes';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is WheelchairPushesHealthDataType &&

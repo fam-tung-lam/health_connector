@@ -46,6 +46,9 @@ final class BloodGlucoseHealthDataType
   const BloodGlucoseHealthDataType();
 
   @override
+  String get id => 'blood_glucose';
+
+  @override
   List<Permission> get permissions => [readPermission, writePermission];
 
   @override

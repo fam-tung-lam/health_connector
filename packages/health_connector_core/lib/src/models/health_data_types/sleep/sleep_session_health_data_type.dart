@@ -45,6 +45,9 @@ final class SleepSessionHealthDataType
   const SleepSessionHealthDataType();
 
   @override
+  String get id => 'sleep_session';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SleepSessionHealthDataType && runtimeType == other.runtimeType;

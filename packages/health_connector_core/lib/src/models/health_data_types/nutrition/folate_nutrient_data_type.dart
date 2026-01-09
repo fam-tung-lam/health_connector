@@ -44,6 +44,9 @@ final class FolateNutrientDataType
   const FolateNutrientDataType();
 
   @override
+  String get id => 'folate_nutrient';
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

@@ -68,6 +68,9 @@ final class OvulationTestDataType
   const OvulationTestDataType();
 
   @override
+  String get id => 'ovulation_test';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is OvulationTestDataType && runtimeType == other.runtimeType;

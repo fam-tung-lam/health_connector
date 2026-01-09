@@ -39,6 +39,9 @@ final class BasalEnergyBurnedHealthDataType
   const BasalEnergyBurnedHealthDataType();
 
   @override
+  String get id => 'basal_energy_burned';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is BasalEnergyBurnedHealthDataType &&

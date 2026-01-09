@@ -1,5 +1,5 @@
 import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_0_0, sinceV2_0_0;
+    show sinceV1_0_0, sinceV2_0_0, sinceV3_0_0;
 import 'package:health_connector_core/src/models/exceptions/health_connector_error_code.dart'
     show HealthConnectorErrorCode;
 import 'package:meta/meta.dart' show immutable;
@@ -77,6 +77,12 @@ sealed class HealthConnectorException implements Exception {
         );
       case HealthConnectorErrorCode.remoteError:
         return RemoteErrorException(
+          message,
+          cause: cause,
+          stackTrace: stackTrace,
+        );
+      case HealthConnectorErrorCode.syncTokenExpired:
+        return SyncTokenExpiredException(
           message,
           cause: cause,
           stackTrace: stackTrace,
@@ -298,6 +304,29 @@ final class RemoteErrorException extends HealthConnectorException {
     StackTrace? stackTrace,
   }) : super(
          HealthConnectorErrorCode.remoteError,
+         message,
+         cause: cause,
+         stackTrace: stackTrace,
+       );
+}
+
+/// Exception thrown when a synchronization token has expired.
+///
+/// ## See Also
+///
+/// - [HealthConnectorErrorCode.syncTokenExpired]
+///
+/// {@category Exceptions}
+@sinceV3_0_0
+@immutable
+final class SyncTokenExpiredException extends HealthConnectorException {
+  /// Creates a [SyncTokenExpiredException].
+  const SyncTokenExpiredException(
+    String message, {
+    Object? cause,
+    StackTrace? stackTrace,
+  }) : super(
+         HealthConnectorErrorCode.syncTokenExpired,
          message,
          cause: cause,
          stackTrace: stackTrace,

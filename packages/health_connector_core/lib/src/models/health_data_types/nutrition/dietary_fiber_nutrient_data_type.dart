@@ -44,6 +44,9 @@ final class DietaryFiberNutrientDataType
   const DietaryFiberNutrientDataType();
 
   @override
+  String get id => 'dietary_fiber_nutrient';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is DietaryFiberNutrientDataType && runtimeType == other.runtimeType;

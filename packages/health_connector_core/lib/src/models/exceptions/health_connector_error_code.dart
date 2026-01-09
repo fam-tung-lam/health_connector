@@ -120,6 +120,29 @@ enum HealthConnectorErrorCode {
   /// - These issues typically resolve quickly without user intervention.
   remoteError('REMOTE_ERROR'),
 
+  /// Synchronization token has expired.
+  ///
+  /// ## Platform Behaviors
+  ///
+  /// - **Android Health Connect**: ChangesToken expires after ~30 days of
+  ///   inactivity
+  /// - **iOS HealthKit**: Rare, may occur during major iOS upgrades or
+  ///   database resets
+  ///
+  /// ## Causes
+  ///
+  /// - Token not used for >30 days (Android)
+  /// - HealthKit database reset (iOS, rare)
+  /// - Major OS upgrade invalidated anchor (iOS, rare)
+  ///
+  /// ## Action
+  ///
+  /// - Calculate data gap: `now - syncToken.createdAt`
+  /// - Backfill using `readRecords()` for the gap period
+  /// - Reset sync by calling `synchronize(syncToken: null)`
+  /// - Log event for monitoring sync health
+  syncTokenExpired('SYNC_TOKEN_EXPIRED'),
+
   /// An unknown or unexpected error occurred.
   ///
   /// ## Causes

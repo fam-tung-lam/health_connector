@@ -51,6 +51,9 @@ final class SystolicBloodPressureHealthDataType
   const SystolicBloodPressureHealthDataType();
 
   @override
+  String get id => 'systolic_blood_pressure';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SystolicBloodPressureHealthDataType &&

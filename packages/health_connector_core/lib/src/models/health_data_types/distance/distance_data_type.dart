@@ -43,6 +43,9 @@ final class DistanceHealthDataType
   const DistanceHealthDataType();
 
   @override
+  String get id => 'distance';
+
+  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.healthConnect,
   ];

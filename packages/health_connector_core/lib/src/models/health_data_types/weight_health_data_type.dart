@@ -44,6 +44,9 @@ final class WeightHealthDataType extends HealthDataType<WeightRecord, Mass>
   const WeightHealthDataType();
 
   @override
+  String get id => 'weight';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is WeightHealthDataType && runtimeType == other.runtimeType;

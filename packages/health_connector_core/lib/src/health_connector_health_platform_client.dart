@@ -2,6 +2,9 @@ import 'package:health_connector_core/src/annotations/annotations.dart';
 import 'package:health_connector_core/src/config/health_connector_config.dart';
 import 'package:health_connector_core/src/models/exceptions/health_connector_error_code.dart';
 import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart';
+import 'package:health_connector_core/src/models/health_data_sync/health_data_sync_result.dart';
+import 'package:health_connector_core/src/models/health_data_sync/health_data_sync_token.dart';
+import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart';
 import 'package:health_connector_core/src/models/health_records/health_record.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
 import 'package:health_connector_core/src/models/permissions/permission.dart';
@@ -242,4 +245,40 @@ abstract interface class HealthConnectorPlatformClient {
   Future<void> deleteRecords<R extends HealthRecord>(
     DeleteRecordsRequest<R> request,
   );
+
+  /// Synchronizes health data from the health platform using incremental
+  /// change tracking.
+  ///
+  /// ## Parameters
+  ///
+  /// - [dataTypes]: Health data types to synchronize
+  /// - [syncToken]: Token from previous sync, or null for initial sync
+  ///
+  /// ## Returns
+  ///
+  /// [HealthDataSyncResult] containing:
+  /// - upsertedRecords: Records added/updated since last sync
+  /// - deletedRecordIds: IDs of records deleted since last sync
+  /// - hasMore: Whether pagination is needed
+  /// - nextSyncToken: Token for next synchronization request
+  ///
+  /// ## Initial Sync (syncToken: null)
+  ///
+  /// Establishes a baseline at the current moment. Returns empty records.
+  ///
+  /// ## Incremental Sync (syncToken: provided)
+  ///
+  /// Returns changes since the token was created.
+  ///
+  /// ## Throws
+  ///
+  /// - [SyncTokenExpiredException] if token has expired
+  /// - [NotAuthorizedException] if permissions are missing
+  /// - [InvalidArgumentException] if dataTypes don't match token scope
+  @sinceV3_0_0
+  @experimentalApi
+  Future<HealthDataSyncResult> synchronize({
+    required List<HealthDataType> dataTypes,
+    required HealthDataSyncToken? syncToken,
+  });
 }

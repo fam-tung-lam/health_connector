@@ -1,6 +1,7 @@
 import 'package:health_connector_core/src/annotations/annotations.dart';
 import 'package:health_connector_core/src/config/health_connector_config_constants.dart'
     show HealthConnectorConfigConstants;
+import 'package:health_connector_core/src/models/health_data_sync/health_data_sync_token.dart';
 import 'package:health_connector_core/src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';
 import 'package:health_connector_core/src/models/health_platform.dart';
 import 'package:health_connector_core/src/models/health_platform_data.dart'
@@ -198,6 +199,22 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// print(category); // HealthDataTypeCategory.activity
   /// ```
   HealthDataTypeCategory get category;
+
+  /// A unique string identifier for this health data type.
+  ///
+  /// This id is used for stable JSON serialization, for example when
+  /// persisting a [HealthDataSyncToken].
+  @internal
+  String get id;
+
+  /// A map of all available health data types by their unique [id].
+  ///
+  /// This map is primarily used for efficient lookup during JSON
+  /// deserialization.
+  @internal
+  static final dataTypeMap = Map.fromEntries(
+    values.map((e) => MapEntry(e.id, e)),
+  );
 
   /// Distance data type.
   ///

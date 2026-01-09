@@ -44,6 +44,9 @@ final class CaffeineNutrientDataType
   const CaffeineNutrientDataType();
 
   @override
+  String get id => 'caffeine_nutrient';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is CaffeineNutrientDataType && runtimeType == other.runtimeType;

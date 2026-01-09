@@ -44,6 +44,9 @@ final class PolyunsaturatedFatNutrientDataType
   const PolyunsaturatedFatNutrientDataType();
 
   @override
+  String get id => 'polyunsaturated_fat_nutrient';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is PolyunsaturatedFatNutrientDataType &&

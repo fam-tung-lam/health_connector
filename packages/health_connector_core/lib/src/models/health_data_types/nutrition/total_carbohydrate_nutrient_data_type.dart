@@ -44,6 +44,9 @@ final class TotalCarbohydrateNutrientDataType
   const TotalCarbohydrateNutrientDataType();
 
   @override
+  String get id => 'total_carbohydrate_nutrient';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is TotalCarbohydrateNutrientDataType &&

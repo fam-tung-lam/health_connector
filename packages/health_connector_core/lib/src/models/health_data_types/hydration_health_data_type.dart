@@ -76,6 +76,9 @@ final class HydrationHealthDataType
   const HydrationHealthDataType();
 
   @override
+  String get id => 'hydration';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is HydrationHealthDataType && runtimeType == other.runtimeType;

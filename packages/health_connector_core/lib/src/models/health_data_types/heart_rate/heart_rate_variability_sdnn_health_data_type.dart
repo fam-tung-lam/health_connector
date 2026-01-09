@@ -51,6 +51,9 @@ final class HeartRateVariabilitySDNNDataType
   const HeartRateVariabilitySDNNDataType();
 
   @override
+  String get id => 'heart_rate_variability_sdnn';
+
+  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
   ];

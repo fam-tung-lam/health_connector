@@ -35,6 +35,9 @@ final class PaddleSportsDistanceDataType
   const PaddleSportsDistanceDataType();
 
   @override
+  String get id => 'paddle_sports_distance';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is PaddleSportsDistanceDataType && runtimeType == other.runtimeType;

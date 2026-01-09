@@ -35,6 +35,9 @@ final class CyclingDistanceDataType
   const CyclingDistanceDataType();
 
   @override
+  String get id => 'cycling_distance';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is CyclingDistanceDataType && runtimeType == other.runtimeType;

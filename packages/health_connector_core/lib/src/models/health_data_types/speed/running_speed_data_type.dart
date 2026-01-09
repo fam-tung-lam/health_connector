@@ -36,6 +36,9 @@ final class RunningSpeedDataType
   const RunningSpeedDataType();
 
   @override
+  String get id => 'running_speed';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is RunningSpeedDataType && runtimeType == other.runtimeType;

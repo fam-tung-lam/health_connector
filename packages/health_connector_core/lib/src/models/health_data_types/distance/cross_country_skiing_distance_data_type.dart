@@ -41,6 +41,9 @@ final class CrossCountrySkiingDistanceDataType
   const CrossCountrySkiingDistanceDataType();
 
   @override
+  String get id => 'cross_country_skiing_distance';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is CrossCountrySkiingDistanceDataType &&

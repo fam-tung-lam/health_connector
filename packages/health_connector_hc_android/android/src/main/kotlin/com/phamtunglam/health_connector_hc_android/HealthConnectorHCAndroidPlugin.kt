@@ -13,6 +13,9 @@ import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsRequestDt
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorConfigDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorHCAndroidApi
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncResultDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncTokenDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDto
@@ -718,6 +721,27 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 callback = callback,
             ) {
                 requireClient().aggregate(request)
+            }
+        }
+    }
+
+    override fun synchronize(
+        dataTypes: List<HealthDataTypeDto>,
+        syncToken: HealthDataSyncTokenDto?,
+        callback: (Result<HealthDataSyncResultDto>) -> Unit,
+    ) {
+        scope.launch {
+            process(
+                operation = "synchronize",
+                context = mapOf(
+                    "data_types" to dataTypes.joinToString(","),
+                ),
+                callback = callback,
+            ) {
+                requireClient().synchronize(
+                    dataTypes = dataTypes,
+                    syncToken = syncToken,
+                )
             }
         }
     }

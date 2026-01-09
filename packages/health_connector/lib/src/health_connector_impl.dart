@@ -8,6 +8,9 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HealthConnectorConfig,
         HealthConnectorException,
         HealthConnectorPlatformClient,
+        HealthDataSyncResult,
+        HealthDataSyncToken,
+        HealthDataType,
         HealthPlatform,
         HealthPlatformFeature,
         HealthPlatformFeatureStatus,
@@ -734,6 +737,56 @@ final class HealthConnectorImpl implements HealthConnector {
         tag,
         operation: 'update_records',
         message: 'Failed to update health records',
+        context: context,
+        exception: e,
+        stackTrace: st,
+      );
+
+      rethrow;
+    }
+  }
+
+  @override
+  Future<HealthDataSyncResult> synchronize({
+    required List<HealthDataType> dataTypes,
+    required HealthDataSyncToken? syncToken,
+  }) async {
+    final context = {
+      'data_types': dataTypes.map((dt) => dt.tag).toList(),
+      'has_sync_token': syncToken != null,
+    };
+
+    HealthConnectorLogger.debug(
+      tag,
+      operation: 'synchronize',
+      message: 'Synchronizing health data',
+      context: context,
+    );
+
+    try {
+      final result = await _client.synchronize(
+        dataTypes: dataTypes,
+        syncToken: syncToken,
+      );
+
+      HealthConnectorLogger.info(
+        tag,
+        operation: 'synchronize',
+        message: 'Health data synchronized successfully',
+        context: {
+          ...context,
+          'upserted_count': result.upsertedRecords.length,
+          'deleted_count': result.deletedRecordIds.length,
+          'has_more': result.hasMore,
+        },
+      );
+
+      return result;
+    } on HealthConnectorException catch (e, st) {
+      HealthConnectorLogger.error(
+        tag,
+        operation: 'synchronize',
+        message: 'Failed to synchronize health data',
         context: context,
         exception: e,
         stackTrace: st,

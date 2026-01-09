@@ -70,6 +70,9 @@ final class SexualActivityDataType
   const SexualActivityDataType();
 
   @override
+  String get id => 'sexual_activity';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SexualActivityDataType && runtimeType == other.runtimeType;

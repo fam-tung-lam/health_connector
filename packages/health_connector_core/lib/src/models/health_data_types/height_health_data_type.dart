@@ -45,6 +45,9 @@ final class HeightHealthDataType extends HealthDataType<HeightRecord, Length>
   const HeightHealthDataType();
 
   @override
+  String get id => 'height';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is HeightHealthDataType && runtimeType == other.runtimeType;

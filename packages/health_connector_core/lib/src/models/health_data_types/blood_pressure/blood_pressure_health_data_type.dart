@@ -49,6 +49,9 @@ final class BloodPressureHealthDataType
   const BloodPressureHealthDataType();
 
   @override
+  String get id => 'blood_pressure';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is BloodPressureHealthDataType && runtimeType == other.runtimeType;

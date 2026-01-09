@@ -41,6 +41,9 @@ final class BodyWaterMassDataType
   const BodyWaterMassDataType();
 
   @override
+  String get id => 'body_water_mass';
+
+  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.healthConnect,
   ];

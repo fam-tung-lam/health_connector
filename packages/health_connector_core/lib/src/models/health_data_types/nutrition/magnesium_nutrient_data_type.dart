@@ -44,6 +44,9 @@ final class MagnesiumNutrientDataType
   const MagnesiumNutrientDataType();
 
   @override
+  String get id => 'magnesium_nutrient';
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

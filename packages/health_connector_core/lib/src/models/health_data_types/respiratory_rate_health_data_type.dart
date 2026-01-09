@@ -38,6 +38,9 @@ final class RespiratoryRateHealthDataType
   const RespiratoryRateHealthDataType();
 
   @override
+  String get id => 'respiratory_rate';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is RespiratoryRateHealthDataType &&

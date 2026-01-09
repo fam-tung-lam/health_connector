@@ -1,4 +1,4 @@
-import 'package:health_connector_core/health_connector_core_internal.dart';
+import 'package:health_connector_core/src/annotations/annotations.dart';
 import 'package:meta/meta.dart' show immutable;
 
 /// Defines the available fields by which health records can be sorted.

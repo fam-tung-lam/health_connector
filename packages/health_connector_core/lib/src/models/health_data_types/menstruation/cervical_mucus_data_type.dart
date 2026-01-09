@@ -68,6 +68,9 @@ final class CervicalMucusDataType
   const CervicalMucusDataType();
 
   @override
+  String get id => 'cervical_mucus';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is CervicalMucusDataType && runtimeType == other.runtimeType;

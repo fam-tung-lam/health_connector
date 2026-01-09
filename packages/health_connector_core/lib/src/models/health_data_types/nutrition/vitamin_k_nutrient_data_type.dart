@@ -44,6 +44,9 @@ final class VitaminKNutrientDataType
   const VitaminKNutrientDataType();
 
   @override
+  String get id => 'vitamin_k_nutrient';
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

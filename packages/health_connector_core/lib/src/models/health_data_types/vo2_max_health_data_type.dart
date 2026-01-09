@@ -47,6 +47,9 @@ final class Vo2MaxHealthDataType extends HealthDataType<Vo2MaxRecord, Number>
   const Vo2MaxHealthDataType();
 
   @override
+  String get id => 'vo2_max';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is Vo2MaxHealthDataType && runtimeType == other.runtimeType;

@@ -52,6 +52,9 @@ final class HeartRateMeasurementRecordHealthDataType
   const HeartRateMeasurementRecordHealthDataType();
 
   @override
+  String get id => 'heart_rate_measurement_record';
+
+  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
   ];

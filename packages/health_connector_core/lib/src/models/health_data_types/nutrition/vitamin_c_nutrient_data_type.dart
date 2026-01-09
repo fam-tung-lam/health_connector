@@ -44,6 +44,9 @@ final class VitaminCNutrientDataType
   const VitaminCNutrientDataType();
 
   @override
+  String get id => 'vitamin_c_nutrient';
+
+  @override
   List<AggregationMetric> get supportedAggregationMetrics => [
     AggregationMetric.sum,
   ];

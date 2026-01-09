@@ -44,6 +44,9 @@ final class MonounsaturatedFatNutrientDataType
   const MonounsaturatedFatNutrientDataType();
 
   @override
+  String get id => 'monounsaturated_fat_nutrient';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is MonounsaturatedFatNutrientDataType &&

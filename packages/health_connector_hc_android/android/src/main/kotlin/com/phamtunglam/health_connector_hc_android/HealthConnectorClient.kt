@@ -24,6 +24,9 @@ import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatu
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncResultDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncTokenDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformStatusDto
@@ -36,6 +39,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
+import com.phamtunglam.health_connector_hc_android.services.HealthConnectorDataSyncService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorFeatureService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorManifestService
 import com.phamtunglam.health_connector_hc_android.services.HealthConnectorPermissionService
@@ -44,6 +48,7 @@ import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.utils.dataType
 import java.time.Instant
 import kotlinx.coroutines.CancellationException
+import org.jetbrains.annotations.ApiStatus
 
 /**
  * Internal client wrapper for the Android Health Connect SDK.
@@ -53,6 +58,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
     private val manifestService: HealthConnectorManifestService,
     private val featureService: HealthConnectorFeatureService,
     private val permissionService: HealthConnectorPermissionService,
+    private val syncService: HealthConnectorDataSyncService,
     private val recordHandlerRegistry: HealthRecordHandlerRegistry,
 ) {
     companion object {
@@ -74,6 +80,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 val permissionService = HealthConnectorPermissionService(
                     client.permissionController,
                 )
+                val syncService = HealthConnectorDataSyncService(client)
                 val recordHandlerRegistry = HealthRecordHandlerRegistry(client)
 
                 HealthConnectorClient(
@@ -81,6 +88,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                     manifestService = manifestService,
                     featureService = featureService,
                     permissionService = permissionService,
+                    syncService = syncService,
                     recordHandlerRegistry = recordHandlerRegistry,
                 )
             } catch (e: UnsupportedOperationException) {
@@ -853,6 +861,55 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
             )
 
             responseDto
+        }
+    }
+
+    /**
+     * Synchronizes health data using incremental change tracking.
+     *
+     * @param dataTypes The list of health data types to synchronize
+     * @param syncToken The token from the previous sync, or null for initial sync
+     * @return [HealthDataSyncResultDto] containing changes since last sync
+     *
+     * @throws HealthConnectorException.SyncTokenExpired if the token has expired
+     * @throws HealthConnectorException.InvalidArgument if parameters are invalid
+     * @throws HealthConnectorException.RemoteError for IPC or I/O issues
+     * @throws HealthConnectorException.HealthPlatformUnavailable if service is unavailable
+     */
+    @Throws(HealthConnectorException::class)
+    @ApiStatus.Experimental
+    suspend fun synchronize(
+        dataTypes: List<HealthDataTypeDto>,
+        syncToken: HealthDataSyncTokenDto?,
+    ): HealthDataSyncResultDto {
+        HealthConnectorLogger.debug(
+            tag = TAG,
+            operation = "synchronize",
+            message = "Synchronizing Health Connect data",
+            context = mapOf(
+                "data_type_count" to dataTypes.size,
+                "has_sync_token" to (syncToken != null),
+            ),
+        )
+
+        return process("synchronize") {
+            val result = syncService.synchronize(
+                dataTypes = dataTypes,
+                syncToken = syncToken,
+            )
+
+            HealthConnectorLogger.info(
+                tag = TAG,
+                operation = "synchronize",
+                message = "Health Connect data synchronized successfully",
+                context = mapOf(
+                    "upserted_count" to result.upsertedRecords.size,
+                    "deleted_count" to result.deletedRecordIds.size,
+                    "has_more" to result.hasMore,
+                ),
+            )
+
+            result
         }
     }
 

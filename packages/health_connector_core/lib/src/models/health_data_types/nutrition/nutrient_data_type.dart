@@ -14,6 +14,9 @@ sealed class NutrientHealthDataType<
   const NutrientHealthDataType();
 
   @override
+  String get id => 'nutrient';
+
+  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.appleHealth,
   ];

@@ -44,6 +44,9 @@ final class TotalFatNutrientDataType
   const TotalFatNutrientDataType();
 
   @override
+  String get id => 'total_fat_nutrient';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is TotalFatNutrientDataType && runtimeType == other.runtimeType;

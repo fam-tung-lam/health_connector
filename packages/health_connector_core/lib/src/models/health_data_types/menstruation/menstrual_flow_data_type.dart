@@ -71,6 +71,9 @@ final class MenstrualFlowDataType
   const MenstrualFlowDataType();
 
   @override
+  String get id => 'menstrual_flow';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is MenstrualFlowDataType && runtimeType == other.runtimeType;

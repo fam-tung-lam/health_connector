@@ -992,4 +992,118 @@ abstract interface class HealthConnector {
   @sinceV2_0_0
   @supportedOnHealthConnect
   Future<void> updateRecords<R extends HealthRecord>(List<R> records);
+
+  /// Synchronizes health data using incremental change tracking.
+  ///
+  /// This API provides efficient incremental synchronization by tracking only
+  /// the changes (additions, updates, deletions) since the last sync operation.
+  ///
+  /// ## How It Works
+  ///
+  /// 1. **Initial Sync**: Call with `syncToken: null` to establish a baseline
+  /// 2. **Incremental Sync**: Use the token from the previous sync to get
+  ///    only changes
+  /// 3. **Pagination**: If `hasMore` is true, call again with `nextSyncToken`
+  ///
+  /// ## Parameters
+  ///
+  /// - [dataTypes]: Health data types to synchronize
+  /// - [syncToken]: Token from previous sync, or null for initial sync
+  ///
+  /// ## Returns
+  ///
+  /// [HealthDataSyncResult] containing:
+  /// - `upsertedRecords`: Records added/updated since last sync
+  /// - `deletedRecordIds`: IDs of records deleted since last sync
+  /// - `hasMore`: Whether pagination is needed
+  /// - `nextSyncToken`: Token for next synchronization request
+  ///
+  /// ## Throws
+  ///
+  /// - [SyncTokenExpiredException] if token has expired (primarily Android)
+  /// - [NotAuthorizedException] if permissions are missing
+  /// - [InvalidArgumentException] if dataTypes don't match token scope
+  ///
+  /// ## Example - Initial Sync
+  ///
+  /// ```dart
+  /// // Establish baseline at current moment
+  /// final result = await connector.synchronize(
+  ///   dataTypes: [HealthDataType.steps],
+  ///   syncToken: null,
+  /// );
+  ///
+  /// // Save next token for next sync
+  /// final token = result.nextSyncToken;
+  /// await storage.save('sync_token', token.toJson());
+  /// ```
+  ///
+  /// ## Example - Incremental Sync
+  ///
+  /// ```dart
+  /// // Load saved token
+  /// final tokenJson = await storage.load('sync_token');
+  /// final token = HealthDataSyncToken.fromJson(tokenJson);
+  ///
+  /// // Get changes since last sync
+  /// final result = await connector.synchronize(
+  ///   dataTypes: [HealthDataType.steps],
+  ///   syncToken: token,
+  /// );
+  ///
+  /// // Process changes
+  /// for (final record in result.upsertedRecords) {
+  ///   await database.upsert(record);
+  /// }
+  /// for (final id in result.deletedRecordIds) {
+  ///   await database.delete(id);
+  /// }
+  ///
+  /// // Save new token
+  /// if (result.nextSyncToken != null) {
+  ///   await storage.save('sync_token', result.nextSyncToken!.toJson());
+  /// }
+  /// ```
+  ///
+  /// ## Example - Handling Token Expiration
+  ///
+  /// ```dart
+  /// try {
+  ///   final result = await connector.synchronize(
+  ///     dataTypes: [HealthDataType.steps],
+  ///     syncToken: savedToken,
+  ///   );
+  /// } on SyncTokenExpiredException catch (e) {
+  ///   // Token expired (Android ~30 days), backfill missing data
+  ///   final gap = DateTime.now().difference(savedToken.createdAt);
+  ///
+  ///   // Backfill upserts using readRecords()
+  ///   final backfillRequest = HealthDataType.steps.readInTimeRange(
+  ///     startTime: savedToken.createdAt,
+  ///     endTime: DateTime.now(),
+  ///   );
+  ///   final backfillResponse = await connector.readRecords(backfillRequest);
+  ///
+  ///   // Process backfill (deletions cannot be recovered)
+  ///   for (final record in backfillResponse.records) {
+  ///     await database.upsert(record);
+  ///   }
+  ///
+  ///   // Reset sync with new baseline
+  ///   final result = await connector.synchronize(
+  ///     dataTypes: [HealthDataType.steps],
+  ///     syncToken: null,
+  ///   );
+  ///
+  ///   // Save next token for next sync
+  ///   final token = result.nextSyncToken;
+  ///   await storage.save('sync_token', token.toJson());
+  /// }
+  /// ```
+  @sinceV3_0_0
+  @experimentalApi
+  Future<HealthDataSyncResult> synchronize({
+    required List<HealthDataType> dataTypes,
+    required HealthDataSyncToken? syncToken,
+  });
 }

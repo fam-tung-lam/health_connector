@@ -69,6 +69,9 @@ final class IntermenstrualBleedingDataType
   const IntermenstrualBleedingDataType();
 
   @override
+  String get id => 'intermenstrual_bleeding';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is IntermenstrualBleedingDataType &&

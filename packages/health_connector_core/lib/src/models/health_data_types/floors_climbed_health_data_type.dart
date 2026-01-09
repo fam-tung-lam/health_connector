@@ -44,6 +44,9 @@ final class FloorsClimbedHealthDataType
   const FloorsClimbedHealthDataType();
 
   @override
+  String get id => 'floors_climbed';
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is FloorsClimbedHealthDataType && runtimeType == other.runtimeType;
