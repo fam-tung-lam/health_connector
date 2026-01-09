@@ -3,7 +3,7 @@ import 'package:health_connector_core/src/annotations/meta_targets.dart'
     show memberAndTypeTargets;
 import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart';
 import 'package:health_connector_core/src/models/health_platform.dart';
-import 'package:meta/meta.dart' show immutable, internal;
+import 'package:meta/meta.dart' show immutable;
 
 /// Annotation used to mark APIs that are supported only on specific
 /// health platforms.
@@ -28,13 +28,12 @@ import 'package:meta/meta.dart' show immutable, internal;
 /// ```
 @sinceV1_0_0
 @memberAndTypeTargets
-@internal
 @immutable
-final class SupportedOn {
+final class _SupportedOn {
   /// Creates an annotation that restricts API usage to the specified platforms.
   ///
   /// The [platforms] list must contain at least one [HealthPlatform] value.
-  const SupportedOn(this.platforms);
+  const _SupportedOn(this.platforms);
 
   /// The list of health platforms on which this API is supported.
   ///
@@ -44,11 +43,11 @@ final class SupportedOn {
 }
 
 /// Convenience annotation for APIs supported only on Android Health Connect.
-const supportedOnHealthConnect = SupportedOn([
+const supportedOnHealthConnect = _SupportedOn([
   HealthPlatform.healthConnect,
 ]);
 
 /// Convenience annotation for APIs supported only on iOS HealthKit.
-const supportedOnAppleHealth = SupportedOn([
+const supportedOnAppleHealth = _SupportedOn([
   HealthPlatform.appleHealth,
 ]);
