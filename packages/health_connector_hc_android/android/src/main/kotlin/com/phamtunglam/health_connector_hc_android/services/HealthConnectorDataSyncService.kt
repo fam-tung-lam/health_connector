@@ -245,10 +245,8 @@ internal class HealthConnectorDataSyncService(private val client: HealthConnectC
             // so we rely on message pattern matching for token-related errors.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 if (e is HealthConnectException &&
-                    (
-                        e.message?.contains("token", ignoreCase = true) == true ||
-                            e.message?.contains("expired", ignoreCase = true) == true
-                        )
+                    (e.message?.contains("token", ignoreCase = true) == true ||
+                        e.message?.contains("expired", ignoreCase = true) == true)
                 ) {
                     HealthConnectorLogger.error(
                         tag = TAG,
