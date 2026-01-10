@@ -3304,8 +3304,8 @@ class CyclingPedalingCadenceSeriesRecordDto extends HealthRecordDto {
 }
 
 /// Represents a single speed measurement within a [SpeedSeriesRecordDto].
-class SpeedMeasurementDto {
-  SpeedMeasurementDto({
+class SpeedSampleDto {
+  SpeedSampleDto({
     required this.time,
     required this.speed,
   });
@@ -3327,9 +3327,9 @@ class SpeedMeasurementDto {
     return _toList();
   }
 
-  static SpeedMeasurementDto decode(Object result) {
+  static SpeedSampleDto decode(Object result) {
     result as List<Object?>;
-    return SpeedMeasurementDto(
+    return SpeedSampleDto(
       time: result[0]! as int,
       speed: result[1]! as VelocityDto,
     );
@@ -3338,7 +3338,7 @@ class SpeedMeasurementDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! SpeedMeasurementDto || other.runtimeType != runtimeType) {
+    if (other is! SpeedSampleDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3377,7 +3377,7 @@ class SpeedSeriesRecordDto extends HealthRecordDto {
   MetadataDto metadata;
 
   /// List of speed measurements within this time interval.
-  List<SpeedMeasurementDto> samples;
+  List<SpeedSampleDto> samples;
 
   /// Timezone offset in seconds for start time (optional).
   int? startZoneOffsetSeconds;
@@ -3408,7 +3408,7 @@ class SpeedSeriesRecordDto extends HealthRecordDto {
       startTime: result[1]! as int,
       endTime: result[2]! as int,
       metadata: result[3]! as MetadataDto,
-      samples: (result[4] as List<Object?>?)!.cast<SpeedMeasurementDto>(),
+      samples: (result[4] as List<Object?>?)!.cast<SpeedSampleDto>(),
       startZoneOffsetSeconds: result[5] as int?,
       endZoneOffsetSeconds: result[6] as int?,
     );
@@ -5651,7 +5651,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is CyclingPedalingCadenceSeriesRecordDto) {
       buffer.putUint8(197);
       writeValue(buffer, value.encode());
-    } else if (value is SpeedMeasurementDto) {
+    } else if (value is SpeedSampleDto) {
       buffer.putUint8(198);
       writeValue(buffer, value.encode());
     } else if (value is SpeedSeriesRecordDto) {
@@ -5926,7 +5926,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 197:
         return CyclingPedalingCadenceSeriesRecordDto.decode(readValue(buffer)!);
       case 198:
-        return SpeedMeasurementDto.decode(readValue(buffer)!);
+        return SpeedSampleDto.decode(readValue(buffer)!);
       case 199:
         return SpeedSeriesRecordDto.decode(readValue(buffer)!);
       case 200:

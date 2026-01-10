@@ -6,7 +6,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 /// Form widget for speed series records.
 @immutable
 final class SpeedSeriesWriteForm
-    extends SeriesHealthRecordWriteForm<SpeedMeasurement> {
+    extends SeriesHealthRecordWriteForm<SpeedSample> {
   const SpeedSeriesWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
@@ -19,8 +19,7 @@ final class SpeedSeriesWriteForm
 
 /// State for speed series form widget.
 final class SpeedSeriesFormState
-    extends
-        SeriesHealthRecordFormState<SpeedMeasurement, SpeedSeriesWriteForm> {
+    extends SeriesHealthRecordFormState<SpeedSample, SpeedSeriesWriteForm> {
   @override
   List<Widget> buildSeriesFields(BuildContext context) {
     return [

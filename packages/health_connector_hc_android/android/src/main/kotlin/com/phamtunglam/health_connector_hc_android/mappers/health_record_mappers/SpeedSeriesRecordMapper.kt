@@ -6,7 +6,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_un
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.pigeon.SpeedMeasurementDto
+import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSampleDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSeriesRecordDto
 import java.time.Instant
 import java.time.ZoneOffset
@@ -22,7 +22,7 @@ internal fun SpeedRecord.toDto(): SpeedSeriesRecordDto = SpeedSeriesRecordDto(
     endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
     samples = samples.map { sample ->
-        SpeedMeasurementDto(
+        SpeedSampleDto(
             time = sample.time.toEpochMilli(),
             speed = sample.speed.toDto(),
         )

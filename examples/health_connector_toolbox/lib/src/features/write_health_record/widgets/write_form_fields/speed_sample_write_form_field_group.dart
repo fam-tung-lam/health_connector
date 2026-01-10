@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart'
     as hc
-    show SpeedMeasurement, Velocity;
+    show SpeedSample, Velocity;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_form_fields/record_sample_form_field_group.dart';
@@ -20,13 +20,13 @@ final class SpeedSampleWriteFormFieldGroup extends StatelessWidget {
 
   final DateTime? startDateTime;
   final DateTime? endDateTime;
-  final ValueChanged<List<hc.SpeedMeasurement>?> onChanged;
-  final List<hc.SpeedMeasurement>? initialSamples;
-  final String? Function(List<hc.SpeedMeasurement>?)? validator;
+  final ValueChanged<List<hc.SpeedSample>?> onChanged;
+  final List<hc.SpeedSample>? initialSamples;
+  final String? Function(List<hc.SpeedSample>?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return RecordSampleFormFieldGroup<hc.SpeedMeasurement, double>(
+    return RecordSampleFormFieldGroup<hc.SpeedSample, double>(
       title: AppTexts.speedSamples,
       startDateTime: startDateTime,
       endDateTime: endDateTime,
@@ -54,7 +54,7 @@ final class SpeedSampleWriteFormFieldGroup extends StatelessWidget {
           },
         );
       },
-      sampleFactory: (time, _, speed) => hc.SpeedMeasurement(
+      sampleFactory: (time, _, speed) => hc.SpeedSample(
         time: time,
         speed: hc.Velocity.metersPerSecond(speed),
       ),

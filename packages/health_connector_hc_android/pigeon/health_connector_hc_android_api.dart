@@ -1481,8 +1481,8 @@ class CyclingPedalingCadenceSeriesRecordDto extends HealthRecordDto {
 }
 
 /// Represents a single speed measurement within a [SpeedSeriesRecordDto].
-class SpeedMeasurementDto {
-  SpeedMeasurementDto({
+class SpeedSampleDto {
+  SpeedSampleDto({
     required this.time,
     required this.speed,
   });
@@ -1519,7 +1519,7 @@ class SpeedSeriesRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// List of speed measurements within this time interval.
-  final List<SpeedMeasurementDto> samples;
+  final List<SpeedSampleDto> samples;
 
   /// Timezone offset in seconds for start time (optional).
   final int? startZoneOffsetSeconds;

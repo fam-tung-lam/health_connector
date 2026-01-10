@@ -18,7 +18,7 @@ final class SpeedSeriesTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SeriesHealthRecordTile<SpeedSeriesRecord, SpeedMeasurement>(
+    return SeriesHealthRecordTile<SpeedSeriesRecord, SpeedSample>(
       record: record,
       icon: AppIcons.speed,
       title: 'Speed Series',

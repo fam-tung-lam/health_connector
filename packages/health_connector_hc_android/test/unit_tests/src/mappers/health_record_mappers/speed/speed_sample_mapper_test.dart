@@ -1,22 +1,22 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/speed/speed_measurement_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/speed/speed_sample_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
 
 void main() {
   group(
-    'SpeedMeasurementMapper',
+    'SpeedSampleMapper',
     () {
       group(
-        'SpeedMeasurementToDto',
+        'SpeedSampleToDto',
         () {
           // Should
           test(
-            'converts SpeedMeasurement to SpeedMeasurementDto',
+            'converts SpeedSample to SpeedSampleDto',
             () {
               // Given
               final time = DateTime(2025, 1, 15, 10).toUtc();
-              final measurement = SpeedMeasurement(
+              final measurement = SpeedSample(
                 time: time,
                 speed: const Velocity.metersPerSecond(2.5),
               );
@@ -33,15 +33,15 @@ void main() {
       );
 
       group(
-        'SpeedMeasurementDtoToDomain',
+        'SpeedSampleDtoToDomain',
         () {
           // Should
           test(
-            'converts SpeedMeasurementDto to SpeedMeasurement',
+            'converts SpeedSampleDto to SpeedSample',
             () {
               // Given
               final time = DateTime(2025, 1, 15, 10).toUtc();
-              final dto = SpeedMeasurementDto(
+              final dto = SpeedSampleDto(
                 time: time.millisecondsSinceEpoch,
                 speed: VelocityDto(metersPerSecond: 3.0),
               );
