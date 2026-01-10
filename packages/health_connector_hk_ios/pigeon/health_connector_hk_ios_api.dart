@@ -854,7 +854,7 @@ enum HealthDataTypeDto {
 
   // NUTRIENT TYPES - Energy & Other (2)
   /// Energy nutrient data (calories consumed).
-  energyNutrient,
+  dietaryEnergyConsumed,
 
   /// Caffeine nutrient data.
   caffeine,
@@ -2158,9 +2158,9 @@ class SexualActivityRecordDto extends HealthRecordDto {
 ///
 /// Maps to:
 /// - HealthKit: `HKQuantityTypeIdentifier.dietaryEnergyConsumed`
-/// - Domain: `EnergyNutrientRecord`
-class EnergyNutrientRecordDto extends HealthRecordDto {
-  EnergyNutrientRecordDto({
+/// - Domain: `DietaryEnergyRecord`
+class DietaryEnergyConsumedRecordDto extends HealthRecordDto {
+  DietaryEnergyConsumedRecordDto({
     required this.id,
     required this.metadata,
     required this.time,

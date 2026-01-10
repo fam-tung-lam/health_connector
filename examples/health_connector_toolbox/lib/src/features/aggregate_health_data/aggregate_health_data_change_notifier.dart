@@ -45,7 +45,7 @@ import 'package:health_connector/health_connector_internal.dart'
         RespiratoryRateHealthDataType,
         Vo2MaxHealthDataType,
         BloodGlucoseHealthDataType,
-        EnergyNutrientDataType,
+        DietaryEnergyConsumedDataType,
         CaffeineNutrientDataType,
         ProteinNutrientDataType,
         TotalCarbohydrateNutrientDataType,
@@ -536,7 +536,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
 
       // Nutrient types - sum only (all nutrients)
-      EnergyNutrientDataType() ||
+      DietaryEnergyConsumedDataType() ||
       CaffeineNutrientDataType() ||
       ProteinNutrientDataType() ||
       TotalCarbohydrateNutrientDataType() ||
@@ -820,10 +820,11 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
 
     // Delegate to specific data type instances
     return switch (dataType) {
-      EnergyNutrientDataType() => HealthDataType.energyNutrient.aggregateSum(
-        startTime: startTime,
-        endTime: endTime,
-      ),
+      DietaryEnergyConsumedDataType() =>
+        HealthDataType.dietaryEnergyConsumed.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
       CaffeineNutrientDataType() => HealthDataType.caffeine.aggregateSum(
         startTime: startTime,
         endTime: endTime,

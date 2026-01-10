@@ -204,7 +204,7 @@ void main() {
             'Unsupported conversions should throw UnsupportedError',
             () {
               final unsupportedTypes = <HealthDataType>[
-                HealthDataType.energyNutrient,
+                HealthDataType.dietaryEnergyConsumed,
                 HealthDataType.caffeine,
                 HealthDataType.protein,
                 HealthDataType.totalCarbohydrate,

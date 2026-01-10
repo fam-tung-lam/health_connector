@@ -50,7 +50,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         SkatingSportsDistanceDataType,
         SwimmingDistanceDataType,
         WheelchairDistanceDataType,
-        EnergyNutrientDataType,
+        DietaryEnergyConsumedDataType,
         CaffeineNutrientDataType,
         ProteinNutrientDataType,
         TotalCarbohydrateNutrientDataType,
@@ -179,7 +179,7 @@ extension AggregateRequestDtoMapper<
           case StepsHealthDataType _:
           case WeightHealthDataType _:
           case WheelchairPushesHealthDataType _:
-          case EnergyNutrientDataType _:
+          case DietaryEnergyConsumedDataType _:
           case CaffeineNutrientDataType _:
           case ProteinNutrientDataType _:
           case TotalCarbohydrateNutrientDataType _:

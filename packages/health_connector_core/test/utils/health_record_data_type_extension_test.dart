@@ -193,12 +193,12 @@ void main() {
                 HealthDataType.nutrition,
               ],
               [
-                EnergyNutrientRecord(
+                DietaryEnergyConsumedRecord(
                   energy: const Energy.kilocalories(500),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
-                HealthDataType.energyNutrient,
+                HealthDataType.dietaryEnergyConsumed,
               ],
               [
                 CalciumNutrientRecord(

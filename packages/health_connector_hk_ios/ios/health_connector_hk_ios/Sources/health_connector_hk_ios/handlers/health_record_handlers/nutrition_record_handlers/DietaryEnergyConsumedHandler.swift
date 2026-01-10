@@ -1,13 +1,13 @@
 import Foundation
 import HealthKit
 
-final class EnergyNutrientHandler: @unchecked Sendable,
+final class DietaryEnergyConsumedHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
     AggregatableQuantityHealthRecordHandler
 {
-    typealias RecordDto = EnergyNutrientRecordDto
+    typealias RecordDto = DietaryEnergyConsumedRecordDto
     typealias SampleType = HKQuantitySample
     typealias AggregatedResultMeasurementUnitDto = EnergyDto
 
@@ -17,7 +17,7 @@ final class EnergyNutrientHandler: @unchecked Sendable,
         self.healthStore = healthStore
     }
 
-    static let dataType: HealthDataTypeDto = .energyNutrient
+    static let dataType: HealthDataTypeDto = .dietaryEnergyConsumed
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.sum]
 

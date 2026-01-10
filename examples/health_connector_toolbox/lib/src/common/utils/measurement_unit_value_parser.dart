@@ -99,7 +99,7 @@ abstract class MeasurementUnitValueParser {
       ActiveEnergyBurnedHealthDataType() ||
       BasalEnergyBurnedHealthDataType() ||
       TotalEnergyBurnedHealthDataType() ||
-      EnergyNutrientDataType() => _parseEnergy(value),
+      DietaryEnergyConsumedDataType() => _parseEnergy(value),
 
       // Velocity/Speed
       WalkingSpeedDataType() ||

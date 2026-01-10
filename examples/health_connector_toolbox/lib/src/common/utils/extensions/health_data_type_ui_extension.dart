@@ -40,7 +40,7 @@ import 'package:health_connector/health_connector_internal.dart'
         MindfulnessSessionDataType,
         OxygenSaturationHealthDataType,
         NutritionHealthDataType,
-        EnergyNutrientDataType,
+        DietaryEnergyConsumedDataType,
         CaffeineNutrientDataType,
         ProteinNutrientDataType,
         TotalCarbohydrateNutrientDataType,
@@ -147,7 +147,7 @@ extension HealthDataTypeUI on HealthDataType {
       OvulationTestDataType _ => AppTexts.ovulationTest,
       OxygenSaturationHealthDataType _ => AppTexts.oxygenSaturation,
       NutritionHealthDataType _ => AppTexts.nutrition,
-      EnergyNutrientDataType _ => AppTexts.energy,
+      DietaryEnergyConsumedDataType _ => AppTexts.energy,
       CaffeineNutrientDataType _ => AppTexts.caffeine,
       ProteinNutrientDataType _ => AppTexts.protein,
       TotalCarbohydrateNutrientDataType _ => AppTexts.totalCarbohydrate,
@@ -258,7 +258,7 @@ extension HealthDataTypeUI on HealthDataType {
       SexualActivityDataType _ => AppTexts.sexualActivityDescription,
       OxygenSaturationHealthDataType _ => AppTexts.oxygenSaturationDescription,
       NutritionHealthDataType _ => AppTexts.nutritionDescription,
-      EnergyNutrientDataType _ => AppTexts.energyDescription,
+      DietaryEnergyConsumedDataType _ => AppTexts.energyDescription,
       CaffeineNutrientDataType _ => AppTexts.caffeineDescription,
       ProteinNutrientDataType _ => AppTexts.proteinDescription,
       TotalCarbohydrateNutrientDataType _ =>
@@ -368,7 +368,7 @@ extension HealthDataTypeUI on HealthDataType {
       SexualActivityDataType _ => AppIcons.favorite,
       OxygenSaturationHealthDataType _ => AppIcons.percent,
       NutritionHealthDataType _ => AppIcons.fastfood,
-      EnergyNutrientDataType _ => AppIcons.localFireDepartment,
+      DietaryEnergyConsumedDataType _ => AppIcons.localFireDepartment,
       CaffeineNutrientDataType _ => AppIcons.fastfood,
       ProteinNutrientDataType _ => AppIcons.fastfood,
       TotalCarbohydrateNutrientDataType _ => AppIcons.fastfood,
@@ -600,7 +600,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.activeCaloriesBurned,
         AppTexts.kilocalories,
       ),
-      const (EnergyNutrientDataType) => AppTexts.withUnit(
+      const (DietaryEnergyConsumedDataType) => AppTexts.withUnit(
         AppTexts.energy,
         AppTexts.kilocalories,
       ),
@@ -814,7 +814,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (ActiveEnergyBurnedHealthDataType) ||
       const (BasalEnergyBurnedHealthDataType) ||
       const (TotalEnergyBurnedHealthDataType) ||
-      const (EnergyNutrientDataType) => AppTexts.kilocalories,
+      const (DietaryEnergyConsumedDataType) => AppTexts.kilocalories,
       const (HydrationHealthDataType) => AppTexts.liter,
 
       // Nutrients - grams
@@ -933,7 +933,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (ActiveEnergyBurnedHealthDataType) => AppTexts.getPleaseEnterText(
         AppTexts.activeCaloriesBurned,
       ),
-      const (EnergyNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryEnergyConsumedDataType) => AppTexts.getPleaseEnterText(
         AppTexts.energy,
       ),
       const (HydrationHealthDataType) => AppTexts.getPleaseEnterText(

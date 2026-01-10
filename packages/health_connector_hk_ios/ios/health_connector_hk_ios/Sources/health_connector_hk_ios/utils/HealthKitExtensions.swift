@@ -74,7 +74,7 @@ extension HKSample {
             case HKQuantityTypeIdentifier.bloodPressureDiastolic.rawValue:
                 return .diastolicBloodPressure
             case HKQuantityTypeIdentifier.dietaryEnergyConsumed.rawValue:
-                return .energyNutrient
+                return .dietaryEnergyConsumed
             case HKQuantityTypeIdentifier.dietaryCaffeine.rawValue:
                 return .caffeine
             case HKQuantityTypeIdentifier.dietaryProtein.rawValue:

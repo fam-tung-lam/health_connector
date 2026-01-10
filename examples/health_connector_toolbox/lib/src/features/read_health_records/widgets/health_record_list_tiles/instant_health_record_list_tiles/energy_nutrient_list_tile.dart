@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart'
-    show EnergyNutrientRecord, MealType;
+    show DietaryEnergyConsumedRecord, MealType;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/date_formatter.dart';
@@ -21,12 +21,12 @@ final class EnergyNutrientListTile extends StatelessWidget {
     super.key,
   });
 
-  final EnergyNutrientRecord record;
+  final DietaryEnergyConsumedRecord record;
   final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
-    return InstantHealthRecordTile<EnergyNutrientRecord>(
+    return InstantHealthRecordTile<DietaryEnergyConsumedRecord>(
       record: record,
       icon: AppIcons.localFireDepartment,
       title: _buildTitle(),
@@ -44,7 +44,7 @@ final class EnergyNutrientListTile extends StatelessWidget {
 
   /// Builds the subtitle showing time, food name, meal type, and
   /// recording method.
-  Widget _buildSubtitle(EnergyNutrientRecord rec, BuildContext ctx) {
+  Widget _buildSubtitle(DietaryEnergyConsumedRecord rec, BuildContext ctx) {
     final foodName = rec.foodName;
     final mealType = rec.mealType;
 
@@ -83,7 +83,10 @@ final class EnergyNutrientListTile extends StatelessWidget {
   }
 
   /// Builds detail rows showing energy value, food name, and meal type.
-  List<Widget> _buildDetailRows(EnergyNutrientRecord rec, BuildContext ctx) {
+  List<Widget> _buildDetailRows(
+    DietaryEnergyConsumedRecord rec,
+    BuildContext ctx,
+  ) {
     final foodName = rec.foodName;
     final mealType = rec.mealType;
 

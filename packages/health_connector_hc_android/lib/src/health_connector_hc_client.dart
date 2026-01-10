@@ -106,7 +106,7 @@ class HealthConnectorHCClient implements HealthConnectorPlatformClient {
   /// health data types. This list excludes nutrition itself.
   static const List<HealthDataType<HealthRecord, MeasurementUnit>>
   _nutrientDataTypes = [
-    HealthDataType.energyNutrient,
+    HealthDataType.dietaryEnergyConsumed,
     HealthDataType.caffeine,
     HealthDataType.protein,
     HealthDataType.totalCarbohydrate,

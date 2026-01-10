@@ -157,7 +157,10 @@ void main() {
                 HealthDataType.mindfulnessSession,
               ],
               [HealthDataTypeDto.nutrition, HealthDataType.nutrition],
-              [HealthDataTypeDto.energyNutrient, HealthDataType.energyNutrient],
+              [
+                HealthDataTypeDto.dietaryEnergyConsumed,
+                HealthDataType.dietaryEnergyConsumed,
+              ],
               [HealthDataTypeDto.caffeine, HealthDataType.caffeine],
               [HealthDataTypeDto.protein, HealthDataType.protein],
               [
@@ -359,7 +362,10 @@ void main() {
                 HealthDataTypeDto.mindfulnessSession,
               ],
               [HealthDataType.nutrition, HealthDataTypeDto.nutrition],
-              [HealthDataType.energyNutrient, HealthDataTypeDto.energyNutrient],
+              [
+                HealthDataType.dietaryEnergyConsumed,
+                HealthDataTypeDto.dietaryEnergyConsumed,
+              ],
               [HealthDataType.caffeine, HealthDataTypeDto.caffeine],
               [HealthDataType.protein, HealthDataTypeDto.protein],
               [

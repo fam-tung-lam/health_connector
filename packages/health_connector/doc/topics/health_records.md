@@ -307,7 +307,7 @@ final nutritionRecord = NutritionRecord(
 |--------------------------|----------|----------------------|
 | `NutritionRecord`        | Interval | Complete meal/snack  |
 | `HydrationRecord`        | Interval | Water intake         |
-| `EnergyNutrientRecord`   | Interval | Calories only        |
+| `DietaryEnergyRecord`   | Interval | Calories only        |
 | `ProteinNutrientRecord`  | Interval | Protein only         |
 | Various nutrient records | Interval | Individual nutrients |
 

@@ -656,7 +656,7 @@ public enum HealthDataTypeDto: Int {
   /// Stair descent speed data.
   case stairDescentSpeed = 32
   /// Energy nutrient data (calories consumed).
-  case energyNutrient = 33
+  case dietaryEnergyConsumed = 33
   /// Caffeine nutrient data.
   case caffeine = 34
   /// Protein nutrient data.
@@ -3337,10 +3337,10 @@ public struct SexualActivityRecordDto: HealthRecordDto {
 ///
 /// Maps to:
 /// - HealthKit: `HKQuantityTypeIdentifier.dietaryEnergyConsumed`
-/// - Domain: `EnergyNutrientRecord`
+/// - Domain: `DietaryEnergyRecord`
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-public struct EnergyNutrientRecordDto: HealthRecordDto {
+public struct DietaryEnergyConsumedRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Metadata about this record.
@@ -3358,7 +3358,7 @@ public struct EnergyNutrientRecordDto: HealthRecordDto {
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> EnergyNutrientRecordDto? {
+  static func fromList(_ pigeonVar_list: [Any?]) -> DietaryEnergyConsumedRecordDto? {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
@@ -3367,7 +3367,7 @@ public struct EnergyNutrientRecordDto: HealthRecordDto {
     let foodName: String? = nilOrValue(pigeonVar_list[5])
     let mealType: MealTypeDto? = nilOrValue(pigeonVar_list[6])
 
-    return EnergyNutrientRecordDto(
+    return DietaryEnergyConsumedRecordDto(
       id: id,
       metadata: metadata,
       time: time,
@@ -3388,7 +3388,7 @@ public struct EnergyNutrientRecordDto: HealthRecordDto {
       mealType,
     ]
   }
-  public static func == (lhs: EnergyNutrientRecordDto, rhs: EnergyNutrientRecordDto) -> Bool {
+  public static func == (lhs: DietaryEnergyConsumedRecordDto, rhs: DietaryEnergyConsumedRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
   public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
@@ -6141,7 +6141,7 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 207:
       return SexualActivityRecordDto.fromList(self.readValue() as! [Any?])
     case 208:
-      return EnergyNutrientRecordDto.fromList(self.readValue() as! [Any?])
+      return DietaryEnergyConsumedRecordDto.fromList(self.readValue() as! [Any?])
     case 209:
       return CaffeineNutrientRecordDto.fromList(self.readValue() as! [Any?])
     case 210:
@@ -6481,7 +6481,7 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? SexualActivityRecordDto {
       super.writeByte(207)
       super.writeValue(value.toList())
-    } else if let value = value as? EnergyNutrientRecordDto {
+    } else if let value = value as? DietaryEnergyConsumedRecordDto {
       super.writeByte(208)
       super.writeValue(value.toList())
     } else if let value = value as? CaffeineNutrientRecordDto {

@@ -250,7 +250,7 @@ final class NutritionData {
   /// Creates a copy with an updated nutrient value.
   NutritionData withNutrient(HealthDataType type, dynamic value) {
     switch (type) {
-      case HealthDataType.energyNutrient:
+      case HealthDataType.dietaryEnergyConsumed:
         return copyWith(energy: value as Energy?);
       case HealthDataType.protein:
         return copyWith(protein: value as Mass?);

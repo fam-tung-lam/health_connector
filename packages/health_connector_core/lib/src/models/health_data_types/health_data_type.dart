@@ -63,7 +63,7 @@ part 'nutrition/caffeine_nutrient_data_type.dart';
 part 'nutrition/calcium_nutrient_data_type.dart';
 part 'nutrition/cholesterol_nutrient_data_type.dart';
 part 'nutrition/dietary_fiber_nutrient_data_type.dart';
-part 'nutrition/energy_nutrient_data_type.dart';
+part 'nutrition/dietary_energy_consumed_data_type.dart';
 part 'nutrition/folate_nutrient_data_type.dart';
 part 'nutrition/iron_nutrient_data_type.dart';
 part 'nutrition/macronutrient_data_type.dart';
@@ -645,12 +645,12 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV1_1_0
   static const nutrition = NutritionHealthDataType();
 
-  /// Energy nutrient data type.
+  /// Dietary energy consumed data type.
   ///
-  /// Represents energy intake in energy. Supports reading, writing,
+  /// Represents energy intake. Supports reading, writing,
   /// and sum aggregation of energy nutrient records.
   @sinceV1_1_0
-  static const energyNutrient = EnergyNutrientDataType();
+  static const dietaryEnergyConsumed = DietaryEnergyConsumedDataType();
 
   /// Total energy burned data type.
   ///
@@ -919,7 +919,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     dietaryFiber,
     distance,
     downhillSnowSportsDistance,
-    energyNutrient,
+    dietaryEnergyConsumed,
     exerciseSession,
     floorsClimbed,
     folate,
@@ -1017,7 +1017,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     HealthDataType.calcium,
     HealthDataType.cholesterol,
     HealthDataType.dietaryFiber,
-    HealthDataType.energyNutrient,
+    HealthDataType.dietaryEnergyConsumed,
     HealthDataType.folate,
     HealthDataType.iron,
     HealthDataType.magnesium,

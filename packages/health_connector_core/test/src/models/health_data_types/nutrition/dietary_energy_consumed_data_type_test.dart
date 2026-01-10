@@ -4,14 +4,14 @@ import 'package:test/test.dart';
 
 void main() {
   group(
-    'EnergyNutrientDataType',
+    'DietaryEnergyConsumedDataType',
     () {
-      const dataType = HealthDataType.energyNutrient;
+      const dataType = HealthDataType.dietaryEnergyConsumed;
 
       test(
         'type and capabilities are correctly defined',
         () {
-          expect(dataType, isA<EnergyNutrientDataType>());
+          expect(dataType, isA<DietaryEnergyConsumedDataType>());
           expect(dataType, isA<ReadableHealthDataType>());
           expect(dataType, isA<WriteableHealthDataType>());
           expect(dataType, isA<DeletableHealthDataType>());

@@ -126,7 +126,7 @@ abstract final class AppTexts {
       MenstrualFlowDataType() => menstrualFlow,
       MenstrualFlowInstantDataType() => menstrualFlowInstant,
       OvulationTestDataType() => ovulationTest,
-      EnergyNutrientDataType() => energy,
+      DietaryEnergyConsumedDataType() => energy,
       CaffeineNutrientDataType() => caffeine,
       ProteinNutrientDataType() => protein,
       TotalCarbohydrateNutrientDataType() => totalCarbohydrate,

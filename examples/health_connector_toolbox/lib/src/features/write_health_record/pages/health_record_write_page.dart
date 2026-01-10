@@ -246,7 +246,7 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      EnergyNutrientDataType _ => EnergyNutrientWriteForm(
+      DietaryEnergyConsumedDataType _ => EnergyNutrientWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),

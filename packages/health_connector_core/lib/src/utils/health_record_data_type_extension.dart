@@ -89,7 +89,7 @@ extension HealthRecordDataTypeExtension on HealthRecord {
       RespiratoryRateRecord _ => HealthDataType.respiratoryRate,
       Vo2MaxRecord _ => HealthDataType.vo2Max,
       NutritionRecord _ => HealthDataType.nutrition,
-      EnergyNutrientRecord _ => HealthDataType.energyNutrient,
+      DietaryEnergyConsumedRecord _ => HealthDataType.dietaryEnergyConsumed,
       CaffeineNutrientRecord _ => HealthDataType.caffeine,
       ProteinNutrientRecord _ => HealthDataType.protein,
       TotalCarbohydrateNutrientRecord _ => HealthDataType.totalCarbohydrate,

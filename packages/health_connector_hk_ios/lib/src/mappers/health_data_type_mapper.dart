@@ -44,7 +44,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         WalkingRunningDistanceDataType,
         PolyunsaturatedFatNutrientDataType,
         NutritionHealthDataType,
-        EnergyNutrientDataType,
+        DietaryEnergyConsumedDataType,
         CaffeineNutrientDataType,
         ProteinNutrientDataType,
         TotalCarbohydrateNutrientDataType,
@@ -149,8 +149,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.sleepStageRecord;
       case HealthDataTypeDto.sexualActivity:
         return HealthDataType.sexualActivity;
-      case HealthDataTypeDto.energyNutrient:
-        return HealthDataType.energyNutrient;
+      case HealthDataTypeDto.dietaryEnergyConsumed:
+        return HealthDataType.dietaryEnergyConsumed;
       case HealthDataTypeDto.caffeine:
         return HealthDataType.caffeine;
       case HealthDataTypeDto.protein:
@@ -321,8 +321,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.sleepStageRecord;
       case SexualActivityDataType _:
         return HealthDataTypeDto.sexualActivity;
-      case EnergyNutrientDataType _:
-        return HealthDataTypeDto.energyNutrient;
+      case DietaryEnergyConsumedDataType _:
+        return HealthDataTypeDto.dietaryEnergyConsumed;
       case CaffeineNutrientDataType _:
         return HealthDataTypeDto.caffeine;
       case ProteinNutrientDataType _:

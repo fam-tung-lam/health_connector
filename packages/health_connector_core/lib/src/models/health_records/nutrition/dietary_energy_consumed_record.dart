@@ -3,7 +3,7 @@ part of '../health_record.dart';
 /// Represents an energy (calorie) measurement from food at a specific point in
 /// time.
 ///
-/// [EnergyNutrientRecord] captures the energy content consumed from
+/// [DietaryEnergyConsumedRecord] captures the energy content consumed from
 /// food. This is an iOS-specific record for tracking individual energy intake.
 ///
 /// ## Platform Mapping
@@ -14,7 +14,7 @@ part of '../health_record.dart';
 /// ## Example
 ///
 /// ```dart
-/// final record = EnergyNutrientRecord(
+/// final record = DietaryEnergyConsumedRecord(
 ///   time: DateTime.now(),
 ///   energy: Energy.kilocalories(250),
 ///   foodName: 'Apple',
@@ -25,13 +25,13 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [EnergyNutrientDataType]
+/// - [DietaryEnergyConsumedDataType]
 ///
 /// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
-final class EnergyNutrientRecord extends NutrientRecord<Energy> {
+final class DietaryEnergyConsumedRecord extends NutrientRecord<Energy> {
   /// Creates an energy nutrient record.
   ///
   /// ## Parameters
@@ -44,7 +44,7 @@ final class EnergyNutrientRecord extends NutrientRecord<Energy> {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this energy.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory EnergyNutrientRecord({
+  factory DietaryEnergyConsumedRecord({
     required Energy energy,
     required DateTime time,
     required Metadata metadata,
@@ -53,7 +53,7 @@ final class EnergyNutrientRecord extends NutrientRecord<Energy> {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return EnergyNutrientRecord._(
+    return DietaryEnergyConsumedRecord._(
       energy: energy,
       time: time,
       metadata: metadata,
@@ -68,7 +68,7 @@ final class EnergyNutrientRecord extends NutrientRecord<Energy> {
   final Energy energy;
 
   /// Creates a copy with the given fields replaced with the new values.
-  EnergyNutrientRecord copyWith({
+  DietaryEnergyConsumedRecord copyWith({
     Energy? energy,
     DateTime? time,
     Metadata? metadata,
@@ -77,7 +77,7 @@ final class EnergyNutrientRecord extends NutrientRecord<Energy> {
     String? foodName,
     MealType? mealType,
   }) {
-    return EnergyNutrientRecord._(
+    return DietaryEnergyConsumedRecord._(
       energy: energy ?? this.energy,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
@@ -88,7 +88,7 @@ final class EnergyNutrientRecord extends NutrientRecord<Energy> {
     );
   }
 
-  const EnergyNutrientRecord._({
+  const DietaryEnergyConsumedRecord._({
     required this.energy,
     required super.time,
     required super.metadata,
