@@ -87,7 +87,7 @@ final class RiboflavinNutrientRecord extends VitaminNutrientRecord {
   }
 
   const RiboflavinNutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -95,7 +95,4 @@ final class RiboflavinNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The riboflavin measurement.
-  final Mass mass;
 }

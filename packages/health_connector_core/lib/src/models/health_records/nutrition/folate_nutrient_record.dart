@@ -86,7 +86,7 @@ final class FolateNutrientRecord extends VitaminNutrientRecord {
   }
 
   const FolateNutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -94,7 +94,4 @@ final class FolateNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The folate measurement.
-  final Mass mass;
 }

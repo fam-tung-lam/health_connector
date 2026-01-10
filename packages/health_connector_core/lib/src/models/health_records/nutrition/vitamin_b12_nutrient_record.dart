@@ -86,7 +86,7 @@ final class VitaminB12NutrientRecord extends VitaminNutrientRecord {
   }
 
   const VitaminB12NutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -94,7 +94,4 @@ final class VitaminB12NutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The vitamin B12 measurement.
-  final Mass mass;
 }

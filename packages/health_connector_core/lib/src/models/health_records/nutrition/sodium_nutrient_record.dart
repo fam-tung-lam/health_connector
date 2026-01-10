@@ -84,7 +84,7 @@ final class SodiumNutrientRecord extends MineralNutrientRecord {
   }
 
   const SodiumNutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -92,7 +92,4 @@ final class SodiumNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The sodium measurement.
-  final Mass mass;
 }

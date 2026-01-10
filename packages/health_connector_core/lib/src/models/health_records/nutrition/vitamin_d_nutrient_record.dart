@@ -85,7 +85,7 @@ final class VitaminDNutrientRecord extends VitaminNutrientRecord {
   }
 
   const VitaminDNutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -93,7 +93,4 @@ final class VitaminDNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The vitamin D measurement.
-  final Mass mass;
 }

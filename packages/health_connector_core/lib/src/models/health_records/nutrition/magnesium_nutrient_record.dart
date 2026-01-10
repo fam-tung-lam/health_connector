@@ -84,7 +84,7 @@ final class MagnesiumNutrientRecord extends MineralNutrientRecord {
   }
 
   const MagnesiumNutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -92,7 +92,4 @@ final class MagnesiumNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The magnesium measurement.
-  final Mass mass;
 }

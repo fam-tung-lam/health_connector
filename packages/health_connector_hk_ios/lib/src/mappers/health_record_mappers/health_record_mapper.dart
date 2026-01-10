@@ -110,8 +110,8 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrit
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/caffeine_nutrient_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/calcium_nutrient_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/cholesterol_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_fiber_nutrient_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_energy_consumed_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_fiber_nutrient_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/folate_nutrient_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/iron_nutrient_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/magnesium_nutrient_record_mapper.dart';

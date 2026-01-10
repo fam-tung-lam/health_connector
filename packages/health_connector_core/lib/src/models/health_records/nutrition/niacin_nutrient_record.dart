@@ -86,7 +86,7 @@ final class NiacinNutrientRecord extends VitaminNutrientRecord {
   }
 
   const NiacinNutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -94,7 +94,4 @@ final class NiacinNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The niacin measurement.
-  final Mass mass;
 }

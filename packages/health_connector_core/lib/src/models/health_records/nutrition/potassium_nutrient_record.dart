@@ -84,7 +84,7 @@ final class PotassiumNutrientRecord extends MineralNutrientRecord {
   }
 
   const PotassiumNutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -92,7 +92,4 @@ final class PotassiumNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The potassium measurement.
-  final Mass mass;
 }

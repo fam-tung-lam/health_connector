@@ -84,7 +84,7 @@ final class ZincNutrientRecord extends MineralNutrientRecord {
   }
 
   const ZincNutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -92,7 +92,4 @@ final class ZincNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The zinc measurement.
-  final Mass mass;
 }
