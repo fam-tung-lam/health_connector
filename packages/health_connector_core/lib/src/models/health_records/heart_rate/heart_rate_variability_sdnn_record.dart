@@ -18,7 +18,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = HeartRateVariabilitySDNNRecord(
 ///   time: DateTime.now(),
-///   sdnnMillis: Number(50.0), // milliseconds
+///   sdnn: TimeDuration.milliseconds(50.0),
 ///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
@@ -40,29 +40,29 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
   /// - [time]: The timestamp when the measurement was taken.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
-  /// - [heartRateVariabilitySDNN]: The SDNN value in milliseconds.
+  /// - [sdnn]: The SDNN duration value.
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError] if [heartRateVariabilitySDNN] is negative.
+  /// - [ArgumentError] if [sdnn] is negative.
   factory HeartRateVariabilitySDNNRecord({
     required DateTime time,
     required Metadata metadata,
-    required Number heartRateVariabilitySDNN,
+    required TimeDuration sdnn,
     HealthRecordId id = HealthRecordId.none,
     int? zoneOffsetSeconds,
   }) {
-    if (heartRateVariabilitySDNN < Number.zero) {
+    if (sdnn < TimeDuration.zero) {
       throw ArgumentError.value(
-        heartRateVariabilitySDNN,
-        'heartRateVariabilitySDNN',
+        sdnn,
+        'SDNN',
         'Heart rate variability SDNN must be non-negative',
       );
     }
     return HeartRateVariabilitySDNNRecord._(
       time: time,
       metadata: metadata,
-      sdnnMillis: heartRateVariabilitySDNN,
+      sdnn: sdnn,
       id: id,
       zoneOffsetSeconds: zoneOffsetSeconds,
     );
@@ -72,25 +72,25 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
   const HeartRateVariabilitySDNNRecord._({
     required super.time,
     required super.metadata,
-    required this.sdnnMillis,
+    required this.sdnn,
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   });
 
-  /// The SDNN value in milliseconds.
-  final Number sdnnMillis;
+  /// The SDNN duration value.
+  final TimeDuration sdnn;
 
   /// Creates a copy with the given fields replaced with the new values.
   HeartRateVariabilitySDNNRecord copyWith({
     DateTime? time,
-    Number? sdnnMillis,
+    TimeDuration? sdnn,
     Metadata? metadata,
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {
     return HeartRateVariabilitySDNNRecord._(
       time: time ?? this.time,
-      sdnnMillis: sdnnMillis ?? this.sdnnMillis,
+      sdnn: sdnn ?? this.sdnn,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
@@ -105,7 +105,7 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
           id == other.id &&
           time == other.time &&
           zoneOffsetSeconds == other.zoneOffsetSeconds &&
-          sdnnMillis == other.sdnnMillis &&
+          sdnn == other.sdnn &&
           metadata == other.metadata;
 
   @override
@@ -113,6 +113,6 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
       id.hashCode ^
       time.hashCode ^
       (zoneOffsetSeconds?.hashCode ?? 0) ^
-      sdnnMillis.hashCode ^
+      sdnn.hashCode ^
       metadata.hashCode;
 }

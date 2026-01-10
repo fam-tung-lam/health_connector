@@ -16,7 +16,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = HeartRateVariabilityRMSSDRecord(
 ///   time: DateTime.now(),
-///   rmssdMillis: Number(45.0), // ms
+///   rmssd: TimeDuration.milliseconds(45.0),
 ///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
@@ -35,33 +35,32 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
   /// ## Parameters
   ///
   /// - [time]: The timestamp when the measurement was taken.
-  /// - [heartRateVariabilityMillis]: The heart rate variability in
-  ///   milliseconds.
+  /// - [rmssd]: The heart rate variability duration.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError] if [heartRateVariabilityMillis] is negative.
+  /// - [ArgumentError] if [rmssd] is negative.
   factory HeartRateVariabilityRMSSDRecord({
     required DateTime time,
     required Metadata metadata,
-    required Number heartRateVariabilityMillis,
+    required TimeDuration rmssd,
     HealthRecordId id = HealthRecordId.none,
     int? zoneOffsetSeconds,
   }) {
-    if (heartRateVariabilityMillis < Number.zero) {
+    if (rmssd < TimeDuration.zero) {
       throw ArgumentError.value(
-        heartRateVariabilityMillis,
-        'heartRateVariabilityMillis',
+        rmssd,
+        'RMSSD',
         'Heart rate variability RMSSD must be non-negative',
       );
     }
     return HeartRateVariabilityRMSSDRecord._(
       time: time,
       metadata: metadata,
-      rmssdMillis: heartRateVariabilityMillis,
+      rmssd: rmssd,
       id: id,
       zoneOffsetSeconds: zoneOffsetSeconds,
     );
@@ -71,26 +70,26 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
   const HeartRateVariabilityRMSSDRecord._({
     required super.time,
     required super.metadata,
-    required this.rmssdMillis,
+    required this.rmssd,
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   });
 
-  /// The heart rate variability in milliseconds.
-  final Number rmssdMillis;
+  /// The heart rate variability duration.
+  final TimeDuration rmssd;
 
   /// Creates a copy with the given fields replaced with the new values.
   HeartRateVariabilityRMSSDRecord copyWith({
     DateTime? time,
     Metadata? metadata,
-    Number? rmssdMillis,
+    TimeDuration? rmssd,
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {
     return HeartRateVariabilityRMSSDRecord._(
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
-      rmssdMillis: rmssdMillis ?? this.rmssdMillis,
+      rmssd: rmssd ?? this.rmssd,
       id: id ?? this.id,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
     );
@@ -104,7 +103,7 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
           id == other.id &&
           time == other.time &&
           zoneOffsetSeconds == other.zoneOffsetSeconds &&
-          rmssdMillis == other.rmssdMillis &&
+          rmssd == other.rmssd &&
           metadata == other.metadata;
 
   @override
@@ -112,6 +111,6 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
       id.hashCode ^
       time.hashCode ^
       (zoneOffsetSeconds?.hashCode ?? 0) ^
-      rmssdMillis.hashCode ^
+      rmssd.hashCode ^
       metadata.hashCode;
 }

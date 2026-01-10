@@ -27,6 +27,21 @@ final class TimeDuration extends MeasurementUnit
   TimeDuration.fromDuration(Duration duration)
     : _seconds = duration.inMicroseconds / Duration.microsecondsPerSecond;
 
+  /// Creates an duration from a value in milliseconds.
+  ///
+  /// ## Parameters
+  ///
+  /// - [value]: The duration value in milliseconds.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final duration = TimeDuration.milliseconds(5000);
+  /// print(duration.inSeconds); // 5.0
+  /// ```
+  const TimeDuration.milliseconds(double value)
+    : _seconds = value / _millisecondsPerSecond;
+
   /// Creates an duration from a value in seconds.
   ///
   /// ## Parameters
@@ -76,6 +91,9 @@ final class TimeDuration extends MeasurementUnit
   /// Tolerance for floating-point comparison (1 millisecond).
   static const double _tolerance = 0.001;
 
+  /// Conversion factor from milliseconds to seconds.
+  static const double _millisecondsPerSecond = 1000.0;
+
   /// Conversion factor from minutes to seconds.
   static const double _secondsPerMinute = 60.0;
 
@@ -84,6 +102,16 @@ final class TimeDuration extends MeasurementUnit
 
   /// The duration value stored in seconds (base unit).
   final double _seconds;
+
+  /// Returns the duration in milliseconds.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// final duration = TimeDuration.seconds(5);
+  /// print(duration.inMilliseconds); // 5000.0
+  /// ```
+  double get inMilliseconds => _seconds * _millisecondsPerSecond;
 
   /// Returns the duration in seconds.
   ///

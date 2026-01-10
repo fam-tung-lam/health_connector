@@ -24,7 +24,7 @@ final class HeartRateVariabilitySDNNFormState
   HealthRecord buildRecord() {
     return HeartRateVariabilitySDNNRecord(
       time: startDateTime!,
-      heartRateVariabilitySDNN: value! as Number,
+      sdnn: value! as TimeDuration,
       metadata: metadata,
     );
   }

@@ -14,10 +14,10 @@ import java.time.ZoneOffset
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("HeartRateVariabilityRmssdRecordMapper")
-class HeartRateVariabilityRmssdRecordMapperTest {
+@DisplayName("HeartRateVariabilityRMSSDRecordMapper.kt")
+class HeartRateVariabilityRMSSDRecordMapperTest {
 
-    private companion object {
+    private companion object Companion {
         const val TEST_ID = "hrv-rmssd-id"
         const val TEST_TIME = 1609459200000L
         const val TEST_HRV_MILLIS = 50.5
@@ -39,7 +39,7 @@ class HeartRateVariabilityRmssdRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.heartRateVariabilityMillis shouldBe TEST_HRV_MILLIS
+        result.heartRateVariabilityMillis.seconds shouldBe TEST_HRV_MILLIS / 1000.0
         result.time shouldBe TEST_TIME
         result.zoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
     }

@@ -19,6 +19,37 @@ void main() {
       );
 
       group(
+        'milliseconds constructor',
+        () {
+          test(
+            'creates duration from valid milliseconds value',
+            () {
+              const duration = TimeDuration.milliseconds(5000);
+              expect(duration.inSeconds, 5);
+            },
+          );
+
+          test(
+            'converts milliseconds to seconds correctly',
+            () {
+              const duration = TimeDuration.milliseconds(3600000);
+              expect(duration.inSeconds, 3600);
+              expect(duration.inMinutes, 60);
+              expect(duration.inHours, 1);
+            },
+          );
+
+          test(
+            'handles fractional milliseconds',
+            () {
+              const duration = TimeDuration.milliseconds(1500);
+              expect(duration.inSeconds, 1.5);
+            },
+          );
+        },
+      );
+
+      group(
         'minutes constructor',
         () {
           test(
@@ -94,6 +125,7 @@ void main() {
           test(
             'has zero value',
             () {
+              expect(TimeDuration.zero.inMilliseconds, 0);
               expect(TimeDuration.zero.inSeconds, 0);
               expect(TimeDuration.zero.inMinutes, 0);
               expect(TimeDuration.zero.inHours, 0);
@@ -105,6 +137,14 @@ void main() {
       group(
         'getters',
         () {
+          test(
+            'inMilliseconds returns duration in milliseconds',
+            () {
+              const duration = TimeDuration.seconds(5);
+              expect(duration.inMilliseconds, 5000);
+            },
+          );
+
           test(
             'inSeconds returns duration in seconds',
             () {
