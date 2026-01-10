@@ -56,7 +56,7 @@ void main() {
               ],
               [
                 HeightRecord(
-                  height: const Length.centimeters(175),
+                  length: const Length.centimeters(175),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
@@ -64,7 +64,7 @@ void main() {
               ],
               [
                 BloodGlucoseRecord(
-                  bloodGlucose: const BloodGlucose.milligramsPerDeciliter(100),
+                  glucoseLevel: const BloodGlucose.milligramsPerDeciliter(100),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
@@ -89,7 +89,7 @@ void main() {
               ],
               [
                 FloorsClimbedRecord(
-                  floors: const Number(10),
+                  count: const Number(10),
                   startTime: createTestTime(),
                   endTime: createTestTime().add(const Duration(hours: 1)),
                   metadata: createTestMetadata(),
@@ -152,7 +152,7 @@ void main() {
               // Vital signs
               [
                 RestingHeartRateRecord(
-                  beatsPerMinute: Frequency.perMinute(60),
+                  rate: Frequency.perMinute(60),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
@@ -160,7 +160,7 @@ void main() {
               ],
               [
                 OxygenSaturationRecord(
-                  percentage: const Percentage.fromWhole(98),
+                  saturation: const Percentage.fromWhole(98),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
@@ -168,7 +168,7 @@ void main() {
               ],
               [
                 RespiratoryRateRecord(
-                  breathsPerMin: Frequency.perMinute(16),
+                  rate: Frequency.perMinute(16),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
@@ -176,7 +176,7 @@ void main() {
               ],
               [
                 Vo2MaxRecord(
-                  mLPerKgPerMin: const Number(45),
+                  vo2MlPerMinPerKg: const Number(45),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
@@ -194,7 +194,7 @@ void main() {
               ],
               [
                 EnergyNutrientRecord(
-                  value: const Energy.kilocalories(500),
+                  energy: const Energy.kilocalories(500),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
@@ -202,7 +202,7 @@ void main() {
               ],
               [
                 CalciumNutrientRecord(
-                  value: const Mass.grams(0.8),
+                  mass: const Mass.grams(0.8),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
@@ -210,7 +210,7 @@ void main() {
               ],
               [
                 VitaminCNutrientRecord(
-                  value: const Mass.grams(0.09),
+                  mass: const Mass.grams(0.09),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
@@ -261,7 +261,7 @@ void main() {
               ],
               [
                 BodyMassIndexRecord(
-                  bodyMassIndex: const Number(22.5),
+                  bmi: const Number(22.5),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),

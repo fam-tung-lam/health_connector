@@ -17,7 +17,7 @@ void main() {
           clientRecordVersion: 1,
           device: const Device(type: DeviceType.phone),
         ),
-        value: const Mass.grams(10),
+        mass: const Mass.grams(10),
         foodName: 'Test Food',
         mealType: MealType.breakfast,
       );
@@ -54,7 +54,7 @@ void main() {
         FakeData.fakeTime.timeZoneOffset.inSeconds,
       );
       expect(record.metadata.dataOrigin?.packageName, FakeData.fakeDataOrigin);
-      expect(record.value.inKilograms, closeTo(10.0, 0.0001));
+      expect(record.mass.inKilograms, closeTo(10.0, 0.0001));
       expect(record.foodName, 'Test Food');
       expect(record.mealType, MealType.breakfast);
     });

@@ -18,7 +18,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = TotalCarbohydrateNutrientRecord(
 ///   time: DateTime.now(),
-///   value: Mass.grams(45),
+///   mass: Mass.grams(45),
 ///   foodName: 'Brown Rice',
 ///   mealType: MealType.dinner,
 ///   metadata: Metadata.manualEntry(),
@@ -38,7 +38,7 @@ final class TotalCarbohydrateNutrientRecord extends MacronutrientRecord {
   ///
   /// ## Parameters
   ///
-  /// - [value]: The total carbohydrate measurement.
+  /// - [mass]: The total carbohydrate measurement.
   /// - [time]: The timestamp when the total carbohydrate was consumed.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
@@ -47,7 +47,7 @@ final class TotalCarbohydrateNutrientRecord extends MacronutrientRecord {
   /// carbohydrate.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory TotalCarbohydrateNutrientRecord({
-    required Mass value,
+    required Mass mass,
     required DateTime time,
     required Metadata metadata,
     HealthRecordId id = HealthRecordId.none,
@@ -56,7 +56,7 @@ final class TotalCarbohydrateNutrientRecord extends MacronutrientRecord {
     MealType mealType = MealType.unknown,
   }) {
     return TotalCarbohydrateNutrientRecord._(
-      value: value,
+      mass: mass,
       time: time,
       metadata: metadata,
       id: id,
@@ -68,7 +68,7 @@ final class TotalCarbohydrateNutrientRecord extends MacronutrientRecord {
 
   /// Creates a copy with the given fields replaced with the new values.
   TotalCarbohydrateNutrientRecord copyWith({
-    Mass? value,
+    Mass? mass,
     DateTime? time,
     Metadata? metadata,
     HealthRecordId? id,
@@ -77,7 +77,7 @@ final class TotalCarbohydrateNutrientRecord extends MacronutrientRecord {
     MealType? mealType,
   }) {
     return TotalCarbohydrateNutrientRecord._(
-      value: value ?? this.value,
+      mass: mass ?? this.mass,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
@@ -88,7 +88,7 @@ final class TotalCarbohydrateNutrientRecord extends MacronutrientRecord {
   }
 
   const TotalCarbohydrateNutrientRecord._({
-    required super.value,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,

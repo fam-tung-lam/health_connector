@@ -21,7 +21,7 @@ part of 'health_record.dart';
 /// ```dart
 /// final record = OxygenSaturationRecord(
 ///   time: DateTime.now(),
-///   percentage: Percentage.fromWhole(98), // 98% SpO₂
+///   saturation: Percentage.fromWhole(98), // 98% SpO₂
 ///   metadata: Metadata.automaticallyRecorded(
 ///     device: Device.fromType(DeviceType.watch),
 ///   ),
@@ -41,32 +41,32 @@ final class OxygenSaturationRecord extends InstantHealthRecord {
   /// ## Parameters
   ///
   /// - [time]: The timestamp when the oxygen saturation was measured.
-  /// - [percentage]: The oxygen saturation percentage (as decimal 0.0 - 1.0).
+  /// - [saturation]: The oxygen saturation percentage (as decimal 0.0 - 1.0).
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   const OxygenSaturationRecord({
     required super.time,
-    required this.percentage,
+    required this.saturation,
     required super.metadata,
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   });
 
   /// The oxygen saturation percentage (0.0 - 1.0).
-  final Percentage percentage;
+  final Percentage saturation;
 
   /// Creates a copy with the given fields replaced with the new values.
   OxygenSaturationRecord copyWith({
     DateTime? time,
-    Percentage? percentage,
+    Percentage? saturation,
     Metadata? metadata,
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {
     return OxygenSaturationRecord(
       time: time ?? this.time,
-      percentage: percentage ?? this.percentage,
+      saturation: saturation ?? this.saturation,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
@@ -78,8 +78,8 @@ final class OxygenSaturationRecord extends InstantHealthRecord {
       identical(this, other) ||
       other is OxygenSaturationRecord &&
           super == other &&
-          percentage == other.percentage;
+          saturation == other.saturation;
 
   @override
-  int get hashCode => Object.hash(super.hashCode, percentage);
+  int get hashCode => Object.hash(super.hashCode, saturation);
 }

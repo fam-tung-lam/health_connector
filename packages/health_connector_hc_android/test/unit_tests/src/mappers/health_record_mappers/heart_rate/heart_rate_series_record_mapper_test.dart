@@ -36,7 +36,7 @@ void main() {
                 samples: [
                   HeartRateMeasurement(
                     time: fakeSampleTime,
-                    beatsPerMinute: Frequency.perMinute(75),
+                    rate: Frequency.perMinute(75),
                   ),
                 ],
               );
@@ -90,7 +90,7 @@ void main() {
               expect(record.startTime, FakeData.fakeStartTime);
               expect(record.endTime, FakeData.fakeEndTime);
               expect(record.samples, hasLength(1));
-              expect(record.samples.first.beatsPerMinute.inPerMinute, 80);
+              expect(record.samples.first.rate.inPerMinute, 80);
             },
           );
 

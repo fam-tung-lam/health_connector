@@ -18,7 +18,7 @@ extension HeartRateVariabilityRMSSDRecordToDto
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      heartRateVariabilityMillis: heartRateVariabilityMillis.value.toDouble(),
+      heartRateVariabilityMillis: rmssdMillis.value.toDouble(),
     );
   }
 }

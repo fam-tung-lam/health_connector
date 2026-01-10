@@ -38,7 +38,7 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
   ///
   /// - [startTime]: The start of the time interval (inclusive).
   /// - [endTime]: The end of the time interval (exclusive).
-  /// - [floors]: The number of floors (flights of stairs) climbed.
+  /// - [count]: The number of floors (flights of stairs) climbed.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
@@ -51,20 +51,20 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
     required super.startTime,
     required super.endTime,
     required super.metadata,
-    required this.floors,
+    required this.count,
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });
 
   /// The number of floors (flights of stairs) climbed during the interval.
-  final Number floors;
+  final Number count;
 
   /// Creates a copy with the given fields replaced with the new values.
   FloorsClimbedRecord copyWith({
     DateTime? startTime,
     DateTime? endTime,
-    Number? floors,
+    Number? count,
     Metadata? metadata,
     HealthRecordId? id,
     int? startZoneOffsetSeconds,
@@ -73,7 +73,7 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
     return FloorsClimbedRecord(
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
-      floors: floors ?? this.floors,
+      count: count ?? this.count,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
       startZoneOffsetSeconds:
@@ -92,7 +92,7 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          floors == other.floors &&
+          count == other.count &&
           metadata == other.metadata;
 
   @override
@@ -102,6 +102,6 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
       endTime.hashCode ^
       (startZoneOffsetSeconds?.hashCode ?? 0) ^
       (endZoneOffsetSeconds?.hashCode ?? 0) ^
-      floors.hashCode ^
+      count.hashCode ^
       metadata.hashCode;
 }

@@ -26,23 +26,28 @@ final class CyclingPedalingCadenceSeriesTile extends StatelessWidget {
       record: record,
       icon: AppIcons.speed,
       title: '${AppTexts.cyclingPedalingCadence} Series',
-      subtitleBuilder: (r, ctx) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '${AppTexts.recording}: ${r.metadata.recordingMethod.name}',
-            style: Theme.of(ctx).textTheme.bodySmall,
-          ),
-          Text(
-            '${AppTexts.average}: ${r.averageRpm.value} ${AppTexts.rpm}',
-            style: Theme.of(ctx).textTheme.bodySmall,
-          ),
-          Text(
-            '${r.samples.length} ${AppTexts.cyclingPedalingCadenceSamples}',
-            style: Theme.of(ctx).textTheme.bodySmall,
-          ),
-        ],
-      ),
+      subtitleBuilder: (r, ctx) {
+        final total = r.samples.fold(0.0, (sum, e) => sum + e.cadence.value);
+        final average = total / r.samples.length;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${AppTexts.recording}: ${r.metadata.recordingMethod.name}',
+              style: Theme.of(ctx).textTheme.bodySmall,
+            ),
+            Text(
+              '${AppTexts.average}: ${average.toStringAsFixed(1)} '
+              '${AppTexts.rpm}',
+              style: Theme.of(ctx).textTheme.bodySmall,
+            ),
+            Text(
+              '${r.samples.length} ${AppTexts.cyclingPedalingCadenceSamples}',
+              style: Theme.of(ctx).textTheme.bodySmall,
+            ),
+          ],
+        );
+      },
       detailRowsBuilder: (r, ctx) => [],
       samplesBuilder: (samples, ctx) =>
           CyclingPedalingCadenceSeriesRecordSamplesList(samples: samples),

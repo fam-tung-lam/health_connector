@@ -18,7 +18,7 @@ extension ThiaminNutrientRecordToDto on ThiaminNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto(),
+      value: mass.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -35,7 +35,7 @@ extension ThiaminNutrientRecordDtoToDomain on ThiaminNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain(),
+      mass: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );

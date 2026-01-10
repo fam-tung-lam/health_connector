@@ -23,7 +23,7 @@ final class WheelchairPushesFormState
     return WheelchairPushesRecord(
       startTime: startDateTime!,
       endTime: endDateTime!,
-      pushes: value! as Number,
+      count: value! as Number,
       metadata: metadata,
     );
   }

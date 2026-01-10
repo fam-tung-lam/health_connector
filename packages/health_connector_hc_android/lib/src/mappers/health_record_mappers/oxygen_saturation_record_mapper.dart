@@ -16,7 +16,7 @@ extension OxygenSaturationRecordToDto on OxygenSaturationRecord {
       time: time.toUtc().millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      percentage: percentage.toDto(),
+      percentage: saturation.toDto(),
     );
   }
 }
@@ -32,7 +32,7 @@ extension OxygenSaturationRecordDtoToDomain on OxygenSaturationRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      percentage: percentage.toDomain(),
+      saturation: percentage.toDomain(),
     );
   }
 }

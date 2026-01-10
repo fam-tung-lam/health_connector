@@ -23,7 +23,7 @@ final class EnergyNutrientFormState
   HealthRecord buildRecord() {
     return EnergyNutrientRecord(
       time: startDateTime!,
-      value: value! as Energy,
+      energy: value! as Energy,
       metadata: metadata,
     );
   }
@@ -48,7 +48,7 @@ final class CaffeineNutrientFormState
   HealthRecord buildRecord() {
     return CaffeineNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -77,7 +77,7 @@ final class ProteinNutrientFormState
   HealthRecord buildRecord() {
     return ProteinNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -103,7 +103,7 @@ final class TotalCarbohydrateNutrientFormState
   HealthRecord buildRecord() {
     return TotalCarbohydrateNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -128,7 +128,7 @@ final class TotalFatNutrientFormState
   HealthRecord buildRecord() {
     return TotalFatNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -154,7 +154,7 @@ final class SaturatedFatNutrientFormState
   HealthRecord buildRecord() {
     return SaturatedFatNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -180,7 +180,7 @@ final class MonounsaturatedFatNutrientFormState
   HealthRecord buildRecord() {
     return MonounsaturatedFatNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -206,7 +206,7 @@ final class PolyunsaturatedFatNutrientFormState
   HealthRecord buildRecord() {
     return PolyunsaturatedFatNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -231,7 +231,7 @@ final class CholesterolNutrientFormState
   HealthRecord buildRecord() {
     return CholesterolNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -257,7 +257,7 @@ final class DietaryFiberNutrientFormState
   HealthRecord buildRecord() {
     return DietaryFiberNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -282,7 +282,7 @@ final class SugarNutrientFormState
   HealthRecord buildRecord() {
     return SugarNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -311,7 +311,7 @@ final class CalciumNutrientFormState
   HealthRecord buildRecord() {
     return CalciumNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -336,7 +336,7 @@ final class IronNutrientFormState
   HealthRecord buildRecord() {
     return IronNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -361,7 +361,7 @@ final class MagnesiumNutrientFormState
   HealthRecord buildRecord() {
     return MagnesiumNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -386,7 +386,7 @@ final class ManganeseNutrientFormState
   HealthRecord buildRecord() {
     return ManganeseNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -411,7 +411,7 @@ final class PhosphorusNutrientFormState
   HealthRecord buildRecord() {
     return PhosphorusNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -436,7 +436,7 @@ final class PotassiumNutrientFormState
   HealthRecord buildRecord() {
     return PotassiumNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -461,7 +461,7 @@ final class SeleniumNutrientFormState
   HealthRecord buildRecord() {
     return SeleniumNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -486,7 +486,7 @@ final class SodiumNutrientFormState
   HealthRecord buildRecord() {
     return SodiumNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -511,7 +511,7 @@ final class ZincNutrientFormState
   HealthRecord buildRecord() {
     return ZincNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -540,7 +540,7 @@ final class VitaminANutrientFormState
   HealthRecord buildRecord() {
     return VitaminANutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -565,7 +565,7 @@ final class VitaminB6NutrientFormState
   HealthRecord buildRecord() {
     return VitaminB6NutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -590,7 +590,7 @@ final class VitaminB12NutrientFormState
   HealthRecord buildRecord() {
     return VitaminB12NutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -615,7 +615,7 @@ final class VitaminCNutrientFormState
   HealthRecord buildRecord() {
     return VitaminCNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -640,7 +640,7 @@ final class VitaminDNutrientFormState
   HealthRecord buildRecord() {
     return VitaminDNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -665,7 +665,7 @@ final class VitaminENutrientFormState
   HealthRecord buildRecord() {
     return VitaminENutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -690,7 +690,7 @@ final class VitaminKNutrientFormState
   HealthRecord buildRecord() {
     return VitaminKNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -715,7 +715,7 @@ final class ThiaminNutrientFormState
   HealthRecord buildRecord() {
     return ThiaminNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -740,7 +740,7 @@ final class RiboflavinNutrientFormState
   HealthRecord buildRecord() {
     return RiboflavinNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -765,7 +765,7 @@ final class NiacinNutrientFormState
   HealthRecord buildRecord() {
     return NiacinNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -790,7 +790,7 @@ final class FolateNutrientFormState
   HealthRecord buildRecord() {
     return FolateNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -815,7 +815,7 @@ final class BiotinNutrientFormState
   HealthRecord buildRecord() {
     return BiotinNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }
@@ -841,7 +841,7 @@ final class PantothenicAcidNutrientFormState
   HealthRecord buildRecord() {
     return PantothenicAcidNutrientRecord(
       time: startDateTime!,
-      value: value! as Mass,
+      mass: value! as Mass,
       metadata: metadata,
     );
   }

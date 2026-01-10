@@ -25,7 +25,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.watch),
                 ),
-                breathsPerMin: Frequency.perMinute(16),
+                rate: Frequency.perMinute(16),
               );
 
               final dto = record.toDto();
@@ -74,7 +74,7 @@ void main() {
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
-              expect(record.breathsPerMin.inPerMinute, 18);
+              expect(record.rate.inPerMinute, 18);
             },
           );
 

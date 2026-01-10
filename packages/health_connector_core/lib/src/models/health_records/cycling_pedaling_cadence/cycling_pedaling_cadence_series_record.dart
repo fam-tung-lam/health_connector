@@ -23,15 +23,15 @@ part of '../health_record.dart';
 ///   samples: [
 ///     CyclingPedalingCadenceMeasurement(
 ///       time: DateTime.now().subtract(Duration(minutes: 10)),
-///       revolutionsPerMinute: Number(60),
+///       cadence: Number(60),
 ///     ),
 ///     CyclingPedalingCadenceMeasurement(
 ///       time: DateTime.now().subtract(Duration(minutes: 5)),
-///       revolutionsPerMinute: Number(90),
+///       cadence: Number(90),
 ///     ),
 ///     CyclingPedalingCadenceMeasurement(
 ///       time: DateTime.now(),
-///       revolutionsPerMinute: Number(75),
+///       cadence: Number(75),
 ///     ),
 ///   ],
 ///   metadata: Metadata.automaticallyRecorded(
@@ -62,17 +62,17 @@ final class CyclingPedalingCadenceSeriesRecord
   });
 
   /// The average cadence across all samples.
-  Number get averageRpm {
+  Number get averageCadence {
     if (samples.isEmpty) {
       return Number.zero;
     }
     if (samples.length == 1) {
-      return samples.first.revolutionsPerMinute;
+      return samples.first.cadence;
     }
 
     final total = samples.fold<double>(
       0,
-      (sum, sample) => sum + sample.revolutionsPerMinute.value,
+      (sum, sample) => sum + sample.cadence.value,
     );
     final averageRpmValue = (total / samples.length).toInt();
 
@@ -80,22 +80,22 @@ final class CyclingPedalingCadenceSeriesRecord
   }
 
   /// The minimum cadence value among all samples.
-  Number get minRpm {
+  Number get minCadence {
     if (samples.isEmpty) {
       return Number.zero;
     }
     return samples
-        .map((s) => s.revolutionsPerMinute)
+        .map((s) => s.cadence)
         .reduce((a, b) => (a.value < b.value) ? a : b);
   }
 
   /// The maximum cadence value among all samples.
-  Number get maxRpm {
+  Number get maxCadence {
     if (samples.isEmpty) {
       return Number.zero;
     }
     return samples
-        .map((s) => s.revolutionsPerMinute)
+        .map((s) => s.cadence)
         .reduce((a, b) => (a.value > b.value) ? a : b);
   }
 
@@ -132,22 +132,10 @@ final class CyclingPedalingCadenceSeriesRecord
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          _listEquals(samples, other.samples);
-
-  static bool _listEquals<T>(List<T> a, List<T> b) {
-    if (identical(a, b)) {
-      return true;
-    }
-    if (a.length != b.length) {
-      return false;
-    }
-    for (var i = 0; i < a.length; i++) {
-      if (a[i] != b[i]) {
-        return false;
-      }
-    }
-    return true;
-  }
+          const ListEquality<CyclingPedalingCadenceMeasurement>().equals(
+            samples,
+            other.samples,
+          );
 
   @override
   int get hashCode =>

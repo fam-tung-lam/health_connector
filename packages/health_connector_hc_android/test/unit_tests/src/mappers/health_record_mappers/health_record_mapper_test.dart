@@ -51,7 +51,7 @@ void main() {
         expect(
           () => VitaminANutrientRecord(
             time: DateTime.now(),
-            value: const Mass.grams(1),
+            mass: const Mass.grams(1),
             metadata: Metadata.manualEntry(),
           ).toDto(),
           throwsUnsupportedError,

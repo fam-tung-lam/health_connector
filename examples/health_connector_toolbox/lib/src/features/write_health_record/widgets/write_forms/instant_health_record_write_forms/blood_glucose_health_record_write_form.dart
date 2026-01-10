@@ -100,7 +100,7 @@ final class BloodGlucoseFormState
   HealthRecord buildRecord() {
     return BloodGlucoseRecord(
       time: startDateTime!,
-      bloodGlucose: value! as BloodGlucose,
+      glucoseLevel: value! as BloodGlucose,
       relationToMeal: _relationToMeal,
       mealType: _mealType,
       specimenSource: _specimenSource,

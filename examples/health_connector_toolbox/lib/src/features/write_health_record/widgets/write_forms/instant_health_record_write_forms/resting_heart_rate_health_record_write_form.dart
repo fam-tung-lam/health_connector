@@ -22,7 +22,7 @@ final class RestingHeartRateFormState
   HealthRecord buildRecord() {
     return RestingHeartRateRecord(
       time: startDateTime!,
-      beatsPerMinute: value! as Frequency,
+      rate: value! as Frequency,
       metadata: metadata,
     );
   }

@@ -27,7 +27,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.watch),
                 ),
-                mLPerKgPerMin: const Number(45.5),
+                vo2MlPerMinPerKg: const Number(45.5),
               );
 
               final dto = record.toDto();
@@ -70,7 +70,7 @@ void main() {
 
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, time);
-              expect(record.mLPerKgPerMin.value, 42.3);
+              expect(record.vo2MlPerMinPerKg.value, 42.3);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,

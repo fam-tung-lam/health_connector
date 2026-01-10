@@ -17,7 +17,7 @@ void main() {
 
               final measurement = HeartRateMeasurement(
                 time: time,
-                beatsPerMinute: Frequency.perMinute(72),
+                rate: Frequency.perMinute(72),
               );
 
               final dto = measurement.toDto();
@@ -45,7 +45,7 @@ void main() {
               final measurement = dto.toDomain();
 
               expect(measurement.time, time);
-              expect(measurement.beatsPerMinute.inPerMinute, 68.0);
+              expect(measurement.rate.inPerMinute, 68.0);
             },
           );
         },

@@ -17,7 +17,7 @@ void main() {
           clientRecordVersion: 1,
           device: const Device(type: DeviceType.phone),
         ),
-        value: const Energy.calories(500),
+        energy: const Energy.calories(500),
         foodName: 'Test Food',
         mealType: MealType.breakfast,
       );
@@ -59,7 +59,7 @@ void main() {
           record.metadata.dataOrigin?.packageName,
           FakeData.fakeDataOrigin,
         );
-        expect(record.value.inKilocalories, closeTo(500.0, 0.0001));
+        expect(record.energy.inKilocalories, closeTo(500.0, 0.0001));
         expect(record.foodName, 'Test Food');
         expect(record.mealType, MealType.breakfast);
       },

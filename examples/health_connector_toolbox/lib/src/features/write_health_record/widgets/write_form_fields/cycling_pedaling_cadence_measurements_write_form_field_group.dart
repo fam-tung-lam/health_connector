@@ -54,12 +54,12 @@ final class CyclingPedalingCadenceMeasurementsWriteFormFieldGroup
       },
       sampleFactory: (time, _, rpm) => CyclingPedalingCadenceMeasurement(
         time: time,
-        revolutionsPerMinute: Number(rpm),
+        cadence: Number(rpm),
       ),
       sampleExtractor: (sample) => (
         time: sample.time,
         endTime: null as DateTime?,
-        value: sample.revolutionsPerMinute.value as int,
+        value: sample.cadence.value as int,
       ),
       valueValidator: (rpm) => rpm != null && rpm > 0,
     );

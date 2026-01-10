@@ -36,22 +36,22 @@ final class HeightRecord extends InstantHealthRecord {
   /// - [time]: The timestamp when the height was measured.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
-  /// - [height]: The body height measurement. Must be greater than 0 meters.
+  /// - [length]: The body height measurement. Must be greater than 0 meters.
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError] if [height] is less than or equal to 0 meters.
+  /// - [ArgumentError] if [length] is less than or equal to 0 meters.
   factory HeightRecord({
     required DateTime time,
     required Metadata metadata,
-    required Length height,
+    required Length length,
     HealthRecordId id = HealthRecordId.none,
     int? zoneOffsetSeconds,
   }) {
     return HeightRecord._(
       time: time,
       metadata: metadata,
-      height: height,
+      height: length,
       id: id,
       zoneOffsetSeconds: zoneOffsetSeconds,
     );
@@ -85,7 +85,7 @@ final class HeightRecord extends InstantHealthRecord {
     return HeightRecord(
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
-      height: height ?? this.height,
+      length: height ?? this.height,
       id: id ?? this.id,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
     );

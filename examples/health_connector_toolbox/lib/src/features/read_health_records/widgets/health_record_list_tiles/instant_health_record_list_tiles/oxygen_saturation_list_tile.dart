@@ -20,7 +20,7 @@ final class OxygenSaturationTile extends StatelessWidget {
     return InstantHealthRecordTile<OxygenSaturationRecord>(
       record: record,
       icon: AppIcons.air,
-      title: '${record.percentage.asWhole.toStringAsFixed(1)} %',
+      title: '${record.saturation.asWhole.toStringAsFixed(1)} %',
       subtitleBuilder: (r, ctx) => HealthRecordListTileSubtitle.instant(
         time: r.time,
         recordingMethod: r.metadata.recordingMethod.name,

@@ -21,7 +21,7 @@ final class WheelchairPushesTile extends StatelessWidget {
     return IntervalHealthRecordTile<WheelchairPushesRecord>(
       record: record,
       icon: AppIcons.accessible,
-      title: '${record.pushes.value} ${AppTexts.wheelchairPushesLabel}',
+      title: '${record.count.value} ${AppTexts.wheelchairPushesLabel}',
       subtitleBuilder: (r, ctx) => HealthRecordListTileSubtitle.interval(
         startTime: r.startTime,
         endTime: r.endTime,

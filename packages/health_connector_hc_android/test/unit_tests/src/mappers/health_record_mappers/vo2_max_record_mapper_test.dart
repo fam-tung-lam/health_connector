@@ -20,7 +20,7 @@ void main() {
                 time: FakeData.fakeTime,
                 zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
                 metadata: Metadata.manualEntry(),
-                mLPerKgPerMin: const Number(45.5),
+                vo2MlPerMinPerKg: const Number(45.5),
                 testType: Vo2MaxTestType.rockportFitnessTest,
               );
 
@@ -70,7 +70,7 @@ void main() {
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
-              expect(record.mLPerKgPerMin.value, 50.0);
+              expect(record.vo2MlPerMinPerKg.value, 50.0);
               expect(
                 record.testType,
                 Vo2MaxTestType.cooperTest,
@@ -153,7 +153,7 @@ void main() {
                 time: FakeData.fakeTime,
                 zoneOffsetSeconds: 0,
                 metadata: Metadata.manualEntry(),
-                mLPerKgPerMin: const Number(45.0),
+                vo2MlPerMinPerKg: const Number(45.0),
                 testType: domainVal,
               );
 

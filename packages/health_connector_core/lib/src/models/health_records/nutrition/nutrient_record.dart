@@ -26,15 +26,15 @@ sealed class NutrientRecord<U extends MeasurementUnit>
   ///
   /// ## Parameters
   ///
-  /// - [value]: The measurement value of this nutrient.
   /// - [time]: The timestamp when the nutrient was consumed.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this nutrient.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
+  /// - [foodName]: Optional name of the food containing this nutrient.
+  /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   const NutrientRecord({
-    required this.value,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -45,9 +45,6 @@ sealed class NutrientRecord<U extends MeasurementUnit>
 
   /// Optional name of the food containing this nutrient.
   final String? foodName;
-
-  /// The measurement value of this specific nutrient.
-  final U value;
 
   /// The type of meal during which this nutrient was consumed.
   final MealType mealType;

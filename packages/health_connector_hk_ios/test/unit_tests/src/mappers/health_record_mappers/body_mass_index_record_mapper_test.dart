@@ -27,7 +27,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.phone),
                 ),
-                bodyMassIndex: const Number(22.5),
+                bmi: const Number(22.5),
               );
 
               final dto = record.toDto();
@@ -70,7 +70,7 @@ void main() {
 
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, time);
-              expect(record.bodyMassIndex.value, 23.8);
+              expect(record.bmi.value, 23.8);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,

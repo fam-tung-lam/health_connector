@@ -85,9 +85,9 @@ final class HealthRecordListTile extends StatelessWidget {
           record: r,
           icon: AppIcons.favorite,
           titleBuilder: (r) =>
-              '${r.beatsPerMinute.inPerMinute.toStringAsFixed(0)} '
+              '${r.rate.inPerMinute.toStringAsFixed(0)} '
               '${AppTexts.bpm}',
-          valueExtractor: (r) => r.beatsPerMinute,
+          valueExtractor: (r) => r.rate,
           onDelete: onDelete,
         ),
       final HeartRateVariabilityRMSSDRecord r => HeartRateVariabilityRMSSDTile(
@@ -108,9 +108,8 @@ final class HealthRecordListTile extends StatelessWidget {
         SimpleInstantMeasurementListTile<HeartRateVariabilitySDNNRecord>(
           record: r,
           icon: AppIcons.favorite,
-          titleBuilder: (r) =>
-              '${r.heartRateVariabilitySDNN.value.toStringAsFixed(1)} ms',
-          valueExtractor: (r) => r.heartRateVariabilitySDNN,
+          titleBuilder: (r) => '${r.sdnnMillis.value.toStringAsFixed(1)} ms',
+          valueExtractor: (r) => r.sdnnMillis,
           onDelete: onDelete,
         ),
 
@@ -226,9 +225,8 @@ final class HealthRecordListTile extends StatelessWidget {
         SimpleInstantMeasurementListTile<BodyMassIndexRecord>(
           record: r,
           icon: AppIcons.monitorWeight,
-          titleBuilder: (r) =>
-              '${r.bodyMassIndex.value.toStringAsFixed(1)} kg/m²',
-          valueExtractor: (r) => r.bodyMassIndex,
+          titleBuilder: (r) => '${r.bmi.value.toStringAsFixed(1)} kg/m²',
+          valueExtractor: (r) => r.bmi,
           onDelete: onDelete,
         ),
       final WaistCircumferenceRecord r =>
@@ -246,16 +244,16 @@ final class HealthRecordListTile extends StatelessWidget {
         SimpleInstantMeasurementListTile<OxygenSaturationRecord>(
           record: r,
           icon: AppIcons.air,
-          titleBuilder: (r) => '${r.percentage.asWhole.toStringAsFixed(1)} %',
-          valueExtractor: (r) => r.percentage,
+          titleBuilder: (r) => '${r.saturation.asWhole.toStringAsFixed(1)} %',
+          valueExtractor: (r) => r.saturation,
           onDelete: onDelete,
         ),
       final Vo2MaxRecord r => SimpleInstantMeasurementListTile<Vo2MaxRecord>(
         record: r,
         icon: AppIcons.favorite,
         titleBuilder: (r) =>
-            '${r.mLPerKgPerMin.value.toStringAsFixed(1)} mL/kg/min',
-        valueExtractor: (r) => r.mLPerKgPerMin,
+            '${r.vo2MlPerMinPerKg.value.toStringAsFixed(1)} mL/kg/min',
+        valueExtractor: (r) => r.vo2MlPerMinPerKg,
         onDelete: onDelete,
       ),
 
@@ -283,8 +281,8 @@ final class HealthRecordListTile extends StatelessWidget {
         SimpleIntervalMeasurementListTile<FloorsClimbedRecord>(
           record: r,
           icon: AppIcons.stairs,
-          titleBuilder: (r) => '${r.floors.value} floors',
-          valueExtractor: (r) => r.floors,
+          titleBuilder: (r) => '${r.count.value} floors',
+          valueExtractor: (r) => r.count,
           onDelete: onDelete,
         ),
       final ActiveCaloriesBurnedRecord r =>
@@ -301,8 +299,8 @@ final class HealthRecordListTile extends StatelessWidget {
           record: r,
           icon: AppIcons.accessible,
           titleBuilder: (r) =>
-              '${r.pushes.value} ${AppTexts.wheelchairPushesLabel}',
-          valueExtractor: (r) => r.pushes,
+              '${r.count.value} ${AppTexts.wheelchairPushesLabel}',
+          valueExtractor: (r) => r.count,
           onDelete: onDelete,
         ),
 

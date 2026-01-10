@@ -17,7 +17,7 @@ extension RestingHeartRateRecordToDto on RestingHeartRateRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      beatsPerMinute: beatsPerMinute.toDto(),
+      beatsPerMinute: rate.toDto(),
     );
   }
 }
@@ -32,7 +32,7 @@ extension RestingHeartRateRecordDtoToDomain on RestingHeartRateRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      beatsPerMinute: beatsPerMinute.toDomain(),
+      rate: beatsPerMinute.toDomain(),
     );
   }
 }

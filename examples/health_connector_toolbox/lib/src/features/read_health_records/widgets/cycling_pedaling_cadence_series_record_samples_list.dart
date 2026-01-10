@@ -27,7 +27,7 @@ final class CyclingPedalingCadenceSeriesRecordSamplesList
       samples: samples,
       itemBuilder: (sample, index) => HealthRecordDetailRow(
         label: DateFormatter.formatDateTime(sample.time),
-        value: '${sample.revolutionsPerMinute.value} ${AppTexts.rpm}',
+        value: '${sample.cadence.value} ${AppTexts.rpm}',
       ),
     );
   }

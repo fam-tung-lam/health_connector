@@ -15,7 +15,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = ProteinNutrientRecord(
 ///   time: DateTime.now(),
-///   value: Mass.grams(30),
+///   mass: Mass.grams(30),
 ///   foodName: 'Grilled Chicken',
 ///   mealType: MealType.lunch,
 ///   metadata: Metadata.manualEntry(),
@@ -35,7 +35,7 @@ final class ProteinNutrientRecord extends MacronutrientRecord {
   ///
   /// ## Parameters
   ///
-  /// - [value]: The protein measurement.
+  /// - [mass]: The protein measurement.
   /// - [time]: The timestamp when the protein was consumed.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
@@ -43,7 +43,7 @@ final class ProteinNutrientRecord extends MacronutrientRecord {
   /// - [foodName]: Optional name of the food containing this protein.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory ProteinNutrientRecord({
-    required Mass value,
+    required Mass mass,
     required DateTime time,
     required Metadata metadata,
     HealthRecordId id = HealthRecordId.none,
@@ -52,7 +52,7 @@ final class ProteinNutrientRecord extends MacronutrientRecord {
     MealType mealType = MealType.unknown,
   }) {
     return ProteinNutrientRecord._(
-      value: value,
+      mass: mass,
       time: time,
       metadata: metadata,
       id: id,
@@ -64,7 +64,7 @@ final class ProteinNutrientRecord extends MacronutrientRecord {
 
   /// Creates a copy with the given fields replaced with the new values.
   ProteinNutrientRecord copyWith({
-    Mass? value,
+    Mass? mass,
     DateTime? time,
     Metadata? metadata,
     HealthRecordId? id,
@@ -73,7 +73,7 @@ final class ProteinNutrientRecord extends MacronutrientRecord {
     MealType? mealType,
   }) {
     return ProteinNutrientRecord._(
-      value: value ?? this.value,
+      mass: mass ?? this.mass,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
@@ -84,7 +84,7 @@ final class ProteinNutrientRecord extends MacronutrientRecord {
   }
 
   const ProteinNutrientRecord._({
-    required super.value,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,

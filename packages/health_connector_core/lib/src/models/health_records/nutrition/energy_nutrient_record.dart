@@ -16,7 +16,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = EnergyNutrientRecord(
 ///   time: DateTime.now(),
-///   value: Energy.kilocalories(250),
+///   energy: Energy.kilocalories(250),
 ///   foodName: 'Apple',
 ///   mealType: MealType.snack,
 ///   metadata: Metadata.manualEntry(),
@@ -36,7 +36,8 @@ final class EnergyNutrientRecord extends NutrientRecord<Energy> {
   ///
   /// ## Parameters
   ///
-  /// - [value]: The energy (calorie) measurement.
+  ///
+  /// - [energy]: The energy (calorie) measurement.
   /// - [time]: The timestamp when the energy was consumed.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
@@ -44,7 +45,7 @@ final class EnergyNutrientRecord extends NutrientRecord<Energy> {
   /// - [foodName]: Optional name of the food containing this energy.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory EnergyNutrientRecord({
-    required Energy value,
+    required Energy energy,
     required DateTime time,
     required Metadata metadata,
     HealthRecordId id = HealthRecordId.none,
@@ -53,7 +54,7 @@ final class EnergyNutrientRecord extends NutrientRecord<Energy> {
     MealType mealType = MealType.unknown,
   }) {
     return EnergyNutrientRecord._(
-      value: value,
+      energy: energy,
       time: time,
       metadata: metadata,
       id: id,
@@ -63,9 +64,12 @@ final class EnergyNutrientRecord extends NutrientRecord<Energy> {
     );
   }
 
+  /// The energy (calorie) measurement.
+  final Energy energy;
+
   /// Creates a copy with the given fields replaced with the new values.
   EnergyNutrientRecord copyWith({
-    Energy? value,
+    Energy? energy,
     DateTime? time,
     Metadata? metadata,
     HealthRecordId? id,
@@ -74,7 +78,7 @@ final class EnergyNutrientRecord extends NutrientRecord<Energy> {
     MealType? mealType,
   }) {
     return EnergyNutrientRecord._(
-      value: value ?? this.value,
+      energy: energy ?? this.energy,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
@@ -85,7 +89,7 @@ final class EnergyNutrientRecord extends NutrientRecord<Energy> {
   }
 
   const EnergyNutrientRecord._({
-    required super.value,
+    required this.energy,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,

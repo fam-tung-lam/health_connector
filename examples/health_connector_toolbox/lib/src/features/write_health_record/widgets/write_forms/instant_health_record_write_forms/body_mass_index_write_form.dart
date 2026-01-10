@@ -22,7 +22,7 @@ final class BodyMassIndexFormState
   HealthRecord buildRecord() {
     return BodyMassIndexRecord(
       time: startDateTime!,
-      bodyMassIndex: value! as Number,
+      bmi: value! as Number,
       metadata: metadata,
     );
   }

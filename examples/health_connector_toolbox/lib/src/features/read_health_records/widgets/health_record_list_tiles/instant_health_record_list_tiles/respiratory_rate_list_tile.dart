@@ -22,7 +22,7 @@ final class RespiratoryRateTile extends StatelessWidget {
       record: record,
       icon: AppIcons.air,
       title:
-          '${record.breathsPerMin.inPerMinute.toStringAsFixed(0)} '
+          '${record.rate.inPerMinute.toStringAsFixed(0)} '
           '${AppTexts.breathsPerMinute}',
       subtitleBuilder: (r, ctx) => HealthRecordListTileSubtitle.instant(
         time: r.time,

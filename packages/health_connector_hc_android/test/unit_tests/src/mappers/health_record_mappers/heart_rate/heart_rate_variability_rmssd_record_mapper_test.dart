@@ -76,7 +76,7 @@ void main() {
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
-              expect(record.heartRateVariabilityMillis, const Number(50.0));
+              expect(record.rmssdMillis, const Number(50.0));
             },
           );
 

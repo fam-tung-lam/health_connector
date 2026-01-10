@@ -22,7 +22,7 @@ final class BloodGlucoseTile extends StatelessWidget {
     return InstantHealthRecordTile<BloodGlucoseRecord>(
       record: record,
       icon: AppIcons.bloodGlucose,
-      title: '${record.bloodGlucose.inMilligramsPerDeciliter} mg/dL',
+      title: '${record.glucoseLevel.inMilligramsPerDeciliter} mg/dL',
       subtitleBuilder: (r, ctx) => HealthRecordListTileSubtitle.instant(
         time: r.time,
         recordingMethod: r.metadata.recordingMethod.name,

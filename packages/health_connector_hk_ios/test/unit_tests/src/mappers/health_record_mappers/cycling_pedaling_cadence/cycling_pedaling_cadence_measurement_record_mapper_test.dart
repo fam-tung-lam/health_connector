@@ -28,7 +28,7 @@ void main() {
                 ),
                 measurement: CyclingPedalingCadenceMeasurement(
                   time: time,
-                  revolutionsPerMinute: const Number(90.0),
+                  cadence: const Number(90.0),
                 ),
               );
 
@@ -70,7 +70,7 @@ void main() {
               final record = dto.toDomain();
 
               expect(record.id.value, FakeData.fakeId);
-              expect(record.measurement.revolutionsPerMinute.value, 85.0);
+              expect(record.measurement.cadence.value, 85.0);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,

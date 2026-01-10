@@ -16,7 +16,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = FolateNutrientRecord(
 ///   time: DateTime.now(),
-///   value: Mass.micrograms(180),
+///   mass: Mass.micrograms(180),
 ///   foodName: 'Lentils',
 ///   mealType: MealType.lunch,
 ///   metadata: Metadata.manualEntry(),
@@ -36,7 +36,8 @@ final class FolateNutrientRecord extends VitaminNutrientRecord {
   ///
   /// ## Parameters
   ///
-  /// - [value]: The folate measurement.
+  ///
+  /// - [mass]: The folate measurement.
   /// - [time]: The timestamp when the folate was consumed.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
@@ -44,7 +45,7 @@ final class FolateNutrientRecord extends VitaminNutrientRecord {
   /// - [foodName]: Optional name of the food containing this folate.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory FolateNutrientRecord({
-    required Mass value,
+    required Mass mass,
     required DateTime time,
     required Metadata metadata,
     HealthRecordId id = HealthRecordId.none,
@@ -53,7 +54,7 @@ final class FolateNutrientRecord extends VitaminNutrientRecord {
     MealType mealType = MealType.unknown,
   }) {
     return FolateNutrientRecord._(
-      value: value,
+      mass: mass,
       time: time,
       metadata: metadata,
       id: id,
@@ -65,7 +66,7 @@ final class FolateNutrientRecord extends VitaminNutrientRecord {
 
   /// Creates a copy with the given fields replaced with the new values.
   FolateNutrientRecord copyWith({
-    Mass? value,
+    Mass? mass,
     DateTime? time,
     Metadata? metadata,
     HealthRecordId? id,
@@ -74,7 +75,7 @@ final class FolateNutrientRecord extends VitaminNutrientRecord {
     MealType? mealType,
   }) {
     return FolateNutrientRecord._(
-      value: value ?? this.value,
+      mass: mass ?? this.mass,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
@@ -85,7 +86,7 @@ final class FolateNutrientRecord extends VitaminNutrientRecord {
   }
 
   const FolateNutrientRecord._({
-    required super.value,
+    required this.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -93,4 +94,7 @@ final class FolateNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
+
+  /// The folate measurement.
+  final Mass mass;
 }

@@ -38,8 +38,8 @@ final class EnergyNutrientListTile extends StatelessWidget {
 
   /// Builds the title displaying energy in kilocalories and calories.
   String _buildTitle() {
-    return '${record.value.inKilocalories.toStringAsFixed(2)} kcal '
-        '(${record.value.inCalories.toStringAsFixed(0)} cal)';
+    return '${record.energy.inKilocalories.toStringAsFixed(2)} kcal '
+        '(${record.energy.inCalories.toStringAsFixed(0)} cal)';
   }
 
   /// Builds the subtitle showing time, food name, meal type, and
@@ -92,7 +92,7 @@ final class EnergyNutrientListTile extends StatelessWidget {
         label: AppTexts.value,
         value: '',
       ),
-      MeasurementUnitDisplay(unit: rec.value),
+      MeasurementUnitDisplay(unit: rec.energy),
       if (foodName != null && foodName.isNotEmpty)
         HealthRecordDetailRow(
           label: AppTexts.foodName,

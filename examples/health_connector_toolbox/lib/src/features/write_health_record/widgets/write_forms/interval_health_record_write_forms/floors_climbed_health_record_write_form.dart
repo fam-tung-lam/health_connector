@@ -23,7 +23,7 @@ final class FloorsClimbedFormState
     return FloorsClimbedRecord(
       startTime: startDateTime!,
       endTime: endDateTime!,
-      floors: value! as Number,
+      count: value! as Number,
       metadata: metadata,
     );
   }

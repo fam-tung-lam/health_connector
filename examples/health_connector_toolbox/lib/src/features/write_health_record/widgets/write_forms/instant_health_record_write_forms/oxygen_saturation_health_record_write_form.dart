@@ -22,7 +22,7 @@ final class OxygenSaturationFormState
   HealthRecord buildRecord() {
     return OxygenSaturationRecord(
       time: startDateTime!,
-      percentage: value! as Percentage,
+      saturation: value! as Percentage,
       metadata: metadata,
     );
   }

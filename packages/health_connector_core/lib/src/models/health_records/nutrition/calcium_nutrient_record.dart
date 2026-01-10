@@ -15,7 +15,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = CalciumNutrientRecord(
 ///   time: DateTime.now(),
-///   value: Mass.milligrams(300),
+///   mass: Mass.milligrams(300),
 ///   foodName: 'Milk',
 ///   mealType: MealType.breakfast,
 ///   metadata: Metadata.manualEntry(),
@@ -35,7 +35,8 @@ final class CalciumNutrientRecord extends MineralNutrientRecord {
   ///
   /// ## Parameters
   ///
-  /// - [value]: The calcium measurement.
+  ///
+  /// - [mass]: The calcium measurement.
   /// - [time]: The timestamp when the calcium was consumed.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
@@ -43,7 +44,7 @@ final class CalciumNutrientRecord extends MineralNutrientRecord {
   /// - [foodName]: Optional name of the food containing this calcium.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory CalciumNutrientRecord({
-    required Mass value,
+    required Mass mass,
     required DateTime time,
     required Metadata metadata,
     HealthRecordId id = HealthRecordId.none,
@@ -52,7 +53,7 @@ final class CalciumNutrientRecord extends MineralNutrientRecord {
     MealType mealType = MealType.unknown,
   }) {
     return CalciumNutrientRecord._(
-      value: value,
+      mass: mass,
       time: time,
       metadata: metadata,
       id: id,
@@ -64,7 +65,7 @@ final class CalciumNutrientRecord extends MineralNutrientRecord {
 
   /// Creates a copy with the given fields replaced with the new values.
   CalciumNutrientRecord copyWith({
-    Mass? value,
+    Mass? mass,
     DateTime? time,
     Metadata? metadata,
     HealthRecordId? id,
@@ -73,7 +74,7 @@ final class CalciumNutrientRecord extends MineralNutrientRecord {
     MealType? mealType,
   }) {
     return CalciumNutrientRecord._(
-      value: value ?? this.value,
+      mass: mass ?? this.mass,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
@@ -84,7 +85,7 @@ final class CalciumNutrientRecord extends MineralNutrientRecord {
   }
 
   const CalciumNutrientRecord._({
-    required super.value,
+    required this.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -92,4 +93,7 @@ final class CalciumNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
+
+  /// The calcium measurement.
+  final Mass mass;
 }

@@ -22,7 +22,7 @@ final class Vo2MaxFormState
   HealthRecord buildRecord() {
     return Vo2MaxRecord(
       time: startDateTime!,
-      mLPerKgPerMin: value! as Number,
+      vo2MlPerMinPerKg: value! as Number,
       metadata: metadata,
     );
   }

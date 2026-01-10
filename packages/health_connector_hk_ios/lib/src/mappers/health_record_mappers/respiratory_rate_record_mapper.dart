@@ -16,7 +16,7 @@ extension RespiratoryRateRecordToDto on RespiratoryRateRecord {
       time: time.toUtc().millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      breathsPerMin: breathsPerMin.toDto(),
+      breathsPerMin: rate.toDto(),
     );
   }
 }
@@ -32,7 +32,7 @@ extension RespiratoryRateRecordDtoToDomain on RespiratoryRateRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      breathsPerMin: breathsPerMin.toDomain(),
+      rate: breathsPerMin.toDomain(),
     );
   }
 }

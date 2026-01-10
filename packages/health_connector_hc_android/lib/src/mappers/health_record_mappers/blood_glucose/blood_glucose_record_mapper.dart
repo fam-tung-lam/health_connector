@@ -26,7 +26,7 @@ extension BloodGlucoseRecordToDto on BloodGlucoseRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      bloodGlucose: bloodGlucose.toDto(),
+      bloodGlucose: glucoseLevel.toDto(),
       relationToMeal: relationToMeal.toDto(),
       specimenSource: specimenSource.toDto(),
       mealType: mealType.toDto(),
@@ -44,7 +44,7 @@ extension BloodGlucoseRecordDtoToDomain on BloodGlucoseRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      bloodGlucose: bloodGlucose.toDomain(),
+      glucoseLevel: bloodGlucose.toDomain(),
       relationToMeal:
           relationToMeal?.toDomain() ?? BloodGlucoseRelationToMeal.unknown,
       specimenSource:
