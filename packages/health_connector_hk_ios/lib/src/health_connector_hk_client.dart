@@ -244,8 +244,7 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
         .where((result) => result.status == PermissionStatus.granted)
         .map((result) => result.permission)
         .toList();
-    final grantedHealthDataPermissions =
-        grantedPermissions.healthDataPermissions;
+    final grantedDataPermissions = grantedPermissions.healthDataPermissions;
 
     HealthConnectorLogger.info(
       tag,
@@ -253,7 +252,7 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
       message: 'HealthKit permissions requested successfully',
       context: {
         ...context,
-        'granted_health_data_count': grantedHealthDataPermissions.length,
+        'granted_health_data_count': grantedDataPermissions.length,
         'denied_health_data_count': results
             .where(
               (r) =>

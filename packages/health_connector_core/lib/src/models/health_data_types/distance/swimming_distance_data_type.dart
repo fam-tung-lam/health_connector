@@ -25,7 +25,7 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class SwimmingDistanceDataType
-    extends DistanceActivityHealthDataType<SwimmingDistanceRecord> {
+    extends DistanceActivityDataType<SwimmingDistanceRecord> {
   /// Creates a swimming distance data type.
   ///
   /// This is a constant constructor used internally. To reference this data

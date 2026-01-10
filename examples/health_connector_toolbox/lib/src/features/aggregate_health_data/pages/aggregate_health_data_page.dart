@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_connector/health_connector_internal.dart'
-    show
-        AggregationMetric,
-        BloodPressureHealthDataType,
-        HealthDataType,
-        HealthRecord,
-        MeasurementUnit,
-        Pressure,
-        HealthPlatform;
+import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/display_name_extensions.dart';
@@ -28,22 +20,19 @@ import 'package:provider/provider.dart' show Provider, Selector;
 /// Allows users to select a health data type, aggregation metric (sum, average,
 /// min, max), and time range. Displays the aggregation result in a card.
 @immutable
-final class AggregateHealthDataPage extends StatefulWidget {
-  const AggregateHealthDataPage({required this.healthPlatform, super.key});
+final class AggregateDataPage extends StatefulWidget {
+  const AggregateDataPage({required this.healthPlatform, super.key});
 
   final HealthPlatform healthPlatform;
 
   @override
-  State<AggregateHealthDataPage> createState() =>
-      _AggregateHealthDataPageState();
+  State<AggregateDataPage> createState() => _AggregateDataPageState();
 }
 
-class _AggregateHealthDataPageState extends State<AggregateHealthDataPage>
+class _AggregateDataPageState extends State<AggregateDataPage>
     with
-        DateTimeRangePickerPageStateMixin<AggregateHealthDataPage>,
-        ProcessOperationWithErrorHandlerPageStateMixin<
-          AggregateHealthDataPage
-        > {
+        DateTimeRangePickerPageStateMixin<AggregateDataPage>,
+        ProcessOperationWithErrorHandlerPageStateMixin<AggregateDataPage> {
   final _formKey = GlobalKey<FormState>();
   HealthDataType<HealthRecord, MeasurementUnit>? _selectedDataType;
   AggregationMetric? _selectedMetric;
@@ -55,8 +44,8 @@ class _AggregateHealthDataPageState extends State<AggregateHealthDataPage>
     }
 
     // Validate blood pressure subtype is selected when
-    // BloodPressureHealthDataType is selected
-    if (_selectedDataType is BloodPressureHealthDataType &&
+    // BloodPressureDataType is selected
+    if (_selectedDataType is BloodPressureDataType &&
         _selectedBloodPressureSubtype == null) {
       if (!mounted) {
         return;
@@ -69,13 +58,13 @@ class _AggregateHealthDataPageState extends State<AggregateHealthDataPage>
       return;
     }
 
-    final notifier = Provider.of<AggregateHealthDataChangeNotifier>(
+    final notifier = Provider.of<AggregateDataChangeNotifier>(
       context,
       listen: false,
     );
 
     await process(() async {
-      await notifier.aggregateHealthData(
+      await notifier.aggregateData(
         dataType: _selectedDataType!,
         aggregationMetric: _selectedMetric!,
         startTime: startDateTime!,
@@ -93,13 +82,13 @@ class _AggregateHealthDataPageState extends State<AggregateHealthDataPage>
       _selectedDataType = value;
       _selectedBloodPressureSubtype = null;
 
-      if (value is BloodPressureHealthDataType) {
+      if (value is BloodPressureDataType) {
         _selectedMetric = null;
       } else {
         _selectedMetric = value?.supportedAggregationMetrics.first;
       }
 
-      final notifier = Provider.of<AggregateHealthDataChangeNotifier>(
+      final notifier = Provider.of<AggregateDataChangeNotifier>(
         context,
         listen: false,
       );
@@ -115,7 +104,7 @@ class _AggregateHealthDataPageState extends State<AggregateHealthDataPage>
       _selectedBloodPressureSubtype = value;
       _selectedMetric = value?.supportedAggregationMetrics.first;
 
-      final notifier = Provider.of<AggregateHealthDataChangeNotifier>(
+      final notifier = Provider.of<AggregateDataChangeNotifier>(
         context,
         listen: false,
       );
@@ -128,7 +117,7 @@ class _AggregateHealthDataPageState extends State<AggregateHealthDataPage>
     setState(() {
       _selectedMetric = value ?? AggregationMetric.sum;
 
-      final notifier = Provider.of<AggregateHealthDataChangeNotifier>(
+      final notifier = Provider.of<AggregateDataChangeNotifier>(
         context,
         listen: false,
       );
@@ -155,7 +144,7 @@ class _AggregateHealthDataPageState extends State<AggregateHealthDataPage>
   String? _validateBloodPressureType(
     HealthDataType<HealthRecord, Pressure>? value,
   ) {
-    if (_selectedDataType is BloodPressureHealthDataType && value == null) {
+    if (_selectedDataType is BloodPressureDataType && value == null) {
       return AppTexts.pleaseSelectBloodPressureType;
     }
     return null;
@@ -182,7 +171,7 @@ class _AggregateHealthDataPageState extends State<AggregateHealthDataPage>
 
   @override
   Widget build(BuildContext context) {
-    return Selector<AggregateHealthDataChangeNotifier, bool>(
+    return Selector<AggregateDataChangeNotifier, bool>(
       selector: (_, notifier) => notifier.isLoading,
       builder: (context, isLoading, _) {
         return LoadingOverlay(
@@ -206,8 +195,7 @@ class _AggregateHealthDataPageState extends State<AggregateHealthDataPage>
                             itemsFilter: _filterSupportedDataTypes,
                           ),
                           const SizedBox(height: 12),
-                          if (_selectedDataType
-                              is BloodPressureHealthDataType) ...[
+                          if (_selectedDataType is BloodPressureDataType) ...[
                             DropdownButtonFormField<
                               HealthDataType<HealthRecord, Pressure>
                             >(
@@ -254,8 +242,7 @@ class _AggregateHealthDataPageState extends State<AggregateHealthDataPage>
                               prefixIcon: Icon(AppIcons.calculate),
                             ),
                             items:
-                                (_selectedDataType
-                                            is BloodPressureHealthDataType
+                                (_selectedDataType is BloodPressureDataType
                                         ? _selectedBloodPressureSubtype
                                               ?.supportedAggregationMetrics
                                         : _selectedDataType
@@ -288,7 +275,7 @@ class _AggregateHealthDataPageState extends State<AggregateHealthDataPage>
                             onEndTimeChanged: setEndTime,
                           ),
                           Selector<
-                            AggregateHealthDataChangeNotifier,
+                            AggregateDataChangeNotifier,
                             MeasurementUnit?
                           >(
                             selector: (_, notifier) =>

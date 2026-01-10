@@ -16,7 +16,7 @@ part of '../health_data_type.dart';
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable
-sealed class SpeedActivityHealthDataType<R extends SpeedActivityRecord>
+sealed class SpeedActivityDataType<R extends SpeedActivityRecord>
     extends HealthDataType<R, Velocity>
     implements
         ReadableHealthDataType<R>,
@@ -24,7 +24,7 @@ sealed class SpeedActivityHealthDataType<R extends SpeedActivityRecord>
         DeletableHealthDataType,
         AvgAggregatableHealthDataType<R, Velocity> {
   @internal
-  const SpeedActivityHealthDataType();
+  const SpeedActivityDataType();
 
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [

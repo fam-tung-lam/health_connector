@@ -440,7 +440,7 @@ void main() {
               );
 
               test(
-                'throws for SleepSessionHealthDataType',
+                'throws for SleepSessionDataType',
                 () {
                   expect(
                     () => HealthDataType.sleepSession.toDto(),
@@ -450,7 +450,7 @@ void main() {
               );
 
               test(
-                'throws for HeartRateSeriesRecordHealthDataType',
+                'throws for HeartRateSeriesRecordDataType',
                 () {
                   expect(
                     () => HealthDataType.heartRateSeriesRecord.toDto(),
@@ -460,7 +460,7 @@ void main() {
               );
 
               test(
-                'throws for CyclingPedalingCadenceSeriesRecordHealthDataType',
+                'throws for CyclingPedalingCadenceSeriesRecordDataType',
                 () {
                   expect(
                     () => HealthDataType.cyclingPedalingCadenceSeriesRecord
@@ -471,7 +471,7 @@ void main() {
               );
 
               test(
-                'throws for TotalEnergyBurnedHealthDataType',
+                'throws for TotalEnergyBurnedDataType',
                 () {
                   expect(
                     () => HealthDataType.totalEnergyBurned.toDto(),
@@ -521,7 +521,7 @@ void main() {
               );
 
               test(
-                'throws for DistanceHealthDataType',
+                'throws for DistanceDataType',
                 () {
                   expect(
                     () => HealthDataType.distance.toDto(),

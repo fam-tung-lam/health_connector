@@ -27,7 +27,7 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class RunningSpeedDataType
-    extends SpeedActivityHealthDataType<RunningSpeedRecord> {
+    extends SpeedActivityDataType<RunningSpeedRecord> {
   /// Creates a running speed data type.
   ///
   /// This is a constant constructor used internally. To reference this data

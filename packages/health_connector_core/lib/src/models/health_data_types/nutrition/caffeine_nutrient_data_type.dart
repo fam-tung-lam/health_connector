@@ -30,7 +30,7 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class CaffeineNutrientDataType
-    extends NutrientHealthDataType<CaffeineNutrientRecord, Mass>
+    extends NutrientDataType<CaffeineNutrientRecord, Mass>
     implements
         ReadableHealthDataType<CaffeineNutrientRecord>,
         WriteableHealthDataType,

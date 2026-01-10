@@ -1,104 +1,4 @@
-import 'package:health_connector_core/health_connector_core_internal.dart'
-    show
-        AggregateRequest,
-        HealthRecord,
-        MeasurementUnit,
-        CommonAggregateRequest,
-        BloodPressureAggregateRequest,
-        BloodGlucoseHealthDataType,
-        BloodPressureHealthDataType,
-        DiastolicBloodPressureHealthDataType,
-        SystolicBloodPressureHealthDataType,
-        ActiveEnergyBurnedHealthDataType,
-        BodyFatPercentageHealthDataType,
-        BodyTemperatureHealthDataType,
-        BodyMassIndexHealthDataType,
-        BoneMassDataType,
-        BodyWaterMassDataType,
-        CervicalMucusDataType,
-        CrossCountrySkiingDistanceDataType,
-        CyclingDistanceDataType,
-        CyclingPedalingCadenceMeasurementRecordHealthDataType,
-        CyclingPedalingCadenceSeriesRecordHealthDataType,
-        CyclingPowerDataType,
-        DistanceHealthDataType,
-        DownhillSnowSportsDistanceDataType,
-        FloorsClimbedHealthDataType,
-        HeartRateMeasurementRecordHealthDataType,
-        HeartRateSeriesRecordHealthDataType,
-        HeartRateVariabilityRMSSDDataType,
-        HeartRateVariabilitySDNNDataType,
-        HeightHealthDataType,
-        HydrationHealthDataType,
-        LeanBodyMassHealthDataType,
-        NutritionHealthDataType,
-        IntermenstrualBleedingDataType,
-        MenstrualFlowDataType,
-        MenstrualFlowInstantDataType,
-        OvulationTestDataType,
-        OxygenSaturationHealthDataType,
-        SleepSessionHealthDataType,
-        SleepStageHealthDataType,
-        MindfulnessSessionDataType,
-        StepsHealthDataType,
-        WeightHealthDataType,
-        WaistCircumferenceHealthDataType,
-        WheelchairPushesHealthDataType,
-        PaddleSportsDistanceDataType,
-        RowingDistanceDataType,
-        SixMinuteWalkTestDistanceDataType,
-        SkatingSportsDistanceDataType,
-        SwimmingDistanceDataType,
-        WheelchairDistanceDataType,
-        DietaryEnergyConsumedDataType,
-        CaffeineNutrientDataType,
-        ProteinNutrientDataType,
-        TotalCarbohydrateNutrientDataType,
-        TotalFatNutrientDataType,
-        SaturatedFatNutrientDataType,
-        MonounsaturatedFatNutrientDataType,
-        PolyunsaturatedFatNutrientDataType,
-        CholesterolNutrientDataType,
-        DietaryFiberNutrientDataType,
-        SugarNutrientDataType,
-        CalciumNutrientDataType,
-        IronNutrientDataType,
-        MagnesiumNutrientDataType,
-        ManganeseNutrientDataType,
-        PhosphorusNutrientDataType,
-        PotassiumNutrientDataType,
-        PowerSeriesDataType,
-        RestingHeartRateHealthDataType,
-        SeleniumNutrientDataType,
-        SodiumNutrientDataType,
-        RespiratoryRateHealthDataType,
-        ZincNutrientDataType,
-        VitaminANutrientDataType,
-        VitaminB6NutrientDataType,
-        VitaminB12NutrientDataType,
-        VitaminCNutrientDataType,
-        VitaminDNutrientDataType,
-        VitaminENutrientDataType,
-        VitaminKNutrientDataType,
-        ThiaminNutrientDataType,
-        RiboflavinNutrientDataType,
-        NiacinNutrientDataType,
-        FolateNutrientDataType,
-        BiotinNutrientDataType,
-        PantothenicAcidNutrientDataType,
-        Vo2MaxHealthDataType,
-        sinceV1_0_0,
-        WalkingRunningDistanceDataType,
-        SpeedSeriesDataType,
-        WalkingSpeedDataType,
-        RunningSpeedDataType,
-        StairAscentSpeedDataType,
-        StairDescentSpeedDataType,
-        SexualActivityDataType,
-        TotalEnergyBurnedHealthDataType,
-        BasalEnergyBurnedHealthDataType,
-        ExerciseSessionHealthDataType,
-        BasalBodyTemperatureHealthDataType;
+import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/aggregation_metric_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
@@ -106,7 +6,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         AggregateRequestDto,
         CommonAggregateRequestDto,
         BloodPressureAggregateRequestDto,
-        BloodPressureHealthDataTypeDto;
+        BloodPressureDataTypeDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [AggregateRequest] to [AggregateRequestDto].
@@ -128,26 +28,26 @@ extension AggregateRequestDtoMapper<
         );
       case BloodPressureAggregateRequest _:
         switch (dataType) {
-          case DiastolicBloodPressureHealthDataType _:
+          case DiastolicBloodPressureDataType _:
             return BloodPressureAggregateRequestDto(
-              bloodPressureDataType: BloodPressureHealthDataTypeDto.diastolic,
+              bloodPressureDataType: BloodPressureDataTypeDto.diastolic,
               aggregationMetric: aggregationMetric.toDto(),
               startTime: startTime.millisecondsSinceEpoch,
               endTime: endTime.millisecondsSinceEpoch,
             );
-          case SystolicBloodPressureHealthDataType _:
+          case SystolicBloodPressureDataType _:
             return BloodPressureAggregateRequestDto(
-              bloodPressureDataType: BloodPressureHealthDataTypeDto.systolic,
+              bloodPressureDataType: BloodPressureDataTypeDto.systolic,
               aggregationMetric: aggregationMetric.toDto(),
               startTime: startTime.millisecondsSinceEpoch,
               endTime: endTime.millisecondsSinceEpoch,
             );
-          case ActiveEnergyBurnedHealthDataType _:
-          case BloodPressureHealthDataType _:
-          case BodyFatPercentageHealthDataType _:
-          case BodyTemperatureHealthDataType _:
+          case ActiveEnergyBurnedDataType _:
+          case BloodPressureDataType _:
+          case BodyFatPercentageDataType _:
+          case BodyTemperatureDataType _:
           case CervicalMucusDataType _:
-          case DistanceHealthDataType _:
+          case DistanceDataType _:
           case CrossCountrySkiingDistanceDataType _:
           case CyclingDistanceDataType _:
           case CyclingPowerDataType _:
@@ -160,25 +60,25 @@ extension AggregateRequestDtoMapper<
           case SwimmingDistanceDataType _:
           case WheelchairDistanceDataType _:
           case WalkingRunningDistanceDataType _:
-          case ExerciseSessionHealthDataType _:
-          case FloorsClimbedHealthDataType _:
-          case HeartRateMeasurementRecordHealthDataType _:
-          case HeartRateSeriesRecordHealthDataType _:
-          case CyclingPedalingCadenceMeasurementRecordHealthDataType _:
-          case CyclingPedalingCadenceSeriesRecordHealthDataType _:
-          case HeightHealthDataType _:
-          case HydrationHealthDataType _:
-          case LeanBodyMassHealthDataType _:
-          case NutritionHealthDataType _:
+          case ExerciseSessionDataType _:
+          case FloorsClimbedDataType _:
+          case HeartRateMeasurementRecordDataType _:
+          case HeartRateSeriesRecordDataType _:
+          case CyclingPedalingCadenceMeasurementRecordDataType _:
+          case CyclingPedalingCadenceSeriesRecordDataType _:
+          case HeightDataType _:
+          case HydrationDataType _:
+          case LeanBodyMassDataType _:
+          case NutritionDataType _:
           case OvulationTestDataType _:
           case IntermenstrualBleedingDataType _:
           case MenstrualFlowInstantDataType _:
           case SexualActivityDataType _:
-          case SleepSessionHealthDataType _:
-          case SleepStageHealthDataType _:
-          case StepsHealthDataType _:
-          case WeightHealthDataType _:
-          case WheelchairPushesHealthDataType _:
+          case SleepSessionDataType _:
+          case SleepStageDataType _:
+          case StepsDataType _:
+          case WeightDataType _:
+          case WheelchairPushesDataType _:
           case DietaryEnergyConsumedDataType _:
           case CaffeineNutrientDataType _:
           case ProteinNutrientDataType _:
@@ -212,26 +112,26 @@ extension AggregateRequestDtoMapper<
           case FolateNutrientDataType _:
           case BiotinNutrientDataType _:
           case PantothenicAcidNutrientDataType _:
-          case OxygenSaturationHealthDataType _:
-          case RestingHeartRateHealthDataType _:
-          case RespiratoryRateHealthDataType _:
-          case Vo2MaxHealthDataType _:
-          case BloodGlucoseHealthDataType _:
+          case OxygenSaturationDataType _:
+          case RestingHeartRateDataType _:
+          case RespiratoryRateDataType _:
+          case Vo2MaxDataType _:
+          case BloodGlucoseDataType _:
           case SpeedSeriesDataType _:
           case WalkingSpeedDataType _:
           case RunningSpeedDataType _:
           case StairAscentSpeedDataType _:
           case StairDescentSpeedDataType _:
           case MindfulnessSessionDataType _:
-          case TotalEnergyBurnedHealthDataType _:
-          case BasalEnergyBurnedHealthDataType _:
-          case BasalBodyTemperatureHealthDataType _:
+          case TotalEnergyBurnedDataType _:
+          case BasalEnergyBurnedDataType _:
+          case BasalBodyTemperatureDataType _:
           case BoneMassDataType _:
           case BodyWaterMassDataType _:
           case HeartRateVariabilityRMSSDDataType _:
           case HeartRateVariabilitySDNNDataType _:
-          case BodyMassIndexHealthDataType _:
-          case WaistCircumferenceHealthDataType _:
+          case BodyMassIndexDataType _:
+          case WaistCircumferenceDataType _:
           case MenstrualFlowDataType _:
             throw ArgumentError(
               'Invalid data type for BloodPressureAggregateRequest: $dataType.',

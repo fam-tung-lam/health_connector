@@ -28,9 +28,9 @@ part of '../health_record.dart';
 ///
 /// - [BloodPressureRecord]
 /// - [SystolicBloodPressureRecord]
-/// - [BloodPressureHealthDataType]
-/// - [DiastolicBloodPressureHealthDataType]
-/// - [SystolicBloodPressureHealthDataType]
+/// - [BloodPressureDataType]
+/// - [DiastolicBloodPressureDataType]
+/// - [SystolicBloodPressureDataType]
 ///
 /// {@category Health Records}
 @sinceV1_2_0

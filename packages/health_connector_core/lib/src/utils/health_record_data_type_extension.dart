@@ -21,7 +21,7 @@ import 'package:meta/meta.dart' show internal;
 /// );
 ///
 /// final dataType = heightRecord.dataType;
-/// // Returns: HealthDataType.height (HeightHealthDataType instance)
+/// // Returns: HealthDataType.height (HeightDataType instance)
 /// ```
 ///
 /// @nodoc

@@ -30,7 +30,7 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [CyclingPedalingCadenceMeasurementRecordHealthDataType]
+/// - [CyclingPedalingCadenceMeasurementRecordDataType]
 ///
 /// {@category Health Records}
 @sinceV2_2_0

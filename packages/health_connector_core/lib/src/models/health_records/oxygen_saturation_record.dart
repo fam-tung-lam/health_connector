@@ -30,7 +30,7 @@ part of 'health_record.dart';
 ///
 /// ## See also
 ///
-/// - [OxygenSaturationHealthDataType]
+/// - [OxygenSaturationDataType]
 ///
 /// {@category Health Records}
 @sinceV1_3_0

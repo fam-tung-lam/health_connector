@@ -34,7 +34,7 @@ part of 'health_record.dart';
 ///
 /// ## See also
 ///
-/// - [Vo2MaxHealthDataType]
+/// - [Vo2MaxDataType]
 ///
 /// {@category Health Records}
 @sinceV1_3_0

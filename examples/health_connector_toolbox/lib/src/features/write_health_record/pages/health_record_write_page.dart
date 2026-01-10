@@ -131,74 +131,73 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
   /// Builds the appropriate form widget based on the data type.
   BaseHealthRecordWriteForm _buildWriteForm() {
     return switch (widget.dataType) {
-      WeightHealthDataType _ => WeightWriteForm(
+      WeightDataType _ => WeightWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      HeightHealthDataType _ => HeightWriteForm(
+      HeightDataType _ => HeightWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      BodyFatPercentageHealthDataType _ => BodyFatPercentageWriteForm(
+      BodyFatPercentageDataType _ => BodyFatPercentageWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      LeanBodyMassHealthDataType _ => LeanBodyMassWriteForm(
+      LeanBodyMassDataType _ => LeanBodyMassWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      OxygenSaturationHealthDataType _ => OxygenSaturationWriteForm(
+      OxygenSaturationDataType _ => OxygenSaturationWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      RespiratoryRateHealthDataType _ => RespiratoryRateWriteForm(
+      RespiratoryRateDataType _ => RespiratoryRateWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      BodyTemperatureHealthDataType _ => BodyTemperatureWriteForm(
+      BodyTemperatureDataType _ => BodyTemperatureWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      BasalBodyTemperatureHealthDataType _ => BasalBodyTemperatureWriteForm(
+      BasalBodyTemperatureDataType _ => BasalBodyTemperatureWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      RestingHeartRateHealthDataType _ => RestingHeartRateWriteForm(
+      RestingHeartRateDataType _ => RestingHeartRateWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      BloodPressureHealthDataType _ => BloodPressureWriteForm(
+      BloodPressureDataType _ => BloodPressureWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      SystolicBloodPressureHealthDataType _ => SystolicBloodPressureWriteForm(
+      SystolicBloodPressureDataType _ => SystolicBloodPressureWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      DiastolicBloodPressureHealthDataType _ => DiastolicBloodPressureWriteForm(
+      DiastolicBloodPressureDataType _ => DiastolicBloodPressureWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      HeartRateMeasurementRecordHealthDataType _ =>
-        HeartRateMeasurementWriteForm(
-          healthPlatform: _notifier.healthPlatform,
-          onSubmit: _onSubmit,
-        ),
-      CyclingPedalingCadenceMeasurementRecordHealthDataType _ =>
+      HeartRateMeasurementRecordDataType _ => HeartRateMeasurementWriteForm(
+        healthPlatform: _notifier.healthPlatform,
+        onSubmit: _onSubmit,
+      ),
+      CyclingPedalingCadenceMeasurementRecordDataType _ =>
         CyclingPedalingCadenceMeasurementWriteForm(
           healthPlatform: _notifier.healthPlatform,
           onSubmit: _onSubmit,
         ),
-      CyclingPedalingCadenceSeriesRecordHealthDataType _ =>
+      CyclingPedalingCadenceSeriesRecordDataType _ =>
         CyclingPedalingCadenceSeriesWriteForm(
           healthPlatform: _notifier.healthPlatform,
           onSubmit: _onSubmit,
         ),
-      BloodGlucoseHealthDataType _ => BloodGlucoseWriteForm(
+      BloodGlucoseDataType _ => BloodGlucoseWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      Vo2MaxHealthDataType _ => Vo2MaxWriteForm(
+      Vo2MaxDataType _ => Vo2MaxWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
@@ -380,23 +379,23 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      StepsHealthDataType _ => StepsWriteForm(
+      StepsDataType _ => StepsWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      DistanceHealthDataType _ => DistanceWriteForm(
+      DistanceDataType _ => DistanceWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      ActiveEnergyBurnedHealthDataType _ => ActiveCaloriesBurnedWriteForm(
+      ActiveEnergyBurnedDataType _ => ActiveCaloriesBurnedWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      FloorsClimbedHealthDataType _ => FloorsClimbedWriteForm(
+      FloorsClimbedDataType _ => FloorsClimbedWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      WheelchairPushesHealthDataType _ => WheelchairPushesWriteForm(
+      WheelchairPushesDataType _ => WheelchairPushesWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
@@ -442,19 +441,19 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      HydrationHealthDataType _ => HydrationWriteForm(
+      HydrationDataType _ => HydrationWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      NutritionHealthDataType _ => NutritionWriteForm(
+      NutritionDataType _ => NutritionWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      ExerciseSessionHealthDataType _ => ExerciseSessionWriteForm(
+      ExerciseSessionDataType _ => ExerciseSessionWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      SleepStageHealthDataType _ => SleepStageWriteForm(
+      SleepStageDataType _ => SleepStageWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
@@ -462,7 +461,7 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      HeartRateSeriesRecordHealthDataType _ => HeartRateSeriesWriteForm(
+      HeartRateSeriesRecordDataType _ => HeartRateSeriesWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
@@ -474,15 +473,15 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      SleepSessionHealthDataType _ => SleepSessionWriteForm(
+      SleepSessionDataType _ => SleepSessionWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      TotalEnergyBurnedHealthDataType _ => TotalCaloriesBurnedWriteForm(
+      TotalEnergyBurnedDataType _ => TotalCaloriesBurnedWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      BasalEnergyBurnedHealthDataType _ => BasalEnergyBurnedWriteForm(
+      BasalEnergyBurnedDataType _ => BasalEnergyBurnedWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
@@ -502,11 +501,11 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      BodyMassIndexHealthDataType _ => BodyMassIndexWriteForm(
+      BodyMassIndexDataType _ => BodyMassIndexWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      WaistCircumferenceHealthDataType _ => WaistCircumferenceWriteForm(
+      WaistCircumferenceDataType _ => WaistCircumferenceWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),

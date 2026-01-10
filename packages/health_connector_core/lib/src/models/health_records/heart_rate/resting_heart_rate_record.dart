@@ -26,7 +26,7 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [RestingHeartRateHealthDataType]
+/// - [RestingHeartRateDataType]
 ///
 /// {@category Health Records}
 @sinceV1_3_0

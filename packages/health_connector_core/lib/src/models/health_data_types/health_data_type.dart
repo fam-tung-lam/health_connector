@@ -16,16 +16,16 @@ import 'package:health_connector_core/src/models/requests/delete_records_request
 import 'package:health_connector_core/src/models/requests/read_records_request.dart';
 import 'package:meta/meta.dart' show immutable, internal;
 
-part 'blood_glucose_health_data_type.dart';
-part 'blood_pressure/blood_pressure_health_data_type.dart';
-part 'blood_pressure/diastolic_blood_pressure_health_data_type.dart';
-part 'blood_pressure/systolic_blood_pressure_health_data_type.dart';
-part 'body_fat_percentage_health_data_type.dart';
-part 'body_mass_index_health_data_type.dart';
-part 'body_water_mass_health_data_type.dart';
-part 'bone_mass_health_data_type.dart';
-part 'cycling_pedaling_cadence/cycling_pedaling_cadence_measurement_record_health_data_type.dart';
-part 'cycling_pedaling_cadence/cycling_pedaling_cadence_series_record_health_data_type.dart';
+part 'blood_glucose_data_type.dart';
+part 'blood_pressure/blood_pressure_data_type.dart';
+part 'blood_pressure/diastolic_blood_pressure_data_type.dart';
+part 'blood_pressure/systolic_blood_pressure_data_type.dart';
+part 'body_fat_percentage_data_type.dart';
+part 'body_mass_index_data_type.dart';
+part 'body_water_mass_data_type.dart';
+part 'bone_mass_data_type.dart';
+part 'cycling_pedaling_cadence/cycling_pedaling_cadence_measurement_record_data_type.dart';
+part 'cycling_pedaling_cadence/cycling_pedaling_cadence_series_record_data_type.dart';
 part 'distance/cross_country_skiing_distance_data_type.dart';
 part 'distance/cycling_distance_data_type.dart';
 part 'distance/distance_activity_data_type.dart';
@@ -38,20 +38,20 @@ part 'distance/skating_sports_distance_data_type.dart';
 part 'distance/swimming_distance_data_type.dart';
 part 'distance/walking_running_distance_data_type.dart';
 part 'distance/wheelchair_distance_data_type.dart';
-part 'energy_burned/active_energy_burned_health_data_type.dart';
-part 'energy_burned/basal_energy_burned_health_data_type.dart';
-part 'energy_burned/total_energy_burned_health_data_type.dart';
-part 'exercise_session_health_data_type.dart';
-part 'floors_climbed_health_data_type.dart';
+part 'energy_burned/active_energy_burned_data_type.dart';
+part 'energy_burned/basal_energy_burned_data_type.dart';
+part 'energy_burned/total_energy_burned_data_type.dart';
+part 'exercise_session_data_type.dart';
+part 'floors_climbed_data_type.dart';
 part 'health_data_type_category.dart';
-part 'heart_rate/heart_rate_measurement_record_health_data_type.dart';
-part 'heart_rate/heart_rate_series_record_health_data_type.dart';
-part 'heart_rate/heart_rate_variability_rmssd_health_data_type.dart';
-part 'heart_rate/heart_rate_variability_sdnn_health_data_type.dart';
-part 'heart_rate/resting_heart_rate_health_data_type.dart';
-part 'height_health_data_type.dart';
-part 'hydration_health_data_type.dart';
-part 'lean_body_mass_health_data_type.dart';
+part 'heart_rate/heart_rate_measurement_record_data_type.dart';
+part 'heart_rate/heart_rate_series_record_data_type.dart';
+part 'heart_rate/heart_rate_variability_rmssd_data_type.dart';
+part 'heart_rate/heart_rate_variability_sdnn_data_type.dart';
+part 'heart_rate/resting_heart_rate_data_type.dart';
+part 'height_data_type.dart';
+part 'hydration_data_type.dart';
+part 'lean_body_mass_data_type.dart';
 part 'menstruation/cervical_mucus_data_type.dart';
 part 'menstruation/intermenstrual_bleeding_data_type.dart';
 part 'menstruation/menstrual_flow_data_type.dart';
@@ -62,8 +62,8 @@ part 'nutrition/biotin_nutrient_data_type.dart';
 part 'nutrition/caffeine_nutrient_data_type.dart';
 part 'nutrition/calcium_nutrient_data_type.dart';
 part 'nutrition/cholesterol_nutrient_data_type.dart';
-part 'nutrition/dietary_fiber_nutrient_data_type.dart';
 part 'nutrition/dietary_energy_consumed_data_type.dart';
+part 'nutrition/dietary_fiber_nutrient_data_type.dart';
 part 'nutrition/folate_nutrient_data_type.dart';
 part 'nutrition/iron_nutrient_data_type.dart';
 part 'nutrition/macronutrient_data_type.dart';
@@ -96,26 +96,26 @@ part 'nutrition/vitamin_e_nutrient_data_type.dart';
 part 'nutrition/vitamin_k_nutrient_data_type.dart';
 part 'nutrition/vitamin_nutrient_data_type.dart';
 part 'nutrition/zinc_nutrient_data_type.dart';
-part 'oxygen_saturation_health_data_type.dart';
+part 'oxygen_saturation_data_type.dart';
 part 'power/cycling_power_data_type.dart';
 part 'power/power_series_data_type.dart';
-part 'respiratory_rate_health_data_type.dart';
+part 'respiratory_rate_data_type.dart';
 part 'sexual_activity_data_type.dart';
-part 'sleep/sleep_session_health_data_type.dart';
-part 'sleep/sleep_stage_record_health_data_type.dart';
+part 'sleep/sleep_session_data_type.dart';
+part 'sleep/sleep_stage_record_data_type.dart';
 part 'speed/running_speed_data_type.dart';
 part 'speed/speed_activity_data_type.dart';
 part 'speed/speed_series_data_type.dart';
 part 'speed/stair_ascent_speed_data_type.dart';
 part 'speed/stair_descent_speed_data_type.dart';
 part 'speed/walking_speed_data_type.dart';
-part 'steps_health_data_type.dart';
-part 'temperature/basal_body_temperature_health_data_type.dart';
-part 'temperature/body_temperature_health_data_type.dart';
-part 'vo2_max_health_data_type.dart';
-part 'waist_circumference_health_data_type.dart';
-part 'weight_health_data_type.dart';
-part 'wheelchair_pushes_health_data_type.dart';
+part 'steps_data_type.dart';
+part 'temperature/basal_body_temperature_data_type.dart';
+part 'temperature/body_temperature_data_type.dart';
+part 'vo2_max_data_type.dart';
+part 'waist_circumference_data_type.dart';
+part 'weight_data_type.dart';
+part 'wheelchair_pushes_data_type.dart';
 
 /// [HealthDataType] represents different kinds of health and fitness data
 /// that can be read from or written to health platforms.
@@ -138,8 +138,8 @@ part 'wheelchair_pushes_health_data_type.dart';
 /// ```dart
 /// // With base mixins, this switch is NOT exhaustive:
 /// switch (dataType) {
-///   case StepsHealthDataType(): // ...
-///   case WeightHealthDataType(): // ...
+///   case StepsDataType(): // ...
+///   case WeightDataType(): // ...
 ///   // ERROR: Must also handle ReadableHealthDataType, WriteableHealthDataType,
 ///   // SumAggregatableHealthDataType, etc., even though all instances are
 ///   // already covered by the concrete types above!
@@ -157,8 +157,8 @@ part 'wheelchair_pushes_health_data_type.dart';
 /// handle concrete types:
 /// ```dart
 /// switch (dataType) {
-///   case StepsHealthDataType(): // ...
-///   case WeightHealthDataType(): // ...
+///   case StepsDataType(): // ...
+///   case WeightDataType(): // ...
 ///   // No need to handle interface types!
 /// }
 /// ```
@@ -222,7 +222,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// running, or cycling. Supports both reading existing distance data
   /// and writing new distance measurements.
   @supportedOnHealthConnect
-  static const distance = DistanceHealthDataType();
+  static const distance = DistanceDataType();
 
   /// Cycling distance data type.
   @sinceV2_0_0
@@ -308,27 +308,27 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the number of steps taken by the user. Supports both reading
   /// existing step count data and writing new step count entries.
-  static const steps = StepsHealthDataType();
+  static const steps = StepsDataType();
 
   /// Body weight data type.
   ///
   /// Represents the user's body weight measurements. Supports both reading
   /// existing weight data and writing new weight measurements.
-  static const weight = WeightHealthDataType();
+  static const weight = WeightDataType();
 
   /// Blood glucose data type.
   ///
   /// Represents the concentration of glucose in the blood.
   /// Supports AVG, MIN, MAX aggregation.
   @sinceV1_4_0
-  static const bloodGlucose = BloodGlucoseHealthDataType();
+  static const bloodGlucose = BloodGlucoseDataType();
 
   /// Blood pressure data type (composite).
   ///
   /// Represents a composite blood pressure measurement with both systolic
   /// and diastolic values. Supports AVG, MIN, MAX aggregation.
   @sinceV1_2_0
-  static const bloodPressure = BloodPressureHealthDataType();
+  static const bloodPressure = BloodPressureDataType();
 
   /// Systolic blood pressure data type.
   ///
@@ -336,7 +336,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports AVG, MIN, MAX aggregation.
   @sinceV1_2_0
   @supportedOnAppleHealth
-  static const systolicBloodPressure = SystolicBloodPressureHealthDataType();
+  static const systolicBloodPressure = SystolicBloodPressureDataType();
 
   /// Diastolic blood pressure data type.
   ///
@@ -344,7 +344,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports AVG, MIN, MAX aggregation.
   @sinceV1_2_0
   @supportedOnAppleHealth
-  static const diastolicBloodPressure = DiastolicBloodPressureHealthDataType();
+  static const diastolicBloodPressure = DiastolicBloodPressureDataType();
 
   /// Body fat percentage data type.
   ///
@@ -352,13 +352,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Body fat percentage is expressed as a decimal value between 0 and
   /// 1 (e.g., 0.25 = 25%). Supports both reading existing body fat percentage
   /// data and writing new measurements.
-  static const bodyFatPercentage = BodyFatPercentageHealthDataType();
+  static const bodyFatPercentage = BodyFatPercentageDataType();
 
   /// Body temperature data type.
   ///
   /// Represents the user's body temperature measurements. Supports both reading
   /// existing body temperature data and writing new measurements.
-  static const bodyTemperature = BodyTemperatureHealthDataType();
+  static const bodyTemperature = BodyTemperatureDataType();
 
   /// Basal body temperature data type.
   ///
@@ -367,7 +367,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// waking and before any physical activity. Commonly used for fertility
   /// tracking and menstrual cycle monitoring.
   @sinceV2_2_0
-  static const basalBodyTemperature = BasalBodyTemperatureHealthDataType();
+  static const basalBodyTemperature = BasalBodyTemperatureDataType();
 
   /// Bone mass data type.
   ///
@@ -407,7 +407,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports reading, writing, and deletion.
   @sinceV2_2_0
   @supportedOnAppleHealth
-  static const bodyMassIndex = BodyMassIndexHealthDataType();
+  static const bodyMassIndex = BodyMassIndexDataType();
 
   /// Waist circumference data type.
   ///
@@ -415,7 +415,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports reading, writing, and deletion.
   @sinceV2_2_0
   @supportedOnAppleHealth
-  static const waistCircumference = WaistCircumferenceHealthDataType();
+  static const waistCircumference = WaistCircumferenceDataType();
 
   /// Cervical mucus data type.
   ///
@@ -429,7 +429,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Represents the user's body height measurements. Supports both reading
   /// existing height data and writing new height measurements.
-  static const height = HeightHealthDataType();
+  static const height = HeightDataType();
 
   /// Active energy burned data type.
   ///
@@ -437,14 +437,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// time interval. Active energy are those burned through exercise
   /// and movement, excluding basal metabolic rate. Supports both reading
   /// existing active energy data and writing new measurements.
-  static const activeEnergyBurned = ActiveEnergyBurnedHealthDataType();
+  static const activeEnergyBurned = ActiveEnergyBurnedDataType();
 
   /// Exercise session data type.
   ///
   /// Represents exercise sessions with exercise type, duration, and notes.
   /// Supports reading, writing, sum aggregation, and deletion.
   @sinceV2_0_0
-  static const exerciseSession = ExerciseSessionHealthDataType();
+  static const exerciseSession = ExerciseSessionDataType();
 
   /// Floors climbed data type.
   ///
@@ -452,7 +452,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// a time interval. A floor is typically defined as a vertical distance
   /// of approximately 3 meters (10 feet). Supports both reading existing
   /// floors climbed data and writing new measurements.
-  static const floorsClimbed = FloorsClimbedHealthDataType();
+  static const floorsClimbed = FloorsClimbedDataType();
 
   /// Wheelchair pushes data type.
   ///
@@ -460,7 +460,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// a time interval. A push represents a single propulsion action
   /// used to move a wheelchair forward. Supports both reading existing
   /// wheelchair pushes data and writing new measurements.
-  static const wheelchairPushes = WheelchairPushesHealthDataType();
+  static const wheelchairPushes = WheelchairPushesDataType();
 
   /// Lean body mass data type.
   ///
@@ -468,7 +468,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// is the total weight of the body minus the weight of body fat.
   /// Supports both reading existing lean body mass data and writing
   /// new measurements.
-  static const leanBodyMass = LeanBodyMassHealthDataType();
+  static const leanBodyMass = LeanBodyMassDataType();
 
   /// Hydration (water intake) data type.
   ///
@@ -476,7 +476,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Tracks water consumption to help users monitor daily hydration levels
   /// and maintain healthy fluid intake. Supports both reading existing
   /// hydration data and writing new measurements.
-  static const hydration = HydrationHealthDataType();
+  static const hydration = HydrationDataType();
 
   /// Heart rate series record data type (Android Health Connect only).
   ///
@@ -486,7 +486,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports both reading existing heart rate data and writing
   /// new measurements.
   @supportedOnHealthConnect
-  static const heartRateSeriesRecord = HeartRateSeriesRecordHealthDataType();
+  static const heartRateSeriesRecord = HeartRateSeriesRecordDataType();
 
   /// Heart rate measurement record data type (iOS HealthKit only).
   ///
@@ -497,7 +497,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// new measurements.
   @supportedOnAppleHealth
   static const heartRateMeasurementRecord =
-      HeartRateMeasurementRecordHealthDataType();
+      HeartRateMeasurementRecordDataType();
 
   /// Sleep session health data type (Android Health Connect only).
   ///
@@ -506,7 +506,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Supports both reading existing sleep data and writing new sessions.
   @supportedOnHealthConnect
-  static const sleepSession = SleepSessionHealthDataType();
+  static const sleepSession = SleepSessionDataType();
 
   /// Sleep stage record health data type (iOS HealthKit only).
   ///
@@ -516,7 +516,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// Supports both reading existing sleep data and writing new measurements.
   @supportedOnAppleHealth
-  static const sleepStageRecord = SleepStageHealthDataType();
+  static const sleepStageRecord = SleepStageDataType();
 
   /// Mindfulness session data type.
   ///
@@ -539,7 +539,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// first thing in the morning before getting out of bed.
   /// Supports AVG, MIN, MAX aggregation.
   @sinceV1_3_0
-  static const restingHeartRate = RestingHeartRateHealthDataType();
+  static const restingHeartRate = RestingHeartRateDataType();
 
   /// Ovulation test data type.
   ///
@@ -582,7 +582,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// to total hemoglobin in the blood. Supports reading and writing
   /// oxygen saturation measurements.
   @sinceV1_3_0
-  static const oxygenSaturation = OxygenSaturationHealthDataType();
+  static const oxygenSaturation = OxygenSaturationDataType();
 
   /// Power data type (Android Health Connect only).
   ///
@@ -609,7 +609,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV2_2_0
   @supportedOnHealthConnect
   static const cyclingPedalingCadenceSeriesRecord =
-      CyclingPedalingCadenceSeriesRecordHealthDataType();
+      CyclingPedalingCadenceSeriesRecordDataType();
 
   /// Cycling pedaling cadence measurement record data type.
   ///
@@ -621,14 +621,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV2_2_0
   @supportedOnAppleHealth
   static const cyclingPedalingCadenceMeasurementRecord =
-      CyclingPedalingCadenceMeasurementRecordHealthDataType();
+      CyclingPedalingCadenceMeasurementRecordDataType();
 
   /// Respiratory rate data type.
   ///
   /// Represents the number of breaths a person takes per minute.
   /// Supports reading and writing respiratory rate measurements.
   @sinceV1_0_0
-  static const respiratoryRate = RespiratoryRateHealthDataType();
+  static const respiratoryRate = RespiratoryRateDataType();
 
   /// VO₂ max (maximal oxygen uptake) data type.
   ///
@@ -636,14 +636,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// a key indicator of cardiorespiratory fitness.
   /// Supports AVG, MIN, MAX aggregation.
   @sinceV1_3_0
-  static const vo2Max = Vo2MaxHealthDataType();
+  static const vo2Max = Vo2MaxDataType();
 
   /// Nutrition health data type.
   ///
   /// Represents a complete nutrition record that can contain multiple
   /// nutrients.
   @sinceV1_1_0
-  static const nutrition = NutritionHealthDataType();
+  static const nutrition = NutritionDataType();
 
   /// Dietary energy consumed data type.
   ///
@@ -660,7 +660,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports reading, writing, and sum aggregation.
   @sinceV2_2_0
   @supportedOnHealthConnect
-  static const totalEnergyBurned = TotalEnergyBurnedHealthDataType();
+  static const totalEnergyBurned = TotalEnergyBurnedDataType();
 
   /// Basal energy burned data type.
   ///
@@ -669,7 +669,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports reading, writing, and sum aggregation.
   @sinceV2_2_0
   @supportedOnAppleHealth
-  static const basalEnergyBurned = BasalEnergyBurnedHealthDataType();
+  static const basalEnergyBurned = BasalEnergyBurnedDataType();
 
   /// Caffeine nutrient data type.
   ///

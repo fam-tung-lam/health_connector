@@ -33,7 +33,7 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class StairDescentSpeedDataType
-    extends SpeedActivityHealthDataType<StairDescentSpeedRecord> {
+    extends SpeedActivityDataType<StairDescentSpeedRecord> {
   /// Creates a stair descent speed data type.
   ///
   /// This is a constant constructor used internally. To reference this data

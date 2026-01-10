@@ -652,10 +652,10 @@ enum PermissionStatusDto {
 /// Represents a health platform feature.
 enum HealthPlatformFeatureDto {
   /// Read health data in the background.
-  readHealthDataInBackground,
+  readDataInBackground,
 
   /// Read historical health data from the past.
-  readHealthDataHistory,
+  readDataHistory,
 }
 
 /// Represents the availability status of a feature.
@@ -700,7 +700,7 @@ enum SortOrderDto {
   timeDescending,
 }
 
-enum BloodPressureHealthDataTypeDto {
+enum BloodPressureDataTypeDto {
   diastolic,
   systolic,
 }
@@ -4959,7 +4959,7 @@ class BloodPressureAggregateRequestDto extends AggregateRequestDto {
   AggregationMetricDto aggregationMetric;
 
   /// The type of blood pressure to aggregate.
-  BloodPressureHealthDataTypeDto bloodPressureDataType;
+  BloodPressureDataTypeDto bloodPressureDataType;
 
   /// End of time range in milliseconds since epoch (UTC), exclusive.
   int endTime;
@@ -4984,7 +4984,7 @@ class BloodPressureAggregateRequestDto extends AggregateRequestDto {
     result as List<Object?>;
     return BloodPressureAggregateRequestDto(
       aggregationMetric: result[0]! as AggregationMetricDto,
-      bloodPressureDataType: result[1]! as BloodPressureHealthDataTypeDto,
+      bloodPressureDataType: result[1]! as BloodPressureDataTypeDto,
       endTime: result[2]! as int,
       startTime: result[3]! as int,
     );
@@ -5522,7 +5522,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is SortOrderDto) {
       buffer.putUint8(154);
       writeValue(buffer, value.index);
-    } else if (value is BloodPressureHealthDataTypeDto) {
+    } else if (value is BloodPressureDataTypeDto) {
       buffer.putUint8(155);
       writeValue(buffer, value.index);
     } else if (value is HealthConnectorLogLevelDto) {
@@ -5839,9 +5839,7 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : SortOrderDto.values[value];
       case 155:
         final int? value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : BloodPressureHealthDataTypeDto.values[value];
+        return value == null ? null : BloodPressureDataTypeDto.values[value];
       case 156:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : HealthConnectorLogLevelDto.values[value];

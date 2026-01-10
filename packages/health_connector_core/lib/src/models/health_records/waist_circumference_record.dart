@@ -24,7 +24,7 @@ part of 'health_record.dart';
 ///
 /// ## See also
 ///
-/// - [WaistCircumferenceHealthDataType]
+/// - [WaistCircumferenceDataType]
 ///
 /// {@category Health Records}
 @sinceV2_2_0

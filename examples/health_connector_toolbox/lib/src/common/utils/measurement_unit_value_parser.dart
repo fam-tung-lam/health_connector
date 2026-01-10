@@ -15,19 +15,19 @@ abstract class MeasurementUnitValueParser {
 
     return switch (forDataType) {
       // Integer count types
-      StepsHealthDataType() ||
-      FloorsClimbedHealthDataType() ||
-      WheelchairPushesHealthDataType() => _parseIntegerCount(value),
+      StepsDataType() ||
+      FloorsClimbedDataType() ||
+      WheelchairPushesDataType() => _parseIntegerCount(value),
 
       // Frequency types
-      HeartRateMeasurementRecordHealthDataType() ||
-      CyclingPedalingCadenceMeasurementRecordHealthDataType() ||
-      CyclingPedalingCadenceSeriesRecordHealthDataType() ||
-      RestingHeartRateHealthDataType() => _parseFrequency(value),
+      HeartRateMeasurementRecordDataType() ||
+      CyclingPedalingCadenceMeasurementRecordDataType() ||
+      CyclingPedalingCadenceSeriesRecordDataType() ||
+      RestingHeartRateDataType() => _parseFrequency(value),
 
       // Mass types (kilograms)
-      WeightHealthDataType() ||
-      LeanBodyMassHealthDataType() ||
+      WeightDataType() ||
+      LeanBodyMassDataType() ||
       BoneMassDataType() ||
       BodyWaterMassDataType() => _parseMassKilograms(value),
 
@@ -66,17 +66,17 @@ abstract class MeasurementUnitValueParser {
       PantothenicAcidNutrientDataType() => _parseMassGrams(value),
 
       // Percentage types
-      BodyFatPercentageHealthDataType() ||
-      OxygenSaturationHealthDataType() => _parsePercentage(value),
+      BodyFatPercentageDataType() ||
+      OxygenSaturationDataType() => _parsePercentage(value),
 
       // Temperature
-      BodyTemperatureHealthDataType() ||
-      BasalBodyTemperatureHealthDataType() => _parseTemperature(value),
+      BodyTemperatureDataType() ||
+      BasalBodyTemperatureDataType() => _parseTemperature(value),
 
       // Distance/Length
-      HeightHealthDataType() ||
-      WaistCircumferenceHealthDataType() ||
-      DistanceHealthDataType() ||
+      HeightDataType() ||
+      WaistCircumferenceDataType() ||
+      DistanceDataType() ||
       CrossCountrySkiingDistanceDataType() ||
       CyclingDistanceDataType() ||
       DownhillSnowSportsDistanceDataType() ||
@@ -89,16 +89,16 @@ abstract class MeasurementUnitValueParser {
       WalkingRunningDistanceDataType() => _parseLength(value),
 
       // Blood Glucose
-      BloodGlucoseHealthDataType() => _parseBloodGlucose(value),
+      BloodGlucoseDataType() => _parseBloodGlucose(value),
 
       // Pressure
-      SystolicBloodPressureHealthDataType() ||
-      DiastolicBloodPressureHealthDataType() => _parsePressure(value),
+      SystolicBloodPressureDataType() ||
+      DiastolicBloodPressureDataType() => _parsePressure(value),
 
       // Energy
-      ActiveEnergyBurnedHealthDataType() ||
-      BasalEnergyBurnedHealthDataType() ||
-      TotalEnergyBurnedHealthDataType() ||
+      ActiveEnergyBurnedDataType() ||
+      BasalEnergyBurnedDataType() ||
+      TotalEnergyBurnedDataType() ||
       DietaryEnergyConsumedDataType() => _parseEnergy(value),
 
       // Velocity/Speed
@@ -111,40 +111,40 @@ abstract class MeasurementUnitValueParser {
       CyclingPowerDataType() => _parsePower(value),
 
       // Respiratory Rate
-      RespiratoryRateHealthDataType() => _parseFrequency(value),
+      RespiratoryRateDataType() => _parseFrequency(value),
 
       // VO2 Max
-      Vo2MaxHealthDataType() => _parseVo2Max(value),
+      Vo2MaxDataType() => _parseVo2Max(value),
 
       // Double Number types
-      BodyMassIndexHealthDataType() => _parseDoubleNumber(value),
+      BodyMassIndexDataType() => _parseDoubleNumber(value),
 
       // Time duration types (HRV)
       HeartRateVariabilityRMSSDDataType() ||
       HeartRateVariabilitySDNNDataType() => _parseTimeDuration(value),
 
       // Volume
-      HydrationHealthDataType() => _parseVolume(value),
+      HydrationDataType() => _parseVolume(value),
 
       // Complex/composite types that cannot be parsed from a single string value
-      BloodPressureHealthDataType() => throw UnsupportedError(
-        '$BloodPressureHealthDataType requires systolic and diastolic values, '
+      BloodPressureDataType() => throw UnsupportedError(
+        '$BloodPressureDataType requires systolic and diastolic values, '
         'cannot be parsed from a single string input.',
       ),
-      HeartRateSeriesRecordHealthDataType() => throw UnsupportedError(
-        '$HeartRateSeriesRecordHealthDataType is a time series data type, '
+      HeartRateSeriesRecordDataType() => throw UnsupportedError(
+        '$HeartRateSeriesRecordDataType is a time series data type, '
         'cannot be parsed from a single string input.',
       ),
-      NutritionHealthDataType() => throw UnsupportedError(
-        '$NutritionHealthDataType requires multiple nutrient values, '
+      NutritionDataType() => throw UnsupportedError(
+        '$NutritionDataType requires multiple nutrient values, '
         'cannot be parsed from a single string input.',
       ),
-      SleepSessionHealthDataType() => throw UnsupportedError(
-        '$SleepSessionHealthDataType is a complex type with stages and times, '
+      SleepSessionDataType() => throw UnsupportedError(
+        '$SleepSessionDataType is a complex type with stages and times, '
         'cannot be parsed from a single string input.',
       ),
-      SleepStageHealthDataType() => throw UnsupportedError(
-        '$SleepStageHealthDataType is part of SleepSession, '
+      SleepStageDataType() => throw UnsupportedError(
+        '$SleepStageDataType is part of SleepSession, '
         'cannot be parsed from a single string input.',
       ),
       SexualActivityDataType() => throw UnsupportedError(
@@ -159,8 +159,8 @@ abstract class MeasurementUnitValueParser {
         '$PowerSeriesDataType is a time series data type, '
         'cannot be parsed from a single string input.',
       ),
-      ExerciseSessionHealthDataType() => throw UnsupportedError(
-        '$ExerciseSessionHealthDataType is a complex type with exercise '
+      ExerciseSessionDataType() => throw UnsupportedError(
+        '$ExerciseSessionDataType is a complex type with exercise '
         'type and times, not a simple numeric value. Cannot parse.',
       ),
       MindfulnessSessionDataType() => throw UnsupportedError(

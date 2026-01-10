@@ -30,7 +30,7 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [SleepStageHealthDataType]
+/// - [SleepStageDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

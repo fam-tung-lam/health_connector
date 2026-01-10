@@ -86,18 +86,18 @@ abstract final class AppTexts {
   /// Returns the localized label for a given [HealthDataType].
   static String getLabel(HealthDataType type) {
     return switch (type) {
-      StepsHealthDataType() => steps,
-      WeightHealthDataType() => weight,
-      HeightHealthDataType() => height,
-      BodyFatPercentageHealthDataType() => bodyFatPercentage,
-      LeanBodyMassHealthDataType() => leanBodyMass,
-      BodyTemperatureHealthDataType() => bodyTemperature,
-      BasalBodyTemperatureHealthDataType() => basalBodyTemperature,
+      StepsDataType() => steps,
+      WeightDataType() => weight,
+      HeightDataType() => height,
+      BodyFatPercentageDataType() => bodyFatPercentage,
+      LeanBodyMassDataType() => leanBodyMass,
+      BodyTemperatureDataType() => bodyTemperature,
+      BasalBodyTemperatureDataType() => basalBodyTemperature,
       CervicalMucusDataType() => cervicalMucus,
-      BloodPressureHealthDataType() => bloodPressure,
-      SystolicBloodPressureHealthDataType() => systolic,
-      DiastolicBloodPressureHealthDataType() => diastolic,
-      DistanceHealthDataType() ||
+      BloodPressureDataType() => bloodPressure,
+      SystolicBloodPressureDataType() => systolic,
+      DiastolicBloodPressureDataType() => diastolic,
+      DistanceDataType() ||
       CrossCountrySkiingDistanceDataType() ||
       CyclingDistanceDataType() ||
       DownhillSnowSportsDistanceDataType() ||
@@ -108,19 +108,18 @@ abstract final class AppTexts {
       SwimmingDistanceDataType() ||
       WheelchairDistanceDataType() ||
       WalkingRunningDistanceDataType() => distance,
-      ActiveEnergyBurnedHealthDataType() => activeCaloriesBurned,
-      BasalEnergyBurnedHealthDataType() => basalEnergyBurned,
-      TotalEnergyBurnedHealthDataType() => totalCaloriesBurned,
-      FloorsClimbedHealthDataType() => floorsClimbed,
-      WheelchairPushesHealthDataType() => wheelchairPushes,
-      HydrationHealthDataType() => hydration,
-      HeartRateMeasurementRecordHealthDataType() ||
-      HeartRateSeriesRecordHealthDataType() => heartRate,
-      CyclingPedalingCadenceMeasurementRecordHealthDataType() ||
-      CyclingPedalingCadenceSeriesRecordHealthDataType() =>
-        cyclingPedalingCadence,
-      SleepSessionHealthDataType() => sleepSession,
-      SleepStageHealthDataType() => sleepStage,
+      ActiveEnergyBurnedDataType() => activeCaloriesBurned,
+      BasalEnergyBurnedDataType() => basalEnergyBurned,
+      TotalEnergyBurnedDataType() => totalCaloriesBurned,
+      FloorsClimbedDataType() => floorsClimbed,
+      WheelchairPushesDataType() => wheelchairPushes,
+      HydrationDataType() => hydration,
+      HeartRateMeasurementRecordDataType() ||
+      HeartRateSeriesRecordDataType() => heartRate,
+      CyclingPedalingCadenceMeasurementRecordDataType() ||
+      CyclingPedalingCadenceSeriesRecordDataType() => cyclingPedalingCadence,
+      SleepSessionDataType() => sleepSession,
+      SleepStageDataType() => sleepStage,
       SexualActivityDataType() => sexualActivity,
       IntermenstrualBleedingDataType() => intermenstrualBleeding,
       MenstrualFlowDataType() => menstrualFlow,
@@ -159,12 +158,12 @@ abstract final class AppTexts {
       FolateNutrientDataType() => folate,
       BiotinNutrientDataType() => biotin,
       PantothenicAcidNutrientDataType() => pantothenicAcid,
-      NutritionHealthDataType() => nutrition,
-      RestingHeartRateHealthDataType() => restingHeartRate,
-      OxygenSaturationHealthDataType() => oxygenSaturation,
-      RespiratoryRateHealthDataType() => respiratoryRate,
-      Vo2MaxHealthDataType() => vo2Max,
-      BloodGlucoseHealthDataType() => bloodGlucose,
+      NutritionDataType() => nutrition,
+      RestingHeartRateDataType() => restingHeartRate,
+      OxygenSaturationDataType() => oxygenSaturation,
+      RespiratoryRateDataType() => respiratoryRate,
+      Vo2MaxDataType() => vo2Max,
+      BloodGlucoseDataType() => bloodGlucose,
       SpeedSeriesDataType() ||
       WalkingSpeedDataType() ||
       RunningSpeedDataType() ||
@@ -172,13 +171,13 @@ abstract final class AppTexts {
       StairDescentSpeedDataType() => speed,
       PowerSeriesDataType() => powerSeries,
       CyclingPowerDataType() => cyclingPower,
-      ExerciseSessionHealthDataType() => exerciseSession,
+      ExerciseSessionDataType() => exerciseSession,
       MindfulnessSessionDataType() => mindfulnessSession,
       BoneMassDataType() => boneMass,
       BodyWaterMassDataType() => bodyWaterMass,
       HeartRateVariabilityRMSSDDataType() => heartRateVariabilityRMSSD,
-      BodyMassIndexHealthDataType() => bodyMassIndex,
-      WaistCircumferenceHealthDataType() => waistCircumference,
+      BodyMassIndexDataType() => bodyMassIndex,
+      WaistCircumferenceDataType() => waistCircumference,
       HeartRateVariabilitySDNNDataType() => heartRateVariabilitySDNN,
     };
   }
@@ -554,9 +553,8 @@ abstract final class AppTexts {
   static const String featurePermissions = 'Feature $permissions';
   static const String feature = 'Feature';
   static const String interval = 'Interval';
-  static const String readHealthDataInBackground =
-      'Read Health Data in Background';
-  static const String readHealthDataHistory = '$read Health Data History';
+  static const String readDataInBackground = 'Read Health Data in Background';
+  static const String readDataHistory = '$read Health Data History';
 
   // endregion
 

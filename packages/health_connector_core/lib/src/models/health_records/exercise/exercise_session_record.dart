@@ -28,7 +28,7 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [ExerciseSessionHealthDataType]
+/// - [ExerciseSessionDataType]
 ///
 /// {@category Health Records}
 @sinceV2_0_0

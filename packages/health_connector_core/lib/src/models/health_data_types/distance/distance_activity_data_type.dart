@@ -10,7 +10,7 @@ part of '../health_data_type.dart';
 /// **These data types are ONLY supported on iOS/HealthKit.** They are marked
 /// with `@supportedOnAppleHealth` and will not compile when targeting Android.
 ///
-/// For cross-platform distance tracking, use [DistanceHealthDataType].
+/// For cross-platform distance tracking, use [DistanceDataType].
 ///
 /// ## Subclasses
 ///
@@ -28,7 +28,7 @@ part of '../health_data_type.dart';
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable
-sealed class DistanceActivityHealthDataType<R extends DistanceActivityRecord>
+sealed class DistanceActivityDataType<R extends DistanceActivityRecord>
     extends HealthDataType<R, Length>
     implements
         ReadableHealthDataType<R>,
@@ -36,7 +36,7 @@ sealed class DistanceActivityHealthDataType<R extends DistanceActivityRecord>
         DeletableHealthDataType,
         SumAggregatableHealthDataType<R, Length> {
   @internal
-  const DistanceActivityHealthDataType();
+  const DistanceActivityDataType();
 
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [

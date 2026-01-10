@@ -2144,10 +2144,10 @@ enum PermissionStatusDto {
 /// Represents a health platform feature.
 enum HealthPlatformFeatureDto {
   /// Read health data in the background.
-  readHealthDataInBackground,
+  readDataInBackground,
 
   /// Read historical health data from the past.
-  readHealthDataHistory,
+  readDataHistory,
 }
 
 /// Represents the availability status of a feature.
@@ -2281,7 +2281,7 @@ class CommonAggregateRequestDto extends AggregateRequestDto {
   final int startTime;
 }
 
-enum BloodPressureHealthDataTypeDto {
+enum BloodPressureDataTypeDto {
   diastolic,
   systolic,
 }
@@ -2299,7 +2299,7 @@ class BloodPressureAggregateRequestDto extends AggregateRequestDto {
   final AggregationMetricDto aggregationMetric;
 
   /// The type of blood pressure to aggregate.
-  final BloodPressureHealthDataTypeDto bloodPressureDataType;
+  final BloodPressureDataTypeDto bloodPressureDataType;
 
   /// End of time range in milliseconds since epoch (UTC), exclusive.
   final int endTime;

@@ -12,7 +12,7 @@ part of '../health_data_type.dart';
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceCrossCountrySkiing`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancecrosscountryskiing)
 /// - **Android Health Connect**: Not directly supported (use general
-/// [DistanceHealthDataType])
+/// [DistanceDataType])
 ///
 /// ## Capabilities
 ///
@@ -32,7 +32,7 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class CrossCountrySkiingDistanceDataType
-    extends DistanceActivityHealthDataType<CrossCountrySkiingDistanceRecord> {
+    extends DistanceActivityDataType<CrossCountrySkiingDistanceRecord> {
   /// Creates a cross-country skiing distance data type.
   ///
   /// This is a constant constructor used internally. To reference this data

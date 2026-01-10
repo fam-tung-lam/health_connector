@@ -15,12 +15,12 @@ void main() {
             'maps HealthPlatformFeature to HealthPlatformFeatureDto',
             [
               [
-                HealthPlatformFeature.readHealthDataHistory,
-                HealthPlatformFeatureDto.readHealthDataHistory,
+                HealthPlatformFeature.readDataHistory,
+                HealthPlatformFeatureDto.readDataHistory,
               ],
               [
-                HealthPlatformFeature.readHealthDataInBackground,
-                HealthPlatformFeatureDto.readHealthDataInBackground,
+                HealthPlatformFeature.readDataInBackground,
+                HealthPlatformFeatureDto.readDataInBackground,
               ],
             ],
             (HealthPlatformFeature domain, HealthPlatformFeatureDto dto) {
@@ -37,12 +37,12 @@ void main() {
             'maps HealthPlatformFeatureDto to HealthPlatformFeature',
             [
               [
-                HealthPlatformFeatureDto.readHealthDataHistory,
-                HealthPlatformFeature.readHealthDataHistory,
+                HealthPlatformFeatureDto.readDataHistory,
+                HealthPlatformFeature.readDataHistory,
               ],
               [
-                HealthPlatformFeatureDto.readHealthDataInBackground,
-                HealthPlatformFeature.readHealthDataInBackground,
+                HealthPlatformFeatureDto.readDataInBackground,
+                HealthPlatformFeature.readDataInBackground,
               ],
             ],
             (HealthPlatformFeatureDto dto, HealthPlatformFeature domain) {

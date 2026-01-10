@@ -6,12 +6,9 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @internal
 @immutable
-sealed class NutrientHealthDataType<
-  R extends HealthRecord,
-  U extends MeasurementUnit
->
+sealed class NutrientDataType<R extends HealthRecord, U extends MeasurementUnit>
     extends HealthDataType<R, U> {
-  const NutrientHealthDataType();
+  const NutrientDataType();
 
   @override
   String get id => 'nutrient';

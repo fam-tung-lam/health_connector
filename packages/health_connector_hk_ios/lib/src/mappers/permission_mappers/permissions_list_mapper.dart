@@ -1,12 +1,4 @@
-import 'package:health_connector_core/health_connector_core_internal.dart'
-    show
-        HealthDataPermission,
-        HealthDataType,
-        HealthRecord,
-        MeasurementUnit,
-        NutritionHealthDataType,
-        sinceV1_0_0,
-        Permission;
+import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_data_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers/health_data_permission_access_type_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/permission_mappers/health_data_permission_mapper.dart';
@@ -20,7 +12,7 @@ import 'package:meta/meta.dart' show internal;
 extension PermissionsListToDto on List<HealthDataPermission> {
   /// All individual nutrient data types that make up a NutritionRecord.
   ///
-  /// When requesting permission for [NutritionHealthDataType], we need to
+  /// When requesting permission for [NutritionDataType], we need to
   /// also request permission for all individual nutrient types since HealthKit
   /// stores nutrition as an HKCorrelation containing individual
   /// HKQuantitySamples.
@@ -62,7 +54,7 @@ extension PermissionsListToDto on List<HealthDataPermission> {
 
   /// Converts a list of [Permission] objects to a [PermissionsRequestDto].
   ///
-  /// If a permission for [NutritionHealthDataType] is found, this method will
+  /// If a permission for [NutritionDataType] is found, this method will
   /// also add permissions for all individual nutrient data types with the same
   /// access type (read/write). This is required because HealthKit stores
   /// nutrition as an HKCorrelation containing individual HKQuantitySamples.
@@ -78,12 +70,12 @@ extension PermissionsListToDto on List<HealthDataPermission> {
 
   /// Expands a single permission into one or more DTOs.
   ///
-  /// For [NutritionHealthDataType], expands to all individual nutrient types.
+  /// For [NutritionDataType], expands to all individual nutrient types.
   /// For other types, returns a single DTO.
   Iterable<HealthDataPermissionDto> _expandPermission(
     HealthDataPermission permission,
   ) {
-    if (permission.dataType is NutritionHealthDataType) {
+    if (permission.dataType is NutritionDataType) {
       return _allNutrientDataTypes
           .cast<HealthDataType<HealthRecord, MeasurementUnit>>()
           .map(

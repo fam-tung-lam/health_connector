@@ -28,7 +28,7 @@ part of 'health_record.dart';
 ///
 /// ## See also
 ///
-/// - [RespiratoryRateHealthDataType]
+/// - [RespiratoryRateDataType]
 ///
 /// {@category Health Records}
 @sinceV1_3_0

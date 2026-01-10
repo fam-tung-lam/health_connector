@@ -1,100 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_connector/health_connector_internal.dart'
-    show
-        HealthDataType,
-        PantothenicAcidNutrientDataType,
-        StepsHealthDataType,
-        WeightHealthDataType,
-        HeightHealthDataType,
-        BloodPressureHealthDataType,
-        SystolicBloodPressureHealthDataType,
-        DiastolicBloodPressureHealthDataType,
-        BodyFatPercentageHealthDataType,
-        LeanBodyMassHealthDataType,
-        BodyTemperatureHealthDataType,
-        DistanceHealthDataType,
-        CrossCountrySkiingDistanceDataType,
-        CyclingDistanceDataType,
-        DownhillSnowSportsDistanceDataType,
-        PaddleSportsDistanceDataType,
-        RowingDistanceDataType,
-        SixMinuteWalkTestDistanceDataType,
-        SkatingSportsDistanceDataType,
-        SwimmingDistanceDataType,
-        WheelchairDistanceDataType,
-        WalkingRunningDistanceDataType,
-        ActiveEnergyBurnedHealthDataType,
-        BasalEnergyBurnedHealthDataType,
-        BasalBodyTemperatureHealthDataType,
-        TotalEnergyBurnedHealthDataType,
-        FloorsClimbedHealthDataType,
-        WheelchairPushesHealthDataType,
-        HydrationHealthDataType,
-        HeartRateMeasurementRecordHealthDataType,
-        HeartRateSeriesRecordHealthDataType,
-        RestingHeartRateHealthDataType,
-        SleepSessionHealthDataType,
-        SleepStageHealthDataType,
-        SexualActivityDataType,
-        ExerciseSessionHealthDataType,
-        MindfulnessSessionDataType,
-        OxygenSaturationHealthDataType,
-        NutritionHealthDataType,
-        DietaryEnergyConsumedDataType,
-        CaffeineNutrientDataType,
-        ProteinNutrientDataType,
-        TotalCarbohydrateNutrientDataType,
-        TotalFatNutrientDataType,
-        SaturatedFatNutrientDataType,
-        MonounsaturatedFatNutrientDataType,
-        PolyunsaturatedFatNutrientDataType,
-        CholesterolNutrientDataType,
-        DietaryFiberNutrientDataType,
-        SugarNutrientDataType,
-        CalciumNutrientDataType,
-        IronNutrientDataType,
-        MagnesiumNutrientDataType,
-        ManganeseNutrientDataType,
-        PhosphorusNutrientDataType,
-        PotassiumNutrientDataType,
-        SeleniumNutrientDataType,
-        SodiumNutrientDataType,
-        ZincNutrientDataType,
-        VitaminANutrientDataType,
-        VitaminB6NutrientDataType,
-        VitaminB12NutrientDataType,
-        VitaminCNutrientDataType,
-        VitaminDNutrientDataType,
-        VitaminENutrientDataType,
-        VitaminKNutrientDataType,
-        ThiaminNutrientDataType,
-        RiboflavinNutrientDataType,
-        NiacinNutrientDataType,
-        FolateNutrientDataType,
-        BiotinNutrientDataType,
-        RespiratoryRateHealthDataType,
-        Vo2MaxHealthDataType,
-        BloodGlucoseHealthDataType,
-        SpeedSeriesDataType,
-        WalkingSpeedDataType,
-        RunningSpeedDataType,
-        StairAscentSpeedDataType,
-        StairDescentSpeedDataType,
-        PowerSeriesDataType,
-        CyclingPowerDataType,
-        CyclingPedalingCadenceMeasurementRecordHealthDataType,
-        CyclingPedalingCadenceSeriesRecordHealthDataType,
-        CervicalMucusDataType,
-        IntermenstrualBleedingDataType,
-        OvulationTestDataType,
-        BoneMassDataType,
-        BodyWaterMassDataType,
-        HeartRateVariabilityRMSSDDataType,
-        BodyMassIndexHealthDataType,
-        WaistCircumferenceHealthDataType,
-        HeartRateVariabilitySDNNDataType,
-        MenstrualFlowDataType,
-        MenstrualFlowInstantDataType;
+import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
@@ -105,17 +10,17 @@ extension HealthDataTypeUI on HealthDataType {
   /// This name should be used in UI elements.
   String get displayName {
     return switch (this) {
-      StepsHealthDataType _ => AppTexts.steps,
-      WeightHealthDataType _ => AppTexts.weight,
-      HeightHealthDataType _ => AppTexts.height,
-      BloodPressureHealthDataType _ => AppTexts.bloodPressure,
-      SystolicBloodPressureHealthDataType _ => AppTexts.systolicBloodPressure,
-      DiastolicBloodPressureHealthDataType _ => AppTexts.diastolicBloodPressure,
-      BodyFatPercentageHealthDataType _ => AppTexts.bodyFatPercentage,
-      LeanBodyMassHealthDataType _ => AppTexts.leanBodyMass,
-      BodyTemperatureHealthDataType _ => AppTexts.bodyTemperature,
-      BasalBodyTemperatureHealthDataType _ => AppTexts.basalBodyTemperature,
-      DistanceHealthDataType _ => AppTexts.distance,
+      StepsDataType _ => AppTexts.steps,
+      WeightDataType _ => AppTexts.weight,
+      HeightDataType _ => AppTexts.height,
+      BloodPressureDataType _ => AppTexts.bloodPressure,
+      SystolicBloodPressureDataType _ => AppTexts.systolicBloodPressure,
+      DiastolicBloodPressureDataType _ => AppTexts.diastolicBloodPressure,
+      BodyFatPercentageDataType _ => AppTexts.bodyFatPercentage,
+      LeanBodyMassDataType _ => AppTexts.leanBodyMass,
+      BodyTemperatureDataType _ => AppTexts.bodyTemperature,
+      BasalBodyTemperatureDataType _ => AppTexts.basalBodyTemperature,
+      DistanceDataType _ => AppTexts.distance,
       CrossCountrySkiingDistanceDataType _ => AppTexts.crossCountrySkiing,
       CyclingDistanceDataType _ => AppTexts.cyclingDistance,
       DownhillSnowSportsDistanceDataType _ =>
@@ -127,26 +32,26 @@ extension HealthDataTypeUI on HealthDataType {
       SwimmingDistanceDataType _ => AppTexts.swimmingDistance,
       WheelchairDistanceDataType _ => AppTexts.wheelchairDistance,
       WalkingRunningDistanceDataType _ => AppTexts.walkingRunningDistance,
-      ActiveEnergyBurnedHealthDataType _ => AppTexts.activeCaloriesBurned,
-      BasalEnergyBurnedHealthDataType _ => AppTexts.basalEnergyBurned,
-      TotalEnergyBurnedHealthDataType _ => AppTexts.totalCaloriesBurned,
-      FloorsClimbedHealthDataType _ => AppTexts.floorsClimbed,
-      WheelchairPushesHealthDataType _ => AppTexts.wheelchairPushes,
-      HydrationHealthDataType _ => AppTexts.hydration,
-      HeartRateMeasurementRecordHealthDataType _ => AppTexts.heartRate,
-      HeartRateSeriesRecordHealthDataType _ => AppTexts.heartRate,
-      CyclingPedalingCadenceMeasurementRecordHealthDataType _ =>
+      ActiveEnergyBurnedDataType _ => AppTexts.activeCaloriesBurned,
+      BasalEnergyBurnedDataType _ => AppTexts.basalEnergyBurned,
+      TotalEnergyBurnedDataType _ => AppTexts.totalCaloriesBurned,
+      FloorsClimbedDataType _ => AppTexts.floorsClimbed,
+      WheelchairPushesDataType _ => AppTexts.wheelchairPushes,
+      HydrationDataType _ => AppTexts.hydration,
+      HeartRateMeasurementRecordDataType _ => AppTexts.heartRate,
+      HeartRateSeriesRecordDataType _ => AppTexts.heartRate,
+      CyclingPedalingCadenceMeasurementRecordDataType _ =>
         AppTexts.cyclingPedalingCadence,
-      CyclingPedalingCadenceSeriesRecordHealthDataType _ =>
+      CyclingPedalingCadenceSeriesRecordDataType _ =>
         AppTexts.cyclingPedalingCadence,
-      RestingHeartRateHealthDataType _ => AppTexts.restingHeartRate,
-      SleepSessionHealthDataType _ => AppTexts.sleepSession,
-      SleepStageHealthDataType _ => AppTexts.sleepStage,
+      RestingHeartRateDataType _ => AppTexts.restingHeartRate,
+      SleepSessionDataType _ => AppTexts.sleepSession,
+      SleepStageDataType _ => AppTexts.sleepStage,
       SexualActivityDataType _ => AppTexts.sexualActivity,
       IntermenstrualBleedingDataType _ => AppTexts.intermenstrualBleeding,
       OvulationTestDataType _ => AppTexts.ovulationTest,
-      OxygenSaturationHealthDataType _ => AppTexts.oxygenSaturation,
-      NutritionHealthDataType _ => AppTexts.nutrition,
+      OxygenSaturationDataType _ => AppTexts.oxygenSaturation,
+      NutritionDataType _ => AppTexts.nutrition,
       DietaryEnergyConsumedDataType _ => AppTexts.energy,
       CaffeineNutrientDataType _ => AppTexts.caffeine,
       ProteinNutrientDataType _ => AppTexts.protein,
@@ -180,9 +85,9 @@ extension HealthDataTypeUI on HealthDataType {
       FolateNutrientDataType _ => AppTexts.folate,
       BiotinNutrientDataType _ => AppTexts.biotin,
       PantothenicAcidNutrientDataType _ => AppTexts.pantothenicAcid,
-      RespiratoryRateHealthDataType _ => AppTexts.respiratoryRate,
-      Vo2MaxHealthDataType _ => AppTexts.vo2Max,
-      BloodGlucoseHealthDataType _ => AppTexts.bloodGlucose,
+      RespiratoryRateDataType _ => AppTexts.respiratoryRate,
+      Vo2MaxDataType _ => AppTexts.vo2Max,
+      BloodGlucoseDataType _ => AppTexts.bloodGlucose,
       SpeedSeriesDataType _ => AppTexts.speed,
       WalkingSpeedDataType _ => AppTexts.walkingSpeed,
       RunningSpeedDataType _ => AppTexts.runningSpeed,
@@ -190,14 +95,14 @@ extension HealthDataTypeUI on HealthDataType {
       StairDescentSpeedDataType _ => AppTexts.stairDescentSpeed,
       PowerSeriesDataType _ => AppTexts.powerSeries,
       CyclingPowerDataType _ => AppTexts.cyclingPower,
-      ExerciseSessionHealthDataType _ => AppTexts.exerciseSession,
+      ExerciseSessionDataType _ => AppTexts.exerciseSession,
       CervicalMucusDataType _ => AppTexts.cervicalMucus,
       MindfulnessSessionDataType _ => AppTexts.mindfulnessSession,
       BoneMassDataType _ => AppTexts.boneMass,
       BodyWaterMassDataType _ => AppTexts.bodyWaterMass,
       HeartRateVariabilityRMSSDDataType _ => AppTexts.heartRateVariabilityRMSSD,
-      BodyMassIndexHealthDataType _ => AppTexts.bodyMassIndex,
-      WaistCircumferenceHealthDataType _ => AppTexts.waistCircumference,
+      BodyMassIndexDataType _ => AppTexts.bodyMassIndex,
+      WaistCircumferenceDataType _ => AppTexts.waistCircumference,
       HeartRateVariabilitySDNNDataType _ => AppTexts.heartRateVariabilitySDNN,
       MenstrualFlowDataType _ => AppTexts.menstrualFlow,
       MenstrualFlowInstantDataType _ => AppTexts.menstrualFlow,
@@ -210,21 +115,20 @@ extension HealthDataTypeUI on HealthDataType {
   /// represents and is suitable for subtitle text or tooltips.
   String get description {
     return switch (this) {
-      StepsHealthDataType _ => AppTexts.stepsDescription,
-      WeightHealthDataType _ => AppTexts.weightDescription,
-      HeightHealthDataType _ => AppTexts.heightDescription,
-      BloodPressureHealthDataType _ => AppTexts.bloodPressureDescription,
-      SystolicBloodPressureHealthDataType _ =>
+      StepsDataType _ => AppTexts.stepsDescription,
+      WeightDataType _ => AppTexts.weightDescription,
+      HeightDataType _ => AppTexts.heightDescription,
+      BloodPressureDataType _ => AppTexts.bloodPressureDescription,
+      SystolicBloodPressureDataType _ =>
         AppTexts.systolicBloodPressureDescription,
-      DiastolicBloodPressureHealthDataType _ =>
+      DiastolicBloodPressureDataType _ =>
         AppTexts.diastolicBloodPressureDescription,
-      BodyFatPercentageHealthDataType _ =>
-        AppTexts.bodyFatPercentageDescription,
-      LeanBodyMassHealthDataType _ => AppTexts.leanBodyMassDescription,
-      BodyTemperatureHealthDataType _ => AppTexts.bodyTemperatureDescription,
-      BasalBodyTemperatureHealthDataType _ =>
+      BodyFatPercentageDataType _ => AppTexts.bodyFatPercentageDescription,
+      LeanBodyMassDataType _ => AppTexts.leanBodyMassDescription,
+      BodyTemperatureDataType _ => AppTexts.bodyTemperatureDescription,
+      BasalBodyTemperatureDataType _ =>
         AppTexts.basalBodyTemperatureDescription,
-      DistanceHealthDataType _ => AppTexts.distanceDescription,
+      DistanceDataType _ => AppTexts.distanceDescription,
       CrossCountrySkiingDistanceDataType _ => AppTexts.distanceDescription,
       CyclingDistanceDataType _ => AppTexts.distanceDescription,
       DownhillSnowSportsDistanceDataType _ => AppTexts.distanceDescription,
@@ -235,29 +139,26 @@ extension HealthDataTypeUI on HealthDataType {
       SwimmingDistanceDataType _ => AppTexts.distanceDescription,
       WheelchairDistanceDataType _ => AppTexts.distanceDescription,
       WalkingRunningDistanceDataType _ => AppTexts.distanceDescription,
-      ActiveEnergyBurnedHealthDataType _ =>
-        AppTexts.activeCaloriesBurnedDescription,
-      BasalEnergyBurnedHealthDataType _ =>
-        AppTexts.basalEnergyBurnedDescription,
-      TotalEnergyBurnedHealthDataType _ =>
-        AppTexts.totalCaloriesBurnedDescription,
-      FloorsClimbedHealthDataType _ => AppTexts.floorsClimbedDescription,
-      WheelchairPushesHealthDataType _ => AppTexts.wheelchairPushesDescription,
-      HydrationHealthDataType _ => AppTexts.hydrationDescription,
-      HeartRateMeasurementRecordHealthDataType _ =>
+      ActiveEnergyBurnedDataType _ => AppTexts.activeCaloriesBurnedDescription,
+      BasalEnergyBurnedDataType _ => AppTexts.basalEnergyBurnedDescription,
+      TotalEnergyBurnedDataType _ => AppTexts.totalCaloriesBurnedDescription,
+      FloorsClimbedDataType _ => AppTexts.floorsClimbedDescription,
+      WheelchairPushesDataType _ => AppTexts.wheelchairPushesDescription,
+      HydrationDataType _ => AppTexts.hydrationDescription,
+      HeartRateMeasurementRecordDataType _ =>
         AppTexts.heartRateRecordDescription,
-      HeartRateSeriesRecordHealthDataType _ =>
+      HeartRateSeriesRecordDataType _ =>
         AppTexts.heartRateSeriesRecordDescription,
-      CyclingPedalingCadenceMeasurementRecordHealthDataType _ =>
+      CyclingPedalingCadenceMeasurementRecordDataType _ =>
         AppTexts.cyclingPedalingCadenceRecordDescription,
-      CyclingPedalingCadenceSeriesRecordHealthDataType _ =>
+      CyclingPedalingCadenceSeriesRecordDataType _ =>
         AppTexts.cyclingPedalingCadenceSeriesRecordDescription,
-      RestingHeartRateHealthDataType _ => AppTexts.restingHeartRateDescription,
-      SleepSessionHealthDataType _ => AppTexts.sleepSessionDescription,
-      SleepStageHealthDataType _ => AppTexts.sleepStageRecordDescription,
+      RestingHeartRateDataType _ => AppTexts.restingHeartRateDescription,
+      SleepSessionDataType _ => AppTexts.sleepSessionDescription,
+      SleepStageDataType _ => AppTexts.sleepStageRecordDescription,
       SexualActivityDataType _ => AppTexts.sexualActivityDescription,
-      OxygenSaturationHealthDataType _ => AppTexts.oxygenSaturationDescription,
-      NutritionHealthDataType _ => AppTexts.nutritionDescription,
+      OxygenSaturationDataType _ => AppTexts.oxygenSaturationDescription,
+      NutritionDataType _ => AppTexts.nutritionDescription,
       DietaryEnergyConsumedDataType _ => AppTexts.energyDescription,
       CaffeineNutrientDataType _ => AppTexts.caffeineDescription,
       ProteinNutrientDataType _ => AppTexts.proteinDescription,
@@ -294,9 +195,9 @@ extension HealthDataTypeUI on HealthDataType {
       FolateNutrientDataType _ => AppTexts.folateDescription,
       BiotinNutrientDataType _ => AppTexts.biotinDescription,
       PantothenicAcidNutrientDataType _ => AppTexts.pantothenicAcidDescription,
-      RespiratoryRateHealthDataType _ => AppTexts.respiratoryRateDescription,
-      Vo2MaxHealthDataType _ => AppTexts.vo2MaxDescription,
-      BloodGlucoseHealthDataType _ => AppTexts.bloodGlucoseDescription,
+      RespiratoryRateDataType _ => AppTexts.respiratoryRateDescription,
+      Vo2MaxDataType _ => AppTexts.vo2MaxDescription,
+      BloodGlucoseDataType _ => AppTexts.bloodGlucoseDescription,
       SpeedSeriesDataType _ => AppTexts.speedDescription,
       WalkingSpeedDataType _ => AppTexts.speedDescription,
       RunningSpeedDataType _ => AppTexts.speedDescription,
@@ -304,7 +205,7 @@ extension HealthDataTypeUI on HealthDataType {
       StairDescentSpeedDataType _ => AppTexts.speedDescription,
       PowerSeriesDataType _ => 'Power output measurements over time (Android)',
       CyclingPowerDataType _ => 'Cycling power output in watts (iOS)',
-      ExerciseSessionHealthDataType _ => 'Period of physical activity',
+      ExerciseSessionDataType _ => 'Period of physical activity',
       MindfulnessSessionDataType _ => 'Period of mindfulness practice',
       CervicalMucusDataType _ => AppTexts.cervicalMucusDescription,
       IntermenstrualBleedingDataType _ =>
@@ -314,9 +215,8 @@ extension HealthDataTypeUI on HealthDataType {
       BodyWaterMassDataType _ => AppTexts.bodyWaterMassDescription,
       HeartRateVariabilityRMSSDDataType _ =>
         AppTexts.heartRateVariabilityRMSSDDescription,
-      BodyMassIndexHealthDataType _ => AppTexts.bodyMassIndexDescription,
-      WaistCircumferenceHealthDataType _ =>
-        AppTexts.waistCircumferenceDescription,
+      BodyMassIndexDataType _ => AppTexts.bodyMassIndexDescription,
+      WaistCircumferenceDataType _ => AppTexts.waistCircumferenceDescription,
       HeartRateVariabilitySDNNDataType _ =>
         AppTexts.heartRateVariabilitySDNNDescription,
       MenstrualFlowDataType _ => 'Menstrual flow intensity over time (iOS)',
@@ -331,17 +231,17 @@ extension HealthDataTypeUI on HealthDataType {
   /// the health data type in UI elements.
   IconData get icon {
     return switch (this) {
-      StepsHealthDataType _ => AppIcons.directionsWalk,
-      WeightHealthDataType _ => AppIcons.monitorWeight,
-      HeightHealthDataType _ => AppIcons.height,
-      BloodPressureHealthDataType _ => AppIcons.bloodPressure,
-      SystolicBloodPressureHealthDataType _ => AppIcons.bloodPressure,
-      DiastolicBloodPressureHealthDataType _ => AppIcons.bloodPressure,
-      BodyFatPercentageHealthDataType _ => AppIcons.percent,
-      LeanBodyMassHealthDataType _ => AppIcons.monitorWeight,
-      BodyTemperatureHealthDataType _ => AppIcons.temperature,
-      BasalBodyTemperatureHealthDataType _ => AppIcons.temperature,
-      DistanceHealthDataType _ => AppIcons.straighten,
+      StepsDataType _ => AppIcons.directionsWalk,
+      WeightDataType _ => AppIcons.monitorWeight,
+      HeightDataType _ => AppIcons.height,
+      BloodPressureDataType _ => AppIcons.bloodPressure,
+      SystolicBloodPressureDataType _ => AppIcons.bloodPressure,
+      DiastolicBloodPressureDataType _ => AppIcons.bloodPressure,
+      BodyFatPercentageDataType _ => AppIcons.percent,
+      LeanBodyMassDataType _ => AppIcons.monitorWeight,
+      BodyTemperatureDataType _ => AppIcons.temperature,
+      BasalBodyTemperatureDataType _ => AppIcons.temperature,
+      DistanceDataType _ => AppIcons.straighten,
       CrossCountrySkiingDistanceDataType _ => AppIcons.straighten,
       CyclingDistanceDataType _ => AppIcons.straighten,
       DownhillSnowSportsDistanceDataType _ => AppIcons.straighten,
@@ -352,22 +252,22 @@ extension HealthDataTypeUI on HealthDataType {
       SwimmingDistanceDataType _ => AppIcons.straighten,
       WheelchairDistanceDataType _ => AppIcons.straighten,
       WalkingRunningDistanceDataType _ => AppIcons.straighten,
-      ActiveEnergyBurnedHealthDataType _ => AppIcons.localFireDepartment,
-      BasalEnergyBurnedHealthDataType _ => AppIcons.localFireDepartment,
-      TotalEnergyBurnedHealthDataType _ => AppIcons.localFireDepartment,
-      FloorsClimbedHealthDataType _ => AppIcons.stairs,
-      WheelchairPushesHealthDataType _ => AppIcons.accessible,
-      HydrationHealthDataType _ => AppIcons.volume,
-      HeartRateMeasurementRecordHealthDataType _ => AppIcons.favorite,
-      HeartRateSeriesRecordHealthDataType _ => AppIcons.favorite,
-      CyclingPedalingCadenceMeasurementRecordHealthDataType _ => AppIcons.speed,
-      CyclingPedalingCadenceSeriesRecordHealthDataType _ => AppIcons.speed,
-      RestingHeartRateHealthDataType _ => AppIcons.favorite,
-      SleepSessionHealthDataType _ => AppIcons.bedtime,
-      SleepStageHealthDataType _ => AppIcons.bedtime,
+      ActiveEnergyBurnedDataType _ => AppIcons.localFireDepartment,
+      BasalEnergyBurnedDataType _ => AppIcons.localFireDepartment,
+      TotalEnergyBurnedDataType _ => AppIcons.localFireDepartment,
+      FloorsClimbedDataType _ => AppIcons.stairs,
+      WheelchairPushesDataType _ => AppIcons.accessible,
+      HydrationDataType _ => AppIcons.volume,
+      HeartRateMeasurementRecordDataType _ => AppIcons.favorite,
+      HeartRateSeriesRecordDataType _ => AppIcons.favorite,
+      CyclingPedalingCadenceMeasurementRecordDataType _ => AppIcons.speed,
+      CyclingPedalingCadenceSeriesRecordDataType _ => AppIcons.speed,
+      RestingHeartRateDataType _ => AppIcons.favorite,
+      SleepSessionDataType _ => AppIcons.bedtime,
+      SleepStageDataType _ => AppIcons.bedtime,
       SexualActivityDataType _ => AppIcons.favorite,
-      OxygenSaturationHealthDataType _ => AppIcons.percent,
-      NutritionHealthDataType _ => AppIcons.fastfood,
+      OxygenSaturationDataType _ => AppIcons.percent,
+      NutritionDataType _ => AppIcons.fastfood,
       DietaryEnergyConsumedDataType _ => AppIcons.localFireDepartment,
       CaffeineNutrientDataType _ => AppIcons.fastfood,
       ProteinNutrientDataType _ => AppIcons.fastfood,
@@ -401,9 +301,9 @@ extension HealthDataTypeUI on HealthDataType {
       FolateNutrientDataType _ => AppIcons.fastfood,
       BiotinNutrientDataType _ => AppIcons.fastfood,
       PantothenicAcidNutrientDataType _ => AppIcons.fastfood,
-      RespiratoryRateHealthDataType _ => AppIcons.air,
-      Vo2MaxHealthDataType _ => AppIcons.vo2Max,
-      BloodGlucoseHealthDataType _ => AppIcons.bloodGlucose,
+      RespiratoryRateDataType _ => AppIcons.air,
+      Vo2MaxDataType _ => AppIcons.vo2Max,
+      BloodGlucoseDataType _ => AppIcons.bloodGlucose,
       SpeedSeriesDataType _ => AppIcons.speed,
       WalkingSpeedDataType _ => AppIcons.speed,
       RunningSpeedDataType _ => AppIcons.speed,
@@ -411,7 +311,7 @@ extension HealthDataTypeUI on HealthDataType {
       StairDescentSpeedDataType _ => AppIcons.speed,
       PowerSeriesDataType _ => AppIcons.power,
       CyclingPowerDataType _ => AppIcons.power,
-      ExerciseSessionHealthDataType _ => AppIcons.fitnessCenter,
+      ExerciseSessionDataType _ => AppIcons.fitnessCenter,
       CervicalMucusDataType _ => AppIcons.waterDrop,
       IntermenstrualBleedingDataType _ => AppIcons.waterDrop,
       OvulationTestDataType _ => AppIcons.science,
@@ -419,8 +319,8 @@ extension HealthDataTypeUI on HealthDataType {
       BoneMassDataType _ => AppIcons.monitorWeight,
       BodyWaterMassDataType _ => AppIcons.waterDrop,
       HeartRateVariabilityRMSSDDataType _ => AppIcons.favorite,
-      BodyMassIndexHealthDataType _ => AppIcons.monitorWeight,
-      WaistCircumferenceHealthDataType _ => AppIcons.straighten,
+      BodyMassIndexDataType _ => AppIcons.monitorWeight,
+      WaistCircumferenceDataType _ => AppIcons.straighten,
       HeartRateVariabilitySDNNDataType _ => AppIcons.favorite,
       MenstrualFlowDataType _ => AppIcons.waterDrop,
       MenstrualFlowInstantDataType _ => AppIcons.waterDrop,
@@ -438,11 +338,11 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
   TextInputType get keyboardType {
     return switch (runtimeType) {
       // Integer types
-      const (StepsHealthDataType) ||
-      const (FloorsClimbedHealthDataType) ||
-      const (WheelchairPushesHealthDataType) ||
-      const (HeartRateMeasurementRecordHealthDataType) ||
-      const (RestingHeartRateHealthDataType) => TextInputType.number,
+      const (StepsDataType) ||
+      const (FloorsClimbedDataType) ||
+      const (WheelchairPushesDataType) ||
+      const (HeartRateMeasurementRecordDataType) ||
+      const (RestingHeartRateDataType) => TextInputType.number,
 
       // All other types use decimal number input
       _ => const TextInputType.numberWithOptions(decimal: true),
@@ -453,22 +353,24 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
   String get fieldLabel {
     return switch (runtimeType) {
       // Count Types
-      const (StepsHealthDataType) => AppTexts.stepCount,
-      const (FloorsClimbedHealthDataType) => AppTexts.floorsClimbed,
-      const (WheelchairPushesHealthDataType) => AppTexts.wheelchairPushes,
-      const (HeartRateMeasurementRecordHealthDataType) =>
-        AppTexts.valueWithUnit(AppTexts.heartRate, AppTexts.bpm),
-      const (RestingHeartRateHealthDataType) => AppTexts.valueWithUnit(
+      const (StepsDataType) => AppTexts.stepCount,
+      const (FloorsClimbedDataType) => AppTexts.floorsClimbed,
+      const (WheelchairPushesDataType) => AppTexts.wheelchairPushes,
+      const (HeartRateMeasurementRecordDataType) => AppTexts.valueWithUnit(
+        AppTexts.heartRate,
+        AppTexts.bpm,
+      ),
+      const (RestingHeartRateDataType) => AppTexts.valueWithUnit(
         AppTexts.restingHeartRate,
         AppTexts.bpm,
       ),
 
       // Mass Types (Kilograms)
-      const (WeightHealthDataType) => AppTexts.valueWithUnit(
+      const (WeightDataType) => AppTexts.valueWithUnit(
         AppTexts.weight,
         AppTexts.kilogram,
       ),
-      const (LeanBodyMassHealthDataType) => AppTexts.valueWithUnit(
+      const (LeanBodyMassDataType) => AppTexts.valueWithUnit(
         AppTexts.leanBodyMass,
         AppTexts.kilogram,
       ),
@@ -484,11 +386,11 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.heartRateVariabilityRMSSD,
         AppTexts.millisecond,
       ),
-      const (BodyMassIndexHealthDataType) => AppTexts.valueWithUnit(
+      const (BodyMassIndexDataType) => AppTexts.valueWithUnit(
         AppTexts.bodyMassIndex,
         'kg/m²',
       ),
-      const (WaistCircumferenceHealthDataType) => AppTexts.valueWithUnit(
+      const (WaistCircumferenceDataType) => AppTexts.valueWithUnit(
         AppTexts.waistCircumference,
         AppTexts.meter,
       ),
@@ -498,21 +400,21 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       ),
 
       // Percentage Types
-      const (BodyFatPercentageHealthDataType) => AppTexts.withUnit(
+      const (BodyFatPercentageDataType) => AppTexts.withUnit(
         AppTexts.bodyFatPercentage,
         AppTexts.percent,
       ),
-      const (OxygenSaturationHealthDataType) => AppTexts.withUnit(
+      const (OxygenSaturationDataType) => AppTexts.withUnit(
         AppTexts.oxygenSaturation,
         AppTexts.percent,
       ),
 
       // Distance Types
-      const (HeightHealthDataType) => AppTexts.valueWithUnit(
+      const (HeightDataType) => AppTexts.valueWithUnit(
         AppTexts.height,
         AppTexts.meter,
       ),
-      const (DistanceHealthDataType) => AppTexts.valueWithUnit(
+      const (DistanceDataType) => AppTexts.valueWithUnit(
         AppTexts.distance,
         AppTexts.meter,
       ),
@@ -558,45 +460,45 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       ),
 
       // Vital Signs
-      const (BodyTemperatureHealthDataType) => AppTexts.withUnit(
+      const (BodyTemperatureDataType) => AppTexts.withUnit(
         AppTexts.bodyTemperature,
         AppTexts.celsius,
       ),
-      const (BasalBodyTemperatureHealthDataType) => AppTexts.withUnit(
+      const (BasalBodyTemperatureDataType) => AppTexts.withUnit(
         AppTexts.basalBodyTemperature,
         AppTexts.celsius,
       ),
-      const (SystolicBloodPressureHealthDataType) => AppTexts.withUnit(
+      const (SystolicBloodPressureDataType) => AppTexts.withUnit(
         '${AppTexts.systolic} ${AppTexts.bloodPressure}',
         AppTexts.millimetersOfMercury,
       ),
-      const (DiastolicBloodPressureHealthDataType) => AppTexts.withUnit(
+      const (DiastolicBloodPressureDataType) => AppTexts.withUnit(
         '${AppTexts.diastolic} ${AppTexts.bloodPressure}',
         AppTexts.millimetersOfMercury,
       ),
-      const (BloodGlucoseHealthDataType) => AppTexts.withUnit(
+      const (BloodGlucoseDataType) => AppTexts.withUnit(
         AppTexts.bloodGlucose,
         AppTexts.milligramsPerDeciliter,
       ),
-      const (RespiratoryRateHealthDataType) => AppTexts.withUnit(
+      const (RespiratoryRateDataType) => AppTexts.withUnit(
         AppTexts.respiratoryRate,
         AppTexts.breathsPerMinute,
       ),
-      const (Vo2MaxHealthDataType) => AppTexts.withUnit(
+      const (Vo2MaxDataType) => AppTexts.withUnit(
         AppTexts.vo2Max,
         AppTexts.millilitersPerKilogramPerMinute,
       ),
 
       // Activity & Energy
-      const (ActiveEnergyBurnedHealthDataType) => AppTexts.withUnit(
+      const (ActiveEnergyBurnedDataType) => AppTexts.withUnit(
         AppTexts.activeCaloriesBurned,
         AppTexts.kilocalories,
       ),
-      const (TotalEnergyBurnedHealthDataType) => AppTexts.withUnit(
+      const (TotalEnergyBurnedDataType) => AppTexts.withUnit(
         AppTexts.activeCaloriesBurned,
         AppTexts.kilocalories,
       ),
-      const (BasalEnergyBurnedHealthDataType) => AppTexts.withUnit(
+      const (BasalEnergyBurnedDataType) => AppTexts.withUnit(
         AppTexts.activeCaloriesBurned,
         AppTexts.kilocalories,
       ),
@@ -604,7 +506,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.energy,
         AppTexts.kilocalories,
       ),
-      const (HydrationHealthDataType) => AppTexts.valueWithUnit(
+      const (HydrationDataType) => AppTexts.valueWithUnit(
         AppTexts.hydration,
         AppTexts.liter,
       ),
@@ -755,7 +657,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       // Reproductive Health
       const (SexualActivityDataType) => AppTexts.sexualActivity,
       const (CervicalMucusDataType) => AppTexts.cervicalMucus,
-      const (CyclingPedalingCadenceMeasurementRecordHealthDataType) =>
+      const (CyclingPedalingCadenceMeasurementRecordDataType) =>
         AppTexts.cyclingPedalingCadence,
 
       _ => throw ArgumentError(
@@ -769,20 +671,20 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
   String? get fieldSuffix {
     return switch (runtimeType) {
       // Mass types (kilograms)
-      const (WeightHealthDataType) ||
-      const (LeanBodyMassHealthDataType) ||
+      const (WeightDataType) ||
+      const (LeanBodyMassDataType) ||
       const (BoneMassDataType) ||
       const (BodyWaterMassDataType) => AppTexts.kilogram,
 
       // Percentage types
-      const (BodyFatPercentageHealthDataType) ||
-      const (OxygenSaturationHealthDataType) => '%',
+      const (BodyFatPercentageDataType) ||
+      const (OxygenSaturationDataType) => '%',
 
-      const (BodyMassIndexHealthDataType) => 'kg/m²',
+      const (BodyMassIndexDataType) => 'kg/m²',
 
       // Distance types
-      const (HeightHealthDataType) ||
-      const (DistanceHealthDataType) ||
+      const (HeightDataType) ||
+      const (DistanceDataType) ||
       const (CrossCountrySkiingDistanceDataType) ||
       const (CyclingDistanceDataType) ||
       const (DownhillSnowSportsDistanceDataType) ||
@@ -792,18 +694,17 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (SkatingSportsDistanceDataType) ||
       const (SwimmingDistanceDataType) ||
       const (WheelchairDistanceDataType) ||
-      const (WaistCircumferenceHealthDataType) ||
+      const (WaistCircumferenceDataType) ||
       const (WalkingRunningDistanceDataType) => AppTexts.meter,
 
       // Vital Signs
-      const (BodyTemperatureHealthDataType) => AppTexts.celsius,
-      const (BasalEnergyBurnedHealthDataType) => AppTexts.celsius,
-      const (SystolicBloodPressureHealthDataType) ||
-      const (DiastolicBloodPressureHealthDataType) =>
-        AppTexts.millimetersOfMercury,
-      const (BloodGlucoseHealthDataType) => AppTexts.milligramsPerDeciliter,
-      const (RespiratoryRateHealthDataType) => AppTexts.breathsPerMinute,
-      const (Vo2MaxHealthDataType) => AppTexts.millilitersPerKilogramPerMinute,
+      const (BodyTemperatureDataType) => AppTexts.celsius,
+      const (BasalEnergyBurnedDataType) => AppTexts.celsius,
+      const (SystolicBloodPressureDataType) ||
+      const (DiastolicBloodPressureDataType) => AppTexts.millimetersOfMercury,
+      const (BloodGlucoseDataType) => AppTexts.milligramsPerDeciliter,
+      const (RespiratoryRateDataType) => AppTexts.breathsPerMinute,
+      const (Vo2MaxDataType) => AppTexts.millilitersPerKilogramPerMinute,
       const (HeartRateVariabilityRMSSDDataType) ||
       const (HeartRateVariabilitySDNNDataType) => AppTexts.millisecond,
 
@@ -811,11 +712,11 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (CyclingPowerDataType) => 'W',
 
       // Activity & Energy
-      const (ActiveEnergyBurnedHealthDataType) ||
-      const (BasalEnergyBurnedHealthDataType) ||
-      const (TotalEnergyBurnedHealthDataType) ||
+      const (ActiveEnergyBurnedDataType) ||
+      const (BasalEnergyBurnedDataType) ||
+      const (TotalEnergyBurnedDataType) ||
       const (DietaryEnergyConsumedDataType) => AppTexts.kilocalories,
-      const (HydrationHealthDataType) => AppTexts.liter,
+      const (HydrationDataType) => AppTexts.liter,
 
       // Nutrients - grams
       const (ProteinNutrientDataType) ||
@@ -863,35 +764,36 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
   /// Returns the error message when the input is empty.
   String get emptyInputError {
     return switch (runtimeType) {
-      const (StepsHealthDataType) ||
-      const (FloorsClimbedHealthDataType) ||
-      const (WheelchairPushesHealthDataType) ||
+      const (StepsDataType) ||
+      const (FloorsClimbedDataType) ||
+      const (WheelchairPushesDataType) ||
       const (WalkingSpeedDataType) ||
       const (RunningSpeedDataType) ||
       const (StairAscentSpeedDataType) ||
       const (StairDescentSpeedDataType) => AppTexts.pleaseEnterValidNumber,
 
-      const (HeartRateMeasurementRecordHealthDataType) =>
-        AppTexts.getPleaseEnterText(AppTexts.heartRate),
-      const (RestingHeartRateHealthDataType) => AppTexts.getPleaseEnterText(
+      const (HeartRateMeasurementRecordDataType) => AppTexts.getPleaseEnterText(
+        AppTexts.heartRate,
+      ),
+      const (RestingHeartRateDataType) => AppTexts.getPleaseEnterText(
         AppTexts.restingHeartRate,
       ),
-      const (WeightHealthDataType) => AppTexts.getPleaseEnterText(
+      const (WeightDataType) => AppTexts.getPleaseEnterText(
         AppTexts.weight,
       ),
-      const (LeanBodyMassHealthDataType) => AppTexts.getPleaseEnterText(
+      const (LeanBodyMassDataType) => AppTexts.getPleaseEnterText(
         AppTexts.leanBodyMass,
       ),
-      const (BodyFatPercentageHealthDataType) => AppTexts.getPleaseEnterText(
+      const (BodyFatPercentageDataType) => AppTexts.getPleaseEnterText(
         AppTexts.bodyFatPercentage,
       ),
-      const (OxygenSaturationHealthDataType) => AppTexts.getPleaseEnterText(
+      const (OxygenSaturationDataType) => AppTexts.getPleaseEnterText(
         AppTexts.oxygenSaturation,
       ),
-      const (HeightHealthDataType) => AppTexts.getPleaseEnterText(
+      const (HeightDataType) => AppTexts.getPleaseEnterText(
         AppTexts.height,
       ),
-      const (DistanceHealthDataType) ||
+      const (DistanceDataType) ||
       const (CrossCountrySkiingDistanceDataType) ||
       const (CyclingDistanceDataType) ||
       const (DownhillSnowSportsDistanceDataType) ||
@@ -904,39 +806,37 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (WalkingRunningDistanceDataType) => AppTexts.getPleaseEnterText(
         AppTexts.distance,
       ),
-      const (BodyTemperatureHealthDataType) => AppTexts.getPleaseEnterText(
+      const (BodyTemperatureDataType) => AppTexts.getPleaseEnterText(
         AppTexts.bodyTemperature,
       ),
-      const (BasalBodyTemperatureHealthDataType) => AppTexts.getPleaseEnterText(
+      const (BasalBodyTemperatureDataType) => AppTexts.getPleaseEnterText(
         AppTexts.basalBodyTemperature,
       ),
-      const (SystolicBloodPressureHealthDataType) =>
-        AppTexts.getPleaseEnterText(
-          '${AppTexts.systolic} ${AppTexts.bloodPressure}',
-        ),
-      const (DiastolicBloodPressureHealthDataType) =>
-        AppTexts.getPleaseEnterText(
-          '${AppTexts.diastolic} ${AppTexts.bloodPressure}',
-        ),
-      const (BloodGlucoseHealthDataType) => AppTexts.getPleaseEnterText(
+      const (SystolicBloodPressureDataType) => AppTexts.getPleaseEnterText(
+        '${AppTexts.systolic} ${AppTexts.bloodPressure}',
+      ),
+      const (DiastolicBloodPressureDataType) => AppTexts.getPleaseEnterText(
+        '${AppTexts.diastolic} ${AppTexts.bloodPressure}',
+      ),
+      const (BloodGlucoseDataType) => AppTexts.getPleaseEnterText(
         AppTexts.bloodGlucose,
       ),
-      const (RespiratoryRateHealthDataType) => AppTexts.getPleaseEnterText(
+      const (RespiratoryRateDataType) => AppTexts.getPleaseEnterText(
         AppTexts.respiratoryRate,
       ),
-      const (Vo2MaxHealthDataType) => AppTexts.getPleaseEnterText(
+      const (Vo2MaxDataType) => AppTexts.getPleaseEnterText(
         AppTexts.vo2Max,
       ),
       const (CyclingPowerDataType) => AppTexts.getPleaseEnterText(
         AppTexts.power,
       ),
-      const (ActiveEnergyBurnedHealthDataType) => AppTexts.getPleaseEnterText(
+      const (ActiveEnergyBurnedDataType) => AppTexts.getPleaseEnterText(
         AppTexts.activeCaloriesBurned,
       ),
       const (DietaryEnergyConsumedDataType) => AppTexts.getPleaseEnterText(
         AppTexts.energy,
       ),
-      const (HydrationHealthDataType) => AppTexts.getPleaseEnterText(
+      const (HydrationDataType) => AppTexts.getPleaseEnterText(
         AppTexts.hydration,
       ),
       const (CaffeineNutrientDataType) => AppTexts.getPleaseEnterText(
