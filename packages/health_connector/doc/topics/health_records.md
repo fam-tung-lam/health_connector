@@ -184,15 +184,15 @@ final heartRateSeries = HeartRateSeriesRecord(
   startZoneOffsetSeconds: 3600,
   endZoneOffsetSeconds: 3600,
   samples: [
-    HeartRateMeasurement(
+    HeartRateSample(
       time: DateTime.now().subtract(Duration(minutes: 10)),
       beatsPerMinute: Number(65),
     ),
-    HeartRateMeasurement(
+    HeartRateSample(
       time: DateTime.now().subtract(Duration(minutes: 5)),
       beatsPerMinute: Number(120),
     ),
-    HeartRateMeasurement(
+    HeartRateSample(
       time: DateTime.now(),
       beatsPerMinute: Number(80),
     ),

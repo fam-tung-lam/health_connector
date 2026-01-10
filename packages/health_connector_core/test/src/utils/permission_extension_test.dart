@@ -13,14 +13,15 @@ void main() {
           accessType: HealthDataPermissionAccessType.read,
         ),
         HealthPlatformFeaturePermission(
-          HealthPlatformFeature.readDataHistory,
+          HealthPlatformFeature.readHealthDataHistory,
         ),
         HealthDataPermission(
           dataType: HealthDataType.heartRateSeriesRecord,
           accessType: HealthDataPermissionAccessType.write,
         ),
         HealthPlatformFeaturePermission(
-          HealthPlatformFeature.readDataHistory, // Duplicate type for test
+          HealthPlatformFeature
+              .readHealthDataHistory, // Duplicate type for test
         ),
       ];
 
@@ -49,7 +50,7 @@ void main() {
             () {
               const onlyFeatures = <Permission>[
                 HealthPlatformFeaturePermission(
-                  HealthPlatformFeature.readDataHistory,
+                  HealthPlatformFeature.readHealthDataHistory,
                 ),
               ];
               expect(onlyFeatures.healthDataPermissions, isEmpty);
@@ -72,7 +73,7 @@ void main() {
               );
               expect(
                 featurePermissions[0].feature,
-                HealthPlatformFeature.readDataHistory,
+                HealthPlatformFeature.readHealthDataHistory,
               );
             },
           );

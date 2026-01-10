@@ -652,10 +652,10 @@ enum PermissionStatusDto {
 /// Represents a health platform feature.
 enum HealthPlatformFeatureDto {
   /// Read health data in the background.
-  readDataInBackground,
+  readHealthDataInBackground,
 
   /// Read historical health data from the past.
-  readDataHistory,
+  readHealthDataHistory,
 }
 
 /// Represents the availability status of a feature.
@@ -3040,8 +3040,8 @@ class HydrationRecordDto extends HealthRecordDto {
 ///
 /// This is a platform-agnostic value class used within heart rate records.
 /// It contains a timestamp and BPM value without ID or metadata.
-class HeartRateMeasurementDto {
-  HeartRateMeasurementDto({
+class HeartRateSampleDto {
+  HeartRateSampleDto({
     required this.time,
     required this.beatsPerMinute,
   });
@@ -3063,9 +3063,9 @@ class HeartRateMeasurementDto {
     return _toList();
   }
 
-  static HeartRateMeasurementDto decode(Object result) {
+  static HeartRateSampleDto decode(Object result) {
     result as List<Object?>;
-    return HeartRateMeasurementDto(
+    return HeartRateSampleDto(
       time: result[0]! as int,
       beatsPerMinute: result[1]! as FrequencyDto,
     );
@@ -3074,7 +3074,7 @@ class HeartRateMeasurementDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HeartRateMeasurementDto || other.runtimeType != runtimeType) {
+    if (other is! HeartRateSampleDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3113,7 +3113,7 @@ class HeartRateSeriesRecordDto extends HealthRecordDto {
   MetadataDto metadata;
 
   /// List of heart rate measurements within this time interval.
-  List<HeartRateMeasurementDto> samples;
+  List<HeartRateSampleDto> samples;
 
   /// Timezone offset in seconds for start time (optional).
   int? startZoneOffsetSeconds;
@@ -3144,7 +3144,7 @@ class HeartRateSeriesRecordDto extends HealthRecordDto {
       startTime: result[1]! as int,
       endTime: result[2]! as int,
       metadata: result[3]! as MetadataDto,
-      samples: (result[4] as List<Object?>?)!.cast<HeartRateMeasurementDto>(),
+      samples: (result[4] as List<Object?>?)!.cast<HeartRateSampleDto>(),
       startZoneOffsetSeconds: result[5] as int?,
       endZoneOffsetSeconds: result[6] as int?,
     );
@@ -5639,7 +5639,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is HydrationRecordDto) {
       buffer.putUint8(193);
       writeValue(buffer, value.encode());
-    } else if (value is HeartRateMeasurementDto) {
+    } else if (value is HeartRateSampleDto) {
       buffer.putUint8(194);
       writeValue(buffer, value.encode());
     } else if (value is HeartRateSeriesRecordDto) {
@@ -5918,7 +5918,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 193:
         return HydrationRecordDto.decode(readValue(buffer)!);
       case 194:
-        return HeartRateMeasurementDto.decode(readValue(buffer)!);
+        return HeartRateSampleDto.decode(readValue(buffer)!);
       case 195:
         return HeartRateSeriesRecordDto.decode(readValue(buffer)!);
       case 196:

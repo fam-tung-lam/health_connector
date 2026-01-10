@@ -20,21 +20,22 @@ part of 'health_platform_feature.dart';
 ///
 /// ```dart
 /// await HealthConnector.requestPermissions([
-///   HealthPlatformFeature.readDataHistory.permission,
+///   HealthPlatformFeature.readHealthDataHistory.permission,
 ///   // ... other data type permissions
 /// ]);
 /// ```
 @sinceV1_0_0
 @immutable
-final class HealthPlatformFeatureReadDataHistory extends HealthPlatformFeature {
-  /// Creates a instance of [HealthPlatformFeatureReadDataHistory].
+final class HealthPlatformFeatureReadHealthDataHistory
+    extends HealthPlatformFeature {
+  /// Creates a instance of [HealthPlatformFeatureReadHealthDataHistory].
   @internalUse
-  const HealthPlatformFeatureReadDataHistory();
+  const HealthPlatformFeatureReadHealthDataHistory();
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HealthPlatformFeatureReadDataHistory &&
+      other is HealthPlatformFeatureReadHealthDataHistory &&
           runtimeType == other.runtimeType;
 
   @override

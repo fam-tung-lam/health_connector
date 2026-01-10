@@ -24,22 +24,22 @@ part of 'health_platform_feature.dart';
 ///
 /// ```dart
 /// await HealthConnector.requestPermissions([
-///   HealthPlatformFeature.readDataInBackground.permission,
+///   HealthPlatformFeature.readHealthDataInBackground.permission,
 ///   // ... other data type permissions
 /// ]);
 /// ```
 @sinceV1_0_0
 @immutable
-final class HealthPlatformFeatureReadDataInBackground
+final class HealthPlatformFeatureReadHealthDataInBackground
     extends HealthPlatformFeature {
-  /// Creates a instance of [HealthPlatformFeatureReadDataInBackground].
+  /// Creates a instance of [HealthPlatformFeatureReadHealthDataInBackground].
   @internalUse
-  const HealthPlatformFeatureReadDataInBackground();
+  const HealthPlatformFeatureReadHealthDataInBackground();
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HealthPlatformFeatureReadDataInBackground &&
+      other is HealthPlatformFeatureReadHealthDataInBackground &&
           runtimeType == other.runtimeType;
 
   @override

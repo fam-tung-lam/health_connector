@@ -9,7 +9,7 @@ import 'package:health_connector_toolbox/src/common/widgets/pickers/date_time_pi
 /// speed sample form fields by providing a reusable, type-safe implementation.
 ///
 /// Type parameters:
-/// - [T]: The sample type (e.g., HeartRateMeasurement, SleepStage)
+/// - [T]: The sample type (e.g., HeartRateSample, SleepStage)
 /// - [V]: The value type (e.g., int for BPM, SleepStageType for stage type)
 @immutable
 final class RecordSampleFormFieldGroup<T, V> extends StatefulWidget {

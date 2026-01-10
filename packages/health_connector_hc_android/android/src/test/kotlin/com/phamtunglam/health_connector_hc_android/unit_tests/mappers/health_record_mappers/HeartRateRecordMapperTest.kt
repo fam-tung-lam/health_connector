@@ -6,7 +6,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.FrequencyDto
-import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateMeasurementDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSampleDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
@@ -79,11 +79,11 @@ class HeartRateRecordMapperTest {
                 deviceType = DeviceTypeDto.PHONE,
             ),
             samples = listOf(
-                HeartRateMeasurementDto(
+                HeartRateSampleDto(
                     time = TEST_START_TIME,
                     beatsPerMinute = FrequencyDto(perMinute = TEST_BPM_1.toDouble()),
                 ),
-                HeartRateMeasurementDto(
+                HeartRateSampleDto(
                     time = TEST_END_TIME,
                     beatsPerMinute = FrequencyDto(perMinute = TEST_BPM_2.toDouble()),
                 ),

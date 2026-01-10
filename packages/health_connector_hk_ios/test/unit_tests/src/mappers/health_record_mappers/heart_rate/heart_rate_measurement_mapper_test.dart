@@ -11,11 +11,11 @@ void main() {
         'HeartRateMeasurementToDto',
         () {
           test(
-            'converts HeartRateMeasurement to HeartRateMeasurementDto',
+            'converts HeartRateSample to HeartRateMeasurementDto',
             () {
               final time = DateTime(2025, 1, 15, 10).toUtc();
 
-              final measurement = HeartRateMeasurement(
+              final measurement = HeartRateSample(
                 time: time,
                 rate: Frequency.perMinute(72),
               );
@@ -33,7 +33,7 @@ void main() {
         'HeartRateMeasurementDtoToDomain',
         () {
           test(
-            'converts HeartRateMeasurementDto to HeartRateMeasurement',
+            'converts HeartRateMeasurementDto to HeartRateSample',
             () {
               final time = DateTime(2025, 1, 15, 10).toUtc();
 

@@ -6,7 +6,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 /// Form widget for heart rate series records.
 @immutable
 final class HeartRateSeriesWriteForm
-    extends SeriesHealthRecordWriteForm<HeartRateMeasurement> {
+    extends SeriesHealthRecordWriteForm<HeartRateSample> {
   const HeartRateSeriesWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
@@ -20,10 +20,7 @@ final class HeartRateSeriesWriteForm
 /// State for heart rate series form widget.
 final class HeartRateSeriesFormState
     extends
-        SeriesHealthRecordFormState<
-          HeartRateMeasurement,
-          HeartRateSeriesWriteForm
-        > {
+        SeriesHealthRecordFormState<HeartRateSample, HeartRateSeriesWriteForm> {
   @override
   List<Widget> buildSeriesFields(BuildContext context) {
     return [

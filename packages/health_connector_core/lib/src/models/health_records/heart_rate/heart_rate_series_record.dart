@@ -18,15 +18,15 @@ part of '../health_record.dart';
 ///   startTime: DateTime.now().subtract(Duration(minutes: 10)),
 ///   endTime: DateTime.now(),
 ///   samples: [
-///     HeartRateMeasurement(
+///     HeartRateSample(
 ///       time: DateTime.now().subtract(Duration(minutes: 10)),
 ///       rate: Frequency.perMinute(65),
 ///     ),
-///     HeartRateMeasurement(
+///     HeartRateSample(
 ///       time: DateTime.now().subtract(Duration(minutes: 5)),
 ///       rate: Frequency.perMinute(120),
 ///     ),
-///     HeartRateMeasurement(
+///     HeartRateSample(
 ///       time: DateTime.now(),
 ///       rate: Frequency.perMinute(80),
 ///     ),
@@ -45,8 +45,7 @@ part of '../health_record.dart';
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable
-final class HeartRateSeriesRecord
-    extends SeriesHealthRecord<HeartRateMeasurement> {
+final class HeartRateSeriesRecord extends SeriesHealthRecord<HeartRateSample> {
   /// Creates a heart rate series record.
   const HeartRateSeriesRecord({
     required super.metadata,
@@ -102,7 +101,7 @@ final class HeartRateSeriesRecord
     Metadata? metadata,
     DateTime? startTime,
     DateTime? endTime,
-    List<HeartRateMeasurement>? samples,
+    List<HeartRateSample>? samples,
     int? startZoneOffsetSeconds,
     int? endZoneOffsetSeconds,
   }) {
@@ -129,7 +128,7 @@ final class HeartRateSeriesRecord
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          const ListEquality<HeartRateMeasurement>().equals(
+          const ListEquality<HeartRateSample>().equals(
             samples,
             other.samples,
           );
@@ -156,9 +155,9 @@ final class HeartRateSeriesRecord
 ///
 /// {@category Health Records}
 @immutable
-final class HeartRateMeasurement {
+final class HeartRateSample {
   /// Creates a heart rate measurement.
-  const HeartRateMeasurement({
+  const HeartRateSample({
     required this.time,
     required this.rate,
   });
@@ -175,7 +174,7 @@ final class HeartRateMeasurement {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HeartRateMeasurement &&
+      other is HeartRateSample &&
           runtimeType == other.runtimeType &&
           time == other.time &&
           rate == other.rate;
