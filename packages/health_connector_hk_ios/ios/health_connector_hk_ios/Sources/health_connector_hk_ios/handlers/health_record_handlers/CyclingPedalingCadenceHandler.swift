@@ -8,7 +8,7 @@ final class CyclingPedalingCadenceHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableQuantityHealthRecordHandler
 {
-    typealias RecordDto = CyclingPedalingCadenceMeasurementRecordDto
+    typealias RecordDto = CyclingPedalingCadenceRecordDto
     typealias SampleType = HKQuantitySample
     typealias AggregatedResultMeasurementUnitDto = NumberDto
 
@@ -18,7 +18,7 @@ final class CyclingPedalingCadenceHandler: @unchecked Sendable,
         self.healthStore = healthStore
     }
 
-    static let dataType: HealthDataTypeDto = .cyclingPedalingCadenceMeasurementRecord
+    static let dataType: HealthDataTypeDto = .cyclingPedalingCadence
 
     static let supportedAggregationMetrics: Set<AggregationMetricDto> = [.min, .max, .avg]
 

@@ -40,10 +40,8 @@ extension HealthDataTypeUI on HealthDataType {
       HydrationDataType _ => AppTexts.hydration,
       HeartRateMeasurementRecordDataType _ => AppTexts.heartRate,
       HeartRateSeriesRecordDataType _ => AppTexts.heartRate,
-      CyclingPedalingCadenceMeasurementRecordDataType _ =>
-        AppTexts.cyclingPedalingCadence,
-      CyclingPedalingCadenceSeriesRecordDataType _ =>
-        AppTexts.cyclingPedalingCadence,
+      CyclingPedalingCadenceDataType _ => AppTexts.cyclingPedalingCadence,
+      CyclingPedalingCadenceSeriesDataType _ => AppTexts.cyclingPedalingCadence,
       RestingHeartRateDataType _ => AppTexts.restingHeartRate,
       SleepSessionDataType _ => AppTexts.sleepSession,
       SleepStageDataType _ => AppTexts.sleepStage,
@@ -149,9 +147,9 @@ extension HealthDataTypeUI on HealthDataType {
         AppTexts.heartRateRecordDescription,
       HeartRateSeriesRecordDataType _ =>
         AppTexts.heartRateSeriesRecordDescription,
-      CyclingPedalingCadenceMeasurementRecordDataType _ =>
+      CyclingPedalingCadenceDataType _ =>
         AppTexts.cyclingPedalingCadenceRecordDescription,
-      CyclingPedalingCadenceSeriesRecordDataType _ =>
+      CyclingPedalingCadenceSeriesDataType _ =>
         AppTexts.cyclingPedalingCadenceSeriesRecordDescription,
       RestingHeartRateDataType _ => AppTexts.restingHeartRateDescription,
       SleepSessionDataType _ => AppTexts.sleepSessionDescription,
@@ -260,8 +258,8 @@ extension HealthDataTypeUI on HealthDataType {
       HydrationDataType _ => AppIcons.volume,
       HeartRateMeasurementRecordDataType _ => AppIcons.favorite,
       HeartRateSeriesRecordDataType _ => AppIcons.favorite,
-      CyclingPedalingCadenceMeasurementRecordDataType _ => AppIcons.speed,
-      CyclingPedalingCadenceSeriesRecordDataType _ => AppIcons.speed,
+      CyclingPedalingCadenceDataType _ => AppIcons.speed,
+      CyclingPedalingCadenceSeriesDataType _ => AppIcons.speed,
       RestingHeartRateDataType _ => AppIcons.favorite,
       SleepSessionDataType _ => AppIcons.bedtime,
       SleepStageDataType _ => AppIcons.bedtime,
@@ -657,8 +655,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       // Reproductive Health
       const (SexualActivityDataType) => AppTexts.sexualActivity,
       const (CervicalMucusDataType) => AppTexts.cervicalMucus,
-      const (CyclingPedalingCadenceMeasurementRecordDataType) =>
-        AppTexts.cyclingPedalingCadence,
+      const (CyclingPedalingCadenceDataType) => AppTexts.cyclingPedalingCadence,
 
       _ => throw ArgumentError(
         'No field label for $runtimeType. '

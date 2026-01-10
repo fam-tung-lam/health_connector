@@ -11,7 +11,7 @@ part of '../health_record.dart';
 /// - **Android Health Connect**:
 ///   [`CyclingPedalingCadenceRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/CyclingPedalingCadenceRecord)
 /// - **iOS HealthKit**: Not supported
-///   (Use [CyclingPedalingCadenceMeasurementRecord])
+///   (Use [CyclingPedalingCadenceRecord])
 ///
 /// ## Example
 ///
@@ -42,14 +42,14 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [CyclingPedalingCadenceSeriesRecordDataType]
+/// - [CyclingPedalingCadenceSeriesDataType]
 ///
 /// {@category Health Records}
 @sinceV2_2_0
 @supportedOnHealthConnect
 @immutable
 final class CyclingPedalingCadenceSeriesRecord
-    extends SeriesHealthRecord<CyclingPedalingCadenceMeasurement> {
+    extends SeriesHealthRecord<CyclingPedalingCadenceSample> {
   /// Creates a cycling pedaling cadence series record.
   const CyclingPedalingCadenceSeriesRecord({
     required super.metadata,
@@ -62,9 +62,9 @@ final class CyclingPedalingCadenceSeriesRecord
   });
 
   /// The average cadence across all samples.
-  Number get averageCadence {
+  Frequency get avgCadence {
     if (samples.isEmpty) {
-      return Number.zero;
+      return Frequency.zero;
     }
     if (samples.length == 1) {
       return samples.first.cadence;
@@ -72,31 +72,31 @@ final class CyclingPedalingCadenceSeriesRecord
 
     final total = samples.fold<double>(
       0,
-      (sum, sample) => sum + sample.cadence.value,
+      (sum, sample) => sum + sample.cadence.inPerMinute,
     );
-    final averageRpmValue = (total / samples.length).toInt();
+    final averageRpmPerMin = total / samples.length;
 
-    return Number(averageRpmValue);
+    return Frequency.perMinute(averageRpmPerMin);
   }
 
   /// The minimum cadence value among all samples.
-  Number get minCadence {
+  Frequency get minCadence {
     if (samples.isEmpty) {
-      return Number.zero;
+      return Frequency.zero;
     }
     return samples
         .map((s) => s.cadence)
-        .reduce((a, b) => (a.value < b.value) ? a : b);
+        .reduce((a, b) => (a.inPerMinute < b.inPerMinute) ? a : b);
   }
 
   /// The maximum cadence value among all samples.
-  Number get maxCadence {
+  Frequency get maxCadence {
     if (samples.isEmpty) {
-      return Number.zero;
+      return Frequency.zero;
     }
     return samples
         .map((s) => s.cadence)
-        .reduce((a, b) => (a.value > b.value) ? a : b);
+        .reduce((a, b) => (a.inPerMinute > b.inPerMinute) ? a : b);
   }
 
   /// Creates a copy with the given fields replaced with the new values.
@@ -105,7 +105,7 @@ final class CyclingPedalingCadenceSeriesRecord
     Metadata? metadata,
     DateTime? startTime,
     DateTime? endTime,
-    List<CyclingPedalingCadenceMeasurement>? samples,
+    List<CyclingPedalingCadenceSample>? samples,
     int? startZoneOffsetSeconds,
     int? endZoneOffsetSeconds,
   }) {
@@ -132,7 +132,7 @@ final class CyclingPedalingCadenceSeriesRecord
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          const ListEquality<CyclingPedalingCadenceMeasurement>().equals(
+          const ListEquality<CyclingPedalingCadenceSample>().equals(
             samples,
             other.samples,
           );
@@ -146,4 +146,40 @@ final class CyclingPedalingCadenceSeriesRecord
       startZoneOffsetSeconds.hashCode ^
       endZoneOffsetSeconds.hashCode ^
       Object.hashAll(samples);
+}
+
+/// Represents a single cycling pedaling cadence sample at a specific
+/// point in time.
+///
+/// **Note**: This class does not have an ID or metadata. Those are
+/// properties of the record that contains the measurement.
+///
+/// {@category Health Records}
+@immutable
+final class CyclingPedalingCadenceSample {
+  /// Creates a cycling pedaling cadence measurement.
+  const CyclingPedalingCadenceSample({
+    required this.time,
+    required this.cadence,
+  });
+
+  /// The timestamp when this cadence measurement was taken, stored as a
+  /// UTC instant.
+  ///
+  /// Timezone offset information is provided by the parent record.
+  final DateTime time;
+
+  /// The cycling cadence value in revolutions per minute (RPM).
+  final Frequency cadence;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CyclingPedalingCadenceSample &&
+          runtimeType == other.runtimeType &&
+          time == other.time &&
+          cadence == other.cadence;
+
+  @override
+  int get hashCode => time.hashCode ^ cadence.hashCode;
 }

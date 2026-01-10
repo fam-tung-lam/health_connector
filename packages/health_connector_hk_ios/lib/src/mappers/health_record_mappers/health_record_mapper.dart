@@ -14,7 +14,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         CaffeineNutrientRecord,
         CalciumNutrientRecord,
         CholesterolNutrientRecord,
-        CyclingPedalingCadenceMeasurementRecord,
+        CyclingPedalingCadenceRecord,
         CyclingPedalingCadenceSeriesRecord,
         CyclingPowerRecord,
         DietaryFiberNutrientRecord,
@@ -89,7 +89,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/blood_pressure/systolic_blood_pressure_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_fat_percentage_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_mass_index_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/cycling_pedaling_cadence/cycling_pedaling_cadence_measurement_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/cycling_pedaling_cadence_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/distance/distance_activity_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/energy_burned/active_energy_burned_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/energy_burned/basal_energy_burned_record_mapper.dart';
@@ -167,7 +167,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         CaffeineNutrientRecordDto,
         CalciumNutrientRecordDto,
         CholesterolNutrientRecordDto,
-        CyclingPedalingCadenceMeasurementRecordDto,
+        CyclingPedalingCadenceRecordDto,
         CyclingPowerRecordDto,
         DiastolicBloodPressureRecordDto,
         DietaryFiberNutrientRecordDto,
@@ -307,7 +307,7 @@ extension HealthRecordToDto on HealthRecord {
         return WheelchairPushesRecordToDto(record).toDto();
       case final HeartRateMeasurementRecord record:
         return HeartRateMeasurementRecordToDto(record).toDto();
-      case final CyclingPedalingCadenceMeasurementRecord record:
+      case final CyclingPedalingCadenceRecord record:
         return CyclingPedalingCadenceMeasurementRecordToDto(record).toDto();
       case final SexualActivityRecord record:
         return SexualActivityRecordToDto(record).toDto();
@@ -427,7 +427,7 @@ extension HealthRecordToDto on HealthRecord {
       case final CyclingPedalingCadenceSeriesRecord _:
         throw UnsupportedError(
           '$CyclingPedalingCadenceSeriesRecord is not supported on iOS '
-          'HealthKit. Use $CyclingPedalingCadenceMeasurementRecord instead.',
+          'HealthKit. Use $CyclingPedalingCadenceRecord instead.',
         );
       case final SleepSessionRecord _:
         throw UnsupportedError(
@@ -511,7 +511,7 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return WheelchairPushesRecordDtoToDomain(dto).toDomain();
       case final HeartRateMeasurementRecordDto dto:
         return HeartRateMeasurementRecordDtoToDomain(dto).toDomain();
-      case final CyclingPedalingCadenceMeasurementRecordDto dto:
+      case final CyclingPedalingCadenceRecordDto dto:
         return CyclingPedalingCadenceMeasurementRecordDtoToDomain(
           dto,
         ).toDomain();

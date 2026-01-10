@@ -64,8 +64,8 @@ extension AggregateRequestDtoMapper<
           case FloorsClimbedDataType _:
           case HeartRateMeasurementRecordDataType _:
           case HeartRateSeriesRecordDataType _:
-          case CyclingPedalingCadenceMeasurementRecordDataType _:
-          case CyclingPedalingCadenceSeriesRecordDataType _:
+          case CyclingPedalingCadenceDataType _:
+          case CyclingPedalingCadenceSeriesDataType _:
           case HeightDataType _:
           case HydrationDataType _:
           case LeanBodyMassDataType _:

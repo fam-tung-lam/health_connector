@@ -1,53 +1,53 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cycling_pedaling_cadence/cycling_pedaling_cadence_measurement_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cycling_pedaling_cadence/cycling_pedaling_cadence_sample_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
 
 void main() {
   group(
-    'CyclingPedalingCadenceMeasurementMapper',
+    'CyclingPedalingCadenceSampleMapper',
     () {
       group(
-        'CyclingPedalingCadenceMeasurementToDto',
+        'CyclingPedalingCadenceSampleToDto',
         () {
           test(
-            'converts CyclingPedalingCadenceMeasurement to '
-            'CyclingPedalingCadenceMeasurementDto',
+            'converts CyclingPedalingCadenceSample to '
+            'CyclingPedalingCadenceSampleDto',
             () {
               final time = DateTime(2025, 1, 15, 10, 30).toUtc();
 
-              final measurement = CyclingPedalingCadenceMeasurement(
+              final measurement = CyclingPedalingCadenceSample(
                 time: time,
-                cadence: const Number(90),
+                cadence: Frequency.perMinute(90),
               );
 
               final dto = measurement.toDto();
 
               expect(dto.time, time.millisecondsSinceEpoch);
-              expect(dto.revolutionsPerMinute.value, 90);
+              expect(dto.revolutionsPerMinute, 90);
             },
           );
         },
       );
 
       group(
-        'CyclingPedalingCadenceMeasurementDtoToDomain',
+        'CyclingPedalingCadenceSampleDtoToDomain',
         () {
           test(
-            'converts CyclingPedalingCadenceMeasurementDto to '
-            'CyclingPedalingCadenceMeasurement',
+            'converts CyclingPedalingCadenceSampleDto to '
+            'CyclingPedalingCadenceSample',
             () {
               final time = DateTime(2025, 1, 15, 10, 30).toUtc();
 
-              final dto = CyclingPedalingCadenceMeasurementDto(
+              final dto = CyclingPedalingCadenceSampleDto(
                 time: time.millisecondsSinceEpoch,
-                revolutionsPerMinute: NumberDto(value: 85),
+                revolutionsPerMinute: 85,
               );
 
               final measurement = dto.toDomain();
 
               expect(measurement.time, time);
-              expect(measurement.cadence.value, 85);
+              expect(measurement.cadence.inPerMinute, 85);
             },
           );
         },

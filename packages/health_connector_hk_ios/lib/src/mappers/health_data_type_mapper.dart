@@ -45,8 +45,8 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
         return HealthDataType.heartRateMeasurementRecord;
       case HealthDataTypeDto.heartRateVariabilitySDNN:
         return HealthDataType.heartRateVariabilitySDNN;
-      case HealthDataTypeDto.cyclingPedalingCadenceMeasurementRecord:
-        return HealthDataType.cyclingPedalingCadenceMeasurementRecord;
+      case HealthDataTypeDto.cyclingPedalingCadence:
+        return HealthDataType.cyclingPedalingCadence;
       case HealthDataTypeDto.sleepStageRecord:
         return HealthDataType.sleepStageRecord;
       case HealthDataTypeDto.sexualActivity:
@@ -217,8 +217,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.wheelchairPushes;
       case HeartRateMeasurementRecordDataType _:
         return HealthDataTypeDto.heartRateMeasurementRecord;
-      case CyclingPedalingCadenceMeasurementRecordDataType _:
-        return HealthDataTypeDto.cyclingPedalingCadenceMeasurementRecord;
+      case CyclingPedalingCadenceDataType _:
+        return HealthDataTypeDto.cyclingPedalingCadence;
       case SleepStageDataType _:
         return HealthDataTypeDto.sleepStageRecord;
       case SexualActivityDataType _:
@@ -382,11 +382,11 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$HeartRateSeriesRecordDataType is not supported on iOS '
           'HealthKit. Use $HeartRateMeasurementRecordDataType instead.',
         );
-      case CyclingPedalingCadenceSeriesRecordDataType _:
+      case CyclingPedalingCadenceSeriesDataType _:
         throw UnsupportedError(
-          '$CyclingPedalingCadenceSeriesRecordDataType is not '
+          '$CyclingPedalingCadenceSeriesDataType is not '
           'supported on iOS HealthKit. '
-          'Use $CyclingPedalingCadenceMeasurementRecordDataType instead.',
+          'Use $CyclingPedalingCadenceDataType instead.',
         );
       case TotalEnergyBurnedDataType _:
         throw UnsupportedError(

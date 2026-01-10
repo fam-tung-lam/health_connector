@@ -48,7 +48,7 @@ void main() {
               ],
               [
                 HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord,
-                HealthDataType.cyclingPedalingCadenceSeriesRecord,
+                HealthDataType.cyclingPedalingCadenceSeries,
               ],
               [HealthDataTypeDto.sexualActivity, HealthDataType.sexualActivity],
               [HealthDataTypeDto.sleepSession, HealthDataType.sleepSession],
@@ -144,7 +144,7 @@ void main() {
                 HealthDataTypeDto.heartRateSeriesRecord,
               ],
               [
-                HealthDataType.cyclingPedalingCadenceSeriesRecord,
+                HealthDataType.cyclingPedalingCadenceSeries,
                 HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord,
               ],
               [HealthDataType.sexualActivity, HealthDataTypeDto.sexualActivity],
@@ -240,7 +240,7 @@ void main() {
                 HealthDataType.basalEnergyBurned,
                 HealthDataType.sleepStageRecord,
                 HealthDataType.heartRateMeasurementRecord,
-                HealthDataType.cyclingPedalingCadenceMeasurementRecord,
+                HealthDataType.cyclingPedalingCadence,
                 HealthDataType.systolicBloodPressure,
                 HealthDataType.diastolicBloodPressure,
                 HealthDataType.cyclingDistance,

@@ -7,7 +7,6 @@ import 'package:health_connector_core/src/models/health_platform_data.dart'
     show HealthPlatformData;
 import 'package:health_connector_core/src/models/health_records/blood_pressure/blood_pressure_body_position.dart';
 import 'package:health_connector_core/src/models/health_records/blood_pressure/blood_pressure_measurement_location.dart';
-import 'package:health_connector_core/src/models/health_records/cycling_pedaling_cadence/cycling_pedaling_cadence_measurement.dart';
 import 'package:health_connector_core/src/models/health_records/sleep/sleep_stage.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
 import 'package:health_connector_core/src/models/metadata/metadata.dart';
@@ -25,7 +24,7 @@ part 'body_fat_percentage_record.dart';
 part 'body_mass_index_record.dart';
 part 'body_water_mass_record.dart';
 part 'bone_mass_record.dart';
-part 'cycling_pedaling_cadence/cycling_pedaling_cadence_measurement_record.dart';
+part 'cycling_pedaling_cadence/cycling_pedaling_cadence_record.dart';
 part 'cycling_pedaling_cadence/cycling_pedaling_cadence_series_record.dart';
 part 'distance/cross_country_skiing_distance_record.dart';
 part 'distance/cycling_distance_record.dart';

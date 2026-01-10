@@ -14,15 +14,15 @@ final class CyclingPedalingCadenceMeasurementTile extends StatelessWidget {
     super.key,
   });
 
-  final CyclingPedalingCadenceMeasurementRecord record;
+  final CyclingPedalingCadenceRecord record;
   final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
-    return InstantHealthRecordTile<CyclingPedalingCadenceMeasurementRecord>(
+    return InstantHealthRecordTile<CyclingPedalingCadenceRecord>(
       record: record,
       icon: AppIcons.speed,
-      title: '${record.cadence.value} ${AppTexts.rpm}',
+      title: '${record.cadence.inPerMinute} ${AppTexts.rpm}',
       subtitleBuilder: (r, ctx) => HealthRecordListTileSubtitle.instant(
         time: r.time,
         recordingMethod: r.metadata.recordingMethod.name,

@@ -304,34 +304,31 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
-      CyclingPedalingCadenceMeasurementRecordDataType() => _buildAvgMinMax(
-        () =>
-            HealthDataType.cyclingPedalingCadenceMeasurementRecord.aggregateAvg(
-              startTime: startTime,
-              endTime: endTime,
-            ),
-        () =>
-            HealthDataType.cyclingPedalingCadenceMeasurementRecord.aggregateMin(
-              startTime: startTime,
-              endTime: endTime,
-            ),
-        () =>
-            HealthDataType.cyclingPedalingCadenceMeasurementRecord.aggregateMax(
-              startTime: startTime,
-              endTime: endTime,
-            ),
+      CyclingPedalingCadenceDataType() => _buildAvgMinMax(
+        () => HealthDataType.cyclingPedalingCadence.aggregateAvg(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.cyclingPedalingCadence.aggregateMin(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+        () => HealthDataType.cyclingPedalingCadence.aggregateMax(
+          startTime: startTime,
+          endTime: endTime,
+        ),
         metric,
       ),
-      CyclingPedalingCadenceSeriesRecordDataType() => _buildAvgMinMax(
-        () => HealthDataType.cyclingPedalingCadenceSeriesRecord.aggregateAvg(
+      CyclingPedalingCadenceSeriesDataType() => _buildAvgMinMax(
+        () => HealthDataType.cyclingPedalingCadenceSeries.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
         ),
-        () => HealthDataType.cyclingPedalingCadenceSeriesRecord.aggregateMin(
+        () => HealthDataType.cyclingPedalingCadenceSeries.aggregateMin(
           startTime: startTime,
           endTime: endTime,
         ),
-        () => HealthDataType.cyclingPedalingCadenceSeriesRecord.aggregateMax(
+        () => HealthDataType.cyclingPedalingCadenceSeries.aggregateMax(
           startTime: startTime,
           endTime: endTime,
         ),

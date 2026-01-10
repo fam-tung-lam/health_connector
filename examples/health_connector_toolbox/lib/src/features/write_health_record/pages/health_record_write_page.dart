@@ -183,12 +183,12 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      CyclingPedalingCadenceMeasurementRecordDataType _ =>
+      CyclingPedalingCadenceDataType _ =>
         CyclingPedalingCadenceMeasurementWriteForm(
           healthPlatform: _notifier.healthPlatform,
           onSubmit: _onSubmit,
         ),
-      CyclingPedalingCadenceSeriesRecordDataType _ =>
+      CyclingPedalingCadenceSeriesDataType _ =>
         CyclingPedalingCadenceSeriesWriteForm(
           healthPlatform: _notifier.healthPlatform,
           onSubmit: _onSubmit,

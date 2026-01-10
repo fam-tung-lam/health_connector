@@ -34,9 +34,9 @@ void main() {
                   device: const Device(type: DeviceType.watch),
                 ),
                 samples: [
-                  CyclingPedalingCadenceMeasurement(
+                  CyclingPedalingCadenceSample(
                     time: fakeSampleTime,
-                    cadence: const Number(90),
+                    cadence: Frequency.perMinute(90),
                   ),
                 ],
               );
@@ -51,7 +51,7 @@ void main() {
               expect(dto.endTime, FakeData.fakeEndTime.millisecondsSinceEpoch);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(dto.samples, hasLength(1));
-              expect(dto.samples[0].revolutionsPerMinute.value, 90);
+              expect(dto.samples[0].revolutionsPerMinute, 90);
             },
           );
         },
@@ -78,9 +78,9 @@ void main() {
                   deviceType: DeviceTypeDto.phone,
                 ),
                 samples: [
-                  CyclingPedalingCadenceMeasurementDto(
+                  CyclingPedalingCadenceSampleDto(
                     time: fakeSampleTime.millisecondsSinceEpoch,
-                    revolutionsPerMinute: NumberDto(value: 85),
+                    revolutionsPerMinute: 85,
                   ),
                 ],
               );
@@ -95,7 +95,7 @@ void main() {
                 FakeData.fakeDataOrigin,
               );
               expect(record.samples, hasLength(1));
-              expect(record.samples[0].cadence.value, 85);
+              expect(record.samples[0].cadence.inPerMinute, 85);
             },
           );
 

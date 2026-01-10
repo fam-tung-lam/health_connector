@@ -213,7 +213,7 @@ extension HKSample {
                     case HKQuantityTypeIdentifier.cyclingPower.rawValue:
                         return .cyclingPower
                     case HKQuantityTypeIdentifier.cyclingCadence.rawValue:
-                        return .cyclingPedalingCadenceMeasurementRecord
+                        return .cyclingPedalingCadence
                     default:
                         break
                     }

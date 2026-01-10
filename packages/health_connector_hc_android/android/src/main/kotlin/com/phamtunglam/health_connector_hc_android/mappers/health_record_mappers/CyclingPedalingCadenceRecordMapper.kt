@@ -2,10 +2,9 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 
 import androidx.health.connect.client.records.CyclingPedalingCadenceRecord
 import androidx.health.connect.client.records.CyclingPedalingCadenceRecord.Sample
-import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toNumberDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.pigeon.CyclingPedalingCadenceMeasurementDto
+import com.phamtunglam.health_connector_hc_android.pigeon.CyclingPedalingCadenceSampleDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CyclingPedalingCadenceSeriesRecordDto
 import java.time.Instant
 import java.time.ZoneOffset
@@ -22,9 +21,9 @@ internal fun CyclingPedalingCadenceRecord.toDto(): CyclingPedalingCadenceSeriesR
         endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
         metadata = metadata.toDto(),
         samples = samples.map { sample ->
-            CyclingPedalingCadenceMeasurementDto(
+            CyclingPedalingCadenceSampleDto(
                 time = sample.time.toEpochMilli(),
-                revolutionsPerMinute = sample.revolutionsPerMinute.toNumberDto(),
+                revolutionsPerMinute = sample.revolutionsPerMinute,
             )
         },
     )
@@ -37,7 +36,7 @@ internal fun CyclingPedalingCadenceSeriesRecordDto.toHealthConnect(): CyclingPed
         samples = samples.map { sample ->
             Sample(
                 time = Instant.ofEpochMilli(sample.time),
-                revolutionsPerMinute = sample.revolutionsPerMinute.value,
+                revolutionsPerMinute = sample.revolutionsPerMinute,
             )
         },
         startTime = Instant.ofEpochMilli(startTime),

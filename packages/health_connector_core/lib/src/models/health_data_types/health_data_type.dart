@@ -24,8 +24,8 @@ part 'body_fat_percentage_data_type.dart';
 part 'body_mass_index_data_type.dart';
 part 'body_water_mass_data_type.dart';
 part 'bone_mass_data_type.dart';
-part 'cycling_pedaling_cadence/cycling_pedaling_cadence_measurement_record_data_type.dart';
-part 'cycling_pedaling_cadence/cycling_pedaling_cadence_series_record_data_type.dart';
+part 'cycling_pedaling_cadence/cycling_pedaling_cadence_data_type.dart';
+part 'cycling_pedaling_cadence/cycling_pedaling_cadence_series_data_type.dart';
 part 'distance/cross_country_skiing_distance_data_type.dart';
 part 'distance/cycling_distance_data_type.dart';
 part 'distance/distance_activity_data_type.dart';
@@ -608,8 +608,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports AVG, MIN, MAX aggregation.
   @sinceV2_2_0
   @supportedOnHealthConnect
-  static const cyclingPedalingCadenceSeriesRecord =
-      CyclingPedalingCadenceSeriesRecordDataType();
+  static const cyclingPedalingCadenceSeries =
+      CyclingPedalingCadenceSeriesDataType();
 
   /// Cycling pedaling cadence measurement record data type.
   ///
@@ -620,8 +620,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports AVG, MIN, MAX aggregation.
   @sinceV2_2_0
   @supportedOnAppleHealth
-  static const cyclingPedalingCadenceMeasurementRecord =
-      CyclingPedalingCadenceMeasurementRecordDataType();
+  static const cyclingPedalingCadence = CyclingPedalingCadenceDataType();
 
   /// Respiratory rate data type.
   ///
@@ -912,8 +911,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     cervicalMucus,
     cholesterol,
     crossCountrySkiingDistance,
-    cyclingPedalingCadenceMeasurementRecord,
-    cyclingPedalingCadenceSeriesRecord,
+    cyclingPedalingCadence,
+    cyclingPedalingCadenceSeries,
     cyclingPower,
     diastolicBloodPressure,
     dietaryFiber,

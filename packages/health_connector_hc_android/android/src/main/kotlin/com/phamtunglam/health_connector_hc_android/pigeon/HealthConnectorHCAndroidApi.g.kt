@@ -2644,18 +2644,18 @@ data class HeartRateSeriesRecordDto (
  *
  * Generated class from Pigeon that represents data sent in messages.
  */
-data class CyclingPedalingCadenceMeasurementDto (
+data class CyclingPedalingCadenceSampleDto (
   /** Timestamp in milliseconds since epoch (UTC). */
   val time: Long,
   /** Cycling cadence value in revolutions per minute (RPM). */
-  val revolutionsPerMinute: NumberDto
+  val revolutionsPerMinute: Double
 )
  {
   companion object {
-    fun fromList(pigeonVar_list: List<Any?>): CyclingPedalingCadenceMeasurementDto {
+    fun fromList(pigeonVar_list: List<Any?>): CyclingPedalingCadenceSampleDto {
       val time = pigeonVar_list[0] as Long
-      val revolutionsPerMinute = pigeonVar_list[1] as NumberDto
-      return CyclingPedalingCadenceMeasurementDto(time, revolutionsPerMinute)
+      val revolutionsPerMinute = pigeonVar_list[1] as Double
+      return CyclingPedalingCadenceSampleDto(time, revolutionsPerMinute)
     }
   }
   fun toList(): List<Any?> {
@@ -2665,7 +2665,7 @@ data class CyclingPedalingCadenceMeasurementDto (
     )
   }
   override fun equals(other: Any?): Boolean {
-    if (other !is CyclingPedalingCadenceMeasurementDto) {
+    if (other !is CyclingPedalingCadenceSampleDto) {
       return false
     }
     if (this === other) {
@@ -2695,7 +2695,7 @@ data class CyclingPedalingCadenceSeriesRecordDto (
   /** Metadata for this record. */
   val metadata: MetadataDto,
   /** List of cadence measurements. */
-  val samples: List<CyclingPedalingCadenceMeasurementDto>
+  val samples: List<CyclingPedalingCadenceSampleDto>
 ) : HealthRecordDto()
  {
   companion object {
@@ -2706,7 +2706,7 @@ data class CyclingPedalingCadenceSeriesRecordDto (
       val startZoneOffsetSeconds = pigeonVar_list[3] as Long?
       val endZoneOffsetSeconds = pigeonVar_list[4] as Long?
       val metadata = pigeonVar_list[5] as MetadataDto
-      val samples = pigeonVar_list[6] as List<CyclingPedalingCadenceMeasurementDto>
+      val samples = pigeonVar_list[6] as List<CyclingPedalingCadenceSampleDto>
       return CyclingPedalingCadenceSeriesRecordDto(id, startTime, endTime, startZoneOffsetSeconds, endZoneOffsetSeconds, metadata, samples)
     }
   }
@@ -4628,7 +4628,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       196.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          CyclingPedalingCadenceMeasurementDto.fromList(it)
+          CyclingPedalingCadenceSampleDto.fromList(it)
         }
       }
       197.toByte() -> {
@@ -5059,7 +5059,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(195)
         writeValue(stream, value.toList())
       }
-      is CyclingPedalingCadenceMeasurementDto -> {
+      is CyclingPedalingCadenceSampleDto -> {
         stream.write(196)
         writeValue(stream, value.toList())
       }

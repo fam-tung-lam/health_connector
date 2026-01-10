@@ -38,7 +38,7 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
       case HealthDataTypeDto.heartRateSeriesRecord:
         return HealthDataType.heartRateSeriesRecord;
       case HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord:
-        return HealthDataType.cyclingPedalingCadenceSeriesRecord;
+        return HealthDataType.cyclingPedalingCadenceSeries;
       case HealthDataTypeDto.sexualActivity:
         return HealthDataType.sexualActivity;
       case HealthDataTypeDto.sleepSession:
@@ -118,7 +118,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.wheelchairPushes;
       case HeartRateSeriesRecordDataType _:
         return HealthDataTypeDto.heartRateSeriesRecord;
-      case CyclingPedalingCadenceSeriesRecordDataType _:
+      case CyclingPedalingCadenceSeriesDataType _:
         return HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord;
       case SexualActivityDataType _:
         return HealthDataTypeDto.sexualActivity;
@@ -214,11 +214,11 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           'supported on Android Health Connect. '
           'Use $HeartRateSeriesRecordDataType instead.',
         );
-      case CyclingPedalingCadenceMeasurementRecordDataType _:
+      case CyclingPedalingCadenceDataType _:
         throw UnsupportedError(
-          '$CyclingPedalingCadenceMeasurementRecordDataType is not '
+          '$CyclingPedalingCadenceDataType is not '
           'supported on Android Health Connect. '
-          'Use $CyclingPedalingCadenceSeriesRecordDataType instead.',
+          'Use $CyclingPedalingCadenceSeriesDataType instead.',
         );
       case SystolicBloodPressureDataType _:
         throw UnsupportedError(

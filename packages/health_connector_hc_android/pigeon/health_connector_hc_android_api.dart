@@ -1433,8 +1433,8 @@ class HeartRateSeriesRecordDto extends HealthRecordDto {
 /// This is a platform-agnostic value class used within cycling pedaling
 /// cadence records.
 /// It contains a timestamp and RPM value without ID or metadata.
-class CyclingPedalingCadenceMeasurementDto {
-  CyclingPedalingCadenceMeasurementDto({
+class CyclingPedalingCadenceSampleDto {
+  CyclingPedalingCadenceSampleDto({
     required this.time,
     required this.revolutionsPerMinute,
   });
@@ -1443,7 +1443,7 @@ class CyclingPedalingCadenceMeasurementDto {
   final int time;
 
   /// Cycling cadence value in revolutions per minute (RPM).
-  final NumberDto revolutionsPerMinute;
+  final double revolutionsPerMinute;
 }
 
 /// Represents a cycling pedaling cadence series record.
@@ -1477,7 +1477,7 @@ class CyclingPedalingCadenceSeriesRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// List of cadence measurements.
-  final List<CyclingPedalingCadenceMeasurementDto> samples;
+  final List<CyclingPedalingCadenceSampleDto> samples;
 }
 
 /// Represents a single speed measurement within a [SpeedSeriesRecordDto].

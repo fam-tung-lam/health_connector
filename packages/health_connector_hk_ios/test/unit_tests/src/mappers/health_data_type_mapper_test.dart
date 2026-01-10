@@ -63,8 +63,8 @@ void main() {
                 HealthDataType.heartRateVariabilitySDNN,
               ],
               [
-                HealthDataTypeDto.cyclingPedalingCadenceMeasurementRecord,
-                HealthDataType.cyclingPedalingCadenceMeasurementRecord,
+                HealthDataTypeDto.cyclingPedalingCadence,
+                HealthDataType.cyclingPedalingCadence,
               ],
               [
                 HealthDataTypeDto.sleepStageRecord,
@@ -268,8 +268,8 @@ void main() {
                 HealthDataTypeDto.heartRateVariabilitySDNN,
               ],
               [
-                HealthDataType.cyclingPedalingCadenceMeasurementRecord,
-                HealthDataTypeDto.cyclingPedalingCadenceMeasurementRecord,
+                HealthDataType.cyclingPedalingCadence,
+                HealthDataTypeDto.cyclingPedalingCadence,
               ],
               [
                 HealthDataType.sleepStageRecord,
@@ -463,8 +463,7 @@ void main() {
                 'throws for CyclingPedalingCadenceSeriesRecordDataType',
                 () {
                   expect(
-                    () => HealthDataType.cyclingPedalingCadenceSeriesRecord
-                        .toDto(),
+                    () => HealthDataType.cyclingPedalingCadenceSeries.toDto(),
                     throwsUnsupportedError,
                   );
                 },
