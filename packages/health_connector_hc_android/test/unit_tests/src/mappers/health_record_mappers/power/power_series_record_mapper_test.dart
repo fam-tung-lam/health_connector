@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/power/power_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/power/power_series_record_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
 
 import '../../../../utils/fake_data.dart';
@@ -33,7 +33,7 @@ void main() {
                   device: const Device(type: DeviceType.watch),
                 ),
                 samples: [
-                  PowerMeasurement(
+                  PowerSample(
                     time: fakeSampleTime,
                     power: const Power.watts(200),
                   ),
@@ -87,7 +87,7 @@ void main() {
                   deviceType: DeviceTypeDto.phone,
                 ),
                 samples: [
-                  PowerMeasurementDto(
+                  PowerSampleDto(
                     time: fakeSampleTime.millisecondsSinceEpoch,
                     power: PowerDto(watts: 200),
                   ),

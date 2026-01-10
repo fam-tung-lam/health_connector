@@ -18,12 +18,12 @@ part of '../health_record.dart';
 ///   endTime: DateTime(2024, 1, 16, 6, 30),
 ///   title: 'Night Sleep',
 ///   samples: [
-///     SleepStage(
+///     SleepStageSample(
 ///       startTime: DateTime(2024, 1, 15, 22, 0),
 ///       endTime: DateTime(2024, 1, 15, 22, 30),
 ///       stageType: SleepStageType.light,
 ///     ),
-///     SleepStage(
+///     SleepStageSample(
 ///       startTime: DateTime(2024, 1, 15, 22, 30),
 ///       endTime: DateTime(2024, 1, 16, 1, 0),
 ///       stageType: SleepStageType.deep,

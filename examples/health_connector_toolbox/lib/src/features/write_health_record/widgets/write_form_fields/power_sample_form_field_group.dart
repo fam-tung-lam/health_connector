@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart'
     as hc
-    show PowerMeasurement, Power;
+    show PowerSample, Power;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_form_fields/record_sample_form_field_group.dart';
@@ -20,13 +20,13 @@ final class PowerSampleWriteFormFieldGroup extends StatelessWidget {
 
   final DateTime? startDateTime;
   final DateTime? endDateTime;
-  final ValueChanged<List<hc.PowerMeasurement>?> onChanged;
-  final List<hc.PowerMeasurement>? initialSamples;
-  final String? Function(List<hc.PowerMeasurement>?)? validator;
+  final ValueChanged<List<hc.PowerSample>?> onChanged;
+  final List<hc.PowerSample>? initialSamples;
+  final String? Function(List<hc.PowerSample>?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return RecordSampleFormFieldGroup<hc.PowerMeasurement, double>(
+    return RecordSampleFormFieldGroup<hc.PowerSample, double>(
       title: AppTexts.powerSamples,
       startDateTime: startDateTime,
       endDateTime: endDateTime,
@@ -51,7 +51,7 @@ final class PowerSampleWriteFormFieldGroup extends StatelessWidget {
           },
         );
       },
-      sampleFactory: (time, _, power) => hc.PowerMeasurement(
+      sampleFactory: (time, _, power) => hc.PowerSample(
         time: time,
         power: hc.Power.watts(power),
       ),

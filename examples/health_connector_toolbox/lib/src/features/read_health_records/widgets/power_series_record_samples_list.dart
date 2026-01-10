@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart'
-    show PowerMeasurement;
+    show PowerSample;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/date_formatter.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_detail_row.dart';
@@ -17,11 +17,11 @@ final class PowerSeriesRecordSamplesList extends StatelessWidget {
   });
 
   /// The list of power measurements to display.
-  final List<PowerMeasurement> samples;
+  final List<PowerSample> samples;
 
   @override
   Widget build(BuildContext context) {
-    return HealthSeriesRecordSampleList<PowerMeasurement>(
+    return HealthSeriesRecordSampleList<PowerSample>(
       title: AppTexts.powerSamples,
       samples: samples,
       itemBuilder: (sample, index) => HealthRecordDetailRow(

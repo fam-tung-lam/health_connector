@@ -1529,8 +1529,8 @@ class SpeedSeriesRecordDto extends HealthRecordDto {
 }
 
 /// Represents a single power measurement within a [PowerSeriesRecordDto].
-class PowerMeasurementDto {
-  PowerMeasurementDto({
+class PowerSampleDto {
+  PowerSampleDto({
     required this.time,
     required this.power,
   });
@@ -1567,7 +1567,7 @@ class PowerSeriesRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// List of power measurements within this time interval.
-  final List<PowerMeasurementDto> samples;
+  final List<PowerSampleDto> samples;
 
   /// Timezone offset in seconds for start time (optional).
   final int? startZoneOffsetSeconds;

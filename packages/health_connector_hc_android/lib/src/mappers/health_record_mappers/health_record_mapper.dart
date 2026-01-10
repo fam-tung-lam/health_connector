@@ -23,7 +23,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/me
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/mindfulness/mindfulness_session_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/nutrition/nutrition_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/oxygen_saturation_record_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/power/power_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/power/power_series_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/respiratory_rate_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sexual_activity/sexual_activity_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sleep/sleep_session_record_mapper.dart';

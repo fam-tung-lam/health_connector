@@ -2832,7 +2832,7 @@ data class SpeedSeriesRecordDto (
  *
  * Generated class from Pigeon that represents data sent in messages.
  */
-data class PowerMeasurementDto (
+data class PowerSampleDto (
   /** Timestamp in milliseconds since epoch (UTC). */
   val time: Long,
   /** Power measurement. */
@@ -2840,10 +2840,10 @@ data class PowerMeasurementDto (
 )
  {
   companion object {
-    fun fromList(pigeonVar_list: List<Any?>): PowerMeasurementDto {
+    fun fromList(pigeonVar_list: List<Any?>): PowerSampleDto {
       val time = pigeonVar_list[0] as Long
       val power = pigeonVar_list[1] as PowerDto
-      return PowerMeasurementDto(time, power)
+      return PowerSampleDto(time, power)
     }
   }
   fun toList(): List<Any?> {
@@ -2853,7 +2853,7 @@ data class PowerMeasurementDto (
     )
   }
   override fun equals(other: Any?): Boolean {
-    if (other !is PowerMeasurementDto) {
+    if (other !is PowerSampleDto) {
       return false
     }
     if (this === other) {
@@ -2879,7 +2879,7 @@ data class PowerSeriesRecordDto (
   /** Metadata about this record. */
   val metadata: MetadataDto,
   /** List of power measurements within this time interval. */
-  val samples: List<PowerMeasurementDto>,
+  val samples: List<PowerSampleDto>,
   /** Timezone offset in seconds for start time (optional). */
   val startZoneOffsetSeconds: Long? = null,
   /** Timezone offset in seconds for end time (optional). */
@@ -2892,7 +2892,7 @@ data class PowerSeriesRecordDto (
       val startTime = pigeonVar_list[1] as Long
       val endTime = pigeonVar_list[2] as Long
       val metadata = pigeonVar_list[3] as MetadataDto
-      val samples = pigeonVar_list[4] as List<PowerMeasurementDto>
+      val samples = pigeonVar_list[4] as List<PowerSampleDto>
       val startZoneOffsetSeconds = pigeonVar_list[5] as Long?
       val endZoneOffsetSeconds = pigeonVar_list[6] as Long?
       return PowerSeriesRecordDto(id, startTime, endTime, metadata, samples, startZoneOffsetSeconds, endZoneOffsetSeconds)
@@ -4648,7 +4648,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       200.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          PowerMeasurementDto.fromList(it)
+          PowerSampleDto.fromList(it)
         }
       }
       201.toByte() -> {
@@ -5075,7 +5075,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(199)
         writeValue(stream, value.toList())
       }
-      is PowerMeasurementDto -> {
+      is PowerSampleDto -> {
         stream.write(200)
         writeValue(stream, value.toList())
       }

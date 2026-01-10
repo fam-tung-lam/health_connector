@@ -6,7 +6,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 /// Form widget for power series records.
 @immutable
 final class PowerSeriesWriteForm
-    extends SeriesHealthRecordWriteForm<PowerMeasurement> {
+    extends SeriesHealthRecordWriteForm<PowerSample> {
   const PowerSeriesWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
@@ -19,8 +19,7 @@ final class PowerSeriesWriteForm
 
 /// State for power series form widget.
 final class PowerSeriesFormState
-    extends
-        SeriesHealthRecordFormState<PowerMeasurement, PowerSeriesWriteForm> {
+    extends SeriesHealthRecordFormState<PowerSample, PowerSeriesWriteForm> {
   @override
   List<Widget> buildSeriesFields(BuildContext context) {
     return [

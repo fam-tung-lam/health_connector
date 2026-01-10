@@ -8,7 +8,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PowerDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PowerMeasurementDto
+import com.phamtunglam.health_connector_hc_android.pigeon.PowerSampleDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PowerSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import io.kotest.matchers.shouldBe
@@ -81,11 +81,11 @@ class PowerSeriesRecordMapperTest {
                 deviceType = DeviceTypeDto.PHONE,
             ),
             samples = listOf(
-                PowerMeasurementDto(
+                PowerSampleDto(
                     time = TEST_START_TIME,
                     power = PowerDto(watts = TEST_POWER_WATTS_1),
                 ),
-                PowerMeasurementDto(
+                PowerSampleDto(
                     time = TEST_END_TIME,
                     power = PowerDto(watts = TEST_POWER_WATTS_2),
                 ),
