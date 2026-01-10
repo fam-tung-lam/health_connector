@@ -7,14 +7,14 @@ import '../../../../utils/fake_data.dart';
 
 void main() {
   group(
-    'HeartRateVariabilityRmssdRecordMapper',
+    'HeartRateVariabilityRMSSDRecordMapper',
     () {
       group(
-        'HeartRateVariabilityRmssdRecordToDto',
+        'HeartRateVariabilityRMSSDRecordToDto',
         () {
           test(
-            'converts HeartRateVariabilityRmssdRecord to '
-            'HeartRateVariabilityRmssdRecordDto',
+            'converts HeartRateVariabilityRMSSDRecord to '
+            'HeartRateVariabilityRMSSDRecordDto',
             () {
               final record = HeartRateVariabilityRMSSDRecord(
                 id: HealthRecordId(FakeData.fakeId),
@@ -26,7 +26,9 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.watch),
                 ),
-                heartRateVariabilityMillis: const Number(45.0),
+                rmssd: const TimeDuration.milliseconds(
+                  4500,
+                ),
               );
 
               final dto = record.toDto();
@@ -38,17 +40,17 @@ void main() {
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-              expect(dto.heartRateVariabilityMillis, 45.0);
+              expect(dto.heartRateVariabilityMillis, 4500);
             },
           );
         },
       );
 
       group(
-        'HeartRateVariabilityRmssdRecordDtoToDomain',
+        'HeartRateVariabilityRMSSDRecordDtoToDomain',
         () {
           test(
-            'converts HeartRateVariabilityRmssdRecordDto to '
+            'converts HeartRateVariabilityRMSSDRecordDto to '
             'HeartRateVariabilityRMSSDRecord',
             () {
               final dto = HeartRateVariabilityRMSSDRecordDto(
@@ -61,7 +63,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                heartRateVariabilityMillis: 50.0,
+                heartRateVariabilityMillis: 1000,
               );
 
               final record = dto.toDomain();
@@ -76,12 +78,12 @@ void main() {
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
-              expect(record.rmssdMillis, const Number(50.0));
+              expect(record.rmssd, const TimeDuration.seconds(1));
             },
           );
 
           test(
-            'converts HeartRateVariabilityRmssdRecordDto with null id to '
+            'converts HeartRateVariabilityRMSSDRecordDto with null id to '
             'domain with none id',
             () {
               final dto = HeartRateVariabilityRMSSDRecordDto(
@@ -93,7 +95,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                heartRateVariabilityMillis: 40.0,
+                heartRateVariabilityMillis: 0.040 / 1000,
               );
 
               final record = dto.toDomain();

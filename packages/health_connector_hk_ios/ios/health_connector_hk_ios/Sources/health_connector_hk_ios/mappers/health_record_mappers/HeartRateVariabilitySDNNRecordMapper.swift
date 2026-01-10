@@ -7,8 +7,8 @@ extension HeartRateVariabilitySDNNRecordDto {
         let type = try HKQuantityType.make(from: .heartRateVariabilitySDNN)
 
         // DTO value is in milliseconds, HealthKit expects seconds
-        let val = heartRateVariabilitySDNN.value / 1000.0
-        let quantity = HKQuantity(unit: .second(), doubleValue: val)
+        let seconds = heartRateVariabilityMillis / 1000
+        let quantity = HKQuantity(unit: .second(), doubleValue: seconds)
         let date = Date(millisecondsSince1970: time)
 
         // Create builder with timezone offset
@@ -56,13 +56,13 @@ extension HKQuantitySample {
         let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
 
         // HealthKit has seconds, DTO expects milliseconds
-        let ms = quantity.doubleValue(for: .second()) * 1000.0
+        let milliseconds = quantity.doubleValue(for: .second()) * 1000
 
         return try HeartRateVariabilitySDNNRecordDto(
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),
-            heartRateVariabilitySDNN: NumberDto(value: ms),
+            heartRateVariabilityMillis: milliseconds,
             zoneOffsetSeconds: zoneOffset
         )
     }

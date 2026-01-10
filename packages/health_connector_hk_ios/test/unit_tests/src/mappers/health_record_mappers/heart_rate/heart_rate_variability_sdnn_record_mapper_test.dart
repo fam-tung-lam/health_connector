@@ -10,10 +10,10 @@ void main() {
     'HeartRateVariabilitySdnnRecordMapper',
     () {
       group(
-        'HeartRateVariabilitySdnnRecordToDto',
+        'HeartRateVariabilitySDNNRecordToDto',
         () {
           test(
-            'converts HeartRateVariabilitySdnnRecord to '
+            'converts HeartRateVariabilitySDNNRecord to '
             'HeartRateVariabilitySDNNRecordDto',
             () {
               final time = FakeData.fakeTime;
@@ -28,7 +28,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.watch),
                 ),
-                heartRateVariabilitySDNN: const Number(45.0),
+                sdnn: const TimeDuration.milliseconds(4500),
               );
 
               final dto = record.toDto();
@@ -39,7 +39,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.heartRateVariabilitySDNN.value, 45.0);
+              expect(dto.heartRateVariabilityMillis, 4500);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -51,7 +51,7 @@ void main() {
         () {
           test(
             'converts HeartRateVariabilitySDNNRecordDto to '
-            'HeartRateVariabilitySdnnRecord',
+            'HeartRateVariabilitySDNNRecord',
             () {
               final time = FakeData.fakeTime;
 
@@ -65,16 +65,14 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                heartRateVariabilitySDNN: NumberDto(
-                  value: 52.0,
-                ),
+                heartRateVariabilityMillis: 5200,
               );
 
               final record = dto.toDomain();
 
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, time);
-              expect(record.sdnnMillis.value, 52.0);
+              expect(record.sdnn, const TimeDuration.seconds(  5.2));
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
@@ -97,9 +95,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                heartRateVariabilitySDNN: NumberDto(
-                  value: 48.0,
-                ),
+                heartRateVariabilityMillis: 0.048,
               );
 
               final record = dto.toDomain();

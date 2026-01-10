@@ -20,7 +20,7 @@ final class HeartRateVariabilityRMSSDTile extends StatelessWidget {
     return InstantHealthRecordTile<HeartRateVariabilityRMSSDRecord>(
       record: record,
       icon: AppIcons.favorite,
-      title: '${record.rmssdMillis.value.toStringAsFixed(1)} ms',
+      title: '${record.rmssd.inMilliseconds.toStringAsFixed(1)} ms',
       subtitleBuilder: (r, ctx) => HealthRecordListTileSubtitle.instant(
         time: r.time,
         recordingMethod: r.metadata.recordingMethod.name,
