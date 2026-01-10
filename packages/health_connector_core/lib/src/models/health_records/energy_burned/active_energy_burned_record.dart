@@ -47,7 +47,7 @@ final class ActiveEnergyBurnedRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
-  const ActiveEnergyBurnedRecord({
+  ActiveEnergyBurnedRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

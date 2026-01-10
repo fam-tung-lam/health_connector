@@ -28,7 +28,7 @@ part of '../health_record.dart';
 @immutable
 final class SixMinuteWalkTestDistanceRecord extends DistanceActivityRecord {
   /// Creates a six-minute walk test distance record.
-  const SixMinuteWalkTestDistanceRecord({
+  SixMinuteWalkTestDistanceRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

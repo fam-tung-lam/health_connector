@@ -51,7 +51,7 @@ final class BasalEnergyBurnedRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
-  const BasalEnergyBurnedRecord({
+  BasalEnergyBurnedRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

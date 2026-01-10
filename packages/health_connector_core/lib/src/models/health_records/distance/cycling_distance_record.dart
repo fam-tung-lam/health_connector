@@ -25,7 +25,7 @@ part of '../health_record.dart';
 @immutable
 final class CyclingDistanceRecord extends DistanceActivityRecord {
   /// Creates a cycling distance record.
-  const CyclingDistanceRecord({
+  CyclingDistanceRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

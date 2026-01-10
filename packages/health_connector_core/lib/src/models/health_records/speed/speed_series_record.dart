@@ -55,7 +55,7 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedSample> {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
-  const SpeedSeriesRecord({
+  SpeedSeriesRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,
@@ -64,6 +64,44 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedSample> {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });
+
+  /// The average speed across all samples.
+  Velocity get avgSpeed {
+    if (samples.isEmpty) {
+      return Velocity.zero;
+    }
+    if (samples.length == 1) {
+      return samples.first.speed;
+    }
+
+    final total = samples.fold<double>(
+      0,
+      (sum, sample) => sum + sample.speed.inMetersPerSecond,
+    );
+    final averageMetersPerSecond = total / samples.length;
+
+    return Velocity.metersPerSecond(averageMetersPerSecond);
+  }
+
+  /// The minimum speed value among all samples.
+  Velocity get minSpeed {
+    if (samples.isEmpty) {
+      return Velocity.zero;
+    }
+    return samples
+        .map((s) => s.speed)
+        .reduce((a, b) => (a.inMetersPerSecond < b.inMetersPerSecond) ? a : b);
+  }
+
+  /// The maximum speed value among all samples.
+  Velocity get maxSpeed {
+    if (samples.isEmpty) {
+      return Velocity.zero;
+    }
+    return samples
+        .map((s) => s.speed)
+        .reduce((a, b) => (a.inMetersPerSecond > b.inMetersPerSecond) ? a : b);
+  }
 
   /// Creates a copy with the given fields replaced with the new values.
   SpeedSeriesRecord copyWith({

@@ -52,7 +52,7 @@ final class TotalEnergyBurnedRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
-  const TotalEnergyBurnedRecord({
+  TotalEnergyBurnedRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

@@ -53,9 +53,12 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
     required List<HealthRecordId> recordIds,
   }) {
     require(
-      recordIds.every((id) => id != HealthRecordId.none),
-      'Record ID to delete cannot be HealthRecordId.none. '
-      'Found invalid ID in `recordIds` list.',
+      condition: recordIds.every((id) => id != HealthRecordId.none),
+      value: recordIds,
+      name: 'recordIds',
+      message:
+          'Record ID to delete cannot be HealthRecordId.none. '
+          'Found invalid ID in `recordIds` list.',
     );
 
     return DeleteRecordsByIdsRequest._(

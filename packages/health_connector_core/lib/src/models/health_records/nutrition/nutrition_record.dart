@@ -10,8 +10,6 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// ## Platform Mapping
-///
 /// - **Android Health Connect**: [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 /// - **iOS HealthKit**: Multiple `HKQuantityType` correlations for individual
 ///   nutrients
@@ -64,7 +62,7 @@ final class NutritionRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
-  const NutritionRecord({
+  NutritionRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

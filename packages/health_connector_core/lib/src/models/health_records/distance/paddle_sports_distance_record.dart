@@ -28,7 +28,7 @@ part of '../health_record.dart';
 @immutable
 final class PaddleSportsDistanceRecord extends DistanceActivityRecord {
   /// Creates a paddle sports distance record.
-  const PaddleSportsDistanceRecord({
+  PaddleSportsDistanceRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

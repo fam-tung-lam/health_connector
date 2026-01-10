@@ -6,22 +6,27 @@ import 'package:health_connector_core/src/annotations/annotations.dart'
 /// ## Parameters
 ///
 /// - [condition]: Boolean expression specifying the requirement to validate.
+/// - [value]: The value being validated.
+/// - [name]: The name of the parameter being validated.
 /// - [message]: String describing the failed requirement in the exception.
 ///
 /// ## Throws
 ///
-/// - [ArgumentError] if [condition] is false, using [message]
+/// - [ArgumentError.value] if [condition] is false, including the invalid
+///   [value] and parameter [name] for better error messages.
 ///
 /// @nodoc
 @sinceV1_0_0
 @internalUse
-void require(
-  // ignore: avoid_positional_boolean_parameters
-  bool condition,
-  String message,
-) {
+@internalUse
+void require<T>({
+  required bool condition,
+  required T value,
+  required String name,
+  required String message,
+}) {
   if (!condition) {
-    throw ArgumentError(message);
+    throw ArgumentError.value(value, name, message);
   }
 }
 
@@ -43,9 +48,12 @@ void requireEndTimeAfterStartTime({
   required DateTime startTime,
   required DateTime endTime,
 }) {
-  require(
-    endTime.isAfter(startTime),
-    'endTime must be after startTime. '
-    'Got startTime=$startTime, endTime=$endTime',
-  );
+  if (!endTime.isAfter(startTime)) {
+    throw ArgumentError.value(
+      endTime,
+      'endTime',
+      'endTime must be after startTime. '
+          'Got startTime=$startTime, endTime=$endTime',
+    );
+  }
 }

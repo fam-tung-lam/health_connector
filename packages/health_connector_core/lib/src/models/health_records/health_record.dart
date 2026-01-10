@@ -71,19 +71,17 @@ part 'nutrition/dietary_caffeine_record.dart';
 part 'nutrition/dietary_calcium_record.dart';
 // Macronutrient records
 part 'nutrition/dietary_cholesterol_record.dart';
-part 'nutrition/dietary_fiber_record.dart';
 part 'nutrition/dietary_energy_consumed_record.dart';
+part 'nutrition/dietary_fiber_record.dart';
 part 'nutrition/dietary_folate_record.dart';
 part 'nutrition/dietary_iron_record.dart';
 part 'nutrition/dietary_macronutrient_record.dart';
 part 'nutrition/dietary_magnesium_record.dart';
 part 'nutrition/dietary_manganese_record.dart';
-part 'nutrition/meal_type.dart';
 part 'nutrition/dietary_mineral_records.dart';
 part 'nutrition/dietary_monounsaturated_fat_record.dart';
 part 'nutrition/dietary_niacin_record.dart';
 part 'nutrition/dietary_nutrient_record.dart';
-part 'nutrition/nutrition_record.dart';
 part 'nutrition/dietary_pantothenic_acid_record.dart';
 part 'nutrition/dietary_phosphorus_record.dart';
 part 'nutrition/dietary_polyunsaturated_fat_record.dart';
@@ -106,6 +104,8 @@ part 'nutrition/dietary_vitamin_e_record.dart';
 part 'nutrition/dietary_vitamin_k_record.dart';
 part 'nutrition/dietary_vitamin_record.dart';
 part 'nutrition/dietary_zinc_record.dart';
+part 'nutrition/meal_type.dart';
+part 'nutrition/nutrition_record.dart';
 part 'oxygen_saturation_record.dart';
 part 'power/cycling_power_record.dart';
 part 'power/power_series_record.dart';
@@ -225,9 +225,12 @@ final class HealthRecordId {
   /// ```
   factory HealthRecordId(String value) {
     require(
-      value != none.value,
-      'HealthRecordId value cannot be empty. '
-      'Use predefined HealthRecordId.none for new records.',
+      condition: value != none.value,
+      value: value,
+      name: 'value',
+      message:
+          'HealthRecordId value cannot be empty. '
+          'Use predefined HealthRecordId.none for new records.',
     );
 
     return HealthRecordId._(value);

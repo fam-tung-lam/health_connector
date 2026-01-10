@@ -53,7 +53,7 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStageSample> {
   /// Optional [title] and [notes] can be provided. Use [metadata] to describe
   /// the data source. Timezone offsets can be provided via
   /// [startZoneOffsetSeconds] and [endZoneOffsetSeconds].
-  const SleepSessionRecord({
+  SleepSessionRecord({
     required super.id,
     required super.metadata,
     required super.startTime,

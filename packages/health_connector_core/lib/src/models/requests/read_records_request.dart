@@ -58,8 +58,10 @@ final class ReadRecordByIdRequest<R extends HealthRecord>
     required HealthRecordId id,
   }) {
     require(
-      id != HealthRecordId.none,
-      'Record ID cannot be HealthRecordId.none',
+      condition: id != HealthRecordId.none,
+      value: id,
+      name: 'id',
+      message: 'Record ID cannot be HealthRecordId.none',
     );
 
     return ReadRecordByIdRequest._(dataType: dataType, id: id);
@@ -123,10 +125,15 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
   }) {
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
     require(
-      pageSize > 0 && pageSize <= HealthConnectorConfigConstants.maxPageSize,
-      'pageSize must be between 1 and '
-      '${HealthConnectorConfigConstants.maxPageSize}. '
-      'Got pageSize=$pageSize',
+      condition:
+          pageSize > 0 &&
+          pageSize <= HealthConnectorConfigConstants.maxPageSize,
+      value: pageSize,
+      name: 'pageSize',
+      message:
+          'pageSize must be between 1 and '
+          '${HealthConnectorConfigConstants.maxPageSize}. '
+          'Got pageSize=$pageSize',
     );
 
     return ReadRecordsInTimeRangeRequest._(

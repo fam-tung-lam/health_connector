@@ -51,7 +51,7 @@ final class PowerSeriesRecord extends SeriesHealthRecord<PowerSample> {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
-  const PowerSeriesRecord({
+  PowerSeriesRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,
@@ -60,6 +60,44 @@ final class PowerSeriesRecord extends SeriesHealthRecord<PowerSample> {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });
+
+  /// The average power across all samples.
+  Power get avgPower {
+    if (samples.isEmpty) {
+      return Power.zero;
+    }
+    if (samples.length == 1) {
+      return samples.first.power;
+    }
+
+    final total = samples.fold<double>(
+      0,
+      (sum, sample) => sum + sample.power.inWatts,
+    );
+    final averageWatts = total / samples.length;
+
+    return Power.watts(averageWatts);
+  }
+
+  /// The minimum power value among all samples.
+  Power get minPower {
+    if (samples.isEmpty) {
+      return Power.zero;
+    }
+    return samples
+        .map((s) => s.power)
+        .reduce((a, b) => (a.inWatts < b.inWatts) ? a : b);
+  }
+
+  /// The maximum power value among all samples.
+  Power get maxPower {
+    if (samples.isEmpty) {
+      return Power.zero;
+    }
+    return samples
+        .map((s) => s.power)
+        .reduce((a, b) => (a.inWatts > b.inWatts) ? a : b);
+  }
 
   /// Creates a copy with the given fields replaced with the new values.
   PowerSeriesRecord copyWith({

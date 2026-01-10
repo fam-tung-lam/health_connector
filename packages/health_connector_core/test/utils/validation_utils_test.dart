@@ -12,7 +12,12 @@ void main() {
         () {
           // GIVEN & WHEN & THEN
           expect(
-            () => require(true, 'This should not throw'),
+            () => require(
+              condition: true,
+              value: true,
+              name: 'condition',
+              message: 'This should not throw',
+            ),
             returnsNormally,
           );
         },
@@ -25,7 +30,12 @@ void main() {
         () {
           // GIVEN & WHEN & THEN
           expect(
-            () => require(false, 'This should throw'),
+            () => require(
+              condition: false,
+              value: false,
+              name: 'condition',
+              message: 'This should throw',
+            ),
             throwsArgumentError,
           );
         },
@@ -41,7 +51,12 @@ void main() {
 
           // WHEN & THEN
           expect(
-            () => require(false, customMessage),
+            () => require(
+              condition: false,
+              value: customMessage,
+              name: 'message',
+              message: customMessage,
+            ),
             throwsA(
               isA<ArgumentError>().having(
                 (e) => e.message,
@@ -63,7 +78,12 @@ void main() {
 
           // WHEN & THEN
           expect(
-            () => require(value > 5 && value < 15, 'Value out of range'),
+            () => require(
+              condition: value > 5 && value < 15,
+              value: value,
+              name: 'value',
+              message: 'Value out of range',
+            ),
             returnsNormally,
           );
         },
@@ -79,7 +99,12 @@ void main() {
 
           // WHEN & THEN
           expect(
-            () => require(value > 5 && value < 15, 'Value out of range'),
+            () => require(
+              condition: value > 5 && value < 15,
+              value: value,
+              name: 'value',
+              message: 'Value out of range',
+            ),
             throwsArgumentError,
           );
         },

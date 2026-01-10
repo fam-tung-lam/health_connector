@@ -44,7 +44,7 @@ final class SleepStageRecord extends IntervalHealthRecord {
   ///
   /// Use [metadata] to describe the data source. Timezone offsets can be
   /// provided via [startZoneOffsetSeconds] and [endZoneOffsetSeconds].
-  const SleepStageRecord({
+  SleepStageRecord({
     required super.id,
     required super.metadata,
     required super.startTime,

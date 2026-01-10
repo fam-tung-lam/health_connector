@@ -33,7 +33,7 @@ part of '../health_record.dart';
 @immutable
 sealed class DistanceActivityRecord extends IntervalHealthRecord {
   /// Creates a distance activity record.
-  const DistanceActivityRecord({
+  DistanceActivityRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

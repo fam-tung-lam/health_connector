@@ -46,7 +46,7 @@ final class HydrationRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
-  const HydrationRecord({
+  HydrationRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

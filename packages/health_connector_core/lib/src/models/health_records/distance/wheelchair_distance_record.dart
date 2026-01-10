@@ -25,7 +25,7 @@ part of '../health_record.dart';
 @immutable
 final class WheelchairDistanceRecord extends DistanceActivityRecord {
   /// Creates a wheelchair distance record.
-  const WheelchairDistanceRecord({
+  WheelchairDistanceRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

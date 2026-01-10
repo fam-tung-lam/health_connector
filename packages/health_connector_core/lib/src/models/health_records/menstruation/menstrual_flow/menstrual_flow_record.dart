@@ -63,7 +63,7 @@ final class MenstrualFlowRecord extends IntervalHealthRecord {
   /// The [isCycleStart] flag maps to iOS HealthKit's
   /// `HKMetadataKeyMenstrualCycleStart` metadata and indicates whether this
   /// sample marks the beginning of a menstrual cycle.
-  const MenstrualFlowRecord({
+  MenstrualFlowRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

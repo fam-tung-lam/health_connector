@@ -27,7 +27,7 @@ part of '../health_record.dart';
 @immutable
 final class CrossCountrySkiingDistanceRecord extends DistanceActivityRecord {
   /// Creates a cross-country skiing distance record.
-  const CrossCountrySkiingDistanceRecord({
+  CrossCountrySkiingDistanceRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

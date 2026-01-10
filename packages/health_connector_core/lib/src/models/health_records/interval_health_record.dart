@@ -6,15 +6,21 @@ part of 'health_record.dart';
 @sinceV1_0_0
 @immutable
 sealed class IntervalHealthRecord extends HealthRecord {
-  /// Constructor for subclasses.
-  const IntervalHealthRecord({
+  /// Public constructor with validation.
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
+  IntervalHealthRecord({
     required this.startTime,
     required this.endTime,
     required super.metadata,
     super.id,
     this.startZoneOffsetSeconds,
     this.endZoneOffsetSeconds,
-  });
+  }) {
+    requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
+  }
 
   /// The start time of the interval, stored as a UTC instant.
   ///

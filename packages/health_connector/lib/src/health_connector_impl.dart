@@ -413,8 +413,10 @@ final class HealthConnectorImpl implements HealthConnector {
 
     try {
       require(
-        record.id == HealthRecordId.none,
-        'Record ID must be HealthRecordId.none for new records. ',
+        condition: record.id == HealthRecordId.none,
+        value: record.id,
+        name: 'record.id',
+        message: 'Record ID must be HealthRecordId.none for new records. ',
       );
       _validateRecordSupport(record);
 
@@ -483,8 +485,10 @@ final class HealthConnectorImpl implements HealthConnector {
     try {
       records.forEach(_validateRecordSupport);
       require(
-        records.every((record) => record.id == HealthRecordId.none),
-        'All records must have `HealthRecordId.none` for new records.',
+        condition: records.every((record) => record.id == HealthRecordId.none),
+        value: records,
+        name: 'records',
+        message: 'All records must have `HealthRecordId.none` for new records.',
       );
 
       final recordIds = await _client.writeRecords(records);
@@ -644,8 +648,10 @@ final class HealthConnectorImpl implements HealthConnector {
       }
       _validateRecordSupport(record);
       require(
-        record.id != HealthRecordId.none,
-        'Record ID must not be HealthRecordId.none for updates. ',
+        condition: record.id != HealthRecordId.none,
+        value: record.id,
+        name: 'record.id',
+        message: 'Record ID must not be HealthRecordId.none for updates. ',
       );
 
       await _client.updateRecord(record);
@@ -707,8 +713,10 @@ final class HealthConnectorImpl implements HealthConnector {
       }
       records.forEach(_validateRecordSupport);
       require(
-        records.every((record) => record.id != HealthRecordId.none),
-        'Record IDs must not be HealthRecordId.none for updates. ',
+        condition: records.every((record) => record.id != HealthRecordId.none),
+        value: records,
+        name: 'records',
+        message: 'Record IDs must not be HealthRecordId.none for updates. ',
       );
 
       await _client.updateRecords(records);
@@ -798,8 +806,10 @@ final class HealthConnectorImpl implements HealthConnector {
 
   void _validateRecordSupport(HealthRecord record) {
     require(
-      record.supportedHealthPlatforms.contains(healthPlatform),
-      '${record.runtimeType} is not supported on $healthPlatform.',
+      condition: record.supportedHealthPlatforms.contains(healthPlatform),
+      value: record,
+      name: 'record',
+      message: '${record.runtimeType} is not supported on $healthPlatform.',
     );
 
     if (record is ExerciseSessionRecord) {

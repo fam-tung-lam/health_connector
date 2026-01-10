@@ -47,7 +47,7 @@ final class ExerciseSessionRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [InvalidArgumentException] if [startTime] is after [endTime].
-  const ExerciseSessionRecord({
+  ExerciseSessionRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

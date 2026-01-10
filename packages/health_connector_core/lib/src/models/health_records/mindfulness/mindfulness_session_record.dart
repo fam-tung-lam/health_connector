@@ -39,7 +39,7 @@ final class MindfulnessSessionRecord extends IntervalHealthRecord {
   /// The session spans from [startTime] to [endTime] and is categorized by
   /// [sessionType]. Optional [title] and [notes] can provide additional
   /// context.
-  const MindfulnessSessionRecord({
+  MindfulnessSessionRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

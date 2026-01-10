@@ -47,7 +47,7 @@ part of '../health_record.dart';
 @immutable
 final class HeartRateSeriesRecord extends SeriesHealthRecord<HeartRateSample> {
   /// Creates a heart rate series record.
-  const HeartRateSeriesRecord({
+  HeartRateSeriesRecord({
     required super.metadata,
     required super.startTime,
     required super.endTime,
@@ -58,7 +58,7 @@ final class HeartRateSeriesRecord extends SeriesHealthRecord<HeartRateSample> {
   });
 
   /// The average heart rate across all samples.
-  Frequency get averageRate {
+  Frequency get avgRate {
     if (samples.isEmpty) {
       return Frequency.zero;
     }

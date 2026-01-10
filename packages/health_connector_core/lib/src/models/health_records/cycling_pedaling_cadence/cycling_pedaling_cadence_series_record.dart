@@ -51,7 +51,7 @@ part of '../health_record.dart';
 final class CyclingPedalingCadenceSeriesRecord
     extends SeriesHealthRecord<CyclingPedalingCadenceSample> {
   /// Creates a cycling pedaling cadence series record.
-  const CyclingPedalingCadenceSeriesRecord({
+  CyclingPedalingCadenceSeriesRecord({
     required super.metadata,
     required super.startTime,
     required super.endTime,

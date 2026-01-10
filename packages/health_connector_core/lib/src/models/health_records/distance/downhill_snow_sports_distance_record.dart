@@ -27,7 +27,7 @@ part of '../health_record.dart';
 @immutable
 final class DownhillSnowSportsDistanceRecord extends DistanceActivityRecord {
   /// Creates a downhill snow sports distance record.
-  const DownhillSnowSportsDistanceRecord({
+  DownhillSnowSportsDistanceRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

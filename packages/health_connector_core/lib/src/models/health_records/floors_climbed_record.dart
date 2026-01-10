@@ -47,7 +47,7 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
-  const FloorsClimbedRecord({
+  FloorsClimbedRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

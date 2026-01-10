@@ -43,7 +43,7 @@ final class DistanceRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
-  const DistanceRecord({
+  DistanceRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,

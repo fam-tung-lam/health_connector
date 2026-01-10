@@ -46,17 +46,24 @@ final class StepsRecord extends IntervalHealthRecord {
   ///
   /// ## Throws
   ///
-  /// - [AssertionError] if [count] is negative (in debug/checked mode).
+  /// - [ArgumentError] if [count] is negative.
   /// - [ArgumentError] if [endTime] is not after [startTime].
   StepsRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,
     required this.count,
-    super.id = HealthRecordId.none,
+    super.id,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  }) : assert(count.value >= 0, 'count.count must be non-negative');
+  }) {
+    require(
+      condition: count.value >= 0,
+      value: count,
+      name: 'count',
+      message: 'count must be non-negative. Got count=${count.value}',
+    );
+  }
 
   /// The number of steps taken during the interval.
   ///

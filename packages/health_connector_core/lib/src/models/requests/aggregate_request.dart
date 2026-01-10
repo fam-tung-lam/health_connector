@@ -103,9 +103,14 @@ final class CommonAggregateRequest<
     required super.endTime,
   }) : super() {
     require(
-      dataType.supportedAggregationMetrics.contains(aggregationMetric),
-      '$dataType does not support aggregation with '
-      'metric ${aggregationMetric.name}',
+      condition: dataType.supportedAggregationMetrics.contains(
+        aggregationMetric,
+      ),
+      value: aggregationMetric,
+      name: 'aggregationMetric',
+      message:
+          '$dataType does not support aggregation with '
+          'metric ${aggregationMetric.name}',
     );
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
   }
@@ -149,16 +154,24 @@ final class BloodPressureAggregateRequest
     required super.endTime,
   }) : super() {
     require(
-      dataType.supportedAggregationMetrics.contains(aggregationMetric),
-      '$dataType does not support aggregation with '
-      'metric ${aggregationMetric.name}',
+      condition: dataType.supportedAggregationMetrics.contains(
+        aggregationMetric,
+      ),
+      value: aggregationMetric,
+      name: 'aggregationMetric',
+      message:
+          '$dataType does not support aggregation with '
+          'metric ${aggregationMetric.name}',
     );
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
 
     require(
-      _bloodPressureDataTypes.contains(dataType),
-      '$dataType is not a valid blood pressure type for aggregation. '
-      'Must be one of: $_bloodPressureDataTypes.',
+      condition: _bloodPressureDataTypes.contains(dataType),
+      value: dataType,
+      name: 'dataType',
+      message:
+          '$dataType is not a valid blood pressure type for aggregation. '
+          'Must be one of: $_bloodPressureDataTypes.',
     );
   }
 }
