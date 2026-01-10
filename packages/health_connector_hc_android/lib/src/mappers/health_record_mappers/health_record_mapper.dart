@@ -100,10 +100,10 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/he
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/height_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/hydration_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/lean_body_mass_record_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/cervical_mucus_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/cervical_mucus/cervical_mucus_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/intermenstrual_bleeding_record_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/menstrual_flow_instant_record_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/ovulation_test_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/menstrual_flow/menstrual_flow_instant_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/menstruation/ovulation_test_result/ovulation_test_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/mindfulness/mindfulness_session_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/nutrition/nutrition_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/oxygen_saturation_record_mapper.dart';

@@ -3,9 +3,9 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 import androidx.health.connect.client.records.CervicalMucusRecord
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.pigeon.CervicalMucusAppearanceTypeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.CervicalMucusAppearanceDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CervicalMucusRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.CervicalMucusSensationTypeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.CervicalMucusSensationDto
 import java.time.Instant
 import java.time.ZoneOffset
 
@@ -17,8 +17,8 @@ internal fun CervicalMucusRecord.toDto(): CervicalMucusRecordDto = CervicalMucus
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    appearance = appearance.toCervicalMucusAppearanceTypeDto(),
-    sensation = sensation.toCervicalMucusSensationTypeDto(),
+    appearance = appearance.toCervicalMucusAppearanceDto(),
+    sensation = sensation.toCervicalMucusSensationDto(),
 )
 
 /**
@@ -34,72 +34,72 @@ internal fun CervicalMucusRecordDto.toHealthConnect(): CervicalMucusRecord = Cer
 
 /**
  * Converts a Health Connect [CervicalMucusRecord] appearance value to
- * [CervicalMucusAppearanceTypeDto].
+ * [CervicalMucusAppearanceDto].
  */
-internal fun Int.toCervicalMucusAppearanceTypeDto(): CervicalMucusAppearanceTypeDto = when (this) {
+internal fun Int.toCervicalMucusAppearanceDto(): CervicalMucusAppearanceDto = when (this) {
     CervicalMucusRecord.APPEARANCE_DRY ->
-        CervicalMucusAppearanceTypeDto.DRY
+        CervicalMucusAppearanceDto.DRY
     CervicalMucusRecord.APPEARANCE_STICKY ->
-        CervicalMucusAppearanceTypeDto.STICKY
+        CervicalMucusAppearanceDto.STICKY
     CervicalMucusRecord.APPEARANCE_CREAMY ->
-        CervicalMucusAppearanceTypeDto.CREAMY
+        CervicalMucusAppearanceDto.CREAMY
     CervicalMucusRecord.APPEARANCE_WATERY ->
-        CervicalMucusAppearanceTypeDto.WATERY
+        CervicalMucusAppearanceDto.WATERY
     CervicalMucusRecord.APPEARANCE_EGG_WHITE ->
-        CervicalMucusAppearanceTypeDto.EGG_WHITE
+        CervicalMucusAppearanceDto.EGG_WHITE
     CervicalMucusRecord.APPEARANCE_UNUSUAL ->
-        CervicalMucusAppearanceTypeDto.UNUSUAL
+        CervicalMucusAppearanceDto.UNUSUAL
     CervicalMucusRecord.APPEARANCE_UNKNOWN ->
-        CervicalMucusAppearanceTypeDto.UNKNOWN
+        CervicalMucusAppearanceDto.UNKNOWN
     else -> throw IllegalArgumentException("Unknown appearance value: $this")
 }
 
 /**
- * Converts a [CervicalMucusAppearanceTypeDto] to a Health Connect appearance value.
+ * Converts a [CervicalMucusAppearanceDto] to a Health Connect appearance value.
  */
-internal fun CervicalMucusAppearanceTypeDto.toHealthConnect(): Int = when (this) {
-    CervicalMucusAppearanceTypeDto.DRY ->
+internal fun CervicalMucusAppearanceDto.toHealthConnect(): Int = when (this) {
+    CervicalMucusAppearanceDto.DRY ->
         CervicalMucusRecord.APPEARANCE_DRY
-    CervicalMucusAppearanceTypeDto.STICKY ->
+    CervicalMucusAppearanceDto.STICKY ->
         CervicalMucusRecord.APPEARANCE_STICKY
-    CervicalMucusAppearanceTypeDto.CREAMY ->
+    CervicalMucusAppearanceDto.CREAMY ->
         CervicalMucusRecord.APPEARANCE_CREAMY
-    CervicalMucusAppearanceTypeDto.WATERY ->
+    CervicalMucusAppearanceDto.WATERY ->
         CervicalMucusRecord.APPEARANCE_WATERY
-    CervicalMucusAppearanceTypeDto.EGG_WHITE ->
+    CervicalMucusAppearanceDto.EGG_WHITE ->
         CervicalMucusRecord.APPEARANCE_EGG_WHITE
-    CervicalMucusAppearanceTypeDto.UNUSUAL ->
+    CervicalMucusAppearanceDto.UNUSUAL ->
         CervicalMucusRecord.APPEARANCE_UNUSUAL
-    CervicalMucusAppearanceTypeDto.UNKNOWN ->
+    CervicalMucusAppearanceDto.UNKNOWN ->
         CervicalMucusRecord.APPEARANCE_UNKNOWN
 }
 
 /**
  * Converts a Health Connect [CervicalMucusRecord] sensation value to
- * [CervicalMucusSensationTypeDto].
+ * [CervicalMucusSensationDto].
  */
-internal fun Int.toCervicalMucusSensationTypeDto(): CervicalMucusSensationTypeDto = when (this) {
+internal fun Int.toCervicalMucusSensationDto(): CervicalMucusSensationDto = when (this) {
     CervicalMucusRecord.SENSATION_LIGHT ->
-        CervicalMucusSensationTypeDto.LIGHT
+        CervicalMucusSensationDto.LIGHT
     CervicalMucusRecord.SENSATION_MEDIUM ->
-        CervicalMucusSensationTypeDto.MEDIUM
+        CervicalMucusSensationDto.MEDIUM
     CervicalMucusRecord.SENSATION_HEAVY ->
-        CervicalMucusSensationTypeDto.HEAVY
+        CervicalMucusSensationDto.HEAVY
     CervicalMucusRecord.SENSATION_UNKNOWN ->
-        CervicalMucusSensationTypeDto.UNKNOWN
+        CervicalMucusSensationDto.UNKNOWN
     else -> throw IllegalArgumentException("Unknown sensation value: $this")
 }
 
 /**
- * Converts a [CervicalMucusSensationTypeDto] to a Health Connect sensation value.
+ * Converts a [CervicalMucusSensationDto] to a Health Connect sensation value.
  */
-internal fun CervicalMucusSensationTypeDto.toHealthConnect(): Int = when (this) {
-    CervicalMucusSensationTypeDto.LIGHT ->
+internal fun CervicalMucusSensationDto.toHealthConnect(): Int = when (this) {
+    CervicalMucusSensationDto.LIGHT ->
         CervicalMucusRecord.SENSATION_LIGHT
-    CervicalMucusSensationTypeDto.MEDIUM ->
+    CervicalMucusSensationDto.MEDIUM ->
         CervicalMucusRecord.SENSATION_MEDIUM
-    CervicalMucusSensationTypeDto.HEAVY ->
+    CervicalMucusSensationDto.HEAVY ->
         CervicalMucusRecord.SENSATION_HEAVY
-    CervicalMucusSensationTypeDto.UNKNOWN ->
+    CervicalMucusSensationDto.UNKNOWN ->
         CervicalMucusRecord.SENSATION_UNKNOWN
 }

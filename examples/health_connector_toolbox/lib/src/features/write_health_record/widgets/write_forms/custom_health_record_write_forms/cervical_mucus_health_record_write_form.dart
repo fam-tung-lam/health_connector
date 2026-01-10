@@ -23,30 +23,30 @@ final class CervicalMucusWriteForm extends BaseHealthRecordWriteForm {
 /// State for cervical mucus form widget.
 final class CervicalMucusFormState
     extends BaseHealthRecordWriteFormState<CervicalMucusWriteForm> {
-  CervicalMucusAppearanceType appearance = CervicalMucusAppearanceType.unknown;
-  CervicalMucusSensationType sensation = CervicalMucusSensationType.unknown;
+  CervicalMucusAppearance appearance = CervicalMucusAppearance.unknown;
+  CervicalMucusSensation sensation = CervicalMucusSensation.unknown;
 
   @override
   List<Widget> buildFields(BuildContext context) {
     return [
-      SearchableDropdownMenuFormField<CervicalMucusAppearanceType>(
+      SearchableDropdownMenuFormField<CervicalMucusAppearance>(
         labelText: AppTexts.appearance,
-        values: CervicalMucusAppearanceType.values,
+        values: CervicalMucusAppearance.values,
         initialValue: appearance,
         onChanged: (value) => setState(() {
-          appearance = value ?? CervicalMucusAppearanceType.unknown;
+          appearance = value ?? CervicalMucusAppearance.unknown;
         }),
         displayNameBuilder: (type) => type.displayName,
         prefixIcon: AppIcons.waterDrop,
         hint: AppTexts.optional,
       ),
       const SizedBox(height: 16),
-      SearchableDropdownMenuFormField<CervicalMucusSensationType>(
+      SearchableDropdownMenuFormField<CervicalMucusSensation>(
         labelText: AppTexts.sensation,
-        values: CervicalMucusSensationType.values,
+        values: CervicalMucusSensation.values,
         initialValue: sensation,
         onChanged: (value) => setState(() {
-          sensation = value ?? CervicalMucusSensationType.unknown;
+          sensation = value ?? CervicalMucusSensation.unknown;
         }),
         displayNameBuilder: (type) => type.displayName,
         prefixIcon: AppIcons.waterDrop,

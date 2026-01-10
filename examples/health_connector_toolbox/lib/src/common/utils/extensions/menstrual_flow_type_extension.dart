@@ -1,15 +1,15 @@
 import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
-/// Extension on [MenstrualFlowType] to provide localized labels.
-extension MenstrualFlowTypeExtension on MenstrualFlowType {
+/// Extension on [MenstrualFlow] to provide localized labels.
+extension MenstrualFlowExtension on MenstrualFlow {
   /// Returns the localized label for the menstrual flow type.
   String get label {
     return switch (this) {
-      MenstrualFlowType.unknown => AppTexts.unspecified,
-      MenstrualFlowType.light => AppTexts.light,
-      MenstrualFlowType.medium => AppTexts.medium,
-      MenstrualFlowType.heavy => AppTexts.heavy,
+      MenstrualFlow.unknown => AppTexts.unspecified,
+      MenstrualFlow.light => AppTexts.light,
+      MenstrualFlow.medium => AppTexts.medium,
+      MenstrualFlow.heavy => AppTexts.heavy,
     };
   }
 }

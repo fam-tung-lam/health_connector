@@ -51,7 +51,7 @@ part of '../health_data_type.dart';
 ///
 /// - [MenstrualFlowInstantRecord]
 /// - [MenstrualFlowDataType] - iOS interval-based alternative
-/// - [MenstrualFlowType]
+/// - [MenstrualFlow]
 ///
 /// {@category Health Data Types}
 @sinceV2_2_0

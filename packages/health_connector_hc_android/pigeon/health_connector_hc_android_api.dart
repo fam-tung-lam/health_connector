@@ -240,7 +240,7 @@ class MetadataDto {
 ///
 /// Maps to Android Health Connect CervicalMucusRecord appearance types
 /// and iOS HealthKit HKCategoryValueCervicalMucusQuality enum.
-enum CervicalMucusAppearanceTypeDto {
+enum CervicalMucusAppearanceDto {
   /// Unknown appearance.
   unknown,
 
@@ -267,7 +267,7 @@ enum CervicalMucusAppearanceTypeDto {
 ///
 /// Maps to Android Health Connect CervicalMucusRecord sensation types.
 /// Note: Not natively supported on iOS HealthKit.
-enum CervicalMucusSensationTypeDto {
+enum CervicalMucusSensationDto {
   /// Unknown sensation.
   unknown,
 
@@ -285,7 +285,7 @@ enum CervicalMucusSensationTypeDto {
 ///
 /// Maps to Android Health Connect SexualActivityRecord protection types
 /// and iOS HealthKit HKMetadataKeySexualActivityProtectionUsed metadata key.
-enum SexualActivityProtectionUsedTypeDto {
+enum SexualActivityProtectionUsedDto {
   /// Protection was used.
   protected,
 
@@ -300,7 +300,7 @@ enum SexualActivityProtectionUsedTypeDto {
 ///
 /// Maps to Android Health Connect OvulationTestRecord result constants
 /// and iOS HealthKit HKCategoryValueOvulationTestResult enum.
-enum OvulationTestResultTypeDto {
+enum OvulationTestResultDto {
   /// Test result is negative (no hormonal surge).
   negative,
 
@@ -353,7 +353,7 @@ enum BasalBodyTemperatureMeasurementLocationDto {
 /// Menstrual flow intensity classification.
 ///
 /// Maps to Android Health Connect MenstruationFlowRecord.FLOW_* constants.
-enum MenstrualFlowTypeDto {
+enum MenstrualFlowDto {
   /// Flow is unknown or unspecified.
   unknown,
 
@@ -831,7 +831,7 @@ class OvulationTestRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 
   /// The ovulation test result.
-  final OvulationTestResultTypeDto result;
+  final OvulationTestResultDto result;
 }
 
 /// Represents an intermenstrual bleeding record for platform transfer.
@@ -882,7 +882,7 @@ class MenstrualFlowInstantRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 
   /// The menstrual flow intensity.
-  final MenstrualFlowTypeDto flow;
+  final MenstrualFlowDto flow;
 }
 
 /// Represents a respiratory rate record for platform transfer.
@@ -1337,10 +1337,10 @@ class CervicalMucusRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 
   /// Cervical mucus appearance (optional).
-  final CervicalMucusAppearanceTypeDto appearance;
+  final CervicalMucusAppearanceDto appearance;
 
   /// Cervical mucus sensation (optional).
-  final CervicalMucusSensationTypeDto sensation;
+  final CervicalMucusSensationDto sensation;
 }
 
 /// Represents a hydration (water intake) record for platform transfer.
@@ -1655,7 +1655,7 @@ class SexualActivityRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 
   /// Whether protection was used (optional).
-  final SexualActivityProtectionUsedTypeDto protectionUsed;
+  final SexualActivityProtectionUsedDto protectionUsed;
 }
 
 /// Represents an exercise session record for platform transfer.

@@ -5,8 +5,8 @@ import androidx.health.connect.client.records.metadata.Metadata
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.MenstrualFlowDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MenstrualFlowInstantRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.MenstrualFlowTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import io.kotest.matchers.shouldBe
@@ -41,7 +41,7 @@ class MenstrualFlowInstantRecordMapperTest {
         // Then
         result.time shouldBe TEST_TIME
         result.zoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
-        result.flow shouldBe MenstrualFlowTypeDto.MEDIUM
+        result.flow shouldBe MenstrualFlowDto.MEDIUM
     }
 
     @Test
@@ -54,7 +54,7 @@ class MenstrualFlowInstantRecordMapperTest {
             id = TEST_ID,
             time = TEST_TIME,
             zoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
-            flow = MenstrualFlowTypeDto.HEAVY,
+            flow = MenstrualFlowDto.HEAVY,
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,

@@ -16,7 +16,7 @@ internal fun MenstruationFlowRecord.toDto(): MenstrualFlowInstantRecordDto =
         time = time.toEpochMilli(),
         zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
         metadata = metadata.toDto(),
-        flow = flow.toMenstrualFlowTypeDto(),
+        flow = flow.toMenstrualFlowDto(),
     )
 
 /**

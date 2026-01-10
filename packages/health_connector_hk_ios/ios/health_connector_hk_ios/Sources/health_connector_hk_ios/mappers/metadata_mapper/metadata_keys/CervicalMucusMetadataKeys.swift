@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - StringSerializable Conformance
 
-extension CervicalMucusAppearanceTypeDto: StringSerializable {
+extension CervicalMucusAppearanceDto: StringSerializable {
     private enum Constants {
         static let unknown = "unknown"
         static let dry = "dry"
@@ -39,7 +39,7 @@ extension CervicalMucusAppearanceTypeDto: StringSerializable {
     }
 }
 
-extension CervicalMucusSensationTypeDto: StringSerializable {
+extension CervicalMucusSensationDto: StringSerializable {
     private enum Constants {
         static let unknown = "unknown"
         static let light = "light"
@@ -87,10 +87,10 @@ extension CervicalMucusSensationTypeDto: StringSerializable {
 ///
 /// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_cervical_mucus_appearance_type`
 enum CervicalMucusAppearanceKey: StringEnumMetadataKey {
-    typealias Value = CervicalMucusAppearanceTypeDto
+    typealias Value = CervicalMucusAppearanceDto
 
     static let keySuffix = "cervical_mucus_appearance_type"
-    static let defaultValue: CervicalMucusAppearanceTypeDto = .unknown
+    static let defaultValue: CervicalMucusAppearanceDto = .unknown
 }
 
 /// Custom metadata key for storing cervical mucus sensation type as a string.
@@ -107,8 +107,8 @@ enum CervicalMucusAppearanceKey: StringEnumMetadataKey {
 ///
 /// **Key:** `com.phamtunglam.health_connector_hk_ios.hk_metadata_key_cervical_mucus_sensation_type`
 enum CervicalMucusSensationKey: StringEnumMetadataKey {
-    typealias Value = CervicalMucusSensationTypeDto
+    typealias Value = CervicalMucusSensationDto
 
     static let keySuffix = "cervical_mucus_sensation_type"
-    static let defaultValue: CervicalMucusSensationTypeDto = .unknown
+    static let defaultValue: CervicalMucusSensationDto = .unknown
 }

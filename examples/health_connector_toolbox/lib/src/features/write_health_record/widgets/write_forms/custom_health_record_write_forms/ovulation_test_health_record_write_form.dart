@@ -22,17 +22,17 @@ final class OvulationTestWriteForm extends BaseHealthRecordWriteForm {
 /// State for ovulation test form widget.
 final class OvulationTestFormState
     extends BaseHealthRecordWriteFormState<OvulationTestWriteForm> {
-  OvulationTestResultType result = OvulationTestResultType.negative;
+  OvulationTestResult result = OvulationTestResult.negative;
 
   @override
   List<Widget> buildFields(BuildContext context) {
     return [
-      SearchableDropdownMenuFormField<OvulationTestResultType>(
+      SearchableDropdownMenuFormField<OvulationTestResult>(
         labelText: AppTexts.testResult,
-        values: OvulationTestResultType.values,
+        values: OvulationTestResult.values,
         initialValue: result,
         onChanged: (value) => setState(() {
-          result = value ?? OvulationTestResultType.negative;
+          result = value ?? OvulationTestResult.negative;
         }),
         displayNameBuilder: (type) => type.displayName,
         prefixIcon: AppIcons.science,

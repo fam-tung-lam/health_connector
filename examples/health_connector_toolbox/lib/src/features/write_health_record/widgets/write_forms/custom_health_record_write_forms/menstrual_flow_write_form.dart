@@ -24,7 +24,7 @@ final class MenstrualFlowWriteForm extends BaseHealthRecordWriteForm {
 final class MenstrualFlowFormState
     extends BaseHealthRecordWriteFormState<MenstrualFlowWriteForm>
     with DateTimeRangePickerPageStateMixin<MenstrualFlowWriteForm> {
-  MenstrualFlowType flow = MenstrualFlowType.unknown;
+  MenstrualFlow flow = MenstrualFlow.unknown;
   bool isCycleStart = false;
 
   @override
@@ -35,12 +35,12 @@ final class MenstrualFlowFormState
   @override
   List<Widget> buildFields(BuildContext context) {
     return [
-      SearchableDropdownMenuFormField<MenstrualFlowType>(
+      SearchableDropdownMenuFormField<MenstrualFlow>(
         labelText: AppTexts.flow,
-        values: MenstrualFlowType.values,
+        values: MenstrualFlow.values,
         initialValue: flow,
         onChanged: (value) => setState(() {
-          flow = value ?? MenstrualFlowType.unknown;
+          flow = value ?? MenstrualFlow.unknown;
         }),
         displayNameBuilder: (type) => type.label,
         prefixIcon: AppIcons.waterDrop,

@@ -449,7 +449,7 @@ enum SleepStageTypeDto {
 /// **iOS HealthKit Limitation**: Only `dry`, `sticky`, `creamy`, `watery`, and
 /// `eggWhite` are natively supported via `HKCategoryValueCervicalMucusQuality`.
 /// Values `unusual` and `unknown` require custom metadata handling in Swift.
-enum CervicalMucusAppearanceTypeDto {
+enum CervicalMucusAppearanceDto {
   /// Unknown appearance (custom metadata on iOS).
   unknown,
 
@@ -477,7 +477,7 @@ enum CervicalMucusAppearanceTypeDto {
 /// **iOS HealthKit Limitation**: HealthKit's HKCategoryTypeIdentifier.
 /// cervicalMucusQuality only tracks appearance, not sensation.
 /// All sensation values require custom metadata handling in Swift.
-enum CervicalMucusSensationTypeDto {
+enum CervicalMucusSensationDto {
   /// Unknown sensation (custom metadata on iOS).
   unknown,
 
@@ -495,7 +495,7 @@ enum CervicalMucusSensationTypeDto {
 ///
 /// Maps to Android Health Connect SexualActivityRecord protection types
 /// and iOS HealthKit HKMetadataKeySexualActivityProtectionUsed metadata key.
-enum SexualActivityProtectionUsedTypeDto {
+enum SexualActivityProtectionUsedDto {
   /// Protection was used.
   protected,
 
@@ -510,7 +510,7 @@ enum SexualActivityProtectionUsedTypeDto {
 ///
 /// Maps to Android Health Connect OvulationTestRecord result constants
 /// and iOS HealthKit HKCategoryValueOvulationTestResult enum.
-enum OvulationTestResultTypeDto {
+enum OvulationTestResultDto {
   /// Test result is negative (no hormonal surge).
   negative,
 
@@ -565,7 +565,7 @@ enum BasalBodyTemperatureMeasurementLocationDto {
 /// Maps to Android Health Connect MenstruationFlowRecord.FLOW_* constants
 /// and iOS HealthKit HKCategoryValueMenstrualFlow (iOS ≤17) or
 /// HKCategoryValueVaginalBleeding (iOS ≥18) enum values.
-enum MenstrualFlowTypeDto {
+enum MenstrualFlowDto {
   /// Flow is unknown or unspecified.
   /// - Android: FLOW_UNKNOWN
   /// - iOS ≤ 17: HKCategoryValueMenstrualFlow.unspecified/.none
@@ -1792,11 +1792,11 @@ class CervicalMucusRecordDto extends HealthRecordDto {
 
   /// Cervical mucus appearance.
   /// Values `unusual` and `unknown` use custom metadata on iOS.
-  final CervicalMucusAppearanceTypeDto appearance;
+  final CervicalMucusAppearanceDto appearance;
 
   /// Cervical mucus sensation.
   /// All values use custom metadata on iOS (HealthKit limitation).
-  final CervicalMucusSensationTypeDto sensation;
+  final CervicalMucusSensationDto sensation;
 }
 
 /// DTO for cycling power health data.
@@ -1874,7 +1874,7 @@ class OvulationTestRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 
   /// The ovulation test result.
-  final OvulationTestResultTypeDto result;
+  final OvulationTestResultDto result;
 }
 
 /// Represents an intermenstrual bleeding record for platform transfer.
@@ -1935,7 +1935,7 @@ class MenstrualFlowRecordDto extends HealthRecordDto {
   final int? endZoneOffsetSeconds;
 
   /// The menstrual flow intensity.
-  final MenstrualFlowTypeDto flow;
+  final MenstrualFlowDto flow;
 
   /// Whether this sample marks the start of a menstrual cycle.
   /// Maps to HKMetadataKeyMenstrualCycleStart in iOS HealthKit.
@@ -2151,7 +2151,7 @@ class SexualActivityRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 
   /// Whether protection was used (optional).
-  final SexualActivityProtectionUsedTypeDto protectionUsed;
+  final SexualActivityProtectionUsedDto protectionUsed;
 }
 
 /// Represents energy nutrient data for platform transfer.

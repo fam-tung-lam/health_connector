@@ -1,19 +1,19 @@
 import 'package:health_connector/health_connector_internal.dart'
-    show CervicalMucusAppearanceType;
+    show CervicalMucusAppearance;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 
-/// Extension methods for [CervicalMucusAppearanceType] to provide UI support.
-extension CervicalMucusAppearanceExtension on CervicalMucusAppearanceType {
+/// Extension methods for [CervicalMucusAppearance] to provide UI support.
+extension CervicalMucusAppearanceExtension on CervicalMucusAppearance {
   /// Returns a user-friendly display name for this appearance value.
   String get displayName {
     return switch (this) {
-      CervicalMucusAppearanceType.unknown => AppTexts.unknown,
-      CervicalMucusAppearanceType.dry => AppTexts.dry,
-      CervicalMucusAppearanceType.sticky => AppTexts.sticky,
-      CervicalMucusAppearanceType.creamy => AppTexts.creamy,
-      CervicalMucusAppearanceType.watery => AppTexts.watery,
-      CervicalMucusAppearanceType.eggWhite => AppTexts.eggWhite,
-      CervicalMucusAppearanceType.unusual => AppTexts.unusual,
+      CervicalMucusAppearance.unknown => AppTexts.unknown,
+      CervicalMucusAppearance.dry => AppTexts.dry,
+      CervicalMucusAppearance.sticky => AppTexts.sticky,
+      CervicalMucusAppearance.creamy => AppTexts.creamy,
+      CervicalMucusAppearance.watery => AppTexts.watery,
+      CervicalMucusAppearance.eggWhite => AppTexts.eggWhite,
+      CervicalMucusAppearance.unusual => AppTexts.unusual,
     };
   }
 }

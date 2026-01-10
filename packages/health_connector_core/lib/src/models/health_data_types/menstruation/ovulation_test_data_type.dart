@@ -49,7 +49,7 @@ part of '../health_data_type.dart';
 /// ## See also
 ///
 /// - [OvulationTestRecord]
-/// - [OvulationTestResultType]
+/// - [OvulationTestResult]
 ///
 /// {@category Health Data Types}
 @sinceV2_2_0

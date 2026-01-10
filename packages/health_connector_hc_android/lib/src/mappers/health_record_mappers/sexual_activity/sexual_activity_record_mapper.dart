@@ -1,5 +1,5 @@
 import 'package:health_connector_core/health_connector_core_internal.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sexual_activity/sexual_activity_protection_used_type_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sexual_activity/sexual_activity_protection_used_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
 import 'package:meta/meta.dart' show internal;
