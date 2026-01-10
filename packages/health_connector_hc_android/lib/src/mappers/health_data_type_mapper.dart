@@ -1,102 +1,4 @@
-import 'package:health_connector_core/health_connector_core_internal.dart'
-    show
-        ActiveEnergyBurnedHealthDataType,
-        BiotinNutrientDataType,
-        BloodGlucoseHealthDataType,
-        BodyFatPercentageHealthDataType,
-        BodyMassIndexHealthDataType,
-        BodyTemperatureHealthDataType,
-        BasalBodyTemperatureHealthDataType,
-        BoneMassDataType,
-        BodyWaterMassDataType,
-        CaffeineNutrientDataType,
-        CalciumNutrientDataType,
-        CervicalMucusDataType,
-        CholesterolNutrientDataType,
-        CrossCountrySkiingDistanceDataType,
-        CyclingDistanceDataType,
-        CyclingPedalingCadenceMeasurementRecordHealthDataType,
-        CyclingPedalingCadenceSeriesRecordHealthDataType,
-        CyclingPowerDataType,
-        DietaryFiberNutrientDataType,
-        DistanceHealthDataType,
-        DownhillSnowSportsDistanceDataType,
-        DietaryEnergyConsumedDataType,
-        ExerciseSessionHealthDataType,
-        FloorsClimbedHealthDataType,
-        FolateNutrientDataType,
-        HealthDataType,
-        HealthRecord,
-        HeartRateMeasurementRecordHealthDataType,
-        HeartRateSeriesRecordHealthDataType,
-        HeartRateVariabilityRMSSDDataType,
-        HeartRateVariabilitySDNNDataType,
-        HeightHealthDataType,
-        HydrationHealthDataType,
-        IronNutrientDataType,
-        LeanBodyMassHealthDataType,
-        MagnesiumNutrientDataType,
-        ManganeseNutrientDataType,
-        MeasurementUnit,
-        MonounsaturatedFatNutrientDataType,
-        NiacinNutrientDataType,
-        NutritionHealthDataType,
-        IntermenstrualBleedingDataType,
-        MenstrualFlowDataType,
-        MenstrualFlowInstantDataType,
-        OvulationTestDataType,
-        OxygenSaturationHealthDataType,
-        PaddleSportsDistanceDataType,
-        PantothenicAcidNutrientDataType,
-        PhosphorusNutrientDataType,
-        PolyunsaturatedFatNutrientDataType,
-        PotassiumNutrientDataType,
-        PowerSeriesDataType,
-        ProteinNutrientDataType,
-        RiboflavinNutrientDataType,
-        RestingHeartRateHealthDataType,
-        RespiratoryRateHealthDataType,
-        RowingDistanceDataType,
-        SaturatedFatNutrientDataType,
-        SeleniumNutrientDataType,
-        SexualActivityDataType,
-        SixMinuteWalkTestDistanceDataType,
-        SkatingSportsDistanceDataType,
-        SleepSessionHealthDataType,
-        SleepStageHealthDataType,
-        MindfulnessSessionDataType,
-        SodiumNutrientDataType,
-        StepsHealthDataType,
-        SugarNutrientDataType,
-        SwimmingDistanceDataType,
-        ThiaminNutrientDataType,
-        TotalCarbohydrateNutrientDataType,
-        TotalFatNutrientDataType,
-        VitaminANutrientDataType,
-        VitaminB6NutrientDataType,
-        VitaminB12NutrientDataType,
-        VitaminCNutrientDataType,
-        VitaminDNutrientDataType,
-        VitaminENutrientDataType,
-        VitaminKNutrientDataType,
-        Vo2MaxHealthDataType,
-        WeightHealthDataType,
-        WaistCircumferenceHealthDataType,
-        WheelchairDistanceDataType,
-        WalkingRunningDistanceDataType,
-        WheelchairPushesHealthDataType,
-        ZincNutrientDataType,
-        BloodPressureHealthDataType,
-        SystolicBloodPressureHealthDataType,
-        DiastolicBloodPressureHealthDataType,
-        SpeedSeriesDataType,
-        TotalEnergyBurnedHealthDataType,
-        WalkingSpeedDataType,
-        RunningSpeedDataType,
-        StairAscentSpeedDataType,
-        StairDescentSpeedDataType,
-        sinceV1_0_0,
-        BasalEnergyBurnedHealthDataType;
+import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show HealthDataTypeDto;
 import 'package:meta/meta.dart' show internal;
@@ -188,41 +90,41 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
 extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
   HealthDataTypeDto toDto() {
     switch (this) {
-      case ActiveEnergyBurnedHealthDataType _:
+      case ActiveEnergyBurnedDataType _:
         return HealthDataTypeDto.activeCaloriesBurned;
-      case DistanceHealthDataType _:
+      case DistanceDataType _:
         return HealthDataTypeDto.distance;
-      case FloorsClimbedHealthDataType _:
+      case FloorsClimbedDataType _:
         return HealthDataTypeDto.floorsClimbed;
-      case HeightHealthDataType _:
+      case HeightDataType _:
         return HealthDataTypeDto.height;
-      case HydrationHealthDataType _:
+      case HydrationDataType _:
         return HealthDataTypeDto.hydration;
-      case LeanBodyMassHealthDataType _:
+      case LeanBodyMassDataType _:
         return HealthDataTypeDto.leanBodyMass;
-      case BodyFatPercentageHealthDataType _:
+      case BodyFatPercentageDataType _:
         return HealthDataTypeDto.bodyFatPercentage;
-      case BodyTemperatureHealthDataType _:
+      case BodyTemperatureDataType _:
         return HealthDataTypeDto.bodyTemperature;
-      case BasalBodyTemperatureHealthDataType _:
+      case BasalBodyTemperatureDataType _:
         return HealthDataTypeDto.basalBodyTemperature;
       case CervicalMucusDataType _:
         return HealthDataTypeDto.cervicalMucus;
-      case StepsHealthDataType _:
+      case StepsDataType _:
         return HealthDataTypeDto.steps;
-      case WeightHealthDataType _:
+      case WeightDataType _:
         return HealthDataTypeDto.weight;
-      case WheelchairPushesHealthDataType _:
+      case WheelchairPushesDataType _:
         return HealthDataTypeDto.wheelchairPushes;
-      case HeartRateSeriesRecordHealthDataType _:
+      case HeartRateSeriesRecordDataType _:
         return HealthDataTypeDto.heartRateSeriesRecord;
-      case CyclingPedalingCadenceSeriesRecordHealthDataType _:
+      case CyclingPedalingCadenceSeriesRecordDataType _:
         return HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord;
       case SexualActivityDataType _:
         return HealthDataTypeDto.sexualActivity;
-      case SleepSessionHealthDataType _:
+      case SleepSessionDataType _:
         return HealthDataTypeDto.sleepSession;
-      case ExerciseSessionHealthDataType _:
+      case ExerciseSessionDataType _:
         return HealthDataTypeDto.exerciseSession;
       case MindfulnessSessionDataType _:
         return HealthDataTypeDto.mindfulnessSession;
@@ -232,7 +134,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.bodyWaterMass;
       case HeartRateVariabilityRMSSDDataType _:
         return HealthDataTypeDto.heartRateVariabilityRMSSD;
-      case BloodPressureHealthDataType _:
+      case BloodPressureDataType _:
         return HealthDataTypeDto.bloodPressure;
       case OvulationTestDataType _:
         return HealthDataTypeDto.ovulationTest;
@@ -240,19 +142,19 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.intermenstrualBleeding;
       case MenstrualFlowInstantDataType _:
         return HealthDataTypeDto.menstrualFlowInstant;
-      case OxygenSaturationHealthDataType _:
+      case OxygenSaturationDataType _:
         return HealthDataTypeDto.oxygenSaturation;
-      case RespiratoryRateHealthDataType _:
+      case RespiratoryRateDataType _:
         return HealthDataTypeDto.respiratoryRate;
-      case NutritionHealthDataType _:
+      case NutritionDataType _:
         return HealthDataTypeDto.nutrition;
-      case RestingHeartRateHealthDataType _:
+      case RestingHeartRateDataType _:
         return HealthDataTypeDto.restingHeartRate;
-      case Vo2MaxHealthDataType _:
+      case Vo2MaxDataType _:
         return HealthDataTypeDto.vo2Max;
-      case BloodGlucoseHealthDataType _:
+      case BloodGlucoseDataType _:
         return HealthDataTypeDto.bloodGlucose;
-      case TotalEnergyBurnedHealthDataType _:
+      case TotalEnergyBurnedDataType _:
         return HealthDataTypeDto.totalCaloriesBurned;
       case SpeedSeriesDataType _:
         return HealthDataTypeDto.speedSeries;
@@ -293,40 +195,40 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       case ZincNutrientDataType _:
         throw UnsupportedError(
           '$this is not supported on Android Health Connect. '
-          'Use $NutritionHealthDataType instead.',
+          'Use $NutritionDataType instead.',
         );
-      case BasalEnergyBurnedHealthDataType _:
+      case BasalEnergyBurnedDataType _:
         throw UnsupportedError(
-          '$BasalEnergyBurnedHealthDataType is not supported on '
-          'Android Health Connect. Use $TotalEnergyBurnedHealthDataType '
-          'and $ActiveEnergyBurnedHealthDataType instead.',
+          '$BasalEnergyBurnedDataType is not supported on '
+          'Android Health Connect. Use $TotalEnergyBurnedDataType '
+          'and $ActiveEnergyBurnedDataType instead.',
         );
-      case SleepStageHealthDataType _:
+      case SleepStageDataType _:
         throw UnsupportedError(
-          '$SleepStageHealthDataType is not supported on '
-          'Android Health Connect. Use $SleepSessionHealthDataType instead.',
+          '$SleepStageDataType is not supported on '
+          'Android Health Connect. Use $SleepSessionDataType instead.',
         );
-      case HeartRateMeasurementRecordHealthDataType _:
+      case HeartRateMeasurementRecordDataType _:
         throw UnsupportedError(
-          '$HeartRateMeasurementRecordHealthDataType is not '
+          '$HeartRateMeasurementRecordDataType is not '
           'supported on Android Health Connect. '
-          'Use $HeartRateSeriesRecordHealthDataType instead.',
+          'Use $HeartRateSeriesRecordDataType instead.',
         );
-      case CyclingPedalingCadenceMeasurementRecordHealthDataType _:
+      case CyclingPedalingCadenceMeasurementRecordDataType _:
         throw UnsupportedError(
-          '$CyclingPedalingCadenceMeasurementRecordHealthDataType is not '
+          '$CyclingPedalingCadenceMeasurementRecordDataType is not '
           'supported on Android Health Connect. '
-          'Use $CyclingPedalingCadenceSeriesRecordHealthDataType instead.',
+          'Use $CyclingPedalingCadenceSeriesRecordDataType instead.',
         );
-      case SystolicBloodPressureHealthDataType _:
+      case SystolicBloodPressureDataType _:
         throw UnsupportedError(
-          '$SystolicBloodPressureHealthDataType is not supported on '
-          'Android Health Connect. Use $BloodPressureHealthDataType instead.',
+          '$SystolicBloodPressureDataType is not supported on '
+          'Android Health Connect. Use $BloodPressureDataType instead.',
         );
-      case DiastolicBloodPressureHealthDataType _:
+      case DiastolicBloodPressureDataType _:
         throw UnsupportedError(
-          '$DiastolicBloodPressureHealthDataType is not supported on '
-          'Health Connect. Use $BloodPressureHealthDataType instead.',
+          '$DiastolicBloodPressureDataType is not supported on '
+          'Health Connect. Use $BloodPressureDataType instead.',
         );
       case CyclingDistanceDataType _:
       case SwimmingDistanceDataType _:
@@ -340,7 +242,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       case WalkingRunningDistanceDataType _:
         throw UnsupportedError(
           '$this is is not supported on Android Health Connect. '
-          'Use general $DistanceHealthDataType instead',
+          'Use general $DistanceDataType instead',
         );
       case CyclingPowerDataType _:
         throw UnsupportedError(
@@ -355,15 +257,15 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$this is not supported on Android Health Connect. '
           'Use general $SpeedSeriesDataType instead.',
         );
-      case BodyMassIndexHealthDataType _:
+      case BodyMassIndexDataType _:
         throw UnsupportedError(
-          '$BodyMassIndexHealthDataType is not supported on Android '
-          'Health Connect. Use $WeightHealthDataType and '
-          '$HeightHealthDataType for calculation instead',
+          '$BodyMassIndexDataType is not supported on Android '
+          'Health Connect. Use $WeightDataType and '
+          '$HeightDataType for calculation instead',
         );
-      case WaistCircumferenceHealthDataType _:
+      case WaistCircumferenceDataType _:
         throw UnsupportedError(
-          '$WaistCircumferenceHealthDataType is not supported on '
+          '$WaistCircumferenceDataType is not supported on '
           'Android Health Connect.',
         );
       case HeartRateVariabilitySDNNDataType _:

@@ -1,117 +1,14 @@
 import 'package:flutter/foundation.dart' show ChangeNotifier;
-import 'package:health_connector/health_connector_internal.dart'
-    show
-        AggregateRequest,
-        AggregationMetric,
-        HealthDataType,
-        HealthRecord,
-        MeasurementUnit,
-        HealthConnector,
-        Pressure,
-        PantothenicAcidNutrientDataType,
-        StepsHealthDataType,
-        FloorsClimbedHealthDataType,
-        WheelchairPushesHealthDataType,
-        WeightHealthDataType,
-        HeightHealthDataType,
-        BloodPressureHealthDataType,
-        SystolicBloodPressureHealthDataType,
-        DiastolicBloodPressureHealthDataType,
-        DistanceHealthDataType,
-        CrossCountrySkiingDistanceDataType,
-        CyclingDistanceDataType,
-        DownhillSnowSportsDistanceDataType,
-        PaddleSportsDistanceDataType,
-        RowingDistanceDataType,
-        SixMinuteWalkTestDistanceDataType,
-        SkatingSportsDistanceDataType,
-        SwimmingDistanceDataType,
-        WheelchairDistanceDataType,
-        WalkingRunningDistanceDataType,
-        Length,
-        ActiveEnergyBurnedHealthDataType,
-        BasalEnergyBurnedHealthDataType,
-        TotalEnergyBurnedHealthDataType,
-        HydrationHealthDataType,
-        HeartRateMeasurementRecordHealthDataType,
-        HeartRateSeriesRecordHealthDataType,
-        RestingHeartRateHealthDataType,
-        SleepSessionHealthDataType,
-        SleepStageHealthDataType,
-        SexualActivityDataType,
-        ExerciseSessionHealthDataType,
-        MindfulnessSessionDataType,
-        OxygenSaturationHealthDataType,
-        RespiratoryRateHealthDataType,
-        Vo2MaxHealthDataType,
-        BloodGlucoseHealthDataType,
-        DietaryEnergyConsumedDataType,
-        CaffeineNutrientDataType,
-        ProteinNutrientDataType,
-        TotalCarbohydrateNutrientDataType,
-        TotalFatNutrientDataType,
-        SaturatedFatNutrientDataType,
-        MonounsaturatedFatNutrientDataType,
-        PolyunsaturatedFatNutrientDataType,
-        CholesterolNutrientDataType,
-        DietaryFiberNutrientDataType,
-        SugarNutrientDataType,
-        CalciumNutrientDataType,
-        IronNutrientDataType,
-        MagnesiumNutrientDataType,
-        ManganeseNutrientDataType,
-        PhosphorusNutrientDataType,
-        PotassiumNutrientDataType,
-        SeleniumNutrientDataType,
-        SodiumNutrientDataType,
-        ZincNutrientDataType,
-        VitaminANutrientDataType,
-        VitaminB6NutrientDataType,
-        VitaminB12NutrientDataType,
-        VitaminCNutrientDataType,
-        VitaminDNutrientDataType,
-        VitaminENutrientDataType,
-        VitaminKNutrientDataType,
-        ThiaminNutrientDataType,
-        RiboflavinNutrientDataType,
-        NiacinNutrientDataType,
-        FolateNutrientDataType,
-        BiotinNutrientDataType,
-        Mass,
-        WalkingSpeedDataType,
-        RunningSpeedDataType,
-        StairAscentSpeedDataType,
-        StairDescentSpeedDataType,
-        PowerSeriesDataType,
-        CyclingPowerDataType,
-        CyclingPedalingCadenceMeasurementRecordHealthDataType,
-        CyclingPedalingCadenceSeriesRecordHealthDataType,
-        BodyFatPercentageHealthDataType,
-        BodyTemperatureHealthDataType,
-        BasalBodyTemperatureHealthDataType,
-        LeanBodyMassHealthDataType,
-        NutritionHealthDataType,
-        SpeedSeriesDataType,
-        CervicalMucusDataType,
-        IntermenstrualBleedingDataType,
-        OvulationTestDataType,
-        BoneMassDataType,
-        BodyWaterMassDataType,
-        HeartRateVariabilityRMSSDDataType,
-        BodyMassIndexHealthDataType,
-        WaistCircumferenceHealthDataType,
-        HeartRateVariabilitySDNNDataType,
-        MenstrualFlowDataType,
-        MenstrualFlowInstantDataType;
+import 'package:health_connector/health_connector_internal.dart';
 
 /// Manages state and operations for aggregating health data.
 ///
 /// Handles aggregating health records (sum, average, min, max, count) over
 /// a time range, tracking loading state and the aggregation result.
-final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
+final class AggregateDataChangeNotifier extends ChangeNotifier {
   final HealthConnector _healthConnector;
 
-  AggregateHealthDataChangeNotifier(this._healthConnector);
+  AggregateDataChangeNotifier(this._healthConnector);
 
   bool _isLoading = false;
   MeasurementUnit? _aggregationResult;
@@ -124,7 +21,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
   ///
   /// Updates [aggregationResult] with the aggregation result on success.
   /// Exceptions are propagated to the caller for handling.
-  Future<void> aggregateHealthData({
+  Future<void> aggregateData({
     required HealthDataType dataType,
     required AggregationMetric aggregationMetric,
     required DateTime startTime,
@@ -179,21 +76,21 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
   }) {
     return switch (dataType) {
       // Count types - sum only
-      StepsHealthDataType() => _buildSum(
+      StepsDataType() => _buildSum(
         () => HealthDataType.steps.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),
         metric,
       ),
-      FloorsClimbedHealthDataType() => _buildSum(
+      FloorsClimbedDataType() => _buildSum(
         () => HealthDataType.floorsClimbed.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),
         metric,
       ),
-      WheelchairPushesHealthDataType() => _buildSum(
+      WheelchairPushesDataType() => _buildSum(
         () => HealthDataType.wheelchairPushes.aggregateSum(
           startTime: startTime,
           endTime: endTime,
@@ -202,7 +99,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
 
       // Mass/Length types - avg/min/max
-      WeightHealthDataType() => _buildAvgMinMax(
+      WeightDataType() => _buildAvgMinMax(
         () => HealthDataType.weight.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -217,7 +114,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
-      HeightHealthDataType() => _buildAvgMinMax(
+      HeightDataType() => _buildAvgMinMax(
         () => HealthDataType.height.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -232,7 +129,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
-      BodyMassIndexHealthDataType() => _buildAvgMinMax(
+      BodyMassIndexDataType() => _buildAvgMinMax(
         () => HealthDataType.bodyMassIndex.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -247,7 +144,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
-      WaistCircumferenceHealthDataType() => _buildAvgMinMax(
+      WaistCircumferenceDataType() => _buildAvgMinMax(
         () => HealthDataType.waistCircumference.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -279,7 +176,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
 
       // Blood pressure types
-      BloodPressureHealthDataType() => _buildAvgMinMax(
+      BloodPressureDataType() => _buildAvgMinMax(
         () => HealthDataType.bloodPressure.aggregateAverage(
           bloodPressureType: bloodPressureSubtype!,
           startTime: startTime,
@@ -297,7 +194,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
-      SystolicBloodPressureHealthDataType() => _buildAvgMinMax(
+      SystolicBloodPressureDataType() => _buildAvgMinMax(
         () => HealthDataType.systolicBloodPressure.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -312,7 +209,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
-      DiastolicBloodPressureHealthDataType() => _buildAvgMinMax(
+      DiastolicBloodPressureDataType() => _buildAvgMinMax(
         () => HealthDataType.diastolicBloodPressure.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -329,7 +226,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
 
       // Distance types - sum only
-      DistanceHealthDataType() ||
+      DistanceDataType() ||
       CrossCountrySkiingDistanceDataType() ||
       CyclingDistanceDataType() ||
       DownhillSnowSportsDistanceDataType() ||
@@ -347,28 +244,28 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
 
       // Energy/hydration types - sum only
-      ActiveEnergyBurnedHealthDataType() => _buildSum(
+      ActiveEnergyBurnedDataType() => _buildSum(
         () => HealthDataType.activeEnergyBurned.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),
         metric,
       ),
-      BasalEnergyBurnedHealthDataType() => _buildSum(
+      BasalEnergyBurnedDataType() => _buildSum(
         () => HealthDataType.basalEnergyBurned.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),
         metric,
       ),
-      TotalEnergyBurnedHealthDataType() => _buildSum(
+      TotalEnergyBurnedDataType() => _buildSum(
         () => HealthDataType.totalEnergyBurned.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),
         metric,
       ),
-      HydrationHealthDataType() => _buildSum(
+      HydrationDataType() => _buildSum(
         () => HealthDataType.hydration.aggregateSum(
           startTime: startTime,
           endTime: endTime,
@@ -377,7 +274,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
 
       // Heart rate types - avg/min/max
-      HeartRateMeasurementRecordHealthDataType() => _buildAvgMinMax(
+      HeartRateMeasurementRecordDataType() => _buildAvgMinMax(
         () => HealthDataType.heartRateMeasurementRecord.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -392,7 +289,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
-      HeartRateSeriesRecordHealthDataType() => _buildAvgMinMax(
+      HeartRateSeriesRecordDataType() => _buildAvgMinMax(
         () => HealthDataType.heartRateSeriesRecord.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -407,26 +304,25 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
-      CyclingPedalingCadenceMeasurementRecordHealthDataType() =>
-        _buildAvgMinMax(
-          () => HealthDataType.cyclingPedalingCadenceMeasurementRecord
-              .aggregateAvg(
-                startTime: startTime,
-                endTime: endTime,
-              ),
-          () => HealthDataType.cyclingPedalingCadenceMeasurementRecord
-              .aggregateMin(
-                startTime: startTime,
-                endTime: endTime,
-              ),
-          () => HealthDataType.cyclingPedalingCadenceMeasurementRecord
-              .aggregateMax(
-                startTime: startTime,
-                endTime: endTime,
-              ),
-          metric,
-        ),
-      CyclingPedalingCadenceSeriesRecordHealthDataType() => _buildAvgMinMax(
+      CyclingPedalingCadenceMeasurementRecordDataType() => _buildAvgMinMax(
+        () =>
+            HealthDataType.cyclingPedalingCadenceMeasurementRecord.aggregateAvg(
+              startTime: startTime,
+              endTime: endTime,
+            ),
+        () =>
+            HealthDataType.cyclingPedalingCadenceMeasurementRecord.aggregateMin(
+              startTime: startTime,
+              endTime: endTime,
+            ),
+        () =>
+            HealthDataType.cyclingPedalingCadenceMeasurementRecord.aggregateMax(
+              startTime: startTime,
+              endTime: endTime,
+            ),
+        metric,
+      ),
+      CyclingPedalingCadenceSeriesRecordDataType() => _buildAvgMinMax(
         () => HealthDataType.cyclingPedalingCadenceSeriesRecord.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -441,7 +337,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
-      RestingHeartRateHealthDataType() => _buildAvgMinMax(
+      RestingHeartRateDataType() => _buildAvgMinMax(
         () => HealthDataType.restingHeartRate.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -458,14 +354,14 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
 
       // Sleep types - sum only
-      SleepSessionHealthDataType() => _buildSum(
+      SleepSessionDataType() => _buildSum(
         () => HealthDataType.sleepSession.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),
         metric,
       ),
-      SleepStageHealthDataType() => _buildSum(
+      SleepStageDataType() => _buildSum(
         () => HealthDataType.sleepStageRecord.aggregateSum(
           startTime: startTime,
           endTime: endTime,
@@ -474,7 +370,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
 
       // Vital signs - avg/min/max
-      OxygenSaturationHealthDataType() => _buildAvgMinMax(
+      OxygenSaturationDataType() => _buildAvgMinMax(
         () => HealthDataType.oxygenSaturation.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -489,7 +385,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
-      RespiratoryRateHealthDataType() => _buildAvgMinMax(
+      RespiratoryRateDataType() => _buildAvgMinMax(
         () => HealthDataType.respiratoryRate.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -504,7 +400,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
-      Vo2MaxHealthDataType() => _buildAvgMinMax(
+      Vo2MaxDataType() => _buildAvgMinMax(
         () => HealthDataType.vo2Max.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -519,7 +415,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
         ),
         metric,
       ),
-      BloodGlucoseHealthDataType() => _buildAvgMinMax(
+      BloodGlucoseDataType() => _buildAvgMinMax(
         () => HealthDataType.bloodGlucose.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
@@ -637,7 +533,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
         metric,
       ),
 
-      ExerciseSessionHealthDataType() => _buildSum(
+      ExerciseSessionDataType() => _buildSum(
         () => HealthDataType.exerciseSession.aggregateSum(
           startTime: startTime,
           endTime: endTime,
@@ -654,19 +550,19 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
       ),
 
       // Unsupported types
-      BodyFatPercentageHealthDataType() => throw UnsupportedError(
+      BodyFatPercentageDataType() => throw UnsupportedError(
         'Body fat percentage does not support aggregation',
       ),
-      BasalBodyTemperatureHealthDataType() => throw UnsupportedError(
+      BasalBodyTemperatureDataType() => throw UnsupportedError(
         'Basal body temperature does not support aggregation',
       ),
-      BodyTemperatureHealthDataType() => throw UnsupportedError(
+      BodyTemperatureDataType() => throw UnsupportedError(
         'Body temperature does not support aggregation',
       ),
-      LeanBodyMassHealthDataType() => throw UnsupportedError(
+      LeanBodyMassDataType() => throw UnsupportedError(
         'Lean body mass does not support aggregation',
       ),
-      NutritionHealthDataType() => throw UnsupportedError(
+      NutritionDataType() => throw UnsupportedError(
         'Nutrition does not support aggregation',
       ),
       SexualActivityDataType() => throw UnsupportedError(
@@ -752,7 +648,7 @@ final class AggregateHealthDataChangeNotifier extends ChangeNotifier {
 
     // Delegate to specific data type instances
     return switch (dataType) {
-      DistanceHealthDataType() => HealthDataType.distance.aggregateSum(
+      DistanceDataType() => HealthDataType.distance.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),

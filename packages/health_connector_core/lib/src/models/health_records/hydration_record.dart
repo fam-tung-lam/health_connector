@@ -25,7 +25,7 @@ part of 'health_record.dart';
 ///
 /// ## See also
 ///
-/// - [HydrationHealthDataType]
+/// - [HydrationDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

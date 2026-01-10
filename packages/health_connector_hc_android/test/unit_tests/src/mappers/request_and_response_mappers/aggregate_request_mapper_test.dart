@@ -51,7 +51,7 @@ void main() {
               final bpDto = dto as BloodPressureAggregateRequestDto;
               expect(
                 bpDto.bloodPressureDataType,
-                BloodPressureHealthDataTypeDto.systolic,
+                BloodPressureDataTypeDto.systolic,
               );
               expect(bpDto.aggregationMetric, AggregationMetricDto.avg);
               expect(bpDto.startTime, startTime.millisecondsSinceEpoch);
@@ -75,7 +75,7 @@ void main() {
               final bpDto = dto as BloodPressureAggregateRequestDto;
               expect(
                 bpDto.bloodPressureDataType,
-                BloodPressureHealthDataTypeDto.diastolic,
+                BloodPressureDataTypeDto.diastolic,
               );
               expect(bpDto.aggregationMetric, AggregationMetricDto.min);
               expect(bpDto.startTime, startTime.millisecondsSinceEpoch);

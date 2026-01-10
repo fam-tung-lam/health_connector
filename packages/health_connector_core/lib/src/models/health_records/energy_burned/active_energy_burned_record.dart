@@ -26,7 +26,7 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [ActiveEnergyBurnedHealthDataType]
+/// - [ActiveEnergyBurnedDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

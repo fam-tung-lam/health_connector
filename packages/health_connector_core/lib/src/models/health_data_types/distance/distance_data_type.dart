@@ -29,8 +29,7 @@ part of '../health_data_type.dart';
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable
-final class DistanceHealthDataType
-    extends HealthDataType<DistanceRecord, Length>
+final class DistanceDataType extends HealthDataType<DistanceRecord, Length>
     implements
         ReadableHealthDataType<DistanceRecord>,
         WriteableHealthDataType,
@@ -40,7 +39,7 @@ final class DistanceHealthDataType
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const DistanceHealthDataType();
+  const DistanceDataType();
 
   @override
   String get id => 'distance';
@@ -53,7 +52,7 @@ final class DistanceHealthDataType
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DistanceHealthDataType && runtimeType == other.runtimeType;
+      other is DistanceDataType && runtimeType == other.runtimeType;
 
   @override
   int get hashCode => runtimeType.hashCode;

@@ -1,102 +1,4 @@
-import 'package:health_connector_core/health_connector_core_internal.dart'
-    show
-        ActiveEnergyBurnedHealthDataType,
-        BasalEnergyBurnedHealthDataType,
-        BodyFatPercentageHealthDataType,
-        BodyTemperatureHealthDataType,
-        BodyMassIndexHealthDataType,
-        BasalBodyTemperatureHealthDataType,
-        BoneMassDataType,
-        BodyWaterMassDataType,
-        CervicalMucusDataType,
-        CrossCountrySkiingDistanceDataType,
-        CyclingDistanceDataType,
-        CyclingPedalingCadenceMeasurementRecordHealthDataType,
-        CyclingPedalingCadenceSeriesRecordHealthDataType,
-        CyclingPowerDataType,
-        DistanceHealthDataType,
-        DownhillSnowSportsDistanceDataType,
-        FloorsClimbedHealthDataType,
-        HealthDataType,
-        HealthRecord,
-        HeartRateMeasurementRecordHealthDataType,
-        HeartRateSeriesRecordHealthDataType,
-        HeartRateVariabilityRMSSDDataType,
-        HeartRateVariabilitySDNNDataType,
-        HeightHealthDataType,
-        SexualActivityDataType,
-        SleepSessionHealthDataType,
-        SleepStageHealthDataType,
-        MindfulnessSessionDataType,
-        HydrationHealthDataType,
-        LeanBodyMassHealthDataType,
-        MeasurementUnit,
-        PaddleSportsDistanceDataType,
-        RowingDistanceDataType,
-        SixMinuteWalkTestDistanceDataType,
-        SkatingSportsDistanceDataType,
-        StepsHealthDataType,
-        SwimmingDistanceDataType,
-        WeightHealthDataType,
-        WheelchairDistanceDataType,
-        WheelchairPushesHealthDataType,
-        WaistCircumferenceHealthDataType,
-        WalkingRunningDistanceDataType,
-        PolyunsaturatedFatNutrientDataType,
-        NutritionHealthDataType,
-        DietaryEnergyConsumedDataType,
-        CaffeineNutrientDataType,
-        ProteinNutrientDataType,
-        TotalCarbohydrateNutrientDataType,
-        TotalFatNutrientDataType,
-        SaturatedFatNutrientDataType,
-        MonounsaturatedFatNutrientDataType,
-        CholesterolNutrientDataType,
-        RespiratoryRateHealthDataType,
-        IntermenstrualBleedingDataType,
-        OvulationTestDataType,
-        OxygenSaturationHealthDataType,
-        RestingHeartRateHealthDataType,
-        MenstrualFlowDataType,
-        MenstrualFlowInstantDataType,
-        DietaryFiberNutrientDataType,
-        SugarNutrientDataType,
-        CalciumNutrientDataType,
-        IronNutrientDataType,
-        MagnesiumNutrientDataType,
-        ManganeseNutrientDataType,
-        PhosphorusNutrientDataType,
-        PotassiumNutrientDataType,
-        PowerSeriesDataType,
-        SeleniumNutrientDataType,
-        SodiumNutrientDataType,
-        ZincNutrientDataType,
-        VitaminANutrientDataType,
-        VitaminB6NutrientDataType,
-        VitaminB12NutrientDataType,
-        VitaminCNutrientDataType,
-        VitaminDNutrientDataType,
-        VitaminENutrientDataType,
-        VitaminKNutrientDataType,
-        ThiaminNutrientDataType,
-        RiboflavinNutrientDataType,
-        NiacinNutrientDataType,
-        FolateNutrientDataType,
-        BiotinNutrientDataType,
-        PantothenicAcidNutrientDataType,
-        BloodPressureHealthDataType,
-        SystolicBloodPressureHealthDataType,
-        DiastolicBloodPressureHealthDataType,
-        Vo2MaxHealthDataType,
-        sinceV1_0_0,
-        BloodGlucoseHealthDataType,
-        SpeedSeriesDataType,
-        WalkingSpeedDataType,
-        RunningSpeedDataType,
-        StairAscentSpeedDataType,
-        StairDescentSpeedDataType,
-        ExerciseSessionHealthDataType,
-        TotalEnergyBurnedHealthDataType;
+import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show HealthDataTypeDto;
 import 'package:meta/meta.dart' show internal;
@@ -283,41 +185,41 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
 extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
   HealthDataTypeDto toDto() {
     switch (this) {
-      case ActiveEnergyBurnedHealthDataType _:
+      case ActiveEnergyBurnedDataType _:
         return HealthDataTypeDto.activeCaloriesBurned;
-      case BasalEnergyBurnedHealthDataType _:
+      case BasalEnergyBurnedDataType _:
         return HealthDataTypeDto.basalEnergyBurned;
-      case FloorsClimbedHealthDataType _:
+      case FloorsClimbedDataType _:
         return HealthDataTypeDto.floorsClimbed;
-      case HeightHealthDataType _:
+      case HeightDataType _:
         return HealthDataTypeDto.height;
-      case HydrationHealthDataType _:
+      case HydrationDataType _:
         return HealthDataTypeDto.hydration;
-      case LeanBodyMassHealthDataType _:
+      case LeanBodyMassDataType _:
         return HealthDataTypeDto.leanBodyMass;
-      case BodyFatPercentageHealthDataType _:
+      case BodyFatPercentageDataType _:
         return HealthDataTypeDto.bodyFatPercentage;
-      case BodyTemperatureHealthDataType _:
+      case BodyTemperatureDataType _:
         return HealthDataTypeDto.bodyTemperature;
-      case BodyMassIndexHealthDataType _:
+      case BodyMassIndexDataType _:
         return HealthDataTypeDto.bodyMassIndex;
-      case BasalBodyTemperatureHealthDataType _:
+      case BasalBodyTemperatureDataType _:
         return HealthDataTypeDto.basalBodyTemperature;
       case CervicalMucusDataType _:
         return HealthDataTypeDto.cervicalMucus;
-      case StepsHealthDataType _:
+      case StepsDataType _:
         return HealthDataTypeDto.steps;
-      case WeightHealthDataType _:
+      case WeightDataType _:
         return HealthDataTypeDto.weight;
-      case WaistCircumferenceHealthDataType _:
+      case WaistCircumferenceDataType _:
         return HealthDataTypeDto.waistCircumference;
-      case WheelchairPushesHealthDataType _:
+      case WheelchairPushesDataType _:
         return HealthDataTypeDto.wheelchairPushes;
-      case HeartRateMeasurementRecordHealthDataType _:
+      case HeartRateMeasurementRecordDataType _:
         return HealthDataTypeDto.heartRateMeasurementRecord;
-      case CyclingPedalingCadenceMeasurementRecordHealthDataType _:
+      case CyclingPedalingCadenceMeasurementRecordDataType _:
         return HealthDataTypeDto.cyclingPedalingCadenceMeasurementRecord;
-      case SleepStageHealthDataType _:
+      case SleepStageDataType _:
         return HealthDataTypeDto.sleepStageRecord;
       case SexualActivityDataType _:
         return HealthDataTypeDto.sexualActivity;
@@ -390,15 +292,15 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       case ZincNutrientDataType _:
         return HealthDataTypeDto.zinc;
 
-      case NutritionHealthDataType _:
+      case NutritionDataType _:
         return HealthDataTypeDto.nutrition;
-      case BloodPressureHealthDataType _:
+      case BloodPressureDataType _:
         return HealthDataTypeDto.bloodPressure;
-      case SystolicBloodPressureHealthDataType _:
+      case SystolicBloodPressureDataType _:
         return HealthDataTypeDto.systolicBloodPressure;
-      case DiastolicBloodPressureHealthDataType _:
+      case DiastolicBloodPressureDataType _:
         return HealthDataTypeDto.diastolicBloodPressure;
-      case RestingHeartRateHealthDataType _:
+      case RestingHeartRateDataType _:
         return HealthDataTypeDto.restingHeartRate;
       case OvulationTestDataType _:
         return HealthDataTypeDto.ovulationTest;
@@ -406,13 +308,13 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.intermenstrualBleeding;
       case MenstrualFlowDataType _:
         return HealthDataTypeDto.menstrualFlow;
-      case OxygenSaturationHealthDataType _:
+      case OxygenSaturationDataType _:
         return HealthDataTypeDto.oxygenSaturation;
-      case RespiratoryRateHealthDataType _:
+      case RespiratoryRateDataType _:
         return HealthDataTypeDto.respiratoryRate;
-      case Vo2MaxHealthDataType _:
+      case Vo2MaxDataType _:
         return HealthDataTypeDto.vo2Max;
-      case BloodGlucoseHealthDataType _:
+      case BloodGlucoseDataType _:
         return HealthDataTypeDto.bloodGlucose;
       // Distance activity types (iOS HealthKit only)
       case CyclingDistanceDataType _:
@@ -446,15 +348,15 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.stairAscentSpeed;
       case StairDescentSpeedDataType _:
         return HealthDataTypeDto.stairDescentSpeed;
-      case ExerciseSessionHealthDataType():
+      case ExerciseSessionDataType():
         return HealthDataTypeDto.exerciseSession;
       case MindfulnessSessionDataType():
         return HealthDataTypeDto.mindfulnessSession;
       case HeartRateVariabilitySDNNDataType _:
         return HealthDataTypeDto.heartRateVariabilitySDNN;
-      case DistanceHealthDataType _:
+      case DistanceDataType _:
         throw UnsupportedError(
-          'General $DistanceHealthDataType type is not supported on iOS '
+          'General $DistanceDataType type is not supported on iOS '
           'HealthKit. Use specific distance types (f.e. '
           '$RowingDistanceDataType, $SwimmingDistanceDataType) instead.',
         );
@@ -470,27 +372,27 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           'HealthKit. Use specific power types (f.e. $CyclingPowerDataType) '
           'instead.',
         );
-      case SleepSessionHealthDataType _:
+      case SleepSessionDataType _:
         throw UnsupportedError(
-          '$SleepSessionHealthDataType is not supported on '
-          'iOS HealthKit. Use $SleepStageHealthDataType instead.',
+          '$SleepSessionDataType is not supported on '
+          'iOS HealthKit. Use $SleepStageDataType instead.',
         );
-      case HeartRateSeriesRecordHealthDataType _:
+      case HeartRateSeriesRecordDataType _:
         throw UnsupportedError(
-          '$HeartRateSeriesRecordHealthDataType is not supported on iOS '
-          'HealthKit. Use $HeartRateMeasurementRecordHealthDataType instead.',
+          '$HeartRateSeriesRecordDataType is not supported on iOS '
+          'HealthKit. Use $HeartRateMeasurementRecordDataType instead.',
         );
-      case CyclingPedalingCadenceSeriesRecordHealthDataType _:
+      case CyclingPedalingCadenceSeriesRecordDataType _:
         throw UnsupportedError(
-          '$CyclingPedalingCadenceSeriesRecordHealthDataType is not '
+          '$CyclingPedalingCadenceSeriesRecordDataType is not '
           'supported on iOS HealthKit. '
-          'Use $CyclingPedalingCadenceMeasurementRecordHealthDataType instead.',
+          'Use $CyclingPedalingCadenceMeasurementRecordDataType instead.',
         );
-      case TotalEnergyBurnedHealthDataType _:
+      case TotalEnergyBurnedDataType _:
         throw UnsupportedError(
-          '$TotalEnergyBurnedHealthDataType is not supported on iOS '
-          'HealthKit. Use $ActiveEnergyBurnedHealthDataType + '
-          '$BasalEnergyBurnedHealthDataType instead.',
+          '$TotalEnergyBurnedDataType is not supported on iOS '
+          'HealthKit. Use $ActiveEnergyBurnedDataType + '
+          '$BasalEnergyBurnedDataType instead.',
         );
       case BoneMassDataType _:
         throw UnsupportedError(

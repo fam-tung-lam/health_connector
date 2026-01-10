@@ -12,7 +12,7 @@ part of '../health_data_type.dart';
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceRowing`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancerowing)
 /// - **Android Health Connect**: Not directly supported (use general
-/// [DistanceHealthDataType])
+/// [DistanceDataType])
 ///
 /// ## Capabilities
 ///
@@ -32,7 +32,7 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class RowingDistanceDataType
-    extends DistanceActivityHealthDataType<RowingDistanceRecord> {
+    extends DistanceActivityDataType<RowingDistanceRecord> {
   /// Creates a rowing distance data type.
   ///
   /// This is a constant constructor used internally. To reference this data

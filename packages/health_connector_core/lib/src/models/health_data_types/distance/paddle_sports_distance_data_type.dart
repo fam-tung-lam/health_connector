@@ -12,7 +12,7 @@ part of '../health_data_type.dart';
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distancePaddleSports`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancepaddlesports)
 /// - **Android Health Connect**: Not directly supported (use general
-/// [DistanceHealthDataType])
+/// [DistanceDataType])
 ///
 /// ## Capabilities
 ///
@@ -26,7 +26,7 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class PaddleSportsDistanceDataType
-    extends DistanceActivityHealthDataType<PaddleSportsDistanceRecord> {
+    extends DistanceActivityDataType<PaddleSportsDistanceRecord> {
   /// Creates a paddle sports distance data type.
   ///
   /// This is a constant constructor used internally. To reference this data

@@ -30,7 +30,7 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class DietaryEnergyConsumedDataType
-    extends NutrientHealthDataType<DietaryEnergyConsumedRecord, Energy>
+    extends NutrientDataType<DietaryEnergyConsumedRecord, Energy>
     implements
         ReadableHealthDataType<DietaryEnergyConsumedRecord>,
         WriteableHealthDataType,

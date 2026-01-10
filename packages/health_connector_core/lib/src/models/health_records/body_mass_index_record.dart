@@ -23,7 +23,7 @@ part of 'health_record.dart';
 ///
 /// ## See also
 ///
-/// - [BodyMassIndexHealthDataType]
+/// - [BodyMassIndexDataType]
 ///
 /// {@category Health Records}
 @sinceV2_2_0

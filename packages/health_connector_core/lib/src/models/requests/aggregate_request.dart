@@ -122,7 +122,7 @@ final class CommonAggregateRequest<
 @immutable
 final class BloodPressureAggregateRequest
     extends AggregateRequest<HealthRecord, Pressure> {
-  static const _bloodPressureHealthDataTypes = [
+  static const _bloodPressureDataTypes = [
     HealthDataType.diastolicBloodPressure,
     HealthDataType.systolicBloodPressure,
   ];
@@ -156,9 +156,9 @@ final class BloodPressureAggregateRequest
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
 
     require(
-      _bloodPressureHealthDataTypes.contains(dataType),
+      _bloodPressureDataTypes.contains(dataType),
       '$dataType is not a valid blood pressure type for aggregation. '
-      'Must be one of: $_bloodPressureHealthDataTypes.',
+      'Must be one of: $_bloodPressureDataTypes.',
     );
   }
 }

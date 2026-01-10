@@ -27,7 +27,7 @@ export 'src/models/health_data_sync/health_data_sync_token.dart';
 export 'src/models/health_data_types/health_data_type.dart'
     hide
         MineralNutrientDataType,
-        NutrientHealthDataType,
+        NutrientDataType,
         VitaminNutrientDataType,
         MacronutrientDataType;
 export 'src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';

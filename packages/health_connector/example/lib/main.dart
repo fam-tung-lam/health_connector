@@ -141,8 +141,8 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
 
         // Request feature permissions (only supported on Health Connect)
         if (_healthPlatform == HealthPlatform.healthConnect) ...[
-          HealthPlatformFeature.readHealthDataInBackground.permission,
-          HealthPlatformFeature.readHealthDataHistory.permission,
+          HealthPlatformFeature.readDataInBackground.permission,
+          HealthPlatformFeature.readDataHistory.permission,
         ],
       ];
 

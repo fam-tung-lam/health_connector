@@ -238,10 +238,10 @@ final class _HomeContent extends StatelessWidget {
       context,
       MaterialPageRoute<Widget>(
         builder: (_) => ChangeNotifierProvider(
-          create: (_) => AggregateHealthDataChangeNotifier(
+          create: (_) => AggregateDataChangeNotifier(
             healthConnector,
           ),
-          child: AggregateHealthDataPage(
+          child: AggregateDataPage(
             healthPlatform: healthConnector.healthPlatform,
           ),
         ),

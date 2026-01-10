@@ -13,15 +13,14 @@ void main() {
           accessType: HealthDataPermissionAccessType.read,
         ),
         HealthPlatformFeaturePermission(
-          HealthPlatformFeature.readHealthDataHistory,
+          HealthPlatformFeature.readDataHistory,
         ),
         HealthDataPermission(
           dataType: HealthDataType.heartRateSeriesRecord,
           accessType: HealthDataPermissionAccessType.write,
         ),
         HealthPlatformFeaturePermission(
-          HealthPlatformFeature
-              .readHealthDataHistory, // Duplicate type for test
+          HealthPlatformFeature.readDataHistory, // Duplicate type for test
         ),
       ];
 
@@ -50,7 +49,7 @@ void main() {
             () {
               const onlyFeatures = <Permission>[
                 HealthPlatformFeaturePermission(
-                  HealthPlatformFeature.readHealthDataHistory,
+                  HealthPlatformFeature.readDataHistory,
                 ),
               ];
               expect(onlyFeatures.healthDataPermissions, isEmpty);
@@ -73,7 +72,7 @@ void main() {
               );
               expect(
                 featurePermissions[0].feature,
-                HealthPlatformFeature.readHealthDataHistory,
+                HealthPlatformFeature.readDataHistory,
               );
             },
           );
@@ -81,13 +80,13 @@ void main() {
           test(
             'returns empty list if no HealthPlatformFeaturePermission',
             () {
-              const onlyHealthData = <Permission>[
+              const onlyData = <Permission>[
                 HealthDataPermission(
                   dataType: HealthDataType.steps,
                   accessType: HealthDataPermissionAccessType.read,
                 ),
               ];
-              expect(onlyHealthData.featurePermissions, isEmpty);
+              expect(onlyData.featurePermissions, isEmpty);
             },
           );
         },

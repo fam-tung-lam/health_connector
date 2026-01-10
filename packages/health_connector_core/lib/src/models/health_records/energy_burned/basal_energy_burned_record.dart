@@ -25,11 +25,11 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [BasalEnergyBurnedHealthDataType]
+/// - [BasalEnergyBurnedDataType]
 /// - [ActiveEnergyBurnedRecord]
-/// - [ActiveEnergyBurnedHealthDataType]
+/// - [ActiveEnergyBurnedDataType]
 /// - [TotalEnergyBurnedRecord]
-/// - [TotalEnergyBurnedHealthDataType]
+/// - [TotalEnergyBurnedDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

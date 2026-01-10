@@ -25,7 +25,7 @@ part of '../health_data_type.dart';
 /// {@category Health Data Types}
 @sinceV1_1_0
 @immutable
-final class NutritionHealthDataType
+final class NutritionDataType
     extends HealthDataType<NutritionRecord, MeasurementUnit>
     implements
         ReadableHealthDataType<NutritionRecord>,
@@ -35,7 +35,7 @@ final class NutritionHealthDataType
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const NutritionHealthDataType();
+  const NutritionDataType();
 
   @override
   String get id => 'nutrition';

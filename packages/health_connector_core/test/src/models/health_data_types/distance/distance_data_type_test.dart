@@ -4,14 +4,14 @@ import 'package:test/test.dart';
 
 void main() {
   group(
-    'DistanceHealthDataType',
+    'DistanceDataType',
     () {
       const dataType = HealthDataType.distance;
 
       test(
         'type and capabilities are correctly defined',
         () {
-          expect(dataType, isA<DistanceHealthDataType>());
+          expect(dataType, isA<DistanceDataType>());
           expect(dataType, isA<ReadableHealthDataType>());
           expect(dataType, isA<WriteableHealthDataType>());
           expect(dataType, isA<SumAggregatableHealthDataType>());

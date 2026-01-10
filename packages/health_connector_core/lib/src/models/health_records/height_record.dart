@@ -22,7 +22,7 @@ part of 'health_record.dart';
 ///
 /// ## See also
 ///
-/// - [HeightHealthDataType]
+/// - [HeightDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

@@ -118,8 +118,8 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
         // ...
 
         // Request feature permissions
-        HealthPlatformFeature.readHealthDataInBackground.permission,
-        HealthPlatformFeature.readHealthDataHistory.permission,
+        HealthPlatformFeature.readDataInBackground.permission,
+        HealthPlatformFeature.readDataHistory.permission,
         // ...
       ];
 

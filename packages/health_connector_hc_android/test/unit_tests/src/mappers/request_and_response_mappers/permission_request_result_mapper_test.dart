@@ -67,7 +67,7 @@ void main() {
             () {
               final dto = [
                 HealthPlatformFeaturePermissionRequestResultDto(
-                  feature: HealthPlatformFeatureDto.readHealthDataInBackground,
+                  feature: HealthPlatformFeatureDto.readDataInBackground,
                   status: PermissionStatusDto.granted,
                 ),
               ];
@@ -83,7 +83,7 @@ void main() {
                   results[0].permission as HealthPlatformFeaturePermission;
               expect(
                 permission.feature,
-                HealthPlatformFeature.readHealthDataInBackground,
+                HealthPlatformFeature.readDataInBackground,
               );
               expect(results[0].status, PermissionStatus.granted);
             },
@@ -102,7 +102,7 @@ void main() {
                   status: PermissionStatusDto.granted,
                 ),
                 HealthPlatformFeaturePermissionRequestResultDto(
-                  feature: HealthPlatformFeatureDto.readHealthDataInBackground,
+                  feature: HealthPlatformFeatureDto.readDataInBackground,
                   status: PermissionStatusDto.denied,
                 ),
               ];

@@ -28,7 +28,7 @@ void main() {
         HealthConnectorConfigDto(isLoggerEnabled: false),
       );
       // Use a simpler fallback for initialization if needed
-      registerFallbackValue(HealthPlatformFeatureDto.readHealthDataHistory);
+      registerFallbackValue(HealthPlatformFeatureDto.readDataHistory);
       registerFallbackValue(
         PermissionRequestsDto(
           permissionRequests: [],
@@ -459,7 +459,7 @@ void main() {
                   );
 
                   final result = await client.getFeatureStatus(
-                    HealthPlatformFeature.readHealthDataHistory,
+                    HealthPlatformFeature.readDataHistory,
                   );
 
                   expect(result, equals(HealthPlatformFeatureStatus.available));
@@ -474,7 +474,7 @@ void main() {
                   );
 
                   final result = await client.getFeatureStatus(
-                    HealthPlatformFeature.readHealthDataHistory,
+                    HealthPlatformFeature.readDataHistory,
                   );
 
                   expect(
@@ -493,7 +493,7 @@ void main() {
 
                   expect(
                     () => client.getFeatureStatus(
-                      HealthPlatformFeature.readHealthDataHistory,
+                      HealthPlatformFeature.readDataHistory,
                     ),
                     throwsA(isA<HealthConnectorException>()),
                   );

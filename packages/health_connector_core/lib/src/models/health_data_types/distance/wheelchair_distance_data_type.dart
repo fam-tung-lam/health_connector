@@ -12,7 +12,7 @@ part of '../health_data_type.dart';
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.distanceWheelchair`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancewheelchair)
 /// - **Android Health Connect**: Not directly supported (use general
-/// [DistanceHealthDataType])
+/// [DistanceDataType])
 ///
 /// ## Capabilities
 ///
@@ -26,7 +26,7 @@ part of '../health_data_type.dart';
 @supportedOnAppleHealth
 @immutable
 final class WheelchairDistanceDataType
-    extends DistanceActivityHealthDataType<WheelchairDistanceRecord> {
+    extends DistanceActivityDataType<WheelchairDistanceRecord> {
   /// Creates a wheelchair distance data type.
   ///
   /// This is a constant constructor used internally. To reference this data

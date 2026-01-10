@@ -26,7 +26,7 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [BasalBodyTemperatureHealthDataType]
+/// - [BasalBodyTemperatureDataType]
 /// - [BodyTemperatureRecord]
 ///
 /// {@category Health Records}

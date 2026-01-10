@@ -7,7 +7,7 @@ part of '../health_data_type.dart';
 @internal
 @immutable
 sealed class MacronutrientDataType<R extends HealthRecord>
-    extends NutrientHealthDataType<R, Mass> {
+    extends NutrientDataType<R, Mass> {
   const MacronutrientDataType();
 
   @override
