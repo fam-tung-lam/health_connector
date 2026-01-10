@@ -83,6 +83,72 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as WaistCircumferenceRecordDto:
             return try dto.toHealthKit()
+        case let dto as DietaryEnergyConsumedRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as CaffeineNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as ProteinNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as TotalCarbohydrateNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as TotalFatNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as SaturatedFatNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as MonounsaturatedFatNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as PolyunsaturatedFatNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as CholesterolNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as DietaryFiberNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as SugarNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as VitaminANutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as VitaminB6NutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as VitaminB12NutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as VitaminCNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as VitaminDNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as VitaminENutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as VitaminKNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as ThiaminNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as RiboflavinNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as NiacinNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as FolateNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as BiotinNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as PantothenicAcidNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as CalciumNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as IronNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as MagnesiumNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as ManganeseNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as PhosphorusNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as PotassiumNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as SeleniumNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as SodiumNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
+        case let dto as ZincNutrientRecordDto:
+            return try dto.toHealthKitQuantitySample()
         default:
             throw HealthConnectorError.unsupportedOperation(
                 message:
@@ -266,6 +332,72 @@ extension HKQuantitySample {
             try toHeartRateVariabilitySDNNRecordDto()
         case .waistCircumference:
             try toWaistCircumferenceRecordDto()
+        case .dietaryEnergyConsumed:
+            try toDietaryEnergyConsumedDto()
+        case .caffeine:
+            try toCaffeineNutrientDto()
+        case .protein:
+            try toProteinNutrientDto()
+        case .totalCarbohydrate:
+            try toTotalCarbohydrateNutrientDto()
+        case .totalFat:
+            try toTotalFatNutrientDto()
+        case .saturatedFat:
+            try toSaturatedFatNutrientDto()
+        case .monounsaturatedFat:
+            try toMonounsaturatedFatNutrientDto()
+        case .polyunsaturatedFat:
+            try toPolyunsaturatedFatNutrientDto()
+        case .cholesterol:
+            try toCholesterolNutrientDto()
+        case .dietaryFiber:
+            try toDietaryFiberNutrientDto()
+        case .sugar:
+            try toSugarNutrientDto()
+        case .vitaminA:
+            try toVitaminANutrientDto()
+        case .vitaminB6:
+            try toVitaminB6NutrientDto()
+        case .vitaminB12:
+            try toVitaminB12NutrientDto()
+        case .vitaminC:
+            try toVitaminCNutrientDto()
+        case .vitaminD:
+            try toVitaminDNutrientDto()
+        case .vitaminE:
+            try toVitaminENutrientDto()
+        case .vitaminK:
+            try toVitaminKNutrientDto()
+        case .thiamin:
+            try toThiaminNutrientDto()
+        case .riboflavin:
+            try toRiboflavinNutrientDto()
+        case .niacin:
+            try toNiacinNutrientDto()
+        case .folate:
+            try toFolateNutrientDto()
+        case .biotin:
+            try toBiotinNutrientDto()
+        case .pantothenicAcid:
+            try toPantothenicAcidNutrientDto()
+        case .calcium:
+            try toCalciumNutrientDto()
+        case .iron:
+            try toIronNutrientDto()
+        case .magnesium:
+            try toMagnesiumNutrientDto()
+        case .manganese:
+            try toManganeseNutrientDto()
+        case .phosphorus:
+            try toPhosphorusNutrientDto()
+        case .potassium:
+            try toPotassiumNutrientDto()
+        case .selenium:
+            try toSeleniumNutrientDto()
+        case .sodium:
+            try toSodiumNutrientDto()
+        case .zinc:
+            try toZincNutrientDto()
         default:
             throw HealthConnectorError.invalidArgument(
                 message: "Unsupported or unimplemented health data type for HKQuantitySample",
