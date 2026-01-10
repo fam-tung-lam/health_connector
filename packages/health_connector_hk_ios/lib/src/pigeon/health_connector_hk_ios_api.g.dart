@@ -4453,8 +4453,8 @@ class DietaryEnergyConsumedRecordDto extends HealthRecordDto {
 }
 
 /// Represents caffeine nutrient data for platform transfer.
-class CaffeineNutrientRecordDto extends HealthRecordDto {
-  CaffeineNutrientRecordDto({
+class DietaryCaffeineRecordDto extends HealthRecordDto {
+  DietaryCaffeineRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -4494,9 +4494,9 @@ class CaffeineNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static CaffeineNutrientRecordDto decode(Object result) {
+  static DietaryCaffeineRecordDto decode(Object result) {
     result as List<Object?>;
-    return CaffeineNutrientRecordDto(
+    return DietaryCaffeineRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -4510,7 +4510,7 @@ class CaffeineNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! CaffeineNutrientRecordDto ||
+    if (other is! DietaryCaffeineRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -4526,8 +4526,8 @@ class CaffeineNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents protein nutrient data for platform transfer.
-class ProteinNutrientRecordDto extends HealthRecordDto {
-  ProteinNutrientRecordDto({
+class DietaryProteinRecordDto extends HealthRecordDto {
+  DietaryProteinRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -4567,9 +4567,9 @@ class ProteinNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static ProteinNutrientRecordDto decode(Object result) {
+  static DietaryProteinRecordDto decode(Object result) {
     result as List<Object?>;
-    return ProteinNutrientRecordDto(
+    return DietaryProteinRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -4583,8 +4583,7 @@ class ProteinNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ProteinNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! DietaryProteinRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -4599,8 +4598,8 @@ class ProteinNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents total carbohydrate nutrient data for platform transfer.
-class TotalCarbohydrateNutrientRecordDto extends HealthRecordDto {
-  TotalCarbohydrateNutrientRecordDto({
+class DietaryTotalCarbohydrateRecordDto extends HealthRecordDto {
+  DietaryTotalCarbohydrateRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -4640,9 +4639,9 @@ class TotalCarbohydrateNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static TotalCarbohydrateNutrientRecordDto decode(Object result) {
+  static DietaryTotalCarbohydrateRecordDto decode(Object result) {
     result as List<Object?>;
-    return TotalCarbohydrateNutrientRecordDto(
+    return DietaryTotalCarbohydrateRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -4656,7 +4655,7 @@ class TotalCarbohydrateNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! TotalCarbohydrateNutrientRecordDto ||
+    if (other is! DietaryTotalCarbohydrateRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -4672,8 +4671,8 @@ class TotalCarbohydrateNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents total fat nutrient data for platform transfer.
-class TotalFatNutrientRecordDto extends HealthRecordDto {
-  TotalFatNutrientRecordDto({
+class DietaryTotalFatRecordDto extends HealthRecordDto {
+  DietaryTotalFatRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -4713,9 +4712,9 @@ class TotalFatNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static TotalFatNutrientRecordDto decode(Object result) {
+  static DietaryTotalFatRecordDto decode(Object result) {
     result as List<Object?>;
-    return TotalFatNutrientRecordDto(
+    return DietaryTotalFatRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -4729,7 +4728,7 @@ class TotalFatNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! TotalFatNutrientRecordDto ||
+    if (other is! DietaryTotalFatRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -4745,8 +4744,8 @@ class TotalFatNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents saturated fat nutrient data for platform transfer.
-class SaturatedFatNutrientRecordDto extends HealthRecordDto {
-  SaturatedFatNutrientRecordDto({
+class DietarySaturatedFatRecordDto extends HealthRecordDto {
+  DietarySaturatedFatRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -4786,9 +4785,9 @@ class SaturatedFatNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static SaturatedFatNutrientRecordDto decode(Object result) {
+  static DietarySaturatedFatRecordDto decode(Object result) {
     result as List<Object?>;
-    return SaturatedFatNutrientRecordDto(
+    return DietarySaturatedFatRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -4802,7 +4801,7 @@ class SaturatedFatNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! SaturatedFatNutrientRecordDto ||
+    if (other is! DietarySaturatedFatRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -4818,8 +4817,8 @@ class SaturatedFatNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents monounsaturated fat nutrient data for platform transfer.
-class MonounsaturatedFatNutrientRecordDto extends HealthRecordDto {
-  MonounsaturatedFatNutrientRecordDto({
+class DietaryMonounsaturatedFatRecordDto extends HealthRecordDto {
+  DietaryMonounsaturatedFatRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -4859,9 +4858,9 @@ class MonounsaturatedFatNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static MonounsaturatedFatNutrientRecordDto decode(Object result) {
+  static DietaryMonounsaturatedFatRecordDto decode(Object result) {
     result as List<Object?>;
-    return MonounsaturatedFatNutrientRecordDto(
+    return DietaryMonounsaturatedFatRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -4875,7 +4874,7 @@ class MonounsaturatedFatNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! MonounsaturatedFatNutrientRecordDto ||
+    if (other is! DietaryMonounsaturatedFatRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -4891,8 +4890,8 @@ class MonounsaturatedFatNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents polyunsaturated fat nutrient data for platform transfer.
-class PolyunsaturatedFatNutrientRecordDto extends HealthRecordDto {
-  PolyunsaturatedFatNutrientRecordDto({
+class DietaryPolyunsaturatedFatRecordDto extends HealthRecordDto {
+  DietaryPolyunsaturatedFatRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -4932,9 +4931,9 @@ class PolyunsaturatedFatNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static PolyunsaturatedFatNutrientRecordDto decode(Object result) {
+  static DietaryPolyunsaturatedFatRecordDto decode(Object result) {
     result as List<Object?>;
-    return PolyunsaturatedFatNutrientRecordDto(
+    return DietaryPolyunsaturatedFatRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -4948,7 +4947,7 @@ class PolyunsaturatedFatNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! PolyunsaturatedFatNutrientRecordDto ||
+    if (other is! DietaryPolyunsaturatedFatRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -4964,8 +4963,8 @@ class PolyunsaturatedFatNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents cholesterol nutrient data for platform transfer.
-class CholesterolNutrientRecordDto extends HealthRecordDto {
-  CholesterolNutrientRecordDto({
+class DietaryCholesterolRecordDto extends HealthRecordDto {
+  DietaryCholesterolRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5005,9 +5004,9 @@ class CholesterolNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static CholesterolNutrientRecordDto decode(Object result) {
+  static DietaryCholesterolRecordDto decode(Object result) {
     result as List<Object?>;
-    return CholesterolNutrientRecordDto(
+    return DietaryCholesterolRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5021,7 +5020,7 @@ class CholesterolNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! CholesterolNutrientRecordDto ||
+    if (other is! DietaryCholesterolRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -5037,8 +5036,8 @@ class CholesterolNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents dietary fiber nutrient data for platform transfer.
-class DietaryFiberNutrientRecordDto extends HealthRecordDto {
-  DietaryFiberNutrientRecordDto({
+class DietaryFiberRecordDto extends HealthRecordDto {
+  DietaryFiberRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5078,9 +5077,9 @@ class DietaryFiberNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static DietaryFiberNutrientRecordDto decode(Object result) {
+  static DietaryFiberRecordDto decode(Object result) {
     result as List<Object?>;
-    return DietaryFiberNutrientRecordDto(
+    return DietaryFiberRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5094,8 +5093,7 @@ class DietaryFiberNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! DietaryFiberNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! DietaryFiberRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -5110,8 +5108,8 @@ class DietaryFiberNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents sugar nutrient data for platform transfer.
-class SugarNutrientRecordDto extends HealthRecordDto {
-  SugarNutrientRecordDto({
+class DietarySugarRecordDto extends HealthRecordDto {
+  DietarySugarRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5151,9 +5149,9 @@ class SugarNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static SugarNutrientRecordDto decode(Object result) {
+  static DietarySugarRecordDto decode(Object result) {
     result as List<Object?>;
-    return SugarNutrientRecordDto(
+    return DietarySugarRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5167,7 +5165,7 @@ class SugarNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! SugarNutrientRecordDto || other.runtimeType != runtimeType) {
+    if (other is! DietarySugarRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -5182,8 +5180,8 @@ class SugarNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin A nutrient data for platform transfer.
-class VitaminANutrientRecordDto extends HealthRecordDto {
-  VitaminANutrientRecordDto({
+class DietaryVitaminARecordDto extends HealthRecordDto {
+  DietaryVitaminARecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5223,9 +5221,9 @@ class VitaminANutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static VitaminANutrientRecordDto decode(Object result) {
+  static DietaryVitaminARecordDto decode(Object result) {
     result as List<Object?>;
-    return VitaminANutrientRecordDto(
+    return DietaryVitaminARecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5239,7 +5237,7 @@ class VitaminANutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminANutrientRecordDto ||
+    if (other is! DietaryVitaminARecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -5255,8 +5253,8 @@ class VitaminANutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin B6 nutrient data for platform transfer.
-class VitaminB6NutrientRecordDto extends HealthRecordDto {
-  VitaminB6NutrientRecordDto({
+class DietaryVitaminB6RecordDto extends HealthRecordDto {
+  DietaryVitaminB6RecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5296,9 +5294,9 @@ class VitaminB6NutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static VitaminB6NutrientRecordDto decode(Object result) {
+  static DietaryVitaminB6RecordDto decode(Object result) {
     result as List<Object?>;
-    return VitaminB6NutrientRecordDto(
+    return DietaryVitaminB6RecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5312,7 +5310,7 @@ class VitaminB6NutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminB6NutrientRecordDto ||
+    if (other is! DietaryVitaminB6RecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -5328,8 +5326,8 @@ class VitaminB6NutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin B12 nutrient data for platform transfer.
-class VitaminB12NutrientRecordDto extends HealthRecordDto {
-  VitaminB12NutrientRecordDto({
+class DietaryVitaminB12RecordDto extends HealthRecordDto {
+  DietaryVitaminB12RecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5369,9 +5367,9 @@ class VitaminB12NutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static VitaminB12NutrientRecordDto decode(Object result) {
+  static DietaryVitaminB12RecordDto decode(Object result) {
     result as List<Object?>;
-    return VitaminB12NutrientRecordDto(
+    return DietaryVitaminB12RecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5385,7 +5383,7 @@ class VitaminB12NutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminB12NutrientRecordDto ||
+    if (other is! DietaryVitaminB12RecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -5401,8 +5399,8 @@ class VitaminB12NutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin C nutrient data for platform transfer.
-class VitaminCNutrientRecordDto extends HealthRecordDto {
-  VitaminCNutrientRecordDto({
+class DietaryVitaminCRecordDto extends HealthRecordDto {
+  DietaryVitaminCRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5442,9 +5440,9 @@ class VitaminCNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static VitaminCNutrientRecordDto decode(Object result) {
+  static DietaryVitaminCRecordDto decode(Object result) {
     result as List<Object?>;
-    return VitaminCNutrientRecordDto(
+    return DietaryVitaminCRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5458,7 +5456,7 @@ class VitaminCNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminCNutrientRecordDto ||
+    if (other is! DietaryVitaminCRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -5474,8 +5472,8 @@ class VitaminCNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin D nutrient data for platform transfer.
-class VitaminDNutrientRecordDto extends HealthRecordDto {
-  VitaminDNutrientRecordDto({
+class DietaryVitaminDRecordDto extends HealthRecordDto {
+  DietaryVitaminDRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5515,9 +5513,9 @@ class VitaminDNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static VitaminDNutrientRecordDto decode(Object result) {
+  static DietaryVitaminDRecordDto decode(Object result) {
     result as List<Object?>;
-    return VitaminDNutrientRecordDto(
+    return DietaryVitaminDRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5531,7 +5529,7 @@ class VitaminDNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminDNutrientRecordDto ||
+    if (other is! DietaryVitaminDRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -5547,8 +5545,8 @@ class VitaminDNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin E nutrient data for platform transfer.
-class VitaminENutrientRecordDto extends HealthRecordDto {
-  VitaminENutrientRecordDto({
+class DietaryVitaminERecordDto extends HealthRecordDto {
+  DietaryVitaminERecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5588,9 +5586,9 @@ class VitaminENutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static VitaminENutrientRecordDto decode(Object result) {
+  static DietaryVitaminERecordDto decode(Object result) {
     result as List<Object?>;
-    return VitaminENutrientRecordDto(
+    return DietaryVitaminERecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5604,7 +5602,7 @@ class VitaminENutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminENutrientRecordDto ||
+    if (other is! DietaryVitaminERecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -5620,8 +5618,8 @@ class VitaminENutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin K nutrient data for platform transfer.
-class VitaminKNutrientRecordDto extends HealthRecordDto {
-  VitaminKNutrientRecordDto({
+class DietaryVitaminKRecordDto extends HealthRecordDto {
+  DietaryVitaminKRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5661,9 +5659,9 @@ class VitaminKNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static VitaminKNutrientRecordDto decode(Object result) {
+  static DietaryVitaminKRecordDto decode(Object result) {
     result as List<Object?>;
-    return VitaminKNutrientRecordDto(
+    return DietaryVitaminKRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5677,7 +5675,7 @@ class VitaminKNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! VitaminKNutrientRecordDto ||
+    if (other is! DietaryVitaminKRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -5693,8 +5691,8 @@ class VitaminKNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents thiamin (vitamin B1) nutrient data for platform transfer.
-class ThiaminNutrientRecordDto extends HealthRecordDto {
-  ThiaminNutrientRecordDto({
+class DietaryThiaminRecordDto extends HealthRecordDto {
+  DietaryThiaminRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5734,9 +5732,9 @@ class ThiaminNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static ThiaminNutrientRecordDto decode(Object result) {
+  static DietaryThiaminRecordDto decode(Object result) {
     result as List<Object?>;
-    return ThiaminNutrientRecordDto(
+    return DietaryThiaminRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5750,8 +5748,7 @@ class ThiaminNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ThiaminNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! DietaryThiaminRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -5766,8 +5763,8 @@ class ThiaminNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents riboflavin (vitamin B2) nutrient data for platform transfer.
-class RiboflavinNutrientRecordDto extends HealthRecordDto {
-  RiboflavinNutrientRecordDto({
+class DietaryRiboflavinRecordDto extends HealthRecordDto {
+  DietaryRiboflavinRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5807,9 +5804,9 @@ class RiboflavinNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static RiboflavinNutrientRecordDto decode(Object result) {
+  static DietaryRiboflavinRecordDto decode(Object result) {
     result as List<Object?>;
-    return RiboflavinNutrientRecordDto(
+    return DietaryRiboflavinRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5823,7 +5820,7 @@ class RiboflavinNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! RiboflavinNutrientRecordDto ||
+    if (other is! DietaryRiboflavinRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -5839,8 +5836,8 @@ class RiboflavinNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents niacin (vitamin B3) nutrient data for platform transfer.
-class NiacinNutrientRecordDto extends HealthRecordDto {
-  NiacinNutrientRecordDto({
+class DietaryNiacinRecordDto extends HealthRecordDto {
+  DietaryNiacinRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5880,9 +5877,9 @@ class NiacinNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static NiacinNutrientRecordDto decode(Object result) {
+  static DietaryNiacinRecordDto decode(Object result) {
     result as List<Object?>;
-    return NiacinNutrientRecordDto(
+    return DietaryNiacinRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5896,7 +5893,7 @@ class NiacinNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! NiacinNutrientRecordDto || other.runtimeType != runtimeType) {
+    if (other is! DietaryNiacinRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -5911,8 +5908,8 @@ class NiacinNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents folate (vitamin B9) nutrient data for platform transfer.
-class FolateNutrientRecordDto extends HealthRecordDto {
-  FolateNutrientRecordDto({
+class DietaryFolateRecordDto extends HealthRecordDto {
+  DietaryFolateRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -5952,9 +5949,9 @@ class FolateNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static FolateNutrientRecordDto decode(Object result) {
+  static DietaryFolateRecordDto decode(Object result) {
     result as List<Object?>;
-    return FolateNutrientRecordDto(
+    return DietaryFolateRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -5968,7 +5965,7 @@ class FolateNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! FolateNutrientRecordDto || other.runtimeType != runtimeType) {
+    if (other is! DietaryFolateRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -5983,8 +5980,8 @@ class FolateNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents biotin (vitamin B7) nutrient data for platform transfer.
-class BiotinNutrientRecordDto extends HealthRecordDto {
-  BiotinNutrientRecordDto({
+class DietaryBiotinRecordDto extends HealthRecordDto {
+  DietaryBiotinRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -6024,9 +6021,9 @@ class BiotinNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static BiotinNutrientRecordDto decode(Object result) {
+  static DietaryBiotinRecordDto decode(Object result) {
     result as List<Object?>;
-    return BiotinNutrientRecordDto(
+    return DietaryBiotinRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -6040,7 +6037,7 @@ class BiotinNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! BiotinNutrientRecordDto || other.runtimeType != runtimeType) {
+    if (other is! DietaryBiotinRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -6055,8 +6052,8 @@ class BiotinNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents pantothenic acid (vitamin B5) nutrient data.
-class PantothenicAcidNutrientRecordDto extends HealthRecordDto {
-  PantothenicAcidNutrientRecordDto({
+class DietaryPantothenicAcidRecordDto extends HealthRecordDto {
+  DietaryPantothenicAcidRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -6096,9 +6093,9 @@ class PantothenicAcidNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static PantothenicAcidNutrientRecordDto decode(Object result) {
+  static DietaryPantothenicAcidRecordDto decode(Object result) {
     result as List<Object?>;
-    return PantothenicAcidNutrientRecordDto(
+    return DietaryPantothenicAcidRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -6112,7 +6109,7 @@ class PantothenicAcidNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! PantothenicAcidNutrientRecordDto ||
+    if (other is! DietaryPantothenicAcidRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -6128,8 +6125,8 @@ class PantothenicAcidNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents calcium nutrient data for platform transfer.
-class CalciumNutrientRecordDto extends HealthRecordDto {
-  CalciumNutrientRecordDto({
+class DietaryCalciumRecordDto extends HealthRecordDto {
+  DietaryCalciumRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -6169,9 +6166,9 @@ class CalciumNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static CalciumNutrientRecordDto decode(Object result) {
+  static DietaryCalciumRecordDto decode(Object result) {
     result as List<Object?>;
-    return CalciumNutrientRecordDto(
+    return DietaryCalciumRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -6185,8 +6182,7 @@ class CalciumNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! CalciumNutrientRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! DietaryCalciumRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -6201,8 +6197,8 @@ class CalciumNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents iron nutrient data for platform transfer.
-class IronNutrientRecordDto extends HealthRecordDto {
-  IronNutrientRecordDto({
+class DietaryIronRecordDto extends HealthRecordDto {
+  DietaryIronRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -6242,9 +6238,9 @@ class IronNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static IronNutrientRecordDto decode(Object result) {
+  static DietaryIronRecordDto decode(Object result) {
     result as List<Object?>;
-    return IronNutrientRecordDto(
+    return DietaryIronRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -6258,7 +6254,7 @@ class IronNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! IronNutrientRecordDto || other.runtimeType != runtimeType) {
+    if (other is! DietaryIronRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -6273,8 +6269,8 @@ class IronNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents magnesium nutrient data for platform transfer.
-class MagnesiumNutrientRecordDto extends HealthRecordDto {
-  MagnesiumNutrientRecordDto({
+class DietaryMagnesiumRecordDto extends HealthRecordDto {
+  DietaryMagnesiumRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -6314,9 +6310,9 @@ class MagnesiumNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static MagnesiumNutrientRecordDto decode(Object result) {
+  static DietaryMagnesiumRecordDto decode(Object result) {
     result as List<Object?>;
-    return MagnesiumNutrientRecordDto(
+    return DietaryMagnesiumRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -6330,7 +6326,7 @@ class MagnesiumNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! MagnesiumNutrientRecordDto ||
+    if (other is! DietaryMagnesiumRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -6346,8 +6342,8 @@ class MagnesiumNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents manganese nutrient data for platform transfer.
-class ManganeseNutrientRecordDto extends HealthRecordDto {
-  ManganeseNutrientRecordDto({
+class DietaryManganeseRecordDto extends HealthRecordDto {
+  DietaryManganeseRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -6387,9 +6383,9 @@ class ManganeseNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static ManganeseNutrientRecordDto decode(Object result) {
+  static DietaryManganeseRecordDto decode(Object result) {
     result as List<Object?>;
-    return ManganeseNutrientRecordDto(
+    return DietaryManganeseRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -6403,7 +6399,7 @@ class ManganeseNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ManganeseNutrientRecordDto ||
+    if (other is! DietaryManganeseRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -6419,8 +6415,8 @@ class ManganeseNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents phosphorus nutrient data for platform transfer.
-class PhosphorusNutrientRecordDto extends HealthRecordDto {
-  PhosphorusNutrientRecordDto({
+class DietaryPhosphorusRecordDto extends HealthRecordDto {
+  DietaryPhosphorusRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -6460,9 +6456,9 @@ class PhosphorusNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static PhosphorusNutrientRecordDto decode(Object result) {
+  static DietaryPhosphorusRecordDto decode(Object result) {
     result as List<Object?>;
-    return PhosphorusNutrientRecordDto(
+    return DietaryPhosphorusRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -6476,7 +6472,7 @@ class PhosphorusNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! PhosphorusNutrientRecordDto ||
+    if (other is! DietaryPhosphorusRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -6492,8 +6488,8 @@ class PhosphorusNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents potassium nutrient data for platform transfer.
-class PotassiumNutrientRecordDto extends HealthRecordDto {
-  PotassiumNutrientRecordDto({
+class DietaryPotassiumRecordDto extends HealthRecordDto {
+  DietaryPotassiumRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -6533,9 +6529,9 @@ class PotassiumNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static PotassiumNutrientRecordDto decode(Object result) {
+  static DietaryPotassiumRecordDto decode(Object result) {
     result as List<Object?>;
-    return PotassiumNutrientRecordDto(
+    return DietaryPotassiumRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -6549,7 +6545,7 @@ class PotassiumNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! PotassiumNutrientRecordDto ||
+    if (other is! DietaryPotassiumRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -6565,8 +6561,8 @@ class PotassiumNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents selenium nutrient data for platform transfer.
-class SeleniumNutrientRecordDto extends HealthRecordDto {
-  SeleniumNutrientRecordDto({
+class DietarySeleniumRecordDto extends HealthRecordDto {
+  DietarySeleniumRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -6606,9 +6602,9 @@ class SeleniumNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static SeleniumNutrientRecordDto decode(Object result) {
+  static DietarySeleniumRecordDto decode(Object result) {
     result as List<Object?>;
-    return SeleniumNutrientRecordDto(
+    return DietarySeleniumRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -6622,7 +6618,7 @@ class SeleniumNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! SeleniumNutrientRecordDto ||
+    if (other is! DietarySeleniumRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -6638,8 +6634,8 @@ class SeleniumNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents sodium nutrient data for platform transfer.
-class SodiumNutrientRecordDto extends HealthRecordDto {
-  SodiumNutrientRecordDto({
+class DietarySodiumRecordDto extends HealthRecordDto {
+  DietarySodiumRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -6679,9 +6675,9 @@ class SodiumNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static SodiumNutrientRecordDto decode(Object result) {
+  static DietarySodiumRecordDto decode(Object result) {
     result as List<Object?>;
-    return SodiumNutrientRecordDto(
+    return DietarySodiumRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -6695,7 +6691,7 @@ class SodiumNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! SodiumNutrientRecordDto || other.runtimeType != runtimeType) {
+    if (other is! DietarySodiumRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -6710,8 +6706,8 @@ class SodiumNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents zinc nutrient data for platform transfer.
-class ZincNutrientRecordDto extends HealthRecordDto {
-  ZincNutrientRecordDto({
+class DietaryZincRecordDto extends HealthRecordDto {
+  DietaryZincRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -6751,9 +6747,9 @@ class ZincNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static ZincNutrientRecordDto decode(Object result) {
+  static DietaryZincRecordDto decode(Object result) {
     result as List<Object?>;
-    return ZincNutrientRecordDto(
+    return DietaryZincRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -6767,7 +6763,7 @@ class ZincNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ZincNutrientRecordDto || other.runtimeType != runtimeType) {
+    if (other is! DietaryZincRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -8164,100 +8160,100 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is DietaryEnergyConsumedRecordDto) {
       buffer.putUint8(207);
       writeValue(buffer, value.encode());
-    } else if (value is CaffeineNutrientRecordDto) {
+    } else if (value is DietaryCaffeineRecordDto) {
       buffer.putUint8(208);
       writeValue(buffer, value.encode());
-    } else if (value is ProteinNutrientRecordDto) {
+    } else if (value is DietaryProteinRecordDto) {
       buffer.putUint8(209);
       writeValue(buffer, value.encode());
-    } else if (value is TotalCarbohydrateNutrientRecordDto) {
+    } else if (value is DietaryTotalCarbohydrateRecordDto) {
       buffer.putUint8(210);
       writeValue(buffer, value.encode());
-    } else if (value is TotalFatNutrientRecordDto) {
+    } else if (value is DietaryTotalFatRecordDto) {
       buffer.putUint8(211);
       writeValue(buffer, value.encode());
-    } else if (value is SaturatedFatNutrientRecordDto) {
+    } else if (value is DietarySaturatedFatRecordDto) {
       buffer.putUint8(212);
       writeValue(buffer, value.encode());
-    } else if (value is MonounsaturatedFatNutrientRecordDto) {
+    } else if (value is DietaryMonounsaturatedFatRecordDto) {
       buffer.putUint8(213);
       writeValue(buffer, value.encode());
-    } else if (value is PolyunsaturatedFatNutrientRecordDto) {
+    } else if (value is DietaryPolyunsaturatedFatRecordDto) {
       buffer.putUint8(214);
       writeValue(buffer, value.encode());
-    } else if (value is CholesterolNutrientRecordDto) {
+    } else if (value is DietaryCholesterolRecordDto) {
       buffer.putUint8(215);
       writeValue(buffer, value.encode());
-    } else if (value is DietaryFiberNutrientRecordDto) {
+    } else if (value is DietaryFiberRecordDto) {
       buffer.putUint8(216);
       writeValue(buffer, value.encode());
-    } else if (value is SugarNutrientRecordDto) {
+    } else if (value is DietarySugarRecordDto) {
       buffer.putUint8(217);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminANutrientRecordDto) {
+    } else if (value is DietaryVitaminARecordDto) {
       buffer.putUint8(218);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminB6NutrientRecordDto) {
+    } else if (value is DietaryVitaminB6RecordDto) {
       buffer.putUint8(219);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminB12NutrientRecordDto) {
+    } else if (value is DietaryVitaminB12RecordDto) {
       buffer.putUint8(220);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminCNutrientRecordDto) {
+    } else if (value is DietaryVitaminCRecordDto) {
       buffer.putUint8(221);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminDNutrientRecordDto) {
+    } else if (value is DietaryVitaminDRecordDto) {
       buffer.putUint8(222);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminENutrientRecordDto) {
+    } else if (value is DietaryVitaminERecordDto) {
       buffer.putUint8(223);
       writeValue(buffer, value.encode());
-    } else if (value is VitaminKNutrientRecordDto) {
+    } else if (value is DietaryVitaminKRecordDto) {
       buffer.putUint8(224);
       writeValue(buffer, value.encode());
-    } else if (value is ThiaminNutrientRecordDto) {
+    } else if (value is DietaryThiaminRecordDto) {
       buffer.putUint8(225);
       writeValue(buffer, value.encode());
-    } else if (value is RiboflavinNutrientRecordDto) {
+    } else if (value is DietaryRiboflavinRecordDto) {
       buffer.putUint8(226);
       writeValue(buffer, value.encode());
-    } else if (value is NiacinNutrientRecordDto) {
+    } else if (value is DietaryNiacinRecordDto) {
       buffer.putUint8(227);
       writeValue(buffer, value.encode());
-    } else if (value is FolateNutrientRecordDto) {
+    } else if (value is DietaryFolateRecordDto) {
       buffer.putUint8(228);
       writeValue(buffer, value.encode());
-    } else if (value is BiotinNutrientRecordDto) {
+    } else if (value is DietaryBiotinRecordDto) {
       buffer.putUint8(229);
       writeValue(buffer, value.encode());
-    } else if (value is PantothenicAcidNutrientRecordDto) {
+    } else if (value is DietaryPantothenicAcidRecordDto) {
       buffer.putUint8(230);
       writeValue(buffer, value.encode());
-    } else if (value is CalciumNutrientRecordDto) {
+    } else if (value is DietaryCalciumRecordDto) {
       buffer.putUint8(231);
       writeValue(buffer, value.encode());
-    } else if (value is IronNutrientRecordDto) {
+    } else if (value is DietaryIronRecordDto) {
       buffer.putUint8(232);
       writeValue(buffer, value.encode());
-    } else if (value is MagnesiumNutrientRecordDto) {
+    } else if (value is DietaryMagnesiumRecordDto) {
       buffer.putUint8(233);
       writeValue(buffer, value.encode());
-    } else if (value is ManganeseNutrientRecordDto) {
+    } else if (value is DietaryManganeseRecordDto) {
       buffer.putUint8(234);
       writeValue(buffer, value.encode());
-    } else if (value is PhosphorusNutrientRecordDto) {
+    } else if (value is DietaryPhosphorusRecordDto) {
       buffer.putUint8(235);
       writeValue(buffer, value.encode());
-    } else if (value is PotassiumNutrientRecordDto) {
+    } else if (value is DietaryPotassiumRecordDto) {
       buffer.putUint8(236);
       writeValue(buffer, value.encode());
-    } else if (value is SeleniumNutrientRecordDto) {
+    } else if (value is DietarySeleniumRecordDto) {
       buffer.putUint8(237);
       writeValue(buffer, value.encode());
-    } else if (value is SodiumNutrientRecordDto) {
+    } else if (value is DietarySodiumRecordDto) {
       buffer.putUint8(238);
       writeValue(buffer, value.encode());
-    } else if (value is ZincNutrientRecordDto) {
+    } else if (value is DietaryZincRecordDto) {
       buffer.putUint8(239);
       writeValue(buffer, value.encode());
     } else if (value is NutritionRecordDto) {
@@ -8507,69 +8503,69 @@ class _PigeonCodec extends StandardMessageCodec {
       case 207:
         return DietaryEnergyConsumedRecordDto.decode(readValue(buffer)!);
       case 208:
-        return CaffeineNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryCaffeineRecordDto.decode(readValue(buffer)!);
       case 209:
-        return ProteinNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryProteinRecordDto.decode(readValue(buffer)!);
       case 210:
-        return TotalCarbohydrateNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryTotalCarbohydrateRecordDto.decode(readValue(buffer)!);
       case 211:
-        return TotalFatNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryTotalFatRecordDto.decode(readValue(buffer)!);
       case 212:
-        return SaturatedFatNutrientRecordDto.decode(readValue(buffer)!);
+        return DietarySaturatedFatRecordDto.decode(readValue(buffer)!);
       case 213:
-        return MonounsaturatedFatNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryMonounsaturatedFatRecordDto.decode(readValue(buffer)!);
       case 214:
-        return PolyunsaturatedFatNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryPolyunsaturatedFatRecordDto.decode(readValue(buffer)!);
       case 215:
-        return CholesterolNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryCholesterolRecordDto.decode(readValue(buffer)!);
       case 216:
-        return DietaryFiberNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryFiberRecordDto.decode(readValue(buffer)!);
       case 217:
-        return SugarNutrientRecordDto.decode(readValue(buffer)!);
+        return DietarySugarRecordDto.decode(readValue(buffer)!);
       case 218:
-        return VitaminANutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryVitaminARecordDto.decode(readValue(buffer)!);
       case 219:
-        return VitaminB6NutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryVitaminB6RecordDto.decode(readValue(buffer)!);
       case 220:
-        return VitaminB12NutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryVitaminB12RecordDto.decode(readValue(buffer)!);
       case 221:
-        return VitaminCNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryVitaminCRecordDto.decode(readValue(buffer)!);
       case 222:
-        return VitaminDNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryVitaminDRecordDto.decode(readValue(buffer)!);
       case 223:
-        return VitaminENutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryVitaminERecordDto.decode(readValue(buffer)!);
       case 224:
-        return VitaminKNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryVitaminKRecordDto.decode(readValue(buffer)!);
       case 225:
-        return ThiaminNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryThiaminRecordDto.decode(readValue(buffer)!);
       case 226:
-        return RiboflavinNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryRiboflavinRecordDto.decode(readValue(buffer)!);
       case 227:
-        return NiacinNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryNiacinRecordDto.decode(readValue(buffer)!);
       case 228:
-        return FolateNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryFolateRecordDto.decode(readValue(buffer)!);
       case 229:
-        return BiotinNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryBiotinRecordDto.decode(readValue(buffer)!);
       case 230:
-        return PantothenicAcidNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryPantothenicAcidRecordDto.decode(readValue(buffer)!);
       case 231:
-        return CalciumNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryCalciumRecordDto.decode(readValue(buffer)!);
       case 232:
-        return IronNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryIronRecordDto.decode(readValue(buffer)!);
       case 233:
-        return MagnesiumNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryMagnesiumRecordDto.decode(readValue(buffer)!);
       case 234:
-        return ManganeseNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryManganeseRecordDto.decode(readValue(buffer)!);
       case 235:
-        return PhosphorusNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryPhosphorusRecordDto.decode(readValue(buffer)!);
       case 236:
-        return PotassiumNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryPotassiumRecordDto.decode(readValue(buffer)!);
       case 237:
-        return SeleniumNutrientRecordDto.decode(readValue(buffer)!);
+        return DietarySeleniumRecordDto.decode(readValue(buffer)!);
       case 238:
-        return SodiumNutrientRecordDto.decode(readValue(buffer)!);
+        return DietarySodiumRecordDto.decode(readValue(buffer)!);
       case 239:
-        return ZincNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryZincRecordDto.decode(readValue(buffer)!);
       case 240:
         return NutritionRecordDto.decode(readValue(buffer)!);
       case 241:

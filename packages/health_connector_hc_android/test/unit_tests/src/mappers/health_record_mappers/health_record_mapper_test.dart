@@ -49,7 +49,7 @@ void main() {
         );
 
         expect(
-          () => VitaminANutrientRecord(
+          () => DietaryVitaminARecord(
             time: DateTime.now(),
             mass: const Mass.grams(1),
             metadata: Metadata.manualEntry(),

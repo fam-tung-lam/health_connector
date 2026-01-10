@@ -430,38 +430,38 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
 
       // Nutrient types - sum only (all nutrients)
       DietaryEnergyConsumedDataType() ||
-      CaffeineNutrientDataType() ||
-      ProteinNutrientDataType() ||
-      TotalCarbohydrateNutrientDataType() ||
-      TotalFatNutrientDataType() ||
-      SaturatedFatNutrientDataType() ||
-      MonounsaturatedFatNutrientDataType() ||
-      PolyunsaturatedFatNutrientDataType() ||
-      CholesterolNutrientDataType() ||
+      DietaryCaffeineDataType() ||
+      DietaryProteinDataType() ||
+      DietaryTotalCarbohydrateDataType() ||
+      DietaryTotalFatDataType() ||
+      DietarySaturatedFatDataType() ||
+      DietaryMonounsaturatedFatDataType() ||
+      DietaryPolyunsaturatedFatDataType() ||
+      DietaryCholesterolDataType() ||
       DietaryFiberNutrientDataType() ||
-      SugarNutrientDataType() ||
-      CalciumNutrientDataType() ||
-      IronNutrientDataType() ||
-      MagnesiumNutrientDataType() ||
-      ManganeseNutrientDataType() ||
-      PhosphorusNutrientDataType() ||
-      PotassiumNutrientDataType() ||
-      SeleniumNutrientDataType() ||
-      SodiumNutrientDataType() ||
-      ZincNutrientDataType() ||
-      VitaminANutrientDataType() ||
-      VitaminB6NutrientDataType() ||
-      VitaminB12NutrientDataType() ||
-      VitaminCNutrientDataType() ||
-      VitaminDNutrientDataType() ||
-      VitaminENutrientDataType() ||
-      VitaminKNutrientDataType() ||
-      ThiaminNutrientDataType() ||
-      RiboflavinNutrientDataType() ||
-      NiacinNutrientDataType() ||
-      FolateNutrientDataType() ||
-      BiotinNutrientDataType() ||
-      PantothenicAcidNutrientDataType() => _buildNutrientSum(
+      DietarySugarDataType() ||
+      DietaryCalciumDataType() ||
+      DietaryIronDataType() ||
+      DietaryMagnesiumDataType() ||
+      DietaryManganeseDataType() ||
+      DietaryPhosphorusDataType() ||
+      DietaryPotassiumDataType() ||
+      DietarySeleniumDataType() ||
+      DietarySodiumDataType() ||
+      DietaryZincDataType() ||
+      DietaryVitaminADataType() ||
+      DietaryVitaminB6DataType() ||
+      DietaryVitaminB12DataType() ||
+      DietaryVitaminCDataType() ||
+      DietaryVitaminDDataType() ||
+      DietaryVitaminEDataType() ||
+      DietaryVitaminKDataType() ||
+      DietaryThiaminDataType() ||
+      DietaryRiboflavinDataType() ||
+      DietaryNiacinDataType() ||
+      DietaryFolateDataType() ||
+      DietaryBiotinDataType() ||
+      DietaryPantothenicAcidDataType() => _buildNutrientSum(
         dataType as HealthDataType<HealthRecord, Mass>,
         metric,
         startTime,
@@ -718,137 +718,145 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
           startTime: startTime,
           endTime: endTime,
         ),
-      CaffeineNutrientDataType() => HealthDataType.caffeine.aggregateSum(
+      DietaryCaffeineDataType() => HealthDataType.dietaryCaffeine.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      ProteinNutrientDataType() => HealthDataType.protein.aggregateSum(
+      DietaryProteinDataType() => HealthDataType.dietaryProtein.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      TotalCarbohydrateNutrientDataType() =>
-        HealthDataType.totalCarbohydrate.aggregateSum(
+      DietaryTotalCarbohydrateDataType() =>
+        HealthDataType.dietaryTotalCarbohydrate.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),
-      TotalFatNutrientDataType() => HealthDataType.totalFat.aggregateSum(
+      DietaryTotalFatDataType() => HealthDataType.dietaryTotalFat.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      SaturatedFatNutrientDataType() =>
-        HealthDataType.saturatedFat.aggregateSum(
+      DietarySaturatedFatDataType() =>
+        HealthDataType.dietarySaturatedFat.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),
-      MonounsaturatedFatNutrientDataType() =>
-        HealthDataType.monounsaturatedFat.aggregateSum(
+      DietaryMonounsaturatedFatDataType() =>
+        HealthDataType.dietaryMonounsaturatedFat.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),
-      PolyunsaturatedFatNutrientDataType() =>
-        HealthDataType.polyunsaturatedFat.aggregateSum(
+      DietaryPolyunsaturatedFatDataType() =>
+        HealthDataType.dietaryPolyunsaturatedFat.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),
-      CholesterolNutrientDataType() => HealthDataType.cholesterol.aggregateSum(
-        startTime: startTime,
-        endTime: endTime,
-      ),
+      DietaryCholesterolDataType() =>
+        HealthDataType.dietaryCholesterol.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
       DietaryFiberNutrientDataType() =>
         HealthDataType.dietaryFiber.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),
-      SugarNutrientDataType() => HealthDataType.sugar.aggregateSum(
+      DietarySugarDataType() => HealthDataType.dietarySugar.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      CalciumNutrientDataType() => HealthDataType.calcium.aggregateSum(
+      DietaryCalciumDataType() => HealthDataType.dietaryCalcium.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      IronNutrientDataType() => HealthDataType.iron.aggregateSum(
+      DietaryIronDataType() => HealthDataType.dietaryIron.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      MagnesiumNutrientDataType() => HealthDataType.magnesium.aggregateSum(
+      DietaryMagnesiumDataType() =>
+        HealthDataType.dietaryMagnesium.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+      DietaryManganeseDataType() =>
+        HealthDataType.dietaryManganese.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+      DietaryPhosphorusDataType() =>
+        HealthDataType.dietaryPhosphorus.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+      DietaryPotassiumDataType() =>
+        HealthDataType.dietaryPotassium.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+      DietarySeleniumDataType() => HealthDataType.dietarySelenium.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      ManganeseNutrientDataType() => HealthDataType.manganese.aggregateSum(
+      DietarySodiumDataType() => HealthDataType.dietarySodium.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      PhosphorusNutrientDataType() => HealthDataType.phosphorus.aggregateSum(
+      DietaryZincDataType() => HealthDataType.dietaryZinc.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      PotassiumNutrientDataType() => HealthDataType.potassium.aggregateSum(
+      DietaryVitaminADataType() => HealthDataType.dietaryVitaminA.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      SeleniumNutrientDataType() => HealthDataType.selenium.aggregateSum(
+      DietaryVitaminB6DataType() =>
+        HealthDataType.dietaryVitaminB6.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+      DietaryVitaminB12DataType() =>
+        HealthDataType.dietaryVitaminB12.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+      DietaryVitaminCDataType() => HealthDataType.dietaryVitaminC.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      SodiumNutrientDataType() => HealthDataType.sodium.aggregateSum(
+      DietaryVitaminDDataType() => HealthDataType.dietaryVitaminD.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      ZincNutrientDataType() => HealthDataType.zinc.aggregateSum(
+      DietaryVitaminEDataType() => HealthDataType.dietaryVitaminE.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      VitaminANutrientDataType() => HealthDataType.vitaminA.aggregateSum(
+      DietaryVitaminKDataType() => HealthDataType.dietaryVitaminK.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      VitaminB6NutrientDataType() => HealthDataType.vitaminB6.aggregateSum(
+      DietaryThiaminDataType() => HealthDataType.dietaryThiamin.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      VitaminB12NutrientDataType() => HealthDataType.vitaminB12.aggregateSum(
+      DietaryRiboflavinDataType() =>
+        HealthDataType.dietaryRiboflavin.aggregateSum(
+          startTime: startTime,
+          endTime: endTime,
+        ),
+      DietaryNiacinDataType() => HealthDataType.dietaryNiacin.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      VitaminCNutrientDataType() => HealthDataType.vitaminC.aggregateSum(
+      DietaryFolateDataType() => HealthDataType.dietaryFolate.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      VitaminDNutrientDataType() => HealthDataType.vitaminD.aggregateSum(
+      DietaryBiotinDataType() => HealthDataType.dietaryBiotin.aggregateSum(
         startTime: startTime,
         endTime: endTime,
       ),
-      VitaminENutrientDataType() => HealthDataType.vitaminE.aggregateSum(
-        startTime: startTime,
-        endTime: endTime,
-      ),
-      VitaminKNutrientDataType() => HealthDataType.vitaminK.aggregateSum(
-        startTime: startTime,
-        endTime: endTime,
-      ),
-      ThiaminNutrientDataType() => HealthDataType.thiamin.aggregateSum(
-        startTime: startTime,
-        endTime: endTime,
-      ),
-      RiboflavinNutrientDataType() => HealthDataType.riboflavin.aggregateSum(
-        startTime: startTime,
-        endTime: endTime,
-      ),
-      NiacinNutrientDataType() => HealthDataType.niacin.aggregateSum(
-        startTime: startTime,
-        endTime: endTime,
-      ),
-      FolateNutrientDataType() => HealthDataType.folate.aggregateSum(
-        startTime: startTime,
-        endTime: endTime,
-      ),
-      BiotinNutrientDataType() => HealthDataType.biotin.aggregateSum(
-        startTime: startTime,
-        endTime: endTime,
-      ),
-      PantothenicAcidNutrientDataType() =>
-        HealthDataType.pantothenicAcid.aggregateSum(
+      DietaryPantothenicAcidDataType() =>
+        HealthDataType.dietaryPantothenicAcid.aggregateSum(
           startTime: startTime,
           endTime: endTime,
         ),

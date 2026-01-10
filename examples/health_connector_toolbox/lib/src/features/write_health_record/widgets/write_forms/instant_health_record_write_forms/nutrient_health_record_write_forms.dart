@@ -31,22 +31,22 @@ final class EnergyNutrientFormState
 
 /// Form widget for caffeine nutrient records.
 @immutable
-final class CaffeineNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const CaffeineNutrientWriteForm({
+final class DietaryCaffeineWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryCaffeineWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.caffeine);
+  }) : super(dataType: HealthDataType.dietaryCaffeine);
 
   @override
-  CaffeineNutrientFormState createState() => CaffeineNutrientFormState();
+  DietaryCaffeineFormState createState() => DietaryCaffeineFormState();
 }
 
-final class CaffeineNutrientFormState
-    extends InstantHealthRecordFormState<CaffeineNutrientWriteForm> {
+final class DietaryCaffeineFormState
+    extends InstantHealthRecordFormState<DietaryCaffeineWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return CaffeineNutrientRecord(
+    return DietaryCaffeineRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -60,22 +60,22 @@ final class CaffeineNutrientFormState
 
 /// Form widget for protein nutrient records.
 @immutable
-final class ProteinNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const ProteinNutrientWriteForm({
+final class DietaryProteinWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryProteinWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.protein);
+  }) : super(dataType: HealthDataType.dietaryProtein);
 
   @override
-  ProteinNutrientFormState createState() => ProteinNutrientFormState();
+  DietaryProteinFormState createState() => DietaryProteinFormState();
 }
 
-final class ProteinNutrientFormState
-    extends InstantHealthRecordFormState<ProteinNutrientWriteForm> {
+final class DietaryProteinFormState
+    extends InstantHealthRecordFormState<DietaryProteinWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return ProteinNutrientRecord(
+    return DietaryProteinRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -84,24 +84,24 @@ final class ProteinNutrientFormState
 }
 
 /// Form widget for total carbohydrate nutrient records.
-final class TotalCarbohydrateNutrientWriteForm
+final class DietaryTotalCarbohydrateWriteForm
     extends InstantHealthRecordWriteForm {
-  const TotalCarbohydrateNutrientWriteForm({
+  const DietaryTotalCarbohydrateWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.totalCarbohydrate);
+  }) : super(dataType: HealthDataType.dietaryTotalCarbohydrate);
 
   @override
-  TotalCarbohydrateNutrientFormState createState() =>
-      TotalCarbohydrateNutrientFormState();
+  DietaryTotalCarbohydrateFormState createState() =>
+      DietaryTotalCarbohydrateFormState();
 }
 
-final class TotalCarbohydrateNutrientFormState
-    extends InstantHealthRecordFormState<TotalCarbohydrateNutrientWriteForm> {
+final class DietaryTotalCarbohydrateFormState
+    extends InstantHealthRecordFormState<DietaryTotalCarbohydrateWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return TotalCarbohydrateNutrientRecord(
+    return DietaryTotalCarbohydrateRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -111,22 +111,22 @@ final class TotalCarbohydrateNutrientFormState
 
 /// Form widget for total fat nutrient records.
 @immutable
-final class TotalFatNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const TotalFatNutrientWriteForm({
+final class DietaryTotalFatWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryTotalFatWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.totalFat);
+  }) : super(dataType: HealthDataType.dietaryTotalFat);
 
   @override
-  TotalFatNutrientFormState createState() => TotalFatNutrientFormState();
+  DietaryTotalFatFormState createState() => DietaryTotalFatFormState();
 }
 
-final class TotalFatNutrientFormState
-    extends InstantHealthRecordFormState<TotalFatNutrientWriteForm> {
+final class DietaryTotalFatFormState
+    extends InstantHealthRecordFormState<DietaryTotalFatWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return TotalFatNutrientRecord(
+    return DietaryTotalFatRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -136,23 +136,22 @@ final class TotalFatNutrientFormState
 
 /// Form widget for saturated fat nutrient records.
 @immutable
-final class SaturatedFatNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const SaturatedFatNutrientWriteForm({
+final class DietarySaturatedFatWriteForm extends InstantHealthRecordWriteForm {
+  const DietarySaturatedFatWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.saturatedFat);
+  }) : super(dataType: HealthDataType.dietarySaturatedFat);
 
   @override
-  SaturatedFatNutrientFormState createState() =>
-      SaturatedFatNutrientFormState();
+  DietarySaturatedFatFormState createState() => DietarySaturatedFatFormState();
 }
 
-final class SaturatedFatNutrientFormState
-    extends InstantHealthRecordFormState<SaturatedFatNutrientWriteForm> {
+final class DietarySaturatedFatFormState
+    extends InstantHealthRecordFormState<DietarySaturatedFatWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return SaturatedFatNutrientRecord(
+    return DietarySaturatedFatRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -161,24 +160,24 @@ final class SaturatedFatNutrientFormState
 }
 
 /// Form widget for monounsaturated fat nutrient records.
-final class MonounsaturatedFatNutrientWriteForm
+final class DietaryMonounsaturatedFatWriteForm
     extends InstantHealthRecordWriteForm {
-  const MonounsaturatedFatNutrientWriteForm({
+  const DietaryMonounsaturatedFatWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.monounsaturatedFat);
+  }) : super(dataType: HealthDataType.dietaryMonounsaturatedFat);
 
   @override
-  MonounsaturatedFatNutrientFormState createState() =>
-      MonounsaturatedFatNutrientFormState();
+  DietaryMonounsaturatedFatFormState createState() =>
+      DietaryMonounsaturatedFatFormState();
 }
 
-final class MonounsaturatedFatNutrientFormState
-    extends InstantHealthRecordFormState<MonounsaturatedFatNutrientWriteForm> {
+final class DietaryMonounsaturatedFatFormState
+    extends InstantHealthRecordFormState<DietaryMonounsaturatedFatWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return MonounsaturatedFatNutrientRecord(
+    return DietaryMonounsaturatedFatRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -187,24 +186,24 @@ final class MonounsaturatedFatNutrientFormState
 }
 
 /// Form widget for polyunsaturated fat nutrient records.
-final class PolyunsaturatedFatNutrientWriteForm
+final class DietaryPolyunsaturatedFatWriteForm
     extends InstantHealthRecordWriteForm {
-  const PolyunsaturatedFatNutrientWriteForm({
+  const DietaryPolyunsaturatedFatWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.polyunsaturatedFat);
+  }) : super(dataType: HealthDataType.dietaryPolyunsaturatedFat);
 
   @override
-  PolyunsaturatedFatNutrientFormState createState() =>
-      PolyunsaturatedFatNutrientFormState();
+  DietaryPolyunsaturatedFatFormState createState() =>
+      DietaryPolyunsaturatedFatFormState();
 }
 
-final class PolyunsaturatedFatNutrientFormState
-    extends InstantHealthRecordFormState<PolyunsaturatedFatNutrientWriteForm> {
+final class DietaryPolyunsaturatedFatFormState
+    extends InstantHealthRecordFormState<DietaryPolyunsaturatedFatWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return PolyunsaturatedFatNutrientRecord(
+    return DietaryPolyunsaturatedFatRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -214,22 +213,22 @@ final class PolyunsaturatedFatNutrientFormState
 
 /// Form widget for cholesterol nutrient records.
 @immutable
-final class CholesterolNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const CholesterolNutrientWriteForm({
+final class DietaryCholesterolWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryCholesterolWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.cholesterol);
+  }) : super(dataType: HealthDataType.dietaryCholesterol);
 
   @override
-  CholesterolNutrientFormState createState() => CholesterolNutrientFormState();
+  DietaryCholesterolFormState createState() => DietaryCholesterolFormState();
 }
 
-final class CholesterolNutrientFormState
-    extends InstantHealthRecordFormState<CholesterolNutrientWriteForm> {
+final class DietaryCholesterolFormState
+    extends InstantHealthRecordFormState<DietaryCholesterolWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return CholesterolNutrientRecord(
+    return DietaryCholesterolRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -255,7 +254,7 @@ final class DietaryFiberNutrientFormState
     extends InstantHealthRecordFormState<DietaryFiberNutrientWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return DietaryFiberNutrientRecord(
+    return DietaryFiberRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -265,22 +264,22 @@ final class DietaryFiberNutrientFormState
 
 /// Form widget for sugar nutrient records.
 @immutable
-final class SugarNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const SugarNutrientWriteForm({
+final class DietarySugarWriteForm extends InstantHealthRecordWriteForm {
+  const DietarySugarWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.sugar);
+  }) : super(dataType: HealthDataType.dietarySugar);
 
   @override
-  SugarNutrientFormState createState() => SugarNutrientFormState();
+  DietarySugarFormState createState() => DietarySugarFormState();
 }
 
-final class SugarNutrientFormState
-    extends InstantHealthRecordFormState<SugarNutrientWriteForm> {
+final class DietarySugarFormState
+    extends InstantHealthRecordFormState<DietarySugarWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return SugarNutrientRecord(
+    return DietarySugarRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -294,22 +293,22 @@ final class SugarNutrientFormState
 
 /// Form widget for calcium nutrient records.
 @immutable
-final class CalciumNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const CalciumNutrientWriteForm({
+final class DietaryCalciumWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryCalciumWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.calcium);
+  }) : super(dataType: HealthDataType.dietaryCalcium);
 
   @override
-  CalciumNutrientFormState createState() => CalciumNutrientFormState();
+  DietaryCalciumFormState createState() => DietaryCalciumFormState();
 }
 
-final class CalciumNutrientFormState
-    extends InstantHealthRecordFormState<CalciumNutrientWriteForm> {
+final class DietaryCalciumFormState
+    extends InstantHealthRecordFormState<DietaryCalciumWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return CalciumNutrientRecord(
+    return DietaryCalciumRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -319,22 +318,22 @@ final class CalciumNutrientFormState
 
 /// Form widget for iron nutrient records.
 @immutable
-final class IronNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const IronNutrientWriteForm({
+final class DietaryIronWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryIronWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.iron);
+  }) : super(dataType: HealthDataType.dietaryIron);
 
   @override
-  IronNutrientFormState createState() => IronNutrientFormState();
+  DietaryIronFormState createState() => DietaryIronFormState();
 }
 
-final class IronNutrientFormState
-    extends InstantHealthRecordFormState<IronNutrientWriteForm> {
+final class DietaryIronFormState
+    extends InstantHealthRecordFormState<DietaryIronWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return IronNutrientRecord(
+    return DietaryIronRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -344,22 +343,22 @@ final class IronNutrientFormState
 
 /// Form widget for magnesium nutrient records.
 @immutable
-final class MagnesiumNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const MagnesiumNutrientWriteForm({
+final class DietaryMagnesiumWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryMagnesiumWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.magnesium);
+  }) : super(dataType: HealthDataType.dietaryMagnesium);
 
   @override
-  MagnesiumNutrientFormState createState() => MagnesiumNutrientFormState();
+  DietaryMagnesiumFormState createState() => DietaryMagnesiumFormState();
 }
 
-final class MagnesiumNutrientFormState
-    extends InstantHealthRecordFormState<MagnesiumNutrientWriteForm> {
+final class DietaryMagnesiumFormState
+    extends InstantHealthRecordFormState<DietaryMagnesiumWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return MagnesiumNutrientRecord(
+    return DietaryMagnesiumRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -369,22 +368,22 @@ final class MagnesiumNutrientFormState
 
 /// Form widget for manganese nutrient records.
 @immutable
-final class ManganeseNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const ManganeseNutrientWriteForm({
+final class DietaryManganeseWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryManganeseWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.manganese);
+  }) : super(dataType: HealthDataType.dietaryManganese);
 
   @override
-  ManganeseNutrientFormState createState() => ManganeseNutrientFormState();
+  DietaryManganeseFormState createState() => DietaryManganeseFormState();
 }
 
-final class ManganeseNutrientFormState
-    extends InstantHealthRecordFormState<ManganeseNutrientWriteForm> {
+final class DietaryManganeseFormState
+    extends InstantHealthRecordFormState<DietaryManganeseWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return ManganeseNutrientRecord(
+    return DietaryManganeseRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -394,22 +393,22 @@ final class ManganeseNutrientFormState
 
 /// Form widget for phosphorus nutrient records.
 @immutable
-final class PhosphorusNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const PhosphorusNutrientWriteForm({
+final class DietaryPhosphorusWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryPhosphorusWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.phosphorus);
+  }) : super(dataType: HealthDataType.dietaryPhosphorus);
 
   @override
-  PhosphorusNutrientFormState createState() => PhosphorusNutrientFormState();
+  DietaryPhosphorusFormState createState() => DietaryPhosphorusFormState();
 }
 
-final class PhosphorusNutrientFormState
-    extends InstantHealthRecordFormState<PhosphorusNutrientWriteForm> {
+final class DietaryPhosphorusFormState
+    extends InstantHealthRecordFormState<DietaryPhosphorusWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return PhosphorusNutrientRecord(
+    return DietaryPhosphorusRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -419,22 +418,22 @@ final class PhosphorusNutrientFormState
 
 /// Form widget for potassium nutrient records.
 @immutable
-final class PotassiumNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const PotassiumNutrientWriteForm({
+final class DietaryPotassiumWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryPotassiumWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.potassium);
+  }) : super(dataType: HealthDataType.dietaryPotassium);
 
   @override
-  PotassiumNutrientFormState createState() => PotassiumNutrientFormState();
+  DietaryPotassiumFormState createState() => DietaryPotassiumFormState();
 }
 
-final class PotassiumNutrientFormState
-    extends InstantHealthRecordFormState<PotassiumNutrientWriteForm> {
+final class DietaryPotassiumFormState
+    extends InstantHealthRecordFormState<DietaryPotassiumWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return PotassiumNutrientRecord(
+    return DietaryPotassiumRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -444,22 +443,22 @@ final class PotassiumNutrientFormState
 
 /// Form widget for selenium nutrient records.
 @immutable
-final class SeleniumNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const SeleniumNutrientWriteForm({
+final class DietarySeleniumWriteForm extends InstantHealthRecordWriteForm {
+  const DietarySeleniumWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.selenium);
+  }) : super(dataType: HealthDataType.dietarySelenium);
 
   @override
-  SeleniumNutrientFormState createState() => SeleniumNutrientFormState();
+  DietarySeleniumFormState createState() => DietarySeleniumFormState();
 }
 
-final class SeleniumNutrientFormState
-    extends InstantHealthRecordFormState<SeleniumNutrientWriteForm> {
+final class DietarySeleniumFormState
+    extends InstantHealthRecordFormState<DietarySeleniumWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return SeleniumNutrientRecord(
+    return DietarySeleniumRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -469,22 +468,22 @@ final class SeleniumNutrientFormState
 
 /// Form widget for sodium nutrient records.
 @immutable
-final class SodiumNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const SodiumNutrientWriteForm({
+final class DietarySodiumWriteForm extends InstantHealthRecordWriteForm {
+  const DietarySodiumWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.sodium);
+  }) : super(dataType: HealthDataType.dietarySodium);
 
   @override
-  SodiumNutrientFormState createState() => SodiumNutrientFormState();
+  DietarySodiumFormState createState() => DietarySodiumFormState();
 }
 
-final class SodiumNutrientFormState
-    extends InstantHealthRecordFormState<SodiumNutrientWriteForm> {
+final class DietarySodiumFormState
+    extends InstantHealthRecordFormState<DietarySodiumWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return SodiumNutrientRecord(
+    return DietarySodiumRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -494,22 +493,22 @@ final class SodiumNutrientFormState
 
 /// Form widget for zinc nutrient records.
 @immutable
-final class ZincNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const ZincNutrientWriteForm({
+final class DietaryZincWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryZincWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.zinc);
+  }) : super(dataType: HealthDataType.dietaryZinc);
 
   @override
-  ZincNutrientFormState createState() => ZincNutrientFormState();
+  DietaryZincFormState createState() => DietaryZincFormState();
 }
 
-final class ZincNutrientFormState
-    extends InstantHealthRecordFormState<ZincNutrientWriteForm> {
+final class DietaryZincFormState
+    extends InstantHealthRecordFormState<DietaryZincWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return ZincNutrientRecord(
+    return DietaryZincRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -523,22 +522,22 @@ final class ZincNutrientFormState
 
 /// Form widget for vitamin A nutrient records.
 @immutable
-final class VitaminANutrientWriteForm extends InstantHealthRecordWriteForm {
-  const VitaminANutrientWriteForm({
+final class DietaryVitaminAWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryVitaminAWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.vitaminA);
+  }) : super(dataType: HealthDataType.dietaryVitaminA);
 
   @override
-  VitaminANutrientFormState createState() => VitaminANutrientFormState();
+  DietaryVitaminAFormState createState() => DietaryVitaminAFormState();
 }
 
-final class VitaminANutrientFormState
-    extends InstantHealthRecordFormState<VitaminANutrientWriteForm> {
+final class DietaryVitaminAFormState
+    extends InstantHealthRecordFormState<DietaryVitaminAWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return VitaminANutrientRecord(
+    return DietaryVitaminARecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -548,22 +547,22 @@ final class VitaminANutrientFormState
 
 /// Form widget for vitamin B6 nutrient records.
 @immutable
-final class VitaminB6NutrientWriteForm extends InstantHealthRecordWriteForm {
-  const VitaminB6NutrientWriteForm({
+final class DietaryVitaminB6WriteForm extends InstantHealthRecordWriteForm {
+  const DietaryVitaminB6WriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.vitaminB6);
+  }) : super(dataType: HealthDataType.dietaryVitaminB6);
 
   @override
-  VitaminB6NutrientFormState createState() => VitaminB6NutrientFormState();
+  DietaryVitaminB6FormState createState() => DietaryVitaminB6FormState();
 }
 
-final class VitaminB6NutrientFormState
-    extends InstantHealthRecordFormState<VitaminB6NutrientWriteForm> {
+final class DietaryVitaminB6FormState
+    extends InstantHealthRecordFormState<DietaryVitaminB6WriteForm> {
   @override
   HealthRecord buildRecord() {
-    return VitaminB6NutrientRecord(
+    return DietaryVitaminB6Record(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -573,22 +572,22 @@ final class VitaminB6NutrientFormState
 
 /// Form widget for vitamin B12 nutrient records.
 @immutable
-final class VitaminB12NutrientWriteForm extends InstantHealthRecordWriteForm {
-  const VitaminB12NutrientWriteForm({
+final class DietaryVitaminB12WriteForm extends InstantHealthRecordWriteForm {
+  const DietaryVitaminB12WriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.vitaminB12);
+  }) : super(dataType: HealthDataType.dietaryVitaminB12);
 
   @override
-  VitaminB12NutrientFormState createState() => VitaminB12NutrientFormState();
+  DietaryVitaminB12FormState createState() => DietaryVitaminB12FormState();
 }
 
-final class VitaminB12NutrientFormState
-    extends InstantHealthRecordFormState<VitaminB12NutrientWriteForm> {
+final class DietaryVitaminB12FormState
+    extends InstantHealthRecordFormState<DietaryVitaminB12WriteForm> {
   @override
   HealthRecord buildRecord() {
-    return VitaminB12NutrientRecord(
+    return DietaryVitaminB12Record(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -598,22 +597,22 @@ final class VitaminB12NutrientFormState
 
 /// Form widget for vitamin C nutrient records.
 @immutable
-final class VitaminCNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const VitaminCNutrientWriteForm({
+final class DietaryVitaminCWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryVitaminCWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.vitaminC);
+  }) : super(dataType: HealthDataType.dietaryVitaminC);
 
   @override
-  VitaminCNutrientFormState createState() => VitaminCNutrientFormState();
+  DietaryVitaminCFormState createState() => DietaryVitaminCFormState();
 }
 
-final class VitaminCNutrientFormState
-    extends InstantHealthRecordFormState<VitaminCNutrientWriteForm> {
+final class DietaryVitaminCFormState
+    extends InstantHealthRecordFormState<DietaryVitaminCWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return VitaminCNutrientRecord(
+    return DietaryVitaminCRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -623,22 +622,22 @@ final class VitaminCNutrientFormState
 
 /// Form widget for vitamin D nutrient records.
 @immutable
-final class VitaminDNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const VitaminDNutrientWriteForm({
+final class DietaryVitaminDWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryVitaminDWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.vitaminD);
+  }) : super(dataType: HealthDataType.dietaryVitaminD);
 
   @override
-  VitaminDNutrientFormState createState() => VitaminDNutrientFormState();
+  DietaryVitaminDFormState createState() => DietaryVitaminDFormState();
 }
 
-final class VitaminDNutrientFormState
-    extends InstantHealthRecordFormState<VitaminDNutrientWriteForm> {
+final class DietaryVitaminDFormState
+    extends InstantHealthRecordFormState<DietaryVitaminDWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return VitaminDNutrientRecord(
+    return DietaryVitaminDRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -648,22 +647,22 @@ final class VitaminDNutrientFormState
 
 /// Form widget for vitamin E nutrient records.
 @immutable
-final class VitaminENutrientWriteForm extends InstantHealthRecordWriteForm {
-  const VitaminENutrientWriteForm({
+final class DietaryVitaminEWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryVitaminEWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.vitaminE);
+  }) : super(dataType: HealthDataType.dietaryVitaminE);
 
   @override
-  VitaminENutrientFormState createState() => VitaminENutrientFormState();
+  DietaryVitaminEFormState createState() => DietaryVitaminEFormState();
 }
 
-final class VitaminENutrientFormState
-    extends InstantHealthRecordFormState<VitaminENutrientWriteForm> {
+final class DietaryVitaminEFormState
+    extends InstantHealthRecordFormState<DietaryVitaminEWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return VitaminENutrientRecord(
+    return DietaryVitaminERecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -673,22 +672,22 @@ final class VitaminENutrientFormState
 
 /// Form widget for vitamin K nutrient records.
 @immutable
-final class VitaminKNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const VitaminKNutrientWriteForm({
+final class DietaryVitaminKWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryVitaminKWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.vitaminK);
+  }) : super(dataType: HealthDataType.dietaryVitaminK);
 
   @override
-  VitaminKNutrientFormState createState() => VitaminKNutrientFormState();
+  DietaryVitaminKFormState createState() => DietaryVitaminKFormState();
 }
 
-final class VitaminKNutrientFormState
-    extends InstantHealthRecordFormState<VitaminKNutrientWriteForm> {
+final class DietaryVitaminKFormState
+    extends InstantHealthRecordFormState<DietaryVitaminKWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return VitaminKNutrientRecord(
+    return DietaryVitaminKRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -698,22 +697,22 @@ final class VitaminKNutrientFormState
 
 /// Form widget for thiamin nutrient records.
 @immutable
-final class ThiaminNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const ThiaminNutrientWriteForm({
+final class DietaryThiaminWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryThiaminWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.thiamin);
+  }) : super(dataType: HealthDataType.dietaryThiamin);
 
   @override
-  ThiaminNutrientFormState createState() => ThiaminNutrientFormState();
+  DietaryThiaminFormState createState() => DietaryThiaminFormState();
 }
 
-final class ThiaminNutrientFormState
-    extends InstantHealthRecordFormState<ThiaminNutrientWriteForm> {
+final class DietaryThiaminFormState
+    extends InstantHealthRecordFormState<DietaryThiaminWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return ThiaminNutrientRecord(
+    return DietaryThiaminRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -723,22 +722,22 @@ final class ThiaminNutrientFormState
 
 /// Form widget for riboflavin nutrient records.
 @immutable
-final class RiboflavinNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const RiboflavinNutrientWriteForm({
+final class DietaryRiboflavinWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryRiboflavinWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.riboflavin);
+  }) : super(dataType: HealthDataType.dietaryRiboflavin);
 
   @override
-  RiboflavinNutrientFormState createState() => RiboflavinNutrientFormState();
+  DietaryRiboflavinFormState createState() => DietaryRiboflavinFormState();
 }
 
-final class RiboflavinNutrientFormState
-    extends InstantHealthRecordFormState<RiboflavinNutrientWriteForm> {
+final class DietaryRiboflavinFormState
+    extends InstantHealthRecordFormState<DietaryRiboflavinWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return RiboflavinNutrientRecord(
+    return DietaryRiboflavinRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -748,22 +747,22 @@ final class RiboflavinNutrientFormState
 
 /// Form widget for niacin nutrient records.
 @immutable
-final class NiacinNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const NiacinNutrientWriteForm({
+final class DietaryNiacinWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryNiacinWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.niacin);
+  }) : super(dataType: HealthDataType.dietaryNiacin);
 
   @override
-  NiacinNutrientFormState createState() => NiacinNutrientFormState();
+  DietaryNiacinFormState createState() => DietaryNiacinFormState();
 }
 
-final class NiacinNutrientFormState
-    extends InstantHealthRecordFormState<NiacinNutrientWriteForm> {
+final class DietaryNiacinFormState
+    extends InstantHealthRecordFormState<DietaryNiacinWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return NiacinNutrientRecord(
+    return DietaryNiacinRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -773,22 +772,22 @@ final class NiacinNutrientFormState
 
 /// Form widget for folate nutrient records.
 @immutable
-final class FolateNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const FolateNutrientWriteForm({
+final class DietaryFolateWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryFolateWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.folate);
+  }) : super(dataType: HealthDataType.dietaryFolate);
 
   @override
-  FolateNutrientFormState createState() => FolateNutrientFormState();
+  DietaryFolateFormState createState() => DietaryFolateFormState();
 }
 
-final class FolateNutrientFormState
-    extends InstantHealthRecordFormState<FolateNutrientWriteForm> {
+final class DietaryFolateFormState
+    extends InstantHealthRecordFormState<DietaryFolateWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return FolateNutrientRecord(
+    return DietaryFolateRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -798,22 +797,22 @@ final class FolateNutrientFormState
 
 /// Form widget for biotin nutrient records.
 @immutable
-final class BiotinNutrientWriteForm extends InstantHealthRecordWriteForm {
-  const BiotinNutrientWriteForm({
+final class DietaryBiotinWriteForm extends InstantHealthRecordWriteForm {
+  const DietaryBiotinWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.biotin);
+  }) : super(dataType: HealthDataType.dietaryBiotin);
 
   @override
-  BiotinNutrientFormState createState() => BiotinNutrientFormState();
+  DietaryBiotinFormState createState() => DietaryBiotinFormState();
 }
 
-final class BiotinNutrientFormState
-    extends InstantHealthRecordFormState<BiotinNutrientWriteForm> {
+final class DietaryBiotinFormState
+    extends InstantHealthRecordFormState<DietaryBiotinWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return BiotinNutrientRecord(
+    return DietaryBiotinRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,
@@ -822,24 +821,24 @@ final class BiotinNutrientFormState
 }
 
 /// Form widget for pantothenic acid nutrient records.
-final class PantothenicAcidNutrientWriteForm
+final class DietaryPantothenicAcidWriteForm
     extends InstantHealthRecordWriteForm {
-  const PantothenicAcidNutrientWriteForm({
+  const DietaryPantothenicAcidWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.pantothenicAcid);
+  }) : super(dataType: HealthDataType.dietaryPantothenicAcid);
 
   @override
-  PantothenicAcidNutrientFormState createState() =>
-      PantothenicAcidNutrientFormState();
+  DietaryPantothenicAcidFormState createState() =>
+      DietaryPantothenicAcidFormState();
 }
 
-final class PantothenicAcidNutrientFormState
-    extends InstantHealthRecordFormState<PantothenicAcidNutrientWriteForm> {
+final class DietaryPantothenicAcidFormState
+    extends InstantHealthRecordFormState<DietaryPantothenicAcidWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return PantothenicAcidNutrientRecord(
+    return DietaryPantothenicAcidRecord(
       time: startDateTime!,
       mass: value! as Mass,
       metadata: metadata,

@@ -770,7 +770,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/MonounsaturatedFatNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryMonounsaturatedFatHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -815,7 +815,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/PantothenicAcidNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryPantothenicAcidHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -830,7 +830,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/PhosphorusNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryPhosphorusHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -845,7 +845,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/PolyunsaturatedFatNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryPolyunsaturatedFatHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -860,7 +860,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/PotassiumNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryPotassiumHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -875,7 +875,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/ProteinNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryProteinHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -890,7 +890,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/RiboflavinNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryRiboflavinHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -905,7 +905,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/SaturatedFatNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietarySaturatedFatHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -920,7 +920,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/SeleniumNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietarySeleniumHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -935,7 +935,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/SodiumNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietarySodiumHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -950,7 +950,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/SugarNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietarySugarHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -965,7 +965,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/ThiaminNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryThiaminHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -980,7 +980,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/TotalCarbohydrateNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryTotalCarbohydrateHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -995,7 +995,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/TotalFatNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryTotalFatHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -1010,7 +1010,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminANutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryVitaminAHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -1025,7 +1025,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminB12NutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryVitaminB12Handler.swift",
         "line": 9,
         "character": 1
       },
@@ -1040,7 +1040,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminB6NutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryVitaminB6Handler.swift",
         "line": 9,
         "character": 1
       },
@@ -1055,7 +1055,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminCNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryVitaminCHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -1070,7 +1070,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminDNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryVitaminDHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -1085,7 +1085,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminENutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryVitaminEHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -1100,7 +1100,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/VitaminKNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryVitaminKHandler.swift",
         "line": 9,
         "character": 1
       },
@@ -1115,7 +1115,7 @@
       "severity": "warning",
       "ruleName": "Opening Brace Spacing",
       "location": {
-        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/ZincNutrientHandler.swift",
+        "file": "health_connector_hk_ios\/Sources\/health_connector_hk_ios\/handlers\/health_record_handlers\/nutrition_record_handlers\/DietaryZincHandler.swift",
         "line": 9,
         "character": 1
       },

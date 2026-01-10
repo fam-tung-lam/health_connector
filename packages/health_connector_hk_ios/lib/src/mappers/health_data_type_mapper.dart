@@ -54,69 +54,69 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
       case HealthDataTypeDto.dietaryEnergyConsumed:
         return HealthDataType.dietaryEnergyConsumed;
       case HealthDataTypeDto.caffeine:
-        return HealthDataType.caffeine;
+        return HealthDataType.dietaryCaffeine;
       case HealthDataTypeDto.protein:
-        return HealthDataType.protein;
+        return HealthDataType.dietaryProtein;
       case HealthDataTypeDto.totalCarbohydrate:
-        return HealthDataType.totalCarbohydrate;
+        return HealthDataType.dietaryTotalCarbohydrate;
       case HealthDataTypeDto.totalFat:
-        return HealthDataType.totalFat;
+        return HealthDataType.dietaryTotalFat;
       case HealthDataTypeDto.saturatedFat:
-        return HealthDataType.saturatedFat;
+        return HealthDataType.dietarySaturatedFat;
       case HealthDataTypeDto.monounsaturatedFat:
-        return HealthDataType.monounsaturatedFat;
+        return HealthDataType.dietaryMonounsaturatedFat;
       case HealthDataTypeDto.polyunsaturatedFat:
-        return HealthDataType.polyunsaturatedFat;
+        return HealthDataType.dietaryPolyunsaturatedFat;
       case HealthDataTypeDto.cholesterol:
-        return HealthDataType.cholesterol;
+        return HealthDataType.dietaryCholesterol;
       case HealthDataTypeDto.dietaryFiber:
         return HealthDataType.dietaryFiber;
       case HealthDataTypeDto.sugar:
-        return HealthDataType.sugar;
+        return HealthDataType.dietarySugar;
       case HealthDataTypeDto.vitaminA:
-        return HealthDataType.vitaminA;
+        return HealthDataType.dietaryVitaminA;
       case HealthDataTypeDto.vitaminB6:
-        return HealthDataType.vitaminB6;
+        return HealthDataType.dietaryVitaminB6;
       case HealthDataTypeDto.vitaminB12:
-        return HealthDataType.vitaminB12;
+        return HealthDataType.dietaryVitaminB12;
       case HealthDataTypeDto.vitaminC:
-        return HealthDataType.vitaminC;
+        return HealthDataType.dietaryVitaminC;
       case HealthDataTypeDto.vitaminD:
-        return HealthDataType.vitaminD;
+        return HealthDataType.dietaryVitaminD;
       case HealthDataTypeDto.vitaminE:
-        return HealthDataType.vitaminE;
+        return HealthDataType.dietaryVitaminE;
       case HealthDataTypeDto.vitaminK:
-        return HealthDataType.vitaminK;
+        return HealthDataType.dietaryVitaminK;
       case HealthDataTypeDto.thiamin:
-        return HealthDataType.thiamin;
+        return HealthDataType.dietaryThiamin;
       case HealthDataTypeDto.riboflavin:
-        return HealthDataType.riboflavin;
+        return HealthDataType.dietaryRiboflavin;
       case HealthDataTypeDto.niacin:
-        return HealthDataType.niacin;
+        return HealthDataType.dietaryNiacin;
       case HealthDataTypeDto.folate:
-        return HealthDataType.folate;
+        return HealthDataType.dietaryFolate;
       case HealthDataTypeDto.biotin:
-        return HealthDataType.biotin;
+        return HealthDataType.dietaryBiotin;
       case HealthDataTypeDto.pantothenicAcid:
-        return HealthDataType.pantothenicAcid;
+        return HealthDataType.dietaryPantothenicAcid;
       case HealthDataTypeDto.calcium:
-        return HealthDataType.calcium;
+        return HealthDataType.dietaryCalcium;
       case HealthDataTypeDto.iron:
-        return HealthDataType.iron;
+        return HealthDataType.dietaryIron;
       case HealthDataTypeDto.magnesium:
-        return HealthDataType.magnesium;
+        return HealthDataType.dietaryMagnesium;
       case HealthDataTypeDto.manganese:
-        return HealthDataType.manganese;
+        return HealthDataType.dietaryManganese;
       case HealthDataTypeDto.phosphorus:
-        return HealthDataType.phosphorus;
+        return HealthDataType.dietaryPhosphorus;
       case HealthDataTypeDto.potassium:
-        return HealthDataType.potassium;
+        return HealthDataType.dietaryPotassium;
       case HealthDataTypeDto.selenium:
-        return HealthDataType.selenium;
+        return HealthDataType.dietarySelenium;
       case HealthDataTypeDto.sodium:
-        return HealthDataType.sodium;
+        return HealthDataType.dietarySodium;
       case HealthDataTypeDto.zinc:
-        return HealthDataType.zinc;
+        return HealthDataType.dietaryZinc;
       case HealthDataTypeDto.nutrition:
         return HealthDataType.nutrition;
       case HealthDataTypeDto.bloodPressure:
@@ -225,71 +225,71 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.sexualActivity;
       case DietaryEnergyConsumedDataType _:
         return HealthDataTypeDto.dietaryEnergyConsumed;
-      case CaffeineNutrientDataType _:
+      case DietaryCaffeineDataType _:
         return HealthDataTypeDto.caffeine;
-      case ProteinNutrientDataType _:
+      case DietaryProteinDataType _:
         return HealthDataTypeDto.protein;
-      case TotalCarbohydrateNutrientDataType _:
+      case DietaryTotalCarbohydrateDataType _:
         return HealthDataTypeDto.totalCarbohydrate;
-      case TotalFatNutrientDataType _:
+      case DietaryTotalFatDataType _:
         return HealthDataTypeDto.totalFat;
-      case SaturatedFatNutrientDataType _:
+      case DietarySaturatedFatDataType _:
         return HealthDataTypeDto.saturatedFat;
-      case MonounsaturatedFatNutrientDataType _:
+      case DietaryMonounsaturatedFatDataType _:
         return HealthDataTypeDto.monounsaturatedFat;
-      case PolyunsaturatedFatNutrientDataType _:
+      case DietaryPolyunsaturatedFatDataType _:
         return HealthDataTypeDto.polyunsaturatedFat;
-      case CholesterolNutrientDataType _:
+      case DietaryCholesterolDataType _:
         return HealthDataTypeDto.cholesterol;
       case DietaryFiberNutrientDataType _:
         return HealthDataTypeDto.dietaryFiber;
-      case SugarNutrientDataType _:
+      case DietarySugarDataType _:
         return HealthDataTypeDto.sugar;
 
-      case VitaminANutrientDataType _:
+      case DietaryVitaminADataType _:
         return HealthDataTypeDto.vitaminA;
-      case VitaminB6NutrientDataType _:
+      case DietaryVitaminB6DataType _:
         return HealthDataTypeDto.vitaminB6;
-      case VitaminB12NutrientDataType _:
+      case DietaryVitaminB12DataType _:
         return HealthDataTypeDto.vitaminB12;
-      case VitaminCNutrientDataType _:
+      case DietaryVitaminCDataType _:
         return HealthDataTypeDto.vitaminC;
-      case VitaminDNutrientDataType _:
+      case DietaryVitaminDDataType _:
         return HealthDataTypeDto.vitaminD;
-      case VitaminENutrientDataType _:
+      case DietaryVitaminEDataType _:
         return HealthDataTypeDto.vitaminE;
-      case VitaminKNutrientDataType _:
+      case DietaryVitaminKDataType _:
         return HealthDataTypeDto.vitaminK;
-      case ThiaminNutrientDataType _:
+      case DietaryThiaminDataType _:
         return HealthDataTypeDto.thiamin;
-      case RiboflavinNutrientDataType _:
+      case DietaryRiboflavinDataType _:
         return HealthDataTypeDto.riboflavin;
-      case NiacinNutrientDataType _:
+      case DietaryNiacinDataType _:
         return HealthDataTypeDto.niacin;
-      case FolateNutrientDataType _:
+      case DietaryFolateDataType _:
         return HealthDataTypeDto.folate;
-      case BiotinNutrientDataType _:
+      case DietaryBiotinDataType _:
         return HealthDataTypeDto.biotin;
-      case PantothenicAcidNutrientDataType _:
+      case DietaryPantothenicAcidDataType _:
         return HealthDataTypeDto.pantothenicAcid;
 
-      case CalciumNutrientDataType _:
+      case DietaryCalciumDataType _:
         return HealthDataTypeDto.calcium;
-      case IronNutrientDataType _:
+      case DietaryIronDataType _:
         return HealthDataTypeDto.iron;
-      case MagnesiumNutrientDataType _:
+      case DietaryMagnesiumDataType _:
         return HealthDataTypeDto.magnesium;
-      case ManganeseNutrientDataType _:
+      case DietaryManganeseDataType _:
         return HealthDataTypeDto.manganese;
-      case PhosphorusNutrientDataType _:
+      case DietaryPhosphorusDataType _:
         return HealthDataTypeDto.phosphorus;
-      case PotassiumNutrientDataType _:
+      case DietaryPotassiumDataType _:
         return HealthDataTypeDto.potassium;
-      case SeleniumNutrientDataType _:
+      case DietarySeleniumDataType _:
         return HealthDataTypeDto.selenium;
-      case SodiumNutrientDataType _:
+      case DietarySodiumDataType _:
         return HealthDataTypeDto.sodium;
-      case ZincNutrientDataType _:
+      case DietaryZincDataType _:
         return HealthDataTypeDto.zinc;
 
       case NutritionDataType _:

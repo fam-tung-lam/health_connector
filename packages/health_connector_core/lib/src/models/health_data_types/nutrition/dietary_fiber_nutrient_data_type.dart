@@ -1,6 +1,6 @@
 part of '../health_data_type.dart';
 
-/// Dietary fiber nutrient data type.
+/// Dietary fiber data type.
 ///
 /// Tracks dietary dietary fiber intake, a indigestible carbohydrate important
 /// for digestive health.
@@ -23,20 +23,20 @@ part of '../health_data_type.dart';
 ///
 /// ## See also
 ///
-/// - [DietaryFiberNutrientRecord]
+/// - [DietaryFiberRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
 final class DietaryFiberNutrientDataType
-    extends MacronutrientDataType<DietaryFiberNutrientRecord>
+    extends MacronutrientDataType<DietaryFiberRecord>
     implements
-        ReadableHealthDataType<DietaryFiberNutrientRecord>,
+        ReadableHealthDataType<DietaryFiberRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<DietaryFiberNutrientRecord, Mass>,
-        DeletableHealthDataType<DietaryFiberNutrientRecord> {
-  /// Creates a dietary fiber nutrient data type.
+        SumAggregatableHealthDataType<DietaryFiberRecord, Mass>,
+        DeletableHealthDataType<DietaryFiberRecord> {
+  /// Creates a dietary fiber data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
@@ -44,7 +44,7 @@ final class DietaryFiberNutrientDataType
   const DietaryFiberNutrientDataType();
 
   @override
-  String get id => 'dietary_fiber_nutrient';
+  String get id => 'dietary_fiber';
 
   @override
   bool operator ==(Object other) =>
@@ -63,14 +63,14 @@ final class DietaryFiberNutrientDataType
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
-  ReadRecordByIdRequest<DietaryFiberNutrientRecord> readById(
+  ReadRecordByIdRequest<DietaryFiberRecord> readById(
     HealthRecordId id,
   ) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsInTimeRangeRequest<DietaryFiberNutrientRecord> readInTimeRange({
+  ReadRecordsInTimeRangeRequest<DietaryFiberRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     List<DataOrigin> dataOrigins = const [],
@@ -91,7 +91,7 @@ final class DietaryFiberNutrientDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<DietaryFiberNutrientRecord, Mass> aggregateSum({
+  AggregateRequest<DietaryFiberRecord, Mass> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -110,7 +110,7 @@ final class DietaryFiberNutrientDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
 
   @override
-  DeleteRecordsByIdsRequest<DietaryFiberNutrientRecord> deleteByIds(
+  DeleteRecordsByIdsRequest<DietaryFiberRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -120,8 +120,7 @@ final class DietaryFiberNutrientDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<DietaryFiberNutrientRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest<DietaryFiberRecord> deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

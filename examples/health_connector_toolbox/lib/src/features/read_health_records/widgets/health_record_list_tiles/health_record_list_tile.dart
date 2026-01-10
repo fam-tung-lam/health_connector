@@ -350,160 +350,155 @@ final class HealthRecordListTile extends StatelessWidget {
       ),
 
       // Mass nutrient records
-      final CaffeineNutrientRecord r =>
-        MassNutrientListTile<CaffeineNutrientRecord>(
+      final DietaryCaffeineRecord r =>
+        MassNutrientListTile<DietaryCaffeineRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final ProteinNutrientRecord r =>
-        MassNutrientListTile<ProteinNutrientRecord>(
+      final DietaryProteinRecord r =>
+        MassNutrientListTile<DietaryProteinRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final TotalCarbohydrateNutrientRecord r =>
-        MassNutrientListTile<TotalCarbohydrateNutrientRecord>(
+      final DietaryTotalCarbohydrateRecord r =>
+        MassNutrientListTile<DietaryTotalCarbohydrateRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final TotalFatNutrientRecord r =>
-        MassNutrientListTile<TotalFatNutrientRecord>(
+      final DietaryTotalFatRecord r =>
+        MassNutrientListTile<DietaryTotalFatRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final SaturatedFatNutrientRecord r =>
-        MassNutrientListTile<SaturatedFatNutrientRecord>(
+      final DietarySaturatedFatRecord r =>
+        MassNutrientListTile<DietarySaturatedFatRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final MonounsaturatedFatNutrientRecord r =>
-        MassNutrientListTile<MonounsaturatedFatNutrientRecord>(
+      final DietaryMonounsaturatedFatRecord r =>
+        MassNutrientListTile<DietaryMonounsaturatedFatRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final PolyunsaturatedFatNutrientRecord r =>
-        MassNutrientListTile<PolyunsaturatedFatNutrientRecord>(
+      final DietaryPolyunsaturatedFatRecord r =>
+        MassNutrientListTile<DietaryPolyunsaturatedFatRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final CholesterolNutrientRecord r =>
-        MassNutrientListTile<CholesterolNutrientRecord>(
+      final DietaryCholesterolRecord r =>
+        MassNutrientListTile<DietaryCholesterolRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final DietaryFiberNutrientRecord r =>
-        MassNutrientListTile<DietaryFiberNutrientRecord>(
-          record: r,
-          onDelete: onDelete,
-        ),
-      final SugarNutrientRecord r => MassNutrientListTile<SugarNutrientRecord>(
+      final DietaryFiberRecord r => MassNutrientListTile<DietaryFiberRecord>(
         record: r,
         onDelete: onDelete,
       ),
-      final CalciumNutrientRecord r =>
-        MassNutrientListTile<CalciumNutrientRecord>(
-          record: r,
-          onDelete: onDelete,
-        ),
-      final IronNutrientRecord r => MassNutrientListTile<IronNutrientRecord>(
+      final DietarySugarRecord r => MassNutrientListTile<DietarySugarRecord>(
         record: r,
         onDelete: onDelete,
       ),
-      final MagnesiumNutrientRecord r =>
-        MassNutrientListTile<MagnesiumNutrientRecord>(
+      final DietaryCalciumRecord r =>
+        MassNutrientListTile<DietaryCalciumRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final ManganeseNutrientRecord r =>
-        MassNutrientListTile<ManganeseNutrientRecord>(
-          record: r,
-          onDelete: onDelete,
-        ),
-      final PhosphorusNutrientRecord r =>
-        MassNutrientListTile<PhosphorusNutrientRecord>(
-          record: r,
-          onDelete: onDelete,
-        ),
-      final PotassiumNutrientRecord r =>
-        MassNutrientListTile<PotassiumNutrientRecord>(
-          record: r,
-          onDelete: onDelete,
-        ),
-      final SeleniumNutrientRecord r =>
-        MassNutrientListTile<SeleniumNutrientRecord>(
-          record: r,
-          onDelete: onDelete,
-        ),
-      final SodiumNutrientRecord r =>
-        MassNutrientListTile<SodiumNutrientRecord>(
-          record: r,
-          onDelete: onDelete,
-        ),
-      final ZincNutrientRecord r => MassNutrientListTile<ZincNutrientRecord>(
+      final DietaryIronRecord r => MassNutrientListTile<DietaryIronRecord>(
         record: r,
         onDelete: onDelete,
       ),
-      final VitaminANutrientRecord r =>
-        MassNutrientListTile<VitaminANutrientRecord>(
+      final DietaryMagnesiumRecord r =>
+        MassNutrientListTile<DietaryMagnesiumRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final VitaminB6NutrientRecord r =>
-        MassNutrientListTile<VitaminB6NutrientRecord>(
+      final DietaryManganeseRecord r =>
+        MassNutrientListTile<DietaryManganeseRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final VitaminB12NutrientRecord r =>
-        MassNutrientListTile<VitaminB12NutrientRecord>(
+      final DietaryPhosphorusRecord r =>
+        MassNutrientListTile<DietaryPhosphorusRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final VitaminCNutrientRecord r =>
-        MassNutrientListTile<VitaminCNutrientRecord>(
+      final DietaryPotassiumRecord r =>
+        MassNutrientListTile<DietaryPotassiumRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final VitaminDNutrientRecord r =>
-        MassNutrientListTile<VitaminDNutrientRecord>(
+      final DietarySeleniumRecord r =>
+        MassNutrientListTile<DietarySeleniumRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final VitaminENutrientRecord r =>
-        MassNutrientListTile<VitaminENutrientRecord>(
+      final DietarySodiumRecord r => MassNutrientListTile<DietarySodiumRecord>(
+        record: r,
+        onDelete: onDelete,
+      ),
+      final DietaryZincRecord r => MassNutrientListTile<DietaryZincRecord>(
+        record: r,
+        onDelete: onDelete,
+      ),
+      final DietaryVitaminARecord r =>
+        MassNutrientListTile<DietaryVitaminARecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final VitaminKNutrientRecord r =>
-        MassNutrientListTile<VitaminKNutrientRecord>(
+      final DietaryVitaminB6Record r =>
+        MassNutrientListTile<DietaryVitaminB6Record>(
           record: r,
           onDelete: onDelete,
         ),
-      final ThiaminNutrientRecord r =>
-        MassNutrientListTile<ThiaminNutrientRecord>(
+      final DietaryVitaminB12Record r =>
+        MassNutrientListTile<DietaryVitaminB12Record>(
           record: r,
           onDelete: onDelete,
         ),
-      final RiboflavinNutrientRecord r =>
-        MassNutrientListTile<RiboflavinNutrientRecord>(
+      final DietaryVitaminCRecord r =>
+        MassNutrientListTile<DietaryVitaminCRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final NiacinNutrientRecord r =>
-        MassNutrientListTile<NiacinNutrientRecord>(
+      final DietaryVitaminDRecord r =>
+        MassNutrientListTile<DietaryVitaminDRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final FolateNutrientRecord r =>
-        MassNutrientListTile<FolateNutrientRecord>(
+      final DietaryVitaminERecord r =>
+        MassNutrientListTile<DietaryVitaminERecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final BiotinNutrientRecord r =>
-        MassNutrientListTile<BiotinNutrientRecord>(
+      final DietaryVitaminKRecord r =>
+        MassNutrientListTile<DietaryVitaminKRecord>(
           record: r,
           onDelete: onDelete,
         ),
-      final PantothenicAcidNutrientRecord r =>
-        MassNutrientListTile<PantothenicAcidNutrientRecord>(
+      final DietaryThiaminRecord r =>
+        MassNutrientListTile<DietaryThiaminRecord>(
+          record: r,
+          onDelete: onDelete,
+        ),
+      final DietaryRiboflavinRecord r =>
+        MassNutrientListTile<DietaryRiboflavinRecord>(
+          record: r,
+          onDelete: onDelete,
+        ),
+      final DietaryNiacinRecord r => MassNutrientListTile<DietaryNiacinRecord>(
+        record: r,
+        onDelete: onDelete,
+      ),
+      final DietaryFolateRecord r => MassNutrientListTile<DietaryFolateRecord>(
+        record: r,
+        onDelete: onDelete,
+      ),
+      final DietaryBiotinRecord r => MassNutrientListTile<DietaryBiotinRecord>(
+        record: r,
+        onDelete: onDelete,
+      ),
+      final DietaryPantothenicAcidRecord r =>
+        MassNutrientListTile<DietaryPantothenicAcidRecord>(
           record: r,
           onDelete: onDelete,
         ),
