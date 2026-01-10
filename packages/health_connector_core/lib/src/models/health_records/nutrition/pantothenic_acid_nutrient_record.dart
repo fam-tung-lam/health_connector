@@ -18,8 +18,8 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = PantothenicAcidNutrientRecord(
 ///   time: DateTime.now(),
-///   value: Mass.milligrams(1),
-///   food Name: 'Avocado',
+///   mass: Mass.milligrams(1),
+///   foodName: 'Avocado',
 ///   mealType: MealType.snack,
 ///   metadata: Metadata.manualEntry(),
 /// );
@@ -38,7 +38,8 @@ final class PantothenicAcidNutrientRecord extends VitaminNutrientRecord {
   ///
   /// ## Parameters
   ///
-  /// - [value]: The pantothenic acid measurement.
+  ///
+  /// - [mass]: The pantothenic acid measurement.
   /// - [time]: The timestamp when the pantothenic acid was consumed.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
@@ -46,7 +47,7 @@ final class PantothenicAcidNutrientRecord extends VitaminNutrientRecord {
   /// - [foodName]: Optional name of the food containing this pantothenic acid.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory PantothenicAcidNutrientRecord({
-    required Mass value,
+    required Mass mass,
     required DateTime time,
     required Metadata metadata,
     HealthRecordId id = HealthRecordId.none,
@@ -55,7 +56,7 @@ final class PantothenicAcidNutrientRecord extends VitaminNutrientRecord {
     MealType mealType = MealType.unknown,
   }) {
     return PantothenicAcidNutrientRecord._(
-      value: value,
+      mass: mass,
       time: time,
       metadata: metadata,
       id: id,
@@ -67,7 +68,7 @@ final class PantothenicAcidNutrientRecord extends VitaminNutrientRecord {
 
   /// Creates a copy with the given fields replaced with the new values.
   PantothenicAcidNutrientRecord copyWith({
-    Mass? value,
+    Mass? mass,
     DateTime? time,
     Metadata? metadata,
     HealthRecordId? id,
@@ -76,7 +77,7 @@ final class PantothenicAcidNutrientRecord extends VitaminNutrientRecord {
     MealType? mealType,
   }) {
     return PantothenicAcidNutrientRecord._(
-      value: value ?? this.value,
+      mass: mass ?? this.mass,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
@@ -87,7 +88,7 @@ final class PantothenicAcidNutrientRecord extends VitaminNutrientRecord {
   }
 
   const PantothenicAcidNutrientRecord._({
-    required super.value,
+    required this.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -95,4 +96,7 @@ final class PantothenicAcidNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
+
+  /// The pantothenic acid measurement.
+  final Mass mass;
 }

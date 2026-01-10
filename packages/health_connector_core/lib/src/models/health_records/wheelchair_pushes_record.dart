@@ -17,7 +17,7 @@ part of 'health_record.dart';
 /// final record = WheelchairPushesRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 1)),
 ///   endTime: DateTime.now(),
-///   pushes: Numeric(150), // 150 pushes
+///   count: Numeric(150), // 150 pushes
 ///   metadata: Metadata.automaticallyRecorded(
 ///     device: Device.fromType(DeviceType.phone),
 ///   ),
@@ -38,7 +38,7 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
   ///
   /// - [startTime]: The start of the time interval (inclusive).
   /// - [endTime]: The end of the time interval (exclusive).
-  /// - [pushes]: The number of wheelchair pushes performed during the interval.
+  /// - [count]: The number of wheelchair pushes performed during the interval.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
@@ -51,20 +51,20 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
     required super.startTime,
     required super.endTime,
     required super.metadata,
-    required this.pushes,
+    required this.count,
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });
 
   /// The number of wheelchair pushes performed during the interval.
-  final Number pushes;
+  final Number count;
 
   /// Creates a copy with the given fields replaced with the new values.
   WheelchairPushesRecord copyWith({
     DateTime? startTime,
     DateTime? endTime,
-    Number? pushes,
+    Number? count,
     Metadata? metadata,
     HealthRecordId? id,
     int? startZoneOffsetSeconds,
@@ -73,7 +73,7 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
     return WheelchairPushesRecord(
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
-      pushes: pushes ?? this.pushes,
+      count: count ?? this.count,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
       startZoneOffsetSeconds:
@@ -92,7 +92,7 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          pushes == other.pushes &&
+          count == other.count &&
           metadata == other.metadata;
 
   @override
@@ -102,6 +102,6 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
       endTime.hashCode ^
       (startZoneOffsetSeconds?.hashCode ?? 0) ^
       (endZoneOffsetSeconds?.hashCode ?? 0) ^
-      pushes.hashCode ^
+      count.hashCode ^
       metadata.hashCode;
 }

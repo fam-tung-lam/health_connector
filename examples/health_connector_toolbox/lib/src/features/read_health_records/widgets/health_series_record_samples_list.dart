@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 ///   itemBuilder: (sample, index) => Row(
 ///     children: [
 ///       Expanded(child: Text(formatDateTime(sample.time))),
-///       Text('${sample.beatsPerMinute.value} BPM'),
+///       Text('${sample.rate.value} BPM'),
 ///     ],
 ///   ),
 /// )

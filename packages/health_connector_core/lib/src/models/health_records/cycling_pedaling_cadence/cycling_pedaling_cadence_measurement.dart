@@ -13,7 +13,7 @@ final class CyclingPedalingCadenceMeasurement {
   /// Creates a cycling pedaling cadence measurement.
   const CyclingPedalingCadenceMeasurement({
     required this.time,
-    required this.revolutionsPerMinute,
+    required this.cadence,
   });
 
   /// The timestamp when this cadence measurement was taken, stored as a
@@ -23,7 +23,7 @@ final class CyclingPedalingCadenceMeasurement {
   final DateTime time;
 
   /// The cycling cadence value in revolutions per minute (RPM).
-  final Number revolutionsPerMinute;
+  final Number cadence;
 
   @override
   bool operator ==(Object other) =>
@@ -31,8 +31,8 @@ final class CyclingPedalingCadenceMeasurement {
       other is CyclingPedalingCadenceMeasurement &&
           runtimeType == other.runtimeType &&
           time == other.time &&
-          revolutionsPerMinute == other.revolutionsPerMinute;
+          cadence == other.cadence;
 
   @override
-  int get hashCode => time.hashCode ^ revolutionsPerMinute.hashCode;
+  int get hashCode => time.hashCode ^ cadence.hashCode;
 }

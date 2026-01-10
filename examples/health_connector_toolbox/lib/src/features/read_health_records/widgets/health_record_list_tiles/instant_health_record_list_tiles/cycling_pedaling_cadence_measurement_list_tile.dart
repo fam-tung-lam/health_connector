@@ -22,7 +22,7 @@ final class CyclingPedalingCadenceMeasurementTile extends StatelessWidget {
     return InstantHealthRecordTile<CyclingPedalingCadenceMeasurementRecord>(
       record: record,
       icon: AppIcons.speed,
-      title: '${record.revolutionsPerMinute.value} ${AppTexts.rpm}',
+      title: '${record.cadence.value} ${AppTexts.rpm}',
       subtitleBuilder: (r, ctx) => HealthRecordListTileSubtitle.instant(
         time: r.time,
         recordingMethod: r.metadata.recordingMethod.name,

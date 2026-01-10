@@ -22,7 +22,7 @@ final class Vo2MaxTile extends StatelessWidget {
       record: record,
       icon: AppIcons.vo2Max,
       title:
-          '${record.mLPerKgPerMin.value.toStringAsFixed(1)} '
+          '${record.vo2MlPerMinPerKg.value.toStringAsFixed(1)} '
           '${AppTexts.millilitersPerKilogramPerMinute}',
       subtitleBuilder: (r, ctx) => HealthRecordListTileSubtitle.instant(
         time: r.time,

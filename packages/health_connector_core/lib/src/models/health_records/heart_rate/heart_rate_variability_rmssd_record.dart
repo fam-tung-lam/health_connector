@@ -16,7 +16,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = HeartRateVariabilityRMSSDRecord(
 ///   time: DateTime.now(),
-///   heartRateVariabilityMillis: Number(45.0), // ms
+///   rmssdMillis: Number(45.0), // ms
 ///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
@@ -61,7 +61,7 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
     return HeartRateVariabilityRMSSDRecord._(
       time: time,
       metadata: metadata,
-      heartRateVariabilityMillis: heartRateVariabilityMillis,
+      rmssdMillis: heartRateVariabilityMillis,
       id: id,
       zoneOffsetSeconds: zoneOffsetSeconds,
     );
@@ -71,27 +71,26 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
   const HeartRateVariabilityRMSSDRecord._({
     required super.time,
     required super.metadata,
-    required this.heartRateVariabilityMillis,
+    required this.rmssdMillis,
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   });
 
   /// The heart rate variability in milliseconds.
-  final Number heartRateVariabilityMillis;
+  final Number rmssdMillis;
 
   /// Creates a copy with the given fields replaced with the new values.
   HeartRateVariabilityRMSSDRecord copyWith({
     DateTime? time,
     Metadata? metadata,
-    Number? heartRateVariabilityMillis,
+    Number? rmssdMillis,
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {
     return HeartRateVariabilityRMSSDRecord._(
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
-      heartRateVariabilityMillis:
-          heartRateVariabilityMillis ?? this.heartRateVariabilityMillis,
+      rmssdMillis: rmssdMillis ?? this.rmssdMillis,
       id: id ?? this.id,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
     );
@@ -105,7 +104,7 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
           id == other.id &&
           time == other.time &&
           zoneOffsetSeconds == other.zoneOffsetSeconds &&
-          heartRateVariabilityMillis == other.heartRateVariabilityMillis &&
+          rmssdMillis == other.rmssdMillis &&
           metadata == other.metadata;
 
   @override
@@ -113,6 +112,6 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
       id.hashCode ^
       time.hashCode ^
       (zoneOffsetSeconds?.hashCode ?? 0) ^
-      heartRateVariabilityMillis.hashCode ^
+      rmssdMillis.hashCode ^
       metadata.hashCode;
 }

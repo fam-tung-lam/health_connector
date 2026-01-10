@@ -16,7 +16,7 @@ part of '../health_record.dart';
 /// final record = HeartRateMeasurementRecord(
 ///   id: HealthRecordId('ABC-123'),
 ///   time: DateTime.now(),
-///   beatsPerMinute: Frequency.perMinute(72),
+///   rate: Frequency.perMinute(72),
 ///   metadata: Metadata.automaticallyRecorded(
 ///     device: Device.fromType(DeviceType.watch),
 ///   ),
@@ -39,26 +39,26 @@ final class HeartRateMeasurementRecord extends InstantHealthRecord {
     required super.id,
     required super.metadata,
     required super.time,
-    required this.beatsPerMinute,
+    required this.rate,
     super.zoneOffsetSeconds,
   });
 
   /// The heart rate value in beats per minute (BPM).
-  final Frequency beatsPerMinute;
+  final Frequency rate;
 
   /// Creates a copy with the given fields replaced with the new values.
   HeartRateMeasurementRecord copyWith({
     HealthRecordId? id,
     Metadata? metadata,
     DateTime? time,
-    Frequency? beatsPerMinute,
+    Frequency? rate,
     int? zoneOffsetSeconds,
   }) {
     return HeartRateMeasurementRecord(
       id: id ?? this.id,
       metadata: metadata ?? this.metadata,
       time: time ?? this.time,
-      beatsPerMinute: beatsPerMinute ?? this.beatsPerMinute,
+      rate: rate ?? this.rate,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
     );
   }
@@ -71,9 +71,9 @@ final class HeartRateMeasurementRecord extends InstantHealthRecord {
           id == other.id &&
           metadata == other.metadata &&
           time == other.time &&
-          beatsPerMinute == other.beatsPerMinute;
+          rate == other.rate;
 
   @override
   int get hashCode =>
-      id.hashCode ^ metadata.hashCode ^ time.hashCode ^ beatsPerMinute.hashCode;
+      id.hashCode ^ metadata.hashCode ^ time.hashCode ^ rate.hashCode;
 }

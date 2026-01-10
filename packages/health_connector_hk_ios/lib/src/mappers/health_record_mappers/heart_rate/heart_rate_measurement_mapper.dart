@@ -12,7 +12,7 @@ extension HeartRateMeasurementDomainToDto on HeartRateMeasurement {
   HeartRateMeasurementDto toDto() {
     return HeartRateMeasurementDto(
       time: time.millisecondsSinceEpoch,
-      beatsPerMinute: beatsPerMinute.toDto(),
+      beatsPerMinute: rate.toDto(),
     );
   }
 }
@@ -24,7 +24,7 @@ extension HeartRateMeasurementDtoToDomain on HeartRateMeasurementDto {
   HeartRateMeasurement toDomain() {
     return HeartRateMeasurement(
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
-      beatsPerMinute: beatsPerMinute.toDomain(),
+      rate: beatsPerMinute.toDomain(),
     );
   }
 }

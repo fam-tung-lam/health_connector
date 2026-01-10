@@ -74,7 +74,7 @@ void main() {
 
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, time);
-              expect(record.heartRateVariabilitySDNN.value, 52.0);
+              expect(record.sdnnMillis.value, 52.0);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,

@@ -15,7 +15,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = SugarNutrientRecord(
 ///   time: DateTime.now(),
-///   value: Mass.grams(10),
+///   mass: Mass.grams(10),
 ///   foodName: 'Apple',
 ///   mealType: MealType.snack,
 ///   metadata: Metadata.manualEntry(),
@@ -35,7 +35,7 @@ final class SugarNutrientRecord extends MacronutrientRecord {
   ///
   /// ## Parameters
   ///
-  /// - [value]: The sugar measurement.
+  /// - [mass]: The sugar measurement.
   /// - [time]: The timestamp when the sugar was consumed.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
@@ -43,7 +43,7 @@ final class SugarNutrientRecord extends MacronutrientRecord {
   /// - [foodName]: Optional name of the food containing this sugar.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory SugarNutrientRecord({
-    required Mass value,
+    required Mass mass,
     required DateTime time,
     required Metadata metadata,
     HealthRecordId id = HealthRecordId.none,
@@ -52,7 +52,7 @@ final class SugarNutrientRecord extends MacronutrientRecord {
     MealType mealType = MealType.unknown,
   }) {
     return SugarNutrientRecord._(
-      value: value,
+      mass: mass,
       time: time,
       metadata: metadata,
       id: id,
@@ -64,7 +64,7 @@ final class SugarNutrientRecord extends MacronutrientRecord {
 
   /// Creates a copy with the given fields replaced with the new values.
   SugarNutrientRecord copyWith({
-    Mass? value,
+    Mass? mass,
     DateTime? time,
     Metadata? metadata,
     HealthRecordId? id,
@@ -73,7 +73,7 @@ final class SugarNutrientRecord extends MacronutrientRecord {
     MealType? mealType,
   }) {
     return SugarNutrientRecord._(
-      value: value ?? this.value,
+      mass: mass ?? this.mass,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
@@ -84,7 +84,7 @@ final class SugarNutrientRecord extends MacronutrientRecord {
   }
 
   const SugarNutrientRecord._({
-    required super.value,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,

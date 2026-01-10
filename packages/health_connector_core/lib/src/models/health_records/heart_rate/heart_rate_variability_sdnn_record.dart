@@ -18,7 +18,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = HeartRateVariabilitySDNNRecord(
 ///   time: DateTime.now(),
-///   heartRateVariabilitySDNN: Number(50.0), // milliseconds
+///   sdnnMillis: Number(50.0), // milliseconds
 ///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
@@ -62,7 +62,7 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
     return HeartRateVariabilitySDNNRecord._(
       time: time,
       metadata: metadata,
-      heartRateVariabilitySDNN: heartRateVariabilitySDNN,
+      sdnnMillis: heartRateVariabilitySDNN,
       id: id,
       zoneOffsetSeconds: zoneOffsetSeconds,
     );
@@ -72,26 +72,25 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
   const HeartRateVariabilitySDNNRecord._({
     required super.time,
     required super.metadata,
-    required this.heartRateVariabilitySDNN,
+    required this.sdnnMillis,
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   });
 
   /// The SDNN value in milliseconds.
-  final Number heartRateVariabilitySDNN;
+  final Number sdnnMillis;
 
   /// Creates a copy with the given fields replaced with the new values.
   HeartRateVariabilitySDNNRecord copyWith({
     DateTime? time,
-    Number? heartRateVariabilitySDNN,
+    Number? sdnnMillis,
     Metadata? metadata,
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {
     return HeartRateVariabilitySDNNRecord._(
       time: time ?? this.time,
-      heartRateVariabilitySDNN:
-          heartRateVariabilitySDNN ?? this.heartRateVariabilitySDNN,
+      sdnnMillis: sdnnMillis ?? this.sdnnMillis,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
@@ -106,7 +105,7 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
           id == other.id &&
           time == other.time &&
           zoneOffsetSeconds == other.zoneOffsetSeconds &&
-          heartRateVariabilitySDNN == other.heartRateVariabilitySDNN &&
+          sdnnMillis == other.sdnnMillis &&
           metadata == other.metadata;
 
   @override
@@ -114,6 +113,6 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
       id.hashCode ^
       time.hashCode ^
       (zoneOffsetSeconds?.hashCode ?? 0) ^
-      heartRateVariabilitySDNN.hashCode ^
+      sdnnMillis.hashCode ^
       metadata.hashCode;
 }

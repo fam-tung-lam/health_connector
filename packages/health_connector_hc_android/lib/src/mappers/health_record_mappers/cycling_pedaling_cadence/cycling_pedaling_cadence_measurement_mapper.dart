@@ -14,7 +14,7 @@ extension CyclingPedalingCadenceMeasurementToDto
   CyclingPedalingCadenceMeasurementDto toDto() {
     return CyclingPedalingCadenceMeasurementDto(
       time: time.millisecondsSinceEpoch,
-      revolutionsPerMinute: revolutionsPerMinute.toDto(),
+      revolutionsPerMinute: cadence.toDto(),
     );
   }
 }
@@ -28,7 +28,7 @@ extension CyclingPedalingCadenceMeasurementDtoToDomain
   CyclingPedalingCadenceMeasurement toDomain() {
     return CyclingPedalingCadenceMeasurement(
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
-      revolutionsPerMinute: revolutionsPerMinute.toDomain(),
+      cadence: revolutionsPerMinute.toDomain(),
     );
   }
 }

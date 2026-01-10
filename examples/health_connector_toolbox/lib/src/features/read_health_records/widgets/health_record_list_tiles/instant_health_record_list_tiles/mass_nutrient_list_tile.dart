@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_dynamic_calls
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart'
     show
@@ -83,7 +84,9 @@ final class MassNutrientListTile<T extends NutrientRecord<Mass>>
       return InstantHealthRecordTile<T>(
         record: record,
         icon: Icons.fastfood,
-        title: 'Unknown Nutrient: ${record.value.inGrams.toStringAsFixed(3)} g',
+        title:
+            'Unknown Nutrient: '
+            '${(record as dynamic).weight.inGrams.toStringAsFixed(3)} g',
         subtitleBuilder: _buildSubtitle,
         detailRowsBuilder: (r, ctx) => [],
         onDelete: onDelete,
@@ -102,7 +105,7 @@ final class MassNutrientListTile<T extends NutrientRecord<Mass>>
 
   /// Builds the title displaying the nutrient name and mass values.
   String _buildTitle(String nutrientDisplayName) {
-    final mass = record.value;
+    final mass = (record as dynamic).weight as Mass;
     return '$nutrientDisplayName: '
         '${mass.inGrams.toStringAsFixed(3)} g '
         '(${(mass.inGrams * 1000).toStringAsFixed(1)} mg)';
@@ -151,7 +154,7 @@ final class MassNutrientListTile<T extends NutrientRecord<Mass>>
   /// Builds detail rows showing mass in grams and milligrams, food name, and
   /// meal type.
   List<Widget> _buildDetailRows(String nutrientDisplayName, T rec) {
-    final mass = rec.value;
+    final mass = (rec as dynamic).weight as Mass;
     final foodName = rec.foodName;
     final mealType = rec.mealType;
 

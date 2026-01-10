@@ -36,7 +36,7 @@ final class WeightRecord extends InstantHealthRecord {
   /// - [time]: The timestamp when the weight was measured.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
-  /// - [weight]: The body weight measurement.
+  /// - [weight]: The body mass measurement.
   ///
   /// ## Throws
   ///
@@ -49,7 +49,7 @@ final class WeightRecord extends InstantHealthRecord {
     super.zoneOffsetSeconds,
   });
 
-  /// The body weight measurement.
+  /// The body mass measurement.
   ///
   /// This uses the [Mass] unit class which supports multiple units
   /// (kilograms, grams, pounds, ounces).

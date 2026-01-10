@@ -22,7 +22,7 @@ final class HeightFormState
   HealthRecord buildRecord() {
     return HeightRecord(
       time: startDateTime!,
-      height: value! as Length,
+      length: value! as Length,
       metadata: metadata,
     );
   }

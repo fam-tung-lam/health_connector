@@ -52,12 +52,12 @@ final class HeartRateMeasurementsWriteFormFieldGroup extends StatelessWidget {
       },
       sampleFactory: (time, _, bpm) => HeartRateMeasurement(
         time: time,
-        beatsPerMinute: Frequency.perMinute(bpm.toDouble()),
+        rate: Frequency.perMinute(bpm.toDouble()),
       ),
       sampleExtractor: (sample) => (
         time: sample.time,
         endTime: null as DateTime?,
-        value: sample.beatsPerMinute.inPerMinute.round(),
+        value: sample.rate.inPerMinute.round(),
       ),
       valueValidator: (bpm) => bpm != null && bpm > 0,
     );

@@ -31,7 +31,7 @@ final class CyclingPedalingCadenceMeasurementFormState
       id: HealthRecordId.none,
       measurement: CyclingPedalingCadenceMeasurement(
         time: startDateTime!,
-        revolutionsPerMinute: value! as Number,
+        cadence: value! as Number,
       ),
       metadata: metadata,
     );

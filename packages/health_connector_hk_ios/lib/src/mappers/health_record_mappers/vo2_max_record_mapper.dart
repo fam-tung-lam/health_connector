@@ -15,7 +15,7 @@ extension Vo2MaxRecordDtoToDomain on Vo2MaxRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      mLPerKgPerMin: mLPerKgPerMin.toDomain(),
+      vo2MlPerMinPerKg: mLPerKgPerMin.toDomain(),
       testType: testType?.toDomain(),
     );
   }
@@ -31,7 +31,7 @@ extension Vo2MaxRecordToDto on Vo2MaxRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      mLPerKgPerMin: mLPerKgPerMin.toDto(),
+      mLPerKgPerMin: vo2MlPerMinPerKg.toDto(),
       testType: testType?.toDto(),
     );
   }

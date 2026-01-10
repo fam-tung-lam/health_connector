@@ -27,7 +27,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.phone),
                 ),
-                bloodGlucose: const BloodGlucose.millimolesPerLiter(5.5),
+                glucoseLevel: const BloodGlucose.millimolesPerLiter(5.5),
                 specimenSource: BloodGlucoseSpecimenSource.capillaryBlood,
                 relationToMeal: BloodGlucoseRelationToMeal.beforeMeal,
               );
@@ -72,7 +72,7 @@ void main() {
 
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, time);
-              expect(record.bloodGlucose.inMillimolesPerLiter, 6.1);
+              expect(record.glucoseLevel.inMillimolesPerLiter, 6.1);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,

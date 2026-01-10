@@ -20,15 +20,15 @@ part of '../health_record.dart';
 ///   samples: [
 ///     HeartRateMeasurement(
 ///       time: DateTime.now().subtract(Duration(minutes: 10)),
-///       beatsPerMinute: Frequency.perMinute(65),
+///       rate: Frequency.perMinute(65),
 ///     ),
 ///     HeartRateMeasurement(
 ///       time: DateTime.now().subtract(Duration(minutes: 5)),
-///       beatsPerMinute: Frequency.perMinute(120),
+///       rate: Frequency.perMinute(120),
 ///     ),
 ///     HeartRateMeasurement(
 ///       time: DateTime.now(),
-///       beatsPerMinute: Frequency.perMinute(80),
+///       rate: Frequency.perMinute(80),
 ///     ),
 ///   ],
 ///   metadata: Metadata.automaticallyRecorded(
@@ -59,17 +59,17 @@ final class HeartRateSeriesRecord
   });
 
   /// The average heart rate across all samples.
-  Frequency get averageBpm {
+  Frequency get averageRate {
     if (samples.isEmpty) {
       return Frequency.zero;
     }
     if (samples.length == 1) {
-      return samples.first.beatsPerMinute;
+      return samples.first.rate;
     }
 
     final total = samples.fold<double>(
       0,
-      (sum, sample) => sum + sample.beatsPerMinute.inPerMinute,
+      (sum, sample) => sum + sample.rate.inPerMinute,
     );
     final averageBpmPerMin = total / samples.length;
 
@@ -77,22 +77,22 @@ final class HeartRateSeriesRecord
   }
 
   /// The minimum heart rate value among all samples.
-  Frequency get minBpm {
+  Frequency get minRate {
     if (samples.isEmpty) {
       return Frequency.zero;
     }
     return samples
-        .map((s) => s.beatsPerMinute)
+        .map((s) => s.rate)
         .reduce((a, b) => (a.inPerMinute < b.inPerMinute) ? a : b);
   }
 
   /// The maximum heart rate value among all samples.
-  Frequency get maxBpm {
+  Frequency get maxRate {
     if (samples.isEmpty) {
       return Frequency.zero;
     }
     return samples
-        .map((s) => s.beatsPerMinute)
+        .map((s) => s.rate)
         .reduce((a, b) => (a.inPerMinute > b.inPerMinute) ? a : b);
   }
 
@@ -129,22 +129,10 @@ final class HeartRateSeriesRecord
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          _listEquals(samples, other.samples);
-
-  static bool _listEquals<T>(List<T> a, List<T> b) {
-    if (identical(a, b)) {
-      return true;
-    }
-    if (a.length != b.length) {
-      return false;
-    }
-    for (var i = 0; i < a.length; i++) {
-      if (a[i] != b[i]) {
-        return false;
-      }
-    }
-    return true;
-  }
+          const ListEquality<HeartRateMeasurement>().equals(
+            samples,
+            other.samples,
+          );
 
   @override
   int get hashCode =>
@@ -172,7 +160,7 @@ final class HeartRateMeasurement {
   /// Creates a heart rate measurement.
   const HeartRateMeasurement({
     required this.time,
-    required this.beatsPerMinute,
+    required this.rate,
   });
 
   /// The timestamp when this heart rate measurement was taken, stored as a
@@ -182,7 +170,7 @@ final class HeartRateMeasurement {
   final DateTime time;
 
   /// The heart rate value in beats per minute (BPM).
-  final Frequency beatsPerMinute;
+  final Frequency rate;
 
   @override
   bool operator ==(Object other) =>
@@ -190,8 +178,8 @@ final class HeartRateMeasurement {
       other is HeartRateMeasurement &&
           runtimeType == other.runtimeType &&
           time == other.time &&
-          beatsPerMinute == other.beatsPerMinute;
+          rate == other.rate;
 
   @override
-  int get hashCode => time.hashCode ^ beatsPerMinute.hashCode;
+  int get hashCode => time.hashCode ^ rate.hashCode;
 }

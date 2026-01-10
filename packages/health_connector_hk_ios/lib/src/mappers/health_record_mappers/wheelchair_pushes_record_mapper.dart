@@ -23,7 +23,7 @@ extension WheelchairPushesRecordToDto on WheelchairPushesRecord {
         endZoneOffsetSeconds,
       ),
       metadata: metadata.toDto(),
-      pushes: pushes.toDto(),
+      pushes: count.toDto(),
     );
   }
 }
@@ -40,7 +40,7 @@ extension WheelchairPushesRecordDtoToDomain on WheelchairPushesRecordDto {
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      pushes: pushes.toDomain(),
+      count: pushes.toDomain(),
     );
   }
 }

@@ -22,7 +22,7 @@ final class RespiratoryRateFormState
   HealthRecord buildRecord() {
     return RespiratoryRateRecord(
       time: startDateTime!,
-      breathsPerMin: value! as Frequency,
+      rate: value! as Frequency,
       metadata: metadata,
     );
   }

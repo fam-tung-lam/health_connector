@@ -15,7 +15,7 @@ extension HeartRateMeasurementRecordToDto on HeartRateMeasurementRecord {
       id: id.toDto(),
       time: time.millisecondsSinceEpoch,
       metadata: metadata.toDto(),
-      beatsPerMinute: FrequencyDto(perMinute: beatsPerMinute.inPerMinute),
+      beatsPerMinute: FrequencyDto(perMinute: rate.inPerMinute),
     );
   }
 }
@@ -30,7 +30,7 @@ extension HeartRateMeasurementRecordDtoToDomain
       id: id?.toDomain() ?? HealthRecordId.none,
       metadata: metadata.toDomain(),
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
-      beatsPerMinute: Frequency.perMinute(beatsPerMinute.perMinute),
+      rate: Frequency.perMinute(beatsPerMinute.perMinute),
     );
   }
 }

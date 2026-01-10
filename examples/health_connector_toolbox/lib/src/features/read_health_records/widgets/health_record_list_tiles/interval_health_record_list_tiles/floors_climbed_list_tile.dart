@@ -20,7 +20,7 @@ final class FloorsClimbedTile extends StatelessWidget {
     return IntervalHealthRecordTile<FloorsClimbedRecord>(
       record: record,
       icon: AppIcons.stairs,
-      title: '${record.floors.value} floors',
+      title: '${record.count.value} floors',
       subtitleBuilder: (r, ctx) => HealthRecordListTileSubtitle.interval(
         startTime: r.startTime,
         endTime: r.endTime,

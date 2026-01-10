@@ -15,7 +15,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = IronNutrientRecord(
 ///   time: DateTime.now(),
-///   value: Mass.milligrams(2.7),
+///   mass: Mass.milligrams(2.7),
 ///   foodName: 'Spinach',
 ///   mealType: MealType.lunch,
 ///   metadata: Metadata.manualEntry(),
@@ -35,7 +35,7 @@ final class IronNutrientRecord extends MineralNutrientRecord {
   ///
   /// ## Parameters
   ///
-  /// - [value]: The iron measurement.
+  /// - [mass]: The iron measurement.
   /// - [time]: The timestamp when the iron was consumed.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
@@ -43,7 +43,7 @@ final class IronNutrientRecord extends MineralNutrientRecord {
   /// - [foodName]: Optional name of the food containing this iron.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory IronNutrientRecord({
-    required Mass value,
+    required Mass mass,
     required DateTime time,
     required Metadata metadata,
     HealthRecordId id = HealthRecordId.none,
@@ -52,7 +52,7 @@ final class IronNutrientRecord extends MineralNutrientRecord {
     MealType mealType = MealType.unknown,
   }) {
     return IronNutrientRecord._(
-      value: value,
+      mass: mass,
       time: time,
       metadata: metadata,
       id: id,
@@ -64,7 +64,7 @@ final class IronNutrientRecord extends MineralNutrientRecord {
 
   /// Creates a copy with the given fields replaced with the new values.
   IronNutrientRecord copyWith({
-    Mass? value,
+    Mass? mass,
     DateTime? time,
     Metadata? metadata,
     HealthRecordId? id,
@@ -73,7 +73,7 @@ final class IronNutrientRecord extends MineralNutrientRecord {
     MealType? mealType,
   }) {
     return IronNutrientRecord._(
-      value: value ?? this.value,
+      mass: mass ?? this.mass,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
@@ -84,7 +84,7 @@ final class IronNutrientRecord extends MineralNutrientRecord {
   }
 
   const IronNutrientRecord._({
-    required super.value,
+    required this.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -92,4 +92,7 @@ final class IronNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
+
+  /// The iron measurement.
+  final Mass mass;
 }

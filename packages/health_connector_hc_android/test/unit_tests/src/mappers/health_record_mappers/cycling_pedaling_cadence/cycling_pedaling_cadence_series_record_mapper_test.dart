@@ -36,7 +36,7 @@ void main() {
                 samples: [
                   CyclingPedalingCadenceMeasurement(
                     time: fakeSampleTime,
-                    revolutionsPerMinute: const Number(90),
+                    cadence: const Number(90),
                   ),
                 ],
               );
@@ -95,7 +95,7 @@ void main() {
                 FakeData.fakeDataOrigin,
               );
               expect(record.samples, hasLength(1));
-              expect(record.samples[0].revolutionsPerMinute.value, 85);
+              expect(record.samples[0].cadence.value, 85);
             },
           );
 

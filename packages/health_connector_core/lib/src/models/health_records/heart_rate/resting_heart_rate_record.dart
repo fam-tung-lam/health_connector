@@ -19,7 +19,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = RestingHeartRateRecord(
 ///   time: DateTime.now(),
-///   beatsPerMinute: Frequency.perMinute(60),
+///   rate: Frequency.perMinute(60),
 ///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
@@ -40,35 +40,35 @@ final class RestingHeartRateRecord extends InstantHealthRecord {
   /// - [time]: The timestamp when the resting heart rate was measured.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
-  /// - [beatsPerMinute]: The resting heart rate measurement in beats per
+  /// - [rate]: The resting heart rate measurement in beats per
   ///   minute.
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError] if [beatsPerMinute] is negative.
+  /// - [ArgumentError] if [rate] is negative.
   const RestingHeartRateRecord({
     required super.time,
     required super.metadata,
-    required this.beatsPerMinute,
+    required this.rate,
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   });
 
   /// The resting heart rate measurement in beats per minute.
-  final Frequency beatsPerMinute;
+  final Frequency rate;
 
   /// Creates a copy with the given fields replaced with the new values.
   RestingHeartRateRecord copyWith({
     DateTime? time,
     Metadata? metadata,
-    Frequency? beatsPerMinute,
+    Frequency? rate,
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {
     return RestingHeartRateRecord(
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
-      beatsPerMinute: beatsPerMinute ?? this.beatsPerMinute,
+      rate: rate ?? this.rate,
       id: id ?? this.id,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
     );
@@ -82,7 +82,7 @@ final class RestingHeartRateRecord extends InstantHealthRecord {
           id == other.id &&
           time == other.time &&
           zoneOffsetSeconds == other.zoneOffsetSeconds &&
-          beatsPerMinute == other.beatsPerMinute &&
+          rate == other.rate &&
           metadata == other.metadata;
 
   @override
@@ -90,6 +90,6 @@ final class RestingHeartRateRecord extends InstantHealthRecord {
       id.hashCode ^
       time.hashCode ^
       (zoneOffsetSeconds?.hashCode ?? 0) ^
-      beatsPerMinute.hashCode ^
+      rate.hashCode ^
       metadata.hashCode;
 }

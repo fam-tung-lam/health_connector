@@ -15,7 +15,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = ManganeseNutrientRecord(
 ///   time: DateTime.now(),
-///   value: Mass.milligrams(1.5),
+///   mass: Mass.milligrams(1.5),
 ///   foodName: 'Oats',
 ///   mealType: MealType.breakfast,
 ///   metadata: Metadata.manualEntry(),
@@ -35,7 +35,7 @@ final class ManganeseNutrientRecord extends MineralNutrientRecord {
   ///
   /// ## Parameters
   ///
-  /// - [value]: The manganese measurement.
+  /// - [mass]: The manganese measurement.
   /// - [time]: The timestamp when the manganese was consumed.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
@@ -43,7 +43,7 @@ final class ManganeseNutrientRecord extends MineralNutrientRecord {
   /// - [foodName]: Optional name of the food containing this manganese.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory ManganeseNutrientRecord({
-    required Mass value,
+    required Mass mass,
     required DateTime time,
     required Metadata metadata,
     HealthRecordId id = HealthRecordId.none,
@@ -52,7 +52,7 @@ final class ManganeseNutrientRecord extends MineralNutrientRecord {
     MealType mealType = MealType.unknown,
   }) {
     return ManganeseNutrientRecord._(
-      value: value,
+      mass: mass,
       time: time,
       metadata: metadata,
       id: id,
@@ -64,7 +64,7 @@ final class ManganeseNutrientRecord extends MineralNutrientRecord {
 
   /// Creates a copy with the given fields replaced with the new values.
   ManganeseNutrientRecord copyWith({
-    Mass? value,
+    Mass? mass,
     DateTime? time,
     Metadata? metadata,
     HealthRecordId? id,
@@ -73,7 +73,7 @@ final class ManganeseNutrientRecord extends MineralNutrientRecord {
     MealType? mealType,
   }) {
     return ManganeseNutrientRecord._(
-      value: value ?? this.value,
+      mass: mass ?? this.mass,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
@@ -84,7 +84,7 @@ final class ManganeseNutrientRecord extends MineralNutrientRecord {
   }
 
   const ManganeseNutrientRecord._({
-    required super.value,
+    required this.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -92,4 +92,7 @@ final class ManganeseNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
+
+  /// The manganese measurement.
+  final Mass mass;
 }

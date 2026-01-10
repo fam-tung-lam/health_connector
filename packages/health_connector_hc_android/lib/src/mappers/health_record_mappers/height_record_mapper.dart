@@ -32,7 +32,7 @@ extension HeightRecordDtoToDomain on HeightRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      height: height.toDomain(),
+      length: height.toDomain(),
     );
   }
 }

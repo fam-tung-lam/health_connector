@@ -15,7 +15,7 @@ extension BodyMassIndexRecordToDto on BodyMassIndexRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      bodyMassIndex: NumberDto(value: bodyMassIndex.value.toDouble()),
+      bodyMassIndex: NumberDto(value: bmi.value.toDouble()),
     );
   }
 }
@@ -29,7 +29,7 @@ extension BodyMassIndexRecordDtoToDomain on BodyMassIndexRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      bodyMassIndex: Number(bodyMassIndex.value),
+      bmi: Number(bodyMassIndex.value),
     );
   }
 }

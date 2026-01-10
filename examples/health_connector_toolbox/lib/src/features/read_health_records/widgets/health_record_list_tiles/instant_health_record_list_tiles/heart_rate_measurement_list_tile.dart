@@ -22,7 +22,7 @@ final class HeartRateMeasurementTile extends StatelessWidget {
       record: record,
       icon: AppIcons.favorite,
       title:
-          '${record.beatsPerMinute.inPerMinute.toStringAsFixed(0)} '
+          '${record.rate.inPerMinute.toStringAsFixed(0)} '
           '${AppTexts.bpm}',
       subtitleBuilder: (r, ctx) => HealthRecordListTileSubtitle.instant(
         time: r.time,

@@ -18,7 +18,7 @@ extension EnergyNutrientRecordToDto on EnergyNutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto(),
+      value: energy.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -35,7 +35,7 @@ extension EnergyNutrientRecordDtoToDomain on EnergyNutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain(),
+      energy: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );

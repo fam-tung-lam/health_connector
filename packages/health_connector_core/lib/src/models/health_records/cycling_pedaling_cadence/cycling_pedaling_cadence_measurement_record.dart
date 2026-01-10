@@ -74,7 +74,7 @@ final class CyclingPedalingCadenceMeasurementRecord
   /// The cycling cadence value in revolutions per minute (RPM).
   ///
   /// Convenience getter that returns the RPM from the measurement.
-  Number get revolutionsPerMinute => measurement.revolutionsPerMinute;
+  Number get cadence => measurement.cadence;
 
   /// Creates a copy with the given fields replaced with the new values.
   CyclingPedalingCadenceMeasurementRecord copyWith({

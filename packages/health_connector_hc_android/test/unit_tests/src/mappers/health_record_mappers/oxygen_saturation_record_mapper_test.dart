@@ -25,7 +25,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.watch),
                 ),
-                percentage: const Percentage.fromWhole(98),
+                saturation: const Percentage.fromWhole(98),
               );
 
               final dto = record.toDto();
@@ -74,7 +74,7 @@ void main() {
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
-              expect(record.percentage.asWhole, 95);
+              expect(record.saturation.asWhole, 95);
             },
           );
 

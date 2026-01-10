@@ -24,7 +24,7 @@ final class HeartRateMeasurementFormState
     return HeartRateMeasurementRecord(
       id: HealthRecordId.none,
       time: startDateTime!,
-      beatsPerMinute: value! as Frequency,
+      rate: value! as Frequency,
       metadata: metadata,
     );
   }

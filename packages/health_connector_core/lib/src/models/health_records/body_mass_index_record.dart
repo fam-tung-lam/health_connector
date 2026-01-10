@@ -16,7 +16,7 @@ part of 'health_record.dart';
 /// ```dart
 /// final record = BodyMassIndexRecord(
 ///   time: DateTime.now(),
-///   bodyMassIndex: Number(22.5),
+///   bmi: Number(22.5),
 ///   metadata: Metadata.manualEntry(),
 /// );
 /// ```
@@ -38,29 +38,29 @@ final class BodyMassIndexRecord extends InstantHealthRecord {
   /// - [time]: The timestamp when the BMI was measured.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
-  /// - [bodyMassIndex]: The BMI value (kg/m^2).
+  /// - [bmi]: The BMI value (kg/m^2).
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError] if [bodyMassIndex] is negative.
+  /// - [ArgumentError] if [bmi] is negative.
   factory BodyMassIndexRecord({
     required DateTime time,
     required Metadata metadata,
-    required Number bodyMassIndex,
+    required Number bmi,
     HealthRecordId id = HealthRecordId.none,
     int? zoneOffsetSeconds,
   }) {
-    if (bodyMassIndex < Number.zero) {
+    if (bmi < Number.zero) {
       throw ArgumentError.value(
-        bodyMassIndex,
-        'bodyMassIndex',
+        bmi,
+        'bmi',
         'Body mass index must be non-negative',
       );
     }
     return BodyMassIndexRecord._(
       time: time,
       metadata: metadata,
-      bodyMassIndex: bodyMassIndex,
+      bmi: bmi,
       id: id,
       zoneOffsetSeconds: zoneOffsetSeconds,
     );
@@ -70,25 +70,25 @@ final class BodyMassIndexRecord extends InstantHealthRecord {
   const BodyMassIndexRecord._({
     required super.time,
     required super.metadata,
-    required this.bodyMassIndex,
+    required this.bmi,
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   });
 
   /// The body mass index value (kg/m^2).
-  final Number bodyMassIndex;
+  final Number bmi;
 
   /// Creates a copy with the given fields replaced with the new values.
   BodyMassIndexRecord copyWith({
     DateTime? time,
-    Number? bodyMassIndex,
+    Number? bmi,
     Metadata? metadata,
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {
     return BodyMassIndexRecord._(
       time: time ?? this.time,
-      bodyMassIndex: bodyMassIndex ?? this.bodyMassIndex,
+      bmi: bmi ?? this.bmi,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
@@ -103,7 +103,7 @@ final class BodyMassIndexRecord extends InstantHealthRecord {
           id == other.id &&
           time == other.time &&
           zoneOffsetSeconds == other.zoneOffsetSeconds &&
-          bodyMassIndex == other.bodyMassIndex &&
+          bmi == other.bmi &&
           metadata == other.metadata;
 
   @override
@@ -111,6 +111,6 @@ final class BodyMassIndexRecord extends InstantHealthRecord {
       id.hashCode ^
       time.hashCode ^
       (zoneOffsetSeconds?.hashCode ?? 0) ^
-      bodyMassIndex.hashCode ^
+      bmi.hashCode ^
       metadata.hashCode;
 }

@@ -29,7 +29,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.phone),
                 ),
-                floors: const Number(15.0),
+                count: const Number(15.0),
               );
 
               final dto = record.toDto();
@@ -81,7 +81,7 @@ void main() {
               expect(record.id.value, FakeData.fakeId);
               expect(record.startTime, FakeData.fakeStartTime);
               expect(record.endTime, FakeData.fakeEndTime);
-              expect(record.floors.value, 12.0);
+              expect(record.count.value, 12.0);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,

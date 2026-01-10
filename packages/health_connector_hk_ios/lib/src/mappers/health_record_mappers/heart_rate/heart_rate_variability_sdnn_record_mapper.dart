@@ -17,7 +17,7 @@ extension HeartRateVariabilitySDNNRecordToDto
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
       heartRateVariabilitySDNN: NumberDto(
-        value: heartRateVariabilitySDNN.value.toDouble(),
+        value: sdnnMillis.value.toDouble(),
       ),
     );
   }

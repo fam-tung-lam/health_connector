@@ -15,7 +15,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = MagnesiumNutrientRecord(
 ///   time: DateTime.now(),
-///   value: Mass.milligrams(80),
+///   mass: Mass.milligrams(80),
 ///   foodName: 'Almonds',
 ///   mealType: MealType.snack,
 ///   metadata: Metadata.manualEntry(),
@@ -35,7 +35,7 @@ final class MagnesiumNutrientRecord extends MineralNutrientRecord {
   ///
   /// ## Parameters
   ///
-  /// - [value]: The magnesium measurement.
+  /// - [mass]: The magnesium measurement.
   /// - [time]: The timestamp when the magnesium was consumed.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
@@ -43,7 +43,7 @@ final class MagnesiumNutrientRecord extends MineralNutrientRecord {
   /// - [foodName]: Optional name of the food containing this magnesium.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory MagnesiumNutrientRecord({
-    required Mass value,
+    required Mass mass,
     required DateTime time,
     required Metadata metadata,
     HealthRecordId id = HealthRecordId.none,
@@ -52,7 +52,7 @@ final class MagnesiumNutrientRecord extends MineralNutrientRecord {
     MealType mealType = MealType.unknown,
   }) {
     return MagnesiumNutrientRecord._(
-      value: value,
+      mass: mass,
       time: time,
       metadata: metadata,
       id: id,
@@ -64,7 +64,7 @@ final class MagnesiumNutrientRecord extends MineralNutrientRecord {
 
   /// Creates a copy with the given fields replaced with the new values.
   MagnesiumNutrientRecord copyWith({
-    Mass? value,
+    Mass? mass,
     DateTime? time,
     Metadata? metadata,
     HealthRecordId? id,
@@ -73,7 +73,7 @@ final class MagnesiumNutrientRecord extends MineralNutrientRecord {
     MealType? mealType,
   }) {
     return MagnesiumNutrientRecord._(
-      value: value ?? this.value,
+      mass: mass ?? this.mass,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
@@ -84,7 +84,7 @@ final class MagnesiumNutrientRecord extends MineralNutrientRecord {
   }
 
   const MagnesiumNutrientRecord._({
-    required super.value,
+    required this.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -92,4 +92,7 @@ final class MagnesiumNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
+
+  /// The magnesium measurement.
+  final Mass mass;
 }

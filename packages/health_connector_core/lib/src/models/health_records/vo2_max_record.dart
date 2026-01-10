@@ -26,7 +26,7 @@ part of 'health_record.dart';
 /// ```dart
 /// final record = Vo2MaxRecord(
 ///   time: DateTime.now(),
-///   mLPerKgPerMin: Number(45.2),
+///   vo2MlPerMinPerKg: Number(45.2),
 ///   testType: Vo2MaxTestType.cooperTest,
 ///   metadata: Metadata.manualEntry(),
 /// );
@@ -44,23 +44,23 @@ final class Vo2MaxRecord extends InstantHealthRecord {
   ///
   /// ## Parameters
   ///
-  /// - [id]: The unique identifier for this record.
+  /// The unique identifier for this record.
   /// - [time]: The timestamp when the VO₂ max was measured.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
-  /// - [mLPerKgPerMin]: The VO₂ max measurement in mL/kg/min.
+  /// - [vo2MlPerMinPerKg]: The VO₂ max measurement in mL/kg/min.
   /// - [testType]: Optional test type or measurement method used.
   const Vo2MaxRecord({
     required super.time,
     required super.metadata,
-    required this.mLPerKgPerMin,
+    required this.vo2MlPerMinPerKg,
     this.testType,
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   });
 
   /// The VO₂ max measurement in mL/kg/min.
-  final Number mLPerKgPerMin;
+  final Number vo2MlPerMinPerKg;
 
   /// The test type or measurement method used to determine this VO₂ max value.
   ///
@@ -75,7 +75,7 @@ final class Vo2MaxRecord extends InstantHealthRecord {
   /// Creates a copy with the given fields replaced with the new values.
   Vo2MaxRecord copyWith({
     DateTime? time,
-    Number? mLPerKgPerMin,
+    Number? vo2MlPerMinPerKg,
     Vo2MaxTestType? testType,
     Metadata? metadata,
     HealthRecordId? id,
@@ -83,7 +83,7 @@ final class Vo2MaxRecord extends InstantHealthRecord {
   }) {
     return Vo2MaxRecord(
       time: time ?? this.time,
-      mLPerKgPerMin: mLPerKgPerMin ?? this.mLPerKgPerMin,
+      vo2MlPerMinPerKg: vo2MlPerMinPerKg ?? this.vo2MlPerMinPerKg,
       testType: testType ?? this.testType,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
@@ -99,7 +99,7 @@ final class Vo2MaxRecord extends InstantHealthRecord {
           id == other.id &&
           time == other.time &&
           zoneOffsetSeconds == other.zoneOffsetSeconds &&
-          mLPerKgPerMin == other.mLPerKgPerMin &&
+          vo2MlPerMinPerKg == other.vo2MlPerMinPerKg &&
           testType == other.testType &&
           metadata == other.metadata;
 
@@ -108,7 +108,7 @@ final class Vo2MaxRecord extends InstantHealthRecord {
       id.hashCode ^
       time.hashCode ^
       (zoneOffsetSeconds?.hashCode ?? 0) ^
-      mLPerKgPerMin.hashCode ^
+      vo2MlPerMinPerKg.hashCode ^
       (testType?.hashCode ?? 0) ^
       metadata.hashCode;
 }

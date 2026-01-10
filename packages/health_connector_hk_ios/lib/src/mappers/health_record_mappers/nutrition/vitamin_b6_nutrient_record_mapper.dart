@@ -18,7 +18,7 @@ extension VitaminB6NutrientRecordToDto on VitaminB6NutrientRecord {
       time: time.millisecondsSinceEpoch,
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDto(),
-      value: value.toDto(),
+      value: mass.toDto(),
       foodName: foodName,
       mealType: mealType.toDto(),
     );
@@ -35,7 +35,7 @@ extension VitaminB6NutrientRecordDtoToDomain on VitaminB6NutrientRecordDto {
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      value: value.toDomain(),
+      mass: value.toDomain(),
       foodName: foodName,
       mealType: mealType?.toDomain() ?? MealType.unknown,
     );

@@ -13,7 +13,6 @@ part of '../health_record.dart';
 @immutable
 sealed class VitaminNutrientRecord extends NutrientRecord<Mass> {
   const VitaminNutrientRecord({
-    required super.value,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,

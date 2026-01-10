@@ -23,7 +23,7 @@ extension FloorsClimbedRecordToDto on FloorsClimbedRecord {
         endZoneOffsetSeconds,
       ),
       metadata: metadata.toDto(),
-      floors: floors.toDto(),
+      floors: count.toDto(),
     );
   }
 }
@@ -40,7 +40,7 @@ extension FloorsClimbedRecordDtoToDomain on FloorsClimbedRecordDto {
       startZoneOffsetSeconds: startZoneOffsetSeconds,
       endZoneOffsetSeconds: endZoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      floors: floors.toDomain(),
+      count: floors.toDomain(),
     );
   }
 }

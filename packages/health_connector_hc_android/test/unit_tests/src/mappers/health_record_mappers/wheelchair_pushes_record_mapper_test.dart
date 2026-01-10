@@ -29,7 +29,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.watch),
                 ),
-                pushes: const Number(150),
+                count: const Number(150),
               );
 
               final dto = record.toDto();
@@ -79,7 +79,7 @@ void main() {
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
               );
-              expect(record.pushes.value, 200);
+              expect(record.count.value, 200);
             },
           );
 

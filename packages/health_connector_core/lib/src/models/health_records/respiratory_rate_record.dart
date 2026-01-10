@@ -19,7 +19,7 @@ part of 'health_record.dart';
 /// ```dart
 /// final record = RespiratoryRateRecord(
 ///   time: DateTime.now(),
-///   breathsPerMin: Frequency.perMinute(16),
+///   rate: Frequency.perMinute(16),
 ///   metadata: Metadata.automaticallyRecorded(
 ///     device: Device.fromType(DeviceType.watch),
 ///   ),
@@ -39,32 +39,32 @@ final class RespiratoryRateRecord extends InstantHealthRecord {
   /// ## Parameters
   ///
   /// - [time]: The timestamp when the respiratory rate was measured.
-  /// - [breathsPerMin]: The number of breaths per minute.
+  /// - [rate]: The number of breaths per minute.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   const RespiratoryRateRecord({
     required super.time,
-    required this.breathsPerMin,
+    required this.rate,
     required super.metadata,
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   });
 
   /// The number of breaths per minute.
-  final Frequency breathsPerMin;
+  final Frequency rate;
 
   /// Creates a copy with the given fields replaced with the new values.
   RespiratoryRateRecord copyWith({
     DateTime? time,
-    Frequency? breathsPerMin,
+    Frequency? rate,
     Metadata? metadata,
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {
     return RespiratoryRateRecord(
       time: time ?? this.time,
-      breathsPerMin: breathsPerMin ?? this.breathsPerMin,
+      rate: rate ?? this.rate,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
@@ -74,10 +74,8 @@ final class RespiratoryRateRecord extends InstantHealthRecord {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is RespiratoryRateRecord &&
-          super == other &&
-          breathsPerMin == other.breathsPerMin;
+      other is RespiratoryRateRecord && super == other && rate == other.rate;
 
   @override
-  int get hashCode => Object.hash(super.hashCode, breathsPerMin);
+  int get hashCode => Object.hash(super.hashCode, rate);
 }

@@ -15,7 +15,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = VitaminENutrientRecord(
 ///   time: DateTime.now(),
-///   value: Mass.milligrams(7.3),
+///   mass: Mass.milligrams(7.3),
 ///   foodName: 'Almonds',
 ///   mealType: MealType.snack,
 ///   metadata: Metadata.manualEntry(),
@@ -35,7 +35,8 @@ final class VitaminENutrientRecord extends VitaminNutrientRecord {
   ///
   /// ## Parameters
   ///
-  /// - [value]: The vitamin E measurement.
+  ///
+  /// - [mass]: The vitamin E measurement.
   /// - [time]: The timestamp when the vitamin E was consumed.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
@@ -43,7 +44,7 @@ final class VitaminENutrientRecord extends VitaminNutrientRecord {
   /// - [foodName]: Optional name of the food containing this vitamin E.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
   factory VitaminENutrientRecord({
-    required Mass value,
+    required Mass mass,
     required DateTime time,
     required Metadata metadata,
     HealthRecordId id = HealthRecordId.none,
@@ -52,7 +53,7 @@ final class VitaminENutrientRecord extends VitaminNutrientRecord {
     MealType mealType = MealType.unknown,
   }) {
     return VitaminENutrientRecord._(
-      value: value,
+      mass: mass,
       time: time,
       metadata: metadata,
       id: id,
@@ -64,7 +65,7 @@ final class VitaminENutrientRecord extends VitaminNutrientRecord {
 
   /// Creates a copy with the given fields replaced with the new values.
   VitaminENutrientRecord copyWith({
-    Mass? value,
+    Mass? mass,
     DateTime? time,
     Metadata? metadata,
     HealthRecordId? id,
@@ -73,7 +74,7 @@ final class VitaminENutrientRecord extends VitaminNutrientRecord {
     MealType? mealType,
   }) {
     return VitaminENutrientRecord._(
-      value: value ?? this.value,
+      mass: mass ?? this.mass,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
@@ -84,7 +85,7 @@ final class VitaminENutrientRecord extends VitaminNutrientRecord {
   }
 
   const VitaminENutrientRecord._({
-    required super.value,
+    required this.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -92,4 +93,7 @@ final class VitaminENutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
+
+  /// The vitamin E measurement.
+  final Mass mass;
 }

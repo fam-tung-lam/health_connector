@@ -18,7 +18,7 @@ void main() {
 
               final measurement = CyclingPedalingCadenceMeasurement(
                 time: time,
-                revolutionsPerMinute: const Number(90.5),
+                cadence: const Number(90.5),
               );
 
               final dto = measurement.toDto();
@@ -47,7 +47,7 @@ void main() {
               final measurement = dto.toDomain();
 
               expect(measurement.time, time);
-              expect(measurement.revolutionsPerMinute.value, 85.0);
+              expect(measurement.cadence.value, 85.0);
             },
           );
         },

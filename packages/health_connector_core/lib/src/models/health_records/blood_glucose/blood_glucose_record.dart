@@ -18,7 +18,7 @@ part of '../health_record.dart';
 /// ```dart
 /// final record = BloodGlucoseRecord(
 ///   time: DateTime.now(),
-///   bloodGlucose: BloodGlucose.millimolesPerLiter(5.5),
+///   glucoseLevel: BloodGlucose.millimolesPerLiter(5.5),
 ///   relationToMeal: BloodGlucoseRelationToMeal.fasting,
 ///   mealType: MealType.breakfast,
 ///   specimenSource: BloodGlucoseSpecimenSource.capillaryBlood,
@@ -42,7 +42,7 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
   /// - [time]: The timestamp when the measurement was taken.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
-  /// - [bloodGlucose]: The blood glucose level.
+  /// - [glucoseLevel]: The blood glucose level.
   /// - [relationToMeal]: The relationship to a meal (e.g., fasting, after
   ///   meal).
   /// - [mealType]: The type of meal (e.g., breakfast, lunch).
@@ -50,7 +50,7 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
   const BloodGlucoseRecord({
     required super.time,
     required super.metadata,
-    required this.bloodGlucose,
+    required this.glucoseLevel,
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
     this.relationToMeal = BloodGlucoseRelationToMeal.unknown,
@@ -59,7 +59,7 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
   });
 
   /// The blood glucose level.
-  final BloodGlucose bloodGlucose;
+  final BloodGlucose glucoseLevel;
 
   /// The relationship of this measurement to a meal.
   final BloodGlucoseRelationToMeal relationToMeal;
@@ -73,7 +73,7 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
   /// Creates a copy with the given fields replaced with the new values.
   BloodGlucoseRecord copyWith({
     DateTime? time,
-    BloodGlucose? bloodGlucose,
+    BloodGlucose? glucoseLevel,
     Metadata? metadata,
     HealthRecordId? id,
     int? zoneOffsetSeconds,
@@ -83,7 +83,7 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
   }) {
     return BloodGlucoseRecord(
       time: time ?? this.time,
-      bloodGlucose: bloodGlucose ?? this.bloodGlucose,
+      glucoseLevel: glucoseLevel ?? this.glucoseLevel,
       metadata: metadata ?? this.metadata,
       id: id ?? this.id,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
@@ -101,7 +101,7 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
           id == other.id &&
           time == other.time &&
           zoneOffsetSeconds == other.zoneOffsetSeconds &&
-          bloodGlucose == other.bloodGlucose &&
+          glucoseLevel == other.glucoseLevel &&
           relationToMeal == other.relationToMeal &&
           mealType == other.mealType &&
           specimenSource == other.specimenSource &&
@@ -112,7 +112,7 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
       id.hashCode ^
       time.hashCode ^
       (zoneOffsetSeconds?.hashCode ?? 0) ^
-      bloodGlucose.hashCode ^
+      glucoseLevel.hashCode ^
       relationToMeal.hashCode ^
       mealType.hashCode ^
       specimenSource.hashCode ^
