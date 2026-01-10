@@ -578,7 +578,8 @@ enum ExerciseType {
   /// Dancing activity.
   ///
   /// **Platform Mappings:**
-  /// - **iOS HealthKit**: `HKWorkoutActivityType.dance` (deprecated) or `cardioDance`/`socialDance`
+  /// - **iOS HealthKit**: `HKWorkoutActivityType.dance` (deprecated) or
+  /// `cardioDance`/`socialDance`
   /// - **Android Health Connect**: `EXERCISE_TYPE_DANCING`
   ///
   /// Throws [UnsupportedOperationException] on iOS HealthKit.

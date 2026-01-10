@@ -30,7 +30,7 @@ extension DietaryNiacinRecordToDto on DietaryNiacinRecord {
 @internal
 extension DietaryNiacinRecordDtoToDomain on DietaryNiacinRecordDto {
   DietaryNiacinRecord toDomain() {
-    return DietaryNiacinRecord(
+    return DietaryNiacinRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

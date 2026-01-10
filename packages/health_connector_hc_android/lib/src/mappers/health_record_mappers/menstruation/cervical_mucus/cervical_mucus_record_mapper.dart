@@ -28,7 +28,7 @@ extension CervicalMucusRecordToDto on CervicalMucusRecord {
 extension CervicalMucusRecordDtoToDomain on CervicalMucusRecordDto {
   /// Converts this [CervicalMucusRecordDto] to [CervicalMucusRecord].
   CervicalMucusRecord toDomain() {
-    return CervicalMucusRecord(
+    return CervicalMucusRecord.internal(
       id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
       metadata: metadata.toDomain(),
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),

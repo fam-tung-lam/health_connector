@@ -8,8 +8,11 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`WheelchairPushesRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/WheelchairPushesRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.pushCount`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/pushcount)
+/// - **Android Health Connect**: [`WheelchairPushesRecord`](https://developer.a
+/// ndroid.com/reference/kotlin/androidx/health/connect/client/records/Wheelchai
+/// rPushesRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.pushCount`](https://develope
+/// r.apple.com/documentation/healthkit/hkquantitytypeidentifier/pushcount)
 ///
 /// ## Example
 ///
@@ -53,6 +56,49 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
     required super.metadata,
     required this.count,
     super.id = HealthRecordId.none,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [WheelchairPushesRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [WheelchairPushesRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [WheelchairPushesRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory WheelchairPushesRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required Number count,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return WheelchairPushesRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      count: count,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  WheelchairPushesRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required this.count,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });

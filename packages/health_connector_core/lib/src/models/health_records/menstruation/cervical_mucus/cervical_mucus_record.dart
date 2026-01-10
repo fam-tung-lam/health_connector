@@ -3,8 +3,11 @@ part of '../../health_record.dart';
 /// Represents cervical mucus observation at a specific point in time.
 ///
 /// ## Platform Mapping
-/// - **Android**: [`CervicalMucusRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/CervicalMucusRecord)
-/// - **iOS**: [`HKCategoryTypeIdentifier.cervicalMucusQuality`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/cervicalMucusQuality)
+/// - **Android**: [`CervicalMucusRecord`](https://developer.android.com/referen
+/// ce/kotlin/androidx/health/connect/client/records/CervicalMucusRecord)
+/// - **iOS**: [`HKCategoryTypeIdentifier.cervicalMucusQuality`](https://develop
+/// er.apple.com/documentation/healthkit/hkcategorytypeidentifier/cervicalMucusQ
+/// uality)
 ///
 /// {@category Health Data Types}
 @sinceV2_1_0
@@ -15,6 +18,44 @@ final class CervicalMucusRecord extends InstantHealthRecord {
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    this.appearance = CervicalMucusAppearance.unknown,
+    this.sensation = CervicalMucusSensation.unknown,
+  });
+
+  /// Internal factory for creating [CervicalMucusRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [CervicalMucusRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [CervicalMucusRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory CervicalMucusRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    int? zoneOffsetSeconds,
+    CervicalMucusAppearance appearance = CervicalMucusAppearance.unknown,
+    CervicalMucusSensation sensation = CervicalMucusSensation.unknown,
+  }) {
+    return CervicalMucusRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      appearance: appearance,
+      sensation: sensation,
+    );
+  }
+
+  const CervicalMucusRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
     super.zoneOffsetSeconds,
     this.appearance = CervicalMucusAppearance.unknown,
     this.sensation = CervicalMucusSensation.unknown,

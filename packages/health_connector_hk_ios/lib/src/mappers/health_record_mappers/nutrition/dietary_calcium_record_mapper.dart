@@ -30,7 +30,7 @@ extension DietaryCalciumRecordToDto on DietaryCalciumRecord {
 @internal
 extension DietaryCalciumRecordDtoToDomain on DietaryCalciumRecordDto {
   DietaryCalciumRecord toDomain() {
-    return DietaryCalciumRecord(
+    return DietaryCalciumRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

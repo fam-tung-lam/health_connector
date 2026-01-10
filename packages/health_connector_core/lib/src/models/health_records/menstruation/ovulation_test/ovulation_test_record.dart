@@ -8,8 +8,12 @@ part of '../../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`OvulationTestRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/OvulationTestRecord)
-/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.ovulationTestResult`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/ovulationtestresult)
+/// - **Android Health Connect**: [`OvulationTestRecord`](https://developer.andr
+/// oid.com/reference/kotlin/androidx/health/connect/client/records/OvulationTes
+/// tRecord)
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.ovulationTestResult`](https:
+/// //developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/ovula
+/// tiontestresult)
 ///
 /// ## Example
 ///
@@ -46,6 +50,41 @@ final class OvulationTestRecord extends InstantHealthRecord {
     required super.metadata,
     required this.result,
     super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory OvulationTestRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required OvulationTestResult result,
+    int? zoneOffsetSeconds,
+  }) {
+    return OvulationTestRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      result: result,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  const OvulationTestRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.result,
     super.zoneOffsetSeconds,
   });
 

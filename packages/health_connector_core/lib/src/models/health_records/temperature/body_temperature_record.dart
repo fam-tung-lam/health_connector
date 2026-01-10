@@ -7,8 +7,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`BodyTemperatureRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyTemperatureRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bodyTemperature`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodytemperature)
+/// - **Android Health Connect**: [`BodyTemperatureRecord`](https://developer.an
+/// droid.com/reference/kotlin/androidx/health/connect/client/records/BodyTemper
+/// atureRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bodyTemperature`](https://de
+/// veloper.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodytempe
+/// rature)
 ///
 /// ## Example
 ///
@@ -37,16 +41,48 @@ final class BodyTemperatureRecord extends InstantHealthRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [temperature]: The body temperature measurement.
-  ///
-  /// ## Throws
-  ///
-  /// - [ArgumentError] if [temperature] is invalid via [Temperature]
-  ///   class validation.
   const BodyTemperatureRecord({
     required super.time,
     required super.metadata,
     required this.temperature,
-    super.id = HealthRecordId.none,
+    super.id,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [BodyTemperatureRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [BodyTemperatureRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BodyTemperatureRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory BodyTemperatureRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Temperature temperature,
+    int? zoneOffsetSeconds,
+  }) {
+    return BodyTemperatureRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      temperature: temperature,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  const BodyTemperatureRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.temperature,
     super.zoneOffsetSeconds,
   });
 

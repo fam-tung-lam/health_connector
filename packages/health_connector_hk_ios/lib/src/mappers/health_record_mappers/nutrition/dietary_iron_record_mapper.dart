@@ -30,7 +30,7 @@ extension DietaryIronRecordToDto on DietaryIronRecord {
 @internal
 extension DietaryIronRecordDtoToDomain on DietaryIronRecordDto {
   DietaryIronRecord toDomain() {
-    return DietaryIronRecord(
+    return DietaryIronRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

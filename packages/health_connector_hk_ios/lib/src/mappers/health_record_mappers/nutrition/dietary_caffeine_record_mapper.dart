@@ -30,7 +30,7 @@ extension DietaryCaffeineRecordToDto on DietaryCaffeineRecord {
 @internal
 extension DietaryCaffeineRecordDtoToDomain on DietaryCaffeineRecordDto {
   DietaryCaffeineRecord toDomain() {
-    return DietaryCaffeineRecord(
+    return DietaryCaffeineRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

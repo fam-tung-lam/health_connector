@@ -34,7 +34,7 @@ extension RowingDistanceRecordToDto on RowingDistanceRecord {
 @internal
 extension RowingDistanceRecordDtoToDomain on DistanceActivityRecordDto {
   RowingDistanceRecord toDomain() {
-    return RowingDistanceRecord(
+    return RowingDistanceRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

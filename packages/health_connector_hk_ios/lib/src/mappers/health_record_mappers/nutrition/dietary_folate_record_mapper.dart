@@ -30,7 +30,7 @@ extension DietaryFolateRecordToDto on DietaryFolateRecord {
 @internal
 extension DietaryFolateRecordDtoToDomain on DietaryFolateRecordDto {
   DietaryFolateRecord toDomain() {
-    return DietaryFolateRecord(
+    return DietaryFolateRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

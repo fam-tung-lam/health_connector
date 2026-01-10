@@ -7,8 +7,11 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`DistanceRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/DistanceRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.distanceWalkingRunning`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancewalkingrunning)
+/// - **Android Health Connect**: [`DistanceRecord`](https://developer.android.c
+/// om/reference/kotlin/androidx/health/connect/client/records/DistanceRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.distanceWalkingRunning`](htt
+/// ps://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/di
+/// stancewalkingrunning)
 ///
 /// ## Example
 ///
@@ -49,6 +52,49 @@ final class DistanceRecord extends IntervalHealthRecord {
     required super.metadata,
     required this.distance,
     super.id = HealthRecordId.none,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [DistanceRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [DistanceRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [DistanceRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory DistanceRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required Length distance,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return DistanceRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      distance: distance,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  DistanceRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required this.distance,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });

@@ -40,7 +40,7 @@ extension DownhillSnowSportsDistanceRecordToDto
 extension DownhillSnowSportsDistanceRecordDtoToDomain
     on DistanceActivityRecordDto {
   DownhillSnowSportsDistanceRecord toDomain() {
-    return DownhillSnowSportsDistanceRecord(
+    return DownhillSnowSportsDistanceRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

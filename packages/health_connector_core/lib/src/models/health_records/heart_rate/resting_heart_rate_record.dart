@@ -9,8 +9,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`RestingHeartRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RestingHeartRateRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.restingHeartRate`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/restingheartrate)
+/// - **Android Health Connect**: [`RestingHeartRateRecord`](https://developer.a
+/// ndroid.com/reference/kotlin/androidx/health/connect/client/records/RestingHe
+/// artRateRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.restingHeartRate`](https://d
+/// eveloper.apple.com/documentation/healthkit/hkquantitytypeidentifier/restingh
+/// eartrate)
 ///
 /// ## Example
 ///
@@ -38,17 +42,47 @@ final class RestingHeartRateRecord extends InstantHealthRecord {
   /// - [time]: The timestamp when the resting heart rate was measured.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
-  /// - [rate]: The resting heart rate measurement in beats per
-  ///   minute.
-  ///
-  /// ## Throws
-  ///
-  /// - [ArgumentError] if [rate] is negative.
+  /// - [rate]: The resting heart rate measurement in beats per minute.
   const RestingHeartRateRecord({
     required super.time,
     required super.metadata,
     required this.rate,
-    super.id = HealthRecordId.none,
+    super.id,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory RestingHeartRateRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Frequency rate,
+    int? zoneOffsetSeconds,
+  }) {
+    return RestingHeartRateRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      rate: rate,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  const RestingHeartRateRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.rate,
     super.zoneOffsetSeconds,
   });
 

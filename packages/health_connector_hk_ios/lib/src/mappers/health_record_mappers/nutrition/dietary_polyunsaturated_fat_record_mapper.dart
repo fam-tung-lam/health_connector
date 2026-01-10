@@ -34,7 +34,7 @@ extension DietaryPolyunsaturatedFatRecordToDto
 extension DietaryPolyunsaturatedFatRecordDtoToDomain
     on DietaryPolyunsaturatedFatRecordDto {
   DietaryPolyunsaturatedFatRecord toDomain() {
-    return DietaryPolyunsaturatedFatRecord(
+    return DietaryPolyunsaturatedFatRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

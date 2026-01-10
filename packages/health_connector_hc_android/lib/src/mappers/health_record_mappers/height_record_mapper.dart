@@ -27,12 +27,12 @@ extension HeightRecordToDto on HeightRecord {
 @internal
 extension HeightRecordDtoToDomain on HeightRecordDto {
   HeightRecord toDomain() {
-    return HeightRecord(
+    return HeightRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,
       metadata: metadata.toDomain(),
-      length: height.toDomain(),
+      height: height.toDomain(),
     );
   }
 }

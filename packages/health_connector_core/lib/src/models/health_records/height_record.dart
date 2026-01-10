@@ -36,30 +36,49 @@ final class HeightRecord extends InstantHealthRecord {
   /// - [time]: The timestamp when the height was measured.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
-  /// - [length]: The body height measurement. Must be greater than 0 meters.
+  /// - [height]: The body height measurement. Must be greater than 0 meters.
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError] if [length] is less than or equal to 0 meters.
-  factory HeightRecord({
+  /// - [ArgumentError] if [height] is less than or equal to 0 meters.
+  const HeightRecord({
+    required super.time,
+    required super.metadata,
+    required this.height,
+    super.id,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [HeightRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [HeightRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [HeightRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory HeightRecord.internal({
+    required HealthRecordId id,
     required DateTime time,
     required Metadata metadata,
-    required Length length,
-    HealthRecordId id = HealthRecordId.none,
+    required Length height,
     int? zoneOffsetSeconds,
   }) {
     return HeightRecord._(
+      id: id,
       time: time,
       metadata: metadata,
-      height: length,
-      id: id,
+      height: height,
       zoneOffsetSeconds: zoneOffsetSeconds,
     );
   }
 
-  /// Private constructor for internal use.
-  ///
-  /// Use [HeightRecord] factory constructor instead, which performs validation.
+  /// Private constructor without validation.
   const HeightRecord._({
     required super.time,
     required super.metadata,
@@ -85,7 +104,7 @@ final class HeightRecord extends InstantHealthRecord {
     return HeightRecord(
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
-      length: height ?? this.height,
+      height: height ?? this.height,
       id: id ?? this.id,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
     );

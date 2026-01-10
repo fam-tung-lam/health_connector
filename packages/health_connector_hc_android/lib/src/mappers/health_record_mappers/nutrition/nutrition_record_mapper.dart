@@ -73,7 +73,7 @@ extension NutritionRecordDtoToDomain on NutritionRecordDto {
 
     switch (healthDataType) {
       case HealthDataTypeDto.nutrition:
-        return NutritionRecord(
+        return NutritionRecord.internal(
           id: id,
           startTime: DateTime.fromMillisecondsSinceEpoch(
             startTime,

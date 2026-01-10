@@ -25,7 +25,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.phone),
                 ),
-                length: const Length.meters(1.75),
+                height: const Length.meters(1.75),
               );
 
               final dto = record.toDto();

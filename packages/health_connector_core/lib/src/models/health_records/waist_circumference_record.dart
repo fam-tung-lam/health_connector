@@ -10,7 +10,9 @@ part of 'health_record.dart';
 /// ## Platform Mapping
 ///
 /// - Android (Health Connect): Not supported
-/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.waistCircumference`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/waistcircumference)
+/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.waistCircumference`](https://d
+/// eveloper.apple.com/documentation/healthkit/hkquantitytypeidentifier/waistcir
+/// cumference)
 ///
 /// ## Example
 ///
@@ -44,12 +46,12 @@ final class WaistCircumferenceRecord extends InstantHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [circumference] is negative.
-  factory WaistCircumferenceRecord({
-    required DateTime time,
-    required Metadata metadata,
-    required Length circumference,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
+  WaistCircumferenceRecord({
+    required super.time,
+    required super.metadata,
+    required this.circumference,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
   }) {
     if (circumference < Length.zero) {
       throw ArgumentError.value(
@@ -58,6 +60,28 @@ final class WaistCircumferenceRecord extends InstantHealthRecord {
         'Circumference must be non-negative',
       );
     }
+  }
+
+  /// Internal factory for creating [WaistCircumferenceRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [WaistCircumferenceRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [WaistCircumferenceRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory WaistCircumferenceRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Length circumference,
+    int? zoneOffsetSeconds,
+  }) {
     return WaistCircumferenceRecord._(
       time: time,
       metadata: metadata,
@@ -67,7 +91,7 @@ final class WaistCircumferenceRecord extends InstantHealthRecord {
     );
   }
 
-  /// Private constructor for internal use.
+  /// Private constructor without validation.
   const WaistCircumferenceRecord._({
     required super.time,
     required super.metadata,
@@ -87,7 +111,7 @@ final class WaistCircumferenceRecord extends InstantHealthRecord {
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {
-    return WaistCircumferenceRecord._(
+    return WaistCircumferenceRecord(
       time: time ?? this.time,
       circumference: circumference ?? this.circumference,
       metadata: metadata ?? this.metadata,

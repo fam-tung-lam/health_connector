@@ -7,7 +7,9 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported (Use [DistanceRecord])
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.distanceCrossCountrySkiing`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancecrosscountryskiing)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.distanceCrossCountrySkiing`]
+/// (https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifie
+/// r/distancecrosscountryskiing)
 ///
 /// ## Example
 ///
@@ -33,6 +35,49 @@ final class CrossCountrySkiingDistanceRecord extends DistanceActivityRecord {
     required super.metadata,
     required super.distance,
     super.id,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [CrossCountrySkiingDistanceRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [CrossCountrySkiingDistanceRecord] by directly mapping platform
+  /// data to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [CrossCountrySkiingDistanceRecord] constructor, which enforces validation
+  /// and business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory CrossCountrySkiingDistanceRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required Length distance,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return CrossCountrySkiingDistanceRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      distance: distance,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  CrossCountrySkiingDistanceRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required super.distance,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });

@@ -33,7 +33,7 @@ extension WheelchairPushesRecordToDto on WheelchairPushesRecord {
 @internal
 extension WheelchairPushesRecordDtoToDomain on WheelchairPushesRecordDto {
   WheelchairPushesRecord toDomain() {
-    return WheelchairPushesRecord(
+    return WheelchairPushesRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

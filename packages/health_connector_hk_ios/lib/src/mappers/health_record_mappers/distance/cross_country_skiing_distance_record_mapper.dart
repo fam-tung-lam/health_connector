@@ -40,7 +40,7 @@ extension CrossCountrySkiingDistanceRecordToDto
 extension CrossCountrySkiingDistanceRecordDtoToDomain
     on DistanceActivityRecordDto {
   CrossCountrySkiingDistanceRecord toDomain() {
-    return CrossCountrySkiingDistanceRecord(
+    return CrossCountrySkiingDistanceRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

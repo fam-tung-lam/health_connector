@@ -9,8 +9,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`IntermenstrualBleedingRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/IntermenstrualBleedingRecord)
-/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.intermenstrualBleeding`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/intermenstrualbleeding)
+/// - **Android Health Connect**: [`IntermenstrualBleedingRecord`](https://devel
+/// oper.android.com/reference/kotlin/androidx/health/connect/client/records/Int
+/// ermenstrualBleedingRecord)
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.intermenstrualBleeding`](htt
+/// ps://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/in
+/// termenstrualbleeding)
 ///
 /// ## Example
 ///
@@ -42,6 +46,38 @@ final class IntermenstrualBleedingRecord extends InstantHealthRecord {
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory IntermenstrualBleedingRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    int? zoneOffsetSeconds,
+  }) {
+    return IntermenstrualBleedingRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  const IntermenstrualBleedingRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
     super.zoneOffsetSeconds,
   });
 

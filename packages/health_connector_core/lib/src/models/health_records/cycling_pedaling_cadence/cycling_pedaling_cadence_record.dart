@@ -10,7 +10,8 @@ part of '../health_record.dart';
 /// - **Android Health Connect**: Not supported
 ///   (Use [CyclingPedalingCadenceSeriesRecord])
 /// - **iOS HealthKit**:
-///   [`HKQuantityTypeIdentifier.cyclingCadence`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/cyclingcadence)
+///   [`HKQuantityTypeIdentifier.cyclingCadence`](https://developer.apple.com/do
+/// cumentation/healthkit/hkquantitytypeidentifier/cyclingcadence)
 ///
 /// ## Example
 ///
@@ -35,18 +36,39 @@ part of '../health_record.dart';
 @immutable
 final class CyclingPedalingCadenceRecord extends InstantHealthRecord {
   /// Creates a cycling pedaling cadence measurement record.
-  factory CyclingPedalingCadenceRecord({
+  /// Creates a cycling pedaling cadence measurement record.
+  const CyclingPedalingCadenceRecord({
+    required super.id,
+    required this.cadence,
+    required super.time,
+    required super.metadata,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [CyclingPedalingCadenceRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [CyclingPedalingCadenceRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [CyclingPedalingCadenceRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory CyclingPedalingCadenceRecord.internal({
     required HealthRecordId id,
-    required Frequency cadence,
     required DateTime time,
     required Metadata metadata,
-
+    required Frequency cadence,
     int? zoneOffsetSeconds,
   }) {
     return CyclingPedalingCadenceRecord._(
       id: id,
-      metadata: metadata,
       time: time,
+      metadata: metadata,
       cadence: cadence,
       zoneOffsetSeconds: zoneOffsetSeconds,
     );

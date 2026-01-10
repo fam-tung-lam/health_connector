@@ -34,7 +34,7 @@ extension DietaryTotalCarbohydrateRecordToDto
 extension DietaryTotalCarbohydrateRecordDtoToDomain
     on DietaryTotalCarbohydrateRecordDto {
   DietaryTotalCarbohydrateRecord toDomain() {
-    return DietaryTotalCarbohydrateRecord(
+    return DietaryTotalCarbohydrateRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

@@ -33,7 +33,7 @@ extension HydrationRecordToDto on HydrationRecord {
 @internal
 extension HydrationRecordDtoToDomain on HydrationRecordDto {
   HydrationRecord toDomain() {
-    return HydrationRecord(
+    return HydrationRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

@@ -10,8 +10,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`BasalBodyTemperatureRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BasalBodyTemperatureRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.basalBodyTemperature`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/basalbodytemperature)
+/// - **Android Health Connect**: [`BasalBodyTemperatureRecord`](https://develop
+/// er.android.com/reference/kotlin/androidx/health/connect/client/records/Basal
+/// BodyTemperatureRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.basalBodyTemperature`](https
+/// ://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/basa
+/// lbodytemperature)
 ///
 /// ## Example
 ///
@@ -44,16 +48,52 @@ final class BasalBodyTemperatureRecord extends InstantHealthRecord {
   /// - [temperature]: The basal body temperature measurement.
   /// - [measurementLocation]: The location on the body where the measurement
   ///   was taken.
-  ///
-  /// ## Throws
-  ///
-  /// - [ArgumentError] if [temperature] is invalid via [Temperature]
-  ///   class validation.
   const BasalBodyTemperatureRecord({
     required super.time,
     required super.metadata,
     required this.temperature,
-    super.id = HealthRecordId.none,
+    super.id,
+    super.zoneOffsetSeconds,
+    this.measurementLocation = BasalBodyTemperatureMeasurementLocation.unknown,
+  });
+
+  /// Internal factory for creating [BasalBodyTemperatureRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [BasalBodyTemperatureRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BasalBodyTemperatureRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory BasalBodyTemperatureRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Temperature temperature,
+    int? zoneOffsetSeconds,
+    BasalBodyTemperatureMeasurementLocation measurementLocation =
+        BasalBodyTemperatureMeasurementLocation.unknown,
+  }) {
+    return BasalBodyTemperatureRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      temperature: temperature,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      measurementLocation: measurementLocation,
+    );
+  }
+
+  const BasalBodyTemperatureRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.temperature,
     super.zoneOffsetSeconds,
     this.measurementLocation = BasalBodyTemperatureMeasurementLocation.unknown,
   });

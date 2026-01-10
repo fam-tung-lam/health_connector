@@ -26,7 +26,7 @@ extension SexualActivityRecordToDto on SexualActivityRecord {
 extension SexualActivityRecordDtoToDomain on SexualActivityRecordDto {
   /// Converts [SexualActivityRecordDto] to [SexualActivityRecord].
   SexualActivityRecord toDomain() {
-    return SexualActivityRecord(
+    return SexualActivityRecord.internal(
       id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
       metadata: metadata.toDomain(),
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),

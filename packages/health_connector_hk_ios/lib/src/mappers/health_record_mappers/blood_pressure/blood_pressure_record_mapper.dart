@@ -32,7 +32,7 @@ extension BloodPressureRecordToDto on BloodPressureRecord {
 @internal
 extension BloodPressureRecordDtoToDomain on BloodPressureRecordDto {
   BloodPressureRecord toDomain() {
-    return BloodPressureRecord(
+    return BloodPressureRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

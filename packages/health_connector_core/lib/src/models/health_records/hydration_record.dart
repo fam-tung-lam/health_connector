@@ -6,8 +6,11 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`HydrationRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HydrationRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.dietaryWater`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarywater)
+/// - **Android Health Connect**: [`HydrationRecord`](https://developer.android.
+/// com/reference/kotlin/androidx/health/connect/client/records/HydrationRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.dietaryWater`](https://devel
+/// oper.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarywater
+/// )
 ///
 /// ## Example
 ///
@@ -52,6 +55,50 @@ final class HydrationRecord extends IntervalHealthRecord {
     required super.metadata,
     required this.volume,
     super.id = HealthRecordId.none,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [HydrationRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [HydrationRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [HydrationRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory HydrationRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required Volume volume,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return HydrationRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      volume: volume,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  /// Private constructor without validation.
+  HydrationRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required this.volume,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });

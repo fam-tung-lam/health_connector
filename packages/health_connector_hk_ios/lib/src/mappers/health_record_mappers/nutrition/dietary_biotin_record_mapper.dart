@@ -30,7 +30,7 @@ extension DietaryBiotinRecordToDto on DietaryBiotinRecord {
 @internal
 extension DietaryBiotinRecordDtoToDomain on DietaryBiotinRecordDto {
   DietaryBiotinRecord toDomain() {
-    return DietaryBiotinRecord(
+    return DietaryBiotinRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

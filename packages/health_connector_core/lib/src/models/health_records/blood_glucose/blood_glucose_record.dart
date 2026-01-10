@@ -8,8 +8,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`BloodGlucoseRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodGlucoseRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bloodGlucose`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodglucose)
+/// - **Android Health Connect**: [`BloodGlucoseRecord`](https://developer.andro
+/// id.com/reference/kotlin/androidx/health/connect/client/records/BloodGlucoseR
+/// ecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bloodGlucose`](https://devel
+/// oper.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodglucose
+/// )
 ///
 /// ## Example
 ///
@@ -54,6 +58,53 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
     this.relationToMeal = BloodGlucoseRelationToMeal.unknown,
     this.mealType = MealType.unknown,
     this.specimenSource = BloodGlucoseSpecimenSource.unknown,
+  });
+
+  /// Internal factory for creating [BloodGlucoseRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodGlucoseRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodGlucoseRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory BloodGlucoseRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required BloodGlucose glucoseLevel,
+    int? zoneOffsetSeconds,
+    BloodGlucoseRelationToMeal relationToMeal =
+        BloodGlucoseRelationToMeal.unknown,
+    MealType mealType = MealType.unknown,
+    BloodGlucoseSpecimenSource specimenSource =
+        BloodGlucoseSpecimenSource.unknown,
+  }) {
+    return BloodGlucoseRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      glucoseLevel: glucoseLevel,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      relationToMeal: relationToMeal,
+      mealType: mealType,
+      specimenSource: specimenSource,
+    );
+  }
+
+  /// Private constructor without validation.
+  const BloodGlucoseRecord._({
+    required super.time,
+    required super.metadata,
+    required this.glucoseLevel,
+    required super.id,
+    required this.relationToMeal,
+    required this.mealType,
+    required this.specimenSource,
+    super.zoneOffsetSeconds,
   });
 
   /// The blood glucose level.

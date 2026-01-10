@@ -7,7 +7,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`HeartRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateRecord)
+/// - **Android Health Connect**: [`HeartRateRecord`](https://developer.android.
+/// com/reference/kotlin/androidx/health/connect/client/records/HeartRateRecord)
 /// - **iOS HealthKit**: Not supported (Use [HeartRateRecord])
 ///
 /// ## Example
@@ -56,6 +57,49 @@ final class HeartRateSeriesRecord extends SeriesHealthRecord<HeartRateSample> {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });
+
+  /// Internal factory for creating [HeartRateSeriesRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [HeartRateSeriesRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [HeartRateSeriesRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory HeartRateSeriesRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required List<HeartRateSample> samples,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return HeartRateSeriesRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      samples: samples,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  HeartRateSeriesRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required super.samples,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  }) : super._();
 
   /// The average heart rate across all samples.
   Frequency get avgRate {

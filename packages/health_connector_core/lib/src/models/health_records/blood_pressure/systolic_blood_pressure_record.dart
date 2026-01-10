@@ -58,6 +58,48 @@ final class SystolicBloodPressureRecord extends InstantHealthRecord {
     this.measurementLocation = BloodPressureMeasurementLocation.unknown,
   });
 
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory SystolicBloodPressureRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Pressure pressure,
+    int? zoneOffsetSeconds,
+    BloodPressureBodyPosition bodyPosition = BloodPressureBodyPosition.unknown,
+    BloodPressureMeasurementLocation measurementLocation =
+        BloodPressureMeasurementLocation.unknown,
+  }) {
+    return SystolicBloodPressureRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      pressure: pressure,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      bodyPosition: bodyPosition,
+      measurementLocation: measurementLocation,
+    );
+  }
+
+  const SystolicBloodPressureRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.pressure,
+    super.zoneOffsetSeconds,
+    this.bodyPosition = BloodPressureBodyPosition.unknown,
+    this.measurementLocation = BloodPressureMeasurementLocation.unknown,
+  });
+
   /// The systolic blood pressure measurement (pressure during heartbeat).
   ///
   /// Systolic is the "upper" number in a blood pressure reading.

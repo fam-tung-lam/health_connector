@@ -28,7 +28,7 @@ extension MenstrualFlowRecordToDto on MenstrualFlowRecord {
 @internal
 extension MenstrualFlowRecordDtoToDomain on MenstrualFlowRecordDto {
   MenstrualFlowRecord toDomain() {
-    return MenstrualFlowRecord(
+    return MenstrualFlowRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       startZoneOffsetSeconds: startZoneOffsetSeconds,

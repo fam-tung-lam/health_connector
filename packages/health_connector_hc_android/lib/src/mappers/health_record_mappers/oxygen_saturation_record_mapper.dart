@@ -27,7 +27,7 @@ extension OxygenSaturationRecordToDto on OxygenSaturationRecord {
 extension OxygenSaturationRecordDtoToDomain on OxygenSaturationRecordDto {
   /// Converts [OxygenSaturationRecordDto] to its domain representation.
   OxygenSaturationRecord toDomain() {
-    return OxygenSaturationRecord(
+    return OxygenSaturationRecord.internal(
       id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

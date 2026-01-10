@@ -5,7 +5,9 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported (Use [SpeedSeriesRecord])
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.stairAscentSpeed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/stairascentspeed)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.stairAscentSpeed`](https://d
+/// eveloper.apple.com/documentation/healthkit/hkquantitytypeidentifier/stairasc
+/// entspeed)
 ///
 /// ## Example
 ///
@@ -29,6 +31,43 @@ final class StairAscentSpeedRecord extends SpeedActivityRecord {
     required super.metadata,
     required super.speed,
     super.id,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [StairAscentSpeedRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [StairAscentSpeedRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [StairAscentSpeedRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory StairAscentSpeedRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Velocity speed,
+    int? zoneOffsetSeconds,
+  }) {
+    return StairAscentSpeedRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      speed: speed,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  const StairAscentSpeedRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required super.speed,
     super.zoneOffsetSeconds,
   });
 

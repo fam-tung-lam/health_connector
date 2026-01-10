@@ -8,8 +8,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`ActiveEnergyBurnedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ActiveEnergyBurnedRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.activeEnergyBurned`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/activeenergyburned)
+/// - **Android Health Connect**: [`ActiveEnergyBurnedRecord`](https://developer
+/// .android.com/reference/kotlin/androidx/health/connect/client/records/ActiveE
+/// nergyBurnedRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.activeEnergyBurned`](https:/
+/// /developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/active
+/// energyburned)
 ///
 /// ## Example
 ///
@@ -53,6 +57,48 @@ final class ActiveEnergyBurnedRecord extends IntervalHealthRecord {
     required super.metadata,
     required this.energy,
     super.id = HealthRecordId.none,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [ActiveEnergyBurnedRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [ActiveEnergyBurnedRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [ActiveEnergyBurnedRecord] constructor, which enforces validation and
+  /// business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory ActiveEnergyBurnedRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required Energy energy,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return ActiveEnergyBurnedRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      energy: energy,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  ActiveEnergyBurnedRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required this.energy,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });

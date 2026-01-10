@@ -30,7 +30,7 @@ extension DietaryThiaminRecordToDto on DietaryThiaminRecord {
 @internal
 extension DietaryThiaminRecordDtoToDomain on DietaryThiaminRecordDto {
   DietaryThiaminRecord toDomain() {
-    return DietaryThiaminRecord(
+    return DietaryThiaminRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

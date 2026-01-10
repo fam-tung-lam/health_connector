@@ -25,7 +25,7 @@ extension WaistCircumferenceRecordToDto on WaistCircumferenceRecord {
 @internal
 extension WaistCircumferenceRecordDtoToDomain on WaistCircumferenceRecordDto {
   WaistCircumferenceRecord toDomain() {
-    return WaistCircumferenceRecord(
+    return WaistCircumferenceRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

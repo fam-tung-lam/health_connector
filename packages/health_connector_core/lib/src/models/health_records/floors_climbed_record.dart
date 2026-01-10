@@ -8,8 +8,12 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`FloorsClimbedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/FloorsClimbedRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.flightsClimbed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/flightsclimbed)
+/// - **Android Health Connect**: [`FloorsClimbedRecord`](https://developer.andr
+/// oid.com/reference/kotlin/androidx/health/connect/client/records/FloorsClimbe
+/// dRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.flightsClimbed`](https://dev
+/// eloper.apple.com/documentation/healthkit/hkquantitytypeidentifier/flightscli
+/// mbed)
 ///
 /// ## Example
 ///
@@ -53,6 +57,47 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
     required super.metadata,
     required this.count,
     super.id = HealthRecordId.none,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory FloorsClimbedRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required Number count,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return FloorsClimbedRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      count: count,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  FloorsClimbedRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required this.count,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });

@@ -9,6 +9,25 @@ part of 'health_record.dart';
 sealed class SeriesHealthRecord<T> extends IntervalHealthRecord {
   /// Constructor for subclasses.
   SeriesHealthRecord({
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required List<T> samples,
+    HealthRecordId id = HealthRecordId.none,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) : this._(
+         startTime: startTime,
+         endTime: endTime,
+         metadata: metadata,
+         samples: samples,
+         id: id,
+         startZoneOffsetSeconds: startZoneOffsetSeconds,
+         endZoneOffsetSeconds: endZoneOffsetSeconds,
+       );
+
+  /// Private constructor for internal use that skips validation.
+  SeriesHealthRecord._({
     required super.startTime,
     required super.endTime,
     required super.metadata,
@@ -16,14 +35,7 @@ sealed class SeriesHealthRecord<T> extends IntervalHealthRecord {
     super.id,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  }) {
-    require(
-      condition: samples.isNotEmpty,
-      value: samples,
-      name: 'samples',
-      message: 'The samples list cannot be empty.',
-    );
-  }
+  });
 
   /// The list of data samples within this time interval.
   ///

@@ -137,8 +137,10 @@ part 'wheelchair_pushes_record.dart';
 ///
 /// - The base health record hierarchy design is inspired by the organizational
 ///   structure of the Android Health Connect SDK
-/// - **Source**: https://developer.android.com/jetpack/androidx/releases/health-connect
-/// - **Documentation**: https://developer.android.com/health-and-fitness/guides/health-connect
+/// - **Source**:
+/// https://developer.android.com/jetpack/androidx/releases/health-connect
+/// - **Documentation**: https://developer.android.com/health-and-
+/// fitness/guides/health-connect
 ///
 /// **Implementation Details:**
 ///

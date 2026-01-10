@@ -9,7 +9,8 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**:
-///   [`CyclingPedalingCadenceRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/CyclingPedalingCadenceRecord)
+///   [`CyclingPedalingCadenceRecord`](https://developer.android.com/reference/k
+/// otlin/androidx/health/connect/client/records/CyclingPedalingCadenceRecord)
 /// - **iOS HealthKit**: Not supported
 ///   (Use [CyclingPedalingCadenceRecord])
 ///
@@ -60,6 +61,50 @@ final class CyclingPedalingCadenceSeriesRecord
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });
+
+  /// Internal factory for creating
+  /// [CyclingPedalingCadenceSeriesRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [CyclingPedalingCadenceSeriesRecord] by directly mapping
+  /// platform data to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [CyclingPedalingCadenceSeriesRecord] constructor, which enforces
+  /// validation and business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory CyclingPedalingCadenceSeriesRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required List<CyclingPedalingCadenceSample> samples,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return CyclingPedalingCadenceSeriesRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      samples: samples,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  CyclingPedalingCadenceSeriesRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required super.samples,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  }) : super._();
 
   /// The average cadence across all samples.
   Frequency get avgCadence {

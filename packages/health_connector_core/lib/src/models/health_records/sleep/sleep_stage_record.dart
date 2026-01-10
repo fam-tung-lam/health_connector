@@ -8,7 +8,9 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported (Use [SleepSessionRecord])
-/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.sleepAnalysis`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sleepanalysis/)
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.sleepAnalysis`](https://deve
+/// loper.apple.com/documentation/healthkit/hkcategorytypeidentifier/sleepanalys
+/// is/)
 ///
 /// ## Example
 ///
@@ -49,6 +51,53 @@ final class SleepStageRecord extends IntervalHealthRecord {
     required super.metadata,
     required super.startTime,
     required super.endTime,
+    required this.stageType,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+    this.title,
+    this.notes,
+  });
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory SleepStageRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required SleepStage stageType,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+    String? title,
+    String? notes,
+  }) {
+    return SleepStageRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      stageType: stageType,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      title: title,
+      notes: notes,
+    );
+  }
+
+  SleepStageRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
     required this.stageType,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,

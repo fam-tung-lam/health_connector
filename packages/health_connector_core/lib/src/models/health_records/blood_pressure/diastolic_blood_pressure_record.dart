@@ -58,6 +58,51 @@ final class DiastolicBloodPressureRecord extends InstantHealthRecord {
     this.measurementLocation = BloodPressureMeasurementLocation.unknown,
   });
 
+  /// Internal factory for creating [DiastolicBloodPressureRecord] instances
+  /// without
+  /// validation.
+  ///
+  /// Creates a [DiastolicBloodPressureRecord] by directly mapping platform data
+  /// to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [DiastolicBloodPressureRecord] constructor, which enforces validation and
+  /// business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory DiastolicBloodPressureRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Pressure pressure,
+    int? zoneOffsetSeconds,
+    BloodPressureBodyPosition bodyPosition = BloodPressureBodyPosition.unknown,
+    BloodPressureMeasurementLocation measurementLocation =
+        BloodPressureMeasurementLocation.unknown,
+  }) {
+    return DiastolicBloodPressureRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      pressure: pressure,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      bodyPosition: bodyPosition,
+      measurementLocation: measurementLocation,
+    );
+  }
+
+  const DiastolicBloodPressureRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.pressure,
+    super.zoneOffsetSeconds,
+    this.bodyPosition = BloodPressureBodyPosition.unknown,
+    this.measurementLocation = BloodPressureMeasurementLocation.unknown,
+  });
+
   /// The diastolic blood pressure measurement (pressure between heartbeats).
   ///
   /// Diastolic is the "lower" number in a blood pressure reading.

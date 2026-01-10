@@ -33,7 +33,7 @@ extension StepsRecordToDto on StepsRecord {
 @internal
 extension StepsRecordDtoToDomain on StepsRecordDto {
   StepsRecord toDomain() {
-    return StepsRecord(
+    return StepsRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

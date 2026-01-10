@@ -9,7 +9,9 @@ part of 'health_record.dart';
 /// ## Platform Mapping
 ///
 /// - Android (Health Connect): Not supported
-/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.bodyMassIndex`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodymassindex)
+/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.bodyMassIndex`](https://develo
+/// per.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodymassindex
+/// )
 ///
 /// ## Example
 ///
@@ -43,12 +45,12 @@ final class BodyMassIndexRecord extends InstantHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [bmi] is negative.
-  factory BodyMassIndexRecord({
-    required DateTime time,
-    required Metadata metadata,
-    required Number bmi,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
+  BodyMassIndexRecord({
+    required super.time,
+    required super.metadata,
+    required this.bmi,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
   }) {
     if (bmi < Number.zero) {
       throw ArgumentError.value(
@@ -57,16 +59,38 @@ final class BodyMassIndexRecord extends InstantHealthRecord {
         'Body mass index must be non-negative',
       );
     }
+  }
+
+  /// Internal factory for creating [BodyMassIndexRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [BodyMassIndexRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BodyMassIndexRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory BodyMassIndexRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Number bmi,
+    int? zoneOffsetSeconds,
+  }) {
     return BodyMassIndexRecord._(
+      id: id,
       time: time,
       metadata: metadata,
       bmi: bmi,
-      id: id,
       zoneOffsetSeconds: zoneOffsetSeconds,
     );
   }
 
-  /// Private constructor for internal use.
+  /// Private constructor without validation.
   const BodyMassIndexRecord._({
     required super.time,
     required super.metadata,
@@ -86,7 +110,7 @@ final class BodyMassIndexRecord extends InstantHealthRecord {
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {
-    return BodyMassIndexRecord._(
+    return BodyMassIndexRecord(
       time: time ?? this.time,
       bmi: bmi ?? this.bmi,
       metadata: metadata ?? this.metadata,

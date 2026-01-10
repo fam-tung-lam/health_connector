@@ -30,7 +30,7 @@ extension DietaryPhosphorusRecordToDto on DietaryPhosphorusRecord {
 @internal
 extension DietaryPhosphorusRecordDtoToDomain on DietaryPhosphorusRecordDto {
   DietaryPhosphorusRecord toDomain() {
-    return DietaryPhosphorusRecord(
+    return DietaryPhosphorusRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

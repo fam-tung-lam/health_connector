@@ -30,7 +30,7 @@ extension DietaryManganeseRecordToDto on DietaryManganeseRecord {
 @internal
 extension DietaryManganeseRecordDtoToDomain on DietaryManganeseRecordDto {
   DietaryManganeseRecord toDomain() {
-    return DietaryManganeseRecord(
+    return DietaryManganeseRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

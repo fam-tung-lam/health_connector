@@ -7,8 +7,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietarySelenium`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryselenium)
-/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietarySelenium`](https
+/// ://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/diet
+/// aryselenium)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.
+/// android.com/reference/kotlin/androidx/health/connect/client/records/Nutritio
+/// nRecord)
 ///
 /// ## Example
 ///
@@ -62,6 +66,38 @@ final class DietarySeleniumRecord extends DietaryMineralRecord {
     );
   }
 
+  /// Internal factory for creating [DietarySeleniumRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [DietarySeleniumRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [DietarySeleniumRecord] constructor, which enforces validation and
+  /// business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory DietarySeleniumRecord.internal({
+    required Mass mass,
+    required DateTime time,
+    required Metadata metadata,
+    HealthRecordId id = HealthRecordId.none,
+    int? zoneOffsetSeconds,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    return DietarySeleniumRecord._(
+      mass: mass,
+      time: time,
+      metadata: metadata,
+      id: id,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+
   /// Creates a copy with the given fields replaced with the new values.
   DietarySeleniumRecord copyWith({
     Mass? mass,
@@ -72,7 +108,7 @@ final class DietarySeleniumRecord extends DietaryMineralRecord {
     String? foodName,
     MealType? mealType,
   }) {
-    return DietarySeleniumRecord._(
+    return DietarySeleniumRecord(
       mass: mass ?? this.mass,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,

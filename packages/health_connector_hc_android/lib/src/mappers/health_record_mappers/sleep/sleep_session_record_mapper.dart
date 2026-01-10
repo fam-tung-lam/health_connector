@@ -39,7 +39,7 @@ extension SleepSessionRecordToDto on SleepSessionRecord {
 @internal
 extension SleepSessionRecordDtoToDomain on SleepSessionRecordDto {
   SleepSessionRecord toDomain() {
-    return SleepSessionRecord(
+    return SleepSessionRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

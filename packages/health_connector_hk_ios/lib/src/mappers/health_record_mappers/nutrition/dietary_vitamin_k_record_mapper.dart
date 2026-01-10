@@ -30,7 +30,7 @@ extension DietaryVitaminKRecordToDto on DietaryVitaminKRecord {
 @internal
 extension DietaryVitaminKRecordDtoToDomain on DietaryVitaminKRecordDto {
   DietaryVitaminKRecord toDomain() {
-    return DietaryVitaminKRecord(
+    return DietaryVitaminKRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

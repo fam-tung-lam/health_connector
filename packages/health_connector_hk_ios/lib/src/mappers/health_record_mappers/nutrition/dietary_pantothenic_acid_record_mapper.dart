@@ -33,7 +33,7 @@ extension DietaryPantothenicAcidRecordToDto on DietaryPantothenicAcidRecord {
 extension DietaryPantothenicAcidRecordDtoToDomain
     on DietaryPantothenicAcidRecordDto {
   DietaryPantothenicAcidRecord toDomain() {
-    return DietaryPantothenicAcidRecord(
+    return DietaryPantothenicAcidRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

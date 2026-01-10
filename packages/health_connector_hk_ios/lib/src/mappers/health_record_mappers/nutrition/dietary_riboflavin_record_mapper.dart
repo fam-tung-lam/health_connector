@@ -30,7 +30,7 @@ extension DietaryRiboflavinRecordToDto on DietaryRiboflavinRecord {
 @internal
 extension DietaryRiboflavinRecordDtoToDomain on DietaryRiboflavinRecordDto {
   DietaryRiboflavinRecord toDomain() {
-    return DietaryRiboflavinRecord(
+    return DietaryRiboflavinRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

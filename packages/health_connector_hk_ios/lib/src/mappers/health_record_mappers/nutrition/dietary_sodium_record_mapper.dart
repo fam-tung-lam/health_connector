@@ -30,7 +30,7 @@ extension DietarySodiumRecordToDto on DietarySodiumRecord {
 @internal
 extension DietarySodiumRecordDtoToDomain on DietarySodiumRecordDto {
   DietarySodiumRecord toDomain() {
-    return DietarySodiumRecord(
+    return DietarySodiumRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

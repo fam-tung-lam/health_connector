@@ -9,8 +9,12 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`RespiratoryRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RespiratoryRateRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.respiratoryRate`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/respiratoryrate)
+/// - **Android Health Connect**: [`RespiratoryRateRecord`](https://developer.an
+/// droid.com/reference/kotlin/androidx/health/connect/client/records/Respirator
+/// yRateRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.respiratoryRate`](https://de
+/// veloper.apple.com/documentation/healthkit/hkquantitytypeidentifier/respirato
+/// ryrate)
 ///
 /// ## Example
 ///
@@ -45,7 +49,42 @@ final class RespiratoryRateRecord extends InstantHealthRecord {
     required super.time,
     required this.rate,
     required super.metadata,
-    super.id = HealthRecordId.none,
+    super.id,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory RespiratoryRateRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Frequency rate,
+    int? zoneOffsetSeconds,
+  }) {
+    return RespiratoryRateRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      rate: rate,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  const RespiratoryRateRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.rate,
     super.zoneOffsetSeconds,
   });
 

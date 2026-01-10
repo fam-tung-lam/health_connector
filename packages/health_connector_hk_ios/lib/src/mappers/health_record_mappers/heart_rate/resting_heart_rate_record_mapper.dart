@@ -27,7 +27,7 @@ extension RestingHeartRateRecordToDto on RestingHeartRateRecord {
 @internal
 extension RestingHeartRateRecordDtoToDomain on RestingHeartRateRecordDto {
   RestingHeartRateRecord toDomain() {
-    return RestingHeartRateRecord(
+    return RestingHeartRateRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

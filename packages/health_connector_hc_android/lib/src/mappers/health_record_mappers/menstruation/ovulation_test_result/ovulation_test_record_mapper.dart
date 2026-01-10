@@ -27,7 +27,7 @@ extension OvulationTestRecordToDto on OvulationTestRecord {
 extension OvulationTestRecordDtoToDomain on OvulationTestRecordDto {
   /// Converts [OvulationTestRecordDto] to [OvulationTestRecord].
   OvulationTestRecord toDomain() {
-    return OvulationTestRecord(
+    return OvulationTestRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       metadata: metadata.toDomain(),
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),

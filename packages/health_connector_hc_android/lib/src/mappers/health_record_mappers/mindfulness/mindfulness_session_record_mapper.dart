@@ -36,7 +36,7 @@ extension MindfulnessSessionRecordDtoToDomainExtension
   /// Converts to [MindfulnessSessionRecord].
   MindfulnessSessionRecord toDomain() {
     final recordId = id;
-    return MindfulnessSessionRecord(
+    return MindfulnessSessionRecord.internal(
       id: recordId != null ? HealthRecordId(recordId) : HealthRecordId.none,
       metadata: metadata.toDomain(),
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),

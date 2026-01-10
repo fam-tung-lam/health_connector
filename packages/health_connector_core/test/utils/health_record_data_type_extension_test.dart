@@ -56,7 +56,7 @@ void main() {
               ],
               [
                 HeightRecord(
-                  length: const Length.centimeters(175),
+                  height: const Length.centimeters(175),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),

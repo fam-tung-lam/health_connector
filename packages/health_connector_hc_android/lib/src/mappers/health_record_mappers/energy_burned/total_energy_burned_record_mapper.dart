@@ -33,7 +33,7 @@ extension TotalEnergyBurnedRecordToDto on TotalEnergyBurnedRecord {
 @internal
 extension TotalEnergyBurnedRecordDtoToDomain on TotalEnergyBurnedRecordDto {
   TotalEnergyBurnedRecord toDomain() {
-    return TotalEnergyBurnedRecord(
+    return TotalEnergyBurnedRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

@@ -25,7 +25,7 @@ extension ExerciseSessionRecordToDto on ExerciseSessionRecord {
 extension ExerciseSessionRecordFromDto on ExerciseSessionRecordDto {
   /// Converts [ExerciseSessionRecordDto] to [ExerciseSessionRecord].
   ExerciseSessionRecord fromDto() {
-    return ExerciseSessionRecord(
+    return ExerciseSessionRecord.internal(
       id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
       metadata: metadata.toDomain(),
       startTime: DateTime.fromMillisecondsSinceEpoch(

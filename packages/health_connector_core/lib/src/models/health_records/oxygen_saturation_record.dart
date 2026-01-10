@@ -11,8 +11,12 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`OxygenSaturationRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/OxygenSaturationRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.oxygenSaturation`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/oxygensaturation)
+/// - **Android Health Connect**: [`OxygenSaturationRecord`](https://developer.a
+/// ndroid.com/reference/kotlin/androidx/health/connect/client/records/OxygenSat
+/// urationRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.oxygenSaturation`](https://d
+/// eveloper.apple.com/documentation/healthkit/hkquantitytypeidentifier/oxygensa
+/// turation)
 ///
 /// ## Example
 ///
@@ -47,7 +51,45 @@ final class OxygenSaturationRecord extends InstantHealthRecord {
     required super.time,
     required this.saturation,
     required super.metadata,
-    super.id = HealthRecordId.none,
+    super.id,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [OxygenSaturationRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [OxygenSaturationRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [OxygenSaturationRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory OxygenSaturationRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Percentage saturation,
+    int? zoneOffsetSeconds,
+  }) {
+    return OxygenSaturationRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      saturation: saturation,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  /// Private constructor without validation.
+  const OxygenSaturationRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.saturation,
     super.zoneOffsetSeconds,
   });
 

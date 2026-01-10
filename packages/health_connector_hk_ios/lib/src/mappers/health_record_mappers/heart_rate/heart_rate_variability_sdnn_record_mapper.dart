@@ -30,7 +30,7 @@ extension HeartRateVariabilitySDNNRecordToDto
 extension HeartRateVariabilitySDNNRecordDtoToDomain
     on HeartRateVariabilitySDNNRecordDto {
   HeartRateVariabilitySDNNRecord toDomain() {
-    return HeartRateVariabilitySDNNRecord(
+    return HeartRateVariabilitySDNNRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

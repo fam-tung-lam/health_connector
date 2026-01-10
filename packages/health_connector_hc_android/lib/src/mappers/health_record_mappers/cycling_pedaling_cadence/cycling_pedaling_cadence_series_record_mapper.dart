@@ -41,7 +41,7 @@ extension CyclingPedalingCadenceSeriesRecordToDto
 extension CyclingPedalingCadenceSeriesRecordDtoToDomain
     on CyclingPedalingCadenceSeriesRecordDto {
   CyclingPedalingCadenceSeriesRecord toDomain() {
-    return CyclingPedalingCadenceSeriesRecord(
+    return CyclingPedalingCadenceSeriesRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

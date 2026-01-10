@@ -5,7 +5,9 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported (Use [SpeedSeriesRecord])
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.walkingSpeed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingspeed)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.walkingSpeed`](https://devel
+/// oper.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingspeed
+/// )
 ///
 /// ## Example
 ///
@@ -29,6 +31,43 @@ final class WalkingSpeedRecord extends SpeedActivityRecord {
     required super.metadata,
     required super.speed,
     super.id,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [WalkingSpeedRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [WalkingSpeedRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [WalkingSpeedRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory WalkingSpeedRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Velocity speed,
+    int? zoneOffsetSeconds,
+  }) {
+    return WalkingSpeedRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      speed: speed,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  const WalkingSpeedRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required super.speed,
     super.zoneOffsetSeconds,
   });
 

@@ -39,7 +39,7 @@ extension BloodGlucoseRecordToDto on BloodGlucoseRecord {
 @internal
 extension BloodGlucoseRecordDtoToDomain on BloodGlucoseRecordDto {
   BloodGlucoseRecord toDomain() {
-    return BloodGlucoseRecord(
+    return BloodGlucoseRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

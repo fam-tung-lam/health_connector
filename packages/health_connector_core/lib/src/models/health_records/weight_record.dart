@@ -37,15 +37,49 @@ final class WeightRecord extends InstantHealthRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [weight]: The body mass measurement.
-  ///
-  /// ## Throws
-  ///
-  /// - [ArgumentError] if [weight] is negative (via Mass class validation).
   const WeightRecord({
     required super.time,
     required super.metadata,
     required this.weight,
-    super.id = HealthRecordId.none,
+    super.id,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [WeightRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [WeightRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [WeightRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory WeightRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Mass weight,
+    int? zoneOffsetSeconds,
+  }) {
+    return WeightRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      weight: weight,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  /// Private constructor without validation.
+  const WeightRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.weight,
     super.zoneOffsetSeconds,
   });
 

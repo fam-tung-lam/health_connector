@@ -10,7 +10,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
+/// - **Android Health Connect**: [`NutritionRecord`](https://developer.android.
+/// com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 /// - **iOS HealthKit**: Multiple `HKQuantityType` correlations for individual
 ///   nutrients
 ///
@@ -67,6 +68,151 @@ final class NutritionRecord extends IntervalHealthRecord {
     required super.endTime,
     required super.metadata,
     super.id = HealthRecordId.none,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+    this.foodName,
+    this.mealType = MealType.unknown,
+    this.energy,
+    this.protein,
+    this.totalCarbohydrate,
+    this.totalFat,
+    this.saturatedFat,
+    this.monounsaturatedFat,
+    this.polyunsaturatedFat,
+    this.cholesterol,
+    this.dietaryFiber,
+    this.sugar,
+    this.vitaminA,
+    this.vitaminB6,
+    this.vitaminB12,
+    this.vitaminC,
+    this.vitaminD,
+    this.vitaminE,
+    this.vitaminK,
+    this.thiamin,
+    this.riboflavin,
+    this.niacin,
+    this.folate,
+    this.biotin,
+    this.pantothenicAcid,
+    this.calcium,
+    this.iron,
+    this.magnesium,
+    this.manganese,
+    this.phosphorus,
+    this.potassium,
+    this.selenium,
+    this.sodium,
+    this.zinc,
+    this.caffeine,
+  });
+
+  /// Internal factory for creating [NutritionRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [NutritionRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [NutritionRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory NutritionRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+    Energy? energy,
+    Mass? protein,
+    Mass? totalCarbohydrate,
+    Mass? totalFat,
+    Mass? saturatedFat,
+    Mass? monounsaturatedFat,
+    Mass? polyunsaturatedFat,
+    Mass? cholesterol,
+    Mass? dietaryFiber,
+    Mass? sugar,
+    Mass? vitaminA,
+    Mass? vitaminB6,
+    Mass? vitaminB12,
+    Mass? vitaminC,
+    Mass? vitaminD,
+    Mass? vitaminE,
+    Mass? vitaminK,
+    Mass? thiamin,
+    Mass? riboflavin,
+    Mass? niacin,
+    Mass? folate,
+    Mass? biotin,
+    Mass? pantothenicAcid,
+    Mass? calcium,
+    Mass? iron,
+    Mass? magnesium,
+    Mass? manganese,
+    Mass? phosphorus,
+    Mass? potassium,
+    Mass? selenium,
+    Mass? sodium,
+    Mass? zinc,
+    Mass? caffeine,
+  }) {
+    return NutritionRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      foodName: foodName,
+      mealType: mealType,
+      energy: energy,
+      protein: protein,
+      totalCarbohydrate: totalCarbohydrate,
+      totalFat: totalFat,
+      saturatedFat: saturatedFat,
+      monounsaturatedFat: monounsaturatedFat,
+      polyunsaturatedFat: polyunsaturatedFat,
+      cholesterol: cholesterol,
+      dietaryFiber: dietaryFiber,
+      sugar: sugar,
+      vitaminA: vitaminA,
+      vitaminB6: vitaminB6,
+      vitaminB12: vitaminB12,
+      vitaminC: vitaminC,
+      vitaminD: vitaminD,
+      vitaminE: vitaminE,
+      vitaminK: vitaminK,
+      thiamin: thiamin,
+      riboflavin: riboflavin,
+      niacin: niacin,
+      folate: folate,
+      biotin: biotin,
+      pantothenicAcid: pantothenicAcid,
+      calcium: calcium,
+      iron: iron,
+      magnesium: magnesium,
+      manganese: manganese,
+      phosphorus: phosphorus,
+      potassium: potassium,
+      selenium: selenium,
+      sodium: sodium,
+      zinc: zinc,
+      caffeine: caffeine,
+    );
+  }
+
+  NutritionRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
     this.foodName,

@@ -27,7 +27,7 @@ extension WeightRecordToDto on WeightRecord {
 @internal
 extension WeightRecordDtoToDomain on WeightRecordDto {
   WeightRecord toDomain() {
-    return WeightRecord(
+    return WeightRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

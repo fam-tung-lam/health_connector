@@ -30,7 +30,7 @@ extension DietaryCholesterolRecordToDto on DietaryCholesterolRecord {
 @internal
 extension DietaryCholesterolRecordDtoToDomain on DietaryCholesterolRecordDto {
   DietaryCholesterolRecord toDomain() {
-    return DietaryCholesterolRecord(
+    return DietaryCholesterolRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

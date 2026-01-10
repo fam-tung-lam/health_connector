@@ -34,7 +34,7 @@ extension DiastolicBloodPressureRecordToDto on DiastolicBloodPressureRecord {
 extension DiastolicBloodPressureRecordDtoToDomain
     on DiastolicBloodPressureRecordDto {
   DiastolicBloodPressureRecord toDomain() {
-    return DiastolicBloodPressureRecord(
+    return DiastolicBloodPressureRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

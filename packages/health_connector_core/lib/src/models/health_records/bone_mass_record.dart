@@ -7,7 +7,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`BoneMassRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BoneMassRecord)
+/// - **Android Health Connect**: [`BoneMassRecord`](https://developer.android.c
+/// om/reference/kotlin/androidx/health/connect/client/records/BoneMassRecord)
 ///
 /// ## Example
 ///
@@ -41,7 +42,45 @@ final class BoneMassRecord extends InstantHealthRecord {
     required super.time,
     required super.metadata,
     required this.mass,
-    super.id = HealthRecordId.none,
+    super.id,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [BoneMassRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [BoneMassRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BoneMassRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory BoneMassRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Mass mass,
+    int? zoneOffsetSeconds,
+  }) {
+    return BoneMassRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      mass: mass,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  /// Private constructor without validation.
+  const BoneMassRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.mass,
     super.zoneOffsetSeconds,
   });
 

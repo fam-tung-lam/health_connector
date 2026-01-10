@@ -31,7 +31,7 @@ extension SpeedSeriesRecordToDto on SpeedSeriesRecord {
 extension SpeedSeriesRecordDtoToDomain on SpeedSeriesRecordDto {
   /// Converts this DTO to a speed record.
   SpeedSeriesRecord toDomain() {
-    return SpeedSeriesRecord(
+    return SpeedSeriesRecord.internal(
       id: id == null ? HealthRecordId.none : HealthRecordId(id!),
       startTime: DateTime.fromMillisecondsSinceEpoch(
         startTime,

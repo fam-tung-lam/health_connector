@@ -27,7 +27,7 @@ extension CyclingPowerRecordToDto on CyclingPowerRecord {
 @internal
 extension CyclingPowerRecordDtoToDomain on CyclingPowerRecordDto {
   CyclingPowerRecord toDomain() {
-    return CyclingPowerRecord(
+    return CyclingPowerRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

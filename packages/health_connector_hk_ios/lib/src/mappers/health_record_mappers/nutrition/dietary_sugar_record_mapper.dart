@@ -30,7 +30,7 @@ extension DietarySugarRecordToDto on DietarySugarRecord {
 @internal
 extension DietarySugarRecordDtoToDomain on DietarySugarRecordDto {
   DietarySugarRecord toDomain() {
-    return DietarySugarRecord(
+    return DietarySugarRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

@@ -10,7 +10,9 @@ part of '../../health_record.dart';
 ///
 /// - **Android Health Connect**: Not supported. Use
 ///   [MenstrualFlowInstantRecord] instead.
-/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.menstrualFlow`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/menstrualflow)
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.menstrualFlow`](https://deve
+/// loper.apple.com/documentation/healthkit/hkcategorytypeidentifier/menstrualfl
+/// ow)
 ///
 /// ## Example
 ///
@@ -70,6 +72,50 @@ final class MenstrualFlowRecord extends IntervalHealthRecord {
     required this.flow,
     required this.isCycleStart,
     super.id = HealthRecordId.none,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory MenstrualFlowRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required MenstrualFlow flow,
+    required bool isCycleStart,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return MenstrualFlowRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      flow: flow,
+      isCycleStart: isCycleStart,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  MenstrualFlowRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required this.flow,
+    required this.isCycleStart,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });

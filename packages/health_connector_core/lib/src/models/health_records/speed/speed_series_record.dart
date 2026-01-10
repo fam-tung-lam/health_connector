@@ -7,7 +7,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`SpeedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SpeedRecord)
+/// - **Android Health Connect**: [`SpeedRecord`](https://developer.android.com/
+/// reference/kotlin/androidx/health/connect/client/records/SpeedRecord)
 /// - **iOS HealthKit**: Not supported. Use the activity-specific speed records:
 ///   - [WalkingSpeedRecord]
 ///   - [RunningSpeedRecord]
@@ -64,6 +65,49 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedSample> {
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });
+
+  /// Internal factory for creating [SpeedSeriesRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [SpeedSeriesRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [SpeedSeriesRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory SpeedSeriesRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required List<SpeedSample> samples,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return SpeedSeriesRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      samples: samples,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  SpeedSeriesRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required super.samples,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  }) : super._();
 
   /// The average speed across all samples.
   Velocity get avgSpeed {

@@ -8,8 +8,10 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`StepsRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/StepsRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.stepCount`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/stepcount)
+/// - **Android Health Connect**: [`StepsRecord`](https://developer.android.com/
+/// reference/kotlin/androidx/health/connect/client/records/StepsRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.stepCount`](https://develope
+/// r.apple.com/documentation/healthkit/hkquantitytypeidentifier/stepcount)
 ///
 /// ## Example
 ///
@@ -64,6 +66,50 @@ final class StepsRecord extends IntervalHealthRecord {
       message: 'count must be non-negative. Got count=${count.value}',
     );
   }
+
+  /// Internal factory for creating [StepsRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [StepsRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [StepsRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory StepsRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Number count,
+    required Metadata metadata,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return StepsRecord._(
+      startTime: startTime,
+      endTime: endTime,
+      count: count,
+      metadata: metadata,
+      id: id,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  /// Private constructor without validation.
+  StepsRecord._({
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required this.count,
+    super.id,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
 
   /// The number of steps taken during the interval.
   ///

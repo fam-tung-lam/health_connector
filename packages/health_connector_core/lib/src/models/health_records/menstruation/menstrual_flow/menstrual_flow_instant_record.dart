@@ -6,7 +6,9 @@ part of '../../health_record.dart';
 ///
 /// ## Platform Support
 ///
-/// - **Android Health Connect**: [`MenstruationFlowRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/MenstruationFlowRecord)
+/// - **Android Health Connect**: [`MenstruationFlowRecord`](https://developer.a
+/// ndroid.com/reference/kotlin/androidx/health/connect/client/records/Menstruat
+/// ionFlowRecord)
 /// - **iOS HealthKit**: Not supported. Use [MenstrualFlowRecord] instead.
 ///
 /// ## Example
@@ -42,6 +44,41 @@ final class MenstrualFlowInstantRecord extends InstantHealthRecord {
     required super.metadata,
     required this.flow,
     super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory MenstrualFlowInstantRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required MenstrualFlow flow,
+    int? zoneOffsetSeconds,
+  }) {
+    return MenstrualFlowInstantRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      flow: flow,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  const MenstrualFlowInstantRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.flow,
     super.zoneOffsetSeconds,
   });
 

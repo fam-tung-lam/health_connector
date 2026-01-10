@@ -8,8 +8,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`SexualActivityRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SexualActivityRecord)
-/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.sexualActivity`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sexualactivity)
+/// - **Android Health Connect**: [`SexualActivityRecord`](https://developer.and
+/// roid.com/reference/kotlin/androidx/health/connect/client/records/SexualActiv
+/// ityRecord)
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.sexualActivity`](https://dev
+/// eloper.apple.com/documentation/healthkit/hkcategorytypeidentifier/sexualacti
+/// vity)
 ///
 /// ## Example
 ///
@@ -44,6 +48,42 @@ final class SexualActivityRecord extends InstantHealthRecord {
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    this.protectionUsed = SexualActivityProtectionUsed.unknown,
+  });
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory SexualActivityRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    int? zoneOffsetSeconds,
+    SexualActivityProtectionUsed protectionUsed =
+        SexualActivityProtectionUsed.unknown,
+  }) {
+    return SexualActivityRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      protectionUsed: protectionUsed,
+    );
+  }
+
+  const SexualActivityRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
     super.zoneOffsetSeconds,
     this.protectionUsed = SexualActivityProtectionUsed.unknown,
   });

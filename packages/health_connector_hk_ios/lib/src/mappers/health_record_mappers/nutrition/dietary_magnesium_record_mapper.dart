@@ -30,7 +30,7 @@ extension DietaryMagnesiumRecordToDto on DietaryMagnesiumRecord {
 @internal
 extension DietaryMagnesiumRecordDtoToDomain on DietaryMagnesiumRecordDto {
   DietaryMagnesiumRecord toDomain() {
-    return DietaryMagnesiumRecord(
+    return DietaryMagnesiumRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

@@ -27,7 +27,7 @@ extension BodyWaterMassRecordToDto on BodyWaterMassRecord {
 @internal
 extension BodyWaterMassRecordDtoToDomain on BodyWaterMassRecordDto {
   BodyWaterMassRecord toDomain() {
-    return BodyWaterMassRecord(
+    return BodyWaterMassRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

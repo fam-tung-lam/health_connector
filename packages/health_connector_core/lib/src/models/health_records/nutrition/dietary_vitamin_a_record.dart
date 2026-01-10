@@ -7,8 +7,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminA`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamina)
-/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminA`](https
+/// ://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/diet
+/// aryvitamina)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.
+/// android.com/reference/kotlin/androidx/health/connect/client/records/Nutritio
+/// nRecord)
 ///
 /// ## Example
 ///
@@ -63,6 +67,38 @@ final class DietaryVitaminARecord extends DietaryVitaminRecord {
     );
   }
 
+  /// Internal factory for creating [DietaryVitaminARecord] instances without
+  /// validation.
+  ///
+  /// Creates a [DietaryVitaminARecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [DietaryVitaminARecord] constructor, which enforces validation and
+  /// business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory DietaryVitaminARecord.internal({
+    required Mass mass,
+    required DateTime time,
+    required Metadata metadata,
+    HealthRecordId id = HealthRecordId.none,
+    int? zoneOffsetSeconds,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    return DietaryVitaminARecord._(
+      mass: mass,
+      time: time,
+      metadata: metadata,
+      id: id,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+
   /// Creates a copy with the given fields replaced with the new values.
   DietaryVitaminARecord copyWith({
     Mass? mass,
@@ -73,7 +109,7 @@ final class DietaryVitaminARecord extends DietaryVitaminRecord {
     String? foodName,
     MealType? mealType,
   }) {
-    return DietaryVitaminARecord._(
+    return DietaryVitaminARecord(
       mass: mass ?? this.mass,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,

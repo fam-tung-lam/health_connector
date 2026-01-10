@@ -28,7 +28,7 @@ extension CyclingPedalingCadenceMeasurementRecordToDto
 extension CyclingPedalingCadenceMeasurementRecordDtoToDomain
     on CyclingPedalingCadenceRecordDto {
   CyclingPedalingCadenceRecord toDomain() {
-    return CyclingPedalingCadenceRecord(
+    return CyclingPedalingCadenceRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       metadata: metadata.toDomain(),
       time: DateTime.fromMillisecondsSinceEpoch(time),

@@ -27,7 +27,7 @@ extension BoneMassRecordToDto on BoneMassRecord {
 @internal
 extension BoneMassRecordDtoToDomain on BoneMassRecordDto {
   BoneMassRecord toDomain() {
-    return BoneMassRecord(
+    return BoneMassRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

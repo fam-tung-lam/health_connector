@@ -8,8 +8,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryEnergyConsumed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryenergyconsumed)
-/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryEnergyConsumed`]
+/// (https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifie
+/// r/dietaryenergyconsumed)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.
+/// android.com/reference/kotlin/androidx/health/connect/client/records/Nutritio
+/// nRecord)
 ///
 /// ## Example
 ///
@@ -64,6 +68,40 @@ final class DietaryEnergyConsumedRecord extends NutrientRecord<Energy> {
     );
   }
 
+  /// Internal factory for creating [DietaryEnergyConsumedRecord] instances
+  /// without
+  /// validation.
+  ///
+  /// Creates a [DietaryEnergyConsumedRecord] by directly mapping platform data
+  /// to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [DietaryEnergyConsumedRecord] constructor, which enforces validation and
+  /// business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory DietaryEnergyConsumedRecord.internal({
+    required Energy energy,
+    required DateTime time,
+    required Metadata metadata,
+    HealthRecordId id = HealthRecordId.none,
+    int? zoneOffsetSeconds,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    return DietaryEnergyConsumedRecord._(
+      energy: energy,
+      time: time,
+      metadata: metadata,
+      id: id,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+
   /// The energy (calorie) measurement.
   final Energy energy;
 
@@ -77,7 +115,7 @@ final class DietaryEnergyConsumedRecord extends NutrientRecord<Energy> {
     String? foodName,
     MealType? mealType,
   }) {
-    return DietaryEnergyConsumedRecord._(
+    return DietaryEnergyConsumedRecord(
       energy: energy ?? this.energy,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,

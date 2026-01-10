@@ -6,7 +6,9 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`SleepSessionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SleepSessionRecord)
+/// - **Android Health Connect**: [`SleepSessionRecord`](https://developer.andro
+/// id.com/reference/kotlin/androidx/health/connect/client/records/SleepSessionR
+/// ecord)
 /// - **iOS HealthKit**: Not supported (Use [SleepStageRecord])
 ///
 /// ## Example
@@ -58,6 +60,53 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStageSample> {
     required super.metadata,
     required super.startTime,
     required super.endTime,
+    required super.samples,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+    this.title,
+    this.notes,
+  });
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory SleepSessionRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required List<SleepStageSample> samples,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+    String? title,
+    String? notes,
+  }) {
+    return SleepSessionRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      samples: samples,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      title: title,
+      notes: notes,
+    );
+  }
+
+  SleepSessionRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
     required super.samples,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,

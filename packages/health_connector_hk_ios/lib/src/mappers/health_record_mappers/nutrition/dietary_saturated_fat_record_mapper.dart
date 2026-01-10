@@ -30,7 +30,7 @@ extension DietarySaturatedFatRecordToDto on DietarySaturatedFatRecord {
 @internal
 extension DietarySaturatedFatRecordDtoToDomain on DietarySaturatedFatRecordDto {
   DietarySaturatedFatRecord toDomain() {
-    return DietarySaturatedFatRecord(
+    return DietarySaturatedFatRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

@@ -34,7 +34,7 @@ extension HeartRateVariabilityRMSSDRecordToDto
 extension HeartRateVariabilityRMSSDRecordDtoToDomain
     on HeartRateVariabilityRMSSDRecordDto {
   HeartRateVariabilityRMSSDRecord toDomain() {
-    return HeartRateVariabilityRMSSDRecord(
+    return HeartRateVariabilityRMSSDRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

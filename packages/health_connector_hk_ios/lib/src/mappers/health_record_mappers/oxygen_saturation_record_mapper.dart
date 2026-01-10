@@ -27,7 +27,7 @@ extension OxygenSaturationRecordToDto on OxygenSaturationRecord {
 @internal
 extension OxygenSaturationRecordDtoToDomain on OxygenSaturationRecordDto {
   OxygenSaturationRecord toDomain() {
-    return OxygenSaturationRecord(
+    return OxygenSaturationRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

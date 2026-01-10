@@ -33,7 +33,7 @@ extension FloorsClimbedRecordToDto on FloorsClimbedRecord {
 @internal
 extension FloorsClimbedRecordDtoToDomain on FloorsClimbedRecordDto {
   FloorsClimbedRecord toDomain() {
-    return FloorsClimbedRecord(
+    return FloorsClimbedRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

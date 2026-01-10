@@ -7,8 +7,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietarySodium`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarysodium)
-/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietarySodium`](https:/
+/// /developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietar
+/// ysodium)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.
+/// android.com/reference/kotlin/androidx/health/connect/client/records/Nutritio
+/// nRecord)
 ///
 /// ## Example
 ///
@@ -62,6 +66,37 @@ final class DietarySodiumRecord extends DietaryMineralRecord {
     );
   }
 
+  /// Internal factory for creating [DietarySodiumRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [DietarySodiumRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [DietarySodiumRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory DietarySodiumRecord.internal({
+    required Mass mass,
+    required DateTime time,
+    required Metadata metadata,
+    HealthRecordId id = HealthRecordId.none,
+    int? zoneOffsetSeconds,
+    String? foodName,
+    MealType mealType = MealType.unknown,
+  }) {
+    return DietarySodiumRecord._(
+      mass: mass,
+      time: time,
+      metadata: metadata,
+      id: id,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      foodName: foodName,
+      mealType: mealType,
+    );
+  }
+
   /// Creates a copy with the given fields replaced with the new values.
   DietarySodiumRecord copyWith({
     Mass? mass,
@@ -72,7 +107,7 @@ final class DietarySodiumRecord extends DietaryMineralRecord {
     String? foodName,
     MealType? mealType,
   }) {
-    return DietarySodiumRecord._(
+    return DietarySodiumRecord(
       mass: mass ?? this.mass,
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,

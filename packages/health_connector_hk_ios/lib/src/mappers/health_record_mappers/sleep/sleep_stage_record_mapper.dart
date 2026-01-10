@@ -29,7 +29,7 @@ extension SleepStageRecordToDto on SleepStageRecord {
 @internal
 extension SleepStageRecordDtoToDomain on SleepStageRecordDto {
   SleepStageRecord toDomain() {
-    return SleepStageRecord(
+    return SleepStageRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       metadata: metadata.toDomain(),
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),

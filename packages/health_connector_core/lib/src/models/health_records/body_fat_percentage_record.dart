@@ -8,8 +8,11 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`BodyFatRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyFatRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bodyFatPercentage`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodyfatpercentage)
+/// - **Android Health Connect**: [`BodyFatRecord`](https://developer.android.co
+/// m/reference/kotlin/androidx/health/connect/client/records/BodyFatRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bodyFatPercentage`](https://
+/// developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodyfat
+/// percentage)
 ///
 /// ## Example
 ///
@@ -41,15 +44,49 @@ final class BodyFatPercentageRecord extends InstantHealthRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [percentage]: The body fat percentage measurement (as decimal 0-1).
-  ///
-  /// ## Throws
-  ///
-  /// - [ArgumentError] if [percentage] is negative.
   const BodyFatPercentageRecord({
     required super.time,
     required super.metadata,
     required this.percentage,
-    super.id = HealthRecordId.none,
+    super.id,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [BodyFatPercentageRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [BodyFatPercentageRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BodyFatPercentageRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory BodyFatPercentageRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Percentage percentage,
+    int? zoneOffsetSeconds,
+  }) {
+    return BodyFatPercentageRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      percentage: percentage,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  /// Private constructor without validation.
+  const BodyFatPercentageRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.percentage,
     super.zoneOffsetSeconds,
   });
 

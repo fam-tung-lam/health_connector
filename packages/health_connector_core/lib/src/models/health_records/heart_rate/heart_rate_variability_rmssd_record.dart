@@ -8,7 +8,9 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`HeartRateVariabilityRMSSDRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateVariabilityRMSSDRecord)
+/// - **Android Health Connect**: [`HeartRateVariabilityRMSSDRecord`](https://de
+/// veloper.android.com/reference/kotlin/androidx/health/connect/client/records/
+/// HeartRateVariabilityRMSSDRecord)
 /// - **iOS HealthKit**: Not supported.
 ///
 /// ## Example
@@ -43,12 +45,12 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [rmssd] is negative.
-  factory HeartRateVariabilityRMSSDRecord({
-    required DateTime time,
-    required Metadata metadata,
-    required TimeDuration rmssd,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
+  HeartRateVariabilityRMSSDRecord({
+    required super.time,
+    required super.metadata,
+    required this.rmssd,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
   }) {
     if (rmssd < TimeDuration.zero) {
       throw ArgumentError.value(
@@ -57,6 +59,26 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
         'Heart rate variability RMSSD must be non-negative',
       );
     }
+  }
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory HeartRateVariabilityRMSSDRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required TimeDuration rmssd,
+    int? zoneOffsetSeconds,
+  }) {
     return HeartRateVariabilityRMSSDRecord._(
       time: time,
       metadata: metadata,
@@ -66,7 +88,7 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
     );
   }
 
-  /// Private constructor for internal use.
+  /// Private constructor without validation.
   const HeartRateVariabilityRMSSDRecord._({
     required super.time,
     required super.metadata,
@@ -86,7 +108,7 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {
-    return HeartRateVariabilityRMSSDRecord._(
+    return HeartRateVariabilityRMSSDRecord(
       time: time ?? this.time,
       metadata: metadata ?? this.metadata,
       rmssd: rmssd ?? this.rmssd,

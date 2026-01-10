@@ -7,7 +7,9 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`BodyWaterMassRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyWaterMassRecord)
+/// - **Android Health Connect**: [`BodyWaterMassRecord`](https://developer.andr
+/// oid.com/reference/kotlin/androidx/health/connect/client/records/BodyWaterMas
+/// sRecord)
 /// - **iOS HealthKit**: Not supported.
 ///
 /// ## Example
@@ -42,7 +44,45 @@ final class BodyWaterMassRecord extends InstantHealthRecord {
     required super.time,
     required super.metadata,
     required this.mass,
-    super.id = HealthRecordId.none,
+    super.id,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [BodyWaterMassRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [BodyWaterMassRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BodyWaterMassRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory BodyWaterMassRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Mass mass,
+    int? zoneOffsetSeconds,
+  }) {
+    return BodyWaterMassRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      mass: mass,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  /// Private constructor without validation.
+  const BodyWaterMassRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.mass,
     super.zoneOffsetSeconds,
   });
 

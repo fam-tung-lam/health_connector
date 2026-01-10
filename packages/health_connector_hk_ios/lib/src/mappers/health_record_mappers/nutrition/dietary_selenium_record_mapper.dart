@@ -30,7 +30,7 @@ extension DietarySeleniumRecordToDto on DietarySeleniumRecord {
 @internal
 extension DietarySeleniumRecordDtoToDomain on DietarySeleniumRecordDto {
   DietarySeleniumRecord toDomain() {
-    return DietarySeleniumRecord(
+    return DietarySeleniumRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

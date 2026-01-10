@@ -69,7 +69,7 @@ extension NutritionRecordToDto on NutritionRecord {
 @internal
 extension NutritionRecordDtoToDomain on NutritionRecordDto {
   NutritionRecord toDomain() {
-    return NutritionRecord(
+    return NutritionRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

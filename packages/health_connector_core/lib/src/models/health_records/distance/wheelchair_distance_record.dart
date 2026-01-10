@@ -5,7 +5,9 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported (Use [DistanceRecord])
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.distanceWheelchair`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distancewheelchair)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.distanceWheelchair`](https:/
+/// /developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/distan
+/// cewheelchair)
 ///
 /// ## Example
 ///
@@ -31,6 +33,49 @@ final class WheelchairDistanceRecord extends DistanceActivityRecord {
     required super.metadata,
     required super.distance,
     super.id,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [WheelchairDistanceRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [WheelchairDistanceRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [WheelchairDistanceRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory WheelchairDistanceRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required Length distance,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return WheelchairDistanceRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      distance: distance,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  WheelchairDistanceRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required super.distance,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });

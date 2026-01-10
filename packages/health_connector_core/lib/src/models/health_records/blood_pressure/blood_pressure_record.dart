@@ -11,8 +11,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`BloodPressureRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodPressureRecord)
-/// - **iOS HealthKit**: [`HKCorrelationTypeIdentifier.bloodPressure`](https://developer.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/bloodpressure)
+/// - **Android Health Connect**: [`BloodPressureRecord`](https://developer.andr
+/// oid.com/reference/kotlin/androidx/health/connect/client/records/BloodPressur
+/// eRecord)
+/// - **iOS HealthKit**: [`HKCorrelationTypeIdentifier.bloodPressure`](https://d
+/// eveloper.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/blood
+/// pressure)
 ///
 /// ## Example
 ///
@@ -58,6 +62,51 @@ final class BloodPressureRecord extends InstantHealthRecord {
     required this.systolic,
     required this.diastolic,
     super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    this.bodyPosition = BloodPressureBodyPosition.unknown,
+    this.measurementLocation = BloodPressureMeasurementLocation.unknown,
+  });
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory BloodPressureRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Pressure systolic,
+    required Pressure diastolic,
+    int? zoneOffsetSeconds,
+    BloodPressureBodyPosition bodyPosition = BloodPressureBodyPosition.unknown,
+    BloodPressureMeasurementLocation measurementLocation =
+        BloodPressureMeasurementLocation.unknown,
+  }) {
+    return BloodPressureRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      systolic: systolic,
+      diastolic: diastolic,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+      bodyPosition: bodyPosition,
+      measurementLocation: measurementLocation,
+    );
+  }
+
+  const BloodPressureRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.systolic,
+    required this.diastolic,
     super.zoneOffsetSeconds,
     this.bodyPosition = BloodPressureBodyPosition.unknown,
     this.measurementLocation = BloodPressureMeasurementLocation.unknown,

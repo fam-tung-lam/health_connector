@@ -8,7 +8,9 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported (Use [DistanceRecord])
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/sixminutewalktestdistance)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`](
+/// https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier
+/// /sixminutewalktestdistance)
 ///
 /// ## Example
 ///
@@ -34,6 +36,49 @@ final class SixMinuteWalkTestDistanceRecord extends DistanceActivityRecord {
     required super.metadata,
     required super.distance,
     super.id,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [SixMinuteWalkTestDistanceRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [SixMinuteWalkTestDistanceRecord] by directly mapping platform
+  /// data to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [SixMinuteWalkTestDistanceRecord] constructor, which enforces validation
+  /// and business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory SixMinuteWalkTestDistanceRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required Length distance,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return SixMinuteWalkTestDistanceRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      distance: distance,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  SixMinuteWalkTestDistanceRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required super.distance,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });

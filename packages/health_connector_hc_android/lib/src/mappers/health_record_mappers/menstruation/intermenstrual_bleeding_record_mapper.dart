@@ -30,7 +30,7 @@ extension IntermenstrualBleedingRecordDtoToDomain
   /// Converts [IntermenstrualBleedingRecordDto] to
   /// [IntermenstrualBleedingRecord].
   IntermenstrualBleedingRecord toDomain() {
-    return IntermenstrualBleedingRecord(
+    return IntermenstrualBleedingRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       metadata: metadata.toDomain(),
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),

@@ -31,7 +31,7 @@ extension PowerSeriesRecordToDto on PowerSeriesRecord {
 extension PowerSeriesRecordDtoToDomain on PowerSeriesRecordDto {
   /// Converts this DTO to a power record.
   PowerSeriesRecord toDomain() {
-    return PowerSeriesRecord(
+    return PowerSeriesRecord.internal(
       id: id == null ? HealthRecordId.none : HealthRecordId(id!),
       startTime: DateTime.fromMillisecondsSinceEpoch(
         startTime,

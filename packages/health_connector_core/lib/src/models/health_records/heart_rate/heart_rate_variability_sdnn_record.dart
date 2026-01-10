@@ -11,7 +11,9 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - Android (Health Connect): Not supported
-/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.heartRateVariabilitySDNN`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartratevariabilitysdnn)
+/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.heartRateVariabilitySDNN`](htt
+/// ps://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/he
+/// artratevariabilitysdnn)
 ///
 /// ## Example
 ///
@@ -45,12 +47,12 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [sdnn] is negative.
-  factory HeartRateVariabilitySDNNRecord({
-    required DateTime time,
-    required Metadata metadata,
-    required TimeDuration sdnn,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
+  HeartRateVariabilitySDNNRecord({
+    required super.time,
+    required super.metadata,
+    required this.sdnn,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
   }) {
     if (sdnn < TimeDuration.zero) {
       throw ArgumentError.value(
@@ -59,6 +61,26 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
         'Heart rate variability SDNN must be non-negative',
       );
     }
+  }
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory HeartRateVariabilitySDNNRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required TimeDuration sdnn,
+    int? zoneOffsetSeconds,
+  }) {
     return HeartRateVariabilitySDNNRecord._(
       time: time,
       metadata: metadata,
@@ -68,7 +90,7 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
     );
   }
 
-  /// Private constructor for internal use.
+  /// Private constructor without validation.
   const HeartRateVariabilitySDNNRecord._({
     required super.time,
     required super.metadata,
@@ -88,7 +110,7 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
     HealthRecordId? id,
     int? zoneOffsetSeconds,
   }) {
-    return HeartRateVariabilitySDNNRecord._(
+    return HeartRateVariabilitySDNNRecord(
       time: time ?? this.time,
       sdnn: sdnn ?? this.sdnn,
       metadata: metadata ?? this.metadata,

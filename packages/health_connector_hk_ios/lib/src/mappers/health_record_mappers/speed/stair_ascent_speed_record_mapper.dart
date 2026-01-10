@@ -30,7 +30,7 @@ extension StairAscentSpeedRecordToDto on StairAscentSpeedRecord {
 extension StairAscentSpeedRecordDtoToDomain on SpeedActivityRecordDto {
   /// Converts this DTO to a stair ascent speed record.
   StairAscentSpeedRecord toDomain() {
-    return StairAscentSpeedRecord(
+    return StairAscentSpeedRecord.internal(
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       speed: speed.toDomain(),
       metadata: metadata.toDomain(),

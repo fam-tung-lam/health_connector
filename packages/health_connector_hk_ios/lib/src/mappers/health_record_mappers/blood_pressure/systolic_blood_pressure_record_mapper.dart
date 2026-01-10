@@ -32,7 +32,7 @@ extension SystolicBloodPressureRecordToDto on SystolicBloodPressureRecord {
 extension SystolicBloodPressureRecordDtoToDomain
     on SystolicBloodPressureRecordDto {
   SystolicBloodPressureRecord toDomain() {
-    return SystolicBloodPressureRecord(
+    return SystolicBloodPressureRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

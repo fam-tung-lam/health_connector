@@ -38,7 +38,7 @@ extension SkatingSportsDistanceRecordToDto on SkatingSportsDistanceRecord {
 @internal
 extension SkatingSportsDistanceRecordDtoToDomain on DistanceActivityRecordDto {
   SkatingSportsDistanceRecord toDomain() {
-    return SkatingSportsDistanceRecord(
+    return SkatingSportsDistanceRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

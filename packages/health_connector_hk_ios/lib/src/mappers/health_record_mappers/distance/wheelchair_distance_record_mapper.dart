@@ -34,7 +34,7 @@ extension WheelchairDistanceRecordToDto on WheelchairDistanceRecord {
 @internal
 extension WheelchairDistanceRecordDtoToDomain on DistanceActivityRecordDto {
   WheelchairDistanceRecord toDomain() {
-    return WheelchairDistanceRecord(
+    return WheelchairDistanceRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

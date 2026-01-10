@@ -33,7 +33,7 @@ extension BasalEnergyBurnedRecordToDto on BasalEnergyBurnedRecord {
 @internal
 extension BasalEnergyBurnedRecordDtoToDomain on BasalEnergyBurnedRecordDto {
   BasalEnergyBurnedRecord toDomain() {
-    return BasalEnergyBurnedRecord(
+    return BasalEnergyBurnedRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

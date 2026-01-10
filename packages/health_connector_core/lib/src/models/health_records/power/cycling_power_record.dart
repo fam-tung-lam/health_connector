@@ -5,7 +5,9 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported (Use [PowerSeriesRecord])
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.cyclingPower`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/cyclingpower)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.cyclingPower`](https://devel
+/// oper.apple.com/documentation/healthkit/hkquantitytypeidentifier/cyclingpower
+/// )
 ///
 /// ## Example
 ///
@@ -29,6 +31,43 @@ final class CyclingPowerRecord extends InstantHealthRecord {
     required super.metadata,
     required this.power,
     super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [CyclingPowerRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [CyclingPowerRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [CyclingPowerRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory CyclingPowerRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Power power,
+    int? zoneOffsetSeconds,
+  }) {
+    return CyclingPowerRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      power: power,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  const CyclingPowerRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.power,
     super.zoneOffsetSeconds,
   });
 

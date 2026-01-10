@@ -30,7 +30,7 @@ extension DietaryPotassiumRecordToDto on DietaryPotassiumRecord {
 @internal
 extension DietaryPotassiumRecordDtoToDomain on DietaryPotassiumRecordDto {
   DietaryPotassiumRecord toDomain() {
-    return DietaryPotassiumRecord(
+    return DietaryPotassiumRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

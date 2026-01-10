@@ -7,8 +7,12 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`MindfulnessSessionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/MindfulnessSessionRecord)
-/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.mindfulSession`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/mindfulsession)
+/// - **Android Health Connect**: [`MindfulnessSessionRecord`](https://developer
+/// .android.com/reference/kotlin/androidx/health/connect/client/records/Mindful
+/// nessSessionRecord)
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.mindfulSession`](https://dev
+/// eloper.apple.com/documentation/healthkit/hkcategorytypeidentifier/mindfulses
+/// sion)
 ///
 /// ## Example
 ///
@@ -45,6 +49,53 @@ final class MindfulnessSessionRecord extends IntervalHealthRecord {
     required super.metadata,
     required this.sessionType,
     super.id = HealthRecordId.none,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+    this.title,
+    this.notes,
+  });
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory MindfulnessSessionRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required MindfulnessSessionType sessionType,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+    String? title,
+    String? notes,
+  }) {
+    return MindfulnessSessionRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      sessionType: sessionType,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+      title: title,
+      notes: notes,
+    );
+  }
+
+  MindfulnessSessionRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required this.sessionType,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
     this.title,

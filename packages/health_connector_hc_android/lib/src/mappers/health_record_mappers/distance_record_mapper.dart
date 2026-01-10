@@ -33,7 +33,7 @@ extension DistanceRecordToDto on DistanceRecord {
 @internal
 extension DistanceRecordDtoToDomain on DistanceRecordDto {
   DistanceRecord toDomain() {
-    return DistanceRecord(
+    return DistanceRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

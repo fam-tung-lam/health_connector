@@ -8,7 +8,9 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`TotalEnergyBurnedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/TotalEnergyBurnedRecord)
+/// - **Android Health Connect**: [`TotalEnergyBurnedRecord`](https://developer.
+/// android.com/reference/kotlin/androidx/health/connect/client/records/TotalEne
+/// rgyBurnedRecord)
 /// - **iOS HealthKit**: Not supported. iOS separates Active and Basal energy.
 ///
 /// ## Example
@@ -58,6 +60,47 @@ final class TotalEnergyBurnedRecord extends IntervalHealthRecord {
     required super.metadata,
     required this.energy,
     super.id = HealthRecordId.none,
+    super.startZoneOffsetSeconds,
+    super.endZoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// validation.
+  ///
+  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// fields, bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// rules. This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory TotalEnergyBurnedRecord.internal({
+    required HealthRecordId id,
+    required DateTime startTime,
+    required DateTime endTime,
+    required Metadata metadata,
+    required Energy energy,
+    int? startZoneOffsetSeconds,
+    int? endZoneOffsetSeconds,
+  }) {
+    return TotalEnergyBurnedRecord._(
+      id: id,
+      startTime: startTime,
+      endTime: endTime,
+      metadata: metadata,
+      energy: energy,
+      startZoneOffsetSeconds: startZoneOffsetSeconds,
+      endZoneOffsetSeconds: endZoneOffsetSeconds,
+    );
+  }
+
+  TotalEnergyBurnedRecord._({
+    required super.id,
+    required super.startTime,
+    required super.endTime,
+    required super.metadata,
+    required this.energy,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
   });

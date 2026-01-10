@@ -30,7 +30,7 @@ extension RunningSpeedRecordToDto on RunningSpeedRecord {
 extension RunningSpeedRecordDtoToDomain on SpeedActivityRecordDto {
   /// Converts this DTO to a running speed record.
   RunningSpeedRecord toDomain() {
-    return RunningSpeedRecord(
+    return RunningSpeedRecord.internal(
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       speed: speed.toDomain(),
       metadata: metadata.toDomain(),

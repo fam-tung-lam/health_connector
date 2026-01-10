@@ -35,7 +35,7 @@ extension BasalBodyTemperatureRecordToDto on BasalBodyTemperatureRecord {
 extension BasalBodyTemperatureRecordDtoToDomain
     on BasalBodyTemperatureRecordDto {
   BasalBodyTemperatureRecord toDomain() {
-    return BasalBodyTemperatureRecord(
+    return BasalBodyTemperatureRecord.internal(
       id: id?.toDomain() ?? HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

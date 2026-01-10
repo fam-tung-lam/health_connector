@@ -11,8 +11,10 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`Vo2MaxRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.vo2Max`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/vo2max)
+/// - **Android Health Connect**: [`Vo2MaxRecord`](https://developer.android.com
+/// /reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.vo2Max`](https://developer.a
+/// pple.com/documentation/healthkit/hkquantitytypeidentifier/vo2max)
 ///
 /// ## Measurement Unit
 ///
@@ -53,7 +55,47 @@ final class Vo2MaxRecord extends InstantHealthRecord {
     required super.metadata,
     required this.vo2MlPerMinPerKg,
     this.testType,
-    super.id = HealthRecordId.none,
+    super.id,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [Vo2MaxRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [Vo2MaxRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [Vo2MaxRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory Vo2MaxRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Number vo2MlPerMinPerKg,
+    Vo2MaxTestType? testType,
+    int? zoneOffsetSeconds,
+  }) {
+    return Vo2MaxRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      vo2MlPerMinPerKg: vo2MlPerMinPerKg,
+      testType: testType,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  const Vo2MaxRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.vo2MlPerMinPerKg,
+    this.testType,
     super.zoneOffsetSeconds,
   });
 

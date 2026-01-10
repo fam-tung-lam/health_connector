@@ -27,7 +27,7 @@ extension RespiratoryRateRecordToDto on RespiratoryRateRecord {
 extension RespiratoryRateRecordDtoToDomain on RespiratoryRateRecordDto {
   /// Converts [RespiratoryRateRecordDto] to its domain representation.
   RespiratoryRateRecord toDomain() {
-    return RespiratoryRateRecord(
+    return RespiratoryRateRecord.internal(
       id: id != null ? HealthRecordId(id!) : HealthRecordId.none,
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       zoneOffsetSeconds: zoneOffsetSeconds,

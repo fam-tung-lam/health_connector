@@ -8,8 +8,12 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`LeanBodyMassRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/LeanBodyMassRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.leanBodyMass`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/leanbodymass)
+/// - **Android Health Connect**: [`LeanBodyMassRecord`](https://developer.andro
+/// id.com/reference/kotlin/androidx/health/connect/client/records/LeanBodyMassR
+/// ecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.leanBodyMass`](https://devel
+/// oper.apple.com/documentation/healthkit/hkquantitytypeidentifier/leanbodymass
+/// )
 ///
 /// ## Example
 ///
@@ -31,7 +35,6 @@ part of 'health_record.dart';
 @sinceV1_0_0
 @immutable
 final class LeanBodyMassRecord extends InstantHealthRecord {
-  /// Creates a lean body mass record.
   ///
   /// ## Parameters
   ///
@@ -40,15 +43,49 @@ final class LeanBodyMassRecord extends InstantHealthRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [mass]: The lean body mass measurement.
-  ///
-  /// ## Throws
-  ///
-  /// - [ArgumentError] if [mass] is negative (via Mass class validation).
   const LeanBodyMassRecord({
     required super.time,
     required super.metadata,
     required this.mass,
-    super.id = HealthRecordId.none,
+    super.id,
+    super.zoneOffsetSeconds,
+  });
+
+  /// Internal factory for creating [LeanBodyMassRecord] instances
+  /// without validation.
+  ///
+  /// Creates a [LeanBodyMassRecord] by directly mapping platform data
+  /// to fields,
+  /// bypassing the normal validation and business rules applied by the
+  /// public constructor.
+  ///
+  /// **⚠️ Warning**: Not for public use. SDK users should use the public
+  /// [LeanBodyMassRecord] constructor, which enforces validation and
+  /// business rules.
+  /// This factory is restricted to the SDK developers and contributors.
+  @internalUse
+  factory LeanBodyMassRecord.internal({
+    required HealthRecordId id,
+    required DateTime time,
+    required Metadata metadata,
+    required Mass mass,
+    int? zoneOffsetSeconds,
+  }) {
+    return LeanBodyMassRecord._(
+      id: id,
+      time: time,
+      metadata: metadata,
+      mass: mass,
+      zoneOffsetSeconds: zoneOffsetSeconds,
+    );
+  }
+
+  /// Private constructor without validation.
+  const LeanBodyMassRecord._({
+    required super.id,
+    required super.time,
+    required super.metadata,
+    required this.mass,
     super.zoneOffsetSeconds,
   });
 
