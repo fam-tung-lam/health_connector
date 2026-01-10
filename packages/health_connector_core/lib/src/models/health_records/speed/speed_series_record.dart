@@ -39,7 +39,7 @@ part of '../health_record.dart';
 @sinceV2_0_0
 @supportedOnHealthConnect
 @immutable
-final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedMeasurement> {
+final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedSample> {
   /// Creates a speed record with samples.
   ///
   /// ## Parameters
@@ -70,7 +70,7 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedMeasurement> {
     DateTime? startTime,
     DateTime? endTime,
     Metadata? metadata,
-    List<SpeedMeasurement>? samples,
+    List<SpeedSample>? samples,
     HealthRecordId? id,
     int? startZoneOffsetSeconds,
     int? endZoneOffsetSeconds,
@@ -97,7 +97,7 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedMeasurement> {
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          const ListEquality<SpeedMeasurement>().equals(
+          const ListEquality<SpeedSample>().equals(
             samples,
             other.samples,
           ) &&
@@ -122,12 +122,12 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedMeasurement> {
 @sinceV2_0_0
 @supportedOnHealthConnect
 @immutable
-final class SpeedMeasurement {
+final class SpeedSample {
   /// Creates a speed measurement.
   ///
   /// The [time] parameter specifies when the measurement was taken. The [speed]
   /// parameter indicates the velocity.
-  const SpeedMeasurement({
+  const SpeedSample({
     required this.time,
     required this.speed,
   });
@@ -144,7 +144,7 @@ final class SpeedMeasurement {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SpeedMeasurement &&
+      other is SpeedSample &&
           runtimeType == other.runtimeType &&
           time == other.time &&
           speed == other.speed;

@@ -36,7 +36,7 @@ void main() {
                   device: const Device(type: DeviceType.watch),
                 ),
                 samples: [
-                  SpeedMeasurement(
+                  SpeedSample(
                     time: fakeSampleTime,
                     speed: const Velocity.metersPerSecond(2.5),
                   ),
@@ -90,7 +90,7 @@ void main() {
                   deviceType: DeviceTypeDto.phone,
                 ),
                 samples: [
-                  SpeedMeasurementDto(
+                  SpeedSampleDto(
                     time: fakeSampleTime.millisecondsSinceEpoch,
                     speed: VelocityDto(metersPerSecond: 3.0),
                   ),

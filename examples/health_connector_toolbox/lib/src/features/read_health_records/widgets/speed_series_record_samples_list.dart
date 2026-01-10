@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart'
-    show SpeedMeasurement;
+    show SpeedSample;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/date_formatter.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_detail_row.dart';
@@ -17,11 +17,11 @@ final class SpeedSeriesRecordSamplesList extends StatelessWidget {
   });
 
   /// The list of speed measurements to display.
-  final List<SpeedMeasurement> samples;
+  final List<SpeedSample> samples;
 
   @override
   Widget build(BuildContext context) {
-    return HealthSeriesRecordSampleList<SpeedMeasurement>(
+    return HealthSeriesRecordSampleList<SpeedSample>(
       title: AppTexts.speedSamples,
       samples: samples,
       itemBuilder: (sample, index) => HealthRecordDetailRow(

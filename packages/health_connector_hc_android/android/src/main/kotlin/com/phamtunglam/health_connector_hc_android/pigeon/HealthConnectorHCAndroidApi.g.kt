@@ -2738,7 +2738,7 @@ data class CyclingPedalingCadenceSeriesRecordDto (
  *
  * Generated class from Pigeon that represents data sent in messages.
  */
-data class SpeedMeasurementDto (
+data class SpeedSampleDto (
   /** Timestamp in milliseconds since epoch (UTC). */
   val time: Long,
   /** Speed measurement. */
@@ -2746,10 +2746,10 @@ data class SpeedMeasurementDto (
 )
  {
   companion object {
-    fun fromList(pigeonVar_list: List<Any?>): SpeedMeasurementDto {
+    fun fromList(pigeonVar_list: List<Any?>): SpeedSampleDto {
       val time = pigeonVar_list[0] as Long
       val speed = pigeonVar_list[1] as VelocityDto
-      return SpeedMeasurementDto(time, speed)
+      return SpeedSampleDto(time, speed)
     }
   }
   fun toList(): List<Any?> {
@@ -2759,7 +2759,7 @@ data class SpeedMeasurementDto (
     )
   }
   override fun equals(other: Any?): Boolean {
-    if (other !is SpeedMeasurementDto) {
+    if (other !is SpeedSampleDto) {
       return false
     }
     if (this === other) {
@@ -2785,7 +2785,7 @@ data class SpeedSeriesRecordDto (
   /** Metadata about this record. */
   val metadata: MetadataDto,
   /** List of speed measurements within this time interval. */
-  val samples: List<SpeedMeasurementDto>,
+  val samples: List<SpeedSampleDto>,
   /** Timezone offset in seconds for start time (optional). */
   val startZoneOffsetSeconds: Long? = null,
   /** Timezone offset in seconds for end time (optional). */
@@ -2798,7 +2798,7 @@ data class SpeedSeriesRecordDto (
       val startTime = pigeonVar_list[1] as Long
       val endTime = pigeonVar_list[2] as Long
       val metadata = pigeonVar_list[3] as MetadataDto
-      val samples = pigeonVar_list[4] as List<SpeedMeasurementDto>
+      val samples = pigeonVar_list[4] as List<SpeedSampleDto>
       val startZoneOffsetSeconds = pigeonVar_list[5] as Long?
       val endZoneOffsetSeconds = pigeonVar_list[6] as Long?
       return SpeedSeriesRecordDto(id, startTime, endTime, metadata, samples, startZoneOffsetSeconds, endZoneOffsetSeconds)
@@ -4638,7 +4638,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       198.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          SpeedMeasurementDto.fromList(it)
+          SpeedSampleDto.fromList(it)
         }
       }
       199.toByte() -> {
@@ -5067,7 +5067,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(197)
         writeValue(stream, value.toList())
       }
-      is SpeedMeasurementDto -> {
+      is SpeedSampleDto -> {
         stream.write(198)
         writeValue(stream, value.toList())
       }

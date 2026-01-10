@@ -1,28 +1,28 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show SpeedMeasurement, sinceV2_0_0;
+    show SpeedSample, sinceV2_0_0;
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
-    show SpeedMeasurementDto;
+    show SpeedSampleDto;
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [SpeedMeasurement] to [SpeedMeasurementDto].
+/// Converts [SpeedSample] to [SpeedSampleDto].
 @sinceV2_0_0
 @internal
-extension SpeedMeasurementToDto on SpeedMeasurement {
-  SpeedMeasurementDto toDto() {
-    return SpeedMeasurementDto(
+extension SpeedSampleToDto on SpeedSample {
+  SpeedSampleDto toDto() {
+    return SpeedSampleDto(
       time: time.millisecondsSinceEpoch,
       speed: speed.toDto(),
     );
   }
 }
 
-/// Converts [SpeedMeasurementDto] to [SpeedMeasurement].
+/// Converts [SpeedSampleDto] to [SpeedSample].
 @sinceV2_0_0
 @internal
-extension SpeedMeasurementDtoToDomain on SpeedMeasurementDto {
-  SpeedMeasurement toDomain() {
-    return SpeedMeasurement(
+extension SpeedSampleDtoToDomain on SpeedSampleDto {
+  SpeedSample toDomain() {
+    return SpeedSample(
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       speed: speed.toDomain(),
     );

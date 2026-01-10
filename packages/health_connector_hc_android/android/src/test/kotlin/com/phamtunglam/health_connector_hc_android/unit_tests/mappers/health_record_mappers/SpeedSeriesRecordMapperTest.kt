@@ -8,7 +8,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
-import com.phamtunglam.health_connector_hc_android.pigeon.SpeedMeasurementDto
+import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSampleDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.VelocityDto
 import io.kotest.matchers.shouldBe
@@ -74,7 +74,7 @@ class SpeedSeriesRecordMapperTest {
                 deviceType = DeviceTypeDto.PHONE,
             ),
             samples = listOf(
-                SpeedMeasurementDto(
+                SpeedSampleDto(
                     time = TEST_START_TIME,
                     speed = VelocityDto(
                         metersPerSecond = TEST_SPEED_MPS,
