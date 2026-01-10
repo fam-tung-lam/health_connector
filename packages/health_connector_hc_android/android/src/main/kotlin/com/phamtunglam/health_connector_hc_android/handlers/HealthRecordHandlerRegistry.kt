@@ -2,7 +2,7 @@ package com.phamtunglam.health_connector_hc_android.handlers
 
 import androidx.annotation.VisibleForTesting
 import androidx.health.connect.client.HealthConnectClient
-import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActiveCaloriesBurnedHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActiveEnergyBurnedHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BasalBodyTemperatureHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BloodGlucoseHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BloodPressureHandler
@@ -33,7 +33,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SleepSessionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SpeedSeriesHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.StepsHandler
-import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.TotalCaloriesBurnedHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.TotalEnergyBurnedHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.Vo2MaxHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.WeightHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.WheelchairPushesHandler
@@ -58,8 +58,8 @@ internal class HealthRecordHandlerRegistry(private val client: HealthConnectClie
             register(LeanBodyMassHandler(client))
             register(BodyFatPercentageHandler(client))
             register(StepsHandler(client))
-            register(ActiveCaloriesBurnedHandler(client))
-            register(TotalCaloriesBurnedHandler(client))
+            register(ActiveEnergyBurnedHandler(client))
+            register(TotalEnergyBurnedHandler(client))
             register(DistanceHandler(client))
             register(WeightHandler(client))
             register(RestingHeartRateHandler(client))

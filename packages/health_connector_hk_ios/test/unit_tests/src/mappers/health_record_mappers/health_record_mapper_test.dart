@@ -13,11 +13,11 @@ void main() {
         'HealthRecordToDto',
         () {
           test(
-            'converts ActiveCaloriesBurnedRecord to '
-            'ActiveCaloriesBurnedRecordDto',
+            'converts ActiveEnergyBurnedRecord to '
+            'ActiveEnergyBurnedRecordDto',
             () {
               // Given
-              final HealthRecord record = ActiveCaloriesBurnedRecord(
+              final HealthRecord record = ActiveEnergyBurnedRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
@@ -38,8 +38,8 @@ void main() {
               final dto = record.toDto();
 
               // Then
-              expect(dto, isA<ActiveCaloriesBurnedRecordDto>());
-              final caloriesDto = dto as ActiveCaloriesBurnedRecordDto;
+              expect(dto, isA<ActiveEnergyBurnedRecordDto>());
+              final caloriesDto = dto as ActiveEnergyBurnedRecordDto;
               expect(caloriesDto.id, FakeData.fakeId);
               expect(caloriesDto.energy.kilocalories, 350.0);
             },
@@ -210,10 +210,10 @@ void main() {
           );
 
           test(
-            'throws UnsupportedError for TotalCaloriesBurnedRecord',
+            'throws UnsupportedError for TotalEnergyBurnedRecord',
             () {
               // Given
-              final HealthRecord record = TotalCaloriesBurnedRecord(
+              final HealthRecord record = TotalEnergyBurnedRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
@@ -237,7 +237,7 @@ void main() {
                   isA<UnsupportedError>().having(
                     (e) => e.message,
                     'message',
-                    contains('TotalCaloriesBurnedRecord'),
+                    contains('TotalEnergyBurnedRecord'),
                   ),
                 ),
               );
@@ -250,11 +250,11 @@ void main() {
         'HealthRecordDtoToDomain',
         () {
           test(
-            'converts ActiveCaloriesBurnedRecordDto to '
-            'ActiveCaloriesBurnedRecord',
+            'converts ActiveEnergyBurnedRecordDto to '
+            'ActiveEnergyBurnedRecord',
             () {
               // Given
-              final HealthRecordDto dto = ActiveCaloriesBurnedRecordDto(
+              final HealthRecordDto dto = ActiveEnergyBurnedRecordDto(
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeEndTime.millisecondsSinceEpoch,
@@ -275,8 +275,8 @@ void main() {
               final record = dto.toDomain();
 
               // Then
-              expect(record, isA<ActiveCaloriesBurnedRecord>());
-              final caloriesRecord = record as ActiveCaloriesBurnedRecord;
+              expect(record, isA<ActiveEnergyBurnedRecord>());
+              final caloriesRecord = record as ActiveEnergyBurnedRecord;
               expect(caloriesRecord.id.value, FakeData.fakeId);
               expect(caloriesRecord.energy.inKilocalories, 275.0);
             },

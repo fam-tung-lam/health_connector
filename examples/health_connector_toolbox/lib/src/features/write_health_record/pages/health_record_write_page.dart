@@ -388,7 +388,7 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      ActiveCaloriesBurnedHealthDataType _ => ActiveCaloriesBurnedWriteForm(
+      ActiveEnergyBurnedHealthDataType _ => ActiveCaloriesBurnedWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
@@ -478,7 +478,7 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      TotalCaloriesBurnedHealthDataType _ => TotalCaloriesBurnedWriteForm(
+      TotalEnergyBurnedHealthDataType _ => TotalCaloriesBurnedWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),

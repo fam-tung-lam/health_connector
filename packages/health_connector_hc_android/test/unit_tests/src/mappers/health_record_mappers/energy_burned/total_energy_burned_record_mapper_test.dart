@@ -1,22 +1,22 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/energy_burned/total_calories_burned_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/energy_burned/total_energy_burned_record_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
 
 import '../../../../utils/fake_data.dart';
 
 void main() {
   group(
-    'TotalCaloriesBurnedRecordMapper',
+    'TotalEnergyBurnedRecordMapper',
     () {
       group(
-        'TotalCaloriesBurnedRecordToDto',
+        'TotalEnergyBurnedRecordToDto',
         () {
           test(
-            'converts TotalCaloriesBurnedRecord to '
-            'TotalCaloriesBurnedRecordDto',
+            'converts TotalEnergyBurnedRecord to '
+            'TotalEnergyBurnedRecordDto',
             () {
-              final record = TotalCaloriesBurnedRecord(
+              final record = TotalEnergyBurnedRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 startTime: FakeData.fakeStartTime,
                 endTime: FakeData.fakeEndTime,
@@ -56,13 +56,13 @@ void main() {
       );
 
       group(
-        'TotalCaloriesBurnedRecordDtoToDomain',
+        'TotalEnergyBurnedRecordDtoToDomain',
         () {
           test(
-            'converts TotalCaloriesBurnedRecordDto to '
-            'TotalCaloriesBurnedRecord',
+            'converts TotalEnergyBurnedRecordDto to '
+            'TotalEnergyBurnedRecord',
             () {
-              final dto = TotalCaloriesBurnedRecordDto(
+              final dto = TotalEnergyBurnedRecordDto(
                 id: FakeData.fakeId,
                 startTime: FakeData.fakeLocalStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeLocalEndTime.millisecondsSinceEpoch,
@@ -89,10 +89,10 @@ void main() {
           );
 
           test(
-            'converts TotalCaloriesBurnedRecordDto with null id to '
+            'converts TotalEnergyBurnedRecordDto with null id to '
             'domain with none id',
             () {
-              final dto = TotalCaloriesBurnedRecordDto(
+              final dto = TotalEnergyBurnedRecordDto(
                 startTime: FakeData.fakeLocalStartTime.millisecondsSinceEpoch,
                 endTime: FakeData.fakeLocalEndTime.millisecondsSinceEpoch,
                 startZoneOffsetSeconds: 0,

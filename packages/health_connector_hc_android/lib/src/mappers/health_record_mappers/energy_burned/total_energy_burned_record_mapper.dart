@@ -1,18 +1,18 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HealthRecordId, TotalCaloriesBurnedRecord, sinceV2_2_0, DateTimeToDto;
+    show HealthRecordId, TotalEnergyBurnedRecord, sinceV2_2_0, DateTimeToDto;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
-    show TotalCaloriesBurnedRecordDto;
+    show TotalEnergyBurnedRecordDto;
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [TotalCaloriesBurnedRecord] to [TotalCaloriesBurnedRecordDto].
+/// Converts [TotalEnergyBurnedRecord] to [TotalEnergyBurnedRecordDto].
 @sinceV2_2_0
 @internal
-extension TotalCaloriesBurnedRecordToDto on TotalCaloriesBurnedRecord {
-  TotalCaloriesBurnedRecordDto toDto() {
-    return TotalCaloriesBurnedRecordDto(
+extension TotalEnergyBurnedRecordToDto on TotalEnergyBurnedRecord {
+  TotalEnergyBurnedRecordDto toDto() {
+    return TotalEnergyBurnedRecordDto(
       id: id.toDto(),
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
@@ -28,12 +28,12 @@ extension TotalCaloriesBurnedRecordToDto on TotalCaloriesBurnedRecord {
   }
 }
 
-/// Converts [TotalCaloriesBurnedRecordDto] to [TotalCaloriesBurnedRecord].
+/// Converts [TotalEnergyBurnedRecordDto] to [TotalEnergyBurnedRecord].
 @sinceV2_2_0
 @internal
-extension TotalCaloriesBurnedRecordDtoToDomain on TotalCaloriesBurnedRecordDto {
-  TotalCaloriesBurnedRecord toDomain() {
-    return TotalCaloriesBurnedRecord(
+extension TotalEnergyBurnedRecordDtoToDomain on TotalEnergyBurnedRecordDto {
+  TotalEnergyBurnedRecord toDomain() {
+    return TotalEnergyBurnedRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
       startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
       endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),

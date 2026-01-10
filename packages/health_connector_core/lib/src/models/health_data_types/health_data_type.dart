@@ -38,9 +38,9 @@ part 'distance/skating_sports_distance_data_type.dart';
 part 'distance/swimming_distance_data_type.dart';
 part 'distance/walking_running_distance_data_type.dart';
 part 'distance/wheelchair_distance_data_type.dart';
-part 'energy_burned/active_calories_burned_health_data_type.dart';
+part 'energy_burned/active_energy_burned_health_data_type.dart';
 part 'energy_burned/basal_energy_burned_health_data_type.dart';
-part 'energy_burned/total_calories_burned_health_data_type.dart';
+part 'energy_burned/total_energy_burned_health_data_type.dart';
 part 'exercise_session_health_data_type.dart';
 part 'floors_climbed_health_data_type.dart';
 part 'health_data_type_category.dart';
@@ -431,13 +431,13 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// existing height data and writing new height measurements.
   static const height = HeightHealthDataType();
 
-  /// Active calories burned data type.
+  /// Active energy burned data type.
   ///
-  /// Represents the amount of energy (calories) burned during physical activity
-  /// over a time interval. Active calories are those burned through exercise
+  /// Represents the amount of energy burned during physical activity over a
+  /// time interval. Active energy are those burned through exercise
   /// and movement, excluding basal metabolic rate. Supports both reading
-  /// existing active calories data and writing new measurements.
-  static const activeCaloriesBurned = ActiveCaloriesBurnedHealthDataType();
+  /// existing active energy data and writing new measurements.
+  static const activeEnergyBurned = ActiveEnergyBurnedHealthDataType();
 
   /// Exercise session data type.
   ///
@@ -645,14 +645,14 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @sinceV1_1_0
   static const nutrition = NutritionHealthDataType();
 
-  /// Energy (calorie) nutrient data type.
+  /// Energy nutrient data type.
   ///
-  /// Represents energy intake in calories. Supports reading, writing,
+  /// Represents energy intake in energy. Supports reading, writing,
   /// and sum aggregation of energy nutrient records.
   @sinceV1_1_0
   static const energyNutrient = EnergyNutrientDataType();
 
-  /// Total calories burned data type.
+  /// Total energy burned data type.
   ///
   /// Represents the total energy burned by the user, including both
   /// active energy and basal metabolic rate.
@@ -660,7 +660,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports reading, writing, and sum aggregation.
   @sinceV2_2_0
   @supportedOnHealthConnect
-  static const totalCaloriesBurned = TotalCaloriesBurnedHealthDataType();
+  static const totalEnergyBurned = TotalEnergyBurnedHealthDataType();
 
   /// Basal energy burned data type.
   ///
@@ -896,7 +896,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
 
   /// Returns a list of all available health data types.
   static const values = <HealthDataType<HealthRecord, MeasurementUnit>>[
-    activeCaloriesBurned,
+    activeEnergyBurned,
     basalBodyTemperature,
     basalEnergyBurned,
     biotin,
@@ -970,7 +970,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     swimmingDistance,
     systolicBloodPressure,
     thiamin,
-    totalCaloriesBurned,
+    totalEnergyBurned,
     totalCarbohydrate,
     totalFat,
     vitaminA,

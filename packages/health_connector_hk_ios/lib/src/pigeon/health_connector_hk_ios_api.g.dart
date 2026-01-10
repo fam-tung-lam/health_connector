@@ -594,7 +594,7 @@ enum MindfulnessSessionTypeDto {
 
 /// Represents a health data type.
 enum HealthDataTypeDto {
-  /// Active calories burned data.
+  /// Active energy burned data.
   activeCaloriesBurned,
 
   /// Distance traveled data (generic).
@@ -1963,7 +1963,7 @@ class HeartRateVariabilitySDNNRecordDto extends HealthRecordDto {
     this.id,
     required this.time,
     required this.metadata,
-    required this.heartRateVariabilitySDNN,
+    required this.heartRateVariabilityMillis,
     this.zoneOffsetSeconds,
   });
 
@@ -1977,7 +1977,7 @@ class HeartRateVariabilitySDNNRecordDto extends HealthRecordDto {
   MetadataDto metadata;
 
   /// The heart rate variability SDNN value in milliseconds.
-  NumberDto heartRateVariabilitySDNN;
+  double heartRateVariabilityMillis;
 
   /// Timezone offset in seconds for measurement time (optional).
   int? zoneOffsetSeconds;
@@ -1987,7 +1987,7 @@ class HeartRateVariabilitySDNNRecordDto extends HealthRecordDto {
       id,
       time,
       metadata,
-      heartRateVariabilitySDNN,
+      heartRateVariabilityMillis,
       zoneOffsetSeconds,
     ];
   }
@@ -2002,7 +2002,7 @@ class HeartRateVariabilitySDNNRecordDto extends HealthRecordDto {
       id: result[0] as String?,
       time: result[1]! as int,
       metadata: result[2]! as MetadataDto,
-      heartRateVariabilitySDNN: result[3]! as NumberDto,
+      heartRateVariabilityMillis: result[3]! as double,
       zoneOffsetSeconds: result[4] as int?,
     );
   }
@@ -2300,8 +2300,8 @@ class MindfulnessSessionRecordDto extends HealthRecordDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
-  ActiveCaloriesBurnedRecordDto({
+class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
+  ActiveEnergyBurnedRecordDto({
     required this.energy,
     required this.endTime,
     this.id,
@@ -2311,7 +2311,7 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
     this.endZoneOffsetSeconds,
   });
 
-  /// Energy (calories) burned during the interval.
+  /// Energy burned during the interval.
   EnergyDto energy;
 
   /// End time in milliseconds since epoch (UTC).
@@ -2348,9 +2348,9 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static ActiveCaloriesBurnedRecordDto decode(Object result) {
+  static ActiveEnergyBurnedRecordDto decode(Object result) {
     result as List<Object?>;
-    return ActiveCaloriesBurnedRecordDto(
+    return ActiveEnergyBurnedRecordDto(
       energy: result[0]! as EnergyDto,
       endTime: result[1]! as int,
       id: result[2] as String?,
@@ -2364,7 +2364,7 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ActiveCaloriesBurnedRecordDto ||
+    if (other is! ActiveEnergyBurnedRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -8134,7 +8134,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is MindfulnessSessionRecordDto) {
       buffer.putUint8(178);
       writeValue(buffer, value.encode());
-    } else if (value is ActiveCaloriesBurnedRecordDto) {
+    } else if (value is ActiveEnergyBurnedRecordDto) {
       buffer.putUint8(179);
       writeValue(buffer, value.encode());
     } else if (value is DistanceActivityRecordDto) {
@@ -8513,7 +8513,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 178:
         return MindfulnessSessionRecordDto.decode(readValue(buffer)!);
       case 179:
-        return ActiveCaloriesBurnedRecordDto.decode(readValue(buffer)!);
+        return ActiveEnergyBurnedRecordDto.decode(readValue(buffer)!);
       case 180:
         return DistanceActivityRecordDto.decode(readValue(buffer)!);
       case 181:

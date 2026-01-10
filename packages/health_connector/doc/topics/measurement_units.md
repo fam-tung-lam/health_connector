@@ -56,7 +56,7 @@ print(difference.inPounds); // ~9.92
 
 ### Energy
 
-Used for calories burned, basal metabolic rate, and nutritional content.
+Used for energy burned, basal metabolic rate, and nutritional content.
 
 **Available Units**: kilocalories, calories, kilojoules, joules  
 **Base Unit**: kilocalories

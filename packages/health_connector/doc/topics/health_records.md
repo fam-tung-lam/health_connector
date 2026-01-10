@@ -287,7 +287,7 @@ final nutritionRecord = NutritionRecord(
 |--------------------------------|----------|--------------------|
 | `StepsRecord`                  | Interval | Step count         |
 | `FloorsClimbedRecord`          | Interval | Floors climbed     |
-| `ActiveCaloriesBurnedRecord`   | Interval | Active calories    |
+| `ActiveEnergyBurnedRecord`   | Interval | Active calories    |
 | `WheelchairPushesRecord`       | Interval | Wheelchair pushes  |
 | `DistanceRecord`               | Interval | Distance (generic) |
 | `WalkingRunningDistanceRecord` | Interval | Walking/running    |

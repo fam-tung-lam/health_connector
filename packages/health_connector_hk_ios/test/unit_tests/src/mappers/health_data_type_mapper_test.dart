@@ -16,7 +16,7 @@ void main() {
             [
               [
                 HealthDataTypeDto.activeCaloriesBurned,
-                HealthDataType.activeCaloriesBurned,
+                HealthDataType.activeEnergyBurned,
               ],
               [
                 HealthDataTypeDto.basalEnergyBurned,
@@ -217,7 +217,7 @@ void main() {
             'maps HealthDataType to HealthDataTypeDto',
             [
               [
-                HealthDataType.activeCaloriesBurned,
+                HealthDataType.activeEnergyBurned,
                 HealthDataTypeDto.activeCaloriesBurned,
               ],
               [
@@ -465,10 +465,10 @@ void main() {
               );
 
               test(
-                'throws for TotalCaloriesBurnedHealthDataType',
+                'throws for TotalEnergyBurnedHealthDataType',
                 () {
                   expect(
-                    () => HealthDataType.totalCaloriesBurned.toDto(),
+                    () => HealthDataType.totalEnergyBurned.toDto(),
                     throwsUnsupportedError,
                   );
                 },

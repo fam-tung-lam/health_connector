@@ -79,13 +79,13 @@ void main() {
                 HealthDataType.bodyTemperature,
               ],
               [
-                ActiveCaloriesBurnedRecord(
+                ActiveEnergyBurnedRecord(
                   energy: const Energy.kilocalories(300),
                   startTime: createTestTime(),
                   endTime: createTestTime().add(const Duration(hours: 1)),
                   metadata: createTestMetadata(),
                 ),
-                HealthDataType.activeCaloriesBurned,
+                HealthDataType.activeEnergyBurned,
               ],
               [
                 FloorsClimbedRecord(
@@ -219,13 +219,13 @@ void main() {
 
               // Additional metrics
               [
-                TotalCaloriesBurnedRecord(
+                TotalEnergyBurnedRecord(
                   energy: const Energy.kilocalories(2000),
                   startTime: createTestTime(),
                   endTime: createTestTime().add(const Duration(hours: 24)),
                   metadata: createTestMetadata(),
                 ),
-                HealthDataType.totalCaloriesBurned,
+                HealthDataType.totalEnergyBurned,
               ],
               [
                 BasalBodyTemperatureRecord(
@@ -253,7 +253,9 @@ void main() {
               ],
               [
                 HeartRateVariabilityRMSSDRecord(
-                  heartRateVariabilityMillis: const Number(50.0),
+                  rmssd: const TimeDuration.milliseconds(
+                    50.0,
+                  ),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),

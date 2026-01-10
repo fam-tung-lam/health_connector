@@ -1,6 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show
-        ActiveCaloriesBurnedRecord,
+        ActiveEnergyBurnedRecord,
         BloodPressureRecord,
         BodyFatPercentageRecord,
         BodyMassIndexRecord,
@@ -72,7 +72,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ManganeseNutrientRecord,
         PotassiumNutrientRecord,
         RestingHeartRateRecord,
-        TotalCaloriesBurnedRecord,
+        TotalEnergyBurnedRecord,
         SeleniumNutrientRecord,
         SodiumNutrientRecord,
         ZincNutrientRecord,
@@ -90,8 +90,8 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/bo
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/bone_mass_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/cycling_pedaling_cadence/cycling_pedaling_cadence_series_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/distance_record_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/energy_burned/active_calories_burned_record_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/energy_burned/total_calories_burned_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/energy_burned/active_energy_burned_record_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/energy_burned/total_energy_burned_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/exercise/exercise_session_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/floors_climbed_record_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/heart_rate/heart_rate_series_record_mapper.dart';
@@ -120,7 +120,7 @@ import 'package:health_connector_hc_android/src/mappers/health_record_mappers/we
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/wheelchair_pushes_record_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show
-        ActiveCaloriesBurnedRecordDto,
+        ActiveEnergyBurnedRecordDto,
         BloodPressureRecordDto,
         BodyFatPercentageRecordDto,
         BodyTemperatureRecordDto,
@@ -154,7 +154,7 @@ import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_andro
         BloodGlucoseRecordDto,
         ExerciseSessionRecordDto,
         RespiratoryRateRecordDto,
-        TotalCaloriesBurnedRecordDto,
+        TotalEnergyBurnedRecordDto,
         SpeedSeriesRecordDto;
 import 'package:meta/meta.dart' show internal;
 
@@ -209,8 +209,8 @@ import 'package:meta/meta.dart' show internal;
 extension HealthRecordToDto on HealthRecord {
   HealthRecordDto toDto() {
     switch (this) {
-      case final ActiveCaloriesBurnedRecord record:
-        return ActiveCaloriesBurnedRecordToDto(record).toDto();
+      case final ActiveEnergyBurnedRecord record:
+        return ActiveEnergyBurnedRecordToDto(record).toDto();
       case final DistanceRecord record:
         return DistanceRecordToDto(record).toDto();
       case final FloorsClimbedRecord record:
@@ -267,8 +267,8 @@ extension HealthRecordToDto on HealthRecord {
         return Vo2MaxRecordToDto(record).toDto();
       case final BloodGlucoseRecord record:
         return BloodGlucoseRecordToDto(record).toDto();
-      case final TotalCaloriesBurnedRecord record:
-        return TotalCaloriesBurnedRecordToDto(record).toDto();
+      case final TotalEnergyBurnedRecord record:
+        return TotalEnergyBurnedRecordToDto(record).toDto();
       case final BoneMassRecord record:
         return BoneMassRecordToDto(record).toDto();
       case final BodyWaterMassRecord record:
@@ -278,8 +278,8 @@ extension HealthRecordToDto on HealthRecord {
       case final BasalEnergyBurnedRecord _:
         throw UnsupportedError(
           '$BasalEnergyBurnedRecord is not supported on Android '
-          'Health Connect. Use $TotalCaloriesBurnedRecord and '
-          '$ActiveCaloriesBurnedRecord instead',
+          'Health Connect. Use $TotalEnergyBurnedRecord and '
+          '$ActiveEnergyBurnedRecord instead',
         );
       case final EnergyNutrientRecord _:
         throw UnsupportedError(
@@ -520,8 +520,8 @@ extension HealthRecordToDto on HealthRecord {
 extension HealthRecordDtoToDomain on HealthRecordDto {
   HealthRecord toDomain() {
     switch (this) {
-      case final ActiveCaloriesBurnedRecordDto dto:
-        return ActiveCaloriesBurnedRecordDtoToDomain(dto).toDomain();
+      case final ActiveEnergyBurnedRecordDto dto:
+        return ActiveEnergyBurnedRecordDtoToDomain(dto).toDomain();
       case final DistanceRecordDto dto:
         return DistanceRecordDtoToDomain(dto).toDomain();
       case final FloorsClimbedRecordDto dto:
@@ -582,8 +582,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return PowerSeriesRecordDtoToDomain(dto).toDomain();
       case final SpeedSeriesRecordDto dto:
         return SpeedSeriesRecordDtoToDomain(dto).toDomain();
-      case final TotalCaloriesBurnedRecordDto dto:
-        return TotalCaloriesBurnedRecordDtoToDomain(dto).toDomain();
+      case final TotalEnergyBurnedRecordDto dto:
+        return TotalEnergyBurnedRecordDtoToDomain(dto).toDomain();
       case final BoneMassRecordDto dto:
         return BoneMassRecordDtoToDomain(dto).toDomain();
       case final BodyWaterMassRecordDto dto:

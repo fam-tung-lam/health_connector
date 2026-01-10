@@ -9,7 +9,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BloodPressureHealthDataType,
         DiastolicBloodPressureHealthDataType,
         SystolicBloodPressureHealthDataType,
-        ActiveCaloriesBurnedHealthDataType,
+        ActiveEnergyBurnedHealthDataType,
         BodyFatPercentageHealthDataType,
         BodyTemperatureHealthDataType,
         BodyMassIndexHealthDataType,
@@ -95,7 +95,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         StairAscentSpeedDataType,
         StairDescentSpeedDataType,
         SexualActivityDataType,
-        TotalCaloriesBurnedHealthDataType,
+        TotalEnergyBurnedHealthDataType,
         BasalEnergyBurnedHealthDataType,
         ExerciseSessionHealthDataType,
         BasalBodyTemperatureHealthDataType;
@@ -142,7 +142,7 @@ extension AggregateRequestDtoMapper<
               startTime: startTime.millisecondsSinceEpoch,
               endTime: endTime.millisecondsSinceEpoch,
             );
-          case ActiveCaloriesBurnedHealthDataType _:
+          case ActiveEnergyBurnedHealthDataType _:
           case BloodPressureHealthDataType _:
           case BodyFatPercentageHealthDataType _:
           case BodyTemperatureHealthDataType _:
@@ -223,7 +223,7 @@ extension AggregateRequestDtoMapper<
           case StairAscentSpeedDataType _:
           case StairDescentSpeedDataType _:
           case MindfulnessSessionDataType _:
-          case TotalCaloriesBurnedHealthDataType _:
+          case TotalEnergyBurnedHealthDataType _:
           case BasalEnergyBurnedHealthDataType _:
           case BasalBodyTemperatureHealthDataType _:
           case BoneMassDataType _:

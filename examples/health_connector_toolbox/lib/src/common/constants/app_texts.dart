@@ -108,9 +108,9 @@ abstract final class AppTexts {
       SwimmingDistanceDataType() ||
       WheelchairDistanceDataType() ||
       WalkingRunningDistanceDataType() => distance,
-      ActiveCaloriesBurnedHealthDataType() => activeCaloriesBurned,
+      ActiveEnergyBurnedHealthDataType() => activeCaloriesBurned,
       BasalEnergyBurnedHealthDataType() => basalEnergyBurned,
-      TotalCaloriesBurnedHealthDataType() => totalCaloriesBurned,
+      TotalEnergyBurnedHealthDataType() => totalCaloriesBurned,
       FloorsClimbedHealthDataType() => floorsClimbed,
       WheelchairPushesHealthDataType() => wheelchairPushes,
       HydrationHealthDataType() => hydration,
@@ -876,7 +876,7 @@ abstract final class AppTexts {
   static const String basalEnergyBurnedDescription =
       'Calories burned by the body at rest to maintain basic functions';
   static const String totalCaloriesBurnedDescription =
-      'Sum of active and basal calories burned';
+      'Sum of active and basal energy burned';
   static const String floorsClimbedDescription = 'Number of floors climbed';
   static const String wheelchairPushesDescription =
       'Number of wheelchair pushes';

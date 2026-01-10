@@ -1,14 +1,14 @@
 import Foundation
 import HealthKit
 
-/// Handler for active calories burned data (interval quantity type)
-final class ActiveCaloriesBurnedHandler: @unchecked Sendable,
+/// Handler for active energy burned data (interval quantity type)
+final class ActiveEnergyBurnedHandler: @unchecked Sendable,
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler,
     AggregatableQuantityHealthRecordHandler
 {
-    typealias RecordDto = ActiveCaloriesBurnedRecordDto
+    typealias RecordDto = ActiveEnergyBurnedRecordDto
     typealias SampleType = HKQuantitySample
     typealias AggregatedResultMeasurementUnitDto = EnergyDto
 

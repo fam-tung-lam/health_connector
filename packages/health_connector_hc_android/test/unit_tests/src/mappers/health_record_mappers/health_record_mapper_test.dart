@@ -7,14 +7,14 @@ void main() {
   group('HealthRecordMapper', () {
     group('toDto', () {
       test('should map supported records correctly', () {
-        // ActiveCaloriesBurnedRecord
-        final caloriesRecord = ActiveCaloriesBurnedRecord(
+        // ActiveEnergyBurnedRecord
+        final caloriesRecord = ActiveEnergyBurnedRecord(
           startTime: DateTime(2025),
           endTime: DateTime(2025).add(const Duration(hours: 1)),
           energy: const Energy.calories(100),
           metadata: Metadata.manualEntry(),
         );
-        expect(caloriesRecord.toDto(), isA<ActiveCaloriesBurnedRecordDto>());
+        expect(caloriesRecord.toDto(), isA<ActiveEnergyBurnedRecordDto>());
 
         // StepsRecord
         final stepsRecord = StepsRecord(
@@ -61,8 +61,8 @@ void main() {
 
     group('toDomain', () {
       test('should map DTOs to supported records correctly', () {
-        // ActiveCaloriesBurnedRecordDto
-        final caloriesDto = ActiveCaloriesBurnedRecordDto(
+        // ActiveEnergyBurnedRecordDto
+        final caloriesDto = ActiveEnergyBurnedRecordDto(
           startTime: DateTime(2025).millisecondsSinceEpoch,
           endTime: DateTime(
             2025,
@@ -75,7 +75,7 @@ void main() {
             lastModifiedTime: DateTime.now().millisecondsSinceEpoch,
           ),
         );
-        expect(caloriesDto.toDomain(), isA<ActiveCaloriesBurnedRecord>());
+        expect(caloriesDto.toDomain(), isA<ActiveEnergyBurnedRecord>());
 
         // StepsRecordDto
         final stepsDto = StepsRecordDto(

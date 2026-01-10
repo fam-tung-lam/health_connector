@@ -37,7 +37,7 @@ import androidx.health.connect.client.records.TotalCaloriesBurnedRecord
 import androidx.health.connect.client.records.Vo2MaxRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.WheelchairPushesRecord
-import com.phamtunglam.health_connector_hc_android.pigeon.ActiveCaloriesBurnedRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ActiveEnergyBurnedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BasalBodyTemperatureRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodGlucoseRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureRecordDto
@@ -70,7 +70,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.SexualActivityRecordDt
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SpeedSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.StepsRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.TotalCaloriesBurnedRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.TotalEnergyBurnedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.Vo2MaxRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WeightRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecordDto
@@ -84,7 +84,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.WheelchairPushesRecord
 @OptIn(ExperimentalMindfulnessSessionApi::class)
 internal val HealthRecordDto.dataType: HealthDataTypeDto
     get() = when (this) {
-        is ActiveCaloriesBurnedRecordDto -> HealthDataTypeDto.ACTIVE_CALORIES_BURNED
+        is ActiveEnergyBurnedRecordDto -> HealthDataTypeDto.ACTIVE_CALORIES_BURNED
         is DistanceRecordDto -> HealthDataTypeDto.DISTANCE
         is FloorsClimbedRecordDto -> HealthDataTypeDto.FLOORS_CLIMBED
         is StepsRecordDto -> HealthDataTypeDto.STEPS
@@ -112,7 +112,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
         is CyclingPedalingCadenceSeriesRecordDto ->
             HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
         is RespiratoryRateRecordDto -> HealthDataTypeDto.RESPIRATORY_RATE
-        is TotalCaloriesBurnedRecordDto -> HealthDataTypeDto.TOTAL_CALORIES_BURNED
+        is TotalEnergyBurnedRecordDto -> HealthDataTypeDto.TOTAL_CALORIES_BURNED
         is Vo2MaxRecordDto -> HealthDataTypeDto.VO2MAX
         is BloodPressureRecordDto -> HealthDataTypeDto.BLOOD_PRESSURE
         is BloodGlucoseRecordDto -> HealthDataTypeDto.BLOOD_GLUCOSE
@@ -131,7 +131,7 @@ internal val HealthRecordDto.dataType: HealthDataTypeDto
  */
 @OptIn(ExperimentalMindfulnessSessionApi::class)
 internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
-    is ActiveCaloriesBurnedRecordDto -> toHealthConnect()
+    is ActiveEnergyBurnedRecordDto -> toHealthConnect()
     is DistanceRecordDto -> toHealthConnect()
     is FloorsClimbedRecordDto -> toHealthConnect()
     is StepsRecordDto -> toHealthConnect()
@@ -158,7 +158,7 @@ internal fun HealthRecordDto.toHealthConnect(): Record = when (this) {
     is PowerSeriesRecordDto -> toHealthConnect()
     is CyclingPedalingCadenceSeriesRecordDto -> toHealthConnect()
     is RespiratoryRateRecordDto -> toHealthConnect()
-    is TotalCaloriesBurnedRecordDto -> toHealthConnect()
+    is TotalEnergyBurnedRecordDto -> toHealthConnect()
     is Vo2MaxRecordDto -> toHealthConnect()
     is BloodPressureRecordDto -> toHealthConnect()
     is BloodGlucoseRecordDto -> toHealthConnect()

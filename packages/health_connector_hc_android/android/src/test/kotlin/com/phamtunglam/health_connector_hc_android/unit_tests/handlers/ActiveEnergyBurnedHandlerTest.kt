@@ -11,9 +11,9 @@ import androidx.health.connect.client.testing.stubs.stub
 import androidx.health.connect.client.time.TimeRangeFilter
 import androidx.health.connect.client.units.Energy
 import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
-import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActiveCaloriesBurnedHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActiveEnergyBurnedHandler
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
-import com.phamtunglam.health_connector_hc_android.pigeon.ActiveCaloriesBurnedRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.ActiveEnergyBurnedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
@@ -41,11 +41,11 @@ import org.junit.jupiter.api.extension.ExtendWith
 
 @DisplayName("ActiveCaloriesBurnedHandler")
 @ExtendWith(MainDispatcherExtension::class)
-class ActiveCaloriesBurnedHandlerTest {
+class ActiveEnergyBurnedHandlerTest {
 
     private lateinit var fakePermissionController: FakePermissionController
     private lateinit var fakeHealthConnectClient: FakeHealthConnectClient
-    private lateinit var systemUnderTest: ActiveCaloriesBurnedHandler
+    private lateinit var systemUnderTest: ActiveEnergyBurnedHandler
 
     @BeforeEach
     fun setUp() {
@@ -55,7 +55,7 @@ class ActiveCaloriesBurnedHandlerTest {
             packageName = FAKE_PACKAGE_NAME,
             permissionController = fakePermissionController,
         )
-        systemUnderTest = ActiveCaloriesBurnedHandler(fakeHealthConnectClient)
+        systemUnderTest = ActiveEnergyBurnedHandler(fakeHealthConnectClient)
     }
 
     @AfterEach
@@ -100,7 +100,7 @@ class ActiveCaloriesBurnedHandlerTest {
             val startTime = FIXED_NOW.minusSeconds(3600).toEpochMilli()
             val endTime = FIXED_NOW.toEpochMilli()
             val energyValue = 123.456
-            val dto = ActiveCaloriesBurnedRecordDto(
+            val dto = ActiveEnergyBurnedRecordDto(
                 startTime = startTime,
                 endTime = endTime,
                 energy = EnergyDto(
@@ -174,7 +174,7 @@ class ActiveCaloriesBurnedHandlerTest {
 
             result.first.size shouldBe 5
             result.first.forEachIndexed { index, dto ->
-                dto.shouldBeInstanceOf<ActiveCaloriesBurnedRecordDto>()
+                dto.shouldBeInstanceOf<ActiveEnergyBurnedRecordDto>()
                 dto.energy.kilocalories shouldBe (index + 1) * 10.0
             }
         }
@@ -267,7 +267,7 @@ class ActiveCaloriesBurnedHandlerTest {
 
             // Act
             val updatedEnergy = 200.0
-            val updateDto = ActiveCaloriesBurnedRecordDto(
+            val updateDto = ActiveEnergyBurnedRecordDto(
                 id = recordId,
                 startTime = startTime.toEpochMilli(),
                 endTime = endTime.toEpochMilli(),
@@ -513,7 +513,7 @@ class ActiveCaloriesBurnedHandlerTest {
         }
     }
 
-    private companion object {
+    private companion object Companion {
         const val FAKE_PACKAGE_NAME = "com.test"
         val FIXED_NOW: Instant = Instant.parse("2026-01-01T12:00:00Z")
     }

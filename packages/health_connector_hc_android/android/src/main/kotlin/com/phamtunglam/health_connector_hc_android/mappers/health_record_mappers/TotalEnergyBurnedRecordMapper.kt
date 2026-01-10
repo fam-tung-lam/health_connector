@@ -5,15 +5,15 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_un
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.pigeon.TotalCaloriesBurnedRecordDto
+import com.phamtunglam.health_connector_hc_android.pigeon.TotalEnergyBurnedRecordDto
 import java.time.Instant
 import java.time.ZoneOffset
 
 /**
- * Converts a Health Connect [TotalCaloriesBurnedRecord] object to a [TotalCaloriesBurnedRecordDto].
+ * Converts a Health Connect [TotalCaloriesBurnedRecord] object to a [TotalEnergyBurnedRecordDto].
  */
-internal fun TotalCaloriesBurnedRecord.toDto(): TotalCaloriesBurnedRecordDto =
-    TotalCaloriesBurnedRecordDto(
+internal fun TotalCaloriesBurnedRecord.toDto(): TotalEnergyBurnedRecordDto =
+    TotalEnergyBurnedRecordDto(
         id = metadata.id,
         startTime = startTime.toEpochMilli(),
         endTime = endTime.toEpochMilli(),
@@ -24,9 +24,9 @@ internal fun TotalCaloriesBurnedRecord.toDto(): TotalCaloriesBurnedRecordDto =
     )
 
 /**
- * Converts a [TotalCaloriesBurnedRecordDto] to a Health Connect [TotalCaloriesBurnedRecord] object.
+ * Converts a [TotalEnergyBurnedRecordDto] to a Health Connect [TotalCaloriesBurnedRecord] object.
  */
-internal fun TotalCaloriesBurnedRecordDto.toHealthConnect(): TotalCaloriesBurnedRecord =
+internal fun TotalEnergyBurnedRecordDto.toHealthConnect(): TotalCaloriesBurnedRecord =
     TotalCaloriesBurnedRecord(
         energy = energy.toHealthConnect(),
         startTime = Instant.ofEpochMilli(startTime),

@@ -1,6 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show
-        ActiveCaloriesBurnedHealthDataType,
+        ActiveEnergyBurnedHealthDataType,
         BiotinNutrientDataType,
         BloodGlucoseHealthDataType,
         BodyFatPercentageHealthDataType,
@@ -90,7 +90,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         SystolicBloodPressureHealthDataType,
         DiastolicBloodPressureHealthDataType,
         SpeedSeriesDataType,
-        TotalCaloriesBurnedHealthDataType,
+        TotalEnergyBurnedHealthDataType,
         WalkingSpeedDataType,
         RunningSpeedDataType,
         StairAscentSpeedDataType,
@@ -108,7 +108,7 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
   HealthDataType<HealthRecord, MeasurementUnit> toDomain() {
     switch (this) {
       case HealthDataTypeDto.activeCaloriesBurned:
-        return HealthDataType.activeCaloriesBurned;
+        return HealthDataType.activeEnergyBurned;
       case HealthDataTypeDto.distance:
         return HealthDataType.distance;
       case HealthDataTypeDto.floorsClimbed:
@@ -169,7 +169,7 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
       case HealthDataTypeDto.speedSeries:
         return HealthDataType.speedSeries;
       case HealthDataTypeDto.totalCaloriesBurned:
-        return HealthDataType.totalCaloriesBurned;
+        return HealthDataType.totalEnergyBurned;
       case HealthDataTypeDto.mindfulnessSession:
         return HealthDataType.mindfulnessSession;
       case HealthDataTypeDto.boneMass:
@@ -188,7 +188,7 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
 extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
   HealthDataTypeDto toDto() {
     switch (this) {
-      case ActiveCaloriesBurnedHealthDataType _:
+      case ActiveEnergyBurnedHealthDataType _:
         return HealthDataTypeDto.activeCaloriesBurned;
       case DistanceHealthDataType _:
         return HealthDataTypeDto.distance;
@@ -252,7 +252,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.vo2Max;
       case BloodGlucoseHealthDataType _:
         return HealthDataTypeDto.bloodGlucose;
-      case TotalCaloriesBurnedHealthDataType _:
+      case TotalEnergyBurnedHealthDataType _:
         return HealthDataTypeDto.totalCaloriesBurned;
       case SpeedSeriesDataType _:
         return HealthDataTypeDto.speedSeries;
@@ -298,8 +298,8 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       case BasalEnergyBurnedHealthDataType _:
         throw UnsupportedError(
           '$BasalEnergyBurnedHealthDataType is not supported on '
-          'Android Health Connect. Use $TotalCaloriesBurnedHealthDataType '
-          'and $ActiveCaloriesBurnedHealthDataType instead.',
+          'Android Health Connect. Use $TotalEnergyBurnedHealthDataType '
+          'and $ActiveEnergyBurnedHealthDataType instead.',
         );
       case SleepStageHealthDataType _:
         throw UnsupportedError(

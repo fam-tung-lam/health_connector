@@ -96,9 +96,9 @@ abstract class MeasurementUnitValueParser {
       DiastolicBloodPressureHealthDataType() => _parsePressure(value),
 
       // Energy
-      ActiveCaloriesBurnedHealthDataType() ||
+      ActiveEnergyBurnedHealthDataType() ||
       BasalEnergyBurnedHealthDataType() ||
-      TotalCaloriesBurnedHealthDataType() ||
+      TotalEnergyBurnedHealthDataType() ||
       EnergyNutrientDataType() => _parseEnergy(value),
 
       // Velocity/Speed
@@ -117,9 +117,11 @@ abstract class MeasurementUnitValueParser {
       Vo2MaxHealthDataType() => _parseVo2Max(value),
 
       // Double Number types
-      HeartRateVariabilityRMSSDDataType() ||
-      HeartRateVariabilitySDNNDataType() ||
       BodyMassIndexHealthDataType() => _parseDoubleNumber(value),
+
+      // Time duration types (HRV)
+      HeartRateVariabilityRMSSDDataType() ||
+      HeartRateVariabilitySDNNDataType() => _parseTimeDuration(value),
 
       // Volume
       HydrationHealthDataType() => _parseVolume(value),
@@ -360,5 +362,17 @@ abstract class MeasurementUnitValueParser {
       throw const FormatException('Invalid number value');
     }
     return Number(val);
+  }
+
+  /// Parse time duration value in milliseconds.
+  static TimeDuration _parseTimeDuration(String value) {
+    final millis = double.tryParse(value);
+    if (millis == null) {
+      throw const FormatException('Invalid number value');
+    }
+    if (millis <= 0) {
+      throw const FormatException('Duration must be positive');
+    }
+    return TimeDuration.milliseconds(millis);
   }
 }
