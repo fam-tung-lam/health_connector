@@ -20,7 +20,7 @@ void main() {
           accessType: HealthDataPermissionAccessType.read,
         ),
       );
-      registerFallbackValue(HealthPlatformFeature.readDataHistory);
+      registerFallbackValue(HealthPlatformFeature.readHealthDataHistory);
       registerFallbackValue(
         ReadRecordByIdRequest<StepsRecord>(
           dataType: HealthDataType.steps,

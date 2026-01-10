@@ -120,8 +120,8 @@ class _ExampleAppHomePageState extends State<ExampleAppHomePage> {
         // ...
 
         // HealthKit does not support feature permissions
-        // HealthPlatformFeature.readDataInBackground.permission,
-        // HealthPlatformFeature.readDataHistory.permission,
+        // HealthPlatformFeature.readHealthDataInBackground.permission,
+        // HealthPlatformFeature.readHealthDataHistory.permission,
         // ...
       ];
 

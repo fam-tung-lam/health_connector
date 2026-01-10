@@ -54,7 +54,7 @@ void main() {
                   accessType: HealthDataPermissionAccessType.write,
                 ),
                 const HealthPlatformFeaturePermission(
-                  HealthPlatformFeature.readDataInBackground,
+                  HealthPlatformFeature.readHealthDataInBackground,
                 ),
               ];
 
@@ -89,7 +89,7 @@ void main() {
                       as HealthPlatformFeaturePermissionRequest;
               expect(
                 feature.feature,
-                HealthPlatformFeatureDto.readDataInBackground,
+                HealthPlatformFeatureDto.readHealthDataInBackground,
               );
             },
           );

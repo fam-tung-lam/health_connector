@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_connector/health_connector_internal.dart'
-    show HeartRateMeasurement;
+import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/date_formatter.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_detail_row.dart';
@@ -10,19 +9,18 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 ///
 /// Shows each sample with its time and BPM value in a clean list format.
 @immutable
-final class HeartRateSeriesRecordHeartRateMeasurementList
-    extends StatelessWidget {
-  const HeartRateSeriesRecordHeartRateMeasurementList({
+final class HeartRateSeriesRecordSampleList extends StatelessWidget {
+  const HeartRateSeriesRecordSampleList({
     required this.samples,
     super.key,
   });
 
   /// The list of heart rate measurements to display.
-  final List<HeartRateMeasurement> samples;
+  final List<HeartRateSample> samples;
 
   @override
   Widget build(BuildContext context) {
-    return HealthSeriesRecordSampleList<HeartRateMeasurement>(
+    return HealthSeriesRecordSampleList<HeartRateSample>(
       title: AppTexts.heartRateSamples,
       samples: samples,
       itemBuilder: (sample, index) => HealthRecordDetailRow(

@@ -27,7 +27,7 @@ part of '../health_record.dart';
 ///
 /// - [HeartRateMeasurementRecordDataType]
 /// - [HeartRateSeriesRecord] for series-based heart rate measurements
-/// - [HeartRateMeasurement] is used exclusively for series record samples
+/// - [HeartRateSample] is used exclusively for series record samples
 ///
 /// {@category Health Records}
 @sinceV1_0_0

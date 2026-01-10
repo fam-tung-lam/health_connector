@@ -5,7 +5,7 @@ import androidx.health.connect.client.records.HeartRateRecord.Sample
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toFrequencyDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateMeasurementDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSampleDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HeartRateSeriesRecordDto
 import java.time.Instant
 import java.time.ZoneOffset
@@ -22,7 +22,7 @@ internal fun HeartRateRecord.toDto(): HeartRateSeriesRecordDto = HeartRateSeries
     endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
     samples = samples.map { sample ->
-        HeartRateMeasurementDto(
+        HeartRateSampleDto(
             time = sample.time.toEpochMilli(),
             beatsPerMinute = sample.beatsPerMinute.toFrequencyDto(),
         )

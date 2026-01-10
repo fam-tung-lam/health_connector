@@ -792,12 +792,12 @@ enum class SortOrderDto(val raw: Int) {
   }
 }
 
-enum class BloodPressureHealthDataTypeDto(val raw: Int) {
+enum class BloodPressureDataTypeDto(val raw: Int) {
   DIASTOLIC(0),
   SYSTOLIC(1);
 
   companion object {
-    fun ofRaw(raw: Int): BloodPressureHealthDataTypeDto? {
+    fun ofRaw(raw: Int): BloodPressureDataTypeDto? {
       return values().firstOrNull { it.raw == raw }
     }
   }
@@ -2546,7 +2546,7 @@ data class HydrationRecordDto (
  *
  * Generated class from Pigeon that represents data sent in messages.
  */
-data class HeartRateMeasurementDto (
+data class HeartRateSampleDto (
   /** Timestamp in milliseconds since epoch (UTC). */
   val time: Long,
   /** Heart rate value in beats per minute (BPM). */
@@ -2554,10 +2554,10 @@ data class HeartRateMeasurementDto (
 )
  {
   companion object {
-    fun fromList(pigeonVar_list: List<Any?>): HeartRateMeasurementDto {
+    fun fromList(pigeonVar_list: List<Any?>): HeartRateSampleDto {
       val time = pigeonVar_list[0] as Long
       val beatsPerMinute = pigeonVar_list[1] as FrequencyDto
-      return HeartRateMeasurementDto(time, beatsPerMinute)
+      return HeartRateSampleDto(time, beatsPerMinute)
     }
   }
   fun toList(): List<Any?> {
@@ -2567,7 +2567,7 @@ data class HeartRateMeasurementDto (
     )
   }
   override fun equals(other: Any?): Boolean {
-    if (other !is HeartRateMeasurementDto) {
+    if (other !is HeartRateSampleDto) {
       return false
     }
     if (this === other) {
@@ -2593,7 +2593,7 @@ data class HeartRateSeriesRecordDto (
   /** Metadata about this record. */
   val metadata: MetadataDto,
   /** List of heart rate measurements within this time interval. */
-  val samples: List<HeartRateMeasurementDto>,
+  val samples: List<HeartRateSampleDto>,
   /** Timezone offset in seconds for start time (optional). */
   val startZoneOffsetSeconds: Long? = null,
   /** Timezone offset in seconds for end time (optional). */
@@ -2606,7 +2606,7 @@ data class HeartRateSeriesRecordDto (
       val startTime = pigeonVar_list[1] as Long
       val endTime = pigeonVar_list[2] as Long
       val metadata = pigeonVar_list[3] as MetadataDto
-      val samples = pigeonVar_list[4] as List<HeartRateMeasurementDto>
+      val samples = pigeonVar_list[4] as List<HeartRateSampleDto>
       val startZoneOffsetSeconds = pigeonVar_list[5] as Long?
       val endZoneOffsetSeconds = pigeonVar_list[6] as Long?
       return HeartRateSeriesRecordDto(id, startTime, endTime, metadata, samples, startZoneOffsetSeconds, endZoneOffsetSeconds)
@@ -3931,7 +3931,7 @@ data class BloodPressureAggregateRequestDto (
   /** The type of aggregation to perform. */
   val aggregationMetric: AggregationMetricDto,
   /** The type of blood pressure to aggregate. */
-  val bloodPressureDataType: BloodPressureHealthDataTypeDto,
+  val bloodPressureDataType: BloodPressureDataTypeDto,
   /** End of time range in milliseconds since epoch (UTC), exclusive. */
   val endTime: Long,
   /** Start of time range in milliseconds since epoch (UTC), inclusive. */
@@ -3941,7 +3941,7 @@ data class BloodPressureAggregateRequestDto (
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): BloodPressureAggregateRequestDto {
       val aggregationMetric = pigeonVar_list[0] as AggregationMetricDto
-      val bloodPressureDataType = pigeonVar_list[1] as BloodPressureHealthDataTypeDto
+      val bloodPressureDataType = pigeonVar_list[1] as BloodPressureDataTypeDto
       val endTime = pigeonVar_list[2] as Long
       val startTime = pigeonVar_list[3] as Long
       return BloodPressureAggregateRequestDto(aggregationMetric, bloodPressureDataType, endTime, startTime)
@@ -4423,7 +4423,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       155.toByte() -> {
         return (readValue(buffer) as Long?)?.let {
-          BloodPressureHealthDataTypeDto.ofRaw(it.toInt())
+          BloodPressureDataTypeDto.ofRaw(it.toInt())
         }
       }
       156.toByte() -> {
@@ -4618,7 +4618,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       194.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          HeartRateMeasurementDto.fromList(it)
+          HeartRateSampleDto.fromList(it)
         }
       }
       195.toByte() -> {
@@ -4895,7 +4895,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(154)
         writeValue(stream, value.raw.toLong())
       }
-      is BloodPressureHealthDataTypeDto -> {
+      is BloodPressureDataTypeDto -> {
         stream.write(155)
         writeValue(stream, value.raw.toLong())
       }
@@ -5051,7 +5051,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(193)
         writeValue(stream, value.toList())
       }
-      is HeartRateMeasurementDto -> {
+      is HeartRateSampleDto -> {
         stream.write(194)
         writeValue(stream, value.toList())
       }

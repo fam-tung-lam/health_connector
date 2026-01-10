@@ -34,7 +34,7 @@ void main() {
                   device: const Device(type: DeviceType.watch),
                 ),
                 samples: [
-                  HeartRateMeasurement(
+                  HeartRateSample(
                     time: fakeSampleTime,
                     rate: Frequency.perMinute(75),
                   ),
@@ -77,7 +77,7 @@ void main() {
                   deviceType: DeviceTypeDto.phone,
                 ),
                 samples: [
-                  HeartRateMeasurementDto(
+                  HeartRateSampleDto(
                     time: fakeSampleTime.millisecondsSinceEpoch,
                     beatsPerMinute: FrequencyDto(perMinute: 80),
                   ),

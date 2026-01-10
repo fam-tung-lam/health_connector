@@ -553,8 +553,9 @@ abstract final class AppTexts {
   static const String featurePermissions = 'Feature $permissions';
   static const String feature = 'Feature';
   static const String interval = 'Interval';
-  static const String readDataInBackground = 'Read Health Data in Background';
-  static const String readDataHistory = '$read Health Data History';
+  static const String readHealthDataInBackground =
+      'Read Health Data in Background';
+  static const String readHealthDataHistory = '$read Health Data History';
 
   // endregion
 

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 ///
 /// Example usage:
 /// ```dart
-/// SamplesList<HeartRateMeasurement>(
+/// SamplesList<HeartRateSample>(
 ///   title: 'Heart Rate Samples',
 ///   samples: measurements,
 ///   itemBuilder: (sample, index) => Row(

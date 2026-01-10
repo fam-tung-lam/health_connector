@@ -1,28 +1,28 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HeartRateMeasurement, sinceV1_0_0;
+    show HeartRateSample, sinceV1_0_0;
 import 'package:health_connector_hc_android/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
-    show HeartRateMeasurementDto;
+    show HeartRateSampleDto;
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [HeartRateMeasurement] to [HeartRateMeasurementDto].
+/// Converts [HeartRateSample] to [HeartRateSampleDto].
 @sinceV1_0_0
 @internal
-extension HeartRateMeasurementDtoMapper on HeartRateMeasurement {
-  HeartRateMeasurementDto toDto() {
-    return HeartRateMeasurementDto(
+extension HeartRateSampleDtoMapper on HeartRateSample {
+  HeartRateSampleDto toDto() {
+    return HeartRateSampleDto(
       time: time.millisecondsSinceEpoch,
       beatsPerMinute: rate.toDto(),
     );
   }
 }
 
-/// Converts [HeartRateMeasurementDto] to [HeartRateMeasurement].
+/// Converts [HeartRateSampleDto] to [HeartRateSample].
 @sinceV1_0_0
 @internal
-extension HeartRateMeasurementDtoToDomain on HeartRateMeasurementDto {
-  HeartRateMeasurement toDomain() {
-    return HeartRateMeasurement(
+extension HeartRateSampleDtoToDomain on HeartRateSampleDto {
+  HeartRateSample toDomain() {
+    return HeartRateSample(
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       rate: beatsPerMinute.toDomain(),
     );

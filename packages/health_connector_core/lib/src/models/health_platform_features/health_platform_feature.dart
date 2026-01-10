@@ -24,21 +24,22 @@ sealed class HealthPlatformFeature implements HealthPlatformData {
 
   /// Historical health data reading capability.
   ///
-  /// See [HealthPlatformFeatureReadDataHistory] for details on
+  /// See [HealthPlatformFeatureReadHealthDataHistory] for details on
   /// platform support and usage.
-  static const readDataHistory = HealthPlatformFeatureReadDataHistory();
+  static const readHealthDataHistory =
+      HealthPlatformFeatureReadHealthDataHistory();
 
   /// Background health data reading capability.
   ///
-  /// See [HealthPlatformFeatureReadDataInBackground] for details on
+  /// See [HealthPlatformFeatureReadHealthDataInBackground] for details on
   /// platform support and usage.
-  static const readDataInBackground =
-      HealthPlatformFeatureReadDataInBackground();
+  static const readHealthDataInBackground =
+      HealthPlatformFeatureReadHealthDataInBackground();
 
   /// Returns a list of all available health platform features.
   static final List<HealthPlatformFeature> values = [
-    readDataHistory,
-    readDataInBackground,
+    readHealthDataHistory,
+    readHealthDataInBackground,
   ];
 }
 

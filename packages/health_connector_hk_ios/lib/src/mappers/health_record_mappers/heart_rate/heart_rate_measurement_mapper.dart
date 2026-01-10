@@ -1,14 +1,14 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show HeartRateMeasurement, sinceV1_0_0;
+    show HeartRateSample, sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/measurement_unit_mappers/measurement_unit_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show HeartRateMeasurementDto;
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [HeartRateMeasurement] to [HeartRateMeasurementDto].
+/// Converts [HeartRateSample] to [HeartRateMeasurementDto].
 @sinceV1_0_0
 @internal
-extension HeartRateMeasurementDomainToDto on HeartRateMeasurement {
+extension HeartRateMeasurementDomainToDto on HeartRateSample {
   HeartRateMeasurementDto toDto() {
     return HeartRateMeasurementDto(
       time: time.millisecondsSinceEpoch,
@@ -17,12 +17,12 @@ extension HeartRateMeasurementDomainToDto on HeartRateMeasurement {
   }
 }
 
-/// Converts [HeartRateMeasurementDto] to [HeartRateMeasurement].
+/// Converts [HeartRateMeasurementDto] to [HeartRateSample].
 @sinceV1_0_0
 @internal
 extension HeartRateMeasurementDtoToDomain on HeartRateMeasurementDto {
-  HeartRateMeasurement toDomain() {
-    return HeartRateMeasurement(
+  HeartRateSample toDomain() {
+    return HeartRateSample(
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),
       rate: beatsPerMinute.toDomain(),
     );

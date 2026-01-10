@@ -253,7 +253,7 @@ void main() {
                 () async {
                   final result = await client.requestPermissions([
                     const HealthPlatformFeaturePermission(
-                      HealthPlatformFeature.readDataHistory,
+                      HealthPlatformFeature.readHealthDataHistory,
                     ),
                   ]);
 
@@ -284,7 +284,7 @@ void main() {
                       accessType: HealthDataPermissionAccessType.read,
                     ),
                     const HealthPlatformFeaturePermission(
-                      HealthPlatformFeature.readDataHistory,
+                      HealthPlatformFeature.readHealthDataHistory,
                     ),
                   ]);
 
@@ -363,7 +363,7 @@ void main() {
                 () async {
                   final result = await client.getPermissionStatus(
                     const HealthPlatformFeaturePermission(
-                      HealthPlatformFeature.readDataHistory,
+                      HealthPlatformFeature.readHealthDataHistory,
                     ),
                   );
 

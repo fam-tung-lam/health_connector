@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart'
-    show Frequency, HeartRateMeasurement;
+    show Frequency, HeartRateSample;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_form_fields/record_sample_form_field_group.dart';
@@ -19,13 +19,13 @@ final class HeartRateMeasurementsWriteFormFieldGroup extends StatelessWidget {
 
   final DateTime? startDateTime;
   final DateTime? endDateTime;
-  final ValueChanged<List<HeartRateMeasurement>?> onChanged;
-  final List<HeartRateMeasurement>? initialSamples;
-  final String? Function(List<HeartRateMeasurement>?)? validator;
+  final ValueChanged<List<HeartRateSample>?> onChanged;
+  final List<HeartRateSample>? initialSamples;
+  final String? Function(List<HeartRateSample>?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return RecordSampleFormFieldGroup<HeartRateMeasurement, int>(
+    return RecordSampleFormFieldGroup<HeartRateSample, int>(
       title: AppTexts.heartRateSamples,
       startDateTime: startDateTime,
       endDateTime: endDateTime,
@@ -50,7 +50,7 @@ final class HeartRateMeasurementsWriteFormFieldGroup extends StatelessWidget {
           },
         );
       },
-      sampleFactory: (time, _, bpm) => HeartRateMeasurement(
+      sampleFactory: (time, _, bpm) => HeartRateSample(
         time: time,
         rate: Frequency.perMinute(bpm.toDouble()),
       ),

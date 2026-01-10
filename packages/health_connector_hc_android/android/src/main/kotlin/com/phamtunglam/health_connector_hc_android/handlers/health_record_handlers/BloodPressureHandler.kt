@@ -15,7 +15,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_un
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureAggregateRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureHealthDataTypeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import java.time.Instant
@@ -64,26 +64,26 @@ internal class BloodPressureHandler(override val client: HealthConnectClient) :
 
     private fun getAggregateMetric(
         metric: AggregationMetricDto,
-        dataType: BloodPressureHealthDataTypeDto,
+        dataType: BloodPressureDataTypeDto,
     ): AggregateMetric<Pressure> = when (metric) {
         AggregationMetricDto.AVG -> {
             when (dataType) {
-                BloodPressureHealthDataTypeDto.DIASTOLIC -> BloodPressureRecord.DIASTOLIC_AVG
-                BloodPressureHealthDataTypeDto.SYSTOLIC -> BloodPressureRecord.SYSTOLIC_AVG
+                BloodPressureDataTypeDto.DIASTOLIC -> BloodPressureRecord.DIASTOLIC_AVG
+                BloodPressureDataTypeDto.SYSTOLIC -> BloodPressureRecord.SYSTOLIC_AVG
             }
         }
 
         AggregationMetricDto.MAX -> {
             when (dataType) {
-                BloodPressureHealthDataTypeDto.DIASTOLIC -> BloodPressureRecord.DIASTOLIC_MAX
-                BloodPressureHealthDataTypeDto.SYSTOLIC -> BloodPressureRecord.SYSTOLIC_MAX
+                BloodPressureDataTypeDto.DIASTOLIC -> BloodPressureRecord.DIASTOLIC_MAX
+                BloodPressureDataTypeDto.SYSTOLIC -> BloodPressureRecord.SYSTOLIC_MAX
             }
         }
 
         AggregationMetricDto.MIN -> {
             when (dataType) {
-                BloodPressureHealthDataTypeDto.DIASTOLIC -> BloodPressureRecord.DIASTOLIC_MIN
-                BloodPressureHealthDataTypeDto.SYSTOLIC -> BloodPressureRecord.SYSTOLIC_MIN
+                BloodPressureDataTypeDto.DIASTOLIC -> BloodPressureRecord.DIASTOLIC_MIN
+                BloodPressureDataTypeDto.SYSTOLIC -> BloodPressureRecord.SYSTOLIC_MIN
             }
         }
 

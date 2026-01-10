@@ -372,8 +372,8 @@ abstract interface class HealthConnector {
   /// final permissions = [
   ///   HealthDataType.steps.readPermission,
   ///   HealthDataType.steps.writePermission,
-  ///   HealthPlatformFeature.readDataHistory.permission,
-  ///   HealthPlatformFeature.readDataInBackground.permission,
+  ///   HealthPlatformFeature.readHealthDataHistory.permission,
+  ///   HealthPlatformFeature.readHealthDataInBackground.permission,
   ///   // ...
   /// ];
   ///
@@ -562,13 +562,13 @@ abstract interface class HealthConnector {
   /// ```dart
   /// final connector = await HealthConnector.create();
   /// final status = await connector.getFeatureStatus(
-  ///                         HealthPlatformFeature.readDataInBackground,
+  ///                         HealthPlatformFeature.readHealthDataInBackground,
   ///                       );
   ///
   /// if (status == HealthPlatformFeatureStatus.available) {
   ///   // Feature is supported, safe to request permissions
   ///   final results = await connector.requestPermissions([
-  ///     HealthPlatformFeature.readDataInBackground.permission,
+  ///     HealthPlatformFeature.readHealthDataInBackground.permission,
   ///   ]);
   /// } else {
   ///   // Feature not available, disable background reading functionality

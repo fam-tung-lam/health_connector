@@ -51,7 +51,7 @@ void main() {
             'HealthPlatformFeaturePermissionRequest',
             () {
               const permission = HealthPlatformFeaturePermission(
-                HealthPlatformFeature.readDataInBackground,
+                HealthPlatformFeature.readHealthDataInBackground,
               );
 
               final dto = permission.toDto();
@@ -60,7 +60,7 @@ void main() {
               final featureDto = dto as HealthPlatformFeaturePermissionRequest;
               expect(
                 featureDto.feature,
-                HealthPlatformFeatureDto.readDataInBackground,
+                HealthPlatformFeatureDto.readHealthDataInBackground,
               );
             },
           );

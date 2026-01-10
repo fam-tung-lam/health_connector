@@ -1381,8 +1381,8 @@ class HydrationRecordDto extends HealthRecordDto {
 ///
 /// This is a platform-agnostic value class used within heart rate records.
 /// It contains a timestamp and BPM value without ID or metadata.
-class HeartRateMeasurementDto {
-  HeartRateMeasurementDto({
+class HeartRateSampleDto {
+  HeartRateSampleDto({
     required this.time,
     required this.beatsPerMinute,
   });
@@ -1419,7 +1419,7 @@ class HeartRateSeriesRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// List of heart rate measurements within this time interval.
-  final List<HeartRateMeasurementDto> samples;
+  final List<HeartRateSampleDto> samples;
 
   /// Timezone offset in seconds for start time (optional).
   final int? startZoneOffsetSeconds;
@@ -2144,10 +2144,10 @@ enum PermissionStatusDto {
 /// Represents a health platform feature.
 enum HealthPlatformFeatureDto {
   /// Read health data in the background.
-  readDataInBackground,
+  readHealthDataInBackground,
 
   /// Read historical health data from the past.
-  readDataHistory,
+  readHealthDataHistory,
 }
 
 /// Represents the availability status of a feature.
