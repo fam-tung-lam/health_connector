@@ -36,6 +36,8 @@ extension HealthRecordDto {
             record.id
         case let record as HeartRateMeasurementRecordDto:
             record.id
+        case let record as RestingHeartRateRecordDto:
+            record.id
         case let record as SleepStageRecordDto:
             record.id
         case let record as SpeedActivityRecordDto:
@@ -63,6 +65,88 @@ extension HealthRecordDto {
         case let record as WaistCircumferenceRecordDto:
             record.id
         case let record as HeartRateVariabilitySDNNRecordDto:
+            record.id
+        case let record as BloodGlucoseRecordDto:
+            record.id
+        case let record as BloodPressureRecordDto:
+            record.id
+        case let record as SystolicBloodPressureRecordDto:
+            record.id
+        case let record as DiastolicBloodPressureRecordDto:
+            record.id
+        case let record as OxygenSaturationRecordDto:
+            record.id
+        case let record as RespiratoryRateRecordDto:
+            record.id
+        case let record as Vo2MaxRecordDto:
+            record.id
+        case let record as DietaryEnergyConsumedRecordDto:
+            record.id
+        case let record as CaffeineNutrientRecordDto:
+            record.id
+        case let record as ProteinNutrientRecordDto:
+            record.id
+        case let record as TotalCarbohydrateNutrientRecordDto:
+            record.id
+        case let record as TotalFatNutrientRecordDto:
+            record.id
+        case let record as SaturatedFatNutrientRecordDto:
+            record.id
+        case let record as MonounsaturatedFatNutrientRecordDto:
+            record.id
+        case let record as PolyunsaturatedFatNutrientRecordDto:
+            record.id
+        case let record as CholesterolNutrientRecordDto:
+            record.id
+        case let record as DietaryFiberNutrientRecordDto:
+            record.id
+        case let record as SugarNutrientRecordDto:
+            record.id
+        case let record as VitaminANutrientRecordDto:
+            record.id
+        case let record as VitaminB6NutrientRecordDto:
+            record.id
+        case let record as VitaminB12NutrientRecordDto:
+            record.id
+        case let record as VitaminCNutrientRecordDto:
+            record.id
+        case let record as VitaminDNutrientRecordDto:
+            record.id
+        case let record as VitaminENutrientRecordDto:
+            record.id
+        case let record as VitaminKNutrientRecordDto:
+            record.id
+        case let record as ThiaminNutrientRecordDto:
+            record.id
+        case let record as RiboflavinNutrientRecordDto:
+            record.id
+        case let record as NiacinNutrientRecordDto:
+            record.id
+        case let record as FolateNutrientRecordDto:
+            record.id
+        case let record as BiotinNutrientRecordDto:
+            record.id
+        case let record as PantothenicAcidNutrientRecordDto:
+            record.id
+        case let record as CalciumNutrientRecordDto:
+            record.id
+        case let record as IronNutrientRecordDto:
+            record.id
+        case let record as MagnesiumNutrientRecordDto:
+            record.id
+        case let record as ManganeseNutrientRecordDto:
+            record.id
+        case let record as PhosphorusNutrientRecordDto:
+            record.id
+        case let record as PotassiumNutrientRecordDto:
+            record.id
+        case let record as SeleniumNutrientRecordDto:
+            record.id
+        case let record as SodiumNutrientRecordDto:
+            record.id
+        case let record as ZincNutrientRecordDto:
+            record.id
+        case let record as NutritionRecordDto:
             record.id
         default:
             nil
