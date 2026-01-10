@@ -25,7 +25,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.phone),
                 ),
-                protectionUsed: SexualActivityProtectionUsedType.protected,
+                protectionUsed: SexualActivityProtectionUsed.protected,
               );
 
               final dto = record.toDto();
@@ -39,7 +39,7 @@ void main() {
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(
                 dto.protectionUsed,
-                SexualActivityProtectionUsedTypeDto.protected,
+                SexualActivityProtectionUsedDto.protected,
               );
             },
           );
@@ -62,7 +62,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                protectionUsed: SexualActivityProtectionUsedTypeDto.unprotected,
+                protectionUsed: SexualActivityProtectionUsedDto.unprotected,
               );
 
               final record = dto.toDomain();
@@ -79,7 +79,7 @@ void main() {
               );
               expect(
                 record.protectionUsed,
-                SexualActivityProtectionUsedType.unprotected,
+                SexualActivityProtectionUsed.unprotected,
               );
             },
           );
@@ -97,7 +97,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                protectionUsed: SexualActivityProtectionUsedTypeDto.unknown,
+                protectionUsed: SexualActivityProtectionUsedDto.unknown,
               );
 
               final record = dto.toDomain();

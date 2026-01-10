@@ -22,18 +22,18 @@ final class SexualActivityWriteForm extends BaseHealthRecordWriteForm {
 /// State for sexual activity form widget.
 final class SexualActivityFormState
     extends BaseHealthRecordWriteFormState<SexualActivityWriteForm> {
-  SexualActivityProtectionUsedType protectionUsed =
-      SexualActivityProtectionUsedType.unknown;
+  SexualActivityProtectionUsed protectionUsed =
+      SexualActivityProtectionUsed.unknown;
 
   @override
   List<Widget> buildFields(BuildContext context) {
     return [
-      SearchableDropdownMenuFormField<SexualActivityProtectionUsedType>(
+      SearchableDropdownMenuFormField<SexualActivityProtectionUsed>(
         labelText: AppTexts.protectionUsed,
-        values: SexualActivityProtectionUsedType.values,
+        values: SexualActivityProtectionUsed.values,
         initialValue: protectionUsed,
         onChanged: (value) => setState(() {
-          protectionUsed = value ?? SexualActivityProtectionUsedType.unknown;
+          protectionUsed = value ?? SexualActivityProtectionUsed.unknown;
         }),
         displayNameBuilder: (type) => type.displayName,
         prefixIcon: AppIcons.favorite,

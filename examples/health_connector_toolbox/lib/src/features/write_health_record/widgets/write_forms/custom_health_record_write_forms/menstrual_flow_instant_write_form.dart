@@ -23,17 +23,17 @@ final class MenstrualFlowInstantWriteForm extends BaseHealthRecordWriteForm {
 /// State for menstrual flow instant form widget.
 final class MenstrualFlowInstantFormState
     extends BaseHealthRecordWriteFormState<MenstrualFlowInstantWriteForm> {
-  MenstrualFlowType flow = MenstrualFlowType.unknown;
+  MenstrualFlow flow = MenstrualFlow.unknown;
 
   @override
   List<Widget> buildFields(BuildContext context) {
     return [
-      SearchableDropdownMenuFormField<MenstrualFlowType>(
+      SearchableDropdownMenuFormField<MenstrualFlow>(
         labelText: AppTexts.flow,
-        values: MenstrualFlowType.values,
+        values: MenstrualFlow.values,
         initialValue: flow,
         onChanged: (value) => setState(() {
-          flow = value ?? MenstrualFlowType.unknown;
+          flow = value ?? MenstrualFlow.unknown;
         }),
         displayNameBuilder: (type) => type.label,
         prefixIcon: AppIcons.waterDrop,

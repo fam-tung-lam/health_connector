@@ -77,7 +77,7 @@ private object HealthConnectorHCAndroidApiPigeonUtils {
     }
     return a == b
   }
-      
+
 }
 
 /**
@@ -144,7 +144,7 @@ enum class RecordingMethodDto(val raw: Int) {
  * Maps to Android Health Connect CervicalMucusRecord appearance types
  * and iOS HealthKit HKCategoryValueCervicalMucusQuality enum.
  */
-enum class CervicalMucusAppearanceTypeDto(val raw: Int) {
+enum class CervicalMucusAppearanceDto(val raw: Int) {
   /** Unknown appearance. */
   UNKNOWN(0),
   /** Dry appearance. */
@@ -161,7 +161,7 @@ enum class CervicalMucusAppearanceTypeDto(val raw: Int) {
   UNUSUAL(6);
 
   companion object {
-    fun ofRaw(raw: Int): CervicalMucusAppearanceTypeDto? {
+    fun ofRaw(raw: Int): CervicalMucusAppearanceDto? {
       return values().firstOrNull { it.raw == raw }
     }
   }
@@ -173,7 +173,7 @@ enum class CervicalMucusAppearanceTypeDto(val raw: Int) {
  * Maps to Android Health Connect CervicalMucusRecord sensation types.
  * Note: Not natively supported on iOS HealthKit.
  */
-enum class CervicalMucusSensationTypeDto(val raw: Int) {
+enum class CervicalMucusSensationDto(val raw: Int) {
   /** Unknown sensation. */
   UNKNOWN(0),
   /** Light sensation. */
@@ -184,7 +184,7 @@ enum class CervicalMucusSensationTypeDto(val raw: Int) {
   HEAVY(3);
 
   companion object {
-    fun ofRaw(raw: Int): CervicalMucusSensationTypeDto? {
+    fun ofRaw(raw: Int): CervicalMucusSensationDto? {
       return values().firstOrNull { it.raw == raw }
     }
   }
@@ -196,7 +196,7 @@ enum class CervicalMucusSensationTypeDto(val raw: Int) {
  * Maps to Android Health Connect SexualActivityRecord protection types
  * and iOS HealthKit HKMetadataKeySexualActivityProtectionUsed metadata key.
  */
-enum class SexualActivityProtectionUsedTypeDto(val raw: Int) {
+enum class SexualActivityProtectionUsedDto(val raw: Int) {
   /** Protection was used. */
   PROTECTED(0),
   /** Protection was not used. */
@@ -205,7 +205,7 @@ enum class SexualActivityProtectionUsedTypeDto(val raw: Int) {
   UNKNOWN(2);
 
   companion object {
-    fun ofRaw(raw: Int): SexualActivityProtectionUsedTypeDto? {
+    fun ofRaw(raw: Int): SexualActivityProtectionUsedDto? {
       return values().firstOrNull { it.raw == raw }
     }
   }
@@ -217,7 +217,7 @@ enum class SexualActivityProtectionUsedTypeDto(val raw: Int) {
  * Maps to Android Health Connect OvulationTestRecord result constants
  * and iOS HealthKit HKCategoryValueOvulationTestResult enum.
  */
-enum class OvulationTestResultTypeDto(val raw: Int) {
+enum class OvulationTestResultDto(val raw: Int) {
   /** Test result is negative (no hormonal surge). */
   NEGATIVE(0),
   /** Test result is inconclusive. */
@@ -228,7 +228,7 @@ enum class OvulationTestResultTypeDto(val raw: Int) {
   POSITIVE(3);
 
   companion object {
-    fun ofRaw(raw: Int): OvulationTestResultTypeDto? {
+    fun ofRaw(raw: Int): OvulationTestResultDto? {
       return values().firstOrNull { it.raw == raw }
     }
   }
@@ -271,7 +271,7 @@ enum class BasalBodyTemperatureMeasurementLocationDto(val raw: Int) {
  *
  * Maps to Android Health Connect MenstruationFlowRecord.FLOW_* constants.
  */
-enum class MenstrualFlowTypeDto(val raw: Int) {
+enum class MenstrualFlowDto(val raw: Int) {
   /** Flow is unknown or unspecified. */
   UNKNOWN(0),
   /** Light menstrual flow. */
@@ -282,7 +282,7 @@ enum class MenstrualFlowTypeDto(val raw: Int) {
   HEAVY(3);
 
   companion object {
-    fun ofRaw(raw: Int): MenstrualFlowTypeDto? {
+    fun ofRaw(raw: Int): MenstrualFlowDto? {
       return values().firstOrNull { it.raw == raw }
     }
   }
@@ -863,7 +863,7 @@ data class HealthConnectorConfigDto (
  * Generated class from Pigeon that represents data sent in messages.
  * This class should not be extended by any user class outside of the generated file.
  */
-sealed class MeasurementUnitDto 
+sealed class MeasurementUnitDto
 /**
  * Represents a blood glucose measurement in millimoles per liter.
  *
@@ -1373,7 +1373,7 @@ data class MetadataDto (
  * Generated class from Pigeon that represents data sent in messages.
  * This class should not be extended by any user class outside of the generated file.
  */
-sealed class HealthRecordDto 
+sealed class HealthRecordDto
 /**
  * Represents a blood glucose record for platform transfer.
  *
@@ -1548,7 +1548,7 @@ data class OvulationTestRecordDto (
   /** Timezone offset in seconds for measurement time (optional). */
   val zoneOffsetSeconds: Long? = null,
   /** The ovulation test result. */
-  val result: OvulationTestResultTypeDto
+  val result: OvulationTestResultDto
 ) : HealthRecordDto()
  {
   companion object {
@@ -1557,7 +1557,7 @@ data class OvulationTestRecordDto (
       val metadata = pigeonVar_list[1] as MetadataDto
       val time = pigeonVar_list[2] as Long
       val zoneOffsetSeconds = pigeonVar_list[3] as Long?
-      val result = pigeonVar_list[4] as OvulationTestResultTypeDto
+      val result = pigeonVar_list[4] as OvulationTestResultDto
       return OvulationTestRecordDto(id, metadata, time, zoneOffsetSeconds, result)
     }
   }
@@ -1645,7 +1645,7 @@ data class MenstrualFlowInstantRecordDto (
   /** Timezone offset in seconds for measurement time (optional). */
   val zoneOffsetSeconds: Long? = null,
   /** The menstrual flow intensity. */
-  val flow: MenstrualFlowTypeDto
+  val flow: MenstrualFlowDto
 ) : HealthRecordDto()
  {
   companion object {
@@ -1654,7 +1654,7 @@ data class MenstrualFlowInstantRecordDto (
       val metadata = pigeonVar_list[1] as MetadataDto
       val time = pigeonVar_list[2] as Long
       val zoneOffsetSeconds = pigeonVar_list[3] as Long?
-      val flow = pigeonVar_list[4] as MenstrualFlowTypeDto
+      val flow = pigeonVar_list[4] as MenstrualFlowDto
       return MenstrualFlowInstantRecordDto(id, metadata, time, zoneOffsetSeconds, flow)
     }
   }
@@ -2443,9 +2443,9 @@ data class CervicalMucusRecordDto (
   /** Timezone offset in seconds for observation time (optional). */
   val zoneOffsetSeconds: Long? = null,
   /** Cervical mucus appearance (optional). */
-  val appearance: CervicalMucusAppearanceTypeDto,
+  val appearance: CervicalMucusAppearanceDto,
   /** Cervical mucus sensation (optional). */
-  val sensation: CervicalMucusSensationTypeDto
+  val sensation: CervicalMucusSensationDto
 ) : HealthRecordDto()
  {
   companion object {
@@ -2454,8 +2454,8 @@ data class CervicalMucusRecordDto (
       val metadata = pigeonVar_list[1] as MetadataDto
       val time = pigeonVar_list[2] as Long
       val zoneOffsetSeconds = pigeonVar_list[3] as Long?
-      val appearance = pigeonVar_list[4] as CervicalMucusAppearanceTypeDto
-      val sensation = pigeonVar_list[5] as CervicalMucusSensationTypeDto
+      val appearance = pigeonVar_list[4] as CervicalMucusAppearanceDto
+      val sensation = pigeonVar_list[5] as CervicalMucusSensationDto
       return CervicalMucusRecordDto(id, metadata, time, zoneOffsetSeconds, appearance, sensation)
     }
   }
@@ -3034,7 +3034,7 @@ data class SexualActivityRecordDto (
   /** Timezone offset in seconds for measurement time (optional). */
   val zoneOffsetSeconds: Long? = null,
   /** Whether protection was used (optional). */
-  val protectionUsed: SexualActivityProtectionUsedTypeDto
+  val protectionUsed: SexualActivityProtectionUsedDto
 ) : HealthRecordDto()
  {
   companion object {
@@ -3043,7 +3043,7 @@ data class SexualActivityRecordDto (
       val metadata = pigeonVar_list[1] as MetadataDto
       val time = pigeonVar_list[2] as Long
       val zoneOffsetSeconds = pigeonVar_list[3] as Long?
-      val protectionUsed = pigeonVar_list[4] as SexualActivityProtectionUsedTypeDto
+      val protectionUsed = pigeonVar_list[4] as SexualActivityProtectionUsedDto
       return SexualActivityRecordDto(id, metadata, time, zoneOffsetSeconds, protectionUsed)
     }
   }
@@ -3689,14 +3689,14 @@ data class HealthDataSyncResultDto (
  * Generated class from Pigeon that represents data sent in messages.
  * This class should not be extended by any user class outside of the generated file.
  */
-sealed class PermissionRequestDto 
+sealed class PermissionRequestDto
 /**
  * Represents the result of a permission request.
  *
  * Generated class from Pigeon that represents data sent in messages.
  * This class should not be extended by any user class outside of the generated file.
  */
-sealed class PermissionRequestResultDto 
+sealed class PermissionRequestResultDto
 /**
  * Represents the result of a feature permission request.
  *
@@ -3876,7 +3876,7 @@ data class PermissionRequestsDto (
  * Generated class from Pigeon that represents data sent in messages.
  * This class should not be extended by any user class outside of the generated file.
  */
-sealed class AggregateRequestDto 
+sealed class AggregateRequestDto
 /**
  * Request to perform aggregation on common health records.
  *
@@ -3973,7 +3973,7 @@ data class BloodPressureAggregateRequestDto (
  * Generated class from Pigeon that represents data sent in messages.
  * This class should not be extended by any user class outside of the generated file.
  */
-sealed class DeleteRecordsRequestDto 
+sealed class DeleteRecordsRequestDto
 /**
  * Request to delete specific records by their IDs.
  *
@@ -4303,22 +4303,22 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       131.toByte() -> {
         return (readValue(buffer) as Long?)?.let {
-          CervicalMucusAppearanceTypeDto.ofRaw(it.toInt())
+          CervicalMucusAppearanceDto.ofRaw(it.toInt())
         }
       }
       132.toByte() -> {
         return (readValue(buffer) as Long?)?.let {
-          CervicalMucusSensationTypeDto.ofRaw(it.toInt())
+          CervicalMucusSensationDto.ofRaw(it.toInt())
         }
       }
       133.toByte() -> {
         return (readValue(buffer) as Long?)?.let {
-          SexualActivityProtectionUsedTypeDto.ofRaw(it.toInt())
+          SexualActivityProtectionUsedDto.ofRaw(it.toInt())
         }
       }
       134.toByte() -> {
         return (readValue(buffer) as Long?)?.let {
-          OvulationTestResultTypeDto.ofRaw(it.toInt())
+          OvulationTestResultDto.ofRaw(it.toInt())
         }
       }
       135.toByte() -> {
@@ -4328,7 +4328,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       136.toByte() -> {
         return (readValue(buffer) as Long?)?.let {
-          MenstrualFlowTypeDto.ofRaw(it.toInt())
+          MenstrualFlowDto.ofRaw(it.toInt())
         }
       }
       137.toByte() -> {
@@ -4799,19 +4799,19 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(130)
         writeValue(stream, value.raw.toLong())
       }
-      is CervicalMucusAppearanceTypeDto -> {
+      is CervicalMucusAppearanceDto -> {
         stream.write(131)
         writeValue(stream, value.raw.toLong())
       }
-      is CervicalMucusSensationTypeDto -> {
+      is CervicalMucusSensationDto -> {
         stream.write(132)
         writeValue(stream, value.raw.toLong())
       }
-      is SexualActivityProtectionUsedTypeDto -> {
+      is SexualActivityProtectionUsedDto -> {
         stream.write(133)
         writeValue(stream, value.raw.toLong())
       }
-      is OvulationTestResultTypeDto -> {
+      is OvulationTestResultDto -> {
         stream.write(134)
         writeValue(stream, value.raw.toLong())
       }
@@ -4819,7 +4819,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(135)
         writeValue(stream, value.raw.toLong())
       }
-      is MenstrualFlowTypeDto -> {
+      is MenstrualFlowDto -> {
         stream.write(136)
         writeValue(stream, value.raw.toLong())
       }
@@ -5231,7 +5231,7 @@ class PigeonEventSink<T>(private val sink: EventChannel.EventSink) {
     sink.endOfStream()
   }
 }
-      
+
 /**
  * EventChannel API for streaming log events from native to Flutter.
  *
@@ -5250,7 +5250,7 @@ abstract class WatchLogEventsStreamHandler : HealthConnectorHCAndroidApiPigeonEv
     }
   }
 }
-      
+
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface HealthConnectorHCAndroidApi {
   /**

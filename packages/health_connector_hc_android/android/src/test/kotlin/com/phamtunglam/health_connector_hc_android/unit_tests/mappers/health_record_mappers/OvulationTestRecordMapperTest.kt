@@ -7,7 +7,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.OvulationTestRecordDto
-import com.phamtunglam.health_connector_hc_android.pigeon.OvulationTestResultTypeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.OvulationTestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import io.kotest.matchers.shouldBe
 import java.time.Instant
@@ -41,7 +41,7 @@ class OvulationTestRecordMapperTest {
         // Then
         result.time shouldBe TEST_TIME
         result.zoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
-        result.result shouldBe OvulationTestResultTypeDto.POSITIVE
+        result.result shouldBe OvulationTestResultDto.POSITIVE
     }
 
     @Test
@@ -52,7 +52,7 @@ class OvulationTestRecordMapperTest {
             id = TEST_ID,
             time = TEST_TIME,
             zoneOffsetSeconds = TEST_ZONE_OFFSET.totalSeconds.toLong(),
-            result = OvulationTestResultTypeDto.NEGATIVE,
+            result = OvulationTestResultDto.NEGATIVE,
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
                 recordingMethod = RecordingMethodDto.MANUAL_ENTRY,

@@ -291,7 +291,7 @@ enum SleepStageTypeDto {
 /// **iOS HealthKit Limitation**: Only `dry`, `sticky`, `creamy`, `watery`, and
 /// `eggWhite` are natively supported via `HKCategoryValueCervicalMucusQuality`.
 /// Values `unusual` and `unknown` require custom metadata handling in Swift.
-enum CervicalMucusAppearanceTypeDto {
+enum CervicalMucusAppearanceDto {
   /// Unknown appearance (custom metadata on iOS).
   unknown,
 
@@ -319,7 +319,7 @@ enum CervicalMucusAppearanceTypeDto {
 /// **iOS HealthKit Limitation**: HealthKit's HKCategoryTypeIdentifier.
 /// cervicalMucusQuality only tracks appearance, not sensation.
 /// All sensation values require custom metadata handling in Swift.
-enum CervicalMucusSensationTypeDto {
+enum CervicalMucusSensationDto {
   /// Unknown sensation (custom metadata on iOS).
   unknown,
 
@@ -337,7 +337,7 @@ enum CervicalMucusSensationTypeDto {
 ///
 /// Maps to Android Health Connect SexualActivityRecord protection types
 /// and iOS HealthKit HKMetadataKeySexualActivityProtectionUsed metadata key.
-enum SexualActivityProtectionUsedTypeDto {
+enum SexualActivityProtectionUsedDto {
   /// Protection was used.
   protected,
 
@@ -352,7 +352,7 @@ enum SexualActivityProtectionUsedTypeDto {
 ///
 /// Maps to Android Health Connect OvulationTestRecord result constants
 /// and iOS HealthKit HKCategoryValueOvulationTestResult enum.
-enum OvulationTestResultTypeDto {
+enum OvulationTestResultDto {
   /// Test result is negative (no hormonal surge).
   negative,
 
@@ -407,7 +407,7 @@ enum BasalBodyTemperatureMeasurementLocationDto {
 /// Maps to Android Health Connect MenstruationFlowRecord.FLOW_* constants
 /// and iOS HealthKit HKCategoryValueMenstrualFlow (iOS ≤17) or
 /// HKCategoryValueVaginalBleeding (iOS ≥18) enum values.
-enum MenstrualFlowTypeDto {
+enum MenstrualFlowDto {
   /// Flow is unknown or unspecified.
   /// - Android: FLOW_UNKNOWN
   /// - iOS ≤ 17: HKCategoryValueMenstrualFlow.unspecified/.none
@@ -3479,11 +3479,11 @@ class CervicalMucusRecordDto extends HealthRecordDto {
 
   /// Cervical mucus appearance.
   /// Values `unusual` and `unknown` use custom metadata on iOS.
-  CervicalMucusAppearanceTypeDto appearance;
+  CervicalMucusAppearanceDto appearance;
 
   /// Cervical mucus sensation.
   /// All values use custom metadata on iOS (HealthKit limitation).
-  CervicalMucusSensationTypeDto sensation;
+  CervicalMucusSensationDto sensation;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -3507,8 +3507,8 @@ class CervicalMucusRecordDto extends HealthRecordDto {
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
       zoneOffsetSeconds: result[3] as int?,
-      appearance: result[4]! as CervicalMucusAppearanceTypeDto,
-      sensation: result[5]! as CervicalMucusSensationTypeDto,
+      appearance: result[4]! as CervicalMucusAppearanceDto,
+      sensation: result[5]! as CervicalMucusSensationDto,
     );
   }
 
@@ -3687,7 +3687,7 @@ class OvulationTestRecordDto extends HealthRecordDto {
   int? zoneOffsetSeconds;
 
   /// The ovulation test result.
-  OvulationTestResultTypeDto result;
+  OvulationTestResultDto result;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -3710,7 +3710,7 @@ class OvulationTestRecordDto extends HealthRecordDto {
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
       zoneOffsetSeconds: result[3] as int?,
-      result: result[4]! as OvulationTestResultTypeDto,
+      result: result[4]! as OvulationTestResultDto,
     );
   }
 
@@ -3829,7 +3829,7 @@ class MenstrualFlowRecordDto extends HealthRecordDto {
   int? endZoneOffsetSeconds;
 
   /// The menstrual flow intensity.
-  MenstrualFlowTypeDto flow;
+  MenstrualFlowDto flow;
 
   /// Whether this sample marks the start of a menstrual cycle.
   /// Maps to HKMetadataKeyMenstrualCycleStart in iOS HealthKit.
@@ -3861,7 +3861,7 @@ class MenstrualFlowRecordDto extends HealthRecordDto {
       endTime: result[3]! as int,
       startZoneOffsetSeconds: result[4] as int?,
       endZoneOffsetSeconds: result[5] as int?,
-      flow: result[6]! as MenstrualFlowTypeDto,
+      flow: result[6]! as MenstrualFlowDto,
       isCycleStart: result[7]! as bool,
     );
   }
@@ -4379,7 +4379,7 @@ class SexualActivityRecordDto extends HealthRecordDto {
   int? zoneOffsetSeconds;
 
   /// Whether protection was used (optional).
-  SexualActivityProtectionUsedTypeDto protectionUsed;
+  SexualActivityProtectionUsedDto protectionUsed;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -4402,7 +4402,7 @@ class SexualActivityRecordDto extends HealthRecordDto {
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
       zoneOffsetSeconds: result[3] as int?,
-      protectionUsed: result[4]! as SexualActivityProtectionUsedTypeDto,
+      protectionUsed: result[4]! as SexualActivityProtectionUsedDto,
     );
   }
 
@@ -8014,22 +8014,22 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is SleepStageTypeDto) {
       buffer.putUint8(138);
       writeValue(buffer, value.index);
-    } else if (value is CervicalMucusAppearanceTypeDto) {
+    } else if (value is CervicalMucusAppearanceDto) {
       buffer.putUint8(139);
       writeValue(buffer, value.index);
-    } else if (value is CervicalMucusSensationTypeDto) {
+    } else if (value is CervicalMucusSensationDto) {
       buffer.putUint8(140);
       writeValue(buffer, value.index);
-    } else if (value is SexualActivityProtectionUsedTypeDto) {
+    } else if (value is SexualActivityProtectionUsedDto) {
       buffer.putUint8(141);
       writeValue(buffer, value.index);
-    } else if (value is OvulationTestResultTypeDto) {
+    } else if (value is OvulationTestResultDto) {
       buffer.putUint8(142);
       writeValue(buffer, value.index);
     } else if (value is BasalBodyTemperatureMeasurementLocationDto) {
       buffer.putUint8(143);
       writeValue(buffer, value.index);
-    } else if (value is MenstrualFlowTypeDto) {
+    } else if (value is MenstrualFlowDto) {
       buffer.putUint8(144);
       writeValue(buffer, value.index);
     } else if (value is SpeedActivityTypeDto) {
@@ -8413,22 +8413,18 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : SleepStageTypeDto.values[value];
       case 139:
         final int? value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : CervicalMucusAppearanceTypeDto.values[value];
+        return value == null ? null : CervicalMucusAppearanceDto.values[value];
       case 140:
         final int? value = readValue(buffer) as int?;
-        return value == null
-            ? null
-            : CervicalMucusSensationTypeDto.values[value];
+        return value == null ? null : CervicalMucusSensationDto.values[value];
       case 141:
         final int? value = readValue(buffer) as int?;
         return value == null
             ? null
-            : SexualActivityProtectionUsedTypeDto.values[value];
+            : SexualActivityProtectionUsedDto.values[value];
       case 142:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : OvulationTestResultTypeDto.values[value];
+        return value == null ? null : OvulationTestResultDto.values[value];
       case 143:
         final int? value = readValue(buffer) as int?;
         return value == null
@@ -8436,7 +8432,7 @@ class _PigeonCodec extends StandardMessageCodec {
             : BasalBodyTemperatureMeasurementLocationDto.values[value];
       case 144:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : MenstrualFlowTypeDto.values[value];
+        return value == null ? null : MenstrualFlowDto.values[value];
       case 145:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : SpeedActivityTypeDto.values[value];

@@ -4,7 +4,7 @@ import HealthKit
 extension HKCategorySample {
     /// Converts a HealthKit sexual activity category sample to a `SexualActivityRecordDto`.
     func toSexualActivityRecordDto() throws -> SexualActivityRecordDto {
-        let protectionUsed: SexualActivityProtectionUsedTypeDto =
+        let protectionUsed: SexualActivityProtectionUsedDto =
             (metadata?[HKMetadataKeySexualActivityProtectionUsed] as? Bool).map {
                 $0 ? .protected : .unprotected
             } ?? .unknown

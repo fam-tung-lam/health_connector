@@ -27,7 +27,7 @@ part of '../health_record.dart';
 /// ## See also
 ///
 /// - [SexualActivityDataType]
-/// - [SexualActivityProtectionUsedType]
+/// - [SexualActivityProtectionUsed]
 ///
 /// {@category Health Data Types}
 @sinceV2_1_0
@@ -45,7 +45,7 @@ final class SexualActivityRecord extends InstantHealthRecord {
     required super.metadata,
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
-    this.protectionUsed = SexualActivityProtectionUsedType.unknown,
+    this.protectionUsed = SexualActivityProtectionUsed.unknown,
   });
 
   /// Optional information about whether protection was used.
@@ -53,7 +53,7 @@ final class SexualActivityRecord extends InstantHealthRecord {
   /// - `protected`: Protection was used
   /// - `unprotected`: Protection was not used
   /// - `unknown`: Unknown or not specified
-  final SexualActivityProtectionUsedType protectionUsed;
+  final SexualActivityProtectionUsed protectionUsed;
 
   /// Creates a copy with the given fields replaced with the new values.
   SexualActivityRecord copyWith({
@@ -61,7 +61,7 @@ final class SexualActivityRecord extends InstantHealthRecord {
     Metadata? metadata,
     DateTime? time,
     int? zoneOffsetSeconds,
-    SexualActivityProtectionUsedType? protectionUsed,
+    SexualActivityProtectionUsed? protectionUsed,
   }) {
     return SexualActivityRecord(
       id: id ?? this.id,

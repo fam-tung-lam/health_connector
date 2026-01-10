@@ -3,7 +3,7 @@ package com.phamtunglam.health_connector_hc_android.mappers.health_record_mapper
 import androidx.health.connect.client.records.SexualActivityRecord
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.pigeon.SexualActivityProtectionUsedTypeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.SexualActivityProtectionUsedDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SexualActivityRecordDto
 import java.time.Instant
 import java.time.ZoneOffset
@@ -16,7 +16,7 @@ internal fun SexualActivityRecord.toDto(): SexualActivityRecordDto = SexualActiv
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    protectionUsed = protectionUsed.toSexualActivityProtectionUsedTypeDto(),
+    protectionUsed = protectionUsed.toSexualActivityProtectionUsedDto(),
 )
 
 /**
@@ -30,27 +30,27 @@ internal fun SexualActivityRecordDto.toHealthConnect(): SexualActivityRecord = S
 )
 
 /**
- * Converts a Health Connect [SexualActivityRecord] protection used value to [SexualActivityProtectionUsedTypeDto].
+ * Converts a Health Connect [SexualActivityRecord] protection used value to [SexualActivityProtectionUsedDto].
  */
-internal fun Int.toSexualActivityProtectionUsedTypeDto(): SexualActivityProtectionUsedTypeDto =
+internal fun Int.toSexualActivityProtectionUsedDto(): SexualActivityProtectionUsedDto =
     when (this) {
         SexualActivityRecord.PROTECTION_USED_PROTECTED ->
-            SexualActivityProtectionUsedTypeDto.PROTECTED
+            SexualActivityProtectionUsedDto.PROTECTED
         SexualActivityRecord.PROTECTION_USED_UNPROTECTED ->
-            SexualActivityProtectionUsedTypeDto.UNPROTECTED
+            SexualActivityProtectionUsedDto.UNPROTECTED
         SexualActivityRecord.PROTECTION_USED_UNKNOWN ->
-            SexualActivityProtectionUsedTypeDto.UNKNOWN
+            SexualActivityProtectionUsedDto.UNKNOWN
         else -> throw IllegalArgumentException("Unknown protection used value: $this")
     }
 
 /**
- * Converts a [SexualActivityProtectionUsedTypeDto] to a Health Connect protection used value.
+ * Converts a [SexualActivityProtectionUsedDto] to a Health Connect protection used value.
  */
-internal fun SexualActivityProtectionUsedTypeDto.toHealthConnect(): Int = when (this) {
-    SexualActivityProtectionUsedTypeDto.PROTECTED ->
+internal fun SexualActivityProtectionUsedDto.toHealthConnect(): Int = when (this) {
+    SexualActivityProtectionUsedDto.PROTECTED ->
         SexualActivityRecord.PROTECTION_USED_PROTECTED
-    SexualActivityProtectionUsedTypeDto.UNPROTECTED ->
+    SexualActivityProtectionUsedDto.UNPROTECTED ->
         SexualActivityRecord.PROTECTION_USED_UNPROTECTED
-    SexualActivityProtectionUsedTypeDto.UNKNOWN ->
+    SexualActivityProtectionUsedDto.UNKNOWN ->
         SexualActivityRecord.PROTECTION_USED_UNKNOWN
 }

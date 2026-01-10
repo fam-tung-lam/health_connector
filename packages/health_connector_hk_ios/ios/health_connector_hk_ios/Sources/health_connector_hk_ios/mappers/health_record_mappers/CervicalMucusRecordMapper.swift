@@ -38,11 +38,11 @@ extension HKCategorySample {
         // Priority 1: Custom metadata (supports all 7 types including .unusual and .unknown)
         // Priority 2: Native HealthKit value (supports only 5 types)
         // Priority 3: Default to .unknown
-        let appearance: CervicalMucusAppearanceTypeDto =
+        let appearance: CervicalMucusAppearanceDto =
             if let customAppearance = CervicalMucusAppearanceKey.read(from: builder.metadataDict) {
                 customAppearance
             } else if let hkAppearance = HKCategoryValueCervicalMucusQuality(rawValue: value) {
-                hkAppearance.toCervicalMucusAppearanceTypeDto()
+                hkAppearance.toCervicalMucusAppearanceDto()
             } else {
                 .unknown
             }
@@ -123,11 +123,11 @@ extension CervicalMucusRecordDto {
 // MARK: - Appearance Mapping Helpers
 
 extension HKCategoryValueCervicalMucusQuality {
-    /// Converts `HKCategoryValueCervicalMucusQuality` to `CervicalMucusAppearanceTypeDto`.
+    /// Converts `HKCategoryValueCervicalMucusQuality` to `CervicalMucusAppearanceDto`.
     ///
     /// The `@unknown default` case handles future HealthKit versions that might add new
     /// appearance types, gracefully degrading to `.unknown`.
-    func toCervicalMucusAppearanceTypeDto() -> CervicalMucusAppearanceTypeDto {
+    func toCervicalMucusAppearanceDto() -> CervicalMucusAppearanceDto {
         switch self {
         case .dry:
             return .dry
@@ -145,8 +145,8 @@ extension HKCategoryValueCervicalMucusQuality {
     }
 }
 
-extension CervicalMucusAppearanceTypeDto {
-    /// Converts `CervicalMucusAppearanceTypeDto` to `HKCategoryValueCervicalMucusQuality`.
+extension CervicalMucusAppearanceDto {
+    /// Converts `CervicalMucusAppearanceDto` to `HKCategoryValueCervicalMucusQuality`.
     ///
     /// Returns `nil` for types without HealthKit equivalents (`.unknown`, `.unusual`),
     /// signaling that a placeholder value should be used in the native field.

@@ -334,7 +334,7 @@ public enum SleepStageTypeDto: Int {
 /// **iOS HealthKit Limitation**: Only `dry`, `sticky`, `creamy`, `watery`, and
 /// `eggWhite` are natively supported via `HKCategoryValueCervicalMucusQuality`.
 /// Values `unusual` and `unknown` require custom metadata handling in Swift.
-public enum CervicalMucusAppearanceTypeDto: Int {
+public enum CervicalMucusAppearanceDto: Int {
   /// Unknown appearance (custom metadata on iOS).
   case unknown = 0
   /// Dry appearance.
@@ -356,7 +356,7 @@ public enum CervicalMucusAppearanceTypeDto: Int {
 /// **iOS HealthKit Limitation**: HealthKit's HKCategoryTypeIdentifier.
 /// cervicalMucusQuality only tracks appearance, not sensation.
 /// All sensation values require custom metadata handling in Swift.
-public enum CervicalMucusSensationTypeDto: Int {
+public enum CervicalMucusSensationDto: Int {
   /// Unknown sensation (custom metadata on iOS).
   case unknown = 0
   /// Light sensation (custom metadata on iOS).
@@ -371,7 +371,7 @@ public enum CervicalMucusSensationTypeDto: Int {
 ///
 /// Maps to Android Health Connect SexualActivityRecord protection types
 /// and iOS HealthKit HKMetadataKeySexualActivityProtectionUsed metadata key.
-public enum SexualActivityProtectionUsedTypeDto: Int {
+public enum SexualActivityProtectionUsedDto: Int {
   /// Protection was used.
   case protected = 0
   /// Protection was not used.
@@ -384,7 +384,7 @@ public enum SexualActivityProtectionUsedTypeDto: Int {
 ///
 /// Maps to Android Health Connect OvulationTestRecord result constants
 /// and iOS HealthKit HKCategoryValueOvulationTestResult enum.
-public enum OvulationTestResultTypeDto: Int {
+public enum OvulationTestResultDto: Int {
   /// Test result is negative (no hormonal surge).
   case negative = 0
   /// Test result is inconclusive.
@@ -426,7 +426,7 @@ public enum BasalBodyTemperatureMeasurementLocationDto: Int {
 /// Maps to Android Health Connect MenstruationFlowRecord.FLOW_* constants
 /// and iOS HealthKit HKCategoryValueMenstrualFlow (iOS ≤17) or
 /// HKCategoryValueVaginalBleeding (iOS ≥18) enum values.
-public enum MenstrualFlowTypeDto: Int {
+public enum MenstrualFlowDto: Int {
   /// Flow is unknown or unspecified.
   /// - Android: FLOW_UNKNOWN
   /// - iOS ≤ 17: HKCategoryValueMenstrualFlow.unspecified/.none
@@ -2651,10 +2651,10 @@ public struct CervicalMucusRecordDto: HealthRecordDto {
   var zoneOffsetSeconds: Int64? = nil
   /// Cervical mucus appearance.
   /// Values `unusual` and `unknown` use custom metadata on iOS.
-  var appearance: CervicalMucusAppearanceTypeDto
+  var appearance: CervicalMucusAppearanceDto
   /// Cervical mucus sensation.
   /// All values use custom metadata on iOS (HealthKit limitation).
-  var sensation: CervicalMucusSensationTypeDto
+  var sensation: CervicalMucusSensationDto
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -2663,8 +2663,8 @@ public struct CervicalMucusRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let appearance = pigeonVar_list[4] as! CervicalMucusAppearanceTypeDto
-    let sensation = pigeonVar_list[5] as! CervicalMucusSensationTypeDto
+    let appearance = pigeonVar_list[4] as! CervicalMucusAppearanceDto
+    let sensation = pigeonVar_list[5] as! CervicalMucusSensationDto
 
     return CervicalMucusRecordDto(
       id: id,
@@ -2801,7 +2801,7 @@ public struct OvulationTestRecordDto: HealthRecordDto {
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
   /// The ovulation test result.
-  var result: OvulationTestResultTypeDto
+  var result: OvulationTestResultDto
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -2810,7 +2810,7 @@ public struct OvulationTestRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let result = pigeonVar_list[4] as! OvulationTestResultTypeDto
+    let result = pigeonVar_list[4] as! OvulationTestResultDto
 
     return OvulationTestRecordDto(
       id: id,
@@ -2900,7 +2900,7 @@ public struct MenstrualFlowRecordDto: HealthRecordDto {
   /// Timezone offset in seconds for end time (optional).
   var endZoneOffsetSeconds: Int64? = nil
   /// The menstrual flow intensity.
-  var flow: MenstrualFlowTypeDto
+  var flow: MenstrualFlowDto
   /// Whether this sample marks the start of a menstrual cycle.
   /// Maps to HKMetadataKeyMenstrualCycleStart in iOS HealthKit.
   var isCycleStart: Bool
@@ -2914,7 +2914,7 @@ public struct MenstrualFlowRecordDto: HealthRecordDto {
     let endTime = pigeonVar_list[3] as! Int64
     let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
-    let flow = pigeonVar_list[6] as! MenstrualFlowTypeDto
+    let flow = pigeonVar_list[6] as! MenstrualFlowDto
     let isCycleStart = pigeonVar_list[7] as! Bool
 
     return MenstrualFlowRecordDto(
@@ -3298,7 +3298,7 @@ public struct SexualActivityRecordDto: HealthRecordDto {
   /// Timezone offset in seconds (optional).
   var zoneOffsetSeconds: Int64? = nil
   /// Whether protection was used (optional).
-  var protectionUsed: SexualActivityProtectionUsedTypeDto
+  var protectionUsed: SexualActivityProtectionUsedDto
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
@@ -3307,7 +3307,7 @@ public struct SexualActivityRecordDto: HealthRecordDto {
     let metadata = pigeonVar_list[1] as! MetadataDto
     let time = pigeonVar_list[2] as! Int64
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[3])
-    let protectionUsed = pigeonVar_list[4] as! SexualActivityProtectionUsedTypeDto
+    let protectionUsed = pigeonVar_list[4] as! SexualActivityProtectionUsedDto
 
     return SexualActivityRecordDto(
       id: id,
@@ -5937,25 +5937,25 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 139:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return CervicalMucusAppearanceTypeDto(rawValue: enumResultAsInt)
+        return CervicalMucusAppearanceDto(rawValue: enumResultAsInt)
       }
       return nil
     case 140:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return CervicalMucusSensationTypeDto(rawValue: enumResultAsInt)
+        return CervicalMucusSensationDto(rawValue: enumResultAsInt)
       }
       return nil
     case 141:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return SexualActivityProtectionUsedTypeDto(rawValue: enumResultAsInt)
+        return SexualActivityProtectionUsedDto(rawValue: enumResultAsInt)
       }
       return nil
     case 142:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return OvulationTestResultTypeDto(rawValue: enumResultAsInt)
+        return OvulationTestResultDto(rawValue: enumResultAsInt)
       }
       return nil
     case 143:
@@ -5967,7 +5967,7 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 144:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return MenstrualFlowTypeDto(rawValue: enumResultAsInt)
+        return MenstrualFlowDto(rawValue: enumResultAsInt)
       }
       return nil
     case 145:
@@ -6274,22 +6274,22 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? SleepStageTypeDto {
       super.writeByte(138)
       super.writeValue(value.rawValue)
-    } else if let value = value as? CervicalMucusAppearanceTypeDto {
+    } else if let value = value as? CervicalMucusAppearanceDto {
       super.writeByte(139)
       super.writeValue(value.rawValue)
-    } else if let value = value as? CervicalMucusSensationTypeDto {
+    } else if let value = value as? CervicalMucusSensationDto {
       super.writeByte(140)
       super.writeValue(value.rawValue)
-    } else if let value = value as? SexualActivityProtectionUsedTypeDto {
+    } else if let value = value as? SexualActivityProtectionUsedDto {
       super.writeByte(141)
       super.writeValue(value.rawValue)
-    } else if let value = value as? OvulationTestResultTypeDto {
+    } else if let value = value as? OvulationTestResultDto {
       super.writeByte(142)
       super.writeValue(value.rawValue)
     } else if let value = value as? BasalBodyTemperatureMeasurementLocationDto {
       super.writeByte(143)
       super.writeValue(value.rawValue)
-    } else if let value = value as? MenstrualFlowTypeDto {
+    } else if let value = value as? MenstrualFlowDto {
       super.writeByte(144)
       super.writeValue(value.rawValue)
     } else if let value = value as? SpeedActivityTypeDto {

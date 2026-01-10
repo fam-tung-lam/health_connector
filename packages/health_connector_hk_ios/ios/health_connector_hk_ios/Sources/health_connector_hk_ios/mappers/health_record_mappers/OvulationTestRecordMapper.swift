@@ -28,7 +28,7 @@ extension HKCategorySample {
             metadata: builder.toMetadataDto(),
             time: Int64(startDate.timeIntervalSince1970 * 1000),
             zoneOffsetSeconds: zoneOffset,
-            result: hkResult.toOvulationTestResultTypeDto()
+            result: hkResult.toOvulationTestResultDto()
         )
     }
 }
@@ -68,11 +68,11 @@ extension OvulationTestRecordDto {
 // MARK: - Enum Mapping Helpers
 
 extension HKCategoryValueOvulationTestResult {
-    /// Converts `HKCategoryValueOvulationTestResult` to `OvulationTestResultTypeDto`.
+    /// Converts `HKCategoryValueOvulationTestResult` to `OvulationTestResultDto`.
     ///
     /// The `@unknown default` case handles future HealthKit versions that might add new
     /// result types, throwing an error for unrecognized values.
-    func toOvulationTestResultTypeDto() -> OvulationTestResultTypeDto {
+    func toOvulationTestResultDto() -> OvulationTestResultDto {
         switch self {
         case .negative:
             return .negative
@@ -88,8 +88,8 @@ extension HKCategoryValueOvulationTestResult {
     }
 }
 
-extension OvulationTestResultTypeDto {
-    /// Converts `OvulationTestResultTypeDto` to `HKCategoryValueOvulationTestResult`.
+extension OvulationTestResultDto {
+    /// Converts `OvulationTestResultDto` to `HKCategoryValueOvulationTestResult`.
     func toHealthKit() -> HKCategoryValueOvulationTestResult {
         switch self {
         case .negative:

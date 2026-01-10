@@ -15,7 +15,7 @@ internal fun OvulationTestRecord.toDto(): OvulationTestRecordDto = OvulationTest
     time = time.toEpochMilli(),
     zoneOffsetSeconds = zoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
-    result = result.toOvulationTestResultTypeDto(),
+    result = result.toOvulationTestResultDto(),
 )
 
 /**

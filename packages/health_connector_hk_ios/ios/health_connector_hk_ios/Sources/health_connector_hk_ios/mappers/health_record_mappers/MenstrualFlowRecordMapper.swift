@@ -32,7 +32,7 @@ extension HKCategorySample {
             endTime: Int64(endDate.timeIntervalSince1970 * 1000),
             startZoneOffsetSeconds: startZoneOffset,
             endZoneOffsetSeconds: endZoneOffset,
-            flow: value.toMenstrualFlowTypeDto(),
+            flow: value.toMenstrualFlowDto(),
             isCycleStart: isCycleStart
         )
     }
