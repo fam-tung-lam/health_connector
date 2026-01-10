@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_form.dart';
 
-/// Form widget for active calories burned records.
+/// Form widget for active energy burned records.
 @immutable
 final class ActiveCaloriesBurnedWriteForm
     extends IntervalHealthRecordWriteForm {
@@ -17,12 +17,12 @@ final class ActiveCaloriesBurnedWriteForm
       ActiveCaloriesBurnedFormState();
 }
 
-/// State for active calories burned form widget.
+/// State for active energy burned form widget.
 final class ActiveCaloriesBurnedFormState
     extends IntervalHealthRecordFormState<ActiveCaloriesBurnedWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return ActiveCaloriesBurnedRecord(
+    return ActiveEnergyBurnedRecord(
       startTime: startDateTime!,
       endTime: endDateTime!,
       energy: value! as Energy,

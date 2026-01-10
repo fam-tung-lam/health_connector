@@ -9,7 +9,7 @@ void main() {
         token: 'test_token',
         dataTypes: const [
           HealthDataType.steps,
-          HealthDataType.activeCaloriesBurned,
+          HealthDataType.activeEnergyBurned,
         ],
         createdAt: DateTime.utc(2026),
       );
@@ -36,7 +36,7 @@ void main() {
         expect(token.token, 'test_token');
         expect(token.dataTypes, [
           HealthDataType.steps,
-          HealthDataType.activeCaloriesBurned,
+          HealthDataType.activeEnergyBurned,
         ]);
         expect(token.createdAt, DateTime.utc(2026));
       },

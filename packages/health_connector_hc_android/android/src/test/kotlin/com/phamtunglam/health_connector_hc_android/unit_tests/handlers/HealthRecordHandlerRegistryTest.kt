@@ -2,7 +2,7 @@ package com.phamtunglam.health_connector_hc_android.unit_tests.handlers
 
 import androidx.health.connect.client.HealthConnectClient
 import com.phamtunglam.health_connector_hc_android.handlers.HealthRecordHandlerRegistry
-import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActiveCaloriesBurnedHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActiveEnergyBurnedHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BasalBodyTemperatureHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BloodGlucoseHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BloodPressureHandler
@@ -33,7 +33,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SleepSessionHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.SpeedSeriesHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.StepsHandler
-import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.TotalCaloriesBurnedHandler
+import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.TotalEnergyBurnedHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.Vo2MaxHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.WeightHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.WheelchairPushesHandler
@@ -100,7 +100,7 @@ class HealthRecordHandlerRegistryTest {
     fun provideHandlerMappings(): Stream<Arguments> = Stream.of(
         Arguments.of(
             HealthDataTypeDto.ACTIVE_CALORIES_BURNED,
-            ActiveCaloriesBurnedHandler::class,
+            ActiveEnergyBurnedHandler::class,
         ),
         Arguments.of(HealthDataTypeDto.DISTANCE, DistanceHandler::class),
         Arguments.of(HealthDataTypeDto.FLOORS_CLIMBED, FloorsClimbedHandler::class),
@@ -146,7 +146,7 @@ class HealthRecordHandlerRegistryTest {
         Arguments.of(HealthDataTypeDto.MINDFULNESS_SESSION, MindfulnessSessionHandler::class),
         Arguments.of(
             HealthDataTypeDto.TOTAL_CALORIES_BURNED,
-            TotalCaloriesBurnedHandler::class,
+            TotalEnergyBurnedHandler::class,
         ),
         Arguments.of(HealthDataTypeDto.BONE_MASS, BoneMassHandler::class),
         Arguments.of(

@@ -77,7 +77,7 @@ private object HealthConnectorHCAndroidApiPigeonUtils {
     }
     return a == b
   }
-
+      
 }
 
 /**
@@ -540,7 +540,7 @@ enum class MindfulnessSessionTypeDto(val raw: Int) {
 
 /** Represents a health data type. */
 enum class HealthDataTypeDto(val raw: Int) {
-  /** Active calories burned data. */
+  /** Active energy burned data. */
   ACTIVE_CALORIES_BURNED(0),
   /** Distance traveled data. */
   DISTANCE(1),
@@ -602,7 +602,7 @@ enum class HealthDataTypeDto(val raw: Int) {
   SPEED_SERIES(29),
   /** Mindfulness session data. */
   MINDFULNESS_SESSION(30),
-  /** Total calories burned data. */
+  /** Total energy burned data. */
   TOTAL_CALORIES_BURNED(31),
   /** Bone mass data. */
   BONE_MASS(32),
@@ -863,7 +863,7 @@ data class HealthConnectorConfigDto (
  * Generated class from Pigeon that represents data sent in messages.
  * This class should not be extended by any user class outside of the generated file.
  */
-sealed class MeasurementUnitDto
+sealed class MeasurementUnitDto 
 /**
  * Represents a blood glucose measurement in millimoles per liter.
  *
@@ -1373,7 +1373,7 @@ data class MetadataDto (
  * Generated class from Pigeon that represents data sent in messages.
  * This class should not be extended by any user class outside of the generated file.
  */
-sealed class HealthRecordDto
+sealed class HealthRecordDto 
 /**
  * Represents a blood glucose record for platform transfer.
  *
@@ -1789,8 +1789,8 @@ data class Vo2MaxRecordDto (
 }
 
 /** Generated class from Pigeon that represents data sent in messages. */
-data class ActiveCaloriesBurnedRecordDto (
-  /** Energy (calories) burned during the interval. */
+data class ActiveEnergyBurnedRecordDto (
+  /** Energy burned during the interval. */
   val energy: EnergyDto,
   /** End time in milliseconds since epoch (UTC). */
   val endTime: Long,
@@ -1807,7 +1807,7 @@ data class ActiveCaloriesBurnedRecordDto (
 ) : HealthRecordDto()
  {
   companion object {
-    fun fromList(pigeonVar_list: List<Any?>): ActiveCaloriesBurnedRecordDto {
+    fun fromList(pigeonVar_list: List<Any?>): ActiveEnergyBurnedRecordDto {
       val energy = pigeonVar_list[0] as EnergyDto
       val endTime = pigeonVar_list[1] as Long
       val id = pigeonVar_list[2] as String?
@@ -1815,7 +1815,7 @@ data class ActiveCaloriesBurnedRecordDto (
       val startTime = pigeonVar_list[4] as Long
       val endZoneOffsetSeconds = pigeonVar_list[5] as Long?
       val startZoneOffsetSeconds = pigeonVar_list[6] as Long?
-      return ActiveCaloriesBurnedRecordDto(energy, endTime, id, metadata, startTime, endZoneOffsetSeconds, startZoneOffsetSeconds)
+      return ActiveEnergyBurnedRecordDto(energy, endTime, id, metadata, startTime, endZoneOffsetSeconds, startZoneOffsetSeconds)
     }
   }
   fun toList(): List<Any?> {
@@ -1830,7 +1830,7 @@ data class ActiveCaloriesBurnedRecordDto (
     )
   }
   override fun equals(other: Any?): Boolean {
-    if (other !is ActiveCaloriesBurnedRecordDto) {
+    if (other !is ActiveEnergyBurnedRecordDto) {
       return false
     }
     if (this === other) {
@@ -3409,11 +3409,11 @@ data class NutritionRecordDto (
 }
 
 /**
- * Represents a total calories burned record for platform transfer.
+ * Represents a total energy burned record for platform transfer.
  *
  * Generated class from Pigeon that represents data sent in messages.
  */
-data class TotalCaloriesBurnedRecordDto (
+data class TotalEnergyBurnedRecordDto (
   /** Platform-assigned unique identifier. */
   val id: String? = null,
   /** Metadata about this record. */
@@ -3431,7 +3431,7 @@ data class TotalCaloriesBurnedRecordDto (
 ) : HealthRecordDto()
  {
   companion object {
-    fun fromList(pigeonVar_list: List<Any?>): TotalCaloriesBurnedRecordDto {
+    fun fromList(pigeonVar_list: List<Any?>): TotalEnergyBurnedRecordDto {
       val id = pigeonVar_list[0] as String?
       val metadata = pigeonVar_list[1] as MetadataDto
       val startTime = pigeonVar_list[2] as Long
@@ -3439,7 +3439,7 @@ data class TotalCaloriesBurnedRecordDto (
       val startZoneOffsetSeconds = pigeonVar_list[4] as Long?
       val endZoneOffsetSeconds = pigeonVar_list[5] as Long?
       val energy = pigeonVar_list[6] as EnergyDto
-      return TotalCaloriesBurnedRecordDto(id, metadata, startTime, endTime, startZoneOffsetSeconds, endZoneOffsetSeconds, energy)
+      return TotalEnergyBurnedRecordDto(id, metadata, startTime, endTime, startZoneOffsetSeconds, endZoneOffsetSeconds, energy)
     }
   }
   fun toList(): List<Any?> {
@@ -3454,7 +3454,7 @@ data class TotalCaloriesBurnedRecordDto (
     )
   }
   override fun equals(other: Any?): Boolean {
-    if (other !is TotalCaloriesBurnedRecordDto) {
+    if (other !is TotalEnergyBurnedRecordDto) {
       return false
     }
     if (this === other) {
@@ -3689,14 +3689,14 @@ data class HealthDataSyncResultDto (
  * Generated class from Pigeon that represents data sent in messages.
  * This class should not be extended by any user class outside of the generated file.
  */
-sealed class PermissionRequestDto
+sealed class PermissionRequestDto 
 /**
  * Represents the result of a permission request.
  *
  * Generated class from Pigeon that represents data sent in messages.
  * This class should not be extended by any user class outside of the generated file.
  */
-sealed class PermissionRequestResultDto
+sealed class PermissionRequestResultDto 
 /**
  * Represents the result of a feature permission request.
  *
@@ -3876,7 +3876,7 @@ data class PermissionRequestsDto (
  * Generated class from Pigeon that represents data sent in messages.
  * This class should not be extended by any user class outside of the generated file.
  */
-sealed class AggregateRequestDto
+sealed class AggregateRequestDto 
 /**
  * Request to perform aggregation on common health records.
  *
@@ -3973,7 +3973,7 @@ data class BloodPressureAggregateRequestDto (
  * Generated class from Pigeon that represents data sent in messages.
  * This class should not be extended by any user class outside of the generated file.
  */
-sealed class DeleteRecordsRequestDto
+sealed class DeleteRecordsRequestDto 
 /**
  * Request to delete specific records by their IDs.
  *
@@ -4548,7 +4548,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       180.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          ActiveCaloriesBurnedRecordDto.fromList(it)
+          ActiveEnergyBurnedRecordDto.fromList(it)
         }
       }
       181.toByte() -> {
@@ -4688,7 +4688,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       208.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          TotalCaloriesBurnedRecordDto.fromList(it)
+          TotalEnergyBurnedRecordDto.fromList(it)
         }
       }
       209.toByte() -> {
@@ -4995,7 +4995,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(179)
         writeValue(stream, value.toList())
       }
-      is ActiveCaloriesBurnedRecordDto -> {
+      is ActiveEnergyBurnedRecordDto -> {
         stream.write(180)
         writeValue(stream, value.toList())
       }
@@ -5107,7 +5107,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(207)
         writeValue(stream, value.toList())
       }
-      is TotalCaloriesBurnedRecordDto -> {
+      is TotalEnergyBurnedRecordDto -> {
         stream.write(208)
         writeValue(stream, value.toList())
       }
@@ -5231,7 +5231,7 @@ class PigeonEventSink<T>(private val sink: EventChannel.EventSink) {
     sink.endOfStream()
   }
 }
-
+      
 /**
  * EventChannel API for streaming log events from native to Flutter.
  *
@@ -5250,7 +5250,7 @@ abstract class WatchLogEventsStreamHandler : HealthConnectorHCAndroidApiPigeonEv
     }
   }
 }
-
+      
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface HealthConnectorHCAndroidApi {
   /**

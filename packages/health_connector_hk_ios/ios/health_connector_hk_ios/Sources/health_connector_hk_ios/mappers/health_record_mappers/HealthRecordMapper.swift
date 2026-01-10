@@ -9,7 +9,7 @@ extension HealthRecordDto {
     /// - Throws: `HealthConnectorError.unsupportedOperation` if the DTO type has no mapping
     func toHealthKit() throws -> HKSample {
         switch self {
-        case let dto as ActiveCaloriesBurnedRecordDto:
+        case let dto as ActiveEnergyBurnedRecordDto:
             return try dto.toHealthKit()
         case let dto as BasalEnergyBurnedRecordDto:
             return try dto.toHealthKit()
@@ -195,7 +195,7 @@ extension HKQuantitySample {
         case .height:
             try toHeightRecordDto()
         case .activeCaloriesBurned:
-            try toActiveCaloriesBurnedRecordDto()
+            try toActiveEnergyBurnedRecordDto()
         case .basalEnergyBurned:
             try toBasalEnergyBurnedRecordDto()
         case .bodyFatPercentage:

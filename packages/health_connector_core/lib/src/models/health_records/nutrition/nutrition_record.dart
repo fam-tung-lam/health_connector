@@ -48,7 +48,7 @@ final class NutritionRecord extends IntervalHealthRecord {
   /// - [endZoneOffsetSeconds]: Optional timezone offset for end time.
   /// - [foodName]: Optional name/description of the food consumed.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  /// - [energy]: Energy (calories) consumed.
+  /// - [energy]: Energy consumed.
   /// - [protein]: Protein content.
   /// - [totalCarbohydrate]: Total carbohydrate content.
   /// - [totalFat]: Total fat content.
@@ -114,7 +114,7 @@ final class NutritionRecord extends IntervalHealthRecord {
   /// The type of meal (breakfast, lunch, dinner, snack, or unknown).
   final MealType mealType;
 
-  /// Energy (calories) consumed.
+  /// Energy consumed.
   final Energy? energy;
 
   /// Protein content in grams.

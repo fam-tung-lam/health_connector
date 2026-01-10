@@ -9,7 +9,7 @@ enum AggregationMetric {
   /// Sum of all values in the time range.
   ///
   /// Only meaningful for cumulative data types like steps, distance, or
-  /// calories burned.
+  /// energy burned.
   sum,
 
   /// Average (mean) value across all data points.

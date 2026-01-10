@@ -1,15 +1,15 @@
 package com.phamtunglam.health_connector_hc_android.unit_tests.mappers.health_record_mappers
 
-import androidx.health.connect.client.records.TotalCaloriesBurnedRecord
+import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.metadata.Metadata
 import androidx.health.connect.client.units.Energy
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
+import com.phamtunglam.health_connector_hc_android.pigeon.ActiveEnergyBurnedRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.EnergyDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
-import com.phamtunglam.health_connector_hc_android.pigeon.TotalCaloriesBurnedRecordDto
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import java.time.Instant
@@ -18,28 +18,28 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 /**
- * Unit tests for TotalCaloriesBurnedRecord Mapper.
+ * Unit tests for ActiveCaloriesBurnedRecord Mapper.
  */
-@DisplayName("TotalCaloriesBurnedRecordMapper")
-class TotalCaloriesBurnedRecordMapperTest {
+@DisplayName("ActiveEnergyBurnedRecordMapper")
+class ActiveEnergyBurnedRecordMapperTest {
 
-    private companion object {
-        const val TEST_ID = "test-total-cal-id-123"
+    private companion object Companion {
+        const val TEST_ID = "test-active-cal-id-123"
         const val TEST_START_TIME = 1609459200000L
-        const val TEST_END_TIME = 1609545600000L
-        const val TEST_ENERGY_KCAL = 1850.25
-        val TEST_ZONE_OFFSET: ZoneOffset = ZoneOffset.ofHours(1)
+        const val TEST_END_TIME = 1609462800000L
+        const val TEST_ENERGY_KCAL = 250.5
+        val TEST_ZONE_OFFSET: ZoneOffset = ZoneOffset.ofHours(-8)
     }
 
     @Test
     @DisplayName(
-        "GIVEN TotalCaloriesBurnedRecord → " +
+        "GIVEN ActiveCaloriesBurnedRecord → " +
             "WHEN toDto called → " +
-            "THEN converts to DTO correctly",
+            "THEN converts to DTO with correct fields",
     )
     fun whenRecordToDto_thenConvertsCorrectly() {
         // Given
-        val record = TotalCaloriesBurnedRecord(
+        val record = ActiveCaloriesBurnedRecord(
             energy = Energy.kilocalories(TEST_ENERGY_KCAL),
             startTime = Instant.ofEpochMilli(TEST_START_TIME),
             endTime = Instant.ofEpochMilli(TEST_END_TIME),
@@ -52,19 +52,23 @@ class TotalCaloriesBurnedRecordMapperTest {
         val result = record.toDto()
 
         // Then
+        result.startTime shouldBe TEST_START_TIME
+        result.endTime shouldBe TEST_END_TIME
+        result.startZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
+        result.endZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
         result.energy.kilocalories shouldBe TEST_ENERGY_KCAL
         result.metadata shouldNotBe null
     }
 
     @Test
     @DisplayName(
-        "GIVEN TotalCaloriesBurnedRecordDto → " +
+        "GIVEN ActiveEnergyBurnedRecordDto → " +
             "WHEN toHealthConnect called → " +
-            "THEN creates record correctly",
+            "THEN creates record with correct fields",
     )
     fun whenDtoToHealthConnect_thenCreatesCorrectly() {
         // Given
-        val dto = TotalCaloriesBurnedRecordDto(
+        val dto = ActiveEnergyBurnedRecordDto(
             id = TEST_ID,
             startTime = TEST_START_TIME,
             endTime = TEST_END_TIME,
@@ -73,7 +77,7 @@ class TotalCaloriesBurnedRecordMapperTest {
             energy = EnergyDto(kilocalories = TEST_ENERGY_KCAL),
             metadata = MetadataDto(
                 dataOrigin = "com.example.app",
-                recordingMethod = RecordingMethodDto.AUTOMATICALLY_RECORDED,
+                recordingMethod = RecordingMethodDto.MANUAL_ENTRY,
                 deviceType = DeviceTypeDto.PHONE,
             ),
         )
@@ -83,6 +87,10 @@ class TotalCaloriesBurnedRecordMapperTest {
 
         // Then
         result.energy.inKilocalories shouldBe TEST_ENERGY_KCAL
+        result.startTime shouldBe Instant.ofEpochMilli(TEST_START_TIME)
+        result.endTime shouldBe Instant.ofEpochMilli(TEST_END_TIME)
+        result.startZoneOffset shouldBe TEST_ZONE_OFFSET
+        result.endZoneOffset shouldBe TEST_ZONE_OFFSET
         result.metadata.id shouldBe TEST_ID
     }
 }

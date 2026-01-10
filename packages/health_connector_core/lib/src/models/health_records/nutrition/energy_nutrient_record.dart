@@ -3,7 +3,7 @@ part of '../health_record.dart';
 /// Represents an energy (calorie) measurement from food at a specific point in
 /// time.
 ///
-/// [EnergyNutrientRecord] captures the energy content (calories) consumed from
+/// [EnergyNutrientRecord] captures the energy content consumed from
 /// food. This is an iOS-specific record for tracking individual energy intake.
 ///
 /// ## Platform Mapping

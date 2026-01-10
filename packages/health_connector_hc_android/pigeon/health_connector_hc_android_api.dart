@@ -612,7 +612,7 @@ sealed class HealthRecordDto {}
 
 /// Represents a health data type.
 enum HealthDataTypeDto {
-  /// Active calories burned data.
+  /// Active energy burned data.
   activeCaloriesBurned,
 
   /// Distance traveled data.
@@ -705,7 +705,7 @@ enum HealthDataTypeDto {
   /// Mindfulness session data.
   mindfulnessSession,
 
-  /// Total calories burned data.
+  /// Total energy burned data.
   totalCaloriesBurned,
 
   /// Bone mass data.
@@ -946,8 +946,8 @@ class Vo2MaxRecordDto extends HealthRecordDto {
   final int? zoneOffsetSeconds;
 }
 
-class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
-  ActiveCaloriesBurnedRecordDto({
+class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
+  ActiveEnergyBurnedRecordDto({
     required this.id,
     required this.startTime,
     required this.endTime,
@@ -957,7 +957,7 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
     this.endZoneOffsetSeconds,
   });
 
-  /// Energy (calories) burned during the interval.
+  /// Energy burned during the interval.
   final EnergyDto energy;
 
   /// End time in milliseconds since epoch (UTC).
@@ -1929,9 +1929,9 @@ class NutritionRecordDto extends HealthRecordDto {
   final MassDto? caffeine;
 }
 
-/// Represents a total calories burned record for platform transfer.
-class TotalCaloriesBurnedRecordDto extends HealthRecordDto {
-  TotalCaloriesBurnedRecordDto({
+/// Represents a total energy burned record for platform transfer.
+class TotalEnergyBurnedRecordDto extends HealthRecordDto {
+  TotalEnergyBurnedRecordDto({
     required this.id,
     required this.metadata,
     required this.startTime,

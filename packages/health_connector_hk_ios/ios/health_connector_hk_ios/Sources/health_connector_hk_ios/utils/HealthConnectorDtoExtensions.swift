@@ -8,7 +8,7 @@ extension HealthRecordDto {
     /// Platform-assigned unique identifier for this health record
     var id: String? {
         switch self {
-        case let record as ActiveCaloriesBurnedRecordDto:
+        case let record as ActiveEnergyBurnedRecordDto:
             record.id
         case let record as BasalEnergyBurnedRecordDto:
             record.id
@@ -85,7 +85,7 @@ extension HealthRecordDto {
                 return .bodyTemperature
             case is BasalBodyTemperatureRecordDto:
                 return .basalBodyTemperature
-            case is ActiveCaloriesBurnedRecordDto:
+            case is ActiveEnergyBurnedRecordDto:
                 return .activeCaloriesBurned
             case is BasalEnergyBurnedRecordDto:
                 return .basalEnergyBurned
@@ -250,7 +250,7 @@ extension HealthRecordDto {
         // Interval-based DTOs with endTime
         case let dto as StepsRecordDto:
             return dto.endTime
-        case let dto as ActiveCaloriesBurnedRecordDto:
+        case let dto as ActiveEnergyBurnedRecordDto:
             return dto.endTime
         case let dto as BasalEnergyBurnedRecordDto:
             return dto.endTime

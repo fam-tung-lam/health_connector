@@ -108,8 +108,8 @@ final class HealthRecordListTile extends StatelessWidget {
         SimpleInstantMeasurementListTile<HeartRateVariabilitySDNNRecord>(
           record: r,
           icon: AppIcons.favorite,
-          titleBuilder: (r) => '${r.sdnnMillis.value.toStringAsFixed(1)} ms',
-          valueExtractor: (r) => r.sdnnMillis,
+          titleBuilder: (r) => '${r.sdnn.inMilliseconds.toStringAsFixed(1)} ms',
+          valueExtractor: (r) => r.sdnn,
           onDelete: onDelete,
         ),
 
@@ -285,8 +285,8 @@ final class HealthRecordListTile extends StatelessWidget {
           valueExtractor: (r) => r.count,
           onDelete: onDelete,
         ),
-      final ActiveCaloriesBurnedRecord r =>
-        SimpleIntervalMeasurementListTile<ActiveCaloriesBurnedRecord>(
+      final ActiveEnergyBurnedRecord r =>
+        SimpleIntervalMeasurementListTile<ActiveEnergyBurnedRecord>(
           record: r,
           icon: AppIcons.localFireDepartment,
           titleBuilder: (r) =>
@@ -507,8 +507,8 @@ final class HealthRecordListTile extends StatelessWidget {
           record: r,
           onDelete: onDelete,
         ),
-      final TotalCaloriesBurnedRecord r =>
-        SimpleIntervalMeasurementListTile<TotalCaloriesBurnedRecord>(
+      final TotalEnergyBurnedRecord r =>
+        SimpleIntervalMeasurementListTile<TotalEnergyBurnedRecord>(
           record: r,
           icon: AppIcons.localFireDepartment,
           titleBuilder: (r) =>

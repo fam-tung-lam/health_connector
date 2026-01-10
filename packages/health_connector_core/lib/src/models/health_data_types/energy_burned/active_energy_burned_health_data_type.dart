@@ -1,8 +1,8 @@
 part of '../health_data_type.dart';
 
-/// Active calories burned data type.
+/// Active energy burned data type.
 ///
-/// Tracks calories burned through physical activity and exercise,
+/// Tracks energy burned through physical activity and exercise,
 /// excluding basal metabolic rate (BMR). Active calories represent energy
 /// expended beyond resting metabolism.
 ///
@@ -12,7 +12,7 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`ActiveCaloriesBurnedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ActiveCaloriesBurnedRecord)
+/// - **Android Health Connect**: [`ActiveEnergyBurnedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ActiveEnergyBurnedRecord)
 /// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.activeEnergyBurned`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/activeenergyburned)
 ///
 /// ## Capabilities
@@ -24,24 +24,24 @@ part of '../health_data_type.dart';
 ///
 /// ## See also
 ///
-/// - [ActiveCaloriesBurnedRecord]
+/// - [ActiveEnergyBurnedRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0
 @immutable
-final class ActiveCaloriesBurnedHealthDataType
-    extends HealthDataType<ActiveCaloriesBurnedRecord, Energy>
+final class ActiveEnergyBurnedHealthDataType
+    extends HealthDataType<ActiveEnergyBurnedRecord, Energy>
     implements
-        ReadableHealthDataType<ActiveCaloriesBurnedRecord>,
+        ReadableHealthDataType<ActiveEnergyBurnedRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<ActiveCaloriesBurnedRecord, Energy>,
-        DeletableHealthDataType<ActiveCaloriesBurnedRecord> {
-  /// Creates an active calories burned data type.
+        SumAggregatableHealthDataType<ActiveEnergyBurnedRecord, Energy>,
+        DeletableHealthDataType<ActiveEnergyBurnedRecord> {
+  /// Creates an active energy burned data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const ActiveCaloriesBurnedHealthDataType();
+  const ActiveEnergyBurnedHealthDataType();
 
   @override
   String get id => 'active_calories_burned';
@@ -49,7 +49,7 @@ final class ActiveCaloriesBurnedHealthDataType
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ActiveCaloriesBurnedHealthDataType &&
+      other is ActiveEnergyBurnedHealthDataType &&
           runtimeType == other.runtimeType;
 
   @override
@@ -64,14 +64,14 @@ final class ActiveCaloriesBurnedHealthDataType
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
-  ReadRecordByIdRequest<ActiveCaloriesBurnedRecord> readById(
+  ReadRecordByIdRequest<ActiveEnergyBurnedRecord> readById(
     HealthRecordId id,
   ) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsInTimeRangeRequest<ActiveCaloriesBurnedRecord> readInTimeRange({
+  ReadRecordsInTimeRangeRequest<ActiveEnergyBurnedRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     List<DataOrigin> dataOrigins = const [],
@@ -92,7 +92,7 @@ final class ActiveCaloriesBurnedHealthDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<ActiveCaloriesBurnedRecord, Energy> aggregateSum({
+  AggregateRequest<ActiveEnergyBurnedRecord, Energy> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -111,7 +111,7 @@ final class ActiveCaloriesBurnedHealthDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
 
   @override
-  DeleteRecordsByIdsRequest<ActiveCaloriesBurnedRecord> deleteByIds(
+  DeleteRecordsByIdsRequest<ActiveEnergyBurnedRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -121,8 +121,7 @@ final class ActiveCaloriesBurnedHealthDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<ActiveCaloriesBurnedRecord>
-  deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest<ActiveEnergyBurnedRecord> deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

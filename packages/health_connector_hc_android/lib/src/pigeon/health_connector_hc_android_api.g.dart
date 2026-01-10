@@ -465,7 +465,7 @@ enum MindfulnessSessionTypeDto {
 
 /// Represents a health data type.
 enum HealthDataTypeDto {
-  /// Active calories burned data.
+  /// Active energy burned data.
   activeCaloriesBurned,
 
   /// Distance traveled data.
@@ -558,7 +558,7 @@ enum HealthDataTypeDto {
   /// Mindfulness session data.
   mindfulnessSession,
 
-  /// Total calories burned data.
+  /// Total energy burned data.
   totalCaloriesBurned,
 
   /// Bone mass data.
@@ -1991,8 +1991,8 @@ class Vo2MaxRecordDto extends HealthRecordDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
-  ActiveCaloriesBurnedRecordDto({
+class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
+  ActiveEnergyBurnedRecordDto({
     required this.energy,
     required this.endTime,
     this.id,
@@ -2002,7 +2002,7 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
     this.startZoneOffsetSeconds,
   });
 
-  /// Energy (calories) burned during the interval.
+  /// Energy burned during the interval.
   EnergyDto energy;
 
   /// End time in milliseconds since epoch (UTC).
@@ -2039,9 +2039,9 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static ActiveCaloriesBurnedRecordDto decode(Object result) {
+  static ActiveEnergyBurnedRecordDto decode(Object result) {
     result as List<Object?>;
-    return ActiveCaloriesBurnedRecordDto(
+    return ActiveEnergyBurnedRecordDto(
       energy: result[0]! as EnergyDto,
       endTime: result[1]! as int,
       id: result[2] as String?,
@@ -2055,7 +2055,7 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! ActiveCaloriesBurnedRecordDto ||
+    if (other is! ActiveEnergyBurnedRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -4248,9 +4248,9 @@ class NutritionRecordDto extends HealthRecordDto {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Represents a total calories burned record for platform transfer.
-class TotalCaloriesBurnedRecordDto extends HealthRecordDto {
-  TotalCaloriesBurnedRecordDto({
+/// Represents a total energy burned record for platform transfer.
+class TotalEnergyBurnedRecordDto extends HealthRecordDto {
+  TotalEnergyBurnedRecordDto({
     this.id,
     required this.metadata,
     required this.startTime,
@@ -4297,9 +4297,9 @@ class TotalCaloriesBurnedRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static TotalCaloriesBurnedRecordDto decode(Object result) {
+  static TotalEnergyBurnedRecordDto decode(Object result) {
     result as List<Object?>;
-    return TotalCaloriesBurnedRecordDto(
+    return TotalEnergyBurnedRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       startTime: result[2]! as int,
@@ -4313,7 +4313,7 @@ class TotalCaloriesBurnedRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! TotalCaloriesBurnedRecordDto ||
+    if (other is! TotalEnergyBurnedRecordDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -5597,7 +5597,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is Vo2MaxRecordDto) {
       buffer.putUint8(179);
       writeValue(buffer, value.encode());
-    } else if (value is ActiveCaloriesBurnedRecordDto) {
+    } else if (value is ActiveEnergyBurnedRecordDto) {
       buffer.putUint8(180);
       writeValue(buffer, value.encode());
     } else if (value is DistanceRecordDto) {
@@ -5681,7 +5681,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is NutritionRecordDto) {
       buffer.putUint8(207);
       writeValue(buffer, value.encode());
-    } else if (value is TotalCaloriesBurnedRecordDto) {
+    } else if (value is TotalEnergyBurnedRecordDto) {
       buffer.putUint8(208);
       writeValue(buffer, value.encode());
     } else if (value is BoneMassRecordDto) {
@@ -5892,7 +5892,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 179:
         return Vo2MaxRecordDto.decode(readValue(buffer)!);
       case 180:
-        return ActiveCaloriesBurnedRecordDto.decode(readValue(buffer)!);
+        return ActiveEnergyBurnedRecordDto.decode(readValue(buffer)!);
       case 181:
         return DistanceRecordDto.decode(readValue(buffer)!);
       case 182:
@@ -5948,7 +5948,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 207:
         return NutritionRecordDto.decode(readValue(buffer)!);
       case 208:
-        return TotalCaloriesBurnedRecordDto.decode(readValue(buffer)!);
+        return TotalEnergyBurnedRecordDto.decode(readValue(buffer)!);
       case 209:
         return BoneMassRecordDto.decode(readValue(buffer)!);
       case 210:

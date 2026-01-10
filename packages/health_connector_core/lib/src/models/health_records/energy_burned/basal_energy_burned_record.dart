@@ -2,7 +2,7 @@ part of '../health_record.dart';
 
 /// Represents basal energy burned over a time interval.
 ///
-/// This record captures the amount of energy (calories) burned by the body
+/// This record captures the amount of energy burned by the body
 /// at rest (Basal Metabolic Rate or BMR) during a specific time period.
 ///
 /// ## Platform Mapping
@@ -26,10 +26,10 @@ part of '../health_record.dart';
 /// ## See also
 ///
 /// - [BasalEnergyBurnedHealthDataType]
-/// - [ActiveCaloriesBurnedRecord]
-/// - [ActiveCaloriesBurnedHealthDataType]
-/// - [TotalCaloriesBurnedRecord]
-/// - [TotalCaloriesBurnedHealthDataType]
+/// - [ActiveEnergyBurnedRecord]
+/// - [ActiveEnergyBurnedHealthDataType]
+/// - [TotalEnergyBurnedRecord]
+/// - [TotalEnergyBurnedHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0
@@ -42,7 +42,7 @@ final class BasalEnergyBurnedRecord extends IntervalHealthRecord {
   ///
   /// - [startTime]: The start of the time interval (inclusive).
   /// - [endTime]: The end of the time interval (exclusive).
-  /// - [energy]: The amount of energy (calories) burned during the interval.
+  /// - [energy]: The amount of energy burned during the interval.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
@@ -61,7 +61,7 @@ final class BasalEnergyBurnedRecord extends IntervalHealthRecord {
     super.endZoneOffsetSeconds,
   });
 
-  /// The basal energy (calories) burned during the interval.
+  /// The basal energy burned during the interval.
   final Energy energy;
 
   /// Creates a copy with the given fields replaced with the new values.

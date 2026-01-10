@@ -1,23 +1,23 @@
 part of '../health_record.dart';
 
-/// Represents active calories burned over a time interval.
+/// Represents the total energy burned over a time interval.
 ///
-/// This record captures the amount of energy (calories) burned during physical
-/// activity over a specific time period. Active calories are those burned
-/// through exercise and movement, excluding basal metabolic rate.
+/// This record captures the total amount of energy burned during a
+/// specific time period, including both active calories (from activity) and
+/// basal metabolic rate (BMR).
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`ActiveCaloriesBurnedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ActiveCaloriesBurnedRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.activeEnergyBurned`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/activeenergyburned)
+/// - **Android Health Connect**: [`TotalEnergyBurnedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/TotalEnergyBurnedRecord)
+/// - **iOS HealthKit**: Not supported. iOS separates Active and Basal energy.
 ///
 /// ## Example
 ///
 /// ```dart
-/// final record = ActiveCaloriesBurnedRecord(
+/// final record = TotalEnergyBurnedRecord(
 ///   startTime: DateTime.now().subtract(Duration(hours: 1)),
 ///   endTime: DateTime.now(),
-///   energy: Energy.kilocalories(300), // 300 kcal burned
+///   energy: Energy.kilocalories(450), // 450 kcal total (active + basal)
 ///   metadata: Metadata.automaticallyRecorded(
 ///     device: Device.fromType(DeviceType.watch),
 ///   ),
@@ -26,19 +26,24 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [ActiveCaloriesBurnedHealthDataType]
+/// - [TotalEnergyBurnedHealthDataType]
+/// - [ActiveEnergyBurnedRecord]
+/// - [ActiveEnergyBurnedHealthDataType]
+/// - [BasalEnergyBurnedRecord]
+/// - [BasalEnergyBurnedHealthDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0
+@supportedOnHealthConnect
 @immutable
-final class ActiveCaloriesBurnedRecord extends IntervalHealthRecord {
-  /// Creates an active calories burned record.
+final class TotalEnergyBurnedRecord extends IntervalHealthRecord {
+  /// Creates a total energy burned record.
   ///
   /// ## Parameters
   ///
   /// - [startTime]: The start of the time interval (inclusive).
   /// - [endTime]: The end of the time interval (exclusive).
-  /// - [energy]: The amount of energy (calories) burned during the interval.
+  /// - [energy]: The total amount of energy/energy burned during the interval.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
@@ -47,7 +52,7 @@ final class ActiveCaloriesBurnedRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
-  const ActiveCaloriesBurnedRecord({
+  const TotalEnergyBurnedRecord({
     required super.startTime,
     required super.endTime,
     required super.metadata,
@@ -57,11 +62,11 @@ final class ActiveCaloriesBurnedRecord extends IntervalHealthRecord {
     super.endZoneOffsetSeconds,
   });
 
-  /// The energy (calories) burned during the interval.
+  /// The total energy burned during the interval.
   final Energy energy;
 
   /// Creates a copy with the given fields replaced with the new values.
-  ActiveCaloriesBurnedRecord copyWith({
+  TotalEnergyBurnedRecord copyWith({
     DateTime? startTime,
     DateTime? endTime,
     Energy? energy,
@@ -70,7 +75,7 @@ final class ActiveCaloriesBurnedRecord extends IntervalHealthRecord {
     int? startZoneOffsetSeconds,
     int? endZoneOffsetSeconds,
   }) {
-    return ActiveCaloriesBurnedRecord(
+    return TotalEnergyBurnedRecord(
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
       energy: energy ?? this.energy,
@@ -85,7 +90,7 @@ final class ActiveCaloriesBurnedRecord extends IntervalHealthRecord {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ActiveCaloriesBurnedRecord &&
+      other is TotalEnergyBurnedRecord &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           startTime == other.startTime &&

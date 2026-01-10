@@ -1,8 +1,8 @@
 part of '../health_data_type.dart';
 
-/// Energy (calories) nutrient data type.
+/// Energy nutrient data type.
 ///
-/// Tracks dietary energy (calories) intake, a total caloric intake from all
+/// Tracks dietary energy intake, a total caloric intake from all
 /// macronutrient sources.
 ///
 /// ## Measurement Unit
@@ -16,9 +16,9 @@ part of '../health_data_type.dart';
 ///
 /// ## Capabilities
 ///
-/// - Readable: Query energy (calories) intake records
-/// - Writeable: Write energy (calories) intake records
-/// - Aggregatable: Sum total energy (calories) intake
+/// - Readable: Query energy intake records
+/// - Writeable: Write energy intake records
+/// - Aggregatable: Sum total energy intake
 /// - Deletable: Delete records by IDs or time range
 ///
 /// ## See also
@@ -36,7 +36,7 @@ final class EnergyNutrientDataType
         WriteableHealthDataType,
         SumAggregatableHealthDataType<EnergyNutrientRecord, Energy>,
         DeletableHealthDataType<EnergyNutrientRecord> {
-  /// Creates a energy (calories) nutrient data type.
+  /// Creates a energy nutrient data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].

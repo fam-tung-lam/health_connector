@@ -16,7 +16,7 @@ void main() {
             [
               [
                 HealthDataTypeDto.activeCaloriesBurned,
-                HealthDataType.activeCaloriesBurned,
+                HealthDataType.activeEnergyBurned,
               ],
               [HealthDataTypeDto.distance, HealthDataType.distance],
               [HealthDataTypeDto.floorsClimbed, HealthDataType.floorsClimbed],
@@ -85,7 +85,7 @@ void main() {
               [HealthDataTypeDto.speedSeries, HealthDataType.speedSeries],
               [
                 HealthDataTypeDto.totalCaloriesBurned,
-                HealthDataType.totalCaloriesBurned,
+                HealthDataType.totalEnergyBurned,
               ],
               [
                 HealthDataTypeDto.mindfulnessSession,
@@ -112,7 +112,7 @@ void main() {
             'maps HealthDataType to HealthDataTypeDto',
             [
               [
-                HealthDataType.activeCaloriesBurned,
+                HealthDataType.activeEnergyBurned,
                 HealthDataTypeDto.activeCaloriesBurned,
               ],
               [HealthDataType.distance, HealthDataTypeDto.distance],
@@ -189,7 +189,7 @@ void main() {
               [HealthDataType.vo2Max, HealthDataTypeDto.vo2Max],
               [HealthDataType.bloodGlucose, HealthDataTypeDto.bloodGlucose],
               [
-                HealthDataType.totalCaloriesBurned,
+                HealthDataType.totalEnergyBurned,
                 HealthDataTypeDto.totalCaloriesBurned,
               ],
               [HealthDataType.speedSeries, HealthDataTypeDto.speedSeries],

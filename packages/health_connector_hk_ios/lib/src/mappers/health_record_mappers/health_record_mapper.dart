@@ -1,6 +1,6 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show
-        ActiveCaloriesBurnedRecord,
+        ActiveEnergyBurnedRecord,
         BasalEnergyBurnedRecord,
         BiotinNutrientRecord,
         BloodPressureRecord,
@@ -59,7 +59,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ThiaminNutrientRecord,
         TotalCarbohydrateNutrientRecord,
         TotalFatNutrientRecord,
-        TotalCaloriesBurnedRecord,
+        TotalEnergyBurnedRecord,
         VitaminANutrientRecord,
         VitaminB12NutrientRecord,
         VitaminB6NutrientRecord,
@@ -91,7 +91,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_f
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/body_mass_index_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/cycling_pedaling_cadence/cycling_pedaling_cadence_measurement_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/distance/distance_activity_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/energy_burned/active_calories_burned_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/energy_burned/active_energy_burned_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/energy_burned/basal_energy_burned_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/exercise/exercise_session_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/floors_climbed_record_mapper.dart';
@@ -155,7 +155,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/weight
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/wheelchair_pushes_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
     show
-        ActiveCaloriesBurnedRecordDto,
+        ActiveEnergyBurnedRecordDto,
         BasalEnergyBurnedRecordDto,
         BiotinNutrientRecordDto,
         BloodPressureRecordDto,
@@ -279,8 +279,8 @@ import 'package:meta/meta.dart' show internal;
 extension HealthRecordToDto on HealthRecord {
   HealthRecordDto toDto() {
     switch (this) {
-      case final ActiveCaloriesBurnedRecord record:
-        return ActiveCaloriesBurnedRecordToDto(record).toDto();
+      case final ActiveEnergyBurnedRecord record:
+        return ActiveEnergyBurnedRecordToDto(record).toDto();
       case final BasalEnergyBurnedRecord record:
         return BasalEnergyBurnedRecordToDto(record).toDto();
       case final FloorsClimbedRecord record:
@@ -451,10 +451,10 @@ extension HealthRecordToDto on HealthRecord {
           '$PowerSeriesRecord is not supported on iOS HealthKit. '
           'Use $CyclingPowerRecord instead.',
         );
-      case final TotalCaloriesBurnedRecord _:
+      case final TotalEnergyBurnedRecord _:
         throw UnsupportedError(
-          '$TotalCaloriesBurnedRecord is not supported on iOS HealthKit. '
-          'Use $ActiveCaloriesBurnedRecord + $BasalEnergyBurnedRecord.',
+          '$TotalEnergyBurnedRecord is not supported on iOS HealthKit. '
+          'Use $ActiveEnergyBurnedRecord + $BasalEnergyBurnedRecord.',
         );
       case final BoneMassRecord _:
         throw UnsupportedError(
@@ -483,8 +483,8 @@ extension HealthRecordToDto on HealthRecord {
 extension HealthRecordDtoToDomain on HealthRecordDto {
   HealthRecord toDomain() {
     switch (this) {
-      case final ActiveCaloriesBurnedRecordDto dto:
-        return ActiveCaloriesBurnedRecordDtoToDomain(dto).toDomain();
+      case final ActiveEnergyBurnedRecordDto dto:
+        return ActiveEnergyBurnedRecordDtoToDomain(dto).toDomain();
       case final BasalEnergyBurnedRecordDto dto:
         return BasalEnergyBurnedRecordDtoToDomain(dto).toDomain();
       case final FloorsClimbedRecordDto dto:

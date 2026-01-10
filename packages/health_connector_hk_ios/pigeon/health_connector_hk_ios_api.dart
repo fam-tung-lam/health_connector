@@ -752,7 +752,7 @@ enum MindfulnessSessionTypeDto {
 
 /// Represents a health data type.
 enum HealthDataTypeDto {
-  /// Active calories burned data.
+  /// Active energy burned data.
   activeCaloriesBurned,
 
   /// Distance traveled data (generic).
@@ -1129,7 +1129,7 @@ class HeartRateVariabilitySDNNRecordDto extends HealthRecordDto {
     required this.id,
     required this.time,
     required this.metadata,
-    required this.heartRateVariabilitySDNN,
+    required this.heartRateVariabilityMillis,
     this.zoneOffsetSeconds,
   });
 
@@ -1143,7 +1143,7 @@ class HeartRateVariabilitySDNNRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// The heart rate variability SDNN value in milliseconds.
-  final NumberDto heartRateVariabilitySDNN;
+  final double heartRateVariabilityMillis;
 
   /// Timezone offset in seconds for measurement time (optional).
   final int? zoneOffsetSeconds;
@@ -1277,8 +1277,8 @@ class MindfulnessSessionRecordDto extends HealthRecordDto {
   final int? endZoneOffsetSeconds;
 }
 
-class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
-  ActiveCaloriesBurnedRecordDto({
+class ActiveEnergyBurnedRecordDto extends HealthRecordDto {
+  ActiveEnergyBurnedRecordDto({
     required this.id,
     required this.startTime,
     required this.endTime,
@@ -1288,7 +1288,7 @@ class ActiveCaloriesBurnedRecordDto extends HealthRecordDto {
     this.endZoneOffsetSeconds,
   });
 
-  /// Energy (calories) burned during the interval.
+  /// Energy burned during the interval.
   final EnergyDto energy;
 
   /// End time in milliseconds since epoch (UTC).

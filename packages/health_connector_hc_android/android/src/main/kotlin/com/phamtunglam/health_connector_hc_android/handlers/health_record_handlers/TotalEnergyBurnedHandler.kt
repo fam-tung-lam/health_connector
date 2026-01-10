@@ -16,7 +16,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 /**
  * Handler for Total Calories Burned records.
  */
-internal class TotalCaloriesBurnedHandler(override val client: HealthConnectClient) :
+internal class TotalEnergyBurnedHandler(override val client: HealthConnectClient) :
     ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,

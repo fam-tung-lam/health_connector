@@ -4,14 +4,14 @@ import 'package:test/test.dart';
 
 void main() {
   group(
-    'ActiveCaloriesBurnedHealthDataType',
+    'TotalEnergyBurnedHealthDataType',
     () {
-      const dataType = HealthDataType.activeCaloriesBurned;
+      const dataType = HealthDataType.totalEnergyBurned;
 
       test(
         'type and capabilities are correctly defined',
         () {
-          expect(dataType, isA<ActiveCaloriesBurnedHealthDataType>());
+          expect(dataType, isA<TotalEnergyBurnedHealthDataType>());
           expect(dataType, isA<ReadableHealthDataType>());
           expect(dataType, isA<WriteableHealthDataType>());
           expect(dataType, isA<DeletableHealthDataType>());
@@ -22,10 +22,7 @@ void main() {
       test(
         'supported platforms are correctly defined',
         () {
-          expect(
-            dataType.supportedHealthPlatforms,
-            contains(HealthPlatform.appleHealth),
-          );
+          expect(dataType.supportedHealthPlatforms, hasLength(1));
           expect(
             dataType.supportedHealthPlatforms,
             contains(HealthPlatform.healthConnect),

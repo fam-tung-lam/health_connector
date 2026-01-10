@@ -18,7 +18,7 @@ part of '../health_data_type.dart';
 ///
 /// ## See also
 ///
-/// - [ActiveCaloriesBurnedRecord]
+/// - [ActiveEnergyBurnedRecord]
 ///
 /// {@category Health Data Types}
 @sinceV2_2_0

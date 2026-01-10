@@ -7,7 +7,7 @@ part of '../health_data_type.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`TotalCaloriesBurnedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/TotalCaloriesBurnedRecord)
+/// - **Android Health Connect**: [`TotalEnergyBurnedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/TotalEnergyBurnedRecord)
 /// - **iOS HealthKit**: Not supported. iOS separates Active and Basal energy.
 ///
 /// ## Capabilities
@@ -19,9 +19,9 @@ part of '../health_data_type.dart';
 ///
 /// ## See also
 ///
-/// - [TotalCaloriesBurnedRecord]
-/// - [ActiveCaloriesBurnedRecord]
-/// - [ActiveCaloriesBurnedHealthDataType]
+/// - [TotalEnergyBurnedRecord]
+/// - [ActiveEnergyBurnedRecord]
+/// - [ActiveEnergyBurnedHealthDataType]
 /// - [BasalEnergyBurnedRecord]
 /// - [BasalEnergyBurnedHealthDataType]
 ///
@@ -29,19 +29,19 @@ part of '../health_data_type.dart';
 @sinceV2_2_0
 @supportedOnHealthConnect
 @immutable
-final class TotalCaloriesBurnedHealthDataType
-    extends HealthDataType<TotalCaloriesBurnedRecord, Energy>
+final class TotalEnergyBurnedHealthDataType
+    extends HealthDataType<TotalEnergyBurnedRecord, Energy>
     implements
-        ReadableHealthDataType<TotalCaloriesBurnedRecord>,
+        ReadableHealthDataType<TotalEnergyBurnedRecord>,
         WriteableHealthDataType,
-        DeletableHealthDataType<TotalCaloriesBurnedRecord>,
-        SumAggregatableHealthDataType<TotalCaloriesBurnedRecord, Energy> {
-  /// Creates a total calories burned data type.
+        DeletableHealthDataType<TotalEnergyBurnedRecord>,
+        SumAggregatableHealthDataType<TotalEnergyBurnedRecord, Energy> {
+  /// Creates a total energy burned data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const TotalCaloriesBurnedHealthDataType();
+  const TotalEnergyBurnedHealthDataType();
 
   @override
   String get id => 'total_calories_burned';
@@ -49,7 +49,7 @@ final class TotalCaloriesBurnedHealthDataType
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TotalCaloriesBurnedHealthDataType &&
+      other is TotalEnergyBurnedHealthDataType &&
           runtimeType == other.runtimeType;
 
   @override
@@ -69,14 +69,14 @@ final class TotalCaloriesBurnedHealthDataType
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
-  ReadRecordByIdRequest<TotalCaloriesBurnedRecord> readById(
+  ReadRecordByIdRequest<TotalEnergyBurnedRecord> readById(
     HealthRecordId id,
   ) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsInTimeRangeRequest<TotalCaloriesBurnedRecord> readInTimeRange({
+  ReadRecordsInTimeRangeRequest<TotalEnergyBurnedRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     List<DataOrigin> dataOrigins = const [],
@@ -97,7 +97,7 @@ final class TotalCaloriesBurnedHealthDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<TotalCaloriesBurnedRecord, Energy> aggregateSum({
+  AggregateRequest<TotalEnergyBurnedRecord, Energy> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -116,7 +116,7 @@ final class TotalCaloriesBurnedHealthDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
 
   @override
-  DeleteRecordsByIdsRequest<TotalCaloriesBurnedRecord> deleteByIds(
+  DeleteRecordsByIdsRequest<TotalEnergyBurnedRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -126,7 +126,7 @@ final class TotalCaloriesBurnedHealthDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<TotalCaloriesBurnedRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest<TotalEnergyBurnedRecord> deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

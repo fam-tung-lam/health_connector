@@ -3,7 +3,7 @@ import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_form_fields/health_record_value_write_form_field.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_forms/interval_health_record_write_form.dart';
 
-/// Form widget for total calories burned records.
+/// Form widget for total energy burned records.
 @immutable
 final class TotalCaloriesBurnedWriteForm extends IntervalHealthRecordWriteForm {
   const TotalCaloriesBurnedWriteForm({
@@ -16,7 +16,7 @@ final class TotalCaloriesBurnedWriteForm extends IntervalHealthRecordWriteForm {
   TotalCaloriesBurnedFormState createState() => TotalCaloriesBurnedFormState();
 }
 
-/// State for total calories burned form widget.
+/// State for total energy burned form widget.
 final class TotalCaloriesBurnedFormState
     extends IntervalHealthRecordFormState<TotalCaloriesBurnedWriteForm> {
   @override
@@ -25,7 +25,7 @@ final class TotalCaloriesBurnedFormState
       ...super.buildFields(context),
       const SizedBox(height: 16),
       HealthRecordValueWriteFormField(
-        dataType: HealthDataType.totalCaloriesBurned,
+        dataType: HealthDataType.totalEnergyBurned,
         onChanged: (newValue) {
           setState(() {
             value = newValue;
@@ -37,7 +37,7 @@ final class TotalCaloriesBurnedFormState
 
   @override
   HealthRecord buildRecord() {
-    return TotalCaloriesBurnedRecord(
+    return TotalEnergyBurnedRecord(
       startTime: startDateTime!,
       endTime: endDateTime!,
       energy: value! as Energy,

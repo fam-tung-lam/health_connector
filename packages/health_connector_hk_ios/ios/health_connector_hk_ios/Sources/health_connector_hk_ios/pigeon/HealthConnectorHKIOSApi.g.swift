@@ -589,7 +589,7 @@ public enum MindfulnessSessionTypeDto: Int {
 
 /// Represents a health data type.
 public enum HealthDataTypeDto: Int {
-  /// Active calories burned data.
+  /// Active energy burned data.
   case activeCaloriesBurned = 0
   /// Distance traveled data (generic).
   case distance = 1
@@ -1556,7 +1556,7 @@ public struct HeartRateVariabilitySDNNRecordDto: HealthRecordDto {
   /// Metadata about this record.
   var metadata: MetadataDto
   /// The heart rate variability SDNN value in milliseconds.
-  var heartRateVariabilitySDNN: NumberDto
+  var heartRateVariabilityMillis: Double
   /// Timezone offset in seconds for measurement time (optional).
   var zoneOffsetSeconds: Int64? = nil
 
@@ -1566,14 +1566,14 @@ public struct HeartRateVariabilitySDNNRecordDto: HealthRecordDto {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let time = pigeonVar_list[1] as! Int64
     let metadata = pigeonVar_list[2] as! MetadataDto
-    let heartRateVariabilitySDNN = pigeonVar_list[3] as! NumberDto
+    let heartRateVariabilityMillis = pigeonVar_list[3] as! Double
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
     return HeartRateVariabilitySDNNRecordDto(
       id: id,
       time: time,
       metadata: metadata,
-      heartRateVariabilitySDNN: heartRateVariabilitySDNN,
+      heartRateVariabilityMillis: heartRateVariabilityMillis,
       zoneOffsetSeconds: zoneOffsetSeconds
     )
   }
@@ -1582,7 +1582,7 @@ public struct HeartRateVariabilitySDNNRecordDto: HealthRecordDto {
       id,
       time,
       metadata,
-      heartRateVariabilitySDNN,
+      heartRateVariabilityMillis,
       zoneOffsetSeconds,
     ]
   }
@@ -1799,8 +1799,8 @@ public struct MindfulnessSessionRecordDto: HealthRecordDto {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
-public struct ActiveCaloriesBurnedRecordDto: HealthRecordDto {
-  /// Energy (calories) burned during the interval.
+public struct ActiveEnergyBurnedRecordDto: HealthRecordDto {
+  /// Energy burned during the interval.
   var energy: EnergyDto
   /// End time in milliseconds since epoch (UTC).
   var endTime: Int64
@@ -1817,7 +1817,7 @@ public struct ActiveCaloriesBurnedRecordDto: HealthRecordDto {
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> ActiveCaloriesBurnedRecordDto? {
+  static func fromList(_ pigeonVar_list: [Any?]) -> ActiveEnergyBurnedRecordDto? {
     let energy = pigeonVar_list[0] as! EnergyDto
     let endTime = pigeonVar_list[1] as! Int64
     let id: String? = nilOrValue(pigeonVar_list[2])
@@ -1826,7 +1826,7 @@ public struct ActiveCaloriesBurnedRecordDto: HealthRecordDto {
     let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
-    return ActiveCaloriesBurnedRecordDto(
+    return ActiveEnergyBurnedRecordDto(
       energy: energy,
       endTime: endTime,
       id: id,
@@ -1847,7 +1847,7 @@ public struct ActiveCaloriesBurnedRecordDto: HealthRecordDto {
       endZoneOffsetSeconds,
     ]
   }
-  public static func == (lhs: ActiveCaloriesBurnedRecordDto, rhs: ActiveCaloriesBurnedRecordDto) -> Bool {
+  public static func == (lhs: ActiveEnergyBurnedRecordDto, rhs: ActiveEnergyBurnedRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
   public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
@@ -6083,7 +6083,7 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 178:
       return MindfulnessSessionRecordDto.fromList(self.readValue() as! [Any?])
     case 179:
-      return ActiveCaloriesBurnedRecordDto.fromList(self.readValue() as! [Any?])
+      return ActiveEnergyBurnedRecordDto.fromList(self.readValue() as! [Any?])
     case 180:
       return DistanceActivityRecordDto.fromList(self.readValue() as! [Any?])
     case 181:
@@ -6394,7 +6394,7 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? MindfulnessSessionRecordDto {
       super.writeByte(178)
       super.writeValue(value.toList())
-    } else if let value = value as? ActiveCaloriesBurnedRecordDto {
+    } else if let value = value as? ActiveEnergyBurnedRecordDto {
       super.writeByte(179)
       super.writeValue(value.toList())
     } else if let value = value as? DistanceActivityRecordDto {
