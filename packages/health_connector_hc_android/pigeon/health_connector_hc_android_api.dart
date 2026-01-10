@@ -1577,7 +1577,7 @@ class PowerSeriesRecordDto extends HealthRecordDto {
 }
 
 /// Sleep stage type enum.
-enum SleepStageTypeDto {
+enum SleepStageDto {
   unknown,
   awake,
   sleeping,
@@ -1589,8 +1589,8 @@ enum SleepStageTypeDto {
 }
 
 /// DTO for a sleep stage value.
-class SleepStageDto {
-  SleepStageDto({
+class SleepStageSampleDto {
+  SleepStageSampleDto({
     required this.startTime,
     required this.endTime,
     required this.stage,
@@ -1603,7 +1603,7 @@ class SleepStageDto {
   final int endTime;
 
   /// The sleep stage type.
-  final SleepStageTypeDto stage;
+  final SleepStageDto stage;
 }
 
 /// DTO for sleep session.
@@ -1629,7 +1629,7 @@ class SleepSessionRecordDto extends HealthRecordDto {
   final int? endZoneOffsetSeconds;
   final String? title;
   final String? notes;
-  final List<SleepStageDto> stages;
+  final List<SleepStageSampleDto> stages;
 }
 
 /// Represents a sexual activity record for platform transfer.

@@ -619,7 +619,7 @@ enum class HealthDataTypeDto(val raw: Int) {
 }
 
 /** Sleep stage type enum. */
-enum class SleepStageTypeDto(val raw: Int) {
+enum class SleepStageDto(val raw: Int) {
   UNKNOWN(0),
   AWAKE(1),
   SLEEPING(2),
@@ -630,7 +630,7 @@ enum class SleepStageTypeDto(val raw: Int) {
   IN_BED(7);
 
   companion object {
-    fun ofRaw(raw: Int): SleepStageTypeDto? {
+    fun ofRaw(raw: Int): SleepStageDto? {
       return values().firstOrNull { it.raw == raw }
     }
   }
@@ -2926,21 +2926,21 @@ data class PowerSeriesRecordDto (
  *
  * Generated class from Pigeon that represents data sent in messages.
  */
-data class SleepStageDto (
+data class SleepStageSampleDto (
   /** Start time (milliseconds since epoch). */
   val startTime: Long,
   /** End time (milliseconds since epoch). */
   val endTime: Long,
   /** The sleep stage type. */
-  val stage: SleepStageTypeDto
+  val stage: SleepStageDto
 )
  {
   companion object {
-    fun fromList(pigeonVar_list: List<Any?>): SleepStageDto {
+    fun fromList(pigeonVar_list: List<Any?>): SleepStageSampleDto {
       val startTime = pigeonVar_list[0] as Long
       val endTime = pigeonVar_list[1] as Long
-      val stage = pigeonVar_list[2] as SleepStageTypeDto
-      return SleepStageDto(startTime, endTime, stage)
+      val stage = pigeonVar_list[2] as SleepStageDto
+      return SleepStageSampleDto(startTime, endTime, stage)
     }
   }
   fun toList(): List<Any?> {
@@ -2951,7 +2951,7 @@ data class SleepStageDto (
     )
   }
   override fun equals(other: Any?): Boolean {
-    if (other !is SleepStageDto) {
+    if (other !is SleepStageSampleDto) {
       return false
     }
     if (this === other) {
@@ -2977,7 +2977,7 @@ data class SleepSessionRecordDto (
   val endZoneOffsetSeconds: Long? = null,
   val title: String? = null,
   val notes: String? = null,
-  val stages: List<SleepStageDto>
+  val stages: List<SleepStageSampleDto>
 ) : HealthRecordDto()
  {
   companion object {
@@ -2990,7 +2990,7 @@ data class SleepSessionRecordDto (
       val endZoneOffsetSeconds = pigeonVar_list[5] as Long?
       val title = pigeonVar_list[6] as String?
       val notes = pigeonVar_list[7] as String?
-      val stages = pigeonVar_list[8] as List<SleepStageDto>
+      val stages = pigeonVar_list[8] as List<SleepStageSampleDto>
       return SleepSessionRecordDto(id, metadata, startTime, endTime, startZoneOffsetSeconds, endZoneOffsetSeconds, title, notes, stages)
     }
   }
@@ -4378,7 +4378,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       146.toByte() -> {
         return (readValue(buffer) as Long?)?.let {
-          SleepStageTypeDto.ofRaw(it.toInt())
+          SleepStageDto.ofRaw(it.toInt())
         }
       }
       147.toByte() -> {
@@ -4658,7 +4658,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
       }
       202.toByte() -> {
         return (readValue(buffer) as? List<Any?>)?.let {
-          SleepStageDto.fromList(it)
+          SleepStageSampleDto.fromList(it)
         }
       }
       203.toByte() -> {
@@ -4859,7 +4859,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(145)
         writeValue(stream, value.raw.toLong())
       }
-      is SleepStageTypeDto -> {
+      is SleepStageDto -> {
         stream.write(146)
         writeValue(stream, value.raw.toLong())
       }
@@ -5083,7 +5083,7 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
         stream.write(201)
         writeValue(stream, value.toList())
       }
-      is SleepStageDto -> {
+      is SleepStageSampleDto -> {
         stream.write(202)
         writeValue(stream, value.toList())
       }

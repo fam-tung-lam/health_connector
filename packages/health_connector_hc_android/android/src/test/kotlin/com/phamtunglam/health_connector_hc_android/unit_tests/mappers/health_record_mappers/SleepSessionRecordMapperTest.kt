@@ -9,7 +9,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepSessionRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.SleepStageDto
-import com.phamtunglam.health_connector_hc_android.pigeon.SleepStageTypeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.SleepStageSampleDto
 import io.kotest.matchers.shouldBe
 import java.time.Instant
 import java.time.ZoneOffset
@@ -62,7 +62,7 @@ class SleepSessionRecordMapperTest {
         result.title shouldBe TEST_TITLE
         result.notes shouldBe TEST_NOTES
         result.stages.size shouldBe 1
-        result.stages[0].stage shouldBe SleepStageTypeDto.DEEP
+        result.stages[0].stage shouldBe SleepStageDto.DEEP
         result.stages[0].startTime shouldBe TEST_STAGE_START
         result.stages[0].endTime shouldBe TEST_STAGE_END
     }
@@ -85,10 +85,10 @@ class SleepSessionRecordMapperTest {
                 deviceType = DeviceTypeDto.PHONE,
             ),
             stages = listOf(
-                SleepStageDto(
+                SleepStageSampleDto(
                     startTime = TEST_STAGE_START,
                     endTime = TEST_STAGE_END,
-                    stage = SleepStageTypeDto.LIGHT,
+                    stage = SleepStageDto.LIGHT,
                 ),
             ),
         )

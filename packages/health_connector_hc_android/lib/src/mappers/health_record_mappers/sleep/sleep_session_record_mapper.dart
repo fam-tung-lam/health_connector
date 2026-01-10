@@ -1,10 +1,14 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
     show SleepSessionRecord, HealthRecordId, sinceV1_0_0, DateTimeToDto;
+import 'package:health_connector_core/health_connector_core_internal.dart'
+    show SleepStageSample, sinceV1_0_0;
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_record_mappers/sleep/sleep_stage_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
     show SleepSessionRecordDto;
+import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
+    show SleepStageSampleDto;
 import 'package:meta/meta.dart' show internal;
 
 /// Converts [SleepSessionRecord] to [SleepSessionRecordDto].
@@ -45,6 +49,32 @@ extension SleepSessionRecordDtoToDomain on SleepSessionRecordDto {
       samples: stages.map((s) => s.toDomain()).toList(),
       title: title,
       notes: notes,
+    );
+  }
+}
+
+/// Converts [SleepStageSample] to [SleepStageSampleDto].
+@sinceV1_0_0
+@internal
+extension SleepStageSampleDomainToDto on SleepStageSample {
+  SleepStageSampleDto toDto() {
+    return SleepStageSampleDto(
+      startTime: startTime.millisecondsSinceEpoch,
+      endTime: endTime.millisecondsSinceEpoch,
+      stage: stageType.toDto(),
+    );
+  }
+}
+
+/// Converts [SleepStageSampleDto] to [SleepStageSample].
+@sinceV1_0_0
+@internal
+extension SleepStageSampleDtoToDomain on SleepStageSampleDto {
+  SleepStageSample toDomain() {
+    return SleepStageSample(
+      startTime: DateTime.fromMillisecondsSinceEpoch(startTime, isUtc: true),
+      endTime: DateTime.fromMillisecondsSinceEpoch(endTime, isUtc: true),
+      stageType: stage.toDomain(),
     );
   }
 }

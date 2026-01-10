@@ -7,7 +7,7 @@
 /// - **iOS HealthKit**: Maps to `HKCategoryValueSleepAnalysis` enum values
 ///
 /// {@category Health Records}
-enum SleepStageType {
+enum SleepStage {
   /// Unknown sleep stage (fallback).
   unknown,
 

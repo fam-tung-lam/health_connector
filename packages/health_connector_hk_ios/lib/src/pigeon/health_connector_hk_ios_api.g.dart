@@ -258,7 +258,7 @@ enum DistanceActivityTypeDto {
 /// Represents the type of sleep stage.
 ///
 /// Maps to iOS HKCategoryValueSleepAnalysis values.
-enum SleepStageTypeDto {
+enum SleepStageDto {
   /// Unknown or unspecified sleep stage.
   unknown,
 
@@ -4302,7 +4302,7 @@ class SleepStageRecordDto extends HealthRecordDto {
   MetadataDto metadata;
 
   /// The sleep stage type for this record.
-  SleepStageTypeDto stageType;
+  SleepStageDto stageType;
 
   /// Timezone offset in seconds for start time (optional).
   int? startZoneOffsetSeconds;
@@ -4333,7 +4333,7 @@ class SleepStageRecordDto extends HealthRecordDto {
       startTime: result[1]! as int,
       endTime: result[2]! as int,
       metadata: result[3]! as MetadataDto,
-      stageType: result[4]! as SleepStageTypeDto,
+      stageType: result[4]! as SleepStageDto,
       startZoneOffsetSeconds: result[5] as int?,
       endZoneOffsetSeconds: result[6] as int?,
     );
@@ -8011,7 +8011,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is DistanceActivityTypeDto) {
       buffer.putUint8(137);
       writeValue(buffer, value.index);
-    } else if (value is SleepStageTypeDto) {
+    } else if (value is SleepStageDto) {
       buffer.putUint8(138);
       writeValue(buffer, value.index);
     } else if (value is CervicalMucusAppearanceDto) {
@@ -8410,7 +8410,7 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : DistanceActivityTypeDto.values[value];
       case 138:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : SleepStageTypeDto.values[value];
+        return value == null ? null : SleepStageDto.values[value];
       case 139:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : CervicalMucusAppearanceDto.values[value];

@@ -25,7 +25,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.phone),
                 ),
-                stageType: SleepStageType.deep,
+                stageType: SleepStage.deep,
               );
 
               final dto = record.toDto();
@@ -36,7 +36,7 @@ void main() {
                 FakeData.fakeStartTime.millisecondsSinceEpoch,
               );
               expect(dto.endTime, FakeData.fakeEndTime.millisecondsSinceEpoch);
-              expect(dto.stageType, SleepStageTypeDto.deep);
+              expect(dto.stageType, SleepStageDto.deep);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -63,7 +63,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                stageType: SleepStageTypeDto.rem,
+                stageType: SleepStageDto.rem,
               );
 
               final record = dto.toDomain();
@@ -71,7 +71,7 @@ void main() {
               expect(record.id.value, FakeData.fakeId);
               expect(record.startTime, FakeData.fakeStartTime);
               expect(record.endTime, FakeData.fakeEndTime);
-              expect(record.stageType, SleepStageType.rem);
+              expect(record.stageType, SleepStage.rem);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
@@ -95,7 +95,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                stageType: SleepStageTypeDto.light,
+                stageType: SleepStageDto.light,
               );
 
               final record = dto.toDomain();

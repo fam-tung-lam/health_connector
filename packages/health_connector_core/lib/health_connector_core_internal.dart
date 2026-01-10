@@ -38,7 +38,7 @@ export 'src/models/health_records/blood_pressure/blood_pressure_measurement_loca
 export 'src/models/health_records/cycling_pedaling_cadence/cycling_pedaling_cadence_measurement.dart';
 export 'src/models/health_records/health_record.dart'
     hide MacronutrientRecord, MineralNutrientRecord, VitaminNutrientRecord;
-export 'src/models/health_records/sleep/sleep_stage_type.dart';
+export 'src/models/health_records/sleep/sleep_stage.dart';
 export 'src/models/measurement_units/measurement_unit.dart';
 export 'src/models/metadata/metadata.dart';
 export 'src/models/permissions/permission.dart';

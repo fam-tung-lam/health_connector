@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart'
-    show SleepStage;
+    show SleepStageSample;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/date_formatter.dart';
 import 'package:health_connector_toolbox/src/common/utils/extensions/sleep_stage_type_extension.dart';
@@ -18,7 +18,7 @@ final class SleepSessionRecordSleepStagesList extends StatelessWidget {
   });
 
   /// The list of sleep stages to display.
-  final List<SleepStage> stages;
+  final List<SleepStageSample> stages;
 
   /// Formats a duration as a human-readable string (e.g., "2h 30m").
   static String _formatDuration(Duration duration) {
@@ -35,7 +35,7 @@ final class SleepSessionRecordSleepStagesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HealthSeriesRecordSampleList<SleepStage>(
+    return HealthSeriesRecordSampleList<SleepStageSample>(
       title: AppTexts.sleepStages,
       samples: stages,
       emptyMessage: AppTexts.noSleepStagesAvailable,
