@@ -14,7 +14,7 @@ export 'src/models/health_data_types/health_data_type.dart'
     hide
         MineralNutrientDataType,
         NutrientDataType,
-        VitaminNutrientDataType,
+        DietaryVitaminDataType,
         MacronutrientDataType;
 export 'src/models/health_platform.dart';
 export 'src/models/health_platform_features/health_platform_feature.dart';
@@ -22,9 +22,9 @@ export 'src/models/health_records/blood_pressure/blood_pressure_body_position.da
 export 'src/models/health_records/blood_pressure/blood_pressure_measurement_location.dart';
 export 'src/models/health_records/health_record.dart'
     hide
-        MacronutrientRecord,
-        MineralNutrientRecord,
-        VitaminNutrientRecord,
+        DietaryMacronutrientRecord,
+        DietaryMineralRecord,
+        DietaryVitaminRecord,
         SpeedActivityRecord,
         DistanceActivityRecord;
 export 'src/models/health_records/sleep/sleep_stage.dart';

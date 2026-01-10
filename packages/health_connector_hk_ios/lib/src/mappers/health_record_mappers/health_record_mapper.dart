@@ -2,7 +2,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
     show
         ActiveEnergyBurnedRecord,
         BasalEnergyBurnedRecord,
-        BiotinNutrientRecord,
+        DietaryBiotinRecord,
         BloodPressureRecord,
         BodyFatPercentageRecord,
         BodyMassIndexRecord,
@@ -11,19 +11,19 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         BoneMassRecord,
         BodyWaterMassRecord,
         CervicalMucusRecord,
-        CaffeineNutrientRecord,
-        CalciumNutrientRecord,
-        CholesterolNutrientRecord,
+        DietaryCaffeineRecord,
+        DietaryCalciumRecord,
+        DietaryCholesterolRecord,
         CyclingPedalingCadenceRecord,
         CyclingPedalingCadenceSeriesRecord,
         CyclingPowerRecord,
-        DietaryFiberNutrientRecord,
+        DietaryFiberRecord,
         DiastolicBloodPressureRecord,
         DistanceActivityRecord,
         DistanceRecord,
         DietaryEnergyConsumedRecord,
         FloorsClimbedRecord,
-        FolateNutrientRecord,
+        DietaryFolateRecord,
         HealthRecord,
         HeartRateRecord,
         HeartRateSeriesRecord,
@@ -31,46 +31,46 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         HeartRateVariabilityRMSSDRecord,
         HeightRecord,
         HydrationRecord,
-        IronNutrientRecord,
+        DietaryIronRecord,
         LeanBodyMassRecord,
-        MagnesiumNutrientRecord,
-        ManganeseNutrientRecord,
-        MonounsaturatedFatNutrientRecord,
-        NiacinNutrientRecord,
+        DietaryMagnesiumRecord,
+        DietaryManganeseRecord,
+        DietaryMonounsaturatedFatRecord,
+        DietaryNiacinRecord,
         NutritionRecord,
-        PantothenicAcidNutrientRecord,
-        PhosphorusNutrientRecord,
-        PolyunsaturatedFatNutrientRecord,
-        PotassiumNutrientRecord,
+        DietaryPantothenicAcidRecord,
+        DietaryPhosphorusRecord,
+        DietaryPolyunsaturatedFatRecord,
+        DietaryPotassiumRecord,
         PowerSeriesRecord,
-        ProteinNutrientRecord,
+        DietaryProteinRecord,
         RestingHeartRateRecord,
-        RiboflavinNutrientRecord,
-        SaturatedFatNutrientRecord,
-        SeleniumNutrientRecord,
+        DietaryRiboflavinRecord,
+        DietarySaturatedFatRecord,
+        DietarySeleniumRecord,
         SexualActivityRecord,
         SleepSessionRecord,
         SleepStageRecord,
         MindfulnessSessionRecord,
-        SodiumNutrientRecord,
+        DietarySodiumRecord,
         StepsRecord,
-        SugarNutrientRecord,
+        DietarySugarRecord,
         SystolicBloodPressureRecord,
-        ThiaminNutrientRecord,
-        TotalCarbohydrateNutrientRecord,
-        TotalFatNutrientRecord,
+        DietaryThiaminRecord,
+        DietaryTotalCarbohydrateRecord,
+        DietaryTotalFatRecord,
         TotalEnergyBurnedRecord,
-        VitaminANutrientRecord,
-        VitaminB12NutrientRecord,
-        VitaminB6NutrientRecord,
-        VitaminCNutrientRecord,
-        VitaminDNutrientRecord,
-        VitaminENutrientRecord,
-        VitaminKNutrientRecord,
+        DietaryVitaminARecord,
+        DietaryVitaminB12Record,
+        DietaryVitaminB6Record,
+        DietaryVitaminCRecord,
+        DietaryVitaminDRecord,
+        DietaryVitaminERecord,
+        DietaryVitaminKRecord,
         WeightRecord,
         WaistCircumferenceRecord,
         WheelchairPushesRecord,
-        ZincNutrientRecord,
+        DietaryZincRecord,
         IntermenstrualBleedingRecord,
         OvulationTestRecord,
         OxygenSaturationRecord,
@@ -106,40 +106,40 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstr
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/menstrual_flow/menstrual_flow_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/menstruation/ovulation_test_result/ovulation_test_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/mindfulness/mindfulness_session_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/biotin_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/caffeine_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/calcium_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/cholesterol_nutrient_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_biotin_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_caffeine_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_calcium_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_cholesterol_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_energy_consumed_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_fiber_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/folate_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/iron_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/magnesium_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/manganese_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/monounsaturated_fat_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/niacin_nutrient_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_fiber_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_folate_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_iron_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_magnesium_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_manganese_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_monounsaturated_fat_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_niacin_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_pantothenic_acid_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_phosphorus_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_polyunsaturated_fat_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_potassium_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_protein_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_riboflavin_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_saturated_fat_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_selenium_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_sodium_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_sugar_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_thiamin_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_total_carbohydrate_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_total_fat_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_vitamin_a_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_vitamin_b12_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_vitamin_b6_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_vitamin_c_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_vitamin_d_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_vitamin_e_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_vitamin_k_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_zinc_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/nutrition_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/pantothenic_acid_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/phosphorus_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/polyunsaturated_fat_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/potassium_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/protein_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/riboflavin_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/saturated_fat_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/selenium_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/sodium_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/sugar_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/thiamin_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/total_carbohydrate_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/total_fat_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/vitamin_a_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/vitamin_b12_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/vitamin_b6_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/vitamin_c_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/vitamin_d_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/vitamin_e_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/vitamin_k_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/zinc_nutrient_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/oxygen_saturation_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/power/cycling_power_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/respiratory_rate_record_mapper.dart';
@@ -157,66 +157,66 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
     show
         ActiveEnergyBurnedRecordDto,
         BasalEnergyBurnedRecordDto,
-        BiotinNutrientRecordDto,
+        DietaryBiotinRecordDto,
         BloodPressureRecordDto,
         BodyFatPercentageRecordDto,
         BodyMassIndexRecordDto,
         BodyTemperatureRecordDto,
         BasalBodyTemperatureRecordDto,
         CervicalMucusRecordDto,
-        CaffeineNutrientRecordDto,
-        CalciumNutrientRecordDto,
-        CholesterolNutrientRecordDto,
+        DietaryCaffeineRecordDto,
+        DietaryCalciumRecordDto,
+        DietaryCholesterolRecordDto,
         CyclingPedalingCadenceRecordDto,
         CyclingPowerRecordDto,
         DiastolicBloodPressureRecordDto,
-        DietaryFiberNutrientRecordDto,
+        DietaryFiberRecordDto,
         DistanceActivityRecordDto,
         DietaryEnergyConsumedRecordDto,
         FloorsClimbedRecordDto,
-        FolateNutrientRecordDto,
+        DietaryFolateRecordDto,
         HealthRecordDto,
         HeartRateRecordDto,
         HeartRateVariabilitySDNNRecordDto,
         HeightRecordDto,
         HydrationRecordDto,
-        IronNutrientRecordDto,
+        DietaryIronRecordDto,
         LeanBodyMassRecordDto,
-        MagnesiumNutrientRecordDto,
-        ManganeseNutrientRecordDto,
-        MonounsaturatedFatNutrientRecordDto,
-        NiacinNutrientRecordDto,
+        DietaryMagnesiumRecordDto,
+        DietaryManganeseRecordDto,
+        DietaryMonounsaturatedFatRecordDto,
+        DietaryNiacinRecordDto,
         NutritionRecordDto,
-        PantothenicAcidNutrientRecordDto,
-        PhosphorusNutrientRecordDto,
-        PolyunsaturatedFatNutrientRecordDto,
-        PotassiumNutrientRecordDto,
-        ProteinNutrientRecordDto,
+        DietaryPantothenicAcidRecordDto,
+        DietaryPhosphorusRecordDto,
+        DietaryPolyunsaturatedFatRecordDto,
+        DietaryPotassiumRecordDto,
+        DietaryProteinRecordDto,
         RestingHeartRateRecordDto,
-        RiboflavinNutrientRecordDto,
-        SaturatedFatNutrientRecordDto,
-        SeleniumNutrientRecordDto,
+        DietaryRiboflavinRecordDto,
+        DietarySaturatedFatRecordDto,
+        DietarySeleniumRecordDto,
         SexualActivityRecordDto,
         SleepStageRecordDto,
         MindfulnessSessionRecordDto,
-        SodiumNutrientRecordDto,
+        DietarySodiumRecordDto,
         StepsRecordDto,
-        SugarNutrientRecordDto,
+        DietarySugarRecordDto,
         SystolicBloodPressureRecordDto,
-        ThiaminNutrientRecordDto,
-        TotalCarbohydrateNutrientRecordDto,
-        TotalFatNutrientRecordDto,
-        VitaminANutrientRecordDto,
-        VitaminB12NutrientRecordDto,
-        VitaminB6NutrientRecordDto,
-        VitaminCNutrientRecordDto,
-        VitaminDNutrientRecordDto,
-        VitaminENutrientRecordDto,
-        VitaminKNutrientRecordDto,
+        DietaryThiaminRecordDto,
+        DietaryTotalCarbohydrateRecordDto,
+        DietaryTotalFatRecordDto,
+        DietaryVitaminARecordDto,
+        DietaryVitaminB12RecordDto,
+        DietaryVitaminB6RecordDto,
+        DietaryVitaminCRecordDto,
+        DietaryVitaminDRecordDto,
+        DietaryVitaminERecordDto,
+        DietaryVitaminKRecordDto,
         WeightRecordDto,
         WaistCircumferenceRecordDto,
         WheelchairPushesRecordDto,
-        ZincNutrientRecordDto,
+        DietaryZincRecordDto,
         IntermenstrualBleedingRecordDto,
         OvulationTestRecordDto,
         OxygenSaturationRecordDto,
@@ -317,70 +317,70 @@ extension HealthRecordToDto on HealthRecord {
         return NutritionRecordToDto(record).toDto();
       case final DietaryEnergyConsumedRecord record:
         return DietaryEnergyConsumedRecordToDto(record).toDto();
-      case final CaffeineNutrientRecord record:
-        return CaffeineNutrientRecordToDto(record).toDto();
-      case final ProteinNutrientRecord record:
-        return ProteinNutrientRecordToDto(record).toDto();
-      case final TotalCarbohydrateNutrientRecord record:
-        return TotalCarbohydrateNutrientRecordToDto(record).toDto();
-      case final TotalFatNutrientRecord record:
-        return TotalFatNutrientRecordToDto(record).toDto();
-      case final SaturatedFatNutrientRecord record:
-        return SaturatedFatNutrientRecordToDto(record).toDto();
-      case final MonounsaturatedFatNutrientRecord record:
-        return MonounsaturatedFatNutrientRecordToDto(record).toDto();
-      case final PolyunsaturatedFatNutrientRecord record:
-        return PolyunsaturatedFatNutrientRecordToDto(record).toDto();
-      case final CholesterolNutrientRecord record:
-        return CholesterolNutrientRecordToDto(record).toDto();
-      case final DietaryFiberNutrientRecord record:
-        return DietaryFiberNutrientRecordToDto(record).toDto();
-      case final SugarNutrientRecord record:
-        return SugarNutrientRecordToDto(record).toDto();
-      case final VitaminANutrientRecord record:
-        return VitaminANutrientRecordToDto(record).toDto();
-      case final VitaminB6NutrientRecord record:
-        return VitaminB6NutrientRecordToDto(record).toDto();
-      case final VitaminB12NutrientRecord record:
-        return VitaminB12NutrientRecordToDto(record).toDto();
-      case final VitaminCNutrientRecord record:
-        return VitaminCNutrientRecordToDto(record).toDto();
-      case final VitaminDNutrientRecord record:
-        return VitaminDNutrientRecordToDto(record).toDto();
-      case final VitaminENutrientRecord record:
-        return VitaminENutrientRecordToDto(record).toDto();
-      case final VitaminKNutrientRecord record:
-        return VitaminKNutrientRecordToDto(record).toDto();
-      case final ThiaminNutrientRecord record:
-        return ThiaminNutrientRecordToDto(record).toDto();
-      case final RiboflavinNutrientRecord record:
-        return RiboflavinNutrientRecordToDto(record).toDto();
-      case final NiacinNutrientRecord record:
-        return NiacinNutrientRecordToDto(record).toDto();
-      case final FolateNutrientRecord record:
-        return FolateNutrientRecordToDto(record).toDto();
-      case final BiotinNutrientRecord record:
-        return BiotinNutrientRecordToDto(record).toDto();
-      case final PantothenicAcidNutrientRecord record:
-        return PantothenicAcidNutrientRecordToDto(record).toDto();
-      case final CalciumNutrientRecord record:
-        return CalciumNutrientRecordToDto(record).toDto();
-      case final IronNutrientRecord record:
-        return IronNutrientRecordToDto(record).toDto();
-      case final MagnesiumNutrientRecord record:
-        return MagnesiumNutrientRecordToDto(record).toDto();
-      case final ManganeseNutrientRecord record:
-        return ManganeseNutrientRecordToDto(record).toDto();
-      case final PhosphorusNutrientRecord record:
-        return PhosphorusNutrientRecordToDto(record).toDto();
-      case final PotassiumNutrientRecord record:
-        return PotassiumNutrientRecordToDto(record).toDto();
-      case final SeleniumNutrientRecord record:
-        return SeleniumNutrientRecordToDto(record).toDto();
-      case final SodiumNutrientRecord record:
-        return SodiumNutrientRecordToDto(record).toDto();
-      case final ZincNutrientRecord record:
-        return ZincNutrientRecordToDto(record).toDto();
+      case final DietaryCaffeineRecord record:
+        return DietaryCaffeineRecordToDto(record).toDto();
+      case final DietaryProteinRecord record:
+        return DietaryProteinRecordToDto(record).toDto();
+      case final DietaryTotalCarbohydrateRecord record:
+        return DietaryTotalCarbohydrateRecordToDto(record).toDto();
+      case final DietaryTotalFatRecord record:
+        return DietaryTotalFatRecordToDto(record).toDto();
+      case final DietarySaturatedFatRecord record:
+        return DietarySaturatedFatRecordToDto(record).toDto();
+      case final DietaryMonounsaturatedFatRecord record:
+        return DietaryMonounsaturatedFatRecordToDto(record).toDto();
+      case final DietaryPolyunsaturatedFatRecord record:
+        return DietaryPolyunsaturatedFatRecordToDto(record).toDto();
+      case final DietaryCholesterolRecord record:
+        return DietaryCholesterolRecordToDto(record).toDto();
+      case final DietaryFiberRecord record:
+        return DietaryFiberRecordToDto(record).toDto();
+      case final DietarySugarRecord record:
+        return DietarySugarRecordToDto(record).toDto();
+      case final DietaryVitaminARecord record:
+        return DietaryVitaminARecordToDto(record).toDto();
+      case final DietaryVitaminB6Record record:
+        return DietaryVitaminB6RecordToDto(record).toDto();
+      case final DietaryVitaminB12Record record:
+        return DietaryVitaminB12RecordToDto(record).toDto();
+      case final DietaryVitaminCRecord record:
+        return DietaryVitaminCRecordToDto(record).toDto();
+      case final DietaryVitaminDRecord record:
+        return DietaryVitaminDRecordToDto(record).toDto();
+      case final DietaryVitaminERecord record:
+        return DietaryVitaminERecordToDto(record).toDto();
+      case final DietaryVitaminKRecord record:
+        return DietaryVitaminKRecordToDto(record).toDto();
+      case final DietaryThiaminRecord record:
+        return DietaryThiaminRecordToDto(record).toDto();
+      case final DietaryRiboflavinRecord record:
+        return DietaryRiboflavinRecordToDto(record).toDto();
+      case final DietaryNiacinRecord record:
+        return DietaryNiacinRecordToDto(record).toDto();
+      case final DietaryFolateRecord record:
+        return DietaryFolateRecordToDto(record).toDto();
+      case final DietaryBiotinRecord record:
+        return DietaryBiotinRecordToDto(record).toDto();
+      case final DietaryPantothenicAcidRecord record:
+        return DietaryPantothenicAcidRecordToDto(record).toDto();
+      case final DietaryCalciumRecord record:
+        return DietaryCalciumRecordToDto(record).toDto();
+      case final DietaryIronRecord record:
+        return DietaryIronRecordToDto(record).toDto();
+      case final DietaryMagnesiumRecord record:
+        return DietaryMagnesiumRecordToDto(record).toDto();
+      case final DietaryManganeseRecord record:
+        return DietaryManganeseRecordToDto(record).toDto();
+      case final DietaryPhosphorusRecord record:
+        return DietaryPhosphorusRecordToDto(record).toDto();
+      case final DietaryPotassiumRecord record:
+        return DietaryPotassiumRecordToDto(record).toDto();
+      case final DietarySeleniumRecord record:
+        return DietarySeleniumRecordToDto(record).toDto();
+      case final DietarySodiumRecord record:
+        return DietarySodiumRecordToDto(record).toDto();
+      case final DietaryZincRecord record:
+        return DietaryZincRecordToDto(record).toDto();
       case final OvulationTestRecord record:
         return OvulationTestRecordToDto(record).toDto();
       case final IntermenstrualBleedingRecord record:
@@ -533,70 +533,70 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return RestingHeartRateRecordDtoToDomain(dto).toDomain();
       case final DietaryEnergyConsumedRecordDto dto:
         return DietaryEnergyConsumedRecordDtoToDomain(dto).toDomain();
-      case final CaffeineNutrientRecordDto dto:
-        return CaffeineNutrientRecordDtoToDomain(dto).toDomain();
-      case final ProteinNutrientRecordDto dto:
-        return ProteinNutrientRecordDtoToDomain(dto).toDomain();
-      case final TotalCarbohydrateNutrientRecordDto dto:
-        return TotalCarbohydrateNutrientRecordDtoToDomain(dto).toDomain();
-      case final TotalFatNutrientRecordDto dto:
-        return TotalFatNutrientRecordDtoToDomain(dto).toDomain();
-      case final SaturatedFatNutrientRecordDto dto:
-        return SaturatedFatNutrientRecordDtoToDomain(dto).toDomain();
-      case final MonounsaturatedFatNutrientRecordDto dto:
-        return MonounsaturatedFatNutrientRecordDtoToDomain(dto).toDomain();
-      case final PolyunsaturatedFatNutrientRecordDto dto:
-        return PolyunsaturatedFatNutrientRecordDtoToDomain(dto).toDomain();
-      case final CholesterolNutrientRecordDto dto:
-        return CholesterolNutrientRecordDtoToDomain(dto).toDomain();
-      case final DietaryFiberNutrientRecordDto dto:
-        return DietaryFiberNutrientRecordDtoToDomain(dto).toDomain();
-      case final SugarNutrientRecordDto dto:
-        return SugarNutrientRecordDtoToDomain(dto).toDomain();
-      case final VitaminANutrientRecordDto dto:
-        return VitaminANutrientRecordDtoToDomain(dto).toDomain();
-      case final VitaminB6NutrientRecordDto dto:
-        return VitaminB6NutrientRecordDtoToDomain(dto).toDomain();
-      case final VitaminB12NutrientRecordDto dto:
-        return VitaminB12NutrientRecordDtoToDomain(dto).toDomain();
-      case final VitaminCNutrientRecordDto dto:
-        return VitaminCNutrientRecordDtoToDomain(dto).toDomain();
-      case final VitaminDNutrientRecordDto dto:
-        return VitaminDNutrientRecordDtoToDomain(dto).toDomain();
-      case final VitaminENutrientRecordDto dto:
-        return VitaminENutrientRecordDtoToDomain(dto).toDomain();
-      case final VitaminKNutrientRecordDto dto:
-        return VitaminKNutrientRecordDtoToDomain(dto).toDomain();
-      case final ThiaminNutrientRecordDto dto:
-        return ThiaminNutrientRecordDtoToDomain(dto).toDomain();
-      case final RiboflavinNutrientRecordDto dto:
-        return RiboflavinNutrientRecordDtoToDomain(dto).toDomain();
-      case final NiacinNutrientRecordDto dto:
-        return NiacinNutrientRecordDtoToDomain(dto).toDomain();
-      case final FolateNutrientRecordDto dto:
-        return FolateNutrientRecordDtoToDomain(dto).toDomain();
-      case final BiotinNutrientRecordDto dto:
-        return BiotinNutrientRecordDtoToDomain(dto).toDomain();
-      case final PantothenicAcidNutrientRecordDto dto:
-        return PantothenicAcidNutrientRecordDtoToDomain(dto).toDomain();
-      case final CalciumNutrientRecordDto dto:
-        return CalciumNutrientRecordDtoToDomain(dto).toDomain();
-      case final IronNutrientRecordDto dto:
-        return IronNutrientRecordDtoToDomain(dto).toDomain();
-      case final MagnesiumNutrientRecordDto dto:
-        return MagnesiumNutrientRecordDtoToDomain(dto).toDomain();
-      case final ManganeseNutrientRecordDto dto:
-        return ManganeseNutrientRecordDtoToDomain(dto).toDomain();
-      case final PhosphorusNutrientRecordDto dto:
-        return PhosphorusNutrientRecordDtoToDomain(dto).toDomain();
-      case final PotassiumNutrientRecordDto dto:
-        return PotassiumNutrientRecordDtoToDomain(dto).toDomain();
-      case final SeleniumNutrientRecordDto dto:
-        return SeleniumNutrientRecordDtoToDomain(dto).toDomain();
-      case final SodiumNutrientRecordDto dto:
-        return SodiumNutrientRecordDtoToDomain(dto).toDomain();
-      case final ZincNutrientRecordDto dto:
-        return ZincNutrientRecordDtoToDomain(dto).toDomain();
+      case final DietaryCaffeineRecordDto dto:
+        return DietaryCaffeineRecordDtoToDomain(dto).toDomain();
+      case final DietaryProteinRecordDto dto:
+        return DietaryProteinRecordDtoToDomain(dto).toDomain();
+      case final DietaryTotalCarbohydrateRecordDto dto:
+        return DietaryTotalCarbohydrateRecordDtoToDomain(dto).toDomain();
+      case final DietaryTotalFatRecordDto dto:
+        return DietaryTotalFatRecordDtoToDomain(dto).toDomain();
+      case final DietarySaturatedFatRecordDto dto:
+        return DietarySaturatedFatRecordDtoToDomain(dto).toDomain();
+      case final DietaryMonounsaturatedFatRecordDto dto:
+        return DietaryMonounsaturatedFatRecordDtoToDomain(dto).toDomain();
+      case final DietaryPolyunsaturatedFatRecordDto dto:
+        return DietaryPolyunsaturatedFatRecordDtoToDomain(dto).toDomain();
+      case final DietaryCholesterolRecordDto dto:
+        return DietaryCholesterolRecordDtoToDomain(dto).toDomain();
+      case final DietaryFiberRecordDto dto:
+        return DietaryFiberRecordDtoToDomain(dto).toDomain();
+      case final DietarySugarRecordDto dto:
+        return DietarySugarRecordDtoToDomain(dto).toDomain();
+      case final DietaryVitaminARecordDto dto:
+        return DietaryVitaminARecordDtoToDomain(dto).toDomain();
+      case final DietaryVitaminB6RecordDto dto:
+        return DietaryVitaminB6RecordDtoToDomain(dto).toDomain();
+      case final DietaryVitaminB12RecordDto dto:
+        return DietaryVitaminB12RecordDtoToDomain(dto).toDomain();
+      case final DietaryVitaminCRecordDto dto:
+        return DietaryVitaminCRecordDtoToDomain(dto).toDomain();
+      case final DietaryVitaminDRecordDto dto:
+        return DietaryVitaminDRecordDtoToDomain(dto).toDomain();
+      case final DietaryVitaminERecordDto dto:
+        return DietaryVitaminERecordDtoToDomain(dto).toDomain();
+      case final DietaryVitaminKRecordDto dto:
+        return DietaryVitaminKRecordDtoToDomain(dto).toDomain();
+      case final DietaryThiaminRecordDto dto:
+        return DietaryThiaminRecordDtoToDomain(dto).toDomain();
+      case final DietaryRiboflavinRecordDto dto:
+        return DietaryRiboflavinRecordDtoToDomain(dto).toDomain();
+      case final DietaryNiacinRecordDto dto:
+        return DietaryNiacinRecordDtoToDomain(dto).toDomain();
+      case final DietaryFolateRecordDto dto:
+        return DietaryFolateRecordDtoToDomain(dto).toDomain();
+      case final DietaryBiotinRecordDto dto:
+        return DietaryBiotinRecordDtoToDomain(dto).toDomain();
+      case final DietaryPantothenicAcidRecordDto dto:
+        return DietaryPantothenicAcidRecordDtoToDomain(dto).toDomain();
+      case final DietaryCalciumRecordDto dto:
+        return DietaryCalciumRecordDtoToDomain(dto).toDomain();
+      case final DietaryIronRecordDto dto:
+        return DietaryIronRecordDtoToDomain(dto).toDomain();
+      case final DietaryMagnesiumRecordDto dto:
+        return DietaryMagnesiumRecordDtoToDomain(dto).toDomain();
+      case final DietaryManganeseRecordDto dto:
+        return DietaryManganeseRecordDtoToDomain(dto).toDomain();
+      case final DietaryPhosphorusRecordDto dto:
+        return DietaryPhosphorusRecordDtoToDomain(dto).toDomain();
+      case final DietaryPotassiumRecordDto dto:
+        return DietaryPotassiumRecordDtoToDomain(dto).toDomain();
+      case final DietarySeleniumRecordDto dto:
+        return DietarySeleniumRecordDtoToDomain(dto).toDomain();
+      case final DietarySodiumRecordDto dto:
+        return DietarySodiumRecordDtoToDomain(dto).toDomain();
+      case final DietaryZincRecordDto dto:
+        return DietaryZincRecordDtoToDomain(dto).toDomain();
       case final OvulationTestRecordDto dto:
         return OvulationTestRecordDtoToDomain(dto).toDomain();
       case final IntermenstrualBleedingRecordDto dto:

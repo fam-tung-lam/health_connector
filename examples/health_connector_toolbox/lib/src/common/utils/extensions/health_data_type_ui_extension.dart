@@ -51,38 +51,38 @@ extension HealthDataTypeUI on HealthDataType {
       OxygenSaturationDataType _ => AppTexts.oxygenSaturation,
       NutritionDataType _ => AppTexts.nutrition,
       DietaryEnergyConsumedDataType _ => AppTexts.energy,
-      CaffeineNutrientDataType _ => AppTexts.caffeine,
-      ProteinNutrientDataType _ => AppTexts.protein,
-      TotalCarbohydrateNutrientDataType _ => AppTexts.totalCarbohydrate,
-      TotalFatNutrientDataType _ => AppTexts.totalFat,
-      SaturatedFatNutrientDataType _ => AppTexts.saturatedFat,
-      MonounsaturatedFatNutrientDataType _ => AppTexts.monounsaturatedFat,
-      PolyunsaturatedFatNutrientDataType _ => AppTexts.polyunsaturatedFat,
-      CholesterolNutrientDataType _ => AppTexts.cholesterol,
+      DietaryCaffeineDataType _ => AppTexts.caffeine,
+      DietaryProteinDataType _ => AppTexts.protein,
+      DietaryTotalCarbohydrateDataType _ => AppTexts.totalCarbohydrate,
+      DietaryTotalFatDataType _ => AppTexts.totalFat,
+      DietarySaturatedFatDataType _ => AppTexts.saturatedFat,
+      DietaryMonounsaturatedFatDataType _ => AppTexts.monounsaturatedFat,
+      DietaryPolyunsaturatedFatDataType _ => AppTexts.polyunsaturatedFat,
+      DietaryCholesterolDataType _ => AppTexts.cholesterol,
       DietaryFiberNutrientDataType _ => AppTexts.dietaryFiber,
-      SugarNutrientDataType _ => AppTexts.sugar,
-      CalciumNutrientDataType _ => AppTexts.calcium,
-      IronNutrientDataType _ => AppTexts.iron,
-      MagnesiumNutrientDataType _ => AppTexts.magnesium,
-      ManganeseNutrientDataType _ => AppTexts.manganese,
-      PhosphorusNutrientDataType _ => AppTexts.phosphorus,
-      PotassiumNutrientDataType _ => AppTexts.potassium,
-      SeleniumNutrientDataType _ => AppTexts.selenium,
-      SodiumNutrientDataType _ => AppTexts.sodium,
-      ZincNutrientDataType _ => AppTexts.zinc,
-      VitaminANutrientDataType _ => AppTexts.vitaminA,
-      VitaminB6NutrientDataType _ => AppTexts.vitaminB6,
-      VitaminB12NutrientDataType _ => AppTexts.vitaminB12,
-      VitaminCNutrientDataType _ => AppTexts.vitaminC,
-      VitaminDNutrientDataType _ => AppTexts.vitaminD,
-      VitaminENutrientDataType _ => AppTexts.vitaminE,
-      VitaminKNutrientDataType _ => AppTexts.vitaminK,
-      ThiaminNutrientDataType _ => AppTexts.thiamin,
-      RiboflavinNutrientDataType _ => AppTexts.riboflavin,
-      NiacinNutrientDataType _ => AppTexts.niacin,
-      FolateNutrientDataType _ => AppTexts.folate,
-      BiotinNutrientDataType _ => AppTexts.biotin,
-      PantothenicAcidNutrientDataType _ => AppTexts.pantothenicAcid,
+      DietarySugarDataType _ => AppTexts.sugar,
+      DietaryCalciumDataType _ => AppTexts.calcium,
+      DietaryIronDataType _ => AppTexts.iron,
+      DietaryMagnesiumDataType _ => AppTexts.magnesium,
+      DietaryManganeseDataType _ => AppTexts.manganese,
+      DietaryPhosphorusDataType _ => AppTexts.phosphorus,
+      DietaryPotassiumDataType _ => AppTexts.potassium,
+      DietarySeleniumDataType _ => AppTexts.selenium,
+      DietarySodiumDataType _ => AppTexts.sodium,
+      DietaryZincDataType _ => AppTexts.zinc,
+      DietaryVitaminADataType _ => AppTexts.vitaminA,
+      DietaryVitaminB6DataType _ => AppTexts.vitaminB6,
+      DietaryVitaminB12DataType _ => AppTexts.vitaminB12,
+      DietaryVitaminCDataType _ => AppTexts.vitaminC,
+      DietaryVitaminDDataType _ => AppTexts.vitaminD,
+      DietaryVitaminEDataType _ => AppTexts.vitaminE,
+      DietaryVitaminKDataType _ => AppTexts.vitaminK,
+      DietaryThiaminDataType _ => AppTexts.thiamin,
+      DietaryRiboflavinDataType _ => AppTexts.riboflavin,
+      DietaryNiacinDataType _ => AppTexts.niacin,
+      DietaryFolateDataType _ => AppTexts.folate,
+      DietaryBiotinDataType _ => AppTexts.biotin,
+      DietaryPantothenicAcidDataType _ => AppTexts.pantothenicAcid,
       RespiratoryRateDataType _ => AppTexts.respiratoryRate,
       Vo2MaxDataType _ => AppTexts.vo2Max,
       BloodGlucoseDataType _ => AppTexts.bloodGlucose,
@@ -156,41 +156,41 @@ extension HealthDataTypeUI on HealthDataType {
       OxygenSaturationDataType _ => AppTexts.oxygenSaturationDescription,
       NutritionDataType _ => AppTexts.nutritionDescription,
       DietaryEnergyConsumedDataType _ => AppTexts.energyDescription,
-      CaffeineNutrientDataType _ => AppTexts.caffeineDescription,
-      ProteinNutrientDataType _ => AppTexts.proteinDescription,
-      TotalCarbohydrateNutrientDataType _ =>
+      DietaryCaffeineDataType _ => AppTexts.caffeineDescription,
+      DietaryProteinDataType _ => AppTexts.proteinDescription,
+      DietaryTotalCarbohydrateDataType _ =>
         AppTexts.totalCarbohydrateDescription,
-      TotalFatNutrientDataType _ => AppTexts.totalFatDescription,
-      SaturatedFatNutrientDataType _ => AppTexts.saturatedFatDescription,
-      MonounsaturatedFatNutrientDataType _ =>
+      DietaryTotalFatDataType _ => AppTexts.totalFatDescription,
+      DietarySaturatedFatDataType _ => AppTexts.saturatedFatDescription,
+      DietaryMonounsaturatedFatDataType _ =>
         AppTexts.monounsaturatedFatDescription,
-      PolyunsaturatedFatNutrientDataType _ =>
+      DietaryPolyunsaturatedFatDataType _ =>
         AppTexts.polyunsaturatedFatDescription,
-      CholesterolNutrientDataType _ => AppTexts.cholesterolDescription,
+      DietaryCholesterolDataType _ => AppTexts.cholesterolDescription,
       DietaryFiberNutrientDataType _ => AppTexts.dietaryFiberDescription,
-      SugarNutrientDataType _ => AppTexts.sugarDescription,
-      CalciumNutrientDataType _ => AppTexts.calciumDescription,
-      IronNutrientDataType _ => AppTexts.ironDescription,
-      MagnesiumNutrientDataType _ => AppTexts.magnesiumDescription,
-      ManganeseNutrientDataType _ => AppTexts.manganeseDescription,
-      PhosphorusNutrientDataType _ => AppTexts.phosphorusDescription,
-      PotassiumNutrientDataType _ => AppTexts.potassiumDescription,
-      SeleniumNutrientDataType _ => AppTexts.seleniumDescription,
-      SodiumNutrientDataType _ => AppTexts.sodiumDescription,
-      ZincNutrientDataType _ => AppTexts.zincDescription,
-      VitaminANutrientDataType _ => AppTexts.vitaminADescription,
-      VitaminB6NutrientDataType _ => AppTexts.vitaminB6Description,
-      VitaminB12NutrientDataType _ => AppTexts.vitaminB12Description,
-      VitaminCNutrientDataType _ => AppTexts.vitaminCDescription,
-      VitaminDNutrientDataType _ => AppTexts.vitaminDDescription,
-      VitaminENutrientDataType _ => AppTexts.vitaminEDescription,
-      VitaminKNutrientDataType _ => AppTexts.vitaminKDescription,
-      ThiaminNutrientDataType _ => AppTexts.thiaminDescription,
-      RiboflavinNutrientDataType _ => AppTexts.riboflavinDescription,
-      NiacinNutrientDataType _ => AppTexts.niacinDescription,
-      FolateNutrientDataType _ => AppTexts.folateDescription,
-      BiotinNutrientDataType _ => AppTexts.biotinDescription,
-      PantothenicAcidNutrientDataType _ => AppTexts.pantothenicAcidDescription,
+      DietarySugarDataType _ => AppTexts.sugarDescription,
+      DietaryCalciumDataType _ => AppTexts.calciumDescription,
+      DietaryIronDataType _ => AppTexts.ironDescription,
+      DietaryMagnesiumDataType _ => AppTexts.magnesiumDescription,
+      DietaryManganeseDataType _ => AppTexts.manganeseDescription,
+      DietaryPhosphorusDataType _ => AppTexts.phosphorusDescription,
+      DietaryPotassiumDataType _ => AppTexts.potassiumDescription,
+      DietarySeleniumDataType _ => AppTexts.seleniumDescription,
+      DietarySodiumDataType _ => AppTexts.sodiumDescription,
+      DietaryZincDataType _ => AppTexts.zincDescription,
+      DietaryVitaminADataType _ => AppTexts.vitaminADescription,
+      DietaryVitaminB6DataType _ => AppTexts.vitaminB6Description,
+      DietaryVitaminB12DataType _ => AppTexts.vitaminB12Description,
+      DietaryVitaminCDataType _ => AppTexts.vitaminCDescription,
+      DietaryVitaminDDataType _ => AppTexts.vitaminDDescription,
+      DietaryVitaminEDataType _ => AppTexts.vitaminEDescription,
+      DietaryVitaminKDataType _ => AppTexts.vitaminKDescription,
+      DietaryThiaminDataType _ => AppTexts.thiaminDescription,
+      DietaryRiboflavinDataType _ => AppTexts.riboflavinDescription,
+      DietaryNiacinDataType _ => AppTexts.niacinDescription,
+      DietaryFolateDataType _ => AppTexts.folateDescription,
+      DietaryBiotinDataType _ => AppTexts.biotinDescription,
+      DietaryPantothenicAcidDataType _ => AppTexts.pantothenicAcidDescription,
       RespiratoryRateDataType _ => AppTexts.respiratoryRateDescription,
       Vo2MaxDataType _ => AppTexts.vo2MaxDescription,
       BloodGlucoseDataType _ => AppTexts.bloodGlucoseDescription,
@@ -265,38 +265,38 @@ extension HealthDataTypeUI on HealthDataType {
       OxygenSaturationDataType _ => AppIcons.percent,
       NutritionDataType _ => AppIcons.fastfood,
       DietaryEnergyConsumedDataType _ => AppIcons.localFireDepartment,
-      CaffeineNutrientDataType _ => AppIcons.fastfood,
-      ProteinNutrientDataType _ => AppIcons.fastfood,
-      TotalCarbohydrateNutrientDataType _ => AppIcons.fastfood,
-      TotalFatNutrientDataType _ => AppIcons.fastfood,
-      SaturatedFatNutrientDataType _ => AppIcons.fastfood,
-      MonounsaturatedFatNutrientDataType _ => AppIcons.fastfood,
-      PolyunsaturatedFatNutrientDataType _ => AppIcons.fastfood,
-      CholesterolNutrientDataType _ => AppIcons.fastfood,
+      DietaryCaffeineDataType _ => AppIcons.fastfood,
+      DietaryProteinDataType _ => AppIcons.fastfood,
+      DietaryTotalCarbohydrateDataType _ => AppIcons.fastfood,
+      DietaryTotalFatDataType _ => AppIcons.fastfood,
+      DietarySaturatedFatDataType _ => AppIcons.fastfood,
+      DietaryMonounsaturatedFatDataType _ => AppIcons.fastfood,
+      DietaryPolyunsaturatedFatDataType _ => AppIcons.fastfood,
+      DietaryCholesterolDataType _ => AppIcons.fastfood,
       DietaryFiberNutrientDataType _ => AppIcons.fastfood,
-      SugarNutrientDataType _ => AppIcons.fastfood,
-      CalciumNutrientDataType _ => AppIcons.fastfood,
-      IronNutrientDataType _ => AppIcons.fastfood,
-      MagnesiumNutrientDataType _ => AppIcons.fastfood,
-      ManganeseNutrientDataType _ => AppIcons.fastfood,
-      PhosphorusNutrientDataType _ => AppIcons.fastfood,
-      PotassiumNutrientDataType _ => AppIcons.fastfood,
-      SeleniumNutrientDataType _ => AppIcons.fastfood,
-      SodiumNutrientDataType _ => AppIcons.fastfood,
-      ZincNutrientDataType _ => AppIcons.fastfood,
-      VitaminANutrientDataType _ => AppIcons.fastfood,
-      VitaminB6NutrientDataType _ => AppIcons.fastfood,
-      VitaminB12NutrientDataType _ => AppIcons.fastfood,
-      VitaminCNutrientDataType _ => AppIcons.fastfood,
-      VitaminDNutrientDataType _ => AppIcons.fastfood,
-      VitaminENutrientDataType _ => AppIcons.fastfood,
-      VitaminKNutrientDataType _ => AppIcons.fastfood,
-      ThiaminNutrientDataType _ => AppIcons.fastfood,
-      RiboflavinNutrientDataType _ => AppIcons.fastfood,
-      NiacinNutrientDataType _ => AppIcons.fastfood,
-      FolateNutrientDataType _ => AppIcons.fastfood,
-      BiotinNutrientDataType _ => AppIcons.fastfood,
-      PantothenicAcidNutrientDataType _ => AppIcons.fastfood,
+      DietarySugarDataType _ => AppIcons.fastfood,
+      DietaryCalciumDataType _ => AppIcons.fastfood,
+      DietaryIronDataType _ => AppIcons.fastfood,
+      DietaryMagnesiumDataType _ => AppIcons.fastfood,
+      DietaryManganeseDataType _ => AppIcons.fastfood,
+      DietaryPhosphorusDataType _ => AppIcons.fastfood,
+      DietaryPotassiumDataType _ => AppIcons.fastfood,
+      DietarySeleniumDataType _ => AppIcons.fastfood,
+      DietarySodiumDataType _ => AppIcons.fastfood,
+      DietaryZincDataType _ => AppIcons.fastfood,
+      DietaryVitaminADataType _ => AppIcons.fastfood,
+      DietaryVitaminB6DataType _ => AppIcons.fastfood,
+      DietaryVitaminB12DataType _ => AppIcons.fastfood,
+      DietaryVitaminCDataType _ => AppIcons.fastfood,
+      DietaryVitaminDDataType _ => AppIcons.fastfood,
+      DietaryVitaminEDataType _ => AppIcons.fastfood,
+      DietaryVitaminKDataType _ => AppIcons.fastfood,
+      DietaryThiaminDataType _ => AppIcons.fastfood,
+      DietaryRiboflavinDataType _ => AppIcons.fastfood,
+      DietaryNiacinDataType _ => AppIcons.fastfood,
+      DietaryFolateDataType _ => AppIcons.fastfood,
+      DietaryBiotinDataType _ => AppIcons.fastfood,
+      DietaryPantothenicAcidDataType _ => AppIcons.fastfood,
       RespiratoryRateDataType _ => AppIcons.air,
       Vo2MaxDataType _ => AppIcons.vo2Max,
       BloodGlucoseDataType _ => AppIcons.bloodGlucose,
@@ -508,35 +508,35 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       ),
 
       // Macronutrients
-      const (CaffeineNutrientDataType) => AppTexts.withUnit(
+      const (DietaryCaffeineDataType) => AppTexts.withUnit(
         AppTexts.caffeine,
         AppTexts.milligram,
       ),
-      const (ProteinNutrientDataType) => AppTexts.withUnit(
+      const (DietaryProteinDataType) => AppTexts.withUnit(
         AppTexts.protein,
         AppTexts.gram,
       ),
-      const (TotalCarbohydrateNutrientDataType) => AppTexts.withUnit(
+      const (DietaryTotalCarbohydrateDataType) => AppTexts.withUnit(
         AppTexts.totalCarbohydrate,
         AppTexts.gram,
       ),
-      const (TotalFatNutrientDataType) => AppTexts.withUnit(
+      const (DietaryTotalFatDataType) => AppTexts.withUnit(
         AppTexts.totalFat,
         AppTexts.gram,
       ),
-      const (SaturatedFatNutrientDataType) => AppTexts.withUnit(
+      const (DietarySaturatedFatDataType) => AppTexts.withUnit(
         AppTexts.saturatedFat,
         AppTexts.gram,
       ),
-      const (MonounsaturatedFatNutrientDataType) => AppTexts.withUnit(
+      const (DietaryMonounsaturatedFatDataType) => AppTexts.withUnit(
         AppTexts.monounsaturatedFat,
         AppTexts.gram,
       ),
-      const (PolyunsaturatedFatNutrientDataType) => AppTexts.withUnit(
+      const (DietaryPolyunsaturatedFatDataType) => AppTexts.withUnit(
         AppTexts.polyunsaturatedFat,
         AppTexts.gram,
       ),
-      const (CholesterolNutrientDataType) => AppTexts.withUnit(
+      const (DietaryCholesterolDataType) => AppTexts.withUnit(
         AppTexts.cholesterol,
         AppTexts.milligram,
       ),
@@ -544,99 +544,99 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.dietaryFiber,
         AppTexts.gram,
       ),
-      const (SugarNutrientDataType) => AppTexts.withUnit(
+      const (DietarySugarDataType) => AppTexts.withUnit(
         AppTexts.sugar,
         AppTexts.gram,
       ),
 
       // Minerals
-      const (CalciumNutrientDataType) => AppTexts.withUnit(
+      const (DietaryCalciumDataType) => AppTexts.withUnit(
         AppTexts.calcium,
         AppTexts.milligram,
       ),
-      const (IronNutrientDataType) => AppTexts.withUnit(
+      const (DietaryIronDataType) => AppTexts.withUnit(
         AppTexts.iron,
         AppTexts.milligram,
       ),
-      const (MagnesiumNutrientDataType) => AppTexts.withUnit(
+      const (DietaryMagnesiumDataType) => AppTexts.withUnit(
         AppTexts.magnesium,
         AppTexts.milligram,
       ),
-      const (ManganeseNutrientDataType) => AppTexts.withUnit(
+      const (DietaryManganeseDataType) => AppTexts.withUnit(
         AppTexts.manganese,
         AppTexts.milligram,
       ),
-      const (PhosphorusNutrientDataType) => AppTexts.withUnit(
+      const (DietaryPhosphorusDataType) => AppTexts.withUnit(
         AppTexts.phosphorus,
         AppTexts.milligram,
       ),
-      const (PotassiumNutrientDataType) => AppTexts.withUnit(
+      const (DietaryPotassiumDataType) => AppTexts.withUnit(
         AppTexts.potassium,
         AppTexts.milligram,
       ),
-      const (SeleniumNutrientDataType) => AppTexts.withUnit(
+      const (DietarySeleniumDataType) => AppTexts.withUnit(
         AppTexts.selenium,
         AppTexts.microgram,
       ),
-      const (SodiumNutrientDataType) => AppTexts.withUnit(
+      const (DietarySodiumDataType) => AppTexts.withUnit(
         AppTexts.sodium,
         AppTexts.milligram,
       ),
-      const (ZincNutrientDataType) => AppTexts.withUnit(
+      const (DietaryZincDataType) => AppTexts.withUnit(
         AppTexts.zinc,
         AppTexts.milligram,
       ),
 
       // Vitamins
-      const (VitaminANutrientDataType) => AppTexts.withUnit(
+      const (DietaryVitaminADataType) => AppTexts.withUnit(
         AppTexts.vitaminA,
         AppTexts.microgram,
       ),
-      const (VitaminB6NutrientDataType) => AppTexts.withUnit(
+      const (DietaryVitaminB6DataType) => AppTexts.withUnit(
         AppTexts.vitaminB6,
         AppTexts.milligram,
       ),
-      const (VitaminB12NutrientDataType) => AppTexts.withUnit(
+      const (DietaryVitaminB12DataType) => AppTexts.withUnit(
         AppTexts.vitaminB12,
         AppTexts.microgram,
       ),
-      const (VitaminCNutrientDataType) => AppTexts.withUnit(
+      const (DietaryVitaminCDataType) => AppTexts.withUnit(
         AppTexts.vitaminC,
         AppTexts.milligram,
       ),
-      const (VitaminDNutrientDataType) => AppTexts.withUnit(
+      const (DietaryVitaminDDataType) => AppTexts.withUnit(
         AppTexts.vitaminD,
         AppTexts.microgram,
       ),
-      const (VitaminENutrientDataType) => AppTexts.withUnit(
+      const (DietaryVitaminEDataType) => AppTexts.withUnit(
         AppTexts.vitaminE,
         AppTexts.milligram,
       ),
-      const (VitaminKNutrientDataType) => AppTexts.withUnit(
+      const (DietaryVitaminKDataType) => AppTexts.withUnit(
         AppTexts.vitaminK,
         AppTexts.microgram,
       ),
-      const (ThiaminNutrientDataType) => AppTexts.withUnit(
+      const (DietaryThiaminDataType) => AppTexts.withUnit(
         AppTexts.thiamin,
         AppTexts.milligram,
       ),
-      const (RiboflavinNutrientDataType) => AppTexts.withUnit(
+      const (DietaryRiboflavinDataType) => AppTexts.withUnit(
         AppTexts.riboflavin,
         AppTexts.milligram,
       ),
-      const (NiacinNutrientDataType) => AppTexts.withUnit(
+      const (DietaryNiacinDataType) => AppTexts.withUnit(
         AppTexts.niacin,
         AppTexts.milligram,
       ),
-      const (FolateNutrientDataType) => AppTexts.withUnit(
+      const (DietaryFolateDataType) => AppTexts.withUnit(
         AppTexts.folate,
         AppTexts.microgram,
       ),
-      const (BiotinNutrientDataType) => AppTexts.withUnit(
+      const (DietaryBiotinDataType) => AppTexts.withUnit(
         AppTexts.biotin,
         AppTexts.microgram,
       ),
-      const (PantothenicAcidNutrientDataType) => AppTexts.withUnit(
+      const (DietaryPantothenicAcidDataType) => AppTexts.withUnit(
         AppTexts.pantothenicAcid,
         AppTexts.milligram,
       ),
@@ -714,42 +714,42 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (HydrationDataType) => AppTexts.liter,
 
       // Nutrients - grams
-      const (ProteinNutrientDataType) ||
-      const (TotalCarbohydrateNutrientDataType) ||
-      const (TotalFatNutrientDataType) ||
-      const (SaturatedFatNutrientDataType) ||
-      const (MonounsaturatedFatNutrientDataType) ||
-      const (PolyunsaturatedFatNutrientDataType) ||
+      const (DietaryProteinDataType) ||
+      const (DietaryTotalCarbohydrateDataType) ||
+      const (DietaryTotalFatDataType) ||
+      const (DietarySaturatedFatDataType) ||
+      const (DietaryMonounsaturatedFatDataType) ||
+      const (DietaryPolyunsaturatedFatDataType) ||
       const (DietaryFiberNutrientDataType) ||
-      const (SugarNutrientDataType) => AppTexts.gram,
+      const (DietarySugarDataType) => AppTexts.gram,
 
       // Nutrients - milligrams
-      const (CaffeineNutrientDataType) ||
-      const (CholesterolNutrientDataType) ||
-      const (CalciumNutrientDataType) ||
-      const (IronNutrientDataType) ||
-      const (MagnesiumNutrientDataType) ||
-      const (ManganeseNutrientDataType) ||
-      const (PhosphorusNutrientDataType) ||
-      const (PotassiumNutrientDataType) ||
-      const (SodiumNutrientDataType) ||
-      const (ZincNutrientDataType) ||
-      const (VitaminB6NutrientDataType) ||
-      const (VitaminCNutrientDataType) ||
-      const (VitaminENutrientDataType) ||
-      const (ThiaminNutrientDataType) ||
-      const (RiboflavinNutrientDataType) ||
-      const (NiacinNutrientDataType) ||
-      const (PantothenicAcidNutrientDataType) => AppTexts.milligram,
+      const (DietaryCaffeineDataType) ||
+      const (DietaryCholesterolDataType) ||
+      const (DietaryCalciumDataType) ||
+      const (DietaryIronDataType) ||
+      const (DietaryMagnesiumDataType) ||
+      const (DietaryManganeseDataType) ||
+      const (DietaryPhosphorusDataType) ||
+      const (DietaryPotassiumDataType) ||
+      const (DietarySodiumDataType) ||
+      const (DietaryZincDataType) ||
+      const (DietaryVitaminB6DataType) ||
+      const (DietaryVitaminCDataType) ||
+      const (DietaryVitaminEDataType) ||
+      const (DietaryThiaminDataType) ||
+      const (DietaryRiboflavinDataType) ||
+      const (DietaryNiacinDataType) ||
+      const (DietaryPantothenicAcidDataType) => AppTexts.milligram,
 
       // Nutrients - micrograms
-      const (SeleniumNutrientDataType) ||
-      const (VitaminANutrientDataType) ||
-      const (VitaminB12NutrientDataType) ||
-      const (VitaminDNutrientDataType) ||
-      const (VitaminKNutrientDataType) ||
-      const (FolateNutrientDataType) ||
-      const (BiotinNutrientDataType) => AppTexts.microgram,
+      const (DietarySeleniumDataType) ||
+      const (DietaryVitaminADataType) ||
+      const (DietaryVitaminB12DataType) ||
+      const (DietaryVitaminDDataType) ||
+      const (DietaryVitaminKDataType) ||
+      const (DietaryFolateDataType) ||
+      const (DietaryBiotinDataType) => AppTexts.microgram,
 
       // No suffix for other types
       _ => null,
@@ -834,100 +834,100 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (HydrationDataType) => AppTexts.getPleaseEnterText(
         AppTexts.hydration,
       ),
-      const (CaffeineNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryCaffeineDataType) => AppTexts.getPleaseEnterText(
         AppTexts.caffeine,
       ),
-      const (ProteinNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryProteinDataType) => AppTexts.getPleaseEnterText(
         AppTexts.protein,
       ),
-      const (TotalCarbohydrateNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryTotalCarbohydrateDataType) => AppTexts.getPleaseEnterText(
         AppTexts.totalCarbohydrate,
       ),
-      const (TotalFatNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryTotalFatDataType) => AppTexts.getPleaseEnterText(
         AppTexts.totalFat,
       ),
-      const (SaturatedFatNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietarySaturatedFatDataType) => AppTexts.getPleaseEnterText(
         AppTexts.saturatedFat,
       ),
-      const (MonounsaturatedFatNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryMonounsaturatedFatDataType) => AppTexts.getPleaseEnterText(
         AppTexts.monounsaturatedFat,
       ),
-      const (PolyunsaturatedFatNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryPolyunsaturatedFatDataType) => AppTexts.getPleaseEnterText(
         AppTexts.polyunsaturatedFat,
       ),
-      const (CholesterolNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryCholesterolDataType) => AppTexts.getPleaseEnterText(
         AppTexts.cholesterol,
       ),
       const (DietaryFiberNutrientDataType) => AppTexts.getPleaseEnterText(
         AppTexts.dietaryFiber,
       ),
-      const (SugarNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietarySugarDataType) => AppTexts.getPleaseEnterText(
         AppTexts.sugar,
       ),
-      const (CalciumNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryCalciumDataType) => AppTexts.getPleaseEnterText(
         AppTexts.calcium,
       ),
-      const (IronNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryIronDataType) => AppTexts.getPleaseEnterText(
         AppTexts.iron,
       ),
-      const (MagnesiumNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryMagnesiumDataType) => AppTexts.getPleaseEnterText(
         AppTexts.magnesium,
       ),
-      const (ManganeseNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryManganeseDataType) => AppTexts.getPleaseEnterText(
         AppTexts.manganese,
       ),
-      const (PhosphorusNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryPhosphorusDataType) => AppTexts.getPleaseEnterText(
         AppTexts.phosphorus,
       ),
-      const (PotassiumNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryPotassiumDataType) => AppTexts.getPleaseEnterText(
         AppTexts.potassium,
       ),
-      const (SeleniumNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietarySeleniumDataType) => AppTexts.getPleaseEnterText(
         AppTexts.selenium,
       ),
-      const (SodiumNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietarySodiumDataType) => AppTexts.getPleaseEnterText(
         AppTexts.sodium,
       ),
-      const (ZincNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryZincDataType) => AppTexts.getPleaseEnterText(
         AppTexts.zinc,
       ),
-      const (VitaminANutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryVitaminADataType) => AppTexts.getPleaseEnterText(
         AppTexts.vitaminA,
       ),
-      const (VitaminB6NutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryVitaminB6DataType) => AppTexts.getPleaseEnterText(
         AppTexts.vitaminB6,
       ),
-      const (VitaminB12NutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryVitaminB12DataType) => AppTexts.getPleaseEnterText(
         AppTexts.vitaminB12,
       ),
-      const (VitaminCNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryVitaminCDataType) => AppTexts.getPleaseEnterText(
         AppTexts.vitaminC,
       ),
-      const (VitaminDNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryVitaminDDataType) => AppTexts.getPleaseEnterText(
         AppTexts.vitaminD,
       ),
-      const (VitaminENutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryVitaminEDataType) => AppTexts.getPleaseEnterText(
         AppTexts.vitaminE,
       ),
-      const (VitaminKNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryVitaminKDataType) => AppTexts.getPleaseEnterText(
         AppTexts.vitaminK,
       ),
-      const (ThiaminNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryThiaminDataType) => AppTexts.getPleaseEnterText(
         AppTexts.thiamin,
       ),
-      const (RiboflavinNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryRiboflavinDataType) => AppTexts.getPleaseEnterText(
         AppTexts.riboflavin,
       ),
-      const (NiacinNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryNiacinDataType) => AppTexts.getPleaseEnterText(
         AppTexts.niacin,
       ),
-      const (FolateNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryFolateDataType) => AppTexts.getPleaseEnterText(
         AppTexts.folate,
       ),
-      const (BiotinNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryBiotinDataType) => AppTexts.getPleaseEnterText(
         AppTexts.biotin,
       ),
-      const (PantothenicAcidNutrientDataType) => AppTexts.getPleaseEnterText(
+      const (DietaryPantothenicAcidDataType) => AppTexts.getPleaseEnterText(
         AppTexts.pantothenicAcid,
       ),
 

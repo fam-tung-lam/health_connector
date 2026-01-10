@@ -161,38 +161,38 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
       case PowerSeriesDataType _:
         return HealthDataTypeDto.powerSeries;
       case DietaryEnergyConsumedDataType _:
-      case CaffeineNutrientDataType _:
-      case ProteinNutrientDataType _:
-      case TotalCarbohydrateNutrientDataType _:
-      case TotalFatNutrientDataType _:
-      case SaturatedFatNutrientDataType _:
-      case MonounsaturatedFatNutrientDataType _:
-      case PolyunsaturatedFatNutrientDataType _:
-      case CholesterolNutrientDataType _:
+      case DietaryCaffeineDataType _:
+      case DietaryProteinDataType _:
+      case DietaryTotalCarbohydrateDataType _:
+      case DietaryTotalFatDataType _:
+      case DietarySaturatedFatDataType _:
+      case DietaryMonounsaturatedFatDataType _:
+      case DietaryPolyunsaturatedFatDataType _:
+      case DietaryCholesterolDataType _:
       case DietaryFiberNutrientDataType _:
-      case SugarNutrientDataType _:
-      case VitaminANutrientDataType _:
-      case VitaminB6NutrientDataType _:
-      case VitaminB12NutrientDataType _:
-      case VitaminCNutrientDataType _:
-      case VitaminDNutrientDataType _:
-      case VitaminENutrientDataType _:
-      case VitaminKNutrientDataType _:
-      case ThiaminNutrientDataType _:
-      case RiboflavinNutrientDataType _:
-      case NiacinNutrientDataType _:
-      case FolateNutrientDataType _:
-      case BiotinNutrientDataType _:
-      case PantothenicAcidNutrientDataType _:
-      case CalciumNutrientDataType _:
-      case IronNutrientDataType _:
-      case MagnesiumNutrientDataType _:
-      case ManganeseNutrientDataType _:
-      case PhosphorusNutrientDataType _:
-      case PotassiumNutrientDataType _:
-      case SeleniumNutrientDataType _:
-      case SodiumNutrientDataType _:
-      case ZincNutrientDataType _:
+      case DietarySugarDataType _:
+      case DietaryVitaminADataType _:
+      case DietaryVitaminB6DataType _:
+      case DietaryVitaminB12DataType _:
+      case DietaryVitaminCDataType _:
+      case DietaryVitaminDDataType _:
+      case DietaryVitaminEDataType _:
+      case DietaryVitaminKDataType _:
+      case DietaryThiaminDataType _:
+      case DietaryRiboflavinDataType _:
+      case DietaryNiacinDataType _:
+      case DietaryFolateDataType _:
+      case DietaryBiotinDataType _:
+      case DietaryPantothenicAcidDataType _:
+      case DietaryCalciumDataType _:
+      case DietaryIronDataType _:
+      case DietaryMagnesiumDataType _:
+      case DietaryManganeseDataType _:
+      case DietaryPhosphorusDataType _:
+      case DietaryPotassiumDataType _:
+      case DietarySeleniumDataType _:
+      case DietarySodiumDataType _:
+      case DietaryZincDataType _:
         throw UnsupportedError(
           '$this is not supported on Android Health Connect. '
           'Use $NutritionDataType instead.',

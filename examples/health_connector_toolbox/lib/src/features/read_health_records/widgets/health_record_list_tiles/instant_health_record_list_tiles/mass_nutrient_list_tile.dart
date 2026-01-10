@@ -5,38 +5,38 @@ import 'package:health_connector/health_connector_internal.dart'
         MealType,
         Mass,
         NutrientRecord,
-        PantothenicAcidNutrientRecord,
-        ProteinNutrientRecord,
-        TotalCarbohydrateNutrientRecord,
-        TotalFatNutrientRecord,
-        SaturatedFatNutrientRecord,
-        MonounsaturatedFatNutrientRecord,
-        PolyunsaturatedFatNutrientRecord,
-        CholesterolNutrientRecord,
-        DietaryFiberNutrientRecord,
-        SugarNutrientRecord,
-        CaffeineNutrientRecord,
-        CalciumNutrientRecord,
-        IronNutrientRecord,
-        MagnesiumNutrientRecord,
-        ManganeseNutrientRecord,
-        PhosphorusNutrientRecord,
-        PotassiumNutrientRecord,
-        SeleniumNutrientRecord,
-        SodiumNutrientRecord,
-        ZincNutrientRecord,
-        VitaminANutrientRecord,
-        VitaminB6NutrientRecord,
-        VitaminB12NutrientRecord,
-        VitaminCNutrientRecord,
-        VitaminDNutrientRecord,
-        VitaminENutrientRecord,
-        VitaminKNutrientRecord,
-        ThiaminNutrientRecord,
-        RiboflavinNutrientRecord,
-        NiacinNutrientRecord,
-        FolateNutrientRecord,
-        BiotinNutrientRecord;
+        DietaryPantothenicAcidRecord,
+        DietaryProteinRecord,
+        DietaryTotalCarbohydrateRecord,
+        DietaryTotalFatRecord,
+        DietarySaturatedFatRecord,
+        DietaryMonounsaturatedFatRecord,
+        DietaryPolyunsaturatedFatRecord,
+        DietaryCholesterolRecord,
+        DietaryFiberRecord,
+        DietarySugarRecord,
+        DietaryCaffeineRecord,
+        DietaryCalciumRecord,
+        DietaryIronRecord,
+        DietaryMagnesiumRecord,
+        DietaryManganeseRecord,
+        DietaryPhosphorusRecord,
+        DietaryPotassiumRecord,
+        DietarySeleniumRecord,
+        DietarySodiumRecord,
+        DietaryZincRecord,
+        DietaryVitaminARecord,
+        DietaryVitaminB6Record,
+        DietaryVitaminB12Record,
+        DietaryVitaminCRecord,
+        DietaryVitaminDRecord,
+        DietaryVitaminERecord,
+        DietaryVitaminKRecord,
+        DietaryThiaminRecord,
+        DietaryRiboflavinRecord,
+        DietaryNiacinRecord,
+        DietaryFolateRecord,
+        DietaryBiotinRecord;
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/date_formatter.dart';
@@ -86,7 +86,7 @@ final class MassNutrientListTile<T extends NutrientRecord<Mass>>
         icon: Icons.fastfood,
         title:
             'Unknown Nutrient: '
-            '${(record as dynamic).weight.inGrams.toStringAsFixed(3)} g',
+            '${(record as dynamic).mass.inGrams.toStringAsFixed(3)} g',
         subtitleBuilder: _buildSubtitle,
         detailRowsBuilder: (r, ctx) => [],
         onDelete: onDelete,
@@ -105,7 +105,7 @@ final class MassNutrientListTile<T extends NutrientRecord<Mass>>
 
   /// Builds the title displaying the nutrient name and mass values.
   String _buildTitle(String nutrientDisplayName) {
-    final mass = (record as dynamic).weight as Mass;
+    final mass = (record as dynamic).mass as Mass;
     return '$nutrientDisplayName: '
         '${mass.inGrams.toStringAsFixed(3)} g '
         '(${(mass.inGrams * 1000).toStringAsFixed(1)} mg)';
@@ -154,7 +154,7 @@ final class MassNutrientListTile<T extends NutrientRecord<Mass>>
   /// Builds detail rows showing mass in grams and milligrams, food name, and
   /// meal type.
   List<Widget> _buildDetailRows(String nutrientDisplayName, T rec) {
-    final mass = (rec as dynamic).weight as Mass;
+    final mass = (rec as dynamic).mass as Mass;
     final foodName = rec.foodName;
     final mealType = rec.mealType;
 
@@ -184,135 +184,135 @@ final class MassNutrientListTile<T extends NutrientRecord<Mass>>
   static const Map<Type, _MassNutrientListTileConfig>
   _massNutrientListTileConfigs = {
     // Macronutrients
-    ProteinNutrientRecord: _MassNutrientListTileConfig(
+    DietaryProteinRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.protein,
       icon: AppIcons.fastfood,
     ),
-    TotalCarbohydrateNutrientRecord: _MassNutrientListTileConfig(
+    DietaryTotalCarbohydrateRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.totalCarbohydrate,
       icon: AppIcons.fastfood,
     ),
-    TotalFatNutrientRecord: _MassNutrientListTileConfig(
+    DietaryTotalFatRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.totalFat,
       icon: AppIcons.fastfood,
     ),
-    SaturatedFatNutrientRecord: _MassNutrientListTileConfig(
+    DietarySaturatedFatRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.saturatedFat,
       icon: AppIcons.fastfood,
     ),
-    MonounsaturatedFatNutrientRecord: _MassNutrientListTileConfig(
+    DietaryMonounsaturatedFatRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.monounsaturatedFat,
       icon: AppIcons.fastfood,
     ),
-    PolyunsaturatedFatNutrientRecord: _MassNutrientListTileConfig(
+    DietaryPolyunsaturatedFatRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.polyunsaturatedFat,
       icon: AppIcons.fastfood,
     ),
-    CholesterolNutrientRecord: _MassNutrientListTileConfig(
+    DietaryCholesterolRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.cholesterol,
       icon: AppIcons.fastfood,
     ),
-    DietaryFiberNutrientRecord: _MassNutrientListTileConfig(
+    DietaryFiberRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.dietaryFiber,
       icon: AppIcons.fastfood,
     ),
-    SugarNutrientRecord: _MassNutrientListTileConfig(
+    DietarySugarRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.sugar,
       icon: AppIcons.fastfood,
     ),
-    CaffeineNutrientRecord: _MassNutrientListTileConfig(
+    DietaryCaffeineRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.caffeine,
       icon: AppIcons.fastfood,
     ),
 
     // Mineral nutrients
-    CalciumNutrientRecord: _MassNutrientListTileConfig(
+    DietaryCalciumRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.calcium,
       icon: AppIcons.fastfood,
     ),
-    IronNutrientRecord: _MassNutrientListTileConfig(
+    DietaryIronRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.iron,
       icon: AppIcons.fastfood,
     ),
-    MagnesiumNutrientRecord: _MassNutrientListTileConfig(
+    DietaryMagnesiumRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.magnesium,
       icon: AppIcons.fastfood,
     ),
-    ManganeseNutrientRecord: _MassNutrientListTileConfig(
+    DietaryManganeseRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.manganese,
       icon: AppIcons.fastfood,
     ),
-    PhosphorusNutrientRecord: _MassNutrientListTileConfig(
+    DietaryPhosphorusRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.phosphorus,
       icon: AppIcons.fastfood,
     ),
-    PotassiumNutrientRecord: _MassNutrientListTileConfig(
+    DietaryPotassiumRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.potassium,
       icon: AppIcons.fastfood,
     ),
-    SeleniumNutrientRecord: _MassNutrientListTileConfig(
+    DietarySeleniumRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.selenium,
       icon: AppIcons.fastfood,
     ),
-    SodiumNutrientRecord: _MassNutrientListTileConfig(
+    DietarySodiumRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.sodium,
       icon: AppIcons.fastfood,
     ),
-    ZincNutrientRecord: _MassNutrientListTileConfig(
+    DietaryZincRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.zinc,
       icon: AppIcons.fastfood,
     ),
 
     // Vitamin nutrients
-    VitaminANutrientRecord: _MassNutrientListTileConfig(
+    DietaryVitaminARecord: _MassNutrientListTileConfig(
       displayName: AppTexts.vitaminA,
       icon: AppIcons.fastfood,
     ),
-    VitaminB6NutrientRecord: _MassNutrientListTileConfig(
+    DietaryVitaminB6Record: _MassNutrientListTileConfig(
       displayName: AppTexts.vitaminB6,
       icon: AppIcons.fastfood,
     ),
-    VitaminB12NutrientRecord: _MassNutrientListTileConfig(
+    DietaryVitaminB12Record: _MassNutrientListTileConfig(
       displayName: AppTexts.vitaminB12,
       icon: AppIcons.fastfood,
     ),
-    VitaminCNutrientRecord: _MassNutrientListTileConfig(
+    DietaryVitaminCRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.vitaminC,
       icon: AppIcons.fastfood,
     ),
-    VitaminDNutrientRecord: _MassNutrientListTileConfig(
+    DietaryVitaminDRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.vitaminD,
       icon: AppIcons.fastfood,
     ),
-    VitaminENutrientRecord: _MassNutrientListTileConfig(
+    DietaryVitaminERecord: _MassNutrientListTileConfig(
       displayName: AppTexts.vitaminE,
       icon: AppIcons.fastfood,
     ),
-    VitaminKNutrientRecord: _MassNutrientListTileConfig(
+    DietaryVitaminKRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.vitaminK,
       icon: AppIcons.fastfood,
     ),
-    ThiaminNutrientRecord: _MassNutrientListTileConfig(
+    DietaryThiaminRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.thiamin,
       icon: AppIcons.fastfood,
     ),
-    RiboflavinNutrientRecord: _MassNutrientListTileConfig(
+    DietaryRiboflavinRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.riboflavin,
       icon: AppIcons.fastfood,
     ),
-    NiacinNutrientRecord: _MassNutrientListTileConfig(
+    DietaryNiacinRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.niacin,
       icon: AppIcons.fastfood,
     ),
-    FolateNutrientRecord: _MassNutrientListTileConfig(
+    DietaryFolateRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.folate,
       icon: AppIcons.fastfood,
     ),
-    BiotinNutrientRecord: _MassNutrientListTileConfig(
+    DietaryBiotinRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.biotin,
       icon: AppIcons.fastfood,
     ),
-    PantothenicAcidNutrientRecord: _MassNutrientListTileConfig(
+    DietaryPantothenicAcidRecord: _MassNutrientListTileConfig(
       displayName: AppTexts.pantothenicAcid,
       icon: AppIcons.fastfood,
     ),

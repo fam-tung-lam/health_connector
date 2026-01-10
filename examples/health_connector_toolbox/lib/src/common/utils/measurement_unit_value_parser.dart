@@ -32,38 +32,38 @@ abstract class MeasurementUnitValueParser {
       BodyWaterMassDataType() => _parseMassKilograms(value),
 
       // Mass types (grams for nutrients)
-      CaffeineNutrientDataType() ||
-      ProteinNutrientDataType() ||
-      TotalCarbohydrateNutrientDataType() ||
-      TotalFatNutrientDataType() ||
-      SaturatedFatNutrientDataType() ||
-      MonounsaturatedFatNutrientDataType() ||
-      PolyunsaturatedFatNutrientDataType() ||
-      CholesterolNutrientDataType() ||
+      DietaryCaffeineDataType() ||
+      DietaryProteinDataType() ||
+      DietaryTotalCarbohydrateDataType() ||
+      DietaryTotalFatDataType() ||
+      DietarySaturatedFatDataType() ||
+      DietaryMonounsaturatedFatDataType() ||
+      DietaryPolyunsaturatedFatDataType() ||
+      DietaryCholesterolDataType() ||
       DietaryFiberNutrientDataType() ||
-      SugarNutrientDataType() ||
-      CalciumNutrientDataType() ||
-      IronNutrientDataType() ||
-      MagnesiumNutrientDataType() ||
-      ManganeseNutrientDataType() ||
-      PhosphorusNutrientDataType() ||
-      PotassiumNutrientDataType() ||
-      SeleniumNutrientDataType() ||
-      SodiumNutrientDataType() ||
-      ZincNutrientDataType() ||
-      VitaminANutrientDataType() ||
-      VitaminB6NutrientDataType() ||
-      VitaminB12NutrientDataType() ||
-      VitaminCNutrientDataType() ||
-      VitaminDNutrientDataType() ||
-      VitaminENutrientDataType() ||
-      VitaminKNutrientDataType() ||
-      ThiaminNutrientDataType() ||
-      RiboflavinNutrientDataType() ||
-      NiacinNutrientDataType() ||
-      FolateNutrientDataType() ||
-      BiotinNutrientDataType() ||
-      PantothenicAcidNutrientDataType() => _parseMassGrams(value),
+      DietarySugarDataType() ||
+      DietaryCalciumDataType() ||
+      DietaryIronDataType() ||
+      DietaryMagnesiumDataType() ||
+      DietaryManganeseDataType() ||
+      DietaryPhosphorusDataType() ||
+      DietaryPotassiumDataType() ||
+      DietarySeleniumDataType() ||
+      DietarySodiumDataType() ||
+      DietaryZincDataType() ||
+      DietaryVitaminADataType() ||
+      DietaryVitaminB6DataType() ||
+      DietaryVitaminB12DataType() ||
+      DietaryVitaminCDataType() ||
+      DietaryVitaminDDataType() ||
+      DietaryVitaminEDataType() ||
+      DietaryVitaminKDataType() ||
+      DietaryThiaminDataType() ||
+      DietaryRiboflavinDataType() ||
+      DietaryNiacinDataType() ||
+      DietaryFolateDataType() ||
+      DietaryBiotinDataType() ||
+      DietaryPantothenicAcidDataType() => _parseMassGrams(value),
 
       // Percentage types
       BodyFatPercentageDataType() ||

@@ -202,164 +202,164 @@ extension HealthRecordToDto on HealthRecord {
           '$DietaryEnergyConsumedRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final CaffeineNutrientRecord _:
+      case final DietaryCaffeineRecord _:
         throw UnsupportedError(
-          '$CaffeineNutrientRecord is not supported on Health Connect. '
+          '$DietaryCaffeineRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final ProteinNutrientRecord _:
+      case final DietaryProteinRecord _:
         throw UnsupportedError(
-          '$ProteinNutrientRecord is not supported on Health Connect. '
+          '$DietaryProteinRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final TotalCarbohydrateNutrientRecord _:
+      case final DietaryTotalCarbohydrateRecord _:
         throw UnsupportedError(
-          '$TotalCarbohydrateNutrientRecord is not supported on '
+          '$DietaryTotalCarbohydrateRecord is not supported on '
           'Health Connect. Use $NutritionRecord instead.',
         );
-      case final TotalFatNutrientRecord _:
+      case final DietaryTotalFatRecord _:
         throw UnsupportedError(
-          '$TotalFatNutrientRecord is not supported on Health Connect. '
+          '$DietaryTotalFatRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final SaturatedFatNutrientRecord _:
+      case final DietarySaturatedFatRecord _:
         throw UnsupportedError(
-          '$SaturatedFatNutrientRecord is not supported on Health Connect. '
+          '$DietarySaturatedFatRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final MonounsaturatedFatNutrientRecord _:
+      case final DietaryMonounsaturatedFatRecord _:
         throw UnsupportedError(
-          '$MonounsaturatedFatNutrientRecord is not supported on '
+          '$DietaryMonounsaturatedFatRecord is not supported on '
           'Health Connect. Use $NutritionRecord instead.',
         );
-      case final PolyunsaturatedFatNutrientRecord _:
+      case final DietaryPolyunsaturatedFatRecord _:
         throw UnsupportedError(
-          '$PolyunsaturatedFatNutrientRecord is not supported on '
+          '$DietaryPolyunsaturatedFatRecord is not supported on '
           'Health Connect. Use $NutritionRecord instead.',
         );
-      case final CholesterolNutrientRecord _:
+      case final DietaryCholesterolRecord _:
         throw UnsupportedError(
-          '$CholesterolNutrientRecord is not supported on Health Connect. '
+          '$DietaryCholesterolRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final DietaryFiberNutrientRecord _:
+      case final DietaryFiberRecord _:
         throw UnsupportedError(
-          '$DietaryFiberNutrientRecord is not supported on Health Connect. '
+          '$DietaryFiberRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final SugarNutrientRecord _:
+      case final DietarySugarRecord _:
         throw UnsupportedError(
-          '$SugarNutrientRecord is not supported on Health Connect. '
+          '$DietarySugarRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final VitaminANutrientRecord _:
+      case final DietaryVitaminARecord _:
         throw UnsupportedError(
-          '$VitaminANutrientRecord is not supported on Health Connect. '
+          '$DietaryVitaminARecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final VitaminB6NutrientRecord _:
+      case final DietaryVitaminB6Record _:
         throw UnsupportedError(
-          '$VitaminB6NutrientRecord is not supported on Health Connect. '
+          '$DietaryVitaminB6Record is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final VitaminB12NutrientRecord _:
+      case final DietaryVitaminB12Record _:
         throw UnsupportedError(
-          '$VitaminB12NutrientRecord is not supported on Health Connect. '
+          '$DietaryVitaminB12Record is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final VitaminCNutrientRecord _:
+      case final DietaryVitaminCRecord _:
         throw UnsupportedError(
-          '$VitaminCNutrientRecord is not supported on Health Connect. '
+          '$DietaryVitaminCRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final VitaminDNutrientRecord _:
+      case final DietaryVitaminDRecord _:
         throw UnsupportedError(
-          '$VitaminDNutrientRecord is not supported on Health Connect. '
+          '$DietaryVitaminDRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final VitaminENutrientRecord _:
+      case final DietaryVitaminERecord _:
         throw UnsupportedError(
-          '$VitaminENutrientRecord is not supported on Health Connect. '
+          '$DietaryVitaminERecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final VitaminKNutrientRecord _:
+      case final DietaryVitaminKRecord _:
         throw UnsupportedError(
-          '$VitaminKNutrientRecord is not supported on Health Connect. '
+          '$DietaryVitaminKRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final ThiaminNutrientRecord _:
+      case final DietaryThiaminRecord _:
         throw UnsupportedError(
-          '$ThiaminNutrientRecord is not supported on Health Connect. '
+          '$DietaryThiaminRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final RiboflavinNutrientRecord _:
+      case final DietaryRiboflavinRecord _:
         throw UnsupportedError(
-          '$RiboflavinNutrientRecord is not supported on Health Connect. '
+          '$DietaryRiboflavinRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final NiacinNutrientRecord _:
+      case final DietaryNiacinRecord _:
         throw UnsupportedError(
-          '$NiacinNutrientRecord is not supported on Health Connect. '
+          '$DietaryNiacinRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final FolateNutrientRecord _:
+      case final DietaryFolateRecord _:
         throw UnsupportedError(
-          '$FolateNutrientRecord is not supported on Health Connect. '
+          '$DietaryFolateRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final BiotinNutrientRecord _:
+      case final DietaryBiotinRecord _:
         throw UnsupportedError(
-          '$BiotinNutrientRecord is not supported on Health Connect. '
+          '$DietaryBiotinRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final PantothenicAcidNutrientRecord _:
+      case final DietaryPantothenicAcidRecord _:
         throw UnsupportedError(
-          '$PantothenicAcidNutrientRecord is not supported on Health Connect. '
+          '$DietaryPantothenicAcidRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final CalciumNutrientRecord _:
+      case final DietaryCalciumRecord _:
         throw UnsupportedError(
-          '$CalciumNutrientRecord is not supported on Health Connect. '
+          '$DietaryCalciumRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final IronNutrientRecord _:
+      case final DietaryIronRecord _:
         throw UnsupportedError(
-          '$IronNutrientRecord is not supported on Health Connect. '
+          '$DietaryIronRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final MagnesiumNutrientRecord _:
+      case final DietaryMagnesiumRecord _:
         throw UnsupportedError(
-          '$MagnesiumNutrientRecord is not supported on Health Connect. '
+          '$DietaryMagnesiumRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final ManganeseNutrientRecord _:
+      case final DietaryManganeseRecord _:
         throw UnsupportedError(
-          '$ManganeseNutrientRecord is not supported on Health Connect. '
+          '$DietaryManganeseRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final PhosphorusNutrientRecord _:
+      case final DietaryPhosphorusRecord _:
         throw UnsupportedError(
-          '$PhosphorusNutrientRecord is not supported on Health Connect. '
+          '$DietaryPhosphorusRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final PotassiumNutrientRecord _:
+      case final DietaryPotassiumRecord _:
         throw UnsupportedError(
-          '$PotassiumNutrientRecord is not supported on Health Connect. '
+          '$DietaryPotassiumRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final SeleniumNutrientRecord _:
+      case final DietarySeleniumRecord _:
         throw UnsupportedError(
-          '$SeleniumNutrientRecord is not supported on Health Connect. '
+          '$DietarySeleniumRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final SodiumNutrientRecord _:
+      case final DietarySodiumRecord _:
         throw UnsupportedError(
-          '$SodiumNutrientRecord is not supported on Health Connect. '
+          '$DietarySodiumRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
-      case final ZincNutrientRecord _:
+      case final DietaryZincRecord _:
         throw UnsupportedError(
-          '$ZincNutrientRecord is not supported on Health Connect. '
+          '$DietaryZincRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
       case final SleepStageRecord _:

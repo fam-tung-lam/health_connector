@@ -201,20 +201,20 @@ void main() {
                 HealthDataType.dietaryEnergyConsumed,
               ],
               [
-                CalciumNutrientRecord(
+                DietaryCalciumRecord(
                   mass: const Mass.grams(0.8),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
-                HealthDataType.calcium,
+                HealthDataType.dietaryCalcium,
               ],
               [
-                VitaminCNutrientRecord(
+                DietaryVitaminCRecord(
                   mass: const Mass.grams(0.09),
                   time: createTestTime(),
                   metadata: createTestMetadata(),
                 ),
-                HealthDataType.vitaminC,
+                HealthDataType.dietaryVitaminC,
               ],
 
               // Additional metrics

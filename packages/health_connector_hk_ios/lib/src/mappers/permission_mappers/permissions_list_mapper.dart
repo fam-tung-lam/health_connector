@@ -10,7 +10,7 @@ import 'package:meta/meta.dart' show internal;
 @sinceV1_0_0
 @internal
 extension PermissionsListToDto on List<HealthDataPermission> {
-  /// All individual nutrient data types that make up a NutritionRecord.
+  /// All individual data types that make up a NutritionRecord.
   ///
   /// When requesting permission for [NutritionDataType], we need to
   /// also request permission for all individual nutrient types since HealthKit
@@ -18,44 +18,44 @@ extension PermissionsListToDto on List<HealthDataPermission> {
   /// HKQuantitySamples.
   static const _allNutrientDataTypes = [
     HealthDataType.dietaryEnergyConsumed,
-    HealthDataType.caffeine,
-    HealthDataType.protein,
-    HealthDataType.totalCarbohydrate,
-    HealthDataType.totalFat,
-    HealthDataType.saturatedFat,
-    HealthDataType.monounsaturatedFat,
-    HealthDataType.polyunsaturatedFat,
-    HealthDataType.cholesterol,
+    HealthDataType.dietaryCaffeine,
+    HealthDataType.dietaryProtein,
+    HealthDataType.dietaryTotalCarbohydrate,
+    HealthDataType.dietaryTotalFat,
+    HealthDataType.dietarySaturatedFat,
+    HealthDataType.dietaryMonounsaturatedFat,
+    HealthDataType.dietaryPolyunsaturatedFat,
+    HealthDataType.dietaryCholesterol,
     HealthDataType.dietaryFiber,
-    HealthDataType.sugar,
-    HealthDataType.vitaminA,
-    HealthDataType.vitaminB6,
-    HealthDataType.vitaminB12,
-    HealthDataType.vitaminC,
-    HealthDataType.vitaminD,
-    HealthDataType.vitaminE,
-    HealthDataType.vitaminK,
-    HealthDataType.thiamin,
-    HealthDataType.riboflavin,
-    HealthDataType.niacin,
-    HealthDataType.folate,
-    HealthDataType.biotin,
-    HealthDataType.pantothenicAcid,
-    HealthDataType.calcium,
-    HealthDataType.iron,
-    HealthDataType.magnesium,
-    HealthDataType.manganese,
-    HealthDataType.phosphorus,
-    HealthDataType.potassium,
-    HealthDataType.selenium,
-    HealthDataType.sodium,
-    HealthDataType.zinc,
+    HealthDataType.dietarySugar,
+    HealthDataType.dietaryVitaminA,
+    HealthDataType.dietaryVitaminB6,
+    HealthDataType.dietaryVitaminB12,
+    HealthDataType.dietaryVitaminC,
+    HealthDataType.dietaryVitaminD,
+    HealthDataType.dietaryVitaminE,
+    HealthDataType.dietaryVitaminK,
+    HealthDataType.dietaryThiamin,
+    HealthDataType.dietaryRiboflavin,
+    HealthDataType.dietaryNiacin,
+    HealthDataType.dietaryFolate,
+    HealthDataType.dietaryBiotin,
+    HealthDataType.dietaryPantothenicAcid,
+    HealthDataType.dietaryCalcium,
+    HealthDataType.dietaryIron,
+    HealthDataType.dietaryMagnesium,
+    HealthDataType.dietaryManganese,
+    HealthDataType.dietaryPhosphorus,
+    HealthDataType.dietaryPotassium,
+    HealthDataType.dietarySelenium,
+    HealthDataType.dietarySodium,
+    HealthDataType.dietaryZinc,
   ];
 
   /// Converts a list of [Permission] objects to a [PermissionsRequestDto].
   ///
   /// If a permission for [NutritionDataType] is found, this method will
-  /// also add permissions for all individual nutrient data types with the same
+  /// also add permissions for all individual data types with the same
   /// access type (read/write). This is required because HealthKit stores
   /// nutrition as an HKCorrelation containing individual HKQuantitySamples.
   PermissionsRequestDto toDto() {

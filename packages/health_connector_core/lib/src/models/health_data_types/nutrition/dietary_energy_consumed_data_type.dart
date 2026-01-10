@@ -1,6 +1,6 @@
 part of '../health_data_type.dart';
 
-/// Energy nutrient data type.
+/// Energy data type.
 ///
 /// Tracks dietary energy intake, a total caloric intake from all
 /// macronutrient sources.
@@ -36,7 +36,7 @@ final class DietaryEnergyConsumedDataType
         WriteableHealthDataType,
         SumAggregatableHealthDataType<DietaryEnergyConsumedRecord, Energy>,
         DeletableHealthDataType<DietaryEnergyConsumedRecord> {
-  /// Creates a energy nutrient data type.
+  /// Creates a energy data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
@@ -44,7 +44,7 @@ final class DietaryEnergyConsumedDataType
   const DietaryEnergyConsumedDataType();
 
   @override
-  String get id => 'energy_nutrient';
+  String get id => 'dietary_energy_consumed';
 
   @override
   bool operator ==(Object other) =>

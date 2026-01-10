@@ -249,37 +249,35 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      CaffeineNutrientDataType _ => CaffeineNutrientWriteForm(
+      DietaryCaffeineDataType _ => DietaryCaffeineWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      ProteinNutrientDataType _ => ProteinNutrientWriteForm(
+      DietaryProteinDataType _ => DietaryProteinWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      TotalCarbohydrateNutrientDataType _ => TotalCarbohydrateNutrientWriteForm(
+      DietaryTotalCarbohydrateDataType _ => DietaryTotalCarbohydrateWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      TotalFatNutrientDataType _ => TotalFatNutrientWriteForm(
+      DietaryTotalFatDataType _ => DietaryTotalFatWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      SaturatedFatNutrientDataType _ => SaturatedFatNutrientWriteForm(
+      DietarySaturatedFatDataType _ => DietarySaturatedFatWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      MonounsaturatedFatNutrientDataType _ =>
-        MonounsaturatedFatNutrientWriteForm(
-          healthPlatform: _notifier.healthPlatform,
-          onSubmit: _onSubmit,
-        ),
-      PolyunsaturatedFatNutrientDataType _ =>
-        PolyunsaturatedFatNutrientWriteForm(
-          healthPlatform: _notifier.healthPlatform,
-          onSubmit: _onSubmit,
-        ),
-      CholesterolNutrientDataType _ => CholesterolNutrientWriteForm(
+      DietaryMonounsaturatedFatDataType _ => DietaryMonounsaturatedFatWriteForm(
+        healthPlatform: _notifier.healthPlatform,
+        onSubmit: _onSubmit,
+      ),
+      DietaryPolyunsaturatedFatDataType _ => DietaryPolyunsaturatedFatWriteForm(
+        healthPlatform: _notifier.healthPlatform,
+        onSubmit: _onSubmit,
+      ),
+      DietaryCholesterolDataType _ => DietaryCholesterolWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
@@ -287,95 +285,95 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      SugarNutrientDataType _ => SugarNutrientWriteForm(
+      DietarySugarDataType _ => DietarySugarWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      CalciumNutrientDataType _ => CalciumNutrientWriteForm(
+      DietaryCalciumDataType _ => DietaryCalciumWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      IronNutrientDataType _ => IronNutrientWriteForm(
+      DietaryIronDataType _ => DietaryIronWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      MagnesiumNutrientDataType _ => MagnesiumNutrientWriteForm(
+      DietaryMagnesiumDataType _ => DietaryMagnesiumWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      ManganeseNutrientDataType _ => ManganeseNutrientWriteForm(
+      DietaryManganeseDataType _ => DietaryManganeseWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      PhosphorusNutrientDataType _ => PhosphorusNutrientWriteForm(
+      DietaryPhosphorusDataType _ => DietaryPhosphorusWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      PotassiumNutrientDataType _ => PotassiumNutrientWriteForm(
+      DietaryPotassiumDataType _ => DietaryPotassiumWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      SeleniumNutrientDataType _ => SeleniumNutrientWriteForm(
+      DietarySeleniumDataType _ => DietarySeleniumWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      SodiumNutrientDataType _ => SodiumNutrientWriteForm(
+      DietarySodiumDataType _ => DietarySodiumWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      ZincNutrientDataType _ => ZincNutrientWriteForm(
+      DietaryZincDataType _ => DietaryZincWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      VitaminANutrientDataType _ => VitaminANutrientWriteForm(
+      DietaryVitaminADataType _ => DietaryVitaminAWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      VitaminB6NutrientDataType _ => VitaminB6NutrientWriteForm(
+      DietaryVitaminB6DataType _ => DietaryVitaminB6WriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      VitaminB12NutrientDataType _ => VitaminB12NutrientWriteForm(
+      DietaryVitaminB12DataType _ => DietaryVitaminB12WriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      VitaminCNutrientDataType _ => VitaminCNutrientWriteForm(
+      DietaryVitaminCDataType _ => DietaryVitaminCWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      VitaminDNutrientDataType _ => VitaminDNutrientWriteForm(
+      DietaryVitaminDDataType _ => DietaryVitaminDWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      VitaminENutrientDataType _ => VitaminENutrientWriteForm(
+      DietaryVitaminEDataType _ => DietaryVitaminEWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      VitaminKNutrientDataType _ => VitaminKNutrientWriteForm(
+      DietaryVitaminKDataType _ => DietaryVitaminKWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      ThiaminNutrientDataType _ => ThiaminNutrientWriteForm(
+      DietaryThiaminDataType _ => DietaryThiaminWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      RiboflavinNutrientDataType _ => RiboflavinNutrientWriteForm(
+      DietaryRiboflavinDataType _ => DietaryRiboflavinWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      NiacinNutrientDataType _ => NiacinNutrientWriteForm(
+      DietaryNiacinDataType _ => DietaryNiacinWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      FolateNutrientDataType _ => FolateNutrientWriteForm(
+      DietaryFolateDataType _ => DietaryFolateWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      BiotinNutrientDataType _ => BiotinNutrientWriteForm(
+      DietaryBiotinDataType _ => DietaryBiotinWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      PantothenicAcidNutrientDataType _ => PantothenicAcidNutrientWriteForm(
+      DietaryPantothenicAcidDataType _ => DietaryPantothenicAcidWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),

@@ -2175,8 +2175,8 @@ class DietaryEnergyConsumedRecordDto extends HealthRecordDto {
 }
 
 /// Represents caffeine nutrient data for platform transfer.
-class CaffeineNutrientRecordDto extends HealthRecordDto {
-  CaffeineNutrientRecordDto({
+class DietaryCaffeineRecordDto extends HealthRecordDto {
+  DietaryCaffeineRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2196,8 +2196,8 @@ class CaffeineNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents protein nutrient data for platform transfer.
-class ProteinNutrientRecordDto extends HealthRecordDto {
-  ProteinNutrientRecordDto({
+class DietaryProteinRecordDto extends HealthRecordDto {
+  DietaryProteinRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2217,8 +2217,8 @@ class ProteinNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents total carbohydrate nutrient data for platform transfer.
-class TotalCarbohydrateNutrientRecordDto extends HealthRecordDto {
-  TotalCarbohydrateNutrientRecordDto({
+class DietaryTotalCarbohydrateRecordDto extends HealthRecordDto {
+  DietaryTotalCarbohydrateRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2238,8 +2238,8 @@ class TotalCarbohydrateNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents total fat nutrient data for platform transfer.
-class TotalFatNutrientRecordDto extends HealthRecordDto {
-  TotalFatNutrientRecordDto({
+class DietaryTotalFatRecordDto extends HealthRecordDto {
+  DietaryTotalFatRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2259,8 +2259,8 @@ class TotalFatNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents saturated fat nutrient data for platform transfer.
-class SaturatedFatNutrientRecordDto extends HealthRecordDto {
-  SaturatedFatNutrientRecordDto({
+class DietarySaturatedFatRecordDto extends HealthRecordDto {
+  DietarySaturatedFatRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2280,8 +2280,8 @@ class SaturatedFatNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents monounsaturated fat nutrient data for platform transfer.
-class MonounsaturatedFatNutrientRecordDto extends HealthRecordDto {
-  MonounsaturatedFatNutrientRecordDto({
+class DietaryMonounsaturatedFatRecordDto extends HealthRecordDto {
+  DietaryMonounsaturatedFatRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2301,8 +2301,8 @@ class MonounsaturatedFatNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents polyunsaturated fat nutrient data for platform transfer.
-class PolyunsaturatedFatNutrientRecordDto extends HealthRecordDto {
-  PolyunsaturatedFatNutrientRecordDto({
+class DietaryPolyunsaturatedFatRecordDto extends HealthRecordDto {
+  DietaryPolyunsaturatedFatRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2322,8 +2322,8 @@ class PolyunsaturatedFatNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents cholesterol nutrient data for platform transfer.
-class CholesterolNutrientRecordDto extends HealthRecordDto {
-  CholesterolNutrientRecordDto({
+class DietaryCholesterolRecordDto extends HealthRecordDto {
+  DietaryCholesterolRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2343,8 +2343,8 @@ class CholesterolNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents dietary fiber nutrient data for platform transfer.
-class DietaryFiberNutrientRecordDto extends HealthRecordDto {
-  DietaryFiberNutrientRecordDto({
+class DietaryFiberRecordDto extends HealthRecordDto {
+  DietaryFiberRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2364,8 +2364,8 @@ class DietaryFiberNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents sugar nutrient data for platform transfer.
-class SugarNutrientRecordDto extends HealthRecordDto {
-  SugarNutrientRecordDto({
+class DietarySugarRecordDto extends HealthRecordDto {
+  DietarySugarRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2385,8 +2385,8 @@ class SugarNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin A nutrient data for platform transfer.
-class VitaminANutrientRecordDto extends HealthRecordDto {
-  VitaminANutrientRecordDto({
+class DietaryVitaminARecordDto extends HealthRecordDto {
+  DietaryVitaminARecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2406,8 +2406,8 @@ class VitaminANutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin B6 nutrient data for platform transfer.
-class VitaminB6NutrientRecordDto extends HealthRecordDto {
-  VitaminB6NutrientRecordDto({
+class DietaryVitaminB6RecordDto extends HealthRecordDto {
+  DietaryVitaminB6RecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2427,8 +2427,8 @@ class VitaminB6NutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin B12 nutrient data for platform transfer.
-class VitaminB12NutrientRecordDto extends HealthRecordDto {
-  VitaminB12NutrientRecordDto({
+class DietaryVitaminB12RecordDto extends HealthRecordDto {
+  DietaryVitaminB12RecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2448,8 +2448,8 @@ class VitaminB12NutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin C nutrient data for platform transfer.
-class VitaminCNutrientRecordDto extends HealthRecordDto {
-  VitaminCNutrientRecordDto({
+class DietaryVitaminCRecordDto extends HealthRecordDto {
+  DietaryVitaminCRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2469,8 +2469,8 @@ class VitaminCNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin D nutrient data for platform transfer.
-class VitaminDNutrientRecordDto extends HealthRecordDto {
-  VitaminDNutrientRecordDto({
+class DietaryVitaminDRecordDto extends HealthRecordDto {
+  DietaryVitaminDRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2490,8 +2490,8 @@ class VitaminDNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin E nutrient data for platform transfer.
-class VitaminENutrientRecordDto extends HealthRecordDto {
-  VitaminENutrientRecordDto({
+class DietaryVitaminERecordDto extends HealthRecordDto {
+  DietaryVitaminERecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2511,8 +2511,8 @@ class VitaminENutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents vitamin K nutrient data for platform transfer.
-class VitaminKNutrientRecordDto extends HealthRecordDto {
-  VitaminKNutrientRecordDto({
+class DietaryVitaminKRecordDto extends HealthRecordDto {
+  DietaryVitaminKRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2532,8 +2532,8 @@ class VitaminKNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents thiamin (vitamin B1) nutrient data for platform transfer.
-class ThiaminNutrientRecordDto extends HealthRecordDto {
-  ThiaminNutrientRecordDto({
+class DietaryThiaminRecordDto extends HealthRecordDto {
+  DietaryThiaminRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2553,8 +2553,8 @@ class ThiaminNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents riboflavin (vitamin B2) nutrient data for platform transfer.
-class RiboflavinNutrientRecordDto extends HealthRecordDto {
-  RiboflavinNutrientRecordDto({
+class DietaryRiboflavinRecordDto extends HealthRecordDto {
+  DietaryRiboflavinRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2574,8 +2574,8 @@ class RiboflavinNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents niacin (vitamin B3) nutrient data for platform transfer.
-class NiacinNutrientRecordDto extends HealthRecordDto {
-  NiacinNutrientRecordDto({
+class DietaryNiacinRecordDto extends HealthRecordDto {
+  DietaryNiacinRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2595,8 +2595,8 @@ class NiacinNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents folate (vitamin B9) nutrient data for platform transfer.
-class FolateNutrientRecordDto extends HealthRecordDto {
-  FolateNutrientRecordDto({
+class DietaryFolateRecordDto extends HealthRecordDto {
+  DietaryFolateRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2616,8 +2616,8 @@ class FolateNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents biotin (vitamin B7) nutrient data for platform transfer.
-class BiotinNutrientRecordDto extends HealthRecordDto {
-  BiotinNutrientRecordDto({
+class DietaryBiotinRecordDto extends HealthRecordDto {
+  DietaryBiotinRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2637,8 +2637,8 @@ class BiotinNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents pantothenic acid (vitamin B5) nutrient data.
-class PantothenicAcidNutrientRecordDto extends HealthRecordDto {
-  PantothenicAcidNutrientRecordDto({
+class DietaryPantothenicAcidRecordDto extends HealthRecordDto {
+  DietaryPantothenicAcidRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2658,8 +2658,8 @@ class PantothenicAcidNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents calcium nutrient data for platform transfer.
-class CalciumNutrientRecordDto extends HealthRecordDto {
-  CalciumNutrientRecordDto({
+class DietaryCalciumRecordDto extends HealthRecordDto {
+  DietaryCalciumRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2679,8 +2679,8 @@ class CalciumNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents iron nutrient data for platform transfer.
-class IronNutrientRecordDto extends HealthRecordDto {
-  IronNutrientRecordDto({
+class DietaryIronRecordDto extends HealthRecordDto {
+  DietaryIronRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2700,8 +2700,8 @@ class IronNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents magnesium nutrient data for platform transfer.
-class MagnesiumNutrientRecordDto extends HealthRecordDto {
-  MagnesiumNutrientRecordDto({
+class DietaryMagnesiumRecordDto extends HealthRecordDto {
+  DietaryMagnesiumRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2721,8 +2721,8 @@ class MagnesiumNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents manganese nutrient data for platform transfer.
-class ManganeseNutrientRecordDto extends HealthRecordDto {
-  ManganeseNutrientRecordDto({
+class DietaryManganeseRecordDto extends HealthRecordDto {
+  DietaryManganeseRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2742,8 +2742,8 @@ class ManganeseNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents phosphorus nutrient data for platform transfer.
-class PhosphorusNutrientRecordDto extends HealthRecordDto {
-  PhosphorusNutrientRecordDto({
+class DietaryPhosphorusRecordDto extends HealthRecordDto {
+  DietaryPhosphorusRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2763,8 +2763,8 @@ class PhosphorusNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents potassium nutrient data for platform transfer.
-class PotassiumNutrientRecordDto extends HealthRecordDto {
-  PotassiumNutrientRecordDto({
+class DietaryPotassiumRecordDto extends HealthRecordDto {
+  DietaryPotassiumRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2784,8 +2784,8 @@ class PotassiumNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents selenium nutrient data for platform transfer.
-class SeleniumNutrientRecordDto extends HealthRecordDto {
-  SeleniumNutrientRecordDto({
+class DietarySeleniumRecordDto extends HealthRecordDto {
+  DietarySeleniumRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2805,8 +2805,8 @@ class SeleniumNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents sodium nutrient data for platform transfer.
-class SodiumNutrientRecordDto extends HealthRecordDto {
-  SodiumNutrientRecordDto({
+class DietarySodiumRecordDto extends HealthRecordDto {
+  DietarySodiumRecordDto({
     required this.id,
     required this.metadata,
     required this.time,
@@ -2826,8 +2826,8 @@ class SodiumNutrientRecordDto extends HealthRecordDto {
 }
 
 /// Represents zinc nutrient data for platform transfer.
-class ZincNutrientRecordDto extends HealthRecordDto {
-  ZincNutrientRecordDto({
+class DietaryZincRecordDto extends HealthRecordDto {
+  DietaryZincRecordDto({
     required this.id,
     required this.metadata,
     required this.time,

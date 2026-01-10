@@ -82,69 +82,69 @@ extension HealthRecordDto {
             record.id
         case let record as DietaryEnergyConsumedRecordDto:
             record.id
-        case let record as CaffeineNutrientRecordDto:
+        case let record as DietaryCaffeineRecordDto:
             record.id
-        case let record as ProteinNutrientRecordDto:
+        case let record as DietaryProteinRecordDto:
             record.id
-        case let record as TotalCarbohydrateNutrientRecordDto:
+        case let record as DietaryTotalCarbohydrateRecordDto:
             record.id
-        case let record as TotalFatNutrientRecordDto:
+        case let record as DietaryTotalFatRecordDto:
             record.id
-        case let record as SaturatedFatNutrientRecordDto:
+        case let record as DietarySaturatedFatRecordDto:
             record.id
-        case let record as MonounsaturatedFatNutrientRecordDto:
+        case let record as DietaryMonounsaturatedFatRecordDto:
             record.id
-        case let record as PolyunsaturatedFatNutrientRecordDto:
+        case let record as DietaryPolyunsaturatedFatRecordDto:
             record.id
-        case let record as CholesterolNutrientRecordDto:
+        case let record as DietaryCholesterolRecordDto:
             record.id
-        case let record as DietaryFiberNutrientRecordDto:
+        case let record as DietaryFiberRecordDto:
             record.id
-        case let record as SugarNutrientRecordDto:
+        case let record as DietarySugarRecordDto:
             record.id
-        case let record as VitaminANutrientRecordDto:
+        case let record as DietaryVitaminARecordDto:
             record.id
-        case let record as VitaminB6NutrientRecordDto:
+        case let record as DietaryVitaminB6RecordDto:
             record.id
-        case let record as VitaminB12NutrientRecordDto:
+        case let record as DietaryVitaminB12RecordDto:
             record.id
-        case let record as VitaminCNutrientRecordDto:
+        case let record as DietaryVitaminCRecordDto:
             record.id
-        case let record as VitaminDNutrientRecordDto:
+        case let record as DietaryVitaminDRecordDto:
             record.id
-        case let record as VitaminENutrientRecordDto:
+        case let record as DietaryVitaminERecordDto:
             record.id
-        case let record as VitaminKNutrientRecordDto:
+        case let record as DietaryVitaminKRecordDto:
             record.id
-        case let record as ThiaminNutrientRecordDto:
+        case let record as DietaryThiaminRecordDto:
             record.id
-        case let record as RiboflavinNutrientRecordDto:
+        case let record as DietaryRiboflavinRecordDto:
             record.id
-        case let record as NiacinNutrientRecordDto:
+        case let record as DietaryNiacinRecordDto:
             record.id
-        case let record as FolateNutrientRecordDto:
+        case let record as DietaryFolateRecordDto:
             record.id
-        case let record as BiotinNutrientRecordDto:
+        case let record as DietaryBiotinRecordDto:
             record.id
-        case let record as PantothenicAcidNutrientRecordDto:
+        case let record as DietaryPantothenicAcidRecordDto:
             record.id
-        case let record as CalciumNutrientRecordDto:
+        case let record as DietaryCalciumRecordDto:
             record.id
-        case let record as IronNutrientRecordDto:
+        case let record as DietaryIronRecordDto:
             record.id
-        case let record as MagnesiumNutrientRecordDto:
+        case let record as DietaryMagnesiumRecordDto:
             record.id
-        case let record as ManganeseNutrientRecordDto:
+        case let record as DietaryManganeseRecordDto:
             record.id
-        case let record as PhosphorusNutrientRecordDto:
+        case let record as DietaryPhosphorusRecordDto:
             record.id
-        case let record as PotassiumNutrientRecordDto:
+        case let record as DietaryPotassiumRecordDto:
             record.id
-        case let record as SeleniumNutrientRecordDto:
+        case let record as DietarySeleniumRecordDto:
             record.id
-        case let record as SodiumNutrientRecordDto:
+        case let record as DietarySodiumRecordDto:
             record.id
-        case let record as ZincNutrientRecordDto:
+        case let record as DietaryZincRecordDto:
             record.id
         case let record as NutritionRecordDto:
             record.id
@@ -215,69 +215,69 @@ extension HealthRecordDto {
                 return .sleepStageRecord
             case is DietaryEnergyConsumedRecordDto:
                 return .dietaryEnergyConsumed
-            case is CaffeineNutrientRecordDto:
+            case is DietaryCaffeineRecordDto:
                 return .caffeine
-            case is ProteinNutrientRecordDto:
+            case is DietaryProteinRecordDto:
                 return .protein
-            case is TotalCarbohydrateNutrientRecordDto:
+            case is DietaryTotalCarbohydrateRecordDto:
                 return .totalCarbohydrate
-            case is TotalFatNutrientRecordDto:
+            case is DietaryTotalFatRecordDto:
                 return .totalFat
-            case is SaturatedFatNutrientRecordDto:
+            case is DietarySaturatedFatRecordDto:
                 return .saturatedFat
-            case is MonounsaturatedFatNutrientRecordDto:
+            case is DietaryMonounsaturatedFatRecordDto:
                 return .monounsaturatedFat
-            case is PolyunsaturatedFatNutrientRecordDto:
+            case is DietaryPolyunsaturatedFatRecordDto:
                 return .polyunsaturatedFat
-            case is CholesterolNutrientRecordDto:
+            case is DietaryCholesterolRecordDto:
                 return .cholesterol
-            case is DietaryFiberNutrientRecordDto:
+            case is DietaryFiberRecordDto:
                 return .dietaryFiber
-            case is SugarNutrientRecordDto:
+            case is DietarySugarRecordDto:
                 return .sugar
-            case is VitaminANutrientRecordDto:
+            case is DietaryVitaminARecordDto:
                 return .vitaminA
-            case is VitaminB6NutrientRecordDto:
+            case is DietaryVitaminB6RecordDto:
                 return .vitaminB6
-            case is VitaminB12NutrientRecordDto:
+            case is DietaryVitaminB12RecordDto:
                 return .vitaminB12
-            case is VitaminCNutrientRecordDto:
+            case is DietaryVitaminCRecordDto:
                 return .vitaminC
-            case is VitaminDNutrientRecordDto:
+            case is DietaryVitaminDRecordDto:
                 return .vitaminD
-            case is VitaminENutrientRecordDto:
+            case is DietaryVitaminERecordDto:
                 return .vitaminE
-            case is VitaminKNutrientRecordDto:
+            case is DietaryVitaminKRecordDto:
                 return .vitaminK
-            case is ThiaminNutrientRecordDto:
+            case is DietaryThiaminRecordDto:
                 return .thiamin
-            case is RiboflavinNutrientRecordDto:
+            case is DietaryRiboflavinRecordDto:
                 return .riboflavin
-            case is NiacinNutrientRecordDto:
+            case is DietaryNiacinRecordDto:
                 return .niacin
-            case is FolateNutrientRecordDto:
+            case is DietaryFolateRecordDto:
                 return .folate
-            case is BiotinNutrientRecordDto:
+            case is DietaryBiotinRecordDto:
                 return .biotin
-            case is PantothenicAcidNutrientRecordDto:
+            case is DietaryPantothenicAcidRecordDto:
                 return .pantothenicAcid
-            case is CalciumNutrientRecordDto:
+            case is DietaryCalciumRecordDto:
                 return .calcium
-            case is IronNutrientRecordDto:
+            case is DietaryIronRecordDto:
                 return .iron
-            case is MagnesiumNutrientRecordDto:
+            case is DietaryMagnesiumRecordDto:
                 return .magnesium
-            case is ManganeseNutrientRecordDto:
+            case is DietaryManganeseRecordDto:
                 return .manganese
-            case is PhosphorusNutrientRecordDto:
+            case is DietaryPhosphorusRecordDto:
                 return .phosphorus
-            case is PotassiumNutrientRecordDto:
+            case is DietaryPotassiumRecordDto:
                 return .potassium
-            case is SeleniumNutrientRecordDto:
+            case is DietarySeleniumRecordDto:
                 return .selenium
-            case is SodiumNutrientRecordDto:
+            case is DietarySodiumRecordDto:
                 return .sodium
-            case is ZincNutrientRecordDto:
+            case is DietaryZincRecordDto:
                 return .zinc
             case is NutritionRecordDto:
                 return .nutrition
@@ -387,69 +387,69 @@ extension HealthRecordDto {
             return dto.time
         case let dto as DietaryEnergyConsumedRecordDto:
             return dto.time
-        case let dto as CaffeineNutrientRecordDto:
+        case let dto as DietaryCaffeineRecordDto:
             return dto.time
-        case let dto as ProteinNutrientRecordDto:
+        case let dto as DietaryProteinRecordDto:
             return dto.time
-        case let dto as TotalCarbohydrateNutrientRecordDto:
+        case let dto as DietaryTotalCarbohydrateRecordDto:
             return dto.time
-        case let dto as TotalFatNutrientRecordDto:
+        case let dto as DietaryTotalFatRecordDto:
             return dto.time
-        case let dto as SaturatedFatNutrientRecordDto:
+        case let dto as DietarySaturatedFatRecordDto:
             return dto.time
-        case let dto as MonounsaturatedFatNutrientRecordDto:
+        case let dto as DietaryMonounsaturatedFatRecordDto:
             return dto.time
-        case let dto as PolyunsaturatedFatNutrientRecordDto:
+        case let dto as DietaryPolyunsaturatedFatRecordDto:
             return dto.time
-        case let dto as CholesterolNutrientRecordDto:
+        case let dto as DietaryCholesterolRecordDto:
             return dto.time
-        case let dto as DietaryFiberNutrientRecordDto:
+        case let dto as DietaryFiberRecordDto:
             return dto.time
-        case let dto as SugarNutrientRecordDto:
+        case let dto as DietarySugarRecordDto:
             return dto.time
-        case let dto as VitaminANutrientRecordDto:
+        case let dto as DietaryVitaminARecordDto:
             return dto.time
-        case let dto as VitaminB6NutrientRecordDto:
+        case let dto as DietaryVitaminB6RecordDto:
             return dto.time
-        case let dto as VitaminB12NutrientRecordDto:
+        case let dto as DietaryVitaminB12RecordDto:
             return dto.time
-        case let dto as VitaminCNutrientRecordDto:
+        case let dto as DietaryVitaminCRecordDto:
             return dto.time
-        case let dto as VitaminDNutrientRecordDto:
+        case let dto as DietaryVitaminDRecordDto:
             return dto.time
-        case let dto as VitaminENutrientRecordDto:
+        case let dto as DietaryVitaminERecordDto:
             return dto.time
-        case let dto as VitaminKNutrientRecordDto:
+        case let dto as DietaryVitaminKRecordDto:
             return dto.time
-        case let dto as ThiaminNutrientRecordDto:
+        case let dto as DietaryThiaminRecordDto:
             return dto.time
-        case let dto as RiboflavinNutrientRecordDto:
+        case let dto as DietaryRiboflavinRecordDto:
             return dto.time
-        case let dto as NiacinNutrientRecordDto:
+        case let dto as DietaryNiacinRecordDto:
             return dto.time
-        case let dto as FolateNutrientRecordDto:
+        case let dto as DietaryFolateRecordDto:
             return dto.time
-        case let dto as BiotinNutrientRecordDto:
+        case let dto as DietaryBiotinRecordDto:
             return dto.time
-        case let dto as PantothenicAcidNutrientRecordDto:
+        case let dto as DietaryPantothenicAcidRecordDto:
             return dto.time
-        case let dto as CalciumNutrientRecordDto:
+        case let dto as DietaryCalciumRecordDto:
             return dto.time
-        case let dto as IronNutrientRecordDto:
+        case let dto as DietaryIronRecordDto:
             return dto.time
-        case let dto as MagnesiumNutrientRecordDto:
+        case let dto as DietaryMagnesiumRecordDto:
             return dto.time
-        case let dto as ManganeseNutrientRecordDto:
+        case let dto as DietaryManganeseRecordDto:
             return dto.time
-        case let dto as PhosphorusNutrientRecordDto:
+        case let dto as DietaryPhosphorusRecordDto:
             return dto.time
-        case let dto as PotassiumNutrientRecordDto:
+        case let dto as DietaryPotassiumRecordDto:
             return dto.time
-        case let dto as SeleniumNutrientRecordDto:
+        case let dto as DietarySeleniumRecordDto:
             return dto.time
-        case let dto as SodiumNutrientRecordDto:
+        case let dto as DietarySodiumRecordDto:
             return dto.time
-        case let dto as ZincNutrientRecordDto:
+        case let dto as DietaryZincRecordDto:
             return dto.time
         case let dto as ExerciseSessionRecordDto:
             return dto.endTime

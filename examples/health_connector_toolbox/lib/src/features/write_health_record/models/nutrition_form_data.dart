@@ -252,69 +252,69 @@ final class NutritionData {
     switch (type) {
       case HealthDataType.dietaryEnergyConsumed:
         return copyWith(energy: value as Energy?);
-      case HealthDataType.protein:
+      case HealthDataType.dietaryProtein:
         return copyWith(protein: value as Mass?);
-      case HealthDataType.totalCarbohydrate:
+      case HealthDataType.dietaryTotalCarbohydrate:
         return copyWith(totalCarbohydrate: value as Mass?);
-      case HealthDataType.totalFat:
+      case HealthDataType.dietaryTotalFat:
         return copyWith(totalFat: value as Mass?);
-      case HealthDataType.saturatedFat:
+      case HealthDataType.dietarySaturatedFat:
         return copyWith(saturatedFat: value as Mass?);
-      case HealthDataType.monounsaturatedFat:
+      case HealthDataType.dietaryMonounsaturatedFat:
         return copyWith(monounsaturatedFat: value as Mass?);
-      case HealthDataType.polyunsaturatedFat:
+      case HealthDataType.dietaryPolyunsaturatedFat:
         return copyWith(polyunsaturatedFat: value as Mass?);
-      case HealthDataType.cholesterol:
+      case HealthDataType.dietaryCholesterol:
         return copyWith(cholesterol: value as Mass?);
       case HealthDataType.dietaryFiber:
         return copyWith(dietaryFiber: value as Mass?);
-      case HealthDataType.sugar:
+      case HealthDataType.dietarySugar:
         return copyWith(sugar: value as Mass?);
-      case HealthDataType.vitaminA:
+      case HealthDataType.dietaryVitaminA:
         return copyWith(vitaminA: value as Mass?);
-      case HealthDataType.vitaminB6:
+      case HealthDataType.dietaryVitaminB6:
         return copyWith(vitaminB6: value as Mass?);
-      case HealthDataType.vitaminB12:
+      case HealthDataType.dietaryVitaminB12:
         return copyWith(vitaminB12: value as Mass?);
-      case HealthDataType.vitaminC:
+      case HealthDataType.dietaryVitaminC:
         return copyWith(vitaminC: value as Mass?);
-      case HealthDataType.vitaminD:
+      case HealthDataType.dietaryVitaminD:
         return copyWith(vitaminD: value as Mass?);
-      case HealthDataType.vitaminE:
+      case HealthDataType.dietaryVitaminE:
         return copyWith(vitaminE: value as Mass?);
-      case HealthDataType.vitaminK:
+      case HealthDataType.dietaryVitaminK:
         return copyWith(vitaminK: value as Mass?);
-      case HealthDataType.thiamin:
+      case HealthDataType.dietaryThiamin:
         return copyWith(thiamin: value as Mass?);
-      case HealthDataType.riboflavin:
+      case HealthDataType.dietaryRiboflavin:
         return copyWith(riboflavin: value as Mass?);
-      case HealthDataType.niacin:
+      case HealthDataType.dietaryNiacin:
         return copyWith(niacin: value as Mass?);
-      case HealthDataType.folate:
+      case HealthDataType.dietaryFolate:
         return copyWith(folate: value as Mass?);
-      case HealthDataType.biotin:
+      case HealthDataType.dietaryBiotin:
         return copyWith(biotin: value as Mass?);
-      case HealthDataType.pantothenicAcid:
+      case HealthDataType.dietaryPantothenicAcid:
         return copyWith(pantothenicAcid: value as Mass?);
-      case HealthDataType.calcium:
+      case HealthDataType.dietaryCalcium:
         return copyWith(calcium: value as Mass?);
-      case HealthDataType.iron:
+      case HealthDataType.dietaryIron:
         return copyWith(iron: value as Mass?);
-      case HealthDataType.magnesium:
+      case HealthDataType.dietaryMagnesium:
         return copyWith(magnesium: value as Mass?);
-      case HealthDataType.manganese:
+      case HealthDataType.dietaryManganese:
         return copyWith(manganese: value as Mass?);
-      case HealthDataType.phosphorus:
+      case HealthDataType.dietaryPhosphorus:
         return copyWith(phosphorus: value as Mass?);
-      case HealthDataType.potassium:
+      case HealthDataType.dietaryPotassium:
         return copyWith(potassium: value as Mass?);
-      case HealthDataType.selenium:
+      case HealthDataType.dietarySelenium:
         return copyWith(selenium: value as Mass?);
-      case HealthDataType.sodium:
+      case HealthDataType.dietarySodium:
         return copyWith(sodium: value as Mass?);
-      case HealthDataType.zinc:
+      case HealthDataType.dietaryZinc:
         return copyWith(zinc: value as Mass?);
-      case HealthDataType.caffeine:
+      case HealthDataType.dietaryCaffeine:
         return copyWith(caffeine: value as Mass?);
       default:
         return this;

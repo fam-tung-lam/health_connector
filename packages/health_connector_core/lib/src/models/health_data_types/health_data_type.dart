@@ -58,44 +58,44 @@ part 'menstruation/menstrual_flow_data_type.dart';
 part 'menstruation/menstrual_flow_instant_data_type.dart';
 part 'menstruation/ovulation_test_data_type.dart';
 part 'mindfulness_session_data_type.dart';
-part 'nutrition/biotin_nutrient_data_type.dart';
-part 'nutrition/caffeine_nutrient_data_type.dart';
-part 'nutrition/calcium_nutrient_data_type.dart';
-part 'nutrition/cholesterol_nutrient_data_type.dart';
+part 'nutrition/dietary_biotin_data_type.dart';
+part 'nutrition/dietary_caffeine_data_type.dart';
+part 'nutrition/dietary_calcium_data_type.dart';
+part 'nutrition/dietary_cholesterol_data_type.dart';
 part 'nutrition/dietary_energy_consumed_data_type.dart';
 part 'nutrition/dietary_fiber_nutrient_data_type.dart';
-part 'nutrition/folate_nutrient_data_type.dart';
-part 'nutrition/iron_nutrient_data_type.dart';
-part 'nutrition/macronutrient_data_type.dart';
-part 'nutrition/magnesium_nutrient_data_type.dart';
-part 'nutrition/manganese_nutrient_data_type.dart';
-part 'nutrition/mineral_nutrient_data_type.dart';
-part 'nutrition/monounsaturated_fat_nutrient_data_type.dart';
-part 'nutrition/niacin_nutrient_data_type.dart';
-part 'nutrition/nutrient_data_type.dart';
+part 'nutrition/dietary_folate_data_type.dart';
+part 'nutrition/dietary_iron_data_type.dart';
+part 'nutrition/dietary_macronutrient_data_type.dart';
+part 'nutrition/dietary_magnesium_data_type.dart';
+part 'nutrition/dietary_manganese_data_type.dart';
+part 'nutrition/dietary_mineral_data_type.dart';
+part 'nutrition/dietary_monounsaturated_fat_data_type.dart';
+part 'nutrition/dietary_niacin_data_type.dart';
+part 'nutrition/dietary_nutrient_data_type.dart';
+part 'nutrition/dietary_pantothenic_acid_data_type.dart';
+part 'nutrition/dietary_phosphorus_data_type.dart';
+part 'nutrition/dietary_polyunsaturated_fat_data_type.dart';
+part 'nutrition/dietary_potassium_data_type.dart';
+part 'nutrition/dietary_protein_data_type.dart';
+part 'nutrition/dietary_riboflavin_data_type.dart';
+part 'nutrition/dietary_saturated_fat_data_type.dart';
+part 'nutrition/dietary_selenium_data_type.dart';
+part 'nutrition/dietary_sodium_data_type.dart';
+part 'nutrition/dietary_sugar_data_type.dart';
+part 'nutrition/dietary_thiamin_data_type.dart';
+part 'nutrition/dietary_total_carbohydrate_data_type.dart';
+part 'nutrition/dietary_total_fat_data_type.dart';
+part 'nutrition/dietary_vitamin_a_data_type.dart';
+part 'nutrition/dietary_vitamin_b12_data_type.dart';
+part 'nutrition/dietary_vitamin_b6_data_type.dart';
+part 'nutrition/dietary_vitamin_c_data_type.dart';
+part 'nutrition/dietary_vitamin_d_data_type.dart';
+part 'nutrition/dietary_vitamin_data_type.dart';
+part 'nutrition/dietary_vitamin_e_data_type.dart';
+part 'nutrition/dietary_vitamin_k_data_type.dart';
+part 'nutrition/dietary_zinc_data_type.dart';
 part 'nutrition/nutrition_data_type.dart';
-part 'nutrition/pantothenic_acid_nutrient_data_type.dart';
-part 'nutrition/phosphorus_nutrient_data_type.dart';
-part 'nutrition/polyunsaturated_fat_nutrient_data_type.dart';
-part 'nutrition/potassium_nutrient_data_type.dart';
-part 'nutrition/protein_nutrient_data_type.dart';
-part 'nutrition/riboflavin_nutrient_data_type.dart';
-part 'nutrition/saturated_fat_nutrient_data_type.dart';
-part 'nutrition/selenium_nutrient_data_type.dart';
-part 'nutrition/sodium_nutrient_data_type.dart';
-part 'nutrition/sugar_nutrient_data_type.dart';
-part 'nutrition/thiamin_nutrient_data_type.dart';
-part 'nutrition/total_carbohydrate_nutrient_data_type.dart';
-part 'nutrition/total_fat_nutrient_data_type.dart';
-part 'nutrition/vitamin_a_nutrient_data_type.dart';
-part 'nutrition/vitamin_b12_nutrient_data_type.dart';
-part 'nutrition/vitamin_b6_nutrient_data_type.dart';
-part 'nutrition/vitamin_c_nutrient_data_type.dart';
-part 'nutrition/vitamin_d_nutrient_data_type.dart';
-part 'nutrition/vitamin_e_nutrient_data_type.dart';
-part 'nutrition/vitamin_k_nutrient_data_type.dart';
-part 'nutrition/vitamin_nutrient_data_type.dart';
-part 'nutrition/zinc_nutrient_data_type.dart';
 part 'oxygen_saturation_data_type.dart';
 part 'power/cycling_power_data_type.dart';
 part 'power/power_series_data_type.dart';
@@ -669,235 +669,235 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @supportedOnAppleHealth
   static const basalEnergyBurned = BasalEnergyBurnedDataType();
 
-  /// Caffeine nutrient data type.
+  /// Caffeine data type.
   ///
   /// Represents caffeine intake. Supports reading, writing,
   /// and sum aggregation of caffeine nutrient records.
   @sinceV1_1_0
-  static const caffeine = CaffeineNutrientDataType();
+  static const dietaryCaffeine = DietaryCaffeineDataType();
 
-  /// Protein nutrient data type.
+  /// Protein data type.
   ///
   /// Represents protein intake. Supports reading, writing,
   /// and sum aggregation of protein nutrient records.
   @sinceV1_1_0
-  static const protein = ProteinNutrientDataType();
+  static const dietaryProtein = DietaryProteinDataType();
 
-  /// Total carbohydrate nutrient data type.
+  /// Total carbohydrate data type.
   ///
   /// Represents total carbohydrate intake. Supports reading, writing,
   /// and sum aggregation of total carbohydrate nutrient records.
   @sinceV1_1_0
-  static const totalCarbohydrate = TotalCarbohydrateNutrientDataType();
+  static const dietaryTotalCarbohydrate = DietaryTotalCarbohydrateDataType();
 
-  /// Total fat nutrient data type.
+  /// Total fat data type.
   ///
   /// Represents total fat intake. Supports reading, writing,
   /// and sum aggregation of total fat nutrient records.
   @sinceV1_1_0
-  static const totalFat = TotalFatNutrientDataType();
+  static const dietaryTotalFat = DietaryTotalFatDataType();
 
-  /// Saturated fat nutrient data type.
+  /// Saturated fat data type.
   ///
   /// Represents saturated fat intake. Supports reading, writing,
   /// and sum aggregation of saturated fat nutrient records.
   @sinceV1_1_0
-  static const saturatedFat = SaturatedFatNutrientDataType();
+  static const dietarySaturatedFat = DietarySaturatedFatDataType();
 
-  /// Monounsaturated fat nutrient data type.
+  /// Monounsaturated fat data type.
   ///
   /// Represents monounsaturated fat intake. Supports reading, writing,
   /// and sum aggregation of monounsaturated fat nutrient records.
   @sinceV1_1_0
-  static const monounsaturatedFat = MonounsaturatedFatNutrientDataType();
+  static const dietaryMonounsaturatedFat = DietaryMonounsaturatedFatDataType();
 
-  /// Polyunsaturated fat nutrient data type.
+  /// Polyunsaturated fat data type.
   ///
   /// Represents polyunsaturated fat intake. Supports reading, writing,
   /// and sum aggregation of polyunsaturated fat nutrient records.
   @sinceV1_1_0
-  static const polyunsaturatedFat = PolyunsaturatedFatNutrientDataType();
+  static const dietaryPolyunsaturatedFat = DietaryPolyunsaturatedFatDataType();
 
-  /// Cholesterol nutrient data type.
+  /// Cholesterol data type.
   ///
   /// Represents cholesterol intake. Supports reading, writing,
   /// and sum aggregation of cholesterol nutrient records.
   @sinceV1_1_0
-  static const cholesterol = CholesterolNutrientDataType();
+  static const dietaryCholesterol = DietaryCholesterolDataType();
 
-  /// Dietary fiber nutrient data type.
+  /// Dietary fiber data type.
   ///
   /// Represents dietary fiber intake. Supports reading, writing,
   /// and sum aggregation of dietary fiber nutrient records.
   @sinceV1_1_0
   static const dietaryFiber = DietaryFiberNutrientDataType();
 
-  /// Sugar nutrient data type.
+  /// Sugar data type.
   ///
   /// Represents sugar intake. Supports reading, writing,
   /// and sum aggregation of sugar nutrient records.
   @sinceV1_1_0
-  static const sugar = SugarNutrientDataType();
+  static const dietarySugar = DietarySugarDataType();
 
-  /// Calcium nutrient data type.
+  /// Calcium data type.
   ///
   /// Represents calcium intake. Supports reading, writing,
   /// and sum aggregation of calcium nutrient records.
   @sinceV1_1_0
-  static const calcium = CalciumNutrientDataType();
+  static const dietaryCalcium = DietaryCalciumDataType();
 
-  /// Iron nutrient data type.
+  /// Iron data type.
   ///
   /// Represents iron intake. Supports reading, writing,
   /// and sum aggregation of iron nutrient records.
   @sinceV1_1_0
-  static const iron = IronNutrientDataType();
+  static const dietaryIron = DietaryIronDataType();
 
-  /// Magnesium nutrient data type.
+  /// Magnesium data type.
   ///
   /// Represents magnesium intake. Supports reading, writing,
   /// and sum aggregation of magnesium nutrient records.
   @sinceV1_1_0
-  static const magnesium = MagnesiumNutrientDataType();
+  static const dietaryMagnesium = DietaryMagnesiumDataType();
 
-  /// Manganese nutrient data type.
+  /// Manganese data type.
   ///
   /// Represents manganese intake. Supports reading, writing,
   /// and sum aggregation of manganese nutrient records.
   @sinceV1_1_0
-  static const manganese = ManganeseNutrientDataType();
+  static const dietaryManganese = DietaryManganeseDataType();
 
-  /// Phosphorus nutrient data type.
+  /// Phosphorus data type.
   ///
   /// Represents phosphorus intake. Supports reading, writing,
   /// and sum aggregation of phosphorus nutrient records.
   @sinceV1_1_0
-  static const phosphorus = PhosphorusNutrientDataType();
+  static const dietaryPhosphorus = DietaryPhosphorusDataType();
 
-  /// Potassium nutrient data type.
+  /// Potassium data type.
   ///
   /// Represents potassium intake. Supports reading, writing,
   /// and sum aggregation of potassium nutrient records.
   @sinceV1_1_0
-  static const potassium = PotassiumNutrientDataType();
+  static const dietaryPotassium = DietaryPotassiumDataType();
 
-  /// Selenium nutrient data type.
+  /// Selenium data type.
   ///
   /// Represents selenium intake. Supports reading, writing,
   /// and sum aggregation of selenium nutrient records.
   @sinceV1_1_0
-  static const selenium = SeleniumNutrientDataType();
+  static const dietarySelenium = DietarySeleniumDataType();
 
-  /// Sodium nutrient data type.
+  /// Sodium data type.
   ///
   /// Represents sodium intake. Supports reading, writing,
   /// and sum aggregation of sodium nutrient records.
   @sinceV1_1_0
-  static const sodium = SodiumNutrientDataType();
+  static const dietarySodium = DietarySodiumDataType();
 
-  /// Zinc nutrient data type.
+  /// Zinc data type.
   ///
   /// Represents zinc intake. Supports reading, writing,
   /// and sum aggregation of zinc nutrient records.
   @sinceV1_1_0
-  static const zinc = ZincNutrientDataType();
+  static const dietaryZinc = DietaryZincDataType();
 
-  /// Vitamin A nutrient data type.
+  /// Vitamin A data type.
   ///
   /// Represents vitamin A intake. Supports reading, writing,
   /// and sum aggregation of vitamin A nutrient records.
   @sinceV1_1_0
-  static const vitaminA = VitaminANutrientDataType();
+  static const dietaryVitaminA = DietaryVitaminADataType();
 
-  /// Vitamin B6 nutrient data type.
+  /// Vitamin B6 data type.
   ///
   /// Represents vitamin B6 intake. Supports reading, writing,
   /// and sum aggregation of vitamin B6 nutrient records.
   @sinceV1_1_0
-  static const vitaminB6 = VitaminB6NutrientDataType();
+  static const dietaryVitaminB6 = DietaryVitaminB6DataType();
 
-  /// Vitamin B12 nutrient data type.
+  /// Vitamin B12 data type.
   ///
   /// Represents vitamin B12 intake. Supports reading, writing,
   /// and sum aggregation of vitamin B12 nutrient records.
   @sinceV1_1_0
-  static const vitaminB12 = VitaminB12NutrientDataType();
+  static const dietaryVitaminB12 = DietaryVitaminB12DataType();
 
-  /// Vitamin C nutrient data type.
+  /// Vitamin C data type.
   ///
   /// Represents vitamin C intake. Supports reading, writing,
   /// and sum aggregation of vitamin C nutrient records.
   @sinceV1_1_0
-  static const vitaminC = VitaminCNutrientDataType();
+  static const dietaryVitaminC = DietaryVitaminCDataType();
 
-  /// Vitamin D nutrient data type.
+  /// Vitamin D data type.
   ///
   /// Represents vitamin D intake. Supports reading, writing,
   /// and sum aggregation of vitamin D nutrient records.
   @sinceV1_1_0
-  static const vitaminD = VitaminDNutrientDataType();
+  static const dietaryVitaminD = DietaryVitaminDDataType();
 
-  /// Vitamin E nutrient data type.
+  /// Vitamin E data type.
   ///
   /// Represents vitamin E intake. Supports reading, writing,
   /// and sum aggregation of vitamin E nutrient records.
   @sinceV1_1_0
-  static const vitaminE = VitaminENutrientDataType();
+  static const dietaryVitaminE = DietaryVitaminEDataType();
 
-  /// Vitamin K nutrient data type.
+  /// Vitamin K data type.
   ///
   /// Represents vitamin K intake. Supports reading, writing,
   /// and sum aggregation of vitamin K nutrient records.
   @sinceV1_1_0
-  static const vitaminK = VitaminKNutrientDataType();
+  static const dietaryVitaminK = DietaryVitaminKDataType();
 
-  /// Thiamin nutrient data type.
+  /// Thiamin data type.
   ///
   /// Represents thiamin (vitamin B1) intake. Supports reading, writing,
   /// and sum aggregation of thiamin nutrient records.
   @sinceV1_1_0
-  static const thiamin = ThiaminNutrientDataType();
+  static const dietaryThiamin = DietaryThiaminDataType();
 
-  /// Riboflavin nutrient data type.
+  /// Riboflavin data type.
   ///
   /// Represents riboflavin (vitamin B2) intake. Supports reading, writing,
   /// and sum aggregation of riboflavin nutrient records.
   @sinceV1_1_0
-  static const riboflavin = RiboflavinNutrientDataType();
+  static const dietaryRiboflavin = DietaryRiboflavinDataType();
 
-  /// Niacin nutrient data type.
+  /// Niacin data type.
   ///
   /// Represents niacin (vitamin B3) intake. Supports reading, writing,
   /// and sum aggregation of niacin nutrient records.
   @sinceV1_1_0
-  static const niacin = NiacinNutrientDataType();
+  static const dietaryNiacin = DietaryNiacinDataType();
 
-  /// Folate nutrient data type.
+  /// Folate data type.
   ///
   /// Represents folate (vitamin B9) intake. Supports reading, writing,
   /// and sum aggregation of folate nutrient records.
   @sinceV1_1_0
-  static const folate = FolateNutrientDataType();
+  static const dietaryFolate = DietaryFolateDataType();
 
-  /// Biotin nutrient data type.
+  /// Biotin data type.
   ///
   /// Represents biotin (vitamin B7) intake. Supports reading, writing,
   /// and sum aggregation of biotin nutrient records.
   @sinceV1_1_0
-  static const biotin = BiotinNutrientDataType();
+  static const dietaryBiotin = DietaryBiotinDataType();
 
-  /// Pantothenic acid nutrient data type.
+  /// Pantothenic acid data type.
   ///
   /// Represents pantothenic acid (vitamin B5) intake.
   @sinceV1_1_0
-  static const pantothenicAcid = PantothenicAcidNutrientDataType();
+  static const dietaryPantothenicAcid = DietaryPantothenicAcidDataType();
 
   /// Returns a list of all available health data types.
   static const values = <HealthDataType<HealthRecord, MeasurementUnit>>[
     activeEnergyBurned,
     basalBodyTemperature,
     basalEnergyBurned,
-    biotin,
+    dietaryBiotin,
     bodyWaterMass,
     boneMass,
     bodyMassIndex,
@@ -905,10 +905,10 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     bloodPressure,
     bodyFatPercentage,
     bodyTemperature,
-    caffeine,
-    calcium,
+    dietaryCaffeine,
+    dietaryCalcium,
     cervicalMucus,
-    cholesterol,
+    dietaryCholesterol,
     crossCountrySkiingDistance,
     cyclingPedalingCadence,
     cyclingPedalingCadenceSeries,
@@ -920,7 +920,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     dietaryEnergyConsumed,
     exerciseSession,
     floorsClimbed,
-    folate,
+    dietaryFolate,
     heartRate,
     heartRateSeries,
     heartRateVariabilityRMSSD,
@@ -928,56 +928,56 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     height,
     hydration,
     intermenstrualBleeding,
-    iron,
+    dietaryIron,
     leanBodyMass,
-    magnesium,
-    manganese,
+    dietaryMagnesium,
+    dietaryManganese,
     menstrualFlow,
     menstrualFlowInstant,
     mindfulnessSession,
-    monounsaturatedFat,
-    niacin,
+    dietaryMonounsaturatedFat,
+    dietaryNiacin,
     nutrition,
     ovulationTest,
     oxygenSaturation,
     paddleSportsDistance,
-    pantothenicAcid,
-    phosphorus,
-    polyunsaturatedFat,
-    potassium,
+    dietaryPantothenicAcid,
+    dietaryPhosphorus,
+    dietaryPolyunsaturatedFat,
+    dietaryPotassium,
     powerSeries,
-    protein,
+    dietaryProtein,
     respiratoryRate,
     restingHeartRate,
-    riboflavin,
+    dietaryRiboflavin,
     rowingDistance,
     runningSpeed,
-    saturatedFat,
-    selenium,
+    dietarySaturatedFat,
+    dietarySelenium,
     sexualActivity,
     sixMinuteWalkTestDistance,
     skatingSportsDistance,
     sleepSession,
     sleepStageRecord,
-    sodium,
+    dietarySodium,
     speedSeries,
     stairAscentSpeed,
     stairDescentSpeed,
     steps,
-    sugar,
+    dietarySugar,
     swimmingDistance,
     systolicBloodPressure,
-    thiamin,
+    dietaryThiamin,
     totalEnergyBurned,
-    totalCarbohydrate,
-    totalFat,
-    vitaminA,
-    vitaminB12,
-    vitaminB6,
-    vitaminC,
-    vitaminD,
-    vitaminE,
-    vitaminK,
+    dietaryTotalCarbohydrate,
+    dietaryTotalFat,
+    dietaryVitaminA,
+    dietaryVitaminB12,
+    dietaryVitaminB6,
+    dietaryVitaminC,
+    dietaryVitaminD,
+    dietaryVitaminE,
+    dietaryVitaminK,
     vo2Max,
     waistCircumference,
     walkingRunningDistance,
@@ -985,7 +985,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     weight,
     wheelchairDistance,
     wheelchairPushes,
-    zinc,
+    dietaryZinc,
   ];
 
   /// Returns a list of all available health data types for
@@ -1004,45 +1004,45 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     ),
   );
 
-  /// Returns all nutrient data types, excluding general
+  /// Returns all data types, excluding general
   /// [HealthDataType.nutrition] data type.
   ///
   /// These represent individual nutrients like vitamins, minerals, and
   /// macronutrients that can be tracked separately.
   static final nutrientTypes = [
-    HealthDataType.biotin,
-    HealthDataType.caffeine,
-    HealthDataType.calcium,
-    HealthDataType.cholesterol,
+    HealthDataType.dietaryBiotin,
+    HealthDataType.dietaryCaffeine,
+    HealthDataType.dietaryCalcium,
+    HealthDataType.dietaryCholesterol,
     HealthDataType.dietaryFiber,
     HealthDataType.dietaryEnergyConsumed,
-    HealthDataType.folate,
-    HealthDataType.iron,
-    HealthDataType.magnesium,
-    HealthDataType.manganese,
-    HealthDataType.monounsaturatedFat,
-    HealthDataType.niacin,
-    HealthDataType.pantothenicAcid,
-    HealthDataType.phosphorus,
-    HealthDataType.polyunsaturatedFat,
-    HealthDataType.potassium,
-    HealthDataType.protein,
-    HealthDataType.riboflavin,
-    HealthDataType.saturatedFat,
-    HealthDataType.selenium,
-    HealthDataType.sodium,
-    HealthDataType.sugar,
-    HealthDataType.thiamin,
-    HealthDataType.totalCarbohydrate,
-    HealthDataType.totalFat,
-    HealthDataType.vitaminA,
-    HealthDataType.vitaminB12,
-    HealthDataType.vitaminB6,
-    HealthDataType.vitaminC,
-    HealthDataType.vitaminD,
-    HealthDataType.vitaminE,
-    HealthDataType.vitaminK,
-    HealthDataType.zinc,
+    HealthDataType.dietaryFolate,
+    HealthDataType.dietaryIron,
+    HealthDataType.dietaryMagnesium,
+    HealthDataType.dietaryManganese,
+    HealthDataType.dietaryMonounsaturatedFat,
+    HealthDataType.dietaryNiacin,
+    HealthDataType.dietaryPantothenicAcid,
+    HealthDataType.dietaryPhosphorus,
+    HealthDataType.dietaryPolyunsaturatedFat,
+    HealthDataType.dietaryPotassium,
+    HealthDataType.dietaryProtein,
+    HealthDataType.dietaryRiboflavin,
+    HealthDataType.dietarySaturatedFat,
+    HealthDataType.dietarySelenium,
+    HealthDataType.dietarySodium,
+    HealthDataType.dietarySugar,
+    HealthDataType.dietaryThiamin,
+    HealthDataType.dietaryTotalCarbohydrate,
+    HealthDataType.dietaryTotalFat,
+    HealthDataType.dietaryVitaminA,
+    HealthDataType.dietaryVitaminB12,
+    HealthDataType.dietaryVitaminB6,
+    HealthDataType.dietaryVitaminC,
+    HealthDataType.dietaryVitaminD,
+    HealthDataType.dietaryVitaminE,
+    HealthDataType.dietaryVitaminK,
+    HealthDataType.dietaryZinc,
   ];
 
   /// Returns all health data types in the [HealthDataTypeCategory.activity]
