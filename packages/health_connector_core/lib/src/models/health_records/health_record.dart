@@ -73,7 +73,7 @@ part 'nutrition/calcium_nutrient_record.dart';
 // Macronutrient records
 part 'nutrition/cholesterol_nutrient_record.dart';
 part 'nutrition/dietary_fiber_nutrient_record.dart';
-part 'nutrition/energy_nutrient_record.dart';
+part 'nutrition/dietary_energy_consumed_record.dart';
 part 'nutrition/folate_nutrient_record.dart';
 part 'nutrition/iron_nutrient_record.dart';
 part 'nutrition/macronutrient_record.dart';

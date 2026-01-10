@@ -45,7 +45,7 @@ extension HealthDataPermissionDto {
              .heartRateMeasurementRecord,
              .restingHeartRate,
              .sleepStageRecord,
-             .energyNutrient,
+             .dietaryEnergyConsumed,
              .caffeine,
              .protein,
              .totalCarbohydrate,
@@ -119,7 +119,7 @@ extension HealthDataPermissionDto {
 
     private func getNutritionTypes() throws -> [HKSampleType] {
         try [
-            HealthDataTypeDto.energyNutrient.toHealthKit(),
+            HealthDataTypeDto.dietaryEnergyConsumed.toHealthKit(),
             HealthDataTypeDto.caffeine.toHealthKit(),
             HealthDataTypeDto.protein.toHealthKit(),
             HealthDataTypeDto.totalCarbohydrate.toHealthKit(),

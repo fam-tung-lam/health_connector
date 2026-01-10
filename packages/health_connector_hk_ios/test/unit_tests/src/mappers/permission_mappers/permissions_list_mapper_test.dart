@@ -84,7 +84,8 @@ void main() {
                     .where(
                       (p) =>
                           p.accessType == PermissionAccessTypeDto.read &&
-                          p.healthDataType == HealthDataTypeDto.energyNutrient,
+                          p.healthDataType ==
+                              HealthDataTypeDto.dietaryEnergyConsumed,
                     )
                     .length,
                 1,

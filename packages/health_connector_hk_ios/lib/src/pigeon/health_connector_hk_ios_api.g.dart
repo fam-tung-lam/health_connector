@@ -694,7 +694,7 @@ enum HealthDataTypeDto {
   stairDescentSpeed,
 
   /// Energy nutrient data (calories consumed).
-  energyNutrient,
+  dietaryEnergyConsumed,
 
   /// Caffeine nutrient data.
   caffeine,
@@ -4427,9 +4427,9 @@ class SexualActivityRecordDto extends HealthRecordDto {
 ///
 /// Maps to:
 /// - HealthKit: `HKQuantityTypeIdentifier.dietaryEnergyConsumed`
-/// - Domain: `EnergyNutrientRecord`
-class EnergyNutrientRecordDto extends HealthRecordDto {
-  EnergyNutrientRecordDto({
+/// - Domain: `DietaryEnergyRecord`
+class DietaryEnergyConsumedRecordDto extends HealthRecordDto {
+  DietaryEnergyConsumedRecordDto({
     this.id,
     required this.metadata,
     required this.time,
@@ -4476,9 +4476,9 @@ class EnergyNutrientRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static EnergyNutrientRecordDto decode(Object result) {
+  static DietaryEnergyConsumedRecordDto decode(Object result) {
     result as List<Object?>;
-    return EnergyNutrientRecordDto(
+    return DietaryEnergyConsumedRecordDto(
       id: result[0] as String?,
       metadata: result[1]! as MetadataDto,
       time: result[2]! as int,
@@ -4492,7 +4492,8 @@ class EnergyNutrientRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! EnergyNutrientRecordDto || other.runtimeType != runtimeType) {
+    if (other is! DietaryEnergyConsumedRecordDto ||
+        other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -8221,7 +8222,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is SexualActivityRecordDto) {
       buffer.putUint8(207);
       writeValue(buffer, value.encode());
-    } else if (value is EnergyNutrientRecordDto) {
+    } else if (value is DietaryEnergyConsumedRecordDto) {
       buffer.putUint8(208);
       writeValue(buffer, value.encode());
     } else if (value is CaffeineNutrientRecordDto) {
@@ -8573,7 +8574,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 207:
         return SexualActivityRecordDto.decode(readValue(buffer)!);
       case 208:
-        return EnergyNutrientRecordDto.decode(readValue(buffer)!);
+        return DietaryEnergyConsumedRecordDto.decode(readValue(buffer)!);
       case 209:
         return CaffeineNutrientRecordDto.decode(readValue(buffer)!);
       case 210:

@@ -21,7 +21,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         DietaryFiberNutrientDataType,
         DistanceHealthDataType,
         DownhillSnowSportsDistanceDataType,
-        EnergyNutrientDataType,
+        DietaryEnergyConsumedDataType,
         ExerciseSessionHealthDataType,
         FloorsClimbedHealthDataType,
         FolateNutrientDataType,
@@ -258,7 +258,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.speedSeries;
       case PowerSeriesDataType _:
         return HealthDataTypeDto.powerSeries;
-      case EnergyNutrientDataType _:
+      case DietaryEnergyConsumedDataType _:
       case CaffeineNutrientDataType _:
       case ProteinNutrientDataType _:
       case TotalCarbohydrateNutrientDataType _:

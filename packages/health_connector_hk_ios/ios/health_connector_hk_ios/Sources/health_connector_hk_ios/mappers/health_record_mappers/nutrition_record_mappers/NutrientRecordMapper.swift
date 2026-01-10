@@ -42,8 +42,8 @@ extension HKQuantitySample {
     /// - Throws: `HealthConnectorError.invalidArgument` if type mismatch
     func toNutrientDto(for nutrientType: HealthDataTypeDto) throws -> HealthRecordDto {
         switch nutrientType {
-        case .energyNutrient:
-            return try toEnergyNutrientDto()
+        case .dietaryEnergyConsumed:
+            return try toDietaryEnergyConsumedDto()
         case .caffeine:
             return try toCaffeineNutrientDto()
         case .protein:
@@ -135,7 +135,7 @@ extension HealthRecordDto {
         quantityTypeIdentifier _: HKQuantityTypeIdentifier
     ) throws -> HKQuantitySample {
         switch self {
-        case let dto as EnergyNutrientRecordDto:
+        case let dto as DietaryEnergyConsumedRecordDto:
             return try dto.toHealthKitQuantitySample()
         case let dto as CaffeineNutrientRecordDto:
             return try dto.toHealthKitQuantitySample()

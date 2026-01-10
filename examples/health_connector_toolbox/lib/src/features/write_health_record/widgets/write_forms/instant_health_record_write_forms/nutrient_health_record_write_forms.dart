@@ -11,7 +11,7 @@ final class EnergyNutrientWriteForm extends InstantHealthRecordWriteForm {
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.energyNutrient);
+  }) : super(dataType: HealthDataType.dietaryEnergyConsumed);
 
   @override
   EnergyNutrientFormState createState() => EnergyNutrientFormState();
@@ -21,7 +21,7 @@ final class EnergyNutrientFormState
     extends InstantHealthRecordFormState<EnergyNutrientWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return EnergyNutrientRecord(
+    return DietaryEnergyConsumedRecord(
       time: startDateTime!,
       energy: value! as Energy,
       metadata: metadata,

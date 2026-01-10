@@ -41,7 +41,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         OvulationTestRecord,
         OxygenSaturationRecord,
         PowerSeriesRecord,
-        EnergyNutrientRecord,
+        DietaryEnergyConsumedRecord,
         CaffeineNutrientRecord,
         ProteinNutrientRecord,
         TotalCarbohydrateNutrientRecord,
@@ -281,9 +281,9 @@ extension HealthRecordToDto on HealthRecord {
           'Health Connect. Use $TotalEnergyBurnedRecord and '
           '$ActiveEnergyBurnedRecord instead',
         );
-      case final EnergyNutrientRecord _:
+      case final DietaryEnergyConsumedRecord _:
         throw UnsupportedError(
-          '$EnergyNutrientRecord is not supported on Health Connect. '
+          '$DietaryEnergyConsumedRecord is not supported on Health Connect. '
           'Use $NutritionRecord instead.',
         );
       case final CaffeineNutrientRecord _:

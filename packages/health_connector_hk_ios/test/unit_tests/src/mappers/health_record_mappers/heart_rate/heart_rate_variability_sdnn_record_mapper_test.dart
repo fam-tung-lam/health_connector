@@ -72,7 +72,7 @@ void main() {
 
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, time);
-              expect(record.sdnn, const TimeDuration.seconds(  5.2));
+              expect(record.sdnn, const TimeDuration.seconds(5.2));
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,

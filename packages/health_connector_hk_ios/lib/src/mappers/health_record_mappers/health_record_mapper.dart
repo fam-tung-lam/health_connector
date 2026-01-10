@@ -21,7 +21,7 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         DiastolicBloodPressureRecord,
         DistanceActivityRecord,
         DistanceRecord,
-        EnergyNutrientRecord,
+        DietaryEnergyConsumedRecord,
         FloorsClimbedRecord,
         FolateNutrientRecord,
         HealthRecord,
@@ -111,7 +111,7 @@ import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrit
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/calcium_nutrient_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/cholesterol_nutrient_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_fiber_nutrient_record_mapper.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/energy_nutrient_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_energy_consumed_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/folate_nutrient_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/iron_nutrient_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/magnesium_nutrient_record_mapper.dart';
@@ -172,7 +172,7 @@ import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g
         DiastolicBloodPressureRecordDto,
         DietaryFiberNutrientRecordDto,
         DistanceActivityRecordDto,
-        EnergyNutrientRecordDto,
+        DietaryEnergyConsumedRecordDto,
         FloorsClimbedRecordDto,
         FolateNutrientRecordDto,
         HealthRecordDto,
@@ -315,8 +315,8 @@ extension HealthRecordToDto on HealthRecord {
         return SleepStageRecordToDto(record).toDto();
       case final NutritionRecord record:
         return NutritionRecordToDto(record).toDto();
-      case final EnergyNutrientRecord record:
-        return EnergyNutrientRecordToDto(record).toDto();
+      case final DietaryEnergyConsumedRecord record:
+        return DietaryEnergyConsumedRecordToDto(record).toDto();
       case final CaffeineNutrientRecord record:
         return CaffeineNutrientRecordToDto(record).toDto();
       case final ProteinNutrientRecord record:
@@ -531,8 +531,8 @@ extension HealthRecordDtoToDomain on HealthRecordDto {
         return DiastolicBloodPressureRecordDtoToDomain(dto).toDomain();
       case final RestingHeartRateRecordDto dto:
         return RestingHeartRateRecordDtoToDomain(dto).toDomain();
-      case final EnergyNutrientRecordDto dto:
-        return EnergyNutrientRecordDtoToDomain(dto).toDomain();
+      case final DietaryEnergyConsumedRecordDto dto:
+        return DietaryEnergyConsumedRecordDtoToDomain(dto).toDomain();
       case final CaffeineNutrientRecordDto dto:
         return CaffeineNutrientRecordDtoToDomain(dto).toDomain();
       case final ProteinNutrientRecordDto dto:

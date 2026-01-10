@@ -23,25 +23,25 @@ part of '../health_data_type.dart';
 ///
 /// ## See also
 ///
-/// - [EnergyNutrientRecord]
+/// - [DietaryEnergyConsumedRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable
-final class EnergyNutrientDataType
-    extends NutrientHealthDataType<EnergyNutrientRecord, Energy>
+final class DietaryEnergyConsumedDataType
+    extends NutrientHealthDataType<DietaryEnergyConsumedRecord, Energy>
     implements
-        ReadableHealthDataType<EnergyNutrientRecord>,
+        ReadableHealthDataType<DietaryEnergyConsumedRecord>,
         WriteableHealthDataType,
-        SumAggregatableHealthDataType<EnergyNutrientRecord, Energy>,
-        DeletableHealthDataType<EnergyNutrientRecord> {
+        SumAggregatableHealthDataType<DietaryEnergyConsumedRecord, Energy>,
+        DeletableHealthDataType<DietaryEnergyConsumedRecord> {
   /// Creates a energy nutrient data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const EnergyNutrientDataType();
+  const DietaryEnergyConsumedDataType();
 
   @override
   String get id => 'energy_nutrient';
@@ -49,7 +49,8 @@ final class EnergyNutrientDataType
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is EnergyNutrientDataType && runtimeType == other.runtimeType;
+      other is DietaryEnergyConsumedDataType &&
+          runtimeType == other.runtimeType;
 
   @override
   int get hashCode => runtimeType.hashCode;
@@ -63,12 +64,14 @@ final class EnergyNutrientDataType
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
-  ReadRecordByIdRequest<EnergyNutrientRecord> readById(HealthRecordId id) {
+  ReadRecordByIdRequest<DietaryEnergyConsumedRecord> readById(
+    HealthRecordId id,
+  ) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsInTimeRangeRequest<EnergyNutrientRecord> readInTimeRange({
+  ReadRecordsInTimeRangeRequest<DietaryEnergyConsumedRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     List<DataOrigin> dataOrigins = const [],
@@ -89,7 +92,7 @@ final class EnergyNutrientDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<EnergyNutrientRecord, Energy> aggregateSum({
+  AggregateRequest<DietaryEnergyConsumedRecord, Energy> aggregateSum({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -108,7 +111,7 @@ final class EnergyNutrientDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.nutrition;
 
   @override
-  DeleteRecordsByIdsRequest<EnergyNutrientRecord> deleteByIds(
+  DeleteRecordsByIdsRequest<DietaryEnergyConsumedRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -118,7 +121,8 @@ final class EnergyNutrientDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<EnergyNutrientRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest<DietaryEnergyConsumedRecord>
+  deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

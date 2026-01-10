@@ -129,8 +129,8 @@ extension HealthRecordDto {
                 return .diastolicBloodPressure
             case is SleepStageRecordDto:
                 return .sleepStageRecord
-            case is EnergyNutrientRecordDto:
-                return .energyNutrient
+            case is DietaryEnergyConsumedRecordDto:
+                return .dietaryEnergyConsumed
             case is CaffeineNutrientRecordDto:
                 return .caffeine
             case is ProteinNutrientRecordDto:
@@ -301,7 +301,7 @@ extension HealthRecordDto {
             return dto.time
         case let dto as SpeedActivityRecordDto:
             return dto.time
-        case let dto as EnergyNutrientRecordDto:
+        case let dto as DietaryEnergyConsumedRecordDto:
             return dto.time
         case let dto as CaffeineNutrientRecordDto:
             return dto.time

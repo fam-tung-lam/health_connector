@@ -344,7 +344,7 @@ final class HealthRecordListTile extends StatelessWidget {
       final NutritionRecord r => NutritionTile(record: r, onDelete: onDelete),
 
       // Energy nutrient record
-      final EnergyNutrientRecord r => EnergyNutrientListTile(
+      final DietaryEnergyConsumedRecord r => EnergyNutrientListTile(
         record: r,
         onDelete: onDelete,
       ),

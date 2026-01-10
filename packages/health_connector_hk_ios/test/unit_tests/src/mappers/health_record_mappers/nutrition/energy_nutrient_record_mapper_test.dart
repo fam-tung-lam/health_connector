@@ -1,40 +1,46 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/energy_nutrient_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/nutrition/dietary_energy_consumed_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 
 import '../../../../utils/fake_data.dart';
 
 void main() {
   group('EnergyNutrientRecordMapper', () {
-    test('toDto converts EnergyNutrientRecord to EnergyNutrientRecordDto', () {
-      final record = EnergyNutrientRecord(
-        time: FakeData.fakeTime,
-        zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
-        metadata: Metadata.internal(
-          dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
-          recordingMethod: RecordingMethod.manualEntry,
-          clientRecordVersion: 1,
-          device: const Device(type: DeviceType.phone),
-        ),
-        energy: const Energy.calories(500),
-        foodName: 'Test Food',
-        mealType: MealType.breakfast,
-      );
+    test(
+      'toDto converts DietaryEnergyRecord to DietaryEnergyConsumedRecordDto',
+      () {
+        final record = DietaryEnergyConsumedRecord(
+          time: FakeData.fakeTime,
+          zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
+          metadata: Metadata.internal(
+            dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
+            recordingMethod: RecordingMethod.manualEntry,
+            clientRecordVersion: 1,
+            device: const Device(type: DeviceType.phone),
+          ),
+          energy: const Energy.calories(500),
+          foodName: 'Test Food',
+          mealType: MealType.breakfast,
+        );
 
-      final dto = record.toDto();
-      expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
-      expect(dto.zoneOffsetSeconds, FakeData.fakeTime.timeZoneOffset.inSeconds);
-      expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-      expect(dto.value.kilocalories, closeTo(0.5, 0.0001));
-      expect(dto.foodName, 'Test Food');
-      expect(dto.mealType, MealTypeDto.breakfast);
-    });
+        final dto = record.toDto();
+        expect(dto.time, FakeData.fakeTime.millisecondsSinceEpoch);
+        expect(
+          dto.zoneOffsetSeconds,
+          FakeData.fakeTime.timeZoneOffset.inSeconds,
+        );
+        expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
+        expect(dto.value.kilocalories, closeTo(0.5, 0.0001));
+        expect(dto.foodName, 'Test Food');
+        expect(dto.mealType, MealTypeDto.breakfast);
+      },
+    );
 
     test(
-      'toDomain converts EnergyNutrientRecordDto to EnergyNutrientRecord',
+      'toDomain converts DietaryEnergyConsumedRecordDto to DietaryEnergyRecord',
       () {
-        final dto = EnergyNutrientRecordDto(
+        final dto = DietaryEnergyConsumedRecordDto(
           time: FakeData.fakeTime.millisecondsSinceEpoch,
           zoneOffsetSeconds: FakeData.fakeTime.timeZoneOffset.inSeconds,
           metadata: MetadataDto(

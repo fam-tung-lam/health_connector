@@ -52,7 +52,7 @@ class _NutrientWriteFormFieldGroupState
       NutritionData(
         foodName: _foodName?.isEmpty ?? true ? null : _foodName,
         mealType: _mealType,
-        energy: _values[HealthDataType.energyNutrient] as Energy?,
+        energy: _values[HealthDataType.dietaryEnergyConsumed] as Energy?,
         protein: _values[HealthDataType.protein] as Mass?,
         totalCarbohydrate: _values[HealthDataType.totalCarbohydrate] as Mass?,
         totalFat: _values[HealthDataType.totalFat] as Mass?,
@@ -207,7 +207,7 @@ class _NutrientWriteFormFieldGroupState
           subtitle: AppTexts.energyMacronutrientsSubtitle,
           initiallyExpanded: true,
           children: _buildNutrientFields([
-            HealthDataType.energyNutrient,
+            HealthDataType.dietaryEnergyConsumed,
             HealthDataType.protein,
             HealthDataType.totalCarbohydrate,
             HealthDataType.totalFat,

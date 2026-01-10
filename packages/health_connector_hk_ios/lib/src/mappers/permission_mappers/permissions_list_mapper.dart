@@ -25,7 +25,7 @@ extension PermissionsListToDto on List<HealthDataPermission> {
   /// stores nutrition as an HKCorrelation containing individual
   /// HKQuantitySamples.
   static const _allNutrientDataTypes = [
-    HealthDataType.energyNutrient,
+    HealthDataType.dietaryEnergyConsumed,
     HealthDataType.caffeine,
     HealthDataType.protein,
     HealthDataType.totalCarbohydrate,
