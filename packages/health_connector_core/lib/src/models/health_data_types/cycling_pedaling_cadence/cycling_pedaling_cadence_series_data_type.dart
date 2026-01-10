@@ -11,7 +11,7 @@ part of '../health_data_type.dart';
 /// - **Android Health Connect**:
 ///   [`CyclingPedalingCadenceRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/CyclingPedalingCadenceRecord)
 /// - **iOS HealthKit**: Not supported (iOS uses discrete
-///   [CyclingPedalingCadenceMeasurementRecordDataType] samples)
+///   [CyclingPedalingCadenceDataType] samples)
 ///
 /// ## Capabilities
 ///
@@ -28,7 +28,7 @@ part of '../health_data_type.dart';
 @sinceV2_2_0
 @supportedOnHealthConnect
 @immutable
-final class CyclingPedalingCadenceSeriesRecordDataType
+final class CyclingPedalingCadenceSeriesDataType
     extends HealthDataType<CyclingPedalingCadenceSeriesRecord, Number>
     implements
         ReadableHealthDataType<CyclingPedalingCadenceSeriesRecord>,
@@ -51,15 +51,15 @@ final class CyclingPedalingCadenceSeriesRecordDataType
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const CyclingPedalingCadenceSeriesRecordDataType();
+  const CyclingPedalingCadenceSeriesDataType();
 
   @override
-  String get id => 'cycling_pedaling_cadence_series_record';
+  String get id => 'cycling_pedaling_cadence_series';
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CyclingPedalingCadenceSeriesRecordDataType &&
+      other is CyclingPedalingCadenceSeriesDataType &&
           runtimeType == other.runtimeType;
 
   @override

@@ -116,8 +116,8 @@ abstract final class AppTexts {
       HydrationDataType() => hydration,
       HeartRateMeasurementRecordDataType() ||
       HeartRateSeriesRecordDataType() => heartRate,
-      CyclingPedalingCadenceMeasurementRecordDataType() ||
-      CyclingPedalingCadenceSeriesRecordDataType() => cyclingPedalingCadence,
+      CyclingPedalingCadenceDataType() ||
+      CyclingPedalingCadenceSeriesDataType() => cyclingPedalingCadence,
       SleepSessionDataType() => sleepSession,
       SleepStageDataType() => sleepStage,
       SexualActivityDataType() => sexualActivity,

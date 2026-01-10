@@ -131,14 +131,14 @@ extension HealthDataTypeDto {
                     context: ["dataType": "cyclingPower", "minimumIOSVersion": "17.0"]
                 )
             }
-        case .cyclingPedalingCadenceMeasurementRecord:
+        case .cyclingPedalingCadence:
             if #available(iOS 17.0, *) {
                 try HKQuantityType.make(from: .cyclingCadence)
             } else {
                 throw HealthConnectorError.unsupportedOperation(
                     message: "Cycling pedaling cadence is only supported on iOS 17.0 and later",
                     context: [
-                        "dataType": "cyclingPedalingCadenceMeasurementRecord",
+                        "dataType": "cyclingPedalingCadence",
                         "minimumIOSVersion": "17.0",
                     ]
                 )

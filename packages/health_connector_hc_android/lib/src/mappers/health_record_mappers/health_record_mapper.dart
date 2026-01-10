@@ -392,9 +392,9 @@ extension HealthRecordToDto on HealthRecord {
           '$CyclingPowerRecord is iOS-only and not supported on '
           'Android Health Connect. Use $PowerSeriesRecord instead.',
         );
-      case final CyclingPedalingCadenceMeasurementRecord _:
+      case final CyclingPedalingCadenceRecord _:
         throw UnsupportedError(
-          '$CyclingPedalingCadenceMeasurementRecord is not supported on '
+          '$CyclingPedalingCadenceRecord is not supported on '
           'Android Health Connect. '
           'Use $CyclingPedalingCadenceSeriesRecord instead.',
         );

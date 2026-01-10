@@ -22,7 +22,7 @@ extension HealthDataPermissionDto {
              .distance,
              .cyclingDistance,
              .cyclingPower,
-             .cyclingPedalingCadenceMeasurementRecord,
+             .cyclingPedalingCadence,
              .swimmingDistance,
              .wheelchairDistance,
              .walkingRunningDistance,

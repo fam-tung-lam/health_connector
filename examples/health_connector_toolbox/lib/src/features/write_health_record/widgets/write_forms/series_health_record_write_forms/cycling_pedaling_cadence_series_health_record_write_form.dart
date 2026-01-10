@@ -6,7 +6,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 /// Form widget for cycling pedaling cadence series records.
 @immutable
 final class CyclingPedalingCadenceSeriesWriteForm
-    extends SeriesHealthRecordWriteForm<CyclingPedalingCadenceMeasurement> {
+    extends SeriesHealthRecordWriteForm<CyclingPedalingCadenceSample> {
   const CyclingPedalingCadenceSeriesWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
@@ -22,7 +22,7 @@ final class CyclingPedalingCadenceSeriesWriteForm
 final class CyclingPedalingCadenceSeriesFormState
     extends
         SeriesHealthRecordFormState<
-          CyclingPedalingCadenceMeasurement,
+          CyclingPedalingCadenceSample,
           CyclingPedalingCadenceSeriesWriteForm
         > {
   @override

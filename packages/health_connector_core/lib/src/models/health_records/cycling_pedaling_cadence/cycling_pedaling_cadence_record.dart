@@ -15,13 +15,10 @@ part of '../health_record.dart';
 /// ## Example
 ///
 /// ```dart
-/// final record = CyclingPedalingCadenceMeasurementRecord(
+/// final record = CyclingPedalingCadenceRecord(
 ///   id: HealthRecordId('ABC-123'),
 ///   time: DateTime.now(),
-///   measurement: CyclingPedalingCadenceMeasurement(
-///     time: DateTime.now(),
-///     revolutionsPerMinute: Number(85),
-///   ),
+///   cadence: Frequency.perMinute(85),
 ///   metadata: Metadata.automaticallyRecorded(
 ///     device: Device.fromType(DeviceType.watch),
 ///   ),
@@ -30,76 +27,69 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [CyclingPedalingCadenceMeasurementRecordDataType]
+/// - [CyclingPedalingCadenceDataType]
 ///
 /// {@category Health Records}
 @sinceV2_2_0
 @supportedOnAppleHealth
 @immutable
-final class CyclingPedalingCadenceMeasurementRecord
-    extends InstantHealthRecord {
+final class CyclingPedalingCadenceRecord extends InstantHealthRecord {
   /// Creates a cycling pedaling cadence measurement record.
-  factory CyclingPedalingCadenceMeasurementRecord({
+  factory CyclingPedalingCadenceRecord({
     required HealthRecordId id,
+    required Frequency cadence,
+    required DateTime time,
     required Metadata metadata,
-    required CyclingPedalingCadenceMeasurement measurement,
+
     int? zoneOffsetSeconds,
   }) {
-    return CyclingPedalingCadenceMeasurementRecord._(
+    return CyclingPedalingCadenceRecord._(
       id: id,
       metadata: metadata,
-      time: measurement.time,
-      measurement: measurement,
+      time: time,
+      cadence: cadence,
       zoneOffsetSeconds: zoneOffsetSeconds,
     );
   }
 
-  const CyclingPedalingCadenceMeasurementRecord._({
+  const CyclingPedalingCadenceRecord._({
     required super.id,
     required super.metadata,
     required super.time,
-    required this.measurement,
+    required this.cadence,
     super.zoneOffsetSeconds,
   });
 
-  /// The cycling pedaling cadence measurement.
-  final CyclingPedalingCadenceMeasurement measurement;
-
-  /// The time when this measurement was taken.
-  ///
-  /// Convenience getter that returns the time from the measurement.
-  @override
-  DateTime get time => measurement.time;
+  /// The cycling cadence value in revolutions per minute (RPM).
+  final Frequency cadence;
 
   /// The cycling cadence value in revolutions per minute (RPM).
-  ///
-  /// Convenience getter that returns the RPM from the measurement.
-  Number get cadence => measurement.cadence;
-
   /// Creates a copy with the given fields replaced with the new values.
-  CyclingPedalingCadenceMeasurementRecord copyWith({
+  CyclingPedalingCadenceRecord copyWith({
     HealthRecordId? id,
+    Frequency? cadence,
+    DateTime? time,
     Metadata? metadata,
-    CyclingPedalingCadenceMeasurement? measurement,
     int? zoneOffsetSeconds,
   }) {
-    return CyclingPedalingCadenceMeasurementRecord(
+    return CyclingPedalingCadenceRecord(
       id: id ?? this.id,
-      metadata: metadata ?? this.metadata,
-      measurement: measurement ?? this.measurement,
+      cadence: cadence ?? this.cadence,
+      time: time ?? this.time,
       zoneOffsetSeconds: zoneOffsetSeconds ?? this.zoneOffsetSeconds,
+      metadata: metadata ?? this.metadata,
     );
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CyclingPedalingCadenceMeasurementRecord &&
+      other is CyclingPedalingCadenceRecord &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           metadata == other.metadata &&
-          measurement == other.measurement;
+          cadence == other.cadence;
 
   @override
-  int get hashCode => id.hashCode ^ metadata.hashCode ^ measurement.hashCode;
+  int get hashCode => id.hashCode ^ metadata.hashCode ^ cadence.hashCode;
 }

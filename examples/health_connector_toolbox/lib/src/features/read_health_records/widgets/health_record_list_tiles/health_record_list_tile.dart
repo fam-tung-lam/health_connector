@@ -94,7 +94,7 @@ final class HealthRecordListTile extends StatelessWidget {
         record: r,
         onDelete: onDelete,
       ),
-      final CyclingPedalingCadenceMeasurementRecord r =>
+      final CyclingPedalingCadenceRecord r =>
         CyclingPedalingCadenceMeasurementTile(
           record: r,
           onDelete: onDelete,

@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-extension CyclingPedalingCadenceMeasurementRecordDto {
+extension CyclingPedalingCadenceRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     ///
     /// - Throws: An error if the quantity type cannot be created.
@@ -12,9 +12,9 @@ extension CyclingPedalingCadenceMeasurementRecordDto {
             // Cycling pedaling cadence is measured in revolutions per minute (count/minute)
             let unit = HKUnit.count().unitDivided(by: .minute())
             let quantity = HKQuantity(
-                unit: unit, doubleValue: measurement.revolutionsPerMinute.toDouble()
+                unit: unit, doubleValue: revolutionsPerMinute
             )
-            let date = Date(millisecondsSince1970: measurement.time)
+            let date = Date(millisecondsSince1970: time)
 
             // Create builder with timezone offset
             var builder = try MetadataBuilder(
@@ -40,11 +40,11 @@ extension CyclingPedalingCadenceMeasurementRecordDto {
 }
 
 extension HKQuantitySample {
-    /// Converts this HealthKit sample to a `CyclingPedalingCadenceMeasurementRecordDto`.
+    /// Converts this HealthKit sample to a `CyclingPedalingCadenceRecordDto`.
     ///
     /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a cycling cadence sample.
-    func toCyclingPedalingCadenceMeasurementRecordDto() throws
-        -> CyclingPedalingCadenceMeasurementRecordDto
+    func toCyclingPedalingCadenceRecordDto() throws
+        -> CyclingPedalingCadenceRecordDto
     {
         if #available(iOS 17.0, *) {
             guard quantityType.identifier == HKQuantityTypeIdentifier.cyclingCadence.rawValue else {
@@ -58,15 +58,6 @@ extension HKQuantitySample {
                 )
             }
 
-            // Cycling pedaling cadence is in revolutions per minute (count/minute)
-            let unit = HKUnit.count().unitDivided(by: .minute())
-            let rpmValue = quantity.doubleValue(for: unit)
-
-            let measurement = CyclingPedalingCadenceMeasurementDto(
-                time: startDate.millisecondsSince1970,
-                revolutionsPerMinute: NumberDto(value: rpmValue)
-            )
-
             // Create builder from HK metadata with source and device
             var builder = MetadataBuilder(
                 fromHKMetadata: metadata ?? [:],
@@ -74,15 +65,19 @@ extension HKQuantitySample {
                 device: device
             )
 
+            // Cycling pedaling cadence is in revolutions per minute (count/minute)
+            let unit = HKUnit.count().unitDivided(by: .minute())
+            let rpmValue = quantity.doubleValue(for: unit)
+
             // Extract timezone offset from metadata
             let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
 
-            return try CyclingPedalingCadenceMeasurementRecordDto(
+            return try CyclingPedalingCadenceRecordDto(
                 id: uuid.uuidString,
+                revolutionsPerMinute: rpmValue,
                 time: startDate.millisecondsSince1970,
-                metadata: builder.toMetadataDto(),
-                measurement: measurement,
-                zoneOffsetSeconds: zoneOffset
+                zoneOffsetSeconds: zoneOffset,
+                metadata: builder.toMetadataDto()
             )
         } else {
             throw HealthConnectorError.unsupportedOperation(

@@ -6,14 +6,14 @@ void main() {
   group(
     'CyclingPedalingCadenceMeasurementRecordDataType',
     () {
-      const dataType = HealthDataType.cyclingPedalingCadenceMeasurementRecord;
+      const dataType = HealthDataType.cyclingPedalingCadence;
 
       test(
         'type and capabilities are correctly defined',
         () {
           expect(
             dataType,
-            isA<CyclingPedalingCadenceMeasurementRecordDataType>(),
+            isA<CyclingPedalingCadenceDataType>(),
           );
           expect(dataType, isA<ReadableHealthDataType>());
           expect(dataType, isA<WriteableHealthDataType>());

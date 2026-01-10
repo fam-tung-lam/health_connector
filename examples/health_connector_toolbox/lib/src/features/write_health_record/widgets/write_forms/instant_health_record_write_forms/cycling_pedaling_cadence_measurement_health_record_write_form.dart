@@ -11,7 +11,7 @@ final class CyclingPedalingCadenceMeasurementWriteForm
     required super.onSubmit,
     super.key,
   }) : super(
-         dataType: HealthDataType.cyclingPedalingCadenceMeasurementRecord,
+         dataType: HealthDataType.cyclingPedalingCadence,
        );
 
   @override
@@ -27,12 +27,10 @@ final class CyclingPedalingCadenceMeasurementFormState
         > {
   @override
   HealthRecord buildRecord() {
-    return CyclingPedalingCadenceMeasurementRecord(
+    return CyclingPedalingCadenceRecord(
       id: HealthRecordId.none,
-      measurement: CyclingPedalingCadenceMeasurement(
-        time: startDateTime!,
-        cadence: value! as Number,
-      ),
+      time: startDateTime!,
+      cadence: value! as Frequency,
       metadata: metadata,
     );
   }

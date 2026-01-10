@@ -21,13 +21,16 @@ final class CyclingPedalingCadenceSeriesTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return SeriesHealthRecordTile<
       CyclingPedalingCadenceSeriesRecord,
-      CyclingPedalingCadenceMeasurement
+      CyclingPedalingCadenceSample
     >(
       record: record,
       icon: AppIcons.speed,
       title: '${AppTexts.cyclingPedalingCadence} Series',
       subtitleBuilder: (r, ctx) {
-        final total = r.samples.fold(0.0, (sum, e) => sum + e.cadence.value);
+        final total = r.samples.fold(
+          0.0,
+          (sum, e) => sum + e.cadence.inPerMinute,
+        );
         final average = total / r.samples.length;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

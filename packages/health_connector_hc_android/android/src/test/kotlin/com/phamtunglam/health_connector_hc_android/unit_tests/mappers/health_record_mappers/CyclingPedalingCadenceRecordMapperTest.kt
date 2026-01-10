@@ -4,7 +4,7 @@ import androidx.health.connect.client.records.CyclingPedalingCadenceRecord
 import androidx.health.connect.client.records.metadata.Metadata
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.pigeon.CyclingPedalingCadenceMeasurementDto
+import com.phamtunglam.health_connector_hc_android.pigeon.CyclingPedalingCadenceSampleDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CyclingPedalingCadenceSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
@@ -81,11 +81,11 @@ class CyclingPedalingCadenceRecordMapperTest {
                 deviceType = DeviceTypeDto.PHONE,
             ),
             samples = listOf(
-                CyclingPedalingCadenceMeasurementDto(
+                CyclingPedalingCadenceSampleDto(
                     time = TEST_START_TIME,
                     revolutionsPerMinute = NumberDto(value = TEST_RPM_1),
                 ),
-                CyclingPedalingCadenceMeasurementDto(
+                CyclingPedalingCadenceSampleDto(
                     time = TEST_END_TIME,
                     revolutionsPerMinute = NumberDto(value = TEST_RPM_2),
                 ),

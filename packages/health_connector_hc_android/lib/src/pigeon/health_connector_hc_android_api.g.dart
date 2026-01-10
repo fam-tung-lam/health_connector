@@ -3173,8 +3173,8 @@ class HeartRateSeriesRecordDto extends HealthRecordDto {
 /// This is a platform-agnostic value class used within cycling pedaling
 /// cadence records.
 /// It contains a timestamp and RPM value without ID or metadata.
-class CyclingPedalingCadenceMeasurementDto {
-  CyclingPedalingCadenceMeasurementDto({
+class CyclingPedalingCadenceSampleDto {
+  CyclingPedalingCadenceSampleDto({
     required this.time,
     required this.revolutionsPerMinute,
   });
@@ -3183,7 +3183,7 @@ class CyclingPedalingCadenceMeasurementDto {
   int time;
 
   /// Cycling cadence value in revolutions per minute (RPM).
-  NumberDto revolutionsPerMinute;
+  double revolutionsPerMinute;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -3196,18 +3196,18 @@ class CyclingPedalingCadenceMeasurementDto {
     return _toList();
   }
 
-  static CyclingPedalingCadenceMeasurementDto decode(Object result) {
+  static CyclingPedalingCadenceSampleDto decode(Object result) {
     result as List<Object?>;
-    return CyclingPedalingCadenceMeasurementDto(
+    return CyclingPedalingCadenceSampleDto(
       time: result[0]! as int,
-      revolutionsPerMinute: result[1]! as NumberDto,
+      revolutionsPerMinute: result[1]! as double,
     );
   }
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! CyclingPedalingCadenceMeasurementDto ||
+    if (other is! CyclingPedalingCadenceSampleDto ||
         other.runtimeType != runtimeType) {
       return false;
     }
@@ -3253,7 +3253,7 @@ class CyclingPedalingCadenceSeriesRecordDto extends HealthRecordDto {
   MetadataDto metadata;
 
   /// List of cadence measurements.
-  List<CyclingPedalingCadenceMeasurementDto> samples;
+  List<CyclingPedalingCadenceSampleDto> samples;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -3281,7 +3281,7 @@ class CyclingPedalingCadenceSeriesRecordDto extends HealthRecordDto {
       endZoneOffsetSeconds: result[4] as int?,
       metadata: result[5]! as MetadataDto,
       samples: (result[6] as List<Object?>?)!
-          .cast<CyclingPedalingCadenceMeasurementDto>(),
+          .cast<CyclingPedalingCadenceSampleDto>(),
     );
   }
 
@@ -5645,7 +5645,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is HeartRateSeriesRecordDto) {
       buffer.putUint8(195);
       writeValue(buffer, value.encode());
-    } else if (value is CyclingPedalingCadenceMeasurementDto) {
+    } else if (value is CyclingPedalingCadenceSampleDto) {
       buffer.putUint8(196);
       writeValue(buffer, value.encode());
     } else if (value is CyclingPedalingCadenceSeriesRecordDto) {
@@ -5922,7 +5922,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 195:
         return HeartRateSeriesRecordDto.decode(readValue(buffer)!);
       case 196:
-        return CyclingPedalingCadenceMeasurementDto.decode(readValue(buffer)!);
+        return CyclingPedalingCadenceSampleDto.decode(readValue(buffer)!);
       case 197:
         return CyclingPedalingCadenceSeriesRecordDto.decode(readValue(buffer)!);
       case 198:

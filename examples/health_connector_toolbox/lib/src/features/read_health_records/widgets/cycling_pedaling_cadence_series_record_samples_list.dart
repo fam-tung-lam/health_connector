@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart'
-    show CyclingPedalingCadenceMeasurement;
+    show CyclingPedalingCadenceSample;
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/date_formatter.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_detail_row.dart';
@@ -18,16 +18,16 @@ final class CyclingPedalingCadenceSeriesRecordSamplesList
   });
 
   /// The list of cycling pedaling cadence measurements to display.
-  final List<CyclingPedalingCadenceMeasurement> samples;
+  final List<CyclingPedalingCadenceSample> samples;
 
   @override
   Widget build(BuildContext context) {
-    return HealthSeriesRecordSampleList<CyclingPedalingCadenceMeasurement>(
+    return HealthSeriesRecordSampleList<CyclingPedalingCadenceSample>(
       title: AppTexts.cyclingPedalingCadenceSamples,
       samples: samples,
       itemBuilder: (sample, index) => HealthRecordDetailRow(
         label: DateFormatter.formatDateTime(sample.time),
-        value: '${sample.cadence.value} ${AppTexts.rpm}',
+        value: '${sample.cadence.inPerMinute} ${AppTexts.rpm}',
       ),
     );
   }

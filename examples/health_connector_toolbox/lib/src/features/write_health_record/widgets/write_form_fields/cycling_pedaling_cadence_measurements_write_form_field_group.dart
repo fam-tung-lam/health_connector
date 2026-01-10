@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:health_connector/health_connector_internal.dart'
-    show CyclingPedalingCadenceMeasurement, Number;
+import 'package:health_connector/health_connector.dart';
+import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_form_fields/record_sample_form_field_group.dart';
@@ -21,13 +21,13 @@ final class CyclingPedalingCadenceMeasurementsWriteFormFieldGroup
 
   final DateTime? startDateTime;
   final DateTime? endDateTime;
-  final ValueChanged<List<CyclingPedalingCadenceMeasurement>?> onChanged;
-  final List<CyclingPedalingCadenceMeasurement>? initialSamples;
-  final String? Function(List<CyclingPedalingCadenceMeasurement>?)? validator;
+  final ValueChanged<List<CyclingPedalingCadenceSample>?> onChanged;
+  final List<CyclingPedalingCadenceSample>? initialSamples;
+  final String? Function(List<CyclingPedalingCadenceSample>?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return RecordSampleFormFieldGroup<CyclingPedalingCadenceMeasurement, int>(
+    return RecordSampleFormFieldGroup<CyclingPedalingCadenceSample, int>(
       title: AppTexts.cyclingPedalingCadenceSamples,
       startDateTime: startDateTime,
       endDateTime: endDateTime,
@@ -52,14 +52,14 @@ final class CyclingPedalingCadenceMeasurementsWriteFormFieldGroup
           },
         );
       },
-      sampleFactory: (time, _, rpm) => CyclingPedalingCadenceMeasurement(
+      sampleFactory: (time, _, rpm) => CyclingPedalingCadenceSample(
         time: time,
-        cadence: Number(rpm),
+        cadence: Frequency.perMinute(rpm.toDouble()),
       ),
       sampleExtractor: (sample) => (
         time: sample.time,
         endTime: null as DateTime?,
-        value: sample.cadence.value as int,
+        value: sample.cadence.inPerMinute.toInt(),
       ),
       valueValidator: (rpm) => rpm != null && rpm > 0,
     );

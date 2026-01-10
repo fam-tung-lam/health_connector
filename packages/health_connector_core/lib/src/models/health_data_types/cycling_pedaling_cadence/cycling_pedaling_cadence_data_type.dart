@@ -16,7 +16,7 @@ part of '../health_data_type.dart';
 /// - **iOS HealthKit Only**:
 ///   [`HKQuantityTypeIdentifier.cyclingCadence`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/cyclingcadence)
 /// - **Android Health Connect**: Use
-///   [CyclingPedalingCadenceSeriesRecordDataType] instead
+///   [CyclingPedalingCadenceSeriesDataType] instead
 ///
 /// ## Capabilities
 ///
@@ -33,38 +33,29 @@ part of '../health_data_type.dart';
 ///
 /// ## See also
 ///
-/// - [CyclingPedalingCadenceMeasurementRecord]
+/// - [CyclingPedalingCadenceRecord]
 ///
 /// {@category Health Data Types}
 @sinceV2_2_0
 @immutable
-final class CyclingPedalingCadenceMeasurementRecordDataType
-    extends HealthDataType<CyclingPedalingCadenceMeasurementRecord, Number>
+final class CyclingPedalingCadenceDataType
+    extends HealthDataType<CyclingPedalingCadenceRecord, Number>
     implements
-        ReadableHealthDataType<CyclingPedalingCadenceMeasurementRecord>,
+        ReadableHealthDataType<CyclingPedalingCadenceRecord>,
         WriteableHealthDataType,
-        AvgAggregatableHealthDataType<
-          CyclingPedalingCadenceMeasurementRecord,
-          Number
-        >,
-        MinAggregatableHealthDataType<
-          CyclingPedalingCadenceMeasurementRecord,
-          Number
-        >,
-        MaxAggregatableHealthDataType<
-          CyclingPedalingCadenceMeasurementRecord,
-          Number
-        >,
-        DeletableHealthDataType<CyclingPedalingCadenceMeasurementRecord> {
+        AvgAggregatableHealthDataType<CyclingPedalingCadenceRecord, Number>,
+        MinAggregatableHealthDataType<CyclingPedalingCadenceRecord, Number>,
+        MaxAggregatableHealthDataType<CyclingPedalingCadenceRecord, Number>,
+        DeletableHealthDataType<CyclingPedalingCadenceRecord> {
   /// Creates a cycling pedaling cadence measurement data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const CyclingPedalingCadenceMeasurementRecordDataType();
+  const CyclingPedalingCadenceDataType();
 
   @override
-  String get id => 'cycling_pedaling_cadence_measurement_record';
+  String get id => 'cycling_pedaling_cadence';
 
   @override
   List<HealthPlatform> get supportedHealthPlatforms => [
@@ -74,7 +65,7 @@ final class CyclingPedalingCadenceMeasurementRecordDataType
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CyclingPedalingCadenceMeasurementRecordDataType &&
+      other is CyclingPedalingCadenceDataType &&
           runtimeType == other.runtimeType;
 
   @override
@@ -91,15 +82,14 @@ final class CyclingPedalingCadenceMeasurementRecordDataType
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
-  ReadRecordByIdRequest<CyclingPedalingCadenceMeasurementRecord> readById(
+  ReadRecordByIdRequest<CyclingPedalingCadenceRecord> readById(
     HealthRecordId id,
   ) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsInTimeRangeRequest<CyclingPedalingCadenceMeasurementRecord>
-  readInTimeRange({
+  ReadRecordsInTimeRangeRequest<CyclingPedalingCadenceRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     List<DataOrigin> dataOrigins = const [],
@@ -120,8 +110,7 @@ final class CyclingPedalingCadenceMeasurementRecordDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<CyclingPedalingCadenceMeasurementRecord, Number>
-  aggregateAvg({
+  AggregateRequest<CyclingPedalingCadenceRecord, Number> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -134,8 +123,7 @@ final class CyclingPedalingCadenceMeasurementRecordDataType
   }
 
   @override
-  AggregateRequest<CyclingPedalingCadenceMeasurementRecord, Number>
-  aggregateMin({
+  AggregateRequest<CyclingPedalingCadenceRecord, Number> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -148,8 +136,7 @@ final class CyclingPedalingCadenceMeasurementRecordDataType
   }
 
   @override
-  AggregateRequest<CyclingPedalingCadenceMeasurementRecord, Number>
-  aggregateMax({
+  AggregateRequest<CyclingPedalingCadenceRecord, Number> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -168,8 +155,7 @@ final class CyclingPedalingCadenceMeasurementRecordDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.activity;
 
   @override
-  DeleteRecordsByIdsRequest<CyclingPedalingCadenceMeasurementRecord>
-  deleteByIds(
+  DeleteRecordsByIdsRequest<CyclingPedalingCadenceRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -179,7 +165,7 @@ final class CyclingPedalingCadenceMeasurementRecordDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<CyclingPedalingCadenceMeasurementRecord>
+  DeleteRecordsInTimeRangeRequest<CyclingPedalingCadenceRecord>
   deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,

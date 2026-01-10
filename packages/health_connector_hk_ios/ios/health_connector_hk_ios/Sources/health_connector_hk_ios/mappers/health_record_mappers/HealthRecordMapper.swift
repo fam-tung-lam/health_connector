@@ -65,7 +65,7 @@ extension HealthRecordDto {
             return try dto.toHealthKit()
         case let dto as CyclingPowerRecordDto:
             return try dto.toHealthKit()
-        case let dto as CyclingPedalingCadenceMeasurementRecordDto:
+        case let dto as CyclingPedalingCadenceRecordDto:
             return try dto.toHealthKit()
         case let dto as ExerciseSessionRecordDto:
             return try dto.toHealthKit()
@@ -324,8 +324,8 @@ extension HKQuantitySample {
             try toSpeedActivityRecordDto(speedActivityType: .stairDescent)
         case .cyclingPower:
             try toCyclingPowerRecordDto()
-        case .cyclingPedalingCadenceMeasurementRecord:
-            try toCyclingPedalingCadenceMeasurementRecordDto()
+        case .cyclingPedalingCadence:
+            try toCyclingPedalingCadenceRecordDto()
         case .bodyMassIndex:
             try toBodyMassIndexRecordDto()
         case .heartRateVariabilitySDNN:

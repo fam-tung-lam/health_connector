@@ -52,7 +52,7 @@ extension HealthRecordDto {
             record.id
         case let record as MindfulnessSessionRecordDto:
             record.id
-        case let record as CyclingPedalingCadenceMeasurementRecordDto:
+        case let record as CyclingPedalingCadenceRecordDto:
             record.id
         case let record as OvulationTestRecordDto:
             record.id
@@ -299,8 +299,8 @@ extension HealthRecordDto {
                 return .cervicalMucus
             case is MindfulnessSessionRecordDto:
                 return .mindfulnessSession
-            case is CyclingPedalingCadenceMeasurementRecordDto:
-                return .cyclingPedalingCadenceMeasurementRecord
+            case is CyclingPedalingCadenceRecordDto:
+                return .cyclingPedalingCadence
             case is OvulationTestRecordDto:
                 return .ovulationTest
             case is IntermenstrualBleedingRecordDto:
@@ -455,7 +455,7 @@ extension HealthRecordDto {
             return dto.endTime
         case let dto as MindfulnessSessionRecordDto:
             return dto.endTime
-        case let dto as CyclingPedalingCadenceMeasurementRecordDto:
+        case let dto as CyclingPedalingCadenceRecordDto:
             return dto.time
         case let dto as CyclingPowerRecordDto:
             return dto.time
