@@ -13,12 +13,12 @@ final class HeartRateMeasurementTile extends StatelessWidget {
     super.key,
   });
 
-  final HeartRateMeasurementRecord record;
+  final HeartRateRecord record;
   final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
-    return InstantHealthRecordTile<HeartRateMeasurementRecord>(
+    return InstantHealthRecordTile<HeartRateRecord>(
       record: record,
       icon: AppIcons.favorite,
       title:

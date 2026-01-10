@@ -274,31 +274,31 @@ final class AggregateDataChangeNotifier extends ChangeNotifier {
       ),
 
       // Heart rate types - avg/min/max
-      HeartRateMeasurementRecordDataType() => _buildAvgMinMax(
-        () => HealthDataType.heartRateMeasurementRecord.aggregateAvg(
+      HeartRateDataType() => _buildAvgMinMax(
+        () => HealthDataType.heartRate.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
         ),
-        () => HealthDataType.heartRateMeasurementRecord.aggregateMin(
+        () => HealthDataType.heartRate.aggregateMin(
           startTime: startTime,
           endTime: endTime,
         ),
-        () => HealthDataType.heartRateMeasurementRecord.aggregateMax(
+        () => HealthDataType.heartRate.aggregateMax(
           startTime: startTime,
           endTime: endTime,
         ),
         metric,
       ),
-      HeartRateSeriesRecordDataType() => _buildAvgMinMax(
-        () => HealthDataType.heartRateSeriesRecord.aggregateAvg(
+      HeartRateSeriesDataType() => _buildAvgMinMax(
+        () => HealthDataType.heartRateSeries.aggregateAvg(
           startTime: startTime,
           endTime: endTime,
         ),
-        () => HealthDataType.heartRateSeriesRecord.aggregateMin(
+        () => HealthDataType.heartRateSeries.aggregateMin(
           startTime: startTime,
           endTime: endTime,
         ),
-        () => HealthDataType.heartRateSeriesRecord.aggregateMax(
+        () => HealthDataType.heartRateSeries.aggregateMax(
           startTime: startTime,
           endTime: endTime,
         ),

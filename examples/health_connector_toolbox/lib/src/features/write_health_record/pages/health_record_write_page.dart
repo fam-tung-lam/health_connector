@@ -179,7 +179,7 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      HeartRateMeasurementRecordDataType _ => HeartRateMeasurementWriteForm(
+      HeartRateDataType _ => HeartRateMeasurementWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
@@ -461,7 +461,7 @@ class _HealthRecordWritePageState extends State<HealthRecordWritePage>
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),
-      HeartRateSeriesRecordDataType _ => HeartRateSeriesWriteForm(
+      HeartRateSeriesDataType _ => HeartRateSeriesWriteForm(
         healthPlatform: _notifier.healthPlatform,
         onSubmit: _onSubmit,
       ),

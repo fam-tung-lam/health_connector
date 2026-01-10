@@ -20,7 +20,7 @@ abstract class MeasurementUnitValueParser {
       WheelchairPushesDataType() => _parseIntegerCount(value),
 
       // Frequency types
-      HeartRateMeasurementRecordDataType() ||
+      HeartRateDataType() ||
       CyclingPedalingCadenceDataType() ||
       CyclingPedalingCadenceSeriesDataType() ||
       RestingHeartRateDataType() => _parseFrequency(value),
@@ -131,8 +131,8 @@ abstract class MeasurementUnitValueParser {
         '$BloodPressureDataType requires systolic and diastolic values, '
         'cannot be parsed from a single string input.',
       ),
-      HeartRateSeriesRecordDataType() => throw UnsupportedError(
-        '$HeartRateSeriesRecordDataType is a time series data type, '
+      HeartRateSeriesDataType() => throw UnsupportedError(
+        '$HeartRateSeriesDataType is a time series data type, '
         'cannot be parsed from a single string input.',
       ),
       NutritionDataType() => throw UnsupportedError(

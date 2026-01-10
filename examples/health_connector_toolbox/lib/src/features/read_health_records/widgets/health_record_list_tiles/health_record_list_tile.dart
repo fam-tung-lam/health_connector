@@ -76,7 +76,7 @@ final class HealthRecordListTile extends StatelessWidget {
         record: r,
         onDelete: onDelete,
       ),
-      final HeartRateMeasurementRecord r => HeartRateMeasurementTile(
+      final HeartRateRecord r => HeartRateMeasurementTile(
         record: r,
         onDelete: onDelete,
       ),

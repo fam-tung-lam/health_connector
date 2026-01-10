@@ -1,24 +1,24 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
-import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_measurement_record_mapper.dart';
+import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/heart_rate/heart_rate_record_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
 
 import '../../../../utils/fake_data.dart';
 
 void main() {
   group(
-    'HeartRateMeasurementRecordMapper',
+    'HeartRateRecordMapper',
     () {
       group(
-        'HeartRateMeasurementRecordToDto',
+        'HeartRateRecordToDto',
         () {
           test(
-            'converts HeartRateMeasurementRecord to '
-            'HeartRateMeasurementRecordDto',
+            'converts HeartRateRecord to '
+            'HeartRateRecordDto',
             () {
               final time = FakeData.fakeTime;
 
-              final record = HeartRateMeasurementRecord(
+              final record = HeartRateRecord(
                 id: HealthRecordId(FakeData.fakeId),
                 metadata: Metadata.internal(
                   dataOrigin: const DataOrigin(FakeData.fakeDataOrigin),
@@ -41,15 +41,15 @@ void main() {
       );
 
       group(
-        'HeartRateMeasurementRecordDtoToDomain',
+        'HeartRateRecordDtoToDomain',
         () {
           test(
-            'converts HeartRateMeasurementRecordDto to '
-            'HeartRateMeasurementRecord',
+            'converts HeartRateRecordDto to '
+            'HeartRateRecord',
             () {
               final time = FakeData.fakeTime;
 
-              final dto = HeartRateMeasurementRecordDto(
+              final dto = HeartRateRecordDto(
                 id: FakeData.fakeId,
                 time: time.millisecondsSinceEpoch,
                 metadata: MetadataDto(
@@ -74,12 +74,12 @@ void main() {
           );
 
           test(
-            'converts HeartRateMeasurementRecordDto with null id to '
+            'converts HeartRateRecordDto with null id to '
             'domain with none id',
             () {
               final time = FakeData.fakeTime;
 
-              final dto = HeartRateMeasurementRecordDto(
+              final dto = HeartRateRecordDto(
                 time: time.millisecondsSinceEpoch,
                 metadata: MetadataDto(
                   dataOrigin: FakeData.fakeDataOrigin,

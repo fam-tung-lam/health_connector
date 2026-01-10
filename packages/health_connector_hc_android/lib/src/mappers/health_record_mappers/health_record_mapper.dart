@@ -367,9 +367,9 @@ extension HealthRecordToDto on HealthRecord {
           '$SleepStageRecord is not supported on Android. '
           'Use $SleepSessionRecord instead.',
         );
-      case final HeartRateMeasurementRecord _:
+      case final HeartRateRecord _:
         throw UnsupportedError(
-          '$HeartRateMeasurementRecord is not supported on Android. '
+          '$HeartRateRecord is not supported on Android. '
           'Use $HeartRateSeriesRecord instead.',
         );
       case final SystolicBloodPressureRecord _:

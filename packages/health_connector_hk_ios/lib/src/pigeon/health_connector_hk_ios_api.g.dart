@@ -4084,8 +4084,8 @@ class HeartRateMeasurementDto {
 
 /// Represents a heart rate measurement record for platform
 /// transfer (iOS HealthKit only).
-class HeartRateMeasurementRecordDto extends HealthRecordDto {
-  HeartRateMeasurementRecordDto({
+class HeartRateRecordDto extends HealthRecordDto {
+  HeartRateRecordDto({
     this.id,
     required this.time,
     required this.metadata,
@@ -4122,9 +4122,9 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
     return _toList();
   }
 
-  static HeartRateMeasurementRecordDto decode(Object result) {
+  static HeartRateRecordDto decode(Object result) {
     result as List<Object?>;
-    return HeartRateMeasurementRecordDto(
+    return HeartRateRecordDto(
       id: result[0] as String?,
       time: result[1]! as int,
       metadata: result[2]! as MetadataDto,
@@ -4136,8 +4136,7 @@ class HeartRateMeasurementRecordDto extends HealthRecordDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! HeartRateMeasurementRecordDto ||
-        other.runtimeType != runtimeType) {
+    if (other is! HeartRateRecordDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -8150,7 +8149,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is HeartRateMeasurementDto) {
       buffer.putUint8(202);
       writeValue(buffer, value.encode());
-    } else if (value is HeartRateMeasurementRecordDto) {
+    } else if (value is HeartRateRecordDto) {
       buffer.putUint8(203);
       writeValue(buffer, value.encode());
     } else if (value is CyclingPedalingCadenceRecordDto) {
@@ -8498,7 +8497,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 202:
         return HeartRateMeasurementDto.decode(readValue(buffer)!);
       case 203:
-        return HeartRateMeasurementRecordDto.decode(readValue(buffer)!);
+        return HeartRateRecordDto.decode(readValue(buffer)!);
       case 204:
         return CyclingPedalingCadenceRecordDto.decode(readValue(buffer)!);
       case 205:

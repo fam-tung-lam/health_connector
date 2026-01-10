@@ -1,17 +1,17 @@
 import 'package:health_connector_core/health_connector_core_internal.dart'
-    show Frequency, HeartRateMeasurementRecord, HealthRecordId, sinceV1_0_0;
+    show Frequency, HeartRateRecord, HealthRecordId, sinceV1_0_0;
 import 'package:health_connector_hk_ios/src/mappers/health_record_mappers/health_record_id_mapper.dart';
 import 'package:health_connector_hk_ios/src/mappers/metadata_mappers/metadata_mapper.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart'
-    show FrequencyDto, HeartRateMeasurementRecordDto;
+    show FrequencyDto, HeartRateRecordDto;
 import 'package:meta/meta.dart' show internal;
 
-/// Converts [HeartRateMeasurementRecord] to [HeartRateMeasurementRecordDto].
+/// Converts [HeartRateRecord] to [HeartRateRecordDto].
 @sinceV1_0_0
 @internal
-extension HeartRateMeasurementRecordToDto on HeartRateMeasurementRecord {
-  HeartRateMeasurementRecordDto toDto() {
-    return HeartRateMeasurementRecordDto(
+extension HeartRateRecordToDto on HeartRateRecord {
+  HeartRateRecordDto toDto() {
+    return HeartRateRecordDto(
       id: id.toDto(),
       time: time.millisecondsSinceEpoch,
       metadata: metadata.toDto(),
@@ -20,13 +20,12 @@ extension HeartRateMeasurementRecordToDto on HeartRateMeasurementRecord {
   }
 }
 
-/// Converts [HeartRateMeasurementRecordDto] to [HeartRateMeasurementRecord].
+/// Converts [HeartRateRecordDto] to [HeartRateRecord].
 @sinceV1_0_0
 @internal
-extension HeartRateMeasurementRecordDtoToDomain
-    on HeartRateMeasurementRecordDto {
-  HeartRateMeasurementRecord toDomain() {
-    return HeartRateMeasurementRecord(
+extension HeartRateRecordDtoToDomain on HeartRateRecordDto {
+  HeartRateRecord toDomain() {
+    return HeartRateRecord(
       id: id?.toDomain() ?? HealthRecordId.none,
       metadata: metadata.toDomain(),
       time: DateTime.fromMillisecondsSinceEpoch(time, isUtc: true),

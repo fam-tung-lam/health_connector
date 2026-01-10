@@ -2021,8 +2021,8 @@ class HeartRateMeasurementDto {
 
 /// Represents a heart rate measurement record for platform
 /// transfer (iOS HealthKit only).
-class HeartRateMeasurementRecordDto extends HealthRecordDto {
-  HeartRateMeasurementRecordDto({
+class HeartRateRecordDto extends HealthRecordDto {
+  HeartRateRecordDto({
     required this.id,
     required this.time,
     required this.metadata,
