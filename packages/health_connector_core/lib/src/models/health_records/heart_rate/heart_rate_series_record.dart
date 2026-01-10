@@ -8,7 +8,7 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`HeartRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateRecord)
-/// - **iOS HealthKit**: Not supported (Use [HeartRateMeasurementRecord])
+/// - **iOS HealthKit**: Not supported (Use [HeartRateRecord])
 ///
 /// ## Example
 ///
@@ -39,7 +39,7 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [HeartRateSeriesRecordDataType]
+/// - [HeartRateSeriesDataType]
 ///
 /// {@category Health Records}
 @sinceV1_0_0

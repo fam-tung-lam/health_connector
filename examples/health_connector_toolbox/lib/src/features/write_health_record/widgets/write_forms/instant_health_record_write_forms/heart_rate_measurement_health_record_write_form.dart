@@ -9,7 +9,7 @@ final class HeartRateMeasurementWriteForm extends InstantHealthRecordWriteForm {
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
-  }) : super(dataType: HealthDataType.heartRateMeasurementRecord);
+  }) : super(dataType: HealthDataType.heartRate);
 
   @override
   HeartRateMeasurementFormState createState() =>
@@ -21,7 +21,7 @@ final class HeartRateMeasurementFormState
     extends InstantHealthRecordFormState<HeartRateMeasurementWriteForm> {
   @override
   HealthRecord buildRecord() {
-    return HeartRateMeasurementRecord(
+    return HeartRateRecord(
       id: HealthRecordId.none,
       time: startDateTime!,
       rate: value! as Frequency,

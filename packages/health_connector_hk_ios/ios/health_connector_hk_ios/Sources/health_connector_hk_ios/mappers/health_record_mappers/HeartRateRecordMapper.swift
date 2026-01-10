@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-extension HeartRateMeasurementRecordDto {
+extension HeartRateRecordDto {
     /// Converts this DTO to a HealthKit `HKQuantitySample`.
     ///
     /// - Throws: An error if the quantity type cannot be created.
@@ -31,10 +31,10 @@ extension HeartRateMeasurementRecordDto {
 }
 
 extension HKQuantitySample {
-    /// Converts this HealthKit sample to a `HeartRateMeasurementRecordDto`.
+    /// Converts this HealthKit sample to a `HeartRateRecordDto`.
     ///
     /// - Throws: `HealthConnectorError.invalidArgument` if this sample is not a heart rate sample.
-    func toHeartRateMeasurementRecordDto() throws -> HeartRateMeasurementRecordDto {
+    func toHeartRateRecordDto() throws -> HeartRateRecordDto {
         guard quantityType.identifier == HKQuantityTypeIdentifier.heartRate.rawValue else {
             throw HealthConnectorError.invalidArgument(
                 message: "Expected heart rate quantity type, got \(quantityType.identifier)",
@@ -59,7 +59,7 @@ extension HKQuantitySample {
         // Extract timezone offset from metadata
         let zoneOffset = StartTimeZoneOffsetKey.read(from: builder.metadataDict)
 
-        return try HeartRateMeasurementRecordDto(
+        return try HeartRateRecordDto(
             id: uuid.uuidString,
             time: startDate.millisecondsSince1970,
             metadata: builder.toMetadataDto(),

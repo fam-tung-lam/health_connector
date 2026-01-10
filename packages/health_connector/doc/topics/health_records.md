@@ -273,7 +273,7 @@ final nutritionRecord = NutritionRecord(
 
 | Record Type                  | Category | Measurement        |
 |------------------------------|----------|--------------------|
-| `HeartRateMeasurementRecord` | Instant  | Single BPM reading |
+| `HeartRateRecord` | Instant  | Single BPM reading |
 | `HeartRateSeriesRecord`      | Series   | BPM over time      |
 | `RestingHeartRateRecord`     | Instant  | Resting BPM        |
 | `BloodPressureRecord`        | Instant  | Systolic/diastolic |

@@ -1,55 +1,67 @@
 part of '../health_data_type.dart';
 
-/// Health data type for Android heart rate series records.
+/// Heart rate measurement data type.
 ///
-/// Heart rate series records on Android are container records with embedded
-/// BPM samples. Each record has a single ID that encompasses all measurements.
+/// Represents individual heart rate measurements in beats per minute (BPM).
+/// Each measurement is a discrete reading typically taken at a specific point
+/// in time.
+///
+/// ## Measurement Unit
+///
+/// Values are measured as [Number] (beats per minute).
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`HeartRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateRecord)
-/// - **iOS HealthKit**: Not supported (iOS uses discrete
-///   [HeartRateMeasurementRecordDataType] samples)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.heartRate`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartrate)
+/// - **Android Health Connect**: Use [HeartRateSeriesDataType]
+/// instead
 ///
 /// ## Capabilities
 ///
-/// - Readable: Query heart rate series
-/// - Writeable: Write heart rate series
+/// - Readable: Query heart rate measurements
+/// - Writeable: Write heart rate measurements
 /// - Aggregatable: Calculate avg, min, max heart rate
 /// - Deletable: Delete records by IDs or time range
 ///
+/// ## Platform Notes
+///
+/// On iOS, heart rate data is stored as individual measurement samples. Each
+/// record has its own UUID and can be queried independently.
+///
 /// ## See also
 ///
-/// - [HeartRateSeriesRecord]
+/// - [HeartRateRecord]
 ///
 /// {@category Health Data Types}
 @sinceV1_0_0
-@supportedOnHealthConnect
 @immutable
-final class HeartRateSeriesRecordDataType
-    extends HealthDataType<HeartRateSeriesRecord, Number>
+final class HeartRateDataType extends HealthDataType<HeartRateRecord, Number>
     implements
-        ReadableHealthDataType<HeartRateSeriesRecord>,
+        ReadableHealthDataType<HeartRateRecord>,
         WriteableHealthDataType,
-        AvgAggregatableHealthDataType<HeartRateSeriesRecord, Number>,
-        MinAggregatableHealthDataType<HeartRateSeriesRecord, Number>,
-        MaxAggregatableHealthDataType<HeartRateSeriesRecord, Number>,
-        DeletableHealthDataType<HeartRateSeriesRecord> {
-  /// Creates a heart rate series data type.
+        AvgAggregatableHealthDataType<HeartRateRecord, Number>,
+        MinAggregatableHealthDataType<HeartRateRecord, Number>,
+        MaxAggregatableHealthDataType<HeartRateRecord, Number>,
+        DeletableHealthDataType<HeartRateRecord> {
+  /// Creates a heart rate measurement data type.
   ///
   /// This is a constant constructor used internally. To reference this data
   /// type, use the singleton instance from [HealthDataType].
   @internal
-  const HeartRateSeriesRecordDataType();
+  const HeartRateDataType();
 
   @override
-  String get id => 'heart_rate_series_record';
+  String get id => 'heart_rate';
+
+  @override
+  List<HealthPlatform> get supportedHealthPlatforms => [
+    HealthPlatform.appleHealth,
+  ];
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HeartRateSeriesRecordDataType &&
-          runtimeType == other.runtimeType;
+      other is HeartRateDataType && runtimeType == other.runtimeType;
 
   @override
   int get hashCode => runtimeType.hashCode;
@@ -62,20 +74,17 @@ final class HeartRateSeriesRecordDataType
   ];
 
   @override
-  List<HealthPlatform> get supportedHealthPlatforms => [
-    HealthPlatform.healthConnect,
-  ];
-
-  @override
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override
-  ReadRecordByIdRequest<HeartRateSeriesRecord> readById(HealthRecordId id) {
+  ReadRecordByIdRequest<HeartRateRecord> readById(
+    HealthRecordId id,
+  ) {
     return ReadRecordByIdRequest(dataType: this, id: id);
   }
 
   @override
-  ReadRecordsInTimeRangeRequest<HeartRateSeriesRecord> readInTimeRange({
+  ReadRecordsInTimeRangeRequest<HeartRateRecord> readInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
     List<DataOrigin> dataOrigins = const [],
@@ -96,7 +105,7 @@ final class HeartRateSeriesRecordDataType
   HealthDataPermission get writePermission => HealthDataPermission.write(this);
 
   @override
-  AggregateRequest<HeartRateSeriesRecord, Number> aggregateAvg({
+  AggregateRequest<HeartRateRecord, Number> aggregateAvg({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -109,7 +118,7 @@ final class HeartRateSeriesRecordDataType
   }
 
   @override
-  AggregateRequest<HeartRateSeriesRecord, Number> aggregateMin({
+  AggregateRequest<HeartRateRecord, Number> aggregateMin({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -122,7 +131,7 @@ final class HeartRateSeriesRecordDataType
   }
 
   @override
-  AggregateRequest<HeartRateSeriesRecord, Number> aggregateMax({
+  AggregateRequest<HeartRateRecord, Number> aggregateMax({
     required DateTime startTime,
     required DateTime endTime,
   }) {
@@ -141,7 +150,7 @@ final class HeartRateSeriesRecordDataType
   HealthDataTypeCategory get category => HealthDataTypeCategory.vitals;
 
   @override
-  DeleteRecordsByIdsRequest<HeartRateSeriesRecord> deleteByIds(
+  DeleteRecordsByIdsRequest<HeartRateRecord> deleteByIds(
     List<HealthRecordId> recordIds,
   ) {
     return DeleteRecordsByIdsRequest(
@@ -151,7 +160,7 @@ final class HeartRateSeriesRecordDataType
   }
 
   @override
-  DeleteRecordsInTimeRangeRequest<HeartRateSeriesRecord> deleteInTimeRange({
+  DeleteRecordsInTimeRangeRequest<HeartRateRecord> deleteInTimeRange({
     required DateTime startTime,
     required DateTime endTime,
   }) {

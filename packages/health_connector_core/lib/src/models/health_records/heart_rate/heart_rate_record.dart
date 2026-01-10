@@ -13,7 +13,7 @@ part of '../health_record.dart';
 /// ## Example
 ///
 /// ```dart
-/// final record = HeartRateMeasurementRecord(
+/// final record = HeartRateRecord(
 ///   id: HealthRecordId('ABC-123'),
 ///   time: DateTime.now(),
 ///   rate: Frequency.perMinute(72),
@@ -25,7 +25,7 @@ part of '../health_record.dart';
 ///
 /// ## See also
 ///
-/// - [HeartRateMeasurementRecordDataType]
+/// - [HeartRateDataType]
 /// - [HeartRateSeriesRecord] for series-based heart rate measurements
 /// - [HeartRateSample] is used exclusively for series record samples
 ///
@@ -33,9 +33,9 @@ part of '../health_record.dart';
 @sinceV1_0_0
 @supportedOnAppleHealth
 @immutable
-final class HeartRateMeasurementRecord extends InstantHealthRecord {
+final class HeartRateRecord extends InstantHealthRecord {
   /// Creates a heart rate measurement record.
-  const HeartRateMeasurementRecord({
+  const HeartRateRecord({
     required super.id,
     required super.metadata,
     required super.time,
@@ -47,14 +47,14 @@ final class HeartRateMeasurementRecord extends InstantHealthRecord {
   final Frequency rate;
 
   /// Creates a copy with the given fields replaced with the new values.
-  HeartRateMeasurementRecord copyWith({
+  HeartRateRecord copyWith({
     HealthRecordId? id,
     Metadata? metadata,
     DateTime? time,
     Frequency? rate,
     int? zoneOffsetSeconds,
   }) {
-    return HeartRateMeasurementRecord(
+    return HeartRateRecord(
       id: id ?? this.id,
       metadata: metadata ?? this.metadata,
       time: time ?? this.time,
@@ -66,7 +66,7 @@ final class HeartRateMeasurementRecord extends InstantHealthRecord {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HeartRateMeasurementRecord &&
+      other is HeartRateRecord &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           metadata == other.metadata &&

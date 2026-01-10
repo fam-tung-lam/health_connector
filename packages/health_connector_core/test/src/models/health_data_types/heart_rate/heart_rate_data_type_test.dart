@@ -4,14 +4,14 @@ import 'package:test/test.dart';
 
 void main() {
   group(
-    'HeartRateMeasurementRecordDataType',
+    'HeartRateDataType',
     () {
-      const dataType = HealthDataType.heartRateMeasurementRecord;
+      const dataType = HealthDataType.heartRate;
 
       test(
         'type and capabilities are correctly defined',
         () {
-          expect(dataType, isA<HeartRateMeasurementRecordDataType>());
+          expect(dataType, isA<HeartRateDataType>());
           expect(dataType, isA<ReadableHealthDataType>());
           expect(dataType, isA<WriteableHealthDataType>());
           expect(dataType, isA<DeletableHealthDataType>());

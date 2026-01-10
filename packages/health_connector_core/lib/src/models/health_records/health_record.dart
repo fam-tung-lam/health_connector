@@ -44,7 +44,7 @@ part 'energy_burned/total_energy_burned_record.dart';
 part 'exercise/exercise_session_record.dart';
 part 'exercise/exercise_type.dart';
 part 'floors_climbed_record.dart';
-part 'heart_rate/heart_rate_measurement_record.dart';
+part 'heart_rate/heart_rate_record.dart';
 part 'heart_rate/heart_rate_series_record.dart';
 part 'heart_rate/heart_rate_variability_rmssd_record.dart';
 part 'heart_rate/heart_rate_variability_sdnn_record.dart';

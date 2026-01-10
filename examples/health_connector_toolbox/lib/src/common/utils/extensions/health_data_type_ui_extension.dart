@@ -38,8 +38,8 @@ extension HealthDataTypeUI on HealthDataType {
       FloorsClimbedDataType _ => AppTexts.floorsClimbed,
       WheelchairPushesDataType _ => AppTexts.wheelchairPushes,
       HydrationDataType _ => AppTexts.hydration,
-      HeartRateMeasurementRecordDataType _ => AppTexts.heartRate,
-      HeartRateSeriesRecordDataType _ => AppTexts.heartRate,
+      HeartRateDataType _ => AppTexts.heartRate,
+      HeartRateSeriesDataType _ => AppTexts.heartRate,
       CyclingPedalingCadenceDataType _ => AppTexts.cyclingPedalingCadence,
       CyclingPedalingCadenceSeriesDataType _ => AppTexts.cyclingPedalingCadence,
       RestingHeartRateDataType _ => AppTexts.restingHeartRate,
@@ -143,10 +143,8 @@ extension HealthDataTypeUI on HealthDataType {
       FloorsClimbedDataType _ => AppTexts.floorsClimbedDescription,
       WheelchairPushesDataType _ => AppTexts.wheelchairPushesDescription,
       HydrationDataType _ => AppTexts.hydrationDescription,
-      HeartRateMeasurementRecordDataType _ =>
-        AppTexts.heartRateRecordDescription,
-      HeartRateSeriesRecordDataType _ =>
-        AppTexts.heartRateSeriesRecordDescription,
+      HeartRateDataType _ => AppTexts.heartRateRecordDescription,
+      HeartRateSeriesDataType _ => AppTexts.heartRateSeriesRecordDescription,
       CyclingPedalingCadenceDataType _ =>
         AppTexts.cyclingPedalingCadenceRecordDescription,
       CyclingPedalingCadenceSeriesDataType _ =>
@@ -256,8 +254,8 @@ extension HealthDataTypeUI on HealthDataType {
       FloorsClimbedDataType _ => AppIcons.stairs,
       WheelchairPushesDataType _ => AppIcons.accessible,
       HydrationDataType _ => AppIcons.volume,
-      HeartRateMeasurementRecordDataType _ => AppIcons.favorite,
-      HeartRateSeriesRecordDataType _ => AppIcons.favorite,
+      HeartRateDataType _ => AppIcons.favorite,
+      HeartRateSeriesDataType _ => AppIcons.favorite,
       CyclingPedalingCadenceDataType _ => AppIcons.speed,
       CyclingPedalingCadenceSeriesDataType _ => AppIcons.speed,
       RestingHeartRateDataType _ => AppIcons.favorite,
@@ -339,7 +337,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (StepsDataType) ||
       const (FloorsClimbedDataType) ||
       const (WheelchairPushesDataType) ||
-      const (HeartRateMeasurementRecordDataType) ||
+      const (HeartRateDataType) ||
       const (RestingHeartRateDataType) => TextInputType.number,
 
       // All other types use decimal number input
@@ -354,7 +352,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (StepsDataType) => AppTexts.stepCount,
       const (FloorsClimbedDataType) => AppTexts.floorsClimbed,
       const (WheelchairPushesDataType) => AppTexts.wheelchairPushes,
-      const (HeartRateMeasurementRecordDataType) => AppTexts.valueWithUnit(
+      const (HeartRateDataType) => AppTexts.valueWithUnit(
         AppTexts.heartRate,
         AppTexts.bpm,
       ),
@@ -769,7 +767,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
       const (StairAscentSpeedDataType) ||
       const (StairDescentSpeedDataType) => AppTexts.pleaseEnterValidNumber,
 
-      const (HeartRateMeasurementRecordDataType) => AppTexts.getPleaseEnterText(
+      const (HeartRateDataType) => AppTexts.getPleaseEnterText(
         AppTexts.heartRate,
       ),
       const (RestingHeartRateDataType) => AppTexts.getPleaseEnterText(

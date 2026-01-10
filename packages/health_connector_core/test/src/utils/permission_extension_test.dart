@@ -16,7 +16,7 @@ void main() {
           HealthPlatformFeature.readHealthDataHistory,
         ),
         HealthDataPermission(
-          dataType: HealthDataType.heartRateSeriesRecord,
+          dataType: HealthDataType.heartRateSeries,
           accessType: HealthDataPermissionAccessType.write,
         ),
         HealthPlatformFeaturePermission(
@@ -40,7 +40,7 @@ void main() {
               expect(healthDataPermissions[0].dataType, HealthDataType.steps);
               expect(
                 healthDataPermissions[1].dataType,
-                HealthDataType.heartRateSeriesRecord,
+                HealthDataType.heartRateSeries,
               );
             },
           );

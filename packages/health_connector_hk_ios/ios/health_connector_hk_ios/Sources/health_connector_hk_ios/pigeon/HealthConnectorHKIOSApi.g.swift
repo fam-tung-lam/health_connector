@@ -3093,7 +3093,7 @@ public struct HeartRateMeasurementDto: Hashable {
 /// transfer (iOS HealthKit only).
 ///
 /// Generated class from Pigeon that represents data sent in messages.
-public struct HeartRateMeasurementRecordDto: HealthRecordDto {
+public struct HeartRateRecordDto: HealthRecordDto {
   /// Platform-assigned unique identifier.
   var id: String? = nil
   /// Measurement time in milliseconds since epoch (UTC).
@@ -3107,14 +3107,14 @@ public struct HeartRateMeasurementRecordDto: HealthRecordDto {
 
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> HeartRateMeasurementRecordDto? {
+  static func fromList(_ pigeonVar_list: [Any?]) -> HeartRateRecordDto? {
     let id: String? = nilOrValue(pigeonVar_list[0])
     let time = pigeonVar_list[1] as! Int64
     let metadata = pigeonVar_list[2] as! MetadataDto
     let beatsPerMinute = pigeonVar_list[3] as! FrequencyDto
     let zoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[4])
 
-    return HeartRateMeasurementRecordDto(
+    return HeartRateRecordDto(
       id: id,
       time: time,
       metadata: metadata,
@@ -3131,7 +3131,7 @@ public struct HeartRateMeasurementRecordDto: HealthRecordDto {
       zoneOffsetSeconds,
     ]
   }
-  public static func == (lhs: HeartRateMeasurementRecordDto, rhs: HeartRateMeasurementRecordDto) -> Bool {
+  public static func == (lhs: HeartRateRecordDto, rhs: HeartRateRecordDto) -> Bool {
     return deepEqualsHealthConnectorHKIOSApi(lhs.toList(), rhs.toList())  }
   public func hash(into hasher: inout Hasher) {
     deepHashHealthConnectorHKIOSApi(value: toList(), hasher: &hasher)
@@ -6092,7 +6092,7 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 202:
       return HeartRateMeasurementDto.fromList(self.readValue() as! [Any?])
     case 203:
-      return HeartRateMeasurementRecordDto.fromList(self.readValue() as! [Any?])
+      return HeartRateRecordDto.fromList(self.readValue() as! [Any?])
     case 204:
       return CyclingPedalingCadenceRecordDto.fromList(self.readValue() as! [Any?])
     case 205:
@@ -6427,7 +6427,7 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? HeartRateMeasurementDto {
       super.writeByte(202)
       super.writeValue(value.toList())
-    } else if let value = value as? HeartRateMeasurementRecordDto {
+    } else if let value = value as? HeartRateRecordDto {
       super.writeByte(203)
       super.writeValue(value.toList())
     } else if let value = value as? CyclingPedalingCadenceRecordDto {

@@ -42,7 +42,7 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
       case HealthDataTypeDto.wheelchairPushes:
         return HealthDataType.wheelchairPushes;
       case HealthDataTypeDto.heartRateMeasurementRecord:
-        return HealthDataType.heartRateMeasurementRecord;
+        return HealthDataType.heartRate;
       case HealthDataTypeDto.heartRateVariabilitySDNN:
         return HealthDataType.heartRateVariabilitySDNN;
       case HealthDataTypeDto.cyclingPedalingCadence:
@@ -215,7 +215,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.waistCircumference;
       case WheelchairPushesDataType _:
         return HealthDataTypeDto.wheelchairPushes;
-      case HeartRateMeasurementRecordDataType _:
+      case HeartRateDataType _:
         return HealthDataTypeDto.heartRateMeasurementRecord;
       case CyclingPedalingCadenceDataType _:
         return HealthDataTypeDto.cyclingPedalingCadence;
@@ -377,10 +377,10 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$SleepSessionDataType is not supported on '
           'iOS HealthKit. Use $SleepStageDataType instead.',
         );
-      case HeartRateSeriesRecordDataType _:
+      case HeartRateSeriesDataType _:
         throw UnsupportedError(
-          '$HeartRateSeriesRecordDataType is not supported on iOS '
-          'HealthKit. Use $HeartRateMeasurementRecordDataType instead.',
+          '$HeartRateSeriesDataType is not supported on iOS '
+          'HealthKit. Use $HeartRateDataType instead.',
         );
       case CyclingPedalingCadenceSeriesDataType _:
         throw UnsupportedError(

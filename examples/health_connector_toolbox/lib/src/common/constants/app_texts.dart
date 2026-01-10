@@ -114,8 +114,7 @@ abstract final class AppTexts {
       FloorsClimbedDataType() => floorsClimbed,
       WheelchairPushesDataType() => wheelchairPushes,
       HydrationDataType() => hydration,
-      HeartRateMeasurementRecordDataType() ||
-      HeartRateSeriesRecordDataType() => heartRate,
+      HeartRateDataType() || HeartRateSeriesDataType() => heartRate,
       CyclingPedalingCadenceDataType() ||
       CyclingPedalingCadenceSeriesDataType() => cyclingPedalingCadence,
       SleepSessionDataType() => sleepSession,

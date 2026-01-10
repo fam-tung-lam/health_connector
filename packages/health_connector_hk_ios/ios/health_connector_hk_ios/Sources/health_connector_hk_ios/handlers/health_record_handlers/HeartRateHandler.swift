@@ -8,7 +8,7 @@ final class HeartRateHandler: @unchecked Sendable,
     DeletableHealthRecordHandler,
     AggregatableQuantityHealthRecordHandler
 {
-    typealias RecordDto = HeartRateMeasurementRecordDto
+    typealias RecordDto = HeartRateRecordDto
     typealias SampleType = HKQuantitySample
     typealias AggregatedResultMeasurementUnitDto = NumberDto
 

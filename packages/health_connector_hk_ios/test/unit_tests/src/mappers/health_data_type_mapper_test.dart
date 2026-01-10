@@ -56,7 +56,7 @@ void main() {
               ],
               [
                 HealthDataTypeDto.heartRateMeasurementRecord,
-                HealthDataType.heartRateMeasurementRecord,
+                HealthDataType.heartRate,
               ],
               [
                 HealthDataTypeDto.heartRateVariabilitySDNN,
@@ -260,7 +260,7 @@ void main() {
                 HealthDataTypeDto.wheelchairPushes,
               ],
               [
-                HealthDataType.heartRateMeasurementRecord,
+                HealthDataType.heartRate,
                 HealthDataTypeDto.heartRateMeasurementRecord,
               ],
               [
@@ -450,10 +450,10 @@ void main() {
               );
 
               test(
-                'throws for HeartRateSeriesRecordDataType',
+                'throws for HeartRateSeriesDataType',
                 () {
                   expect(
-                    () => HealthDataType.heartRateSeriesRecord.toDto(),
+                    () => HealthDataType.heartRateSeries.toDto(),
                     throwsUnsupportedError,
                   );
                 },

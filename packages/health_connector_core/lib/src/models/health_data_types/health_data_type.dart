@@ -44,8 +44,8 @@ part 'energy_burned/total_energy_burned_data_type.dart';
 part 'exercise_session_data_type.dart';
 part 'floors_climbed_data_type.dart';
 part 'health_data_type_category.dart';
-part 'heart_rate/heart_rate_measurement_record_data_type.dart';
-part 'heart_rate/heart_rate_series_record_data_type.dart';
+part 'heart_rate/heart_rate_data_type.dart';
+part 'heart_rate/heart_rate_series_data_type.dart';
 part 'heart_rate/heart_rate_variability_rmssd_data_type.dart';
 part 'heart_rate/heart_rate_variability_sdnn_data_type.dart';
 part 'heart_rate/resting_heart_rate_data_type.dart';
@@ -478,7 +478,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// hydration data and writing new measurements.
   static const hydration = HydrationDataType();
 
-  /// Heart rate series record data type (Android Health Connect only).
+  /// Heart rate series data type (Android Health Connect only).
   ///
   /// Represents a series of heart rate measurements over a time interval.
   /// Each record has a single ID that encompasses all heart rate measurements.
@@ -486,9 +486,9 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports both reading existing heart rate data and writing
   /// new measurements.
   @supportedOnHealthConnect
-  static const heartRateSeriesRecord = HeartRateSeriesRecordDataType();
+  static const heartRateSeries = HeartRateSeriesDataType();
 
-  /// Heart rate measurement record data type (iOS HealthKit only).
+  /// Heart rate data type (iOS HealthKit only).
   ///
   /// Represents a single heart rate measurement at a specific point in time.
   /// Each record has its own UUID.
@@ -496,8 +496,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   /// Supports both reading existing heart rate data and writing
   /// new measurements.
   @supportedOnAppleHealth
-  static const heartRateMeasurementRecord =
-      HeartRateMeasurementRecordDataType();
+  static const heartRate = HeartRateDataType();
 
   /// Sleep session health data type (Android Health Connect only).
   ///
@@ -922,8 +921,8 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
     exerciseSession,
     floorsClimbed,
     folate,
-    heartRateMeasurementRecord,
-    heartRateSeriesRecord,
+    heartRate,
+    heartRateSeries,
     heartRateVariabilityRMSSD,
     heartRateVariabilitySDNN,
     height,

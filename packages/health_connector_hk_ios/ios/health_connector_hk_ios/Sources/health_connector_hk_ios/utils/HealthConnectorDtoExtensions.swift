@@ -34,7 +34,7 @@ extension HealthRecordDto {
             record.id
         case let record as WheelchairPushesRecordDto:
             record.id
-        case let record as HeartRateMeasurementRecordDto:
+        case let record as HeartRateRecordDto:
             record.id
         case let record as RestingHeartRateRecordDto:
             record.id
@@ -201,7 +201,7 @@ extension HealthRecordDto {
                 return .hydration
             case is LeanBodyMassRecordDto:
                 return .leanBodyMass
-            case is HeartRateMeasurementRecordDto:
+            case is HeartRateRecordDto:
                 return .heartRateMeasurementRecord
             case is RestingHeartRateRecordDto:
                 return .restingHeartRate
@@ -365,7 +365,7 @@ extension HealthRecordDto {
             return dto.time
         case let dto as LeanBodyMassRecordDto:
             return dto.time
-        case let dto as HeartRateMeasurementRecordDto:
+        case let dto as HeartRateRecordDto:
             return dto.time
         case let dto as RestingHeartRateRecordDto:
             return dto.time

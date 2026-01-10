@@ -44,7 +44,7 @@ void main() {
               ],
               [
                 HealthDataTypeDto.heartRateSeriesRecord,
-                HealthDataType.heartRateSeriesRecord,
+                HealthDataType.heartRateSeries,
               ],
               [
                 HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord,
@@ -140,7 +140,7 @@ void main() {
                 HealthDataTypeDto.wheelchairPushes,
               ],
               [
-                HealthDataType.heartRateSeriesRecord,
+                HealthDataType.heartRateSeries,
                 HealthDataTypeDto.heartRateSeriesRecord,
               ],
               [
@@ -239,7 +239,7 @@ void main() {
                 HealthDataType.zinc,
                 HealthDataType.basalEnergyBurned,
                 HealthDataType.sleepStageRecord,
-                HealthDataType.heartRateMeasurementRecord,
+                HealthDataType.heartRate,
                 HealthDataType.cyclingPedalingCadence,
                 HealthDataType.systolicBloodPressure,
                 HealthDataType.diastolicBloodPressure,

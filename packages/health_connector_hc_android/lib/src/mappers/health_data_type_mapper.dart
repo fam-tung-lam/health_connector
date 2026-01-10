@@ -36,7 +36,7 @@ extension HealthDataTypeDtoToDomain on HealthDataTypeDto {
       case HealthDataTypeDto.wheelchairPushes:
         return HealthDataType.wheelchairPushes;
       case HealthDataTypeDto.heartRateSeriesRecord:
-        return HealthDataType.heartRateSeriesRecord;
+        return HealthDataType.heartRateSeries;
       case HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord:
         return HealthDataType.cyclingPedalingCadenceSeries;
       case HealthDataTypeDto.sexualActivity:
@@ -116,7 +116,7 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
         return HealthDataTypeDto.weight;
       case WheelchairPushesDataType _:
         return HealthDataTypeDto.wheelchairPushes;
-      case HeartRateSeriesRecordDataType _:
+      case HeartRateSeriesDataType _:
         return HealthDataTypeDto.heartRateSeriesRecord;
       case CyclingPedalingCadenceSeriesDataType _:
         return HealthDataTypeDto.cyclingPedalingCadenceSeriesRecord;
@@ -208,11 +208,11 @@ extension HealthDataTypeToDto on HealthDataType<HealthRecord, MeasurementUnit> {
           '$SleepStageDataType is not supported on '
           'Android Health Connect. Use $SleepSessionDataType instead.',
         );
-      case HeartRateMeasurementRecordDataType _:
+      case HeartRateDataType _:
         throw UnsupportedError(
-          '$HeartRateMeasurementRecordDataType is not '
+          '$HeartRateDataType is not '
           'supported on Android Health Connect. '
-          'Use $HeartRateSeriesRecordDataType instead.',
+          'Use $HeartRateSeriesDataType instead.',
         );
       case CyclingPedalingCadenceDataType _:
         throw UnsupportedError(
