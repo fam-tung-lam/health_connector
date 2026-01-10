@@ -416,7 +416,7 @@ enum DistanceActivityTypeDto {
 /// Represents the type of sleep stage.
 ///
 /// Maps to iOS HKCategoryValueSleepAnalysis values.
-enum SleepStageTypeDto {
+enum SleepStageDto {
   /// Unknown or unspecified sleep stage.
   unknown,
 
@@ -2119,7 +2119,7 @@ class SleepStageRecordDto extends HealthRecordDto {
   final MetadataDto metadata;
 
   /// The sleep stage type for this record.
-  final SleepStageTypeDto stageType;
+  final SleepStageDto stageType;
 
   /// Timezone offset in seconds for start time (optional).
   final int? startZoneOffsetSeconds;

@@ -18,7 +18,7 @@ final class SleepSessionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SeriesHealthRecordTile<SleepSessionRecord, SleepStage>(
+    return SeriesHealthRecordTile<SleepSessionRecord, SleepStageSample>(
       record: record,
       icon: AppIcons.bedtime,
       title: 'Sleep Session',

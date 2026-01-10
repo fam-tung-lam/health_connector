@@ -8,7 +8,7 @@ import 'package:health_connector_core/src/models/health_platform_data.dart'
 import 'package:health_connector_core/src/models/health_records/blood_pressure/blood_pressure_body_position.dart';
 import 'package:health_connector_core/src/models/health_records/blood_pressure/blood_pressure_measurement_location.dart';
 import 'package:health_connector_core/src/models/health_records/cycling_pedaling_cadence/cycling_pedaling_cadence_measurement.dart';
-import 'package:health_connector_core/src/models/health_records/sleep/sleep_stage_type.dart';
+import 'package:health_connector_core/src/models/health_records/sleep/sleep_stage.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
 import 'package:health_connector_core/src/models/metadata/metadata.dart';
 import 'package:health_connector_core/src/utils/health_record_data_type_extension.dart';

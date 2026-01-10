@@ -7,7 +7,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 /// Form widget for sleep session records (Android).
 @immutable
 final class SleepSessionWriteForm
-    extends SeriesHealthRecordWriteForm<SleepStage> {
+    extends SeriesHealthRecordWriteForm<SleepStageSample> {
   const SleepSessionWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
@@ -20,7 +20,8 @@ final class SleepSessionWriteForm
 
 /// State for sleep session form widget.
 final class SleepSessionFormState
-    extends SeriesHealthRecordFormState<SleepStage, SleepSessionWriteForm> {
+    extends
+        SeriesHealthRecordFormState<SleepStageSample, SleepSessionWriteForm> {
   String? title;
   String? notes;
 

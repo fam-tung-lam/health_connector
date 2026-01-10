@@ -572,7 +572,7 @@ enum HealthDataTypeDto {
 }
 
 /// Sleep stage type enum.
-enum SleepStageTypeDto {
+enum SleepStageDto {
   unknown,
   awake,
   sleeping,
@@ -3560,8 +3560,8 @@ class PowerSeriesRecordDto extends HealthRecordDto {
 }
 
 /// DTO for a sleep stage value.
-class SleepStageDto {
-  SleepStageDto({
+class SleepStageSampleDto {
+  SleepStageSampleDto({
     required this.startTime,
     required this.endTime,
     required this.stage,
@@ -3574,7 +3574,7 @@ class SleepStageDto {
   int endTime;
 
   /// The sleep stage type.
-  SleepStageTypeDto stage;
+  SleepStageDto stage;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -3588,19 +3588,19 @@ class SleepStageDto {
     return _toList();
   }
 
-  static SleepStageDto decode(Object result) {
+  static SleepStageSampleDto decode(Object result) {
     result as List<Object?>;
-    return SleepStageDto(
+    return SleepStageSampleDto(
       startTime: result[0]! as int,
       endTime: result[1]! as int,
-      stage: result[2]! as SleepStageTypeDto,
+      stage: result[2]! as SleepStageDto,
     );
   }
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! SleepStageDto || other.runtimeType != runtimeType) {
+    if (other is! SleepStageSampleDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3645,7 +3645,7 @@ class SleepSessionRecordDto extends HealthRecordDto {
 
   String? notes;
 
-  List<SleepStageDto> stages;
+  List<SleepStageSampleDto> stages;
 
   List<Object?> _toList() {
     return <Object?>[
@@ -3676,7 +3676,7 @@ class SleepSessionRecordDto extends HealthRecordDto {
       endZoneOffsetSeconds: result[5] as int?,
       title: result[6] as String?,
       notes: result[7] as String?,
-      stages: (result[8] as List<Object?>?)!.cast<SleepStageDto>(),
+      stages: (result[8] as List<Object?>?)!.cast<SleepStageSampleDto>(),
     );
   }
 
@@ -5495,7 +5495,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is HealthDataTypeDto) {
       buffer.putUint8(145);
       writeValue(buffer, value.index);
-    } else if (value is SleepStageTypeDto) {
+    } else if (value is SleepStageDto) {
       buffer.putUint8(146);
       writeValue(buffer, value.index);
     } else if (value is HealthConnectorErrorCodeDto) {
@@ -5663,7 +5663,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is PowerSeriesRecordDto) {
       buffer.putUint8(201);
       writeValue(buffer, value.encode());
-    } else if (value is SleepStageDto) {
+    } else if (value is SleepStageSampleDto) {
       buffer.putUint8(202);
       writeValue(buffer, value.encode());
     } else if (value is SleepSessionRecordDto) {
@@ -5810,7 +5810,7 @@ class _PigeonCodec extends StandardMessageCodec {
         return value == null ? null : HealthDataTypeDto.values[value];
       case 146:
         final int? value = readValue(buffer) as int?;
-        return value == null ? null : SleepStageTypeDto.values[value];
+        return value == null ? null : SleepStageDto.values[value];
       case 147:
         final int? value = readValue(buffer) as int?;
         return value == null ? null : HealthConnectorErrorCodeDto.values[value];
@@ -5936,7 +5936,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 201:
         return PowerSeriesRecordDto.decode(readValue(buffer)!);
       case 202:
-        return SleepStageDto.decode(readValue(buffer)!);
+        return SleepStageSampleDto.decode(readValue(buffer)!);
       case 203:
         return SleepSessionRecordDto.decode(readValue(buffer)!);
       case 204:

@@ -308,7 +308,7 @@ public enum DistanceActivityTypeDto: Int {
 /// Represents the type of sleep stage.
 ///
 /// Maps to iOS HKCategoryValueSleepAnalysis values.
-public enum SleepStageTypeDto: Int {
+public enum SleepStageDto: Int {
   /// Unknown or unspecified sleep stage.
   case unknown = 0
   /// Awake in bed.
@@ -3240,7 +3240,7 @@ public struct SleepStageRecordDto: HealthRecordDto {
   /// Metadata about this record.
   var metadata: MetadataDto
   /// The sleep stage type for this record.
-  var stageType: SleepStageTypeDto
+  var stageType: SleepStageDto
   /// Timezone offset in seconds for start time (optional).
   var startZoneOffsetSeconds: Int64? = nil
   /// Timezone offset in seconds for end time (optional).
@@ -3253,7 +3253,7 @@ public struct SleepStageRecordDto: HealthRecordDto {
     let startTime = pigeonVar_list[1] as! Int64
     let endTime = pigeonVar_list[2] as! Int64
     let metadata = pigeonVar_list[3] as! MetadataDto
-    let stageType = pigeonVar_list[4] as! SleepStageTypeDto
+    let stageType = pigeonVar_list[4] as! SleepStageDto
     let startZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[5])
     let endZoneOffsetSeconds: Int64? = nilOrValue(pigeonVar_list[6])
 
@@ -5931,7 +5931,7 @@ private class HealthConnectorHKIOSApiPigeonCodecReader: FlutterStandardReader {
     case 138:
       let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
       if let enumResultAsInt = enumResultAsInt {
-        return SleepStageTypeDto(rawValue: enumResultAsInt)
+        return SleepStageDto(rawValue: enumResultAsInt)
       }
       return nil
     case 139:
@@ -6271,7 +6271,7 @@ private class HealthConnectorHKIOSApiPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? DistanceActivityTypeDto {
       super.writeByte(137)
       super.writeValue(value.rawValue)
-    } else if let value = value as? SleepStageTypeDto {
+    } else if let value = value as? SleepStageDto {
       super.writeByte(138)
       super.writeValue(value.rawValue)
     } else if let value = value as? CervicalMucusAppearanceDto {

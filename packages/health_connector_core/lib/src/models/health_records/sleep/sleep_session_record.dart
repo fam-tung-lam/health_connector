@@ -44,7 +44,7 @@ part of '../health_record.dart';
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable
-final class SleepSessionRecord extends SeriesHealthRecord<SleepStage> {
+final class SleepSessionRecord extends SeriesHealthRecord<SleepStageSample> {
   /// Creates a sleep session record.
   ///
   /// The session spans from [startTime] to [endTime] and contains a list of
@@ -78,14 +78,14 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStage> {
   /// The total duration spent actually sleeping (excluding awake stages).
   ///
   /// This sums the duration of all stages except:
-  /// - [SleepStageType.awake]
-  /// - [SleepStageType.outOfBed]
-  /// - [SleepStageType.inBed]
+  /// - [SleepStage.awake]
+  /// - [SleepStage.outOfBed]
+  /// - [SleepStage.inBed]
   Duration get totalSleepDuration {
     const awakeSleepStages = {
-      SleepStageType.awake,
-      SleepStageType.outOfBed,
-      SleepStageType.inBed,
+      SleepStage.awake,
+      SleepStage.outOfBed,
+      SleepStage.inBed,
     };
 
     return samples
@@ -99,7 +99,7 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStage> {
     Metadata? metadata,
     DateTime? startTime,
     DateTime? endTime,
-    List<SleepStage>? samples,
+    List<SleepStageSample>? samples,
     int? startZoneOffsetSeconds,
     int? endZoneOffsetSeconds,
     String? title,
@@ -132,7 +132,7 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStage> {
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
           title == other.title &&
           notes == other.notes &&
-          const ListEquality<SleepStage>().equals(
+          const ListEquality<SleepStageSample>().equals(
             samples,
             other.samples,
           );
@@ -156,11 +156,11 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStage> {
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable
-final class SleepStage {
+final class SleepStageSample {
   /// Creates a sleep stage.
   ///
   /// The stage is defined by [startTime], [endTime], and the [stageType].
-  const SleepStage({
+  const SleepStageSample({
     required this.startTime,
     required this.endTime,
     required this.stageType,
@@ -179,7 +179,7 @@ final class SleepStage {
   final DateTime endTime;
 
   /// The type of sleep stage.
-  final SleepStageType stageType;
+  final SleepStage stageType;
 
   /// The duration of this sleep stage.
   Duration get duration => endTime.difference(startTime);
@@ -187,7 +187,7 @@ final class SleepStage {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SleepStage &&
+      other is SleepStageSample &&
           runtimeType == other.runtimeType &&
           startTime == other.startTime &&
           endTime == other.endTime &&

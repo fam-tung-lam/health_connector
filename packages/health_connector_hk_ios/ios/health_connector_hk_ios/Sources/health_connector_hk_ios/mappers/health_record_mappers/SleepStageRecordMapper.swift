@@ -75,10 +75,10 @@ extension SleepStageRecordDto {
     }
 }
 
-/// Mappers for HKCategoryValueSleepAnalysis to SleepStageTypeDto
+/// Mappers for HKCategoryValueSleepAnalysis to SleepStageDto
 extension HKCategoryValueSleepAnalysis {
-    /// Convert HKCategoryValueSleepAnalysis to SleepStageTypeDto
-    func toDto() -> SleepStageTypeDto {
+    /// Convert HKCategoryValueSleepAnalysis to SleepStageDto
+    func toDto() -> SleepStageDto {
         switch self {
         case .inBed:
             return .inBed
@@ -110,9 +110,9 @@ extension HKCategoryValueSleepAnalysis {
         }
     }
 
-    /// Convert SleepStageTypeDto to HKCategoryValueSleepAnalysis
+    /// Convert SleepStageDto to HKCategoryValueSleepAnalysis
     /// - Throws: HealthConnectorError if sleep stage value is not supported
-    static func from(dto: SleepStageTypeDto) throws -> HKCategoryValueSleepAnalysis {
+    static func from(dto: SleepStageDto) throws -> HKCategoryValueSleepAnalysis {
         switch dto {
         case .inBed:
             .inBed

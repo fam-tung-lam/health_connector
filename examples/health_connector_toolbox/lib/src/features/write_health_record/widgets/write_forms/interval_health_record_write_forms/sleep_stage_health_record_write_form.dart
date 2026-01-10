@@ -22,7 +22,7 @@ final class SleepStageWriteForm extends IntervalHealthRecordWriteForm {
 /// State for sleep stage form widget.
 final class SleepStageFormState
     extends IntervalHealthRecordFormState<SleepStageWriteForm> {
-  SleepStageType? stageType;
+  SleepStage? stageType;
   String? title;
   String? notes;
 
@@ -31,9 +31,9 @@ final class SleepStageFormState
     return [
       ...super.buildFields(context),
       const SizedBox(height: 16),
-      SearchableDropdownMenuFormField<SleepStageType>(
+      SearchableDropdownMenuFormField<SleepStage>(
         labelText: AppTexts.sleepStageType,
-        values: SleepStageType.values,
+        values: SleepStage.values,
         initialValue: stageType,
         onChanged: (type) => setState(() => stageType = type),
         validator: (type) =>

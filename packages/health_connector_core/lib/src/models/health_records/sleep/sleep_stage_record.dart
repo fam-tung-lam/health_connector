@@ -59,7 +59,7 @@ final class SleepStageRecord extends IntervalHealthRecord {
   /// The sleep stage for this record.
   ///
   /// Each record represents a single continuous period in one stage.
-  final SleepStageType stageType;
+  final SleepStage stageType;
 
   /// Optional user-defined title for the sleep stage.
   ///
@@ -77,9 +77,9 @@ final class SleepStageRecord extends IntervalHealthRecord {
   /// Returns `true` for: sleeping, light, deep, rem
   bool get isActualSleep {
     const awakeSleepStages = {
-      SleepStageType.awake,
-      SleepStageType.outOfBed,
-      SleepStageType.inBed,
+      SleepStage.awake,
+      SleepStage.outOfBed,
+      SleepStage.inBed,
     };
     return !awakeSleepStages.contains(stageType);
   }
@@ -90,7 +90,7 @@ final class SleepStageRecord extends IntervalHealthRecord {
     Metadata? metadata,
     DateTime? startTime,
     DateTime? endTime,
-    SleepStageType? stageType,
+    SleepStage? stageType,
     int? startZoneOffsetSeconds,
     int? endZoneOffsetSeconds,
     String? title,

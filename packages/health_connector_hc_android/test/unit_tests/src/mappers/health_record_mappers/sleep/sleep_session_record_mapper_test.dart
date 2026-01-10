@@ -40,10 +40,10 @@ void main() {
                   device: const Device(type: DeviceType.watch),
                 ),
                 samples: [
-                  SleepStage(
+                  SleepStageSample(
                     startTime: fakeStage1StartTime,
                     endTime: fakeStage1EndTime,
-                    stageType: SleepStageType.deep,
+                    stageType: SleepStage.deep,
                   ),
                 ],
                 title: title,
@@ -60,7 +60,7 @@ void main() {
               expect(dto.endTime, FakeData.fakeEndTime.millisecondsSinceEpoch);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
               expect(dto.stages, hasLength(1));
-              expect(dto.stages[0].stage, SleepStageTypeDto.deep);
+              expect(dto.stages[0].stage, SleepStageDto.deep);
               expect(dto.title, title);
               expect(dto.notes, notes);
             },
@@ -91,10 +91,10 @@ void main() {
                   deviceType: DeviceTypeDto.phone,
                 ),
                 stages: [
-                  SleepStageDto(
+                  SleepStageSampleDto(
                     startTime: fakeStage1StartTime.millisecondsSinceEpoch,
                     endTime: fakeStage1EndTime.millisecondsSinceEpoch,
-                    stage: SleepStageTypeDto.rem,
+                    stage: SleepStageDto.rem,
                   ),
                 ],
                 title: title,
@@ -110,7 +110,7 @@ void main() {
                 FakeData.fakeDataOrigin,
               );
               expect(record.samples, hasLength(1));
-              expect(record.samples[0].stageType, SleepStageType.rem);
+              expect(record.samples[0].stageType, SleepStage.rem);
               expect(record.title, title);
             },
           );
