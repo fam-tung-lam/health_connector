@@ -3432,8 +3432,8 @@ class SpeedSeriesRecordDto extends HealthRecordDto {
 }
 
 /// Represents a single power measurement within a [PowerSeriesRecordDto].
-class PowerMeasurementDto {
-  PowerMeasurementDto({
+class PowerSampleDto {
+  PowerSampleDto({
     required this.time,
     required this.power,
   });
@@ -3455,9 +3455,9 @@ class PowerMeasurementDto {
     return _toList();
   }
 
-  static PowerMeasurementDto decode(Object result) {
+  static PowerSampleDto decode(Object result) {
     result as List<Object?>;
-    return PowerMeasurementDto(
+    return PowerSampleDto(
       time: result[0]! as int,
       power: result[1]! as PowerDto,
     );
@@ -3466,7 +3466,7 @@ class PowerMeasurementDto {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) {
-    if (other is! PowerMeasurementDto || other.runtimeType != runtimeType) {
+    if (other is! PowerSampleDto || other.runtimeType != runtimeType) {
       return false;
     }
     if (identical(this, other)) {
@@ -3505,7 +3505,7 @@ class PowerSeriesRecordDto extends HealthRecordDto {
   MetadataDto metadata;
 
   /// List of power measurements within this time interval.
-  List<PowerMeasurementDto> samples;
+  List<PowerSampleDto> samples;
 
   /// Timezone offset in seconds for start time (optional).
   int? startZoneOffsetSeconds;
@@ -3536,7 +3536,7 @@ class PowerSeriesRecordDto extends HealthRecordDto {
       startTime: result[1]! as int,
       endTime: result[2]! as int,
       metadata: result[3]! as MetadataDto,
-      samples: (result[4] as List<Object?>?)!.cast<PowerMeasurementDto>(),
+      samples: (result[4] as List<Object?>?)!.cast<PowerSampleDto>(),
       startZoneOffsetSeconds: result[5] as int?,
       endZoneOffsetSeconds: result[6] as int?,
     );
@@ -5657,7 +5657,7 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is SpeedSeriesRecordDto) {
       buffer.putUint8(199);
       writeValue(buffer, value.encode());
-    } else if (value is PowerMeasurementDto) {
+    } else if (value is PowerSampleDto) {
       buffer.putUint8(200);
       writeValue(buffer, value.encode());
     } else if (value is PowerSeriesRecordDto) {
@@ -5930,7 +5930,7 @@ class _PigeonCodec extends StandardMessageCodec {
       case 199:
         return SpeedSeriesRecordDto.decode(readValue(buffer)!);
       case 200:
-        return PowerMeasurementDto.decode(readValue(buffer)!);
+        return PowerSampleDto.decode(readValue(buffer)!);
       case 201:
         return PowerSeriesRecordDto.decode(readValue(buffer)!);
       case 202:

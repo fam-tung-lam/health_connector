@@ -17,11 +17,11 @@ part of '../health_record.dart';
 ///   startTime: DateTime.now().subtract(Duration(minutes: 30)),
 ///   endTime: DateTime.now(),
 ///   samples: [
-///     PowerMeasurement(
+///     PowerSample(
 ///       time: DateTime.now().subtract(Duration(minutes: 15)),
 ///       power: Power.watts(250.0),
 ///     ),
-///     PowerMeasurement(
+///     PowerSample(
 ///       time: DateTime.now(),
 ///       power: Power.watts(280.0),
 ///     ),
@@ -35,7 +35,7 @@ part of '../health_record.dart';
 @sinceV2_1_0
 @supportedOnHealthConnect
 @immutable
-final class PowerSeriesRecord extends SeriesHealthRecord<PowerMeasurement> {
+final class PowerSeriesRecord extends SeriesHealthRecord<PowerSample> {
   /// Creates a power record with samples.
   ///
   /// ## Parameters
@@ -66,7 +66,7 @@ final class PowerSeriesRecord extends SeriesHealthRecord<PowerMeasurement> {
     DateTime? startTime,
     DateTime? endTime,
     Metadata? metadata,
-    List<PowerMeasurement>? samples,
+    List<PowerSample>? samples,
     HealthRecordId? id,
     int? startZoneOffsetSeconds,
     int? endZoneOffsetSeconds,
@@ -93,7 +93,7 @@ final class PowerSeriesRecord extends SeriesHealthRecord<PowerMeasurement> {
           endTime == other.endTime &&
           startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
           endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
-          const ListEquality<PowerMeasurement>().equals(
+          const ListEquality<PowerSample>().equals(
             samples,
             other.samples,
           ) &&
@@ -118,12 +118,12 @@ final class PowerSeriesRecord extends SeriesHealthRecord<PowerMeasurement> {
 @sinceV2_1_0
 @supportedOnHealthConnect
 @immutable
-final class PowerMeasurement {
+final class PowerSample {
   /// Creates a power measurement.
   ///
   /// The [time] parameter specifies when the measurement was taken. The [power]
   /// parameter indicates the power output.
-  const PowerMeasurement({
+  const PowerSample({
     required this.time,
     required this.power,
   });
@@ -140,7 +140,7 @@ final class PowerMeasurement {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PowerMeasurement &&
+      other is PowerSample &&
           runtimeType == other.runtimeType &&
           time == other.time &&
           power == other.power;

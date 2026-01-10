@@ -6,7 +6,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_un
 import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_unit_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.metadata_mappers.toHealthConnect
-import com.phamtunglam.health_connector_hc_android.pigeon.PowerMeasurementDto
+import com.phamtunglam.health_connector_hc_android.pigeon.PowerSampleDto
 import com.phamtunglam.health_connector_hc_android.pigeon.PowerSeriesRecordDto
 import java.time.Instant
 import java.time.ZoneOffset
@@ -22,7 +22,7 @@ internal fun PowerRecord.toDto(): PowerSeriesRecordDto = PowerSeriesRecordDto(
     endZoneOffsetSeconds = endZoneOffset?.totalSeconds?.toLong(),
     metadata = metadata.toDto(),
     samples = samples.map { sample ->
-        PowerMeasurementDto(
+        PowerSampleDto(
             time = sample.time.toEpochMilli(),
             power = sample.power.toDto(),
         )

@@ -18,7 +18,7 @@ final class PowerSeriesTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SeriesHealthRecordTile<PowerSeriesRecord, PowerMeasurement>(
+    return SeriesHealthRecordTile<PowerSeriesRecord, PowerSample>(
       record: record,
       icon: AppIcons.power,
       title: 'Power Series',

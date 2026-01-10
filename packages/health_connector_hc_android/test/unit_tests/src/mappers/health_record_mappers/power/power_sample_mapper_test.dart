@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
-import 'package:health_connector_hc_android/src/mappers/health_record_mappers/power/power_measurement_mapper.dart';
+import 'package:health_connector_hc_android/src/mappers/health_record_mappers/power/power_sample_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart';
 
 import '../../../../utils/fake_data.dart';
@@ -9,16 +9,16 @@ void main() {
   final fakeSampleTime = FakeData.fakeTime.add(const Duration(minutes: 30));
 
   group(
-    'PowerMeasurementMapper',
+    'PowerSampleMapper',
     () {
       group(
-        'PowerMeasurementToDto',
+        'PowerSampleToDto',
         () {
           test(
-            'converts PowerMeasurement to PowerMeasurementDto',
+            'converts PowerSample to PowerSampleDto',
             () {
               // Given
-              final measurement = PowerMeasurement(
+              final measurement = PowerSample(
                 time: fakeSampleTime,
                 power: const Power.watts(200),
               );
@@ -35,13 +35,13 @@ void main() {
       );
 
       group(
-        'PowerMeasurementDtoToDomain',
+        'PowerSampleDtoToDomain',
         () {
           test(
-            'converts PowerMeasurementDto to PowerMeasurement',
+            'converts PowerSampleDto to PowerSample',
             () {
               // Given
-              final dto = PowerMeasurementDto(
+              final dto = PowerSampleDto(
                 time: fakeSampleTime.millisecondsSinceEpoch,
                 power: PowerDto(watts: 200),
               );
