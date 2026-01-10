@@ -85,7 +85,7 @@ final class PhosphorusNutrientRecord extends MineralNutrientRecord {
   }
 
   const PhosphorusNutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -93,7 +93,4 @@ final class PhosphorusNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The phosphorus measurement.
-  final Mass mass;
 }

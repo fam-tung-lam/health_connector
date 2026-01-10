@@ -86,7 +86,7 @@ final class VitaminB6NutrientRecord extends VitaminNutrientRecord {
   }
 
   const VitaminB6NutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -94,7 +94,4 @@ final class VitaminB6NutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The vitamin B6 measurement.
-  final Mass mass;
 }

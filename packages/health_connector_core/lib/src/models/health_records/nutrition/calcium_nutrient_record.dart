@@ -85,7 +85,7 @@ final class CalciumNutrientRecord extends MineralNutrientRecord {
   }
 
   const CalciumNutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -93,7 +93,4 @@ final class CalciumNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The calcium measurement.
-  final Mass mass;
 }

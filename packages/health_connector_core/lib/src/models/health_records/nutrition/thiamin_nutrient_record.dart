@@ -86,7 +86,7 @@ final class ThiaminNutrientRecord extends VitaminNutrientRecord {
   }
 
   const ThiaminNutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -94,7 +94,4 @@ final class ThiaminNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The thiamin measurement.
-  final Mass mass;
 }

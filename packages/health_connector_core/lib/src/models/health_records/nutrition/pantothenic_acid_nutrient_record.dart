@@ -88,7 +88,7 @@ final class PantothenicAcidNutrientRecord extends VitaminNutrientRecord {
   }
 
   const PantothenicAcidNutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -96,7 +96,4 @@ final class PantothenicAcidNutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The pantothenic acid measurement.
-  final Mass mass;
 }

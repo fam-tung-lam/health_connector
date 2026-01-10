@@ -9,6 +9,7 @@ part of '../health_record.dart';
 @immutable
 sealed class MineralNutrientRecord extends NutrientRecord<Mass> {
   const MineralNutrientRecord({
+    required this.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -16,4 +17,7 @@ sealed class MineralNutrientRecord extends NutrientRecord<Mass> {
     super.foodName,
     super.mealType,
   });
+
+  /// The mineral content of the nutrient.
+  final Mass mass;
 }

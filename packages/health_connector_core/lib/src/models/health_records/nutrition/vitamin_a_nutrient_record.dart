@@ -85,7 +85,7 @@ final class VitaminANutrientRecord extends VitaminNutrientRecord {
   }
 
   const VitaminANutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -93,7 +93,4 @@ final class VitaminANutrientRecord extends VitaminNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The vitamin A measurement.
-  final Mass mass;
 }

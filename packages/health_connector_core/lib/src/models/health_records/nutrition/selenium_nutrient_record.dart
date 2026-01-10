@@ -84,7 +84,7 @@ final class SeleniumNutrientRecord extends MineralNutrientRecord {
   }
 
   const SeleniumNutrientRecord._({
-    required this.mass,
+    required super.mass,
     required super.time,
     required super.metadata,
     super.id = HealthRecordId.none,
@@ -92,7 +92,4 @@ final class SeleniumNutrientRecord extends MineralNutrientRecord {
     super.foodName,
     super.mealType,
   });
-
-  /// The selenium measurement.
-  final Mass mass;
 }
