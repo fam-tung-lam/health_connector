@@ -39,7 +39,7 @@ class HeartRateVariabilityRMSSDRecordMapperTest {
         val result = record.toDto()
 
         // Then
-        result.heartRateVariabilityMillis.seconds shouldBe TEST_HRV_MILLIS / 1000.0
+        result.heartRateVariabilityMillis shouldBe TEST_HRV_MILLIS
         result.time shouldBe TEST_TIME
         result.zoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
     }

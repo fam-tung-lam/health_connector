@@ -18,6 +18,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
 import java.io.IOException
 import java.util.UUID
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -30,6 +31,7 @@ import kotlinx.coroutines.withContext
  * @property permissionClient The native [PermissionController] used to interact with the Health Connect system.
  */
 internal class HealthConnectorPermissionService(
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val permissionClient: PermissionController,
 ) {
     companion object {
@@ -51,7 +53,7 @@ internal class HealthConnectorPermissionService(
     suspend fun requestPermissions(
         activity: ComponentActivity,
         request: PermissionRequestsDto,
-    ): List<PermissionRequestResultDto> = withContext(Dispatchers.IO) {
+    ): List<PermissionRequestResultDto> = withContext(dispatcher) {
         val permissionStrings = request.permissionRequests.map {
             it.toHealthConnect()
         }.toSet()
@@ -133,7 +135,7 @@ internal class HealthConnectorPermissionService(
      */
     @Throws(HealthConnectorException::class)
     suspend fun getPermissionStatus(request: PermissionRequestDto): PermissionStatusDto =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             try {
                 val grantedPermissions = getGrantedPermissionStrings()
 
@@ -157,7 +159,7 @@ internal class HealthConnectorPermissionService(
      */
     @Throws(HealthConnectorException::class)
     suspend fun getGrantedPermissions(): List<PermissionRequestResultDto> =
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             try {
                 val grantedPermissionStrings = getGrantedPermissionStrings()
 
@@ -178,7 +180,7 @@ internal class HealthConnectorPermissionService(
      * @throws HealthConnectorException.HealthPlatformUnavailable if service is not available.
      */
     @Throws(HealthConnectorException::class)
-    suspend fun revokeAllPermissions() = withContext(Dispatchers.IO) {
+    suspend fun revokeAllPermissions() = withContext(dispatcher) {
         try {
             permissionClient.revokeAllPermissions()
         } catch (e: RemoteException) {

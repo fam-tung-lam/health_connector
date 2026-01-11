@@ -30,6 +30,7 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.slot
 import io.mockk.unmockkAll
 import io.mockk.verify
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
@@ -103,7 +104,12 @@ class HealthConnectorPermissionServiceTest {
     fun setUp() {
         MockKAnnotations.init(this)
         fakePermissionController = FakePermissionController(grantAll = false)
-        systemUnderTest = HealthConnectorPermissionService(fakePermissionController)
+        systemUnderTest = HealthConnectorPermissionService(
+            // `MainDispatcherExtension` sets `Dispatchers.Main` to `StandardTestDispatcher`, so
+            // we can use `Dispatchers.Main.immediate` to get the test dispatcher.
+            dispatcher = Dispatchers.Main.immediate,
+            permissionClient = fakePermissionController,
+        )
 
         every { activity.activityResultRegistry } returns activityResultRegistry
         every { activityResultLauncher.unregister() } returns Unit

@@ -6,7 +6,7 @@ import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.utils.TAG
 import java.io.IOException
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 /**
@@ -17,6 +17,11 @@ internal interface HealthRecordHandler {
      * The health data type this handler supports.
      */
     val dataType: HealthDataTypeDto
+
+    /**
+     * Coroutine dispatcher provider.
+     */
+    val dispatcher: CoroutineDispatcher
 
     /**
      * Health Connect SDK client for performing operations.
@@ -46,7 +51,7 @@ internal interface HealthRecordHandler {
         operation: String,
         context: Map<String, Any?>? = null,
         block: suspend () -> T,
-    ): T = withContext(Dispatchers.IO) {
+    ): T = withContext(dispatcher) {
         try {
             return@withContext block()
         } catch (e: SecurityException) {

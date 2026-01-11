@@ -38,6 +38,7 @@ import com.phamtunglam.health_connector_hc_android.handlers.health_record_handle
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.WeightHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.WheelchairPushesHandler
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
+import com.phamtunglam.health_connector_hc_android.utils.TestDispatcherProvider
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.mockk.MockKAnnotations
@@ -45,6 +46,7 @@ import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.unmockkAll
 import java.util.stream.Stream
 import kotlin.reflect.KClass
+import kotlinx.coroutines.test.StandardTestDispatcher
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -72,7 +74,12 @@ class HealthRecordHandlerRegistryTest {
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this)
-        systemUnderTest = HealthRecordHandlerRegistry(healthConnectClient)
+        systemUnderTest = HealthRecordHandlerRegistry(
+            dispatchers = TestDispatcherProvider(
+                testDispatcher = StandardTestDispatcher(),
+            ),
+            client = healthConnectClient,
+        )
     }
 
     @AfterEach

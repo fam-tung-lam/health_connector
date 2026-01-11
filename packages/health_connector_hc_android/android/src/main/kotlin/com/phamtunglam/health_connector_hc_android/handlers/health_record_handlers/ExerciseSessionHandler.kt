@@ -12,15 +12,16 @@ import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import kotlin.time.toKotlinDuration
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 /**
  * Handler for Exercise Session records.
- *
- * Supports reading, writing, updating, deleting, and aggregating
- * exercise session data from Android Health Connect.
  */
-internal class ExerciseSessionHandler(override val client: HealthConnectClient) :
-    ReadableHealthRecordHandler,
+internal class ExerciseSessionHandler(
+    override val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    override val client: HealthConnectClient,
+) : ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,

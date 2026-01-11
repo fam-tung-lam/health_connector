@@ -6,12 +6,16 @@ import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecord
 import com.phamtunglam.health_connector_hc_android.handlers.UpdatableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 /**
  * Handler for Body Fat Percentage records.
  */
-internal class BodyFatPercentageHandler(override val client: HealthConnectClient) :
-    ReadableHealthRecordHandler,
+internal class BodyFatPercentageHandler(
+    override val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    override val client: HealthConnectClient,
+) : ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler {

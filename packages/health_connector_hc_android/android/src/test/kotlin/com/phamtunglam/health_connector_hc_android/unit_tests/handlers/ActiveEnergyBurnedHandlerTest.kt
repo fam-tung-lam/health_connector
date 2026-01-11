@@ -30,6 +30,7 @@ import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.unmockkAll
 import java.time.Instant
 import java.time.ZoneOffset
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -55,7 +56,12 @@ class ActiveEnergyBurnedHandlerTest {
             packageName = FAKE_PACKAGE_NAME,
             permissionController = fakePermissionController,
         )
-        systemUnderTest = ActiveEnergyBurnedHandler(fakeHealthConnectClient)
+        systemUnderTest = ActiveEnergyBurnedHandler(
+            // `MainDispatcherExtension` sets `Dispatchers.Main` to `StandardTestDispatcher`, so
+            // we can use `Dispatchers.Main.immediate` to get the test dispatcher.
+            dispatcher = Dispatchers.Main.immediate,
+            client = fakeHealthConnectClient,
+        )
     }
 
     @AfterEach

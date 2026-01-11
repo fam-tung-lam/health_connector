@@ -15,6 +15,7 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncTokenDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.utils.TAG
 import java.io.IOException
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -28,7 +29,10 @@ import kotlinx.coroutines.withContext
  *
  * @property client The native [HealthConnectClient] used to interact with Health Connect.
  */
-internal class HealthConnectorDataSyncService(private val client: HealthConnectClient) {
+internal class HealthConnectorDataSyncService(
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val client: HealthConnectClient,
+) {
     /**
      * Synchronizes health data using incremental change tracking.
      *
@@ -53,7 +57,7 @@ internal class HealthConnectorDataSyncService(private val client: HealthConnectC
     suspend fun synchronize(
         dataTypes: List<HealthDataTypeDto>,
         syncToken: HealthDataSyncTokenDto?,
-    ): HealthDataSyncResultDto = withContext(Dispatchers.IO) {
+    ): HealthDataSyncResultDto = withContext(dispatcher) {
         if (dataTypes.isNotEmpty()) {
             throw HealthConnectorException.InvalidArgument(
                 message = "No data types provided for synchronization",

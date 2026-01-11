@@ -36,10 +36,8 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import kotlin.coroutines.cancellation.CancellationException
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -67,20 +65,10 @@ import kotlinx.coroutines.sync.withLock
  * ```
  */
 class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
-    private val ioDispatcher: CoroutineDispatcher,
+    private val dispatchers: DispatcherProvider = StandardDispatcherProvider,
 ) : FlutterPlugin,
     ActivityAware,
     HealthConnectorHCAndroidApi {
-
-    /**
-     * Default public constructor for Flutter plugin registration.
-     *
-     * Flutter uses this no-argument constructor to instantiate the plugin.
-     * This constructor uses production defaults for all dependencies.
-     */
-    constructor() : this(
-        ioDispatcher = Dispatchers.IO,
-    )
 
     /**
      * Application context used for accessing Health Connect services.
@@ -115,11 +103,11 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     /**
      * Coroutine scope for executing asynchronous Health Connect operations.
      *
-     * Uses [ioDispatcher] for background execution and [SupervisorJob] to prevent
+     * Uses [DispatcherProvider.io] for background execution and [SupervisorJob] to prevent
      * cancellation of sibling coroutines when one fails.
      */
     private val scope: CoroutineScope = CoroutineScope(
-        SupervisorJob() + ioDispatcher + CoroutineExceptionHandler { _, e ->
+        SupervisorJob() + dispatchers.io + CoroutineExceptionHandler { _, e ->
             HealthConnectorLogger.warning(
                 "HealthConnectorHCAndroidPlugin",
                 operation = "coroutine_exception_handler",
@@ -237,7 +225,10 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
             try {
                 clientInitMutex.withLock {
                     if (client == null) {
-                        client = HealthConnectorClient.getOrCreate(context)
+                        client = HealthConnectorClient.getOrCreate(
+                            context = context,
+                            dispatchers = dispatchers,
+                        )
                     }
                 }
 

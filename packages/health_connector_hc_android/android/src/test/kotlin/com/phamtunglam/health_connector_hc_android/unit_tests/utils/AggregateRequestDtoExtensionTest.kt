@@ -3,7 +3,7 @@ package com.phamtunglam.health_connector_hc_android.unit_tests.utils
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureAggregateRequestDto
-import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureHealthDataTypeDto
+import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.CommonAggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.utils.dataType
@@ -76,7 +76,7 @@ class AggregateRequestDtoExtensionTest {
             // Given
             val request = BloodPressureAggregateRequestDto(
                 aggregationMetric = AggregationMetricDto.AVG,
-                bloodPressureDataType = BloodPressureHealthDataTypeDto.DIASTOLIC,
+                bloodPressureDataType = BloodPressureDataTypeDto.DIASTOLIC,
                 startTime = TEST_START_TIME,
                 endTime = TEST_END_TIME,
             )

@@ -8,7 +8,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.CyclingPedalingCadence
 import com.phamtunglam.health_connector_hc_android.pigeon.CyclingPedalingCadenceSeriesRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeviceTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MetadataDto
-import com.phamtunglam.health_connector_hc_android.pigeon.NumberDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RecordingMethodDto
 import io.kotest.matchers.shouldBe
 import java.time.Instant
@@ -57,8 +56,8 @@ class CyclingPedalingCadenceRecordMapperTest {
         result.startTime shouldBe TEST_START_TIME
         result.endTime shouldBe TEST_END_TIME
         result.samples.size shouldBe 2
-        result.samples[0].revolutionsPerMinute.value shouldBe TEST_RPM_1
-        result.samples[1].revolutionsPerMinute.value shouldBe TEST_RPM_2
+        result.samples[0].revolutionsPerMinute shouldBe TEST_RPM_1
+        result.samples[1].revolutionsPerMinute shouldBe TEST_RPM_2
         result.startZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
         result.endZoneOffsetSeconds shouldBe TEST_ZONE_OFFSET.totalSeconds.toLong()
     }
@@ -83,11 +82,11 @@ class CyclingPedalingCadenceRecordMapperTest {
             samples = listOf(
                 CyclingPedalingCadenceSampleDto(
                     time = TEST_START_TIME,
-                    revolutionsPerMinute = NumberDto(value = TEST_RPM_1),
+                    revolutionsPerMinute = TEST_RPM_1,
                 ),
                 CyclingPedalingCadenceSampleDto(
                     time = TEST_END_TIME,
-                    revolutionsPerMinute = NumberDto(value = TEST_RPM_2),
+                    revolutionsPerMinute = TEST_RPM_2,
                 ),
             ),
         )

@@ -19,12 +19,16 @@ import com.phamtunglam.health_connector_hc_android.pigeon.BloodPressureDataTypeD
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import java.time.Instant
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 /**
  * Handler for composite Blood Pressure health data type.
  */
-internal class BloodPressureHandler(override val client: HealthConnectClient) :
-    ReadableHealthRecordHandler,
+internal class BloodPressureHandler(
+    override val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    override val client: HealthConnectClient,
+) : ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,

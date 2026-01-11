@@ -11,12 +11,16 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_un
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 /**
  * Handler for Floors Climbed records.
  */
-internal class FloorsClimbedHandler(override val client: HealthConnectClient) :
-    ReadableHealthRecordHandler,
+internal class FloorsClimbedHandler(
+    override val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    override val client: HealthConnectClient,
+) : ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,

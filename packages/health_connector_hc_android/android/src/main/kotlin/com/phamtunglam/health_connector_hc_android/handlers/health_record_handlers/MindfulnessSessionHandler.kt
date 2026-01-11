@@ -12,21 +12,18 @@ import com.phamtunglam.health_connector_hc_android.mappers.health_measurement_un
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
-import kotlin.time.Duration
 import kotlin.time.toKotlinDuration
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 /**
  * Handler for Mindfulness Session records.
- *
- * Maps to Android Health Connect MindfulnessSessionRecord which includes
- * session type (meditation, breathing, music, movement, unguided).
- *
- * Note: iOS HealthKit has limited support - only generic HKCategoryTypeIdentifier.mindfulSession.
- * Session types are stored in custom metadata when writing to HealthKit.
  */
 @OptIn(ExperimentalMindfulnessSessionApi::class)
-internal class MindfulnessSessionHandler(override val client: HealthConnectClient) :
-    ReadableHealthRecordHandler,
+internal class MindfulnessSessionHandler(
+    override val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    override val client: HealthConnectClient,
+) : ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler,

@@ -5,12 +5,16 @@ import com.phamtunglam.health_connector_hc_android.handlers.DeletableHealthRecor
 import com.phamtunglam.health_connector_hc_android.handlers.ReadableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.handlers.WritableHealthRecordHandler
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 /**
  * Handler for Intermenstrual Bleeding records.
  */
-internal class IntermenstrualBleedingHandler(override val client: HealthConnectClient) :
-    ReadableHealthRecordHandler,
+internal class IntermenstrualBleedingHandler(
+    override val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    override val client: HealthConnectClient,
+) : ReadableHealthRecordHandler,
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler {
 

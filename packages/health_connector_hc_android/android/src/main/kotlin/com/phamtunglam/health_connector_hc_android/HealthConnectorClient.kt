@@ -48,7 +48,6 @@ import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.utils.dataType
 import java.time.Instant
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jetbrains.annotations.ApiStatus
 
@@ -56,6 +55,7 @@ import org.jetbrains.annotations.ApiStatus
  * Internal client wrapper for the Android Health Connect SDK.
  */
 internal class HealthConnectorClient @VisibleForTesting internal constructor(
+    private val dispatchers: DispatcherProvider,
     private val client: HealthConnectClient,
     private val manifestService: HealthConnectorManifestService,
     private val featureService: HealthConnectorFeatureService,
@@ -74,50 +74,61 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
          * @throws HealthConnectorException.HealthPlatformUnavailable when the service is not available
          */
         @Throws(HealthConnectorException::class)
-        fun getOrCreate(context: Context): HealthConnectorClient = process("get_or_create") {
-            try {
-                val client = HealthConnectClient.getOrCreate(context)
-                val manifestService = HealthConnectorManifestService(context)
-                val featureService = HealthConnectorFeatureService(client.features)
-                val permissionService = HealthConnectorPermissionService(
-                    client.permissionController,
-                )
-                val syncService = HealthConnectorDataSyncService(client)
-                val recordHandlerRegistry = HealthRecordHandlerRegistry(client)
+        fun getOrCreate(context: Context, dispatchers: DispatcherProvider): HealthConnectorClient =
+            process("get_or_create") {
+                try {
+                    val client = HealthConnectClient.getOrCreate(context)
+                    val manifestService = HealthConnectorManifestService(context)
+                    val featureService = HealthConnectorFeatureService(client.features)
+                    val permissionService = HealthConnectorPermissionService(
+                        dispatcher = dispatchers.io,
+                        permissionClient = client.permissionController,
+                    )
+                    val syncService = HealthConnectorDataSyncService(
+                        dispatcher = dispatchers.io,
+                        client = client,
+                    )
+                    val recordHandlerRegistry = HealthRecordHandlerRegistry(
+                        dispatchers = dispatchers,
+                        client = client,
+                    )
 
-                HealthConnectorClient(
-                    client = client,
-                    manifestService = manifestService,
-                    featureService = featureService,
-                    permissionService = permissionService,
-                    syncService = syncService,
-                    recordHandlerRegistry = recordHandlerRegistry,
-                )
-            } catch (e: UnsupportedOperationException) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "get_or_create",
-                    message = "Failed to create Health Connect client " +
-                        "due to SDK version too low or running in a profile mode",
-                    exception = e,
-                )
-                throw HealthConnectorException.HealthPlatformNotInstalledOrUpdateRequired(
-                    message = e.message ?: "SDK version too low or running in unsupported profile",
-                    cause = e,
-                )
-            } catch (e: IllegalStateException) {
-                HealthConnectorLogger.error(
-                    tag = TAG,
-                    operation = "get_or_create",
-                    message = "Failed to create Health Connect client due to service not available",
-                    exception = e,
-                )
-                throw HealthConnectorException.HealthPlatformUnavailable(
-                    message = e.message ?: "Health Connect service not available",
-                    cause = e,
-                )
+                    HealthConnectorClient(
+                        dispatchers = dispatchers,
+                        client = client,
+                        manifestService = manifestService,
+                        featureService = featureService,
+                        permissionService = permissionService,
+                        syncService = syncService,
+                        recordHandlerRegistry = recordHandlerRegistry,
+                    )
+                } catch (e: UnsupportedOperationException) {
+                    HealthConnectorLogger.error(
+                        tag = TAG,
+                        operation = "get_or_create",
+                        message = "Failed to create Health Connect client " +
+                            "due to SDK version too low or running in a profile mode",
+                        exception = e,
+                    )
+                    throw HealthConnectorException.HealthPlatformNotInstalledOrUpdateRequired(
+                        message = e.message
+                            ?: "SDK version too low or running in unsupported profile",
+                        cause = e,
+                    )
+                } catch (e: IllegalStateException) {
+                    HealthConnectorLogger.error(
+                        tag = TAG,
+                        operation = "get_or_create",
+                        message =
+                        "Failed to create Health Connect client due to service not available",
+                        exception = e,
+                    )
+                    throw HealthConnectorException.HealthPlatformUnavailable(
+                        message = e.message ?: "Health Connect service not available",
+                        cause = e,
+                    )
+                }
             }
-        }
 
         /**
          * Gets the current status of the Health Connect platform on the device.
@@ -269,7 +280,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
     suspend fun requestPermissions(
         activity: ComponentActivity,
         request: PermissionRequestsDto,
-    ): List<PermissionRequestResultDto> = withContext(Dispatchers.IO) {
+    ): List<PermissionRequestResultDto> = withContext(dispatchers.io) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "request_permissions",
@@ -300,7 +311,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      */
     @Throws(HealthConnectorException::class)
     suspend fun getPermissionStatus(request: PermissionRequestDto): PermissionStatusDto =
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "get_permission_status",
@@ -407,7 +418,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      */
     @Throws(HealthConnectorException::class)
     suspend fun readRecord(request: ReadRecordRequestDto): HealthRecordDto =
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "read_record",
@@ -451,7 +462,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      */
     @Throws(HealthConnectorException::class)
     suspend fun readRecords(request: ReadRecordsRequestDto): ReadRecordsResponseDto =
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "read_records",
@@ -509,7 +520,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException otherwise for any errors
      */
     @Throws(HealthConnectorException::class)
-    suspend fun writeRecord(record: HealthRecordDto): String = withContext(Dispatchers.IO) {
+    suspend fun writeRecord(record: HealthRecordDto): String = withContext(dispatchers.io) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "write_record",
@@ -557,7 +568,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      */
     @Throws(HealthConnectorException::class)
     suspend fun writeRecords(records: List<HealthRecordDto>): List<String> =
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "write_records",
@@ -631,7 +642,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException otherwise for any errors
      */
     @Throws(HealthConnectorException::class)
-    suspend fun updateRecord(record: HealthRecordDto) = withContext(Dispatchers.IO) {
+    suspend fun updateRecord(record: HealthRecordDto) = withContext(dispatchers.io) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "update_record",
@@ -674,7 +685,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException otherwise for any errors
      */
     @Throws(HealthConnectorException::class)
-    suspend fun updateRecords(records: List<HealthRecordDto>) = withContext(Dispatchers.IO) {
+    suspend fun updateRecords(records: List<HealthRecordDto>) = withContext(dispatchers.io) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "update_records",
@@ -737,7 +748,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      */
     @Throws(HealthConnectorException::class)
     suspend fun deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) =
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "delete_records_by_ids",
@@ -792,7 +803,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      */
     @Throws(HealthConnectorException::class)
     suspend fun deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) =
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "delete_records_by_time_range",
@@ -837,7 +848,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      */
     @Throws(HealthConnectorException::class)
     suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto =
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "aggregate",
@@ -896,7 +907,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
     suspend fun synchronize(
         dataTypes: List<HealthDataTypeDto>,
         syncToken: HealthDataSyncTokenDto?,
-    ): HealthDataSyncResultDto = withContext(Dispatchers.IO) {
+    ): HealthDataSyncResultDto = withContext(dispatchers.io) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "synchronize",
@@ -937,7 +948,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      */
     @Throws(HealthConnectorException::class)
     suspend fun getGrantedPermissions(): List<PermissionRequestResultDto> =
-        withContext(Dispatchers.IO) {
+        withContext(dispatchers.io) {
             HealthConnectorLogger.debug(
                 tag = TAG,
                 operation = "get_granted_permissions",
@@ -955,7 +966,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @throws HealthConnectorException if an unexpected error occurs
      */
     @Throws(HealthConnectorException::class)
-    suspend fun revokeAllPermissions() = withContext(Dispatchers.IO) {
+    suspend fun revokeAllPermissions() = withContext(dispatchers.io) {
         HealthConnectorLogger.debug(
             tag = TAG,
             operation = "revoke_all_permissions",

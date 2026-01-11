@@ -2,6 +2,7 @@ package com.phamtunglam.health_connector_hc_android.handlers
 
 import androidx.annotation.VisibleForTesting
 import androidx.health.connect.client.HealthConnectClient
+import com.phamtunglam.health_connector_hc_android.DispatcherProvider
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.ActiveEnergyBurnedHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BasalBodyTemperatureHandler
 import com.phamtunglam.health_connector_hc_android.handlers.health_record_handlers.BloodGlucoseHandler
@@ -42,48 +43,226 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 /**
  * Central registry for Health Connect type handlers.
  */
-internal class HealthRecordHandlerRegistry(private val client: HealthConnectClient) {
+internal class HealthRecordHandlerRegistry(
+    private val dispatchers: DispatcherProvider,
+    private val client: HealthConnectClient,
+) {
     @get:VisibleForTesting
     internal val registeredHandlersCount: Int
         get() = handlers.size
 
     private val handlers: Map<HealthDataTypeDto, HealthRecordHandler> by lazy {
         buildMap {
-            register(HeartRateHandler(client))
-            register(CyclingPedalingCadenceHandler(client))
-            register(HeightHandler(client))
-            register(BodyTemperatureHandler(client))
-            register(BasalBodyTemperatureHandler(client))
-            register(CervicalMucusHandler(client))
-            register(LeanBodyMassHandler(client))
-            register(BodyFatPercentageHandler(client))
-            register(StepsHandler(client))
-            register(ActiveEnergyBurnedHandler(client))
-            register(TotalEnergyBurnedHandler(client))
-            register(DistanceHandler(client))
-            register(WeightHandler(client))
-            register(RestingHeartRateHandler(client))
-            register(OxygenSaturationHandler(client))
-            register(RespiratoryRateHandler(client))
-            register(Vo2MaxHandler(client))
-            register(BloodGlucoseHandler(client))
-            register(BloodPressureHandler(client))
-            register(FloorsClimbedHandler(client))
-            register(ExerciseSessionHandler(client))
-            register(HydrationHandler(client))
-            register(NutritionHandler(client))
-            register(OvulationTestHandler(client))
-            register(IntermenstrualBleedingHandler(client))
-            register(MenstrualFlowInstantHandler(client))
-            register(PowerSeriesHandler(client))
-            register(SexualActivityHandler(client))
-            register(SleepSessionHandler(client))
-            register(MindfulnessSessionHandler(client))
-            register(SpeedSeriesHandler(client))
-            register(WheelchairPushesHandler(client))
-            register(BoneMassHandler(client))
-            register(BodyWaterMassHandler(client))
-            register(HeartRateVariabilityRMSSDHandler(client))
+            register(
+                HeartRateHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                CyclingPedalingCadenceHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                HeightHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                BodyTemperatureHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                BasalBodyTemperatureHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                CervicalMucusHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                LeanBodyMassHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                BodyFatPercentageHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                StepsHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                ActiveEnergyBurnedHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                TotalEnergyBurnedHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                DistanceHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                WeightHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                RestingHeartRateHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                OxygenSaturationHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                RespiratoryRateHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                Vo2MaxHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                BloodGlucoseHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                BloodPressureHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                FloorsClimbedHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                ExerciseSessionHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                HydrationHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                NutritionHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                OvulationTestHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                IntermenstrualBleedingHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                MenstrualFlowInstantHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                PowerSeriesHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                SexualActivityHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                SleepSessionHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                MindfulnessSessionHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                SpeedSeriesHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                WheelchairPushesHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                BoneMassHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                BodyWaterMassHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
+            register(
+                HeartRateVariabilityRMSSDHandler(
+                    dispatcher = dispatchers.io,
+                    client = client,
+                ),
+            )
         }
     }
 

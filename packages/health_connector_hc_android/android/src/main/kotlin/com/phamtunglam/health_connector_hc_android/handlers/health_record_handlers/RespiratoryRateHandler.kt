@@ -11,6 +11,8 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import com.phamtunglam.health_connector_hc_android.pigeon.MeasurementUnitDto
 import com.phamtunglam.health_connector_hc_android.pigeon.RespiratoryRateRecordDto
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 /**
  * Handler for Respiratory Rate records.
@@ -18,8 +20,10 @@ import com.phamtunglam.health_connector_hc_android.pigeon.RespiratoryRateRecordD
  * This handler leverages the default paginated aggregation implementation from
  * [CustomAggregatableHealthRecordHandler], requiring only value extraction and result wrapping logic.
  */
-internal class RespiratoryRateHandler(override val client: HealthConnectClient) :
-    CustomAggregatableHealthRecordHandler,
+internal class RespiratoryRateHandler(
+    override val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    override val client: HealthConnectClient,
+) : CustomAggregatableHealthRecordHandler,
     WritableHealthRecordHandler,
     UpdatableHealthRecordHandler,
     DeletableHealthRecordHandler {
