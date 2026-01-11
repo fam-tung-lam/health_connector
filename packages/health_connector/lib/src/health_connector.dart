@@ -7,6 +7,7 @@ import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
 import 'package:health_connector_hk_ios/health_connector_hk_ios.dart'
     show HealthConnectorHKClient;
+import 'package:health_connector_logger/health_connector_logger.dart';
 
 /// Main entry point for interacting with platform-specific health APIs.
 ///
@@ -81,7 +82,10 @@ abstract interface class HealthConnector {
   static Future<HealthConnector> create([
     HealthConnectorConfig config = const HealthConnectorConfig(),
   ]) async {
-    HealthConnectorLogger.isEnabled = config.isLoggerEnabled;
+    // Register configured log processors
+    for (final processor in config.loggerConfig.logProcessors) {
+      HealthConnectorLogger.addProcessor(processor);
+    }
 
     final healthPlatform = Platform.isIOS
         ? HealthPlatform.appleHealth

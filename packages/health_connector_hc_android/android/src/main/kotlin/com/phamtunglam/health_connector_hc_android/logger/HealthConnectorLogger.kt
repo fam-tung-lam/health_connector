@@ -3,8 +3,8 @@ package com.phamtunglam.health_connector_hc_android.logger
 import com.phamtunglam.health_connector_hc_android.mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toExceptionInfoDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorLogDto
-import com.phamtunglam.health_connector_hc_android.pigeon.PigeonEventSink
-import com.phamtunglam.health_connector_hc_android.pigeon.WatchLogEventsStreamHandler
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorNativeLogApi
+import io.flutter.plugin.common.BinaryMessenger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,18 +16,30 @@ import kotlinx.coroutines.launch
  * formatted messages across the plugin. It supports structured logging with
  * operation, phase, optional message, and context.
  *
- * Extends [WatchLogEventsStreamHandler] to provide log event streaming
- * to Flutter via Pigeon EventChannel.
+ * Uses [HealthConnectorNativeLogApi] to send log events to Flutter via
+ * callback-based Pigeon API.
  */
-internal object HealthConnectorLogger : WatchLogEventsStreamHandler() {
+internal object HealthConnectorLogger {
     /**
      * Coroutine scope for executing asynchronous operations.
      */
     lateinit var scope: CoroutineScope
 
-    fun initialize(externalScope: CoroutineScope) {
+    /**
+     * API instance for sending log events to Flutter.
+     */
+    private var logApi: HealthConnectorNativeLogApi? = null
+
+    /**
+     * Initializes the logger with the coroutine scope and binary messenger.
+     *
+     * @param externalScope The coroutine scope to use for async operations.
+     * @param binaryMessenger The Flutter binary messenger for Pigeon API.
+     */
+    fun initialize(externalScope: CoroutineScope, binaryMessenger: BinaryMessenger) {
         if (!this::scope.isInitialized) {
             scope = externalScope
+            logApi = HealthConnectorNativeLogApi(binaryMessenger)
         }
     }
 
@@ -181,31 +193,11 @@ internal object HealthConnectorLogger : WatchLogEventsStreamHandler() {
     }
 
     /**
-     * Thread-safe reference to the event sink for streaming logs to Flutter.
-     */
-    private var eventSink: PigeonEventSink<HealthConnectorLogDto>? = null
-
-    /**
-     * Called when Flutter starts listening to the log event stream.
-     */
-    override fun onListen(p0: Any?, sink: PigeonEventSink<HealthConnectorLogDto>) {
-        eventSink = sink
-    }
-
-    /**
-     * Called when Flutter stops listening to the log event stream.
-     */
-    override fun onCancel(p0: Any?) {
-        eventSink?.endOfStream()
-        eventSink = null
-    }
-
-    /**
      * Internal method that formats and logs the message.
      *
      * Handles all logging logic including enabled check, message formatting,
-     * stream emission, and output. When logging is disabled, neither prints
-     * nor emits to the stream.
+     * and sending log events to Flutter via callback API. When logging is
+     * disabled, does not send any events.
      *
      * @param level The log level (DEBUG, INFO, WARNING, ERROR).
      * @param tag The tag for categorizing the log entry (converted to uppercase).
@@ -226,19 +218,27 @@ internal object HealthConnectorLogger : WatchLogEventsStreamHandler() {
             return
         }
 
+        val api = logApi ?: return
+
         // Events from native to Flutter layer must be sent on the main thread.
         scope.launch(Dispatchers.Main.immediate) {
-            eventSink?.success(
-                HealthConnectorLogDto(
-                    level = level.toDto(),
-                    tag = tag.uppercase(),
-                    operation = operation,
-                    millisecondsSinceEpoch = System.currentTimeMillis(),
-                    message = message,
-                    context = context?.mapKeys { it.key },
-                    exception = exception?.toExceptionInfoDto(),
-                ),
+            val logDto = HealthConnectorLogDto(
+                level = level.toDto(),
+                tag = tag.uppercase(),
+                operation = operation,
+                millisecondsSinceEpoch = System.currentTimeMillis(),
+                message = message,
+                context = context?.mapKeys { it.key },
+                exception = exception?.toExceptionInfoDto(),
             )
+
+            api.onNativeLogEvent(logDto) { result ->
+                // Callback is invoked by Flutter. Errors are ignored to prevent
+                // logging failures from affecting app functionality.
+                result.onFailure {
+                    // Silently ignore Flutter callback errors
+                }
+            }
         }
     }
 }

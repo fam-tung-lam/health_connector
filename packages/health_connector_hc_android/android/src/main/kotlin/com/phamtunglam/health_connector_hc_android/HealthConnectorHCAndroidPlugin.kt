@@ -28,7 +28,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
-import com.phamtunglam.health_connector_hc_android.pigeon.WatchLogEventsStreamHandler
 import com.phamtunglam.health_connector_hc_android.utils.TAG
 import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.utils.dataType
@@ -128,10 +127,9 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         context = flutterPluginBinding.applicationContext
         HealthConnectorHCAndroidApi.setUp(flutterPluginBinding.binaryMessenger, this)
 
-        HealthConnectorLogger.initialize(scope)
-        WatchLogEventsStreamHandler.register(
+        HealthConnectorLogger.initialize(
+            scope,
             flutterPluginBinding.binaryMessenger,
-            HealthConnectorLogger,
         )
     }
 

@@ -29,6 +29,9 @@ import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 private object HealthConnectorHCAndroidApiPigeonUtils {
 
+  fun createConnectionError(channelName: String): HealthConnectorErrorDto {
+    return HealthConnectorErrorDto("channel-error",  "Unable to establish connection on channel: '$channelName'.", "")  }
+
   fun wrapResult(result: Any?): List<Any?> {
     return listOf(result)
   }
@@ -5192,65 +5195,59 @@ private open class HealthConnectorHCAndroidApiPigeonCodec : StandardMessageCodec
   }
 }
 
-val HealthConnectorHCAndroidApiPigeonMethodCodec = StandardMethodCodec(HealthConnectorHCAndroidApiPigeonCodec())
 
-
-
-private class HealthConnectorHCAndroidApiPigeonStreamHandler<T>(
-    val wrapper: HealthConnectorHCAndroidApiPigeonEventChannelWrapper<T>
-) : EventChannel.StreamHandler {
-  var pigeonSink: PigeonEventSink<T>? = null
-
-  override fun onListen(p0: Any?, sink: EventChannel.EventSink) {
-    pigeonSink = PigeonEventSink<T>(sink)
-    wrapper.onListen(p0, pigeonSink!!)
-  }
-
-  override fun onCancel(p0: Any?) {
-    pigeonSink = null
-    wrapper.onCancel(p0)
-  }
-}
-
-interface HealthConnectorHCAndroidApiPigeonEventChannelWrapper<T> {
-  open fun onListen(p0: Any?, sink: PigeonEventSink<T>) {}
-
-  open fun onCancel(p0: Any?) {}
-}
-
-class PigeonEventSink<T>(private val sink: EventChannel.EventSink) {
-  fun success(value: T) {
-    sink.success(value)
-  }
-
-  fun error(errorCode: String, errorMessage: String?, errorDetails: Any?) {
-    sink.error(errorCode, errorMessage, errorDetails)
-  }
-
-  fun endOfStream() {
-    sink.endOfStream()
-  }
-}
-      
 /**
- * EventChannel API for streaming log events from native to Flutter.
+ * FlutterApi for receiving log events from the native platform.
  *
- * This API enables real-time observation of Health Connector SDK operations
- * for debugging, monitoring, and analytics purposes.
+ * This API is implemented on the Flutter side and called by the native
+ * platform to deliver log events in real-time. It serves as the callback
+ * handler for the event channel stream.
+ *
+ * Platform flow:
+ * - iOS: Native code calls this method for each log event emitted by
+ *   the Health Connector SDK operations
+ *
+ * Generated class from Pigeon that represents Flutter messages that can be called from Kotlin.
  */
-abstract class WatchLogEventsStreamHandler : HealthConnectorHCAndroidApiPigeonEventChannelWrapper<HealthConnectorLogDto> {
+class HealthConnectorNativeLogApi(private val binaryMessenger: BinaryMessenger, private val messageChannelSuffix: String = "") {
   companion object {
-    fun register(messenger: BinaryMessenger, streamHandler: WatchLogEventsStreamHandler, instanceName: String = "") {
-      var channelName: String = "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorLogStreamApi.watchLogEvents"
-      if (instanceName.isNotEmpty()) {
-        channelName += ".$instanceName"
-      }
-      val internalStreamHandler = HealthConnectorHCAndroidApiPigeonStreamHandler<HealthConnectorLogDto>(streamHandler)
-      EventChannel(messenger, channelName, HealthConnectorHCAndroidApiPigeonMethodCodec).setStreamHandler(internalStreamHandler)
+    /** The codec used by HealthConnectorNativeLogApi. */
+    val codec: MessageCodec<Any?> by lazy {
+      HealthConnectorHCAndroidApiPigeonCodec()
+    }
+  }
+  /**
+   * Called by native code when a log event occurs.
+   *
+   * This method is invoked from the native platform whenever the Health
+   * Connector SDK emits a log event during operations such as reading,
+   * writing, or synchronizing health data.
+   *
+   * Parameters:
+   * - [log]: The log event data containing level, message, timestamp,
+   *   and optional exception information
+   *
+   * Note: This method should execute quickly to avoid blocking the
+   * native platform's logging pipeline.
+   */
+  fun onNativeLogEvent(logArg: HealthConnectorLogDto, callback: (Result<Unit>) -> Unit)
+{
+    val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
+    val channelName = "dev.flutter.pigeon.health_connector_hc_android.HealthConnectorNativeLogApi.onNativeLogEvent$separatedMessageChannelSuffix"
+    val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
+    channel.send(listOf(logArg)) {
+      if (it is List<*>) {
+        if (it.size > 1) {
+          callback(Result.failure(HealthConnectorErrorDto(it[0] as String, it[1] as String, it[2] as String?)))
+        } else {
+          callback(Result.success(Unit))
+        }
+      } else {
+        callback(Result.failure(HealthConnectorHCAndroidApiPigeonUtils.createConnectionError(channelName)))
+      } 
     }
   }
 }
-      
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface HealthConnectorHCAndroidApi {
   /**

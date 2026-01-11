@@ -3419,23 +3419,30 @@ class HealthConnectorLogDto {
 
 // endregion
 
-/// EventChannel API for streaming log events from native to Flutter.
+/// FlutterApi for receiving log events from the native platform.
 ///
-/// This API enables real-time observation of Health Connector SDK operations
-/// for debugging, monitoring, and analytics purposes.
-@EventChannelApi()
-abstract class HealthConnectorLogStreamApi {
-  /// Watch for log events from the native Health Connector SDK.
+/// This API is implemented on the Flutter side and called by the native
+/// platform to deliver log events in real-time. It serves as the callback
+/// handler for the event channel stream.
+///
+/// Platform flow:
+/// - iOS: Native code calls this method for each log event emitted by
+///   the Health Connector SDK operations
+@FlutterApi()
+abstract class HealthConnectorNativeLogApi {
+  /// Called by native code when a log event occurs.
   ///
-  /// Returns a continuous stream of log events that can be filtered
-  /// and processed by the Flutter application.
+  /// This method is invoked from the native platform whenever the Health
+  /// Connector SDK emits a log event during operations such as reading,
+  /// writing, or synchronizing health data.
   ///
-  /// Platform implementation:
-  /// - iOS: Uses AsyncStream with Continuation pattern
+  /// Parameters:
+  /// - [log]: The log event data containing level, message, timestamp,
+  ///   and optional exception information
   ///
-  /// Note: The stream respects the logger's enabled state.
-  /// If logging is disabled, no events will be emitted.
-  HealthConnectorLogDto watchLogEvents();
+  /// Note: This method should execute quickly to avoid blocking the
+  /// native platform's logging pipeline.
+  void onNativeLogEvent(HealthConnectorLogDto log);
 }
 
 /// The main API for communicating with the health platform.

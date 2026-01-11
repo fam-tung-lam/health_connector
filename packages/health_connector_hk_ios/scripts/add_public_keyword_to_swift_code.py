@@ -2,12 +2,16 @@
 """
 Script to add 'public' keyword to Swift Pigeon generated code.
 
-This script adds the 'public' keyword to:
-- All enum declarations
-- All struct declarations
-- All protocol declarations
-- All struct 'static func ==' methods
-- All struct 'func hash' methods
+This script fixes Swift visibility errors by adding the 'public' keyword to:
+- All DTO enum declarations (e.g., enum SomeDto:)
+- All DTO struct declarations (e.g., struct SomeDto:)
+- HealthConnectorErrorDto error class
+- Base protocol declarations (MeasurementUnitDto, HealthRecordDto, DeleteRecordsRequestDto)
+- Hashable/Equatable protocol conformance methods (static func ==, func hash)
+
+This is necessary because Pigeon generates public protocols (like HealthConnectorHKIOSApi)
+that reference these types, but doesn't generate them with public visibility. Swift requires
+all types used in public protocol signatures to also be public.
 """
 
 import re
@@ -29,30 +33,34 @@ def add_public_keyword_to_swift_code(content: str) -> str:
     result_lines = []
 
     for line in lines:
-        # Add public to enum declarations
-        # Match: enum SomeName: Type {
-        if re.match(r'^enum \w+', line):
+        # Add public to DTO enum declarations
+        # Match: enum SomeDto: Int {
+        if re.match(r'^enum \w+Dto:', line):
             line = 'public ' + line
 
-        # Add public to struct declarations
-        # Match: struct SomeName: Protocol {
-        elif re.match(r'^struct \w+', line):
+        # Add public to DTO struct declarations
+        # Match: struct SomeDto: Hashable {
+        elif re.match(r'^struct \w+Dto:', line):
             line = 'public ' + line
 
-        # Add public to protocol declarations (except HealthConnectorHKIOSApi)
-        # Match: protocol SomeName {
-        elif re.match(r'^protocol \w+', line):
-            if not re.match(r'^protocol HealthConnectorHKIOSApi\b', line):
-                line = 'public ' + line
+        # Add public to HealthConnectorErrorDto error class
+        # Match: final class HealthConnectorErrorDto: Error {
+        elif re.match(r'^final class HealthConnectorErrorDto:', line):
+            line = 'public ' + line
 
-        # Add public to static func == in structs
+        # Add public to sealed base protocol declarations
+        # Match: protocol MeasurementUnitDto {, protocol HealthRecordDto {, protocol DeleteRecordsRequestDto {
+        elif re.match(r'^protocol (MeasurementUnitDto|HealthRecordDto|DeleteRecordsRequestDto) \{', line):
+            line = 'public ' + line
+
+        # Add public to static func == in structs (Equatable conformance)
         # Match:   static func == (lhs: Type, rhs: Type) -> Bool {
         elif re.match(r'^\s+static func ==', line):
             line = re.sub(r'^(\s+)static func ==', r'\1public static func ==', line)
 
-        # Add public to func hash in structs
+        # Add public to func hash in structs (Hashable conformance)
         # Match:   func hash(into hasher: inout Hasher) {
-        elif re.match(r'^\s+func hash\(into hasher:', line):
+        elif re.match(r'^\s+func hash\(into', line):
             line = re.sub(r'^(\s+)func hash\(', r'\1public func hash(', line)
 
         result_lines.append(line)

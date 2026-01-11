@@ -12,9 +12,11 @@ final class HealthConnectorConfig {
   ///
   /// ## Parameters
   ///
-  /// - [isLoggerEnabled]: Whether logging is enabled. Defaults to `true`.
-  const HealthConnectorConfig({this.isLoggerEnabled = true});
+  /// - [loggerConfig]: Configuration for the Health Connector logger.
+  const HealthConnectorConfig({
+    this.loggerConfig = const HealthConnectorLoggerConfig(),
+  });
 
-  /// Whether [HealthConnectorLogger] is enabled.
-  final bool isLoggerEnabled;
+  /// Configuration for the Health Connector logger.
+  final HealthConnectorLoggerConfig loggerConfig;
 }

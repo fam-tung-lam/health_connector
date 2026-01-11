@@ -1,37 +1,8 @@
-import 'package:health_connector/health_connector.dart';
-import 'package:health_connector_core/health_connector_core_internal.dart'
-    show
-        AggregateRequest,
-        DeleteRecordsRequest,
-        DeleteRecordsByIdsRequest,
-        DeleteRecordsInTimeRangeRequest,
-        HealthConnectorConfig,
-        HealthConnectorException,
-        HealthConnectorPlatformClient,
-        HealthDataSyncResult,
-        HealthDataSyncToken,
-        HealthDataType,
-        HealthPlatform,
-        HealthPlatformFeature,
-        HealthPlatformFeatureStatus,
-        HealthRecord,
-        HealthRecordId,
-        MeasurementUnit,
-        Permission,
-        PermissionRequestResult,
-        PermissionStatus,
-        ReadRecordByIdRequest,
-        ReadRecordsInTimeRangeRequest,
-        ReadRecordsInTimeRangeResponse,
-        require,
-        supportedOnHealthConnect,
-        UnsupportedOperationException,
-        InvalidArgumentException,
-        ExerciseSessionRecord,
-        ExerciseTypeExtension,
-        sinceV2_0_0;
+import 'package:health_connector/src/health_connector.dart';
+import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
+import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart' show internal, immutable;
 
 @sinceV2_0_0

@@ -27,7 +27,7 @@ import Foundation
 #endif
 
 /// Error class for passing custom error details to Dart side.
-final class HealthConnectorErrorDto: Error {
+public final class HealthConnectorErrorDto: Error {
   let code: String
   let message: String?
   let details: Sendable?
@@ -68,6 +68,10 @@ private func wrapError(_ error: Any) -> [Any?] {
     "\(type(of: error))",
     "Stacktrace: \(Thread.callStackSymbols)",
   ]
+}
+
+private func createConnectionError(withChannelName channelName: String) -> HealthConnectorErrorDto {
+  return HealthConnectorErrorDto(code: "channel-error", message: "Unable to establish connection on channel: '\(channelName)'.", details: "")
 }
 
 private func isNullish(_ value: Any?) -> Bool {
@@ -6603,77 +6607,74 @@ class HealthConnectorHKIOSApiPigeonCodec: FlutterStandardMessageCodec, @unchecke
   static let shared = HealthConnectorHKIOSApiPigeonCodec(readerWriter: HealthConnectorHKIOSApiPigeonCodecReaderWriter())
 }
 
-var healthConnectorHKIOSApiPigeonMethodCodec = FlutterStandardMethodCodec(readerWriter: HealthConnectorHKIOSApiPigeonCodecReaderWriter());
 
-
-
-private class PigeonStreamHandler<ReturnType>: NSObject, FlutterStreamHandler {
-  private let wrapper: PigeonEventChannelWrapper<ReturnType>
-  private var pigeonSink: PigeonEventSink<ReturnType>? = nil
-
-  init(wrapper: PigeonEventChannelWrapper<ReturnType>) {
-    self.wrapper = wrapper
-  }
-
-  func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink)
-    -> FlutterError?
-  {
-    pigeonSink = PigeonEventSink<ReturnType>(events)
-    wrapper.onListen(withArguments: arguments, sink: pigeonSink!)
-    return nil
-  }
-
-  func onCancel(withArguments arguments: Any?) -> FlutterError? {
-    pigeonSink = nil
-    wrapper.onCancel(withArguments: arguments)
-    return nil
-  }
-}
-
-class PigeonEventChannelWrapper<ReturnType> {
-  func onListen(withArguments arguments: Any?, sink: PigeonEventSink<ReturnType>) {}
-  func onCancel(withArguments arguments: Any?) {}
-}
-
-class PigeonEventSink<ReturnType> {
-  private let sink: FlutterEventSink
-
-  init(_ sink: @escaping FlutterEventSink) {
-    self.sink = sink
-  }
-
-  func success(_ value: ReturnType) {
-    sink(value)
-  }
-
-  func error(code: String, message: String?, details: Any?) {
-    sink(FlutterError(code: code, message: message, details: details))
-  }
-
-  func endOfStream() {
-    sink(FlutterEndOfEventStream)
-  }
-
-}
-
-/// EventChannel API for streaming log events from native to Flutter.
+/// FlutterApi for receiving log events from the native platform.
 ///
-/// This API enables real-time observation of Health Connector SDK operations
-/// for debugging, monitoring, and analytics purposes.
-class WatchLogEventsStreamHandler: PigeonEventChannelWrapper<HealthConnectorLogDto> {
-  static func register(with messenger: FlutterBinaryMessenger,
-                      instanceName: String = "",
-                      streamHandler: WatchLogEventsStreamHandler) {
-    var channelName = "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorLogStreamApi.watchLogEvents"
-    if !instanceName.isEmpty {
-      channelName += ".\(instanceName)"
+/// This API is implemented on the Flutter side and called by the native
+/// platform to deliver log events in real-time. It serves as the callback
+/// handler for the event channel stream.
+///
+/// Platform flow:
+/// - iOS: Native code calls this method for each log event emitted by
+///   the Health Connector SDK operations
+///
+/// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
+protocol HealthConnectorNativeLogApiProtocol {
+  /// Called by native code when a log event occurs.
+  ///
+  /// This method is invoked from the native platform whenever the Health
+  /// Connector SDK emits a log event during operations such as reading,
+  /// writing, or synchronizing health data.
+  ///
+  /// Parameters:
+  /// - [log]: The log event data containing level, message, timestamp,
+  ///   and optional exception information
+  ///
+  /// Note: This method should execute quickly to avoid blocking the
+  /// native platform's logging pipeline.
+  func onNativeLogEvent(log logArg: HealthConnectorLogDto, completion: @escaping (Result<Void, HealthConnectorErrorDto>) -> Void)
+}
+class HealthConnectorNativeLogApi: HealthConnectorNativeLogApiProtocol {
+  private let binaryMessenger: FlutterBinaryMessenger
+  private let messageChannelSuffix: String
+  init(binaryMessenger: FlutterBinaryMessenger, messageChannelSuffix: String = "") {
+    self.binaryMessenger = binaryMessenger
+    self.messageChannelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
+  }
+  var codec: HealthConnectorHKIOSApiPigeonCodec {
+    return HealthConnectorHKIOSApiPigeonCodec.shared
+  }
+  /// Called by native code when a log event occurs.
+  ///
+  /// This method is invoked from the native platform whenever the Health
+  /// Connector SDK emits a log event during operations such as reading,
+  /// writing, or synchronizing health data.
+  ///
+  /// Parameters:
+  /// - [log]: The log event data containing level, message, timestamp,
+  ///   and optional exception information
+  ///
+  /// Note: This method should execute quickly to avoid blocking the
+  /// native platform's logging pipeline.
+  func onNativeLogEvent(log logArg: HealthConnectorLogDto, completion: @escaping (Result<Void, HealthConnectorErrorDto>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorNativeLogApi.onNativeLogEvent\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([logArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(HealthConnectorErrorDto(code: code, message: message, details: details)))
+      } else {
+        completion(.success(()))
+      }
     }
-    let internalStreamHandler = PigeonStreamHandler<HealthConnectorLogDto>(wrapper: streamHandler)
-    let channel = FlutterEventChannel(name: channelName, binaryMessenger: messenger, codec: healthConnectorHKIOSApiPigeonMethodCodec)
-    channel.setStreamHandler(internalStreamHandler)
   }
 }
-      
 /// The main API for communicating with the health platform.
 ///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.

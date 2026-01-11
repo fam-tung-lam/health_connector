@@ -28,9 +28,9 @@ import 'package:health_connector_core/health_connector_core_internal.dart'
         ReadRecordsInTimeRangeResponse,
         DeleteRecordsInTimeRangeRequest,
         DeleteRecordsByIdsRequest;
+import 'package:health_connector_hc_android/src/health_connector_hc_native_log_api.dart';
 import 'package:health_connector_hc_android/src/mappers/exception_mappers/health_connector_error_code_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_connector_config_mapper.dart';
-import 'package:health_connector_hc_android/src/mappers/health_connector_log_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_data_sync/health_data_sync_result_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_data_sync/health_data_sync_token_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/health_data_type_mapper.dart';
@@ -44,7 +44,7 @@ import 'package:health_connector_hc_android/src/mappers/permission_mappers/permi
 import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/permission_request_result_mapper.dart';
 import 'package:health_connector_hc_android/src/mappers/request_and_response_mappers/request_and_response_mapper.dart';
 import 'package:health_connector_hc_android/src/pigeon/health_connector_hc_android_api.g.dart'
-    show HealthConnectorHCAndroidApi, HealthPlatformStatusDto, watchLogEvents;
+    show HealthConnectorHCAndroidApi, HealthPlatformStatusDto;
 import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:meta/meta.dart' show immutable, visibleForTesting, internal;
 
@@ -87,12 +87,7 @@ class HealthConnectorHCClient implements HealthConnectorPlatformClient {
   static Future<HealthConnectorHCClient> create([
     HealthConnectorConfig config = const HealthConnectorConfig(),
   ]) async {
-    if (config.isLoggerEnabled) {
-      final nativeLogStream = watchLogEvents().map(
-        (dto) => dto.toDomain(),
-      );
-      HealthConnectorLogger.registerExternalLogSource(nativeLogStream);
-    }
+    HealthConnectorHCNativeLogApi.init();
 
     await _platformClient.initialize(config.toDto());
 

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer' show log;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show ChangeNotifier;
@@ -27,13 +26,14 @@ final class HomeChangeNotifier extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final healthConnector = await HealthConnector.create();
-
-      _logEventSubscription = HealthConnectorLogger.logs.listen(
-        (logEvent) {
-          log(logEvent.structuredMessage);
-        },
+      const config = HealthConnectorConfig(
+        loggerConfig: HealthConnectorLoggerConfig(
+          logProcessors: [
+            DeveloperLogProcessor(),
+          ],
+        ),
       );
+      final healthConnector = await HealthConnector.create(config);
 
       _healthConnector = healthConnector;
     } on HealthConnectorException catch (e) {
