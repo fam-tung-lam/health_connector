@@ -34,6 +34,26 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class HeartRateRecord extends InstantHealthRecord {
+  /// Minimum valid heart rate in beats per minute.
+  ///
+  /// Valid range: 1-300 bpm, as enforced by Android Health Connect.
+  ///
+  /// ## Platform Compatibility
+  ///
+  /// - **Android Health Connect**: [HeartRateRecord.kt](https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:health/connect/connect-client/src/main/java/androidx/health/connect/client/records/HeartRateRecord.kt)
+  /// - **Apple HealthKit**: No platform limits (application-defined)
+  static final Frequency minRate = Frequency.perMinute(1.0);
+
+  /// Maximum valid heart rate in beats per minute.
+  ///
+  /// Valid range: 1-300 bpm, as enforced by Android Health Connect.
+  ///
+  /// ## Platform Compatibility
+  ///
+  /// - **Android Health Connect**: [HeartRateRecord.kt](https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:health/connect/connect-client/src/main/java/androidx/health/connect/client/records/HeartRateRecord.kt)
+  /// - **Apple HealthKit**: No platform limits (application-defined)
+  static final Frequency maxRate = Frequency.perMinute(300.0);
+
   /// Creates a heart rate measurement record.
   ///
   /// ## Parameters
@@ -43,13 +63,36 @@ final class HeartRateRecord extends InstantHealthRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [rate]: The heart rate value in beats per minute (BPM).
-  const HeartRateRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [rate] is outside the valid range of
+  ///   [minRate]-[maxRate].
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minRate])**: 1 bpm allows for extreme bradycardia and
+  ///   ensures all Health Connect data can be processed.
+  /// - **Maximum ([maxRate])**: 300 bpm accommodates extreme tachycardia,
+  ///   stress test conditions, and sensor artifacts.
+  HeartRateRecord({
     required super.id,
     required super.time,
     required super.metadata,
     required this.rate,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: rate >= minRate && rate <= maxRate,
+      value: rate,
+      name: 'rate',
+      message:
+          'Heart rate must be between '
+          '${minRate.inPerMinute.toStringAsFixed(0)}-'
+          '${maxRate.inPerMinute.toStringAsFixed(0)} bpm. '
+          'Got ${rate.inPerMinute.toStringAsFixed(1)} bpm.',
+    );
+  }
 
   /// Internal factory for creating [HeartRateRecord] instances
   /// without validation.

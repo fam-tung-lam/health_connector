@@ -45,32 +45,44 @@ final class DietaryRiboflavinRecord extends DietaryVitaminRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this riboflavin.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietaryRiboflavinRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass] g.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass] g)**: Valid mass must be non-negative.
+  /// - **Maximum ([maxMass] g)**: 10g is a reasonable upper bound for
+  ///   vitamin intake from a single food item.
+  DietaryRiboflavinRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
   }) {
-    return DietaryRiboflavinRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Riboflavin mass must be between '
+          '${minMass.inGrams.toStringAsFixed(0)}-'
+          '${maxMass.inGrams.toStringAsFixed(0)} g. '
+          'Got ${mass.inGrams.toStringAsFixed(4)} g.',
     );
   }
 
-  /// Internal factory for creating [DietaryRiboflavinRecord] instances without
-  /// validation.
-  ///
-  /// Creates a [DietaryRiboflavinRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Minimum valid riboflavin mass (0.0 g).
+  static const Mass minMass = Mass.zero;
+
+  /// Maximum valid riboflavin mass (10.0 g).
+  static const Mass maxMass = Mass.grams(10.0);
+
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryRiboflavinRecord] constructor, which enforces validation and
@@ -86,7 +98,7 @@ final class DietaryRiboflavinRecord extends DietaryVitaminRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietaryRiboflavinRecord._(
+    return DietaryRiboflavinRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -117,14 +129,4 @@ final class DietaryRiboflavinRecord extends DietaryVitaminRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietaryRiboflavinRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

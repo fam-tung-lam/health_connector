@@ -23,14 +23,48 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class CyclingPowerRecord extends InstantHealthRecord {
+  /// Minimum valid cycling power (0.0 W).
+  ///
+  /// No power output (coasting).
+  static const Power minPower = Power.zero;
+
+  /// Maximum valid cycling power (3,000.0 W).
+  ///
+  /// Elite track sprinters can peak at ~2,500W; 3,000W provides margin for
+  /// brief maximal efforts.
+  static const Power maxPower = Power.watts(3000.0);
+
   /// Creates a cycling power record.
-  const CyclingPowerRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [power] is outside the valid range of
+  /// - [ArgumentError] if [power] is outside the valid range of
+  ///   [minPower]-[maxPower] W.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minPower] W)**: No power output (coasting).
+  /// - **Maximum ([maxPower] W)**: Elite track sprinters can peak at
+  ///   ~2,500W; 3,000W provides margin for brief maximal efforts.
+  CyclingPowerRecord({
     required super.time,
     required super.metadata,
     required this.power,
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: power >= minPower && power <= maxPower,
+      value: power,
+      name: 'power',
+      message:
+          'Cycling power must be between '
+          '${minPower.inWatts.toStringAsFixed(0)}-'
+          '${maxPower.inWatts.toStringAsFixed(0)} W. '
+          'Got ${power.inWatts.toStringAsFixed(0)} W.',
+    );
+  }
 
   /// Internal factory for creating [CyclingPowerRecord] instances
   /// without validation.

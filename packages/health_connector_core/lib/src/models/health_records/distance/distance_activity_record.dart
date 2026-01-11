@@ -32,6 +32,12 @@ part of '../health_record.dart';
 @internalUse
 @immutable
 sealed class DistanceActivityRecord extends IntervalHealthRecord {
+  /// Minimum valid distance.
+  static const Length minDistance = DistanceRecord.minDistance;
+
+  /// Maximum valid distance.
+  static const Length maxDistance = DistanceRecord.maxDistance;
+
   /// Creates a distance activity record.
   DistanceActivityRecord({
     required super.startTime,
@@ -41,7 +47,18 @@ sealed class DistanceActivityRecord extends IntervalHealthRecord {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: distance >= minDistance && distance <= maxDistance,
+      value: distance,
+      name: 'distance',
+      message:
+          'Distance must be between '
+          '${minDistance.inKilometers.toStringAsFixed(0)}-'
+          '${maxDistance.inKilometers.toStringAsFixed(0)} km. '
+          'Got ${distance.inKilometers.toStringAsFixed(1)} km.',
+    );
+  }
 
   /// The distance measurement value.
   final Length distance;

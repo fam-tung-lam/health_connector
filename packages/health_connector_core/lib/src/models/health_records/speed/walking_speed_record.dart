@@ -23,14 +23,49 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class WalkingSpeedRecord extends SpeedActivityRecord {
+  /// Minimum valid walking speed in km/h (0.0 km/h).
+  ///
+  /// At rest.
+  /// Minimum valid walking speed (0.0 km/h).
+  ///
+  /// At rest.
+  static const Velocity minSpeed = Velocity.zero;
+
+  /// Maximum valid walking speed (12.0 km/h).
+  ///
+  /// Fast power walking limit; faster speeds transition to running.
+  static const Velocity maxSpeed = Velocity.kilometersPerHour(12.0);
+
   /// Creates a walking speed record.
-  const WalkingSpeedRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [speed] is outside the valid range of
+  ///   [minSpeed]-[maxSpeed] km/h.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minSpeed] km/h)**: At rest.
+  /// - **Maximum ([maxSpeed] km/h / 7.5 mph)**: Fast power walking limit;
+  ///   faster speeds transition to running.
+  WalkingSpeedRecord({
     required super.time,
     required super.metadata,
     required super.speed,
     super.id,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: speed >= minSpeed && speed <= maxSpeed,
+      value: speed,
+      name: 'speed',
+      message:
+          'Walking speed must be between '
+          '${minSpeed.inKilometersPerHour.toStringAsFixed(1)}-'
+          '${maxSpeed.inKilometersPerHour.toStringAsFixed(0)} km/h (0-7.5 mph). '
+          'Got ${speed.inKilometersPerHour.toStringAsFixed(1)} km/h.',
+    );
+  }
 
   /// Internal factory for creating [WalkingSpeedRecord] instances
   /// without validation.

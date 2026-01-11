@@ -7,9 +7,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminD`](https
-/// ://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/diet
-/// aryvitamind)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminD`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamind)
 /// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
@@ -45,32 +43,44 @@ final class DietaryVitaminDRecord extends DietaryVitaminRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this vitamin D.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietaryVitaminDRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass] g.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass] g)**: Valid mass must be non-negative.
+  /// - **Maximum ([maxMass] g)**: 10g is a reasonable upper bound for
+  ///   vitamin intake from a single food item.
+  DietaryVitaminDRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
   }) {
-    return DietaryVitaminDRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Vitamin D mass must be between '
+          '${minMass.inGrams.toStringAsFixed(0)}-'
+          '${maxMass.inGrams.toStringAsFixed(0)} g. '
+          'Got ${mass.inGrams.toStringAsFixed(4)} g.',
     );
   }
 
-  /// Internal factory for creating [DietaryVitaminDRecord] instances without
-  /// validation.
-  ///
-  /// Creates a [DietaryVitaminDRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Minimum valid vitamin D mass (0.0 g).
+  static const Mass minMass = Mass.zero;
+
+  /// Maximum valid vitamin D mass (10.0 g).
+  static const Mass maxMass = Mass.grams(10.0);
+
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryVitaminDRecord] constructor, which enforces validation and
@@ -86,7 +96,7 @@ final class DietaryVitaminDRecord extends DietaryVitaminRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietaryVitaminDRecord._(
+    return DietaryVitaminDRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -117,14 +127,4 @@ final class DietaryVitaminDRecord extends DietaryVitaminRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietaryVitaminDRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

@@ -8,8 +8,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryEnergyConsumed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifie
-/// r/dietaryenergyconsumed)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryEnergyConsumed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryenergyconsumed)
 /// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
@@ -33,6 +32,12 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class DietaryEnergyConsumedRecord extends NutrientRecord<Energy> {
+  /// Minimum valid energy (0.0 kcal).
+  static const Energy minEnergy = Energy.zero;
+
+  /// Maximum valid energy (10,000.0 kcal).
+  static const Energy maxEnergy = Energy.kilocalories(10000.0);
+
   /// Creates an energy nutrient record.
   ///
   /// ## Parameters
@@ -45,6 +50,11 @@ final class DietaryEnergyConsumedRecord extends NutrientRecord<Energy> {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this energy.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [energy] is outside the valid range of
+  ///   [minEnergy]-[maxEnergy].
   factory DietaryEnergyConsumedRecord({
     required Energy energy,
     required DateTime time,
@@ -54,6 +64,16 @@ final class DietaryEnergyConsumedRecord extends NutrientRecord<Energy> {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
+    require(
+      condition: energy >= minEnergy && energy <= maxEnergy,
+      value: energy,
+      name: 'energy',
+      message:
+          'Dietary energy must be between '
+          '${minEnergy.inKilocalories.toInt()}-'
+          '${maxEnergy.inKilocalories.toInt()} kcal. '
+          'Got ${energy.inKilocalories.toStringAsFixed(0)} kcal.',
+    );
     return DietaryEnergyConsumedRecord._(
       energy: energy,
       time: time,
@@ -122,6 +142,16 @@ final class DietaryEnergyConsumedRecord extends NutrientRecord<Energy> {
       mealType: mealType ?? this.mealType,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      super == other &&
+          other is DietaryEnergyConsumedRecord &&
+          energy == other.energy;
+
+  @override
+  int get hashCode => super.hashCode ^ energy.hashCode;
 
   const DietaryEnergyConsumedRecord._({
     required this.energy,

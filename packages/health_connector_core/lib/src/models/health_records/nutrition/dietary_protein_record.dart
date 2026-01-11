@@ -7,9 +7,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryProtein`](https:
-/// //developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dieta
-/// ryprotein)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryProtein`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryprotein)
 /// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
@@ -44,32 +42,44 @@ final class DietaryProteinRecord extends DietaryMacronutrientRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this protein.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietaryProteinRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass] g.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass] g)**: Valid mass must be non-negative.
+  /// - **Maximum ([maxMass] g)**: 1,000g is a reasonable upper bound for
+  ///   macronutrient intake from a single food item.
+  DietaryProteinRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
   }) {
-    return DietaryProteinRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Protein mass must be between '
+          '${minMass.inGrams.toStringAsFixed(0)}-'
+          '${maxMass.inGrams.toStringAsFixed(0)} g. '
+          'Got ${mass.inGrams.toStringAsFixed(1)} g.',
     );
   }
 
-  /// Internal factory for creating [DietaryProteinRecord] instances without
-  /// validation.
-  ///
-  /// Creates a [DietaryProteinRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Minimum valid protein mass (0.0 g).
+  static const Mass minMass = Mass.zero;
+
+  /// Maximum valid protein mass (1,000.0 g).
+  static const Mass maxMass = Mass.grams(1000.0);
+
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryProteinRecord] constructor, which enforces validation and business
@@ -84,7 +94,7 @@ final class DietaryProteinRecord extends DietaryMacronutrientRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietaryProteinRecord._(
+    return DietaryProteinRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -115,14 +125,4 @@ final class DietaryProteinRecord extends DietaryMacronutrientRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietaryProteinRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

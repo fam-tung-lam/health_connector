@@ -7,9 +7,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryCalcium`](https:
-/// //developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dieta
-/// rycalcium)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryCalcium`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarycalcium)
 /// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
@@ -33,6 +31,12 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class DietaryCalciumRecord extends DietaryMineralRecord {
+  /// Minimum valid calcium mass (0.0 g).
+  static const Mass minMass = Mass.zero;
+
+  /// Maximum valid calcium mass (100.0 g).
+  static const Mass maxMass = Mass.grams(100.0);
+
   /// Creates a calcium nutrient record.
   ///
   /// ## Parameters
@@ -45,32 +49,38 @@ final class DietaryCalciumRecord extends DietaryMineralRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this calcium.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietaryCalciumRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass].
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass])**: Valid mass must be non-negative.
+  /// - **Maximum ([maxMass])**: 100g is a reasonable upper bound for
+  ///   mineral intake from a single food item.
+  DietaryCalciumRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
   }) {
-    return DietaryCalciumRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Calcium mass must be between '
+          '${minMass.inGrams.toStringAsFixed(0)}-'
+          '${maxMass.inGrams.toStringAsFixed(0)} g. '
+          'Got ${mass.inGrams.toStringAsFixed(3)} g.',
     );
   }
 
-  /// Internal factory for creating [DietaryCalciumRecord] instances without
-  /// validation.
-  ///
-  /// Creates a [DietaryCalciumRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryCalciumRecord] constructor, which enforces validation and business
@@ -85,7 +95,7 @@ final class DietaryCalciumRecord extends DietaryMineralRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietaryCalciumRecord._(
+    return DietaryCalciumRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -116,14 +126,4 @@ final class DietaryCalciumRecord extends DietaryMineralRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietaryCalciumRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

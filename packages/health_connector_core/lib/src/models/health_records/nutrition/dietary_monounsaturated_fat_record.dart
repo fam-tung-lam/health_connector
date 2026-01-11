@@ -11,8 +11,7 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryFatMonounsaturat
-/// ed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeident
-/// ifier/dietaryFatMonounsaturated)
+/// ed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryFatMonounsaturated)
 /// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
@@ -48,25 +47,15 @@ final class DietaryMonounsaturatedFatRecord extends DietaryMacronutrientRecord {
   /// - [foodName]: Optional name of the food containing this monounsaturated
   /// fat.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietaryMonounsaturatedFatRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
-  }) {
-    return DietaryMonounsaturatedFatRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
-    );
-  }
+  DietaryMonounsaturatedFatRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
+  });
 
   /// Internal factory for creating [DietaryMonounsaturatedFatRecord] instances
   /// without
@@ -91,7 +80,7 @@ final class DietaryMonounsaturatedFatRecord extends DietaryMacronutrientRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietaryMonounsaturatedFatRecord._(
+    return DietaryMonounsaturatedFatRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -122,14 +111,4 @@ final class DietaryMonounsaturatedFatRecord extends DietaryMacronutrientRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietaryMonounsaturatedFatRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

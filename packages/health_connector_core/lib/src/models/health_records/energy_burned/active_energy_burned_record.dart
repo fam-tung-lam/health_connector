@@ -32,6 +32,17 @@ part of '../health_record.dart';
 @sinceV1_0_0
 @immutable
 final class ActiveEnergyBurnedRecord extends IntervalHealthRecord {
+  /// Minimum valid active energy burned (0.0 kcal).
+  ///
+  /// No active energy burned.
+  static const Energy minEnergy = Energy.zero;
+
+  /// Maximum valid active energy burned (15,000.0 kcal).
+  ///
+  /// Ultra-endurance events (e.g., multi-day races) can exceed 10,000 kcal/day;
+  /// 15,000 provides margin.
+  static const Energy maxEnergy = Energy.kilocalories(15000.0);
+
   /// Creates an active energy burned record.
   ///
   /// ## Parameters
@@ -47,6 +58,14 @@ final class ActiveEnergyBurnedRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
+  /// - [ArgumentError] if [energy] is outside the valid range of
+  ///   [minEnergy]-[maxEnergy] kcal.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minEnergy] kcal)**: No active energy burned.
+  /// - **Maximum ([maxEnergy] kcal)**: Ultra-endurance events (e.g.,
+  ///   multi-day races) can exceed 10,000 kcal/day; 15,000 provides margin.
   ActiveEnergyBurnedRecord({
     required super.startTime,
     required super.endTime,
@@ -55,7 +74,18 @@ final class ActiveEnergyBurnedRecord extends IntervalHealthRecord {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: energy >= minEnergy && energy <= maxEnergy,
+      value: energy,
+      name: 'energy',
+      message:
+          'Active energy burned must be between '
+          '${minEnergy.inKilocalories.toStringAsFixed(0)}-'
+          '${maxEnergy.inKilocalories.toStringAsFixed(0)} kcal. '
+          'Got ${energy.inKilocalories.toStringAsFixed(0)} kcal.',
+    );
+  }
 
   /// Internal factory for creating [ActiveEnergyBurnedRecord] instances without
   /// validation.

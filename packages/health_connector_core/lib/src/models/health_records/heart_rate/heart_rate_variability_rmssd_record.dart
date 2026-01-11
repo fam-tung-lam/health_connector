@@ -30,6 +30,18 @@ part of '../health_record.dart';
 @supportedOnHealthConnect
 @immutable
 final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
+  /// Minimum valid HRV RMSSD in milliseconds (1.0 ms).
+  ///
+  /// Practical lower limit; values near zero indicate measurement error or
+  /// severe pathology.
+  static const double minRmssdMs = 1.0;
+
+  /// Maximum valid HRV RMSSD in milliseconds (250.0 ms).
+  ///
+  /// Research consensus indicates 5-200 ms typical range; 250 ms provides
+  /// margin for exceptional parasympathetic tone.
+  static const double maxRmssdMs = 250.0;
+
   /// Creates a heart rate variability (RMSSD) record.
   ///
   /// ## Parameters
@@ -42,7 +54,16 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError] if [rmssd] is negative.
+  /// - [ArgumentError] if [rmssd] is outside the valid range of
+  ///   [minRmssdMs]-[maxRmssdMs] ms.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minRmssdMs] ms)**: Practical lower limit; values near zero
+  ///   indicate measurement error or severe pathology.
+  /// - **Maximum ([maxRmssdMs] ms)**: Research consensus indicates 5-200 ms
+  ///   typical range; 250 ms provides margin for exceptional parasympathetic
+  ///   tone.
   HeartRateVariabilityRMSSDRecord({
     required super.time,
     required super.metadata,
@@ -50,25 +71,29 @@ final class HeartRateVariabilityRMSSDRecord extends InstantHealthRecord {
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   }) {
-    if (rmssd < TimeDuration.zero) {
-      throw ArgumentError.value(
-        rmssd,
-        'RMSSD',
-        'Heart rate variability RMSSD must be non-negative',
-      );
-    }
+    final ms = rmssd.inMilliseconds;
+    require(
+      condition: ms >= minRmssdMs && ms <= maxRmssdMs,
+      value: rmssd,
+      name: 'rmssd',
+      message:
+          'HRV RMSSD must be between '
+          '$minRmssdMs-${maxRmssdMs.toStringAsFixed(0)} ms. '
+          'Got ${ms.toStringAsFixed(1)} ms.',
+    );
   }
 
-  /// Internal factory for creating [BloodPressureRecord] instances without
-  /// validation.
+  /// Internal factory for creating [HeartRateVariabilityRMSSDRecord] instances
+  /// without validation.
   ///
-  /// Creates a [BloodPressureRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Creates a [HeartRateVariabilityRMSSDRecord] by directly mapping platform
+  /// data to fields, bypassing the normal validation and business rules
+  /// applied by the public constructor.
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [BloodPressureRecord] constructor, which enforces validation and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// [HeartRateVariabilityRMSSDRecord] constructor, which enforces validation
+  /// and business rules. This factory is restricted to the SDK developers and
+  /// contributors.
   @internalUse
   factory HeartRateVariabilityRMSSDRecord.internal({
     required HealthRecordId id,

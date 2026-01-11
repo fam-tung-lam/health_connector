@@ -36,6 +36,17 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class BasalEnergyBurnedRecord extends IntervalHealthRecord {
+  /// Minimum valid basal energy burned (0.0 kcal).
+  ///
+  /// No basal energy during measurement period.
+  static const Energy minEnergy = Energy.zero;
+
+  /// Maximum valid basal energy burned (5,000.0 kcal).
+  ///
+  /// Typical BMR ~300-3,000 kcal/day; 5,000 allows for large individuals and
+  /// multi-day intervals.
+  static const Energy maxEnergy = Energy.kilocalories(5000.0);
+
   /// Creates a basal energy burned record.
   ///
   /// ## Parameters
@@ -51,6 +62,15 @@ final class BasalEnergyBurnedRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
+  /// - [ArgumentError] if [energy] is outside the valid range of
+  ///   [minEnergy]-[maxEnergy] kcal.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minEnergy] kcal)**: No basal energy during measurement
+  ///   period.
+  /// - **Maximum ([maxEnergy] kcal)**: Typical BMR ~300-3,000 kcal/day;
+  ///   5,000 allows for large individuals and multi-day intervals.
   BasalEnergyBurnedRecord({
     required super.startTime,
     required super.endTime,
@@ -59,7 +79,18 @@ final class BasalEnergyBurnedRecord extends IntervalHealthRecord {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: energy >= minEnergy && energy <= maxEnergy,
+      value: energy,
+      name: 'energy',
+      message:
+          'Basal energy burned must be between '
+          '${minEnergy.inKilocalories.toStringAsFixed(0)}-'
+          '${maxEnergy.inKilocalories.toStringAsFixed(0)} kcal. '
+          'Got ${energy.inKilocalories.toStringAsFixed(0)} kcal.',
+    );
+  }
 
   /// Internal factory for creating [BasalEnergyBurnedRecord] instances without
   /// validation.

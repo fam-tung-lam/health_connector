@@ -51,16 +51,17 @@ final class MindfulnessSessionRecord extends IntervalHealthRecord {
     this.notes,
   });
 
-  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// Internal factory for creating [MindfulnessSessionRecord] instances without
   /// validation.
   ///
-  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// Creates a [MindfulnessSessionRecord] by directly mapping platform data to
   /// fields, bypassing the normal validation and business rules applied by the
   /// public constructor.
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [BloodPressureRecord] constructor, which enforces validation and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// [MindfulnessSessionRecord] constructor, which enforces validation and
+  /// business rules. This factory is restricted to the SDK developers and
+  /// contributors.
   @internalUse
   factory MindfulnessSessionRecord.internal({
     required HealthRecordId id,
@@ -173,8 +174,10 @@ final class MindfulnessSessionRecord extends IntervalHealthRecord {
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: Maps to  `MindfulnessSessionRecord.MINDFULNESS_SESSION_TYPE_***`
-/// - **iOS HealthKit**: Stored in custom metadata since iOS HealthKit only  supports generic `HKCategoryValue.notApplicable` type
+/// - **Android Health Connect**: Maps to
+///   `MindfulnessSessionRecord.MINDFULNESS_SESSION_TYPE_*` constants.
+/// - **iOS HealthKit**: Stored in custom metadata since iOS HealthKit only
+///   supports generic `HKCategoryValue.notApplicable` type.
 ///
 /// > [!NOTE]
 /// > **iOS HealthKit Limitation**: HealthKit only supports a single generic

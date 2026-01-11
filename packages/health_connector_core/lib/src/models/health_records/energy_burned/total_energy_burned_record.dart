@@ -37,13 +37,24 @@ part of '../health_record.dart';
 @supportedOnHealthConnect
 @immutable
 final class TotalEnergyBurnedRecord extends IntervalHealthRecord {
+  /// Minimum valid total energy burned (0.0 kcal).
+  ///
+  /// No energy burned during measurement period.
+  static const Energy minEnergy = Energy.zero;
+
+  /// Maximum valid total energy burned (20,000.0 kcal).
+  ///
+  /// Sum of active (max 15,000) + basal (max 5,000) energy with margin for
+  /// extreme multi-day events.
+  static const Energy maxEnergy = Energy.kilocalories(20000.0);
+
   /// Creates a total energy burned record.
   ///
   /// ## Parameters
   ///
   /// - [startTime]: The start of the time interval (inclusive).
   /// - [endTime]: The end of the time interval (exclusive).
-  /// - [energy]: The total amount of energy/energy burned during the interval.
+  /// - [energy]: The total amount of energy burned during the interval.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
@@ -52,6 +63,15 @@ final class TotalEnergyBurnedRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
+  /// - [ArgumentError] if [energy] is outside the valid range of
+  ///   [minEnergy]-[maxEnergy] kcal.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minEnergy] kcal)**: No energy burned during measurement
+  ///   period.
+  /// - **Maximum ([maxEnergy] kcal)**: Sum of active (max 15,000) +
+  ///   basal (max 5,000) energy with margin for extreme multi-day events.
   TotalEnergyBurnedRecord({
     required super.startTime,
     required super.endTime,
@@ -60,18 +80,30 @@ final class TotalEnergyBurnedRecord extends IntervalHealthRecord {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: energy >= minEnergy && energy <= maxEnergy,
+      value: energy,
+      name: 'energy',
+      message:
+          'Total energy burned must be between '
+          '${minEnergy.inKilocalories.toStringAsFixed(0)}-'
+          '${maxEnergy.inKilocalories.toStringAsFixed(0)} kcal. '
+          'Got ${energy.inKilocalories.toStringAsFixed(0)} kcal.',
+    );
+  }
 
-  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// Internal factory for creating [TotalEnergyBurnedRecord] instances without
   /// validation.
   ///
-  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// Creates a [TotalEnergyBurnedRecord] by directly mapping platform data to
   /// fields, bypassing the normal validation and business rules applied by the
   /// public constructor.
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [BloodPressureRecord] constructor, which enforces validation and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// [TotalEnergyBurnedRecord] constructor, which enforces validation and
+  /// business rules. This factory is restricted to the SDK developers and
+  /// contributors.
   @internalUse
   factory TotalEnergyBurnedRecord.internal({
     required HealthRecordId id,

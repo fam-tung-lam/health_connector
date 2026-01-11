@@ -23,14 +23,50 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class RunningSpeedRecord extends SpeedActivityRecord {
+  /// Minimum valid running speed in km/h (0.0 km/h).
+  ///
+  /// At rest.
+  /// Minimum valid running speed (0.0 km/h).
+  ///
+  /// At rest.
+  static const Velocity minSpeed = Velocity.zero;
+
+  /// Maximum valid running speed (50.0 km/h).
+  ///
+  /// World record sprint speed ~44.7 km/h (Usain Bolt); 50 km/h provides
+  /// margin.
+  static const Velocity maxSpeed = Velocity.kilometersPerHour(50.0);
+
   /// Creates a running speed record.
-  const RunningSpeedRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [speed] is outside the valid range of
+  ///   [minSpeed]-[maxSpeed] km/h.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minSpeed] km/h)**: At rest.
+  /// - **Maximum ([maxSpeed] km/h / 31 mph)**: World record sprint speed
+  ///   ~44.7 km/h (Usain Bolt); 50 km/h provides margin.
+  RunningSpeedRecord({
     required super.time,
     required super.metadata,
     required super.speed,
     super.id,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: speed >= minSpeed && speed <= maxSpeed,
+      value: speed,
+      name: 'speed',
+      message:
+          'Running speed must be between '
+          '${minSpeed.inKilometersPerHour.toStringAsFixed(1)}-'
+          '${maxSpeed.inKilometersPerHour.toStringAsFixed(0)} km/h (0-31 mph). '
+          'Got ${speed.inKilometersPerHour.toStringAsFixed(1)} km/h.',
+    );
+  }
 
   /// Internal factory for creating [RunningSpeedRecord] instances
   /// without validation.

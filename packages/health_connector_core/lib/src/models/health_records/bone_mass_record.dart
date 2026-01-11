@@ -28,6 +28,20 @@ part of 'health_record.dart';
 @supportedOnHealthConnect
 @immutable
 final class BoneMassRecord extends InstantHealthRecord {
+  /// Minimum valid bone mass in kilograms (0.1 kg).
+  ///
+  /// Very young infants; typical newborn skeleton ~300-400g.
+  /// Minimum valid bone mass (0.1 kg).
+  ///
+  /// Very young infants; typical newborn skeleton ~300-400g.
+  static const Mass minMass = Mass.kilograms(0.1);
+
+  /// Maximum valid bone mass (15.0 kg).
+  ///
+  /// Extreme upper limit; typical adult bone mass 2-6 kg depending on body
+  /// size.
+  static const Mass maxMass = Mass.kilograms(15.0);
+
   /// Creates a bone mass record.
   ///
   /// ## Parameters
@@ -37,13 +51,37 @@ final class BoneMassRecord extends InstantHealthRecord {
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
-  const BoneMassRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass] kg.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass] kg)**: Very young infants; typical newborn
+  ///   skeleton ~300-400g.
+  /// - **Maximum ([maxMass] kg)**: Extreme upper limit; typical adult bone
+  ///   mass 2-6 kg depending on body size.
+  BoneMassRecord({
     required super.time,
     required super.metadata,
     required this.mass,
     super.id,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Bone mass must be between '
+          '${minMass.inKilograms.toStringAsFixed(1)}-'
+          '${maxMass.inKilograms.toStringAsFixed(0)} kg. '
+          'Got ${mass.inKilograms.toStringAsFixed(1)} kg.',
+    );
+  }
 
   /// Internal factory for creating [BoneMassRecord] instances
   /// without validation.

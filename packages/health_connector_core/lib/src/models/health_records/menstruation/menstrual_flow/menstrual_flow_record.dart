@@ -8,7 +8,8 @@ part of '../../health_record.dart';
 ///
 /// ## Platform Support
 ///
-/// - **Android Health Connect**: Not supported. Use  [MenstrualFlowInstantRecord] instead.
+/// - **Android Health Connect**: Not supported. [MenstrualFlowInstantRecord]
+///   should be used instead.
 /// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.menstrualFlow`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/menstrualflow)
 ///
 /// ## Example
@@ -73,15 +74,15 @@ final class MenstrualFlowRecord extends IntervalHealthRecord {
     super.endZoneOffsetSeconds,
   });
 
-  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// Internal factory for creating [MenstrualFlowRecord] instances without
   /// validation.
   ///
-  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// Creates a [MenstrualFlowRecord] by directly mapping platform data to
   /// fields, bypassing the normal validation and business rules applied by the
   /// public constructor.
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// [MenstrualFlowRecord] constructor, which enforces validation and business
   /// rules. This factory is restricted to the SDK developers and contributors.
   @internalUse
   factory MenstrualFlowRecord.internal({

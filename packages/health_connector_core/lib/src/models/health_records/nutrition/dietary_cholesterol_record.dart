@@ -8,9 +8,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryCholesterol`](ht
-/// tps://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/d
-/// ietarycholesterol)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryCholesterol`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarycholesterol)
 /// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
@@ -46,32 +44,44 @@ final class DietaryCholesterolRecord extends DietaryMacronutrientRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this cholesterol.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietaryCholesterolRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass] g.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass] g)**: Valid mass must be non-negative.
+  /// - **Maximum ([maxMass] g)**: 1,000g is a reasonable upper bound for
+  ///   macronutrient intake from a single food item.
+  DietaryCholesterolRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
   }) {
-    return DietaryCholesterolRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Cholesterol mass must be between '
+          '${minMass.inGrams.toStringAsFixed(0)}-'
+          '${maxMass.inGrams.toStringAsFixed(0)} g. '
+          'Got ${mass.inGrams.toStringAsFixed(1)} g.',
     );
   }
 
-  /// Internal factory for creating [DietaryCholesterolRecord] instances without
-  /// validation.
-  ///
-  /// Creates a [DietaryCholesterolRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Minimum valid cholesterol mass (0.0 g).
+  static const Mass minMass = Mass.zero;
+
+  /// Maximum valid cholesterol mass (1,000.0 g).
+  static const Mass maxMass = Mass.grams(1000.0);
+
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryCholesterolRecord] constructor, which enforces validation and
@@ -87,7 +97,7 @@ final class DietaryCholesterolRecord extends DietaryMacronutrientRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietaryCholesterolRecord._(
+    return DietaryCholesterolRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -97,6 +107,8 @@ final class DietaryCholesterolRecord extends DietaryMacronutrientRecord {
       mealType: mealType,
     );
   }
+
+  /// Private constructor without validation.
 
   /// Creates a copy with the given fields replaced with the new values.
   DietaryCholesterolRecord copyWith({
@@ -118,14 +130,4 @@ final class DietaryCholesterolRecord extends DietaryMacronutrientRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietaryCholesterolRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

@@ -30,6 +30,16 @@ part of 'health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class BodyMassIndexRecord extends InstantHealthRecord {
+  /// Minimum valid BMI (5.0 kg/m²).
+  ///
+  /// Severe malnutrition threshold (life-threatening below ~10 kg/m²).
+  static const Number minBmi = Number(5.0);
+
+  /// Maximum valid BMI (100.0 kg/m²).
+  ///
+  /// Extreme obesity (typical max ~85 kg/m² in medical literature).
+  static const Number maxBmi = Number(100.0);
+
   /// Creates a body mass index record.
   ///
   /// ## Parameters
@@ -42,7 +52,15 @@ final class BodyMassIndexRecord extends InstantHealthRecord {
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError] if [bmi] is negative.
+  /// - [ArgumentError] if [bmi] is outside the valid range of
+  ///   [minBmi]-[maxBmi] kg/m².
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minBmi] kg/m²)**: Severe malnutrition threshold (life-threatening
+  ///   below ~10 kg/m²).
+  /// - **Maximum ([maxBmi] kg/m²)**: Extreme obesity (typical max ~85 kg/m²
+  ///   in medical literature).
   BodyMassIndexRecord({
     required super.time,
     required super.metadata,
@@ -50,13 +68,14 @@ final class BodyMassIndexRecord extends InstantHealthRecord {
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   }) {
-    if (bmi < Number.zero) {
-      throw ArgumentError.value(
-        bmi,
-        'bmi',
-        'Body mass index must be non-negative',
-      );
-    }
+    require(
+      condition: bmi >= minBmi && bmi <= maxBmi,
+      value: bmi,
+      name: 'bmi',
+      message:
+          'BMI must be between ${minBmi.value}-${maxBmi.value} kg/m². Got '
+          '${bmi.value.toStringAsFixed(1)} kg/m².',
+    );
   }
 
   /// Internal factory for creating [BodyMassIndexRecord] instances

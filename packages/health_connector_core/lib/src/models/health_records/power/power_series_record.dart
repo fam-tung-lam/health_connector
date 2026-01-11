@@ -200,14 +200,42 @@ final class PowerSeriesRecord extends SeriesHealthRecord<PowerSample> {
 @supportedOnHealthConnect
 @immutable
 final class PowerSample {
+  /// Minimum valid power.
+  static const Power minPower = CyclingPowerRecord.minPower;
+
+  /// Maximum valid power.
+  static const Power maxPower = CyclingPowerRecord.maxPower;
+
   /// Creates a power measurement.
   ///
   /// The [time] parameter specifies when the measurement was taken. The [power]
   /// parameter indicates the power output.
-  const PowerSample({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [power] is outside the valid range of
+  ///   [minPower]-[maxPower] W.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minPower] W)**: No power output (coasting).
+  /// - **Maximum ([maxPower] W)**: Elite track sprinters can peak at
+  ///   ~2,500W; 3,000W provides margin for brief maximal efforts.
+  PowerSample({
     required this.time,
     required this.power,
-  });
+  }) {
+    require(
+      condition: power >= minPower && power <= maxPower,
+      value: power,
+      name: 'power',
+      message:
+          'Power must be between '
+          '${minPower.inWatts.toStringAsFixed(0)}-'
+          '${maxPower.inWatts.toStringAsFixed(0)} W. '
+          'Got ${power.inWatts.toStringAsFixed(0)} W.',
+    );
+  }
 
   /// The time at which the power was measured, stored as a UTC instant.
   ///

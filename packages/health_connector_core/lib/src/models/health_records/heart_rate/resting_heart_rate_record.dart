@@ -30,6 +30,26 @@ part of '../health_record.dart';
 @sinceV1_3_0
 @immutable
 final class RestingHeartRateRecord extends InstantHealthRecord {
+  /// Minimum valid resting heart rate in beats per minute.
+  ///
+  /// Valid range: 1-300 bpm, aligned with Android Health Connect.
+  ///
+  /// ## Platform Compatibility
+  ///
+  /// - **Android Health Connect**: [RestingHeartRateRecord.kt](https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:health/connect/connect-client/src/main/java/androidx/health/connect/client/records/RestingHeartRateRecord.kt)
+  /// - **Apple HealthKit**: No platform limits (application-defined)
+  static final Frequency minRate = Frequency.perMinute(1.0);
+
+  /// Maximum valid resting heart rate in beats per minute.
+  ///
+  /// Valid range: 1-300 bpm, aligned with Android Health Connect.
+  ///
+  /// ## Platform Compatibility
+  ///
+  /// - **Android Health Connect**: [RestingHeartRateRecord.kt](https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:health/connect/connect-client/src/main/java/androidx/health/connect/client/records/RestingHeartRateRecord.kt)
+  /// - **Apple HealthKit**: No platform limits (application-defined)
+  static final Frequency maxRate = Frequency.perMinute(300.0);
+
   /// Creates a resting heart rate record.
   ///
   /// ## Parameters
@@ -39,24 +59,48 @@ final class RestingHeartRateRecord extends InstantHealthRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [rate]: The resting heart rate measurement in beats per minute.
-  const RestingHeartRateRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [rate] is outside the valid range of
+  ///   [minRate]-[maxRate].
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minRate])**: 1 bpm allows for extreme bradycardia and
+  ///   ensures all valid Health Connect data can be processed.
+  /// - **Maximum ([maxRate])**: 300 bpm maintains consistency with general
+  ///   heart rate validation and Health Connect requirements.
+  RestingHeartRateRecord({
     required super.time,
     required super.metadata,
     required this.rate,
     super.id,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: rate >= minRate && rate <= maxRate,
+      value: rate,
+      name: 'rate',
+      message:
+          'Resting heart rate must be between '
+          '${minRate.inPerMinute.toStringAsFixed(0)}-'
+          '${maxRate.inPerMinute.toStringAsFixed(0)} bpm. '
+          'Got ${rate.inPerMinute.toStringAsFixed(1)} bpm.',
+    );
+  }
 
-  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// Internal factory for creating [RestingHeartRateRecord] instances without
   /// validation.
   ///
-  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// Creates a [RestingHeartRateRecord] by directly mapping platform data to
   /// fields, bypassing the normal validation and business rules applied by the
   /// public constructor.
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [BloodPressureRecord] constructor, which enforces validation and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// [RestingHeartRateRecord] constructor, which enforces validation and
+  /// business rules. This factory is restricted to the SDK developers and
+  /// contributors.
   @internalUse
   factory RestingHeartRateRecord.internal({
     required HealthRecordId id,

@@ -28,6 +28,19 @@ part of 'health_record.dart';
 @sinceV1_0_0
 @immutable
 final class HeightRecord extends InstantHealthRecord {
+  /// Minimum valid height in centimeters (30 cm).
+  ///
+  /// Premature newborn lower bound.
+  /// Minimum valid height (30 cm).
+  ///
+  /// Premature newborn lower bound.
+  static const Length minHeight = Length.centimeters(30.0);
+
+  /// Maximum valid height (280 cm).
+  ///
+  /// Exceeds the tallest recorded person (272 cm, Robert Wadlow) with margin.
+  static const Length maxHeight = Length.centimeters(280.0);
+
   /// Creates a body height record.
   ///
   /// ## Parameters
@@ -40,14 +53,33 @@ final class HeightRecord extends InstantHealthRecord {
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError] if [height] is less than or equal to 0 meters.
-  const HeightRecord({
+  /// - [ArgumentError] if [height] is outside the valid range of
+  /// - [ArgumentError] if [height] is outside the valid range of
+  ///   [minHeight]-[maxHeight] cm.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minHeight] cm)**: Premature newborn lower bound.
+  /// - **Maximum ([maxHeight] cm)**: Exceeds the tallest recorded person
+  ///   (272 cm, Robert Wadlow) with margin.
+  HeightRecord({
     required super.time,
     required super.metadata,
     required this.height,
     super.id,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: height >= minHeight && height <= maxHeight,
+      value: height,
+      name: 'height',
+      message:
+          'Height must be between '
+          '${minHeight.inCentimeters.toStringAsFixed(1)}-'
+          '${maxHeight.inCentimeters.toStringAsFixed(0)} cm. '
+          'Got ${height.inCentimeters.toStringAsFixed(1)} cm.',
+    );
+  }
 
   /// Internal factory for creating [HeightRecord] instances
   /// without validation.

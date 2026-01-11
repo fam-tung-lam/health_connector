@@ -7,7 +7,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: Not supported  (Use [CyclingPedalingCadenceSeriesRecord])
+/// - **Android Health Connect**: Not supported. Use
+///   [CyclingPedalingCadenceSeriesRecord] instead.
 /// - **iOS HealthKit**:  [`HKQuantityTypeIdentifier.cyclingCadence`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/cyclingcadence)
 ///
 /// ## Example
@@ -32,15 +33,48 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class CyclingPedalingCadenceRecord extends InstantHealthRecord {
+  /// Minimum valid cycling cadence (0.0 RPM).
+  ///
+  /// Not pedaling (coasting).
+  static final Frequency minCadence = Frequency.perMinute(0.0);
+
+  /// Maximum valid cycling cadence (200.0 RPM).
+  ///
+  /// Typical cadence 60-100 RPM; elite cyclists ~120 RPM; 200 RPM allows for
+  /// brief sprint peaks.
+  static final Frequency maxCadence = Frequency.perMinute(200.0);
+
   /// Creates a cycling pedaling cadence measurement record.
-  /// Creates a cycling pedaling cadence measurement record.
-  const CyclingPedalingCadenceRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [cadence] is outside the valid range of
+  /// - [ArgumentError] if [cadence] is outside the valid range of
+  ///   [minCadence]-[maxCadence] RPM.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minCadence] RPM)**: Not pedaling (coasting).
+  /// - **Maximum ([maxCadence] RPM)**: Typical cadence 60-100 RPM; elite
+  ///   cyclists ~120 RPM; 200 RPM allows for brief sprint peaks.
+  CyclingPedalingCadenceRecord({
     required super.id,
     required this.cadence,
     required super.time,
     required super.metadata,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: cadence >= minCadence && cadence <= maxCadence,
+      value: cadence,
+      name: 'cadence',
+      message:
+          'Cycling cadence must be between '
+          '${minCadence.inPerMinute.toStringAsFixed(0)}-'
+          '${maxCadence.inPerMinute.toStringAsFixed(0)} RPM. '
+          'Got ${cadence.inPerMinute.toStringAsFixed(0)} RPM.',
+    );
+  }
 
   /// Internal factory for creating [CyclingPedalingCadenceRecord] instances
   /// without validation.

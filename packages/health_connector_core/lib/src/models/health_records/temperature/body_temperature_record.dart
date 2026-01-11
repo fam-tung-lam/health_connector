@@ -28,6 +28,18 @@ part of '../health_record.dart';
 @sinceV1_0_0
 @immutable
 final class BodyTemperatureRecord extends InstantHealthRecord {
+  /// Minimum valid body temperature (10°C).
+  ///
+  /// Below lowest survived core temperature (11.8°C) with margin for sensor
+  /// variance.
+  static const Temperature minTemperature = Temperature.celsius(10.0);
+
+  /// Maximum valid body temperature (47°C).
+  ///
+  /// Above typical lethal threshold (46.5°C); values above indicate
+  /// measurement error.
+  static const Temperature maxTemperature = Temperature.celsius(47.0);
+
   /// Creates a body temperature record.
   ///
   /// ## Parameters
@@ -37,13 +49,36 @@ final class BodyTemperatureRecord extends InstantHealthRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [temperature]: The body temperature measurement.
-  const BodyTemperatureRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [temperature] is outside the valid range of
+  ///   [minTemperature]-[maxTemperature]°C (50-117°F).
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minTemperature]°C / 50°F)**: Below lowest survived core temperature
+  ///   (11.8°C) with margin for sensor variance.
+  /// - **Maximum ([maxTemperature]°C / 117°F)**: Above typical lethal threshold (46.5°C);
+  ///   values above indicate measurement error.
+  BodyTemperatureRecord({
     required super.time,
     required super.metadata,
     required this.temperature,
     super.id,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: temperature >= minTemperature && temperature <= maxTemperature,
+      value: temperature,
+      name: 'temperature',
+      message:
+          'Body temperature must be between '
+          '${minTemperature.inCelsius.toStringAsFixed(0)}-'
+          '${maxTemperature.inCelsius.toStringAsFixed(0)}°C (50-117°F). '
+          'Got ${temperature.inCelsius.toStringAsFixed(1)}°C.',
+    );
+  }
 
   /// Internal factory for creating [BodyTemperatureRecord] instances
   /// without validation.

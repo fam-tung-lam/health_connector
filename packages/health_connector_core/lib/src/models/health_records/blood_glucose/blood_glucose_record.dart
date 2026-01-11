@@ -32,6 +32,20 @@ part of '../health_record.dart';
 @sinceV1_4_0
 @immutable
 final class BloodGlucoseRecord extends InstantHealthRecord {
+  /// Minimum valid blood glucose (20 mg/dL).
+  ///
+  /// Severe hypoglycemia threshold; values below typically require emergency
+  /// intervention.
+  static const BloodGlucose minBloodGlucose =
+      BloodGlucose.milligramsPerDeciliter(20.0);
+
+  /// Maximum valid blood glucose (700 mg/dL).
+  ///
+  /// Hyperglycemic emergency threshold; higher values indicate measurement
+  /// error.
+  static const BloodGlucose maxBloodGlucose =
+      BloodGlucose.milligramsPerDeciliter(700.0);
+
   /// Creates a blood glucose record.
   ///
   /// ## Parameters
@@ -45,7 +59,19 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
   ///   meal).
   /// - [mealType]: The type of meal (e.g., breakfast, lunch).
   /// - [specimenSource]: The source of the specimen (e.g., capillary blood).
-  const BloodGlucoseRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [glucoseLevel] is outside the valid range of
+  ///   [minBloodGlucose]-[maxBloodGlucose] (1.1-38.9 mmol/L).
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minBloodGlucose] / 1.1 mmol/L)**: Severe hypoglycemia threshold;
+  ///   values below typically require emergency intervention.
+  /// - **Maximum ([maxBloodGlucose] / 38.9 mmol/L)**: Hyperglycemic emergency
+  ///   threshold; higher values indicate measurement error.
+  BloodGlucoseRecord({
     required super.time,
     required super.metadata,
     required this.glucoseLevel,
@@ -54,7 +80,20 @@ final class BloodGlucoseRecord extends InstantHealthRecord {
     this.relationToMeal = BloodGlucoseRelationToMeal.unknown,
     this.mealType = MealType.unknown,
     this.specimenSource = BloodGlucoseSpecimenSource.unknown,
-  });
+  }) {
+    require(
+      condition:
+          glucoseLevel >= minBloodGlucose && glucoseLevel <= maxBloodGlucose,
+      value: glucoseLevel,
+      name: 'glucoseLevel',
+      message:
+          'Blood glucose must be between '
+          '${minBloodGlucose.inMilligramsPerDeciliter.toStringAsFixed(0)}-'
+          '${maxBloodGlucose.inMilligramsPerDeciliter.toStringAsFixed(0)} mg/dL '
+          '(1.1-38.9 mmol/L). '
+          'Got ${glucoseLevel.inMilligramsPerDeciliter.toStringAsFixed(1)} mg/dL.',
+    );
+  }
 
   /// Internal factory for creating [BloodGlucoseRecord] instances without
   /// validation.

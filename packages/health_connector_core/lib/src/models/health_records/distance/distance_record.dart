@@ -28,6 +28,15 @@ part of '../health_record.dart';
 @supportedOnHealthConnect
 @immutable
 final class DistanceRecord extends IntervalHealthRecord {
+  /// Minimum valid distance (0.0 km).
+  static const Length minDistance = Length.zero;
+
+  /// Maximum valid distance (1,000.0 km).
+  ///
+  /// Ultra-endurance events (e.g., multi-day races, cycling tours) can exceed
+  /// 500 km; 1,000 km allows for aggregated data.
+  static const Length maxDistance = Length.kilometers(1000.0);
+
   /// Creates a distance record.
   ///
   /// ## Parameters
@@ -43,6 +52,15 @@ final class DistanceRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
+  /// - [ArgumentError] if [distance] is outside the valid range of
+  ///   [minDistance]-[maxDistance] km.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minDistance] km)**: No distance during the interval.
+  /// - **Maximum ([maxDistance] km)**: Ultra-endurance events (e.g.,
+  ///   multi-day races, cycling tours) can exceed 500 km; 1,000 km allows for
+  ///   aggregated data.
   DistanceRecord({
     required super.startTime,
     required super.endTime,
@@ -51,7 +69,18 @@ final class DistanceRecord extends IntervalHealthRecord {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: distance >= minDistance && distance <= maxDistance,
+      value: distance,
+      name: 'distance',
+      message:
+          'Distance must be between '
+          '${minDistance.inKilometers.toStringAsFixed(0)}-'
+          '${maxDistance.inKilometers.toStringAsFixed(0)} km. '
+          'Got ${distance.inKilometers.toStringAsFixed(1)} km.',
+    );
+  }
 
   /// Internal factory for creating [DistanceRecord] instances
   /// without validation.
