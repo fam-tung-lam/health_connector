@@ -5,7 +5,7 @@ void main() {
   group('BasalBodyTemperatureRecord', () {
     final now = DateTime(2026, 1, 11);
     final metadata = Metadata.manualEntry();
-    final validTemp = Temperature.celsius(36.5);
+    const validTemp = Temperature.celsius(36.5);
 
     test('can be instantiated with valid parameters', () {
       final record = BasalBodyTemperatureRecord(
@@ -49,7 +49,7 @@ void main() {
       );
 
       final newTime = now.add(const Duration(minutes: 5));
-      final newTemp = Temperature.celsius(37.0);
+      const newTemp = Temperature.celsius(37.0);
       final newMetadata = Metadata.manualEntry();
 
       final updated = record.copyWith(

@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:health_connector_hk_ios/src/health_connector_hk_client.dart';
 import 'package:health_connector_hk_ios/src/pigeon/health_connector_hk_ios_api.g.dart';
-import 'package:health_connector_logger/health_connector_logger.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:parameterized_test/parameterized_test.dart';
 
@@ -19,9 +18,6 @@ void main() {
     () {
       // Initialize Flutter binding for EventChannel support
       TestWidgetsFlutterBinding.ensureInitialized();
-
-      // Disable logging during tests
-      HealthConnectorLogger.isEnabled = false;
 
       // Register fallback values for complex types
       registerFallbackValue(
@@ -165,30 +161,6 @@ void main() {
 
               expect(client, isA<HealthConnectorHKClient>());
               verify(() => mockApi.initialize(any())).called(1);
-            },
-          );
-
-          test(
-            'passes config to initialize',
-            () async {
-              when(() => mockApi.initialize(any())).thenAnswer(
-                (_) async {},
-              );
-              const config = HealthConnectorConfig(isLoggerEnabled: false);
-
-              await HealthConnectorHKClient.create(config);
-
-              verify(
-                () => mockApi.initialize(
-                  any(
-                    that: isA<HealthConnectorConfigDto>().having(
-                      (c) => c.isLoggerEnabled,
-                      'isLoggerEnabled',
-                      false,
-                    ),
-                  ),
-                ),
-              ).called(1);
             },
           );
         },

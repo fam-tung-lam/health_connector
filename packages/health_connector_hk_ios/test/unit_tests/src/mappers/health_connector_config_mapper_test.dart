@@ -21,7 +21,7 @@ void main() {
         'converts HealthConnectorConfig with logging disabled to '
         'HealthConnectorConfigDto',
         () {
-          const config = HealthConnectorConfig(isLoggerEnabled: false);
+          const config = HealthConnectorConfig();
           final dto = config.toDto();
 
           expect(dto.isLoggerEnabled, false);

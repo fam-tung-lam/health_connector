@@ -30,6 +30,20 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
+List<Object?> wrapResponse({
+  Object? result,
+  PlatformException? error,
+  bool empty = false,
+}) {
+  if (empty) {
+    return <Object?>[];
+  }
+  if (error == null) {
+    return <Object?>[result];
+  }
+  return <Object?>[error.code, error.message, error.details];
+}
+
 bool _deepEquals(Object? a, Object? b) {
   if (a is List && b is List) {
     return a.length == b.length &&
@@ -8607,25 +8621,76 @@ class _PigeonCodec extends StandardMessageCodec {
   }
 }
 
-const StandardMethodCodec pigeonMethodCodec = StandardMethodCodec(
-  _PigeonCodec(),
-);
-
-/// EventChannel API for streaming log events from native to Flutter.
+/// FlutterApi for receiving log events from the native platform.
 ///
-/// This API enables real-time observation of Health Connector SDK operations
-/// for debugging, monitoring, and analytics purposes.
-Stream<HealthConnectorLogDto> watchLogEvents({String instanceName = ''}) {
-  if (instanceName.isNotEmpty) {
-    instanceName = '.$instanceName';
+/// This API is implemented on the Flutter side and called by the native
+/// platform to deliver log events in real-time. It serves as the callback
+/// handler for the event channel stream.
+///
+/// Platform flow:
+/// - iOS: Native code calls this method for each log event emitted by
+///   the Health Connector SDK operations
+abstract class HealthConnectorNativeLogApi {
+  static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
+
+  /// Called by native code when a log event occurs.
+  ///
+  /// This method is invoked from the native platform whenever the Health
+  /// Connector SDK emits a log event during operations such as reading,
+  /// writing, or synchronizing health data.
+  ///
+  /// Parameters:
+  /// - [log]: The log event data containing level, message, timestamp,
+  ///   and optional exception information
+  ///
+  /// Note: This method should execute quickly to avoid blocking the
+  /// native platform's logging pipeline.
+  void onNativeLogEvent(HealthConnectorLogDto log);
+
+  static void setUp(
+    HealthConnectorNativeLogApi? api, {
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) {
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty
+        ? '.$messageChannelSuffix'
+        : '';
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorNativeLogApi.onNativeLogEvent$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorNativeLogApi.onNativeLogEvent was null.',
+          );
+          final List<Object?> args = (message as List<Object?>?)!;
+          final HealthConnectorLogDto? arg_log =
+              (args[0] as HealthConnectorLogDto?);
+          assert(
+            arg_log != null,
+            'Argument for dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorNativeLogApi.onNativeLogEvent was null, expected non-null HealthConnectorLogDto.',
+          );
+          try {
+            api.onNativeLogEvent(arg_log!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
   }
-  final EventChannel watchLogEventsChannel = EventChannel(
-    'dev.flutter.pigeon.health_connector_hk_ios.HealthConnectorLogStreamApi.watchLogEvents$instanceName',
-    pigeonMethodCodec,
-  );
-  return watchLogEventsChannel.receiveBroadcastStream().map((dynamic event) {
-    return event as HealthConnectorLogDto;
-  });
 }
 
 /// The main API for communicating with the health platform.

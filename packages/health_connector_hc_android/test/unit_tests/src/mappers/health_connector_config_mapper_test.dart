@@ -17,9 +17,7 @@ void main() {
               [false],
             ],
             (bool isLoggerEnabled) {
-              final config = HealthConnectorConfig(
-                isLoggerEnabled: isLoggerEnabled,
-              );
+              const config = HealthConnectorConfig();
               final dto = config.toDto();
               expect(dto.isLoggerEnabled, isLoggerEnabled);
             },

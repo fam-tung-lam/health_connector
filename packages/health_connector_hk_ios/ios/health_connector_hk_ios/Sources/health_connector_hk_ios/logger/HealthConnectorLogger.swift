@@ -1,11 +1,12 @@
+import Flutter
 import Foundation
 import OSLog
 
 /// A singleton logger.
 ///
-/// Implements `WatchLogEventsStreamHandler` to provide log event streaming
-/// to Flutter via Pigeon EventChannel.
-final class HealthConnectorLogger: WatchLogEventsStreamHandler {
+/// Uses `HealthConnectorNativeLogApi` to send log events to Flutter via
+/// callback-based Pigeon API.
+final class HealthConnectorLogger {
     /// Lock for thread-safe access to _isEnabled
     ///
     /// Uses `NSLock` to protect the `isEnabled` flag for thread-safe access across concurrency domains.
@@ -40,13 +41,19 @@ final class HealthConnectorLogger: WatchLogEventsStreamHandler {
     /// Singleton instance of the logger
     static let shared = HealthConnectorLogger()
 
-    /// Thread-safe reference to the event sink for streaming logs to Flutter.
-    private var eventSink: PigeonEventSink<HealthConnectorLogDto>?
-    private let sinkLock = NSLock()
+    /// API instance for sending log events to Flutter.
+    private var logApi: HealthConnectorNativeLogApi?
+    private let apiLock = NSLock()
 
-    /// Private initializer to enforce singleton pattern
-    override private init() {
-        super.init()
+    /// Initializes the logger with the binary messenger.
+    ///
+    /// - Parameter binaryMessenger: The Flutter binary messenger for Pigeon API.
+    static func initialize(binaryMessenger: FlutterBinaryMessenger) {
+        shared.apiLock.lock()
+        defer { shared.apiLock.unlock() }
+        if shared.logApi == nil {
+            shared.logApi = HealthConnectorNativeLogApi(binaryMessenger: binaryMessenger)
+        }
     }
 
     /// Sets whether logging is enabled.
@@ -59,21 +66,8 @@ final class HealthConnectorLogger: WatchLogEventsStreamHandler {
     /// Internal method that formats and logs the message.
     ///
     /// Handles all logging logic including enabled check, message formatting,
-    /// and output. Formats the message according to the specified format:
-    /// ```
-    /// [{datetime}][{level}]:
-    /// {
-    ///    operation: {operation},
-    ///    message: {message},
-    ///    exception: {
-    ///      cause: {exception},
-    ///      stack_trace: {stackTrace},
-    ///    },
-    ///    context: {
-    ///      key1: value1,
-    ///    },
-    /// }
-    /// ```
+    /// and sending log events to Flutter via callback API. When logging is
+    /// disabled, does not send any events.
     ///
     /// - Parameters:
     ///   - level: The log level (DEBUG, INFO, WARNING, ERROR).
@@ -94,47 +88,51 @@ final class HealthConnectorLogger: WatchLogEventsStreamHandler {
             return
         }
 
-        // Extract stack trace from exception if available
-        let stackTrace: String? =
-            if exception != nil {
-                Thread.callStackSymbols.joined(separator: "\n")
+        // Get API instance
+        shared.apiLock.lock()
+        let api = shared.logApi
+        shared.apiLock.unlock()
+
+        guard let api else {
+            return
+        }
+
+        let timestampMs = Int64(Date().timeIntervalSince1970 * 1000)
+
+        // Convert context to [String?: String?] for codec compatibility
+        // All values must be converted to strings to avoid codec serialization errors
+        let convertedContext: [String?: String?]? = context?.reduce(into: [:]) { result, pair in
+            if let value = pair.value {
+                result[pair.key as String?] = String(describing: value)
             } else {
-                nil
+                result[pair.key as String?] = nil
             }
+        }
 
-        // Emit log event to Flutter stream if listening
-        shared.sinkLock.lock()
-        let sink = shared.eventSink
-        shared.sinkLock.unlock()
+        let logDto = HealthConnectorLogDto(
+            level: level.toDto(),
+            tag: tag.uppercased(),
+            millisecondsSinceEpoch: timestampMs,
+            message: message ?? "",
+            operation: operation,
+            exception: exception?.toExceptionInfoDto(),
+            stackTrace: exception != nil
+                ? Thread.callStackSymbols.joined(separator: "\n") : nil,
+            context: convertedContext
+        )
 
-        if let sink {
-            let timestampMs = Int64(Date().timeIntervalSince1970 * 1000)
-
-            // Convert context to [String?: String?] for codec compatibility
-            // All values must be converted to strings to avoid codec serialization errors
-            let convertedContext: [String?: String?]? = context?.reduce(into: [:]) { result, pair in
-                if let value = pair.value {
-                    result[pair.key as String?] = String(describing: value)
-                } else {
-                    result[pair.key as String?] = nil
+        // Must call on main thread for Flutter channel safety
+        DispatchQueue.main.async {
+            api.onNativeLogEvent(log: logDto) { result in
+                // Callback is invoked by Flutter. Errors are ignored to prevent
+                // logging failures from affecting app functionality.
+                switch result {
+                case .success:
+                    break
+                case .failure:
+                    // Silently ignore Flutter callback errors
+                    break
                 }
-            }
-
-            let logDto = HealthConnectorLogDto(
-                level: level.toDto(),
-                tag: tag.uppercased(),
-                millisecondsSinceEpoch: timestampMs,
-                message: message ?? "",
-                operation: operation,
-                exception: exception?.toExceptionInfoDto(),
-                stackTrace: exception != nil
-                    ? Thread.callStackSymbols.joined(separator: "\n") : nil,
-                context: convertedContext
-            )
-
-            // Must emit on main thread for Flutter channel safety
-            DispatchQueue.main.async {
-                sink.success(logDto)
             }
         }
     }
@@ -249,24 +247,5 @@ final class HealthConnectorLogger: WatchLogEventsStreamHandler {
             context: context,
             exception: exception
         )
-    }
-
-    // MARK: - WatchLogEventsStreamHandler Implementation
-
-    /// Called when Flutter starts listening to the log event stream.
-    override func onListen(
-        withArguments _: Any?,
-        sink: PigeonEventSink<HealthConnectorLogDto>
-    ) {
-        sinkLock.lock()
-        defer { sinkLock.unlock() }
-        eventSink = sink
-    }
-
-    /// Called when Flutter stops listening to the log event stream.
-    override func onCancel(withArguments _: Any?) {
-        sinkLock.lock()
-        defer { sinkLock.unlock() }
-        eventSink = nil
     }
 }

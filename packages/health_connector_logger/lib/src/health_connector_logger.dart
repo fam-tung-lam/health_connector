@@ -1,151 +1,104 @@
-import 'dart:async' show Stream, StreamController, StreamSubscription;
+import 'dart:async' show unawaited;
 
+import 'package:health_connector_logger/src/log_processors/health_connector_log_processor.dart';
 import 'package:health_connector_logger/src/models/health_connector_log.dart';
 import 'package:health_connector_logger/src/models/health_connector_log_level.dart';
 
-/// A singleton logger that provides a consistent structured logging mechanism.
+/// Internal singleton logger providing structured, consistent logging across
+/// the HealthConnector SDK.
+///
+/// **⚠️ INTERNAL USE ONLY**
+///
+/// This class is strictly for internal SDK use and is NOT part of the public
+/// API. It should only be accessed within the `health_connector` library
+/// ecosystem. External consumers must not depend on or reference
+/// [HealthConnectorLogger] as its implementation may change without notice.
 abstract final class HealthConnectorLogger {
   /// Private constructor to prevent instantiation.
   const HealthConnectorLogger._();
 
-  /// Whether logging is enabled.
+  /// List of registered log processors.
   ///
-  /// When set to `false`, all logging methods will return immediately without
-  /// logging any messages. Defaults to `true`.
-  static bool isEnabled = true;
+  /// Processors in this list will receive and process all log events.
+  /// Use [addProcessor] and [removeProcessor] to manage the list.
+  /// but won't be processed by any processors.
+  static final List<HealthConnectorLogProcessor> _processors = [];
 
-  /// Stream controller for broadcasting log events.
-  static final StreamController<HealthConnectorLog> _logsController =
-      StreamController<HealthConnectorLog>.broadcast();
-
-  /// Stream of structured log events.
+  /// Manually logs a [HealthConnectorLog] event.
   ///
-  /// Subscribe to this stream to receive [HealthConnectorLog] events for all
-  /// logging calls made through this logger. Multiple subscribers are
-  /// supported via a broadcast stream.
-  ///
-  /// Events are only emitted when [isEnabled] is `true`. When logging is
-  /// disabled, no events will be emitted.
-  ///
-  /// ## Example
-  ///
-  /// ```dart
-  /// // Subscribe to log events
-  /// final subscription = HealthConnectorLogger.logs.listen((log) {
-  ///   print('[${log.level.name}] ${log.operation}');
-  ///   if (log.exception != null) {
-  ///     // Handle exceptions
-  ///     print('Exception: ${log.exception}');
-  ///   }
-  /// });
-  ///
-  /// // Generate a log
-  /// HealthConnectorLogger.info(
-  ///   'API',
-  ///   operation: 'readRecords',
-  ///   message: 'Successfully read records',
-  ///   context: {'count': 42},
-  /// );
-  ///
-  /// // Clean up when done
-  /// await subscription.cancel();
-  /// ```
-  static Stream<HealthConnectorLog> get logs => _logsController.stream;
-
-  /// Subscriptions to external log source streams for cleanup management.
-  ///
-  /// This list tracks [StreamSubscription]s created when external log sources
-  /// are registered via [registerExternalLogSource]. Each subscription
-  /// forwards log events from the external source to the unified [logs] stream.
-  static final List<StreamSubscription<HealthConnectorLog>>
-  _externalLogSourceSubscriptions = [];
-
-  /// Registers an external log source stream to forward events to the unified
-  /// log stream.
-  ///
-  /// This method subscribes to the provided stream and forwards all log events
-  /// to the main [logs] stream, allowing platform-specific plugins to
-  /// contribute their native log events.
-  ///
-  /// The subscription is managed internally and will be cancelled when
-  /// [disposeExternalLogSources] is called. Events are only forwarded when
-  /// [isEnabled] is `true`.
+  /// This method allows external sources (such as platform clients) to feed
+  /// log events directly into the logger, where they will be processed by all
+  /// registered [HealthConnectorLogProcessor]s.
   ///
   /// ## Parameters
   ///
-  /// - [source]: A stream of [HealthConnectorLog] events from an external
-  ///   source.
+  /// - [log]: The [HealthConnectorLog] event to process.
+  static void internalLog(HealthConnectorLog log) {
+    for (final processor in _processors) {
+      if (processor.shouldProcess(log)) {
+        // Fire and forget - don't await to avoid blocking
+        unawaited(processor.process(log));
+      }
+    }
+  }
+
+  /// Adds a log processor to handle log events.
   ///
-  /// ## Error Handling
+  /// The processor will receive all future log events and process them
+  /// according to its [HealthConnectorLogProcessor.shouldProcess] logic.
+  /// Multiple processors can be registered and will all receive log events.
   ///
-  /// Errors from the external source are logged via [debug] but do not
-  /// propagate or terminate the subscription, ensuring one source's failures
-  /// don't affect other registered sources.
+  /// ## Parameters
+  ///
+  /// - [processor]: The [HealthConnectorLogProcessor] to add.
   ///
   /// ## Example
   ///
   /// ```dart
-  /// // In health_connector_hc_android plugin initialization:
-  /// final nativeLogStream = HealthConnectorHCClient.watchNativeLogs();
-  /// HealthConnectorLogger.registerExternalLogSource(nativeLogStream);
+  /// // Add a print processor for development
+  /// HealthConnectorLogger.addProcessor(
+  ///   const ColorfulPrintLogProcessor(
+  ///     levels: HealthConnectorLogLevel.values,
+  ///   ),
+  /// );
   /// ```
   ///
   /// ## See Also
   ///
-  /// - [disposeExternalLogSources] to cancel all registered log sources
-  /// - [logs] for the unified log stream output
-  static void registerExternalLogSource(Stream<HealthConnectorLog> source) {
-    final subscription = source.listen(
-      (log) {
-        if (isEnabled) {
-          _logsController.add(log);
-        }
-      },
-      onError: (Object error, StackTrace stackTrace) {
-        // Log the error but don't propagate to avoid breaking the stream.
-        debug(
-          'HealthConnectorLogger',
-          operation: 'register_external_log_source',
-          message: 'Error from external log source',
-          exception: error,
-          stackTrace: stackTrace,
-        );
-      },
-      cancelOnError: false,
-    );
-    _externalLogSourceSubscriptions.add(subscription);
+  /// - [removeProcessor] to remove a processor
+  /// - [HealthConnectorLogProcessor] for creating custom processors
+  static void addProcessor(HealthConnectorLogProcessor processor) {
+    _processors.add(processor);
   }
 
-  /// Disposes all external log source subscriptions and releases resources.
+  /// Removes a log processor from handling log events.
   ///
-  /// This method cancels all stream subscriptions created by
-  /// [registerExternalLogSource] and clears the internal subscription list.
-  /// After calling this method, external log sources will no longer forward
-  /// events to the unified [logs] stream.
+  /// The processor will no longer receive log events after being removed.
+  /// If the processor is not in the list, this method does nothing.
+  ///
+  /// ## Parameters
+  ///
+  /// - [processor]: The [HealthConnectorLogProcessor] to remove.
   ///
   /// ## Returns
   ///
-  /// A [Future] that completes when all subscriptions have been cancelled.
+  /// `true` if the processor was found and removed, `false` otherwise.
   ///
   /// ## Example
   ///
   /// ```dart
-  /// // During plugin cleanup:
-  /// @override
-  /// Future<void> dispose() async {
-  ///   await HealthConnectorLogger.disposeExternalLogSources();
-  ///   super.dispose();
-  /// }
+  /// final processor = const PrintLogProcessor();
+  /// HealthConnectorLogger.addProcessor(processor);
+  ///
+  /// // Later, remove it
+  /// final removed = HealthConnectorLogger.removeProcessor(processor);
   /// ```
   ///
   /// ## See Also
   ///
-  /// - [registerExternalLogSource] to register new log sources
-  static Future<void> disposeExternalLogSources() async {
-    for (final subscription in _externalLogSourceSubscriptions) {
-      await subscription.cancel();
-    }
-    _externalLogSourceSubscriptions.clear();
+  /// - [addProcessor] to add a processor
+  static bool removeProcessor(HealthConnectorLogProcessor processor) {
+    return _processors.remove(processor);
   }
 
   /// Logs an informational message.
@@ -360,23 +313,18 @@ abstract final class HealthConnectorLogger {
     final Object? exception,
     final StackTrace? stackTrace,
   }) {
-    // Early exit if logging is disabled
-    if (!isEnabled) {
-      return;
-    }
-
-    // Create and emit log event
-    _logsController.add(
-      HealthConnectorDartLog(
-        level: level,
-        tag: tag,
-        operation: operation,
-        dateTime: DateTime.now(),
-        message: message,
-        context: context,
-        exception: exception,
-        stackTrace: stackTrace,
-      ),
+    // Create log event
+    final log = HealthConnectorDartLog(
+      level: level,
+      tag: tag,
+      operation: operation,
+      dateTime: DateTime.now(),
+      message: message,
+      context: context,
+      exception: exception,
+      stackTrace: stackTrace,
     );
+
+    HealthConnectorLogger.internalLog(log);
   }
 }

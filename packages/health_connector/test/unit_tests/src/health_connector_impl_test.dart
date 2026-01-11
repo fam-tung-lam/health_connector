@@ -86,7 +86,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -128,7 +128,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -149,7 +149,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -184,7 +184,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -215,7 +215,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -250,7 +250,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -288,7 +288,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -319,7 +319,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -356,7 +356,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -398,7 +398,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -436,7 +436,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -470,7 +470,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -502,7 +502,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -541,7 +541,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -566,7 +566,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -611,7 +611,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -645,7 +645,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -684,7 +684,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -718,7 +718,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -757,7 +757,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -788,7 +788,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -816,7 +816,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -849,7 +849,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -887,7 +887,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.appleHealth,
                 healthPlatformClient: mockClient,
               );
@@ -917,7 +917,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -950,7 +950,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -981,7 +981,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -1019,7 +1019,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.appleHealth,
                 healthPlatformClient: mockClient,
               );
@@ -1053,7 +1053,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -1095,7 +1095,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
@@ -1128,7 +1128,7 @@ void main() {
             () async {
               // GIVEN
               final connector = HealthConnectorImpl(
-                config: const HealthConnectorConfig(isLoggerEnabled: false),
+                config: const HealthConnectorConfig(),
                 healthPlatform: HealthPlatform.healthConnect,
                 healthPlatformClient: mockClient,
               );
