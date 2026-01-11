@@ -7,9 +7,7 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`BodyWaterMassRecord`](https://developer.andr
-/// oid.com/reference/kotlin/androidx/health/connect/client/records/BodyWaterMas
-/// sRecord)
+/// - **Android Health Connect**: [`BodyWaterMassRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyWaterMassRecord)
 /// - **iOS HealthKit**: Not supported.
 ///
 /// ## Example

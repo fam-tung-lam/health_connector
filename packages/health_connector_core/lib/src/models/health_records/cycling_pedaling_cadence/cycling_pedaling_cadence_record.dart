@@ -7,11 +7,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: Not supported
-///   (Use [CyclingPedalingCadenceSeriesRecord])
-/// - **iOS HealthKit**:
-///   [`HKQuantityTypeIdentifier.cyclingCadence`](https://developer.apple.com/do
-/// cumentation/healthkit/hkquantitytypeidentifier/cyclingcadence)
+/// - **Android Health Connect**: Not supported  (Use [CyclingPedalingCadenceSeriesRecord])
+/// - **iOS HealthKit**:  [`HKQuantityTypeIdentifier.cyclingCadence`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/cyclingcadence)
 ///
 /// ## Example
 ///

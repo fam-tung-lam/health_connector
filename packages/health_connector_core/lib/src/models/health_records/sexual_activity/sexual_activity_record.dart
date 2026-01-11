@@ -8,12 +8,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`SexualActivityRecord`](https://developer.and
-/// roid.com/reference/kotlin/androidx/health/connect/client/records/SexualActiv
-/// ityRecord)
-/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.sexualActivity`](https://dev
-/// eloper.apple.com/documentation/healthkit/hkcategorytypeidentifier/sexualacti
-/// vity)
+/// - **Android Health Connect**: [`SexualActivityRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SexualActivityRecord)
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.sexualActivity`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sexualactivity)
 ///
 /// ## Example
 ///

@@ -8,9 +8,7 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.basalEnergyBurned`](https://
-/// developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/basalen
-/// ergyburned)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.basalEnergyBurned`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/basalenergyburned)
 ///
 /// ## Example
 ///

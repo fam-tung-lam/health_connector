@@ -7,10 +7,8 @@ part of '../../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: Maps to
-///   `OvulationTestRecord.RESULT_*` constants
-/// - **iOS HealthKit**: Maps to
-///   `HKCategoryValueOvulationTestResult` enum values
+/// - **Android Health Connect**: Maps to  `OvulationTestRecord.RESULT_*` constants
+/// - **iOS HealthKit**: Maps to  `HKCategoryValueOvulationTestResult` enum values
 ///
 /// {@category Health Records}
 @sinceV2_2_0

@@ -8,12 +8,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminB6`](http
-/// s://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/die
-/// taryvitaminb6)
-/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.
-/// android.com/reference/kotlin/androidx/health/connect/client/records/Nutritio
-/// nRecord)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminB6`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitaminb6)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
 ///

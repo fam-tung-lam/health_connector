@@ -7,12 +7,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryManganese`](http
-/// s://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/die
-/// tarymanganese)
-/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.
-/// android.com/reference/kotlin/androidx/health/connect/client/records/Nutritio
-/// nRecord)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryManganese`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarymanganese)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
 ///

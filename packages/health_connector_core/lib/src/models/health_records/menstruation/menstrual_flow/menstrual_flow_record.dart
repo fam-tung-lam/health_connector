@@ -8,11 +8,8 @@ part of '../../health_record.dart';
 ///
 /// ## Platform Support
 ///
-/// - **Android Health Connect**: Not supported. Use
-///   [MenstrualFlowInstantRecord] instead.
-/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.menstrualFlow`](https://deve
-/// loper.apple.com/documentation/healthkit/hkcategorytypeidentifier/menstrualfl
-/// ow)
+/// - **Android Health Connect**: Not supported. Use  [MenstrualFlowInstantRecord] instead.
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.menstrualFlow`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/menstrualflow)
 ///
 /// ## Example
 ///

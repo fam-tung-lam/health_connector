@@ -9,12 +9,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`RestingHeartRateRecord`](https://developer.a
-/// ndroid.com/reference/kotlin/androidx/health/connect/client/records/RestingHe
-/// artRateRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.restingHeartRate`](https://d
-/// eveloper.apple.com/documentation/healthkit/hkquantitytypeidentifier/restingh
-/// eartrate)
+/// - **Android Health Connect**: [`RestingHeartRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RestingHeartRateRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.restingHeartRate`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/restingheartrate)
 ///
 /// ## Example
 ///

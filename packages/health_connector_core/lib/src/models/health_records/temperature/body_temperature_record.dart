@@ -7,12 +7,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`BodyTemperatureRecord`](https://developer.an
-/// droid.com/reference/kotlin/androidx/health/connect/client/records/BodyTemper
-/// atureRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bodyTemperature`](https://de
-/// veloper.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodytempe
-/// rature)
+/// - **Android Health Connect**: [`BodyTemperatureRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BodyTemperatureRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.bodyTemperature`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodytemperature)
 ///
 /// ## Example
 ///

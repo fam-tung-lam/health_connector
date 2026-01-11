@@ -6,9 +6,7 @@ part of '../../health_record.dart';
 ///
 /// ## Platform Support
 ///
-/// - **Android Health Connect**: [`MenstruationFlowRecord`](https://developer.a
-/// ndroid.com/reference/kotlin/androidx/health/connect/client/records/Menstruat
-/// ionFlowRecord)
+/// - **Android Health Connect**: [`MenstruationFlowRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/MenstruationFlowRecord)
 /// - **iOS HealthKit**: Not supported. Use [MenstrualFlowRecord] instead.
 ///
 /// ## Example

@@ -6,9 +6,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`SleepSessionRecord`](https://developer.andro
-/// id.com/reference/kotlin/androidx/health/connect/client/records/SleepSessionR
-/// ecord)
+/// - **Android Health Connect**: [`SleepSessionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SleepSessionRecord)
 /// - **iOS HealthKit**: Not supported (Use [SleepStageRecord])
 ///
 /// ## Example

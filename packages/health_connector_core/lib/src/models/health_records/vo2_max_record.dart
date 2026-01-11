@@ -11,10 +11,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`Vo2MaxRecord`](https://developer.android.com
-/// /reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.vo2Max`](https://developer.a
-/// pple.com/documentation/healthkit/hkquantitytypeidentifier/vo2max)
+/// - **Android Health Connect**: [`Vo2MaxRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.vo2Max`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/vo2max)
 ///
 /// ## Measurement Unit
 ///

@@ -7,10 +7,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: Maps to
-///   `SexualActivityRecord.SexualActivityProtectionUsed.*` constants
-/// - **iOS HealthKit**: Maps to `HKMetadataKeySexualActivityProtectionUsed`
-///   metadata key (boolean value)
+/// - **Android Health Connect**: Maps to  `SexualActivityRecord.SexualActivityProtectionUsed.*` constants
+/// - **iOS HealthKit**: Maps to `HKMetadataKeySexualActivityProtectionUsed`  metadata key (boolean value)
 ///
 /// ## Cross-Platform Support
 ///
@@ -37,8 +35,7 @@ enum SexualActivityProtectionUsed {
   /// Unknown whether protection was used.
   ///
   /// **Platform Mappings:**
-  /// - **iOS HealthKit**: Custom metadata key
-  ///   `HCCustomMetadataKeySexualActivityProtectionUsed = "unknown"`
+  /// - **iOS HealthKit**: Custom metadata key  `HCCustomMetadataKeySexualActivityProtectionUsed = "unknown"`
   /// - **Android Health Connect**: `PROTECTION_USED_UNKNOWN`
   ///
   /// > **Note:** On iOS, this value requires custom metadata handling as

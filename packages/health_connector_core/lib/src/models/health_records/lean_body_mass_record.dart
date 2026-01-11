@@ -8,12 +8,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`LeanBodyMassRecord`](https://developer.andro
-/// id.com/reference/kotlin/androidx/health/connect/client/records/LeanBodyMassR
-/// ecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.leanBodyMass`](https://devel
-/// oper.apple.com/documentation/healthkit/hkquantitytypeidentifier/leanbodymass
-/// )
+/// - **Android Health Connect**: [`LeanBodyMassRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/LeanBodyMassRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.leanBodyMass`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/leanbodymass)
 ///
 /// ## Example
 ///

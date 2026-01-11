@@ -5,9 +5,7 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported (Use [SpeedSeriesRecord])
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.walkingSpeed`](https://devel
-/// oper.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingspeed
-/// )
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.walkingSpeed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/walkingspeed)
 ///
 /// ## Example
 ///

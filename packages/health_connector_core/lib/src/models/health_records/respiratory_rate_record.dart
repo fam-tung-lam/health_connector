@@ -9,12 +9,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`RespiratoryRateRecord`](https://developer.an
-/// droid.com/reference/kotlin/androidx/health/connect/client/records/Respirator
-/// yRateRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.respiratoryRate`](https://de
-/// veloper.apple.com/documentation/healthkit/hkquantitytypeidentifier/respirato
-/// ryrate)
+/// - **Android Health Connect**: [`RespiratoryRateRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RespiratoryRateRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.respiratoryRate`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/respiratoryrate)
 ///
 /// ## Example
 ///

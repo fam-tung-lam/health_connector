@@ -8,12 +8,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryPhosphorus`](htt
-/// ps://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/di
-/// etaryphosphorus)
-/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.
-/// android.com/reference/kotlin/androidx/health/connect/client/records/Nutritio
-/// nRecord)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryPhosphorus`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryphosphorus)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
 ///

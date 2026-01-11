@@ -11,9 +11,7 @@ part of '../health_record.dart';
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryCholesterol`](ht
 /// tps://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/d
 /// ietarycholesterol)
-/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.
-/// android.com/reference/kotlin/androidx/health/connect/client/records/Nutritio
-/// nRecord)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
 ///

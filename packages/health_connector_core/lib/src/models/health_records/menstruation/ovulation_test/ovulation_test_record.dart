@@ -8,12 +8,8 @@ part of '../../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`OvulationTestRecord`](https://developer.andr
-/// oid.com/reference/kotlin/androidx/health/connect/client/records/OvulationTes
-/// tRecord)
-/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.ovulationTestResult`](https:
-/// //developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/ovula
-/// tiontestresult)
+/// - **Android Health Connect**: [`OvulationTestRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/OvulationTestRecord)
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.ovulationTestResult`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/ovulationtestresult)
 ///
 /// ## Example
 ///

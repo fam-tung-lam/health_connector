@@ -9,9 +9,7 @@ part of 'health_record.dart';
 /// ## Platform Mapping
 ///
 /// - Android (Health Connect): Not supported
-/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.bodyMassIndex`](https://develo
-/// per.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodymassindex
-/// )
+/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.bodyMassIndex`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bodymassindex)
 ///
 /// ## Example
 ///

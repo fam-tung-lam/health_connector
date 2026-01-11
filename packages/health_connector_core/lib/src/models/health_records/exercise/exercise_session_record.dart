@@ -7,11 +7,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`ExerciseSessionRecord`](https://developer.an
-/// droid.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSe
-/// ssionRecord)
-/// - **iOS HealthKit**: [`HKWorkoutTypeIdentifier`](https://developer.apple.com
-/// /documentation/healthkit/hkworkouttypeidentifier)
+/// - **Android Health Connect**: [`ExerciseSessionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ExerciseSessionRecord)
+/// - **iOS HealthKit**: [`HKWorkoutTypeIdentifier`](https://developer.apple.com/documentation/healthkit/hkworkouttypeidentifier)
 ///
 /// ## Example
 ///

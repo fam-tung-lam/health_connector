@@ -7,12 +7,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`MindfulnessSessionRecord`](https://developer
-/// .android.com/reference/kotlin/androidx/health/connect/client/records/Mindful
-/// nessSessionRecord)
-/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.mindfulSession`](https://dev
-/// eloper.apple.com/documentation/healthkit/hkcategorytypeidentifier/mindfulses
-/// sion)
+/// - **Android Health Connect**: [`MindfulnessSessionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/MindfulnessSessionRecord)
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.mindfulSession`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/mindfulsession)
 ///
 /// ## Example
 ///
@@ -177,10 +173,8 @@ final class MindfulnessSessionRecord extends IntervalHealthRecord {
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: Maps to
-///   `MindfulnessSessionRecord.MINDFULNESS_SESSION_TYPE_***`
-/// - **iOS HealthKit**: Stored in custom metadata since iOS HealthKit only
-///   supports generic `HKCategoryValue.notApplicable` type
+/// - **Android Health Connect**: Maps to  `MindfulnessSessionRecord.MINDFULNESS_SESSION_TYPE_***`
+/// - **iOS HealthKit**: Stored in custom metadata since iOS HealthKit only  supports generic `HKCategoryValue.notApplicable` type
 ///
 /// > [!NOTE]
 /// > **iOS HealthKit Limitation**: HealthKit only supports a single generic

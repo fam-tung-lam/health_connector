@@ -7,8 +7,7 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`BoneMassRecord`](https://developer.android.c
-/// om/reference/kotlin/androidx/health/connect/client/records/BoneMassRecord)
+/// - **Android Health Connect**: [`BoneMassRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BoneMassRecord)
 ///
 /// ## Example
 ///

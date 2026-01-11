@@ -11,7 +11,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit**: `HKQuantityType(.bloodPressureSystolic)`
+/// - **iOS HealthKit**: [`HKQuantityType.bloodPressureSystolic`](https://developer.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/bloodPressureSystolic)
 /// - **Android Health Connect**: Not supported ( use [BloodPressureRecord])
 ///
 /// ## Example

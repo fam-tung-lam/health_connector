@@ -8,9 +8,7 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported (Use [DistanceRecord])
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`](
-/// https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier
-/// /sixminutewalktestdistance)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/sixminutewalktestdistance)
 ///
 /// ## Example
 ///

@@ -8,9 +8,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`HeartRateVariabilityRMSSDRecord`](https://de
-/// veloper.android.com/reference/kotlin/androidx/health/connect/client/records/
-/// HeartRateVariabilityRMSSDRecord)
+/// - **Android Health Connect**: [`HeartRateVariabilityRMSSDRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateVariabilityRMSSDRecord)
 /// - **iOS HealthKit**: Not supported.
 ///
 /// ## Example

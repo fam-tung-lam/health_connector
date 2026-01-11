@@ -8,12 +8,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`ActiveEnergyBurnedRecord`](https://developer
-/// .android.com/reference/kotlin/androidx/health/connect/client/records/ActiveE
-/// nergyBurnedRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.activeEnergyBurned`](https:/
-/// /developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/active
-/// energyburned)
+/// - **Android Health Connect**: [`ActiveEnergyBurnedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ActiveEnergyBurnedRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.activeEnergyBurned`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/activeenergyburned)
 ///
 /// ## Example
 ///

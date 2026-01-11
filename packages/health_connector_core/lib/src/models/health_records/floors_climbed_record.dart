@@ -8,12 +8,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`FloorsClimbedRecord`](https://developer.andr
-/// oid.com/reference/kotlin/androidx/health/connect/client/records/FloorsClimbe
-/// dRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.flightsClimbed`](https://dev
-/// eloper.apple.com/documentation/healthkit/hkquantitytypeidentifier/flightscli
-/// mbed)
+/// - **Android Health Connect**: [`FloorsClimbedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/FloorsClimbedRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.flightsClimbed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/flightsclimbed)
 ///
 /// ## Example
 ///

@@ -7,8 +7,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`PowerRecord`](https://developer.android.com/
-/// reference/kotlin/androidx/health/connect/client/records/PowerRecord)
+/// - **Android Health Connect**: [`PowerRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/PowerRecord)
 /// - **iOS HealthKit**: Not supported. Use [CyclingPowerRecord]
 ///
 /// ## Example

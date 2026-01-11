@@ -10,8 +10,7 @@ part of 'health_record.dart';
 /// ## Platform Mapping
 ///
 /// - Android (Health Connect): Not supported
-/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.waistCircumference`](https://d
-/// eveloper.apple.com/documentation/healthkit/hkquantitytypeidentifier/waistcir
+/// - iOS (HealthKit): [`HKQuantityTypeIdentifier.waistCircumference`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/waistcir
 /// cumference)
 ///
 /// ## Example

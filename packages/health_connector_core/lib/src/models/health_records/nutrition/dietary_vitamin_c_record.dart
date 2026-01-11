@@ -10,9 +10,7 @@ part of '../health_record.dart';
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryVitaminC`](https
 /// ://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/diet
 /// aryvitaminc)
-/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.
-/// android.com/reference/kotlin/androidx/health/connect/client/records/Nutritio
-/// nRecord)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
 ///

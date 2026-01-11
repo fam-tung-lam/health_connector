@@ -8,10 +8,8 @@ part of 'health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`StepsRecord`](https://developer.android.com/
-/// reference/kotlin/androidx/health/connect/client/records/StepsRecord)
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.stepCount`](https://develope
-/// r.apple.com/documentation/healthkit/hkquantitytypeidentifier/stepcount)
+/// - **Android Health Connect**: [`StepsRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/StepsRecord)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.stepCount`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/stepcount)
 ///
 /// ## Example
 ///

@@ -8,11 +8,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**:
-///   [`CyclingPedalingCadenceRecord`](https://developer.android.com/reference/k
-/// otlin/androidx/health/connect/client/records/CyclingPedalingCadenceRecord)
-/// - **iOS HealthKit**: Not supported
-///   (Use [CyclingPedalingCadenceRecord])
+/// - **Android Health Connect**:  [`CyclingPedalingCadenceRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/CyclingPedalingCadenceRecord)
+/// - **iOS HealthKit**: Not supported  (Use [CyclingPedalingCadenceRecord])
 ///
 /// ## Example
 ///

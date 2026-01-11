@@ -3,12 +3,8 @@ part of '../../health_record.dart';
 /// Cervical mucus appearance types.
 ///
 /// ## Platform Mapping
-/// - **Android Health Connect**: Full 1:1 mapping via
-///   `CervicalMucusRecord.APPEARANCE_*`
-/// - **iOS HealthKit**:
-///   - Natively supports: `dry`, `sticky`, `creamy`, `watery`, `eggWhite`
-///   - `unusual` and `unknown` are stored in custom metadata key and handled by
-///     the SKK
+/// - **Android Health Connect**: Full 1:1 mapping via  `CervicalMucusRecord.APPEARANCE_*`
+/// - **iOS HealthKit**:  - Natively supports: `dry`, `sticky`, `creamy`, `watery`, `eggWhite`  - `unusual` and `unknown` are stored in custom metadata key and handled by    the SKK
 ///
 /// {@category Health Records}
 @sinceV2_1_0

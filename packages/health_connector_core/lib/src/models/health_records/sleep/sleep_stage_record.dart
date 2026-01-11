@@ -8,9 +8,7 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported (Use [SleepSessionRecord])
-/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.sleepAnalysis`](https://deve
-/// loper.apple.com/documentation/healthkit/hkcategorytypeidentifier/sleepanalys
-/// is/)
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.sleepAnalysis`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sleepanalysis/)
 ///
 /// ## Example
 ///

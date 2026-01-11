@@ -9,12 +9,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`IntermenstrualBleedingRecord`](https://devel
-/// oper.android.com/reference/kotlin/androidx/health/connect/client/records/Int
-/// ermenstrualBleedingRecord)
-/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.intermenstrualBleeding`](htt
-/// ps://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/in
-/// termenstrualbleeding)
+/// - **Android Health Connect**: [`IntermenstrualBleedingRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/IntermenstrualBleedingRecord)
+/// - **iOS HealthKit**: [`HKCategoryTypeIdentifier.intermenstrualBleeding`](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/intermenstrualbleeding)
 ///
 /// ## Example
 ///

@@ -8,8 +8,7 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: Not supported (Use [HeartRateSeriesRecord])
-/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.heartRate`](https://develope
-/// r.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartrate)
+/// - **iOS HealthKit**: [`HKQuantityTypeIdentifier.heartRate`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartrate)
 ///
 /// ## Example
 ///

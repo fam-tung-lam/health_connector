@@ -11,12 +11,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: [`BloodPressureRecord`](https://developer.andr
-/// oid.com/reference/kotlin/androidx/health/connect/client/records/BloodPressur
-/// eRecord)
-/// - **iOS HealthKit**: [`HKCorrelationTypeIdentifier.bloodPressure`](https://d
-/// eveloper.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/blood
-/// pressure)
+/// - **Android Health Connect**: [`BloodPressureRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodPressureRecord)
+/// - **iOS HealthKit**: [`HKCorrelationTypeIdentifier.bloodPressure`](https://developer.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/bloodpressure)
 ///
 /// ## Example
 ///

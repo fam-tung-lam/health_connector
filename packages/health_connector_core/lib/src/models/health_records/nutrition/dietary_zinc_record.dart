@@ -7,12 +7,9 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryZinc`](https://d
-/// eveloper.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryz
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryZinc`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryz
 /// inc)
-/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.
-/// android.com/reference/kotlin/androidx/health/connect/client/records/Nutritio
-/// nRecord)
+/// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
 ///
