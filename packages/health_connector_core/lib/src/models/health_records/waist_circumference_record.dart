@@ -32,6 +32,16 @@ part of 'health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class WaistCircumferenceRecord extends InstantHealthRecord {
+  /// Minimum valid waist circumference (20.0 cm).
+  ///
+  /// Newborn/infant lower bound.
+  static const Length minCircumference = Length.centimeters(20.0);
+
+  /// Maximum valid waist circumference (200.0 cm).
+  ///
+  /// Severe obesity upper limit.
+  static const Length maxCircumference = Length.centimeters(200.0);
+
   /// Creates a waist circumference record.
   ///
   /// ## Parameters
@@ -44,7 +54,13 @@ final class WaistCircumferenceRecord extends InstantHealthRecord {
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError] if [circumference] is negative.
+  /// - [ArgumentError] if [circumference] is outside the valid range of
+  ///   [minCircumference]-[maxCircumference] cm.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minCircumference] cm)**: Newborn/infant lower bound.
+  /// - **Maximum ([maxCircumference] cm)**: Severe obesity upper limit.
   WaistCircumferenceRecord({
     required super.time,
     required super.metadata,
@@ -52,13 +68,18 @@ final class WaistCircumferenceRecord extends InstantHealthRecord {
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   }) {
-    if (circumference < Length.zero) {
-      throw ArgumentError.value(
-        circumference,
-        'circumference',
-        'Circumference must be non-negative',
-      );
-    }
+    require(
+      condition:
+          circumference >= minCircumference &&
+          circumference <= maxCircumference,
+      value: circumference,
+      name: 'circumference',
+      message:
+          'Waist circumference must be between '
+          '${minCircumference.inCentimeters.toStringAsFixed(1)}-'
+          '${maxCircumference.inCentimeters.toStringAsFixed(0)} cm. '
+          'Got ${circumference.inCentimeters.toStringAsFixed(1)} cm.',
+    );
   }
 
   /// Internal factory for creating [WaistCircumferenceRecord] instances

@@ -32,6 +32,17 @@ part of 'health_record.dart';
 @sinceV1_0_0
 @immutable
 final class BodyFatPercentageRecord extends InstantHealthRecord {
+  /// Minimum valid body fat percentage (2.0%).
+  ///
+  /// Essential fat minimum for males (~3-5%); 2% allows for extreme athletes
+  /// with measurement margins.
+  static const Percentage minPercentage = Percentage.fromWhole(2.0);
+
+  /// Maximum valid body fat percentage (65.0%).
+  ///
+  /// Severe obesity upper limit; typical max ~60% in medical literature.
+  static const Percentage maxPercentage = Percentage.fromWhole(65.0);
+
   /// Creates a body fat percentage record.
   ///
   /// ## Parameters
@@ -41,13 +52,36 @@ final class BodyFatPercentageRecord extends InstantHealthRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [percentage]: The body fat percentage measurement (as decimal 0-1).
-  const BodyFatPercentageRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [percentage] is outside the valid range of
+  ///   [minPercentage]-[maxPercentage]%.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minPercentage]%)**: Essential fat minimum for
+  ///   males (~3-5%); 2% allows for extreme athletes with measurement margins.
+  /// - **Maximum ([maxPercentage]%)**: Severe obesity upper limit; typical max
+  ///   ~60% in medical literature.
+  BodyFatPercentageRecord({
     required super.time,
     required super.metadata,
     required this.percentage,
     super.id,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: percentage >= minPercentage && percentage <= maxPercentage,
+      value: percentage,
+      name: 'percentage',
+      message:
+          'Body fat must be between '
+          '${minPercentage.asWhole.toStringAsFixed(1)}-'
+          '${maxPercentage.asWhole.toStringAsFixed(0)}%. '
+          'Got ${percentage.asWhole.toStringAsFixed(1)}%.',
+    );
+  }
 
   /// Internal factory for creating [BodyFatPercentageRecord] instances
   /// without validation.

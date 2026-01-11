@@ -11,7 +11,8 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
-/// - **iOS HealthKit**: Multiple `HKQuantityType` correlations for individual  nutrients
+/// - **iOS HealthKit**: Multiple `HKQuantityType` correlations for
+///   individual nutrients
 ///
 /// ## Example
 ///
@@ -33,6 +34,12 @@ part of '../health_record.dart';
 @sinceV1_1_0
 @immutable
 final class NutritionRecord extends IntervalHealthRecord {
+  /// Minimum valid energy (0.0 kcal).
+  static const Energy minEnergy = Energy.zero;
+
+  /// Maximum valid energy (10,000.0 kcal).
+  static const Energy maxEnergy = Energy.kilocalories(10000.0);
+
   /// Creates a nutrition record.
   ///
   /// ## Parameters
@@ -61,6 +68,18 @@ final class NutritionRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
+  /// - [ArgumentError] if any nutrient value is outside its valid range.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// Each nutrient field is validated when present:
+  /// - **Energy**: [minEnergy]-[maxEnergy] kcal
+  /// - **Macronutrients** (protein, carbs, fats):
+  ///   [DietaryMacronutrientRecord.minMass]-
+  ///   [DietaryMacronutrientRecord.maxMass] g per nutrient
+  /// - **Minerals**: [DietaryMineralRecord.minMass]-[DietaryMineralRecord.maxMass] g (measured in mg/μg ranges)
+  /// - **Vitamins**: [DietaryVitaminRecord.minMass]-[DietaryVitaminRecord.maxMass] g (measured in mg/μg ranges)
+  /// - **Caffeine**: 0-10 g (typical serving 50-200mg)
   NutritionRecord({
     required super.startTime,
     required super.endTime,
@@ -103,7 +122,110 @@ final class NutritionRecord extends IntervalHealthRecord {
     this.sodium,
     this.zinc,
     this.caffeine,
-  });
+  }) {
+    // Validate energy if present
+    if (energy != null) {
+      require(
+        condition: energy! >= minEnergy && energy! <= maxEnergy,
+        value: energy,
+        name: 'energy',
+        message:
+            'Energy must be between '
+            '${minEnergy.inKilocalories.toInt()}-'
+            '${maxEnergy.inKilocalories.toInt()} kcal. '
+            'Got ${energy!.inKilocalories.toStringAsFixed(0)} kcal.',
+      );
+    }
+
+    // Validate macronutrients if present
+    void validateMacro(Mass? nutrient, String name) {
+      if (nutrient != null) {
+        const min = DietaryMacronutrientRecord.minMass;
+        const max = DietaryMacronutrientRecord.maxMass;
+        require(
+          condition: nutrient >= min && nutrient <= max,
+          value: nutrient,
+          name: name,
+          message:
+              '$name must be between '
+              '${min.inGrams.toStringAsFixed(0)}-'
+              '${max.inGrams.toStringAsFixed(0)} g. '
+              'Got ${nutrient.inGrams.toStringAsFixed(1)} g.',
+        );
+      }
+    }
+
+    validateMacro(protein, 'protein');
+    validateMacro(totalCarbohydrate, 'totalCarbohydrate');
+    validateMacro(totalFat, 'totalFat');
+    validateMacro(saturatedFat, 'saturatedFat');
+    validateMacro(monounsaturatedFat, 'monounsaturatedFat');
+    validateMacro(polyunsaturatedFat, 'polyunsaturatedFat');
+    validateMacro(cholesterol, 'cholesterol');
+    validateMacro(dietaryFiber, 'dietaryFiber');
+    validateMacro(sugar, 'sugar');
+    validateMacro(caffeine, 'caffeine');
+
+    // Validate minerals if present
+    void validateMineral(Mass? nutrient, String name) {
+      if (nutrient != null) {
+        const min = DietaryMineralRecord.minMass;
+        const max = DietaryMineralRecord.maxMass;
+        require(
+          condition: nutrient >= min && nutrient <= max,
+          value: nutrient,
+          name: name,
+          message:
+              '$name must be between '
+              '${min.inGrams.toStringAsFixed(0)}-'
+              '${max.inGrams.toStringAsFixed(0)} g. '
+              'Got ${nutrient.inGrams.toStringAsFixed(3)} g.',
+        );
+      }
+    }
+
+    validateMineral(calcium, 'calcium');
+    validateMineral(iron, 'iron');
+    validateMineral(magnesium, 'magnesium');
+    validateMineral(manganese, 'manganese');
+    validateMineral(phosphorus, 'phosphorus');
+    validateMineral(potassium, 'potassium');
+    validateMineral(selenium, 'selenium');
+    validateMineral(sodium, 'sodium');
+    validateMineral(zinc, 'zinc');
+
+    // Validate vitamins if present
+    void validateVitamin(Mass? nutrient, String name) {
+      if (nutrient != null) {
+        const min = DietaryVitaminRecord.minMass;
+        const max = DietaryVitaminRecord.maxMass;
+        require(
+          condition: nutrient >= min && nutrient <= max,
+          value: nutrient,
+          name: name,
+          message:
+              '$name must be between '
+              '${min.inGrams.toStringAsFixed(0)}-'
+              '${max.inGrams.toStringAsFixed(0)} g. '
+              'Got ${nutrient.inGrams.toStringAsFixed(4)} g.',
+        );
+      }
+    }
+
+    validateVitamin(vitaminA, 'vitaminA');
+    validateVitamin(vitaminB6, 'vitaminB6');
+    validateVitamin(vitaminB12, 'vitaminB12');
+    validateVitamin(vitaminC, 'vitaminC');
+    validateVitamin(vitaminD, 'vitaminD');
+    validateVitamin(vitaminE, 'vitaminE');
+    validateVitamin(vitaminK, 'vitaminK');
+    validateVitamin(thiamin, 'thiamin');
+    validateVitamin(riboflavin, 'riboflavin');
+    validateVitamin(niacin, 'niacin');
+    validateVitamin(folate, 'folate');
+    validateVitamin(biotin, 'biotin');
+    validateVitamin(pantothenicAcid, 'pantothenicAcid');
+  }
 
   /// Internal factory for creating [NutritionRecord] instances
   /// without validation.
@@ -444,4 +566,95 @@ final class NutritionRecord extends IntervalHealthRecord {
       caffeine: caffeine ?? this.caffeine,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is NutritionRecord &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          metadata == other.metadata &&
+          startTime == other.startTime &&
+          endTime == other.endTime &&
+          startZoneOffsetSeconds == other.startZoneOffsetSeconds &&
+          endZoneOffsetSeconds == other.endZoneOffsetSeconds &&
+          foodName == other.foodName &&
+          mealType == other.mealType &&
+          energy == other.energy &&
+          protein == other.protein &&
+          totalCarbohydrate == other.totalCarbohydrate &&
+          totalFat == other.totalFat &&
+          saturatedFat == other.saturatedFat &&
+          monounsaturatedFat == other.monounsaturatedFat &&
+          polyunsaturatedFat == other.polyunsaturatedFat &&
+          cholesterol == other.cholesterol &&
+          dietaryFiber == other.dietaryFiber &&
+          sugar == other.sugar &&
+          vitaminA == other.vitaminA &&
+          vitaminB6 == other.vitaminB6 &&
+          vitaminB12 == other.vitaminB12 &&
+          vitaminC == other.vitaminC &&
+          vitaminD == other.vitaminD &&
+          vitaminE == other.vitaminE &&
+          vitaminK == other.vitaminK &&
+          thiamin == other.thiamin &&
+          riboflavin == other.riboflavin &&
+          niacin == other.niacin &&
+          folate == other.folate &&
+          biotin == other.biotin &&
+          pantothenicAcid == other.pantothenicAcid &&
+          calcium == other.calcium &&
+          iron == other.iron &&
+          magnesium == other.magnesium &&
+          manganese == other.manganese &&
+          phosphorus == other.phosphorus &&
+          potassium == other.potassium &&
+          selenium == other.selenium &&
+          sodium == other.sodium &&
+          zinc == other.zinc &&
+          caffeine == other.caffeine;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      metadata.hashCode ^
+      startTime.hashCode ^
+      endTime.hashCode ^
+      startZoneOffsetSeconds.hashCode ^
+      endZoneOffsetSeconds.hashCode ^
+      foodName.hashCode ^
+      mealType.hashCode ^
+      energy.hashCode ^
+      protein.hashCode ^
+      totalCarbohydrate.hashCode ^
+      totalFat.hashCode ^
+      saturatedFat.hashCode ^
+      monounsaturatedFat.hashCode ^
+      polyunsaturatedFat.hashCode ^
+      cholesterol.hashCode ^
+      dietaryFiber.hashCode ^
+      sugar.hashCode ^
+      vitaminA.hashCode ^
+      vitaminB6.hashCode ^
+      vitaminB12.hashCode ^
+      vitaminC.hashCode ^
+      vitaminD.hashCode ^
+      vitaminE.hashCode ^
+      vitaminK.hashCode ^
+      thiamin.hashCode ^
+      riboflavin.hashCode ^
+      niacin.hashCode ^
+      folate.hashCode ^
+      biotin.hashCode ^
+      pantothenicAcid.hashCode ^
+      calcium.hashCode ^
+      iron.hashCode ^
+      magnesium.hashCode ^
+      manganese.hashCode ^
+      phosphorus.hashCode ^
+      potassium.hashCode ^
+      selenium.hashCode ^
+      sodium.hashCode ^
+      zinc.hashCode ^
+      caffeine.hashCode;
 }

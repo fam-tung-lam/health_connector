@@ -38,6 +38,17 @@ part of 'health_record.dart';
 @sinceV1_3_0
 @immutable
 final class Vo2MaxRecord extends InstantHealthRecord {
+  /// Minimum valid VO₂ max (5.0 mL/kg/min).
+  ///
+  /// Very sedentary/severely ill lower limit.
+  static const Number minVo2MlPerMinPerKg = Number(5.0);
+
+  /// Maximum valid VO₂ max (100.0 mL/kg/min).
+  ///
+  /// Exceeds world record (97.5 mL/kg/min, Oskar Svendsen) with margin for
+  /// measurement variance.
+  static const Number maxVo2MlPerMinPerKg = Number(100.0);
+
   /// Creates a VO₂ max record.
   ///
   /// ## Parameters
@@ -48,14 +59,38 @@ final class Vo2MaxRecord extends InstantHealthRecord {
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [vo2MlPerMinPerKg]: The VO₂ max measurement in mL/kg/min.
   /// - [testType]: Optional test type or measurement method used.
-  const Vo2MaxRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [vo2MlPerMinPerKg] is outside the valid range of
+  ///   [minVo2MlPerMinPerKg]-[maxVo2MlPerMinPerKg] mL/kg/min.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minVo2MlPerMinPerKg] mL/kg/min)**: Very sedentary/severely ill lower limit.
+  /// - **Maximum ([maxVo2MlPerMinPerKg] mL/kg/min)**: Exceeds world record (97.5 mL/kg/min,
+  ///   Oskar Svendsen) with margin for measurement variance.
+  Vo2MaxRecord({
     required super.time,
     required super.metadata,
     required this.vo2MlPerMinPerKg,
     this.testType,
     super.id,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition:
+          vo2MlPerMinPerKg >= minVo2MlPerMinPerKg &&
+          vo2MlPerMinPerKg <= maxVo2MlPerMinPerKg,
+      value: vo2MlPerMinPerKg,
+      name: 'vo2MlPerMinPerKg',
+      message:
+          'VO₂ max must be between '
+          '${minVo2MlPerMinPerKg.value}-'
+          '${maxVo2MlPerMinPerKg.value} mL/kg/min. '
+          'Got ${vo2MlPerMinPerKg.value.toStringAsFixed(1)} mL/kg/min.',
+    );
+  }
 
   /// Internal factory for creating [Vo2MaxRecord] instances
   /// without validation.

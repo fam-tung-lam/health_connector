@@ -43,32 +43,44 @@ final class DietaryPhosphorusRecord extends DietaryMineralRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this phosphorus.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietaryPhosphorusRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass].
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass])**: Valid mass must be non-negative.
+  /// - **Maximum ([maxMass])**: 100g is a reasonable upper bound for
+  ///   mineral intake from a single food item.
+  DietaryPhosphorusRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
   }) {
-    return DietaryPhosphorusRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Phosphorus mass must be between '
+          '${minMass.inGrams.toStringAsFixed(0)}-'
+          '${maxMass.inGrams.toStringAsFixed(0)} g. '
+          'Got ${mass.inGrams.toStringAsFixed(3)} g.',
     );
   }
 
-  /// Internal factory for creating [DietaryPhosphorusRecord] instances without
-  /// validation.
-  ///
-  /// Creates a [DietaryPhosphorusRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Minimum valid phosphorus mass (0.0 g).
+  static const Mass minMass = Mass.zero;
+
+  /// Maximum valid phosphorus mass (100.0 g).
+  static const Mass maxMass = Mass.grams(100.0);
+
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryPhosphorusRecord] constructor, which enforces validation and
@@ -84,7 +96,7 @@ final class DietaryPhosphorusRecord extends DietaryMineralRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietaryPhosphorusRecord._(
+    return DietaryPhosphorusRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -115,14 +127,4 @@ final class DietaryPhosphorusRecord extends DietaryMineralRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietaryPhosphorusRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

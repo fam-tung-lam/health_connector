@@ -49,15 +49,15 @@ final class OvulationTestRecord extends InstantHealthRecord {
     super.zoneOffsetSeconds,
   });
 
-  /// Internal factory for creating [BloodPressureRecord] instances without
+  /// Internal factory for creating [OvulationTestRecord] instances without
   /// validation.
   ///
-  /// Creates a [BloodPressureRecord] by directly mapping platform data to
+  /// Creates a [OvulationTestRecord] by directly mapping platform data to
   /// fields, bypassing the normal validation and business rules applied by the
   /// public constructor.
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [BloodPressureRecord] constructor, which enforces validation and business
+  /// [OvulationTestRecord] constructor, which enforces validation and business
   /// rules. This factory is restricted to the SDK developers and contributors.
   @internalUse
   factory OvulationTestRecord.internal({

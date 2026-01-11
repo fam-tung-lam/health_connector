@@ -28,6 +28,20 @@ part of 'health_record.dart';
 @sinceV1_0_0
 @immutable
 final class WeightRecord extends InstantHealthRecord {
+  /// Minimum valid weight in kilograms (0.5 kg).
+  ///
+  /// Extremely premature infants can weigh ~500g.
+  /// Minimum valid weight (0.5 kg).
+  ///
+  /// Extremely premature infants can weigh ~500g.
+  static const Mass minWeight = Mass.kilograms(0.5);
+
+  /// Maximum valid weight (700 kg).
+  ///
+  /// Exceeds the heaviest recorded person (635 kg) with margin for
+  /// medical edge cases.
+  static const Mass maxWeight = Mass.kilograms(700.0);
+
   /// Creates a body weight record.
   ///
   /// ## Parameters
@@ -37,13 +51,37 @@ final class WeightRecord extends InstantHealthRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [weight]: The body mass measurement.
-  const WeightRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [weight] is outside the valid range of
+  /// - [ArgumentError] if [weight] is outside the valid range of
+  ///   [minWeight]-[maxWeight] kg.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minWeight] kg)**: Extremely premature infants can
+  ///   weigh ~500g.
+  /// - **Maximum ([maxWeight] kg)**: Exceeds the heaviest recorded person
+  ///   (635 kg) with margin for medical edge cases.
+  WeightRecord({
     required super.time,
     required super.metadata,
     required this.weight,
     super.id,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: weight >= minWeight && weight <= maxWeight,
+      value: weight,
+      name: 'weight',
+      message:
+          'Weight must be between '
+          '${minWeight.inKilograms.toStringAsFixed(1)}-'
+          '${maxWeight.inKilograms.toStringAsFixed(0)} kg. '
+          'Got ${weight.inKilograms.toStringAsFixed(1)} kg.',
+    );
+  }
 
   /// Internal factory for creating [WeightRecord] instances
   /// without validation.

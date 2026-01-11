@@ -40,6 +40,18 @@ part of '../health_record.dart';
 @sinceV1_2_0
 @immutable
 final class BloodPressureRecord extends InstantHealthRecord {
+  /// Minimum valid systolic blood pressure.
+  static const Pressure minSystolic = SystolicBloodPressureRecord.minPressure;
+
+  /// Maximum valid systolic blood pressure.
+  static const Pressure maxSystolic = SystolicBloodPressureRecord.maxPressure;
+
+  /// Minimum valid diastolic blood pressure.
+  static const Pressure minDiastolic = DiastolicBloodPressureRecord.minPressure;
+
+  /// Maximum valid diastolic blood pressure.
+  static const Pressure maxDiastolic = DiastolicBloodPressureRecord.maxPressure;
+
   /// Creates a composite blood pressure record.
   ///
   /// ## Parameters
@@ -52,7 +64,26 @@ final class BloodPressureRecord extends InstantHealthRecord {
   /// - [diastolic]: The diastolic blood pressure measurement.
   /// - [bodyPosition]: Optional body position during measurement.
   /// - [measurementLocation]: Optional location where measurement was taken.
-  const BloodPressureRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [systolic] is outside
+  ///   [minSystolic]-[maxSystolic] mmHg.
+  /// - [ArgumentError] if [diastolic] is outside
+  ///   [minDiastolic]-[maxDiastolic] mmHg.
+  /// - [ArgumentError] if [systolic] is not greater than [diastolic].
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Systolic ([minSystolic]-[maxSystolic] mmHg)**:
+  ///   50 mmHg indicates severe shock; 250 mmHg is hypertensive emergency
+  ///   threshold.
+  /// - **Diastolic ([minDiastolic]-[maxDiastolic] mmHg)**:
+  ///   30 mmHg indicates severe shock; 150 mmHg is hypertensive emergency
+  ///   threshold.
+  /// - **Cross-field**: Systolic pressure must exceed diastolic in all
+  ///   physiological states.
+  BloodPressureRecord({
     required super.time,
     required super.metadata,
     required this.systolic,
@@ -61,7 +92,37 @@ final class BloodPressureRecord extends InstantHealthRecord {
     super.zoneOffsetSeconds,
     this.bodyPosition = BloodPressureBodyPosition.unknown,
     this.measurementLocation = BloodPressureMeasurementLocation.unknown,
-  });
+  }) {
+    require(
+      condition: systolic >= minSystolic && systolic <= maxSystolic,
+      value: systolic,
+      name: 'systolic',
+      message:
+          'Systolic BP must be between '
+          '${minSystolic.inMillimetersOfMercury.toStringAsFixed(0)}-'
+          '${maxSystolic.inMillimetersOfMercury.toStringAsFixed(0)} mmHg. '
+          'Got ${systolic.inMillimetersOfMercury.toStringAsFixed(1)} mmHg.',
+    );
+    require(
+      condition: diastolic >= minDiastolic && diastolic <= maxDiastolic,
+      value: diastolic,
+      name: 'diastolic',
+      message:
+          'Diastolic BP must be between '
+          '${minDiastolic.inMillimetersOfMercury.toStringAsFixed(0)}-'
+          '${maxDiastolic.inMillimetersOfMercury.toStringAsFixed(0)} mmHg. '
+          'Got ${diastolic.inMillimetersOfMercury.toStringAsFixed(1)} mmHg.',
+    );
+    require(
+      condition: systolic > diastolic,
+      value: '$systolic/$diastolic',
+      name: 'blood pressure',
+      message:
+          'Systolic must be greater than diastolic. Got '
+          '${systolic.inMillimetersOfMercury.toStringAsFixed(0)}/'
+          '${diastolic.inMillimetersOfMercury.toStringAsFixed(0)} mmHg.',
+    );
+  }
 
   /// Internal factory for creating [BloodPressureRecord] instances without
   /// validation.

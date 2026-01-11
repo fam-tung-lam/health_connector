@@ -32,6 +32,20 @@ part of 'health_record.dart';
 @sinceV1_0_0
 @immutable
 final class FloorsClimbedRecord extends IntervalHealthRecord {
+  /// Minimum valid floors climbed (0.0).
+  ///
+  /// No floors climbed during the interval.
+  /// Minimum valid floors climbed (0).
+  ///
+  /// No floors climbed during the interval.
+  static const Number minFloors = Number.zero;
+
+  /// Maximum valid floors climbed (1,000).
+  ///
+  /// Typical max ~50 floors/day; 1,000 allows for multi-day intervals and
+  /// extreme cases.
+  static const Number maxFloors = Number(1000);
+
   /// Creates a floors climbed record.
   ///
   /// ## Parameters
@@ -47,6 +61,14 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
+  /// - [ArgumentError] if [count] is outside the valid range of
+  ///   [minFloors]-[maxFloors].
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minFloors])**: No floors climbed during the interval.
+  /// - **Maximum ([maxFloors])**: Typical max ~50 floors/day; 1,000 allows for
+  ///   multi-day intervals and extreme cases.
   FloorsClimbedRecord({
     required super.startTime,
     required super.endTime,
@@ -55,7 +77,17 @@ final class FloorsClimbedRecord extends IntervalHealthRecord {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: count >= minFloors && count <= maxFloors,
+      value: count,
+      name: 'count',
+      message:
+          'Floors climbed must be between '
+          '${minFloors.value.toInt()}-${maxFloors.value.toInt()}. '
+          'Got ${count.value.toInt()} floors.',
+    );
+  }
 
   /// Internal factory for creating [BloodPressureRecord] instances without
   /// validation.

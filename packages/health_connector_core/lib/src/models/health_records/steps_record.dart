@@ -32,6 +32,16 @@ part of 'health_record.dart';
 @sinceV1_0_0
 @immutable
 final class StepsRecord extends IntervalHealthRecord {
+  /// Minimum valid step count (0).
+  /// Minimum valid step count (0).
+  static const Number minSteps = Number.zero;
+
+  /// Maximum valid step count (1,000,000).
+  ///
+  /// Represents extreme endurance events (e.g., 200+ mile ultra-marathons)
+  /// with safety margin.
+  static const Number maxSteps = Number(1000000);
+
   /// Creates a step count record.
   ///
   /// ## Parameters
@@ -48,6 +58,8 @@ final class StepsRecord extends IntervalHealthRecord {
   ///
   /// - [ArgumentError] if [count] is negative.
   /// - [ArgumentError] if [endTime] is not after [startTime].
+  /// - [ArgumentError] if [count] is outside the valid range of
+  ///   [minSteps]-[maxSteps].
   StepsRecord({
     required super.startTime,
     required super.endTime,
@@ -58,10 +70,13 @@ final class StepsRecord extends IntervalHealthRecord {
     super.endZoneOffsetSeconds,
   }) {
     require(
-      condition: count.value >= 0,
+      condition: count >= minSteps && count <= maxSteps,
       value: count,
       name: 'count',
-      message: 'count must be non-negative. Got count=${count.value}',
+      message:
+          'Steps must be between ${minSteps.value.toInt()}-'
+          '${maxSteps.value.toInt()}. '
+          'Got ${count.value.toInt()} steps.',
     );
   }
 

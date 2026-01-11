@@ -7,9 +7,7 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietarySelenium`](https
-/// ://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/diet
-/// aryselenium)
+/// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietarySelenium`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryselenium)
 /// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
@@ -44,32 +42,44 @@ final class DietarySeleniumRecord extends DietaryMineralRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this selenium.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietarySeleniumRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass] g.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass] g)**: Valid mass must be non-negative.
+  /// - **Maximum ([maxMass] g)**: 100g is a reasonable upper bound for
+  ///   mineral intake from a single food item.
+  DietarySeleniumRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
   }) {
-    return DietarySeleniumRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Selenium mass must be between '
+          '${minMass.inGrams.toStringAsFixed(0)}-'
+          '${maxMass.inGrams.toStringAsFixed(0)} g. '
+          'Got ${mass.inGrams.toStringAsFixed(3)} g.',
     );
   }
 
-  /// Internal factory for creating [DietarySeleniumRecord] instances without
-  /// validation.
-  ///
-  /// Creates a [DietarySeleniumRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Minimum valid selenium mass (0.0 g).
+  static const Mass minMass = Mass.zero;
+
+  /// Maximum valid selenium mass (100.0 g).
+  static const Mass maxMass = Mass.grams(100.0);
+
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietarySeleniumRecord] constructor, which enforces validation and
@@ -85,7 +95,7 @@ final class DietarySeleniumRecord extends DietaryMineralRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietarySeleniumRecord._(
+    return DietarySeleniumRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -116,14 +126,4 @@ final class DietarySeleniumRecord extends DietaryMineralRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietarySeleniumRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

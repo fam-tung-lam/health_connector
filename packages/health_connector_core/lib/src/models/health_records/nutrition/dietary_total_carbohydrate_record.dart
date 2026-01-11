@@ -46,36 +46,46 @@ final class DietaryTotalCarbohydrateRecord extends DietaryMacronutrientRecord {
   /// - [id]: The unique identifier for this record.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this total
-  /// carbohydrate.
+  ///   carbohydrate.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietaryTotalCarbohydrateRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass] g.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass] g)**: Valid mass must be non-negative.
+  /// - **Maximum ([maxMass] g)**: 1,000g is a reasonable upper bound for
+  ///   macronutrient intake from a single food item.
+  DietaryTotalCarbohydrateRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
   }) {
-    return DietaryTotalCarbohydrateRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Total carbohydrate mass must be between '
+          '${minMass.inGrams.toStringAsFixed(0)}-'
+          '${maxMass.inGrams.toStringAsFixed(0)} g. '
+          'Got ${mass.inGrams.toStringAsFixed(1)} g.',
     );
   }
 
-  /// Internal factory for creating [DietaryTotalCarbohydrateRecord] instances
-  /// without
-  /// validation.
-  ///
-  /// Creates a [DietaryTotalCarbohydrateRecord] by directly mapping platform
-  /// data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Minimum valid total carbohydrate mass (0.0 g).
+  static const Mass minMass = Mass.zero;
+
+  /// Maximum valid total carbohydrate mass (1,000.0 g).
+  static const Mass maxMass = Mass.grams(1000.0);
+
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryTotalCarbohydrateRecord] constructor, which enforces validation
@@ -91,7 +101,7 @@ final class DietaryTotalCarbohydrateRecord extends DietaryMacronutrientRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietaryTotalCarbohydrateRecord._(
+    return DietaryTotalCarbohydrateRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -122,14 +132,4 @@ final class DietaryTotalCarbohydrateRecord extends DietaryMacronutrientRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietaryTotalCarbohydrateRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

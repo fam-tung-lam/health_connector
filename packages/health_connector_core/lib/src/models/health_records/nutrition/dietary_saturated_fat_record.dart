@@ -46,33 +46,44 @@ final class DietarySaturatedFatRecord extends DietaryMacronutrientRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this saturated fat.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietarySaturatedFatRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass] g.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass] g)**: Valid mass must be non-negative.
+  /// - **Maximum ([maxMass] g)**: 1,000g is a reasonable upper bound for
+  ///   macronutrient intake from a single food item.
+  DietarySaturatedFatRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
   }) {
-    return DietarySaturatedFatRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Saturated fat mass must be between '
+          '${minMass.inGrams.toStringAsFixed(0)}-'
+          '${maxMass.inGrams.toStringAsFixed(0)} g. '
+          'Got ${mass.inGrams.toStringAsFixed(1)} g.',
     );
   }
 
-  /// Internal factory for creating [DietarySaturatedFatRecord] instances
-  /// without
-  /// validation.
-  ///
-  /// Creates a [DietarySaturatedFatRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Minimum valid saturated fat mass (0.0 g).
+  static const Mass minMass = Mass.zero;
+
+  /// Maximum valid saturated fat mass (1,000.0 g).
+  static const Mass maxMass = Mass.grams(1000.0);
+
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietarySaturatedFatRecord] constructor, which enforces validation and
@@ -88,7 +99,7 @@ final class DietarySaturatedFatRecord extends DietaryMacronutrientRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietarySaturatedFatRecord._(
+    return DietarySaturatedFatRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -119,14 +130,4 @@ final class DietarySaturatedFatRecord extends DietaryMacronutrientRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietarySaturatedFatRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

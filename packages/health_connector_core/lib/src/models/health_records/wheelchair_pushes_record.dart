@@ -32,6 +32,20 @@ part of 'health_record.dart';
 @sinceV1_0_0
 @immutable
 final class WheelchairPushesRecord extends IntervalHealthRecord {
+  /// Minimum valid wheelchair pushes (0.0).
+  ///
+  /// No wheelchair activity during the interval.
+  /// Minimum valid wheelchair pushes (0).
+  ///
+  /// No wheelchair activity during the interval.
+  static const Number minPushes = Number.zero;
+
+  /// Maximum valid wheelchair pushes (100,000).
+  ///
+  /// Typical daily activity ~500-5,000 pushes; 100,000 allows for multi-day
+  /// intervals and high-activity users.
+  static const Number maxPushes = Number(100000);
+
   /// Creates a wheelchair pushes record.
   ///
   /// ## Parameters
@@ -47,6 +61,14 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
   /// ## Throws
   ///
   /// - [ArgumentError] if [endTime] is not after [startTime].
+  /// - [ArgumentError] if [count] is outside the valid range of
+  ///   [minPushes]-[maxPushes].
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minPushes])**: No wheelchair activity during the interval.
+  /// - **Maximum ([maxPushes])**: Typical daily activity ~500-5,000 pushes;
+  ///   100,000 allows for multi-day intervals and high-activity users.
   WheelchairPushesRecord({
     required super.startTime,
     required super.endTime,
@@ -55,7 +77,17 @@ final class WheelchairPushesRecord extends IntervalHealthRecord {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: count >= minPushes && count <= maxPushes,
+      value: count,
+      name: 'count',
+      message:
+          'Wheelchair pushes must be between '
+          '${minPushes.value.toInt()}-${maxPushes.value.toInt()}. '
+          'Got ${count.value.toInt()} pushes.',
+    );
+  }
 
   /// Internal factory for creating [WheelchairPushesRecord] instances
   /// without validation.

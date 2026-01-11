@@ -31,13 +31,19 @@ part of 'health_record.dart';
 @sinceV1_0_0
 @immutable
 final class HydrationRecord extends IntervalHealthRecord {
+  /// Minimum valid hydration volume (0.0 L).
+  static const Volume minVolume = Volume.zero;
+
+  /// Maximum valid hydration volume (20.0 L).
+  static const Volume maxVolume = Volume.liters(20.0);
+
   /// Creates a hydration record.
   ///
   /// ## Parameters
   ///
-  /// - [startTime]: The start of the time interval (inclusive).
-  /// - [endTime]: The end of the time interval (exclusive).
-  /// - [volume]: The volume of water consumed during the interval.
+  /// - [volume]: The volume of water consumed.
+  /// - [startTime]: The start of the drinking interval.
+  /// - [endTime]: The end of the drinking interval.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [startZoneOffsetSeconds]: Optional timezone offset for start time.
@@ -45,6 +51,8 @@ final class HydrationRecord extends IntervalHealthRecord {
   ///
   /// ## Throws
   ///
+  /// - [ArgumentError] if [volume] is outside the valid range of
+  ///   [minVolume]-[maxVolume].
   /// - [ArgumentError] if [endTime] is not after [startTime].
   HydrationRecord({
     required super.startTime,
@@ -54,7 +62,18 @@ final class HydrationRecord extends IntervalHealthRecord {
     super.id = HealthRecordId.none,
     super.startZoneOffsetSeconds,
     super.endZoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: volume >= minVolume && volume <= maxVolume,
+      value: volume,
+      name: 'volume',
+      message:
+          'Hydration volume must be between '
+          '${minVolume.inLiters.toStringAsFixed(0)}-'
+          '${maxVolume.inLiters.toStringAsFixed(0)} L. '
+          'Got ${volume.inLiters.toStringAsFixed(2)} L.',
+    );
+  }
 
   /// Internal factory for creating [HydrationRecord] instances
   /// without validation.

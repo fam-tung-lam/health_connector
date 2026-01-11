@@ -33,6 +33,18 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
+  /// Minimum valid HRV SDNN in milliseconds (1.0 ms).
+  ///
+  /// Practical lower limit; values near zero indicate measurement error or
+  /// severe cardiac pathology.
+  static const double minSdnnMs = 1.0;
+
+  /// Maximum valid HRV SDNN in milliseconds (300.0 ms).
+  ///
+  /// Research indicates 30-250 ms typical; 300 ms provides margin for 24-hour
+  /// measurements with high variability.
+  static const double maxSdnnMs = 300.0;
+
   /// Creates a heart rate variability (SDNN) record.
   ///
   /// ## Parameters
@@ -45,7 +57,15 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
   ///
   /// ## Throws
   ///
-  /// - [ArgumentError] if [sdnn] is negative.
+  /// - [ArgumentError] if [sdnn] is outside the valid range of
+  ///   [minSdnnMs]-[maxSdnnMs] ms.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minSdnnMs] ms)**: Practical lower limit; values near zero
+  ///   indicate measurement error or severe cardiac pathology.
+  /// - **Maximum ([maxSdnnMs] ms)**: Research indicates 30-250 ms typical; 300
+  ///   ms provides margin for 24-hour measurements with high variability.
   HeartRateVariabilitySDNNRecord({
     required super.time,
     required super.metadata,
@@ -53,25 +73,29 @@ final class HeartRateVariabilitySDNNRecord extends InstantHealthRecord {
     super.id = HealthRecordId.none,
     super.zoneOffsetSeconds,
   }) {
-    if (sdnn < TimeDuration.zero) {
-      throw ArgumentError.value(
-        sdnn,
-        'SDNN',
-        'Heart rate variability SDNN must be non-negative',
-      );
-    }
+    final ms = sdnn.inMilliseconds;
+    require(
+      condition: ms >= minSdnnMs && ms <= maxSdnnMs,
+      value: sdnn,
+      name: 'sdnn',
+      message:
+          'HRV SDNN must be between '
+          '$minSdnnMs-${maxSdnnMs.toStringAsFixed(0)} ms. '
+          'Got ${ms.toStringAsFixed(1)} ms.',
+    );
   }
 
-  /// Internal factory for creating [BloodPressureRecord] instances without
-  /// validation.
+  /// Internal factory for creating [HeartRateVariabilitySDNNRecord] instances
+  /// without validation.
   ///
-  /// Creates a [BloodPressureRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Creates a [HeartRateVariabilitySDNNRecord] by directly mapping platform
+  /// data to fields, bypassing the normal validation and business rules
+  /// applied by the public constructor.
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
-  /// [BloodPressureRecord] constructor, which enforces validation and business
-  /// rules. This factory is restricted to the SDK developers and contributors.
+  /// [HeartRateVariabilitySDNNRecord] constructor, which enforces validation
+  /// and business rules. This factory is restricted to the SDK developers and
+  /// contributors.
   @internalUse
   factory HeartRateVariabilitySDNNRecord.internal({
     required HealthRecordId id,

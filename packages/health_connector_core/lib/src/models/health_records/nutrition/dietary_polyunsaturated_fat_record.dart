@@ -11,8 +11,7 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryFatPolyunsaturat
-/// ed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeident
-/// ifier/dietaryfatpolyunsaturated)
+/// ed`](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfatpolyunsaturated)
 /// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
@@ -46,36 +45,46 @@ final class DietaryPolyunsaturatedFatRecord extends DietaryMacronutrientRecord {
   /// - [id]: The unique identifier for this record.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this polyunsaturated
-  /// fat.
+  ///   fat.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietaryPolyunsaturatedFatRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass].
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass])**: Valid mass must be non-negative.
+  /// - **Maximum ([maxMass])**: 1,000g is a reasonable upper bound for
+  ///   macronutrient intake from a single food item.
+  DietaryPolyunsaturatedFatRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
   }) {
-    return DietaryPolyunsaturatedFatRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Polyunsaturated fat mass must be between '
+          '${minMass.inGrams.toStringAsFixed(0)}-'
+          '${maxMass.inGrams.toStringAsFixed(0)} g. '
+          'Got ${mass.inGrams.toStringAsFixed(1)} g.',
     );
   }
 
-  /// Internal factory for creating [DietaryPolyunsaturatedFatRecord] instances
-  /// without
-  /// validation.
-  ///
-  /// Creates a [DietaryPolyunsaturatedFatRecord] by directly mapping platform
-  /// data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Minimum valid polyunsaturated fat mass (0.0 g).
+  static const Mass minMass = Mass.zero;
+
+  /// Maximum valid polyunsaturated fat mass (1,000.0 g).
+  static const Mass maxMass = Mass.grams(1000.0);
+
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryPolyunsaturatedFatRecord] constructor, which enforces validation
@@ -91,7 +100,7 @@ final class DietaryPolyunsaturatedFatRecord extends DietaryMacronutrientRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietaryPolyunsaturatedFatRecord._(
+    return DietaryPolyunsaturatedFatRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -122,14 +131,4 @@ final class DietaryPolyunsaturatedFatRecord extends DietaryMacronutrientRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietaryPolyunsaturatedFatRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

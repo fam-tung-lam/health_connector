@@ -44,32 +44,44 @@ final class DietaryBiotinRecord extends DietaryVitaminRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this biotin.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietaryBiotinRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass] g.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass] g)**: Valid mass must be non-negative.
+  /// - **Maximum ([maxMass] g)**: 10g is a reasonable upper bound for
+  ///   vitamin intake from a single food item.
+  DietaryBiotinRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
   }) {
-    return DietaryBiotinRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Biotin mass must be between '
+          '${minMass.inGrams.toStringAsFixed(0)}-'
+          '${maxMass.inGrams.toStringAsFixed(0)} g. '
+          'Got ${mass.inGrams.toStringAsFixed(4)} g.',
     );
   }
 
-  /// Internal factory for creating [DietaryBiotinRecord] instances without
-  /// validation.
-  ///
-  /// Creates a [DietaryBiotinRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Minimum valid biotin mass (0.0 g).
+  static const Mass minMass = Mass.zero;
+
+  /// Maximum valid biotin mass (10.0 g).
+  static const Mass maxMass = Mass.grams(10.0);
+
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryBiotinRecord] constructor, which enforces validation and business
@@ -84,7 +96,7 @@ final class DietaryBiotinRecord extends DietaryVitaminRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietaryBiotinRecord._(
+    return DietaryBiotinRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -115,14 +127,4 @@ final class DietaryBiotinRecord extends DietaryVitaminRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietaryBiotinRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

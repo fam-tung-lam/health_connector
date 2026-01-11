@@ -29,6 +29,20 @@ part of 'health_record.dart';
 @supportedOnHealthConnect
 @immutable
 final class BodyWaterMassRecord extends InstantHealthRecord {
+  /// Minimum valid body water mass in kilograms (0.3 kg).
+  ///
+  /// Premature infant (~0.5 kg total weight × 60% water).
+  /// Minimum valid body water mass (0.3 kg).
+  ///
+  /// Premature infant (~0.5 kg total weight × 60% water).
+  static const Mass minMass = Mass.kilograms(0.3);
+
+  /// Maximum valid body water mass (500.0 kg).
+  ///
+  /// Water typically 45-75% of body weight; max for very large individuals
+  /// (700 kg × 70%).
+  static const Mass maxMass = Mass.kilograms(500.0);
+
   /// Creates a body water mass record.
   ///
   /// ## Parameters
@@ -38,13 +52,37 @@ final class BodyWaterMassRecord extends InstantHealthRecord {
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
-  const BodyWaterMassRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass] kg.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass] kg)**: Premature infant (~0.5 kg total
+  ///   weight × 60% water).
+  /// - **Maximum ([maxMass] kg)**: Water typically 45-75% of body weight;
+  ///   max for very large individuals (700 kg × 70%).
+  BodyWaterMassRecord({
     required super.time,
     required super.metadata,
     required this.mass,
     super.id,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Body water mass must be between '
+          '${minMass.inKilograms.toStringAsFixed(1)}-'
+          '${maxMass.inKilograms.toStringAsFixed(0)} kg. '
+          'Got ${mass.inKilograms.toStringAsFixed(1)} kg.',
+    );
+  }
 
   /// Internal factory for creating [BodyWaterMassRecord] instances
   /// without validation.

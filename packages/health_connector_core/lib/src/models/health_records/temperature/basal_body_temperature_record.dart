@@ -33,6 +33,18 @@ part of '../health_record.dart';
 @sinceV2_2_0
 @immutable
 final class BasalBodyTemperatureRecord extends InstantHealthRecord {
+  /// Minimum valid basal body temperature in Celsius (34.0°C).
+  ///
+  /// Mild hypothermia threshold; basal temp measured at rest should not be this
+  /// low.
+  static const double minTempCelsius = 34.0;
+
+  /// Maximum valid basal body temperature in Celsius (42.0°C).
+  ///
+  /// High fever threshold; basal temp typically < 37.5°C, but allowing up to
+  /// 42°C for illness cases.
+  static const double maxTempCelsius = 42.0;
+
   /// Creates a basal body temperature record.
   ///
   /// ## Parameters
@@ -44,14 +56,37 @@ final class BasalBodyTemperatureRecord extends InstantHealthRecord {
   /// - [temperature]: The basal body temperature measurement.
   /// - [measurementLocation]: The location on the body where the measurement
   ///   was taken.
-  const BasalBodyTemperatureRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [temperature] is outside the valid range of
+  ///   [minTempCelsius]-[maxTempCelsius]°C (93.2-107.6°F).
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minTempCelsius]°C / 93.2°F)**: Mild hypothermia threshold;
+  ///   basal temp measured at rest should not be this low.
+  /// - **Maximum ([maxTempCelsius]°C / 107.6°F)**: High fever threshold; basal
+  ///   temp typically < 37.5°C, but allowing up to 42°C for illness cases.
+  BasalBodyTemperatureRecord({
     required super.time,
     required super.metadata,
     required this.temperature,
     super.id,
     super.zoneOffsetSeconds,
     this.measurementLocation = BasalBodyTemperatureMeasurementLocation.unknown,
-  });
+  }) {
+    final celsius = temperature.inCelsius;
+    require(
+      condition: celsius >= minTempCelsius && celsius <= maxTempCelsius,
+      value: temperature,
+      name: 'temperature',
+      message:
+          'Basal body temperature must be between '
+          '$minTempCelsius-${maxTempCelsius.toStringAsFixed(0)}°C '
+          '(93.2-107.6°F). Got ${celsius.toStringAsFixed(1)}°C.',
+    );
+  }
 
   /// Internal factory for creating [BasalBodyTemperatureRecord] instances
   /// without validation.

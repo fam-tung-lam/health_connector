@@ -23,14 +23,50 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class StairDescentSpeedRecord extends SpeedActivityRecord {
+  /// Minimum valid stair descent speed in km/h (0.0 km/h).
+  ///
+  /// At rest.
+  /// Minimum valid stair descent speed (0.0 km/h).
+  ///
+  /// At rest.
+  static const Velocity minSpeed = Velocity.zero;
+
+  /// Maximum valid stair descent speed (3.0 km/h).
+  ///
+  /// Descent typically faster than ascent (~0.5-1 km/h); 3 km/h allows for fast
+  /// descent.
+  static const Velocity maxSpeed = Velocity.kilometersPerHour(3.0);
+
   /// Creates a stair descent speed record.
-  const StairDescentSpeedRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [speed] is outside the valid range of
+  ///   [minSpeed]-[maxSpeed] km/h.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minSpeed] km/h)**: At rest.
+  /// - **Maximum ([maxSpeed] km/h / 1.9 mph)**: Descent typically faster than
+  ///   ascent (~0.5-1 km/h); 3 km/h allows for fast descent.
+  StairDescentSpeedRecord({
     required super.time,
     required super.metadata,
     required super.speed,
     super.id,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: speed >= minSpeed && speed <= maxSpeed,
+      value: speed,
+      name: 'speed',
+      message:
+          'Stair descent speed must be between '
+          '${minSpeed.inKilometersPerHour.toStringAsFixed(1)}-'
+          '${maxSpeed.inKilometersPerHour.toStringAsFixed(0)} km/h (0-1.9 mph). '
+          'Got ${speed.inKilometersPerHour.toStringAsFixed(2)} km/h.',
+    );
+  }
 
   /// Internal factory for creating [StairDescentSpeedRecord] instances
   /// without validation.

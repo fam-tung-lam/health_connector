@@ -8,7 +8,11 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **Android Health Connect**: [`SpeedRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SpeedRecord)
-/// - **iOS HealthKit**: Not supported. Use the activity-specific speed records:  - [WalkingSpeedRecord]  - [RunningSpeedRecord]  - [StairAscentSpeedRecord]  - [StairDescentSpeedRecord]
+/// - **iOS HealthKit**: Not supported. Use the activity-specific speed records:
+///   - [WalkingSpeedRecord]
+///   - [RunningSpeedRecord]
+///   - [StairAscentSpeedRecord]
+///   - [StairDescentSpeedRecord]
 ///
 /// ## Example
 ///
@@ -200,14 +204,46 @@ final class SpeedSeriesRecord extends SeriesHealthRecord<SpeedSample> {
 @supportedOnHealthConnect
 @immutable
 final class SpeedSample {
+  /// Minimum valid speed in km/h (0.0 km/h).
+  ///
+  /// At rest.
+  static const double minSpeedKmh = 0.0;
+
+  /// Maximum valid speed in km/h (150.0 km/h).
+  ///
+  /// Extreme cycling speeds (e.g., downhill); allows for various sports
+  /// activities.
+  static const double maxSpeedKmh = 150.0;
+
   /// Creates a speed measurement.
   ///
   /// The [time] parameter specifies when the measurement was taken. The [speed]
   /// parameter indicates the velocity.
-  const SpeedSample({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [speed] is outside the valid range of
+  ///   [minSpeedKmh]-[maxSpeedKmh] km/h.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minSpeedKmh] km/h)**: At rest.
+  /// - **Maximum ([maxSpeedKmh] km/h / 93 mph)**: Extreme cycling speeds (e.g.,
+  ///   downhill); allows for various sports activities.
+  SpeedSample({
     required this.time,
     required this.speed,
-  });
+  }) {
+    final kmh = speed.inKilometersPerHour;
+    require(
+      condition: kmh >= minSpeedKmh && kmh <= maxSpeedKmh,
+      value: speed,
+      name: 'speed',
+      message:
+          'Speed must be between $minSpeedKmh-${maxSpeedKmh.toStringAsFixed(0)} km/h (0-93 mph). Got '
+          '${kmh.toStringAsFixed(1)} km/h.',
+    );
+  }
 
   /// The time at which the speed was measured, stored as a UTC instant.
   ///

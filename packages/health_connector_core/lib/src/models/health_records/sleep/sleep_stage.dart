@@ -2,7 +2,8 @@
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: Maps to `SleepSessionRecord.Stage.StageType`constants
+/// - **Android Health Connect**: Maps to `SleepSessionRecord.Stage.StageType`
+///   constants
 /// - **iOS HealthKit**: Maps to `HKCategoryValueSleepAnalysis` enum values
 ///
 /// {@category Health Records}

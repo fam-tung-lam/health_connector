@@ -199,11 +199,45 @@ final class HeartRateSeriesRecord extends SeriesHealthRecord<HeartRateSample> {
 /// {@category Health Records}
 @immutable
 final class HeartRateSample {
+  /// Minimum valid heart rate in beats per minute.
+  static final Frequency minRate = HeartRateRecord.minRate;
+
+  /// Maximum valid heart rate in beats per minute.
+  static final Frequency maxRate = HeartRateRecord.maxRate;
+
   /// Creates a heart rate measurement.
-  const HeartRateSample({
+  ///
+  /// ## Parameters
+  ///
+  /// - [time]: The timestamp when the heart rate was measured.
+  /// - [rate]: The heart rate value in beats per minute (BPM).
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [rate] is outside the valid range of
+  ///   [minRate]-[maxRate].
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minRate])**: Elite endurance athletes have
+  ///   documented resting heart rates as low as 27-32 bpm.
+  /// - **Maximum ([maxRate])**: Exceeds the theoretical maximum
+  ///   (220 - age) to accommodate young individuals and measurement artifacts.
+  HeartRateSample({
     required this.time,
     required this.rate,
-  });
+  }) {
+    require(
+      condition: rate >= minRate && rate <= maxRate,
+      value: rate,
+      name: 'rate',
+      message:
+          'Heart rate must be between '
+          '${minRate.inPerMinute.toStringAsFixed(0)}-'
+          '${maxRate.inPerMinute.toStringAsFixed(0)} bpm. '
+          'Got ${rate.inPerMinute.toStringAsFixed(1)} bpm.',
+    );
+  }
 
   /// The timestamp when this heart rate measurement was taken, stored as a
   /// UTC instant.

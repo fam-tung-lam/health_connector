@@ -37,6 +37,19 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class SystolicBloodPressureRecord extends InstantHealthRecord {
+  /// Minimum valid systolic blood pressure (50 mmHg).
+  static const Pressure minPressure = Pressure.millimetersOfMercury(50.0);
+
+  /// Maximum valid systolic blood pressure.
+  ///
+  /// Valid range: 20-300 mmHg for Android Health Connect.
+  ///
+  /// ## Platform Compatibility
+  ///
+  /// - **Android Health Connect**: [BloodPressureRecord.kt](https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:health/connect/connect-client/src/main/java/androidx/health/connect/client/records/BloodPressureRecord.kt)
+  /// - **Apple HealthKit**: No platform limits (application-defined)
+  static const Pressure maxPressure = Pressure.millimetersOfMercury(300.0);
+
   /// Creates a systolic blood pressure record.
   ///
   /// ## Parameters
@@ -48,7 +61,18 @@ final class SystolicBloodPressureRecord extends InstantHealthRecord {
   /// - [pressure]: The systolic blood pressure measurement.
   /// - [bodyPosition]: Optional body position during measurement.
   /// - [measurementLocation]: Optional location where measurement was taken.
-  const SystolicBloodPressureRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [pressure] is outside the valid range of
+  ///   [minPressure]-[maxPressure] mmHg.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum (50 mmHg)**: Severe hypotension/shock threshold.
+  /// - **Maximum (300 mmHg)**: Extreme hypertensive crisis; accommodates
+  ///   Health Connect SDK 17+ platform limit.
+  SystolicBloodPressureRecord({
     required super.time,
     required super.metadata,
     required this.pressure,
@@ -56,7 +80,18 @@ final class SystolicBloodPressureRecord extends InstantHealthRecord {
     super.zoneOffsetSeconds,
     this.bodyPosition = BloodPressureBodyPosition.unknown,
     this.measurementLocation = BloodPressureMeasurementLocation.unknown,
-  });
+  }) {
+    require(
+      condition: pressure >= minPressure && pressure <= maxPressure,
+      value: pressure,
+      name: 'systolic pressure',
+      message:
+          'Systolic blood pressure must be between '
+          '${minPressure.inMillimetersOfMercury.toStringAsFixed(0)}-'
+          '${maxPressure.inMillimetersOfMercury.toStringAsFixed(0)} mmHg. '
+          'Got ${pressure.inMillimetersOfMercury.toStringAsFixed(0)} mmHg.',
+    );
+  }
 
   /// Internal factory for creating [BloodPressureRecord] instances without
   /// validation.

@@ -34,6 +34,17 @@ part of 'health_record.dart';
 @sinceV1_3_0
 @immutable
 final class OxygenSaturationRecord extends InstantHealthRecord {
+  /// Minimum valid oxygen saturation (0%).
+  ///
+  /// Theoretical lower limit; values < 65% rarely survivable but allowed for
+  /// measurement artifacts.
+  static const Percentage minSaturation = Percentage.zero;
+
+  /// Maximum valid oxygen saturation (100%).
+  ///
+  /// Physical maximum for oxygen saturation.
+  static const Percentage maxSaturation = Percentage.full;
+
   /// Creates an oxygen saturation record.
   ///
   /// ## Parameters
@@ -43,13 +54,36 @@ final class OxygenSaturationRecord extends InstantHealthRecord {
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [id]: The unique identifier for this record.
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
-  const OxygenSaturationRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [saturation] is outside the valid range of
+  ///   [minSaturation]-[maxSaturation]%.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minSaturation]%)**: Theoretical lower limit;
+  ///   values < 65% rarely survivable but allowed for measurement artifacts.
+  /// - **Maximum ([maxSaturation]%)**: Physical maximum for oxygen
+  ///   saturation.
+  OxygenSaturationRecord({
     required super.time,
     required this.saturation,
     required super.metadata,
     super.id,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: saturation >= minSaturation && saturation <= maxSaturation,
+      value: saturation,
+      name: 'saturation',
+      message:
+          'Oxygen saturation must be between '
+          '${minSaturation.asWhole.toStringAsFixed(0)}-'
+          '${maxSaturation.asWhole.toStringAsFixed(0)}%. '
+          'Got ${saturation.asWhole.toStringAsFixed(1)}%.',
+    );
+  }
 
   /// Internal factory for creating [OxygenSaturationRecord] instances
   /// without validation.
@@ -113,9 +147,18 @@ final class OxygenSaturationRecord extends InstantHealthRecord {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is OxygenSaturationRecord &&
-          super == other &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          time == other.time &&
+          zoneOffsetSeconds == other.zoneOffsetSeconds &&
+          metadata == other.metadata &&
           saturation == other.saturation;
 
   @override
-  int get hashCode => Object.hash(super.hashCode, saturation);
+  int get hashCode =>
+      id.hashCode ^
+      time.hashCode ^
+      (zoneOffsetSeconds?.hashCode ?? 0) ^
+      metadata.hashCode ^
+      saturation.hashCode;
 }

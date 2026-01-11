@@ -48,4 +48,25 @@ sealed class NutrientRecord<U extends MeasurementUnit>
 
   /// The type of meal during which this nutrient was consumed.
   final MealType mealType;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is NutrientRecord &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          metadata == other.metadata &&
+          time == other.time &&
+          zoneOffsetSeconds == other.zoneOffsetSeconds &&
+          foodName == other.foodName &&
+          mealType == other.mealType;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      metadata.hashCode ^
+      time.hashCode ^
+      zoneOffsetSeconds.hashCode ^
+      foodName.hashCode ^
+      mealType.hashCode;
 }

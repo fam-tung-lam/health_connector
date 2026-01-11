@@ -199,11 +199,39 @@ final class CyclingPedalingCadenceSeriesRecord
 /// {@category Health Records}
 @immutable
 final class CyclingPedalingCadenceSample {
+  /// Minimum valid cycling cadence.
+  static final Frequency minCadence = CyclingPedalingCadenceRecord.minCadence;
+
+  /// Maximum valid cycling cadence.
+  static final Frequency maxCadence = CyclingPedalingCadenceRecord.maxCadence;
+
   /// Creates a cycling pedaling cadence measurement.
-  const CyclingPedalingCadenceSample({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [cadence] is outside the valid range of
+  ///   [minCadence]-[maxCadence] RPM.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minCadence] RPM)**: Not pedaling (coasting).
+  /// - **Maximum ([maxCadence] RPM)**: Typical cadence 60-100 RPM; elite
+  ///   cyclists ~120 RPM; 200 RPM allows for brief sprint peaks.
+  CyclingPedalingCadenceSample({
     required this.time,
     required this.cadence,
-  });
+  }) {
+    require(
+      condition: cadence >= minCadence && cadence <= maxCadence,
+      value: cadence,
+      name: 'cadence',
+      message:
+          'Cycling cadence must be between '
+          '${minCadence.inPerMinute.toStringAsFixed(0)}-'
+          '${maxCadence.inPerMinute.toStringAsFixed(0)} RPM. '
+          'Got ${cadence.inPerMinute.toStringAsFixed(0)} RPM.',
+    );
+  }
 
   /// The timestamp when this cadence measurement was taken, stored as a
   /// UTC instant.

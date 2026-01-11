@@ -7,8 +7,10 @@ part of '../../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: Maps to `MenstruationFlowRecord.FLOW_*`  constants
-/// - **iOS HealthKit**: Maps to `HKCategoryValueMenstrualFlow` (iOS ≤17) or  `HKCategoryValueVaginalBleeding` (iOS ≥18) enum values
+/// - **Android Health Connect**: Maps to `MenstruationFlowRecord.FLOW_*`
+///   constants
+/// - **iOS HealthKit**: Maps to `HKCategoryValueMenstrualFlow` (iOS ≤17) or
+///   `HKCategoryValueVaginalBleeding` (iOS ≥18) enum values
 ///
 /// {@category Health Records}
 @sinceV2_2_0

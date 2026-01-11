@@ -42,32 +42,44 @@ final class DietaryMagnesiumRecord extends DietaryMineralRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this magnesium.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietaryMagnesiumRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass] g.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass] g)**: Valid mass must be non-negative.
+  /// - **Maximum ([maxMass] g)**: 100g is a reasonable upper bound for
+  ///   mineral intake from a single food item.
+  DietaryMagnesiumRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
   }) {
-    return DietaryMagnesiumRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Magnesium mass must be between '
+          '${minMass.inGrams.toStringAsFixed(0)}-'
+          '${maxMass.inGrams.toStringAsFixed(0)} g. '
+          'Got ${mass.inGrams.toStringAsFixed(3)} g.',
     );
   }
 
-  /// Internal factory for creating [DietaryMagnesiumRecord] instances without
-  /// validation.
-  ///
-  /// Creates a [DietaryMagnesiumRecord] by directly mapping platform data to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Minimum valid magnesium mass (0.0 g).
+  static const Mass minMass = Mass.zero;
+
+  /// Maximum valid magnesium mass (100.0 g).
+  static const Mass maxMass = Mass.grams(100.0);
+
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryMagnesiumRecord] constructor, which enforces validation and
@@ -83,7 +95,7 @@ final class DietaryMagnesiumRecord extends DietaryMineralRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietaryMagnesiumRecord._(
+    return DietaryMagnesiumRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -114,14 +126,4 @@ final class DietaryMagnesiumRecord extends DietaryMineralRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietaryMagnesiumRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

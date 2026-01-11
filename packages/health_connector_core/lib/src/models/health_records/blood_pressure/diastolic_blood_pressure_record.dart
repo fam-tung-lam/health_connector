@@ -37,6 +37,19 @@ part of '../health_record.dart';
 @supportedOnAppleHealth
 @immutable
 final class DiastolicBloodPressureRecord extends InstantHealthRecord {
+  /// Minimum valid diastolic blood pressure (30 mmHg).
+  static const Pressure minPressure = Pressure.millimetersOfMercury(30.0);
+
+  ///  Maximum valid diastolic blood pressure.
+  ///
+  /// Valid range: 10-300 mmHg for Android Health Connect SDK.
+  ///
+  /// ## Platform Compatibility
+  ///
+  /// - **Android Health Connect**: [BloodPressureRecord.kt](https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:health/connect/connect-client/src/main/java/androidx/health/connect/client/records/BloodPressureRecord.kt)
+  /// - **Apple HealthKit**: No platform limits (application-defined)
+  static const Pressure maxPressure = Pressure.millimetersOfMercury(300.0);
+
   /// Creates a diastolic blood pressure record.
   ///
   /// ## Parameters
@@ -48,7 +61,18 @@ final class DiastolicBloodPressureRecord extends InstantHealthRecord {
   /// - [pressure]: The diastolic blood pressure measurement.
   /// - [bodyPosition]: Optional body position during measurement.
   /// - [measurementLocation]: Optional location where measurement was taken.
-  const DiastolicBloodPressureRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [pressure] is outside the valid range of
+  ///   [minPressure]-[maxPressure] mmHg.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum (30 mmHg)**: Extreme hypotension threshold.
+  /// - **Maximum (150 mmHg)**: Severe hypertension; values above indicate
+  ///   critical medical condition.
+  DiastolicBloodPressureRecord({
     required super.time,
     required super.metadata,
     required this.pressure,
@@ -56,7 +80,18 @@ final class DiastolicBloodPressureRecord extends InstantHealthRecord {
     super.zoneOffsetSeconds,
     this.bodyPosition = BloodPressureBodyPosition.unknown,
     this.measurementLocation = BloodPressureMeasurementLocation.unknown,
-  });
+  }) {
+    require(
+      condition: pressure >= minPressure && pressure <= maxPressure,
+      value: pressure,
+      name: 'diastolic pressure',
+      message:
+          'Diastolic blood pressure must be between '
+          '${minPressure.inMillimetersOfMercury.toStringAsFixed(0)}-'
+          '${maxPressure.inMillimetersOfMercury.toStringAsFixed(0)} mmHg. '
+          'Got ${pressure.inMillimetersOfMercury.toStringAsFixed(0)} mmHg.',
+    );
+  }
 
   /// Internal factory for creating [DiastolicBloodPressureRecord] instances
   /// without

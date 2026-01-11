@@ -31,6 +31,21 @@ part of 'health_record.dart';
 @sinceV1_0_0
 @immutable
 final class LeanBodyMassRecord extends InstantHealthRecord {
+  /// Minimum valid lean body mass in kilograms (0.5 kg).
+  ///
+  /// Premature infant lower bound (excluding fat).
+  /// Minimum valid lean body mass (0.5 kg).
+  ///
+  /// Premature infant lower bound (excluding fat).
+  static const Mass minMass = Mass.kilograms(0.5);
+
+  /// Maximum valid lean body mass (200.0 kg).
+  ///
+  /// Extreme upper limit for very large/muscular individuals; lean mass
+  /// typically 40-100 kg.
+  static const Mass maxMass = Mass.kilograms(200.0);
+
+  /// Creates a lean body mass record.
   ///
   /// ## Parameters
   ///
@@ -39,13 +54,36 @@ final class LeanBodyMassRecord extends InstantHealthRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [metadata]: Metadata about the origin and recording method.
   /// - [mass]: The lean body mass measurement.
-  const LeanBodyMassRecord({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass] kg.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass] kg)**: Premature infant lower bound.
+  /// - **Maximum ([maxMass] kg)**: Extreme upper limit for very large/muscular
+  ///   individuals; lean mass typically 40-100 kg.
+  LeanBodyMassRecord({
     required super.time,
     required super.metadata,
     required this.mass,
     super.id,
     super.zoneOffsetSeconds,
-  });
+  }) {
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Lean body mass must be between '
+          '${minMass.inKilograms.toStringAsFixed(1)}-'
+          '${maxMass.inKilograms.toStringAsFixed(0)} kg. '
+          'Got ${mass.inKilograms.toStringAsFixed(1)} kg.',
+    );
+  }
 
   /// Internal factory for creating [LeanBodyMassRecord] instances
   /// without validation.

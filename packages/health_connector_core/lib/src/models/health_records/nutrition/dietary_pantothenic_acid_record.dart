@@ -11,8 +11,7 @@ part of '../health_record.dart';
 /// ## Platform Mapping
 ///
 /// - **iOS HealthKit Only**: [`HKQuantityTypeIdentifier.dietaryPantothenicAcid`
-/// ](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifi
-/// er/dietarypantothenicacid)
+/// ](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarypantothenicacid)
 /// - **Android Health Connect**: Part of [`NutritionRecord`](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)
 ///
 /// ## Example
@@ -48,34 +47,44 @@ final class DietaryPantothenicAcidRecord extends DietaryVitaminRecord {
   /// - [zoneOffsetSeconds]: Optional timezone offset for the measurement time.
   /// - [foodName]: Optional name of the food containing this pantothenic acid.
   /// - [mealType]: The type of meal (breakfast, lunch, dinner, snack, unknown).
-  factory DietaryPantothenicAcidRecord({
-    required Mass mass,
-    required DateTime time,
-    required Metadata metadata,
-    HealthRecordId id = HealthRecordId.none,
-    int? zoneOffsetSeconds,
-    String? foodName,
-    MealType mealType = MealType.unknown,
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [mass] is outside the valid range of
+  ///   [minMass]-[maxMass] g.
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minMass] g)**: Valid mass must be non-negative.
+  /// - **Maximum ([maxMass] g)**: 10g is a reasonable upper bound for
+  ///   vitamin intake from a single food item.
+  DietaryPantothenicAcidRecord({
+    required super.mass,
+    required super.time,
+    required super.metadata,
+    super.id = HealthRecordId.none,
+    super.zoneOffsetSeconds,
+    super.foodName,
+    super.mealType,
   }) {
-    return DietaryPantothenicAcidRecord._(
-      mass: mass,
-      time: time,
-      metadata: metadata,
-      id: id,
-      zoneOffsetSeconds: zoneOffsetSeconds,
-      foodName: foodName,
-      mealType: mealType,
+    require(
+      condition: mass >= minMass && mass <= maxMass,
+      value: mass,
+      name: 'mass',
+      message:
+          'Pantothenic acid mass must be between '
+          '${minMass.inGrams.toStringAsFixed(0)}-'
+          '${maxMass.inGrams.toStringAsFixed(0)} g. '
+          'Got ${mass.inGrams.toStringAsFixed(4)} g.',
     );
   }
 
-  /// Internal factory for creating [DietaryPantothenicAcidRecord] instances
-  /// without
-  /// validation.
-  ///
-  /// Creates a [DietaryPantothenicAcidRecord] by directly mapping platform data
-  /// to
-  /// fields, bypassing the normal validation and business rules applied by the
-  /// public constructor.
+  /// Minimum valid pantothenic acid mass (0.0 g).
+  static const Mass minMass = Mass.zero;
+
+  /// Maximum valid pantothenic acid mass (10.0 g).
+  static const Mass maxMass = Mass.grams(10.0);
+
   ///
   /// **⚠️ Warning**: Not for public use. SDK users should use the public
   /// [DietaryPantothenicAcidRecord] constructor, which enforces validation and
@@ -91,7 +100,7 @@ final class DietaryPantothenicAcidRecord extends DietaryVitaminRecord {
     String? foodName,
     MealType mealType = MealType.unknown,
   }) {
-    return DietaryPantothenicAcidRecord._(
+    return DietaryPantothenicAcidRecord(
       mass: mass,
       time: time,
       metadata: metadata,
@@ -122,14 +131,4 @@ final class DietaryPantothenicAcidRecord extends DietaryVitaminRecord {
       mealType: mealType ?? this.mealType,
     );
   }
-
-  const DietaryPantothenicAcidRecord._({
-    required super.mass,
-    required super.time,
-    required super.metadata,
-    super.id = HealthRecordId.none,
-    super.zoneOffsetSeconds,
-    super.foodName,
-    super.mealType,
-  });
 }

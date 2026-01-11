@@ -7,7 +7,8 @@ part of '../health_record.dart';
 ///
 /// ## Platform Mapping
 ///
-/// - **Android Health Connect**: Maps to  `ExerciseSessionRecord.EXERCISE_TYPE_*` constants
+/// - **Android Health Connect**: Maps to
+///   `ExerciseSessionRecord.EXERCISE_TYPE_*` constants
 /// - **iOS HealthKit**: Maps to `HKWorkoutActivityType` enum values
 ///
 /// ## Cross-Platform Types
@@ -122,7 +123,8 @@ enum ExerciseType {
   ///
   /// **Platform Mappings:**
   /// - **iOS HealthKit**: `HKWorkoutActivityType.swimming`
-  /// - **Android Health Connect**: Not supported  (Use `swimmingPool` or `swimmingOpenWater`)
+  /// - **Android Health Connect**: Not supported  (Use `swimmingPool` or
+  /// `swimmingOpenWater`)
   ///
   /// Throws [UnsupportedOperationException] on Android Health Connect.
   @supportedOnAppleHealth
@@ -222,7 +224,7 @@ enum ExerciseType {
   /// General strength training activity.
   ///
   /// **Platform Mappings:**
-  /// - **iOS HealthKit**: `HKWorkoutActivityType.traditionalStrengthTraining`  or `.functionalStrengthTraining`
+  /// - **iOS HealthKit**: `HKWorkoutActivityType.traditionalStrengthTraining`
   /// - **Android Health Connect**: `EXERCISE_TYPE_STRENGTH_TRAINING`
   strengthTraining,
 
@@ -436,7 +438,8 @@ enum ExerciseType {
   /// Skiing activity (downhill, cross-country).
   ///
   /// **Platform Mappings:**
-  /// - **iOS HealthKit**: Not supported  (See `crossCountrySkiing` or `downhillSkiing`)
+  /// - **iOS HealthKit**: Not supported. Use [crossCountrySkiing] or
+  ///   [downhillSkiing] instead.
   /// - **Android Health Connect**: `EXERCISE_TYPE_SKIING`
   ///
   /// Throws [UnsupportedOperationException] on iOS HealthKit.
@@ -640,7 +643,8 @@ enum ExerciseType {
   ///
   /// **Platform Mappings:**
   /// - **iOS HealthKit**: `HKWorkoutActivityType.highIntensityIntervalTraining`
-  /// - **Android Health Connect**:  `EXERCISE_TYPE_HIGH_INTENSITY_INTERVAL_TRAINING`
+  /// - **Android Health Connect**:
+  ///   `EXERCISE_TYPE_HIGH_INTENSITY_INTERVAL_TRAINING`
   highIntensityIntervalTraining,
 
   /// Elliptical trainer machine exercise.
@@ -673,7 +677,7 @@ enum ExerciseType {
   /// Guided breathing session.
   ///
   /// **Platform Mappings:**
-  /// - **iOS HealthKit**: `HKCategoryTypeIdentifier.mindfulSession`  (Not workout)
+  /// - **iOS HealthKit**: `HKCategoryTypeIdentifier.mindfulSession`
   /// - **Android Health Connect**: `EXERCISE_TYPE_GUIDED_BREATHING`
   ///
   /// Throws [UnsupportedOperationException] on iOS HealthKit.
@@ -685,8 +689,9 @@ enum ExerciseType {
   /// Includes climbing real stairs, stair stepper machines, and stair climbers.
   ///
   /// **Platform Mappings:**
-  /// - **iOS HealthKit**: `HKWorkoutActivityType.stairs` or `.stairClimbing`
-  /// - **Android Health Connect**:  `ExerciseSessionRecord.EXERCISE_TYPE_STAIR_CLIMBING`
+  /// - **iOS HealthKit**: `HKWorkoutActivityType.stairClimbing`
+  /// - **Android Health Connect**:
+  ///   `ExerciseSessionRecord.EXERCISE_TYPE_STAIR_CLIMBING`
   ///
   /// **Note:** This unified type covers both real stairs and stair climbing
   /// machines.

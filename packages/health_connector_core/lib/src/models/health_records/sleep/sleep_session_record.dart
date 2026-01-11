@@ -45,6 +45,17 @@ part of '../health_record.dart';
 @supportedOnHealthConnect
 @immutable
 final class SleepSessionRecord extends SeriesHealthRecord<SleepStageSample> {
+  /// Minimum valid sleep session duration (1 minute).
+  ///
+  /// Brief naps; shorter than 1 minute unlikely to be actual sleep.
+  static const Duration minDuration = Duration(minutes: 1);
+
+  /// Maximum valid sleep session duration (24 hours).
+  ///
+  /// Typical sleep duration 4-12 hours; 24 hours allows for extended sleep or
+  /// combined sessions.
+  static const Duration maxDuration = Duration(hours: 24);
+
   /// Creates a sleep session record.
   ///
   /// The session spans from [startTime] to [endTime] and contains a list of
@@ -53,6 +64,19 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStageSample> {
   /// Optional [title] and [notes] can be provided. Use [metadata] to describe
   /// the data source. Timezone offsets can be provided via
   /// [startZoneOffsetSeconds] and [endZoneOffsetSeconds].
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
+  /// - [ArgumentError] if session duration is outside the valid range of
+  ///   [minDuration] to [maxDuration].
+  ///
+  /// ## Validation Rationale
+  ///
+  /// - **Minimum ([minDuration])**: Brief naps; shorter than 1 minute
+  ///   unlikely to be actual sleep.
+  /// - **Maximum ([maxDuration])**: Typical sleep duration 4-12 hours; 24
+  ///   hours allows for extended sleep or combined sessions.
   SleepSessionRecord({
     required super.id,
     required super.metadata,
@@ -63,7 +87,18 @@ final class SleepSessionRecord extends SeriesHealthRecord<SleepStageSample> {
     super.endZoneOffsetSeconds,
     this.title,
     this.notes,
-  });
+  }) {
+    final duration = endTime.difference(startTime);
+    require(
+      condition: duration >= minDuration && duration <= maxDuration,
+      value: duration,
+      name: 'sleep session duration',
+      message:
+          'Sleep session duration must be between ${minDuration.inMinutes} '
+          'minute(s) and ${maxDuration.inHours} hours. '
+          'Got ${duration.inMinutes} minutes.',
+    );
+  }
 
   /// Internal factory for creating [BloodPressureRecord] instances without
   /// validation.
@@ -207,11 +242,22 @@ final class SleepStageSample {
   /// Creates a sleep stage.
   ///
   /// The stage is defined by [startTime], [endTime], and the [stageType].
-  const SleepStageSample({
+  ///
+  /// ## Throws
+  ///
+  /// - [ArgumentError] if [endTime] is not after [startTime].
+  SleepStageSample({
     required this.startTime,
     required this.endTime,
     required this.stageType,
-  });
+  }) {
+    require(
+      condition: endTime.isAfter(startTime),
+      value: endTime,
+      name: 'endTime',
+      message: 'Sleep stage end time must be after start time.',
+    );
+  }
 
   /// The start time of this sleep stage, stored as a UTC instant.
   ///
