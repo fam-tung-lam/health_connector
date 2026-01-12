@@ -33,7 +33,7 @@ final class DietaryIronDataType
     extends MineralNutrientDataType<DietaryIronRecord>
     implements
         ReadableHealthDataType<DietaryIronRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryIronRecord>,
         SumAggregatableHealthDataType<DietaryIronRecord, Mass>,
         DeletableHealthDataType<DietaryIronRecord> {
   /// Creates a iron data type.

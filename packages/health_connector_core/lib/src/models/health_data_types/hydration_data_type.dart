@@ -64,7 +64,7 @@ part of 'health_data_type.dart';
 final class HydrationDataType extends HealthDataType<HydrationRecord, Volume>
     implements
         ReadableHealthDataType<HydrationRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<HydrationRecord>,
         SumAggregatableHealthDataType<HydrationRecord, Volume>,
         DeletableHealthDataType<HydrationRecord> {
   /// Creates a hydration data type.

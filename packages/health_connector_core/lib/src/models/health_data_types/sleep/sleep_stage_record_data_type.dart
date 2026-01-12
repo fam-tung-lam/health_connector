@@ -35,7 +35,7 @@ final class SleepStageDataType
     extends HealthDataType<SleepStageRecord, TimeDuration>
     implements
         ReadableHealthDataType<SleepStageRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<SleepStageRecord>,
         SumAggregatableHealthDataType<SleepStageRecord, TimeDuration>,
         DeletableHealthDataType<SleepStageRecord> {
   /// Creates a sleep stage data type.

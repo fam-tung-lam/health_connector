@@ -33,7 +33,7 @@ final class DietaryRiboflavinDataType
     extends DietaryVitaminDataType<DietaryRiboflavinRecord>
     implements
         ReadableHealthDataType<DietaryRiboflavinRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryRiboflavinRecord>,
         SumAggregatableHealthDataType<DietaryRiboflavinRecord, Mass>,
         DeletableHealthDataType<DietaryRiboflavinRecord> {
   /// Creates a riboflavin (vitamin b2) data type.

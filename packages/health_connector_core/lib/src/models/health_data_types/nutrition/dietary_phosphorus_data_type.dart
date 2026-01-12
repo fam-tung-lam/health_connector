@@ -33,7 +33,7 @@ final class DietaryPhosphorusDataType
     extends MineralNutrientDataType<DietaryPhosphorusRecord>
     implements
         ReadableHealthDataType<DietaryPhosphorusRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryPhosphorusRecord>,
         SumAggregatableHealthDataType<DietaryPhosphorusRecord, Mass>,
         DeletableHealthDataType<DietaryPhosphorusRecord> {
   /// Creates a phosphorus data type.

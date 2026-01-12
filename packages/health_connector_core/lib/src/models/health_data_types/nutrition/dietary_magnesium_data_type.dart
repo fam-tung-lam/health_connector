@@ -33,7 +33,7 @@ final class DietaryMagnesiumDataType
     extends MineralNutrientDataType<DietaryMagnesiumRecord>
     implements
         ReadableHealthDataType<DietaryMagnesiumRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryMagnesiumRecord>,
         SumAggregatableHealthDataType<DietaryMagnesiumRecord, Mass>,
         DeletableHealthDataType<DietaryMagnesiumRecord> {
   /// Creates a magnesium data type.

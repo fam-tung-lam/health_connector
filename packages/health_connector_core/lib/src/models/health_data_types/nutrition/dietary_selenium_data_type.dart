@@ -33,7 +33,7 @@ final class DietarySeleniumDataType
     extends MineralNutrientDataType<DietarySeleniumRecord>
     implements
         ReadableHealthDataType<DietarySeleniumRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietarySeleniumRecord>,
         SumAggregatableHealthDataType<DietarySeleniumRecord, Mass>,
         DeletableHealthDataType<DietarySeleniumRecord> {
   /// Creates a selenium data type.

@@ -32,7 +32,7 @@ final class BodyWaterMassDataType
     extends HealthDataType<BodyWaterMassRecord, Mass>
     implements
         ReadableHealthDataType<BodyWaterMassRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<BodyWaterMassRecord>,
         DeletableHealthDataType<BodyWaterMassRecord> {
   /// Creates a body water mass data type.
   ///

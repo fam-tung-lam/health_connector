@@ -33,7 +33,7 @@ final class DietaryVitaminCDataType
     extends DietaryVitaminDataType<DietaryVitaminCRecord>
     implements
         ReadableHealthDataType<DietaryVitaminCRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryVitaminCRecord>,
         SumAggregatableHealthDataType<DietaryVitaminCRecord, Mass>,
         DeletableHealthDataType<DietaryVitaminCRecord> {
   /// Creates a vitamin c (ascorbic acid) data type.

@@ -30,7 +30,7 @@ final class HeartRateSeriesDataType
     extends HealthDataType<HeartRateSeriesRecord, Number>
     implements
         ReadableHealthDataType<HeartRateSeriesRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<HeartRateSeriesRecord>,
         AvgAggregatableHealthDataType<HeartRateSeriesRecord, Number>,
         MinAggregatableHealthDataType<HeartRateSeriesRecord, Number>,
         MaxAggregatableHealthDataType<HeartRateSeriesRecord, Number>,

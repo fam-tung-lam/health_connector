@@ -34,7 +34,7 @@ final class BloodGlucoseDataType
     extends HealthDataType<BloodGlucoseRecord, BloodGlucose>
     implements
         ReadableHealthDataType<BloodGlucoseRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<BloodGlucoseRecord>,
         AvgAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
         MinAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,
         MaxAggregatableHealthDataType<BloodGlucoseRecord, BloodGlucose>,

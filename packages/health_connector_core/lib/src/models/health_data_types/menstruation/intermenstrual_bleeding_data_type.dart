@@ -59,7 +59,7 @@ final class IntermenstrualBleedingDataType
     extends HealthDataType<IntermenstrualBleedingRecord, TimeDuration>
     implements
         ReadableHealthDataType<IntermenstrualBleedingRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<IntermenstrualBleedingRecord>,
         DeletableHealthDataType<IntermenstrualBleedingRecord> {
   /// Creates an intermenstrual bleeding data type.
   ///

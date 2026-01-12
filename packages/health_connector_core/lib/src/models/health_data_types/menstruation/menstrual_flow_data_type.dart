@@ -61,7 +61,7 @@ final class MenstrualFlowDataType
     extends HealthDataType<MenstrualFlowRecord, TimeDuration>
     implements
         ReadableHealthDataType<MenstrualFlowRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<MenstrualFlowRecord>,
         DeletableHealthDataType<MenstrualFlowRecord> {
   /// Creates a menstrual flow data type.
   ///

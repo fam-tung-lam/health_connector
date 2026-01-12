@@ -32,7 +32,7 @@ final class WheelchairPushesDataType
     extends HealthDataType<WheelchairPushesRecord, Number>
     implements
         ReadableHealthDataType<WheelchairPushesRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<WheelchairPushesRecord>,
         SumAggregatableHealthDataType<WheelchairPushesRecord, Number>,
         DeletableHealthDataType<WheelchairPushesRecord> {
   /// Creates a wheelchair pushes data type.

@@ -32,7 +32,7 @@ part of '../health_data_type.dart';
 final class DistanceDataType extends HealthDataType<DistanceRecord, Length>
     implements
         ReadableHealthDataType<DistanceRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DistanceRecord>,
         SumAggregatableHealthDataType<DistanceRecord, Length> {
   /// Creates a distance data type.
   ///

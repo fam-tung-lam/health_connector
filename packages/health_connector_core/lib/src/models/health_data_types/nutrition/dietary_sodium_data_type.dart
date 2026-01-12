@@ -33,7 +33,7 @@ final class DietarySodiumDataType
     extends MineralNutrientDataType<DietarySodiumRecord>
     implements
         ReadableHealthDataType<DietarySodiumRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietarySodiumRecord>,
         SumAggregatableHealthDataType<DietarySodiumRecord, Mass>,
         DeletableHealthDataType<DietarySodiumRecord> {
   /// Creates a sodium data type.

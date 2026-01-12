@@ -33,7 +33,7 @@ final class DietaryNiacinDataType
     extends DietaryVitaminDataType<DietaryNiacinRecord>
     implements
         ReadableHealthDataType<DietaryNiacinRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryNiacinRecord>,
         SumAggregatableHealthDataType<DietaryNiacinRecord, Mass>,
         DeletableHealthDataType<DietaryNiacinRecord> {
   /// Creates a niacin (vitamin b3) data type.

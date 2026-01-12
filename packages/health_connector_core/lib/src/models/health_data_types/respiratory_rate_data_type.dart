@@ -25,7 +25,7 @@ final class RespiratoryRateDataType
     extends HealthDataType<RespiratoryRateRecord, Number>
     implements
         ReadableHealthDataType<RespiratoryRateRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<RespiratoryRateRecord>,
         AvgAggregatableHealthDataType<RespiratoryRateRecord, Number>,
         MinAggregatableHealthDataType<RespiratoryRateRecord, Number>,
         MaxAggregatableHealthDataType<RespiratoryRateRecord, Number>,

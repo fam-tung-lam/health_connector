@@ -33,7 +33,7 @@ final class DietarySaturatedFatDataType
     extends MacronutrientDataType<DietarySaturatedFatRecord>
     implements
         ReadableHealthDataType<DietarySaturatedFatRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietarySaturatedFatRecord>,
         SumAggregatableHealthDataType<DietarySaturatedFatRecord, Mass>,
         DeletableHealthDataType<DietarySaturatedFatRecord> {
   /// Creates a saturated fat data type.

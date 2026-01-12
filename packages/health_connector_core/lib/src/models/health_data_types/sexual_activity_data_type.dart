@@ -60,7 +60,7 @@ final class SexualActivityDataType
     extends HealthDataType<SexualActivityRecord, TimeDuration>
     implements
         ReadableHealthDataType<SexualActivityRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<SexualActivityRecord>,
         DeletableHealthDataType<SexualActivityRecord> {
   /// Creates a sexual activity data type.
   ///

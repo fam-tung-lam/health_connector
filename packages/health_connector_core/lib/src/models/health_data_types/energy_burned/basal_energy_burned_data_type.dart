@@ -28,7 +28,7 @@ final class BasalEnergyBurnedDataType
     extends HealthDataType<BasalEnergyBurnedRecord, Energy>
     implements
         ReadableHealthDataType<BasalEnergyBurnedRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<BasalEnergyBurnedRecord>,
         DeletableHealthDataType<BasalEnergyBurnedRecord>,
         SumAggregatableHealthDataType<BasalEnergyBurnedRecord, Energy> {
   /// Creates a basal energy burned data type.

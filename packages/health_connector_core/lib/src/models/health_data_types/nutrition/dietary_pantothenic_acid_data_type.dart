@@ -33,7 +33,7 @@ final class DietaryPantothenicAcidDataType
     extends DietaryVitaminDataType<DietaryPantothenicAcidRecord>
     implements
         ReadableHealthDataType<DietaryPantothenicAcidRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryPantothenicAcidRecord>,
         SumAggregatableHealthDataType<DietaryPantothenicAcidRecord, Mass>,
         DeletableHealthDataType<DietaryPantothenicAcidRecord> {
   /// Creates a pantothenic acid (vitamin b5) data type.

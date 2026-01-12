@@ -33,7 +33,7 @@ final class DietaryPolyunsaturatedFatDataType
     extends MacronutrientDataType<DietaryPolyunsaturatedFatRecord>
     implements
         ReadableHealthDataType<DietaryPolyunsaturatedFatRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryPolyunsaturatedFatRecord>,
         SumAggregatableHealthDataType<DietaryPolyunsaturatedFatRecord, Mass>,
         DeletableHealthDataType<DietaryPolyunsaturatedFatRecord> {
   /// Creates a polyunsaturated fat data type.

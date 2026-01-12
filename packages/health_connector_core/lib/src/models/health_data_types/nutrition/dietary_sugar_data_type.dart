@@ -32,7 +32,7 @@ final class DietarySugarDataType
     extends MacronutrientDataType<DietarySugarRecord>
     implements
         ReadableHealthDataType<DietarySugarRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietarySugarRecord>,
         SumAggregatableHealthDataType<DietarySugarRecord, Mass>,
         DeletableHealthDataType<DietarySugarRecord> {
   /// Creates a sugar data type.

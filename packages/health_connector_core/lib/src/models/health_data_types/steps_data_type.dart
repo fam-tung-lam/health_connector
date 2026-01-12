@@ -32,7 +32,7 @@ part of 'health_data_type.dart';
 final class StepsDataType extends HealthDataType<StepsRecord, Number>
     implements
         ReadableHealthDataType<StepsRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<StepsRecord>,
         SumAggregatableHealthDataType<StepsRecord, Number>,
         DeletableHealthDataType<StepsRecord> {
   /// Creates a steps data type.

@@ -33,7 +33,7 @@ final class DietaryFiberNutrientDataType
     extends MacronutrientDataType<DietaryFiberRecord>
     implements
         ReadableHealthDataType<DietaryFiberRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryFiberRecord>,
         SumAggregatableHealthDataType<DietaryFiberRecord, Mass>,
         DeletableHealthDataType<DietaryFiberRecord> {
   /// Creates a dietary fiber data type.

@@ -33,7 +33,7 @@ final class DietaryFolateDataType
     extends DietaryVitaminDataType<DietaryFolateRecord>
     implements
         ReadableHealthDataType<DietaryFolateRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryFolateRecord>,
         SumAggregatableHealthDataType<DietaryFolateRecord, Mass>,
         DeletableHealthDataType<DietaryFolateRecord> {
   /// Creates a folate (vitamin b9) data type.

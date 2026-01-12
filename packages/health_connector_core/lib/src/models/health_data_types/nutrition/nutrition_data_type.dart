@@ -29,7 +29,7 @@ final class NutritionDataType
     extends HealthDataType<NutritionRecord, MeasurementUnit>
     implements
         ReadableHealthDataType<NutritionRecord>,
-        WriteableHealthDataType {
+        WriteableHealthDataType<NutritionRecord> {
   /// Creates a nutrition data type.
   ///
   /// This is a constant constructor used internally. To reference this data

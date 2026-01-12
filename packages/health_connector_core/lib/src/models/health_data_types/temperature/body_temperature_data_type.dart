@@ -32,7 +32,7 @@ final class BodyTemperatureDataType
     extends HealthDataType<BodyTemperatureRecord, Temperature>
     implements
         ReadableHealthDataType<BodyTemperatureRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<BodyTemperatureRecord>,
         DeletableHealthDataType<BodyTemperatureRecord> {
   /// Creates a body temperature data type.
   ///

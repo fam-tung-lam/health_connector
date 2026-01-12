@@ -33,7 +33,7 @@ final class DietaryCholesterolDataType
     extends MacronutrientDataType<DietaryCholesterolRecord>
     implements
         ReadableHealthDataType<DietaryCholesterolRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryCholesterolRecord>,
         SumAggregatableHealthDataType<DietaryCholesterolRecord, Mass>,
         DeletableHealthDataType<DietaryCholesterolRecord> {
   /// Creates a cholesterol data type.

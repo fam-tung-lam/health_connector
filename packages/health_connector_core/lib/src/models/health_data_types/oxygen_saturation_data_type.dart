@@ -25,7 +25,7 @@ final class OxygenSaturationDataType
     extends HealthDataType<OxygenSaturationRecord, Percentage>
     implements
         ReadableHealthDataType<OxygenSaturationRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<OxygenSaturationRecord>,
         AvgAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,
         MinAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,
         MaxAggregatableHealthDataType<OxygenSaturationRecord, Percentage>,

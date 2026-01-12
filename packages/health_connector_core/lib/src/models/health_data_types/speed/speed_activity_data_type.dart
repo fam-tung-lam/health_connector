@@ -20,7 +20,7 @@ sealed class SpeedActivityDataType<R extends SpeedActivityRecord>
     extends HealthDataType<R, Velocity>
     implements
         ReadableHealthDataType<R>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<R>,
         DeletableHealthDataType,
         AvgAggregatableHealthDataType<R, Velocity> {
   @internal

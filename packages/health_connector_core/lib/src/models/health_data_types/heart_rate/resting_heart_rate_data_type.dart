@@ -28,7 +28,7 @@ final class RestingHeartRateDataType
     extends HealthDataType<RestingHeartRateRecord, Number>
     implements
         ReadableHealthDataType<RestingHeartRateRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<RestingHeartRateRecord>,
         AvgAggregatableHealthDataType<RestingHeartRateRecord, Number>,
         MinAggregatableHealthDataType<RestingHeartRateRecord, Number>,
         MaxAggregatableHealthDataType<RestingHeartRateRecord, Number>,

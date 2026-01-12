@@ -33,7 +33,7 @@ final class DietaryZincDataType
     extends MineralNutrientDataType<DietaryZincRecord>
     implements
         ReadableHealthDataType<DietaryZincRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryZincRecord>,
         SumAggregatableHealthDataType<DietaryZincRecord, Mass>,
         DeletableHealthDataType<DietaryZincRecord> {
   /// Creates a zinc data type.

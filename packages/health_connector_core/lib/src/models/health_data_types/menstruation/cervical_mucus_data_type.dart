@@ -58,7 +58,7 @@ final class CervicalMucusDataType
     extends HealthDataType<CervicalMucusRecord, MeasurementUnit>
     implements
         ReadableHealthDataType<CervicalMucusRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<CervicalMucusRecord>,
         DeletableHealthDataType<CervicalMucusRecord> {
   /// Creates a cervical mucus data type.
   ///

@@ -33,7 +33,7 @@ final class DietaryCaffeineDataType
     extends NutrientDataType<DietaryCaffeineRecord, Mass>
     implements
         ReadableHealthDataType<DietaryCaffeineRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryCaffeineRecord>,
         SumAggregatableHealthDataType<DietaryCaffeineRecord, Mass>,
         DeletableHealthDataType<DietaryCaffeineRecord> {
   /// Creates a caffeine data type.

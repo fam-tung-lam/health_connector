@@ -33,7 +33,7 @@ final class DietaryTotalCarbohydrateDataType
     extends MacronutrientDataType<DietaryTotalCarbohydrateRecord>
     implements
         ReadableHealthDataType<DietaryTotalCarbohydrateRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryTotalCarbohydrateRecord>,
         SumAggregatableHealthDataType<DietaryTotalCarbohydrateRecord, Mass>,
         DeletableHealthDataType<DietaryTotalCarbohydrateRecord> {
   /// Creates a total carbohydrate data type.

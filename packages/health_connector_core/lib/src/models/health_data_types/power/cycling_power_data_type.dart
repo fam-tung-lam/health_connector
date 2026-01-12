@@ -30,7 +30,7 @@ final class CyclingPowerDataType
     extends HealthDataType<CyclingPowerRecord, Power>
     implements
         ReadableHealthDataType<CyclingPowerRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<CyclingPowerRecord>,
         DeletableHealthDataType,
         AvgAggregatableHealthDataType<CyclingPowerRecord, Power>,
         MinAggregatableHealthDataType<CyclingPowerRecord, Power>,

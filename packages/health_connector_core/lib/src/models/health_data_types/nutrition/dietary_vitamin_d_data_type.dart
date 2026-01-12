@@ -33,7 +33,7 @@ final class DietaryVitaminDDataType
     extends DietaryVitaminDataType<DietaryVitaminDRecord>
     implements
         ReadableHealthDataType<DietaryVitaminDRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryVitaminDRecord>,
         SumAggregatableHealthDataType<DietaryVitaminDRecord, Mass>,
         DeletableHealthDataType<DietaryVitaminDRecord> {
   /// Creates a vitamin d data type.

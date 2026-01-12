@@ -32,7 +32,7 @@ final class ExerciseSessionDataType
     extends HealthDataType<ExerciseSessionRecord, TimeDuration>
     implements
         ReadableHealthDataType<ExerciseSessionRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<ExerciseSessionRecord>,
         SumAggregatableHealthDataType<ExerciseSessionRecord, TimeDuration>,
         DeletableHealthDataType<ExerciseSessionRecord> {
   /// Creates an exercise session data type.

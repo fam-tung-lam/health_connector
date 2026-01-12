@@ -33,7 +33,7 @@ final class DietaryProteinDataType
     extends MacronutrientDataType<DietaryProteinRecord>
     implements
         ReadableHealthDataType<DietaryProteinRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryProteinRecord>,
         SumAggregatableHealthDataType<DietaryProteinRecord, Mass>,
         DeletableHealthDataType<DietaryProteinRecord> {
   /// Creates a protein data type.

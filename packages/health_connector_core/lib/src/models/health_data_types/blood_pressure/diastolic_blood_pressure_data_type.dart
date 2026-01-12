@@ -38,7 +38,7 @@ final class DiastolicBloodPressureDataType
     extends HealthDataType<DiastolicBloodPressureRecord, Pressure>
     implements
         ReadableHealthDataType<DiastolicBloodPressureRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DiastolicBloodPressureRecord>,
         AvgAggregatableHealthDataType<DiastolicBloodPressureRecord, Pressure>,
         MinAggregatableHealthDataType<DiastolicBloodPressureRecord, Pressure>,
         MaxAggregatableHealthDataType<DiastolicBloodPressureRecord, Pressure>,

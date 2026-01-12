@@ -33,7 +33,7 @@ final class DietaryVitaminKDataType
     extends DietaryVitaminDataType<DietaryVitaminKRecord>
     implements
         ReadableHealthDataType<DietaryVitaminKRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryVitaminKRecord>,
         SumAggregatableHealthDataType<DietaryVitaminKRecord, Mass>,
         DeletableHealthDataType<DietaryVitaminKRecord> {
   /// Creates a vitamin k data type.

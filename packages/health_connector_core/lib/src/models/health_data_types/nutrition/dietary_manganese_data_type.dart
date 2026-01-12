@@ -33,7 +33,7 @@ final class DietaryManganeseDataType
     extends MineralNutrientDataType<DietaryManganeseRecord>
     implements
         ReadableHealthDataType<DietaryManganeseRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryManganeseRecord>,
         SumAggregatableHealthDataType<DietaryManganeseRecord, Mass>,
         DeletableHealthDataType<DietaryManganeseRecord> {
   /// Creates a manganese data type.

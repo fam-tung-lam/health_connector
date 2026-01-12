@@ -25,7 +25,7 @@ final class SpeedSeriesDataType
     extends HealthDataType<SpeedSeriesRecord, Velocity>
     implements
         ReadableHealthDataType<SpeedSeriesRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<SpeedSeriesRecord>,
         DeletableHealthDataType,
         AvgAggregatableHealthDataType<SpeedSeriesRecord, Velocity>,
         MinAggregatableHealthDataType<SpeedSeriesRecord, Velocity>,

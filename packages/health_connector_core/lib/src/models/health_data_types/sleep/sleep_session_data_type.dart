@@ -34,7 +34,7 @@ final class SleepSessionDataType
     extends HealthDataType<SleepSessionRecord, TimeDuration>
     implements
         ReadableHealthDataType<SleepSessionRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<SleepSessionRecord>,
         SumAggregatableHealthDataType<SleepSessionRecord, TimeDuration>,
         DeletableHealthDataType<SleepSessionRecord> {
   /// Creates a sleep session data type.

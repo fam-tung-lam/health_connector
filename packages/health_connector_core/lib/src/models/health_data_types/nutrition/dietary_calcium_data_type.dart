@@ -33,7 +33,7 @@ final class DietaryCalciumDataType
     extends MineralNutrientDataType<DietaryCalciumRecord>
     implements
         ReadableHealthDataType<DietaryCalciumRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryCalciumRecord>,
         SumAggregatableHealthDataType<DietaryCalciumRecord, Mass>,
         DeletableHealthDataType<DietaryCalciumRecord> {
   /// Creates a calcium data type.

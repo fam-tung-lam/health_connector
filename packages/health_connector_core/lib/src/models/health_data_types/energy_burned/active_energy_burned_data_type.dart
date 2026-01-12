@@ -33,7 +33,7 @@ final class ActiveEnergyBurnedDataType
     extends HealthDataType<ActiveEnergyBurnedRecord, Energy>
     implements
         ReadableHealthDataType<ActiveEnergyBurnedRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<ActiveEnergyBurnedRecord>,
         SumAggregatableHealthDataType<ActiveEnergyBurnedRecord, Energy>,
         DeletableHealthDataType<ActiveEnergyBurnedRecord> {
   /// Creates an active energy burned data type.

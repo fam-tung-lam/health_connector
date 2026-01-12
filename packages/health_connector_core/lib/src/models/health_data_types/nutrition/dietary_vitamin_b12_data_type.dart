@@ -33,7 +33,7 @@ final class DietaryVitaminB12DataType
     extends DietaryVitaminDataType<DietaryVitaminB12Record>
     implements
         ReadableHealthDataType<DietaryVitaminB12Record>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryVitaminB12Record>,
         SumAggregatableHealthDataType<DietaryVitaminB12Record, Mass>,
         DeletableHealthDataType<DietaryVitaminB12Record> {
   /// Creates a vitamin b12 (cobalamin) data type.

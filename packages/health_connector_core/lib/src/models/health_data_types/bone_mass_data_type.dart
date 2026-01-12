@@ -31,7 +31,7 @@ part of 'health_data_type.dart';
 final class BoneMassDataType extends HealthDataType<BoneMassRecord, Mass>
     implements
         ReadableHealthDataType<BoneMassRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<BoneMassRecord>,
         DeletableHealthDataType<BoneMassRecord> {
   /// Creates a bone mass data type.
   ///

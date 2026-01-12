@@ -33,7 +33,7 @@ final class DietaryBiotinDataType
     extends DietaryVitaminDataType<DietaryBiotinRecord>
     implements
         ReadableHealthDataType<DietaryBiotinRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryBiotinRecord>,
         SumAggregatableHealthDataType<DietaryBiotinRecord, Mass>,
         DeletableHealthDataType<DietaryBiotinRecord> {
   /// Creates a biotin (vitamin b7) data type.

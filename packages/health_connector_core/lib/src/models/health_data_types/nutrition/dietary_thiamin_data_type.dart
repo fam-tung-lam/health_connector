@@ -33,7 +33,7 @@ final class DietaryThiaminDataType
     extends DietaryVitaminDataType<DietaryThiaminRecord>
     implements
         ReadableHealthDataType<DietaryThiaminRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryThiaminRecord>,
         SumAggregatableHealthDataType<DietaryThiaminRecord, Mass>,
         DeletableHealthDataType<DietaryThiaminRecord> {
   /// Creates a thiamin (vitamin b1) data type.

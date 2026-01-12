@@ -33,7 +33,7 @@ final class DietaryPotassiumDataType
     extends MineralNutrientDataType<DietaryPotassiumRecord>
     implements
         ReadableHealthDataType<DietaryPotassiumRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryPotassiumRecord>,
         SumAggregatableHealthDataType<DietaryPotassiumRecord, Mass>,
         DeletableHealthDataType<DietaryPotassiumRecord> {
   /// Creates a potassium data type.

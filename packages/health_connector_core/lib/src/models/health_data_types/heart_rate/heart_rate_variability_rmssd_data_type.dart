@@ -32,7 +32,7 @@ final class HeartRateVariabilityRMSSDDataType
     extends HealthDataType<HeartRateVariabilityRMSSDRecord, Number>
     implements
         ReadableHealthDataType<HeartRateVariabilityRMSSDRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<HeartRateVariabilityRMSSDRecord>,
         DeletableHealthDataType<HeartRateVariabilityRMSSDRecord> {
   /// Creates a heart rate variability (RMSSD) data type.
   ///

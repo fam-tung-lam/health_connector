@@ -33,7 +33,7 @@ final class DietaryEnergyConsumedDataType
     extends NutrientDataType<DietaryEnergyConsumedRecord, Energy>
     implements
         ReadableHealthDataType<DietaryEnergyConsumedRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryEnergyConsumedRecord>,
         SumAggregatableHealthDataType<DietaryEnergyConsumedRecord, Energy>,
         DeletableHealthDataType<DietaryEnergyConsumedRecord> {
   /// Creates a energy data type.

@@ -32,7 +32,7 @@ sealed class DistanceActivityDataType<R extends DistanceActivityRecord>
     extends HealthDataType<R, Length>
     implements
         ReadableHealthDataType<R>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<R>,
         DeletableHealthDataType,
         SumAggregatableHealthDataType<R, Length> {
   @internal

@@ -58,7 +58,7 @@ final class OvulationTestDataType
     extends HealthDataType<OvulationTestRecord, TimeDuration>
     implements
         ReadableHealthDataType<OvulationTestRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<OvulationTestRecord>,
         DeletableHealthDataType<OvulationTestRecord> {
   /// Creates an ovulation test data type.
   ///

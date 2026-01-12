@@ -33,7 +33,7 @@ final class DietaryVitaminB6DataType
     extends DietaryVitaminDataType<DietaryVitaminB6Record>
     implements
         ReadableHealthDataType<DietaryVitaminB6Record>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<DietaryVitaminB6Record>,
         SumAggregatableHealthDataType<DietaryVitaminB6Record, Mass>,
         DeletableHealthDataType<DietaryVitaminB6Record> {
   /// Creates a vitamin b6 (pyridoxine) data type.

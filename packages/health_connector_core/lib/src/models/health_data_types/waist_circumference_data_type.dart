@@ -39,7 +39,7 @@ final class WaistCircumferenceDataType
         AvgAggregatableHealthDataType<WaistCircumferenceRecord, Length>,
         SumAggregatableHealthDataType<WaistCircumferenceRecord, Length>,
         ReadableHealthDataType<WaistCircumferenceRecord>,
-        WriteableHealthDataType,
+        WriteableHealthDataType<WaistCircumferenceRecord>,
         DeletableHealthDataType<WaistCircumferenceRecord> {
   /// Creates a waist circumference data type.
   ///
