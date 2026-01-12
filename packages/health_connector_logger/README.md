@@ -12,9 +12,8 @@ Structured logging utility for Health Connector packages.
 ## 📖 Overview
 
 `health_connector_logger` provides a consistent, structured logging interface with formatted
-messages across the Health Connector plugin ecosystem. It wraps the `log` function from
-`dart:developer` and provides structured logging with operation, phase, message, context, and
-exception tracking.
+messages across the Health Connector plugin ecosystem. It provides structured logging with 
+operation, phase, message, context, and exception tracking.
 
 ### 🔧 Features
 
@@ -22,7 +21,6 @@ exception tracking.
 - **Log Levels**: Support for debug, info, warning, and error levels
 - **Exception Tracking**: Built-in support for exceptions and stack traces
 - **Context Data**: Flexible context map for additional metadata
-- **Enable/Disable**: Global toggle to enable or disable logging
 - **DateTime Formatting**: Automatic timestamp formatting in logs
 
 ---
@@ -40,67 +38,6 @@ Add to your `pubspec.yaml`:
 ```yaml
 dependencies:
   health_connector_logger: [latest_version]
-```
-
----
-
-## 📖 Usage
-
-### Basic Usage
-
-```dart
-import 'package:health_connector_logger/health_connector_logger.dart';
-
-// Enable/disable logging
-HealthConnectorLogger.isEnabled = true;
-
-// Log levels: debug, info, warning, error
-HealthConnectorLogger.debug(
-  'API',
-  operation: 'readRecords',
-  message: 'Starting to read records',
-  context: {'dataType': 'StepsRecord', 'pageSize': 100},
-);
-
-HealthConnectorLogger.info(
-  'API',
-  operation: 'readRecords',
-  message: 'Successfully read records',
-  context: {'recordCount': 42, 'duration': '123ms'},
-);
-
-HealthConnectorLogger.warning(
-  'API',
-  operation: 'readRecords',
-  message: 'Operation exceeded threshold',
-  context: {'duration': '6234ms', 'threshold': '5000ms'},
-);
-
-HealthConnectorLogger.error(
-  'API',
-  operation: 'readRecords',
-  message: 'Failed to read records',
-  context: {'dataType': 'StepsRecord', 'duration': '123ms'},
-  exception: e,
-  stackTrace: st,
-);
-```
-
-### Log Format
-
-The logger produces structured messages in JSON-like format:
-
-```
-[22-09-2025 15:35:55.678][INFO]:
-{
-   operation: readRecords,
-   phase: succeeded,
-   message: Successfully read records,
-   context: {
-     recordCount: 42,
-     duration: 123ms,
-   },
-}
 ```
 
 ---

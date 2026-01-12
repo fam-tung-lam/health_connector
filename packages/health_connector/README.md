@@ -1146,7 +1146,7 @@ Future<void> logLunch(HealthConnector connector) async {
 
 ### 🔄 Migration Guides
 
-- [Migration Guide from `v1.x.x` to `v2.x.x`](../../doc/guides/migration_guides/migration-guide-v1.x.x-to-v2.x.x.md)
+- [Migration Guide from `v1.x.x` to `v2.0.0`](../../doc/guides/migration_guides/migration-guide-v1.x.x-to-v2.0.0.md)
 
 ### 🤝 Contributing
 
