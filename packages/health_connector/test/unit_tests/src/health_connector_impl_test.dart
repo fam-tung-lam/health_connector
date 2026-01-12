@@ -64,6 +64,34 @@ void main() {
         ),
       );
       registerFallbackValue(const <StepsRecord>[]);
+      registerFallbackValue(
+        ReadRecordByIdRequest<BoneMassRecord>(
+          dataType: HealthDataType.boneMass,
+          id: HealthRecordId(FakeData.fakeId),
+        ),
+      );
+      registerFallbackValue(
+        ReadRecordsInTimeRangeRequest<BoneMassRecord>(
+          dataType: HealthDataType.boneMass,
+          startTime: FakeData.fakeStartTime,
+          endTime: FakeData.fakeEndTime,
+        ),
+      );
+      registerFallbackValue(
+        DeleteRecordsInTimeRangeRequest<BoneMassRecord>(
+          dataType: HealthDataType.boneMass,
+          startTime: FakeData.fakeStartTime,
+          endTime: FakeData.fakeEndTime,
+        ),
+      );
+      registerFallbackValue(
+        CommonAggregateRequest<TotalEnergyBurnedRecord, Energy>(
+          dataType: HealthDataType.totalEnergyBurned,
+          startTime: FakeData.fakeStartTime,
+          endTime: FakeData.fakeEndTime,
+          aggregationMetric: AggregationMetric.sum,
+        ),
+      );
     },
   );
 
@@ -171,6 +199,39 @@ void main() {
               );
             },
           );
+
+          test(
+            'GIVEN unsupported permission on platform → '
+            'WHEN requestPermissions is called → '
+            'THEN throws UnsupportedOperationException',
+            () async {
+              // GIVEN
+              final connector = HealthConnectorImpl(
+                config: const HealthConnectorConfig(),
+                healthPlatform: HealthPlatform.appleHealth,
+                healthPlatformClient: mockClient,
+              );
+              const permissions = [
+                HealthDataPermission(
+                  dataType: HealthDataType.boneMass,
+                  accessType: HealthDataPermissionAccessType.read,
+                ),
+              ];
+
+              // WHEN & THEN
+              await expectLater(
+                connector.requestPermissions(permissions),
+                throwsA(
+                  isA<UnsupportedOperationException>().having(
+                    (e) => e.message,
+                    'message',
+                    contains('not supported on HealthPlatform.appleHealth'),
+                  ),
+                ),
+              );
+              verifyNever(() => mockClient.requestPermissions(any()));
+            },
+          );
         },
       );
 
@@ -235,6 +296,37 @@ void main() {
                 () => connector.getPermissionStatus(permission),
                 throwsA(isA<HealthConnectorException>()),
               );
+            },
+          );
+
+          test(
+            'GIVEN unsupported permission on platform → '
+            'WHEN getPermissionStatus is called → '
+            'THEN throws UnsupportedOperationException',
+            () async {
+              // GIVEN
+              final connector = HealthConnectorImpl(
+                config: const HealthConnectorConfig(),
+                healthPlatform: HealthPlatform.appleHealth,
+                healthPlatformClient: mockClient,
+              );
+              const permission = HealthDataPermission(
+                dataType: HealthDataType.boneMass,
+                accessType: HealthDataPermissionAccessType.read,
+              );
+
+              // WHEN & THEN
+              await expectLater(
+                connector.getPermissionStatus(permission),
+                throwsA(
+                  isA<UnsupportedOperationException>().having(
+                    (e) => e.message,
+                    'message',
+                    contains('not supported on HealthPlatform.appleHealth'),
+                  ),
+                ),
+              );
+              verifyNever(() => mockClient.getPermissionStatus(any()));
             },
           );
         },
@@ -343,6 +435,41 @@ void main() {
               );
             },
           );
+
+          test(
+            'GIVEN unsupported data type on platform → '
+            'WHEN readRecord is called → '
+            'THEN throws UnsupportedOperationException',
+            () async {
+              // GIVEN
+              final connector = HealthConnectorImpl(
+                config: const HealthConnectorConfig(),
+                healthPlatform: HealthPlatform.appleHealth,
+                healthPlatformClient: mockClient,
+              );
+              final request = ReadRecordByIdRequest<BoneMassRecord>(
+                dataType: HealthDataType.boneMass,
+                id: HealthRecordId(FakeData.fakeId),
+              );
+
+              // WHEN & THEN
+              await expectLater(
+                connector.readRecord(request),
+                throwsA(
+                  isA<UnsupportedOperationException>().having(
+                    (e) => e.message,
+                    'message',
+                    contains('not supported on HealthPlatform.appleHealth'),
+                  ),
+                ),
+              );
+              verifyNever(
+                () => mockClient.readRecord(
+                  any<ReadRecordByIdRequest<BoneMassRecord>>(),
+                ),
+              );
+            },
+          );
         },
       );
 
@@ -420,6 +547,42 @@ void main() {
               expect(
                 () => connector.readRecords(request),
                 throwsA(isA<HealthConnectorException>()),
+              );
+            },
+          );
+
+          test(
+            'GIVEN unsupported data type on platform → '
+            'WHEN readRecords is called → '
+            'THEN throws UnsupportedOperationException',
+            () async {
+              // GIVEN
+              final connector = HealthConnectorImpl(
+                config: const HealthConnectorConfig(),
+                healthPlatform: HealthPlatform.appleHealth,
+                healthPlatformClient: mockClient,
+              );
+              final request = ReadRecordsInTimeRangeRequest<BoneMassRecord>(
+                dataType: HealthDataType.boneMass,
+                startTime: FakeData.fakeStartTime,
+                endTime: FakeData.fakeEndTime,
+              );
+
+              // WHEN & THEN
+              await expectLater(
+                connector.readRecords(request),
+                throwsA(
+                  isA<UnsupportedOperationException>().having(
+                    (e) => e.message,
+                    'message',
+                    contains('not supported on HealthPlatform.appleHealth'),
+                  ),
+                ),
+              );
+              verifyNever(
+                () => mockClient.readRecords(
+                  any<ReadRecordsInTimeRangeRequest<BoneMassRecord>>(),
+                ),
               );
             },
           );
@@ -744,6 +907,47 @@ void main() {
               );
             },
           );
+
+          test(
+            'GIVEN unsupported data type on platform → '
+            'WHEN aggregate is called → '
+            'THEN throws UnsupportedOperationException',
+            () async {
+              // GIVEN
+              final connector = HealthConnectorImpl(
+                config: const HealthConnectorConfig(),
+                healthPlatform: HealthPlatform.appleHealth,
+                healthPlatformClient: mockClient,
+              );
+              // TotalEnergyBurnedDataType is HC-only and supports aggregation
+              final request =
+                  CommonAggregateRequest<TotalEnergyBurnedRecord, Energy>(
+                    dataType: HealthDataType.totalEnergyBurned,
+                    startTime: FakeData.fakeStartTime,
+                    endTime: FakeData.fakeEndTime,
+                    aggregationMetric: AggregationMetric.sum,
+                  );
+
+              // WHEN & THEN
+              await expectLater(
+                connector.aggregate(request),
+                throwsA(
+                  isA<UnsupportedOperationException>().having(
+                    (e) => e.message,
+                    'message',
+                    contains('not supported on HealthPlatform.appleHealth'),
+                  ),
+                ),
+              );
+              verifyNever(
+                () => mockClient.aggregate(
+                  any<
+                    CommonAggregateRequest<TotalEnergyBurnedRecord, Energy>
+                  >(),
+                ),
+              );
+            },
+          );
         },
       );
 
@@ -871,6 +1075,42 @@ void main() {
               expect(
                 () => connector.deleteRecords(request),
                 throwsA(isA<HealthConnectorException>()),
+              );
+            },
+          );
+
+          test(
+            'GIVEN unsupported data type on platform → '
+            'WHEN deleteRecords is called → '
+            'THEN throws UnsupportedOperationException',
+            () async {
+              // GIVEN
+              final connector = HealthConnectorImpl(
+                config: const HealthConnectorConfig(),
+                healthPlatform: HealthPlatform.appleHealth,
+                healthPlatformClient: mockClient,
+              );
+              final request = DeleteRecordsInTimeRangeRequest<BoneMassRecord>(
+                dataType: HealthDataType.boneMass,
+                startTime: FakeData.fakeStartTime,
+                endTime: FakeData.fakeEndTime,
+              );
+
+              // WHEN & THEN
+              await expectLater(
+                connector.deleteRecords(request),
+                throwsA(
+                  isA<UnsupportedOperationException>().having(
+                    (e) => e.message,
+                    'message',
+                    contains('not supported on HealthPlatform.appleHealth'),
+                  ),
+                ),
+              );
+              verifyNever(
+                () => mockClient.deleteRecords(
+                  any<DeleteRecordsInTimeRangeRequest<BoneMassRecord>>(),
+                ),
               );
             },
           );
@@ -1003,6 +1243,47 @@ void main() {
               expect(
                 () => connector.updateRecord(record),
                 throwsA(isA<HealthConnectorException>()),
+              );
+            },
+          );
+        },
+      );
+
+      group(
+        'synchronize',
+        () {
+          test(
+            'GIVEN unsupported data type on platform → '
+            'WHEN synchronize is called → '
+            'THEN throws UnsupportedOperationException',
+            () async {
+              // GIVEN
+              final connector = HealthConnectorImpl(
+                config: const HealthConnectorConfig(),
+                healthPlatform: HealthPlatform.appleHealth,
+                healthPlatformClient: mockClient,
+              );
+              const dataTypes = [HealthDataType.boneMass];
+
+              // WHEN & THEN
+              await expectLater(
+                connector.synchronize(
+                  dataTypes: dataTypes,
+                  syncToken: null,
+                ),
+                throwsA(
+                  isA<UnsupportedOperationException>().having(
+                    (e) => e.message,
+                    'message',
+                    contains('not supported on HealthPlatform.appleHealth'),
+                  ),
+                ),
+              );
+              verifyNever(
+                () => mockClient.synchronize(
+                  dataTypes: any(named: 'dataTypes'),
+                  syncToken: any(named: 'syncToken'),
+                ),
               );
             },
           );

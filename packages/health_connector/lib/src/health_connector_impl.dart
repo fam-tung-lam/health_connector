@@ -47,6 +47,14 @@ final class HealthConnectorImpl implements HealthConnector {
     }
 
     try {
+      permissions.forEach((permission) {
+        if (!permission.supportedHealthPlatforms.contains(healthPlatform)) {
+          throw UnsupportedOperationException(
+            'Requested $permission is not supported on $healthPlatform.',
+          );
+        }
+      });
+
       final results = await _client.requestPermissions(permissions);
 
       HealthConnectorLogger.info(
@@ -145,6 +153,12 @@ final class HealthConnectorImpl implements HealthConnector {
     );
 
     try {
+      if (!permission.supportedHealthPlatforms.contains(healthPlatform)) {
+        throw UnsupportedOperationException(
+          'Requested $permission is not supported on $healthPlatform.',
+        );
+      }
+
       final status = await _client.getPermissionStatus(permission);
 
       HealthConnectorLogger.info(
@@ -240,6 +254,12 @@ final class HealthConnectorImpl implements HealthConnector {
         return HealthPlatformFeatureStatus.available;
       case HealthPlatform.healthConnect:
         try {
+          if (!feature.supportedHealthPlatforms.contains(healthPlatform)) {
+            throw UnsupportedOperationException(
+              '$feature is not supported on $healthPlatform.',
+            );
+          }
+
           final hcClient = _client as HealthConnectorHCClient;
           final status = await hcClient.getFeatureStatus(feature);
 
@@ -284,6 +304,12 @@ final class HealthConnectorImpl implements HealthConnector {
     );
 
     try {
+      if (!request.dataType.supportedHealthPlatforms.contains(healthPlatform)) {
+        throw UnsupportedOperationException(
+          '${request.dataType} is not supported on $healthPlatform.',
+        );
+      }
+
       final record = await _client.readRecord(request);
 
       if (record != null) {
@@ -342,6 +368,12 @@ final class HealthConnectorImpl implements HealthConnector {
     );
 
     try {
+      if (!request.dataType.supportedHealthPlatforms.contains(healthPlatform)) {
+        throw UnsupportedOperationException(
+          '${request.dataType} is not supported on $healthPlatform.',
+        );
+      }
+
       final response = await _client.readRecords(request);
 
       HealthConnectorLogger.info(
@@ -519,6 +551,12 @@ final class HealthConnectorImpl implements HealthConnector {
     );
 
     try {
+      if (!request.dataType.supportedHealthPlatforms.contains(healthPlatform)) {
+        throw UnsupportedOperationException(
+          '${request.dataType} is not supported on $healthPlatform.',
+        );
+      }
+
       final aggregatedValue = await _client.aggregate(request);
 
       HealthConnectorLogger.info(
@@ -568,6 +606,12 @@ final class HealthConnectorImpl implements HealthConnector {
     );
 
     try {
+      if (!request.dataType.supportedHealthPlatforms.contains(healthPlatform)) {
+        throw UnsupportedOperationException(
+          '${request.dataType} is not supported on $healthPlatform.',
+        );
+      }
+
       switch (request) {
         case DeleteRecordsInTimeRangeRequest<R> _:
           break;
@@ -743,6 +787,14 @@ final class HealthConnectorImpl implements HealthConnector {
     );
 
     try {
+      dataTypes.forEach((dataType) {
+        if (!dataType.supportedHealthPlatforms.contains(healthPlatform)) {
+          throw UnsupportedOperationException(
+            '$dataType is not supported on $healthPlatform.',
+          );
+        }
+      });
+
       final result = await _client.synchronize(
         dataTypes: dataTypes,
         syncToken: syncToken,
