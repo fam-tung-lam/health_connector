@@ -399,7 +399,7 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   ) async {
     final context = {
       'data_type': request.dataType.runtimeType.toString(),
-      'query_span_days': request.startTime.difference(request.endTime).inDays,
+      'query_span_days': request.endTime.difference(request.startTime).inDays,
       'page_size': request.pageSize,
       'has_page_token': request.pageToken != null,
     };
@@ -584,7 +584,7 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
     final context = {
       'data_type': request.dataType.runtimeType.toString(),
       'metric_type': request.aggregationMetric.runtimeType.toString(),
-      'query_span_days': request.startTime.difference(request.endTime).inDays,
+      'query_span_days': request.endTime.difference(request.startTime).inDays,
     };
 
     HealthConnectorLogger.debug(
