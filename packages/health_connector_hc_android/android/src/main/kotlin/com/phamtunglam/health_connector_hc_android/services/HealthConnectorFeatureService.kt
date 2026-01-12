@@ -1,6 +1,7 @@
 package com.phamtunglam.health_connector_hc_android.services
 
 import androidx.health.connect.client.HealthConnectFeatures
+import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectFeature
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformFeatureStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
@@ -13,6 +14,9 @@ import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeatureS
  * @property client The native client used to check feature status on the device.
  */
 internal class HealthConnectorFeatureService(private val client: HealthConnectFeatures) {
+    companion object {
+        private const val TAG = "HealthConnectorDataSyncService"
+    }
 
     /**
      * Retrieves the current availability status of a specific [feature] on the device.
@@ -26,10 +30,29 @@ internal class HealthConnectorFeatureService(private val client: HealthConnectFe
      */
     @Throws(HealthConnectorErrorDto::class)
     fun getFeatureStatus(feature: HealthPlatformFeatureDto): HealthPlatformFeatureStatusDto {
+        val context = mapOf(
+            "feature" to feature.name,
+        )
+        HealthConnectorLogger.debug(
+            tag = TAG,
+            operation = "getFeatureStatus",
+            message = "Checking feature availability",
+            context = context,
+        )
+
         val healthConnectFeature = feature.toHealthConnectFeature()
 
         val statusCode = client.getFeatureStatus(healthConnectFeature)
 
-        return statusCode.toHealthPlatformFeatureStatusDto()
+        val status = statusCode.toHealthPlatformFeatureStatusDto()
+
+        HealthConnectorLogger.info(
+            tag = TAG,
+            operation = "getFeatureStatus",
+            message = "Feature status retrieved successfully",
+            context = context + mapOf("status" to status.name),
+        )
+
+        return status
     }
 }

@@ -13,13 +13,16 @@ struct HealthConnectorPermissionService: Sendable, Taggable {
     func requestAuthorization(
         for permissions: [HealthDataPermissionDto]
     ) async throws -> [HealthDataPermissionRequestResultDto] {
+        let operation = "request_permissions"
+        let context: [String: Any] = [
+            "permissions": permissions.map { "\($0.healthDataType.rawValue):\($0.accessType)" },
+        ]
+
         HealthConnectorLogger.info(
             tag: Self.tag,
-            operation: "request_permissions",
+            operation: operation,
             message: "Requesting permissions for \(permissions.count) data types",
-            context: [
-                "permissions": permissions.map { "\($0.healthDataType.rawValue):\($0.accessType)" },
-            ]
+            context: context
         )
 
         let readTypes = try buildReadTypes(from: permissions)
@@ -30,13 +33,13 @@ struct HealthConnectorPermissionService: Sendable, Taggable {
 
             HealthConnectorLogger.info(
                 tag: Self.tag,
-                operation: "request_authorization",
+                operation: operation,
                 message: "Authorization request completed successfully"
             )
         } catch let error as HKError {
             HealthConnectorLogger.error(
                 tag: Self.tag,
-                operation: "request_authorization",
+                operation: operation,
                 message: "Authorization request failed",
                 exception: error
             )

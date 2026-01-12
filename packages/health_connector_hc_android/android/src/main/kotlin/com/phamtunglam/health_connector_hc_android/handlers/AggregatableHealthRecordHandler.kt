@@ -4,6 +4,7 @@ import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.time.TimeRangeFilter
+import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregationMetricDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorDto
@@ -13,6 +14,7 @@ import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.utils.dataType
 import com.phamtunglam.health_connector_hc_android.utils.endTime
 import com.phamtunglam.health_connector_hc_android.utils.startTime
+import java.time.Duration
 import java.time.Instant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -90,6 +92,10 @@ internal interface CustomAggregatableHealthRecordHandler :
     AggregatableHealthRecordHandler,
     ReadableHealthRecordHandler {
 
+    companion object {
+        private const val OPERATION = "custom_aggregate"
+    }
+
     /**
      * Set of aggregation metrics supported by this handler.
      */
@@ -134,34 +140,63 @@ internal interface CustomAggregatableHealthRecordHandler :
     @Throws(
         HealthConnectorErrorDto::class,
     )
-    override suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto = process(
-        "custom_aggregate",
-        context = mapOf("request" to request),
-    ) {
-        require(request.startTime < request.endTime) {
-            "Invalid time range: startTime (${request.startTime}) must be less than endTime (${request.endTime})"
-        }
-
-        require(
-            supportedAggregationMetrics.contains(request.aggregationMetric),
-        ) {
-            "Aggregation metric ${request.aggregationMetric} not supported for $dataType. " +
-                "Supported metrics: $supportedAggregationMetrics"
-        }
-
-        val aggregationResult = paginateAndAggregate(
-            startTime = Instant.ofEpochMilli(request.startTime),
-            endTime = Instant.ofEpochMilli(request.endTime),
+    override suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto {
+        val startTime = Instant.ofEpochMilli(request.startTime)
+        val endTime = Instant.ofEpochMilli(request.endTime)
+        val querySpanDays = Duration.between(startTime, endTime).toDays()
+        val aggregationMetric = request.aggregationMetric
+        val context = mapOf(
+            "data_type" to request.dataType,
+            "metric" to aggregationMetric,
+            "query_span_days" to querySpanDays,
         )
 
-        val resultValue = when (request.aggregationMetric) {
-            AggregationMetricDto.AVG -> aggregationResult.avg
-            AggregationMetricDto.MIN -> aggregationResult.min
-            AggregationMetricDto.MAX -> aggregationResult.max
-            AggregationMetricDto.SUM -> aggregationResult.sum
-        }
+        HealthConnectorLogger.debug(
+            tag = tag,
+            operation = OPERATION,
+            message = "Preparing custom aggregation",
+            context = context,
+        )
 
-        wrapAggregationResult(resultValue)
+        return process(
+            OPERATION,
+            context = context,
+        ) {
+            require(startTime < endTime) {
+                "Invalid time range: startTime ($startTime) must be less than endTime ($endTime)"
+            }
+
+            require(
+                supportedAggregationMetrics.contains(aggregationMetric),
+            ) {
+                "Aggregation metric $aggregationMetric not supported for $dataType. " +
+                    "Supported metrics: $supportedAggregationMetrics"
+            }
+
+            val aggregationResult = paginateAndAggregate(
+                startTime = startTime,
+                endTime = endTime,
+                context = context,
+            )
+
+            val resultValue = when (aggregationMetric) {
+                AggregationMetricDto.AVG -> aggregationResult.avg
+                AggregationMetricDto.MIN -> aggregationResult.min
+                AggregationMetricDto.MAX -> aggregationResult.max
+                AggregationMetricDto.SUM -> aggregationResult.sum
+            }
+
+            HealthConnectorLogger.info(
+                tag = tag,
+                operation = OPERATION,
+                message = "Custom aggregation completed",
+                context = context + mapOf(
+                    "result_value" to resultValue,
+                ),
+            )
+
+            wrapAggregationResult(resultValue)
+        }
     }
 
     /**
@@ -173,18 +208,39 @@ internal interface CustomAggregatableHealthRecordHandler :
     private suspend fun paginateAndAggregate(
         startTime: Instant,
         endTime: Instant,
+        context: Map<String, Any?>,
     ): PaginatedAggregationResult = withContext(Dispatchers.IO) {
+        HealthConnectorLogger.debug(
+            tag = tag,
+            operation = OPERATION,
+            message = "Starting pagination for custom aggregation",
+            context = context,
+        )
+
         var pageToken: String? = null
         var count = 0
         var sum = 0.0
         var min: Double? = null
         var max: Double? = null
+        var pageNumber = 0
 
         do {
+            pageNumber++
             val (records, nextToken) = readRecords(
                 startTime = startTime,
                 endTime = endTime,
                 pageToken = pageToken,
+            )
+
+            HealthConnectorLogger.debug(
+                tag = tag,
+                operation = OPERATION,
+                message = "Processing page $pageNumber",
+                context = context + mapOf(
+                    "page_number" to pageNumber,
+                    "records_in_page" to records.size,
+                    "total_records_so_far" to (count + records.size),
+                ),
             )
 
             for (recordDto in records) {
@@ -198,12 +254,24 @@ internal interface CustomAggregatableHealthRecordHandler :
             pageToken = nextToken
         } while (!pageToken.isNullOrEmpty())
 
-        return@withContext PaginatedAggregationResult(
+        val result = PaginatedAggregationResult(
             avg = if (count > 0) sum / count else 0.0,
             sum = sum,
             min = if (count > 0) min ?: 0.0 else 0.0,
             max = if (count > 0) max ?: 0.0 else 0.0,
         )
+
+        HealthConnectorLogger.info(
+            tag = tag,
+            operation = OPERATION,
+            message = "Custom aggregation pagination completed",
+            context = context + mapOf(
+                "total_pages" to pageNumber,
+                "total_records" to count,
+            ),
+        )
+
+        return@withContext result
     }
 
     /**

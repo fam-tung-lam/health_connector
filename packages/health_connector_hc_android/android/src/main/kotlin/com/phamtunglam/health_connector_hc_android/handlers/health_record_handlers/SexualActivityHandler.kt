@@ -19,4 +19,6 @@ internal class SexualActivityHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.SEXUAL_ACTIVITY
+
+    override val tag = "SexualActivityHandler"
 }

@@ -2,6 +2,7 @@ package com.phamtunglam.health_connector_hc_android.handlers
 
 import android.os.RemoteException
 import com.phamtunglam.health_connector_hc_android.HealthConnectorClient
+import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
 import java.io.IOException
@@ -31,14 +32,35 @@ internal interface WritableHealthRecordHandler : HealthRecordHandler {
         SecurityException::class,
         IOException::class,
     )
-    suspend fun writeRecord(dto: HealthRecordDto): String = process(
-        operation = "write_record",
-        context = mapOf("dto" to dto),
-    ) {
-        val record = dto.toHealthConnect()
+    suspend fun writeRecord(dto: HealthRecordDto): String {
+        val operation = "write_record"
+        val context = mapOf("data_type" to dataType.name)
 
-        val response = client.insertRecords(listOf(record))
+        return process(
+            operation = operation,
+            context = context,
+        ) {
+            HealthConnectorLogger.debug(
+                tag = tag,
+                operation = operation,
+                message = "Preparing to write record",
+                context = context,
+            )
 
-        response.recordIdsList.first()
+            val record = dto.toHealthConnect()
+
+            val response = client.insertRecords(listOf(record))
+
+            val recordId = response.recordIdsList.first()
+
+            HealthConnectorLogger.info(
+                tag = tag,
+                operation = operation,
+                message = "Record written successfully",
+                context = context,
+            )
+
+            recordId
+        }
     }
 }

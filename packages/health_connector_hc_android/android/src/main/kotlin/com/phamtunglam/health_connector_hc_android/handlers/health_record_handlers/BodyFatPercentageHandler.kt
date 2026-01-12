@@ -21,4 +21,6 @@ internal class BodyFatPercentageHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.BODY_FAT_PERCENTAGE
+
+    override val tag = "BodyFatPercentageHandler"
 }

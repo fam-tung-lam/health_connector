@@ -28,6 +28,8 @@ internal class FloorsClimbedHandler(
 
     override val dataType = HealthDataTypeDto.FLOORS_CLIMBED
 
+    override val tag = "FloorsClimbedHandler"
+
     override val aggregateMetricMappings = mapOf(
         AggregationMetricDto.SUM to FloorsClimbedRecord.FLOORS_CLIMBED_TOTAL,
     )

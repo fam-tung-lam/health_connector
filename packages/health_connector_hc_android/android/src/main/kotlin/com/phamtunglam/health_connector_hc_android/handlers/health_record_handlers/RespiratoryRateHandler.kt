@@ -30,6 +30,8 @@ internal class RespiratoryRateHandler(
 
     override val dataType = HealthDataTypeDto.RESPIRATORY_RATE
 
+    override val tag = "RespiratoryRateHandler"
+
     override val supportedAggregationMetrics: Set<AggregationMetricDto>
         get() = setOf(
             AggregationMetricDto.AVG,

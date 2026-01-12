@@ -136,7 +136,20 @@ extension ReadableHealthRecordHandler {
     /// - Returns: The health record DTO
     /// - Throws: HealthConnectorError if record not found or read fails
     func readRecord(id: String) async throws -> HealthRecordDto {
-        try await process(operation: "read_record", context: ["id": id]) {
+        let tag = String(describing: type(of: self))
+        let operation = "read_record"
+        let context: [String: Any] = [
+            "data_type": Self.dataType.rawValue,
+        ]
+
+        return try await process(operation: operation, context: context) {
+            HealthConnectorLogger.debug(
+                tag: tag,
+                operation: operation,
+                message: "Preparing to read single record",
+                context: context
+            )
+
             guard let uuid = UUID(uuidString: id) else {
                 throw HealthConnectorError.invalidArgument(
                     message: "Invalid UUID format: \(id)"
@@ -151,7 +164,8 @@ extension ReadableHealthRecordHandler {
             }
             let predicate = HKQuery.predicateForObject(with: uuid)
 
-            return try await withCheckedThrowingContinuation { continuation in
+            let recordDto: HealthRecordDto = try await withCheckedThrowingContinuation {
+                continuation in
                 let query = HKSampleQuery(
                     sampleType: sampleType,
                     predicate: predicate,
@@ -182,6 +196,15 @@ extension ReadableHealthRecordHandler {
 
                 self.healthStore.execute(query)
             }
+
+            HealthConnectorLogger.info(
+                tag: tag,
+                operation: operation,
+                message: "Record retrieved successfully",
+                context: context
+            )
+
+            return recordDto
         }
     }
 
@@ -204,14 +227,28 @@ extension ReadableHealthRecordHandler {
         dataOriginPackageNames: [String] = [],
         sortOrder: SortOrderDto
     ) async throws -> (records: [HealthRecordDto], pageToken: PaginationToken?) {
-        try await process(
-            operation: "read_records",
-            context: [
-                "start_time": startTime,
-                "end_time": endTime,
-                "page_size": pageSize,
-            ]
+        let tag = String(describing: type(of: self))
+        let operation = "read_records"
+        let querySpanDays =
+            Calendar.current.dateComponents([.day], from: startTime, to: endTime).day ?? 0
+        let context: [String: Any] = [
+            "data_type": Self.dataType.rawValue,
+            "query_span_days": querySpanDays,
+            "page_size": pageSize,
+            "has_page_token": pageToken != nil,
+        ]
+
+        return try await process(
+            operation: operation,
+            context: context
         ) {
+            HealthConnectorLogger.debug(
+                tag: tag,
+                operation: operation,
+                message: "Preparing to read records",
+                context: context
+            )
+
             let sampleType = try healthKitType()
             guard let sampleType = sampleType as? HKSampleType else {
                 throw HealthConnectorError.unsupportedOperation(
@@ -272,54 +309,68 @@ extension ReadableHealthRecordHandler {
             // Request one extra record to determine if there are more pages
             let limit = pageSize + 1
 
-            return try await withCheckedThrowingContinuation { continuation in
-                let query = HKSampleQuery(
-                    sampleType: sampleType,
-                    predicate: finalPredicate,
-                    limit: limit,
-                    sortDescriptors: [sortDescriptor]
-                ) { _, samples, error in
-                    if let error {
-                        continuation.resume(throwing: error)
-                        return
-                    }
-
-                    guard let samples else {
-                        continuation.resume(returning: (records: [], pageToken: nil))
-                        return
-                    }
-
-                    do {
-                        // Check if there are more pages
-                        let hasMorePages = samples.count > pageSize
-                        let recordsToReturn =
-                            hasMorePages ? Array(samples.prefix(pageSize)) : samples
-
-                        // Use toDto extension method
-                        let dtos = try recordsToReturn.map { sample in
-                            try sample.toDto()
+            let result: (records: [HealthRecordDto], pageToken: PaginationToken?) =
+                try await withCheckedThrowingContinuation { continuation in
+                    let query = HKSampleQuery(
+                        sampleType: sampleType,
+                        predicate: finalPredicate,
+                        limit: limit,
+                        sortDescriptors: [sortDescriptor]
+                    ) { _, samples, error in
+                        if let error {
+                            continuation.resume(throwing: error)
+                            return
                         }
 
-                        // Determine next page token
-                        let nextPageToken: PaginationToken?
-                        if hasMorePages, let lastDto = dtos.last {
-                            let timestamp = try lastDto.extractTimestamp()
-                            // Adjust timestamp based on sort direction to avoid duplicates
-                            // For descending: use timestamp - 1ms; for ascending: use timestamp + 1ms
-                            let adjustedTimestamp = ascending ? timestamp + 1 : timestamp - 1
-                            nextPageToken = PaginationToken(timestamp: adjustedTimestamp)
-                        } else {
-                            nextPageToken = nil
+                        guard let samples else {
+                            continuation.resume(returning: (records: [], pageToken: nil))
+                            return
                         }
 
-                        continuation.resume(returning: (records: dtos, pageToken: nextPageToken))
-                    } catch {
-                        continuation.resume(throwing: error)
+                        do {
+                            // Check if there are more pages
+                            let hasMorePages = samples.count > pageSize
+                            let recordsToReturn =
+                                hasMorePages ? Array(samples.prefix(pageSize)) : samples
+
+                            // Use toDto extension method
+                            let dtos = try recordsToReturn.map { sample in
+                                try sample.toDto()
+                            }
+
+                            // Determine next page token
+                            let nextPageToken: PaginationToken?
+                            if hasMorePages, let lastDto = dtos.last {
+                                let timestamp = try lastDto.extractTimestamp()
+                                // Adjust timestamp based on sort direction to avoid duplicates
+                                // For descending: use timestamp - 1ms; for ascending: use timestamp + 1ms
+                                let adjustedTimestamp = ascending ? timestamp + 1 : timestamp - 1
+                                nextPageToken = PaginationToken(timestamp: adjustedTimestamp)
+                            } else {
+                                nextPageToken = nil
+                            }
+
+                            continuation.resume(
+                                returning: (records: dtos, pageToken: nextPageToken))
+                        } catch {
+                            continuation.resume(throwing: error)
+                        }
                     }
+
+                    self.healthStore.execute(query)
                 }
 
-                self.healthStore.execute(query)
-            }
+            HealthConnectorLogger.info(
+                tag: tag,
+                operation: operation,
+                message: "Records retrieved successfully",
+                context: context.merging([
+                    "record_count": result.records.count,
+                    "has_more": result.pageToken != nil,
+                ]) { _, new in new }
+            )
+
+            return result
         }
     }
 

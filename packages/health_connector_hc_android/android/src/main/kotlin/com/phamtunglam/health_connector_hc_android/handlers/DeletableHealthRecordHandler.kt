@@ -3,8 +3,10 @@ package com.phamtunglam.health_connector_hc_android.handlers
 import android.os.RemoteException
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.time.TimeRangeFilter
+import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectRecordClass
 import java.io.IOException
+import java.time.Duration
 import java.time.Instant
 
 /**
@@ -27,14 +29,34 @@ internal interface DeletableHealthRecordHandler : HealthRecordHandler {
             return
         }
 
+        val operation = "delete_records"
+        val context = mapOf(
+            "data_type" to dataType.name,
+            "record_count" to recordIds.size,
+        )
+
         process(
-            operation = "delete_records",
-            context = mapOf("record_ids" to recordIds),
+            operation = operation,
+            context = context,
         ) {
+            HealthConnectorLogger.debug(
+                tag = tag,
+                operation = operation,
+                message = "Preparing to delete records by IDs",
+                context = context,
+            )
+
             client.deleteRecords(
                 recordType = dataType.toHealthConnectRecordClass(),
                 recordIdsList = recordIds,
                 clientRecordIdsList = emptyList(),
+            )
+
+            HealthConnectorLogger.info(
+                tag = tag,
+                operation = operation,
+                message = "Records deleted successfully",
+                context = context,
             )
         }
     }
@@ -54,10 +76,24 @@ internal interface DeletableHealthRecordHandler : HealthRecordHandler {
         IOException::class,
     )
     suspend fun deleteRecordsByTimeRange(startTime: Instant, endTime: Instant) {
+        val operation = "delete_records_by_time_range"
+        val querySpanDays = Duration.between(startTime, endTime).toDays()
+        val context = mapOf(
+            "data_type" to dataType.name,
+            "query_span_days" to querySpanDays,
+        )
+
         process(
-            operation = "delete_records_by_time_range",
-            context = mapOf("start_time" to startTime, "end_time" to endTime),
+            operation = operation,
+            context = context,
         ) {
+            HealthConnectorLogger.debug(
+                tag = tag,
+                operation = operation,
+                message = "Preparing to delete records by time range",
+                context = context,
+            )
+
             require(startTime < endTime) {
                 "Invalid time range: startTime must be before endTime"
             }
@@ -65,6 +101,13 @@ internal interface DeletableHealthRecordHandler : HealthRecordHandler {
             client.deleteRecords(
                 recordType = dataType.toHealthConnectRecordClass(),
                 timeRangeFilter = TimeRangeFilter.between(startTime, endTime),
+            )
+
+            HealthConnectorLogger.info(
+                tag = tag,
+                operation = operation,
+                message = "Records deleted successfully in time range",
+                context = context,
             )
         }
     }

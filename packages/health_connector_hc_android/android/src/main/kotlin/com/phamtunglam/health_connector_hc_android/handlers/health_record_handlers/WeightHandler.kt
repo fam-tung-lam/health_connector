@@ -29,6 +29,8 @@ internal class WeightHandler(
 
     override val dataType = HealthDataTypeDto.WEIGHT
 
+    override val tag = "WeightHandler"
+
     override val aggregateMetricMappings = mapOf(
         AggregationMetricDto.AVG to WeightRecord.WEIGHT_AVG,
         AggregationMetricDto.MIN to WeightRecord.WEIGHT_MIN,

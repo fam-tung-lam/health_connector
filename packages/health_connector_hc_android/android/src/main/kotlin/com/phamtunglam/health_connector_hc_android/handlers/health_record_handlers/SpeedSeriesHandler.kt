@@ -21,4 +21,6 @@ internal class SpeedSeriesHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.SPEED_SERIES
+
+    override val tag = "SpeedSeriesHandler"
 }

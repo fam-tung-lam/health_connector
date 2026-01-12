@@ -224,7 +224,7 @@ internal object HealthConnectorLogger {
         scope.launch(Dispatchers.Main.immediate) {
             val logDto = HealthConnectorLogDto(
                 level = level.toDto(),
-                tag = tag.uppercase(),
+                tag = tag,
                 operation = operation,
                 millisecondsSinceEpoch = System.currentTimeMillis(),
                 message = message,

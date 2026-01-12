@@ -43,27 +43,32 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
         syncToken: HealthDataSyncTokenDto?,
         pageSize: Int = 1000
     ) async throws -> HealthDataSyncResultDto {
+        let operation = "synchronize"
+        let context: [String: Any] = [
+            "data_type_count": dataTypes.count,
+            "has_sync_token": syncToken != nil,
+            "page_size": pageSize,
+        ]
+
         HealthConnectorLogger.debug(
             tag: Self.tag,
-            operation: "synchronize",
+            operation: operation,
             message: "Starting HealthKit data synchronization",
-            context: [
-                "data_type_count": dataTypes.count,
-                "has_sync_token": syncToken != nil,
-                "page_size": pageSize,
-            ]
+            context: context
         )
 
         // 1. Validate input
         guard !dataTypes.isEmpty else {
             HealthConnectorLogger.error(
                 tag: Self.tag,
-                operation: "synchronize",
-                message: "Synchronization failed: No data types provided"
+                operation: operation,
+                message: "Synchronization failed: No data types provided",
+                context: context
             )
 
             throw HealthConnectorError.invalidArgument(
-                message: "No data types provided for synchronization"
+                message: "No data types provided for synchronization",
+                context: context
             )
         }
 
@@ -72,19 +77,20 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
         if let syncToken {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
-                operation: "synchronize",
+                operation: operation,
                 message: "Decoding sync anchor from token",
-                context: [
+                context: context.merging([
                     "token_created_at": syncToken.createdAtMillis,
-                ]
+                ]) { _, new in new }
             )
 
             anchor = try decodeAnchor(from: syncToken)
         } else {
             HealthConnectorLogger.debug(
                 tag: Self.tag,
-                operation: "synchronize",
-                message: "Initial sync - no anchor provided"
+                operation: operation,
+                message: "Initial sync - no anchor provided",
+                context: context
             )
             anchor = nil
         }
@@ -101,7 +107,7 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
                     guard let sampleType = element as? HKSampleType else {
                         HealthConnectorLogger.error(
                             tag: Self.tag,
-                            operation: "synchronize",
+                            operation: operation,
                             message: "Data type conversion failed",
                             context: [
                                 "type_received": String(describing: type(of: element)),
@@ -122,7 +128,7 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
 
         HealthConnectorLogger.debug(
             tag: Self.tag,
-            operation: "synchronize",
+            operation: operation,
             message: "Prepared query descriptors",
             context: [
                 "descriptor_count": descriptors.count,
@@ -133,7 +139,7 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
         // 4. Execute Unified Query
         HealthConnectorLogger.debug(
             tag: Self.tag,
-            operation: "synchronize",
+            operation: operation,
             message: "Executing unified HealthKit query",
             context: [
                 "page_size": pageSize,
@@ -148,7 +154,7 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
 
         HealthConnectorLogger.info(
             tag: Self.tag,
-            operation: "synchronize",
+            operation: operation,
             message: "Query completed",
             context: [
                 "samples_received": samples.count,
@@ -164,7 +170,7 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
 
         HealthConnectorLogger.debug(
             tag: Self.tag,
-            operation: "synchronize",
+            operation: operation,
             message: "Checked for additional data",
             context: [
                 "has_more": hasMore,
@@ -185,7 +191,7 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
 
         HealthConnectorLogger.info(
             tag: Self.tag,
-            operation: "synchronize",
+            operation: operation,
             message: "Synchronization completed successfully",
             context: [
                 "upserted_records": upsertedRecords.count,
@@ -327,11 +333,13 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
     ///     - The token contains invalid base64 data
     ///     - The anchor data is corrupted and cannot be decoded
     private func decodeAnchor(from syncToken: HealthDataSyncTokenDto) throws -> HKQueryAnchor {
+        let operation = "decodeAnchor"
+
         // Decode base64 string to binary data
         guard let data = Data(base64Encoded: syncToken.token) else {
             HealthConnectorLogger.error(
                 tag: Self.tag,
-                operation: "decodeAnchor",
+                operation: operation,
                 message: "Failed to decode base64 data from sync token",
                 context: [
                     "token_length": syncToken.token.count,
@@ -351,7 +359,7 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
             )
             HealthConnectorLogger.debug(
                 tag: Self.tag,
-                operation: "decodeAnchor",
+                operation: operation,
                 message: "Successfully decoded anchor from sync token"
             )
 
@@ -365,7 +373,7 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
         } catch {
             HealthConnectorLogger.error(
                 tag: Self.tag,
-                operation: "decodeAnchor",
+                operation: operation,
                 message: "Failed to unarchive HKQueryAnchor",
                 context: [
                     "token_created_at": syncToken.createdAtMillis,

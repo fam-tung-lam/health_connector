@@ -21,4 +21,6 @@ internal class HeightHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.HEIGHT
+
+    override val tag = "HeightHandler"
 }

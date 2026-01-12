@@ -18,4 +18,6 @@ internal class CervicalMucusHandler(
     WritableHealthRecordHandler,
     DeletableHealthRecordHandler {
     override val dataType = HealthDataTypeDto.CERVICAL_MUCUS
+
+    override val tag = "CervicalMucusHandler"
 }

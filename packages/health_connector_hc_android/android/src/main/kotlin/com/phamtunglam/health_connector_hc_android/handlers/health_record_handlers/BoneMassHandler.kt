@@ -21,4 +21,6 @@ internal class BoneMassHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.BONE_MASS
+
+    override val tag = "BoneMassHandler"
 }

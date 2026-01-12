@@ -21,4 +21,6 @@ internal class NutritionHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.NUTRITION
+
+    override val tag = "NutritionHandler"
 }

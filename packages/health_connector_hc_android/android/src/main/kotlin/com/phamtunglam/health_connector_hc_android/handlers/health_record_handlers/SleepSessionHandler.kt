@@ -29,6 +29,8 @@ internal class SleepSessionHandler(
 
     override val dataType = HealthDataTypeDto.SLEEP_SESSION
 
+    override val tag = "SleepSessionHandler"
+
     override val aggregateMetricMappings = mapOf(
         AggregationMetricDto.SUM to SleepSessionRecord.SLEEP_DURATION_TOTAL,
     )

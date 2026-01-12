@@ -32,10 +32,30 @@ extension WritableHealthRecordHandler {
             )
         }
 
-        return try await process(operation: "write_record", context: nil) {
+        let tag = String(describing: type(of: self))
+        let operation = "write_record"
+        let context: [String: Any] = ["data_type": Self.dataType.rawValue]
+
+        return try await process(operation: operation, context: context) {
+            HealthConnectorLogger.debug(
+                tag: tag,
+                operation: operation,
+                message: "Preparing to write record",
+                context: context
+            )
+
             let sample = try dto.toHealthKit()
             try await self.healthStore.save(sample)
-            return sample.uuid.uuidString
+            let recordId = sample.uuid.uuidString
+
+            HealthConnectorLogger.info(
+                tag: tag,
+                operation: operation,
+                message: "Record written successfully",
+                context: context
+            )
+
+            return recordId
         }
     }
 }

@@ -8,7 +8,7 @@ extension HealthConnectorConfigMappers on HealthConnectorConfig {
   /// Converts this [HealthConnectorConfig] to a [HealthConnectorConfigDto].
   HealthConnectorConfigDto toDto() {
     return HealthConnectorConfigDto(
-      isLoggerEnabled: loggerConfig.logProcessors.isNotEmpty,
+      isLoggerEnabled: loggerConfig.enableNativeLogging,
     );
   }
 }

@@ -3,6 +3,7 @@ package com.phamtunglam.health_connector_hc_android.services
 import android.content.Context
 import android.content.pm.PackageManager
 import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
+import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 
 /**
  * Internal service responsible for validating the application's Android Manifest configuration.
@@ -11,6 +12,9 @@ import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorExc
  * static permission declarations) are met before attempting to request permissions at runtime.
  */
 internal class HealthConnectorManifestService(private val context: Context) {
+    companion object {
+        private const val TAG = "HealthConnectorManifestService"
+    }
 
     /**
      * Ensures that all requested [permissions] are explicitly declared in the application's `AndroidManifest.xml`.
@@ -24,15 +28,41 @@ internal class HealthConnectorManifestService(private val context: Context) {
      */
     @Throws(HealthConnectorException::class)
     fun checkPermissionsDeclared(permissions: Set<String>) {
+        val context = mapOf(
+            "permission_count" to permissions.size,
+        )
+        HealthConnectorLogger.debug(
+            tag = TAG,
+            operation = "checkPermissionsDeclared",
+            message = "Validating manifest permissions",
+            context = context,
+        )
+
         val (_, missing) = partitionDeclaredPermissions(permissions)
 
         if (missing.isNotEmpty()) {
+            HealthConnectorLogger.error(
+                tag = TAG,
+                operation = "checkPermissionsDeclared",
+                message = "Missing permissions in AndroidManifest.xml",
+                context = context + mapOf(
+                    "missing_count" to missing.size,
+                    "missing_permissions" to missing.joinToString(", "),
+                ),
+            )
             throw HealthConnectorException.InvalidConfiguration(
                 message = "Health Connect integration is misconfigured. " +
                     "Missing permissions in AndroidManifest.xml: $missing. " +
                     "Please add <uses-permission> tags.",
             )
         }
+
+        HealthConnectorLogger.info(
+            tag = TAG,
+            operation = "checkPermissionsDeclared",
+            message = "All permissions declared in manifest",
+            context = context,
+        )
     }
 
     /**

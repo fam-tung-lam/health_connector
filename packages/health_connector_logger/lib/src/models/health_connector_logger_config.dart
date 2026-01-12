@@ -10,6 +10,10 @@ import 'package:meta/meta.dart';
 /// logs to be routed to multiple destinations simultaneously (console, files,
 /// remote services, etc.).
 ///
+/// Native logging can be controlled via [enableNativeLogging], which determines
+/// whether logs from platform-specific code (Kotlin/Swift) are forwarded to
+/// Flutter.
+///
 /// ## Overview
 ///
 /// The logging configuration consists of a list of
@@ -125,9 +129,42 @@ final class HealthConnectorLoggerConfig {
   /// list. The order matters for execution and log handling.
   final List<HealthConnectorLogProcessor> logProcessors;
 
-  /// Creates a logging configuration with the specified [logProcessors].
+  /// Controls whether native platform logs should be forwarded to Flutter.
+  ///
+  /// When `true` (default), logs generated from native code (Kotlin on
+  /// Android, Swift on iOS) are passed to the Flutter logging system and
+  /// processed by the configured [logProcessors].
+  ///
+  /// When `false`, native logs are suppressed and will not be forwarded to
+  /// Flutter, potentially improving performance if native logging is not
+  /// needed.
+  ///
+  /// ## Example
+  ///
+  /// ```dart
+  /// // Enable native logging (default)
+  /// const config = HealthConnectorLogConfig(
+  ///   enableNativeLogging: true,
+  ///   logProcessors: [ConsoleLogProcessor()],
+  /// );
+  ///
+  /// // Disable native logging for production
+  /// const config = HealthConnectorLogConfig(
+  ///   enableNativeLogging: false,
+  ///   logProcessors: [ConsoleLogProcessor()],
+  /// );
+  /// ```
+  ///
+  /// **Note**: This setting only affects logs originating from native platform
+  /// code. Logs generated from Dart code are not affected by this flag.
+  final bool enableNativeLogging;
+
+  /// Creates a logging configuration with the specified parameters.
   ///
   /// If [logProcessors] is not provided or is empty, no logging will occur.
+  ///
+  /// The [enableNativeLogging] parameter controls whether native platform
+  /// logs are forwarded to Flutter. Defaults to `true`.
   ///
   /// ## Example
   ///
@@ -135,8 +172,9 @@ final class HealthConnectorLoggerConfig {
   /// // No logging (default)
   /// const noLogging = HealthConnectorLogConfig();
   ///
-  /// // With processors
+  /// // With processors and native logging enabled
   /// const withLogging = HealthConnectorLogConfig(
+  ///   enableNativeLogging: true,
   ///   logProcessors: [
   ///     ConsoleLogProcessor(
   ///       levels: [
@@ -146,8 +184,15 @@ final class HealthConnectorLoggerConfig {
   ///     ),
   ///   ],
   /// );
+  ///
+  /// // Disable native logging
+  /// const noNativeLogging = HealthConnectorLogConfig(
+  ///   enableNativeLogging: false,
+  ///   logProcessors: [ConsoleLogProcessor()],
+  /// );
   /// ```
   const HealthConnectorLoggerConfig({
+    this.enableNativeLogging = false,
     this.logProcessors = const [],
   });
 }

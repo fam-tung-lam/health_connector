@@ -29,6 +29,8 @@ internal class ExerciseSessionHandler(
 
     override val dataType = HealthDataTypeDto.EXERCISE_SESSION
 
+    override val tag = "ExerciseSessionHandler"
+
     override val aggregateMetricMappings = mapOf(
         AggregationMetricDto.SUM to ExerciseSessionRecord.EXERCISE_DURATION_TOTAL,
     )

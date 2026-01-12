@@ -21,4 +21,6 @@ internal class HeartRateHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.HEART_RATE_SERIES_RECORD
+
+    override val tag = "HeartRateHandler"
 }

@@ -71,9 +71,11 @@ actor HealthConnectorClient: Taggable {
     ///
     /// - Returns: The current platform status as a `HealthPlatformStatusDto`
     static func getHealthPlatformStatus() -> HealthPlatformStatusDto {
+        let operation = "getHealthPlatformStatus"
+
         HealthConnectorLogger.debug(
             tag: tag,
-            operation: "getHealthPlatformStatus",
+            operation: operation,
             message: "Getting HealthKit availability status"
         )
 
@@ -83,7 +85,7 @@ actor HealthConnectorClient: Taggable {
 
         HealthConnectorLogger.info(
             tag: tag,
-            operation: "getHealthPlatformStatus",
+            operation: operation,
             message: "HealthKit platform status retrieved",
             context: [
                 "isAvailable": isAvailable,
@@ -108,17 +110,29 @@ actor HealthConnectorClient: Taggable {
     func requestPermissions(healthDataPermissions: [HealthDataPermissionDto]) async throws
         -> [HealthDataPermissionRequestResultDto]
     {
+        let operation = "requestPermissions"
+        let context: [String: Any] = [
+            "health_data_permission_count": healthDataPermissions.count,
+        ]
+
         HealthConnectorLogger.debug(
             tag: HealthConnectorClient.tag,
-            operation: "requestPermissions",
+            operation: operation,
             message: "Requesting HealthKit permissions via permission service",
-            context: [
-                "health_data_permission_count": healthDataPermissions.count,
-            ]
+            context: context
         )
 
         // Delegate to permission service
-        return try await permissionService.requestAuthorization(for: healthDataPermissions)
+        let result = try await permissionService.requestAuthorization(for: healthDataPermissions)
+
+        HealthConnectorLogger.info(
+            tag: HealthConnectorClient.tag,
+            operation: operation,
+            message: "HealthKit permissions requested successfully",
+            context: context
+        )
+
+        return result
     }
 
     /// Gets the current permission status for a specific permission.
@@ -134,17 +148,29 @@ actor HealthConnectorClient: Taggable {
     func getPermissionStatus(permission: HealthDataPermissionDto) async throws
         -> PermissionStatusDto
     {
+        let operation = "getPermissionStatus"
+        let context: [String: Any] = [
+            "permission_type": String(describing: type(of: permission)),
+        ]
+
         HealthConnectorLogger.debug(
             tag: HealthConnectorClient.tag,
-            operation: "getPermissionStatus",
+            operation: operation,
             message: "Getting HealthKit permission status via permission service",
-            context: [
-                "permission_type": String(describing: type(of: permission)),
-            ]
+            context: context
         )
 
         // Delegate to permission service
-        return try await permissionService.getPermissionStatus(for: permission)
+        let result = try await permissionService.getPermissionStatus(for: permission)
+
+        HealthConnectorLogger.info(
+            tag: HealthConnectorClient.tag,
+            operation: operation,
+            message: "HealthKit permission status retrieved successfully",
+            context: context
+        )
+
+        return result
     }
 
     /// Reads a single health record by ID.
@@ -164,14 +190,17 @@ actor HealthConnectorClient: Taggable {
                 "has_record_id": !request.recordId.isEmpty,
             ]
         ) {
+            let operation = "readRecord"
+            let context: [String: Any] = [
+                "data_type": request.dataType,
+                "has_record_id": !request.recordId.isEmpty,
+            ]
+
             HealthConnectorLogger.debug(
                 tag: Self.tag,
-                operation: "readRecord",
+                operation: operation,
                 message: "Reading HealthKit record",
-                context: [
-                    "data_type": request.dataType,
-                    "has_record_id": !request.recordId.isEmpty,
-                ]
+                context: context
             )
 
             let handler = try handlerRegistry.handler(
@@ -183,13 +212,12 @@ actor HealthConnectorClient: Taggable {
 
             HealthConnectorLogger.info(
                 tag: Self.tag,
-                operation: "readRecord",
+                operation: operation,
                 message: "HealthKit record read successfully",
-                context: [
-                    "data_type": request.dataType,
+                context: context.merging([
                     "record_found": true,
                     "record_type": String(describing: type(of: recordDto)),
-                ]
+                ]) { _, new in new }
             )
 
             return recordDto
@@ -248,16 +276,19 @@ actor HealthConnectorClient: Taggable {
                 "sort_order": request.sortOrder,
             ]
         ) {
+            let operation = "readRecords"
+            let context: [String: Any] = [
+                "data_type": request.dataType,
+                "page_size": request.pageSize,
+                "has_page_token": request.pageToken != nil,
+                "sort_order": request.sortOrder,
+            ]
+
             HealthConnectorLogger.debug(
                 tag: Self.tag,
-                operation: "readRecords",
+                operation: operation,
                 message: "Reading HealthKit records",
-                context: [
-                    "data_type": request.dataType,
-                    "page_size": request.pageSize,
-                    "has_page_token": request.pageToken != nil,
-                    "sort_order": request.sortOrder,
-                ]
+                context: context
             )
 
             // Validate time range
@@ -307,13 +338,12 @@ actor HealthConnectorClient: Taggable {
 
             HealthConnectorLogger.info(
                 tag: Self.tag,
-                operation: "readRecords",
+                operation: operation,
                 message: "HealthKit records read successfully",
-                context: [
-                    "data_type": request.dataType,
+                context: context.merging([
                     "record_count": responseDto.records.count,
                     "has_next_page": responseDto.nextPageToken != nil,
-                ]
+                ]) { _, new in new }
             )
 
             return responseDto
@@ -336,13 +366,16 @@ actor HealthConnectorClient: Taggable {
                 "record_type": String(describing: type(of: record)),
             ]
         ) {
+            let operation = "writeRecord"
+            let context: [String: Any] = [
+                "record_type": String(describing: type(of: record)),
+            ]
+
             HealthConnectorLogger.debug(
                 tag: Self.tag,
-                operation: "writeRecord",
+                operation: operation,
                 message: "Writing HealthKit record",
-                context: [
-                    "record_type": String(describing: type(of: record)),
-                ]
+                context: context
             )
 
             let dataType = try record.dataType
@@ -357,12 +390,9 @@ actor HealthConnectorClient: Taggable {
 
             HealthConnectorLogger.info(
                 tag: Self.tag,
-                operation: "writeRecord",
+                operation: operation,
                 message: "HealthKit record written successfully",
-                context: [
-                    "record_type": String(describing: type(of: record)),
-                    "record_written": true,
-                ]
+                context: context
             )
 
             return recordId
@@ -385,19 +415,22 @@ actor HealthConnectorClient: Taggable {
     /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
     func writeRecords(records: [HealthRecordDto]) async throws -> [String] {
         try await process(operation: "writeRecords", context: ["totalRecords": records.count]) {
+            let operation = "writeRecords"
+            let context: [String: Any] = [
+                "totalRecords": records.count,
+            ]
+
             HealthConnectorLogger.debug(
                 tag: Self.tag,
-                operation: "writeRecords",
+                operation: operation,
                 message: "Writing Health Connect records atomically",
-                context: [
-                    "totalRecords": records.count,
-                ]
+                context: context
             )
 
             guard !records.isEmpty else {
                 HealthConnectorLogger.debug(
                     tag: Self.tag,
-                    operation: "writeRecords",
+                    operation: operation,
                     message: "No records to write, returning empty response"
                 )
                 return []
@@ -422,7 +455,7 @@ actor HealthConnectorClient: Taggable {
 
             HealthConnectorLogger.debug(
                 tag: Self.tag,
-                operation: "writeRecords",
+                operation: operation,
                 message: "All records validated and converted to samples",
                 context: [
                     "sampleCount": samples.count,
@@ -433,7 +466,7 @@ actor HealthConnectorClient: Taggable {
 
             HealthConnectorLogger.debug(
                 tag: Self.tag,
-                operation: "writeRecords",
+                operation: operation,
                 message: "Atomic save completed successfully"
             )
 
@@ -441,7 +474,7 @@ actor HealthConnectorClient: Taggable {
 
             HealthConnectorLogger.info(
                 tag: Self.tag,
-                operation: "writeRecords",
+                operation: operation,
                 message: "Health Connect records written successfully",
                 context: [
                     "recordCount": recordIds.count,
@@ -469,14 +502,17 @@ actor HealthConnectorClient: Taggable {
                 "metric_type": request.aggregationMetric,
             ]
         ) {
+            let operation = "aggregate"
+            let context: [String: Any] = [
+                "data_type": request.dataType,
+                "metric_type": request.aggregationMetric,
+            ]
+
             HealthConnectorLogger.debug(
                 tag: Self.tag,
-                operation: "aggregate",
+                operation: operation,
                 message: "Aggregating HealthKit data",
-                context: [
-                    "data_type": request.dataType,
-                    "metric_type": request.aggregationMetric,
-                ]
+                context: context
             )
 
             if request.startTime >= request.endTime {
@@ -505,13 +541,11 @@ actor HealthConnectorClient: Taggable {
 
             HealthConnectorLogger.info(
                 tag: Self.tag,
-                operation: "aggregate",
+                operation: operation,
                 message: "HealthKit data aggregated successfully",
-                context: [
-                    "data_type": request.dataType,
-                    "metric_type": request.aggregationMetric,
+                context: context.merging([
                     "result_type": String(describing: type(of: value)),
-                ]
+                ]) { _, new in new }
             )
 
             return value
@@ -532,14 +566,16 @@ actor HealthConnectorClient: Taggable {
             operation: "deleteRecordsByTimeRange",
             context: ["data_type": request.dataType]
         ) {
+            let operation = "deleteRecordsByTimeRange"
+            let context: [String: Any] = [
+                "data_type": request.dataType,
+            ]
+
             HealthConnectorLogger.debug(
                 tag: HealthConnectorClient.tag,
-                operation: "deleteRecordsByTimeRange",
+                operation: operation,
                 message: "Deleting HealthKit records by time range",
-                context: [
-                    "data_type": request.dataType,
-                    "delete_by": "time_range",
-                ]
+                context: context
             )
 
             if request.startTime >= request.endTime {
@@ -567,12 +603,9 @@ actor HealthConnectorClient: Taggable {
 
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
-                operation: "deleteRecordsByTimeRange",
+                operation: operation,
                 message: "HealthKit records deleted successfully",
-                context: [
-                    "data_type": request.dataType,
-                    "delete_by": "time_range",
-                ]
+                context: context
             )
         }
     }
@@ -594,15 +627,17 @@ actor HealthConnectorClient: Taggable {
                 "count": request.recordIds.count,
             ]
         ) {
+            let operation = "deleteRecordsByIds"
+            let context: [String: Any] = [
+                "data_type": request.dataType,
+                "record_count": request.recordIds.count,
+            ]
+
             HealthConnectorLogger.debug(
                 tag: HealthConnectorClient.tag,
-                operation: "deleteRecordsByIds",
+                operation: operation,
                 message: "Deleting HealthKit records by IDs",
-                context: [
-                    "data_type": request.dataType,
-                    "delete_by": "ids",
-                    "record_count": request.recordIds.count,
-                ]
+                context: context
             )
 
             let handler = try handlerRegistry.handler(
@@ -614,12 +649,9 @@ actor HealthConnectorClient: Taggable {
 
             HealthConnectorLogger.info(
                 tag: HealthConnectorClient.tag,
-                operation: "deleteRecordsByIds",
+                operation: operation,
                 message: "HealthKit records deleted successfully",
-                context: [
-                    "data_type": request.dataType,
-                    "delete_by": "ids",
-                ]
+                context: context
             )
         }
     }
@@ -647,14 +679,17 @@ actor HealthConnectorClient: Taggable {
                 "has_sync_token": syncToken != nil,
             ]
         ) {
+            let operation = "synchronize"
+            let context: [String: Any] = [
+                "data_type_count": dataTypes.count,
+                "has_sync_token": syncToken != nil,
+            ]
+
             HealthConnectorLogger.debug(
                 tag: Self.tag,
-                operation: "synchronize",
+                operation: operation,
                 message: "Synchronizing HealthKit data",
-                context: [
-                    "data_type_count": dataTypes.count,
-                    "has_sync_token": syncToken != nil,
-                ]
+                context: context
             )
 
             // Delegate to sync service
@@ -665,13 +700,13 @@ actor HealthConnectorClient: Taggable {
 
             HealthConnectorLogger.info(
                 tag: Self.tag,
-                operation: "synchronize",
+                operation: operation,
                 message: "HealthKit data synchronized successfully",
-                context: [
+                context: context.merging([
                     "upserted_count": result.upsertedRecords.count,
                     "deleted_count": result.deletedRecordIds.count,
                     "has_more": result.hasMore,
-                ]
+                ]) { _, new in new }
             )
 
             return result

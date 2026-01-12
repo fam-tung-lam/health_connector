@@ -31,6 +31,8 @@ internal class MindfulnessSessionHandler(
 
     override val dataType = HealthDataTypeDto.MINDFULNESS_SESSION
 
+    override val tag = "MindfulnessSessionHandler"
+
     override val aggregateMetricMappings = mapOf(
         AggregationMetricDto.SUM to MindfulnessSessionRecord.MINDFULNESS_DURATION_TOTAL,
     )

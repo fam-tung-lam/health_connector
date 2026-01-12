@@ -51,10 +51,24 @@ extension DeletableHealthRecordHandler {
             return
         }
 
+        let tag = String(describing: type(of: self))
+        let operation = "delete_records_by_ids"
+        let context: [String: Any] = [
+            "data_type": type(of: self).dataType.rawValue,
+            "record_count": ids.count,
+        ]
+
         try await process(
-            operation: "delete_records_by_ids",
-            context: ["count": ids.count]
+            operation: operation,
+            context: context
         ) {
+            HealthConnectorLogger.debug(
+                tag: tag,
+                operation: operation,
+                message: "Preparing to delete records by IDs",
+                context: context
+            )
+
             // Validate and convert string IDs to UUID set
             let uuidSet = try validateAndConvertToUUIDs(ids)
 
@@ -65,6 +79,13 @@ extension DeletableHealthRecordHandler {
 
             // Delete all matching samples in a single operation
             try await self.healthStore.deleteObjects(of: sampleType, predicate: predicate)
+
+            HealthConnectorLogger.info(
+                tag: tag,
+                operation: operation,
+                message: "Records deleted successfully",
+                context: context
+            )
         }
     }
 
@@ -78,13 +99,26 @@ extension DeletableHealthRecordHandler {
         startTime: Date,
         endTime: Date
     ) async throws {
+        let tag = String(describing: type(of: self))
+        let operation = "delete_records_by_time_range"
+        let querySpanDays =
+            Calendar.current.dateComponents([.day], from: startTime, to: endTime).day ?? 0
+        let context: [String: Any] = [
+            "data_type": type(of: self).dataType.rawValue,
+            "query_span_days": querySpanDays,
+        ]
+
         try await process(
-            operation: "delete_records_by_time_range",
-            context: [
-                "start_time": startTime,
-                "end_time": endTime,
-            ]
+            operation: operation,
+            context: context
         ) {
+            HealthConnectorLogger.debug(
+                tag: tag,
+                operation: operation,
+                message: "Preparing to delete records by time range",
+                context: context
+            )
+
             let sampleType = try type(of: self).dataType.toHealthKit()
             let predicate = HKQuery.predicateForSamples(
                 withStart: startTime,
@@ -93,6 +127,13 @@ extension DeletableHealthRecordHandler {
             )
 
             try await self.healthStore.deleteObjects(of: sampleType, predicate: predicate)
+
+            HealthConnectorLogger.info(
+                tag: tag,
+                operation: operation,
+                message: "Records deleted successfully in time range",
+                context: context
+            )
         }
     }
 }
@@ -127,10 +168,24 @@ extension DeletableCorrelationHealthRecordHandler {
             return
         }
 
+        let tag = String(describing: type(of: self))
+        let operation = "delete_records_by_ids"
+        let context: [String: Any] = [
+            "data_type": type(of: self).dataType.rawValue,
+            "record_count": ids.count,
+        ]
+
         try await process(
-            operation: "delete_records_by_ids",
-            context: ["count": ids.count]
+            operation: operation,
+            context: context
         ) {
+            HealthConnectorLogger.debug(
+                tag: tag,
+                operation: operation,
+                message: "Preparing to delete correlation records by IDs",
+                context: context
+            )
+
             // Validate and convert string IDs to UUID set
             let uuidSet = try validateAndConvertToUUIDs(ids)
 
@@ -164,11 +219,11 @@ extension DeletableCorrelationHealthRecordHandler {
                     tag: String(describing: Self.self),
                     operation: "delete_records_by_ids",
                     message: "Some correlations not found",
-                    context: [
+                    context: context.merging([
                         "requested": uuidSet.count,
                         "found": correlations.count,
                         "missing_count": missingUUIDs.count,
-                    ]
+                    ]) { _, new in new }
                 )
             }
 
@@ -205,6 +260,13 @@ extension DeletableCorrelationHealthRecordHandler {
                     }
                 }
             }
+
+            HealthConnectorLogger.info(
+                tag: tag,
+                operation: operation,
+                message: "Correlation records deleted successfully",
+                context: context
+            )
         }
     }
 
@@ -220,13 +282,26 @@ extension DeletableCorrelationHealthRecordHandler {
     ///   - endTime: End of time range
     /// - Throws: HealthConnectorError if deletion fails
     func deleteRecords(startTime: Date, endTime: Date) async throws {
+        let tag = String(describing: type(of: self))
+        let operation = "delete_records_by_time_range"
+        let querySpanDays =
+            Calendar.current.dateComponents([.day], from: startTime, to: endTime).day ?? 0
+        let context: [String: Any] = [
+            "data_type": type(of: self).dataType.rawValue,
+            "query_span_days": querySpanDays,
+        ]
+
         try await process(
-            operation: "delete_records_by_time_range",
-            context: [
-                "start_time": startTime,
-                "end_time": endTime,
-            ]
+            operation: operation,
+            context: context
         ) {
+            HealthConnectorLogger.debug(
+                tag: tag,
+                operation: operation,
+                message: "Preparing to delete correlation records by time range",
+                context: context
+            )
+
             let sampleType = try type(of: self).dataType.toHealthKit()
 
             // Batch-fetch all correlations in time range in a SINGLE query
@@ -286,6 +361,13 @@ extension DeletableCorrelationHealthRecordHandler {
                     }
                 }
             }
+
+            HealthConnectorLogger.info(
+                tag: tag,
+                operation: operation,
+                message: "Correlation records deleted successfully in time range",
+                context: context
+            )
         }
     }
 }

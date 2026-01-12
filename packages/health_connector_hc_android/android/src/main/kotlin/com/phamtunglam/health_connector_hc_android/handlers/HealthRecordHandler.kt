@@ -4,7 +4,6 @@ import androidx.health.connect.client.HealthConnectClient
 import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
-import com.phamtunglam.health_connector_hc_android.utils.TAG
 import java.io.IOException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -27,6 +26,11 @@ internal interface HealthRecordHandler {
      * Health Connect SDK client for performing operations.
      */
     val client: HealthConnectClient
+
+    /**
+     * Tag used for logging.
+     */
+    val tag: String
 
     /**
      * Centralized exception handling wrapper for handler operations.
@@ -56,7 +60,7 @@ internal interface HealthRecordHandler {
             return@withContext block()
         } catch (e: SecurityException) {
             HealthConnectorLogger.error(
-                tag = TAG,
+                tag = tag,
                 operation = operation,
                 message = "Permission denied while $operation for $dataType",
                 context = context,
@@ -68,7 +72,7 @@ internal interface HealthRecordHandler {
             )
         } catch (e: IllegalArgumentException) {
             HealthConnectorLogger.error(
-                tag = TAG,
+                tag = tag,
                 operation = operation,
                 message = "Invalid argument while $operation for $dataType",
                 context = context,
@@ -80,7 +84,7 @@ internal interface HealthRecordHandler {
             )
         } catch (e: IllegalStateException) {
             HealthConnectorLogger.error(
-                tag = TAG,
+                tag = tag,
                 operation = operation,
                 message = "Invalid state while $operation for $dataType",
                 context = context,
@@ -92,7 +96,7 @@ internal interface HealthRecordHandler {
             )
         } catch (e: IOException) {
             HealthConnectorLogger.error(
-                tag = TAG,
+                tag = tag,
                 operation = operation,
                 message = "I/O error while $operation for $dataType",
                 context = context,

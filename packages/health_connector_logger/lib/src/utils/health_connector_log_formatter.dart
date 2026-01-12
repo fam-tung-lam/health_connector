@@ -54,17 +54,17 @@ abstract final class HealthConnectorLogFormatter {
     final dateTimeToLog = dateTime ?? DateTime.now();
 
     // First line: [tag] [level]
-    buffer.writeln('[${tag.toUpperCase()}] [${level.name.toUpperCase()}]:');
+    buffer.writeln(
+      '[${_formatDateTimeTo(dateTimeToLog)}] [$tag] '
+      '[${level.name.toUpperCase()}]:',
+    );
     buffer.writeln('{');
 
     // Include platform as first field if provided
     if (platform != null) {
-      buffer.write('${_getIndent(0)}platform: $platform,\n');
+      buffer.write('${_getIndent(0)}native_log_from: $platform,');
     }
 
-    buffer.write('${_getIndent(0)}datetime: ');
-    _formatDateTimeTo(buffer, dateTimeToLog);
-    buffer.write(',');
     buffer.write('\n${_getIndent(0)}message: $message,');
 
     // Include operation if provided
@@ -101,25 +101,18 @@ abstract final class HealthConnectorLogFormatter {
     return buffer.toString();
   }
 
-  /// Formats a [DateTime] to the buffer in the format:
+  /// Formats a [DateTime] in the format:
   /// `DD-MM-YYYY HH:MM:SS.mmm`
   ///
   /// This helper method centralizes datetime formatting logic for cleaner code.
-  static void _formatDateTimeTo(StringBuffer buffer, DateTime dateTime) {
-    buffer
-      ..write(dateTime.day.toString().padLeft(2, '0'))
-      ..write('-')
-      ..write(dateTime.month.toString().padLeft(2, '0'))
-      ..write('-')
-      ..write(dateTime.year)
-      ..write(' ')
-      ..write(dateTime.hour.toString().padLeft(2, '0'))
-      ..write(':')
-      ..write(dateTime.minute.toString().padLeft(2, '0'))
-      ..write(':')
-      ..write(dateTime.second.toString().padLeft(2, '0'))
-      ..write('.')
-      ..write(dateTime.millisecond.toString().padLeft(3, '0'));
+  static String _formatDateTimeTo(DateTime dateTime) {
+    return '${dateTime.day.toString().padLeft(2, '0')}-'
+        '${dateTime.month.toString().padLeft(2, '0')}-'
+        '${dateTime.year} '
+        '${dateTime.hour.toString().padLeft(2, '0')}:'
+        '${dateTime.minute.toString().padLeft(2, '0')}:'
+        '${dateTime.second.toString().padLeft(2, '0')}.'
+        '${dateTime.millisecond.toString().padLeft(3, '0')}';
   }
 
   /// Gets the indentation string for the given depth.

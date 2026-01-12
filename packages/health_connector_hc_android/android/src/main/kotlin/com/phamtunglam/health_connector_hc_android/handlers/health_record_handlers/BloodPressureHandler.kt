@@ -36,6 +36,8 @@ internal class BloodPressureHandler(
 
     override val dataType = HealthDataTypeDto.BLOOD_PRESSURE
 
+    override val tag = "BloodPressureHandler"
+
     override suspend fun aggregate(request: AggregateRequestDto): MeasurementUnitDto = process(
         operation = "aggregate",
         context = mapOf("request" to request),

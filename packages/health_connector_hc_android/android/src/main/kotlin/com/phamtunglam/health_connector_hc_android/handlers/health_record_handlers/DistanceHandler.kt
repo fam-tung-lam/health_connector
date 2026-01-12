@@ -29,6 +29,8 @@ internal class DistanceHandler(
 
     override val dataType = HealthDataTypeDto.DISTANCE
 
+    override val tag = "DistanceHandler"
+
     override val aggregateMetricMappings = mapOf(
         AggregationMetricDto.SUM to DistanceRecord.DISTANCE_TOTAL,
     )

@@ -34,11 +34,15 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         config: HealthConnectorConfigDto,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
+        let operation = "initialize"
+        // Note: isLoggerEnabled context is valuable here
+        let context: [String: Any] = ["isLoggerEnabled": String(config.isLoggerEnabled)]
+
         HealthConnectorLogger.debug(
             tag: Self.tag,
-            operation: "create",
-            message: "Creating HealthConnectorClient...",
-            context: ["isLoggerEnabled": String(config.isLoggerEnabled)]
+            operation: operation,
+            message: "Initializing HealthConnectorClient...",
+            context: context
         )
 
         do {
@@ -53,19 +57,20 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
             // Configure the native logger based on the provided configuration
             HealthConnectorLogger.isEnabled = config.isLoggerEnabled
 
-            HealthConnectorLogger.debug(
+            HealthConnectorLogger.info(
                 tag: HealthConnectorHkIosPlugin.tag,
-                operation: "create",
+                operation: operation,
                 message: "HealthConnector initialized successfully",
-                context: ["isLoggerEnabled": String(config.isLoggerEnabled)]
+                context: context
             )
 
             completion(.success(()))
         } catch {
             HealthConnectorLogger.error(
                 tag: Self.tag,
-                operation: "create",
+                operation: operation,
                 message: "Failed to create HealthConnectorClient",
+                context: context,
                 exception: error
             )
             completion(
@@ -99,7 +104,12 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: PermissionsRequestDto,
         completion: @escaping (Result<[HealthDataPermissionRequestResultDto], Error>) -> Void
     ) {
-        process(operation: "requestPermissions", completion: completion) {
+        let operation = "requestPermissions"
+        let context: [String: Any] = [
+            "permission_count": request.healthDataPermissions.count,
+        ]
+
+        process(operation: operation, context: context, completion: completion) {
             try await self.healthClient
                 .requestPermissions(healthDataPermissions: request.healthDataPermissions)
         }
@@ -116,7 +126,13 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         permission: HealthDataPermissionDto,
         completion: @escaping (Result<PermissionStatusDto, Error>) -> Void
     ) {
-        process(operation: "getPermissionStatus", completion: completion) {
+        let operation = "getPermissionStatus"
+        let context: [String: Any] = [
+            "permission_type": String(describing: type(of: permission)),
+            "data_type": permission.healthDataType.rawValue,
+        ]
+
+        process(operation: operation, context: context, completion: completion) {
             try await self.healthClient.getPermissionStatus(permission: permission)
         }
     }
@@ -130,7 +146,13 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: ReadRecordRequestDto,
         completion: @escaping (Result<HealthRecordDto?, Error>) -> Void
     ) {
-        process(operation: "readRecord", completion: completion) {
+        let operation = "readRecord"
+        let context: [String: Any] = [
+            "data_type": request.dataType.rawValue,
+            "id": request.recordId,
+        ]
+
+        process(operation: operation, context: context, completion: completion) {
             try await self.healthClient.readRecord(request: request)
         }
     }
@@ -144,7 +166,14 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: ReadRecordsRequestDto,
         completion: @escaping (Result<ReadRecordsResponseDto, Error>) -> Void
     ) {
-        process(operation: "readRecords", completion: completion) {
+        let operation = "readRecords"
+        let context: [String: Any] = [
+            "data_type": request.dataType.rawValue,
+            "limit": request.pageSize,
+            "has_page_token": request.pageToken != nil,
+        ]
+
+        process(operation: operation, context: context, completion: completion) {
             try await self.healthClient.readRecords(request: request)
         }
     }
@@ -158,7 +187,10 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         record: HealthRecordDto,
         completion: @escaping (Result<String, Error>) -> Void
     ) {
-        process(operation: "writeRecord", completion: completion) {
+        let operation = "writeRecord"
+        var context: [String: Any] = [:]
+
+        process(operation: operation, context: context, completion: completion) {
             try await self.healthClient.writeRecord(record: record)
         }
     }
@@ -172,7 +204,12 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         records: [HealthRecordDto],
         completion: @escaping (Result<[String], Error>) -> Void
     ) {
-        process(operation: "writeRecords", completion: completion) {
+        let operation = "writeRecords"
+        let context: [String: Any] = [
+            "count": records.count,
+        ]
+
+        process(operation: operation, context: context, completion: completion) {
             try await self.healthClient.writeRecords(records: records)
         }
     }
@@ -186,7 +223,13 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: AggregateRequestDto,
         completion: @escaping (Result<MeasurementUnitDto, Error>) -> Void
     ) {
-        process(operation: "aggregate", completion: completion) {
+        let operation = "aggregate"
+        let context: [String: Any] = [
+            "data_type": request.dataType.rawValue,
+            "metrics": [request.aggregationMetric.rawValue],
+        ]
+
+        process(operation: operation, context: context, completion: completion) {
             try await self.healthClient.aggregate(request: request)
         }
     }
@@ -200,7 +243,19 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         request: DeleteRecordsRequestDto,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        process(operation: "deleteRecords", completion: completion) {
+        let operation = "deleteRecords"
+        var context: [String: Any] = [:]
+
+        if let idsRequest = request as? DeleteRecordsByIdsRequestDto {
+            context["data_type"] = idsRequest.dataType.rawValue
+            context["delete_type"] = "ids"
+            context["count"] = idsRequest.recordIds.count
+        } else if let timeRangeRequest = request as? DeleteRecordsByTimeRangeRequestDto {
+            context["data_type"] = timeRangeRequest.dataType.rawValue
+            context["delete_type"] = "time_range"
+        }
+
+        process(operation: operation, context: context, completion: completion) {
             if let idsRequest = request as? DeleteRecordsByIdsRequestDto {
                 try await self.healthClient.deleteRecordsByIds(request: idsRequest)
             } else if let timeRangeRequest = request as? DeleteRecordsByTimeRangeRequestDto {
@@ -224,7 +279,13 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         syncToken: HealthDataSyncTokenDto?,
         completion: @escaping (Result<HealthDataSyncResultDto, Error>) -> Void
     ) {
-        process(operation: "synchronize", completion: completion) {
+        let operation = "synchronize"
+        let context: [String: Any] = [
+            "data_type_count": dataTypes.count,
+            "has_sync_token": syncToken != nil,
+        ]
+
+        process(operation: operation, context: context, completion: completion) {
             try await self.healthClient.synchronize(
                 dataTypes: dataTypes,
                 syncToken: syncToken
@@ -232,41 +293,66 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
         }
     }
 
-    /// Processes an async operation with standardized error handling.
+    /// Processes an async operation with standardized error handling and logging.
     ///
     /// This method wraps async closures with try-catch, converting errors to DTOs and
-    /// dispatching results to the main thread via the completion handler.
+    /// dispatching results to the main thread via the completion handler. It also handles
+    /// standardized logging for the operation lifecycle.
     ///
     /// - Parameters:
     ///   - operation: The name of the operation for logging purposes
+    ///   - context: Optional context dictionary for logging additional details
     ///   - completion: The Pigeon-generated completion handler to invoke
     ///   - action: The async closure to execute
     private func process<T>(
         operation: String,
+        context: [String: Any] = [:],
         completion: @escaping (Result<T, Error>) -> Void,
         action: @escaping () async throws -> T
     ) {
         Task {
+            // Log start of operation
+            HealthConnectorLogger.debug(
+                tag: Self.tag,
+                operation: operation,
+                message: "Starting \(operation)",
+                context: context
+            )
+
             do {
                 let result = try await action()
+
+                // Log successful completion
+                HealthConnectorLogger.info(
+                    tag: Self.tag,
+                    operation: operation,
+                    message: "Completed \(operation) successfully",
+                    context: context
+                )
+
                 self.complete(completion, with: .success(result))
             } catch let error as HealthConnectorError {
+                // Log known error
+                let errorContext = context.merging([
+                    "error_code": String(describing: error.code),
+                    "error_message": error.message ?? "no message",
+                ]) { _, new in new }
+
                 HealthConnectorLogger.error(
                     tag: Self.tag,
                     operation: operation,
                     message: "Failed to \(operation)",
-                    context: [
-                        "error_code": String(describing: error.code),
-                        "error_message": error.message ?? "no message",
-                    ],
+                    context: errorContext,
                     exception: error
                 )
                 self.complete(completion, with: .failure(error.toDto()))
             } catch {
+                // Log unknown error
                 HealthConnectorLogger.error(
                     tag: Self.tag,
                     operation: operation,
                     message: "Failed to \(operation)",
+                    context: context,
                     exception: error
                 )
                 self.complete(

@@ -18,4 +18,6 @@ internal class BodyWaterMassHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.BODY_WATER_MASS
+
+    override val tag = "BodyWaterMassHandler"
 }

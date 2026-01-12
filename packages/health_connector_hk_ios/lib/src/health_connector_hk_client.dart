@@ -78,7 +78,9 @@ class HealthConnectorHKClient implements HealthConnectorPlatformClient {
   static Future<HealthConnectorHKClient> create([
     HealthConnectorConfig config = const HealthConnectorConfig(),
   ]) async {
-    HealthConnectorHKNativeLogApi.init();
+    if (config.loggerConfig.enableNativeLogging) {
+      HealthConnectorHKNativeLogApi.init();
+    }
 
     await _platformClient.initialize(config.toDto());
 

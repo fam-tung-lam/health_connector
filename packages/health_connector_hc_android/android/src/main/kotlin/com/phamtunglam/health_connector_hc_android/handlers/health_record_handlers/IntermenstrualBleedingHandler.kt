@@ -19,4 +19,6 @@ internal class IntermenstrualBleedingHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.INTERMENSTRUAL_BLEEDING
+
+    override val tag = "IntermenstrualBleedingHandler"
 }

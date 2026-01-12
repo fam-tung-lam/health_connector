@@ -29,6 +29,8 @@ internal class CyclingPedalingCadenceHandler(
 
     override val dataType = HealthDataTypeDto.CYCLING_PEDALING_CADENCE_SERIES_RECORD
 
+    override val tag = "CyclingPedalingCadenceHandler"
+
     override val aggregateMetricMappings: Map<AggregationMetricDto, AggregateMetric<*>> =
         mapOf(
             AggregationMetricDto.AVG to CyclingPedalingCadenceRecord.RPM_AVG,

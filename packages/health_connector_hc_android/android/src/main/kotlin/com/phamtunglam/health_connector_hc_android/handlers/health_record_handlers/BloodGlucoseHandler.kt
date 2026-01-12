@@ -30,6 +30,8 @@ internal class BloodGlucoseHandler(
 
     override val dataType = HealthDataTypeDto.BLOOD_GLUCOSE
 
+    override val tag = "BloodGlucoseHandler"
+
     override val supportedAggregationMetrics: Set<AggregationMetricDto>
         get() = setOf(
             AggregationMetricDto.AVG,

@@ -2,6 +2,7 @@ package com.phamtunglam.health_connector_hc_android.handlers
 
 import android.os.RemoteException
 import com.phamtunglam.health_connector_hc_android.HealthConnectorClient
+import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.id
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthRecordDto
@@ -42,16 +43,37 @@ internal interface UpdatableHealthRecordHandler : HealthRecordHandler {
         SecurityException::class,
         IOException::class,
     )
-    suspend fun updateRecord(dto: HealthRecordDto) = process(
-        operation = "update_record",
-        context = mapOf("record_id" to dto.id),
-    ) {
-        require(!dto.id.isNullOrEmpty()) {
-            "Record ID must be provided for update operations. Use `writeRecord()` for new records."
+    suspend fun updateRecord(dto: HealthRecordDto) {
+        val operation = "update_record"
+        val context = mapOf(
+            "data_type" to dataType.name,
+        )
+
+        process(
+            operation = operation,
+            context = context,
+        ) {
+            HealthConnectorLogger.debug(
+                tag = tag,
+                operation = operation,
+                message = "Preparing to update record",
+                context = context,
+            )
+
+            require(!dto.id.isNullOrEmpty()) {
+                "Record ID must be provided for update operations. Use `writeRecord()` for new records."
+            }
+
+            val record = dto.toHealthConnect()
+
+            client.updateRecords(listOf(record))
+
+            HealthConnectorLogger.info(
+                tag = tag,
+                operation = operation,
+                message = "Record updated successfully",
+                context = context,
+            )
         }
-
-        val record = dto.toHealthConnect()
-
-        client.updateRecords(listOf(record))
     }
 }

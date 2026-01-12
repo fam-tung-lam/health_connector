@@ -28,6 +28,9 @@ internal class PowerSeriesHandler(
     HealthConnectAggregatableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.POWER_SERIES
+
+    override val tag = "PowerSeriesHandler"
+
     override val aggregateMetricMappings = mapOf(
         AggregationMetricDto.AVG to PowerRecord.POWER_AVG,
         AggregationMetricDto.MIN to PowerRecord.POWER_MIN,

@@ -11,8 +11,7 @@ extension HealthConnectorLogDtoToDomain on HealthConnectorLogDto {
     final details = context?.cast<String, dynamic>();
     final platform =
         '${HealthPlatform.healthConnect.os.name}_'
-                '${HealthPlatform.healthConnect.name}'
-            .toUpperCase();
+        '${HealthPlatform.healthConnect.name}';
 
     return HealthConnectorNativeLog(
       platform: platform,

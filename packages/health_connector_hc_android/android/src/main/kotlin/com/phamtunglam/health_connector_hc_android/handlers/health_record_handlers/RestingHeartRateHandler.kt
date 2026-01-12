@@ -28,6 +28,8 @@ internal class RestingHeartRateHandler(
 
     override val dataType = HealthDataTypeDto.RESTING_HEART_RATE
 
+    override val tag = "RestingHeartRateHandler"
+
     override val aggregateMetricMappings = mapOf(
         AggregationMetricDto.AVG to RestingHeartRateRecord.BPM_AVG,
         AggregationMetricDto.MIN to RestingHeartRateRecord.BPM_MIN,

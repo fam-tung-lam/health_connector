@@ -21,4 +21,6 @@ internal class HeartRateVariabilityRMSSDHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.HEART_RATE_VARIABILITY_RMSSD
+
+    override val tag = "HeartRateVariabilityRMSSDHandler"
 }

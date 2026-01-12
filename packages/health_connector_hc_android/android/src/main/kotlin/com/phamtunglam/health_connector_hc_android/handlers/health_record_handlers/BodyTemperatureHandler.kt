@@ -21,4 +21,6 @@ internal class BodyTemperatureHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.BODY_TEMPERATURE
+
+    override val tag = "BodyTemperatureHandler"
 }

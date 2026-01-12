@@ -28,6 +28,7 @@ final class HomeChangeNotifier extends ChangeNotifier {
     try {
       const config = HealthConnectorConfig(
         loggerConfig: HealthConnectorLoggerConfig(
+          enableNativeLogging: true,
           logProcessors: [
             DeveloperLogProcessor(),
           ],

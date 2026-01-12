@@ -21,4 +21,6 @@ internal class LeanBodyMassHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.LEAN_BODY_MASS
+
+    override val tag = "LeanBodyMassHandler"
 }

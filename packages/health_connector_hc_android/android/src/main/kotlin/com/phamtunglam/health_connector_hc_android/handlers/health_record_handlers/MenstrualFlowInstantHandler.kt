@@ -19,4 +19,6 @@ internal class MenstrualFlowInstantHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.MENSTRUAL_FLOW_INSTANT
+
+    override val tag = "MenstrualFlowInstantHandler"
 }

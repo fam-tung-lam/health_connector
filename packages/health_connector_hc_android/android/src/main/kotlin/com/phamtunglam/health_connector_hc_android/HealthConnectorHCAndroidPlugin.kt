@@ -28,7 +28,6 @@ import com.phamtunglam.health_connector_hc_android.pigeon.PermissionStatusDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.ReadRecordsResponseDto
-import com.phamtunglam.health_connector_hc_android.utils.TAG
 import com.phamtunglam.health_connector_hc_android.utils.aggregationMetric
 import com.phamtunglam.health_connector_hc_android.utils.dataType
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -212,12 +211,15 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
      * @param callback Called with a [Result] indicating success or failure
      */
     override fun initialize(config: HealthConnectorConfigDto, callback: (Result<Unit>) -> Unit) {
+        val operation = "initialize"
+        val logContext = mapOf("is_logger_enabled" to config.isLoggerEnabled)
+
         scope.launch {
             HealthConnectorLogger.debug(
-                "HealthConnectorHCAndroidPlugin",
-                operation = "initialize",
+                TAG,
+                operation = operation,
                 message = "Initializing Health Connector Android plugin...",
-                context = mapOf("is_logger_enabled" to config.isLoggerEnabled.toString()),
+                context = logContext,
             )
 
             try {
@@ -233,19 +235,19 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 HealthConnectorLogger.isEnabled = config.isLoggerEnabled
 
                 HealthConnectorLogger.debug(
-                    "HealthConnectorHCAndroidPlugin",
-                    operation = "initialize",
+                    TAG,
+                    operation = operation,
                     message = "Initialized Health Connector Android plugin.",
-                    context = mapOf("is_logger_enabled" to config.isLoggerEnabled.toString()),
+                    context = logContext,
                 )
 
                 callback(Result.success(Unit))
             } catch (e: HealthConnectorException) {
                 HealthConnectorLogger.error(
-                    "HealthConnectorHCAndroidPlugin",
-                    operation = "initialize",
+                    TAG,
+                    operation = operation,
                     message = "Failed to initialize Health Connector Android plugin.",
-                    context = mapOf(
+                    context = logContext + mapOf(
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),
@@ -257,11 +259,11 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 throw e
             } catch (e: Exception) {
                 HealthConnectorLogger.error(
-                    "HealthConnectorHCAndroidPlugin",
-                    operation = "create",
+                    TAG,
+                    operation = operation,
                     message = "Unexpected error during initialization Health Connector " +
                         "Android plugin.",
-                    context = mapOf("is_logger_enabled" to config.isLoggerEnabled.toString()),
+                    context = logContext,
                     exception = e,
                 )
                 callback(
@@ -288,12 +290,14 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
      * @throws HealthConnectorErrorDto if the Play Store cannot be launched or activity is unavailable
      */
     override fun launchHealthConnectPageInGooglePlay(callback: (Result<Unit>) -> Unit) {
+        val operation = "launch_health_connect_page_in_google_play"
+
         try {
             val currentActivity = activity
             if (currentActivity == null) {
                 HealthConnectorLogger.error(
-                    "HealthConnectorHCAndroidPlugin",
-                    operation = "launch_health_connect_page_in_google_play",
+                    TAG,
+                    operation = operation,
                     message = "Cannot launch Play Store without activity context",
                 )
 
@@ -310,13 +314,25 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 return
             }
 
+            HealthConnectorLogger.debug(
+                TAG,
+                operation = operation,
+                message = "Launching Health Connect page in Google Play...",
+            )
+
             HealthConnectorClient.launchHealthConnectPageInGooglePlay(currentActivity)
+
+            HealthConnectorLogger.info(
+                TAG,
+                operation = operation,
+                message = "Launched Health Connect page in Google Play.",
+            )
 
             callback(Result.success(Unit))
         } catch (e: HealthConnectorException) {
             HealthConnectorLogger.error(
-                "HealthConnectorHCAndroidPlugin",
-                operation = "launch_health_connect_page_in_google_play",
+                TAG,
+                operation = operation,
                 message = "Failed to launch Health Connect page in Google Play",
                 context = mapOf(
                     "error_code" to e.code,
@@ -351,17 +367,31 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
      * @param callback Called with a [Result] containing the platform status
      */
     override fun getHealthPlatformStatus(callback: (Result<HealthPlatformStatusDto>) -> Unit) {
+        val operation = "get_health_platform_status"
+
         scope.launch {
             try {
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Getting health platform status...",
+                )
+
                 val statusDto = HealthConnectorClient.getHealthPlatformStatus(context)
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Got health platform status.",
+                )
 
                 callback(Result.success(statusDto))
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
                 HealthConnectorLogger.error(
-                    "HealthConnectorHCAndroidPlugin",
-                    operation = "get_health_platform_status",
+                    TAG,
+                    operation = operation,
                     message = "Unexpected error while getting platform status",
                     exception = e,
                 )
@@ -390,15 +420,19 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         request: PermissionRequestsDto,
         callback: (Result<List<PermissionRequestResultDto>>) -> Unit,
     ) {
+        val operation = "request_permissions"
+        val logContext = mapOf("permission_count" to request.permissionRequests.size)
+
         scope.launch {
             try {
                 val currentActivity = activity
                 if (currentActivity == null) {
                     HealthConnectorLogger.error(
-                        "HealthConnectorHCAndroidPlugin",
-                        operation = "request_permissions",
+                        TAG,
+                        operation = operation,
                         message = "Activity is null. " +
                             "Cannot request permissions without activity context",
+                        context = logContext,
                     )
 
                     callback(
@@ -414,18 +448,32 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                     return@launch
                 }
 
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Requesting permissions...",
+                    context = logContext,
+                )
+
                 val responseDto = requireClient().requestPermissions(
                     activity = currentActivity,
                     request = request,
                 )
 
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Requested permissions.",
+                    context = logContext,
+                )
+
                 callback(Result.success(responseDto))
             } catch (e: HealthConnectorException) {
                 HealthConnectorLogger.error(
-                    "HealthConnectorHCAndroidPlugin",
-                    operation = "request_permissions",
+                    TAG,
+                    operation = operation,
                     message = "Failed to request Health Connect permissions",
-                    context = mapOf(
+                    context = logContext + mapOf(
                         "error_code" to e.code,
                         "error_message" to (e.message ?: "Unknown error"),
                     ),
@@ -437,10 +485,10 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 throw e
             } catch (e: Exception) {
                 HealthConnectorLogger.error(
-                    "HealthConnectorHCAndroidPlugin",
-                    operation = "request_permissions",
+                    TAG,
+                    operation = operation,
                     message = "Unexpected error while requesting permissions",
-                    context = mapOf("permission_count" to request.permissionRequests.size),
+                    context = logContext,
                     exception = e,
                 )
                 callback(
@@ -466,13 +514,32 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         request: PermissionRequestDto,
         callback: (Result<PermissionStatusDto>) -> Unit,
     ) {
+        val operation = "get_permission_status"
+        val logContext = mapOf("permission" to request)
+
         scope.launch {
             process(
-                operation = "get_permission_status",
-                context = mapOf("permission" to request.toString()),
+                operation = operation,
+                context = logContext,
                 callback = callback,
             ) {
-                requireClient().getPermissionStatus(request)
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Getting permission status...",
+                    context = logContext,
+                )
+
+                val result = requireClient().getPermissionStatus(request)
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Got permission status.",
+                    context = logContext,
+                )
+
+                result
             }
         }
     }
@@ -486,12 +553,28 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     override fun getGrantedPermissions(
         callback: (Result<List<PermissionRequestResultDto>>) -> Unit,
     ) {
+        val operation = "get_granted_permissions"
+
         scope.launch {
             process(
-                operation = "get_granted_permissions",
+                operation = operation,
                 callback = callback,
             ) {
-                requireClient().getGrantedPermissions()
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Getting granted permissions...",
+                )
+
+                val result = requireClient().getGrantedPermissions()
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Got granted permissions.",
+                )
+
+                result
             }
         }
     }
@@ -503,12 +586,26 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
      */
     @Throws(HealthConnectorErrorDto::class)
     override fun revokeAllPermissions(callback: (Result<Unit>) -> Unit) {
+        val operation = "revoke_all_permissions"
+
         scope.launch {
             process(
-                operation = "revoke_all_permissions",
+                operation = operation,
                 callback = callback,
             ) {
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Revoking all permissions...",
+                )
+
                 requireClient().revokeAllPermissions()
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Revoked all permissions.",
+                )
             }
         }
     }
@@ -524,13 +621,32 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         feature: HealthPlatformFeatureDto,
         callback: (Result<HealthPlatformFeatureStatusDto>) -> Unit,
     ) {
+        val operation = "get_feature_status"
+        val logContext = mapOf("feature" to feature)
+
         scope.launch {
             process(
-                operation = "get_feature_status",
-                context = mapOf("feature" to feature.toString()),
+                operation = operation,
+                context = logContext,
                 callback = callback,
             ) {
-                requireClient().getFeatureStatus(context, feature)
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Getting feature status...",
+                    context = logContext,
+                )
+
+                val result = requireClient().getFeatureStatus(context, feature)
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Got feature status.",
+                    context = logContext,
+                )
+
+                result
             }
         }
     }
@@ -546,16 +662,35 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         request: ReadRecordRequestDto,
         callback: (Result<HealthRecordDto?>) -> Unit,
     ) {
+        val operation = "read_record"
+        val logContext = mapOf(
+            "data_type" to request.dataType,
+            "record_id" to request.recordId,
+        )
+
         scope.launch {
             process(
-                operation = "read_record",
-                context = mapOf(
-                    "data_type" to request.dataType.toString(),
-                    "record_id" to request.recordId,
-                ),
+                operation = operation,
+                context = logContext,
                 callback = callback,
             ) {
-                requireClient().readRecord(request)
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Reading record...",
+                    context = logContext,
+                )
+
+                val result = requireClient().readRecord(request)
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Read record.",
+                    context = logContext,
+                )
+
+                result
             }
         }
     }
@@ -571,16 +706,35 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         request: ReadRecordsRequestDto,
         callback: (Result<ReadRecordsResponseDto>) -> Unit,
     ) {
+        val operation = "read_records"
+        val logContext = mapOf(
+            "data_type" to request.dataType,
+            "page_size" to request.pageSize,
+        )
+
         scope.launch {
             process(
-                operation = "read_records",
-                context = mapOf(
-                    "data_type" to request.dataType.toString(),
-                    "page_size" to request.pageSize,
-                ),
+                operation = operation,
+                context = logContext,
                 callback = callback,
             ) {
-                requireClient().readRecords(request)
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Reading records...",
+                    context = logContext,
+                )
+
+                val result = requireClient().readRecords(request)
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Read records.",
+                    context = logContext,
+                )
+
+                result
             }
         }
     }
@@ -593,12 +747,28 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
      */
     @Throws(HealthConnectorErrorDto::class)
     override fun writeRecord(record: HealthRecordDto, callback: (Result<String>) -> Unit) {
+        val operation = "write_record"
+
         scope.launch {
             process(
-                operation = "write_record",
+                operation = operation,
                 callback = callback,
             ) {
-                requireClient().writeRecord(record)
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Writing record...",
+                )
+
+                val result = requireClient().writeRecord(record)
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Written record.",
+                )
+
+                result
             }
         }
     }
@@ -614,13 +784,32 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         records: List<HealthRecordDto>,
         callback: (Result<List<String>>) -> Unit,
     ) {
+        val operation = "write_records"
+        val logContext = mapOf("records_count" to records.size)
+
         scope.launch {
             process(
-                operation = "write_records",
-                context = mapOf("records_count" to records.size),
+                operation = operation,
+                context = logContext,
                 callback = callback,
             ) {
-                requireClient().writeRecords(records)
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Writing records...",
+                    context = logContext,
+                )
+
+                val result = requireClient().writeRecords(records)
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Written records.",
+                    context = logContext,
+                )
+
+                result
             }
         }
     }
@@ -633,12 +822,26 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
      */
     @Throws(HealthConnectorErrorDto::class)
     override fun updateRecord(record: HealthRecordDto, callback: (Result<Unit>) -> Unit) {
+        val operation = "update_record"
+
         scope.launch {
             process(
-                operation = "update_record",
+                operation = operation,
                 callback = callback,
             ) {
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Updating record...",
+                )
+
                 requireClient().updateRecord(record)
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Updated record.",
+                )
             }
         }
     }
@@ -651,13 +854,30 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
      */
     @Throws(HealthConnectorErrorDto::class)
     override fun updateRecords(records: List<HealthRecordDto>, callback: (Result<Unit>) -> Unit) {
+        val operation = "update_records"
+        val logContext = mapOf("records_count" to records.size)
+
         scope.launch {
             process(
-                operation = "update_records",
-                context = mapOf("records_count" to records.size),
+                operation = operation,
+                context = logContext,
                 callback = callback,
             ) {
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Updating records...",
+                    context = logContext,
+                )
+
                 requireClient().updateRecords(records)
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Updated records.",
+                    context = logContext,
+                )
             }
         }
     }
@@ -672,12 +892,22 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         request: DeleteRecordsRequestDto,
         callback: (Result<Unit>) -> Unit,
     ) {
+        val operation = "delete_records"
+        val logContext = mapOf("request_type" to request.javaClass.simpleName)
+
         scope.launch {
             process(
-                operation = "delete_records",
-                context = mapOf("request_type" to request.javaClass.simpleName),
+                operation = operation,
+                context = logContext,
                 callback = callback,
             ) {
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Deleting records...",
+                    context = logContext,
+                )
+
                 val healthClient = requireClient()
                 when (request) {
                     is DeleteRecordsByIdsRequestDto -> healthClient.deleteRecordsByIds(request)
@@ -685,6 +915,13 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                         request,
                     )
                 }
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Deleted records.",
+                    context = logContext,
+                )
             }
         }
     }
@@ -700,16 +937,35 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         request: AggregateRequestDto,
         callback: (Result<MeasurementUnitDto>) -> Unit,
     ) {
+        val operation = "aggregate"
+        val logContext = mapOf(
+            "data_type" to request.dataType,
+            "aggregation_metric" to request.aggregationMetric,
+        )
+
         scope.launch {
             process(
-                operation = "aggregate",
-                context = mapOf(
-                    "data_type" to request.dataType.toString(),
-                    "aggregation_metric" to request.aggregationMetric.toString(),
-                ),
+                operation = operation,
+                context = logContext,
                 callback = callback,
             ) {
-                requireClient().aggregate(request)
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Aggregating records...",
+                    context = logContext,
+                )
+
+                val result = requireClient().aggregate(request)
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Aggregated records.",
+                    context = logContext,
+                )
+
+                result
             }
         }
     }
@@ -719,18 +975,37 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
         syncToken: HealthDataSyncTokenDto?,
         callback: (Result<HealthDataSyncResultDto>) -> Unit,
     ) {
+        val operation = "synchronize"
+        val logContext = mapOf(
+            "data_types" to dataTypes.joinToString(","),
+        )
+
         scope.launch {
             process(
-                operation = "synchronize",
-                context = mapOf(
-                    "data_types" to dataTypes.joinToString(","),
-                ),
+                operation = operation,
+                context = logContext,
                 callback = callback,
             ) {
-                requireClient().synchronize(
+                HealthConnectorLogger.debug(
+                    TAG,
+                    operation = operation,
+                    message = "Synchronizing data...",
+                    context = logContext,
+                )
+
+                val result = requireClient().synchronize(
                     dataTypes = dataTypes,
                     syncToken = syncToken,
                 )
+
+                HealthConnectorLogger.info(
+                    TAG,
+                    operation = operation,
+                    message = "Synchronized data.",
+                    context = logContext,
+                )
+
+                result
             }
         }
     }
@@ -791,6 +1066,8 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
     // endregion
 
     companion object {
+        private const val TAG = "HealthConnectorHCAndroidPlugin"
+
         /**
          * Executes a suspendable operation with standardized error handling.
          *
@@ -812,11 +1089,10 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
             block: suspend () -> T,
         ) {
             try {
-                val result = block()
-                callback(Result.success(result))
+                callback(Result.success(block()))
             } catch (e: HealthConnectorException) {
                 HealthConnectorLogger.error(
-                    "HealthConnectorHCAndroidPlugin",
+                    TAG,
                     operation = operation,
                     message = "Failed to execute $operation",
                     context = context + mapOf(
@@ -830,7 +1106,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
                 throw e
             } catch (e: Exception) {
                 HealthConnectorLogger.error(
-                    tag = HealthConnectorHCAndroidPlugin.TAG,
+                    tag = TAG,
                     operation = operation,
                     message = "Unexpected error in $operation",
                     context = context,

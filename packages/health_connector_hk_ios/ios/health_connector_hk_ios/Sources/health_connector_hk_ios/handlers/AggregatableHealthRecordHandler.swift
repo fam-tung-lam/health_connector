@@ -87,6 +87,23 @@ extension AggregatableQuantityHealthRecordHandler {
         startTime: Date,
         endTime: Date
     ) async throws -> AggregatedResultMeasurementUnitDto {
+        let tag = String(describing: type(of: self))
+        let operation = "aggregate"
+        let querySpanDays =
+            Calendar.current.dateComponents([.day], from: startTime, to: endTime).day ?? 0
+        let context: [String: Any] = [
+            "data_type": Self.dataType.rawValue,
+            "metric": String(describing: metric),
+            "query_span_days": querySpanDays,
+        ]
+
+        HealthConnectorLogger.debug(
+            tag: tag,
+            operation: operation,
+            message: "Preparing aggregation",
+            context: context
+        )
+
         // Validate the requested metric is supported
         try validateAggregationMetric(metric)
 
@@ -97,7 +114,9 @@ extension AggregatableQuantityHealthRecordHandler {
         guard let quantityType = try Self.dataType.toHealthKit() as? HKQuantityType else {
             throw HealthConnectorError.unsupportedOperation(
                 message: "Data type \(Self.dataType) does not support quantity-based aggregation",
-                context: ["data_type": String(describing: Self.dataType)]
+                context: context.merging([
+                    "data_type": String(describing: Self.dataType),
+                ]) { _, new in new }
             )
         }
 
@@ -124,12 +143,12 @@ extension AggregatableQuantityHealthRecordHandler {
                         throwing: HealthConnectorError.unknown(
                             message:
                             "No aggregation data available for \(Self.dataType) in the specified time range",
-                            context: [
+                            context: context.merging([
                                 "data_type": String(describing: Self.dataType),
                                 "metric": String(describing: metric),
                                 "start_time": String(describing: startTime),
                                 "end_time": String(describing: endTime),
-                            ]
+                            ]) { _, new in new }
                         )
                     )
                 }
@@ -142,7 +161,16 @@ extension AggregatableQuantityHealthRecordHandler {
         let quantity = try extractQuantity(from: statistics, for: metric)
 
         // Convert to the handler's DTO type
-        return try convertQuantity(quantity)
+        let result = try convertQuantity(quantity)
+
+        HealthConnectorLogger.info(
+            tag: tag,
+            operation: operation,
+            message: "Aggregation completed",
+            context: context
+        )
+
+        return result
     }
 }
 

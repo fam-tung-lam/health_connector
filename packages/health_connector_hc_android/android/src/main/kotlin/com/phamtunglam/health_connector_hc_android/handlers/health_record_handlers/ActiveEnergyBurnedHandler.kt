@@ -29,6 +29,8 @@ internal class ActiveEnergyBurnedHandler(
 
     override val dataType = HealthDataTypeDto.ACTIVE_CALORIES_BURNED
 
+    override val tag = "ActiveEnergyBurnedHandler"
+
     override val aggregateMetricMappings = mapOf(
         AggregationMetricDto.SUM to ActiveCaloriesBurnedRecord.ACTIVE_CALORIES_TOTAL,
     )

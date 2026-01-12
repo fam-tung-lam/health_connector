@@ -27,6 +27,8 @@ internal class OxygenSaturationHandler(
 
     override val dataType = HealthDataTypeDto.OXYGEN_SATURATION
 
+    override val tag = "OxygenSaturationHandler"
+
     override val supportedAggregationMetrics: Set<AggregationMetricDto>
         get() = setOf(
             AggregationMetricDto.AVG,

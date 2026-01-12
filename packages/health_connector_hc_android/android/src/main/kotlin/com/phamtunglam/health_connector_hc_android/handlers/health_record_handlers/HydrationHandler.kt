@@ -29,6 +29,8 @@ internal class HydrationHandler(
 
     override val dataType = HealthDataTypeDto.HYDRATION
 
+    override val tag = "HydrationHandler"
+
     override val aggregateMetricMappings = mapOf(
         AggregationMetricDto.SUM to HydrationRecord.VOLUME_TOTAL,
     )

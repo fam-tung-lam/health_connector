@@ -19,4 +19,6 @@ internal class OvulationTestHandler(
     DeletableHealthRecordHandler {
 
     override val dataType = HealthDataTypeDto.OVULATION_TEST
+
+    override val tag = "OvulationTestHandler"
 }

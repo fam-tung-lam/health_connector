@@ -30,6 +30,8 @@ internal class Vo2MaxHandler(
 
     override val dataType = HealthDataTypeDto.VO2MAX
 
+    override val tag = "Vo2MaxHandler"
+
     override val supportedAggregationMetrics: Set<AggregationMetricDto>
         get() = setOf(
             AggregationMetricDto.AVG,

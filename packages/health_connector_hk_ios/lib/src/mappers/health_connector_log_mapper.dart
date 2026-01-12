@@ -13,8 +13,7 @@ extension HealthConnectorLogDtoToDomain on HealthConnectorLogDto {
     final details = context?.cast<String, dynamic>();
     final platform =
         '${HealthPlatform.appleHealth.os.name}_'
-                '${HealthPlatform.appleHealth.name}'
-            .toUpperCase();
+        '${HealthPlatform.appleHealth.name}';
 
     return HealthConnectorNativeLog(
       platform: platform,

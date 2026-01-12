@@ -28,6 +28,8 @@ internal class StepsHandler(
 
     override val dataType = HealthDataTypeDto.STEPS
 
+    override val tag = "StepsHandler"
+
     override val aggregateMetricMappings = mapOf(
         AggregationMetricDto.SUM to StepsRecord.COUNT_TOTAL,
     )

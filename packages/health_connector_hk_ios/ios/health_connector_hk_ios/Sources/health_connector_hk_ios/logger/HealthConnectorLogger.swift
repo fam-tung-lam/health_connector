@@ -111,7 +111,7 @@ final class HealthConnectorLogger {
 
         let logDto = HealthConnectorLogDto(
             level: level.toDto(),
-            tag: tag.uppercased(),
+            tag: tag,
             millisecondsSinceEpoch: timestampMs,
             message: message ?? "",
             operation: operation,

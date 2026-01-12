@@ -57,8 +57,9 @@ extension HealthRecordHandler {
         let tag = String(describing: type(of: self))
 
         // Log operation start
-        var startContext = context ?? [:]
-        startContext["data_type"] = Self.dataType.rawValue
+        let startContext = (context ?? [:]).merging(["data_type": Self.dataType.rawValue]) {
+            _, new in new
+        }
 
         HealthConnectorLogger.debug(
             tag: tag,
@@ -72,8 +73,9 @@ extension HealthRecordHandler {
             let result = try await block()
 
             // Log successful completion
-            var completeContext = context ?? [:]
-            completeContext["data_type"] = Self.dataType.rawValue
+            let completeContext = (context ?? [:]).merging(["data_type": Self.dataType.rawValue]) {
+                _, new in new
+            }
 
             HealthConnectorLogger.debug(
                 tag: tag,

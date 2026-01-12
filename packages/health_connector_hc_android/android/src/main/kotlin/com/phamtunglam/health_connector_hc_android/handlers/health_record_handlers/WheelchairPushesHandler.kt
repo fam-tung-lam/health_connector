@@ -28,6 +28,8 @@ internal class WheelchairPushesHandler(
 
     override val dataType = HealthDataTypeDto.WHEELCHAIR_PUSHES
 
+    override val tag = "WheelchairPushesHandler"
+
     override val aggregateMetricMappings = mapOf(
         AggregationMetricDto.SUM to WheelchairPushesRecord.COUNT_TOTAL,
     )

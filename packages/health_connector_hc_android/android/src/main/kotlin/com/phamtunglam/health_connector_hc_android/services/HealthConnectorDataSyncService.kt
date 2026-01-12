@@ -13,7 +13,6 @@ import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectRecord
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncTokenDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
-import com.phamtunglam.health_connector_hc_android.utils.TAG
 import java.io.IOException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -33,6 +32,10 @@ internal class HealthConnectorDataSyncService(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val client: HealthConnectClient,
 ) {
+    companion object {
+        private const val TAG = "HealthConnectorDataSyncService"
+    }
+
     /**
      * Synchronizes health data using incremental change tracking.
      *
