@@ -1033,7 +1033,8 @@ abstract interface class HealthConnector {
   ///
   /// ## Throws
   ///
-  /// - [InvalidArgumentException] if token has expired (primarily Android)
+  /// - [InvalidArgumentException] if token has expired (primarily Android
+  ///   Health Connect)
   /// - [AuthorizationException] if permissions are missing
   /// - [InvalidArgumentException] if dataTypes don't match token scope
   ///
@@ -1042,7 +1043,7 @@ abstract interface class HealthConnector {
   /// ```dart
   /// // Establish baseline at current moment
   /// final result = await connector.synchronize(
-  ///   dataTypes: [HealthDataType.steps],
+  ///   dataTypes: [HealthDataType.steps, HealthDataType.height],
   ///   syncToken: null,
   /// );
   ///
@@ -1060,21 +1061,51 @@ abstract interface class HealthConnector {
   ///
   /// // Get changes since last sync
   /// final result = await connector.synchronize(
-  ///   dataTypes: [HealthDataType.steps],
+  ///   dataTypes: [HealthDataType.steps, HealthDataType.height],
   ///   syncToken: token,
   /// );
   ///
   /// // Process changes
   /// for (final record in result.upsertedRecords) {
-  ///   await database.upsert(record);
+  ///   // process upserted record
   /// }
   /// for (final id in result.deletedRecordIds) {
-  ///   await database.delete(id);
+  ///   // process deleted record
   /// }
   ///
-  /// // Save new token
+  /// // Save new token for next sync
   /// if (result.nextSyncToken != null) {
   ///   await storage.save('sync_token', result.nextSyncToken!.toJson());
+  /// }
+  /// ```
+  ///
+  /// ## Example - Incremental Sync with Pagination
+  ///
+  /// ```dart
+  /// var currentToken = savedToken;
+  /// var hasMore = true;
+  ///
+  /// do {
+  ///   final result = await connector.synchronize(
+  ///     dataTypes: [HealthDataType.steps, HealthDataType.height],
+  ///     syncToken: currentToken,
+  ///   );
+  ///
+  ///   // Process page of changes
+  ///   for (final record in result.upsertedRecords) {
+  ///     // process upserted record
+  ///   }
+  ///   for (final id in result.deletedRecordIds) {
+  ///     // process deleted record
+  ///   }
+  ///
+  ///   hasMore = result.hasMore;
+  ///   currentToken = result.nextSyncToken;
+  /// } while (hasMore);
+  ///
+  /// // Save final token for the next periodic sync
+  /// if (currentToken != null) {
+  ///   await storage.save('sync_token', currentToken.toJson());
   /// }
   /// ```
   ///
@@ -1083,7 +1114,7 @@ abstract interface class HealthConnector {
   /// ```dart
   /// try {
   ///   final result = await connector.synchronize(
-  ///     dataTypes: [HealthDataType.steps],
+  ///     dataTypes: [HealthDataType.steps, HealthDataType.height],
   ///     syncToken: savedToken,
   ///   );
   /// } on InvalidArgumentException catch (e) {
@@ -1099,12 +1130,12 @@ abstract interface class HealthConnector {
   ///
   ///   // Process backfill (deletions cannot be recovered)
   ///   for (final record in backfillResponse.records) {
-  ///     await database.upsert(record);
+  ///     // process upserted record
   ///   }
   ///
   ///   // Reset sync with new baseline
   ///   final result = await connector.synchronize(
-  ///     dataTypes: [HealthDataType.steps],
+  ///     dataTypes: [HealthDataType.steps, HealthDataType.height],
   ///     syncToken: null,
   ///   );
   ///
@@ -1114,7 +1145,6 @@ abstract interface class HealthConnector {
   /// }
   /// ```
   @sinceV3_0_0
-  @experimentalApi
   Future<HealthDataSyncResult> synchronize({
     required List<HealthDataType> dataTypes,
     required HealthDataSyncToken? syncToken,

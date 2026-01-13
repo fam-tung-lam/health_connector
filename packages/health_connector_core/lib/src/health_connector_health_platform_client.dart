@@ -278,7 +278,6 @@ abstract interface class HealthConnectorPlatformClient {
   /// - [AuthorizationException] if permissions are missing
   /// - [InvalidArgumentException] if dataTypes don't match token scope
   @sinceV3_0_0
-  @experimentalApi
   Future<HealthDataSyncResult> synchronize({
     required List<HealthDataType> dataTypes,
     required HealthDataSyncToken? syncToken,
