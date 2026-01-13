@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_texts.dart';
 import 'package:health_connector_toolbox/src/common/utils/mixins/start_date_time_picker_page_state_mixin.dart';
+import 'package:health_connector_toolbox/src/common/utils/show_app_snack_bar.dart';
 import 'package:health_connector_toolbox/src/common/widgets/buttons/elevated_gradient_button.dart';
 import 'package:health_connector_toolbox/src/features/write_health_record/widgets/write_form_fields/metadata_write_form_field_group.dart';
 
@@ -81,7 +82,20 @@ abstract class BaseHealthRecordWriteFormState<
       return;
     }
 
-    await widget.onSubmit(buildRecord());
+    late final HealthRecord record;
+    try {
+      record = buildRecord();
+    } on ArgumentError catch (e) {
+      showAppSnackBar(
+        context,
+        SnackBarType.error,
+        e.message.toString(),
+      );
+
+      return;
+    }
+
+    await widget.onSubmit(record);
   }
 
   /// Builds the list of form fields for this record type.

@@ -1,16 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart' show ChangeNotifier;
-import 'package:health_connector/health_connector_internal.dart'
-    show
-        DataOrigin,
-        DeleteRecordsRequest,
-        HealthDataType,
-        HealthRecord,
-        MeasurementUnit,
-        ReadRecordsInTimeRangeRequest,
-        SortDescriptor,
-        HealthConnector;
+import 'package:health_connector/health_connector_internal.dart';
 
 /// Manages state and operations for reading health records.
 ///
@@ -127,12 +118,10 @@ final class ReadHealthRecordsChangeNotifier extends ChangeNotifier {
     });
 
     try {
-      // Note: Using dynamic cast because not all HealthDataTypes implement
-      // DeletableHealthDataType. The caller is responsible for ensuring the
-      // dataType passed supports deletion.
-      final request =
-          (dataType as dynamic).deleteByIds([record.id])
-              as DeleteRecordsRequest<HealthRecord>;
+      final request = DeleteRecordsByIdsRequest(
+        dataType: dataType,
+        recordIds: [record.id],
+      );
 
       await _healthConnector.deleteRecords(request);
 
