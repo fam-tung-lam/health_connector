@@ -28,7 +28,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.watch),
                 ),
-                speed: const Velocity.metersPerSecond(1.0),
+                speed: const Velocity.metersPerSecond(0.8),
               );
 
               // When
@@ -41,7 +41,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.speed.metersPerSecond, 1.0);
+              expect(dto.speed.metersPerSecond, 0.8);
 
               expect(dto.activityType, SpeedActivityTypeDto.stairDescent);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
@@ -70,14 +70,14 @@ void main() {
                   clientRecordVersion: 2,
                   device: const Device(type: DeviceType.phone),
                 ),
-                speed: const Velocity.metersPerSecond(1.5),
+                speed: const Velocity.metersPerSecond(0.6),
               );
 
               // When
               final dto = record.toDto();
 
               // Then
-              expect(dto.speed.metersPerSecond, 1.5);
+              expect(dto.speed.metersPerSecond, 0.6);
               expect(dto.activityType, SpeedActivityTypeDto.stairDescent);
               expect(
                 dto.metadata.recordingMethod,
@@ -108,7 +108,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                speed: VelocityDto(metersPerSecond: 0.9),
+                speed: VelocityDto(metersPerSecond: 0.8),
                 activityType: SpeedActivityTypeDto.stairDescent,
               );
 
@@ -123,7 +123,7 @@ void main() {
                 record.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(record.speed.inMetersPerSecond, 0.9);
+              expect(record.speed.inMetersPerSecond, 0.8);
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
@@ -153,7 +153,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                speed: VelocityDto(metersPerSecond: 1.1),
+                speed: VelocityDto(metersPerSecond: 0.7),
                 activityType: SpeedActivityTypeDto.stairDescent,
               );
 
@@ -162,7 +162,7 @@ void main() {
 
               // Then
               expect(record.id, HealthRecordId.none);
-              expect(record.speed.inMetersPerSecond, 1.1);
+              expect(record.speed.inMetersPerSecond, 0.7);
             },
           );
 

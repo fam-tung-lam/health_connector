@@ -53,7 +53,7 @@ void main() {
             clientRecordVersion: 1,
             deviceType: DeviceTypeDto.phone,
           ),
-          value: MassDto(kilograms: 10.0),
+          value: MassDto(kilograms: 0.01),
           foodName: 'Test Food',
           mealType: MealTypeDto.breakfast,
         );
@@ -69,7 +69,7 @@ void main() {
           record.metadata.dataOrigin?.packageName,
           FakeData.fakeDataOrigin,
         );
-        expect(record.mass.inKilograms, closeTo(10.0, 0.0001));
+        expect(record.mass.inKilograms, closeTo(0.01, 0.0001));
         expect(record.foodName, 'Test Food');
         expect(record.mealType, MealType.breakfast);
       },

@@ -19,9 +19,8 @@ void main() {
           dateTime: testDateTime,
         );
 
-        expect(result, contains('datetime: 15-03-2024 10:30:45.123'));
+        expect(result, startsWith('[15-03-2024 10:30:45.123] [TEST] [INFO]:'));
         expect(result, contains('operation: readRecords'));
-        expect(result, startsWith('[TEST] [INFO]:'));
         expect(result, endsWith('\n}'));
         expect(result, contains('message: test message'));
         expect(result, isNot(contains('exception:')));
@@ -38,9 +37,9 @@ void main() {
         );
 
         final lines = result.split('\n');
-        expect(lines[0], equals('[TEST] [DEBUG]:'));
+        expect(lines[0], equals('[15-03-2024 10:30:45.123] [TEST] [DEBUG]:'));
         expect(lines[1], equals('{'));
-        expect(lines[2], equals('    datetime: 15-03-2024 10:30:45.123,'));
+        expect(lines[2], equals(''));
         expect(lines[3], equals('    message: test message,'));
         expect(lines[4], equals('    operation: testOperation,'));
       });
@@ -57,7 +56,7 @@ void main() {
           dateTime: singleDigitDateTime,
         );
 
-        expect(result, contains('datetime: 05-01-2024 09:03:07.042'));
+        expect(result, startsWith('[05-01-2024 09:03:07.042] [TEST] [INFO]:'));
       });
 
       test('formats datetime correctly for edge case dates', () {
@@ -70,7 +69,7 @@ void main() {
           dateTime: edgeCaseDateTime,
         );
 
-        expect(result, contains('datetime: 31-12-2024 23:59:59.999'));
+        expect(result, startsWith('[31-12-2024 23:59:59.999] [TEST] [INFO]:'));
       });
 
       test('uses current datetime when dateTime parameter is not provided', () {
@@ -83,9 +82,9 @@ void main() {
         );
         final after = DateTime.now();
 
-        // Extract datetime from result
+        // Extract datetime from result header
         final datetimeMatch = RegExp(
-          r'datetime: (\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2}\.\d{3})',
+          r'^\[(\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2}\.\d{3})\]',
         ).firstMatch(result);
         expect(datetimeMatch, isNotNull);
 
@@ -479,7 +478,6 @@ void main() {
         );
 
         // Verify all fields are present
-        expect(result, contains('datetime: 15-03-2024 10:30:45.123'));
         expect(result, contains('operation: readRecords'));
         expect(result, contains('message: Successfully read records'));
         expect(result, contains('exception: {'));
@@ -492,7 +490,7 @@ void main() {
         expect(result, contains('version: 1.0'));
 
         // Verify structure
-        expect(result, startsWith('[TEST] [INFO]:'));
+        expect(result, startsWith('[15-03-2024 10:30:45.123] [TEST] [INFO]:'));
         expect(result, endsWith('\n}'));
       });
 
@@ -515,7 +513,6 @@ void main() {
         );
 
         // Check indentation levels
-        expect(result, contains('    datetime:'));
         expect(result, contains('    operation:'));
         expect(result, contains('    context: {'));
         expect(result, contains('        nested: {'));
@@ -579,7 +576,7 @@ void main() {
     });
 
     group('tag formatting', () {
-      test('includes tag in first line with uppercase conversion', () {
+      test('includes tag in first line without uppercase conversion', () {
         final result = HealthConnectorLogFormatter.formatStructuredMessage(
           tag: 'api',
           level: HealthConnectorLogLevel.info,
@@ -587,7 +584,7 @@ void main() {
           dateTime: testDateTime,
         );
 
-        expect(result, startsWith('[API] [INFO]:'));
+        expect(result, startsWith('[15-03-2024 10:30:45.123] [api] [INFO]:'));
       });
 
       test('preserves already uppercase tag', () {
@@ -598,7 +595,10 @@ void main() {
           dateTime: testDateTime,
         );
 
-        expect(result, startsWith('[DATABASE] [DEBUG]:'));
+        expect(
+          result,
+          startsWith('[15-03-2024 10:30:45.123] [DATABASE] [DEBUG]:'),
+        );
       });
 
       test('handles mixed case tag', () {
@@ -609,7 +609,10 @@ void main() {
           dateTime: testDateTime,
         );
 
-        expect(result, startsWith('[MYCOMPONENT] [WARNING]:'));
+        expect(
+          result,
+          startsWith('[15-03-2024 10:30:45.123] [MyComponent] [WARNING]:'),
+        );
       });
 
       test('handles tag with special characters', () {
@@ -620,7 +623,10 @@ void main() {
           dateTime: testDateTime,
         );
 
-        expect(result, startsWith('[NATIVE_IOS] [ERROR]:'));
+        expect(
+          result,
+          startsWith('[15-03-2024 10:30:45.123] [native_ios] [ERROR]:'),
+        );
       });
 
       test('formats first line correctly for all log levels', () {
@@ -641,7 +647,7 @@ void main() {
 
           expect(
             result,
-            startsWith('[TEST] [$levelName]:'),
+            startsWith('[15-03-2024 10:30:45.123] [test] [$levelName]:'),
             reason: 'Failed for level $levelName',
           );
         }
@@ -658,12 +664,12 @@ void main() {
           dateTime: testDateTime,
         );
 
-        // Platform should appear before datetime
+        // Platform should appear before message
         final lines = result.split('\n');
-        expect(lines[0], equals('[NATIVE] [INFO]:'));
+        expect(lines[0], equals('[15-03-2024 10:30:45.123] [NATIVE] [INFO]:'));
         expect(lines[1], equals('{'));
-        expect(lines[2], equals('    platform: iOS,'));
-        expect(lines[3], startsWith('    datetime:'));
+        expect(lines[2], equals('    native_log_from: iOS,'));
+        expect(lines[3], equals('    message: test message,'));
       });
 
       test('platform is separate from context', () {
@@ -680,7 +686,7 @@ void main() {
         );
 
         // Platform is top-level, not in context
-        expect(result, contains('    platform: Android,'));
+        expect(result, contains('    native_log_from: Android,'));
         expect(result, contains('context: {'));
         expect(result, contains('version: 1.0'));
         expect(result, contains('device: Pixel'));
@@ -688,7 +694,7 @@ void main() {
         final contextStart = result.indexOf('context: {');
         final contextEnd = result.indexOf('},', contextStart);
         final contextSection = result.substring(contextStart, contextEnd);
-        expect(contextSection, isNot(contains('platform:')));
+        expect(contextSection, isNot(contains('native_log_from:')));
       });
 
       test('does not add platform field when platform is null', () {
@@ -699,10 +705,11 @@ void main() {
           dateTime: testDateTime,
         );
 
-        expect(result, isNot(contains('platform:')));
+        expect(result, isNot(contains('native_log_from:')));
         // Datetime should be the first field after opening brace
         final lines = result.split('\n');
-        expect(lines[2], startsWith('    datetime:'));
+        expect(lines[2], equals(''));
+        expect(lines[3], startsWith('    message:'));
       });
 
       test('works with different platform values', () {
@@ -724,7 +731,7 @@ void main() {
 
           expect(
             result,
-            contains('    platform: $platform,'),
+            contains('    native_log_from: $platform,'),
             reason: 'Failed for platform $platform',
           );
         }
@@ -745,13 +752,16 @@ void main() {
           dateTime: testDateTime,
         );
 
-        // Check first line has tag and level
-        expect(result, startsWith('[NATIVE_HK_IOS] [DEBUG]:'));
+        // Check first line has tag and level and time
+        expect(
+          result,
+          startsWith('[15-03-2024 10:30:45.123] [native_hk_ios] [DEBUG]:'),
+        );
 
-        // Check platform is at top level (before datetime)
+        // Check platform is at top level (before message)
         final lines = result.split('\n');
-        expect(lines[2], equals('    platform: IOS_APPLE_HEALTH,'));
-        expect(lines[3], startsWith('    datetime:'));
+        expect(lines[2], equals('    native_log_from: IOS_APPLE_HEALTH,'));
+        expect(lines[3], startsWith('    message:'));
 
         // Check context has only app-specific data
         expect(result, contains('context: {'));
@@ -784,9 +794,14 @@ void main() {
           );
 
           // Verify all fields are present
-          expect(result, startsWith('[API_CLIENT] [ERROR]:'));
-          expect(result, contains('    platform: ANDROID_HEALTH_CONNECT,'));
-          expect(result, contains('datetime: 15-03-2024 10:30:45.123'));
+          expect(
+            result,
+            startsWith('[15-03-2024 10:30:45.123] [api_client] [ERROR]:'),
+          );
+          expect(
+            result,
+            contains('    native_log_from: ANDROID_HEALTH_CONNECT,'),
+          );
           expect(result, contains('message: API call failed'));
           expect(result, contains('operation: fetchData'));
           expect(result, contains('exception: {'));

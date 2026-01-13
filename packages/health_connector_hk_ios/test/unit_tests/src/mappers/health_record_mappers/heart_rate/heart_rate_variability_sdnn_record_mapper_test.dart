@@ -28,7 +28,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.watch),
                 ),
-                sdnn: const TimeDuration.milliseconds(4500),
+                sdnn: const TimeDuration.milliseconds(50),
               );
 
               final dto = record.toDto();
@@ -39,7 +39,7 @@ void main() {
                 dto.zoneOffsetSeconds,
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
-              expect(dto.heartRateVariabilityMillis, 4500);
+              expect(dto.heartRateVariabilityMillis, 50.0);
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
             },
           );
@@ -65,14 +65,14 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                heartRateVariabilityMillis: 5200,
+                heartRateVariabilityMillis: 60,
               );
 
               final record = dto.toDomain();
 
               expect(record.id.value, FakeData.fakeId);
               expect(record.time, time);
-              expect(record.sdnn, const TimeDuration.seconds(5.2));
+              expect(record.sdnn, const TimeDuration.milliseconds(60));
               expect(
                 record.metadata.dataOrigin?.packageName,
                 FakeData.fakeDataOrigin,
@@ -95,7 +95,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.phone,
                 ),
-                heartRateVariabilityMillis: 0.048,
+                heartRateVariabilityMillis: 50.0,
               );
 
               final record = dto.toDomain();
