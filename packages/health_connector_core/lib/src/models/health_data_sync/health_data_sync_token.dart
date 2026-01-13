@@ -54,7 +54,7 @@ final class HealthDataSyncToken {
   factory HealthDataSyncToken.fromJson(Map<String, dynamic> json) {
     return HealthDataSyncToken._(
       token: json[_tokenKey] as String,
-      dataTypes: (json[_dataTypesKey] as List<String>).map((id) {
+      dataTypes: (json[_dataTypesKey] as List<dynamic>).map((id) {
         final dataType = HealthDataType.dataTypeMap[id];
         if (dataType == null) {
           throw ArgumentError(

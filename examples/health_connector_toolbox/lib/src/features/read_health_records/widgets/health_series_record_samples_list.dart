@@ -49,9 +49,8 @@ final class HealthSeriesRecordSampleList<T> extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Text(
           emptyMessage,
-          style: const TextStyle(
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontStyle: FontStyle.italic,
-            color: Colors.grey,
           ),
         ),
       );
@@ -75,9 +74,8 @@ final class HealthSeriesRecordSampleList<T> extends StatelessWidget {
               children: [
                 Text(
                   '${entry.key + 1}.',
-                  style: const TextStyle(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w500,
-                    color: Colors.grey,
                   ),
                 ),
                 const SizedBox(width: 8),

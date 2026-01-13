@@ -204,7 +204,7 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   ///
   /// This id is used for stable JSON serialization, for example when
   /// persisting a [HealthDataSyncToken].
-  @internal
+  @internalUse
   String get id;
 
   /// A map of all available health data types by their unique [id].

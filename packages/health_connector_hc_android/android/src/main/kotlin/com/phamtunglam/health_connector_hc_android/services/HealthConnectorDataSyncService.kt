@@ -61,7 +61,7 @@ internal class HealthConnectorDataSyncService(
         dataTypes: List<HealthDataTypeDto>,
         syncToken: HealthDataSyncTokenDto?,
     ): HealthDataSyncResultDto = withContext(dispatcher) {
-        if (dataTypes.isNotEmpty()) {
+        if (dataTypes.isEmpty()) {
             throw HealthConnectorException.InvalidArgument(
                 message = "No data types provided for synchronization",
             )

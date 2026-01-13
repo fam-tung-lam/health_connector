@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:health_connector/health_connector_internal.dart';
 import 'package:health_connector_toolbox/src/common/constants/app_icons.dart';
@@ -10,6 +12,9 @@ import 'package:health_connector_toolbox/src/features/home/home_change_notifier.
 import 'package:health_connector_toolbox/src/features/home/widgets/feature_navigation_card.dart';
 import 'package:health_connector_toolbox/src/features/home/widgets/platform_status_card.dart';
 import 'package:health_connector_toolbox/src/features/home/widgets/welcome_header.dart';
+import 'package:health_connector_toolbox/src/features/incremental_data_sync/incremental_data_sync_change_notifier.dart';
+import 'package:health_connector_toolbox/src/features/incremental_data_sync/pages/incremental_data_sync_page.dart';
+import 'package:health_connector_toolbox/src/features/incremental_data_sync/services/sync_token_storage_service.dart';
 import 'package:health_connector_toolbox/src/features/permissions/pages/permissions_page.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/pages/read_health_records_page.dart';
 import 'package:health_connector_toolbox/src/features/read_health_records/read_health_records_change_notifier.dart';
@@ -17,6 +22,7 @@ import 'package:health_connector_toolbox/src/features/write_health_record/pages/
 import 'package:health_connector_toolbox/src/features/write_health_record/write_health_record_change_notifier.dart';
 import 'package:provider/provider.dart'
     show Consumer, Provider, ChangeNotifierProvider;
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// The main home page of the application.
 ///
@@ -176,6 +182,16 @@ final class _HomeContent extends StatelessWidget {
             color: Colors.purple,
             onTap: () => _navigateToAggregate(context),
           ),
+          const SizedBox(height: 12),
+
+          // Incremental data sync card
+          FeatureNavigationCard(
+            icon: Icons.sync,
+            title: 'Incremental Data Sync',
+            description: 'Test sync API with token management and pagination',
+            color: Colors.indigo,
+            onTap: () => _navigateToIncrementalDataSync(context),
+          ),
 
           // Bottom padding for better scroll experience
           const SizedBox(height: 20),
@@ -247,6 +263,34 @@ final class _HomeContent extends StatelessWidget {
           ),
           child: AggregateDataPage(
             healthPlatform: healthConnector.healthPlatform,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Navigates to the incremental data sync page.
+  Future<void> _navigateToIncrementalDataSync(BuildContext context) async {
+    // Initialize SharedPreferences for sync token storage
+    final prefs = await SharedPreferences.getInstance();
+    final storageService = SyncTokenStorageService(prefs);
+
+    if (!context.mounted) {
+      return;
+    }
+
+    unawaited(
+      Navigator.push(
+        context,
+        MaterialPageRoute<Widget>(
+          builder: (_) => ChangeNotifierProvider(
+            create: (_) => IncrementalDataSyncChangeNotifier(
+              healthConnector,
+              storageService,
+            )..initialize(),
+            child: IncrementalDataSyncPage(
+              healthPlatform: healthConnector.healthPlatform,
+            ),
           ),
         ),
       ),

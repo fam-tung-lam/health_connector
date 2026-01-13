@@ -51,7 +51,6 @@ abstract final class AppTexts {
   static const String selectDataType = 'Select Data Type';
   static const String aggregationSettings = 'Aggregation Settings';
   static const String timePeriod = 'Time Period';
-  static const String noResultsYet = 'No results yet';
   static const String selectOptionsAndAggregate =
       'Select your options and tap calculate to see aggregation results';
 
@@ -785,6 +784,41 @@ abstract final class AppTexts {
   static const String mineralsSubtitle = '9 mineral fields';
   static const String other = 'Other';
   static const String additionalNutrients = 'Additional nutrients';
+
+  // endregion
+
+  // region Incremental Data Sync
+  static const String incrementalDataSync = 'Incremental Data Sync';
+  static const String synchronizationCompleted = 'Synchronization completed';
+  static const String token = 'Token UUID';
+  static const String tokenExpired = 'Token Expired';
+  static const String tokenExpiredContent =
+      'The sync token has expired (typically after 30 days on Android). '
+      'Would you like to clear the token and perform a full sync?';
+  static const String clearAndSync = 'Clear & Sync';
+  static const String clearSyncTokenQuestion = 'Clear Sync Token?';
+  static const String clearSyncTokenContent =
+      'This will reset the sync state. You will need to perform a full '
+      'sync on the next synchronization.';
+  static const String clear = 'Clear';
+  static const String tokenClearedSuccessfully = 'Token cleared successfully';
+  static const String synchronize = 'SYNCHRONIZE';
+  static const String selectDataTypes = 'Select Data Types';
+  static const String consoleLog = 'Console Log';
+  static const String noLogsYet = 'No logs yet';
+  static const String controlPanel = 'Control Panel';
+  static const String syncResults = 'Sync Results';
+  static const String upserted = 'upserted';
+  static const String deleted = 'deleted';
+  static const String upsertedRecords = 'Upserted Records';
+  static const String deletedRecordIds = 'Deleted Record IDs';
+  static const String clearToken = 'Clear Token';
+  static const String syncToken = 'Sync Token';
+  static const String noneInitialSync = 'No stored sync token found';
+  static const String createdAt = 'Created At';
+  static const String dataTypes = 'Data Types';
+  static const String types = 'type(s)';
+  static const String lastSync = 'Last Sync';
 
   // endregion
 

@@ -265,7 +265,6 @@ class _RecordSampleFormFieldGroupState<T, V>
                   AppTexts.noSamplesAvailable,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontStyle: FontStyle.italic,
-                    color: Colors.grey,
                   ),
                 ),
               )
@@ -381,9 +380,9 @@ class _RecordSampleFormFieldGroupState<T, V>
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
                   field.errorText!,
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
                     color: Theme.of(context).colorScheme.error,
-                    fontSize: 12,
                   ),
                 ),
               ),
