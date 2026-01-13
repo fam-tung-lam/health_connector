@@ -78,7 +78,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.watch),
                 ),
-                speed: const Velocity.metersPerSecond(0.8),
+                speed: const Velocity.metersPerSecond(0.5),
               );
 
               // When
@@ -86,7 +86,7 @@ void main() {
 
               // Then
               expect(dto.activityType, SpeedActivityTypeDto.stairAscent);
-              expect(dto.speed.metersPerSecond, 0.8);
+              expect(dto.speed.metersPerSecond, 0.5);
             },
           );
 
@@ -104,7 +104,7 @@ void main() {
                   clientRecordVersion: 1,
                   device: const Device(type: DeviceType.watch),
                 ),
-                speed: const Velocity.metersPerSecond(1.0),
+                speed: const Velocity.metersPerSecond(0.8),
               );
 
               // When
@@ -112,7 +112,7 @@ void main() {
 
               // Then
               expect(dto.activityType, SpeedActivityTypeDto.stairDescent);
-              expect(dto.speed.metersPerSecond, 1.0);
+              expect(dto.speed.metersPerSecond, 0.8);
             },
           );
         },
@@ -189,7 +189,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                speed: VelocityDto(metersPerSecond: 0.7),
+                speed: VelocityDto(metersPerSecond: 0.5),
                 activityType: SpeedActivityTypeDto.stairAscent,
               );
 
@@ -198,7 +198,7 @@ void main() {
 
               // Then
               expect(record, isA<StairAscentSpeedRecord>());
-              expect(record.speed.inMetersPerSecond, 0.7);
+              expect(record.speed.inMetersPerSecond, 0.5);
             },
           );
 
@@ -216,7 +216,7 @@ void main() {
                   clientRecordVersion: 1,
                   deviceType: DeviceTypeDto.watch,
                 ),
-                speed: VelocityDto(metersPerSecond: 0.9),
+                speed: VelocityDto(metersPerSecond: 0.8),
                 activityType: SpeedActivityTypeDto.stairDescent,
               );
 
@@ -225,7 +225,7 @@ void main() {
 
               // Then
               expect(record, isA<StairDescentSpeedRecord>());
-              expect(record.speed.inMetersPerSecond, 0.9);
+              expect(record.speed.inMetersPerSecond, 0.8);
             },
           );
         },

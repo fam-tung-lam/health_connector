@@ -27,7 +27,7 @@ void main() {
                   device: const Device(type: DeviceType.watch),
                 ),
                 rmssd: const TimeDuration.milliseconds(
-                  4500,
+                  45,
                 ),
               );
 
@@ -40,7 +40,7 @@ void main() {
                 FakeData.fakeTime.timeZoneOffset.inSeconds,
               );
               expect(dto.metadata.dataOrigin, FakeData.fakeDataOrigin);
-              expect(dto.heartRateVariabilityMillis, 4500);
+              expect(dto.heartRateVariabilityMillis, 45);
             },
           );
         },
