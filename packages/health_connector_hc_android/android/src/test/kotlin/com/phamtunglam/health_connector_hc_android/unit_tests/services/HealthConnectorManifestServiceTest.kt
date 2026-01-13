@@ -152,7 +152,7 @@ class HealthConnectorManifestServiceTest {
         @DisplayName(
             "GIVEN permission is not declared in manifest → " +
                 "WHEN checking that permission → " +
-                "THEN should throw INVALID_CONFIGURATION",
+                "THEN should throw PERMISSION_NOT_DECLARED",
         )
         fun whenCheckingSingleMissingPermission_thenThrowsInvalidConfiguration() {
             // Given
@@ -161,7 +161,7 @@ class HealthConnectorManifestServiceTest {
             )
 
             // // When && Then
-            shouldThrow<HealthConnectorException.InvalidConfiguration> {
+            shouldThrow<HealthConnectorException.Configuration> {
                 systemUnderTest.checkPermissionsDeclared(setOf(PERMISSION_READ_STEPS))
             }
         }
@@ -178,7 +178,7 @@ class HealthConnectorManifestServiceTest {
             val missingPermissions = setOf(PERMISSION_READ_STEPS, PERMISSION_WRITE_STEPS)
 
             // When
-            val exception = shouldThrow<HealthConnectorException.InvalidConfiguration> {
+            val exception = shouldThrow<HealthConnectorException.Configuration> {
                 systemUnderTest.checkPermissionsDeclared(missingPermissions)
             }
 
@@ -198,7 +198,7 @@ class HealthConnectorManifestServiceTest {
             packageInfo.requestedPermissions = arrayOf(PERMISSION_READ_STEPS)
 
             // When
-            val exception = shouldThrow<HealthConnectorException.InvalidConfiguration> {
+            val exception = shouldThrow<HealthConnectorException.Configuration> {
                 systemUnderTest.checkPermissionsDeclared(
                     setOf(
                         PERMISSION_READ_STEPS,
@@ -258,7 +258,7 @@ class HealthConnectorManifestServiceTest {
             packageInfo.requestedPermissions = arrayOf("android.permission.health.read_steps")
 
             // // When && Then
-            val exception = shouldThrow<HealthConnectorException.InvalidConfiguration> {
+            val exception = shouldThrow<HealthConnectorException.Configuration> {
                 systemUnderTest.checkPermissionsDeclared(setOf(PERMISSION_READ_STEPS))
             }
         }

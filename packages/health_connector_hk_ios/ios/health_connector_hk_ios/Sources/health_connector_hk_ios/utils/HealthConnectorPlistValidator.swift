@@ -10,7 +10,7 @@ enum HealthConnectorPlistValidator: Taggable {
     /// Validates that required HealthKit usage description keys are present.
     ///
     /// - Parameter bundle: The bundle to inspect. Defaults to `Bundle.main`.
-    /// - Throws: `HealthConnectorError.invalidConfiguration` if keys are missing.
+    /// - Throws: `HealthConnectorError.permissionNotDeclared` if keys are missing.
     static func validateUsageDescriptions(bundle: Bundle = .main) throws {
         var missingKeys: [String] = []
 
@@ -32,7 +32,7 @@ enum HealthConnectorPlistValidator: Taggable {
                 context: ["missing_keys": missingKeys.joined(separator: ", ")]
             )
 
-            throw HealthConnectorError.invalidConfiguration(
+            throw HealthConnectorError.permissionNotDeclared(
                 message: message,
                 context: ["missing_keys": missingKeys.joined(separator: ", ")]
             )

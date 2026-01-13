@@ -59,12 +59,12 @@ abstract interface class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.healthPlatformUnavailable]
+  ///   [HealthConnectorErrorCode.healthServiceUnavailable]
   ///   when the health platform is unavailable on this device.
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.healthPlatformNotInstalledOrUpdateRequired]
+  ///   [HealthConnectorErrorCode.healthServiceNotInstalledOrUpdateRequired]
   ///   when Health Connect app installation or update is required.
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   when an unexpected error occurs.
   ///
   /// ## Example
@@ -101,7 +101,8 @@ abstract interface class HealthConnector {
           context: {'platform': healthPlatform.name},
         );
 
-        throw HealthPlatformUnavailableException(
+        throw HealthServiceUnavailableException(
+          HealthConnectorErrorCode.healthServiceUnavailable,
           '$healthPlatform is not available.',
         );
       case HealthPlatformStatus.installationOrUpdateRequired:
@@ -112,7 +113,8 @@ abstract interface class HealthConnector {
           context: {'platform': healthPlatform.name},
         );
 
-        throw HealthPlatformNotInstalledOrUpdateRequiredException(
+        throw HealthServiceUnavailableException(
+          HealthConnectorErrorCode.healthServiceNotInstalledOrUpdateRequired,
           '$healthPlatform needs installation or update.',
         );
       case HealthPlatformStatus.available:
@@ -154,7 +156,7 @@ abstract interface class HealthConnector {
   ///
   /// ## Throws
   ///
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   if an unexpected error occurs
   ///
   /// ## Example
@@ -362,9 +364,9 @@ abstract interface class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.invalidConfiguration] when
+  ///   [HealthConnectorErrorCode.permissionNotDeclared] when
   ///   required permissions are missing from the configuration.
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   when an unexpected error occurs.
   ///
   /// ## Example
@@ -557,7 +559,7 @@ abstract interface class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.invalidConfiguration] when
+  ///   [HealthConnectorErrorCode.permissionNotDeclared] when
   ///   required feature permissions are missing from the configuration.
   /// - [HealthConnectorException] when unable to query feature status.
   ///
@@ -595,9 +597,10 @@ abstract interface class HealthConnector {
   ///
   /// ## Throws
   ///
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
+  /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when read permission has not been granted.
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   when an unexpected error occurs.
   ///
   /// ## Example
@@ -635,9 +638,10 @@ abstract interface class HealthConnector {
   ///
   /// ## Throws
   ///
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
+  /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when read permission has not been granted.
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   when an unexpected error occurs.
   ///
   /// ## Example - With Pagination
@@ -676,12 +680,13 @@ abstract interface class HealthConnector {
   ///
   /// ## Throws
   ///
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
+  /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when write permission has not been granted.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] when the record ID is not
   ///   [HealthRecordId.none] or the record is not supported by the platform.
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   when an unexpected error occurs.
   ///
   /// ## Example
@@ -721,12 +726,12 @@ abstract interface class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.notAuthorized] if write permission has not
-  ///   been granted.
+  ///   [HealthConnectorErrorCode.permissionNotGranted] if write
+  ///   permission has not been granted.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if any record ID is not
   ///   [HealthRecordId.none] or some records are not supported by the platform.
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   when an unexpected error occurs (no records will be written).
   ///
   /// ## Example
@@ -773,9 +778,10 @@ abstract interface class HealthConnector {
   ///
   /// ## Throws
   ///
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
+  /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when read permission has not been granted.
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   when an unexpected error occurs.
   ///
   /// ## Example
@@ -823,13 +829,14 @@ abstract interface class HealthConnector {
   ///
   /// ## Throws
   ///
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
+  /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when delete/write permission has not been granted or when attempting to
   ///   delete records not created by this app.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] when
   ///   the request contains invalid data.
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   when an unexpected error occurs.
   ///
   /// ## Example - Delete by IDs
@@ -878,10 +885,11 @@ abstract interface class HealthConnector {
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if the record ID is
   ///   [HealthRecordId.none] or the record is not supported by the platform.
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
+  /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when write permission has not been granted or when attempting to
   ///   update a record not created by this app.
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   when an unexpected error occurs.
   ///
   /// ## Example
@@ -983,10 +991,11 @@ abstract interface class HealthConnector {
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if any record ID is
   ///   [HealthRecordId.none] or some record are not supported by the platform.
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
+  /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when write permission has not been granted or when attempting to update
   ///   records not created by this app.
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   when an unexpected error occurs.
   ///
   /// ## See Also
@@ -1024,8 +1033,8 @@ abstract interface class HealthConnector {
   ///
   /// ## Throws
   ///
-  /// - [SyncTokenExpiredException] if token has expired (primarily Android)
-  /// - [NotAuthorizedException] if permissions are missing
+  /// - [InvalidArgumentException] if token has expired (primarily Android)
+  /// - [AuthorizationException] if permissions are missing
   /// - [InvalidArgumentException] if dataTypes don't match token scope
   ///
   /// ## Example - Initial Sync
@@ -1077,7 +1086,7 @@ abstract interface class HealthConnector {
   ///     dataTypes: [HealthDataType.steps],
   ///     syncToken: savedToken,
   ///   );
-  /// } on SyncTokenExpiredException catch (e) {
+  /// } on InvalidArgumentException catch (e) {
   ///   // Token expired (Android ~30 days), backfill missing data
   ///   final gap = DateTime.now().difference(savedToken.createdAt);
   ///

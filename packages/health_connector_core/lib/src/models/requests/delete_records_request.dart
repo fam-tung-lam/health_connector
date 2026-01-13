@@ -1,8 +1,6 @@
 import 'package:collection/collection.dart' show ListEquality;
+import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_core/src/annotations/annotations.dart';
-import 'package:health_connector_core/src/models/exceptions/health_connector_exception.dart';
-import 'package:health_connector_core/src/models/health_data_types/health_data_type.dart';
-import 'package:health_connector_core/src/models/health_records/health_record.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
 import 'package:health_connector_core/src/models/requests/request.dart';
 import 'package:health_connector_core/src/utils/validation_utils.dart';
@@ -32,7 +30,7 @@ sealed class DeleteRecordsRequest<R extends HealthRecord> extends Request {
 ///
 /// Apps can only delete health records that they created.
 /// Attempting to delete records created by other apps, manually entered by
-/// users, or system-generated will fail with [NotAuthorizedException].
+/// users, or system-generated will fail with [AuthorizationException].
 @sinceV2_0_0
 @internalUse
 @immutable
@@ -103,7 +101,7 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
 ///
 /// Apps can only delete health records that they created.
 /// Attempting to delete records created by other apps, manually entered by
-/// users, or system-generated will fail with [NotAuthorizedException].
+/// users, or system-generated will fail with [AuthorizationException].
 @sinceV2_0_0
 @internalUse
 @immutable

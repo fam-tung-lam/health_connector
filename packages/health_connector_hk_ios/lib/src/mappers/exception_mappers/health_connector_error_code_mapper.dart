@@ -11,21 +11,22 @@ import 'package:meta/meta.dart' show internal;
 extension HealthConnectorErrorCodeDtoToDomain on HealthConnectorErrorCodeDto {
   HealthConnectorErrorCode toDomain() {
     return switch (this) {
-      HealthConnectorErrorCodeDto.healthPlatformUnavailable =>
-        HealthConnectorErrorCode.healthPlatformUnavailable,
-      HealthConnectorErrorCodeDto.invalidConfiguration =>
-        HealthConnectorErrorCode.invalidConfiguration,
+      HealthConnectorErrorCodeDto.permissionNotGranted =>
+        HealthConnectorErrorCode.permissionNotGranted,
+      HealthConnectorErrorCodeDto.permissionNotDeclared =>
+        HealthConnectorErrorCode.permissionNotDeclared,
       HealthConnectorErrorCodeDto.invalidArgument =>
         HealthConnectorErrorCode.invalidArgument,
+      HealthConnectorErrorCodeDto.healthServiceUnavailable =>
+        HealthConnectorErrorCode.healthServiceUnavailable,
+      HealthConnectorErrorCodeDto.healthServiceRestricted =>
+        HealthConnectorErrorCode.healthServiceRestricted,
+      HealthConnectorErrorCodeDto.healthServiceDatabaseInaccessible =>
+        HealthConnectorErrorCode.healthServiceDatabaseInaccessible,
       HealthConnectorErrorCodeDto.unsupportedOperation =>
         HealthConnectorErrorCode.unsupportedOperation,
-      HealthConnectorErrorCodeDto.notAuthorized =>
-        HealthConnectorErrorCode.notAuthorized,
-      HealthConnectorErrorCodeDto.remoteError =>
-        HealthConnectorErrorCode.remoteError,
-      HealthConnectorErrorCodeDto.syncTokenExpired =>
-        HealthConnectorErrorCode.syncTokenExpired,
-      HealthConnectorErrorCodeDto.unknown => HealthConnectorErrorCode.unknown,
+      HealthConnectorErrorCodeDto.unknownError =>
+        HealthConnectorErrorCode.unknownError,
     };
   }
 }

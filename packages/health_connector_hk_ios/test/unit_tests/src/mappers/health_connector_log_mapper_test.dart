@@ -153,9 +153,9 @@ void main() {
               final context = <String, dynamic>{'errorKey': 'errorValue'};
               const stackTraceString = 'Error stack trace';
               final exceptionDto = HealthConnectorExceptionDto(
-                code: HealthConnectorErrorCodeDto.remoteError,
-                message: 'Remote error occurred',
-                cause: 'IOException',
+                code: HealthConnectorErrorCodeDto.unknownError,
+                message: 'Unknown error occurred',
+                cause: 'Exception',
               );
 
               final dto = HealthConnectorLogDto(

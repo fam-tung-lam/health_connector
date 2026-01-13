@@ -39,55 +39,65 @@ sealed class HealthConnectorException implements Exception {
     StackTrace? stackTrace,
   }) {
     switch (code) {
-      case HealthConnectorErrorCode.healthPlatformNotInstalledOrUpdateRequired:
-        return HealthPlatformNotInstalledOrUpdateRequiredException(
+      // Authorization exceptions
+      case HealthConnectorErrorCode.permissionNotGranted:
+        return AuthorizationException(
+          code,
           message,
           cause: cause,
           stackTrace: stackTrace,
         );
-      case HealthConnectorErrorCode.healthPlatformUnavailable:
-        return HealthPlatformUnavailableException(
+
+      // Configuration exception
+      case HealthConnectorErrorCode.permissionNotDeclared:
+        return ConfigurationException(
           message,
           cause: cause,
           stackTrace: stackTrace,
         );
-      case HealthConnectorErrorCode.unsupportedOperation:
-        return UnsupportedOperationException(
-          message,
-          cause: cause,
-          stackTrace: stackTrace,
-        );
-      case HealthConnectorErrorCode.invalidConfiguration:
-        return InvalidConfigurationException(
-          message,
-          cause: cause,
-          stackTrace: stackTrace,
-        );
+
+      // Invalid argument exception
       case HealthConnectorErrorCode.invalidArgument:
         return InvalidArgumentException(
           message,
           cause: cause,
           stackTrace: stackTrace,
         );
-      case HealthConnectorErrorCode.notAuthorized:
-        return NotAuthorizedException(
+
+      // Health service unavailable exceptions
+      case HealthConnectorErrorCode.healthServiceUnavailable:
+      case HealthConnectorErrorCode.healthServiceRestricted:
+      case HealthConnectorErrorCode.healthServiceNotInstalledOrUpdateRequired:
+        return HealthServiceUnavailableException(
+          code,
           message,
           cause: cause,
           stackTrace: stackTrace,
         );
+
+      // Health service exceptions
+      case HealthConnectorErrorCode.healthServiceDatabaseInaccessible:
+      case HealthConnectorErrorCode.ioError:
       case HealthConnectorErrorCode.remoteError:
-        return RemoteErrorException(
+      case HealthConnectorErrorCode.rateLimitExceeded:
+      case HealthConnectorErrorCode.dataSyncInProgress:
+        return HealthServiceException(
+          code,
           message,
           cause: cause,
           stackTrace: stackTrace,
         );
-      case HealthConnectorErrorCode.syncTokenExpired:
-        return SyncTokenExpiredException(
+
+      // Unsupported operation exception
+      case HealthConnectorErrorCode.unsupportedOperation:
+        return UnsupportedOperationException(
           message,
           cause: cause,
           stackTrace: stackTrace,
         );
-      case HealthConnectorErrorCode.unknown:
+
+      // Unknown exception
+      case HealthConnectorErrorCode.unknownError:
         return UnknownException(
           message,
           cause: cause,
@@ -145,95 +155,41 @@ sealed class HealthConnectorException implements Exception {
   }
 }
 
-/// Exception thrown when the health platform needs to be installed or updated.
+/// Exception thrown when authorization/permission issues occur.
 ///
-/// ## See Also
-///
-/// - [HealthConnectorErrorCode.healthPlatformNotInstalledOrUpdateRequired]
+/// This exception groups all authorization-related errors:
+/// - [HealthConnectorErrorCode.permissionNotGranted]
+
 ///
 /// {@category Exceptions}
-@sinceV2_0_0
+@sinceV3_0_0
 @immutable
-final class HealthPlatformNotInstalledOrUpdateRequiredException
-    extends HealthConnectorException {
-  /// Creates a [HealthPlatformNotInstalledOrUpdateRequiredException].
-  const HealthPlatformNotInstalledOrUpdateRequiredException(
-    String message, {
-    Object? cause,
-    StackTrace? stackTrace,
-  }) : super(
-         HealthConnectorErrorCode.healthPlatformNotInstalledOrUpdateRequired,
-         message,
-         cause: cause,
-         stackTrace: stackTrace,
-       );
+final class AuthorizationException extends HealthConnectorException {
+  /// Creates an [AuthorizationException].
+  const AuthorizationException(
+    super.code,
+    super.message, {
+    super.cause,
+    super.stackTrace,
+  });
 }
 
-/// Exception thrown when the health platform is unavailable on this device.
+/// Exception thrown when app configuration is missing or invalid.
 ///
-/// ## See Also
-///
-/// - [HealthConnectorErrorCode.healthPlatformUnavailable]
+/// This exception is for configuration errors:
+/// - [HealthConnectorErrorCode.permissionNotDeclared]
 ///
 /// {@category Exceptions}
-@sinceV2_0_0
+@sinceV3_0_0
 @immutable
-final class HealthPlatformUnavailableException
-    extends HealthConnectorException {
-  /// Creates a [HealthPlatformUnavailableException].
-  const HealthPlatformUnavailableException(
+final class ConfigurationException extends HealthConnectorException {
+  /// Creates a [ConfigurationException].
+  const ConfigurationException(
     String message, {
     Object? cause,
     StackTrace? stackTrace,
   }) : super(
-         HealthConnectorErrorCode.healthPlatformUnavailable,
-         message,
-         cause: cause,
-         stackTrace: stackTrace,
-       );
-}
-
-/// Exception thrown when an API not supported by the current platform or
-/// version is used.
-///
-/// ## See Also
-///
-/// - [HealthConnectorErrorCode.unsupportedOperation]
-///
-/// {@category Exceptions}
-@sinceV2_0_0
-@immutable
-final class UnsupportedOperationException extends HealthConnectorException {
-  /// Creates an [UnsupportedOperationException].
-  const UnsupportedOperationException(
-    String message, {
-    Object? cause,
-    StackTrace? stackTrace,
-  }) : super(
-         HealthConnectorErrorCode.unsupportedOperation,
-         message,
-         cause: cause,
-         stackTrace: stackTrace,
-       );
-}
-
-/// Exception thrown when the app configuration is missing or invalid.
-///
-/// ## See Also
-///
-/// - [HealthConnectorErrorCode.invalidConfiguration]
-///
-/// {@category Exceptions}
-@sinceV2_0_0
-@immutable
-final class InvalidConfigurationException extends HealthConnectorException {
-  /// Creates an [InvalidConfigurationException].
-  const InvalidConfigurationException(
-    String message, {
-    Object? cause,
-    StackTrace? stackTrace,
-  }) : super(
-         HealthConnectorErrorCode.invalidConfiguration,
+         HealthConnectorErrorCode.permissionNotDeclared,
          message,
          cause: cause,
          stackTrace: stackTrace,
@@ -263,70 +219,66 @@ final class InvalidArgumentException extends HealthConnectorException {
        );
 }
 
-/// Exception thrown when access to health data was denied or not yet
-/// authorized.
+/// Exception thrown when health service is unavailable.
 ///
-/// ## See Also
-///
-/// - [HealthConnectorErrorCode.notAuthorized]
-///
-/// {@category Exceptions}
-@sinceV2_0_0
-@immutable
-final class NotAuthorizedException extends HealthConnectorException {
-  /// Creates a [NotAuthorizedException].
-  const NotAuthorizedException(
-    String message, {
-    Object? cause,
-    StackTrace? stackTrace,
-  }) : super(
-         HealthConnectorErrorCode.notAuthorized,
-         message,
-         cause: cause,
-         stackTrace: stackTrace,
-       );
-}
-
-/// Exception thrown when a transient I/O or communication error occurred.
-///
-/// ## See Also
-///
-/// - [HealthConnectorErrorCode.remoteError]
-///
-/// {@category Exceptions}
-@sinceV2_0_0
-@immutable
-final class RemoteErrorException extends HealthConnectorException {
-  /// Creates a [RemoteErrorException].
-  const RemoteErrorException(
-    String message, {
-    Object? cause,
-    StackTrace? stackTrace,
-  }) : super(
-         HealthConnectorErrorCode.remoteError,
-         message,
-         cause: cause,
-         stackTrace: stackTrace,
-       );
-}
-
-/// Exception thrown when a synchronization token has expired.
-///
-/// ## See Also
-///
-/// - [HealthConnectorErrorCode.syncTokenExpired]
+/// This exception groups service unavailability errors:
+/// - [HealthConnectorErrorCode.healthServiceUnavailable]
+/// - [HealthConnectorErrorCode.healthServiceRestricted]
+/// - [HealthConnectorErrorCode.healthServiceNotInstalledOrUpdateRequired]
 ///
 /// {@category Exceptions}
 @sinceV3_0_0
 @immutable
-final class SyncTokenExpiredException extends HealthConnectorException {
-  /// Creates a [SyncTokenExpiredException].
-  const SyncTokenExpiredException(
+final class HealthServiceUnavailableException extends HealthConnectorException {
+  /// Creates a [HealthServiceUnavailableException].
+  const HealthServiceUnavailableException(
+    super.code,
+    super.message, {
+    super.cause,
+    super.stackTrace,
+  });
+}
+
+/// Exception thrown when health service operational errors occur.
+///
+/// This exception groups operational errors:
+/// - [HealthConnectorErrorCode.healthServiceDatabaseInaccessible]
+/// - [HealthConnectorErrorCode.ioError]
+/// - [HealthConnectorErrorCode.remoteError]
+/// - [HealthConnectorErrorCode.rateLimitExceeded]
+/// - [HealthConnectorErrorCode.dataSyncInProgress]
+///
+/// {@category Exceptions}
+@sinceV3_0_0
+@immutable
+final class HealthServiceException extends HealthConnectorException {
+  /// Creates a [HealthServiceException].
+  const HealthServiceException(
+    super.code,
+    super.message, {
+    super.cause,
+    super.stackTrace,
+  });
+}
+
+/// Exception thrown when an API not supported by the current platform or
+/// version is used.
+///
+/// ## See Also
+///
+/// - [HealthConnectorErrorCode.unsupportedOperation]
+///
+/// {@category Exceptions}
+@sinceV2_0_0
+@immutable
+final class UnsupportedOperationException extends HealthConnectorException {
+  /// Creates an [UnsupportedOperationException].
+  const UnsupportedOperationException(
     String message, {
     Object? cause,
     StackTrace? stackTrace,
   }) : super(
-         HealthConnectorErrorCode.syncTokenExpired,
+         HealthConnectorErrorCode.unsupportedOperation,
          message,
          cause: cause,
          stackTrace: stackTrace,
@@ -337,7 +289,7 @@ final class SyncTokenExpiredException extends HealthConnectorException {
 ///
 /// ## See Also
 ///
-/// - [HealthConnectorErrorCode.unknown]
+/// - [HealthConnectorErrorCode.unknownError]
 ///
 /// {@category Exceptions}
 @sinceV2_0_0
@@ -349,7 +301,7 @@ final class UnknownException extends HealthConnectorException {
     Object? cause,
     StackTrace? stackTrace,
   }) : super(
-         HealthConnectorErrorCode.unknown,
+         HealthConnectorErrorCode.unknownError,
          message,
          cause: cause,
          stackTrace: stackTrace,

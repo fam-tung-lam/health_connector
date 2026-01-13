@@ -13,7 +13,7 @@ extension StringToErrorCode on String {
         (errorCode) => this == errorCode.code,
       );
     } on StateError {
-      return HealthConnectorErrorCode.unknown;
+      return HealthConnectorErrorCode.unknownError;
     }
   }
 }

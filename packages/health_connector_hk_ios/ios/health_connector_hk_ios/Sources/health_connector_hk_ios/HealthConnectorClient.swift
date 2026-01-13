@@ -46,10 +46,10 @@ actor HealthConnectorClient: Taggable {
     ///
     /// - Returns: A new `HealthConnectorClient` instance wrapping the HealthKit store
     ///
-    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` when:
+    /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` when:
     ///          - HealthKit is not available on the device (e.g., iPad without health capabilities)
     ///          - The device is in a restricted mode
-    /// - Throws: `HealthConnectorError` with code `INVALID_CONFIGURATION` when required Info.plist keys are missing
+    /// - Throws: `HealthConnectorError` with code `PERMISSION_NOT_DECLARED` when required Info.plist keys are missing
     static func getOrCreate() throws -> HealthConnectorClient {
         guard HKHealthStore.isHealthDataAvailable() else {
             HealthConnectorLogger.error(
@@ -57,7 +57,7 @@ actor HealthConnectorClient: Taggable {
                 operation: "getOrCreate",
                 message: "HealthKit is not available on this device"
             )
-            throw HealthConnectorError.healthPlatformUnavailable(
+            throw HealthConnectorError.healthServiceUnavailable(
                 message: "HealthKit is not available on this device"
             )
         }
@@ -103,10 +103,10 @@ actor HealthConnectorClient: Taggable {
     ///
     /// - Returns: A list of `HealthDataPermissionRequestResultDto` containing the status for each requested permission.
     ///
-    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `PERMISSION_NOT_GRANTED` if authorization is denied
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if invalid permission parameters are provided
-    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit is unavailable
-    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
+    /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` if HealthKit is unavailable
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if an unexpected error occurs
     func requestPermissions(healthDataPermissions: [HealthDataPermissionDto]) async throws
         -> [HealthDataPermissionRequestResultDto]
     {
@@ -144,7 +144,7 @@ actor HealthConnectorClient: Taggable {
     ///         Only write permissions can return `.granted` or `.denied`.
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if invalid permission is provided
-    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if an unexpected error occurs
     func getPermissionStatus(permission: HealthDataPermissionDto) async throws
         -> PermissionStatusDto
     {
@@ -179,9 +179,9 @@ actor HealthConnectorClient: Taggable {
     /// - Returns: HealthRecordDto or nil if not found
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if the record ID format is invalid
-    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
+    /// - Throws: `HealthConnectorError` with code `PERMISSION_NOT_GRANTED` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if an unexpected error occurs
     func readRecord(request: ReadRecordRequestDto) async throws -> HealthRecordDto? {
         try await process(
             operation: "readRecord",
@@ -264,9 +264,9 @@ actor HealthConnectorClient: Taggable {
     ///            The list will contain at most `pageSize` records. `nextPageToken` is nil when no more pages exist.
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if time range or page size is invalid
-    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
+    /// - Throws: `HealthConnectorError` with code `PERMISSION_NOT_GRANTED` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if an unexpected error occurs
     func readRecords(request: ReadRecordsRequestDto) async throws -> ReadRecordsResponseDto {
         try await process(
             operation: "readRecords",
@@ -356,9 +356,9 @@ actor HealthConnectorClient: Taggable {
     /// - Returns: The platform-assigned record ID
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if record data is invalid
-    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
+    /// - Throws: `HealthConnectorError` with code `PERMISSION_NOT_GRANTED` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if an unexpected error occurs
     func writeRecord(record: HealthRecordDto) async throws -> String {
         try await process(
             operation: "writeRecord",
@@ -410,9 +410,9 @@ actor HealthConnectorClient: Taggable {
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if any record data is invalid
     /// - Throws: `HealthConnectorError` with code `UNSUPPORTED_OPERATION` if any type is not writable
-    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
+    /// - Throws: `HealthConnectorError` with code `PERMISSION_NOT_GRANTED` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if an unexpected error occurs
     func writeRecords(records: [HealthRecordDto]) async throws -> [String] {
         try await process(operation: "writeRecords", context: ["totalRecords": records.count]) {
             let operation = "writeRecords"
@@ -491,9 +491,9 @@ actor HealthConnectorClient: Taggable {
     /// - Returns: MeasurementUnitDto with the aggregated value
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if time range or metric is invalid
-    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
+    /// - Throws: `HealthConnectorError` with code `PERMISSION_NOT_GRANTED` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if an unexpected error occurs
     func aggregate(request: AggregateRequestDto) async throws -> MeasurementUnitDto {
         try await process(
             operation: "aggregate",
@@ -558,9 +558,9 @@ actor HealthConnectorClient: Taggable {
     ///
     /// - Parameter request: Contains data type and time range for deletion
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if time range is invalid
-    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
+    /// - Throws: `HealthConnectorError` with code `PERMISSION_NOT_GRANTED` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if deletion fails
     func deleteRecordsByTimeRange(request: DeleteRecordsByTimeRangeRequestDto) async throws {
         try await process(
             operation: "deleteRecordsByTimeRange",
@@ -616,9 +616,9 @@ actor HealthConnectorClient: Taggable {
     ///
     /// - Parameter request: Contains data type and list of record IDs to delete
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if record IDs are invalid
-    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit database is inaccessible
-    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if deletion fails
+    /// - Throws: `HealthConnectorError` with code `PERMISSION_NOT_GRANTED` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` if HealthKit database is inaccessible
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if deletion fails
     func deleteRecordsByIds(request: DeleteRecordsByIdsRequestDto) async throws {
         try await process(
             operation: "deleteRecordsByIds",
@@ -665,9 +665,9 @@ actor HealthConnectorClient: Taggable {
     /// - Returns: HealthDataSyncResultDto containing changes since last sync
     ///
     /// - Throws: `HealthConnectorError` with code `INVALID_ARGUMENT` if parameters are invalid
-    /// - Throws: `HealthConnectorError` with code `SECURITY_ERROR` if authorization is denied
-    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` if HealthKit is unavailable
-    /// - Throws: `HealthConnectorError` with code `UNKNOWN` if an unexpected error occurs
+    /// - Throws: `HealthConnectorError` with code `PERMISSION_NOT_GRANTED` if authorization is denied
+    /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` if HealthKit is unavailable
+    /// - Throws: `HealthConnectorError` with code `UNKNOWN_ERROR` if an unexpected error occurs
     func synchronize(
         dataTypes: [HealthDataTypeDto],
         syncToken: HealthDataSyncTokenDto?
@@ -756,8 +756,9 @@ actor HealthConnectorClient: Taggable {
                 context: context,
                 exception: error
             )
-            throw HealthConnectorError.unknown(
+            throw HealthConnectorError.unknownError(
                 message: "Failed to \(operation): \(error.localizedDescription)",
+                cause: error,
                 context: ["details": error.localizedDescription]
             )
         }

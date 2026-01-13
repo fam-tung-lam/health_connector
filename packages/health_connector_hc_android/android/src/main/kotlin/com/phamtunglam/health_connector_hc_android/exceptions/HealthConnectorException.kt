@@ -21,70 +21,108 @@ sealed class HealthConnectorException : Throwable() {
     abstract val context: Map<String, Any>?
 
     /**
-     * Indicates that the health platform needs to be installed or updated.
+     * Authorization-related errors.
      *
-     * This is Android-specific and occurs when Health Connect is not installed
-     * or requires an update.
+     * Covers permission denial, not-determined state, and guest mode restrictions.
      *
-     * @property message Description of why installation/update is needed.
+     * Error codes:
+     * - PERMISSION_NOT_GRANTED
+     * - AUTHORIZATION_NOT_DETERMINED
+     * - GUEST_MODE_NOT_PERMITTED
+     *
+     * @property code Specific authorization error code.
+     * @property message Description of the authorization error.
      * @property cause Optional underlying exception.
      * @property context Additional debugging information.
      */
-    data class HealthPlatformNotInstalledOrUpdateRequired(
+    data class Authorization(
+        override val code: HealthConnectorErrorCodeDto,
         override val message: String,
         override val cause: Throwable? = null,
         override val context: Map<String, Any>? = null,
-    ) : HealthConnectorException() {
-        override val code: HealthConnectorErrorCodeDto =
-            HealthConnectorErrorCodeDto.HEALTH_PLATFORM_NOT_INSTALLED_OR_UPDATE_REQUIRED
-    }
+    ) : HealthConnectorException()
 
     /**
-     * Indicates that the underlying health service is not available on the device.
+     * Configuration-related errors.
      *
-     * This can occur when:
-     * - Device does not support the health API
-     * - Enterprise policy or parental controls block access
-     * - Health service is disabled by the system
+     * Indicates missing permissions in AndroidManifest.xml or other configuration issues.
      *
-     * @property message Description of why the health service is unavailable.
-     * @property cause Optional underlying exception.
-     * @property context Additional debugging information.
-     */
-    data class HealthPlatformUnavailable(
-        override val message: String,
-        override val cause: Throwable? = null,
-        override val context: Map<String, Any>? = null,
-    ) : HealthConnectorException() {
-        override val code: HealthConnectorErrorCodeDto =
-            HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE
-    }
-
-    /**
-     * Represents a configuration error, such as missing manifest permissions or Info.plist keys.
-     *
-     * This typically indicates a development-time issue that should be fixed before release.
+     * Error codes:
+     * - PERMISSION_NOT_DECLARED
      *
      * @property message Description of the configuration issue.
      * @property cause Optional underlying exception.
      * @property context Additional debugging information about the missing configuration.
      */
-    data class InvalidConfiguration(
+    data class Configuration(
         override val message: String,
         override val cause: Throwable? = null,
         override val context: Map<String, Any>? = null,
     ) : HealthConnectorException() {
         override val code: HealthConnectorErrorCodeDto =
-            HealthConnectorErrorCodeDto.INVALID_CONFIGURATION
+            HealthConnectorErrorCodeDto.PERMISSION_NOT_DECLARED
     }
 
     /**
+     * Health service unavailability errors.
+     *
+     * Covers cases where the health service cannot be accessed.
+     *
+     * Error codes:
+     * - HEALTH_SERVICE_UNAVAILABLE
+     * - HEALTH_SERVICE_RESTRICTED
+     * - HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED
+     *
+     * @property code Specific service unavailability error code.
+     * @property message Description of why the health service is unavailable.
+     * @property cause Optional underlying exception.
+     * @property context Additional debugging information.
+     */
+    data class HealthServiceUnavailable(
+        override val code: HealthConnectorErrorCodeDto,
+        override val message: String,
+        override val cause: Throwable? = null,
+        override val context: Map<String, Any>? = null,
+    ) : HealthConnectorException()
+
+    /**
+     * Health service operational errors.
+     *
+     * Covers transient errors during health service operations.
+     *
+     * Error codes:
+     * - HEALTH_SERVICE_DATABASE_INACCESSIBLE
+     * - IO_ERROR
+     * - REMOTE_ERROR
+     * - RATE_LIMIT_EXCEEDED
+     * - DATA_SYNC_IN_PROGRESS
+     *
+     * @property code Specific service error code.
+     * @property message Description of the service error.
+     * @property cause Optional underlying exception.
+     * @property context Additional debugging information.
+     */
+    data class HealthService(
+        override val code: HealthConnectorErrorCodeDto,
+        override val message: String,
+        override val cause: Throwable? = null,
+        override val context: Map<String, Any>? = null,
+    ) : HealthConnectorException()
+
+    /**
+     * Invalid argument errors.
+     *
      * Signals that a method was called with an invalid argument.
      *
      * This can occur when:
      * - startTime is after endTime
      * - Value is out of valid range
      * - Record ID does not exist
+     * - Malformed record data
+     * - Expired change token
+     *
+     * Error codes:
+     * - INVALID_ARGUMENT
      *
      * @property message Description of the invalid argument.
      * @property cause Optional underlying exception.
@@ -100,11 +138,16 @@ sealed class HealthConnectorException : Throwable() {
     }
 
     /**
+     * Unsupported operation errors.
+     *
      * Indicates that the requested operation is not supported.
      *
      * This can occur when:
      * - Calling a platform-specific API on the wrong platform
      * - Requesting a data type unsupported by the current SDK version
+     *
+     * Error codes:
+     * - UNSUPPORTED_OPERATION
      *
      * @property message Description of the unsupported operation.
      * @property cause Optional underlying exception.
@@ -120,78 +163,14 @@ sealed class HealthConnectorException : Throwable() {
     }
 
     /**
-     * Signals that the user has not granted the necessary permissions for the operation.
+     * Unknown errors.
      *
-     * This can occur when:
-     * - Permissions have not been requested yet
-     * - User denied permissions
-     * - Permissions were revoked via system settings
-     *
-     * @property message Description of the authorization failure.
-     * @property cause Optional underlying exception.
-     * @property context Additional debugging information.
-     */
-    data class NotAuthorized(
-        override val message: String,
-        override val cause: Throwable? = null,
-        override val context: Map<String, Any>? = null,
-    ) : HealthConnectorException() {
-        override val code: HealthConnectorErrorCodeDto = HealthConnectorErrorCodeDto.NOT_AUTHORIZED
-    }
-
-    /**
-     * A transient I/O or communication error occurred.
-     *
-     * This is Android-specific and can occur when:
-     * - Temporary disk I/O failure
-     * - Inter-process communication interrupted
-     * - Background service temporarily unreachable
-     * - Too many operations in a short time window
-     *
-     * @property message Description of the remote error.
-     * @property cause Optional underlying exception.
-     * @property context Additional debugging information.
-     */
-    data class RemoteError(
-        override val message: String,
-        override val cause: Throwable? = null,
-        override val context: Map<String, Any>? = null,
-    ) : HealthConnectorException() {
-        override val code: HealthConnectorErrorCodeDto = HealthConnectorErrorCodeDto.REMOTE_ERROR
-    }
-
-    /**
-     * Indicates that a synchronization token has expired.
-     *
-     * This is Android-specific and occurs when:
-     * - ChangesToken has not been used for more than ~30 days
-     * - Health Connect database was reset or upgraded
-     * - Token was invalidated by the system
-     *
-     * ## Recovery Strategy
-     *
-     * When this error occurs, clients should:
-     * 1. Calculate the data gap: `now - syncToken.createdAt`
-     * 2. Backfill missing data using `readRecords()` for the gap period
-     * 3. Reset sync by calling `synchronize(syncToken: null)` to get a fresh token
-     * 4. Log the event for monitoring sync health
-     *
-     * @property message Description of the token expiration.
-     * @property cause Optional underlying exception (typically ChangesTokenExpiredException).
-     * @property context Additional debugging information.
-     */
-    data class SyncTokenExpired(
-        override val message: String,
-        override val cause: Throwable? = null,
-        override val context: Map<String, Any>? = null,
-    ) : HealthConnectorException() {
-        override val code: HealthConnectorErrorCodeDto = HealthConnectorErrorCodeDto.SYNC_TOKEN_EXPIRED
-    }
-
-    /**
      * A generic, unexpected error that doesn't fit other categories.
      *
      * This should be used as a fallback for unmapped error codes or unexpected situations.
+     *
+     * Error codes:
+     * - UNKNOWN_ERROR
      *
      * @property message Description of the unknown error.
      * @property cause Optional underlying exception.
@@ -202,6 +181,6 @@ sealed class HealthConnectorException : Throwable() {
         override val cause: Throwable? = null,
         override val context: Map<String, Any>? = null,
     ) : HealthConnectorException() {
-        override val code: HealthConnectorErrorCodeDto = HealthConnectorErrorCodeDto.UNKNOWN
+        override val code: HealthConnectorErrorCodeDto = HealthConnectorErrorCodeDto.UNKNOWN_ERROR
     }
 }

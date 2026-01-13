@@ -92,7 +92,7 @@ extension HealthRecordHandler {
                 tag: tag,
                 operation: operation,
                 message:
-                "Handler operation failed for \(Self.dataType.rawValue): \(error.message ?? "<no message>")",
+                    "Handler operation failed for \(Self.dataType.rawValue): \(error.message ?? "<no message>")",
                 context: context,
                 exception: error
             )
@@ -114,14 +114,14 @@ extension HealthRecordHandler {
                 tag: tag,
                 operation: operation,
                 message:
-                "Handler operation failed for \(Self.dataType.rawValue): \(error.localizedDescription)",
+                    "Handler operation failed for \(Self.dataType.rawValue): \(error.localizedDescription)",
                 context: context,
                 exception: error as NSError
             )
 
-            throw HealthConnectorError.unknown(
+            throw HealthConnectorError.unknownError(
                 message: "Unexpected error during \(operation) for \(Self.dataType.rawValue)",
-                cause: nil,
+                cause: error,
                 context: ["details": error.localizedDescription]
             )
         }

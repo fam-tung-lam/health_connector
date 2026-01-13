@@ -48,21 +48,25 @@ final class HomePage extends StatelessWidget {
             if (error != null) {
               switch (error.code) {
                 case HealthConnectorErrorCode
-                    .healthPlatformNotInstalledOrUpdateRequired:
+                    .healthServiceNotInstalledOrUpdateRequired:
                   return Center(
                     child: ErrorView(
                       message: error.toString(),
                       onRetry: () => notifier.launchHealthAppPageInAppStore(),
                     ),
                   );
-                case HealthConnectorErrorCode.healthPlatformUnavailable:
                 case HealthConnectorErrorCode.unsupportedOperation:
-                case HealthConnectorErrorCode.invalidConfiguration:
+                case HealthConnectorErrorCode.permissionNotDeclared:
                 case HealthConnectorErrorCode.invalidArgument:
-                case HealthConnectorErrorCode.notAuthorized:
+                case HealthConnectorErrorCode.permissionNotGranted:
                 case HealthConnectorErrorCode.remoteError:
-                case HealthConnectorErrorCode.syncTokenExpired:
-                case HealthConnectorErrorCode.unknown:
+                case HealthConnectorErrorCode.unknownError:
+                case HealthConnectorErrorCode.healthServiceRestricted:
+                case HealthConnectorErrorCode.healthServiceDatabaseInaccessible:
+                case HealthConnectorErrorCode.ioError:
+                case HealthConnectorErrorCode.rateLimitExceeded:
+                case HealthConnectorErrorCode.dataSyncInProgress:
+                case HealthConnectorErrorCode.healthServiceUnavailable:
                   return Center(
                     child: ErrorView(
                       message: error.toString(),

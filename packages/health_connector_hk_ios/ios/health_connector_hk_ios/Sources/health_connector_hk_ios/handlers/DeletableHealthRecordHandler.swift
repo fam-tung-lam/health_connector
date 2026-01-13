@@ -251,7 +251,7 @@ extension DeletableCorrelationHealthRecordHandler {
                         continuation.resume(throwing: error)
                     } else if !success {
                         continuation.resume(
-                            throwing: HealthConnectorError.unknown(
+                            throwing: HealthConnectorError.unknownError(
                                 message: "Failed to delete correlations and contained samples"
                             )
                         )
@@ -352,7 +352,7 @@ extension DeletableCorrelationHealthRecordHandler {
                         continuation.resume(throwing: error)
                     } else if !success {
                         continuation.resume(
-                            throwing: HealthConnectorError.unknown(
+                            throwing: HealthConnectorError.unknownError(
                                 message: "Failed to delete correlations and contained samples"
                             )
                         )

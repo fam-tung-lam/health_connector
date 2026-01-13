@@ -641,27 +641,28 @@ enum class SleepStageDto(val raw: Int) {
 
 /** Error codes that native platforms can use when throwing error. */
 enum class HealthConnectorErrorCodeDto(val raw: Int) {
-  /** Health Connect installation or update is required. */
-  HEALTH_PLATFORM_NOT_INSTALLED_OR_UPDATE_REQUIRED(0),
-  /** Health platform is unavailable on this device. */
-  HEALTH_PLATFORM_UNAVAILABLE(1),
-  /** Invalid platform configuration detected. */
-  INVALID_CONFIGURATION(2),
-  /** Invalid argument or input validation error. */
-  INVALID_ARGUMENT(3),
-  /**
-   * Attempted to use platform APIs or features that are not supported
-   * on the current health platform.
-   */
-  UNSUPPORTED_OPERATION(4),
-  /** Unknown or unspecified error. */
-  UNKNOWN(5),
-  /** Security/permission error occurred. */
-  NOT_AUTHORIZED(6),
-  /** A transient I/O or communication error occurred. */
-  REMOTE_ERROR(7),
-  /** Synchronization token has expired. */
-  SYNC_TOKEN_EXPIRED(8);
+  /** Permission to access health data was not granted. */
+  PERMISSION_NOT_GRANTED(0),
+  /** Required permission not declared in app configuration. */
+  PERMISSION_NOT_DECLARED(1),
+  /** Invalid parameter, malformed record, or expired change token. */
+  INVALID_ARGUMENT(2),
+  /** Health service is not available on this device. */
+  HEALTH_SERVICE_UNAVAILABLE(3),
+  /** Health Connect app not installed or update required (Android only). */
+  HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED(4),
+  /** Storage read/write operation failed. */
+  IO_ERROR(5),
+  /** IPC communication with health service failed. */
+  REMOTE_ERROR(6),
+  /** API rate limit has been exhausted. */
+  RATE_LIMIT_EXCEEDED(7),
+  /** Health service is syncing data, operations blocked. */
+  DATA_SYNC_IN_PROGRESS(8),
+  /** Operation or data type not supported on this platform. */
+  UNSUPPORTED_OPERATION(9),
+  /** An unclassified or internal system error occurred. */
+  UNKNOWN_ERROR(10);
 
   companion object {
     fun ofRaw(raw: Int): HealthConnectorErrorCodeDto? {

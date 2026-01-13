@@ -232,14 +232,16 @@ abstract interface class HealthConnectorPlatformClient {
   ///
   /// ## Throws
   ///
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
+  /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   if delete/write permission has not been granted
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if the request contains
   ///   invalid data
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.notAuthorized]
+  /// - [HealthConnectorException] with
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   if attempting to delete records not created by this app
-  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknown]
+  /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   if an unexpected error occurs
   @sinceV2_0_0
   Future<void> deleteRecords<R extends HealthRecord>(
@@ -272,8 +274,8 @@ abstract interface class HealthConnectorPlatformClient {
   ///
   /// ## Throws
   ///
-  /// - [SyncTokenExpiredException] if token has expired
-  /// - [NotAuthorizedException] if permissions are missing
+  /// - [InvalidArgumentException] if token has expired
+  /// - [AuthorizationException] if permissions are missing
   /// - [InvalidArgumentException] if dataTypes don't match token scope
   @sinceV3_0_0
   @experimentalApi

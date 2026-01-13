@@ -144,7 +144,8 @@ class HealthConnectorExceptionMapperTest {
         fun whenExceptionWithCause_thenIncludesCauseDetails() {
             // Given
             val cause = IllegalArgumentException(CAUSE_MESSAGE)
-            val exception = HealthConnectorException.RemoteError(
+            val exception = HealthConnectorException.HealthService(
+                code = HealthConnectorErrorCodeDto.REMOTE_ERROR,
                 message = TEST_MESSAGE,
                 cause = cause,
             )
@@ -199,7 +200,8 @@ class HealthConnectorExceptionMapperTest {
             // Given
             val nestedCause = IllegalStateException(NESTED_CAUSE_MESSAGE)
             val cause = IllegalArgumentException(CAUSE_MESSAGE, nestedCause)
-            val exception = HealthConnectorException.NotAuthorized(
+            val exception = HealthConnectorException.Authorization(
+                code = HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
                 message = TEST_MESSAGE,
                 cause = cause,
             )
@@ -228,7 +230,8 @@ class HealthConnectorExceptionMapperTest {
             val cause = object : Throwable() {
                 override fun toString() = "CustomThrowable"
             }
-            val exception = HealthConnectorException.RemoteError(
+            val exception = HealthConnectorException.HealthService(
+                code = HealthConnectorErrorCodeDto.REMOTE_ERROR,
                 message = TEST_MESSAGE,
                 cause = cause,
             )
@@ -254,7 +257,7 @@ class HealthConnectorExceptionMapperTest {
             // Given
             val context = mapOf(TEST_CONTEXT_KEY to TEST_CONTEXT_VALUE)
             val cause = RuntimeException(CAUSE_MESSAGE)
-            val exception = HealthConnectorException.InvalidConfiguration(
+            val exception = HealthConnectorException.Configuration(
                 message = TEST_MESSAGE,
                 context = context,
                 cause = cause,
@@ -312,7 +315,8 @@ class HealthConnectorExceptionMapperTest {
         )
         fun whenHealthPlatformNotInstalledOrUpdateRequired_thenMapsCorrectly() {
             // Given
-            val exception = HealthConnectorException.HealthPlatformNotInstalledOrUpdateRequired(
+            val exception = HealthConnectorException.HealthServiceUnavailable(
+                code = HealthConnectorErrorCodeDto.HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED,
                 message = "Health Connect not installed",
             )
 
@@ -321,7 +325,7 @@ class HealthConnectorExceptionMapperTest {
 
             // Then
             result.code shouldBe
-                HealthConnectorErrorCodeDto.HEALTH_PLATFORM_NOT_INSTALLED_OR_UPDATE_REQUIRED.name
+                HealthConnectorErrorCodeDto.HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED.name
             result.message shouldBe "Health Connect not installed"
         }
 
@@ -333,7 +337,8 @@ class HealthConnectorExceptionMapperTest {
         )
         fun whenHealthPlatformUnavailable_thenMapsCorrectly() {
             // Given
-            val exception = HealthConnectorException.HealthPlatformUnavailable(
+            val exception = HealthConnectorException.HealthServiceUnavailable(
+                code = HealthConnectorErrorCodeDto.HEALTH_SERVICE_UNAVAILABLE,
                 message = "Health service unavailable",
             )
 
@@ -341,42 +346,63 @@ class HealthConnectorExceptionMapperTest {
             val result = exception.toDto()
 
             // Then
-            result.code shouldBe HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE.name
+            result.code shouldBe HealthConnectorErrorCodeDto.HEALTH_SERVICE_UNAVAILABLE.name
             result.message shouldBe "Health service unavailable"
         }
 
         fun provideAllExceptionTypes(): List<Arguments> = listOf(
             Arguments.of(
-                HealthConnectorException.HealthPlatformNotInstalledOrUpdateRequired(TEST_MESSAGE),
-                HealthConnectorErrorCodeDto.HEALTH_PLATFORM_NOT_INSTALLED_OR_UPDATE_REQUIRED,
+                HealthConnectorException.HealthServiceUnavailable(
+                    code =
+                    HealthConnectorErrorCodeDto.HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED,
+                    message = TEST_MESSAGE,
+                ),
+                HealthConnectorErrorCodeDto.HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED,
             ),
             Arguments.of(
-                HealthConnectorException.HealthPlatformUnavailable(TEST_MESSAGE),
-                HealthConnectorErrorCodeDto.HEALTH_PLATFORM_UNAVAILABLE,
+                HealthConnectorException.HealthServiceUnavailable(
+                    code = HealthConnectorErrorCodeDto.HEALTH_SERVICE_UNAVAILABLE,
+                    message = TEST_MESSAGE,
+                ),
+                HealthConnectorErrorCodeDto.HEALTH_SERVICE_UNAVAILABLE,
             ),
             Arguments.of(
-                HealthConnectorException.InvalidConfiguration(TEST_MESSAGE),
-                HealthConnectorErrorCodeDto.INVALID_CONFIGURATION,
+                HealthConnectorException.Configuration(
+                    message = TEST_MESSAGE,
+                ),
+                HealthConnectorErrorCodeDto.PERMISSION_NOT_DECLARED,
             ),
             Arguments.of(
-                HealthConnectorException.InvalidArgument(TEST_MESSAGE),
+                HealthConnectorException.InvalidArgument(
+                    message = TEST_MESSAGE,
+                ),
                 HealthConnectorErrorCodeDto.INVALID_ARGUMENT,
             ),
             Arguments.of(
-                HealthConnectorException.UnsupportedOperation(TEST_MESSAGE),
+                HealthConnectorException.UnsupportedOperation(
+                    message = TEST_MESSAGE,
+                ),
                 HealthConnectorErrorCodeDto.UNSUPPORTED_OPERATION,
             ),
             Arguments.of(
-                HealthConnectorException.NotAuthorized(TEST_MESSAGE),
-                HealthConnectorErrorCodeDto.NOT_AUTHORIZED,
+                HealthConnectorException.Authorization(
+                    code = HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
+                    message = TEST_MESSAGE,
+                ),
+                HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
             ),
             Arguments.of(
-                HealthConnectorException.RemoteError(TEST_MESSAGE),
+                HealthConnectorException.HealthService(
+                    code = HealthConnectorErrorCodeDto.REMOTE_ERROR,
+                    message = TEST_MESSAGE,
+                ),
                 HealthConnectorErrorCodeDto.REMOTE_ERROR,
             ),
             Arguments.of(
-                HealthConnectorException.Unknown(TEST_MESSAGE),
-                HealthConnectorErrorCodeDto.UNKNOWN,
+                HealthConnectorException.Unknown(
+                    message = TEST_MESSAGE,
+                ),
+                HealthConnectorErrorCodeDto.UNKNOWN_ERROR,
             ),
         )
     }

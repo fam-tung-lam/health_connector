@@ -763,23 +763,22 @@ public enum HealthDataTypeDto: Int {
 
 /// Error codes that native platforms can use when throwing error.
 public enum HealthConnectorErrorCodeDto: Int {
-  /// Health platform is unavailable on this device.
-  case healthPlatformUnavailable = 0
-  /// Invalid platform configuration detected.
-  case invalidConfiguration = 1
-  /// Invalid argument or input validation error.
+  /// Permission to access health data was not granted.
+  case permissionNotGranted = 0
+  /// Required permission not declared in app configuration.
+  case permissionNotDeclared = 1
+  /// Invalid parameter, malformed record, or expired change token.
   case invalidArgument = 2
-  /// Attempted to use platform APIs or features that are not supported
-  /// on the current health platform.
-  case unsupportedOperation = 3
-  /// Unknown or unspecified error.
-  case unknown = 4
-  /// Security/permission error occurred.
-  case notAuthorized = 5
-  /// A transient I/O or communication error occurred.
-  case remoteError = 6
-  /// Synchronization token has expired.
-  case syncTokenExpired = 7
+  /// Health service is not available on this device.
+  case healthServiceUnavailable = 3
+  /// Health service usage is restricted by policy.
+  case healthServiceRestricted = 4
+  /// Health database is protected and inaccessible.
+  case healthServiceDatabaseInaccessible = 5
+  /// Operation or data type not supported on this platform.
+  case unsupportedOperation = 6
+  /// An unclassified or internal system error occurred.
+  case unknownError = 7
 }
 
 /// Represents the status of the health platform on the device.

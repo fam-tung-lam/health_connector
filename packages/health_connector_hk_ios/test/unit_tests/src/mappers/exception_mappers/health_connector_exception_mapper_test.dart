@@ -16,31 +16,31 @@ void main() {
             'converts DTO to correct exception type for each error code',
             [
               [
-                HealthConnectorErrorCodeDto.healthPlatformUnavailable,
-                HealthPlatformUnavailableException,
+                HealthConnectorErrorCodeDto.healthServiceUnavailable,
+                HealthServiceUnavailableException,
+              ],
+              [
+                HealthConnectorErrorCodeDto.healthServiceRestricted,
+                HealthServiceUnavailableException,
               ],
               [
                 HealthConnectorErrorCodeDto.unsupportedOperation,
                 UnsupportedOperationException,
               ],
               [
-                HealthConnectorErrorCodeDto.invalidConfiguration,
-                InvalidConfigurationException,
+                HealthConnectorErrorCodeDto.permissionNotDeclared,
+                ConfigurationException,
               ],
               [
                 HealthConnectorErrorCodeDto.invalidArgument,
                 InvalidArgumentException,
               ],
               [
-                HealthConnectorErrorCodeDto.notAuthorized,
-                NotAuthorizedException,
+                HealthConnectorErrorCodeDto.permissionNotGranted,
+                AuthorizationException,
               ],
               [
-                HealthConnectorErrorCodeDto.remoteError,
-                RemoteErrorException,
-              ],
-              [
-                HealthConnectorErrorCodeDto.unknown,
+                HealthConnectorErrorCodeDto.unknownError,
                 UnknownException,
               ],
             ],
@@ -100,7 +100,7 @@ void main() {
               final context = <String, dynamic>{'info': 'test'};
               const stackTrace = 'stack trace';
               final dto = HealthConnectorExceptionDto(
-                code: HealthConnectorErrorCodeDto.remoteError,
+                code: HealthConnectorErrorCodeDto.unknownError,
                 message: 'Network error',
                 cause: 'SocketException: Connection refused',
               );
@@ -123,7 +123,7 @@ void main() {
             'handles null context parameter',
             () {
               final dto = HealthConnectorExceptionDto(
-                code: HealthConnectorErrorCodeDto.unknown,
+                code: HealthConnectorErrorCodeDto.unknownError,
                 message: 'Unknown error',
               );
 
@@ -143,7 +143,7 @@ void main() {
             'handles null stackTrace parameter',
             () {
               final dto = HealthConnectorExceptionDto(
-                code: HealthConnectorErrorCodeDto.notAuthorized,
+                code: HealthConnectorErrorCodeDto.permissionNotGranted,
                 message: 'Not authorized',
               );
 
@@ -152,7 +152,7 @@ void main() {
                 stackTrace: null,
               );
 
-              expect(exception, isA<NotAuthorizedException>());
+              expect(exception, isA<AuthorizationException>());
               expect(exception.cause, isA<PlatformException>());
               final platformException = exception.cause! as PlatformException;
               expect(platformException.stacktrace, isNull);
@@ -163,7 +163,7 @@ void main() {
             'handles both null context and stackTrace',
             () {
               final dto = HealthConnectorExceptionDto(
-                code: HealthConnectorErrorCodeDto.invalidConfiguration,
+                code: HealthConnectorErrorCodeDto.permissionNotDeclared,
                 message: 'Configuration error',
               );
 
@@ -174,7 +174,7 @@ void main() {
 
               expect(
                 exception,
-                isA<InvalidConfigurationException>(),
+                isA<ConfigurationException>(),
               );
               expect(
                 exception.cause,

@@ -80,14 +80,14 @@ extension HealthConnectorError {
     ///
     /// | HKError Code | HealthConnectorError |
     /// |--------------|---------------------|
-    /// | `.errorAuthorizationDenied` | `.notAuthorized` |
-    /// | `.errorAuthorizationNotDetermined` | `.notAuthorized` |
+    /// | `.errorAuthorizationDenied` | `.permissionNotGranted` |
+    /// | `.errorAuthorizationNotDetermined` | `.permissionNotGranted` |
     /// | `.errorInvalidArgument` | `.invalidArgument` |
-    /// | `.errorHealthDataUnavailable` | `.healthPlatformUnavailable` |
-    /// | `.errorDatabaseInaccessible` | `.healthPlatformUnavailable` |
-    /// | `.errorHealthDataRestricted` | `.healthPlatformUnavailable` |
-    /// | `.errorUserCanceled` | `.notAuthorized` |
-    /// | All others | `.unknown` (with cause) |
+    /// | `.errorHealthDataUnavailable` | `.healthServiceUnavailable` |
+    /// | `.errorDatabaseInaccessible` | `.healthServiceDatabaseInaccessible` |
+    /// | `.errorHealthDataRestricted` | `.healthServiceRestricted` |
+    /// | `.errorUserCanceled` | `.permissionNotGranted` (user cancelled = denied) |
+    /// | All others | `.unknownError` (with cause) |
     ///
     /// - Parameter error: The Error to convert
     /// - Returns: A HealthConnectorError with appropriate error type and preserved underlying error information
@@ -110,39 +110,62 @@ extension HealthConnectorError {
             context["errorDomain"] = HKError.errorDomain
 
             switch hkError.code {
-            case .errorAuthorizationDenied, .errorAuthorizationNotDetermined:
-                return .notAuthorized(
+            case .errorAuthorizationDenied:
+                return .permissionNotGranted(
                     message: hkError.localizedDescription,
+                    cause: hkError,
+                    context: context
+                )
+
+            case .errorAuthorizationNotDetermined:
+                return .permissionNotGranted(
+                    message: hkError.localizedDescription,
+                    cause: hkError,
                     context: context
                 )
 
             case .errorInvalidArgument:
                 return .invalidArgument(
                     message: hkError.localizedDescription,
+                    cause: hkError,
                     context: context
                 )
 
-            case .errorHealthDataUnavailable, .errorDatabaseInaccessible,
-                 .errorHealthDataRestricted:
-                return .healthPlatformUnavailable(
+            case .errorHealthDataUnavailable:
+                return .healthServiceUnavailable(
                     message: hkError.localizedDescription,
                     cause: hkError
                 )
 
+            case .errorDatabaseInaccessible:
+                return .healthServiceDatabaseInaccessible(
+                    message: hkError.localizedDescription,
+                    cause: hkError
+                )
+
+            case .errorHealthDataRestricted:
+                return .healthServiceRestricted(
+                    message: hkError.localizedDescription,
+                    cause: hkError,
+                    context: context
+                )
+
             case .errorUserCanceled:
-                return .userCancelled(
-                    message: hkError.localizedDescription
+                return .permissionNotGranted(
+                    message: "User cancelled authorization request",
+                    cause: hkError,
+                    context: context
                 )
 
             case .errorNoData:
-                return .unknown(
+                return .unknownError(
                     message: "No health data available for the requested query",
                     cause: hkError,
                     context: context
                 )
 
             @unknown default:
-                return .unknown(
+                return .unknownError(
                     message: hkError.localizedDescription,
                     cause: hkError,
                     context: context
@@ -151,7 +174,7 @@ extension HealthConnectorError {
         }
 
         // Generic error handling
-        return .unknown(
+        return .unknownError(
             message: error.localizedDescription,
             cause: error,
             context: context.isEmpty ? nil : context

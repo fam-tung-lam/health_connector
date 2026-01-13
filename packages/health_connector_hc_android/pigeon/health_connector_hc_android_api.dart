@@ -16,6 +16,7 @@ import 'package:pigeon/pigeon.dart';
       errorClassName: 'HealthConnectorErrorDto',
     ),
     copyrightHeader: 'pigeon/copyright_header.txt',
+    dartPackageName: 'health_connector_hc_android',
   ),
 )
 /// Configuration data transfer object for Health Connector.
@@ -2077,33 +2078,38 @@ class HealthDataSyncResultDto {
 
 /// Error codes that native platforms can use when throwing error.
 enum HealthConnectorErrorCodeDto {
-  /// Health Connect installation or update is required.
-  healthPlatformNotInstalledOrUpdateRequired,
+  /// Permission to access health data was not granted.
+  permissionNotGranted,
 
-  /// Health platform is unavailable on this device.
-  healthPlatformUnavailable,
+  /// Required permission not declared in app configuration.
+  permissionNotDeclared,
 
-  /// Invalid platform configuration detected.
-  invalidConfiguration,
-
-  /// Invalid argument or input validation error.
+  /// Invalid parameter, malformed record, or expired change token.
   invalidArgument,
 
-  /// Attempted to use platform APIs or features that are not supported
-  /// on the current health platform.
-  unsupportedOperation,
+  /// Health service is not available on this device.
+  healthServiceUnavailable,
 
-  /// Unknown or unspecified error.
-  unknown,
+  /// Health Connect app not installed or update required (Android only).
+  healthServiceNotInstalledOrUpdateRequired,
 
-  /// Security/permission error occurred.
-  notAuthorized,
+  /// Storage read/write operation failed.
+  ioError,
 
-  /// A transient I/O or communication error occurred.
+  /// IPC communication with health service failed.
   remoteError,
 
-  /// Synchronization token has expired.
-  syncTokenExpired,
+  /// API rate limit has been exhausted.
+  rateLimitExceeded,
+
+  /// Health service is syncing data, operations blocked.
+  dataSyncInProgress,
+
+  /// Operation or data type not supported on this platform.
+  unsupportedOperation,
+
+  /// An unclassified or internal system error occurred.
+  unknownError,
 }
 
 /// Represents the status of the health platform on the device.

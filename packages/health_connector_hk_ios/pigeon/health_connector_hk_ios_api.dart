@@ -13,6 +13,7 @@ import 'package:pigeon/pigeon.dart';
         'ios/health_connector_hk_ios/Sources/health_connector_hk_ios/pigeon/HealthConnectorHKIOSApi.g.swift',
     swiftOptions: SwiftOptions(errorClassName: 'HealthConnectorErrorDto'),
     copyrightHeader: 'pigeon/copyright_header.txt',
+    dartPackageName: 'health_connector_hk_ios',
   ),
 )
 /// Configuration data transfer object for Health Connector.
@@ -3103,30 +3104,29 @@ class HealthDataSyncResultDto {
 
 /// Error codes that native platforms can use when throwing error.
 enum HealthConnectorErrorCodeDto {
-  /// Health platform is unavailable on this device.
-  healthPlatformUnavailable,
+  /// Permission to access health data was not granted.
+  permissionNotGranted,
 
-  /// Invalid platform configuration detected.
-  invalidConfiguration,
+  /// Required permission not declared in app configuration.
+  permissionNotDeclared,
 
-  /// Invalid argument or input validation error.
+  /// Invalid parameter, malformed record, or expired change token.
   invalidArgument,
 
-  /// Attempted to use platform APIs or features that are not supported
-  /// on the current health platform.
+  /// Health service is not available on this device.
+  healthServiceUnavailable,
+
+  /// Health service usage is restricted by policy.
+  healthServiceRestricted,
+
+  /// Health database is protected and inaccessible.
+  healthServiceDatabaseInaccessible,
+
+  /// Operation or data type not supported on this platform.
   unsupportedOperation,
 
-  /// Unknown or unspecified error.
-  unknown,
-
-  /// Security/permission error occurred.
-  notAuthorized,
-
-  /// A transient I/O or communication error occurred.
-  remoteError,
-
-  /// Synchronization token has expired.
-  syncTokenExpired,
+  /// An unclassified or internal system error occurred.
+  unknownError,
 }
 
 /// Represents the status of the health platform on the device.

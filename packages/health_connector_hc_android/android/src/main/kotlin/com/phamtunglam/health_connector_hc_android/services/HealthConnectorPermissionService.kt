@@ -8,6 +8,7 @@ import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorExc
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toHealthConnect
 import com.phamtunglam.health_connector_hc_android.mappers.permission_mappers.toPermissionRequestResultDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataPermissionRequestResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthPlatformFeaturePermissionRequest
@@ -165,8 +166,8 @@ internal class HealthConnectorPermissionService(
      *
      * @param request The permission to check.
      * @return [PermissionStatusDto.GRANTED] if the permission is granted, [PermissionStatusDto.DENIED] otherwise.
-     * @throws HealthConnectorException.RemoteError for IPC transportation and disk I/O issues.
-     * @throws HealthConnectorException.HealthPlatformUnavailable if service is not available.
+     * @throws HealthConnectorException.HealthService for IPC transportation and disk I/O issues.
+     * @throws HealthConnectorException.HealthServiceUnavailable if service is not available.
      */
     @Throws(HealthConnectorException::class)
     suspend fun getPermissionStatus(request: PermissionRequestDto): PermissionStatusDto =
@@ -208,8 +209,8 @@ internal class HealthConnectorPermissionService(
      * Retrieves the list of permissions currently granted to this application by the user.
      *
      * @return All granted permissions.
-     * @throws HealthConnectorException.RemoteError for IPC transportation and disk I/O issues.
-     * @throws HealthConnectorException.HealthPlatformUnavailable if service is not available.
+     * @throws HealthConnectorException.HealthService for IPC transportation and disk I/O issues.
+     * @throws HealthConnectorException.HealthServiceUnavailable if service is not available.
      */
     @Throws(HealthConnectorException::class)
     suspend fun getGrantedPermissions(): List<PermissionRequestResultDto> =
@@ -243,8 +244,8 @@ internal class HealthConnectorPermissionService(
     /**
      * Revokes all previously granted permissions by the user to the calling app.
      *
-     * @throws HealthConnectorException.RemoteError for IPC transportation and disk I/O issues.
-     * @throws HealthConnectorException.HealthPlatformUnavailable if service is not available.
+     * @throws HealthConnectorException.HealthService for IPC transportation and disk I/O issues.
+     * @throws HealthConnectorException.HealthServiceUnavailable if service is not available.
      */
     @Throws(HealthConnectorException::class)
     suspend fun revokeAllPermissions() = withContext(dispatcher) {
@@ -269,7 +270,8 @@ internal class HealthConnectorPermissionService(
                 message = "Remote exception during revocation",
                 exception = e,
             )
-            throw HealthConnectorException.RemoteError(
+            throw HealthConnectorException.HealthService(
+                code = HealthConnectorErrorCodeDto.REMOTE_ERROR,
                 message = e.message ?: "Remote exception",
                 cause = e,
             )
@@ -280,7 +282,8 @@ internal class HealthConnectorPermissionService(
                 message = "I/O error during revocation",
                 exception = e,
             )
-            throw HealthConnectorException.RemoteError(
+            throw HealthConnectorException.HealthService(
+                code = HealthConnectorErrorCodeDto.IO_ERROR,
                 message = e.message ?: "I/O error",
                 cause = e,
             )
@@ -291,7 +294,8 @@ internal class HealthConnectorPermissionService(
                 message = "Health platform unavailable",
                 exception = e,
             )
-            throw HealthConnectorException.HealthPlatformUnavailable(
+            throw HealthConnectorException.HealthServiceUnavailable(
+                code = HealthConnectorErrorCodeDto.HEALTH_SERVICE_UNAVAILABLE,
                 message = e.message ?: "Health platform unavailable",
                 cause = e,
             )
@@ -302,8 +306,8 @@ internal class HealthConnectorPermissionService(
      * Retrieves the list of permission strings granted to this application by the user.
      *
      * @return A [Set<String>] containing all granted permissions.
-     * @throws HealthConnectorException.RemoteError for IPC transportation and disk I/O issues.
-     * @throws HealthConnectorException.HealthPlatformUnavailable if service is not available.
+     * @throws HealthConnectorException.HealthService for IPC transportation and disk I/O issues.
+     * @throws HealthConnectorException.HealthServiceUnavailable if service is not available.
      */
     private suspend fun getGrantedPermissionStrings(): Set<String> {
         try {
@@ -315,7 +319,8 @@ internal class HealthConnectorPermissionService(
                 message = "Remote exception retrieving permissions",
                 exception = e,
             )
-            throw HealthConnectorException.RemoteError(
+            throw HealthConnectorException.HealthService(
+                code = HealthConnectorErrorCodeDto.REMOTE_ERROR,
                 message = e.message ?: "Remote exception",
                 cause = e,
             )
@@ -326,7 +331,8 @@ internal class HealthConnectorPermissionService(
                 message = "I/O error retrieving permissions",
                 exception = e,
             )
-            throw HealthConnectorException.RemoteError(
+            throw HealthConnectorException.HealthService(
+                code = HealthConnectorErrorCodeDto.IO_ERROR,
                 message = e.message ?: "I/O error",
                 cause = e,
             )
@@ -337,7 +343,8 @@ internal class HealthConnectorPermissionService(
                 message = "Health platform unavailable",
                 exception = e,
             )
-            throw HealthConnectorException.HealthPlatformUnavailable(
+            throw HealthConnectorException.HealthServiceUnavailable(
+                code = HealthConnectorErrorCodeDto.HEALTH_SERVICE_UNAVAILABLE,
                 message = e.message ?: "Health platform unavailable",
                 cause = e,
             )

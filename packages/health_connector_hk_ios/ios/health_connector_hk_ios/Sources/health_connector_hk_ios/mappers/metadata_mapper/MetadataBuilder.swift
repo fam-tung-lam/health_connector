@@ -215,10 +215,10 @@ final class MetadataBuilder {
     /// - `HKMetadataKeyWasUserEntered` -> isManualEntry
     /// - `HKMetadataKeyDeviceName` -> device name (if not in HKDevice)
     ///
-    /// - Throws: `HealthConnectorError.invalidConfiguration` if the builder was not initialized with source information
+    /// - Throws: `HealthConnectorError.invalidArgument` if the builder was not initialized with source information
     func toMetadataDto() throws -> MetadataDto {
         guard let source else {
-            throw HealthConnectorError.invalidConfiguration(
+            throw HealthConnectorError.invalidArgument(
                 message:
                 "MetadataBuilder was not initialized with source information, which is required for this operation",
                 context: ["method": "toMetadataDto"]

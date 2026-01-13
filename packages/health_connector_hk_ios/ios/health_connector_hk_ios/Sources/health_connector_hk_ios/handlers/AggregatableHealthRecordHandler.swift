@@ -140,7 +140,7 @@ extension AggregatableQuantityHealthRecordHandler {
                     continuation.resume(returning: statistics)
                 } else {
                     continuation.resume(
-                        throwing: HealthConnectorError.unknown(
+                        throwing: HealthConnectorError.unknownError(
                             message:
                             "No aggregation data available for \(Self.dataType) in the specified time range",
                             context: context.merging([
@@ -219,7 +219,7 @@ extension AggregatableQuantityHealthRecordHandler {
             }
 
         guard let quantity else {
-            throw HealthConnectorError.unknown(
+            throw HealthConnectorError.unknownError(
                 message: "No quantity data available for metric '\(metric)' on \(Self.dataType)",
                 context: [
                     "data_type": String(describing: Self.dataType),

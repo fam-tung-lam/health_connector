@@ -10,6 +10,7 @@ import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorExc
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
 import com.phamtunglam.health_connector_hc_android.mappers.health_record_mappers.toDto
 import com.phamtunglam.health_connector_hc_android.mappers.toHealthConnectRecordClass
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncTokenDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
@@ -51,10 +52,9 @@ internal class HealthConnectorDataSyncService(
      * @param syncToken The token from the previous sync, or null for initial sync
      * @return [HealthDataSyncResultDto] containing changes since last sync
      *
-     * @throws HealthConnectorException.SyncTokenExpired if the token has expired (~30 days)
-     * @throws HealthConnectorException.InvalidArgument if parameters are invalid
-     * @throws HealthConnectorException.RemoteError for IPC or I/O issues
-     * @throws HealthConnectorException.HealthPlatformUnavailable if service is unavailable
+     * @throws HealthConnectorException.InvalidArgument if the token has expired (~30 days) or parameters are invalid
+     * @throws HealthConnectorException.HealthService for IPC or I/O issues
+     * @throws HealthConnectorException.HealthServiceUnavailable if service is unavailable
      */
     @Throws(HealthConnectorException::class)
     suspend fun synchronize(
@@ -119,12 +119,13 @@ internal class HealthConnectorDataSyncService(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "synchronize",
-                message = "Permission denied for Health Connect operation",
+                message = "Permission not granted for Health Connect operation",
                 exception = e,
                 context = context,
             )
-            throw HealthConnectorException.NotAuthorized(
-                message = e.message ?: "Permission denied for Health Connect operation",
+            throw HealthConnectorException.Authorization(
+                code = HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
+                message = e.message ?: "Permission not granted for Health Connect operation",
                 cause = e,
                 context = context,
             )
@@ -136,7 +137,8 @@ internal class HealthConnectorDataSyncService(
                 exception = e,
                 context = context,
             )
-            throw HealthConnectorException.RemoteError(
+            throw HealthConnectorException.HealthService(
+                code = HealthConnectorErrorCodeDto.IO_ERROR,
                 message = e.message ?: "Initial sync failed due to I/O error",
                 cause = e,
                 context = context,
@@ -211,12 +213,13 @@ internal class HealthConnectorDataSyncService(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "synchronize",
-                message = "Permission denied for Health Connect operation",
+                message = "Permission not granted for Health Connect operation",
                 exception = e,
                 context = context,
             )
-            throw HealthConnectorException.NotAuthorized(
-                message = e.message ?: "Permission denied for sync operation",
+            throw HealthConnectorException.Authorization(
+                code = HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
+                message = e.message ?: "Permission not granted for sync operation",
                 cause = e,
                 context = context,
             )
@@ -228,7 +231,8 @@ internal class HealthConnectorDataSyncService(
                 exception = e,
                 context = context,
             )
-            throw HealthConnectorException.RemoteError(
+            throw HealthConnectorException.HealthService(
+                code = HealthConnectorErrorCodeDto.IO_ERROR,
                 message = e.message ?: "I/O error during incremental sync",
                 cause = e,
                 context = context,
@@ -241,7 +245,8 @@ internal class HealthConnectorDataSyncService(
                 exception = e,
                 context = context,
             )
-            throw HealthConnectorException.HealthPlatformUnavailable(
+            throw HealthConnectorException.HealthServiceUnavailable(
+                code = HealthConnectorErrorCodeDto.HEALTH_SERVICE_UNAVAILABLE,
                 message = e.message ?: "Health Connect service unavailable",
                 cause = e,
                 context = context,
@@ -260,11 +265,11 @@ internal class HealthConnectorDataSyncService(
                     HealthConnectorLogger.error(
                         tag = TAG,
                         operation = "synchronize",
-                        message = "Sync token has expired",
+                        message = "Sync token has expired - treating as invalid argument",
                         exception = e,
                         context = context,
                     )
-                    throw HealthConnectorException.SyncTokenExpired(
+                    throw HealthConnectorException.InvalidArgument(
                         message = "Sync token has expired. " +
                             "Token age exceeds 30 days or was invalidated by the system. " +
                             "Perform a full backfill using readRecords() and reset sync with syncToken=null.",

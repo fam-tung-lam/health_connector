@@ -17,35 +17,35 @@ void main() {
             [
               [
                 HealthConnectorErrorCodeDto
-                    .healthPlatformNotInstalledOrUpdateRequired,
-                HealthPlatformNotInstalledOrUpdateRequiredException,
+                    .healthServiceNotInstalledOrUpdateRequired,
+                HealthServiceUnavailableException,
               ],
               [
-                HealthConnectorErrorCodeDto.healthPlatformUnavailable,
-                HealthPlatformUnavailableException,
+                HealthConnectorErrorCodeDto.healthServiceUnavailable,
+                HealthServiceUnavailableException,
               ],
               [
                 HealthConnectorErrorCodeDto.unsupportedOperation,
                 UnsupportedOperationException,
               ],
               [
-                HealthConnectorErrorCodeDto.invalidConfiguration,
-                InvalidConfigurationException,
+                HealthConnectorErrorCodeDto.permissionNotDeclared,
+                ConfigurationException,
               ],
               [
                 HealthConnectorErrorCodeDto.invalidArgument,
                 InvalidArgumentException,
               ],
               [
-                HealthConnectorErrorCodeDto.notAuthorized,
-                NotAuthorizedException,
+                HealthConnectorErrorCodeDto.permissionNotGranted,
+                AuthorizationException,
               ],
               [
                 HealthConnectorErrorCodeDto.remoteError,
-                RemoteErrorException,
+                HealthServiceException,
               ],
               [
-                HealthConnectorErrorCodeDto.unknown,
+                HealthConnectorErrorCodeDto.unknownError,
                 UnknownException,
               ],
             ],
@@ -127,7 +127,7 @@ void main() {
             'handles null context parameter',
             () {
               final dto = HealthConnectorExceptionDto(
-                code: HealthConnectorErrorCodeDto.unknown,
+                code: HealthConnectorErrorCodeDto.unknownError,
                 message: 'Unknown error',
               );
 
@@ -146,7 +146,7 @@ void main() {
             'handles null stackTrace parameter',
             () {
               final dto = HealthConnectorExceptionDto(
-                code: HealthConnectorErrorCodeDto.notAuthorized,
+                code: HealthConnectorErrorCodeDto.permissionNotGranted,
                 message: 'Not authorized',
               );
 
@@ -155,7 +155,7 @@ void main() {
                 stackTrace: null,
               );
 
-              expect(exception, isA<NotAuthorizedException>());
+              expect(exception, isA<AuthorizationException>());
               final platformException = exception.cause! as PlatformException;
               expect(platformException.stacktrace, isNull);
             },
@@ -165,7 +165,7 @@ void main() {
             'handles both null context and stackTrace',
             () {
               final dto = HealthConnectorExceptionDto(
-                code: HealthConnectorErrorCodeDto.invalidConfiguration,
+                code: HealthConnectorErrorCodeDto.permissionNotDeclared,
                 message: 'Configuration error',
               );
 
@@ -176,7 +176,7 @@ void main() {
 
               expect(
                 exception,
-                isA<InvalidConfigurationException>(),
+                isA<ConfigurationException>(),
               );
               final platformException = exception.cause! as PlatformException;
               expect(platformException.details, isNull);

@@ -3,6 +3,7 @@ package com.phamtunglam.health_connector_hc_android.handlers
 import androidx.health.connect.client.HealthConnectClient
 import com.phamtunglam.health_connector_hc_android.exceptions.HealthConnectorException
 import com.phamtunglam.health_connector_hc_android.logger.HealthConnectorLogger
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
 import java.io.IOException
 import kotlinx.coroutines.CoroutineDispatcher
@@ -39,10 +40,10 @@ internal interface HealthRecordHandler {
      * mapping SDK exceptions to [HealthConnectorException] with appropriate error codes.
      *
      * Exception mappings:
-     * - [SecurityException] -> [HealthConnectorException.NotAuthorized]
+     * - [SecurityException] -> [HealthConnectorException.Authorization] (permissionNotGranted)
      * - [IllegalArgumentException] -> [HealthConnectorException.InvalidArgument]
      * - [IllegalStateException] -> [HealthConnectorException.InvalidArgument]
-     * - [IOException] -> [HealthConnectorException.RemoteError]
+     * - [IOException] -> [HealthConnectorException.HealthService] (ioError)
      *
      * @param operation Human-readable operation name for logging (e.g., "readRecord", "writeRecords")
      * @param context Additional context for logging (e.g., recordId, time range)
@@ -66,8 +67,9 @@ internal interface HealthRecordHandler {
                 context = context,
                 exception = e,
             )
-            throw HealthConnectorException.NotAuthorized(
-                message = "Permission denied for $dataType: ${e.message ?: "Access denied"}",
+            throw HealthConnectorException.Authorization(
+                code = HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
+                message = "Permission not granted for $dataType: ${e.message ?: "Access denied"}",
                 cause = e,
             )
         } catch (e: IllegalArgumentException) {
@@ -102,7 +104,8 @@ internal interface HealthRecordHandler {
                 context = context,
                 exception = e,
             )
-            throw HealthConnectorException.RemoteError(
+            throw HealthConnectorException.HealthService(
+                code = HealthConnectorErrorCodeDto.IO_ERROR,
                 message = "I/O error for $dataType: ${e.message ?: "I/O error"}",
                 cause = e,
             )

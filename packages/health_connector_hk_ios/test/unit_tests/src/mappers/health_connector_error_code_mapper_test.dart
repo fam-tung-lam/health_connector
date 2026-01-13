@@ -12,33 +12,36 @@ void main() {
           test(
             'converts valid error code string to HealthConnectorErrorCode',
             () {
-              const codeString = 'UNKNOWN';
+              const codeString = 'UNKNOWN_ERROR';
               final errorCode = codeString.toErrorCode();
 
-              expect(errorCode, HealthConnectorErrorCode.unknown);
+              expect(errorCode, HealthConnectorErrorCode.unknownError);
             },
           );
 
           test(
-            'converts HEALTH_PROVIDER_UNAVAILABLE to healthPlatformUnavailable',
+            'converts HEALTH_SERVICE_UNAVAILABLE to healthPlatformUnavailable',
             () {
-              const codeString = 'HEALTH_PROVIDER_UNAVAILABLE';
+              const codeString = 'HEALTH_SERVICE_UNAVAILABLE';
               final errorCode = codeString.toErrorCode();
 
               expect(
                 errorCode,
-                HealthConnectorErrorCode.healthPlatformUnavailable,
+                HealthConnectorErrorCode.healthServiceUnavailable,
               );
             },
           );
 
           test(
-            'converts NOT_AUTHORIZED to notAuthorized',
+            'converts PERMISSION_NOT_GRANTED to notAuthorized',
             () {
-              const codeString = 'NOT_AUTHORIZED';
+              const codeString = 'PERMISSION_NOT_GRANTED';
               final errorCode = codeString.toErrorCode();
 
-              expect(errorCode, HealthConnectorErrorCode.notAuthorized);
+              expect(
+                errorCode,
+                HealthConnectorErrorCode.permissionNotGranted,
+              );
             },
           );
 
@@ -48,7 +51,7 @@ void main() {
               const codeString = 'INVALID_ERROR_CODE';
               final errorCode = codeString.toErrorCode();
 
-              expect(errorCode, HealthConnectorErrorCode.unknown);
+              expect(errorCode, HealthConnectorErrorCode.unknownError);
             },
           );
         },
