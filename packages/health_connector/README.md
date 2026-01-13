@@ -7,11 +7,14 @@
   <img alt="Platform" src="https://img.shields.io/badge/platform-iOS%20%7C%20Android-blue"/>
 </p>
 
-**The most complete Flutter health SDK** — unified, type-safe access to **100+ health data types** across iOS HealthKit and Android Health Connect.
+**Production-grade Flutter SDK for iOS HealthKit and Android Health Connect.** Access **100+ health
+data types** with compile-time type safety, incremental sync, and privacy-first architecture.
 
 ---
 
 ## 📖 Table of Contents
+
+- [⬆️ Migration Guide v2.x.x → v3.0.0](../../doc/guides/migration_guides/migration-guide-v2.x.x-to-v3.0.0.md)
 
 - [🎮 See It In Action](#-see-it-in-action--interactive-toolbox-demo)
 
@@ -83,14 +86,8 @@ cd health_connector/examples/health_connector_toolbox
 flutter pub get && flutter run
 ```
 
-**Explore:**
-
-- 🔐 Permission flows for HealthKit & Health Connect
-- 📊 Real-time health data visualization
-- ✍️ CRUD operations with live feedback
-- 🧪 Feature detection and platform capabilities
-
-> **💡 Note:** The toolbox is a demonstration tool—perfect for exploring APIs, not for production reference.
+> **Note:** The toolbox app is used only for demonstration purposes and as an internal tool for
+> manually testing SDK features. It is not intended for production reference.
 
 ---
 
@@ -98,10 +95,14 @@ flutter pub get && flutter run
 
 ### 📋 Requirements
 
-| Platform    | Minimum Version |
-|-------------|-----------------|
-| **Android** | API 26+         |
-| **iOS**     | ≥15.0           |
+| Platform    | Minimum OS Version | Language Version |
+|-------------|--------------------|------------------|
+| **Android** | API 26+            | Kotlin 2.1.0     |
+| **iOS**     | ≥15.0              | Swift 5.9        |
+
+> **Note:** Users currently using Swift 5.0+ (up to 5.9) or Kotlin 2.0+ (up to 2.1) will find
+> updating their Flutter project to Swift 5.9 and Kotlin 2.1 straightforward, as these versions are
+> compatible.
 
 ### 📦 Installation
 
@@ -118,12 +119,11 @@ dependencies:
 
 ### 🔧 Platform Setup
 
-<details>
-<summary><b>🤖 Android Health Connect Setup</b></summary>
+#### 🤖 Android Health Connect Setup
 
 ##### Step 1: Update AndroidManifest.xml
 
-Add to `android/app/src/main/AndroidManifest.xml`:
+Update `android/app/src/main/AndroidManifest.xml`:
 
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
@@ -215,10 +215,7 @@ android {
 }
 ```
 
-</details>
-
-<details>
-<summary><b>🍎 iOS HealthKit Setup</b></summary>
+#### 🍎 iOS HealthKit Setup
 
 ##### Step 1: Configure Xcode
 
@@ -248,8 +245,6 @@ Add to `ios/Runner/Info.plist`:
 > **⚠️ Warning**: Vague or generic usage descriptions may result in App Store rejection.
 > Be specific about _what_ data you access and _why_.
 
-</details>
-
 ### ⚡ Quick Demo
 
 ```dart
@@ -259,7 +254,7 @@ Future<void> quickStart() async {
   // 1. Check platform availability
   final status = await HealthConnector.getHealthPlatformStatus();
   if (status != HealthPlatformStatus.available) {
-    print('Health platform not available: $status');
+    print('❌ Health platform not available: $status');
     return;
   }
 
@@ -281,7 +276,7 @@ Future<void> quickStart() async {
   // 4. Verify permissions were granted
   final granted = results.every((r) => r.status != PermissionStatus.denied);
   if (!granted) {
-    print('Permissions denied');
+    print('❌ Permissions denied');
     return;
   }
 
@@ -294,7 +289,7 @@ Future<void> quickStart() async {
   ];
   
   final recordIds = await connector.writeRecords(records);
-  print('✅ Wrote ${recordIds.length} records');
+  print('✍️ Wrote ${recordIds.length} records');
 
   // 6. Read health data
   final response = await connector.readRecords(
@@ -304,10 +299,25 @@ Future<void> quickStart() async {
     ),
   );
 
-  print('📊 Found ${response.records.length} records:');
+  print('📖 Found ${response.records.length} records:');
   for (final record in response.records) {
-    print('  → ${record.count.value} steps (${record.startTime})');
+    print('  → ${record.count.value} steps (${record.startTime}-${record.endTime})');
   }
+
+  // 7. Aggregate health data
+  final totalSteps = await connector.aggregate(
+    HealthDataType.steps.aggregateSum(
+      startTime: now.subtract(Duration(days: 1)),
+      endTime: now,
+    ),
+  );
+  print('➕ Total steps: ${totalSteps.value.value}');
+
+  // 8. Delete health data
+  await connector.deleteRecords(
+    HealthDataType.steps.deleteByIds(recordIds),
+  );
+  print('🗑️ Deleted ${recordIds.length} records');
 }
 
 // Helper to create step records
@@ -323,13 +333,59 @@ StepsRecord _createStepsRecord(DateTime time, int steps) {
 }
 ```
 
-> **💡 What's Next?** Check out the [Developer Guide](#-developer-guide) for full API documentation, error handling, and advanced features.
+> **What's Next?** Check out the [Developer Guide](#-developer-guide) for full API documentation,
+> error handling, and advanced features.
 
 ---
 
 ## 📘 Developer Guide
 
 ### 🔐 Permission Management
+
+#### Check Permission Status
+
+> **iOS Privacy:** HealthKit purposefully restricts access to read authorization status to protect user privacy. The SDK explicitly exposes this platform behavior by returning `unknown` for all iOS read permissions. This is a native privacy feature, not an SDK limitation.
+
+```dart
+final status = await connector.getPermissionStatus(
+  HealthDataType.steps.readPermission,
+);
+
+switch (status) {
+  case PermissionStatus.granted:
+    print('✅ Granted');
+  case PermissionStatus.denied:
+    print('❌ Denied');
+  case PermissionStatus.unknown:
+    print('❓ Unknown (iOS read)');
+}
+```
+
+#### Workaround: Detecting iOS Read Status
+
+Since iOS returns `unknown` for read permissions, you can infer the status by attempting a minimal read operation. If the read fails with `AuthorizationException`, permission is definitively denied.
+
+```dart
+Future<bool> hasReadPermission(HealthDataType dataType) async {
+  try {
+    // Attempt to read a single record to check access
+    await connector.readRecords(
+      dataType.readInTimeRange(
+        startTime: DateTime.now().subtract(Duration(days: 1)),
+        endTime: DateTime.now(),
+        pageSize: 1, // Minimize data transfer
+      ),
+    );
+    return true;  // Read succeeded (or returned empty) -> Permission likely granted
+  } on AuthorizationException {
+    return false; // Explicitly denied
+  } catch (_) {
+    return false; // Handle other errors as needed
+  }
+}
+```
+
+> **Disclaimer:** This workaround attempts to infer permission status, which bypasses HealthKit's intended privacy design. Use only if your app genuinely needs to determine read permission status.
 
 #### Request Permissions
 
@@ -345,80 +401,42 @@ final results = await connector.requestPermissions(permissions);
 
 // Process results
 for (final result in results) {
-  if (result.status == PermissionStatus.granted) {
-    print('✅ ${result.permission}');
-  } else if (result.status == PermissionStatus.unknown) {
-    print('❓ ${result.permission} (iOS read permission)');
+  switch (result.status) {
+    case PermissionStatus.granted:
+      print('✅ ${result.permission}');
+    case PermissionStatus.denied:
+      print('❌ ${result.permission}');
+    case PermissionStatus.unknown:
+      print('❓ ${result.permission} (iOS read permission)');
   }
 }
 ```
 
-> **iOS Privacy:** Read permissions always return `unknown` to prevent apps from inferring whether users have health data.
+#### Get All Granted Permissions (Android Health Connect only)
 
-#### Check Permission Status
-
-```dart
-final status = await connector.getPermissionStatus(
-  HealthDataType.steps.readPermission,
-);
-
-switch (status) {
-  case PermissionStatus.granted:
-    // Permission granted
-  case PermissionStatus.denied:
-    // Permission denied
-  case PermissionStatus.unknown:
-    // iOS read permission (cannot determine)
-}
-```
-
-#### iOS Read Permission Workaround
-
-**Strategy:** Attempt a minimal read operation and catch `NotAuthorizedException`.
-
-```dart
-Future<bool> hasReadPermission(HealthDataType dataType) async {
-  try {
-    await connector.readRecords(
-      dataType.readInTimeRange(
-        startTime: DateTime.now().subtract(Duration(days: 1)),
-        endTime: DateTime.now(),
-        pageSize: 1,
-      ),
-    );
-    return true;  // Read succeeded = permission granted
-  } on AuthorizationException {
-    return false; // Permission denied
-  }
-}
-```
-
-> **Disclaimer:** Not officially recommended by Apple. Use only if your app genuinely needs to determine read permission status.
-
-#### Get All Granted Permissions (Android only)
-
-> **iOS Privacy:** HealthKit doesn't allow apps to enumerate granted permissions.
+> **iOS Privacy:** HealthKit does not allow apps to enumerate granted permissions, preventing user fingerprinting. This API throws `UnsupportedOperationException` on iOS.
 
 ```dart
 try {
   final granted = await connector.getGrantedPermissions();
   for (final p in granted) {
-    print('${p.dataType} (${p.accessType})');
+    print('✅ Granted: ${p.dataType} (${p.accessType})');
   }
 } on UnsupportedOperationException {
-  // iOS doesn't support this API
+  print('ℹ️ Listing granted permissions is not supported on iOS');
 }
 ```
 
-#### Revoke All Permissions (Android only)
+#### Revoke All Permissions (Android Health Connect only)
 
-> **iOS Privacy:** Not supported by HealthKit. Users must revoke permissions manually via Settings app.
+> **iOS Privacy:** HealthKit does not support programmatic permission revocation. Users must manage permissions in the iOS Settings app. This API throws `UnsupportedOperationException` on iOS.
 
 ```dart
 try {
   await connector.revokeAllPermissions();
+  print('🔒 Permissions revoked');
 } on UnsupportedOperationException {
-  // iOS users must revoke via Settings app
+  print('ℹ️ Programmatic revocation is not supported on iOS');
 }
 ```
 
@@ -432,7 +450,7 @@ final record = await connector.readRecord(
 );
 
 if (record != null) {
-  print('✅ Found: ${record.count.value} steps');
+  print('📖 Found: ${record.count.value} steps');
 }
 ```
 
@@ -447,13 +465,35 @@ final response = await connector.readRecords(
   ),
 );
 
-print('📊 Found ${response.records.length} records');
+print('📖 Found ${response.records.length} records');
 for (final record in response.records) {
   print('${record.count.value} steps on ${record.startTime}');
 }
 ```
 
 > **Historical Data Access:** Android Health Connect defaults to 30 days—request `HealthPlatformFeature.readHealthDataHistory` permission for older data. iOS HealthKit has no restrictions.
+
+#### Sort Records by Time
+
+```dart
+// Sort oldest first (ascending)
+final oldestFirst = await connector.readRecords(
+  HealthDataType.steps.readInTimeRange(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+    sortDescriptor: SortDescriptor.timeAscending,
+  ),
+);
+
+// Sort newest first (descending) - default behavior
+final newestFirst = await connector.readRecords(
+  HealthDataType.steps.readInTimeRange(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+    sortDescriptor: SortDescriptor.timeDescending, // Default
+  ),
+);
+```
 
 #### Paginate Through All Records
 
@@ -478,36 +518,6 @@ while (true) {
 
 print('📊 Total: ${allRecords.length} records');
 ```
-
-#### Sort Records by Time
-
-> **New in v3.0.0:** Control the order of returned records with `SortDescriptor`.
-
-```dart
-// Sort oldest first (ascending)
-final oldestFirst = await connector.readRecords(
-  HealthDataType.steps.readInTimeRange(
-    startTime: DateTime.now().subtract(Duration(days: 7)),
-    endTime: DateTime.now(),
-    sortDescriptor: SortDescriptor.timeAscending,
-  ),
-);
-
-// Sort newest first (descending) - default behavior
-final newestFirst = await connector.readRecords(
-  HealthDataType.steps.readInTimeRange(
-    startTime: DateTime.now().subtract(Duration(days: 7)),
-    endTime: DateTime.now(),
-    sortDescriptor: SortDescriptor.timeDescending, // Default
-  ),
-);
-```
-
-**Platform Performance**:
-
-- iOS: Native support for both directions
-- Android API 34+: Native support
-- Android < API 34: Client-side reversal for descending
 
 ### ✍️ Writing Health Data
 
@@ -555,49 +565,11 @@ final ids = await connector.writeRecords(records);
 print('✅ Wrote ${ids.length} records');
 ```
 
-#### Validation Ranges
-
-> **New in v3.0.0:** Record constructors now validate values against platform limits and throw `ArgumentError` for invalid data.
-
-```dart
-// ✅ Valid - within range
-final validGlucose = BloodGlucoseRecord(
-  startTime: DateTime.now(),
-  endTime: DateTime.now(),
-  level: BloodGlucose.millimolesPerLiter(5.5), // Valid range: 0-50
-);
-
-// ❌ Invalid - throws ArgumentError
-try {
-  final invalidGlucose = BloodGlucoseRecord(
-    startTime: DateTime.now(),
-    endTime: DateTime.now(),
-    level: BloodGlucose.millimolesPerLiter(100), // Exceeds max of 50
-  );
-} on ArgumentError catch (e) {
-  print('Validation failed: $e');
-}
-```
-
-**Check validation ranges programmatically:**
-
-```dart
-// Access static validation constants
-print('Min: ${BloodGlucoseRecord.minGlucoseLevel.inMillimolesPerLiter}');
-print('Max: ${BloodGlucoseRecord.maxGlucoseLevel.inMillimolesPerLiter}');
-```
-
-**Benefits:**
-
-- Catch invalid data early in development
-- Prevent platform-specific errors
-- Ensure data integrity across iOS and Android
-
 ### 🔄 Updating Health Records
 
-> **iOS Note:** HealthKit uses an immutable data model—records cannot be updated, only deleted and recreated.
+> **iOS Limitation:** HealthKit uses an immutable data model—records cannot be updated, only deleted and recreated.
 
-#### Update Single Record (Android only)
+#### Update Single Record (Android Health Connect only)
 
 ```dart
 final record = await connector.readRecord(
@@ -612,7 +584,25 @@ if (record != null) {
 }
 ```
 
-#### Batch Update (Android only)
+#### iOS Workaround: Delete + Recreate
+
+```dart
+// Delete existing
+await connector.deleteRecords(
+  HealthDataType.steps.deleteByIds([existingRecord.id]),
+);
+
+// Write new record with updated values
+final newRecord = existingRecord.copyWith(
+  id: HealthRecordId.none,
+  count: Number(newValue),
+);
+
+final newId = await connector.writeRecord(newRecord);
+// ⚠️ Note: ID changes after recreation
+```
+
+#### Batch Update (Android Health Connect only)
 
 Update multiple records atomically—all succeed or all fail.
 
@@ -634,27 +624,9 @@ await connector.updateRecords(updated);
 print('✅ Updated ${updated.length} records');
 ```
 
-#### iOS Workaround: Delete + Recreate
-
-```dart
-// Delete existing
-await connector.deleteRecords(
-  HealthDataType.steps.deleteByIds([existingRecord.id]),
-);
-
-// Write new record with updated values
-final newRecord = existingRecord.copyWith(
-  id: HealthRecordId.none,
-  count: Number(newValue),
-);
-
-final newId = await connector.writeRecord(newRecord);
-// ⚠️ Note: ID changes after recreation
-```
-
 ### 🗑️ Deleting Health Records
 
-> **Limitation:** Apps can only delete records they created—platform security restriction.
+> **Note:** Apps can only delete records they created—platform security restriction.
 
 #### Delete by IDs
 
@@ -688,92 +660,111 @@ await connector.deleteRecords(
 #### Example: Sum
 
 ```dart
-final response = await connector.aggregate(
-  HealthDataType.steps.aggregateSum(
-    startTime: DateTime.now().subtract(Duration(days: 1)),
-    endTime: DateTime.now(),
-  ),
-);
-
-print('📊 Total steps: ${response.value.value}');
-```
-
-#### Example: Average, Min, Max
-
-```dart
 final now = DateTime.now();
 final thirtyDaysAgo = now.subtract(Duration(days: 30));
 
-// Get average weight
+final response = await connector.aggregate(
+  HealthDataType.steps.aggregateSum(
+    startTime: thirtyDaysAgo,
+    endTime: now,
+  ),
+);
+print('Total steps: ${response.value.value}');
+
 final avg = await connector.aggregate(
   HealthDataType.weight.aggregateAvg(
     startTime: thirtyDaysAgo,
     endTime: now,
   ),
 );
+print('Avg: ${avg.value.inKilograms} kg');
 
-// Get min/max weight
 final min = await connector.aggregate(
   HealthDataType.weight.aggregateMin(
     startTime: thirtyDaysAgo,
     endTime: now,
   ),
 );
+print('Min: ${min.value.inKilograms} kg');
 
-// Get min/max weight
 final max = await connector.aggregate(
   HealthDataType.weight.aggregateMax(
     startTime: thirtyDaysAgo,
     endTime: now,
   ),
 );
-
-print('Avg: ${avg.value.inKilograms} kg');
-print('Min: ${min.value.inKilograms} kg');
 print('Max: ${max.value.inKilograms} kg');
 ```
 
-### 🔄 Incremental Sync (@experimentalApi)
+### 🔄 Incremental Sync
 
-> **New in v3.0.0:** Efficiently sync only changed/deleted health data using change tokens.
-
-#### What is Incremental Sync?
-
-Incremental sync allows you to retrieve only health data that has changed since your last sync, reducing bandwidth usage and improving performance. This is especially useful for background sync operations.
+Incremental sync allows you to retrieve only health data that has changed since your last sync,
+reducing bandwidth usage and improving performance.
 
 #### How It Works
 
-- **Initial Sync**: Pass `null` as `syncToken` to get all data
+- **Initial Sync**: Pass `null` as `syncToken` to get initial sync token
 - **Incremental Sync**: Use the returned `nextSyncToken` for subsequent syncs
 - **Change Tracking**: Automatically tracks additions, updates, and deletions
 
 #### Example: Basic Incremental Sync
 
 ```dart
-// 1. Initial sync - get baseline data
-final initialResult = await connector.synchronize(
-  dataTypes: [HealthDataType.steps, HealthDataType.heartRate],
-  syncToken: null, // null for first sync
-);
+import 'package:health_connector/health_connector.dart';
 
-// 2. Save the sync token
-final token = initialResult.nextSyncToken;
-await storage.save('sync_token', token.toJson());
+final storage = LocalTokenStorage(); // f.e. SharedPreferences
 
-// 3. Later: Incremental sync - get only changes
-final storedToken = await storage.load('sync_token');
-final deltaResult = await connector.synchronize(
-  dataTypes: [HealthDataType.steps, HealthDataType.heartRate],
-  syncToken: HealthDataSyncToken.fromJson(storedToken),
-);
+// 1. Initial setup - set initial sync checkpoint
+Future<void> setInitialSyncCheckpoint() async {
+  final connector = await HealthConnector.create();
 
-// 4. Process changes
-print('New/Updated: ${deltaResult.upsertedRecords.length}');
-print('Deleted: ${deltaResult.deletedRecordIds.length}');
-print('Has more: ${deltaResult.hasMore}');
+  final result = await connector.synchronize(
+    dataTypes: [HealthDataType.steps, HealthDataType.heartRate],
+    syncToken: null,
+  );
+  final initialSyncToken = result.nextSyncToken;
 
-// 5. Save new token for next sync
-await storage.save('sync_token', deltaResult.nextSyncToken.toJson());
+  // Save token
+  await storage.saveToken(initialSyncToken.toJson());
+
+  print('✅ Initial setup complete');
+}
+
+// 2. Incremental sync - get changes
+Future<void> performIncrementalSync() async {
+  final connector = await HealthConnector.create();
+
+  // Load saved token
+  final tokenJson = await storage.loadToken();
+  if (tokenJson == null) {
+    print('⚠️ No token found, setting sync checkpoint instead');
+    await setInitialSyncCheckpoint();
+    return;
+  }
+
+  final token = HealthDataSyncToken.fromJson(tokenJson);
+
+  final result = await connector.synchronize(
+    dataTypes: [HealthDataType.steps, HealthDataType.heartRate],
+    syncToken: token,
+  );
+
+  // Process changes
+  print('New/Updated records: ${result.upsertedRecords.length}');
+  print('Deleted record IDs: ${result.deletedRecordIds.length}');
+  print('Has more pages: ${result.hasMore}');
+
+  // Update your local database with changes
+  for (final record in result.upsertedRecords) {
+    // await database.upsert(record);
+  }
+  for (final id in result.deletedRecordIds) {
+    // await database.delete(id);
+  }
+
+  // Save new token
+  await storage.saveToken(result.nextSyncToken.toJson());
+}
 ```
 
 #### Pagination Support
@@ -794,16 +785,10 @@ while (true) {
   if (!result.hasMore) break;
   token = result.nextSyncToken;
 }
+
+// Save new token
+await storage.saveToken(result.nextSyncToken.toJson());
 ```
-
-#### Platform Notes
-
-- **Android**: Tokens expire after ~30 days
-- **iOS**: Tokens managed by HealthKit, no expiration
-- **Best Practice**: Handle token expiration by falling back to full sync
-
-> [!WARNING]
-> This API is marked `@experimentalApi` and may change in future releases.
 
 ### ⚙️ Feature Management
 
@@ -824,72 +809,15 @@ if (status == HealthPlatformFeatureStatus.available) {
 } else {
   print('❌ Feature not available—implement fallback');
 }
-
-// Note: iOS always returns 'available', Android returns actual status
-```
-
-### 🏷️ Health Data Type Categories
-
-> **New in v3.0.0:** Health data types are organized into 9 categories for easier UI organization and filtering.
-
-#### The 9 Categories
-
-| Category | Description | Example Types |
-|----------|-------------|---------------|
-| `activity` | Physical activity and movement | Steps, distance, energy burned |
-| `bodyMeasurement` | Body measurements and composition | Weight, height, BMI, body fat |
-| `clinical` | Clinical records and medical data | - |
-| `mentalHealth` | Mental health and wellness | Mindfulness sessions |
-| `mobility` | Functional status and movement | Six-minute walk test |
-| `nutrition` | Nutritional intake and hydration | Protein, calories, water |
-| `reproductiveHealth` | Reproductive and sexual health | Menstruation, ovulation |
-| `sleep` | Sleep tracking and analysis | Sleep sessions, sleep stages |
-| `vitals` | Vital signs and physiological data | Heart rate, blood pressure, oxygen saturation |
-
-#### Get Category for a Data Type
-
-```dart
-final category = HealthDataType.steps.category;
-print(category); // HealthDataTypeCategory.activity
-```
-
-#### Filter by Category
-
-```dart
-// Get all vital sign data types
-final vitalTypes = HealthDataType.values
-  .where((type) => type.category == HealthDataTypeCategory.vitals)
-  .toList();
-
-// Get all nutrition data types
-final nutritionTypes = HealthDataType.values
-  .where((type) => type.category == HealthDataTypeCategory.nutrition)
-  .toList();
-```
-
-#### Use Case: Organize Permissions by Category
-
-```dart
-// Group permissions request by category for better UX
-final activityPermissions = [
-  HealthDataType.steps.readPermission,
-  HealthDataType.distance.readPermission,
-  HealthDataType.activeEnergyBurned.readPermission,
-].where((p) =>
-  p.dataType?.category == HealthDataTypeCategory.activity
-).toList();
-
-await connector.requestPermissions(activityPermissions);
 ```
 
 ### ⚠️ Error Handling
 
 Every `HealthConnectorException` thrown by the SDK includes a `HealthConnectorErrorCode` that provides specific details about what went wrong. Use this code to handle errors programmatically.
 
-| Error Code | Platform | Exception Type | Description & Causes | Recovery Strategy |
-| :--- | :--- | :--- | :--- | :--- |
-| `permissionNotGranted` | Both | `AuthorizationException` | Permission denied, revoked, or not determined. | Request permissions or guide user to settings. |
-
+| Error Code             | Platform | Exception Type           | Description & Causes                           | Recovery Strategy                              |
+|:-----------------------|:---------|:-------------------------|:-----------------------------------------------|:-----------------------------------------------|
+| `permissionNotGranted` | Both     | `AuthorizationException` | Permission denied, revoked, or not determined. | Request permissions or guide user to settings. |
 | `permissionNotDeclared` | All | `ConfigurationException` | Missing required permission in `AndroidManifest.xml` or `Info.plist`. | **Developer Error:** Add missing permissions to your app configuration. |
 | `healthServiceUnavailable` | All | `HealthServiceUnavailableException` | Device doesn't support Health Connect (Android) or HealthKit (iPad). | Check `getHealthPlatformStatus()`. Gracefully disable health features. |
 | `healthServiceRestricted` | All | `HealthServiceUnavailableException` | Health data access restricted by system policy (e.g. parental controls). | Gracefully disable health features and inform the user. |
@@ -902,16 +830,6 @@ Every `HealthConnectorException` thrown by the SDK includes a `HealthConnectorEr
 | `invalidArgument` | All | `InvalidArgumentException` | Invalid parameter, malformed record, or expired usage of a token. | Validate input. For expired sync tokens, restart sync with `syncToken: null`. |
 | `unsupportedOperation` | All | `UnsupportedOperationException` | The requested operation is not supported on this platform/version. | Check capability with `getFeatureStatus()` before calling. |
 | `unknownError` | All | `UnknownException` | An unclassified internal system error occurred. | Log the error details for debugging. |
-
-#### Best Practices
-
-1. **Check Availability Early**: Call `HealthConnector.getHealthPlatformStatus()` on app launch. specifically on Android, this checks if Health Connect is installed _and_ up-to-date.
-2. **Handle Authorization Gracefully**: Permissions can be revoked by the user at any time outside your app. Wrap _every_ data request in a try-catch block handling `AuthorizationException`.
-3. **Development vs. Production**:
-    - **Do not catch** `ConfigurationException`. These indicate missing Manifest/Info.plist entries and should crash your app during development so you fix them immediately.
-    - **Do catch** `HealthConnectorException` for all other runtime errors.
-4. **Respect Rate Limits**: If you receive `rateLimitExceeded`, implement an exponential backoff strategy (wait 1s, then 2s, then 4s) before retrying.
-5. **Handle Token Expiration**: When using `synchronize()`, if you catch an `InvalidArgumentException`, your sync token might be expired. Reset your token (`null`) and perform a full sync.
 
 #### Example: Robust Error Handling
 
@@ -975,9 +893,20 @@ try {
 }
 ```
 
-### 📝 Logging
+### 📝 Logging & Privacy
 
-> **v3.0.0 Update:** Logging now uses a processor-based pattern for better performance and flexibility. No stream subscriptions needed!
+Health data is sensitive, and user privacy is paramount. The Health Connector SDK adopts a **strict
+zero-logging policy by default**:
+
+- **No Internal Logging**: The SDK never writes to `print`, `stdout`, or platform logs (
+  Logcat/Console) on its own.
+- **Full Control**: You decide exactly where logs go. Even low-level logs from native Swift/Kotlin
+  code are routed through to Dart, giving you a single control plane for all SDK activity.
+- **Compliance Ready**: This architecture ensures no sensitive data is accidentally logged, making
+  it easier to comply with privacy regulations (GDPR, HIPAA) and pass security reviews.
+
+The system is configured via `HealthConnectorLoggerConfig`, where you define a list of
+`logProcessors`. Each processor handles logs independently and asynchronously.
 
 #### Setup with Built-in Processors
 
@@ -986,7 +915,7 @@ try {
 final connector = await HealthConnector.create(
   const HealthConnectorConfig(
     loggerConfig: HealthConnectorLoggerConfig(
-      enableNativeLogging: false, // Optional: forward native platform logs
+      enableNativeLogging: false, // Optional: forward native Kotlin/Swift logs
       logProcessors: [
         // Print warnings and errors to console
         PrintLogProcessor(
@@ -1004,8 +933,6 @@ final connector = await HealthConnector.create(
     ),
   ),
 );
-
-// That's it! No subscription management needed
 ```
 
 #### Custom Processor Example
@@ -1054,40 +981,13 @@ final connector = await HealthConnector.create(
 );
 ```
 
-#### Log Structure Example
-
-```text
-[HEALTHCONNECTOR] [INFO]:
-{
-    datetime: 06-01-2026 18:15:32.456,
-    message: HealthConnector created successfully,
-    operation: create,
-    context: { platform: healthConnect },
-}
-
-[HEALTHCONNECTOR] [ERROR]:
-{
-    datetime: 06-01-2026 18:15:34.123,
-    message: Failed to read records,
-    exception: { cause: AuthorizationException... },
-}
-```
-
-#### Why Processor Pattern?
-
-- **Zero-Cost**: No overhead when logging is disabled or no processors registered
-- **Multiple Destinations**: Route logs to console, files, analytics simultaneously
-- **Flexible Filtering**: Each processor has its own level-based filtering
-- **No Memory Leaks**: No stream subscriptions to manage or cancel
-- **Better Performance**: No stream controller overhead
-
 ### 🔧 Troubleshooting & FAQ
 
 | Issue / Question                                                                        | Platform / Context     | Solution / Answer                                                                                     |
 |-----------------------------------------------------------------------------------------|------------------------|-------------------------------------------------------------------------------------------------------|
-| `HealthServiceUnavailableException`                                                    | iOS HealthKit          | Add HealthKit capability in Xcode → Signing & Capabilities                                            |
-| `HealthServiceUnavailableException`                                                    | Android Health Connect | Device doesn't support Health Connect (requires Android 8.0+)                                         |
-| `HealthServiceUnavailableException`                                                    | Android Health Connect | Check `getHealthPlatformStatus()` and call `launchHealthAppPageInAppStore()` to open Play Store       |
+| `HealthServiceUnavailableException`                                                     | iOS HealthKit          | Add HealthKit capability in Xcode → Signing & Capabilities                                            |
+| `HealthServiceUnavailableException`                                                     | Android Health Connect | Device doesn't support Health Connect (requires Android 8.0+)                                         |
+| `HealthServiceUnavailableException`                                                     | Android Health Connect | Check `getHealthPlatformStatus()` and call `launchHealthAppPageInAppStore()` to open Play Store       |
 | `ConfigurationException`                                                                | Android Health Connect | Add required permissions to `AndroidManifest.xml`                                                     |
 | `ConfigurationException`                                                                | iOS HealthKit          | Add `NSHealthShareUsageDescription` and `NSHealthUpdateUsageDescription` to `Info.plist`              |
 | Why do iOS read permissions return `unknown`?                                           | iOS HealthKit          | Apple hides read permission status to protect privacy — apps cannot infer if a user has health data   |
@@ -1177,16 +1077,16 @@ Future<void> logLunch(HealthConnector connector) async {
 
 ##### General Activity
 
-| Data Type              | Description                                  | Data Type                               | Supported Aggregation | Android Health Connect API                                                                                                                         | iOS HealthKit API                                                                                                                              |
-|------------------------|----------------------------------------------|-----------------------------------------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
-| Steps                  | Number of steps taken                        | `HealthDataType.steps`                  | Sum                   | [StepsRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/StepsRecord)                                   | [HKQuantityTypeIdentifier.stepCount](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/stepcount)                   |
-| Active Energy Burned | Energy burned through active movement        | `HealthDataType.activeEnergyBurned`   | Sum                   | [ActiveEnergyBurnedRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ActiveEnergyBurnedRecord)     | [HKQuantityTypeIdentifier.activeEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/activeenergyburned) |
-| Floors Climbed         | Number of floors (flights of stairs) climbed | `HealthDataType.floorsClimbed`          | Sum                   | [FloorsClimbedRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/FloorsClimbedRecord)                   | [HKQuantityTypeIdentifier.flightsClimbed](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/flightsclimbed)         |
-| Sexual Activity        | Sexual activity tracking                     | `HealthDataType.sexualActivity`         | -                     | [SexualActivityRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SexualActivityRecord)                 | [HKCategoryTypeIdentifier.sexualActivity](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sexualactivity)         |
-| Wheelchair Pushes      | Number of wheelchair pushes                  | `HealthDataType.wheelchairPushes`       | Sum                   | [WheelchairPushesRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/WheelchairPushesRecord)             | [HKQuantityTypeIdentifier.pushCount](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/pushcount)                   |
-| Cycling Cadence        | Cycling pedaling cadence                     | `HealthDataType.cyclingPedalingCadence` | Avg, Min, Max         | [CyclingPedalingCadenceRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/CyclingPedalingCadenceRecord) | [HKQuantityTypeIdentifier.cyclingCadence](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/cyclingcadence)         |
-| Total Energy Burned  | Total energy burned (active + basal)         | `HealthDataType.totalEnergyBurned`    | Sum                   | [TotalEnergyBurnedRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/TotalEnergyBurnedRecord)       | -                                                                                                                                              |
-| Basal Energy Burned    | Energy burned by basal metabolism            | `HealthDataType.basalEnergyBurned`      | Sum                   | -                                                                                                                                                  | [HKQuantityTypeIdentifier.basalEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/basalenergyburned)   |
+| Data Type            | Description                                  | Data Type                               | Supported Aggregation | Android Health Connect API                                                                                                                         | iOS HealthKit API                                                                                                                              |
+|----------------------|----------------------------------------------|-----------------------------------------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| Steps                | Number of steps taken                        | `HealthDataType.steps`                  | Sum                   | [StepsRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/StepsRecord)                                   | [HKQuantityTypeIdentifier.stepCount](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/stepcount)                   |
+| Active Energy Burned | Energy burned through active movement        | `HealthDataType.activeEnergyBurned`     | Sum                   | [ActiveEnergyBurnedRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/ActiveEnergyBurnedRecord)         | [HKQuantityTypeIdentifier.activeEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/activeenergyburned) |
+| Floors Climbed       | Number of floors (flights of stairs) climbed | `HealthDataType.floorsClimbed`          | Sum                   | [FloorsClimbedRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/FloorsClimbedRecord)                   | [HKQuantityTypeIdentifier.flightsClimbed](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/flightsclimbed)         |
+| Sexual Activity      | Sexual activity tracking                     | `HealthDataType.sexualActivity`         | -                     | [SexualActivityRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/SexualActivityRecord)                 | [HKCategoryTypeIdentifier.sexualActivity](https://developer.apple.com/documentation/healthkit/hkcategorytypeidentifier/sexualactivity)         |
+| Wheelchair Pushes    | Number of wheelchair pushes                  | `HealthDataType.wheelchairPushes`       | Sum                   | [WheelchairPushesRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/WheelchairPushesRecord)             | [HKQuantityTypeIdentifier.pushCount](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/pushcount)                   |
+| Cycling Cadence      | Cycling pedaling cadence                     | `HealthDataType.cyclingPedalingCadence` | Avg, Min, Max         | [CyclingPedalingCadenceRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/CyclingPedalingCadenceRecord) | [HKQuantityTypeIdentifier.cyclingCadence](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/cyclingcadence)         |
+| Total Energy Burned  | Total energy burned (active + basal)         | `HealthDataType.totalEnergyBurned`      | Sum                   | [TotalEnergyBurnedRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/TotalEnergyBurnedRecord)           | -                                                                                                                                              |
+| Basal Energy Burned  | Energy burned by basal metabolism            | `HealthDataType.basalEnergyBurned`      | Sum                   | -                                                                                                                                                  | [HKQuantityTypeIdentifier.basalEnergyBurned](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/basalenergyburned)   |
 
 ##### Distance Types
 
@@ -1344,20 +1244,20 @@ Future<void> logLunch(HealthConnector connector) async {
 
 #### ❤️ Vitals
 
-| Data Type                | Description                           | Data Type                                   | Supported Aggregation | Android Health Connect API                                                                                                                               | iOS HealthKit API                                                                                                                                          |
-|--------------------------|---------------------------------------|---------------------------------------------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Heart Rate Series        | Heart rate measurements over time     | `HealthDataType.heartRateSeries`      | Avg, Min, Max         | [HeartRateRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateRecord)                                 | -                                                                                                                                                          |
-| Heart Rate Measurement   | Single heart rate measurement         | `HealthDataType.heartRate` | Avg, Min, Max         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.heartRate](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartrate)                               |
-| Resting Heart Rate       | Heart rate while at rest              | `HealthDataType.restingHeartRate`           | Avg, Min, Max         | [RestingHeartRateRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RestingHeartRateRecord)                   | [HKQuantityTypeIdentifier.restingHeartRate](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/restingheartrate)                 |
-| Blood Pressure           | Systolic and diastolic blood pressure | `HealthDataType.bloodPressure`              | Avg, Min, Max         | [BloodPressureRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodPressureRecord)                         | [HKCorrelationTypeIdentifier.bloodPressure](https://developer.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/bloodpressure/)                |
-| Systolic Blood Pressure  | Upper blood pressure value            | `HealthDataType.systolicBloodPressure`      | Avg, Min, Max         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.bloodPressureSystolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodpressuresystolic)       |
-| Diastolic Blood Pressure | Lower blood pressure value            | `HealthDataType.diastolicBloodPressure`     | Avg, Min, Max         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.bloodPressureDiastolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodpressurediastolic)     |
-| Oxygen Saturation        | Blood oxygen saturation percentage    | `HealthDataType.oxygenSaturation`           | Avg, Min, Max         | [OxygenSaturationRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/OxygenSaturationRecord)                   | [HKQuantityTypeIdentifier.oxygenSaturation](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/oxygensaturation)                 |
-| Respiratory Rate         | Breathing rate (breaths per minute)   | `HealthDataType.respiratoryRate`            | Avg, Min, Max         | [RespiratoryRateRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RespiratoryRateRecord)                     | [HKQuantityTypeIdentifier.respiratoryRate](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/respiratoryrate)                   |
-| VO₂ Max                  | Maximum oxygen consumption            | `HealthDataType.vo2Max`                     | Avg, Min, Max         | [Vo2MaxRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)                                       | [HKQuantityTypeIdentifier.vo2Max](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/vo2max)                                     |
-| Blood Glucose            | Blood glucose concentration           | `HealthDataType.bloodGlucose`               | Avg, Min, Max         | [BloodGlucoseRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodGlucoseRecord)                           | [HKQuantityTypeIdentifier.bloodGlucose](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodglucose)                         |
-| HRV RMSSD                | Heart Rate Variability (RMSSD)        | `HealthDataType.heartRateVariabilityRMSSD`  | -                     | [HeartRateVariabilityRMSSDRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateVariabilityRMSSDRecord) | -                                                                                                                                                          |
-| HRV SDNN                 | Heart Rate Variability (SDNN)         | `HealthDataType.heartRateVariabilitySDNN`   | -                     | -                                                                                                                                                        | [HKQuantityTypeIdentifier.heartRateVariabilitySDNN](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartratevariabilitysdnn) |
+| Data Type                | Description                           | Data Type                                  | Supported Aggregation | Android Health Connect API                                                                                                                               | iOS HealthKit API                                                                                                                                          |
+|--------------------------|---------------------------------------|--------------------------------------------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Heart Rate Series        | Heart rate measurements over time     | `HealthDataType.heartRateSeries`           | Avg, Min, Max         | [HeartRateRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateRecord)                                 | -                                                                                                                                                          |
+| Heart Rate Measurement   | Single heart rate measurement         | `HealthDataType.heartRate`                 | Avg, Min, Max         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.heartRate](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartrate)                               |
+| Resting Heart Rate       | Heart rate while at rest              | `HealthDataType.restingHeartRate`          | Avg, Min, Max         | [RestingHeartRateRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RestingHeartRateRecord)                   | [HKQuantityTypeIdentifier.restingHeartRate](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/restingheartrate)                 |
+| Blood Pressure           | Systolic and diastolic blood pressure | `HealthDataType.bloodPressure`             | Avg, Min, Max         | [BloodPressureRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodPressureRecord)                         | [HKCorrelationTypeIdentifier.bloodPressure](https://developer.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/bloodpressure/)                |
+| Systolic Blood Pressure  | Upper blood pressure value            | `HealthDataType.systolicBloodPressure`     | Avg, Min, Max         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.bloodPressureSystolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodpressuresystolic)       |
+| Diastolic Blood Pressure | Lower blood pressure value            | `HealthDataType.diastolicBloodPressure`    | Avg, Min, Max         | -                                                                                                                                                        | [HKQuantityTypeIdentifier.bloodPressureDiastolic](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodpressurediastolic)     |
+| Oxygen Saturation        | Blood oxygen saturation percentage    | `HealthDataType.oxygenSaturation`          | Avg, Min, Max         | [OxygenSaturationRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/OxygenSaturationRecord)                   | [HKQuantityTypeIdentifier.oxygenSaturation](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/oxygensaturation)                 |
+| Respiratory Rate         | Breathing rate (breaths per minute)   | `HealthDataType.respiratoryRate`           | Avg, Min, Max         | [RespiratoryRateRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/RespiratoryRateRecord)                     | [HKQuantityTypeIdentifier.respiratoryRate](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/respiratoryrate)                   |
+| VO₂ Max                  | Maximum oxygen consumption            | `HealthDataType.vo2Max`                    | Avg, Min, Max         | [Vo2MaxRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/Vo2MaxRecord)                                       | [HKQuantityTypeIdentifier.vo2Max](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/vo2max)                                     |
+| Blood Glucose            | Blood glucose concentration           | `HealthDataType.bloodGlucose`              | Avg, Min, Max         | [BloodGlucoseRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/BloodGlucoseRecord)                           | [HKQuantityTypeIdentifier.bloodGlucose](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/bloodglucose)                         |
+| HRV RMSSD                | Heart Rate Variability (RMSSD)        | `HealthDataType.heartRateVariabilityRMSSD` | -                     | [HeartRateVariabilityRMSSDRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HeartRateVariabilityRMSSDRecord) | -                                                                                                                                                          |
+| HRV SDNN                 | Heart Rate Variability (SDNN)         | `HealthDataType.heartRateVariabilitySDNN`  | -                     | -                                                                                                                                                        | [HKQuantityTypeIdentifier.heartRateVariabilitySDNN](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/heartratevariabilitysdnn) |
 
 #### 😴 Sleep
 
@@ -1370,16 +1270,16 @@ Future<void> logLunch(HealthConnector connector) async {
 
 ##### Core & Hydration
 
-| Data Type             | Description                                              | Data Type                                            | Supported Aggregation | Android Health Connect API                                                                                                                              | iOS HealthKit API                                                                                                                                    |
-|-----------------------|----------------------------------------------------------|------------------------------------------------------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Nutrition (composite) | Complete nutrition record with macros and micronutrients | `HealthDataType.nutrition`                           | -                     | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)                                | [HKCorrelationType.food](https://developer.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/food)                                       |
+| Data Type             | Description                                              | Data Type                                                   | Supported Aggregation | Android Health Connect API                                                                                                                              | iOS HealthKit API                                                                                                                                    |
+|-----------------------|----------------------------------------------------------|-------------------------------------------------------------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Nutrition (composite) | Complete nutrition record with macros and micronutrients | `HealthDataType.nutrition`                                  | -                     | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord)                                | [HKCorrelationType.food](https://developer.apple.com/documentation/healthkit/hkcorrelationtypeidentifier/food)                                       |
 | Energy                | Total energy intake from food                            | `HealthDataType.dietaryEnergyConsumed` (iOS HealthKit Only) | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.energy field) | [HKQuantityTypeIdentifier.dietaryEnergyConsumed](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryenergyconsumed) |
-| Hydration/Water       | Water and fluid intake                                   | `HealthDataType.hydration`                           | Sum                   | [HydrationRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HydrationRecord)                                | [HKQuantityTypeIdentifier.dietaryWater](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarywater)                   |
+| Hydration/Water       | Water and fluid intake                                   | `HealthDataType.hydration`                                  | Sum                   | [HydrationRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/HydrationRecord)                                | [HKQuantityTypeIdentifier.dietaryWater](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarywater)                   |
 
 ##### Macronutrients
 
-| Data Type          | Description        | Data Type                                               | Supported Aggregation | Android Health Connect API                                                                                                                          | iOS HealthKit API                                                                                                                                   |
-|--------------------|--------------------|---------------------------------------------------------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Data Type          | Description        | Data Type                                                      | Supported Aggregation | Android Health Connect API                                                                                                                          | iOS HealthKit API                                                                                                                                   |
+|--------------------|--------------------|----------------------------------------------------------------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
 | Protein            | Protein intake     | `HealthDataType.dietaryProtein` (iOS HealthKit Only)           | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.protein)  | [HKQuantityTypeIdentifier.dietaryProtein](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryprotein)              |
 | Total Carbohydrate | Total carbs intake | `HealthDataType.dietaryTotalCarbohydrate` (iOS HealthKit Only) | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.carbs)    | [HKQuantityType Identifier.dietaryCarbohydrates](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarycarbohydrates) |
 | Total Fat          | Total fat intake   | `HealthDataType.dietaryTotalFat` (iOS HealthKit Only)          | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.totalFat) | [HKQuantityTypeIdentifier.dietaryFatTotal](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfattotal)            |
@@ -1387,8 +1287,8 @@ Future<void> logLunch(HealthConnector connector) async {
 
 ##### Fats
 
-| Data Type           | Description                | Data Type                                                | Supported Aggregation | Android Health Connect API                                                                                                                                    | iOS HealthKit API                                                                                                                                            |
-|---------------------|----------------------------|----------------------------------------------------------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Data Type           | Description                | Data Type                                                       | Supported Aggregation | Android Health Connect API                                                                                                                                    | iOS HealthKit API                                                                                                                                            |
+|---------------------|----------------------------|-----------------------------------------------------------------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Saturated Fat       | Saturated fat intake       | `HealthDataType.dietarySaturatedFat` (iOS HealthKit Only)       | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.saturatedFat)       | [HKQuantityTypeIdentifier.dietaryFatSaturated](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfatsaturated)             |
 | Monounsaturated Fat | Monounsaturated fat intake | `HealthDataType.dietaryMonounsaturatedFat` (iOS HealthKit Only) | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.monounsaturatedFat) | [HKQuantityTypeIdentifier.dietaryFatMonounsaturated](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfatmonounsaturated) |
 | Polyunsaturated Fat | Polyunsaturated fat intake | `HealthDataType.dietaryPolyunsaturatedFat` (iOS HealthKit Only) | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.polyunsaturatedFat) | [HKQuantityTypeIdentifier.dietaryFatPolyunsaturated](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfatpolyunsaturated) |
@@ -1399,12 +1299,12 @@ Future<void> logLunch(HealthConnector connector) async {
 | Data Type     | Description          | Data Type                                          | Supported Aggregation | Android Health Connect API                                                                                                                              | iOS HealthKit API                                                                                                                  |
 |---------------|----------------------|----------------------------------------------------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | Dietary Fiber | Dietary fiber intake | `HealthDataType.dietaryFiber` (iOS HealthKit Only) | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.dietaryFiber) | [HKQuantityTypeIdentifier.dietaryFiber](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryfiber) |
-| Sugar         | Sugar intake         | `HealthDataType.dietarySugar` (iOS HealthKit Only)        | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.sugar)        | [HKQuantityTypeIdentifier.dietarySugar](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarysugar) |
+| Sugar         | Sugar intake         | `HealthDataType.dietarySugar` (iOS HealthKit Only) | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.sugar)        | [HKQuantityTypeIdentifier.dietarySugar](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarysugar) |
 
 ##### Minerals
 
-| Data Type  | Description       | Data Type                                        | Supported Aggregation | Android Health Connect API                                                                                                                            | iOS HealthKit API                                                                                                                            |
-|------------|-------------------|--------------------------------------------------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| Data Type  | Description       | Data Type                                               | Supported Aggregation | Android Health Connect API                                                                                                                            | iOS HealthKit API                                                                                                                            |
+|------------|-------------------|---------------------------------------------------------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
 | Calcium    | Calcium intake    | `HealthDataType.dietaryCalcium` (iOS HealthKit Only)    | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.calcium)    | [HKQuantityTypeIdentifier.dietaryCalcium](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarycalcium)       |
 | Iron       | Iron intake       | `HealthDataType.dietaryIron` (iOS HealthKit Only)       | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.iron)       | [HKQuantityTypeIdentifier.dietaryIron](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryiron)             |
 | Magnesium  | Magnesium intake  | `HealthDataType.dietaryMagnesium` (iOS HealthKit Only)  | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.magnesium)  | [HKQuantityTypeIdentifier.dietaryMagnesium](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarymagnesium)   |
@@ -1417,8 +1317,8 @@ Future<void> logLunch(HealthConnector connector) async {
 
 ##### B Vitamins
 
-| Data Type             | Description                   | Data Type                                             | Supported Aggregation | Android Health Connect API                                                                                                                                 | iOS HealthKit API                                                                                                                                      |
-|-----------------------|-------------------------------|-------------------------------------------------------|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Data Type             | Description                   | Data Type                                                    | Supported Aggregation | Android Health Connect API                                                                                                                                 | iOS HealthKit API                                                                                                                                      |
+|-----------------------|-------------------------------|--------------------------------------------------------------|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Thiamin (B1)          | Thiamin (vitamin B1) intake   | `HealthDataType.dietaryThiamin` (iOS HealthKit Only)         | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.thiamin)         | [HKQuantityTypeIdentifier.dietaryThiamin](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietarythiamin)                 |
 | Riboflavin (B2)       | Riboflavin (vitamin B2)       | `HealthDataType.dietaryRiboflavin` (iOS HealthKit Only)      | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.riboflavin)      | [HKQuantityTypeIdentifier.dietaryRiboflavin](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryriboflavin)           |
 | Niacin (B3)           | Niacin (vitamin B3) intake    | `HealthDataType.dietaryNiacin` (iOS HealthKit Only)          | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.niacin)          | [HKQuantityTypeIdentifier.dietaryNiacin](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryniacin)                   |
@@ -1430,8 +1330,8 @@ Future<void> logLunch(HealthConnector connector) async {
 
 ##### Other Vitamins
 
-| Data Type | Description      | Data Type                                      | Supported Aggregation | Android Health Connect API                                                                                                                          | iOS HealthKit API                                                                                                                        |
-|-----------|------------------|------------------------------------------------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| Data Type | Description      | Data Type                                             | Supported Aggregation | Android Health Connect API                                                                                                                          | iOS HealthKit API                                                                                                                        |
+|-----------|------------------|-------------------------------------------------------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
 | Vitamin A | Vitamin A intake | `HealthDataType.dietaryVitaminA` (iOS HealthKit Only) | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.vitaminA) | [HKQuantityTypeIdentifier.dietaryVitaminA](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamina) |
 | Vitamin C | Vitamin C intake | `HealthDataType.dietaryVitaminC` (iOS HealthKit Only) | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.vitaminC) | [HKQuantityTypeIdentifier.dietaryVitaminC](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitaminc) |
 | Vitamin D | Vitamin D intake | `HealthDataType.dietaryVitaminD` (iOS HealthKit Only) | Sum                   | [NutritionRecord](https://developer.android.com/reference/kotlin/androidx/health/connect/client/records/NutritionRecord) (NutritionRecord.vitaminD) | [HKQuantityTypeIdentifier.dietaryVitaminD](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier/dietaryvitamind) |
