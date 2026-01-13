@@ -24,7 +24,7 @@ internal class HealthConnectorManifestService(private val context: Context) {
      * runtime issues.
      *
      * @param permissions The set of permission strings to validate (e.g., `android.permission.health.READ_STEPS`).
-     * @throws HealthConnectorException.InvalidConfiguration If any of the [permissions] are missing from the manifest declaration.
+     * @throws HealthConnectorException.Configuration If any of the [permissions] are missing from the manifest declaration.
      */
     @Throws(HealthConnectorException::class)
     fun checkPermissionsDeclared(permissions: Set<String>) {
@@ -50,7 +50,7 @@ internal class HealthConnectorManifestService(private val context: Context) {
                     "missing_permissions" to missing.joinToString(", "),
                 ),
             )
-            throw HealthConnectorException.InvalidConfiguration(
+            throw HealthConnectorException.Configuration(
                 message = "Health Connect integration is misconfigured. " +
                     "Missing permissions in AndroidManifest.xml: $missing. " +
                     "Please add <uses-permission> tags.",

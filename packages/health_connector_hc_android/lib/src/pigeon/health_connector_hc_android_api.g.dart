@@ -599,33 +599,47 @@ enum SleepStageDto {
 
 /// Error codes that native platforms can use when throwing error.
 enum HealthConnectorErrorCodeDto {
-  /// Health Connect installation or update is required.
-  healthPlatformNotInstalledOrUpdateRequired,
+  /// User denied permission or dismissed authorization prompt.
+  authorizationDenied,
 
-  /// Health platform is unavailable on this device.
-  healthPlatformUnavailable,
+  /// Authorization has not been requested yet.
+  authorizationNotDetermined,
 
-  /// Invalid platform configuration detected.
-  invalidConfiguration,
+  /// Required permission not declared in app configuration.
+  permissionNotDeclared,
 
-  /// Invalid argument or input validation error.
+  /// Invalid parameter, malformed record, or expired change token.
   invalidArgument,
 
-  /// Attempted to use platform APIs or features that are not supported
-  /// on the current health platform.
-  unsupportedOperation,
+  /// Health service is not available on this device.
+  healthServiceUnavailable,
 
-  /// Unknown or unspecified error.
-  unknown,
+  /// Health service usage is restricted by policy.
+  healthServiceRestricted,
 
-  /// Security/permission error occurred.
-  notAuthorized,
+  /// Health Connect app not installed or update required (Android only).
+  healthServiceNotInstalledOrUpdateRequired,
 
-  /// A transient I/O or communication error occurred.
+  /// Health database is protected and inaccessible.
+  healthServiceDatabaseInaccessible,
+
+  /// Storage read/write operation failed.
+  ioError,
+
+  /// IPC communication with health service failed.
   remoteError,
 
-  /// Synchronization token has expired.
-  syncTokenExpired,
+  /// API rate limit has been exhausted.
+  rateLimitExceeded,
+
+  /// Health service is syncing data, operations blocked.
+  dataSyncInProgress,
+
+  /// Operation or data type not supported on this platform.
+  unsupportedOperation,
+
+  /// An unclassified or internal system error occurred.
+  unknownError,
 }
 
 /// Represents the status of the health platform on the device.

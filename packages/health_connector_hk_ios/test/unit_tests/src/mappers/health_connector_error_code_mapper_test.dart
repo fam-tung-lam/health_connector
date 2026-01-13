@@ -15,7 +15,7 @@ void main() {
               const codeString = 'UNKNOWN';
               final errorCode = codeString.toErrorCode();
 
-              expect(errorCode, HealthConnectorErrorCode.unknown);
+              expect(errorCode, HealthConnectorErrorCode.unknownError);
             },
           );
 
@@ -27,7 +27,7 @@ void main() {
 
               expect(
                 errorCode,
-                HealthConnectorErrorCode.healthPlatformUnavailable,
+                HealthConnectorErrorCode.healthServiceUnavailable,
               );
             },
           );
@@ -38,7 +38,7 @@ void main() {
               const codeString = 'NOT_AUTHORIZED';
               final errorCode = codeString.toErrorCode();
 
-              expect(errorCode, HealthConnectorErrorCode.notAuthorized);
+              expect(errorCode, HealthConnectorErrorCode.authorizationDenied);
             },
           );
 
@@ -48,7 +48,7 @@ void main() {
               const codeString = 'INVALID_ERROR_CODE';
               final errorCode = codeString.toErrorCode();
 
-              expect(errorCode, HealthConnectorErrorCode.unknown);
+              expect(errorCode, HealthConnectorErrorCode.unknownError);
             },
           );
         },

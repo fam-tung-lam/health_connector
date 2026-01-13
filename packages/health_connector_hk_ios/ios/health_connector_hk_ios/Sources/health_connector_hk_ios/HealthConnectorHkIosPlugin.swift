@@ -98,7 +98,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ///   - request: Contains lists of health data permissions and feature permissions to request.
     ///   - completion: Called with a `Result` containing the permission request results.
     ///
-    /// - Throws: `HealthConnectorError.healthPlatformUnavailable` if HealthKit is unavailable
+    /// - Throws: `HealthConnectorError.healthServiceUnavailable` if HealthKit is unavailable
     /// - Throws: `HealthConnectorError.unknown` for unexpected errors
     public func requestPermissions(
         request: PermissionsRequestDto,

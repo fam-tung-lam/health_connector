@@ -46,10 +46,10 @@ actor HealthConnectorClient: Taggable {
     ///
     /// - Returns: A new `HealthConnectorClient` instance wrapping the HealthKit store
     ///
-    /// - Throws: `HealthConnectorError` with code `HEALTH_PLATFORM_UNAVAILABLE` when:
+    /// - Throws: `HealthConnectorError` with code `HEALTH_SERVICE_UNAVAILABLE` when:
     ///          - HealthKit is not available on the device (e.g., iPad without health capabilities)
     ///          - The device is in a restricted mode
-    /// - Throws: `HealthConnectorError` with code `INVALID_CONFIGURATION` when required Info.plist keys are missing
+    /// - Throws: `HealthConnectorError` with code `PERMISSION_NOT_DECLARED` when required Info.plist keys are missing
     static func getOrCreate() throws -> HealthConnectorClient {
         guard HKHealthStore.isHealthDataAvailable() else {
             HealthConnectorLogger.error(
@@ -57,7 +57,7 @@ actor HealthConnectorClient: Taggable {
                 operation: "getOrCreate",
                 message: "HealthKit is not available on this device"
             )
-            throw HealthConnectorError.healthPlatformUnavailable(
+            throw HealthConnectorError.healthServiceUnavailable(
                 message: "HealthKit is not available on this device"
             )
         }

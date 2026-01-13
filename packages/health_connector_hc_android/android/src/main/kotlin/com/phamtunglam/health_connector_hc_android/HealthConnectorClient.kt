@@ -24,6 +24,7 @@ import com.phamtunglam.health_connector_hc_android.mappers.toHealthPlatformStatu
 import com.phamtunglam.health_connector_hc_android.pigeon.AggregateRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByIdsRequestDto
 import com.phamtunglam.health_connector_hc_android.pigeon.DeleteRecordsByTimeRangeRequestDto
+import com.phamtunglam.health_connector_hc_android.pigeon.HealthConnectorErrorCodeDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncResultDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataSyncTokenDto
 import com.phamtunglam.health_connector_hc_android.pigeon.HealthDataTypeDto
@@ -71,8 +72,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
          * @param context Android application context used to access Health Connect services
          * @return A new [HealthConnectorClient] instance wrapping the Health Connect SDK client
          *
-         * @throws HealthConnectorException.HealthPlatformNotInstalledOrUpdateRequired when SDK version is too low or running in unsupported profile
-         * @throws HealthConnectorException.HealthPlatformUnavailable when the service is not available
+         * @throws HealthConnectorException.HealthServiceUnavailable when SDK version is too low, running in unsupported profile, or service is not available
          */
         @Throws(HealthConnectorException::class)
         fun getOrCreate(context: Context, dispatchers: DispatcherProvider): HealthConnectorClient =
@@ -111,7 +111,9 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                             "due to SDK version too low or running in a profile mode",
                         exception = e,
                     )
-                    throw HealthConnectorException.HealthPlatformNotInstalledOrUpdateRequired(
+                    throw HealthConnectorException.HealthServiceUnavailable(
+                        code =
+                        HealthConnectorErrorCodeDto.HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED,
                         message = e.message
                             ?: "SDK version too low or running in unsupported profile",
                         cause = e,
@@ -124,7 +126,8 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                         "Failed to create Health Connect client due to service not available",
                         exception = e,
                     )
-                    throw HealthConnectorException.HealthPlatformUnavailable(
+                    throw HealthConnectorException.HealthServiceUnavailable(
+                        code = HealthConnectorErrorCodeDto.HEALTH_SERVICE_UNAVAILABLE,
                         message = e.message ?: "Health Connect service not available",
                         cause = e,
                     )
@@ -273,7 +276,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @param request The permissions request containing both health data and feature permissions
      * @return Result lists for health data and feature permissions
      *
-     * @throws HealthConnectorException.InvalidConfiguration if any requested
+     * @throws HealthConnectorException.Configuration if any requested
      *         permissions/features are not declared in AndroidManifest.xml
      * @throws HealthConnectorException.Unknown if an unexpected error occurs
      */
@@ -352,7 +355,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
      * @return [HealthPlatformFeatureStatusDto.AVAILABLE] if the feature is available,
      *         [HealthPlatformFeatureStatusDto.UNAVAILABLE] otherwise
      *
-     * @throws HealthConnectorException.InvalidConfiguration if the feature permission
+     * @throws HealthConnectorException.Configuration if the feature permission
      *         is not declared in AndroidManifest.xml
      * @throws HealthConnectorException.Unknown if an unexpected error occurs
      */
@@ -393,7 +396,7 @@ internal class HealthConnectorClient @VisibleForTesting internal constructor(
                 context = mapOf("feature" to feature),
                 exception = e,
             )
-            throw HealthConnectorException.InvalidConfiguration(
+            throw HealthConnectorException.Configuration(
                 message = e.message ?: "Invalid configuration",
                 cause = e,
             )

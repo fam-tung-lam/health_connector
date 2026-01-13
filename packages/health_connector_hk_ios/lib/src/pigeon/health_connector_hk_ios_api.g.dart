@@ -860,30 +860,44 @@ enum HealthDataTypeDto {
 
 /// Error codes that native platforms can use when throwing error.
 enum HealthConnectorErrorCodeDto {
-  /// Health platform is unavailable on this device.
-  healthPlatformUnavailable,
+  /// User denied permission or dismissed authorization prompt.
+  authorizationDenied,
 
-  /// Invalid platform configuration detected.
-  invalidConfiguration,
+  /// Authorization has not been requested yet.
+  authorizationNotDetermined,
 
-  /// Invalid argument or input validation error.
+  /// Required permission not declared in app configuration.
+  permissionNotDeclared,
+
+  /// Invalid parameter, malformed record, or expired change token.
   invalidArgument,
 
-  /// Attempted to use platform APIs or features that are not supported
-  /// on the current health platform.
-  unsupportedOperation,
+  /// Health service is not available on this device.
+  healthServiceUnavailable,
 
-  /// Unknown or unspecified error.
-  unknown,
+  /// Health service usage is restricted by policy.
+  healthServiceRestricted,
 
-  /// Security/permission error occurred.
-  notAuthorized,
+  /// Health database is protected and inaccessible.
+  healthServiceDatabaseInaccessible,
 
-  /// A transient I/O or communication error occurred.
+  /// Storage read/write operation failed.
+  ioError,
+
+  /// IPC communication with health service failed.
   remoteError,
 
-  /// Synchronization token has expired.
-  syncTokenExpired,
+  /// API rate limit has been exhausted.
+  rateLimitExceeded,
+
+  /// Health service is syncing data, operations blocked.
+  dataSyncInProgress,
+
+  /// Operation or data type not supported on this platform.
+  unsupportedOperation,
+
+  /// An unclassified or internal system error occurred.
+  unknownError,
 }
 
 /// Represents the status of the health platform on the device.

@@ -641,27 +641,34 @@ enum class SleepStageDto(val raw: Int) {
 
 /** Error codes that native platforms can use when throwing error. */
 enum class HealthConnectorErrorCodeDto(val raw: Int) {
-  /** Health Connect installation or update is required. */
-  HEALTH_PLATFORM_NOT_INSTALLED_OR_UPDATE_REQUIRED(0),
-  /** Health platform is unavailable on this device. */
-  HEALTH_PLATFORM_UNAVAILABLE(1),
-  /** Invalid platform configuration detected. */
-  INVALID_CONFIGURATION(2),
-  /** Invalid argument or input validation error. */
+  /** User denied permission or dismissed authorization prompt. */
+  AUTHORIZATION_DENIED(0),
+  /** Authorization has not been requested yet. */
+  AUTHORIZATION_NOT_DETERMINED(1),
+  /** Required permission not declared in app configuration. */
+  PERMISSION_NOT_DECLARED(2),
+  /** Invalid parameter, malformed record, or expired change token. */
   INVALID_ARGUMENT(3),
-  /**
-   * Attempted to use platform APIs or features that are not supported
-   * on the current health platform.
-   */
-  UNSUPPORTED_OPERATION(4),
-  /** Unknown or unspecified error. */
-  UNKNOWN(5),
-  /** Security/permission error occurred. */
-  NOT_AUTHORIZED(6),
-  /** A transient I/O or communication error occurred. */
-  REMOTE_ERROR(7),
-  /** Synchronization token has expired. */
-  SYNC_TOKEN_EXPIRED(8);
+  /** Health service is not available on this device. */
+  HEALTH_SERVICE_UNAVAILABLE(4),
+  /** Health service usage is restricted by policy. */
+  HEALTH_SERVICE_RESTRICTED(5),
+  /** Health Connect app not installed or update required (Android only). */
+  HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED(6),
+  /** Health database is protected and inaccessible. */
+  HEALTH_SERVICE_DATABASE_INACCESSIBLE(7),
+  /** Storage read/write operation failed. */
+  IO_ERROR(8),
+  /** IPC communication with health service failed. */
+  REMOTE_ERROR(9),
+  /** API rate limit has been exhausted. */
+  RATE_LIMIT_EXCEEDED(10),
+  /** Health service is syncing data, operations blocked. */
+  DATA_SYNC_IN_PROGRESS(11),
+  /** Operation or data type not supported on this platform. */
+  UNSUPPORTED_OPERATION(12),
+  /** An unclassified or internal system error occurred. */
+  UNKNOWN_ERROR(13);
 
   companion object {
     fun ofRaw(raw: Int): HealthConnectorErrorCodeDto? {

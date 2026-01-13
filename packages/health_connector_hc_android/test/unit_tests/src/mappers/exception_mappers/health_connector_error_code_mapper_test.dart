@@ -16,11 +16,11 @@ void main() {
               [
                 'HEALTH_PROVIDER_NOT_INSTALLED_OR_UPDATE_REQUIRED',
                 HealthConnectorErrorCode
-                    .healthPlatformNotInstalledOrUpdateRequired,
+                    .healthServiceNotInstalledOrUpdateRequired,
               ],
               [
                 'HEALTH_PROVIDER_UNAVAILABLE',
-                HealthConnectorErrorCode.healthPlatformUnavailable,
+                HealthConnectorErrorCode.healthServiceUnavailable,
               ],
               [
                 'UNSUPPORTED_OPERATION',
@@ -28,7 +28,7 @@ void main() {
               ],
               [
                 'INVALID_CONFIGURATION',
-                HealthConnectorErrorCode.invalidConfiguration,
+                HealthConnectorErrorCode.permissionNotDeclared,
               ],
               [
                 'INVALID_ARGUMENT',
@@ -36,7 +36,7 @@ void main() {
               ],
               [
                 'NOT_AUTHORIZED',
-                HealthConnectorErrorCode.notAuthorized,
+                HealthConnectorErrorCode.authorizationDenied,
               ],
               [
                 'REMOTE_ERROR',
@@ -44,7 +44,7 @@ void main() {
               ],
               [
                 'UNKNOWN',
-                HealthConnectorErrorCode.unknown,
+                HealthConnectorErrorCode.unknownError,
               ],
             ],
             (String code, HealthConnectorErrorCode errorCode) {
@@ -54,11 +54,11 @@ void main() {
 
           test(
             'maps unknown error code string to '
-            'HealthConnectorErrorCode.unknown',
+            'HealthConnectorErrorCode.unknownError',
             () {
               expect(
                 'SOME_UNKNOWN_ERROR_CODE'.toErrorCode(),
-                HealthConnectorErrorCode.unknown,
+                HealthConnectorErrorCode.unknownError,
               );
             },
           );
@@ -69,7 +69,7 @@ void main() {
             () {
               expect(
                 'NOT_A_VALID_CODE'.toErrorCode(),
-                HealthConnectorErrorCode.unknown,
+                HealthConnectorErrorCode.unknownError,
               );
             },
           );
@@ -79,7 +79,7 @@ void main() {
             () {
               expect(
                 ''.toErrorCode(),
-                HealthConnectorErrorCode.unknown,
+                HealthConnectorErrorCode.unknownError,
               );
             },
           );

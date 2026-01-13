@@ -763,23 +763,32 @@ public enum HealthDataTypeDto: Int {
 
 /// Error codes that native platforms can use when throwing error.
 public enum HealthConnectorErrorCodeDto: Int {
-  /// Health platform is unavailable on this device.
-  case healthPlatformUnavailable = 0
-  /// Invalid platform configuration detected.
-  case invalidConfiguration = 1
-  /// Invalid argument or input validation error.
-  case invalidArgument = 2
-  /// Attempted to use platform APIs or features that are not supported
-  /// on the current health platform.
-  case unsupportedOperation = 3
-  /// Unknown or unspecified error.
-  case unknown = 4
-  /// Security/permission error occurred.
-  case notAuthorized = 5
-  /// A transient I/O or communication error occurred.
-  case remoteError = 6
-  /// Synchronization token has expired.
-  case syncTokenExpired = 7
+  /// User denied permission or dismissed authorization prompt.
+  case authorizationDenied = 0
+  /// Authorization has not been requested yet.
+  case authorizationNotDetermined = 1
+  /// Required permission not declared in app configuration.
+  case permissionNotDeclared = 2
+  /// Invalid parameter, malformed record, or expired change token.
+  case invalidArgument = 3
+  /// Health service is not available on this device.
+  case healthServiceUnavailable = 4
+  /// Health service usage is restricted by policy.
+  case healthServiceRestricted = 5
+  /// Health database is protected and inaccessible.
+  case healthServiceDatabaseInaccessible = 6
+  /// Storage read/write operation failed.
+  case ioError = 7
+  /// IPC communication with health service failed.
+  case remoteError = 8
+  /// API rate limit has been exhausted.
+  case rateLimitExceeded = 9
+  /// Health service is syncing data, operations blocked.
+  case dataSyncInProgress = 10
+  /// Operation or data type not supported on this platform.
+  case unsupportedOperation = 11
+  /// An unclassified or internal system error occurred.
+  case unknownError = 12
 }
 
 /// Represents the status of the health platform on the device.

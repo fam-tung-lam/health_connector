@@ -38,8 +38,7 @@
 ///
 /// ### App Installation
 /// - If Health Connect is not installed, the SDK prompts the user to install it
-/// - Throws [HealthPlatformNotInstalledOrUpdateRequiredException] if
-///   installation is required
+/// - Throws [HealthServiceUnavailableException] if installation is required
 /// - Apps can check installation status and direct users to Play Store
 ///
 /// ### Data Sources

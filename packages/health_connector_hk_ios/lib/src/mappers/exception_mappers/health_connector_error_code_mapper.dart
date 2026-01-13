@@ -11,21 +11,39 @@ import 'package:meta/meta.dart' show internal;
 extension HealthConnectorErrorCodeDtoToDomain on HealthConnectorErrorCodeDto {
   HealthConnectorErrorCode toDomain() {
     return switch (this) {
-      HealthConnectorErrorCodeDto.healthPlatformUnavailable =>
-        HealthConnectorErrorCode.healthPlatformUnavailable,
-      HealthConnectorErrorCodeDto.invalidConfiguration =>
-        HealthConnectorErrorCode.invalidConfiguration,
+      // Authorization errors
+      HealthConnectorErrorCodeDto.authorizationDenied =>
+        HealthConnectorErrorCode.authorizationDenied,
+      HealthConnectorErrorCodeDto.authorizationNotDetermined =>
+        HealthConnectorErrorCode.authorizationNotDetermined,
+
+      // Configuration errors
+      HealthConnectorErrorCodeDto.permissionNotDeclared =>
+        HealthConnectorErrorCode.permissionNotDeclared,
+      // Invalid argument
       HealthConnectorErrorCodeDto.invalidArgument =>
         HealthConnectorErrorCode.invalidArgument,
-      HealthConnectorErrorCodeDto.unsupportedOperation =>
-        HealthConnectorErrorCode.unsupportedOperation,
-      HealthConnectorErrorCodeDto.notAuthorized =>
-        HealthConnectorErrorCode.notAuthorized,
+      // Health service unavailable
+      HealthConnectorErrorCodeDto.healthServiceUnavailable =>
+        HealthConnectorErrorCode.healthServiceUnavailable,
+      HealthConnectorErrorCodeDto.healthServiceRestricted =>
+        HealthConnectorErrorCode.healthServiceRestricted,
+      // Health service errors
+      HealthConnectorErrorCodeDto.healthServiceDatabaseInaccessible =>
+        HealthConnectorErrorCode.healthServiceDatabaseInaccessible,
+      HealthConnectorErrorCodeDto.ioError => HealthConnectorErrorCode.ioError,
       HealthConnectorErrorCodeDto.remoteError =>
         HealthConnectorErrorCode.remoteError,
-      HealthConnectorErrorCodeDto.syncTokenExpired =>
-        HealthConnectorErrorCode.syncTokenExpired,
-      HealthConnectorErrorCodeDto.unknown => HealthConnectorErrorCode.unknown,
+      HealthConnectorErrorCodeDto.rateLimitExceeded =>
+        HealthConnectorErrorCode.rateLimitExceeded,
+      HealthConnectorErrorCodeDto.dataSyncInProgress =>
+        HealthConnectorErrorCode.dataSyncInProgress,
+      // Unsupported operation
+      HealthConnectorErrorCodeDto.unsupportedOperation =>
+        HealthConnectorErrorCode.unsupportedOperation,
+      // Unknown
+      HealthConnectorErrorCodeDto.unknownError =>
+        HealthConnectorErrorCode.unknownError,
     };
   }
 }

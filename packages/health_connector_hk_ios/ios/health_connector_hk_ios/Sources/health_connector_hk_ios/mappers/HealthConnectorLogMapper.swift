@@ -36,7 +36,7 @@ extension Error {
         } else {
             // Generic error
             HealthConnectorExceptionDto(
-                code: .unknown,
+                code: .unknownError,
                 message: localizedDescription,
                 cause: (self as NSError).localizedFailureReason
             )
@@ -49,18 +49,24 @@ extension HealthConnectorError {
     /// Converts the internal error to the Pigeon-generated HealthConnectorErrorCodeDto enum.
     func codeDto() -> HealthConnectorErrorCodeDto {
         switch self {
-        case .healthPlatformUnavailable:
-            .healthPlatformUnavailable
-        case .invalidConfiguration:
-            .invalidConfiguration
+        case .healthServiceUnavailable:
+            .healthServiceUnavailable
+        case .healthServiceRestricted:
+            .healthServiceRestricted
+        case .healthServiceDatabaseInaccessible:
+            .healthServiceDatabaseInaccessible
+        case .permissionNotDeclared:
+            .permissionNotDeclared
         case .invalidArgument:
             .invalidArgument
         case .unsupportedOperation:
             .unsupportedOperation
-        case .unknown:
-            .unknown
-        case .notAuthorized, .userCancelled:
-            .notAuthorized
+        case .unknownError:
+            .unknownError
+        case .authorizationDenied, .userCancelled:
+            .authorizationDenied
+        case .authorizationNotDetermined:
+            .authorizationNotDetermined
         }
     }
 }

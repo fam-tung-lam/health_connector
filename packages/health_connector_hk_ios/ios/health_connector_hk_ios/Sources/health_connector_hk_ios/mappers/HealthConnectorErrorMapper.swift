@@ -80,14 +80,14 @@ extension HealthConnectorError {
     ///
     /// | HKError Code | HealthConnectorError |
     /// |--------------|---------------------|
-    /// | `.errorAuthorizationDenied` | `.notAuthorized` |
-    /// | `.errorAuthorizationNotDetermined` | `.notAuthorized` |
+    /// | `.errorAuthorizationDenied` | `.authorizationDenied` |
+    /// | `.errorAuthorizationNotDetermined` | `.authorizationNotDetermined` |
     /// | `.errorInvalidArgument` | `.invalidArgument` |
-    /// | `.errorHealthDataUnavailable` | `.healthPlatformUnavailable` |
-    /// | `.errorDatabaseInaccessible` | `.healthPlatformUnavailable` |
-    /// | `.errorHealthDataRestricted` | `.healthPlatformUnavailable` |
-    /// | `.errorUserCanceled` | `.notAuthorized` |
-    /// | All others | `.unknown` (with cause) |
+    /// | `.errorHealthDataUnavailable` | `.healthServiceUnavailable` |
+    /// | `.errorDatabaseInaccessible` | `.healthServiceDatabaseInaccessible` |
+    /// | `.errorHealthDataRestricted` | `.healthServiceRestricted` |
+    /// | `.errorUserCanceled` | `.authorizationDenied` (user cancelled = denied) |
+    /// | All others | `.unknownError` (with cause) |
     ///
     /// - Parameter error: The Error to convert
     /// - Returns: A HealthConnectorError with appropriate error type and preserved underlying error information
@@ -110,8 +110,14 @@ extension HealthConnectorError {
             context["errorDomain"] = HKError.errorDomain
 
             switch hkError.code {
-            case .errorAuthorizationDenied, .errorAuthorizationNotDetermined:
-                return .notAuthorized(
+            case .errorAuthorizationDenied:
+                return .authorizationDenied(
+                    message: hkError.localizedDescription,
+                    context: context
+                )
+
+            case .errorAuthorizationNotDetermined:
+                return .authorizationNotDetermined(
                     message: hkError.localizedDescription,
                     context: context
                 )
@@ -122,27 +128,39 @@ extension HealthConnectorError {
                     context: context
                 )
 
-            case .errorHealthDataUnavailable, .errorDatabaseInaccessible,
-                 .errorHealthDataRestricted:
-                return .healthPlatformUnavailable(
+            case .errorHealthDataUnavailable:
+                return .healthServiceUnavailable(
                     message: hkError.localizedDescription,
                     cause: hkError
                 )
 
+            case .errorDatabaseInaccessible:
+                return .healthServiceDatabaseInaccessible(
+                    message: hkError.localizedDescription,
+                    cause: hkError
+                )
+
+            case .errorHealthDataRestricted:
+                return .healthServiceRestricted(
+                    message: hkError.localizedDescription,
+                    context: context
+                )
+
             case .errorUserCanceled:
-                return .userCancelled(
-                    message: hkError.localizedDescription
+                return .authorizationDenied(
+                    message: "User cancelled authorization request",
+                    context: context
                 )
 
             case .errorNoData:
-                return .unknown(
+                return .unknownError(
                     message: "No health data available for the requested query",
                     cause: hkError,
                     context: context
                 )
 
             @unknown default:
-                return .unknown(
+                return .unknownError(
                     message: hkError.localizedDescription,
                     cause: hkError,
                     context: context
@@ -151,7 +169,7 @@ extension HealthConnectorError {
         }
 
         // Generic error handling
-        return .unknown(
+        return .unknownError(
             message: error.localizedDescription,
             cause: error,
             context: context.isEmpty ? nil : context

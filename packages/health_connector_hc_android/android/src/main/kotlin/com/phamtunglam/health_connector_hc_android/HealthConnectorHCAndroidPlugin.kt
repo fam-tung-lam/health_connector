@@ -303,7 +303,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
 
                 callback(
                     Result.failure(
-                        HealthConnectorException.InvalidConfiguration(
+                        HealthConnectorException.Configuration(
                             message = "Activity is unavailable. " +
                                 "The app may be in the background or " +
                                 "activity has been destroyed.",
@@ -437,7 +437,7 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
 
                     callback(
                         Result.failure(
-                            HealthConnectorException.InvalidConfiguration(
+                            HealthConnectorException.Configuration(
                                 message = "Activity is unavailable. " +
                                     "The app may be in the background or " +
                                     "activity has been destroyed.",
@@ -1056,10 +1056,10 @@ class HealthConnectorHCAndroidPlugin @VisibleForTesting internal constructor(
      * Returns the [HealthConnectorClient] instance, or throws if not initialized.
      *
      * @return The initialized Health Connect client
-     * @throws HealthConnectorException.InvalidConfiguration if the client has not been initialized
+     * @throws HealthConnectorException.Configuration if the client has not been initialized
      */
     private fun requireClient(): HealthConnectorClient =
-        client ?: throw HealthConnectorException.InvalidConfiguration(
+        client ?: throw HealthConnectorException.Configuration(
             message = "Plugin not initialized. Call `initialize()` before using any API.",
         )
 

@@ -31,26 +31,49 @@ extension HealthConnectorExceptionDtoToDomain on HealthConnectorExceptionDto {
     HealthConnectorErrorCodeDto dtoCode,
   ) {
     switch (dtoCode) {
+      // Authorization errors
+      case HealthConnectorErrorCodeDto.authorizationDenied:
+        return HealthConnectorErrorCode.authorizationDenied;
+      case HealthConnectorErrorCodeDto.authorizationNotDetermined:
+        return HealthConnectorErrorCode.authorizationNotDetermined;
+
+      // Configuration errors
+      case HealthConnectorErrorCodeDto.permissionNotDeclared:
+        return HealthConnectorErrorCode.permissionNotDeclared;
+
+      // Health Service Unavailable errors
+      case HealthConnectorErrorCodeDto.healthServiceUnavailable:
+        return HealthConnectorErrorCode.healthServiceUnavailable;
+      case HealthConnectorErrorCodeDto.healthServiceRestricted:
+        return HealthConnectorErrorCode.healthServiceRestricted;
       case HealthConnectorErrorCodeDto
-          .healthPlatformNotInstalledOrUpdateRequired:
+          .healthServiceNotInstalledOrUpdateRequired:
         return HealthConnectorErrorCode
-            .healthPlatformNotInstalledOrUpdateRequired;
-      case HealthConnectorErrorCodeDto.healthPlatformUnavailable:
-        return HealthConnectorErrorCode.healthPlatformUnavailable;
-      case HealthConnectorErrorCodeDto.invalidConfiguration:
-        return HealthConnectorErrorCode.invalidConfiguration;
-      case HealthConnectorErrorCodeDto.invalidArgument:
-        return HealthConnectorErrorCode.invalidArgument;
-      case HealthConnectorErrorCodeDto.unsupportedOperation:
-        return HealthConnectorErrorCode.unsupportedOperation;
-      case HealthConnectorErrorCodeDto.unknown:
-        return HealthConnectorErrorCode.unknown;
-      case HealthConnectorErrorCodeDto.notAuthorized:
-        return HealthConnectorErrorCode.notAuthorized;
+            .healthServiceNotInstalledOrUpdateRequired;
+
+      // Health Service errors
+      case HealthConnectorErrorCodeDto.healthServiceDatabaseInaccessible:
+        return HealthConnectorErrorCode.healthServiceDatabaseInaccessible;
+      case HealthConnectorErrorCodeDto.ioError:
+        return HealthConnectorErrorCode.ioError;
       case HealthConnectorErrorCodeDto.remoteError:
         return HealthConnectorErrorCode.remoteError;
-      case HealthConnectorErrorCodeDto.syncTokenExpired:
-        return HealthConnectorErrorCode.syncTokenExpired;
+      case HealthConnectorErrorCodeDto.rateLimitExceeded:
+        return HealthConnectorErrorCode.rateLimitExceeded;
+      case HealthConnectorErrorCodeDto.dataSyncInProgress:
+        return HealthConnectorErrorCode.dataSyncInProgress;
+
+      // Invalid Argument error
+      case HealthConnectorErrorCodeDto.invalidArgument:
+        return HealthConnectorErrorCode.invalidArgument;
+
+      // Unsupported Operation error
+      case HealthConnectorErrorCodeDto.unsupportedOperation:
+        return HealthConnectorErrorCode.unsupportedOperation;
+
+      // Unknown error
+      case HealthConnectorErrorCodeDto.unknownError:
+        return HealthConnectorErrorCode.unknownError;
     }
   }
 }

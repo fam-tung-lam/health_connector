@@ -30,7 +30,7 @@ internal fun Throwable.toExceptionInfoDto(): HealthConnectorExceptionDto = when 
         cause = this.cause?.message ?: this.cause?.toString(),
     )
     else -> HealthConnectorExceptionDto(
-        code = HealthConnectorErrorCodeDto.UNKNOWN,
+        code = HealthConnectorErrorCodeDto.UNKNOWN_ERROR,
         message = this.message?.takeIf { it.isNotBlank() } ?: "Unknown error",
         cause = this.cause?.message ?: this.cause?.toString(),
     )

@@ -6,17 +6,75 @@ import Foundation
 /// This is safe because Error instances are effectively immutable once created
 /// and are passed through structured concurrency contexts.
 enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchecked Sendable {
-    /// Indicates that the underlying health service is not available on the device.
+    // MARK: - Authorization Errors
+
+    /// User denied permission or dismissed authorization prompt.
+    /// - Parameters:
+    ///   - message: A description of the authorization denial.
+    ///   - context: Additional key-value data for debugging.
+    case authorizationDenied(message: String, context: [String: Any]? = nil)
+
+    /// Authorization has not been requested yet.
+    /// - Parameters:
+    ///   - message: A description indicating permissions need to be requested.
+    ///   - context: Additional key-value data for debugging.
+    case authorizationNotDetermined(message: String, context: [String: Any]? = nil)
+
+    // MARK: - Configuration Errors
+
+    /// Required permission not declared in app configuration.
+    /// - Parameters:
+    ///   - message: A description of the missing permission declaration.
+    ///   - context: Additional key-value data for debugging.
+    case permissionNotDeclared(message: String, context: [String: Any]? = nil)
+
+    // MARK: - Health Service Unavailable Errors
+
+    /// Health service is not available on this device.
     /// - Parameters:
     ///   - message: A description of why the health service is unavailable.
     ///   - cause: The underlying error, if any.
-    case healthPlatformUnavailable(message: String, cause: Error? = nil)
+    case healthServiceUnavailable(message: String, cause: Error? = nil)
 
-    /// Represents a configuration error, such as a missing Info.plist key.
+    /// Health service usage is restricted by policy.
     /// - Parameters:
-    ///   - message: A description of the configuration issue.
+    ///   - message: A description of the restriction.
     ///   - context: Additional key-value data for debugging.
-    case invalidConfiguration(message: String, context: [String: Any]? = nil)
+    case healthServiceRestricted(message: String, context: [String: Any]? = nil)
+
+    // MARK: - Health Service Exception Errors
+
+    /// Health database is protected and inaccessible.
+    /// - Parameters:
+    ///   - message: A description of the database access issue.
+    ///   - cause: The underlying error, if any.
+    case healthServiceDatabaseInaccessible(message: String, cause: Error? = nil)
+
+    /// Storage read/write operation failed.
+    /// - Parameters:
+    ///   - message: A description of the I/O failure.
+    ///   - cause: The underlying error, if any.
+    case ioError(message: String, cause: Error? = nil)
+
+    /// IPC communication with health service failed.
+    /// - Parameters:
+    ///   - message: A description of the communication failure.
+    ///   - cause: The underlying error, if any.
+    case remoteError(message: String, cause: Error? = nil)
+
+    /// API rate limit has been exhausted.
+    /// - Parameters:
+    ///   - message: A description of the rate limit issue.
+    ///   - context: Additional key-value data for debugging.
+    case rateLimitExceeded(message: String, context: [String: Any]? = nil)
+
+    /// Health service is syncing data, operations blocked.
+    /// - Parameters:
+    ///   - message: A description indicating sync is in progress.
+    ///   - context: Additional key-value data for debugging.
+    case dataSyncInProgress(message: String, context: [String: Any]? = nil)
+
+    // MARK: - Invalid Argument Error
 
     /// Signals that a method was called with an invalid argument.
     /// - Parameters:
@@ -24,53 +82,59 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchec
     ///   - context: Additional key-value data for debugging.
     case invalidArgument(message: String, context: [String: Any]? = nil)
 
+    // MARK: - Unsupported Operation Error
+
     /// Indicates that the requested operation is not supported.
     /// - Parameters:
     ///   - message: A description of the unsupported operation.
     ///   - context: Additional key-value data for debugging.
     case unsupportedOperation(message: String, context: [String: Any]? = nil)
 
+    // MARK: - Unknown Error
+
     /// A generic, unexpected error that doesn't fit other categories.
     /// - Parameters:
     ///   - message: A description of the unknown error.
     ///   - cause: The underlying error, if any.
     ///   - context: Additional key-value data for debugging.
-    case unknown(message: String, cause: Error? = nil, context: [String: Any]? = nil)
-
-    /// Signals that the user has not granted the necessary permissions for the operation.
-    /// - Parameters:
-    ///   - message: A description of the authorization failure.
-    ///   - context: Additional key-value data for debugging.
-    case notAuthorized(message: String, context: [String: Any]? = nil)
-
-    /// Indicates that the user explicitly cancelled the operation (e.g., a permission prompt).
-    /// - Parameters:
-    ///   - message: A description confirming user cancellation.
-    case userCancelled(message: String)
+    case unknownError(message: String, cause: Error? = nil, context: [String: Any]? = nil)
 
     /// A unique, machine-readable string code for the error.
     var code: String {
         switch self {
-        case .healthPlatformUnavailable: "HEALTH_PROVIDER_UNAVAILABLE"
-        case .invalidConfiguration: "INVALID_CONFIGURATION"
+        case .authorizationDenied: "AUTHORIZATION_DENIED"
+        case .authorizationNotDetermined: "AUTHORIZATION_NOT_DETERMINED"
+        case .permissionNotDeclared: "PERMISSION_NOT_DECLARED"
+        case .healthServiceUnavailable: "HEALTH_SERVICE_UNAVAILABLE"
+        case .healthServiceRestricted: "HEALTH_SERVICE_RESTRICTED"
+        case .healthServiceDatabaseInaccessible: "HEALTH_SERVICE_DATABASE_INACCESSIBLE"
+        case .ioError: "IO_ERROR"
+        case .remoteError: "REMOTE_ERROR"
+        case .rateLimitExceeded: "RATE_LIMIT_EXCEEDED"
+        case .dataSyncInProgress: "DATA_SYNC_IN_PROGRESS"
         case .invalidArgument: "INVALID_ARGUMENT"
         case .unsupportedOperation: "UNSUPPORTED_OPERATION"
-        case .unknown: "UNKNOWN_ERROR"
-        case .notAuthorized: "NOT_AUTHORIZED"
-        case .userCancelled: "NOT_AUTHORIZED" // Treats user cancellation as not authorized
+        case .unknownError: "UNKNOWN_ERROR"
         }
     }
 
     /// The primary, human-readable description of the error.
     var message: String {
         switch self {
-        case let .healthPlatformUnavailable(msg, _),
-             let .invalidConfiguration(msg, _),
+        case let .authorizationDenied(msg, _),
+             let .authorizationNotDetermined(msg, _),
+
+             let .permissionNotDeclared(msg, _),
+             let .healthServiceUnavailable(msg, _),
+             let .healthServiceRestricted(msg, _),
+             let .healthServiceDatabaseInaccessible(msg, _),
+             let .ioError(msg, _),
+             let .remoteError(msg, _),
+             let .rateLimitExceeded(msg, _),
+             let .dataSyncInProgress(msg, _),
              let .invalidArgument(msg, _),
              let .unsupportedOperation(msg, _),
-             let .unknown(msg, _, _),
-             let .notAuthorized(msg, _),
-             let .userCancelled(msg):
+             let .unknownError(msg, _, _):
             msg
         }
     }
@@ -78,8 +142,11 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchec
     /// The underlying `Error` that caused this error, if any.
     var error: Error? {
         switch self {
-        case let .healthPlatformUnavailable(_, cause),
-             let .unknown(_, cause, _):
+        case let .healthServiceUnavailable(_, cause),
+             let .healthServiceDatabaseInaccessible(_, cause),
+             let .ioError(_, cause),
+             let .remoteError(_, cause),
+             let .unknownError(_, cause, _):
             cause
         default:
             nil
@@ -89,11 +156,16 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchec
     /// Additional key-value data providing context about the error.
     var context: [String: Any]? {
         switch self {
-        case let .invalidConfiguration(_, ctx),
+        case let .authorizationDenied(_, ctx),
+             let .authorizationNotDetermined(_, ctx),
+
+             let .permissionNotDeclared(_, ctx),
+             let .healthServiceRestricted(_, ctx),
+             let .rateLimitExceeded(_, ctx),
+             let .dataSyncInProgress(_, ctx),
              let .invalidArgument(_, ctx),
              let .unsupportedOperation(_, ctx),
-             let .unknown(_, _, ctx),
-             let .notAuthorized(_, ctx):
+             let .unknownError(_, _, ctx):
             ctx
         default:
             nil
@@ -115,10 +187,12 @@ enum HealthConnectorError: LocalizedError, CustomDebugStringConvertible, @unchec
     /// A localized message suggesting how to recover from the failure, conforming to `LocalizedError`.
     var recoverySuggestion: String? {
         switch self {
-        case .invalidConfiguration:
-            "Check your Info.plist configuration."
-        case .notAuthorized:
-            "Check system Settings for permissions."
+        case .permissionNotDeclared:
+            "Check your Info.plist configuration for required HealthKit usage descriptions."
+        case .authorizationDenied, .authorizationNotDetermined:
+            "Request HealthKit permissions or check system Settings."
+        case .healthServiceRestricted:
+            "Check system restrictions or parental controls."
         default:
             nil
         }
