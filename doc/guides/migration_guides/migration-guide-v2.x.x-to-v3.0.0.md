@@ -14,6 +14,7 @@ This guide helps you migrate your Flutter health data integration from health_co
   - [3. Health Record Property Type Changes](#3-health-record-property-type-changes)
   - [4. Meal Type Unification](#4-meal-type-unification)
   - [5. Metadata Constructor Changes](#5-metadata-constructor-changes)
+  - [6. Exception Hierarchy & Error Handling](#6-exception-hierarchy--error-handling)
 - [New Features in `v3.0.0`](#new-features-in-v300)
 
 ---
@@ -604,6 +605,7 @@ Unified all meal type enums into single `MealType` enum across all records.
 #### What Changed
 
 Previously, different health records used separate meal type enums:
+
 - `BloodGlucoseRecord` used `BloodGlucoseMealType` enum
 - Nutrition records (e.g., `DietaryProteinRecord`) used `MealType` enum
 
@@ -672,6 +674,7 @@ Removed non-functional `dataOrigin` parameter from `Metadata` constructors.
 #### What Changed
 
 The `dataOrigin` parameter has been removed from all `Metadata` constructor methods:
+
 - `Metadata.manualEntry()`
 - `Metadata.automaticallyRecorded()`
 - `metadata.copyWith()`
@@ -730,34 +733,166 @@ final origin = retrievedRecords.first.metadata.dataOrigin; // Nullable, set by p
 
 ---
 
+### 6. Exception Hierarchy & Error Handling
+
+**Difficulty**: Moderate
+
+The exception and error handling system has been refactored to provide a unified, platform-agnostic
+taxonomy. The new hierarchy better aligns with platform-specific errors while providing a consistent
+API across iOS and Android.
+
+#### 6.1 Renamed Error Codes
+
+The `HealthConnectorErrorCode` enum has been updated to use more descriptive and platform-neutral names.
+
+| `v2.x.x` Code                                | `v3.0.0` Code                               |
+|----------------------------------------------|---------------------------------------------|
+| `healthPlatformUnavailable`                  | `healthServiceUnavailable`                  |
+| `healthPlatformNotInstalledOrUpdateRequired` | `healthServiceNotInstalledOrUpdateRequired` |
+| `invalidConfiguration`                       | `permissionNotDeclared`                     |
+| `notAuthorized`                              | `permissionNotGranted`                      |
+| `unknown`                                    | `unknownError`                              |
+| `syncTokenExpired`                           | `invalidArgument`                           |
+
+#### 6.2 Removed & Replaced Exceptions
+
+Several specific exception classes have been removed and replaced with more general, categorized exceptions. You can identify the specific error using the `code` property.
+
+| `v2.x.x` Exception                                    | `v3.0.0` Replacement                | Identification (`e.code`)                                                   |
+|-------------------------------------------------------|-------------------------------------|-----------------------------------------------------------------------------|
+| `NotAuthorizedException`                              | `AuthorizationException`            | `permissionNotGranted`                                                      |
+| `InvalidConfigurationException`                       | `ConfigurationException`            | `permissionNotDeclared`                                                     |
+| `HealthPlatformUnavailableException`                  | `HealthServiceUnavailableException` | `healthServiceUnavailable`                                                  |
+| `HealthPlatformNotInstalledOrUpdateRequiredException` | `HealthServiceUnavailableException` | `healthServiceNotInstalledOrUpdateRequired`                                 |
+| `RemoteErrorException`                                | `HealthServiceException`            | `remoteError`, `ioError`, `rateLimitExceeded`, `dataSyncInProgress`         |
+| `SyncTokenExpiredException`                           | `InvalidArgumentException`          | `invalidArgument`                                                           |
+
+#### 6.3 Migration Examples
+
+**Example 1: Handling Permissions**
+
+```dart
+// `v2.x.x`
+try {
+  await connector.writeRecord(record);
+} on NotAuthorizedException catch (e) {
+  // Handle permission denied
+}
+
+// `v3.0.0`
+try {
+  await connector.writeRecord(record);
+} on AuthorizationException catch (e) {
+  // Handle permission denied (code: permissionNotGranted)
+}
+```
+
+**Example 2: Handling Service Availability**
+
+```dart
+// `v2.x.x`
+try {
+  // ...
+} on HealthPlatformUnavailableException {
+  // Handle unavailable
+} on HealthPlatformNotInstalledOrUpdateRequiredException {
+  // Handle not installed
+}
+
+// `v3.0.0`
+try {
+  // ...
+} on HealthServiceUnavailableException catch (e) {
+  if (e.code == HealthConnectorErrorCode.healthServiceNotInstalledOrUpdateRequired) {
+    // Handle not installed
+  } else {
+    // Handle unavailable
+  }
+}
+```
+
+**Example 3: Handling Remote/IO Errors**
+
+```dart
+// `v2.x.x`
+try {
+  // ...
+} on RemoteErrorException {
+  // Handle temporary failures
+}
+
+// `v3.0.0`
+try {
+  // ...
+} on HealthServiceException catch (e) {
+  // Handle operational errors (remote, IO, rate limit, sync in progress)
+}
+```
+
+---
+
 ## New Features in `v3.0.0`
 
 ### 1. Incremental Sync API
 
+**The most significant addition in v3.0.0.**
+
+The new Incremental Sync API transforms how your app synchronizes health data. Instead of inefficiently querying time ranges and manually deduplicating data, you can now simply ask for *"what changed since last time"*.
+
+**Why it's a game changer:**
+
+- **Maximum Efficiency**: Drastically reduces bandwidth and processing power by fetching **only** deltas (new, modified, or deleted records).
+- **Data Integrity**: Automatically tracks deleted records so you can remove them from your local database—a feature previously difficult to implement reliably.
+- **Better UX**: Faster syncs mean a more responsive app and less battery impact.
+
 Efficient delta syncing with change tokens:
 
 ```dart
-// Initial sync
-final result = await connector.synchronize(
-  dataTypes: [HealthDataType.steps, HealthDataType.heartRate],
-  syncToken: null, // null for initial sync
-);
+Future<void> syncHealthData() async {
+  // 1. Load existing token (if any)
+  // If null, the sync will act as an Initial Sync (Baseline)
+  HealthDataSyncToken? currentToken;
+  final savedTokenJson = await storage.read('sync_token');
+  if (savedTokenJson != null) {
+    currentToken = HealthDataSyncToken.fromJson(savedTokenJson);
+  }
 
-// Save token
-final token = result.nextSyncToken;
+  // 2. Perform Sync Loop (Handles both Initial & Incremental)
+  var hasMore = true;
 
-// Incremental sync
-final deltaResult = await connector.synchronize(
-  dataTypes: [HealthDataType.steps, HealthDataType.heartRate],
-  syncToken: token, // Use saved token
-);
+  do {
+    final result = await connector.synchronize(
+      dataTypes: [HealthDataType.steps, HealthDataType.heartRate],
+      syncToken: currentToken,
+    );
 
-// Only new/modified/deleted records since last sync
-print('Upserted: ${deltaResult.upsertedRecords.length}');
-print('Deleted: ${deltaResult.deletedRecordIds.length}');
+    // 3. Process Data
+    if (result.upsertedRecords.isNotEmpty) {
+      print('Processing ${result.upsertedRecords.length} updates...');
+      await database.batchUpsert(result.upsertedRecords);
+    }
+
+    if (result.deletedRecordIds.isNotEmpty) {
+      print('Processing ${result.deletedRecordIds.length} deletions...');
+      await database.batchDelete(result.deletedRecordIds);
+    }
+
+    // 4. Update state for pagination
+    hasMore = result.hasMore;
+    currentToken = result.nextSyncToken;
+
+  } while (hasMore);
+
+  // 5. Save final token for next time
+  if (currentToken != null) {
+    await storage.write('sync_token', currentToken.toJson());
+  }
+}
 ```
 
 ### 2. Record Sorting
+
+You can now sort records by time when reading from the health store. This is useful for UI display (e.g., showing most recent records first) and processing logic.
 
 ```dart
 final request = HealthDataType.steps.readInTimeRange(
@@ -768,6 +903,8 @@ final request = HealthDataType.steps.readInTimeRange(
 ```
 
 ### 3. HealthDataTypeCategory
+
+Data types are now organized into 9 distinct semantic categories (e.g., Activity, Vitals, Nutrition). This metadata is helpful for building categorized UIs or filtering data types dynamically.
 
 Organize data types into 9 categories:
 
@@ -784,10 +921,11 @@ final vitalTypes = HealthDataType.values
 ---
 
 **Need Help?**
+
 - [API Documentation](https://pub.dev/documentation/health_connector/latest/)
 - [File an Issue](https://github.com/fam-tung-lam/health_connector/issues)
 - [Discussion Forum](https://github.com/fam-tung-lam/health_connector/discussions)
 
-**Happy migrating! 🚀**
+Happy migrating! 🚀
 
 For migration from `v1.x.x` to `v2.0.0` see [Migration Guide from v1.x.x to v2.0.0](migration-guide-v1.x.x-to-v2.0.0.md).
