@@ -36,7 +36,7 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
     ///     - `syncToken` contains corrupted or invalid base64 data
     ///     - `syncToken` anchor cannot be decoded (corrupted anchor)
     ///     - A sample cannot be converted to DTO (if strict mapping is used)
-    ///   - `HealthConnectorError.unknown` if HealthKit returns a `nil` anchor unexpectedly during query execution
+    ///   - `HealthConnectorError.unknownError` if HealthKit returns a `nil` anchor unexpectedly during query execution
     ///   - Underlying HealthKit errors from `HKAnchoredObjectQuery` execution
     func synchronize(
         dataTypes: [HealthDataTypeDto],
@@ -231,7 +231,7 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
     ///   - `newAnchor`: New anchor representing the current query position, to be used in subsequent queries
     ///
     /// - Throws:
-    ///   - `HealthConnectorError.unknown` if HealthKit returns a `nil` anchor (should never happen)
+    ///   - `HealthConnectorError.unknownError` if HealthKit returns a `nil` anchor (should never happen)
     ///   - Underlying HealthKit errors (e.g., authorization failures, database errors)
     private func executeUnifiedQuery(
         descriptors: [HKQueryDescriptor],
@@ -253,7 +253,7 @@ struct HealthConnectorDataSyncService: @unchecked Sendable, Taggable {
                     // HealthKit should always provide a new anchor, even for empty results
                     guard let newAnchor else {
                         continuation.resume(
-                            throwing: HealthConnectorError.unknown(
+                            throwing: HealthConnectorError.unknownError(
                                 message: "Unified query returned nil anchor"))
                         return
                     }

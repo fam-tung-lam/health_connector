@@ -40,7 +40,7 @@ internal interface HealthRecordHandler {
      * mapping SDK exceptions to [HealthConnectorException] with appropriate error codes.
      *
      * Exception mappings:
-     * - [SecurityException] -> [HealthConnectorException.Authorization] (authorizationDenied)
+     * - [SecurityException] -> [HealthConnectorException.Authorization] (permissionNotGranted)
      * - [IllegalArgumentException] -> [HealthConnectorException.InvalidArgument]
      * - [IllegalStateException] -> [HealthConnectorException.InvalidArgument]
      * - [IOException] -> [HealthConnectorException.HealthService] (ioError)
@@ -68,8 +68,8 @@ internal interface HealthRecordHandler {
                 exception = e,
             )
             throw HealthConnectorException.Authorization(
-                code = HealthConnectorErrorCodeDto.AUTHORIZATION_DENIED,
-                message = "Permission denied for $dataType: ${e.message ?: "Access denied"}",
+                code = HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
+                message = "Permission not granted for $dataType: ${e.message ?: "Access denied"}",
                 cause = e,
             )
         } catch (e: IllegalArgumentException) {

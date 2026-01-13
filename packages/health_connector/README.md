@@ -888,8 +888,7 @@ Every `HealthConnectorException` thrown by the SDK includes a `HealthConnectorEr
 
 | Error Code | Platform | Exception Type | Description & Causes | Recovery Strategy |
 | :--- | :--- | :--- | :--- | :--- |
-| `authorizationDenied` | All | `AuthorizationException` | User denied permissions, revoked access in settings, or dismissed the prompt. | Guide user to system settings (`openAppSettings()`) to grant permissions. |
-| `authorizationNotDetermined` | iOS | `AuthorizationException` | App has not yet requested authorization from the user. | Call `requestPermissions()` before accessing data. |
+| `permissionNotGranted` | Both | `AuthorizationException` | Permission denied, revoked, or not determined. | Request permissions or guide user to settings. |
 
 | `permissionNotDeclared` | All | `ConfigurationException` | Missing required permission in `AndroidManifest.xml` or `Info.plist`. | **Developer Error:** Add missing permissions to your app configuration. |
 | `healthServiceUnavailable` | All | `HealthServiceUnavailableException` | Device doesn't support Health Connect (Android) or HealthKit (iPad). | Check `getHealthPlatformStatus()`. Gracefully disable health features. |

@@ -119,13 +119,13 @@ internal class HealthConnectorDataSyncService(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "synchronize",
-                message = "Permission denied for Health Connect operation",
+                message = "Permission not granted for Health Connect operation",
                 exception = e,
                 context = context,
             )
             throw HealthConnectorException.Authorization(
-                code = HealthConnectorErrorCodeDto.AUTHORIZATION_DENIED,
-                message = e.message ?: "Permission denied for Health Connect operation",
+                code = HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
+                message = e.message ?: "Permission not granted for Health Connect operation",
                 cause = e,
                 context = context,
             )
@@ -213,13 +213,13 @@ internal class HealthConnectorDataSyncService(
             HealthConnectorLogger.error(
                 tag = TAG,
                 operation = "synchronize",
-                message = "Permission denied for Health Connect operation",
+                message = "Permission not granted for Health Connect operation",
                 exception = e,
                 context = context,
             )
             throw HealthConnectorException.Authorization(
-                code = HealthConnectorErrorCodeDto.AUTHORIZATION_DENIED,
-                message = e.message ?: "Permission denied for sync operation",
+                code = HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
+                message = e.message ?: "Permission not granted for sync operation",
                 cause = e,
                 context = context,
             )

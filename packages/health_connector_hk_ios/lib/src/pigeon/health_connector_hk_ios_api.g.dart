@@ -860,11 +860,8 @@ enum HealthDataTypeDto {
 
 /// Error codes that native platforms can use when throwing error.
 enum HealthConnectorErrorCodeDto {
-  /// User denied permission or dismissed authorization prompt.
-  authorizationDenied,
-
-  /// Authorization has not been requested yet.
-  authorizationNotDetermined,
+  /// Permission to access health data was not granted.
+  permissionNotGranted,
 
   /// Required permission not declared in app configuration.
   permissionNotDeclared,
@@ -880,18 +877,6 @@ enum HealthConnectorErrorCodeDto {
 
   /// Health database is protected and inaccessible.
   healthServiceDatabaseInaccessible,
-
-  /// Storage read/write operation failed.
-  ioError,
-
-  /// IPC communication with health service failed.
-  remoteError,
-
-  /// API rate limit has been exhausted.
-  rateLimitExceeded,
-
-  /// Health service is syncing data, operations blocked.
-  dataSyncInProgress,
 
   /// Operation or data type not supported on this platform.
   unsupportedOperation,

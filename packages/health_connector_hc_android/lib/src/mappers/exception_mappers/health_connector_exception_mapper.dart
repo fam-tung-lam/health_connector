@@ -31,29 +31,16 @@ extension HealthConnectorExceptionDtoToDomain on HealthConnectorExceptionDto {
     HealthConnectorErrorCodeDto dtoCode,
   ) {
     switch (dtoCode) {
-      // Authorization errors
-      case HealthConnectorErrorCodeDto.authorizationDenied:
-        return HealthConnectorErrorCode.authorizationDenied;
-      case HealthConnectorErrorCodeDto.authorizationNotDetermined:
-        return HealthConnectorErrorCode.authorizationNotDetermined;
-
-      // Configuration errors
+      case HealthConnectorErrorCodeDto.permissionNotGranted:
+        return HealthConnectorErrorCode.permissionNotGranted;
       case HealthConnectorErrorCodeDto.permissionNotDeclared:
         return HealthConnectorErrorCode.permissionNotDeclared;
-
-      // Health Service Unavailable errors
       case HealthConnectorErrorCodeDto.healthServiceUnavailable:
         return HealthConnectorErrorCode.healthServiceUnavailable;
-      case HealthConnectorErrorCodeDto.healthServiceRestricted:
-        return HealthConnectorErrorCode.healthServiceRestricted;
       case HealthConnectorErrorCodeDto
           .healthServiceNotInstalledOrUpdateRequired:
         return HealthConnectorErrorCode
             .healthServiceNotInstalledOrUpdateRequired;
-
-      // Health Service errors
-      case HealthConnectorErrorCodeDto.healthServiceDatabaseInaccessible:
-        return HealthConnectorErrorCode.healthServiceDatabaseInaccessible;
       case HealthConnectorErrorCodeDto.ioError:
         return HealthConnectorErrorCode.ioError;
       case HealthConnectorErrorCodeDto.remoteError:
@@ -62,16 +49,10 @@ extension HealthConnectorExceptionDtoToDomain on HealthConnectorExceptionDto {
         return HealthConnectorErrorCode.rateLimitExceeded;
       case HealthConnectorErrorCodeDto.dataSyncInProgress:
         return HealthConnectorErrorCode.dataSyncInProgress;
-
-      // Invalid Argument error
       case HealthConnectorErrorCodeDto.invalidArgument:
         return HealthConnectorErrorCode.invalidArgument;
-
-      // Unsupported Operation error
       case HealthConnectorErrorCodeDto.unsupportedOperation:
         return HealthConnectorErrorCode.unsupportedOperation;
-
-      // Unknown error
       case HealthConnectorErrorCodeDto.unknownError:
         return HealthConnectorErrorCode.unknownError;
     }

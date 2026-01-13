@@ -26,7 +26,7 @@ sealed class HealthConnectorException : Throwable() {
      * Covers permission denial, not-determined state, and guest mode restrictions.
      *
      * Error codes:
-     * - AUTHORIZATION_DENIED
+     * - PERMISSION_NOT_GRANTED
      * - AUTHORIZATION_NOT_DETERMINED
      * - GUEST_MODE_NOT_PERMITTED
      *

@@ -36,12 +36,8 @@ void main() {
                 InvalidArgumentException,
               ],
               [
-                HealthConnectorErrorCodeDto.authorizationDenied,
+                HealthConnectorErrorCodeDto.permissionNotGranted,
                 AuthorizationException,
-              ],
-              [
-                HealthConnectorErrorCodeDto.remoteError,
-                HealthServiceException,
               ],
               [
                 HealthConnectorErrorCodeDto.unknownError,
@@ -104,7 +100,7 @@ void main() {
               final context = <String, dynamic>{'info': 'test'};
               const stackTrace = 'stack trace';
               final dto = HealthConnectorExceptionDto(
-                code: HealthConnectorErrorCodeDto.remoteError,
+                code: HealthConnectorErrorCodeDto.unknownError,
                 message: 'Network error',
                 cause: 'SocketException: Connection refused',
               );
@@ -147,7 +143,7 @@ void main() {
             'handles null stackTrace parameter',
             () {
               final dto = HealthConnectorExceptionDto(
-                code: HealthConnectorErrorCodeDto.authorizationDenied,
+                code: HealthConnectorErrorCodeDto.permissionNotGranted,
                 message: 'Not authorized',
               );
 

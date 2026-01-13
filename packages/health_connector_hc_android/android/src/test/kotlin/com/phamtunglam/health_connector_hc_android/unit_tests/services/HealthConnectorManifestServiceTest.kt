@@ -152,7 +152,7 @@ class HealthConnectorManifestServiceTest {
         @DisplayName(
             "GIVEN permission is not declared in manifest → " +
                 "WHEN checking that permission → " +
-                "THEN should throw INVALID_CONFIGURATION",
+                "THEN should throw PERMISSION_NOT_DECLARED",
         )
         fun whenCheckingSingleMissingPermission_thenThrowsInvalidConfiguration() {
             // Given

@@ -8,18 +8,9 @@ import 'package:meta/meta.dart' show internal;
 @internal
 extension StringToErrorCode on String {
   HealthConnectorErrorCode toErrorCode() {
-    // Backward compatibility: Map old error code strings to new ones
-    final normalizedCode = switch (this) {
-      'NOT_AUTHORIZED' => 'AUTHORIZATION_DENIED',
-      'INVALID_CONFIGURATION' => 'PERMISSION_NOT_DECLARED',
-      'HEALTH_PROVIDER_UNAVAILABLE' => 'HEALTH_SERVICE_UNAVAILABLE',
-      'UNKNOWN' => 'UNKNOWN_ERROR',
-      _ => this, // Use as-is if no mapping needed
-    };
-
     try {
       return HealthConnectorErrorCode.values.firstWhere(
-        (errorCode) => normalizedCode == errorCode.code,
+        (errorCode) => this == errorCode.code,
       );
     } on StateError {
       return HealthConnectorErrorCode.unknownError;

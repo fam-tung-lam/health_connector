@@ -8,7 +8,7 @@ Structured error handling for health data operations across iOS HealthKit and An
 
 | Exception                                             | Platform     | Common Causes                  | Recovery Action         |
 |-------------------------------------------------------|--------------|--------------------------------|-------------------------|
-| `NotAuthorizedException`                              | Both         | Permission denied/revoked      | Guide user to settings  |
+| `AuthorizationException`                              | Both         | Permission denied/revoked      | Guide user to settings  |
 | `InvalidConfigurationException`                       | Both         | Missing manifest/plist entries | Fix app configuration   |
 | `UnsupportedOperationException`                       | Both         | Platform-specific API called   | Check platform first    |
 | `InvalidArgumentException`                            | Both         | Invalid input values           | Validate inputs         |
@@ -34,7 +34,7 @@ Structured error handling for health data operations across iOS HealthKit and An
 
 ## Exception Types
 
-### NotAuthorizedException
+### AuthorizationException
 
 **Description**: Access to health data was denied or not yet authorized.
 
@@ -57,7 +57,7 @@ Structured error handling for health data operations across iOS HealthKit and An
 ```dart
 try {
   await connector.writeRecord(stepRecord);
-} on NotAuthorizedException catch (e) {
+} on AuthorizationException catch (e) {
   // Show dialog explaining why permission is needed
   showDialog(
     context: context,
@@ -347,7 +347,7 @@ try {
     HealthDataType.steps.writePermission,
   ]);
   await connector.writeRecord(stepRecord);
-} on NotAuthorizedException catch (e) {
+} on AuthorizationException catch (e) {
   // User denied or revoked permissions
   print('Permission denied: ${e.message}');
   guideUserToSettings();
@@ -394,7 +394,7 @@ try {
   await connector.writeRecord(record);
 } on HealthConnectorException catch (e) {
   switch (e.code) {
-    case HealthConnectorErrorCode.notAuthorized:
+    case HealthConnectorErrorCode.permissionNotGranted:
       print('Permission denied: ${e.message}');
       guideUserToSettings();
       

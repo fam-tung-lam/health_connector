@@ -763,32 +763,22 @@ public enum HealthDataTypeDto: Int {
 
 /// Error codes that native platforms can use when throwing error.
 public enum HealthConnectorErrorCodeDto: Int {
-  /// User denied permission or dismissed authorization prompt.
-  case authorizationDenied = 0
-  /// Authorization has not been requested yet.
-  case authorizationNotDetermined = 1
+  /// Permission to access health data was not granted.
+  case permissionNotGranted = 0
   /// Required permission not declared in app configuration.
-  case permissionNotDeclared = 2
+  case permissionNotDeclared = 1
   /// Invalid parameter, malformed record, or expired change token.
-  case invalidArgument = 3
+  case invalidArgument = 2
   /// Health service is not available on this device.
-  case healthServiceUnavailable = 4
+  case healthServiceUnavailable = 3
   /// Health service usage is restricted by policy.
-  case healthServiceRestricted = 5
+  case healthServiceRestricted = 4
   /// Health database is protected and inaccessible.
-  case healthServiceDatabaseInaccessible = 6
-  /// Storage read/write operation failed.
-  case ioError = 7
-  /// IPC communication with health service failed.
-  case remoteError = 8
-  /// API rate limit has been exhausted.
-  case rateLimitExceeded = 9
-  /// Health service is syncing data, operations blocked.
-  case dataSyncInProgress = 10
+  case healthServiceDatabaseInaccessible = 5
   /// Operation or data type not supported on this platform.
-  case unsupportedOperation = 11
+  case unsupportedOperation = 6
   /// An unclassified or internal system error occurred.
-  case unknownError = 12
+  case unknownError = 7
 }
 
 /// Represents the status of the health platform on the device.

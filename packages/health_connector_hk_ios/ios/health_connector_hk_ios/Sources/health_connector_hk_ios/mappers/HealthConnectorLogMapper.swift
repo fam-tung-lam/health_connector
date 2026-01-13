@@ -25,7 +25,7 @@ extension Error {
     /// Converts a Swift Error to HealthConnectorExceptionDto.
     ///
     /// If the error is a HealthConnectorError, extracts the structured
-    /// error code and context. Otherwise, uses UNKNOWN error code.
+    /// error code and context. Otherwise, uses UNKNOWN_ERROR error code.
     func toExceptionInfoDto() -> HealthConnectorExceptionDto {
         if let healthError = self as? HealthConnectorError {
             HealthConnectorExceptionDto(
@@ -63,10 +63,8 @@ extension HealthConnectorError {
             .unsupportedOperation
         case .unknownError:
             .unknownError
-        case .authorizationDenied, .userCancelled:
-            .authorizationDenied
-        case .authorizationNotDetermined:
-            .authorizationNotDetermined
+        case .permissionNotGranted:
+            .permissionNotGranted
         }
     }
 }

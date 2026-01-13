@@ -37,7 +37,7 @@ void main() {
                 InvalidArgumentException,
               ],
               [
-                HealthConnectorErrorCodeDto.authorizationDenied,
+                HealthConnectorErrorCodeDto.permissionNotGranted,
                 AuthorizationException,
               ],
               [
@@ -146,7 +146,7 @@ void main() {
             'handles null stackTrace parameter',
             () {
               final dto = HealthConnectorExceptionDto(
-                code: HealthConnectorErrorCodeDto.authorizationDenied,
+                code: HealthConnectorErrorCodeDto.permissionNotGranted,
                 message: 'Not authorized',
               );
 

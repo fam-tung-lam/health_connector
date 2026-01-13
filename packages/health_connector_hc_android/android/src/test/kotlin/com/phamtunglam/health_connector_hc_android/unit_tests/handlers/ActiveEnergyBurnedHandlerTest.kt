@@ -228,7 +228,7 @@ class ActiveEnergyBurnedHandlerTest {
 
     @Disabled(
         "Test fails with the error: " +
-            "```Permission denied for ACTIVE_CALORIES_BURNED: " +
+            "```Permission not granted for ACTIVE_CALORIES_BURNED: " +
             "Trying to update records owned by another package```. " +
             "Even when `FakeHealthConnectClient` is initialized with the same package name.",
     )

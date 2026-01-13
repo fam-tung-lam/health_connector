@@ -40,8 +40,7 @@ sealed class HealthConnectorException implements Exception {
   }) {
     switch (code) {
       // Authorization exceptions
-      case HealthConnectorErrorCode.authorizationDenied:
-      case HealthConnectorErrorCode.authorizationNotDetermined:
+      case HealthConnectorErrorCode.permissionNotGranted:
         return AuthorizationException(
           code,
           message,
@@ -159,8 +158,7 @@ sealed class HealthConnectorException implements Exception {
 /// Exception thrown when authorization/permission issues occur.
 ///
 /// This exception groups all authorization-related errors:
-/// - [HealthConnectorErrorCode.authorizationDenied]
-/// - [HealthConnectorErrorCode.authorizationNotDetermined]
+/// - [HealthConnectorErrorCode.permissionNotGranted]
 
 ///
 /// {@category Exceptions}

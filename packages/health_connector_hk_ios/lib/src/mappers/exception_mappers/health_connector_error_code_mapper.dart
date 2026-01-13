@@ -11,37 +11,20 @@ import 'package:meta/meta.dart' show internal;
 extension HealthConnectorErrorCodeDtoToDomain on HealthConnectorErrorCodeDto {
   HealthConnectorErrorCode toDomain() {
     return switch (this) {
-      // Authorization errors
-      HealthConnectorErrorCodeDto.authorizationDenied =>
-        HealthConnectorErrorCode.authorizationDenied,
-      HealthConnectorErrorCodeDto.authorizationNotDetermined =>
-        HealthConnectorErrorCode.authorizationNotDetermined,
-
-      // Configuration errors
+      HealthConnectorErrorCodeDto.permissionNotGranted =>
+        HealthConnectorErrorCode.permissionNotGranted,
       HealthConnectorErrorCodeDto.permissionNotDeclared =>
         HealthConnectorErrorCode.permissionNotDeclared,
-      // Invalid argument
       HealthConnectorErrorCodeDto.invalidArgument =>
         HealthConnectorErrorCode.invalidArgument,
-      // Health service unavailable
       HealthConnectorErrorCodeDto.healthServiceUnavailable =>
         HealthConnectorErrorCode.healthServiceUnavailable,
       HealthConnectorErrorCodeDto.healthServiceRestricted =>
         HealthConnectorErrorCode.healthServiceRestricted,
-      // Health service errors
       HealthConnectorErrorCodeDto.healthServiceDatabaseInaccessible =>
         HealthConnectorErrorCode.healthServiceDatabaseInaccessible,
-      HealthConnectorErrorCodeDto.ioError => HealthConnectorErrorCode.ioError,
-      HealthConnectorErrorCodeDto.remoteError =>
-        HealthConnectorErrorCode.remoteError,
-      HealthConnectorErrorCodeDto.rateLimitExceeded =>
-        HealthConnectorErrorCode.rateLimitExceeded,
-      HealthConnectorErrorCodeDto.dataSyncInProgress =>
-        HealthConnectorErrorCode.dataSyncInProgress,
-      // Unsupported operation
       HealthConnectorErrorCodeDto.unsupportedOperation =>
         HealthConnectorErrorCode.unsupportedOperation,
-      // Unknown
       HealthConnectorErrorCodeDto.unknownError =>
         HealthConnectorErrorCode.unknownError,
     };

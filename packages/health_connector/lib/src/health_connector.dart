@@ -598,7 +598,7 @@ abstract interface class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.authorizationDenied]
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when read permission has not been granted.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   when an unexpected error occurs.
@@ -639,7 +639,7 @@ abstract interface class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.authorizationDenied]
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when read permission has not been granted.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   when an unexpected error occurs.
@@ -681,7 +681,7 @@ abstract interface class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.authorizationDenied]
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when write permission has not been granted.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] when the record ID is not
@@ -726,7 +726,7 @@ abstract interface class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.authorizationDenied] if write
+  ///   [HealthConnectorErrorCode.permissionNotGranted] if write
   ///   permission has not been granted.
   /// - [HealthConnectorException] with
   ///   [HealthConnectorErrorCode.invalidArgument] if any record ID is not
@@ -779,7 +779,7 @@ abstract interface class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.authorizationDenied]
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when read permission has not been granted.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
   ///   when an unexpected error occurs.
@@ -830,7 +830,7 @@ abstract interface class HealthConnector {
   /// ## Throws
   ///
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.authorizationDenied]
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when delete/write permission has not been granted or when attempting to
   ///   delete records not created by this app.
   /// - [HealthConnectorException] with
@@ -886,7 +886,7 @@ abstract interface class HealthConnector {
   ///   [HealthConnectorErrorCode.invalidArgument] if the record ID is
   ///   [HealthRecordId.none] or the record is not supported by the platform.
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.authorizationDenied]
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when write permission has not been granted or when attempting to
   ///   update a record not created by this app.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]
@@ -992,7 +992,7 @@ abstract interface class HealthConnector {
   ///   [HealthConnectorErrorCode.invalidArgument] if any record ID is
   ///   [HealthRecordId.none] or some record are not supported by the platform.
   /// - [HealthConnectorException] with
-  ///   [HealthConnectorErrorCode.authorizationDenied]
+  ///   [HealthConnectorErrorCode.permissionNotGranted]
   ///   when write permission has not been granted or when attempting to update
   ///   records not created by this app.
   /// - [HealthConnectorException] with [HealthConnectorErrorCode.unknownError]

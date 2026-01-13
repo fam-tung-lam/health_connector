@@ -80,13 +80,13 @@ extension HealthConnectorError {
     ///
     /// | HKError Code | HealthConnectorError |
     /// |--------------|---------------------|
-    /// | `.errorAuthorizationDenied` | `.authorizationDenied` |
-    /// | `.errorAuthorizationNotDetermined` | `.authorizationNotDetermined` |
+    /// | `.errorAuthorizationDenied` | `.permissionNotGranted` |
+    /// | `.errorAuthorizationNotDetermined` | `.permissionNotGranted` |
     /// | `.errorInvalidArgument` | `.invalidArgument` |
     /// | `.errorHealthDataUnavailable` | `.healthServiceUnavailable` |
     /// | `.errorDatabaseInaccessible` | `.healthServiceDatabaseInaccessible` |
     /// | `.errorHealthDataRestricted` | `.healthServiceRestricted` |
-    /// | `.errorUserCanceled` | `.authorizationDenied` (user cancelled = denied) |
+    /// | `.errorUserCanceled` | `.permissionNotGranted` (user cancelled = denied) |
     /// | All others | `.unknownError` (with cause) |
     ///
     /// - Parameter error: The Error to convert
@@ -111,20 +111,23 @@ extension HealthConnectorError {
 
             switch hkError.code {
             case .errorAuthorizationDenied:
-                return .authorizationDenied(
+                return .permissionNotGranted(
                     message: hkError.localizedDescription,
+                    cause: hkError,
                     context: context
                 )
 
             case .errorAuthorizationNotDetermined:
-                return .authorizationNotDetermined(
+                return .permissionNotGranted(
                     message: hkError.localizedDescription,
+                    cause: hkError,
                     context: context
                 )
 
             case .errorInvalidArgument:
                 return .invalidArgument(
                     message: hkError.localizedDescription,
+                    cause: hkError,
                     context: context
                 )
 
@@ -143,12 +146,14 @@ extension HealthConnectorError {
             case .errorHealthDataRestricted:
                 return .healthServiceRestricted(
                     message: hkError.localizedDescription,
+                    cause: hkError,
                     context: context
                 )
 
             case .errorUserCanceled:
-                return .authorizationDenied(
+                return .permissionNotGranted(
                     message: "User cancelled authorization request",
+                    cause: hkError,
                     context: context
                 )
 

@@ -471,7 +471,7 @@ class HealthConnectorPermissionServiceTest {
         @DisplayName(
             "GIVEN ActivityNotFoundException occurs → " +
                 "WHEN requestPermissions called → " +
-                "THEN throws HealthConnectorErrorDto with UNKNOWN code",
+                "THEN throws HealthConnectorErrorDto with UNKNOWN_ERROR code",
         )
         fun whenActivityNotFound_thenThrowsUnknownError() = runTest {
             // Given

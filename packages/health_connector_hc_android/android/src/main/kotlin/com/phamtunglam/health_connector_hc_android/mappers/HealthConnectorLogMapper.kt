@@ -21,7 +21,7 @@ internal fun HealthConnectorLogger.LogLevel.toDto(): HealthConnectorLogLevelDto 
  * Converts a [Throwable] to [HealthConnectorExceptionDto].
  *
  * If the throwable is a [HealthConnectorException], extracts the structured
- * error code and context. Otherwise, uses UNKNOWN error code.
+ * error code and context. Otherwise, uses UNKNOWN_ERROR error code.
  */
 internal fun Throwable.toExceptionInfoDto(): HealthConnectorExceptionDto = when (this) {
     is HealthConnectorException -> HealthConnectorExceptionDto(

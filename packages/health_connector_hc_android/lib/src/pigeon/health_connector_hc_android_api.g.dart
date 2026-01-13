@@ -599,11 +599,8 @@ enum SleepStageDto {
 
 /// Error codes that native platforms can use when throwing error.
 enum HealthConnectorErrorCodeDto {
-  /// User denied permission or dismissed authorization prompt.
-  authorizationDenied,
-
-  /// Authorization has not been requested yet.
-  authorizationNotDetermined,
+  /// Permission to access health data was not granted.
+  permissionNotGranted,
 
   /// Required permission not declared in app configuration.
   permissionNotDeclared,
@@ -614,14 +611,8 @@ enum HealthConnectorErrorCodeDto {
   /// Health service is not available on this device.
   healthServiceUnavailable,
 
-  /// Health service usage is restricted by policy.
-  healthServiceRestricted,
-
   /// Health Connect app not installed or update required (Android only).
   healthServiceNotInstalledOrUpdateRequired,
-
-  /// Health database is protected and inaccessible.
-  healthServiceDatabaseInaccessible,
 
   /// Storage read/write operation failed.
   ioError,

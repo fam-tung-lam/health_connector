@@ -6,13 +6,13 @@ import 'package:health_connector_core/src/models/exceptions/health_connector_exc
 ///
 /// {@category Exceptions}
 enum HealthConnectorErrorCode {
-  /// User denied permission or dismissed authorization prompt.
+  /// Permission to access health data was not granted.
   ///
   /// ## Platform Behaviors
   ///
-  /// - **iOS HealthKit**: Maps from `errorAuthorizationDenied` or
-  ///   `errorUserCanceled`
-  /// - **Android Health Connect**: Maps from `SecurityException` (API 33-) or
+  /// - **iOS HealthKit**: Maps from `errorAuthorizationDenied`,
+  ///   `errorUserCanceled`, or `errorAuthorizationNotDetermined`
+  /// - **Android Health Connect**: Maps from `SecurityException` (API 33-),
   ///   `HealthConnectException.ERROR_SECURITY` (API 34+)
   ///
   /// ## Causes
@@ -20,34 +20,16 @@ enum HealthConnectorErrorCode {
   /// - User explicitly denied authorization to read/write data
   /// - User dismissed the authorization prompt without granting permission
   /// - Permissions were revoked by user via system settings
+  /// - App hasn't asked user for necessary authorization yet
   ///
   /// ## Action
   ///
-  /// - Guide user to Settings to enable permissions
+  /// - Request authorization using `requestAuthorization()`
+  /// - If already requested, guide user to Settings to enable permissions
   /// - Explain why the feature needs access
-  /// - Respect user choice; avoid repeated prompting
   ///
   /// Throws [AuthorizationException].
-  authorizationDenied('AUTHORIZATION_DENIED'),
-
-  /// Authorization has not been requested yet (iOS HealthKit only).
-  ///
-  /// ## Platform Behaviors
-  ///
-  /// - **iOS HealthKit**: Maps from `errorAuthorizationNotDetermined`
-  /// - **Android Health Connect**: Not applicable
-  ///
-  /// ## Causes
-  ///
-  /// - App hasn't asked user for necessary authorization
-  /// - Authorization request not yet presented to user
-  ///
-  /// ## Action
-  ///
-  /// - Call `requestAuthorization()` before accessing data
-  ///
-  /// Throws [AuthorizationException].
-  authorizationNotDetermined('AUTHORIZATION_NOT_DETERMINED'),
+  permissionNotGranted('PERMISSION_NOT_GRANTED'),
 
   /// Required permission not declared in app configuration.
   ///

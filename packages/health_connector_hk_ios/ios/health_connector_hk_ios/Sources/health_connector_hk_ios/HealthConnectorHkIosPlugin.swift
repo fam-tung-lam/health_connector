@@ -75,7 +75,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
             )
             completion(
                 .failure(
-                    HealthConnectorError.unknown(
+                    HealthConnectorError.unknownError(
                         message: error.localizedDescription,
                         cause: error
                     ).toDto()))
@@ -99,7 +99,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
     ///   - completion: Called with a `Result` containing the permission request results.
     ///
     /// - Throws: `HealthConnectorError.healthServiceUnavailable` if HealthKit is unavailable
-    /// - Throws: `HealthConnectorError.unknown` for unexpected errors
+    /// - Throws: `HealthConnectorError.unknownError` for unexpected errors
     public func requestPermissions(
         request: PermissionsRequestDto,
         completion: @escaping (Result<[HealthDataPermissionRequestResultDto], Error>) -> Void
@@ -358,7 +358,7 @@ public class HealthConnectorHkIosPlugin: NSObject, FlutterPlugin, HealthConnecto
                 self.complete(
                     completion,
                     with: .failure(
-                        HealthConnectorError.unknown(
+                        HealthConnectorError.unknownError(
                             message: error.localizedDescription,
                             cause: error
                         ).toDto())

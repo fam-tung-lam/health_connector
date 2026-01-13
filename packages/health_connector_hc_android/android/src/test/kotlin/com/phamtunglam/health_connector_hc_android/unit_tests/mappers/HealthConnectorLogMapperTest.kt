@@ -152,7 +152,7 @@ class HealthConnectorLogMapperTest {
         fun whenHealthConnectorExceptionWithoutCause_thenCauseIsNull() {
             // Given
             val exception = HealthConnectorException.Authorization(
-                code = HealthConnectorErrorCodeDto.AUTHORIZATION_DENIED,
+                code = HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
                 message = TEST_MESSAGE,
             )
 
@@ -167,7 +167,7 @@ class HealthConnectorLogMapperTest {
         @DisplayName(
             "GIVEN non-HealthConnectorException → " +
                 "WHEN toExceptionInfoDto → " +
-                "THEN maps with UNKNOWN error code",
+                "THEN maps with UNKNOWN_ERROR error code",
         )
         fun whenNonHealthConnectorException_thenMapsWithUnknownCode() {
             // Given
@@ -268,7 +268,8 @@ class HealthConnectorLogMapperTest {
         fun provideHealthConnectorExceptions(): List<Arguments> = listOf(
             Arguments.of(
                 HealthConnectorException.HealthServiceUnavailable(
-                    code = HealthConnectorErrorCodeDto.HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED,
+                    code =
+                    HealthConnectorErrorCodeDto.HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED,
                     message = TEST_MESSAGE,
                 ),
                 HealthConnectorErrorCodeDto.HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED,
@@ -300,10 +301,10 @@ class HealthConnectorLogMapperTest {
             ),
             Arguments.of(
                 HealthConnectorException.Authorization(
-                    code = HealthConnectorErrorCodeDto.AUTHORIZATION_DENIED,
+                    code = HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
                     message = TEST_MESSAGE,
                 ),
-                HealthConnectorErrorCodeDto.AUTHORIZATION_DENIED,
+                HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
             ),
             Arguments.of(
                 HealthConnectorException.HealthService(

@@ -58,10 +58,9 @@ final class HomePage extends StatelessWidget {
                 case HealthConnectorErrorCode.unsupportedOperation:
                 case HealthConnectorErrorCode.permissionNotDeclared:
                 case HealthConnectorErrorCode.invalidArgument:
-                case HealthConnectorErrorCode.authorizationDenied:
+                case HealthConnectorErrorCode.permissionNotGranted:
                 case HealthConnectorErrorCode.remoteError:
                 case HealthConnectorErrorCode.unknownError:
-                case HealthConnectorErrorCode.authorizationNotDetermined:
                 case HealthConnectorErrorCode.healthServiceRestricted:
                 case HealthConnectorErrorCode.healthServiceDatabaseInaccessible:
                 case HealthConnectorErrorCode.ioError:

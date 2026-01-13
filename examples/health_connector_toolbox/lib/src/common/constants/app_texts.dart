@@ -210,19 +210,19 @@ abstract final class AppTexts {
   static String getPleaseSelectText(String label) =>
       '$pleaseSelect ${label.toLowerCase()}';
 
-  /// Returns the "Write permission denied for [label]" text.
+  /// Returns the "Write Permission not granted for [label]" text.
   static String getWritePermissionDeniedText(String label) =>
       'Write permission denied or not supported. '
       'Please grant write permission for ${label.toLowerCase()}.';
 
-  /// Returns the "Write permission denied for [type]" text.
+  /// Returns the "Write Permission not granted for [type]" text.
   static String getWritePermissionDeniedTextFor(HealthDataType type) {
     if (type is SpeedSeriesDataType ||
         type is WalkingSpeedDataType ||
         type is RunningSpeedDataType ||
         type is StairAscentSpeedDataType ||
         type is StairDescentSpeedDataType) {
-      return 'Write permission denied for speed data';
+      return 'Write Permission not granted for speed data';
     }
     return getWritePermissionDeniedText(getLabel(type));
   }

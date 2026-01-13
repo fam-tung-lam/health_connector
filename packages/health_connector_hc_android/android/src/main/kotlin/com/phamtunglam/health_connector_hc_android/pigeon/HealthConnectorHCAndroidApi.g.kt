@@ -641,34 +641,28 @@ enum class SleepStageDto(val raw: Int) {
 
 /** Error codes that native platforms can use when throwing error. */
 enum class HealthConnectorErrorCodeDto(val raw: Int) {
-  /** User denied permission or dismissed authorization prompt. */
-  AUTHORIZATION_DENIED(0),
-  /** Authorization has not been requested yet. */
-  AUTHORIZATION_NOT_DETERMINED(1),
+  /** Permission to access health data was not granted. */
+  PERMISSION_NOT_GRANTED(0),
   /** Required permission not declared in app configuration. */
-  PERMISSION_NOT_DECLARED(2),
+  PERMISSION_NOT_DECLARED(1),
   /** Invalid parameter, malformed record, or expired change token. */
-  INVALID_ARGUMENT(3),
+  INVALID_ARGUMENT(2),
   /** Health service is not available on this device. */
-  HEALTH_SERVICE_UNAVAILABLE(4),
-  /** Health service usage is restricted by policy. */
-  HEALTH_SERVICE_RESTRICTED(5),
+  HEALTH_SERVICE_UNAVAILABLE(3),
   /** Health Connect app not installed or update required (Android only). */
-  HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED(6),
-  /** Health database is protected and inaccessible. */
-  HEALTH_SERVICE_DATABASE_INACCESSIBLE(7),
+  HEALTH_SERVICE_NOT_INSTALLED_OR_UPDATE_REQUIRED(4),
   /** Storage read/write operation failed. */
-  IO_ERROR(8),
+  IO_ERROR(5),
   /** IPC communication with health service failed. */
-  REMOTE_ERROR(9),
+  REMOTE_ERROR(6),
   /** API rate limit has been exhausted. */
-  RATE_LIMIT_EXCEEDED(10),
+  RATE_LIMIT_EXCEEDED(7),
   /** Health service is syncing data, operations blocked. */
-  DATA_SYNC_IN_PROGRESS(11),
+  DATA_SYNC_IN_PROGRESS(8),
   /** Operation or data type not supported on this platform. */
-  UNSUPPORTED_OPERATION(12),
+  UNSUPPORTED_OPERATION(9),
   /** An unclassified or internal system error occurred. */
-  UNKNOWN_ERROR(13);
+  UNKNOWN_ERROR(10);
 
   companion object {
     fun ofRaw(raw: Int): HealthConnectorErrorCodeDto? {

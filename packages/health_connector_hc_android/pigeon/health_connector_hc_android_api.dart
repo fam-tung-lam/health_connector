@@ -16,6 +16,7 @@ import 'package:pigeon/pigeon.dart';
       errorClassName: 'HealthConnectorErrorDto',
     ),
     copyrightHeader: 'pigeon/copyright_header.txt',
+    dartPackageName: 'health_connector_hc_android',
   ),
 )
 /// Configuration data transfer object for Health Connector.
@@ -2077,34 +2078,20 @@ class HealthDataSyncResultDto {
 
 /// Error codes that native platforms can use when throwing error.
 enum HealthConnectorErrorCodeDto {
-  // Authorization error codes
-  /// User denied permission or dismissed authorization prompt.
-  authorizationDenied,
+  /// Permission to access health data was not granted.
+  permissionNotGranted,
 
-  /// Authorization has not been requested yet.
-  authorizationNotDetermined,
-
-  // Configuration error code
   /// Required permission not declared in app configuration.
   permissionNotDeclared,
 
-  // Invalid argument error code
   /// Invalid parameter, malformed record, or expired change token.
   invalidArgument,
 
-  // Health service unavailable error codes
   /// Health service is not available on this device.
   healthServiceUnavailable,
 
-  /// Health service usage is restricted by policy.
-  healthServiceRestricted,
-
   /// Health Connect app not installed or update required (Android only).
   healthServiceNotInstalledOrUpdateRequired,
-
-  // Health service exception error codes
-  /// Health database is protected and inaccessible.
-  healthServiceDatabaseInaccessible,
 
   /// Storage read/write operation failed.
   ioError,
@@ -2118,11 +2105,9 @@ enum HealthConnectorErrorCodeDto {
   /// Health service is syncing data, operations blocked.
   dataSyncInProgress,
 
-  // Unsupported operation error code
   /// Operation or data type not supported on this platform.
   unsupportedOperation,
 
-  // Unknown error code
   /// An unclassified or internal system error occurred.
   unknownError,
 }

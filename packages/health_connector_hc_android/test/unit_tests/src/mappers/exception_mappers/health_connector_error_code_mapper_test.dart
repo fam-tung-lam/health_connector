@@ -19,7 +19,7 @@ void main() {
                     .healthServiceNotInstalledOrUpdateRequired,
               ],
               [
-                'HEALTH_PROVIDER_UNAVAILABLE',
+                'HEALTH_SERVICE_UNAVAILABLE',
                 HealthConnectorErrorCode.healthServiceUnavailable,
               ],
               [
@@ -27,7 +27,7 @@ void main() {
                 HealthConnectorErrorCode.unsupportedOperation,
               ],
               [
-                'INVALID_CONFIGURATION',
+                'PERMISSION_NOT_DECLARED',
                 HealthConnectorErrorCode.permissionNotDeclared,
               ],
               [
@@ -35,15 +35,15 @@ void main() {
                 HealthConnectorErrorCode.invalidArgument,
               ],
               [
-                'NOT_AUTHORIZED',
-                HealthConnectorErrorCode.authorizationDenied,
+                'PERMISSION_NOT_GRANTED',
+                HealthConnectorErrorCode.permissionNotGranted,
               ],
               [
                 'REMOTE_ERROR',
                 HealthConnectorErrorCode.remoteError,
               ],
               [
-                'UNKNOWN',
+                'UNKNOWN_ERROR',
                 HealthConnectorErrorCode.unknownError,
               ],
             ],

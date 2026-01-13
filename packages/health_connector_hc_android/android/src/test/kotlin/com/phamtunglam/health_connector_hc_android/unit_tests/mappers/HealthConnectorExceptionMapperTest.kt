@@ -201,7 +201,7 @@ class HealthConnectorExceptionMapperTest {
             val nestedCause = IllegalStateException(NESTED_CAUSE_MESSAGE)
             val cause = IllegalArgumentException(CAUSE_MESSAGE, nestedCause)
             val exception = HealthConnectorException.Authorization(
-                code = HealthConnectorErrorCodeDto.AUTHORIZATION_DENIED,
+                code = HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
                 message = TEST_MESSAGE,
                 cause = cause,
             )
@@ -386,10 +386,10 @@ class HealthConnectorExceptionMapperTest {
             ),
             Arguments.of(
                 HealthConnectorException.Authorization(
-                    code = HealthConnectorErrorCodeDto.AUTHORIZATION_DENIED,
+                    code = HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
                     message = TEST_MESSAGE,
                 ),
-                HealthConnectorErrorCodeDto.AUTHORIZATION_DENIED,
+                HealthConnectorErrorCodeDto.PERMISSION_NOT_GRANTED,
             ),
             Arguments.of(
                 HealthConnectorException.HealthService(
