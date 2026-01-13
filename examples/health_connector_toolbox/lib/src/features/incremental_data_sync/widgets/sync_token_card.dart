@@ -26,17 +26,17 @@ class SyncTokenCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dataTypesToTestSync =
-    <HealthDataType>[
-      HealthDataType.activeEnergyBurned,
-      HealthDataType.distance,
-      HealthDataType.height,
-      HealthDataType.heartRateSeries,
-      HealthDataType.heartRate,
-      HealthDataType.steps,
-      HealthDataType.weight,
-    ].where((dt) {
-      return dt.supportedHealthPlatforms.contains(healthPlatform);
-    }).toList();
+        <HealthDataType>[
+          HealthDataType.activeEnergyBurned,
+          HealthDataType.distance,
+          HealthDataType.height,
+          HealthDataType.heartRateSeries,
+          HealthDataType.heartRate,
+          HealthDataType.steps,
+          HealthDataType.weight,
+        ].where((dt) {
+          return dt.supportedHealthPlatforms.contains(healthPlatform);
+        }).toList();
 
     return Selector<IncrementalDataSyncChangeNotifier, HealthDataSyncToken?>(
       selector: (_, notifier) => notifier.syncToken,
@@ -54,10 +54,7 @@ class SyncTokenCard extends StatelessWidget {
                   children: [
                     Text(
                       AppTexts.syncToken,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .titleMedium,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const Spacer(),
                     if (token != null)
@@ -90,10 +87,9 @@ class SyncTokenCard extends StatelessWidget {
                     token.dataTypes.map((dt) => dt.id).join('\n'),
                     null,
                   ),
-                ] else
-                  ...[
-                    const Text(AppTexts.noneInitialSync),
-                  ],
+                ] else ...[
+                  const Text(AppTexts.noneInitialSync),
+                ],
                 const SizedBox(height: 16),
                 const Divider(),
                 const SizedBox(height: 16),
@@ -109,30 +105,26 @@ class SyncTokenCard extends StatelessWidget {
     );
   }
 
-  Widget _buildStatusRow(BuildContext context,
-      String label,
-      String value,
-      Color? valueColor,) {
+  Widget _buildStatusRow(
+    BuildContext context,
+    String label,
+    String value,
+    Color? valueColor,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
       children: [
         Text(
           '$label:',
-          style: Theme
-              .of(context)
-              .textTheme
-              .titleSmall,
+          style: Theme.of(context).textTheme.titleSmall,
         ),
         const Spacer(),
         Expanded(
           child: Text(
             value,
             textAlign: TextAlign.right,
-            style: Theme
-                .of(context)
-                .textTheme
-                .bodyMedium,
+            style: Theme.of(context).textTheme.bodyMedium,
             overflow: TextOverflow.ellipsis,
           ),
         ),

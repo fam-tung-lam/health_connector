@@ -5,8 +5,8 @@ import 'package:health_connector_toolbox/src/features/read_health_records/widget
 import 'package:health_connector_toolbox/src/features/read_health_records/widgets/health_record_list_tiles/interval_health_record_list_tiles/interval_health_record_list_tile.dart';
 
 /// Widget for displaying active energy burned record tiles.
-final class ActiveCaloriesBurnedTile extends StatelessWidget {
-  const ActiveCaloriesBurnedTile({
+final class ActiveEnergyBurnedTile extends StatelessWidget {
+  const ActiveEnergyBurnedTile({
     required this.record,
     required this.onDelete,
     super.key,

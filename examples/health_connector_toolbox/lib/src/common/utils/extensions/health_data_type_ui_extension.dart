@@ -32,9 +32,9 @@ extension HealthDataTypeUI on HealthDataType {
       SwimmingDistanceDataType _ => AppTexts.swimmingDistance,
       WheelchairDistanceDataType _ => AppTexts.wheelchairDistance,
       WalkingRunningDistanceDataType _ => AppTexts.walkingRunningDistance,
-      ActiveEnergyBurnedDataType _ => AppTexts.activeCaloriesBurned,
+      ActiveEnergyBurnedDataType _ => AppTexts.activeEnergyBurned,
       BasalEnergyBurnedDataType _ => AppTexts.basalEnergyBurned,
-      TotalEnergyBurnedDataType _ => AppTexts.totalCaloriesBurned,
+      TotalEnergyBurnedDataType _ => AppTexts.totalEnergyBurned,
       FloorsClimbedDataType _ => AppTexts.floorsClimbed,
       WheelchairPushesDataType _ => AppTexts.wheelchairPushes,
       HydrationDataType _ => AppTexts.hydration,
@@ -137,9 +137,9 @@ extension HealthDataTypeUI on HealthDataType {
       SwimmingDistanceDataType _ => AppTexts.distanceDescription,
       WheelchairDistanceDataType _ => AppTexts.distanceDescription,
       WalkingRunningDistanceDataType _ => AppTexts.distanceDescription,
-      ActiveEnergyBurnedDataType _ => AppTexts.activeCaloriesBurnedDescription,
+      ActiveEnergyBurnedDataType _ => AppTexts.activeEnergyBurnedDescription,
       BasalEnergyBurnedDataType _ => AppTexts.basalEnergyBurnedDescription,
-      TotalEnergyBurnedDataType _ => AppTexts.totalCaloriesBurnedDescription,
+      TotalEnergyBurnedDataType _ => AppTexts.totalEnergyBurnedDescription,
       FloorsClimbedDataType _ => AppTexts.floorsClimbedDescription,
       WheelchairPushesDataType _ => AppTexts.wheelchairPushesDescription,
       HydrationDataType _ => AppTexts.hydrationDescription,
@@ -487,15 +487,15 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
 
       // Activity & Energy
       const (ActiveEnergyBurnedDataType) => AppTexts.withUnit(
-        AppTexts.activeCaloriesBurned,
+        AppTexts.activeEnergyBurned,
         AppTexts.kilocalories,
       ),
       const (TotalEnergyBurnedDataType) => AppTexts.withUnit(
-        AppTexts.activeCaloriesBurned,
+        AppTexts.activeEnergyBurned,
         AppTexts.kilocalories,
       ),
       const (BasalEnergyBurnedDataType) => AppTexts.withUnit(
-        AppTexts.activeCaloriesBurned,
+        AppTexts.activeEnergyBurned,
         AppTexts.kilocalories,
       ),
       const (DietaryEnergyConsumedDataType) => AppTexts.withUnit(
@@ -826,7 +826,7 @@ extension HealthDataTypeUIFormExtension on HealthDataType {
         AppTexts.power,
       ),
       const (ActiveEnergyBurnedDataType) => AppTexts.getPleaseEnterText(
-        AppTexts.activeCaloriesBurned,
+        AppTexts.activeEnergyBurned,
       ),
       const (DietaryEnergyConsumedDataType) => AppTexts.getPleaseEnterText(
         AppTexts.energy,

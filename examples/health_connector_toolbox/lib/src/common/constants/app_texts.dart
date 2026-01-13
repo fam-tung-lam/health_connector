@@ -107,9 +107,9 @@ abstract final class AppTexts {
       SwimmingDistanceDataType() ||
       WheelchairDistanceDataType() ||
       WalkingRunningDistanceDataType() => distance,
-      ActiveEnergyBurnedDataType() => activeCaloriesBurned,
+      ActiveEnergyBurnedDataType() => activeEnergyBurned,
       BasalEnergyBurnedDataType() => basalEnergyBurned,
-      TotalEnergyBurnedDataType() => totalCaloriesBurned,
+      TotalEnergyBurnedDataType() => totalEnergyBurned,
       FloorsClimbedDataType() => floorsClimbed,
       WheelchairPushesDataType() => wheelchairPushes,
       HydrationDataType() => hydration,
@@ -316,9 +316,9 @@ abstract final class AppTexts {
   // endregion
 
   // Distance activity values
-  static const String activeCaloriesBurned = 'Active Calories Burned';
+  static const String activeEnergyBurned = 'Active Energy Burned';
   static const String basalEnergyBurned = 'Basal Energy Burned';
-  static const String totalCaloriesBurned = 'Total Calories Burned';
+  static const String totalEnergyBurned = 'Total Energy Burned';
   static const String crossCountrySkiing = 'Cross Country Skiing';
   static const String cycling = 'Cycling';
   static const String downhillSnowSports = 'Downhill Snow Sports';
@@ -777,7 +777,7 @@ abstract final class AppTexts {
   static const String energyAndMacronutrients = '$energy \u0026 Macronutrients';
   static const String energyKcal = '$energy (kcal)';
   static const String energyMacronutrientsSubtitle =
-      'Calories, protein, carbs, fats';
+      'Energy, protein, carbs, fats';
   static const String vitamins = 'Vitamins';
   static const String vitaminsSubtitle = '13 vitamin fields';
   static const String minerals = 'Minerals';
@@ -903,11 +903,11 @@ abstract final class AppTexts {
       'Distance covered while walking or running';
 
   // Activity Metrics
-  static const String activeCaloriesBurnedDescription =
-      'Calories burned through active movement';
+  static const String activeEnergyBurnedDescription =
+      'Energy burned through active movement';
   static const String basalEnergyBurnedDescription =
-      'Calories burned by the body at rest to maintain basic functions';
-  static const String totalCaloriesBurnedDescription =
+      'Energy burned by the body at rest to maintain basic functions';
+  static const String totalEnergyBurnedDescription =
       'Sum of active and basal energy burned';
   static const String floorsClimbedDescription = 'Number of floors climbed';
   static const String wheelchairPushesDescription =

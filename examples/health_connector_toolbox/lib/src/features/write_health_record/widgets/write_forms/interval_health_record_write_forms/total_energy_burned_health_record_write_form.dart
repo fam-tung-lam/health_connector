@@ -5,20 +5,20 @@ import 'package:health_connector_toolbox/src/features/write_health_record/widget
 
 /// Form widget for total energy burned records.
 @immutable
-final class TotalCaloriesBurnedWriteForm extends IntervalHealthRecordWriteForm {
-  const TotalCaloriesBurnedWriteForm({
+final class TotalEnergyBurnedWriteForm extends IntervalHealthRecordWriteForm {
+  const TotalEnergyBurnedWriteForm({
     required super.healthPlatform,
     required super.onSubmit,
     super.key,
   });
 
   @override
-  TotalCaloriesBurnedFormState createState() => TotalCaloriesBurnedFormState();
+  TotalEnergyBurnedFormState createState() => TotalEnergyBurnedFormState();
 }
 
 /// State for total energy burned form widget.
-final class TotalCaloriesBurnedFormState
-    extends IntervalHealthRecordFormState<TotalCaloriesBurnedWriteForm> {
+final class TotalEnergyBurnedFormState
+    extends IntervalHealthRecordFormState<TotalEnergyBurnedWriteForm> {
   @override
   List<Widget> buildFields(BuildContext context) {
     return [
