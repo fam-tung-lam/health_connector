@@ -44,7 +44,7 @@ Describes the context of the record:
 
 - **Recording method**: Manual entry (`Metadata.manualEntry()`), automatic (
   `Metadata.automaticallyRecorded()`), or unknown.
-- **Device info**: Optional device manufacturer and model.
+- **Device info**: Device manufacturer and model (optional for manual/unknown, required for others).
 
 #### Timestamps & Timezones
 
