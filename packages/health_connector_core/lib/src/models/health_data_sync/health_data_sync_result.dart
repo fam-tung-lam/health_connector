@@ -76,4 +76,14 @@ final class HealthDataSyncResult extends Response {
     hasMore,
     nextSyncToken,
   );
+
+  @override
+  String toString() {
+    return 'HealthDataSyncResult('
+        'upsertedRecordsCount=${upsertedRecords.length}, '
+        'deletedRecordIdsCount=${deletedRecordIds.length}, '
+        'hasMore=$hasMore, '
+        'nextSyncToken=$nextSyncToken'
+        ')';
+  }
 }

@@ -275,4 +275,13 @@ final class HealthRecordId {
 
   @override
   int get hashCode => value.hashCode;
+
+  @override
+  String toString() {
+    if (this == HealthRecordId.none) {
+      return 'none';
+    }
+
+    return '${value.substring(0, 3)}********';
+  }
 }

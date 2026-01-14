@@ -118,6 +118,15 @@ final class CommonAggregateRequest<
     );
     requireEndTimeAfterStartTime(startTime: startTime, endTime: endTime);
   }
+
+  @override
+  String toString() {
+    return 'CommonAggregateRequest('
+        'dataType=$dataType, '
+        'aggregationMetric=$aggregationMetric, '
+        'spanDays=${endTime.difference(startTime).inDays}'
+        ')';
+  }
 }
 
 /// Request to perform an aggregation query on blood pressure health records.
@@ -179,5 +188,14 @@ final class BloodPressureAggregateRequest
           '$dataType is not a valid blood pressure type for aggregation. '
           'Must be one of: $_bloodPressureDataTypes.',
     );
+  }
+
+  @override
+  String toString() {
+    return 'BloodPressureAggregateRequest('
+        'dataType=$dataType, '
+        'aggregationMetric=$aggregationMetric, '
+        'spanDays=${endTime.difference(startTime).inDays}'
+        ')';
   }
 }

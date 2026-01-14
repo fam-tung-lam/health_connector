@@ -104,4 +104,12 @@ final class HealthDataSyncToken {
 
   /// The JSON key for the [createdAt] field.
   static const _createdAtKey = 'createdAt';
+
+  @override
+  String toString() {
+    return 'HealthDataSyncToken('
+        'dataTypesCount=${dataTypes.length}, '
+        'createdAt=$createdAt'
+        ')';
+  }
 }

@@ -93,6 +93,11 @@ final class ReadRecordByIdRequest<R extends HealthRecord>
 
   @override
   int get hashCode => dataType.hashCode ^ id.hashCode;
+
+  @override
+  String toString() {
+    return 'ReadRecordByIdRequest(dataType=$dataType, id=$id)';
+  }
 }
 
 /// Request to read multiple health records within a time range.
@@ -261,4 +266,15 @@ final class ReadRecordsInTimeRangeRequest<R extends HealthRecord>
       (pageToken?.hashCode ?? 0) ^
       sortDescriptor.hashCode ^
       dataOrigins.hashCode;
+
+  @override
+  String toString() {
+    return 'ReadRecordsInTimeRangeRequest('
+        'dataType=$dataType, '
+        'dataOriginsCount=${dataOrigins.length}, '
+        'hasPageToken=${pageToken != null}, '
+        'pageSize=$pageSize, '
+        'spanDays=${endTime.difference(startTime).inDays}, '
+        'sortDescriptor=$sortDescriptor)';
+  }
 }
