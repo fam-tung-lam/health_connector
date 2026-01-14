@@ -3,6 +3,8 @@
 /// Each level has a [name] field that contains the string representation
 /// of the log level and a [value] field that contains the integer value
 /// for `dart:developer.log`.
+///
+/// {@category Logging}
 enum HealthConnectorLogLevel {
   /// Debug level for detailed diagnostic information.
   debug('DEBUG', 500),

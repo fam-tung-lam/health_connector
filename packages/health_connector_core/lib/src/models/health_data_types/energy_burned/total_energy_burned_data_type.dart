@@ -25,7 +25,7 @@ part of '../health_data_type.dart';
 /// - [BasalEnergyBurnedRecord]
 /// - [BasalEnergyBurnedDataType]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV2_2_0
 @supportedOnHealthConnect
 @immutable

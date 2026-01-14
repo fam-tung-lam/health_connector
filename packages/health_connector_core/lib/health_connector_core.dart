@@ -5,21 +5,33 @@
 /// health platforms.
 library;
 
-export 'src/config/health_connector_config.dart';
-export 'src/models/exceptions/health_connector_error_code.dart';
-export 'src/models/exceptions/health_connector_exception.dart';
-export 'src/models/health_data_sync/health_data_sync_result.dart';
-export 'src/models/health_data_sync/health_data_sync_token.dart';
+export 'src/config/health_connector_config.dart' show HealthConnectorConfig;
+export 'src/models/exceptions/health_connector_error_code.dart'
+    show HealthConnectorErrorCode;
+export 'src/models/exceptions/health_connector_exception.dart'
+    show
+        HealthConnectorException,
+        AuthorizationException,
+        ConfigurationException,
+        InvalidArgumentException,
+        HealthServiceUnavailableException,
+        HealthServiceException,
+        UnsupportedOperationException,
+        UnknownException;
+export 'src/models/health_data_sync/health_data_sync_result.dart'
+    show HealthDataSyncResult;
+export 'src/models/health_data_sync/health_data_sync_token.dart'
+    show HealthDataSyncToken;
 export 'src/models/health_data_types/health_data_type.dart'
     hide
         MineralNutrientDataType,
         NutrientDataType,
         DietaryVitaminDataType,
         MacronutrientDataType;
-export 'src/models/health_platform.dart';
-export 'src/models/health_platform_features/health_platform_feature.dart';
-export 'src/models/health_records/blood_pressure/blood_pressure_body_position.dart';
-export 'src/models/health_records/blood_pressure/blood_pressure_measurement_location.dart';
+export 'src/models/health_platform.dart'
+    show HealthPlatform, HealthPlatformStatus;
+export 'src/models/health_platform_features/health_platform_feature.dart'
+    show HealthPlatformFeature, HealthPlatformFeatureStatus;
 export 'src/models/health_records/health_record.dart'
     hide
         DietaryMacronutrientRecord,
@@ -27,14 +39,31 @@ export 'src/models/health_records/health_record.dart'
         DietaryVitaminRecord,
         SpeedActivityRecord,
         DistanceActivityRecord;
-export 'src/models/health_records/sleep/sleep_stage.dart';
 export 'src/models/measurement_units/measurement_unit.dart'
-    hide MeasurementUnit;
-export 'src/models/metadata/metadata.dart';
-export 'src/models/permissions/permission.dart' hide Permission;
+    show
+        MeasurementUnit,
+        BloodGlucose,
+        Energy,
+        Frequency,
+        Length,
+        Mass,
+        Number,
+        Percentage,
+        Power,
+        Pressure,
+        Temperature,
+        TimeDuration,
+        Velocity,
+        Volume;
+export 'src/models/metadata/metadata.dart'
+    show Metadata, Device, DeviceType, RecordingMethod, DataOrigin;
+export 'src/models/permissions/permission.dart'
+    show
+        HealthPlatformFeaturePermission,
+        HealthDataPermission,
+        HealthDataPermissionAccessType,
+        PermissionStatus;
 export 'src/models/requests/aggregation_metric.dart' show AggregationMetric;
 export 'src/models/requests/sort_descriptor.dart' show SortDescriptor;
 export 'src/models/responses/permission_request_result.dart'
     show PermissionRequestResult;
-export 'src/models/responses/read_records_response.dart'
-    show ReadRecordsInTimeRangeResponse;

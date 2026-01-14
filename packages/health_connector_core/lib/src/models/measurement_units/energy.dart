@@ -5,7 +5,7 @@ part of 'measurement_unit.dart';
 /// Energy is used for calories burned, basal metabolic rate, and
 /// other energy-related health data.
 ///
-/// {@category Measurement Units}
+/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class Energy extends MeasurementUnit implements Comparable<Energy> {

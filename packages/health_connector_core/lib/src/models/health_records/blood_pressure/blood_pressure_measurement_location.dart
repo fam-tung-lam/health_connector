@@ -1,5 +1,4 @@
-import 'package:health_connector_core/src/annotations/annotations.dart'
-    show sinceV1_2_0;
+part of '../health_record.dart';
 
 /// Represents the measurement location for a blood pressure reading.
 ///

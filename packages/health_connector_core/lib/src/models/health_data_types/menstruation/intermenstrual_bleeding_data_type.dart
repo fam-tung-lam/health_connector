@@ -52,7 +52,7 @@ part of '../health_data_type.dart';
 ///
 /// - [IntermenstrualBleedingRecord]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV2_2_0
 @immutable
 final class IntermenstrualBleedingDataType

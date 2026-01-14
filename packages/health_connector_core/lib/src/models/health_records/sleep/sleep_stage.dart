@@ -1,3 +1,5 @@
+part of '../health_record.dart';
+
 /// Represents the different types of sleep stages.
 ///
 /// ## Platform Mapping

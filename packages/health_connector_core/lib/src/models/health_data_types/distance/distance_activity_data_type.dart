@@ -24,7 +24,7 @@ part of '../health_data_type.dart';
 /// - [SkatingSportsDistanceDataType] (iOS 18+)
 /// - [SixMinuteWalkTestDistanceDataType]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable

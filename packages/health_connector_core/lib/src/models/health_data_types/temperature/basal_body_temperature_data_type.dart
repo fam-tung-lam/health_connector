@@ -27,7 +27,7 @@ part of '../health_data_type.dart';
 /// - [BasalBodyTemperatureRecord]
 /// - [BodyTemperatureRecord]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV2_2_0
 @immutable
 final class BasalBodyTemperatureDataType

@@ -1,206 +1,100 @@
 # Permissions
 
-Health data access requires explicit user permission on both platforms. The `health_connector` SDK
-provides a unified API for managing permissions across iOS HealthKit and Android Health Connect,
-while handling platform-specific differences transparently.
+The Health Connector SDK provides a unified, secure-by-default API for managing user permissions
+across iOS HealthKit and Android Health Connect.
 
-## Permission Types
+Accessing health data requires two types of permissions:
 
-The SDK supports two categories of permissions:
+1. **Data Permissions**: Access to read or write specific types of health records (e.g., Steps,
+   Weight).
+2. **Feature Permissions**: Access to special platform capabilities (e.g., Background Updates,
+   History).
 
-### Data Permissions
+### Permission Types
 
-Permissions to access specific health data types:
+| Type                   | Description                                                                 | Usage Example                                                 |
+|:-----------------------|:----------------------------------------------------------------------------|:--------------------------------------------------------------|
+| **Read Permission**    | Grants access to read existing data from the health store.                  | `HealthDataType.steps.readPermission`                         |
+| **Write Permission**   | Grants access to save new data to the health store.                         | `HealthDataType.steps.writePermission`                        |
+| **Feature Permission** | Grants access to specific platform capabilities like background processing. | `HealthPlatformFeature.readHealthDataInBackground.permission` |
 
-- **Read Permission**: Access to read health data for a specific data type
-- **Write Permission**: Access to write health data for a specific data type
+## Platform Behaviors
 
-Each `HealthDataType` provides both read and write permission objects:
+iOS and Android have fundamental differences in how they handle health permissions, particularly
+regarding privacy.
+
+| Feature                     | iOS HealthKit                                                                                                                                | Android Health Connect                                                                                              |
+|:----------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------|
+| **Read Permission Status**  | **Hidden**. Always returns `PermissionStatus.unknown` to prevent unrelated apps from inferring health conditions based on permission grants. | **Visible**. Returns `granted` or `denied`.                                                                         |
+| **Write Permission Status** | **Visible**. Returns `granted` or `denied`.                                                                                                  | **Visible**. Returns `granted` or `denied`.                                                                         |
+| **Revocation**              | **User Only**. Users must manually revoke permissions in iOS Settings. Apps cannot programmatically revoke permissions.                      | **App & User**. Apps can revoke their own permissions via `revokeAllPermissions()`, or users can do it in settings. |
+| **Enumeration**             | **Restricted**. You cannot get a list of all granted permissions.                                                                            | **Available**. You can use `getGrantedPermissions()` to see everything your app has access to.                      |
+
+## The Permission Workflow
+
+A robust health app follows this pattern:
+
+1. **Check Status**: See if you already have the permissions you need.
+2. **Educate**: Show a custom UI explaining *why* you need these permissions before triggering the
+   system dialog.
+3. **Request**: Launch the system permission sheet.
+4. **Handle**: Process the results and update your UI.
+
+### 1. Check Status
 
 ```dart
-// Access permissions via HealthDataType
-final stepsReadPermission = HealthDataType.steps.readPermission;
-final stepsWritePermission = HealthDataType.steps.writePermission;
-final weightReadPermission = HealthDataType.weight.readPermission;
-final weightWritePermission = HealthDataType.weight.writePermission;
+// Check if we can write steps
+final status = await connector.getPermissionStatus(
+  HealthDataType.steps.writePermission,
+);
+
+if (status == PermissionStatus.denied) {
+  // Permission are not granted.
+}
 ```
 
-### Feature Permissions
+### 2. Request Permissions
 
-Permissions to access platform features that enhance health data functionality:
-
-- **Background Health Data Reading**: Access to read health data in the background
-- **Historical Health Data Reading**: Access to read health data older than 30 days
-
-```dart
-// Access feature permissions via HealthPlatformFeature
-final backgroundPermission = HealthPlatformFeature.readHealthDataInBackground.permission;
-final historyPermission = HealthPlatformFeature.readHealthDataHistory.permission;
-```
-
-> **Note**: Feature availability varies by Android and Health Connect version. 
-> Always check feature status before requesting permissions.
-
-## Platform Differences
-
-### iOS HealthKit
-
-#### Read Permissions
-
-- Always return `PermissionStatus.unknown` when checked via `getPermissionStatus()`
-- This is intentional—Apple prevents apps from detecting whether users have health data by checking permission status
-- Apps should always assume read permission may be granted and handle authorization errors gracefully
-
-#### Write Permissions
-
-- Return actual status (`granted` or `denied`) when checked via `getPermissionStatus()`
-
-#### Feature Permissions
-
-- All features are available and granted by default
-- Always return `PermissionStatus.granted` when requested or checked
-
-#### Permission Enumeration
-
-- `getGrantedPermissions()` is **not available** on iOS
-- Apps cannot enumerate what health data access they have been granted
-- This protects user privacy by preventing apps from inferring what health data exists
-
-#### Permission Revocation
-
-- `revokeAllPermissions()` is **not available** on iOS
-- Users must manually revoke permissions through the iOS Settings app
-- This ensures users have full control and visibility over their health data permissions
-
-### Android Health Connect
-
-#### All Permissions
-
-- Return actual status (`granted` or `denied`) when checked via `getPermissionStatus()`
-
-#### Feature Permissions
-
-- Feature availability depends on Android version and Health Connect SDK version
-- Some features require specific minimum versions
-- Must check feature status before requesting permissions
-
-#### Permission Enumeration
-
-- `getGrantedPermissions()` is available
-- Apps can query all currently granted permissions
-
-#### Permission Revocation
-
-- `revokeAllPermissions()` is available
-- Apps can programmatically revoke all permissions
-
-## Requesting Permissions
-
-Request one or more permissions from the user:
+The `requestPermissions` method returns a list of results, one for each requested permission.
 
 ```dart
 final permissions = [
-  // Data permissions
+  // 1. Data Permissions
   HealthDataType.steps.readPermission,
   HealthDataType.steps.writePermission,
-  HealthDataType.weight.readPermission,
-  HealthDataType.weight.writePermission,
+  HealthDataType.heartRate.readPermission,
   
-  // Feature permissions
+  // 2. Feature Permissions
   HealthPlatformFeature.readHealthDataInBackground.permission,
 ];
 
+// Triggers the system dialog
 final results = await connector.requestPermissions(permissions);
+```
+
+### 3. Handle Results
+
+Process the results to determine if your app can proceed.
+
+```dart
+bool allEssentialPermissionsGranted = true;
 
 for (final result in results) {
   print('${result.permission}: ${result.status}');
-}
-```
-
-### Checking Request Results
-
-Each permission request returns a `PermissionRequestResult` with:
-
-- `permission`: The permission that was requested
-- `status`: The resulting permission status
-
-```dart
-final results = await connector.requestPermissions([
-  HealthDataType.steps.writePermission,
-]);
-
-// Check if write permission was granted
-final writeGranted = results.any((r) =>
-    r.permission == HealthDataType.steps.writePermission &&
-    r.status == PermissionStatus.granted);
-
-if (writeGranted) {
-  // Safe to write step records
-} else {
-  print('Write permission not granted');
-}
-```
-
-## Checking Permission Status
-
-### Individual Permission Status
-
-Check the status of a specific permission:
-
-```dart
-final status = await connector.getPermissionStatus(
-  HealthDataType.steps.readPermission,
-);
-
-switch (status) {
-  case PermissionStatus.granted:
-    print('Permission granted');
-  case PermissionStatus.denied:
-    print('Permission denied');
-  case PermissionStatus.unknown:
-    print('Cannot determine (iOS read permission)');
-}
-```
-
-### Permission Status Values
-
-- **`PermissionStatus.granted`**: Permission has been explicitly granted
-- **`PermissionStatus.denied`**: Permission has been explicitly denied
-- **`PermissionStatus.unknown`**: Status cannot be determined (iOS read permissions only)
-
-## Getting Granted Permissions (Android Only)
-
-> **iOS Limitation**: This API is not available on iOS. HealthKit does not provide a way to query all granted permissions to protect user privacy. Apps cannot enumerate what health data access they have been granted.
-
-Retrieve all permissions currently granted to your app:
-
-```dart
-try {
-  final grantedPermissions = await connector.getGrantedPermissions();
   
-  for (final permission in grantedPermissions) {
-    if (permission is HealthDataPermission) {
-      print('${permission.dataType} (${permission.accessType})');
-    } else if (permission is HealthPlatformFeaturePermission) {
-      print('Feature: ${permission.feature}');
-    }
+  if (result.status != PermissionStatus.granted) {
+      if (Platform.isIOS && result.permission.accessType == AccessType.read) {
+          // On iOS, read permissions always return 'unknown' even if granted.
+          // We assume success here, but real verification happens when reading data.
+          continue;
+      }
+      allEssentialPermissionsGranted = false;
   }
-} on UnsupportedOperationException {
-  print('Only available on Android');
 }
-```
 
-## Revoking All Permissions (Android Only)
-
-> **iOS Limitation**: This API is not available on iOS. HealthKit requires users to manually revoke permissions through the iOS Settings app. This ensures users have full control and visibility over their health data permissions.
-
-Programmatically revoke all permissions granted to your app:
-
-```dart
-try {
-  await connector.revokeAllPermissions();
-  print('All permissions revoked');
-} on UnsupportedOperationException {
-  print('Only available on Android');
+if (allEssentialPermissionsGranted) {
+  _startHealthSync();
+} else {
+  _showPermissionDeniedError();
 }
 ```

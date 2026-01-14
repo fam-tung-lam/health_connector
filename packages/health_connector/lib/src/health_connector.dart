@@ -7,7 +7,6 @@ import 'package:health_connector_hc_android/health_connector_hc_android.dart'
     show HealthConnectorHCClient;
 import 'package:health_connector_hk_ios/health_connector_hk_ios.dart'
     show HealthConnectorHKClient;
-import 'package:health_connector_logger/health_connector_logger.dart';
 
 /// Main entry point for interacting with platform-specific health APIs.
 ///

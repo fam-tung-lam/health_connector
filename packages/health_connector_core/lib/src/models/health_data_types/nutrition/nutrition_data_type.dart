@@ -22,7 +22,7 @@ part of '../health_data_type.dart';
 /// - Writeable: Write nutrition records
 /// - Not aggregatable (use individual data types for aggregation)
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV1_1_0
 @immutable
 final class NutritionDataType

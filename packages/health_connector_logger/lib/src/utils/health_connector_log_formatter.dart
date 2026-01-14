@@ -1,6 +1,8 @@
 import 'package:health_connector_logger/health_connector_logger.dart';
+import 'package:meta/meta.dart';
 
 /// Utility class for [HealthConnectorLogger] related operations.
+@internal
 abstract final class HealthConnectorLogFormatter {
   /// Private constructor to prevent instantiation.
   const HealthConnectorLogFormatter._();

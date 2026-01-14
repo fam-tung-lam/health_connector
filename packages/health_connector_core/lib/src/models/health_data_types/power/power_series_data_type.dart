@@ -10,7 +10,7 @@ part of '../health_data_type.dart';
 /// - **Android Health Connect**: `PowerRecord`
 /// - **iOS HealthKit**: Not supported (Use [CyclingPowerDataType])
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV2_0_0
 @supportedOnHealthConnect
 @immutable

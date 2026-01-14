@@ -1,6 +1,4 @@
-import 'package:health_connector_core/health_connector_core.dart';
-import 'package:health_connector_core/src/models/permissions/permission.dart';
-import 'package:health_connector_core/src/utils/permission_extension.dart';
+import 'package:health_connector_core/health_connector_core_internal.dart';
 import 'package:test/test.dart';
 
 void main() {

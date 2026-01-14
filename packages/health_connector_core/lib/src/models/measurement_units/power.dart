@@ -5,7 +5,7 @@ part of 'measurement_unit.dart';
 /// Power is used for cycling power output, rowing power, and
 /// other power-related exercise data.
 ///
-/// {@category Measurement Units}
+/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class Power extends MeasurementUnit implements Comparable<Power> {

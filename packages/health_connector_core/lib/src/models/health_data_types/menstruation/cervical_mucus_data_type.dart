@@ -51,7 +51,7 @@ part of '../health_data_type.dart';
 ///
 /// - [CervicalMucusRecord]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV2_1_0
 @immutable
 final class CervicalMucusDataType

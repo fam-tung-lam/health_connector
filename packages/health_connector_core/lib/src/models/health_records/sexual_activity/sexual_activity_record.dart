@@ -29,7 +29,7 @@ part of '../health_record.dart';
 /// - [SexualActivityDataType]
 /// - [SexualActivityProtectionUsed]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV2_1_0
 @immutable
 final class SexualActivityRecord extends InstantHealthRecord {

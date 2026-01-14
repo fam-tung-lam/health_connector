@@ -19,9 +19,11 @@ import 'package:health_connector_core/src/models/responses/read_records_response
     show ReadRecordsInTimeRangeResponse;
 import 'package:health_connector_core/src/utils/validation_utils.dart'
     show requireEndTimeAfterStartTime, require;
-import 'package:meta/meta.dart' show immutable;
+import 'package:meta/meta.dart';
 
 /// Base sealed class for all health records read requests.
+///
+/// @nodoc
 @sinceV2_0_0
 @internalUse
 @immutable
@@ -38,6 +40,8 @@ sealed class ReadRecordsRequest<R extends HealthRecord> extends Request {
 }
 
 /// Request to read a single health record by its ID.
+///
+/// {@category Core API}
 @sinceV1_0_0
 @internalUse
 @immutable
@@ -92,6 +96,8 @@ final class ReadRecordByIdRequest<R extends HealthRecord>
 }
 
 /// Request to read multiple health records within a time range.
+///
+/// {@category Core API}
 @sinceV1_0_0
 @internalUse
 @immutable

@@ -28,7 +28,7 @@ part of '../health_data_type.dart';
 ///
 /// - **iOS HealthKit**: `HKQuantityTypeIdentifier.sixMinuteWalkTestDistance`
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV2_0_0
 @supportedOnAppleHealth
 @immutable

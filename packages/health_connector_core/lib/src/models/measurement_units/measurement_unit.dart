@@ -37,7 +37,7 @@ part 'volume.dart';
 /// - This is a **cross-platform abstraction layer** designed for
 ///   interoperability between Android and iOS health platforms
 ///
-/// {@category Measurement Units}
+/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 sealed class MeasurementUnit {

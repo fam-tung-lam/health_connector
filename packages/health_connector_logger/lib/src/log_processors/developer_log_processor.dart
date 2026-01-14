@@ -75,6 +75,8 @@ import 'package:health_connector_logger/src/models/health_connector_log_level.da
 /// - https://api.dart.dev/stable/dart-developer/log.html
 ///
 /// @sinceV3_0_0
+///
+/// {@category Logging}
 class DeveloperLogProcessor extends HealthConnectorLogProcessor {
   /// Creates a developer log processor for the specified [levels].
   ///

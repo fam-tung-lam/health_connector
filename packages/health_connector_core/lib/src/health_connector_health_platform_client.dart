@@ -19,6 +19,8 @@ import 'package:health_connector_core/src/models/responses/read_records_response
 /// This interface defines the contract for platform-specific implementations
 /// that communicate with health platforms to read, write, and
 /// manage health data.
+///
+/// {@category Core API}
 @sinceV1_0_0
 @internalUse
 abstract interface class HealthConnectorPlatformClient {

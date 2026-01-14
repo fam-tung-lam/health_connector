@@ -27,7 +27,7 @@ part of 'health_data_type.dart';
 ///
 /// - [BloodGlucoseRecord]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV1_4_0
 @immutable
 final class BloodGlucoseDataType

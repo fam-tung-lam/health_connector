@@ -26,7 +26,7 @@ part of 'health_data_type.dart';
 /// - [MindfulnessSessionRecord]
 /// - [MindfulnessSessionType]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV2_1_0
 @immutable
 final class MindfulnessSessionDataType

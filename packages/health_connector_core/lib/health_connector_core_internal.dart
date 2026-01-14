@@ -33,18 +33,15 @@ export 'src/models/health_data_types/health_data_type.dart'
 export 'src/models/health_data_types/health_data_type_capabilities/health_data_type_capabilities.dart';
 export 'src/models/health_platform.dart';
 export 'src/models/health_platform_features/health_platform_feature.dart';
-export 'src/models/health_records/blood_pressure/blood_pressure_body_position.dart';
-export 'src/models/health_records/blood_pressure/blood_pressure_measurement_location.dart';
 export 'src/models/health_records/health_record.dart'
     hide DietaryMacronutrientRecord, DietaryMineralRecord, DietaryVitaminRecord;
-export 'src/models/health_records/sleep/sleep_stage.dart';
 export 'src/models/measurement_units/measurement_unit.dart';
 export 'src/models/metadata/metadata.dart';
 export 'src/models/permissions/permission.dart';
 export 'src/models/requests/aggregate_request.dart';
 export 'src/models/requests/aggregation_metric.dart';
 export 'src/models/requests/delete_records_request.dart';
-export 'src/models/requests/read_records_request.dart' hide ReadRecordsRequest;
+export 'src/models/requests/read_records_request.dart';
 export 'src/models/requests/sort_descriptor.dart';
 export 'src/models/responses/permission_request_result.dart';
 export 'src/models/responses/read_records_response.dart'

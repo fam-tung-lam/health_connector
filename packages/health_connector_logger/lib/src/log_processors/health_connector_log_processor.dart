@@ -53,6 +53,8 @@ import 'package:health_connector_logger/src/models/health_connector_logger_confi
 /// - [HealthConnectorLoggerConfig] for configuration
 ///
 /// @sinceV3_0_0
+///
+/// {@category Logging}
 abstract class HealthConnectorLogProcessor {
   /// The log levels this processor will handle.
   ///

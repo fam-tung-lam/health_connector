@@ -5,11 +5,12 @@ import 'package:health_connector_core/src/models/health_records/health_record.da
     show HealthRecord;
 import 'package:health_connector_core/src/models/requests/read_records_request.dart'
     show ReadRecordsInTimeRangeRequest;
-import 'package:health_connector_core/src/models/responses/response.dart'
-    show Response;
-import 'package:meta/meta.dart' show immutable, internal;
+import 'package:health_connector_core/src/models/responses/response.dart';
+import 'package:meta/meta.dart';
 
 /// Base sealed class for all health records read responses.
+///
+/// @nodoc
 @sinceV2_0_0
 @internal
 @immutable
@@ -21,6 +22,7 @@ sealed class ReadRecordsResponse<R extends HealthRecord> extends Response {
 ///
 /// {@category Core API}
 @sinceV2_0_0
+@internalUse
 @immutable
 final class ReadRecordsInTimeRangeResponse<R extends HealthRecord>
     extends ReadRecordsResponse {
@@ -30,7 +32,6 @@ final class ReadRecordsInTimeRangeResponse<R extends HealthRecord>
   ///
   /// - [records]: The list of health records in this page.
   /// - [nextPageRequest]: Request for fetching the next page of records.
-  @internalUse
   const ReadRecordsInTimeRangeResponse({
     required this.records,
     this.nextPageRequest,

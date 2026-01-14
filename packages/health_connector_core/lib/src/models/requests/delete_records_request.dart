@@ -1,14 +1,16 @@
 import 'package:collection/collection.dart' show ListEquality;
 import 'package:health_connector_core/health_connector_core.dart';
 import 'package:health_connector_core/src/annotations/annotations.dart';
-import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
 import 'package:health_connector_core/src/models/requests/request.dart';
 import 'package:health_connector_core/src/utils/validation_utils.dart';
-import 'package:meta/meta.dart' show immutable;
+import 'package:meta/meta.dart';
 
 /// Base sealed class for all delete records requests.
+///
+/// @nodoc
 @sinceV2_0_0
 @internalUse
+@immutable
 sealed class DeleteRecordsRequest<R extends HealthRecord> extends Request {
   /// Creates a base delete records request.
   ///
@@ -31,6 +33,8 @@ sealed class DeleteRecordsRequest<R extends HealthRecord> extends Request {
 /// Apps can only delete health records that they created.
 /// Attempting to delete records created by other apps, manually entered by
 /// users, or system-generated will fail with [AuthorizationException].
+///
+/// {@category Core API}
 @sinceV2_0_0
 @internalUse
 @immutable
@@ -102,6 +106,8 @@ final class DeleteRecordsByIdsRequest<R extends HealthRecord>
 /// Apps can only delete health records that they created.
 /// Attempting to delete records created by other apps, manually entered by
 /// users, or system-generated will fail with [AuthorizationException].
+///
+/// {@category Core API}
 @sinceV2_0_0
 @internalUse
 @immutable

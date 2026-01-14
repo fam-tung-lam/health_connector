@@ -5,9 +5,6 @@ import 'package:health_connector_core/src/models/health_data_types/health_data_t
 import 'package:health_connector_core/src/models/health_platform.dart';
 import 'package:health_connector_core/src/models/health_platform_data.dart'
     show HealthPlatformData;
-import 'package:health_connector_core/src/models/health_records/blood_pressure/blood_pressure_body_position.dart';
-import 'package:health_connector_core/src/models/health_records/blood_pressure/blood_pressure_measurement_location.dart';
-import 'package:health_connector_core/src/models/health_records/sleep/sleep_stage.dart';
 import 'package:health_connector_core/src/models/measurement_units/measurement_unit.dart';
 import 'package:health_connector_core/src/models/metadata/metadata.dart';
 import 'package:health_connector_core/src/utils/health_record_data_type_extension.dart';
@@ -17,6 +14,8 @@ import 'package:meta/meta.dart' show immutable, internal;
 part 'blood_glucose/blood_glucose_record.dart';
 part 'blood_glucose/blood_glucose_relation_to_meal.dart';
 part 'blood_glucose/blood_glucose_specimen_source.dart';
+part 'blood_pressure/blood_pressure_body_position.dart';
+part 'blood_pressure/blood_pressure_measurement_location.dart';
 part 'blood_pressure/blood_pressure_record.dart';
 part 'blood_pressure/diastolic_blood_pressure_record.dart';
 part 'blood_pressure/systolic_blood_pressure_record.dart';
@@ -114,6 +113,7 @@ part 'series_health_record.dart';
 part 'sexual_activity/sexual_activity_protection_used.dart';
 part 'sexual_activity/sexual_activity_record.dart';
 part 'sleep/sleep_session_record.dart';
+part 'sleep/sleep_stage.dart';
 part 'sleep/sleep_stage_record.dart';
 part 'speed/running_speed_record.dart';
 part 'speed/speed_activity_record.dart';

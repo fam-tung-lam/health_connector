@@ -1,29 +1,23 @@
 dartdoc:
   # Category organization for sidebar navigation
   categories:
-    "Getting Started":
-      markdown: doc/topics/getting_started.md
     "Core API":
       markdown: doc/topics/core_api.md
-    "Health Data Types":
-      markdown: doc/topics/health_data_types.md
     "Health Records":
       markdown: doc/topics/health_records.md
-    "Measurements & Units":
-      markdown: doc/topics/measurement_units.md
+    "Logging":
+      markdown: doc/topics/logging.md
     "Permissions":
       markdown: doc/topics/permissions.md
     "Exceptions":
       markdown: doc/topics/exceptions.md
 
   categoryOrder:
-    - "Getting Started"
     - "Core API"
-    - "Health Data Types"
     - "Health Records"
-    - "Measurement Units"
     - "Permissions"
     - "Exceptions"
+    - "Logging"
 
   # Hide internal implementation files
   nodoc:

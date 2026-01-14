@@ -24,7 +24,7 @@ part of 'health_data_type.dart';
 ///
 /// - [BodyWaterMassRecord]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV2_2_0
 @supportedOnHealthConnect
 @immutable

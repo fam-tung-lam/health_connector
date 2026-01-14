@@ -13,6 +13,9 @@ import 'package:health_connector_logger/src/models/health_connector_log_level.da
 /// API. It should only be accessed within the `health_connector` library
 /// ecosystem. External consumers must not depend on or reference
 /// [HealthConnectorLogger] as its implementation may change without notice.
+///
+/// @internalUse
+/// @nodoc
 abstract final class HealthConnectorLogger {
   /// Private constructor to prevent instantiation.
   const HealthConnectorLogger._();

@@ -27,7 +27,7 @@ part of '../health_data_type.dart';
 ///
 /// - [SleepStageRecord]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV1_0_0
 @supportedOnAppleHealth
 @immutable

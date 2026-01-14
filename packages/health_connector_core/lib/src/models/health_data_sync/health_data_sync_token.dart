@@ -9,7 +9,7 @@ import 'package:meta/meta.dart' show immutable;
 ///
 /// Treat this object as opaque. Persist it to resume sync from this point.
 ///
-/// {@category Sync}
+/// {@category Core API}
 @sinceV3_0_0
 @immutable
 final class HealthDataSyncToken {

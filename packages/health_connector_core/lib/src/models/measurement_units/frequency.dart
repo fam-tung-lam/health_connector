@@ -5,7 +5,7 @@ part of 'measurement_unit.dart';
 /// Frequency is used for heart rate, respiratory rate, and other
 /// rate-based measurements.
 ///
-/// {@category Measurement Units}
+/// {@category Health Records}
 @sinceV3_0_0
 @immutable
 final class Frequency extends MeasurementUnit implements Comparable<Frequency> {

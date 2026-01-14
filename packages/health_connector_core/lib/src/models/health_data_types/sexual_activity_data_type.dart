@@ -53,7 +53,7 @@ part of 'health_data_type.dart';
 ///
 /// - [SexualActivityRecord]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV2_1_0
 @immutable
 final class SexualActivityDataType

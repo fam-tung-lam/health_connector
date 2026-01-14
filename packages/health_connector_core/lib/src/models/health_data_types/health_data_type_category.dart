@@ -5,7 +5,7 @@ part of 'health_data_type.dart';
 /// Health data types are organized into categories based on their primary
 /// physiological domain and clinical utility.
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV1_0_0
 enum HealthDataTypeCategory {
   /// Physical activity and kinetic output data.

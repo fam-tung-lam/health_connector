@@ -1,34 +1,5 @@
 import 'package:health_connector_core/src/annotations/annotations.dart';
-import 'package:meta/meta.dart' show immutable;
-
-/// Defines the available fields by which health records can be sorted.
-///
-/// Currently supports time-based sorting only. Future versions may add
-/// value-based sorting (e.g., by step count, heart rate magnitude).
-@sinceV3_0_0
-@internalUse
-enum SortField {
-  /// Sort by the record's timestamp.
-  ///
-  /// - For instant records (e.g., heart rate): Uses the `time` field
-  /// - For interval records (e.g., steps, exercise): Uses the `startTime` field
-  time,
-}
-
-/// Defines the direction of the sort operation.
-@sinceV3_0_0
-@internalUse
-enum SortDirection {
-  /// Ascending order (oldest to newest, smallest to largest).
-  ///
-  /// For time-based sorting: earlier timestamps appear first.
-  ascending,
-
-  /// Descending order (newest to oldest, largest to smallest).
-  ///
-  /// For time-based sorting: later timestamps appear first.
-  descending,
-}
+import 'package:meta/meta.dart';
 
 /// Represents a sorting rule applied to a health record query.
 ///
@@ -54,6 +25,8 @@ enum SortDirection {
 ///   sortDescriptor: SortDescriptor.timeAscending,
 /// );
 /// ```
+///
+/// {@category Core API}
 @sinceV3_0_0
 @immutable
 final class SortDescriptor {
@@ -97,4 +70,33 @@ final class SortDescriptor {
 
   @override
   int get hashCode => Object.hash(field, direction);
+}
+
+/// Defines the available fields by which health records can be sorted.
+///
+/// Currently supports time-based sorting only. Future versions may add
+/// value-based sorting (e.g., by step count, heart rate magnitude).
+@sinceV3_0_0
+@internalUse
+enum SortField {
+  /// Sort by the record's timestamp.
+  ///
+  /// - For instant records (e.g., heart rate): Uses the `time` field
+  /// - For interval records (e.g., steps, exercise): Uses the `startTime` field
+  time,
+}
+
+/// Defines the direction of the sort operation.
+@sinceV3_0_0
+@internalUse
+enum SortDirection {
+  /// Ascending order (oldest to newest, smallest to largest).
+  ///
+  /// For time-based sorting: earlier timestamps appear first.
+  ascending,
+
+  /// Descending order (newest to oldest, largest to smallest).
+  ///
+  /// For time-based sorting: later timestamps appear first.
+  descending,
 }

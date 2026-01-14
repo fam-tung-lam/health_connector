@@ -25,7 +25,7 @@ part of '../health_data_type.dart';
 ///
 /// - [DietaryVitaminDRecord]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV1_1_0
 @supportedOnAppleHealth
 @immutable

@@ -5,7 +5,7 @@ part of 'measurement_unit.dart';
 /// Percentage is used for body fat percentage, blood oxygen saturation,
 /// and other percentage-based health data.
 ///
-/// {@category Measurement Units}
+/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class Percentage extends MeasurementUnit

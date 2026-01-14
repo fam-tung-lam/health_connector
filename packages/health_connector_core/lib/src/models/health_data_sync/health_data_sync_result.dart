@@ -8,7 +8,7 @@ import 'package:meta/meta.dart' show immutable;
 /// Result of a synchronization operation containing changes since the last
 /// sync.
 ///
-/// {@category Sync}
+/// {@category Core API}
 @sinceV3_0_0
 @immutable
 final class HealthDataSyncResult extends Response {

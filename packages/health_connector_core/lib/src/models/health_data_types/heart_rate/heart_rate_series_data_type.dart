@@ -22,7 +22,7 @@ part of '../health_data_type.dart';
 ///
 /// - [HeartRateSeriesRecord]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV1_0_0
 @supportedOnHealthConnect
 @immutable

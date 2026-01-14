@@ -12,9 +12,11 @@ import 'package:health_connector_core/src/models/requests/request.dart'
     show Request;
 import 'package:health_connector_core/src/utils/validation_utils.dart'
     show requireEndTimeAfterStartTime, require;
-import 'package:meta/meta.dart' show immutable;
+import 'package:meta/meta.dart';
 
 /// Request to perform an aggregation query on health records.
+///
+/// @nodoc
 @sinceV1_0_0
 @internalUse
 @immutable
@@ -75,6 +77,8 @@ sealed class AggregateRequest<R extends HealthRecord, U extends MeasurementUnit>
 ///
 /// This is the default implementation for most health data types that don't
 /// require specialized aggregation handling.
+///
+/// {@category Core API}
 @sinceV1_2_0
 @internalUse
 @immutable
@@ -121,6 +125,8 @@ final class CommonAggregateRequest<
 /// This specialized request extends [AggregateRequest] and includes an
 /// additional field to store the specific blood pressure data type
 /// (systolic or diastolic) being aggregated.
+///
+/// {@category Core API}
 @sinceV1_2_0
 @supportedOnHealthConnect
 @internalUse

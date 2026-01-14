@@ -26,7 +26,7 @@ part of '../health_data_type.dart';
 ///
 /// - [ActiveEnergyBurnedRecord]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class ActiveEnergyBurnedDataType

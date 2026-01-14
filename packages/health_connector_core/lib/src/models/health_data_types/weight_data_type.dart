@@ -25,7 +25,7 @@ part of 'health_data_type.dart';
 ///
 /// - [WeightRecord]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV1_0_0
 @immutable
 final class WeightDataType extends HealthDataType<WeightRecord, Mass>

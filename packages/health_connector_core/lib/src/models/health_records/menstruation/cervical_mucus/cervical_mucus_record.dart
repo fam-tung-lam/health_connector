@@ -9,7 +9,7 @@ part of '../../health_record.dart';
 /// er.apple.com/documentation/healthkit/hkcategorytypeidentifier/cervicalMucusQ
 /// uality)
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV2_1_0
 @immutable
 final class CervicalMucusRecord extends InstantHealthRecord {

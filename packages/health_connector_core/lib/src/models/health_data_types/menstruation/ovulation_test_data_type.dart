@@ -51,7 +51,7 @@ part of '../health_data_type.dart';
 /// - [OvulationTestRecord]
 /// - [OvulationTestResult]
 ///
-/// {@category Health Data Types}
+/// {@category Health Records}
 @sinceV2_2_0
 @immutable
 final class OvulationTestDataType
