@@ -100,9 +100,7 @@ flutter pub get && flutter run
 | **Android** | API 26+            | Kotlin 2.1.0     |
 | **iOS**     | ≥15.0              | Swift 5.9        |
 
-> **Note:** Users currently using Swift 5.0+ (up to 5.9) or Kotlin 2.0+ (up to 2.1) will find
-> updating their Flutter project to Swift 5.9 and Kotlin 2.1 straightforward, as these versions are
-> compatible.
+> **Ease of Migration:** Swift 5.9 and Kotlin 2.1 maintain excellent backward compatibility. If your project uses Swift 5.0+ or Kotlin 2.0+, updating your build configuration to meet these requirements is typically seamless and should not require changes to your existing native code.
 
 ### 📦 Installation
 
@@ -351,22 +349,17 @@ StepsRecord _createStepsRecord(DateTime time, int steps) {
 > read permissions. This is a native privacy feature, not an SDK limitation.
 
 ```dart
-
-final status = await
-connector.getPermissionStatus
-(
-HealthDataType.steps.readPermission,
+final status = await connector.getPermissionStatus(
+  HealthDataType.steps.readPermission,
 );
 
-switch
-(
-status) {
-case PermissionStatus.granted:
-print('✅ Granted');
-case PermissionStatus.denied:
-print('❌ Denied');
-case PermissionStatus.unknown:
-print('❓ Unknown (iOS read)');
+switch (status) {
+  case PermissionStatus.granted:
+    print('✅ Granted');
+  case PermissionStatus.denied:
+    print('❌ Denied');
+  case PermissionStatus.unknown:
+    print('❓ Unknown (iOS read)');
 }
 ```
 
@@ -401,7 +394,6 @@ Future<bool> hasReadPermission(HealthDataType dataType) async {
 #### Request Permissions
 
 ```dart
-
 final permissions = [
   HealthDataType.steps.readPermission,
   HealthDataType.steps.writePermission,
@@ -409,21 +401,18 @@ final permissions = [
   HealthPlatformFeature.readHealthDataInBackground.permission,
 ];
 
-final results = await
-connector.requestPermissions
-(
-permissions);
+final results = await connector.requestPermissions(permissions);
 
 // Process results
 for (final result in results) {
-switch (result.status) {
-case PermissionStatus.granted:
-print('✅ ${result.permission}');
-case PermissionStatus.denied:
-print('❌ ${result.permission}');
-case PermissionStatus.unknown:
-print('❓ ${result.permission} (iOS read permission)');
-}
+  switch (result.status) {
+    case PermissionStatus.granted:
+      print('✅ ${result.permission}');
+    case PermissionStatus.denied:
+      print('❌ ${result.permission}');
+    case PermissionStatus.unknown:
+      print('❓ ${result.permission} (iOS read permission)');
+  }
 }
 ```
 
@@ -434,12 +423,12 @@ print('❓ ${result.permission} (iOS read permission)');
 
 ```dart
 try {
-final granted = await connector.getGrantedPermissions();
-for (final p in granted) {
-print('✅ Granted: ${p.dataType} (${p.accessType})');
-}
+  final granted = await connector.getGrantedPermissions();
+  for (final p in granted) {
+    print('✅ Granted: ${p.dataType} (${p.accessType})');
+  }
 } on UnsupportedOperationException {
-print('ℹ️ Listing granted permissions is not supported on iOS');
+  print('ℹ️ Listing granted permissions is not supported on iOS');
 }
 ```
 
@@ -450,10 +439,10 @@ print('ℹ️ Listing granted permissions is not supported on iOS');
 
 ```dart
 try {
-await connector.revokeAllPermissions();
-print('🔒 Permissions revoked');
+  await connector.revokeAllPermissions();
+  print('🔒 Permissions revoked');
 } on UnsupportedOperationException {
-print('ℹ️ Programmatic revocation is not supported on iOS');
+  print('ℹ️ Programmatic revocation is not supported on iOS');
 }
 ```
 
@@ -462,35 +451,29 @@ print('ℹ️ Programmatic revocation is not supported on iOS');
 #### Read by ID
 
 ```dart
-
-final record = await
-connector.readRecord
-(
-HealthDataType.steps.readRecord(HealthRecordId('record-id')),
+final record = await connector.readRecord(
+  HealthDataType.steps.readRecord(HealthRecordId('record-id')),
 );
 
 if (record != null) {
-print('📖 Found: ${record.count.value} steps');
+  print('📖 Found: ${record.count.value} steps');
 }
 ```
 
 #### Read by Time Range
 
 ```dart
-
-final response = await
-connector.readRecords
-(
-HealthDataType.steps.readInTimeRange(
-startTime: DateTime.now().subtract(Duration(days: 7)),
-endTime: DateTime.now(),
-pageSize: 100,
-),
+final response = await connector.readRecords(
+  HealthDataType.steps.readInTimeRange(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+    pageSize: 100,
+  ),
 );
 
 print('📖 Found ${response.records.length} records');
 for (final record in response.records) {
-print('${record.count.value} steps on ${record.startTime}');
+  print('${record.count.value} steps on ${record.startTime}');
 }
 ```
 
@@ -502,30 +485,27 @@ print('${record.count.value} steps on ${record.startTime}');
 
 ```dart
 // Sort oldest first (ascending)
-final oldestFirst = await
-connector.readRecords
-(
-HealthDataType.steps.readInTimeRange(
-startTime: DateTime.now().subtract(Duration(days: 7)),
-endTime: DateTime.now(),
-sortDescriptor: SortDescriptor.timeAscending,
-),
+final oldestFirst = await connector.readRecords(
+  HealthDataType.steps.readInTimeRange(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+    sortDescriptor: SortDescriptor.timeAscending,
+  ),
 );
 
 // Sort newest first (descending) - default behavior
 final newestFirst = await connector.readRecords(
-HealthDataType.steps.readInTimeRange(
-startTime: DateTime.now().subtract(Duration(days: 7)),
-endTime: DateTime.now(),
-sortDescriptor: SortDescriptor.timeDescending, // Default
-),
+  HealthDataType.steps.readInTimeRange(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+    sortDescriptor: SortDescriptor.timeDescending, // Default
+  ),
 );
 ```
 
 #### Paginate Through All Records
 
 ```dart
-
 var request = HealthDataType.steps.readInTimeRange(
   startTime: DateTime.now().subtract(Duration(days: 30)),
   endTime: DateTime.now(),
@@ -536,12 +516,12 @@ final allRecords = <StepsRecord>[];
 
 // Fetch all pages
 while (true) {
-final response = await connector.readRecords(request);
-allRecords.addAll(response.records.cast<StepsRecord>());
+  final response = await connector.readRecords(request);
+  allRecords.addAll(response.records.cast<StepsRecord>());
 
-// Check if there are more pages
-if (response.nextPageRequest == null) break;
-request = response.nextPageRequest!;
+  // Check if there are more pages
+  if (response.nextPageRequest == null) break;
+  request = response.nextPageRequest!;
 }
 
 print('📊 Total: ${allRecords.length} records');
@@ -552,7 +532,6 @@ print('📊 Total: ${allRecords.length} records');
 #### Write Single Record
 
 ```dart
-
 final record = StepsRecord(
   id: HealthRecordId.none,
   // Must be .none for new records
@@ -564,16 +543,13 @@ final record = StepsRecord(
   ),
 );
 
-final recordId = await
-connector.writeRecord
-(
-record);
+final recordId = await connector.writeRecord(record);
 print('✅ Saved: $recordId');
 ```
 
 #### Batch Write Multiple Records
 
-All records succeed or all fail together:
+Write multiple records atomically—all succeed or all fail.
 
 ```dart
 // Helper to create step records
@@ -595,14 +571,8 @@ final records = [
   _createSteps(now.subtract(Duration(hours: 1)), 1800),
 ];
 
-final ids = await
-connector.writeRecords
-(
-records);
-print('✅ Wrote ${ids.length}
- records
-'
-);
+final ids = await connector.writeRecords(records);
+print('✅ Wrote ${ids.length} records');
 ```
 
 ### 🔄 Updating Health Records
@@ -613,18 +583,15 @@ print('✅ Wrote ${ids.length}
 #### Update Single Record (Android Health Connect only)
 
 ```dart
-
-final record = await
-connector.readRecord
-(
-HealthDataType.steps.readRecord(HealthRecordId('record-id')),
+final record = await connector.readRecord(
+  HealthDataType.steps.readRecord(HealthRecordId('record-id')),
 );
 
 if (record != null) {
-await connector.updateRecord(
-record.copyWith(count: Number(record.count.value + 500)),
-);
-print('✅ Record updated');
+  await connector.updateRecord(
+    record.copyWith(count: Number(record.count.value + 500)),
+  );
+  print('✅ Record updated');
 }
 ```
 
@@ -632,24 +599,17 @@ print('✅ Record updated');
 
 ```dart
 // Delete existing
-await
-connector.deleteRecords
-(
-HealthDataType.steps.deleteByIds([existingRecord.id]),
+await connector.deleteRecords(
+  HealthDataType.steps.deleteByIds([existingRecord.id]),
 );
 
 // Write new record with updated values
 final newRecord = existingRecord.copyWith(
-id: HealthRecordId.none,
-count: Number(newValue),
+  id: HealthRecordId.none,
+  count: Number(newValue),
 );
 
-final newId = await connector
-.
-writeRecord
-(
-newRecord
-);
+final newId = await connector.writeRecord(newRecord);
 // ⚠️ Note: ID changes after recreation
 ```
 
@@ -659,18 +619,16 @@ Update multiple records atomically—all succeed or all fail.
 
 ```dart
 // Fetch records to update
-final response = await
-connector.readRecords
-(
-HealthDataType.steps.readInTimeRange(
-startTime: DateTime.now().subtract(Duration(days: 7)),
-endTime: DateTime.now(),
-),
+final response = await connector.readRecords(
+  HealthDataType.steps.readInTimeRange(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+  ),
 );
 
 // Apply updates
 final updated = response.records.map((r) =>
-r.copyWith(count: Number(r.count.value + 100))
+  r.copyWith(count: Number(r.count.value + 100))
 ).toList();
 
 await connector.updateRecords(updated);
@@ -679,82 +637,74 @@ print('✅ Updated ${updated.length} records');
 
 ### 🗑️ Deleting Health Records
 
-> **Note:** Apps can only delete records they created—platform security restriction.
+Delete multiple records atomically—all succeed or all fail.
+
+> **Note:** Apps can only delete records they created—this is a platform security restriction. Attempting to delete records created by other apps will throw an `AuthorizationException`.
 
 #### Delete by IDs
 
 ```dart
 try {
-await connector.deleteRecords(
-HealthDataType.steps.deleteByIds([
-HealthRecordId('id-1'),
-HealthRecordId('id-2'),
-]),
-);
-print('✅ Deleted');
+  await connector.deleteRecords(
+    HealthDataType.steps.deleteByIds([
+      HealthRecordId('id-1'),
+      HealthRecordId('id-2'),
+    ]),
+  );
+  print('✅ Deleted');
 } on AuthorizationException {
-print('❌ Cannot delete records from other apps');
+  print('❌ Cannot delete records from other apps');
 }
 ```
 
 #### Delete by Time Range
 
 ```dart
-await
-connector.deleteRecords
-(
-HealthDataType.steps.deleteInTimeRange(
-startTime: DateTime.now().subtract(Duration(days: 7)),
-endTime: DateTime.now(),
-)
-,
+await connector.deleteRecords(
+  HealthDataType.steps.deleteInTimeRange(
+    startTime: DateTime.now().subtract(Duration(days: 7)),
+    endTime: DateTime.now(),
+  ),
 );
 ```
 
 ### 📊 Aggregating Health Data
 
-#### Example: Sum
-
 ```dart
-
 final now = DateTime.now();
 final thirtyDaysAgo = now.subtract(Duration(days: 30));
 
-final response = await
-connector.aggregate
-(
-HealthDataType.steps.aggregateSum(
-startTime: thirtyDaysAgo,
-endTime: now,
-),
+final response = await connector.aggregate(
+  HealthDataType.steps.aggregateSum(
+    startTime: thirtyDaysAgo,
+    endTime: now,
+  ),
 );
 print('Total steps: ${response.value.value}');
 
 final avg = await connector.aggregate(
-HealthDataType.weight.aggregateAvg(
-startTime: thirtyDaysAgo,
-endTime: now,
-),
+  HealthDataType.weight.aggregateAvg(
+    startTime: thirtyDaysAgo,
+    endTime: now,
+  ),
 );
 print('Avg: ${avg.value.inKilograms} kg');
 
 final min = await connector.aggregate(
-HealthDataType.weight.aggregateMin(
-startTime: thirtyDaysAgo,
-endTime: now,
-),
+  HealthDataType.weight.aggregateMin(
+    startTime: thirtyDaysAgo,
+    endTime: now,
+  ),
 );
 print('Min: ${min.value.inKilograms} kg');
 
 final max = await connector.aggregate(
-HealthDataType.weight.aggregateMax(
-startTime: thirtyDaysAgo,
-endTime: now,
-),
+  HealthDataType.weight.aggregateMax(
+    startTime: thirtyDaysAgo,
+    endTime: now,
+  ),
 );
-print('Max: ${max.value.inKilograms} kg
-'
-);
+print('Max: ${max.value.inKilograms} kg');
 ```
 
 ### 🔄 Incremental Sync
@@ -788,7 +738,7 @@ Future<void> setInitialSyncCheckpoint() async {
   // Save token
   await storage.saveToken(initialSyncToken.toJson());
 
-  print('✅ Initial setup complete');
+  print('✅ Initial sync setup complete');
 }
 
 // 2. Incremental sync - get changes
@@ -811,16 +761,16 @@ Future<void> performIncrementalSync() async {
   );
 
   // Process changes
-  print('New/Updated records: ${result.upsertedRecords.length}');
+  print('Upserted records: ${result.upsertedRecords.length}');
   print('Deleted record IDs: ${result.deletedRecordIds.length}');
   print('Has more pages: ${result.hasMore}');
 
   // Update your local database with changes
   for (final record in result.upsertedRecords) {
-    // await database.upsert(record);
+    // Process upserted record
   }
   for (final id in result.deletedRecordIds) {
-    // await database.delete(id);
+    // Process deleted record ID
   }
 
   // Save new token
@@ -831,55 +781,48 @@ Future<void> performIncrementalSync() async {
 #### Pagination Support
 
 ```dart
-
 var token = savedToken;
-final allChanges = <HealthRecord>[];
+final upsertedRecords = <HealthRecord>[];
+final deletedRecordIds = <HealthRecordId>[];
 
 // Fetch all pages
 while (true) {
-final result = await connector.synchronize(
-dataTypes: [HealthDataType.steps],
-syncToken: token,
-);
+  final result = await connector.synchronize(
+    dataTypes: [HealthDataType.steps],
+    syncToken: token,
+  );
 
-allChanges.addAll(result.upsertedRecords);
+  upsertedRecords.addAll(result.upsertedRecords);
+  deletedRecordIds.addAll(result.deletedRecordIds);
 
-if (!result.hasMore) break;
-token = result.nextSyncToken;
+  if (!result.hasMore) break;
+  token = result.nextSyncToken;
 }
 
 // Save new token
-await storage.saveToken(result.nextSyncToken.toJson()
-);
+await storage.saveToken(token.toJson());
 ```
 
 ### ⚙️ Feature Management
 
-> **Platform Behavior:** iOS HealthKit features are always available (built into iOS). Android
-> Health Connect features depend on app version—check `getFeatureStatus()` before requesting
-> permissions.
-
 #### Check Feature Availability
 
 ```dart
-
-final status = await
-connector.getFeatureStatus
-(
-HealthPlatformFeature.readHealthDataInBackground,
+final status = await connector.getFeatureStatus(
+  HealthPlatformFeature.readHealthDataInBackground,
 );
 
-if
-(
-status == HealthPlatformFeatureStatus.available) {
-await connector.requestPermissions([
-HealthPlatformFeature.readHealthDataInBackground.permission,
-]);
-print('✅ Feature available and requested');
+if (status == HealthPlatformFeatureStatus.available) {
+  await connector.requestPermissions([
+    HealthPlatformFeature.readHealthDataInBackground.permission,
+  ]);
+  print('✅ Feature available and requested');
 } else {
-print('❌ Feature not available—implement fallback');
+  print('❌ Feature not available—implement fallback');
 }
 ```
+
+> **Feature Availability:** iOS HealthKit features are built directly into the OS and are always available. On Android, Health Connect features may vary depending on the installed app and Android version. Use `getFeatureStatus()` to verify feature support on the user's device before requesting permissions.
 
 ### ⚠️ Error Handling
 
@@ -906,61 +849,60 @@ provides specific details about what went wrong. Use this code to handle errors 
 
 ```dart
 try {
-await connector.writeRecord(record);
+  await connector.writeRecord(record);
 } on AuthorizationException catch (e) {
-// 1. Permission Issues
-// The user likely revoked permission in system settings.
-print('🔒 Authorization failed: ${e.message}');
+  // 1. Permission Issues
+  // The user likely revoked permission in system settings.
+  print('🔒 Authorization failed: ${e.message}');
 
-// Suggested: Show a dialog explaining why permission is needed, 
-// then link to system settings.
-_showPermissionExplanationDialog();
-
+  // Suggested: Show a dialog explaining why permission is needed, 
+  // then link to system settings.
+  _showPermissionExplanationDialog();
 } on HealthServiceUnavailableException catch (e) {
-// 2. Service Availability Issues
-// Health Connect missing (Android) or device unsupported (iOS).
-print('❌ Service unavailable: ${e.code}');
+  // 2. Service Availability Issues
+  // Health Connect missing (Android) or device unsupported (iOS).
+  print('❌ Service unavailable: ${e.code}');
 
-if (e.code == HealthConnectorErrorCode.healthServiceNotInstalledOrUpdateRequired) {
-// Android: Prompt user to install/update Health Connect
-_promptToInstallHealthConnect();
-} else {
-// iOS/Android: Device capability missing. Disable health features.
-_disableHealthIntegration();
-}
-
+  if (e.code == HealthConnectorErrorCode.healthServiceNotInstalledOrUpdateRequired) {
+    // Android: Prompt user to install/update Health Connect
+    _promptToInstallHealthConnect();
+  } else {
+    // iOS/Android: Device capability missing. Disable health features.
+    _disableHealthIntegration();
+  }
 } on HealthServiceException catch (e) {
-// 3. Runtime/Operational Errors
-switch (e.code) {
-case HealthConnectorErrorCode.rateLimitExceeded:
-// API quota exhausted. Wait and retry with backoff.
-print('⏳ Rate limit exceeded. Retrying in 5s...');
-await Future.delayed(Duration(seconds: 5));
-_retryWrite();
-break;
+  // 3. Runtime/Operational Errors
+  switch (e.code) {
+    case HealthConnectorErrorCode.rateLimitExceeded:
+      // API quota exhausted. Wait and retry with backoff.
+      print('⏳ Rate limit exceeded. Retrying in 5s...');
+      await Future.delayed(Duration(seconds: 5));
+      _retryWrite();
+      break;
 
-case HealthConnectorErrorCode.dataSyncInProgress:
-// Health Connect is busy syncing.
-print('🔄 Syncing... please wait.');
-break;
+    case HealthConnectorErrorCode.dataSyncInProgress:
+      // Health Connect is busy syncing.
+      print('🔄 Syncing... please wait.');
+      break;
 
-case HealthConnectorErrorCode.remoteError:
-case HealthConnectorErrorCode.ioError:
-// Temporary system glitches. Retry once or twice.
-print('💥 Transient error: ${e.message}');
-_retryWithBackoff();
-break;
+    case HealthConnectorErrorCode.remoteError:
+    case HealthConnectorErrorCode.ioError:
+      // Temporary system glitches. Retry once or twice.
+      print('💥 Transient error: ${e.message}');
+      _retryWithBackoff();
+      break;
 
-default:
-print('⚠️ Health Service Warning: ${e.message}');
-}
+    default:
+      print('⚠️ Health Service Warning: ${e.message}');
+      break;
+  }
 } on InvalidArgumentException catch (e) {
-// 4. Input Errors
-print('⚠️ Invalid data or expired token: ${e.message}');
+  // 4. Input Errors
+  print('⚠️ Invalid data or expired token: ${e.message}');
 } catch (e, stack) {
-// 5. Unknown/Unexpected Errors
-print('⁉️ Unexpected system error: $e');
-// reportToCrashlytics(e, stack);
+  // 5. Unknown/Unexpected Errors
+  print('⁉️ Unexpected system error: $e');
+  // reportToCrashlytics(e, stack);
 }
 ```
 
@@ -983,31 +925,26 @@ The system is configured via `HealthConnectorLoggerConfig`, where you define a l
 
 ```dart
 // Configure logging with built-in processors
-final connector = await
-HealthConnector.create
-(
-const HealthConnectorConfig(
-loggerConfig: HealthConnectorLoggerConfig(
-enableNativeLogging: false, // Optional: forward native Kotlin/Swift logs
-logProcessors: [
-// Print warnings and errors to console
-PrintLogProcessor(
-levels: [
-HealthConnectorLogLevel.warning,
-HealthConnectorLogLevel.error,
-],
-),
+final connector = await HealthConnector.create(
+  const HealthConnectorConfig(
+    loggerConfig: HealthConnectorLoggerConfig(
+      enableNativeLogging: false, // Optional: forward native Kotlin/Swift logs
+      logProcessors: [
+        // Print warnings and errors to console
+        PrintLogProcessor(
+          levels: [
+            HealthConnectorLogLevel.warning,
+            HealthConnectorLogLevel.error,
+          ],
+        ),
 
-// Send all logs to dart:developer (integrates with DevTools)
-DeveloperLogProcessor(
-levels: HealthConnectorLogLevel.values,
-),
-]
-,
-)
-,
-)
-,
+        // Send all logs to dart:developer (integrates with DevTools)
+        DeveloperLogProcessor(
+          levels: HealthConnectorLogLevel.values,
+        ),
+      ],
+    ),
+  ),
 );
 ```
 
@@ -1046,19 +983,14 @@ class FileLogProcessor extends HealthConnectorLogProcessor {
 }
 
 // Use custom processor
-final connector = await
-HealthConnector.create
-(
-HealthConnectorConfig(
-loggerConfig: HealthConnectorLoggerConfig(
-logProcessors: [
-FileLogProcessor(logFile: File('/path/to/app.log')),
-]
-,
-)
-,
-)
-,
+final connector = await HealthConnector.create(
+  HealthConnectorConfig(
+    loggerConfig: HealthConnectorLoggerConfig(
+      logProcessors: [
+        FileLogProcessor(logFile: File('/path/to/app.log')),
+      ],
+    ),
+  ),
 );
 ```
 
