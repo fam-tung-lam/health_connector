@@ -303,6 +303,9 @@ sealed class HealthDataType<R extends HealthRecord, U extends MeasurementUnit>
   @internalUse
   String get id;
 
+  @override
+  String toString() => id;
+
   /// A map of all available health data types by their unique [id].
   ///
   /// This map is primarily used for efficient lookup during JSON
