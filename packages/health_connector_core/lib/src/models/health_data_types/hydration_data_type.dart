@@ -75,6 +75,9 @@ final class HydrationDataType extends HealthDataType<HydrationRecord, Volume>
   const HydrationDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'hydration';
 
   @override

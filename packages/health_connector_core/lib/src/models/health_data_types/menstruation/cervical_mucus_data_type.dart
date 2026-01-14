@@ -68,6 +68,9 @@ final class CervicalMucusDataType
   const CervicalMucusDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'cervical_mucus';
 
   @override

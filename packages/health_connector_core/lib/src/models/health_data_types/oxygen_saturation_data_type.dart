@@ -38,6 +38,9 @@ final class OxygenSaturationDataType
   const OxygenSaturationDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'oxygen_saturation';
 
   @override

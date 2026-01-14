@@ -38,6 +38,9 @@ final class RespiratoryRateDataType
   const RespiratoryRateDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'respiratory_rate';
 
   @override

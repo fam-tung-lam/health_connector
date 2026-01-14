@@ -47,6 +47,9 @@ final class Vo2MaxDataType extends HealthDataType<Vo2MaxRecord, Number>
   const Vo2MaxDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'vo2_max';
 
   @override

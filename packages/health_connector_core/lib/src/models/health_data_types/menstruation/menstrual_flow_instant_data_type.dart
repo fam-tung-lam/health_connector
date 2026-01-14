@@ -87,6 +87,9 @@ final class MenstrualFlowInstantDataType
   ];
 
   @override
+  List<AggregationMetric> get supportedAggregationMetrics => [];
+
+  @override
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override

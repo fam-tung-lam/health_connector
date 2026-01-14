@@ -70,6 +70,9 @@ final class SexualActivityDataType
   const SexualActivityDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'sexual_activity';
 
   @override
