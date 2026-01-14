@@ -79,11 +79,13 @@ final class Metadata {
   factory Metadata.manualEntry({
     String? clientRecordId,
     int? clientRecordVersion,
+    Device? device,
   }) {
     return Metadata._(
       recordingMethod: RecordingMethod.manualEntry,
       clientRecordId: clientRecordId,
       clientRecordVersion: clientRecordVersion,
+      device: device,
     );
   }
 
