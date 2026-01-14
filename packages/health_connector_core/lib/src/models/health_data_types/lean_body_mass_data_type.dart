@@ -42,6 +42,9 @@ final class LeanBodyMassDataType
   const LeanBodyMassDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'lean_body_mass';
 
   @override

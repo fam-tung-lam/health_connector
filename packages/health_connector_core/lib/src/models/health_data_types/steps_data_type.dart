@@ -43,6 +43,9 @@ final class StepsDataType extends HealthDataType<StepsRecord, Number>
   const StepsDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'steps';
 
   @override

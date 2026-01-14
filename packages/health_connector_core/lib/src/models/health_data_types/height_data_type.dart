@@ -45,6 +45,9 @@ final class HeightDataType extends HealthDataType<HeightRecord, Length>
   const HeightDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'height';
 
   @override

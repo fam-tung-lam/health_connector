@@ -46,6 +46,9 @@ final class BloodGlucoseDataType
   const BloodGlucoseDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'blood_glucose';
 
   @override

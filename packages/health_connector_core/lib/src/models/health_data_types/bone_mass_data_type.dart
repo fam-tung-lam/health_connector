@@ -48,6 +48,9 @@ final class BoneMassDataType extends HealthDataType<BoneMassRecord, Mass>
   ];
 
   @override
+  List<AggregationMetric> get supportedAggregationMetrics => [];
+
+  @override
   HealthDataPermission get readPermission => HealthDataPermission.read(this);
 
   @override

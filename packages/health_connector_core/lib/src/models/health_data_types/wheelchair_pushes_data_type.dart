@@ -43,6 +43,9 @@ final class WheelchairPushesDataType
   const WheelchairPushesDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'wheelchair_pushes';
 
   @override

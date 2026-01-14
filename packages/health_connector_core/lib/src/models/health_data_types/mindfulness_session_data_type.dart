@@ -44,6 +44,9 @@ final class MindfulnessSessionDataType
   const MindfulnessSessionDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'mindfulness_session';
 
   @override

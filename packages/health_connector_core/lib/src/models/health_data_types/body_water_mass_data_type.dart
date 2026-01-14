@@ -44,6 +44,9 @@ final class BodyWaterMassDataType
   String get id => 'body_water_mass';
 
   @override
+  List<AggregationMetric> get supportedAggregationMetrics => [];
+
+  @override
   List<HealthPlatform> get supportedHealthPlatforms => [
     HealthPlatform.healthConnect,
   ];

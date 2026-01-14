@@ -44,6 +44,9 @@ final class WeightDataType extends HealthDataType<WeightRecord, Mass>
   const WeightDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'weight';
 
   @override

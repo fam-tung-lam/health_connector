@@ -43,6 +43,9 @@ final class ExerciseSessionDataType
   const ExerciseSessionDataType();
 
   @override
+  List<HealthPlatform> get supportedHealthPlatforms => HealthPlatform.values;
+
+  @override
   String get id => 'exercise_session';
 
   @override
